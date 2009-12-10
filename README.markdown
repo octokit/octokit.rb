@@ -1,6 +1,9 @@
+
 # octopussy
 
 Simple Ruby wrapper for the GitHub v2 API. 
+
+![Octopussy poster](http://upload.wikimedia.org/wikipedia/en/b/bb/007Octopussyposter.jpg)
 
 ## TODO
 
