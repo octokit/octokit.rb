@@ -190,6 +190,25 @@ module Octopussy
       Hashie::Mash.new(response).repositories
     end
     
+    # Network
+    
+    def network_meta(options)
+      username = options.delete(:username)
+      repo = options.delete(:repo)
+      response = self.class.get("http://github.com/#{username}/#{repo}/network_meta")
+      handle_response(response)
+      Hashie::Mash.new(response)
+    end
+    
+    def network_data(options)
+      username = options.delete(:username)
+      repo = options.delete(:repo)
+      nethash = options[:nethash]
+      response = self.class.get("http://github.com/#{username}/#{repo}/network_data_chunk", :query => {:nethash => nethash})
+      handle_response(response)
+      Hashie::Mash.new(response).commits
+    end
+    
     private
     
       def auth_params

@@ -9,7 +9,7 @@ begin
     gem.description = %Q{Simple wrapper for the GitHub API v2}
     gem.email = "wynn.netherland@gmail.com"
     gem.homepage = "http://github.com/pengwynn/octopussy"
-    gem.authors = ["Wynn Netherland"]
+    gem.authors = ["Wynn Netherland", "Adam Stacoviak"]
 
     gem.add_dependency('hashie', '~> 0.1.3')
     gem.add_dependency('httparty', '~> 0.4.5')
