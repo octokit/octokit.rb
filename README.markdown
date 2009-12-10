@@ -1,8 +1,15 @@
-= octopussy
+# octopussy
 
-Description goes here.
+Simple Ruby wrapper for the GitHub v2 API. 
 
-== Note on Patches/Pull Requests
+## TODO
+
+1. Repo API
+2. Network API
+3. Commit API
+4. Object API
+
+## Note on Patches/Pull Requests
  
 * Fork the project.
 * Make your feature addition or bug fix.
@@ -13,6 +20,10 @@ Description goes here.
    bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Copyright
+## Credits
 
-Copyright (c) 2009 Wynn Netherland. See LICENSE for details.
+Octopussy is inspired by [Octopi](http://github.com/fcoury/octopi) and aims to be a lightweight, less active-resourcey alternative.
+
+## Copyright
+
+Copyright (c) 2009 [Wynn Netherland](http://wynnnetherland.com). See LICENSE for details.
