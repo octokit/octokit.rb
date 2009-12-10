@@ -5,7 +5,7 @@ Simple Ruby wrapper for the GitHub v2 API.
 ## TODO
 
 1. Repo API
-2. Network API
+2. <del>Network API</del>
 3. Commit API
 4. Object API
 
@@ -26,4 +26,4 @@ Octopussy is inspired by [Octopi](http://github.com/fcoury/octopi) and aims to b
 
 ## Copyright
 
-Copyright (c) 2009 [Wynn Netherland](http://wynnnetherland.com). See LICENSE for details.
+Copyright (c) 2009 [Wynn Netherland](http://wynnnetherland.com), [Adam Stacoviak](http://adamstacoviak.com/). See LICENSE for details.

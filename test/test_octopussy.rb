@@ -227,6 +227,20 @@ class TestOctopussy < Test::Unit::TestCase
       repos.first.language.should == 'Ruby'
     end
     
+    # network
+    should "return network meta info for a repo" do
+      stub_get("http://github.com/schacon/simplegit/network_meta", "network_meta.json")
+      info = Octopussy.network_meta(:username => "schacon", :repo => "simplegit")
+      info.users.first.name.should == 'schacon'
+      info.users.first.repo.should == 'simplegit'
+    end
+    
+    should "return first 100 commits by branch" do
+      stub_get("http://github.com/schacon/simplegit/network_data_chunk?nethash=fa8fe264b926cdebaab36420b6501bd74402a6ff", "network_data.json")
+      info = Octopussy.network_data(:username => "schacon", :repo => "simplegit", :nethash => "fa8fe264b926cdebaab36420b6501bd74402a6ff")
+      assert info.is_a?(Array)
+    end
+    
   end
   
 end

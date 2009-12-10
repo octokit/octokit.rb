@@ -72,6 +72,18 @@ module Octopussy
     Client.new.search_repos(q)
   end
   
+  # Network Meta
+
+  # username, repo
+  def self.network_meta(options)
+    Client.new.network_meta(options)
+  end
+  
+  # username, repo
+  def self.network_data(options)
+    Client.new.network_data(options)
+  end
+  
 end
 
 require File.join(directory, 'octopussy', 'client')
