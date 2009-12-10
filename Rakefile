@@ -5,13 +5,19 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "octopussy"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "wynn@squeejee.com"
+    gem.summary = %Q{Simple wrapper for the GitHub API}
+    gem.description = %Q{Simple wrapper for the GitHub API v2}
+    gem.email = "wynn.netherland@gmail.com"
     gem.homepage = "http://github.com/pengwynn/octopussy"
     gem.authors = ["Wynn Netherland"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+
+    gem.add_dependency('hashie', '~> 0.1.3')
+    gem.add_dependency('httparty', '~> 0.4.5')
+
+    gem.add_development_dependency('thoughtbot-shoulda', '>= 2.10.1')
+    gem.add_development_dependency('jnunemaker-matchy', '0.4.0')
+    gem.add_development_dependency('mocha', '0.9.4')
+    gem.add_development_dependency('fakeweb', '>= 1.2.5')
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

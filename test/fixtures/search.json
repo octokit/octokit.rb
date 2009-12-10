@@ -1,0 +1,44 @@
+{
+    "users": [{
+        "name": "pengwynn",
+        "location": "Dallas, TX",
+        "followers": 19,
+        "username": "pengwynn",
+        "language": "Ruby",
+        "fullname": "Wynn Netherland",
+        "repos": 15,
+        "id": "user-865",
+        "type": "user",
+        "pushed": "2009-12-05T17:15:06.757Z",
+        "score": 2.6885872,
+        "created": "2008-02-25T18:24:19Z"
+    },
+    {
+        "name": "mattwynne",
+        "location": "London",
+        "followers": 13,
+        "username": "mattwynne",
+        "language": "Ruby",
+        "fullname": "Matt Wynne",
+        "repos": 13,
+        "id": "user-19260",
+        "type": "user",
+        "pushed": "2009-09-26T18:31:33.171Z",
+        "score": 2.6885872,
+        "created": "2008-08-01T17:15:11Z"
+    },
+    {
+        "name": "harrywynn",
+        "location": "Myrtle Beach, SC",
+        "followers": 2,
+        "username": "harrywynn",
+        "language": "",
+        "fullname": "Harry Wynn",
+        "repos": 0,
+        "id": "user-103879",
+        "type": "user",
+        "pushed": "2009-09-26T19:13:37.522Z",
+        "score": 2.6885872,
+        "created": "2009-07-11T12:12:32Z"
+    }]
+}

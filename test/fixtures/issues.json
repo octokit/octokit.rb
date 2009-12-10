@@ -1,0 +1,50 @@
+{
+    "issues": [{
+        "number": 3,
+        "votes": 2,
+        "created_at": "2009/05/06 17:28:29 -0700",
+        "body": "Not sure if this is an issue with Crack or with this lib, but every time I try to create a friendship, I get this error:\r\n\r\n>> base.friendship_create('anyone')\r\nCrack::ParseError: Invalid JSON string\r\n\tfrom /Library/Ruby/Gems/1.8/gems/crack-0.1.2/lib/crack/json.rb:14:in `parse'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:73:in `parse'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:48:in `make_friendly'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:34:in `perform'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:10:in `post'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/base.rb:162:in `perform_post'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/base.rb:76:in `friendship_create'\r\n",
+        "title": "Crack error when creating friendship",
+        "updated_at": "2009/08/17 14:25:17 -0700",
+        "closed_at": null,
+        "user": "shanev",
+        "labels": [],
+        "state": "open"
+    },
+    {
+        "number": 6,
+        "votes": 2,
+        "created_at": "2009/06/07 12:28:24 -0700",
+        "body": "The methods on the Twitter class (firehose, friend_ids, follower_ids, status, user) assume that no errors will occur, but all of them can at least return a 50x error. An example using FakeWeb:\r\n\r\n<pre>\r\n>> FakeWeb.register_uri(:get, 'http://twitter.com/statuses/public_timeline.json',\r\n?> :string => '{\"request\":\"\\/statuses\\/public_timeline.json\",\"error\":\"Bad gateway\"}',\r\n?> :status => ['502', 'Bad Gateway'])\r\n=> [#<FakeWeb::Responder:0x7f3b2138 @options={:status=>[\"502\", \"Bad Gateway\"], :string=>\"{\\\"request\\\":\\\"\\\\/statuses\\\\/public_timeline.json\\\",\\\"error\\\":\\\"Bad gateway\\\"}\"}, @method=:get, @uri=\"http://twitter.com/statuses/public_timeline.json\", @times=1>]\r\n>> Twitter.firehose\r\nNoMethodError: undefined method `stringify_keys' for [\"request\", \"/statuses/public_timeline.json\"]:Array\r\n        from /usr/lib/ruby/gems/1.8/gems/mash-0.0.3/lib/mash.rb:131:in `deep_update'\r\n        from /usr/lib/ruby/gems/1.8/gems/mash-0.0.3/lib/mash.rb:50:in `initialize'\r\n        from /usr/lib/ruby/gems/1.8/gems/twitter-0.6.11/lib/twitter.rb:34:in `new'\r\n        from /usr/lib/ruby/gems/1.8/gems/twitter-0.6.11/lib/twitter.rb:34:in `firehose' \r\n</pre>",
+        "title": "Methods on Twitter class don't check for errors",
+        "updated_at": "2009/10/29 16:28:45 -0700",
+        "closed_at": null,
+        "user": "bkocik",
+        "labels": [],
+        "state": "open"
+    },
+    {
+        "number": 8,
+        "votes": 0,
+        "created_at": "2009/06/17 14:40:43 -0700",
+        "body": "When you request a search with a :since_id parameter too old, according to [Twitter](http://apiwiki.twitter.com/Twitter-Search-API-Method%3A-search):\r\n\r\n> This method will return an HTTP 404 error if since_id is used and is too old to be in the search index\r\n\r\nwhich results in a +Crack::ParseError+ exception",
+        "title": "Error handling 404 from Twitter::Search (JSON error)",
+        "updated_at": "2009/06/17 14:40:43 -0700",
+        "closed_at": null,
+        "user": "chubas",
+        "labels": [],
+        "state": "open"
+    },
+    {
+        "number": 9,
+        "votes": 3,
+        "created_at": "2009/06/18 07:53:09 -0700",
+        "body": "happens periodically, presumably when twitter search services returns a string for a response instead of a hash?",
+        "title": "stringify_keys error in Mash.new when using Twitter::search",
+        "updated_at": "2009/11/12 08:52:13 -0800",
+        "closed_at": null,
+        "user": "metrostar",
+        "labels": [],
+        "state": "open"
+    }]
+}

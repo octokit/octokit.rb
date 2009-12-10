@@ -1,0 +1,27 @@
+{
+    "user": {
+        "plan": {
+            "name": "free",
+            "collaborators": 0,
+            "space": 307200,
+            "private_repos": 0
+        },
+        "name": "Wynn Netherland",
+        "company": "Orrka",
+        "location": "Dallas, TX",
+        "created_at": "2008/02/25 10:24:19 -0800",
+        "collaborators": 0,
+        "disk_usage": 85605,
+        "public_gist_count": 3,
+        "public_repo_count": 15,
+        "blog": "http://wynnnetherland.com",
+        "following_count": 55,
+        "id": 865,
+        "private_gist_count": 1,
+        "owned_private_repo_count": 0,
+        "total_private_repo_count": 0,
+        "followers_count": 21,
+        "login": "pengwynn",
+        "email": "wynn.netherland@gmail.com"
+    }
+}
