@@ -249,6 +249,19 @@ class TestOctopussy < Test::Unit::TestCase
       trees.first.sha.should == 'e43b0f988953ae3a84b00331d0ccf5f7d51cb3cf'
     end
     
+    should "return data about a blob by tree SHA and path" do
+      stub_get("http://github.com/api/v2/json/blob/show/defunkt/facebox/d4fc2d5e810d9b4bc1ce67702603080e3086a4ed/README.txt", "blob.json")
+      blob = Octopussy.blob(:username => "defunkt", :repo => "facebox", :sha => "d4fc2d5e810d9b4bc1ce67702603080e3086a4ed", :path => "README.txt")
+      blob.name.should == 'README.txt'
+      blob.sha.should == 'd4fc2d5e810d9b4bc1ce67702603080e3086a4ed'
+    end
+    
+    should "return the contents of a blob with the blob's SHA" do
+      stub_get("http://github.com/api/v2/yaml/blob/show/defunkt/facebox/4bf7a39e8c4ec54f8b4cd594a3616d69004aba69", "raw_git_data.json")
+      raw_text = Octopussy.raw(:username => "defunkt", :repo => "facebox", :sha => "4bf7a39e8c4ec54f8b4cd594a3616d69004aba69")
+      assert raw_text.include?("cd13d9a61288dceb0a7aa73b55ed2fd019f4f1f7")
+    end
+    
   end
   
 end
