@@ -84,6 +84,13 @@ module Octopussy
     Client.new.network_data(options)
   end
   
+  # Trees
+
+  # user, repo, sha
+  def self.tree(options)
+    Client.new.tree(options)
+  end
+  
 end
 
 require File.join(directory, 'octopussy', 'client')

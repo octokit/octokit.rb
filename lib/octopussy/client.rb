@@ -209,6 +209,17 @@ module Octopussy
       Hashie::Mash.new(response).commits
     end
     
+    # Trees
+    
+    def tree(options)
+      username = options.delete(:username)
+      repo = options.delete(:repo)
+      sha = options[:sha]
+      response = self.class.get("http://github.com/api/v2/json/tree/show/#{username}/#{repo}/#{sha}")
+      handle_response(response)
+      Hashie::Mash.new(response).tree
+    end
+    
     private
     
       def auth_params

@@ -1,1 +1,14 @@
-{"issue":{"number":3,"votes":2,"created_at":"2009/05/06 17:28:29 -0700","body":"Not sure if this is an issue with Crack or with this lib, but every time I try to create a friendship, I get this error:\r\n\r\n>> base.friendship_create('anyone')\r\nCrack::ParseError: Invalid JSON string\r\n\tfrom /Library/Ruby/Gems/1.8/gems/crack-0.1.2/lib/crack/json.rb:14:in `parse'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:73:in `parse'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:48:in `make_friendly'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:34:in `perform'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:10:in `post'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/base.rb:162:in `perform_post'\r\n\tfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/base.rb:76:in `friendship_create'\r\n","title":"Crack error when creating friendship","updated_at":"2009/08/17 14:25:17 -0700","closed_at":null,"user":"shanev","labels":[],"state":"open"}}
+{
+    "issue": {
+        "number": 3,
+        "votes": 2,
+        "created_at": "2009/05/06 17:28:29 -0700",
+        "body": "Not sure if this is an issue with Crack or with this lib, but every time I try to create a friendship, I get this error:rnrn>> base.friendship_create('anyone')rnCrack::ParseError: Invalid JSON stringrntfrom /Library/Ruby/Gems/1.8/gems/crack-0.1.2/lib/crack/json.rb:14:in `parse'rntfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:73:in `parse'rntfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:48:in `make_friendly'rntfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:34:in `perform'rntfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/request.rb:10:in `post'rntfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/base.rb:162:in `perform_post'rntfrom /Library/Ruby/Gems/1.8/gems/twitter-0.6.8/lib/twitter/base.rb:76:in `friendship_create'rn",
+        "title": "Crack error when creating friendship",
+        "updated_at": "2009/08/17 14:25:17 -0700",
+        "closed_at": null,
+        "user": "shanev",
+        "labels": [],
+        "state": "open"
+    }
+}

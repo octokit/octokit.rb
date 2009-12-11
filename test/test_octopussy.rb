@@ -240,6 +240,14 @@ class TestOctopussy < Test::Unit::TestCase
       info = Octopussy.network_data(:username => "schacon", :repo => "simplegit", :nethash => "fa8fe264b926cdebaab36420b6501bd74402a6ff")
       assert info.is_a?(Array)
     end
+
+    # trees
+    should "return contents of a tree by tree SHA" do
+      stub_get("http://github.com/api/v2/json/tree/show/defunkt/facebox/a47803c9ba26213ff194f042ab686a7749b17476", "trees.json")
+      trees = Octopussy.tree(:username => "defunkt", :repo => "facebox", :sha => "a47803c9ba26213ff194f042ab686a7749b17476")
+      trees.first.name.should == '.gitignore'
+      trees.first.sha.should == 'e43b0f988953ae3a84b00331d0ccf5f7d51cb3cf'
+    end
     
   end
   
