@@ -5,13 +5,6 @@ Simple Ruby wrapper for the GitHub v2 API.
 
 ![Octopussy poster](http://upload.wikimedia.org/wikipedia/en/b/bb/007Octopussyposter.jpg)
 
-## TODO
-
-1. Repo API
-2. <del>Network API</del>
-3. Commit API
-4. <del>Object API</del>
-
 ## Note on Patches/Pull Requests
  
 * Fork the project.

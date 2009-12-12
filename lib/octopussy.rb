@@ -52,18 +52,18 @@ module Octopussy
   
   # Issues
   
-  def self.search_issues(options)
-    Client.new.search_issues(options)
+  def self.search_issues(repo, state, q)
+    Client.new.search_issues(repo, state, q)
   end
   
-  # username, repo, state
-  def self.issues(options)
-    Client.new.issues(options)
+  # repo, state
+  def self.issues(repo, state)
+    Client.new.issues(repo, state)
   end
   
-  # username, repo, id
-  def self.issue(options)
-    Client.new.issue(options)
+  # repo, id
+  def self.issue(repo, id)
+    Client.new.issue(repo, id)
   end
   
   # Repos
@@ -72,62 +72,59 @@ module Octopussy
     Client.new.search_repos(q)
   end
   
-  def self.repo(options)
-    Client.new.repo(options)
+  def self.repo(repo)
+    Client.new.repo(repo)
   end
   
   def self.list_repos(username)
     Client.new.list_repos(username)
   end
   
-  def self.collaborators(options)
-    Client.new.collaborators(options)
+  def self.collaborators(repo)
+    Client.new.collaborators(repo)
   end
   
-  def self.network(options)
-    Client.new.network(options)
+  def self.network(repo)
+    Client.new.network(repo)
   end
   
-  def self.languages(options)
-    Client.new.languages(options)
+  def self.languages(repo)
+    Client.new.languages(repo)
   end
   
-  
-  def self.tags(options)
-    Client.new.tags(options)
+  def self.tags(repo)
+    Client.new.tags(repo)
   end
   
-  def self.branches(options)
-    Client.new.branches(options)
+  def self.branches(repo)
+    Client.new.branches(repo)
   end
   
   # Network Meta
 
-  # username, repo
-  def self.network_meta(options)
-    Client.new.network_meta(options)
+  def self.network_meta(repo)
+    Client.new.network_meta(repo)
   end
   
-  # username, repo
-  def self.network_data(options)
-    Client.new.network_data(options)
+  def self.network_data(repo, nethash)
+    Client.new.network_data(repo, nethash)
   end
   
   # Trees
 
-  # user, repo, sha
-  def self.tree(options)
-    Client.new.tree(options)
+  def self.tree(repo, sha)
+    Client.new.tree(repo, sha)
   end
 
-  def self.blob(options)
-    Client.new.blob(options)
+  def self.blob(repo, sha, path)
+    Client.new.blob(repo, sha, path)
   end
   
-  def self.raw(options)
-    Client.new.raw(options)
+  def self.raw(repo, sha)
+    Client.new.raw(repo, sha)
   end
   
 end
 
+require File.join(directory, 'octopussy', 'repo')
 require File.join(directory, 'octopussy', 'client')

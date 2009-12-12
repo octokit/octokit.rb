@@ -110,71 +110,71 @@ class TestOctopussy < Test::Unit::TestCase
     
     should "open an issue" do
       stub_post "/issues/open/pengwynn/linkedin", "open_issue.json"
-      issue = @client.open_issue(:title => "testing", :body => "Testing api", :username => "pengwynn", :repo => "linkedin")
+      issue = @client.open_issue({:username => "pengwynn", :repo => "linkedin"}, "testing", "Testing api")
       issue.title.should == "testing"
       issue.number.should == 2
     end
     
     should "close an issue" do
       stub_post "/issues/close/pengwynn/linkedin/2", "close_issue.json"
-      issue = @client.close_issue(:number => 2, :username => "pengwynn", :repo => "linkedin")
+      issue = @client.close_issue({:username => "pengwynn", :repo => "linkedin"}, 2)
       issue.title.should == "testing"
       issue.number.should == 2
     end
     
     should "reopen an issue" do
       stub_post "/issues/reopen/pengwynn/linkedin/2", "reopen_issue.json"
-      issue = @client.close_issue(:number => 2, :username => "pengwynn", :repo => "linkedin")
+      issue = @client.close_issue({:username => "pengwynn", :repo => "linkedin"}, 2)
       issue.title.should == "testing"
       issue.number.should == 2
     end
     
     should "edit an issue" do
       stub_post "/issues/edit/pengwynn/linkedin/2", "open_issue.json"
-      issue = @client.update_issue(:title => "testing", :body => "Testing api", :username => "pengwynn", :repo => "linkedin", :number => 2)
+      issue = @client.update_issue("pengwynn/linkedin", 2, "testing", "Testing api")
       issue.title.should == "testing"
       issue.number.should == 2
     end
     
     should "list issue labels for a repo" do
       stub_get "/issues/labels/pengwynn/linkedin", "labels.json"
-      labels = @client.labels(:username => "pengwynn", :repo => "linkedin")
+      labels = @client.labels("pengwynn/linkedin")
       labels.first.should == 'oauth'
     end
     
     should "add a label to an issue" do
       stub_post("/issues/label/add/pengwynn/linkedin/oauth/2", "labels.json")
-      labels = @client.add_label(:username => 'pengwynn', :repo => 'linkedin', :number => 2, :label => 'oauth')
+      labels = @client.add_label('pengwynn/linkedin', 2, 'oauth')
       assert labels.include?("oauth")
     end
     
     should "remove a label from an issue" do
       stub_post("/issues/label/remove/pengwynn/linkedin/oauth/2", "labels.json")
-      labels = @client.remove_label(:username => 'pengwynn', :repo => 'linkedin', :number => 2, :label => 'oauth')
+      labels = @client.remove_label('pengwynn/linkedin', 2, 'oauth')
       assert labels.is_a?(Array)
     end
     
     should "add a comment to an issue" do
       stub_post("/issues/comment/pengwynn/linkedin/2", "comment.json")
-      comment = @client.add_comment(:username => 'pengwynn', :repo => 'linkedin', :number => 2, :comment => 'Nice catch!')
+      comment = @client.add_comment('pengwynn/linkedin', 2, 'Nice catch!')
       comment.comment.should == 'Nice catch!'
     end
     
     should "watch a repository" do
       stub_post("/repos/watch/pengwynn/linkedin?login=pengwynn&token=OU812", "repo.json")
-      repo = @client.watch('pengwynn', 'linkedin')
+      repo = @client.watch('pengwynn/linkedin')
       repo.homepage.should == "http://bit.ly/ruby-linkedin"
     end
     
     should "unwatch a repository" do
       stub_post("/repos/unwatch/pengwynn/linkedin?login=pengwynn&token=OU812", "repo.json")
-      repo = @client.unwatch('pengwynn', 'linkedin')
+      repo = @client.unwatch('pengwynn/linkedin')
       repo.homepage.should == "http://bit.ly/ruby-linkedin"
     end
     
     should "fork a repository" do
       stub_post("/repos/fork/pengwynn/linkedin?login=pengwynn&token=OU812", "repo.json")
-      repo = @client.fork('pengwynn', 'linkedin')
+      repo = @client.fork('pengwynn/linkedin')
       repo.homepage.should == "http://bit.ly/ruby-linkedin"
     end
     
@@ -209,26 +209,26 @@ class TestOctopussy < Test::Unit::TestCase
     
     should "add a deploy key for a repo" do
       stub_post("/repos/key/linkedin/add?login=pengwynn&token=OU812", "keys.json")
-      keys = @client.add_deploy_key('pengwynn', 'ssh-rsa 009aasd0kalsdfa-sd9a-sdf', 'linkedin')
+      keys = @client.add_deploy_key('pengwynn/linkedin', 'ssh-rsa 009aasd0kalsdfa-sd9a-sdf')
       keys.size.should == 6
       keys.last.title.should == 'wynn@pengwynn.local'
     end
     
     should "remove a deploy key for a repo" do
       stub_post("/repos/key/linkedin/remove?login=pengwynn&token=OU812", "keys.json")
-      keys = @client.remove_deploy_key(1234, 'linkedin')
+      keys = @client.remove_deploy_key('linkedin', 1234)
       keys.size.should == 6
     end
     
     should "add a collaborator to a repo" do
       stub_post("/repos/collaborators/linkedin/add/adamstac?login=pengwynn&token=OU812", "collaborators.json")
-      collaborators =  @client.add_collaborator(:repo => "linkedin", :collaborator => "adamstac")
+      collaborators =  @client.add_collaborator("linkedin", "adamstac")
       collaborators.first.should == 'pengwynn'
     end
     
     should "remove a collaborator from a repo" do
       stub_post("/repos/collaborators/linkedin/remove/adamstac?login=pengwynn&token=OU812", "collaborators.json")
-      collaborators =  @client.remove_collaborator(:repo => "linkedin", :collaborator => "adamstac")
+      collaborators =  @client.remove_collaborator("linkedin", "adamstac")
       collaborators.last.should == 'adamstac'
     end
     
@@ -275,21 +275,21 @@ class TestOctopussy < Test::Unit::TestCase
     
     should "search issues for a repo" do
       stub_get("/issues/search/jnunemaker/twitter/open/httparty", "issues.json")
-      issues = Octopussy.search_issues(:username => 'jnunemaker', :repo => 'twitter', :state => 'open', :q => 'httparty')
+      issues = Octopussy.search_issues({:username => 'jnunemaker', :repo => 'twitter'}, 'open', 'httparty')
       issues.first.title.should == 'Crack error when creating friendship'
       issues.first.votes.should == 2
     end
     
     should "list issues for a repo" do
       stub_get("/issues/list/jnunemaker/twitter/open", "issues.json")
-      issues = Octopussy.issues(:username => 'jnunemaker', :repo => 'twitter', :state => 'open', :q => 'httparty')
+      issues = Octopussy.issues({:username => 'jnunemaker', :repo => 'twitter'}, 'open')
       issues.first.title.should == 'Crack error when creating friendship'
       issues.first.votes.should == 2
     end
     
     should "return issue info" do
       stub_get("/issues/show/jnunemaker/twitter/3", "issue.json")
-      issue = Octopussy.issue(:username => 'jnunemaker', :repo => 'twitter', :id => 3)
+      issue = Octopussy.issue({:username => 'jnunemaker', :repo => 'twitter'}, 3)
       issue.title.should == 'Crack error when creating friendship'
       issue.votes.should == 2
     end
@@ -305,7 +305,7 @@ class TestOctopussy < Test::Unit::TestCase
     
     should "return repo information" do
       stub_get("/repos/show/pengwynn/linkedin", "repo.json")
-      repo = Octopussy.repo(:username => "pengwynn", :repo => "linkedin")
+      repo = Octopussy.repo({:username => "pengwynn", :repo => "linkedin"})
       repo.homepage.should == "http://bit.ly/ruby-linkedin"
     end
     
@@ -318,19 +318,19 @@ class TestOctopussy < Test::Unit::TestCase
     
     should "list collaborators for a repo" do
       stub_post("/repos/show/pengwynn/octopussy/collaborators", "collaborators.json")
-      users = Octopussy.collaborators(:username => "pengwynn", :repo => "octopussy")
+      users = Octopussy.collaborators({:username => "pengwynn", :repo => "octopussy"})
       users.last.should == 'adamstac'
     end
     
     should "show the network for a repo" do
       stub_get("/repos/show/pengwynn/linkedin/network", "network.json")
-      network = Octopussy.network(:username => 'pengwynn', :repo => "linkedin")
+      network = Octopussy.network({:username => 'pengwynn', :repo => "linkedin"})
       network.last.owner.should == 'nfo'
     end
     
     should "show the language breakdown for a repo" do
       stub_get("/repos/show/pengwynn/linkedin/languages", "languages.json")
-      languages = Octopussy.languages(:username => 'pengwynn', :repo => "linkedin")
+      languages = Octopussy.languages({:username => 'pengwynn', :repo => "linkedin"})
       languages['Ruby'].should == 21515
     end
     
@@ -357,28 +357,28 @@ class TestOctopussy < Test::Unit::TestCase
     
     should "return first 100 commits by branch" do
       stub_get("http://github.com/schacon/simplegit/network_data_chunk?nethash=fa8fe264b926cdebaab36420b6501bd74402a6ff", "network_data.json")
-      info = Octopussy.network_data(:username => "schacon", :repo => "simplegit", :nethash => "fa8fe264b926cdebaab36420b6501bd74402a6ff")
+      info = Octopussy.network_data({:username => "schacon", :repo => "simplegit"}, "fa8fe264b926cdebaab36420b6501bd74402a6ff")
       assert info.is_a?(Array)
     end
 
     # trees
     should "return contents of a tree by tree SHA" do
       stub_get("http://github.com/api/v2/json/tree/show/defunkt/facebox/a47803c9ba26213ff194f042ab686a7749b17476", "trees.json")
-      trees = Octopussy.tree(:username => "defunkt", :repo => "facebox", :sha => "a47803c9ba26213ff194f042ab686a7749b17476")
+      trees = Octopussy.tree({:username => "defunkt", :repo => "facebox"}, "a47803c9ba26213ff194f042ab686a7749b17476")
       trees.first.name.should == '.gitignore'
       trees.first.sha.should == 'e43b0f988953ae3a84b00331d0ccf5f7d51cb3cf'
     end
     
     should "return data about a blob by tree SHA and path" do
       stub_get("http://github.com/api/v2/json/blob/show/defunkt/facebox/d4fc2d5e810d9b4bc1ce67702603080e3086a4ed/README.txt", "blob.json")
-      blob = Octopussy.blob(:username => "defunkt", :repo => "facebox", :sha => "d4fc2d5e810d9b4bc1ce67702603080e3086a4ed", :path => "README.txt")
+      blob = Octopussy.blob({:username => "defunkt", :repo => "facebox"}, "d4fc2d5e810d9b4bc1ce67702603080e3086a4ed", "README.txt")
       blob.name.should == 'README.txt'
       blob.sha.should == 'd4fc2d5e810d9b4bc1ce67702603080e3086a4ed'
     end
     
     should "return the contents of a blob with the blob's SHA" do
       stub_get("http://github.com/api/v2/yaml/blob/show/defunkt/facebox/4bf7a39e8c4ec54f8b4cd594a3616d69004aba69", "raw_git_data.json")
-      raw_text = Octopussy.raw(:username => "defunkt", :repo => "facebox", :sha => "4bf7a39e8c4ec54f8b4cd594a3616d69004aba69")
+      raw_text = Octopussy.raw({:username => "defunkt", :repo => "facebox"}, "4bf7a39e8c4ec54f8b4cd594a3616d69004aba69")
       assert raw_text.include?("cd13d9a61288dceb0a7aa73b55ed2fd019f4f1f7")
     end
     
