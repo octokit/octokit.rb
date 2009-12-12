@@ -1,9 +1,9 @@
 
 # octopussy
 
-Simple Ruby wrapper for the GitHub v2 API. 
+<img src='http://upload.wikimedia.org/wikipedia/en/b/bb/007Octopussyposter.jpg' style='float: right; margin: 0 0 10px 10px'/>
 
-![Octopussy poster](http://upload.wikimedia.org/wikipedia/en/b/bb/007Octopussyposter.jpg)
+Simple Ruby wrapper for the GitHub v2 API. 
 
 ## Installation
 
@@ -34,7 +34,15 @@ For convenience, methods that require a repo argument may be passed in any of th
 
     Octopussy.repo("pengwynn/linkedin")
     => <#Hashie::Mash description="Ruby wrapper for the LinkedIn API" fork=false forks=1 homepage="http://bit.ly/ruby-linkedin" name="linkedin" open_issues=2 owner="pengwynn" private=false url="http://github.com/pengwynn/linkedin" watchers=36>
+    
+## Authenticated requests
 
+Some methods require authentication so you'll need to pass a login and an api_token. You can find your GitHub API token on your [account page](https://github.com/account)
+
+    client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
+    client.follow!('adamstac')
+
+Read the full [docs](http://rdoc.info/projects/pengwynn/octopussy) or check out the [examples](http://github.com/pengwynn/octopussy/tree/master/examples)
 
 ## Note on Patches/Pull Requests
  

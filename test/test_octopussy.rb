@@ -48,6 +48,11 @@ class TestOctopussy < Test::Unit::TestCase
       assert followers.include?("adamstac")
     end
     
+    should "indicate if one user follows another" do
+      stub_get("/user/show/pengwynn/following", "followers.json")
+      @client.follows?('adamstac')
+    end
+    
     should "return the repos a user watches" do
       stub_get("/repos/watched/pengwynn", "repos.json")
       repos = @client.watched
@@ -257,6 +262,11 @@ class TestOctopussy < Test::Unit::TestCase
       followers = Octopussy.followers("pengwynn")
       followers.size.should == 21
       assert followers.include?("adamstac")
+    end
+    
+    should "indicate if one user follows another" do
+      stub_get("/user/show/pengwynn/following", "followers.json")
+      assert Octopussy.follows?('pengwynn', 'adamstac')
     end
     
     should "return users a user follows" do

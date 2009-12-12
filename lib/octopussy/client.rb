@@ -46,15 +46,23 @@ module Octopussy
     end
     
     def follow!(username)
-      response = self.class.post("/user/follow/#{username}")
+      response = self.class.post("/user/follow/#{username}", :query => auth_params)
       handle_response(response)
       Hashie::Mash.new(response).users
     end
     
     def unfollow!(username)
-      response = self.class.post("/user/unfollow/#{username}")
+      response = self.class.post("/user/unfollow/#{username}", :query => auth_params)
       handle_response(response)
       Hashie::Mash.new(response).users
+    end
+    
+    def follows?(*args)
+      target = args.pop
+      username = args.first 
+      username ||= self.login
+      return if username.nil?
+      self.following(username).include?(target)
     end
     
     def watched(login=self.login)

@@ -46,6 +46,10 @@ module Octopussy
     Client.new.following(login)
   end
   
+  def self.follows?(username, target)
+    Client.new.follows?(username, target)
+  end
+  
   def self.watched(login)
     Client.new.watched(login)
   end
