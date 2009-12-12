@@ -328,20 +328,50 @@ module Octopussy
     # Network
     
     def network_meta(options)
-      username = options.delete(:username)
-      repo = options.delete(:repo)
+      username = options[:username]
+      repo = options[:repo]
       response = self.class.get("http://github.com/#{username}/#{repo}/network_meta")
       handle_response(response)
       Hashie::Mash.new(response)
     end
     
     def network_data(options)
-      username = options.delete(:username)
-      repo = options.delete(:repo)
+      username = options[:username]
+      repo = options[:repo]
       nethash = options[:nethash]
       response = self.class.get("http://github.com/#{username}/#{repo}/network_data_chunk", :query => {:nethash => nethash})
       handle_response(response)
       Hashie::Mash.new(response).commits
+    end
+    
+    # Trees
+    
+    def tree(options)
+      username = options[:username]
+      repo = options[:repo]
+      sha = options[:sha]
+      response = self.class.get("http://github.com/api/v2/json/tree/show/#{username}/#{repo}/#{sha}")
+      handle_response(response)
+      Hashie::Mash.new(response).tree
+    end
+    
+    def blob(options)
+      username = options[:username]
+      repo = options[:repo]
+      sha = options[:sha]
+      path = options[:path]
+      response = self.class.get("http://github.com/api/v2/json/blob/show/#{username}/#{repo}/#{sha}/#{path}")
+      handle_response(response)
+      Hashie::Mash.new(response).blob
+    end
+
+    def raw(options)
+      username = options[:username]
+      repo = options[:repo]
+      sha = options[:sha]
+      response = self.class.get("http://github.com/api/v2/yaml/blob/show/#{username}/#{repo}/#{sha}")
+      handle_response(response)
+      response.body
     end
     
     private
@@ -358,6 +388,8 @@ module Octopussy
           raise Unauthorized.new
         when 404
           raise NotFound.new
+        when 500
+          raise OctopussyError.new(500)
         end
       end
     

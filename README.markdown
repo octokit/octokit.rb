@@ -10,7 +10,7 @@ Simple Ruby wrapper for the GitHub v2 API.
 1. Repo API
 2. <del>Network API</del>
 3. Commit API
-4. Object API
+4. <del>Object API</del>
 
 ## Note on Patches/Pull Requests
  
