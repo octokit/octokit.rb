@@ -1,0 +1,14 @@
+{
+    "repository": {
+        "url": "http://github.com/pengwynn/linkedin",
+        "description": "Ruby wrapper for the LinkedIn API",
+        "watchers": 34,
+        "homepage": "http://bit.ly/ruby-linkedin",
+        "fork": false,
+        "private": false,
+        "name": "linkedin",
+        "owner": "pengwynn",
+        "forks": 1,
+        "open_issues": 2
+    }
+}

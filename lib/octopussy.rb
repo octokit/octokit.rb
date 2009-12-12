@@ -72,6 +72,35 @@ module Octopussy
     Client.new.search_repos(q)
   end
   
+  def self.repo(options)
+    Client.new.repo(options)
+  end
+  
+  def self.list_repos(username)
+    Client.new.list_repos(username)
+  end
+  
+  def self.collaborators(options)
+    Client.new.collaborators(options)
+  end
+  
+  def self.network(options)
+    Client.new.network(options)
+  end
+  
+  def self.languages(options)
+    Client.new.languages(options)
+  end
+  
+  
+  def self.tags(options)
+    Client.new.tags(options)
+  end
+  
+  def self.branches(options)
+    Client.new.branches(options)
+  end
+  
   # Network Meta
 
   # username, repo

@@ -159,6 +159,80 @@ class TestOctopussy < Test::Unit::TestCase
       comment = @client.add_comment(:username => 'pengwynn', :repo => 'linkedin', :number => 2, :comment => 'Nice catch!')
       comment.comment.should == 'Nice catch!'
     end
+    
+    should "watch a repository" do
+      stub_post("/repos/watch/pengwynn/linkedin?login=pengwynn&token=OU812", "repo.json")
+      repo = @client.watch('pengwynn', 'linkedin')
+      repo.homepage.should == "http://bit.ly/ruby-linkedin"
+    end
+    
+    should "unwatch a repository" do
+      stub_post("/repos/unwatch/pengwynn/linkedin?login=pengwynn&token=OU812", "repo.json")
+      repo = @client.unwatch('pengwynn', 'linkedin')
+      repo.homepage.should == "http://bit.ly/ruby-linkedin"
+    end
+    
+    should "fork a repository" do
+      stub_post("/repos/fork/pengwynn/linkedin?login=pengwynn&token=OU812", "repo.json")
+      repo = @client.fork('pengwynn', 'linkedin')
+      repo.homepage.should == "http://bit.ly/ruby-linkedin"
+    end
+    
+    should "create a repository" do
+      stub_post("/repos/create?login=pengwynn&token=OU812", "repo.json")
+      repo = @client.create(:name => 'linkedin', :description => 'Ruby wrapper for the LinkedIn API', :homepage => 'http://bit.ly/ruby-linkedin', :public => 1)
+      repo.homepage.should == "http://bit.ly/ruby-linkedin"
+    end
+    
+    # should "return a delete_token when calling delete without supplying a delete_token" do
+    #   
+    # end
+    
+    should "set a repo's visibility to private" do
+      stub_post("/repos/set/private/linkedin?login=pengwynn&token=OU812", "repo.json")
+      repo = @client.set_private('linkedin')
+      repo.homepage.should == "http://bit.ly/ruby-linkedin"
+    end
+    
+    should "set a repo's visibility to public" do
+      stub_post("/repos/set/public/linkedin?login=pengwynn&token=OU812", "repo.json")
+      repo = @client.set_public('linkedin')
+      repo.homepage.should == "http://bit.ly/ruby-linkedin"
+    end
+    
+    should "return deploy keys for a repo" do
+      stub_get("/repos/keys/linkedin?login=pengwynn&token=OU812", "keys.json")
+      keys = @client.deploy_keys('linkedin')
+      keys.size.should == 6
+      keys.last.title.should == 'wynn@pengwynn.local'
+    end
+    
+    should "add a deploy key for a repo" do
+      stub_post("/repos/key/linkedin/add?login=pengwynn&token=OU812", "keys.json")
+      keys = @client.add_deploy_key('pengwynn', 'ssh-rsa 009aasd0kalsdfa-sd9a-sdf', 'linkedin')
+      keys.size.should == 6
+      keys.last.title.should == 'wynn@pengwynn.local'
+    end
+    
+    should "remove a deploy key for a repo" do
+      stub_post("/repos/key/linkedin/remove?login=pengwynn&token=OU812", "keys.json")
+      keys = @client.remove_deploy_key(1234, 'linkedin')
+      keys.size.should == 6
+    end
+    
+    should "add a collaborator to a repo" do
+      stub_post("/repos/collaborators/linkedin/add/adamstac?login=pengwynn&token=OU812", "collaborators.json")
+      collaborators =  @client.add_collaborator(:repo => "linkedin", :collaborator => "adamstac")
+      collaborators.first.should == 'pengwynn'
+    end
+    
+    should "remove a collaborator from a repo" do
+      stub_post("/repos/collaborators/linkedin/remove/adamstac?login=pengwynn&token=OU812", "collaborators.json")
+      collaborators =  @client.remove_collaborator(:repo => "linkedin", :collaborator => "adamstac")
+      collaborators.last.should == 'adamstac'
+    end
+    
+    
   end
   
   
@@ -220,12 +294,58 @@ class TestOctopussy < Test::Unit::TestCase
       issue.votes.should == 2
     end
     
+    # Repos
+    
     should "search repos" do
       stub_get("/repos/search/compass", "repo_search.json")
       repos = Octopussy.search_repos("compass")
       repos.first.username.should == 'chriseppstein'
       repos.first.language.should == 'Ruby'
     end
+    
+    should "return repo information" do
+      stub_get("/repos/show/pengwynn/linkedin", "repo.json")
+      repo = Octopussy.repo(:username => "pengwynn", :repo => "linkedin")
+      repo.homepage.should == "http://bit.ly/ruby-linkedin"
+    end
+    
+    should "list repos for a user" do
+      stub_get("/repos/show/pengwynn", "repos.json")
+      repos = Octopussy.list_repos('pengwynn')
+      repos.first.name.should == 'twitter'
+      repos.first.watchers.should == 609
+    end
+    
+    should "list collaborators for a repo" do
+      stub_post("/repos/show/pengwynn/octopussy/collaborators", "collaborators.json")
+      users = Octopussy.collaborators(:username => "pengwynn", :repo => "octopussy")
+      users.last.should == 'adamstac'
+    end
+    
+    should "show the network for a repo" do
+      stub_get("/repos/show/pengwynn/linkedin/network", "network.json")
+      network = Octopussy.network(:username => 'pengwynn', :repo => "linkedin")
+      network.last.owner.should == 'nfo'
+    end
+    
+    should "show the language breakdown for a repo" do
+      stub_get("/repos/show/pengwynn/linkedin/languages", "languages.json")
+      languages = Octopussy.languages(:username => 'pengwynn', :repo => "linkedin")
+      languages['Ruby'].should == 21515
+    end
+    
+    should "list all the tags in a repo" do
+      stub_get("/repos/show/pengwynn/linkedin/tags", "tags.json")
+      tags = Octopussy.tags(:username => 'pengwynn', :repo => "linkedin")
+      assert tags.include?("v0.0.1")
+    end
+    
+    should "list all the branches in a repo" do
+      stub_get("/repos/show/pengwynn/linkedin/branches", "branches.json")
+      branches = Octopussy.branches(:username => 'pengwynn', :repo => "linkedin")
+      assert branches.include?("integration")
+    end
+  
     
     # network
     should "return network meta info for a repo" do
