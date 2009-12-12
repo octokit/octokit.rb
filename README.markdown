@@ -5,6 +5,18 @@ Simple Ruby wrapper for the GitHub v2 API.
 
 ![Octopussy poster](http://upload.wikimedia.org/wikipedia/en/b/bb/007Octopussyposter.jpg)
 
+## Installation
+
+    sudo gem install octopussy
+    
+## Usage
+
+### Show a user
+
+    Octopussy.user('pengwynn')
+    => <#Hashie::Mash blog="http://wynnnetherland.com" company="Orrka" created_at="2008/02/25 10:24:19 -0800" email="wynn.netherland@gmail.com" followers_count=21 following_count=55 id=865 location="Dallas, TX" login="pengwynn" name="Wynn Netherland" public_gist_count=4 public_repo_count=16>
+    
+
 ## Note on Patches/Pull Requests
  
 * Fork the project.

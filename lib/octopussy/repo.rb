@@ -10,8 +10,8 @@ class Repo
       @username = repo.username
       @name = repo.name
     elsif repo.is_a?(Hash)
-      @name = repo[:repo] ||= repo[:name]
-      @username = repo[:username] ||= repo[:user]
+      @name = repo[:repo] ||= repo[:name] 
+      @username = repo[:username] ||= repo[:user] ||= repo[:owner]
     end
   end
   
