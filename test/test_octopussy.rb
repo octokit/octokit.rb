@@ -410,6 +410,7 @@ class TestOctopussy < Test::Unit::TestCase
       event.user.should == 'pengwynn'
       event.published.year.should == 2009
       event.published.month.should == 12
+      event.id.should == 110645788
     end
     
     should "should create a create_repo event from an atom entry" do

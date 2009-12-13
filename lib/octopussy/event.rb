@@ -6,7 +6,8 @@ module Octopussy
     
       event = Hashie::Mash.new({:user => entry.author})
       event.published = (entry.published.is_a?(String) ? DateTime.parse(entry.published) : entry.published)
-    
+      event.id = entry.id.split("/").pop.to_i
+      
       case entry.id
       when /CreateEvent/
         case entry.title 
