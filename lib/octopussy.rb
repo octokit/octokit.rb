@@ -131,4 +131,5 @@ module Octopussy
 end
 
 require File.join(directory, 'octopussy', 'repo')
+require File.join(directory, 'octopussy', 'event')
 require File.join(directory, 'octopussy', 'client')

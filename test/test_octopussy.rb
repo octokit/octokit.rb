@@ -394,4 +394,221 @@ class TestOctopussy < Test::Unit::TestCase
     
   end
   
+  context "when consuming feeds" do
+    
+    should "should set user and published time for the event" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:CreateEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/jnunemaker/twitter/tree/v0.7.10'],
+        :title => 'pengwynn created tag v0.7.10 at jnunemaker/twitter',
+        :author => 'pengwynn'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.user.should == 'pengwynn'
+      event.published.year.should == 2009
+      event.published.month.should == 12
+    end
+    
+    should "should create a create_repo event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:CreateEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/Tanner/Team-1261---Java'],
+        :title => 'Tanner created repository Team-1261---Java',
+        :author => 'Tanner'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'create_repo'
+      event.repo.username.should == 'Tanner'
+      event.repo.name.should == 'Team-1261---Java'
+    end
+
+    should "should create a create_tag event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:CreateEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/jnunemaker/twitter/tree/v0.7.10'],
+        :title => 'pengwynn created tag v0.7.10 at jnunemaker/twitter',
+        :author => 'pengwynn'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'create_tag'
+      event.repo.username.should == 'jnunemaker'
+      event.repo.name.should == 'twitter'
+      event.tag.should == 'v0.7.10'
+    end
+    
+    should "should create a create_branch event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:CreateEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/Fabi/cwcore/tree/cwcore-0.1'],
+        :title => 'cwcore created branch cwcore-0.1 at Fabi/cwcore',
+        :author => 'cwcore'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'create_branch'
+      event.repo.username.should == 'Fabi'
+      event.repo.name.should == 'cwcore'
+      event.user.should == 'cwcore'
+      event.branch.should == 'cwcore-0.1'
+    end
+    
+    should "should create a push event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:PushEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/jnunemaker/twitter/commits/master'],
+        :title => 'pengwynn pushed to master at jnunemaker/twitter',
+        :author => 'pengwynn'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'push'
+      event.repo.name.should == 'twitter'
+      event.branch.should == 'master'
+    end
+    
+    should "should create a fork event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:ForkEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/klauge/aeon/'],
+        :title => 'klauge forked djh/aeon',
+        :author => 'klauge'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'fork'
+      event.repo.username.should == 'klauge'
+      event.repo.name.should == 'aeon'
+      event.forked_from.username.should == 'djh'
+    end
+    
+    should "should create a watch event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:WatchEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/bogolisk/egg'],
+        :title => 'jpablobr started watching bogolisk/egg',
+        :author => 'jpablobr'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'watch'
+      event.repo.username.should == 'bogolisk'
+      event.repo.name.should == 'egg'
+    end
+    
+    should "should create a follow event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:FollowEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/swistak'],
+        :title => 'pengwynn started following swistak',
+        :author => 'pengwynn'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'follow'
+      event.repo.should == nil
+      event.target_user.should == 'swistak'
+    end
+    
+    should "should create an issues event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:IssuesEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/jnunemaker/twitter/issues/19/find'],
+        :title => 'pengwynn closed issue 19 on jnunemaker/twitter',
+        :author => 'pengwynn'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'issue'
+      event.repo.name.should == 'twitter'
+      event.action.should == 'closed'
+      event.issue_number.should == 19
+    end
+    
+    should "should create a gist event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:GistEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://gist.github.com/253987'],
+        :title => 'pengwynn created gist: 253987',
+        :author => 'pengwynn'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'gist'
+      event.repo.should == nil
+      event.gist_number.should == 253987
+    end
+    
+    should "should create a member event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:MemberEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/pengwynn/octopussy'],
+        :title => 'pengwynn added adamstac to octopussy',
+        :author => 'pengwynn'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'member'
+      event.repo.name.should == 'octopussy'
+      event.target_user.should == 'adamstac'
+    end
+    
+    should "should create a fork_apply event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:ForkApplyEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/pengwynn/linkedin/tree/integration'],
+        :title => 'pengwynn applied fork commits to linkedin/integration',
+        :author => 'pengwynn'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'fork_apply'
+      event.repo.name.should == 'linkedin'
+      event.branch.should == 'integration'
+    end
+    
+    should "should create a wiki event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:WikiEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/dxw/Fammel/wikis/documentation'],
+        :title => 'dxw edited a page in the dxw/Fammel wiki',
+        :author => 'dxw'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'wiki'
+      event.repo.name.should == 'Fammel'
+      event.page.should == 'documentation'
+    end
+  end
+  
+  
 end
