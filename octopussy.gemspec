@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{octopussy}
-  s.version = "0.0.1"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Wynn Netherland", "Adam Stacoviak"]
@@ -26,7 +26,9 @@ Gem::Specification.new do |s|
      "changelog.markdown",
      "lib/octopussy.rb",
      "lib/octopussy/client.rb",
+     "lib/octopussy/event.rb",
      "lib/octopussy/repo.rb",
+     "octopussy.gemspec",
      "test/fixtures/blob.json",
      "test/fixtures/branches.json",
      "test/fixtures/close_issue.json",
