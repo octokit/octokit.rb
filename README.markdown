@@ -1,4 +1,3 @@
-
 # octopussy
 
 <img src='http://upload.wikimedia.org/wikipedia/en/b/bb/007Octopussyposter.jpg' style='float: right; margin: 0 0 10px 10px'/>
@@ -43,6 +42,11 @@ Some methods require authentication so you'll need to pass a login and an api_to
     client.follow!('adamstac')
 
 Read the full [docs](http://rdoc.info/projects/pengwynn/octopussy) or check out the [examples](http://github.com/pengwynn/octopussy/tree/master/examples)
+
+## TODO
+
+* Feed parsing
+* More examples
 
 ## Note on Patches/Pull Requests
  
