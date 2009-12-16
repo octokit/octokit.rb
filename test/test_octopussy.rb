@@ -413,7 +413,7 @@ class TestOctopussy < Test::Unit::TestCase
       event.id.should == 110645788
     end
     
-    should "should create a create_repo event from an atom entry" do
+    should "should create a repo event from an atom entry" do
       entry = Hashie::Mash.new({
         :id => 'tag:github.com,2008:CreateEvent/110645788',
         :published => '2009-12-12T11:24:14-08:00',
@@ -424,12 +424,12 @@ class TestOctopussy < Test::Unit::TestCase
       })
 
       event = Octopussy::Event.load_from_atom(entry)
-      event.event_type.should == 'create_repo'
+      event.event_type.should == 'repo'
       event.repo.username.should == 'Tanner'
       event.repo.name.should == 'Team-1261---Java'
     end
 
-    should "should create a create_tag event from an atom entry" do
+    should "should create a tag event from an atom entry" do
       entry = Hashie::Mash.new({
         :id => 'tag:github.com,2008:CreateEvent/110645788',
         :published => '2009-12-12T11:24:14-08:00',
@@ -440,13 +440,13 @@ class TestOctopussy < Test::Unit::TestCase
       })
 
       event = Octopussy::Event.load_from_atom(entry)
-      event.event_type.should == 'create_tag'
+      event.event_type.should == 'tag'
       event.repo.username.should == 'jnunemaker'
       event.repo.name.should == 'twitter'
       event.tag.should == 'v0.7.10'
     end
     
-    should "should create a create_branch event from an atom entry" do
+    should "should create a branch event from an atom entry" do
       entry = Hashie::Mash.new({
         :id => 'tag:github.com,2008:CreateEvent/110645788',
         :published => '2009-12-12T11:24:14-08:00',
@@ -457,7 +457,7 @@ class TestOctopussy < Test::Unit::TestCase
       })
 
       event = Octopussy::Event.load_from_atom(entry)
-      event.event_type.should == 'create_branch'
+      event.event_type.should == 'branch'
       event.repo.username.should == 'Fabi'
       event.repo.name.should == 'cwcore'
       event.user.should == 'cwcore'
@@ -608,6 +608,21 @@ class TestOctopussy < Test::Unit::TestCase
       event.event_type.should == 'wiki'
       event.repo.name.should == 'Fammel'
       event.page.should == 'documentation'
+    end
+    
+    should "should create a comment event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:CommitCommentEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/fakechris/resque/commit/46f7ff1f73ae16ca8060fa3b051900562b51d5c2#-P0'],
+        :title => 'defunkt commented on fakechris/resque',
+        :author => 'defunkt'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'comment'
+      event.repo.name.should == 'resque'
     end
   end
   

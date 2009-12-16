@@ -12,13 +12,13 @@ module Octopussy
       when /CreateEvent/
         case entry.title 
         when /created tag/
-          event.event_type = 'create_tag'
+          event.event_type = 'tag'
           event.tag = entry.links.first.split('/').pop
         when /created branch/
-          event.event_type = 'create_branch'
+          event.event_type = 'branch'
           event.branch = entry.links.first.split('/').pop
         when /created repository/
-          event.event_type = 'create_repo'
+          event.event_type = 'repo'
         end
         
       when /MemberEvent/
@@ -49,6 +49,8 @@ module Octopussy
       when /WikiEvent/
         event.event_type = 'wiki'
         event.page = entry.links.first.split('/').pop
+      when /CommitCommentEvent/
+        event.event_type = 'comment'
       else
       
       end
