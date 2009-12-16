@@ -32,7 +32,8 @@ module Octopussy
         event.branch = entry.links.first.split('/').pop
       when /ForkEvent/
         event.event_type = 'fork'
-        event.forked_from = Repo.new(entry.title.split(" forked ").pop)
+        segments = entry.title.split(" ")
+        event.forked_from = Repo.new(segments.last)
       when /WatchEvent/
         event.event_type = 'watch'
         
