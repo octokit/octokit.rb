@@ -656,6 +656,21 @@ class TestOctopussy < Test::Unit::TestCase
       event.event_type.should == 'public'
       event.repo.name.should == 'bpmn2'
     end
+    
+    should "should create a download event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:DownloadEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/tobie'],
+        :title => 'tobie uploaded a file to sstephenson/prototype',
+        :author => 'tobie'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'download'
+      event.repo.name.should == 'prototype'
+    end
   end
   
   

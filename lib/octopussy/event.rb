@@ -60,10 +60,14 @@ module Octopussy
       when /PublicEvent/
         event.event_type = 'public'
         event.repo = Repo.new(entry.title.split(" ")[3])
+      when /DownloadEvent/
+        event.event_type = 'download'
+        segments = entry.title.split(' ')
+        event.repo = Repo.new(segments[5])
       else
         puts "Unknown event type: #{entry.id}"
       end
-      event.repo = Repo.from_url(entry.links.first) unless %w(follow gist delete public).include?(event.event_type)
+      event.repo = Repo.from_url(entry.links.first) unless %w(follow gist delete public download).include?(event.event_type)
       event
     end
   end
