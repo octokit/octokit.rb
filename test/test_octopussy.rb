@@ -396,7 +396,7 @@ class TestOctopussy < Test::Unit::TestCase
   
   context "when consuming feeds" do
     
-    should "should set user and published time for the event" do
+    should "should set user, title, and published time for the event" do
       entry = Hashie::Mash.new({
         :id => 'tag:github.com,2008:CreateEvent/110645788',
         :published => '2009-12-12T11:24:14-08:00',
@@ -411,6 +411,7 @@ class TestOctopussy < Test::Unit::TestCase
       event.published.year.should == 2009
       event.published.month.should == 12
       event.id.should == 110645788
+      event.title.should == 'pengwynn created tag v0.7.10 at jnunemaker/twitter'
     end
     
     should "should create a repo event from an atom entry" do

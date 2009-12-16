@@ -4,7 +4,7 @@ module Octopussy
     def self.load_from_atom(entry)
       entry = entry.to_mash if entry.is_a?(Hash)
     
-      event = Hashie::Mash.new({:user => entry.author})
+      event = Hashie::Mash.new({:user => entry.author, :title => entry.title})
       event.published = (entry.published.is_a?(String) ? DateTime.parse(entry.published) : entry.published)
       event.id = entry.id.split("/").pop.to_i
       
