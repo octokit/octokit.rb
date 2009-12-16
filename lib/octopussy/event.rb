@@ -51,10 +51,15 @@ module Octopussy
         event.page = entry.links.first.split('/').pop
       when /CommitCommentEvent/
         event.event_type = 'comment'
+      when /DeleteEvent/
+        event.event_type = 'delete'
+        segments = entry.title.split(' ')
+        event.branch = segments[3]
+        event.repo = Repo.new(segments[5])
       else
       
       end
-      event.repo = Repo.from_url(entry.links.first) unless %w(follow gist).include?(event.event_type)
+      event.repo = Repo.from_url(entry.links.first) unless %w(follow gist delete).include?(event.event_type)
       event
     end
   end

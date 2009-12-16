@@ -624,6 +624,22 @@ class TestOctopussy < Test::Unit::TestCase
       event.event_type.should == 'comment'
       event.repo.name.should == 'resque'
     end
+    
+    should "should create a delete event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:DeleteEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/jinzhu'],
+        :title => 'jinzhu deleted branch search at jinzhu/vimlike-smooziee',
+        :author => 'jinzhu'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'delete'
+      event.repo.name.should == 'vimlike-smooziee'
+      event.branch.should == 'search'
+    end
   end
   
   
