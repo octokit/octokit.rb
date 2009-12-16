@@ -56,10 +56,13 @@ module Octopussy
         segments = entry.title.split(' ')
         event.branch = segments[3]
         event.repo = Repo.new(segments[5])
+      when /PublicEvent/
+        event.event_type = 'public'
+        event.repo = Repo.new(entry.title.split(" ")[3])
       else
-      
+        puts "Unknown event type: #{entry.id}"
       end
-      event.repo = Repo.from_url(entry.links.first) unless %w(follow gist delete).include?(event.event_type)
+      event.repo = Repo.from_url(entry.links.first) unless %w(follow gist delete public).include?(event.event_type)
       event
     end
   end

@@ -641,6 +641,21 @@ class TestOctopussy < Test::Unit::TestCase
       event.repo.name.should == 'vimlike-smooziee'
       event.branch.should == 'search'
     end
+    
+    should "should create a public event from an atom entry" do
+      entry = Hashie::Mash.new({
+        :id => 'tag:github.com,2008:PublicEvent/110645788',
+        :published => '2009-12-12T11:24:14-08:00',
+        :updated => '2009-12-12T11:24:14-08:00',
+        :links => ['http://github.com/intalio'],
+        :title => 'intalio open sourced bpmn2',
+        :author => 'intalio'
+      })
+
+      event = Octopussy::Event.load_from_atom(entry)
+      event.event_type.should == 'public'
+      event.repo.name.should == 'bpmn2'
+    end
   end
   
   
