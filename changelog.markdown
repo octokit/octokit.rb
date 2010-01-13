@@ -1,4 +1,6 @@
 # Changelog
+## 0.1.4
+  * Preserved links array and content for events parsed from feeds
 ## 0.1.3
   * Added Download event
 ## 0.1.2
