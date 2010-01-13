@@ -412,6 +412,7 @@ class TestOctopussy < Test::Unit::TestCase
       event.published.month.should == 12
       event.id.should == 110645788
       event.title.should == 'pengwynn created tag v0.7.10 at jnunemaker/twitter'
+      event.links.first.should == 'http://github.com/jnunemaker/twitter/tree/v0.7.10'
     end
     
     should "should create a repo event from an atom entry" do

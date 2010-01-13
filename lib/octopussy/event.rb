@@ -8,6 +8,9 @@ module Octopussy
       event.published = (entry.published.is_a?(String) ? DateTime.parse(entry.published) : entry.published)
       event.id = entry.id.split("/").pop.to_i
       
+      event.links = entry.links
+      event.content = entry.content
+      
       case entry.id
       when /CreateEvent/
         case entry.title 
