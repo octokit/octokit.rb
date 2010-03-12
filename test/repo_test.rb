@@ -1,6 +1,6 @@
 require 'helper'
 
-class TestRepo < Test::Unit::TestCase
+class RepoTest < Test::Unit::TestCase
   context "when passed a string containg a forward slash" do
     setup do
       @repo = Octopussy::Repo.new("pengwynn/linkedin")
