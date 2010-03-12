@@ -403,14 +403,14 @@ class OctopussyTest < Test::Unit::TestCase
       ["500", "Server Error"]         => Octopussy::ServerError,
       ["501", "Not Implemented"]      => Octopussy::ServerError
     }.each do |status, exception|
-      context "getting a #{status.first}" do
+      context "#{status.first}, a get" do
         should "raise an #{exception.name} error" do
           stub_get("/user/show/pengwynn", nil, status)
           lambda { Octopussy.user("pengwynn") }.should raise_error(exception)
         end
       end
 
-      context "posting a #{status.first}" do
+      context "#{status.first}, a post" do
         should "raise an #{exception.name} error" do
           stub_post("/user/show/pengwynn?login=pengwynn&token=OU812", nil, status)
           client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
