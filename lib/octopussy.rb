@@ -1,9 +1,13 @@
-require 'hashie'
 require 'httparty'
-
-directory = File.expand_path(File.dirname(__FILE__))
-
+require 'hashie'
 Hash.send :include, Hashie::HashExtensions
+
+libdir = File.dirname(__FILE__)
+$LOAD_PATH.unshift(libdir) unless $LOAD_PATH.include?(libdir)
+
+require 'octopussy/repo'
+require 'octopussy/event'
+require 'octopussy/client'
 
 
 module Octopussy
@@ -124,7 +128,3 @@ module Octopussy
   end
   
 end
-
-require File.join(directory, 'octopussy', 'repo')
-require File.join(directory, 'octopussy', 'event')
-require File.join(directory, 'octopussy', 'client')
