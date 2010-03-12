@@ -1,4 +1,4 @@
-require 'helper'
+require File.dirname(__FILE__) + '/helper'
 
 class RepoTest < Test::Unit::TestCase
   context "when passed a string containg a forward slash" do
