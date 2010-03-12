@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'rake'
 
 begin
@@ -26,6 +25,7 @@ end
 
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
+  test.ruby_opts = ['-rubygems'] if defined? Gem
   test.libs << 'lib' << 'test'
   test.pattern = 'test/**/test_*.rb'
   test.verbose = true
