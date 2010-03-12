@@ -393,6 +393,28 @@ class TestOctopussy < Test::Unit::TestCase
     end
     
   end
+
+  context "when Github responds with an error" do
+    {
+      ["401", "Unauthorized"]         => Octopussy::Unauthorized,
+      ["403", "Rate Limit Exceeded"]  => Octopussy::RateLimitExceeded,
+      ["404", "Not Found"]            => Octopussy::NotFound,
+      ["500", "Server Error"]         => Octopussy::OctopussyError
+    }.each do |status, exception|
+      context "and authentication is required" do
+        should "getting should raise an #{exception.name} error" do
+          stub_get("/user/show/pengwynn", nil, status)
+          lambda { Octopussy.user("pengwynn") }.should raise_error(exception)
+        end
+
+        should "posting should raise an #{exception.name} error" do
+          stub_post("/user/show/pengwynn?login=pengwynn&token=OU812", nil, status)
+          client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
+          lambda { client.update_user(:location => "Dallas, TX") }.should raise_error(exception)
+        end
+      end
+    end
+  end
   
   context "when consuming feeds" do
     

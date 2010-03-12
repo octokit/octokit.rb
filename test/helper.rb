@@ -25,14 +25,14 @@ def github_url(url)
   url =~ /^http/ ? url : "http://github.com/api/v2/json#{url}"
 end
 
-def stub_get(url, filename, status=nil)
-  options = {:body => fixture_file(filename)}
-  options.merge!({:status => status}) unless status.nil?
-  
-  FakeWeb.register_uri(:get, github_url(url), options)
+def stub_request(method, url, filename, status=nil)
+  options = {:body => ""}
+  options.merge!({:body => fixture_file(filename)}) if filename
+  options.merge!({:body => status.last}) if status
+  options.merge!({:status => status}) if status
+
+  FakeWeb.register_uri(method, github_url(url), options)
 end
 
-def stub_post(url, filename)
-  FakeWeb.register_uri(:post, github_url(url), :body => fixture_file(filename))
-end
-
+def stub_get(*args); stub_request(:get, *args) end
+def stub_post(*args); stub_request(:post, *args) end
