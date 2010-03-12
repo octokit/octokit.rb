@@ -11,7 +11,6 @@ require 'octopussy/repo'
 require 'octopussy/event'
 require 'octopussy/client'
 
-
 module Octopussy
   extend SingleForwardable
 
@@ -24,13 +23,16 @@ module Octopussy
     end
   end
 
-  class RateLimitExceeded < StandardError; end
-  class Unauthorized      < StandardError; end
-  class General           < OctopussyError; end
+  class ClientError < StandardError; end
+  class ServerError < OctopussyError; end
+  class General     < OctopussyError; end
+
+  class RateLimitExceeded < ClientError; end
+  class Unauthorized      < ClientError; end
+  class NotFound          < ClientError; end
 
   class Unavailable   < StandardError; end
   class InformOctopussy < StandardError; end
-  class NotFound        < StandardError; end
 
   def self.client; Client.new end
 

@@ -399,19 +399,19 @@ class TestOctopussy < Test::Unit::TestCase
       ["401", "Unauthorized"]         => Octopussy::Unauthorized,
       ["403", "Rate Limit Exceeded"]  => Octopussy::RateLimitExceeded,
       ["404", "Not Found"]            => Octopussy::NotFound,
-      ["500", "Server Error"]         => Octopussy::OctopussyError
+      ["406", "Not Acceptable"]       => Octopussy::ClientError,
+      ["500", "Server Error"]         => Octopussy::ServerError,
+      ["501", "Not Implemented"]      => Octopussy::ServerError
     }.each do |status, exception|
-      context "and authentication is required" do
-        should "getting should raise an #{exception.name} error" do
-          stub_get("/user/show/pengwynn", nil, status)
-          lambda { Octopussy.user("pengwynn") }.should raise_error(exception)
-        end
+      should "getting a #{status.first} should raise an #{exception.name} error" do
+        stub_get("/user/show/pengwynn", nil, status)
+        lambda { Octopussy.user("pengwynn") }.should raise_error(exception)
+      end
 
-        should "posting should raise an #{exception.name} error" do
-          stub_post("/user/show/pengwynn?login=pengwynn&token=OU812", nil, status)
-          client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
-          lambda { client.update_user(:location => "Dallas, TX") }.should raise_error(exception)
-        end
+      should "posting a #{status.first} should raise an #{exception.name} error" do
+        stub_post("/user/show/pengwynn?login=pengwynn&token=OU812", nil, status)
+        client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
+        lambda { client.update_user(:location => "Dallas, TX") }.should raise_error(exception)
       end
     end
   end
