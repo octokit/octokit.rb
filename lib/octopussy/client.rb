@@ -282,7 +282,7 @@ module Octopussy
     
     def branches(repo)
       repo = Repo.new(repo)
-      response = self.class.get("/repos/show/#{repo.username}/#{repo.name}/branches")
+      response = self.class.get("/repos/show/#{repo.username}/#{repo.name}/branches", :query => auth_params)
       Hashie::Mash.new(response).branches
     end
     
