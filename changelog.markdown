@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.0
+  * Commits API courtesy of @enricob
+
 ## 0.1.4
 
   * Preserved links array and content for events parsed from feeds
