@@ -391,6 +391,26 @@ class OctopussyTest < Test::Unit::TestCase
       raw_text = Octopussy.raw({:username => "defunkt", :repo => "facebox"}, "4bf7a39e8c4ec54f8b4cd594a3616d69004aba69")
       assert raw_text.include?("cd13d9a61288dceb0a7aa73b55ed2fd019f4f1f7")
     end
+    
+    #commits
+    should "list commits for a repo's master branch by default" do
+      stub_get("http://github.com/api/v2/json/commits/list/defunkt/facebox/master", "list_commits.json")
+      commits_list = Octopussy.list_commits({:username => "defunkt", :repo => "facebox"})
+      assert commits_list.any? { |c| c.message == "Fixed CSS expression, throwing errors in IE6." }
+    end
+    
+    should "list commits for a repo on a given branch" do
+      stub_get("http://github.com/api/v2/json/commits/list/schacon/simplegit/m/dev/cp", "list_branch_commits.json")
+      commits_list = Octopussy.list_commits({:username => "schacon", :repo => "simplegit"}, "m/dev/cp")
+      assert commits_list.any? { |c| c.message == "removed unnecessary test code" }
+    end
+    
+    should "show a specific commit for a repo given its SHA" do
+      sha = "1ff368f79b0f0aa0e1f1d78bcaa8691f94f9703e"
+      stub_get("http://github.com/api/v2/json/commits/show/defunkt/facebox/#{sha}", "show_commit.json")
+      show_commit = Octopussy.commit({:username => "defunkt", :repo => "facebox"}, sha)
+      assert show_commit.message == "Fixed CSS expression, throwing errors in IE6."
+    end
 
   end
 

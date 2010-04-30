@@ -51,4 +51,7 @@ module Octopussy
 
   # Trees
   def_delegators :client, :tree, :blob, :raw
+  
+  # Commits
+  def_delegators :client, :list_commits, :commit
 end

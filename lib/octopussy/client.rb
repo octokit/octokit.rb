@@ -320,6 +320,20 @@ module Octopussy
       response.body
     end
     
+    # Commits
+    
+    def list_commits(repo, branch="master")
+      repo = Repo.new(repo)
+      response = self.class.get("http://github.com/api/v2/json/commits/list/#{repo.username}/#{repo.name}/#{branch}")
+      Hashie::Mash.new(response).commits
+    end
+    
+    def commit(repo, sha)
+      repo = Repo.new(repo)
+      response = self.class.get("http://github.com/api/v2/json/commits/show/#{repo.username}/#{repo.name}/#{sha}")
+      Hashie::Mash.new(response).commit
+    end
+    
     private
     
     def auth_params

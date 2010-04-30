@@ -1,0 +1,37 @@
+{
+  "commit": {
+    "modified": [
+      {
+        "filename": "facebox.css",
+        "diff": "@@ -103,5 +103,5 @@\n \n * html #facebox_overlay { \/* ie6 hack *\/\n   position: absolute;\n-  height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');\n+  height: expression(\"document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px'\");\n }"
+      }
+    ],
+    "added": [
+
+    ],
+    "author": {
+      "name": "Stephen Martin",
+      "login": "",
+      "email": "stephenmartin@stephen-martins-mac-pro.local"
+    },
+    "parents": [
+      {
+        "id": "b9a23779076953b33744261a8b745ff753cce85b"
+      }
+    ],
+    "removed": [
+
+    ],
+    "url": "http:\/\/github.com\/defunkt\/facebox\/commit\/1ff368f79b0f0aa0e1f1d78bcaa8691f94f9703e",
+    "id": "1ff368f79b0f0aa0e1f1d78bcaa8691f94f9703e",
+    "committed_date": "2010-04-23T08:49:45-07:00",
+    "authored_date": "2009-03-19T06:28:05-07:00",
+    "message": "Fixed CSS expression, throwing errors in IE6.",
+    "committer": {
+      "name": "Chris Wanstrath",
+      "login": "defunkt",
+      "email": "chris@ozmm.org"
+    },
+    "tree": "2460799b2a8c55df06690b663cf47874661e6745"
+  }
+}
