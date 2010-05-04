@@ -318,6 +318,12 @@ class OctopussyTest < Test::Unit::TestCase
       repo = Octopussy.repo({:username => "pengwynn", :repo => "linkedin"})
       repo.homepage.should == "http://bit.ly/ruby-linkedin"
     end
+    
+    should "return a repo's contributors list" do
+      stub_get("/repos/show/pengwynn/linkedin/contributors", "contributors.json")
+      contributors_list = Octopussy.contributors({:username => "pengwynn", :repo => "linkedin"})
+      assert contributors_list.include?(["holman", 1])
+    end
 
     should "list repos for a user" do
       stub_get("/repos/show/pengwynn", "repos.json")

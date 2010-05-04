@@ -43,7 +43,7 @@ module Octopussy
   def_delegators :client, :search_issues, :issues, :issue
 
   # Repos
-  def_delegators :client, :branches, :collaborators, :languages, :list_repos,
+  def_delegators :client, :branches, :collaborators, :contributors, :languages, :list_repos,
                  :network, :repo, :search_repos, :tags
 
   # Network Meta
