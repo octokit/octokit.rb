@@ -1,5 +1,6 @@
 # Changelog
-
+## 0.2.1
+  * Contributors API courtesy of @enricob
 ## 0.2.0
   * Commits API courtesy of @enricob
 
