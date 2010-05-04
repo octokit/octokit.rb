@@ -239,6 +239,12 @@ module Octopussy
       Hashie::Mash.new(response).collaborators
     end
     
+    def contributors(repo)
+      repo = Repo.new(repo)
+      response = self.class.get("/repos/show/#{repo.username}/#{repo.name}/contributors")
+      Hashie::Mash.new(response).contributors
+    end
+    
     def repo(repo)
       repo = Repo.new(repo)
       response = self.class.get("/repos/show/#{repo.username}/#{repo.name}")
