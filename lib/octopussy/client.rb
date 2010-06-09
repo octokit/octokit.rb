@@ -247,7 +247,7 @@ module Octopussy
     
     def repo(repo)
       repo = Repo.new(repo)
-      response = self.class.get("/repos/show/#{repo.username}/#{repo.name}")
+      response = self.class.get("/repos/show/#{repo.username}/#{repo.name}", :query => auth_params)
       Hashie::Mash.new(response).repository
     end
     
@@ -310,19 +310,19 @@ module Octopussy
     
     def tree(repo, sha)
       repo = Repo.new(repo)
-      response = self.class.get("http://github.com/api/v2/json/tree/show/#{repo.username}/#{repo.name}/#{sha}")
+      response = self.class.get("http://github.com/api/v2/json/tree/show/#{repo.username}/#{repo.name}/#{sha}", :query => auth_params)
       Hashie::Mash.new(response).tree
     end
     
     def blob(repo, sha, path)
       repo = Repo.new(repo)
-      response = self.class.get("http://github.com/api/v2/json/blob/show/#{repo.username}/#{repo.name}/#{sha}/#{path}")
+      response = self.class.get("http://github.com/api/v2/json/blob/show/#{repo.username}/#{repo.name}/#{sha}/#{path}", :query => auth_params)
       Hashie::Mash.new(response).blob
     end
 
     def raw(repo, sha)
       repo = Repo.new(repo)
-      response = self.class.get("http://github.com/api/v2/yaml/blob/show/#{repo.username}/#{repo.name}/#{sha}")
+      response = self.class.get("http://github.com/api/v2/yaml/blob/show/#{repo.username}/#{repo.name}/#{sha}", :query => auth_params)
       response.body
     end
     
