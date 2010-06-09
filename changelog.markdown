@@ -1,4 +1,6 @@
 # Changelog
+## 0.2.2
+  * Patch from [abrader](http://github.com/abrader) to add auth_params query to the blob, tree, and repo class methods
 ## 0.2.1
   * Contributors API courtesy of @enricob
 ## 0.2.0
