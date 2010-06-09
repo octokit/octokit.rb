@@ -11,7 +11,7 @@ begin
     gem.homepage = "http://github.com/pengwynn/octopussy"
     gem.authors = ["Wynn Netherland", "Adam Stacoviak"]
 
-    gem.add_dependency('hashie', '~> 0.1.3')
+    gem.add_dependency('hashie', '~> 0.2.0')
     gem.add_dependency('httparty', '~> 0.4.5')
 
     gem.add_development_dependency('shoulda', '>= 2.10.1')
