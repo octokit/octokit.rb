@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{octopussy}
-  s.version = "0.2.0"
+  s.version = "0.2.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Wynn Netherland", "Adam Stacoviak"]
-  s.date = %q{2010-04-30}
+  s.date = %q{2010-05-04}
   s.description = %q{Simple wrapper for the GitHub API v2}
   s.email = %q{wynn.netherland@gmail.com}
   s.extra_rdoc_files = [
@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
      "test/fixtures/close_issue.json",
      "test/fixtures/collaborators.json",
      "test/fixtures/comment.json",
+     "test/fixtures/contributors.json",
      "test/fixtures/emails.json",
      "test/fixtures/followers.json",
      "test/fixtures/full_user.json",
