@@ -251,8 +251,13 @@ module Octopussy
       Hashie::Mash.new(response).repository
     end
     
-    def list_repos(username)
-      response = self.class.get("/repos/show/#{username}")
+    def list_repos(username = nil)
+      if username.nil? && !@login.nil?
+        username = login
+      elsif username.nil?
+        raise ArgumentError, 'you must provide a username'
+      end
+      response = self.class.get("/repos/show/#{username}", :query => auth_params)
       Hashie::Mash.new(response).repositories
     end
     
