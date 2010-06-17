@@ -1,4 +1,6 @@
 # Changelog
+## 0.2.3
+  * Patch from [Sutto](http://github.com/Sutto) to use authentication with list repos if available 
 ## 0.2.2
   * Patch from [abrader](http://github.com/abrader) to add auth_params query to the blob, tree, and repo class methods
 ## 0.2.1
