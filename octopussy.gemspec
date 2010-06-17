@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{octopussy}
-  s.version = "0.2.2"
+  s.version = "0.2.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Wynn Netherland", "Adam Stacoviak"]
-  s.date = %q{2010-06-08}
+  s.date = %q{2010-06-17}
   s.description = %q{Simple wrapper for the GitHub API v2}
   s.email = %q{wynn.netherland@gmail.com}
   s.extra_rdoc_files = [
@@ -63,7 +63,7 @@ Gem::Specification.new do |s|
      "test/octopussy_test.rb",
      "test/repo_test.rb"
   ]
-  s.homepage = %q{http://github.com/pengwynn/octopussy}
+  s.homepage = %q{http://wynnnetherland.com/projects/octopussy}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
