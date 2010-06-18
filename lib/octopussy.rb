@@ -54,4 +54,7 @@ module Octopussy
   
   # Commits
   def_delegators :client, :list_commits, :commit
+  
+  # Timeline
+  def_delegators :client, :public_timeline
 end

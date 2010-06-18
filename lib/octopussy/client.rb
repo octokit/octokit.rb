@@ -345,6 +345,22 @@ module Octopussy
       Hashie::Mash.new(response).commit
     end
     
+    def public_timeline(username = nil)
+      username ||= @login
+      if username.nil?
+        path = "http://github.com/timeline.json"
+      else 
+        path = "http://github.com/#{username}.json"
+      end
+      response = self.class.get(path)
+      response.map{|item| Hashie::Mash.new(item)}
+    end
+    
+    def timeline
+      response = self.class.get("http://github.com/#{@login}.private.json", :query => auth_params)
+      response.map{|item| Hashie::Mash.new(item)}
+    end
+    
     private
     
     def auth_params

@@ -237,7 +237,19 @@ class OctopussyTest < Test::Unit::TestCase
       collaborators.last.should == 'adamstac'
     end
 
-
+    should "fetch a user's public timeline" do
+      stub_get("http://github.com/pengwynn.json", "timeline.json")
+      events = @client.public_timeline('pengwynn')
+      events.first['type'].should == 'FollowEvent'
+      events[1].repository.name.should == 'octopussy'
+    end
+    
+    should "fetch a user's private timeline" do
+      stub_get("http://github.com/pengwynn.private.json?login=pengwynn&token=OU812", "timeline.json")
+      events = @client.timeline
+      events.first['type'].should == 'FollowEvent'
+      events[1].repository.name.should == 'octopussy'
+    end
   end
 
 
@@ -416,6 +428,22 @@ class OctopussyTest < Test::Unit::TestCase
       stub_get("http://github.com/api/v2/json/commits/show/defunkt/facebox/#{sha}", "show_commit.json")
       show_commit = Octopussy.commit({:username => "defunkt", :repo => "facebox"}, sha)
       assert show_commit.message == "Fixed CSS expression, throwing errors in IE6."
+    end
+    
+    #timeline
+    
+    should "fetch the public timeline" do
+      stub_get("http://github.com/timeline.json", "timeline.json")
+      events = Octopussy.public_timeline
+      events.first['type'].should == 'FollowEvent'
+      events[1].repository.name.should == 'octopussy'
+    end
+    
+    should "fetch a user's public timeline" do
+      stub_get("http://github.com/pengwynn.json", "timeline.json")
+      events = Octopussy.public_timeline('pengwynn')
+      events.first['type'].should == 'FollowEvent'
+      events[1].repository.name.should == 'octopussy'
     end
 
   end
