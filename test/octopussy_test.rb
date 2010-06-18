@@ -6,6 +6,14 @@ class OctopussyTest < Test::Unit::TestCase
     setup do
       @client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
     end
+    
+    should "authenticate via basic auth" do
+      stub_get("http://pengwynn:OU812@github.com/api/v2/json/user/show/pengwynn", "full_user.json")
+      client = Octopussy::Client.new(:login => 'pengwynn', :password => 'OU812')
+      user = client.user
+      user.plan.name.should == 'free'
+      user.plan.space.should == 307200
+    end
 
     should "should search users" do
       stub_get("/user/search/wynn", "search.json")
@@ -752,7 +760,10 @@ class OctopussyTest < Test::Unit::TestCase
       event.event_type.should == 'download'
       event.repo.name.should == 'prototype'
     end
+    
+    
   end
+  
 
 
 end

@@ -1,0 +1,5 @@
+lib/octopussy/client.rb 3031fe8edb068d9b2c203e20321416e1ab35cb6d
+lib/octopussy/event.rb b0252d90fef017d856c114045eb3234acbe2a789
+LICENSE 4c641d16b6c1534c7a8e6b29a08a4d46a0b85be9
+lib/octopussy/repo.rb 3657b267de7ff20fc4a71228345a208c38d69b7d
+lib/octopussy.rb 2cd5bb2b44b628ebec2baa2e8c94e61140babe9e
