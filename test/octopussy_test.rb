@@ -393,7 +393,7 @@ class OctopussyTest < Test::Unit::TestCase
     end
 
     should "return the contents of a blob with the blob's SHA" do
-      stub_get("http://github.com/api/v2/yaml/blob/show/defunkt/facebox/4bf7a39e8c4ec54f8b4cd594a3616d69004aba69", "raw_git_data.json")
+      stub_get("http://github.com/api/v2/yaml/blob/show/defunkt/facebox/4bf7a39e8c4ec54f8b4cd594a3616d69004aba69", "raw_git_data.yaml")
       raw_text = Octopussy.raw({:username => "defunkt", :repo => "facebox"}, "4bf7a39e8c4ec54f8b4cd594a3616d69004aba69")
       assert raw_text.include?("cd13d9a61288dceb0a7aa73b55ed2fd019f4f1f7")
     end
