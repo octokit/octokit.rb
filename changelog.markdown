@@ -1,4 +1,6 @@
 # Changelog
+## 0.2.4
+  * Rev'd HTTParty dependency, switched to Bundler
 ## 0.2.3
   * Patch from [Sutto](http://github.com/Sutto) to use authentication with list repos if available 
 ## 0.2.2

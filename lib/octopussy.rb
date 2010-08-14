@@ -13,6 +13,8 @@ require 'octopussy/client'
 
 module Octopussy
   extend SingleForwardable
+  
+  VERSION = "0.2.4".freeze
 
   class OctopussyError < StandardError
     attr_reader :data
