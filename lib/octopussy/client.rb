@@ -250,7 +250,17 @@ module Octopussy
       response = self.class.get("/repos/show/#{repo.username}/#{repo.name}", :query => auth_params)
       Hashie::Mash.new(response).repository
     end
-    
+
+    # pass options without the "values[x]" descriped in the API docs:
+    #    set_repo_info('user/repo', :description => "hey!", :has_wiki => false)
+    def set_repo_info(repo, options)
+      repo = Repo.new(repo)
+      # post body needs to be "values[has_wiki]=false"
+      response = self.class.post("/repos/show/#{repo.username}/#{repo.name}",
+        :body => options.keys.reduce({}) { |a,v| a["values[#{v}]"] = options[v]; a }.merge(auth_params))
+      Hashie::Mash.new(response).repository
+    end
+
     def list_repos(username = nil)
       if username.nil? && !@login.nil?
         username = login
