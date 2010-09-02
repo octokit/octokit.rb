@@ -1,4 +1,6 @@
 # Changelog
+## 0.3.0
+  * Added set_repo_info patch from [Scott Bronson](http://github.com/bronson)
 ## 0.2.4
   * Rev'd HTTParty dependency, switched to Bundler
 ## 0.2.3
