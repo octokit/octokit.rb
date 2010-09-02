@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.required_rubygems_version = ">= 1.3.6"
   s.authors = ["Wynn Netherland", "Adam Stacoviak"]
-  s.date = %q{2010-08-07}
+  s.date = %q{2010-09-01}
   s.description = %q{Simple wrapper for the GitHub API v2}
   s.email = %q{wynn.netherland@gmail.com}
   s.files = Dir.glob("{lib}/**/*")
