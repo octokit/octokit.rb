@@ -6,6 +6,14 @@ class OctopussyTest < Test::Unit::TestCase
     setup do
       @client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
     end
+    
+    should "authenticate via basic auth" do
+      stub_get("http://pengwynn:OU812@github.com/api/v2/json/user/show/pengwynn", "full_user.json")
+      client = Octopussy::Client.new(:login => 'pengwynn', :password => 'OU812')
+      user = client.user
+      user.plan.name.should == 'free'
+      user.plan.space.should == 307200
+    end
 
     should "should search users" do
       stub_get("/user/search/wynn", "search.json")
@@ -237,7 +245,19 @@ class OctopussyTest < Test::Unit::TestCase
       collaborators.last.should == 'adamstac'
     end
 
-
+    should "fetch a user's public timeline" do
+      stub_get("http://github.com/pengwynn.json", "timeline.json")
+      events = @client.public_timeline('pengwynn')
+      events.first['type'].should == 'FollowEvent'
+      events[1].repository.name.should == 'octopussy'
+    end
+    
+    should "fetch a user's private timeline" do
+      stub_get("http://github.com/pengwynn.private.json?login=pengwynn&token=OU812", "timeline.json")
+      events = @client.timeline
+      events.first['type'].should == 'FollowEvent'
+      events[1].repository.name.should == 'octopussy'
+    end
   end
 
 
@@ -393,7 +413,7 @@ class OctopussyTest < Test::Unit::TestCase
     end
 
     should "return the contents of a blob with the blob's SHA" do
-      stub_get("http://github.com/api/v2/yaml/blob/show/defunkt/facebox/4bf7a39e8c4ec54f8b4cd594a3616d69004aba69", "raw_git_data.json")
+      stub_get("http://github.com/api/v2/yaml/blob/show/defunkt/facebox/4bf7a39e8c4ec54f8b4cd594a3616d69004aba69", "raw_git_data.yaml")
       raw_text = Octopussy.raw({:username => "defunkt", :repo => "facebox"}, "4bf7a39e8c4ec54f8b4cd594a3616d69004aba69")
       assert raw_text.include?("cd13d9a61288dceb0a7aa73b55ed2fd019f4f1f7")
     end
@@ -416,6 +436,22 @@ class OctopussyTest < Test::Unit::TestCase
       stub_get("http://github.com/api/v2/json/commits/show/defunkt/facebox/#{sha}", "show_commit.json")
       show_commit = Octopussy.commit({:username => "defunkt", :repo => "facebox"}, sha)
       assert show_commit.message == "Fixed CSS expression, throwing errors in IE6."
+    end
+    
+    #timeline
+    
+    should "fetch the public timeline" do
+      stub_get("http://github.com/timeline.json", "timeline.json")
+      events = Octopussy.public_timeline
+      events.first['type'].should == 'FollowEvent'
+      events[1].repository.name.should == 'octopussy'
+    end
+    
+    should "fetch a user's public timeline" do
+      stub_get("http://github.com/pengwynn.json", "timeline.json")
+      events = Octopussy.public_timeline('pengwynn')
+      events.first['type'].should == 'FollowEvent'
+      events[1].repository.name.should == 'octopussy'
     end
 
   end
@@ -724,7 +760,10 @@ class OctopussyTest < Test::Unit::TestCase
       event.event_type.should == 'download'
       event.repo.name.should == 'prototype'
     end
+    
+    
   end
+  
 
 
 end

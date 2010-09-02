@@ -13,6 +13,8 @@ require 'octopussy/client'
 
 module Octopussy
   extend SingleForwardable
+  
+  VERSION = "0.2.4".freeze
 
   class OctopussyError < StandardError
     attr_reader :data
@@ -54,4 +56,7 @@ module Octopussy
   
   # Commits
   def_delegators :client, :list_commits, :commit
+  
+  # Timeline
+  def_delegators :client, :public_timeline
 end

@@ -9,8 +9,15 @@ module Octopussy
     
     # :login => 'pengwynn', :token => 'your_github_api_key'
     def initialize(auth={})
-      @login = auth[:login]
-      @token = auth[:token]
+      if auth[:password].nil?
+        @login = auth[:login]
+        @token = auth[:token]
+        self.class.basic_auth(nil, nil)
+      else
+        @login = auth[:login]
+        self.class.basic_auth(@login, auth[:password])
+      end
+      
     end
     
     def search_users(q)
@@ -355,10 +362,26 @@ module Octopussy
       Hashie::Mash.new(response).commit
     end
     
+    def public_timeline(username = nil)
+      username ||= @login
+      if username.nil?
+        path = "http://github.com/timeline.json"
+      else 
+        path = "http://github.com/#{username}.json"
+      end
+      response = self.class.get(path)
+      response.map{|item| Hashie::Mash.new(item)}
+    end
+    
+    def timeline
+      response = self.class.get("http://github.com/#{@login}.private.json", :query => auth_params)
+      response.map{|item| Hashie::Mash.new(item)}
+    end
+    
     private
     
     def auth_params
-      @login.nil? ? {} : {:login => @login, :token => @token}
+      @token.nil? ? {} : {:login => @login, :token => @token}
     end
 
     def self.get(*args); handle_response super end
