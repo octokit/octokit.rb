@@ -1,6 +1,7 @@
 require 'bundler'
 require 'bundler/version'
-require 'lib/octopussy'
+
+require File.expand_path('lib/octopussy')
 
 Gem::Specification.new do |s|
   s.name = %q{octopussy}
