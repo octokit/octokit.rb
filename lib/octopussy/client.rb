@@ -203,7 +203,7 @@ module Octopussy
     def delete(repo, delete_token={})
       repo = Repo.new(repo)
       response = self.class.post("/repos/delete/#{repo.name}", :query => auth_params, :body => {:delete_token => delete_token})
-      Hashie::Mash.new(response).repository
+      Hashie::Mash.new(response)
     end
     
     def confirm_delete(repo, delete_token)
