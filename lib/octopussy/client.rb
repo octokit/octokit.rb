@@ -16,8 +16,7 @@ module Octopussy
       else
         @login = auth[:login]
         self.class.basic_auth(@login, auth[:password])
-      end
-      
+      end      
     end
     
     def search_users(q)
@@ -27,34 +26,27 @@ module Octopussy
     end
     
     def user(login=self.login)
-      response = self.class.get("/user/show/#{login}", :query => auth_params)
-      Hashie::Mash.new(response).user
+      get("/user/show/#{login}", :query => auth_params).user
     end
-    
 
     def update_user(values={})
-      response = self.class.post("/user/show/#{self.login}", :query => auth_params, :body => {:values => values})
-      Hashie::Mash.new(response).user
+      post("/user/show/#{self.login}", :query => auth_params, :body => {:values => values}).user
     end
     
     def followers(login=self.login)
-      response = self.class.get("/user/show/#{login}/followers")
-      Hashie::Mash.new(response).users
+      get("/user/show/#{login}/followers").users
     end
     
     def following(login=self.login)
-      response = self.class.get("/user/show/#{login}/following")
-      Hashie::Mash.new(response).users
+      get("/user/show/#{login}/following").users
     end
     
     def follow!(username)
-      response = self.class.post("/user/follow/#{username}", :query => auth_params)
-      Hashie::Mash.new(response).users
+      post("/user/follow/#{username}", :query => auth_params).users
     end
     
     def unfollow!(username)
-      response = self.class.post("/user/unfollow/#{username}", :query => auth_params)
-      Hashie::Mash.new(response).users
+      post("/user/unfollow/#{username}", :query => auth_params).users
     end
     
     def follows?(*args)
@@ -66,144 +58,106 @@ module Octopussy
     end
     
     def watched(login=self.login)
-      response = self.class.get("/repos/watched/#{login}")
-      Hashie::Mash.new(response).repositories
+      get("/repos/watched/#{login}").repositories
     end
     
     def emails
-      response = self.class.get("/user/emails", :query => auth_params)
-      Hashie::Mash.new(response).emails
+      get("/user/emails", :query => auth_params).emails
     end
     
     def add_email(email)
-      response = self.class.post("/user/email/add", :query => auth_params, :body => {:email => email})
-      Hashie::Mash.new(response).emails
+      post("/user/email/add", :query => auth_params, :body => {:email => email}).emails
     end
     
     def remove_email(email)
-      response = self.class.post("/user/email/remove", :query => auth_params, :body => {:email => email})
-      Hashie::Mash.new(response).emails
+      post("/user/email/remove", :query => auth_params, :body => {:email => email}).emails
     end
     
     def keys
-      response = self.class.get("/user/keys", :query => auth_params)
-      Hashie::Mash.new(response).public_keys
+      get("/user/keys", :query => auth_params).public_keys
     end
     
     def add_key(title, key)
-      response = self.class.post("/user/key/add", :query => auth_params, :body => {:title => title, :key => key})
-      Hashie::Mash.new(response).public_keys
+      post("/user/key/add", :query => auth_params, :body => {:title => title, :key => key}).public_keys
     end
     
     def remove_key(id)
-      response = self.class.post("/user/key/remove", :query => auth_params, :body => {:id => id})
-      Hashie::Mash.new(response).public_keys
+      post("/user/key/remove", :query => auth_params, :body => {:id => id}).public_keys
     end
 
     # Issues
     
     def search_issues(repo, state, q)
-      repo = Repo.new(repo)
-      response = self.class.get("/issues/search/#{repo.username}/#{repo.name}/#{state}/#{q}")
-      Hashie::Mash.new(response).issues
+      get("/issues/search/#{Repo.new(repo)}/#{state}/#{q}").issues
     end
     
     def issues(repo, state)
-      repo = Repo.new(repo)
-      response = self.class.get("/issues/list/#{repo.username}/#{repo.name}/#{state}")
-      Hashie::Mash.new(response).issues
+      get("/issues/list/#{Repo.new(repo)}/#{state}").issues
     end
     
     def issue(repo, id)
-      repo = Repo.new(repo)
-      response = self.class.get("/issues/show/#{repo.username}/#{repo.name}/#{id}")
-      Hashie::Mash.new(response).issue
+      get("/issues/show/#{Repo.new(repo)}/#{id}").issue
     end
 
     def open_issue(repo, title, body)
-      repo = Repo.new(repo)
-      response = self.class.post("/issues/open/#{repo.username}/#{repo.name}", :body => {:title => title, :body => body})
-      Hashie::Mash.new(response).issue
+      post("/issues/open/#{Repo.new(repo)}", :body => {:title => title, :body => body}).issue
     end
     
     def close_issue(repo, number)
-      repo = Repo.new(repo)
-      response = self.class.post("/issues/close/#{repo.username}/#{repo.name}/#{number}")
-      Hashie::Mash.new(response).issue
+      post("/issues/close/#{Repo.new(repo)}/#{number}").issue
     end
     
     def reopen_issue(repo, number)
-      repo = Repo.new(repo)
-      response = self.class.post("/issues/reopen/#{repo.username}/#{repo.name}/#{number}")
-      Hashie::Mash.new(response).issue
+      post("/issues/reopen/#{Repo.new(repo)}/#{number}").issue
     end
     
     def update_issue(repo, number, title, body)
-      repo = Repo.new(repo)
-      response = self.class.post("/issues/edit/#{repo.username}/#{repo.name}/#{number}", :body => {:title => title, :body => body})
-      Hashie::Mash.new(response).issue
+      post("/issues/edit/#{Repo.new(repo)}/#{number}", :body => {:title => title, :body => body}).issue
     end
     
     def labels(repo)
-      repo = Repo.new(repo)
-      response = self.class.get("/issues/labels/#{repo.username}/#{repo.name}")
-      Hashie::Mash.new(response).labels
+      get("/issues/labels/#{Repo.new(repo)}").labels
     end
     
     def add_label(repo, number, label)
-      repo = Repo.new(repo)
-      response = self.class.post("/issues/label/add/#{repo.username}/#{repo.name}/#{label}/#{number}")
-      Hashie::Mash.new(response).labels
+      post("/issues/label/add/#{Repo.new(repo)}/#{label}/#{number}").labels
     end
     
     def remove_label(repo, number, label)
-      repo = Repo.new(repo)
-      response = self.class.post("/issues/label/remove/#{repo.username}/#{repo.name}/#{label}/#{number}")
-      Hashie::Mash.new(response).labels
+      post("/issues/label/remove/#{Repo.new(repo)}/#{label}/#{number}").labels
     end
 
     def add_comment(repo, number, comment)
-      repo = Repo.new(repo)
-      response = self.class.post("/issues/comment/#{repo.username}/#{repo.name}/#{number}", :body => {:comment => comment})
-      Hashie::Mash.new(response).comment
+      post("/issues/comment/#{Repo.new(repo)}/#{number}", :body => {:comment => comment}).comment
     end
     
     # Repos
     
     def search_repos(q)
       q = CGI.escape(q)
-      response = self.class.get("/repos/search/#{q}")
-      Hashie::Mash.new(response).repositories
+      get("/repos/search/#{q}").repositories
     end
     
     def watch(repo)
-      repo = Repo.new(repo)
-      response = self.class.post("/repos/watch/#{repo.username}/#{repo.name}", :query => auth_params)
-      Hashie::Mash.new(response).repository
+      post("/repos/watch/#{Repo.new(repo)}", :query => auth_params).repository
     end
     
     def unwatch(repo)
-      repo = Repo.new(repo)
-      response = self.class.post("/repos/unwatch/#{repo.username}/#{repo.name}", :query => auth_params)
-      Hashie::Mash.new(response).repository
+      post("/repos/unwatch/#{Repo.new(repo)}", :query => auth_params).repository
     end
     
     def fork(repo)
-      repo = Repo.new(repo)
-      response = self.class.post("/repos/fork/#{repo.username}/#{repo.name}", :query => auth_params)
-      Hashie::Mash.new(response).repository
+      post("/repos/fork/#{Repo.new(repo)}", :query => auth_params).repository
     end
     
     # :name, :description, :homepage, :public
     def create(options)
-      response = self.class.post("/repos/create", :query => auth_params, :body => options)
-      Hashie::Mash.new(response).repository
+      post("/repos/create", :query => auth_params, :body => options).repository
     end
     
     def delete(repo, delete_token={})
       repo = Repo.new(repo)
-      response = self.class.post("/repos/delete/#{repo.name}", :query => auth_params, :body => {:delete_token => delete_token})
-      Hashie::Mash.new(response)
+      post("/repos/delete/#{repo.name}", :query => auth_params, :body => {:delete_token => delete_token})
     end
     
     def confirm_delete(repo, delete_token)
@@ -212,58 +166,46 @@ module Octopussy
     
     def set_private(repo)
       repo = Repo.new(repo)
-      response = self.class.post("/repos/set/private/#{repo.name}", :query => auth_params)
-      Hashie::Mash.new(response).repository
+      post("/repos/set/private/#{repo.name}", :query => auth_params).repository
     end
     
     def set_public(repo)
       repo = Repo.new(repo)
-      response = self.class.post("/repos/set/public/#{repo.name}", :query => auth_params)
-      Hashie::Mash.new(response).repository
+      post("/repos/set/public/#{repo.name}", :query => auth_params).repository
     end
     
     def deploy_keys(repo)
       repo = Repo.new(repo)
-      response = self.class.get("/repos/keys/#{repo.name}", :query => auth_params)
-      Hashie::Mash.new(response).public_keys
+      get("/repos/keys/#{repo.name}", :query => auth_params).public_keys
     end
     
     def add_deploy_key(repo, key, title='')
       repo = Repo.new(repo)
-      response = self.class.post("/repos/key/#{repo.name}/add", :query => auth_params, :body => {:title => title, :key => key})
-      Hashie::Mash.new(response).public_keys
+      post("/repos/key/#{repo.name}/add", :query => auth_params, :body => {:title => title, :key => key}).public_keys
     end
     
     def remove_deploy_key(repo, id)
       repo = Repo.new(repo)
-      response = self.class.post("/repos/key/#{repo.name}/remove", :query => auth_params, :body => {:id => id})
-      Hashie::Mash.new(response).public_keys
+      post("/repos/key/#{repo.name}/remove", :query => auth_params, :body => {:id => id}).public_keys
     end
     
     def collaborators(repo)
-      repo = Repo.new(repo)
-      response = self.class.post("/repos/show/#{repo.username}/#{repo.name}/collaborators", :query => auth_params)
-      Hashie::Mash.new(response).collaborators
+      post("/repos/show/#{Repo.new(repo)}/collaborators", :query => auth_params).collaborators
     end
     
     def contributors(repo)
-      repo = Repo.new(repo)
-      response = self.class.get("/repos/show/#{repo.username}/#{repo.name}/contributors")
-      Hashie::Mash.new(response).contributors
+      get("/repos/show/#{Repo.new(repo)}/contributors").contributors
     end
     
     def repo(repo)
-      repo = Repo.new(repo)
-      response = self.class.get("/repos/show/#{repo.username}/#{repo.name}", :query => auth_params)
-      Hashie::Mash.new(response).repository
+      get("/repos/show/#{Repo.new(repo)}", :query => auth_params).repository
     end
 
     # pass options without the "values[x]" descriped in the API docs:
     #    set_repo_info('user/repo', :description => "hey!", :has_wiki => false)
     def set_repo_info(repo, options)
-      repo = Repo.new(repo)
       # post body needs to be "values[has_wiki]=false"
-      response = self.class.post("/repos/show/#{repo.username}/#{repo.name}",
+      response = self.class.post("/repos/show/#{Repo.new(repo)}",
         :body => options.keys.reduce({}) { |a,v| a["values[#{v}]"] = options[v]; a }.merge(auth_params))
       Hashie::Mash.new(response).repository
     end
@@ -280,86 +222,63 @@ module Octopussy
     
     def add_collaborator(repo, collaborator)
       repo = Repo.new(repo)
-      response = self.class.post("/repos/collaborators/#{repo.name}/add/#{collaborator}", :query => auth_params)
-      Hashie::Mash.new(response).collaborators
+      post("/repos/collaborators/#{repo.name}/add/#{collaborator}", :query => auth_params).collaborators
     end
     
     def remove_collaborator(repo, collaborator)
       repo = Repo.new(repo)
-      response = self.class.post("/repos/collaborators/#{repo.name}/remove/#{collaborator}", :query => auth_params)
-      Hashie::Mash.new(response).collaborators
+      post("/repos/collaborators/#{repo.name}/remove/#{collaborator}", :query => auth_params).collaborators
     end
     
     def network(repo)
-      repo = Repo.new(repo)
-      response = self.class.get("/repos/show/#{repo.username}/#{repo.name}/network")
-      Hashie::Mash.new(response).network
+      get("/repos/show/#{Repo.new(repo)}/network").network
     end
     
     def languages(repo)
-      repo = Repo.new(repo)
-      response = self.class.get("/repos/show/#{repo.username}/#{repo.name}/languages")
-      Hashie::Mash.new(response).languages
+      get("/repos/show/#{Repo.new(repo)}/languages").languages
     end
     
     def tags(repo)
-      repo = Repo.new(repo)
-      response = self.class.get("/repos/show/#{repo.username}/#{repo.name}/tags")
-      Hashie::Mash.new(response).tags
+      get("/repos/show/#{Repo.new(repo)}/tags").tags
     end
     
     def branches(repo)
-      repo = Repo.new(repo)
-      response = self.class.get("/repos/show/#{repo.username}/#{repo.name}/branches", :query => auth_params)
-      Hashie::Mash.new(response).branches
+      get("/repos/show/#{Repo.new(repo)}/branches", :query => auth_params).branches
     end
     
     # Network
     
     def network_meta(repo)
-      repo = Repo.new(repo)
-      response = self.class.get("http://github.com/#{repo.username}/#{repo.name}/network_meta")
-      Hashie::Mash.new(response)
+      get("http://github.com/#{Repo.new(repo)}/network_meta")
     end
     
     def network_data(repo, nethash)
-      repo = Repo.new(repo)
-      response = self.class.get("http://github.com/#{repo.username}/#{repo.name}/network_data_chunk", :query => {:nethash => nethash})
-      Hashie::Mash.new(response).commits
+      get("http://github.com/#{Repo.new(repo)}/network_data_chunk", :query => {:nethash => nethash}).commits
     end
     
     # Trees
     
     def tree(repo, sha)
-      repo = Repo.new(repo)
-      response = self.class.get("http://github.com/api/v2/json/tree/show/#{repo.username}/#{repo.name}/#{sha}", :query => auth_params)
-      Hashie::Mash.new(response).tree
+      get("http://github.com/api/v2/json/tree/show/#{Repo.new(repo)}/#{sha}", :query => auth_params).tree
     end
     
     def blob(repo, sha, path)
-      repo = Repo.new(repo)
-      response = self.class.get("http://github.com/api/v2/json/blob/show/#{repo.username}/#{repo.name}/#{sha}/#{path}", :query => auth_params)
-      Hashie::Mash.new(response).blob
+      get("http://github.com/api/v2/json/blob/show/#{Repo.new(repo)}/#{sha}/#{path}", :query => auth_params).blob
     end
 
     def raw(repo, sha)
-      repo = Repo.new(repo)
-      response = self.class.get("http://github.com/api/v2/yaml/blob/show/#{repo.username}/#{repo.name}/#{sha}", :query => auth_params)
+      response = self.class.get("http://github.com/api/v2/yaml/blob/show/#{Repo.new(repo)}/#{sha}", :query => auth_params)
       response.body
     end
     
     # Commits
     
     def list_commits(repo, branch="master")
-      repo = Repo.new(repo)
-      response = self.class.get("http://github.com/api/v2/json/commits/list/#{repo.username}/#{repo.name}/#{branch}")
-      Hashie::Mash.new(response).commits
+      get("http://github.com/api/v2/json/commits/list/#{Repo.new(repo)}/#{branch}").commits
     end
     
     def commit(repo, sha)
-      repo = Repo.new(repo)
-      response = self.class.get("http://github.com/api/v2/json/commits/show/#{repo.username}/#{repo.name}/#{sha}")
-      Hashie::Mash.new(response).commit
+      get("http://github.com/api/v2/json/commits/show/#{Repo.new(repo)}/#{sha}").commit
     end
     
     def public_timeline(username = nil)
@@ -379,6 +298,14 @@ module Octopussy
     end
     
     private
+
+    def get path, options = {}
+      Hashie::Mash.new(self.class.get(path, options))
+    end
+
+    def post path, options = {}
+      Hashie::Mash.new(self.class.post(path, options))
+    end
     
     def auth_params
       @token.nil? ? {} : {:login => @login, :token => @token}
