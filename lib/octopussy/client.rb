@@ -205,9 +205,8 @@ module Octopussy
     #    set_repo_info('user/repo', :description => "hey!", :has_wiki => false)
     def set_repo_info(repo, options)
       # post body needs to be "values[has_wiki]=false"
-      response = self.class.post("/repos/show/#{Repo.new(repo)}",
-        :body => options.keys.reduce({}) { |a,v| a["values[#{v}]"] = options[v]; a }.merge(auth_params))
-      Hashie::Mash.new(response).repository
+      body = options.keys.reduce({}) { |a,v| a["values[#{v}]"] = options[v]; a }
+      auth_post("/repos/show/#{Repo.new(repo)}", :body => body).repository
     end
 
     def list_repos(username = nil)
