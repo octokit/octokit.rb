@@ -323,14 +323,14 @@ module Octopussy
 
     def self.handle_response(response)
       case response.code
-      when 401; raise Unauthorized.new
-      when 403; raise RateLimitExceeded.new
-      when 404; raise NotFound.new
-      when 400...500; raise ClientError.new
-      when 500...600; raise ServerError.new(response.code)
-      else; response
+      when 401       then raise Unauthorized
+      when 403       then raise RateLimitExceeded
+      when 404       then raise NotFound
+      when 400...500 then raise ClientError
+      when 500...600 then raise ServerError, response.code
+      else
+        response
       end
     end
-    
   end
 end
