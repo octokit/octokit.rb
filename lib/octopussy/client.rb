@@ -21,8 +21,7 @@ module Octopussy
     
     def search_users(q)
       q = CGI.escape(q)
-      response = self.class.get("/user/search/#{q}")
-      Hashie::Mash.new(response).users
+      get("/user/search/#{q}").users
     end
     
     def user(login=self.login)
