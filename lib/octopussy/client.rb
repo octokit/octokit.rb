@@ -26,11 +26,11 @@ module Octopussy
     end
     
     def user(login=self.login)
-      get("/user/show/#{login}", :query => auth_params).user
+      auth_get("/user/show/#{login}").user
     end
 
     def update_user(values={})
-      post("/user/show/#{self.login}", :query => auth_params, :body => {:values => values}).user
+      auth_post("/user/show/#{self.login}", :body => {:values => values}).user
     end
     
     def followers(login=self.login)
@@ -42,11 +42,11 @@ module Octopussy
     end
     
     def follow!(username)
-      post("/user/follow/#{username}", :query => auth_params).users
+      auth_post("/user/follow/#{username}").users
     end
     
     def unfollow!(username)
-      post("/user/unfollow/#{username}", :query => auth_params).users
+      auth_post("/user/unfollow/#{username}").users
     end
     
     def follows?(*args)
@@ -62,27 +62,27 @@ module Octopussy
     end
     
     def emails
-      get("/user/emails", :query => auth_params).emails
+      auth_get("/user/emails").emails
     end
     
     def add_email(email)
-      post("/user/email/add", :query => auth_params, :body => {:email => email}).emails
+      auth_post("/user/email/add", :body => {:email => email}).emails
     end
     
     def remove_email(email)
-      post("/user/email/remove", :query => auth_params, :body => {:email => email}).emails
+      auth_post("/user/email/remove", :body => {:email => email}).emails
     end
     
     def keys
-      get("/user/keys", :query => auth_params).public_keys
+      auth_get("/user/keys").public_keys
     end
     
     def add_key(title, key)
-      post("/user/key/add", :query => auth_params, :body => {:title => title, :key => key}).public_keys
+      auth_post("/user/key/add", :body => {:title => title, :key => key}).public_keys
     end
     
     def remove_key(id)
-      post("/user/key/remove", :query => auth_params, :body => {:id => id}).public_keys
+      auth_post("/user/key/remove", :body => {:id => id}).public_keys
     end
 
     # Issues
@@ -139,25 +139,25 @@ module Octopussy
     end
     
     def watch(repo)
-      post("/repos/watch/#{Repo.new(repo)}", :query => auth_params).repository
+      auth_post("/repos/watch/#{Repo.new(repo)}").repository
     end
     
     def unwatch(repo)
-      post("/repos/unwatch/#{Repo.new(repo)}", :query => auth_params).repository
+      auth_post("/repos/unwatch/#{Repo.new(repo)}").repository
     end
     
     def fork(repo)
-      post("/repos/fork/#{Repo.new(repo)}", :query => auth_params).repository
+      auth_post("/repos/fork/#{Repo.new(repo)}").repository
     end
     
     # :name, :description, :homepage, :public
     def create(options)
-      post("/repos/create", :query => auth_params, :body => options).repository
+      auth_post("/repos/create", :body => options).repository
     end
     
     def delete(repo, delete_token={})
       repo = Repo.new(repo)
-      post("/repos/delete/#{repo.name}", :query => auth_params, :body => {:delete_token => delete_token})
+      auth_post("/repos/delete/#{repo.name}", :body => {:delete_token => delete_token})
     end
     
     def confirm_delete(repo, delete_token)
@@ -166,31 +166,31 @@ module Octopussy
     
     def set_private(repo)
       repo = Repo.new(repo)
-      post("/repos/set/private/#{repo.name}", :query => auth_params).repository
+      auth_post("/repos/set/private/#{repo.name}").repository
     end
     
     def set_public(repo)
       repo = Repo.new(repo)
-      post("/repos/set/public/#{repo.name}", :query => auth_params).repository
+      auth_post("/repos/set/public/#{repo.name}").repository
     end
     
     def deploy_keys(repo)
       repo = Repo.new(repo)
-      get("/repos/keys/#{repo.name}", :query => auth_params).public_keys
+      auth_get("/repos/keys/#{repo.name}").public_keys
     end
     
     def add_deploy_key(repo, key, title='')
       repo = Repo.new(repo)
-      post("/repos/key/#{repo.name}/add", :query => auth_params, :body => {:title => title, :key => key}).public_keys
+      auth_post("/repos/key/#{repo.name}/add", :body => {:title => title, :key => key}).public_keys
     end
     
     def remove_deploy_key(repo, id)
       repo = Repo.new(repo)
-      post("/repos/key/#{repo.name}/remove", :query => auth_params, :body => {:id => id}).public_keys
+      auth_post("/repos/key/#{repo.name}/remove", :body => {:id => id}).public_keys
     end
     
     def collaborators(repo)
-      post("/repos/show/#{Repo.new(repo)}/collaborators", :query => auth_params).collaborators
+      auth_post("/repos/show/#{Repo.new(repo)}/collaborators").collaborators
     end
     
     def contributors(repo)
@@ -198,7 +198,7 @@ module Octopussy
     end
     
     def repo(repo)
-      get("/repos/show/#{Repo.new(repo)}", :query => auth_params).repository
+      auth_get("/repos/show/#{Repo.new(repo)}").repository
     end
 
     # pass options without the "values[x]" descriped in the API docs:
@@ -216,18 +216,17 @@ module Octopussy
       elsif username.nil?
         raise ArgumentError, 'you must provide a username'
       end
-      response = self.class.get("/repos/show/#{username}", :query => auth_params)
-      Hashie::Mash.new(response).repositories
+      auth_get("/repos/show/#{username}").repositories
     end
     
     def add_collaborator(repo, collaborator)
       repo = Repo.new(repo)
-      post("/repos/collaborators/#{repo.name}/add/#{collaborator}", :query => auth_params).collaborators
+      auth_post("/repos/collaborators/#{repo.name}/add/#{collaborator}").collaborators
     end
     
     def remove_collaborator(repo, collaborator)
       repo = Repo.new(repo)
-      post("/repos/collaborators/#{repo.name}/remove/#{collaborator}", :query => auth_params).collaborators
+      auth_post("/repos/collaborators/#{repo.name}/remove/#{collaborator}").collaborators
     end
     
     def network(repo)
@@ -243,7 +242,7 @@ module Octopussy
     end
     
     def branches(repo)
-      get("/repos/show/#{Repo.new(repo)}/branches", :query => auth_params).branches
+      auth_get("/repos/show/#{Repo.new(repo)}/branches").branches
     end
     
     # Network
@@ -259,11 +258,11 @@ module Octopussy
     # Trees
     
     def tree(repo, sha)
-      get("http://github.com/api/v2/json/tree/show/#{Repo.new(repo)}/#{sha}", :query => auth_params).tree
+      auth_get("http://github.com/api/v2/json/tree/show/#{Repo.new(repo)}/#{sha}").tree
     end
     
     def blob(repo, sha, path)
-      get("http://github.com/api/v2/json/blob/show/#{Repo.new(repo)}/#{sha}/#{path}", :query => auth_params).blob
+      auth_get("http://github.com/api/v2/json/blob/show/#{Repo.new(repo)}/#{sha}/#{path}").blob
     end
 
     def raw(repo, sha)
@@ -305,6 +304,14 @@ module Octopussy
 
     def post path, options = {}
       Hashie::Mash.new(self.class.post(path, options))
+    end
+
+    def auth_get path, options = {}
+      get(path, {:query => auth_params}.merge(options))
+    end
+
+    def auth_post path, options = {}
+      post(path, {:query => auth_params}.merge(options))
     end
     
     def auth_params
