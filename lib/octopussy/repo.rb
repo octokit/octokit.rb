@@ -3,19 +3,20 @@ module Octopussy
     attr_accessor :username, :name
   
     def initialize(repo)
-      if repo.is_a?(String)
+      case repo
+      when String
         repo = repo.split("/")
         @name = repo.pop
         @username = repo.pop
-      elsif repo.is_a?(Repo)
+      when Repo
         @username = repo.username
         @name = repo.name
-      elsif repo.is_a?(Hash)
-        @name = repo[:repo] ||= repo[:name] 
+      when Hash
+        @name = repo[:repo] ||= repo[:name]
         @username = repo[:username] ||= repo[:user] ||= repo[:owner]
       end
     end
-  
+
     def slug
       "#{@username}/#{@name}"
     end
