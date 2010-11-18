@@ -13,8 +13,6 @@ require 'octopussy/client'
 
 module Octopussy
   extend SingleForwardable
-  
-  VERSION = "0.3.0" unless defined?(Octopussy::VERSION)
 
   class OctopussyError < StandardError
     attr_reader :data

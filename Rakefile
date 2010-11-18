@@ -1,9 +1,10 @@
 $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
-require "bundler/version"
-require "shoulda/tasks"
-require File.expand_path(File.dirname(__FILE__) + '/lib/octopussy')
+require 'bundler'
+Bundler::GemHelper.install_tasks
 
-require "rake/testtask"
+require 'shoulda/tasks'
+
+require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.ruby_opts = ["-rubygems"] if defined? Gem
   test.libs << "lib" << "test"

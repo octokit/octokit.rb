@@ -1,7 +1,7 @@
 require 'bundler'
 require 'bundler/version'
 
-require File.expand_path('lib/octopussy')
+require File.expand_path('lib/octopussy/version')
 
 Gem::Specification.new do |s|
   s.add_development_dependency('fakeweb', '~> 1.3')
