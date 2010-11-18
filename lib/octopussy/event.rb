@@ -1,19 +1,19 @@
 module Octopussy
-  class Event 
-  
+  class Event
+
     def self.load_from_atom(entry)
       entry = entry.to_mash if entry.is_a?(Hash)
-    
+
       event = Hashie::Mash.new({:user => entry.author, :title => entry.title})
       event.published = (entry.published.is_a?(String) ? DateTime.parse(entry.published) : entry.published)
       event.id = entry.id.split("/").pop.to_i
-      
+
       event.links = entry.links
       event.content = entry.content
-      
+
       case entry.id
       when /CreateEvent/
-        case entry.title 
+        case entry.title
         when /created tag/
           event.event_type = 'tag'
           event.tag = entry.links.first.split('/').pop
@@ -23,7 +23,6 @@ module Octopussy
         when /created repository/
           event.event_type = 'repo'
         end
-        
       when /MemberEvent/
         event.event_type = 'member'
         event.target_user = entry.title.split(" ")[2]
@@ -39,7 +38,6 @@ module Octopussy
         event.forked_from = Repo.new(segments.last)
       when /WatchEvent/
         event.event_type = 'watch'
-        
       when /FollowEvent/
         event.event_type = 'follow'
         event.target_user = entry.links.first.split("/").pop

@@ -1,7 +1,7 @@
 module Octopussy
   class Repo
     attr_accessor :username, :name
-  
+
     def initialize(repo)
       case repo
       when String
@@ -20,27 +20,27 @@ module Octopussy
     def slug
       "#{@username}/#{@name}"
     end
-  
+
     def to_s
       self.slug
     end
-  
+
     def url
       "http://github.com/#{slug}"
     end
-  
+
     def user
       @username
     end
-  
+
     def repo
       @name
     end
-  
+
     def user=(val)
       @username = val
     end
-  
+
     def self.from_url(url)
       return if url.nil?
       username, name = url.gsub("http://github.com/", "").split("/")

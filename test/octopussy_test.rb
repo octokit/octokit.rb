@@ -6,7 +6,7 @@ class OctopussyTest < Test::Unit::TestCase
     setup do
       @client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
     end
-    
+
     should "authenticate via basic auth" do
       stub_get("http://pengwynn:OU812@github.com/api/v2/json/user/show/pengwynn", "full_user.json")
       client = Octopussy::Client.new(:login => 'pengwynn', :password => 'OU812')
@@ -198,7 +198,7 @@ class OctopussyTest < Test::Unit::TestCase
     end
 
     # should "return a delete_token when calling delete without supplying a delete_token" do
-    #   
+    #
     # end
 
     should "set a repo's visibility to private" do
@@ -251,7 +251,7 @@ class OctopussyTest < Test::Unit::TestCase
       events.first['type'].should == 'FollowEvent'
       events[1].repository.name.should == 'octopussy'
     end
-    
+
     should "fetch a user's private timeline" do
       stub_get("http://github.com/pengwynn.private.json?login=pengwynn&token=OU812", "timeline.json")
       events = @client.timeline
@@ -338,7 +338,7 @@ class OctopussyTest < Test::Unit::TestCase
       repo = Octopussy.repo({:username => "pengwynn", :repo => "linkedin"})
       repo.homepage.should == "http://bit.ly/ruby-linkedin"
     end
-    
+
     should "return a repo's contributors list" do
       stub_get("/repos/show/pengwynn/linkedin/contributors", "contributors.json")
       contributors_list = Octopussy.contributors({:username => "pengwynn", :repo => "linkedin"})
@@ -417,36 +417,36 @@ class OctopussyTest < Test::Unit::TestCase
       raw_text = Octopussy.raw({:username => "defunkt", :repo => "facebox"}, "4bf7a39e8c4ec54f8b4cd594a3616d69004aba69")
       assert raw_text.include?("cd13d9a61288dceb0a7aa73b55ed2fd019f4f1f7")
     end
-    
+
     #commits
     should "list commits for a repo's master branch by default" do
       stub_get("http://github.com/api/v2/json/commits/list/defunkt/facebox/master", "list_commits.json")
       commits_list = Octopussy.list_commits({:username => "defunkt", :repo => "facebox"})
       assert commits_list.any? { |c| c.message == "Fixed CSS expression, throwing errors in IE6." }
     end
-    
+
     should "list commits for a repo on a given branch" do
       stub_get("http://github.com/api/v2/json/commits/list/schacon/simplegit/m/dev/cp", "list_branch_commits.json")
       commits_list = Octopussy.list_commits({:username => "schacon", :repo => "simplegit"}, "m/dev/cp")
       assert commits_list.any? { |c| c.message == "removed unnecessary test code" }
     end
-    
+
     should "show a specific commit for a repo given its SHA" do
       sha = "1ff368f79b0f0aa0e1f1d78bcaa8691f94f9703e"
       stub_get("http://github.com/api/v2/json/commits/show/defunkt/facebox/#{sha}", "show_commit.json")
       show_commit = Octopussy.commit({:username => "defunkt", :repo => "facebox"}, sha)
       assert show_commit.message == "Fixed CSS expression, throwing errors in IE6."
     end
-    
+
     #timeline
-    
+
     should "fetch the public timeline" do
       stub_get("http://github.com/timeline.json", "timeline.json")
       events = Octopussy.public_timeline
       events.first['type'].should == 'FollowEvent'
       events[1].repository.name.should == 'octopussy'
     end
-    
+
     should "fetch a user's public timeline" do
       stub_get("http://github.com/pengwynn.json", "timeline.json")
       events = Octopussy.public_timeline('pengwynn')
@@ -760,10 +760,7 @@ class OctopussyTest < Test::Unit::TestCase
       event.event_type.should == 'download'
       event.repo.name.should == 'prototype'
     end
-    
-    
-  end
-  
 
+  end
 
 end
