@@ -14,7 +14,7 @@ GEM
     httparty (0.6.1)
       crack (= 0.1.8)
     jnunemaker-matchy (0.4.0)
-    mocha (0.9.9)
+    mocha (0.9.10)
       rake
     rake (0.8.7)
     shoulda (2.11.3)
