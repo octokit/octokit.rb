@@ -1,22 +1,23 @@
-## MAC OS
+# Mac OS X
 .DS_Store
 
-## TEXTMATE
+# Rubinius
+*.rbc
+
+# Textmate
 *.tmproj
 tmtags
 
-## EMACS
+# emacs
 *~
 \#*
 .\#*
 
-## VIM
+# vim
 *.swp
 
-## PROJECT::GENERAL
+# project
 coverage
 rdoc
 pkg
 *.gem
-
-## PROJECT::SPECIFIC
