@@ -19,5 +19,9 @@ tmtags
 # project
 coverage
 rdoc
-pkg
+
+# Bundler
 *.gem
+.bundle
+Gemfile.lock
+pkg/*
