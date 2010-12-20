@@ -1,3 +1,3 @@
 module Octopussy
-  VERSION = "0.3.0" unless defined?(Octopussy::VERSION)
+  VERSION = "0.3.0".freeze unless defined?(Octopussy::VERSION)
 end
