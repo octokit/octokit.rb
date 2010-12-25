@@ -1,27 +1,24 @@
-# Mac OS X
-.DS_Store
-
-# Rubinius
-*.rbc
-
-# Textmate
-*.tmproj
-tmtags
-
-# emacs
-*~
-\#*
-.\#*
-
-# vim
-*.swp
-
-# project
-coverage
-rdoc
-
-# Bundler
 *.gem
+*.rbc
+*.swp
+*.tmproj
+*~
+.DS_Store
+.\#*
 .bundle
+.config
+.yardoc
 Gemfile.lock
-pkg/*
+InstalledFiles
+\#*
+_yardoc
+coverage
+doc/
+lib/bundler/man
+pkg
+rdoc
+spec/reports
+test/tmp
+test/version_tmp
+tmp
+tmtags
