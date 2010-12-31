@@ -35,7 +35,7 @@ module Octopussy
       when /ForkEvent/
         event.event_type = 'fork'
         segments = entry.title.split(" ")
-        event.forked_from = Repo.new(segments.last)
+        event.forked_from = Repository.new(segments.last)
       when /WatchEvent/
         event.event_type = 'watch'
       when /FollowEvent/
@@ -57,18 +57,19 @@ module Octopussy
         event.event_type = 'delete'
         segments = entry.title.split(' ')
         event.branch = segments[3]
-        event.repo = Repo.new(segments[5])
+        event.repo = Repository.new(segments[5])
       when /PublicEvent/
         event.event_type = 'public'
-        event.repo = Repo.new(entry.title.split(" ")[3])
+        segments = entry.title.split(' ')
+        event.repo = Repository.new([segments[0], segments[3]].join('/'))
       when /DownloadEvent/
         event.event_type = 'download'
         segments = entry.title.split(' ')
-        event.repo = Repo.new(segments[5])
+        event.repo = Repository.new(segments[5])
       else
         puts "Unknown event type: #{entry.id}"
       end
-      event.repo = Repo.from_url(entry.links.first) unless %w(follow gist delete public download).include?(event.event_type)
+      event.repo = Repository.from_url(entry.links.first) unless %w(follow gist delete public download).include?(event.event_type)
       event
     end
   end

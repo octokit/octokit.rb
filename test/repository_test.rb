@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/helper')
 class RepoTest < Test::Unit::TestCase
   context "when passed a string containg a forward slash" do
     setup do
-      @repo = Octopussy::Repo.new("pengwynn/linkedin")
+      @repo = Octopussy::Repository.new("pengwynn/linkedin")
     end
 
     should "set the username and repo name" do
@@ -22,14 +22,14 @@ class RepoTest < Test::Unit::TestCase
     end
 
     should "render url as string" do
-      @repo.url.should == 'http://github.com/pengwynn/linkedin'
+      @repo.url.should == 'https://github.com/pengwynn/linkedin'
     end
 
   end
 
   context "when passed a hash" do
     should "should set username and repo" do
-      repo =  Octopussy::Repo.new({:username => 'pengwynn', :name => 'linkedin'})
+      repo =  Octopussy::Repository.new({:username => 'pengwynn', :name => 'linkedin'})
       repo.name.should == "linkedin"
       repo.username.should == "pengwynn"
     end
@@ -37,7 +37,7 @@ class RepoTest < Test::Unit::TestCase
 
   context "when passed a Repo" do
     should "set username and repo" do
-      repo =  Octopussy::Repo.new( Octopussy::Repo.new('pengwynn/linkedin'))
+      repo =  Octopussy::Repository.new(Octopussy::Repository.new('pengwynn/linkedin'))
       repo.name.should == "linkedin"
       repo.username.should == "pengwynn"
     end

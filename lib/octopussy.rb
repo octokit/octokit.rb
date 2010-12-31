@@ -1,60 +1,49 @@
-require 'forwardable'
-
-require 'httparty'
-require 'hashie'
-Hash.send :include, Hashie::HashExtensions
-
-libdir = File.dirname(__FILE__)
-$LOAD_PATH.unshift(libdir) unless $LOAD_PATH.include?(libdir)
-
-require 'octopussy/repo'
-require 'octopussy/event'
-require 'octopussy/client'
+require File.expand_path('../octopussy/configuration', __FILE__)
+require File.expand_path('../octopussy/client', __FILE__)
 
 module Octopussy
-  extend SingleForwardable
+  extend Configuration
 
-  class OctopussyError < StandardError
-    attr_reader :data
-
-    def initialize(data)
-      @data = data
-      super
-    end
+  # Alias for Octopussy::Client.new
+  #
+  # @return [Octopussy::Client]
+  def self.client(options={})
+    Octopussy::Client.new(options)
   end
 
-  class ClientError < StandardError; end
-  class ServerError < OctopussyError; end
-  class General     < OctopussyError; end
+  # Delegate to Octopussy::Client.new
+  def self.method_missing(method, *args, &block)
+    return super unless client.respond_to?(method)
+    client.send(method, *args, &block)
+  end
 
-  class RateLimitExceeded < ClientError; end
-  class Unauthorized      < ClientError; end
-  class NotFound          < ClientError; end
+  # Custom error class for rescuing from all GitHub errors
+  class Error < StandardError; end
 
-  class Unavailable   < StandardError; end
-  class InformOctopussy < StandardError; end
+  # Raised when GitHub returns a 400 HTTP status code
+  class BadRequest < Error; end
 
-  def self.client; Client.new end
+  # Raised when GitHub returns a 401 HTTP status code
+  class Unauthorized < Error; end
 
-  # Users
-  def_delegators :client, :search_users, :user, :followers, :following, :follows?, :watched
+  # Raised when GitHub returns a 403 HTTP status code
+  class Forbidden < Error; end
 
-  # Issues
-  def_delegators :client, :search_issues, :issues, :issue
+  # Raised when GitHub returns a 404 HTTP status code
+  class NotFound < Error; end
 
-  # Repos
-  def_delegators :client, :branches, :collaborators, :contributors, :languages, :list_repos,
-                 :network, :repo, :search_repos, :tags
+  # Raised when GitHub returns a 406 HTTP status code
+  class NotAcceptable < Error; end
 
-  # Network Meta
-  def_delegators :client, :network_meta, :network_data
+  # Raised when GitHub returns a 500 HTTP status code
+  class InternalServerError < Error; end
 
-  # Trees
-  def_delegators :client, :tree, :blob, :raw
+  # Raised when GitHub returns a 501 HTTP status code
+  class NotImplemented < Error; end
 
-  # Commits
-  def_delegators :client, :list_commits, :commit
+  # Raised when GitHub returns a 502 HTTP status code
+  class BadGateway < Error; end
 
-  # Timeline
-  def_delegators :client, :public_timeline
+  # Raised when GitHub returns a 503 HTTP status code
+  class ServiceUnavailable < Error; end
 end

@@ -22,7 +22,7 @@ def fixture_file(filename)
 end
 
 def github_url(url)
-  url =~ /^http/ ? url : "http://github.com/api/v2/json#{url}"
+  url =~ /^http/ ? url : "#{Octopussy.endpoint}api/v#{Octopussy.version}/#{Octopussy.format}/#{url}"
 end
 
 def stub_request(method, url, filename, status=nil)
