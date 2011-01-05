@@ -22,6 +22,7 @@ module Octopussy
     include Octopussy::Client::Network
     include Octopussy::Client::Objects
     include Octopussy::Client::Organizations
+    include Octopussy::Client::Pulls
     include Octopussy::Client::Repositories
     include Octopussy::Client::Timelines
     include Octopussy::Client::Users
