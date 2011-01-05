@@ -22,7 +22,13 @@ def fixture_file(filename)
 end
 
 def github_url(url)
-  url =~ /^http/ ? url : "#{Octopussy.endpoint}api/v#{Octopussy.version}/#{Octopussy.format}/#{url}"
+  if url =~ /^http/
+    url
+  elsif @client && @client.authenticated?
+    "https://pengwynn%2Ftoken:OU812@github.com/api/v#{Octopussy.version}/#{Octopussy.format}/#{url}"
+  else
+    "https://github.com/api/v#{Octopussy.version}/#{Octopussy.format}/#{url}"
+  end
 end
 
 def stub_request(method, url, filename, status=nil)
@@ -34,5 +40,18 @@ def stub_request(method, url, filename, status=nil)
   FakeWeb.register_uri(method, github_url(url), options)
 end
 
-def stub_get(*args); stub_request(:get, *args) end
-def stub_post(*args); stub_request(:post, *args) end
+def stub_delete(*args)
+  stub_request(:delete, *args)
+end
+
+def stub_get(*args)
+  stub_request(:get, *args)
+end
+
+def stub_post(*args)
+  stub_request(:post, *args)
+end
+
+def stub_put(*args)
+  stub_request(:put, *args)
+end

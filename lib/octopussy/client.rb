@@ -13,6 +13,7 @@ module Octopussy
       end
     end
 
+    include Octopussy::Client::Authentication
     include Octopussy::Client::Connection
     include Octopussy::Client::Request
 

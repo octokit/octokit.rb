@@ -7,14 +7,6 @@ class OctopussyTest < Test::Unit::TestCase
       @client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
     end
 
-    should "authenticate via basic auth" do
-      stub_get("https://pengwynn:OU812@github.com/api/v2/json/user/show", "full_user.json")
-      client = Octopussy::Client.new(:login => 'pengwynn', :password => 'OU812')
-      user = client.user
-      user.plan.name.should == 'free'
-      user.plan.space.should == 307200
-    end
-
     should "should search users" do
       stub_get("user/search/wynn", "search.json")
       users = @client.search_users("wynn")
@@ -246,14 +238,14 @@ class OctopussyTest < Test::Unit::TestCase
     end
 
     should "fetch a user's public timeline" do
-      stub_get("https://github.com/pengwynn.json", "timeline.json")
+      stub_get("https://pengwynn%2Ftoken:OU812@github.com/pengwynn.json", "timeline.json")
       events = @client.public_timeline('pengwynn')
       events.first['type'].should == 'FollowEvent'
       events[1].repository.name.should == 'octopussy'
     end
 
     should "fetch a user's private timeline" do
-      stub_get("https://github.com/pengwynn.private.json", "timeline.json")
+      stub_get("https://pengwynn%2Ftoken:OU812@github.com/pengwynn.private.json", "timeline.json")
       events = @client.timeline
       events.first['type'].should == 'FollowEvent'
       events[1].repository.name.should == 'octopussy'
@@ -481,9 +473,9 @@ class OctopussyTest < Test::Unit::TestCase
 
       context "#{status.first}, a post" do
         should "raise an #{exception.name} error" do
+          @client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
           stub_post("user/show/pengwynn", nil, status)
-          client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
-          lambda { client.update_user(:location => "Dallas, TX") }.should raise_error(exception)
+          lambda { @client.update_user(:location => "Dallas, TX") }.should raise_error(exception)
         end
       end
     end

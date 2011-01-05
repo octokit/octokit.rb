@@ -16,6 +16,7 @@ module Octopussy
 
         Faraday::Connection.new(options) do |connection|
           connection.adapter(adapter)
+          connection.basic_auth authentication[:login], authentication[:password] if authenticated?
           connection.use Faraday::Response::RaiseError
           unless raw
             case format.to_s.downcase
