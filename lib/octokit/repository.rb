@@ -1,6 +1,6 @@
 require 'addressable/uri'
 
-module Octopussy
+module Octokit
   class Repository
     attr_accessor :username, :name
 

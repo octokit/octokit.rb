@@ -1,7 +1,7 @@
 require 'faraday'
 require File.expand_path('../version', __FILE__)
 
-module Octopussy
+module Octokit
   module Configuration
     VALID_OPTIONS_KEYS = [:adapter, :endpoint, :format, :login, :password, :proxy, :token, :user_agent, :version].freeze
     VALID_FORMATS      = [:json, :xml, :yaml].freeze
@@ -13,7 +13,7 @@ module Octopussy
     DEFAULT_PASSWORD   = nil.freeze
     DEFAULT_PROXY      = nil.freeze
     DEFAULT_TOKEN      = nil.freeze
-    DEFAULT_USER_AGENT = "Octopussy Ruby Gem #{Octopussy::VERSION}".freeze
+    DEFAULT_USER_AGENT = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
     DEFAULT_VERSION    = 2
 
     attr_accessor *VALID_OPTIONS_KEYS

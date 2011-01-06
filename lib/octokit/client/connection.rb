@@ -1,7 +1,7 @@
 require 'faraday_middleware'
 Dir[File.expand_path('../../../faraday/*.rb', __FILE__)].each{|file| require file}
 
-module Octopussy
+module Octokit
   class Client
     # @private
     module Connection

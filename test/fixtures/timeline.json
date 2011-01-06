@@ -15,7 +15,7 @@
         "has_downloads": true,
         "watchers": 19,
         "forks": 7,
-        "url": "http://github.com/pengwynn/octopussy",
+        "url": "http://github.com/pengwynn/octokit",
         "homepage": "",
         "has_wiki": true,
         "fork": false,
@@ -24,7 +24,7 @@
         "pushed_at": "2010/06/17 09:17:37 -0700",
         "private": false,
         "has_issues": true,
-        "name": "octopussy",
+        "name": "octokit",
         "owner": "pengwynn"
     },
     "created_at": "2010/06/17 09:17:37 -0700",
@@ -32,11 +32,11 @@
     "public": true,
     "actor": "pengwynn",
     "payload": {
-        "name": "octopussy",
+        "name": "octokit",
         "object_name": "v0.2.3",
         "object": "tag"
     },
-    "url": "http://github.com/pengwynn/octopussy/tree/v0.2.3",
+    "url": "http://github.com/pengwynn/octokit/tree/v0.2.3",
     "times": 0,
     "type": "CreateEvent"
 },
@@ -46,7 +46,7 @@
         "has_downloads": true,
         "watchers": 19,
         "forks": 7,
-        "url": "http://github.com/pengwynn/octopussy",
+        "url": "http://github.com/pengwynn/octokit",
         "homepage": "",
         "has_wiki": true,
         "fork": false,
@@ -55,7 +55,7 @@
         "pushed_at": "2010/06/17 09:17:37 -0700",
         "private": false,
         "has_issues": true,
-        "name": "octopussy",
+        "name": "octokit",
         "owner": "pengwynn"
     },
     "created_at": "2010/06/17 09:17:36 -0700",
@@ -68,7 +68,7 @@
         "shas": [["c06905d5db1847ade958853389112238f89d8ec5", "sutto@sutto.net", "Use authentication with list repos if available", "Darcy Laycock"], ["2efeb73934ae30e7091385fa6c2e81c994a60bb9", "wynn.netherland@gmail.com", "updated changelog", "Wynn Netherland"], ["91f602cf588824df011f532c69af31cb2f2e23ef", "wynn.netherland@gmail.com", "Version bump to 0.2.3", "Wynn Netherland"], ["9d5a78a7253f2e4871609cf16ca55ba3e9fae8cb", "wynn.netherland@gmail.com", "updated homepage", "Wynn Netherland"], ["1e87f1640f0e7b6d3854cdf9d089092d9118be6c", "wynn.netherland@gmail.com", "Regenerated gemspec for version 0.2.3", "Wynn Netherland"]],
         "ref": "refs/heads/master"
     },
-    "url": "http://github.com/pengwynn/octopussy/compare/4c1b9fcbe1...1e87f1640f",
+    "url": "http://github.com/pengwynn/octokit/compare/4c1b9fcbe1...1e87f1640f",
     "times": 0,
     "type": "PushEvent"
 },
@@ -89,7 +89,7 @@
         "has_downloads": true,
         "watchers": 19,
         "forks": 7,
-        "url": "http://github.com/pengwynn/octopussy",
+        "url": "http://github.com/pengwynn/octokit",
         "homepage": "",
         "has_wiki": true,
         "fork": false,
@@ -98,7 +98,7 @@
         "pushed_at": "2010/06/17 09:17:37 -0700",
         "private": false,
         "has_issues": true,
-        "name": "octopussy",
+        "name": "octokit",
         "owner": "pengwynn"
     },
     "created_at": "2010/06/17 09:12:34 -0700",
@@ -110,7 +110,7 @@
         "commit": "c06905d5db1847ade958853389112238f89d8ec5",
         "original": "4c1b9fcbe1f812c49c26f973f4b059df63df8f6c"
     },
-    "url": "http://github.com/pengwynn/octopussy/tree/integration",
+    "url": "http://github.com/pengwynn/octokit/tree/integration",
     "times": 0,
     "type": "ForkApplyEvent"
 },
@@ -120,7 +120,7 @@
         "has_downloads": true,
         "watchers": 19,
         "forks": 7,
-        "url": "http://github.com/pengwynn/octopussy",
+        "url": "http://github.com/pengwynn/octokit",
         "homepage": "",
         "has_wiki": true,
         "fork": false,
@@ -129,7 +129,7 @@
         "pushed_at": "2010/06/17 09:17:37 -0700",
         "private": false,
         "has_issues": true,
-        "name": "octopussy",
+        "name": "octokit",
         "owner": "pengwynn"
     },
     "created_at": "2010/06/17 09:12:13 -0700",
@@ -142,7 +142,7 @@
         "shas": [["3b02fc367fb7db1f9c8a24a7e8a89ad0459e319b", "wynn.netherland@gmail.com", "Regenerated gemspec for version 0.2.1", "Wynn Netherland"], ["83c3c5bc39f863b3568ae0c6cb408d90274e2ca5", "abrader@itmat.upenn.edu", "Added the auth_params query to the blob, tree, and repo class methods", "Andrew Brader"], ["cee9d0682831b168fb4449dcd7c442ae1c02ba92", "wynn.netherland@gmail.com", "rev'd hashie", "Wynn Netherland"], ["fc8694bc75e009eac08ba836e56b845b0431f642", "wynn.netherland@gmail.com", "Version bump to 0.2.2", "Wynn Netherland"], ["b7083aba6444f9da95df28873f93f5fdd5c5a452", "wynn.netherland@gmail.com", "Patch for auth params", "Wynn Netherland"], ["775a5f1df314c88049b2d7696a56fe07c09eb770", "wynn.netherland@gmail.com", "Merge branch 'integration'", "Wynn Netherland"], ["5b24bf1c610e15e5b7d3b8b10d9c300311692818", "wynn.netherland@gmail.com", "updated changelog", "Wynn Netherland"], ["4c1b9fcbe1f812c49c26f973f4b059df63df8f6c", "wynn.netherland@gmail.com", "Regenerated gemspec for version 0.2.2", "Wynn Netherland"]],
         "ref": "refs/heads/integration"
     },
-    "url": "http://github.com/pengwynn/octopussy/compare/85cb4af26c...4c1b9fcbe1",
+    "url": "http://github.com/pengwynn/octokit/compare/85cb4af26c...4c1b9fcbe1",
     "times": 0,
     "type": "PushEvent"
 },
@@ -615,7 +615,7 @@
         "has_downloads": true,
         "watchers": 19,
         "forks": 7,
-        "url": "http://github.com/pengwynn/octopussy",
+        "url": "http://github.com/pengwynn/octokit",
         "homepage": "",
         "has_wiki": true,
         "fork": false,
@@ -624,7 +624,7 @@
         "pushed_at": "2010/06/17 09:17:37 -0700",
         "private": false,
         "has_issues": true,
-        "name": "octopussy",
+        "name": "octokit",
         "owner": "pengwynn"
     },
     "created_at": "2010/06/08 20:38:47 -0700",
@@ -632,11 +632,11 @@
     "public": true,
     "actor": "pengwynn",
     "payload": {
-        "name": "octopussy",
+        "name": "octokit",
         "object_name": "v0.2.2",
         "object": "tag"
     },
-    "url": "http://github.com/pengwynn/octopussy/tree/v0.2.2",
+    "url": "http://github.com/pengwynn/octokit/tree/v0.2.2",
     "times": 0,
     "type": "CreateEvent"
 },
@@ -646,7 +646,7 @@
         "has_downloads": true,
         "watchers": 19,
         "forks": 7,
-        "url": "http://github.com/pengwynn/octopussy",
+        "url": "http://github.com/pengwynn/octokit",
         "homepage": "",
         "has_wiki": true,
         "fork": false,
@@ -655,7 +655,7 @@
         "pushed_at": "2010/06/17 09:17:37 -0700",
         "private": false,
         "has_issues": true,
-        "name": "octopussy",
+        "name": "octokit",
         "owner": "pengwynn"
     },
     "created_at": "2010/06/08 20:38:40 -0700",
@@ -668,7 +668,7 @@
         "shas": [["83c3c5bc39f863b3568ae0c6cb408d90274e2ca5", "abrader@itmat.upenn.edu", "Added the auth_params query to the blob, tree, and repo class methods", "Andrew Brader"], ["cee9d0682831b168fb4449dcd7c442ae1c02ba92", "wynn.netherland@gmail.com", "rev'd hashie", "Wynn Netherland"], ["fc8694bc75e009eac08ba836e56b845b0431f642", "wynn.netherland@gmail.com", "Version bump to 0.2.2", "Wynn Netherland"], ["b7083aba6444f9da95df28873f93f5fdd5c5a452", "wynn.netherland@gmail.com", "Patch for auth params", "Wynn Netherland"], ["775a5f1df314c88049b2d7696a56fe07c09eb770", "wynn.netherland@gmail.com", "Merge branch 'integration'", "Wynn Netherland"], ["5b24bf1c610e15e5b7d3b8b10d9c300311692818", "wynn.netherland@gmail.com", "updated changelog", "Wynn Netherland"], ["4c1b9fcbe1f812c49c26f973f4b059df63df8f6c", "wynn.netherland@gmail.com", "Regenerated gemspec for version 0.2.2", "Wynn Netherland"]],
         "ref": "refs/heads/master"
     },
-    "url": "http://github.com/pengwynn/octopussy/compare/3b02fc367f...4c1b9fcbe1",
+    "url": "http://github.com/pengwynn/octokit/compare/3b02fc367f...4c1b9fcbe1",
     "times": 0,
     "type": "PushEvent"
 },

@@ -1,10 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/helper')
 
-class OctopussyTest < Test::Unit::TestCase
+class OctokitTest < Test::Unit::TestCase
 
   context "when authenticated" do
     setup do
-      @client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
+      @client = Octokit::Client.new(:login => 'pengwynn', :token => 'OU812')
     end
 
     should "should search users" do
@@ -241,14 +241,14 @@ class OctopussyTest < Test::Unit::TestCase
       stub_get("https://pengwynn%2Ftoken:OU812@github.com/pengwynn.json", "timeline.json")
       events = @client.public_timeline('pengwynn')
       events.first['type'].should == 'FollowEvent'
-      events[1].repository.name.should == 'octopussy'
+      events[1].repository.name.should == 'octokit'
     end
 
     should "fetch a user's private timeline" do
       stub_get("https://pengwynn%2Ftoken:OU812@github.com/pengwynn.private.json", "timeline.json")
       events = @client.timeline
       events.first['type'].should == 'FollowEvent'
-      events[1].repository.name.should == 'octopussy'
+      events[1].repository.name.should == 'octokit'
     end
   end
 
@@ -257,13 +257,13 @@ class OctopussyTest < Test::Unit::TestCase
 
     should "search users" do
       stub_get("user/search/wynn", "search.json")
-      users = Octopussy.search_users("wynn")
+      users = Octokit.search_users("wynn")
       users.first.username.should == 'pengwynn'
     end
 
     should "return user info" do
       stub_get("user/show/pengwynn", "user.json")
-      user = Octopussy.user("pengwynn")
+      user = Octokit.user("pengwynn")
       user.login.should == 'pengwynn'
       user.blog.should == 'http://wynnnetherland.com'
       user.name.should == 'Wynn Netherland'
@@ -271,47 +271,47 @@ class OctopussyTest < Test::Unit::TestCase
 
     should "return followers for a user" do
       stub_get("user/show/pengwynn/followers", "followers.json")
-      followers = Octopussy.followers("pengwynn")
+      followers = Octokit.followers("pengwynn")
       followers.size.should == 21
       assert followers.include?("adamstac")
     end
 
     should "indicate if one user follows another" do
       stub_get("user/show/pengwynn/following", "followers.json")
-      assert Octopussy.follows?('pengwynn', 'adamstac')
+      assert Octokit.follows?('pengwynn', 'adamstac')
     end
 
     should "return users a user follows" do
       stub_get("user/show/pengwynn/following", "followers.json")
-      followers = Octopussy.following("pengwynn")
+      followers = Octokit.following("pengwynn")
       followers.size.should == 21
       assert followers.include?("adamstac")
     end
 
     should "return the repos a user watches" do
       stub_get("repos/watched/pengwynn", "repos.json")
-      repos = Octopussy.watched('pengwynn')
+      repos = Octokit.watched('pengwynn')
       repos.first.owner.should == 'jnunemaker'
       repos.first.forks.should == 120
     end
 
     should "search issues for a repo" do
       stub_get("issues/search/jnunemaker/twitter/open/httparty", "issues.json")
-      issues = Octopussy.search_issues({:username => 'jnunemaker', :repo => 'twitter'}, 'httparty')
+      issues = Octokit.search_issues({:username => 'jnunemaker', :repo => 'twitter'}, 'httparty')
       issues.first.title.should == 'Crack error when creating friendship'
       issues.first.votes.should == 2
     end
 
     should "list issues for a repo" do
       stub_get("issues/list/jnunemaker/twitter/open", "issues.json")
-      issues = Octopussy.issues({:username => 'jnunemaker', :repo => 'twitter'}, 'open')
+      issues = Octokit.issues({:username => 'jnunemaker', :repo => 'twitter'}, 'open')
       issues.first.title.should == 'Crack error when creating friendship'
       issues.first.votes.should == 2
     end
 
     should "return issue info" do
       stub_get("issues/show/jnunemaker/twitter/3", "issue.json")
-      issue = Octopussy.issue({:username => 'jnunemaker', :repo => 'twitter'}, 3)
+      issue = Octokit.issue({:username => 'jnunemaker', :repo => 'twitter'}, 3)
       issue.title.should == 'Crack error when creating friendship'
       issue.votes.should == 2
     end
@@ -320,96 +320,96 @@ class OctopussyTest < Test::Unit::TestCase
 
     should "search repos" do
       stub_get("repos/search/compass", "repo_search.json")
-      repos = Octopussy.search_repos("compass")
+      repos = Octokit.search_repos("compass")
       repos.first.username.should == 'chriseppstein'
       repos.first.language.should == 'Ruby'
     end
 
     should "return repo information" do
       stub_get("repos/show/pengwynn/linkedin", "repo.json")
-      repo = Octopussy.repo({:username => "pengwynn", :repo => "linkedin"})
+      repo = Octokit.repo({:username => "pengwynn", :repo => "linkedin"})
       repo.homepage.should == "http://bit.ly/ruby-linkedin"
     end
 
     should "return a repo's contributors list" do
       stub_get("repos/show/pengwynn/linkedin/contributors", "contributors.json")
-      contributors_list = Octopussy.contributors({:username => "pengwynn", :repo => "linkedin"})
+      contributors_list = Octokit.contributors({:username => "pengwynn", :repo => "linkedin"})
       assert contributors_list.include?(["holman", 1])
     end
 
     should "list repos for a user" do
       stub_get("repos/show/pengwynn", "repos.json")
-      repos = Octopussy.list_repos('pengwynn')
+      repos = Octokit.list_repos('pengwynn')
       repos.first.name.should == 'twitter'
       repos.first.watchers.should == 609
     end
 
     should "list collaborators for a repo" do
-      stub_get("repos/show/pengwynn/octopussy/collaborators", "collaborators.json")
-      users = Octopussy.collaborators({:username => "pengwynn", :repo => "octopussy"})
+      stub_get("repos/show/pengwynn/octokit/collaborators", "collaborators.json")
+      users = Octokit.collaborators({:username => "pengwynn", :repo => "octokit"})
       users.last.should == 'adamstac'
     end
 
     should "show the network for a repo" do
       stub_get("repos/show/pengwynn/linkedin/network", "network.json")
-      network = Octopussy.network({:username => 'pengwynn', :repo => "linkedin"})
+      network = Octokit.network({:username => 'pengwynn', :repo => "linkedin"})
       network.last.owner.should == 'nfo'
     end
 
     should "show the language breakdown for a repo" do
       stub_get("repos/show/pengwynn/linkedin/languages", "languages.json")
-      languages = Octopussy.languages({:username => 'pengwynn', :repo => "linkedin"})
+      languages = Octokit.languages({:username => 'pengwynn', :repo => "linkedin"})
       languages['Ruby'].should == 21515
     end
 
     should "list all the tags in a repo" do
       stub_get("repos/show/pengwynn/linkedin/tags", "tags.json")
-      tags = Octopussy.tags(:username => 'pengwynn', :repo => "linkedin")
+      tags = Octokit.tags(:username => 'pengwynn', :repo => "linkedin")
       assert tags.include?("v0.0.1")
     end
 
     should "list all the branches in a repo" do
       stub_get("repos/show/pengwynn/linkedin/branches", "branches.json")
-      branches = Octopussy.branches(:username => 'pengwynn', :repo => "linkedin")
+      branches = Octokit.branches(:username => 'pengwynn', :repo => "linkedin")
       assert branches.include?("integration")
     end
 
     # network
     should "return network meta info for a repo" do
       stub_get("https://github.com/schacon/simplegit/network_meta", "network_meta.json")
-      info = Octopussy.network_meta(:username => "schacon", :repo => "simplegit")
+      info = Octokit.network_meta(:username => "schacon", :repo => "simplegit")
       info.users.first.name.should == 'schacon'
       info.users.first.repo.should == 'simplegit'
     end
 
     should "return first 100 commits by branch" do
       stub_get("https://github.com/schacon/simplegit/network_data_chunk?nethash=fa8fe264b926cdebaab36420b6501bd74402a6ff", "network_data.json")
-      info = Octopussy.network_data({:username => "schacon", :repo => "simplegit"}, "fa8fe264b926cdebaab36420b6501bd74402a6ff")
+      info = Octokit.network_data({:username => "schacon", :repo => "simplegit"}, "fa8fe264b926cdebaab36420b6501bd74402a6ff")
       assert info.is_a?(Array)
     end
 
     # trees
     should "return contents of a tree by tree SHA" do
       stub_get("tree/show/defunkt/facebox/a47803c9ba26213ff194f042ab686a7749b17476", "trees.json")
-      trees = Octopussy.tree({:username => "defunkt", :repo => "facebox"}, "a47803c9ba26213ff194f042ab686a7749b17476")
+      trees = Octokit.tree({:username => "defunkt", :repo => "facebox"}, "a47803c9ba26213ff194f042ab686a7749b17476")
       trees.first.name.should == '.gitignore'
       trees.first.sha.should == 'e43b0f988953ae3a84b00331d0ccf5f7d51cb3cf'
     end
 
     should "return data about a blob by tree SHA and path" do
       stub_get("blob/show/defunkt/facebox/d4fc2d5e810d9b4bc1ce67702603080e3086a4ed/README.txt", "blob.json")
-      blob = Octopussy.blob({:username => "defunkt", :repo => "facebox"}, "d4fc2d5e810d9b4bc1ce67702603080e3086a4ed", "README.txt")
+      blob = Octokit.blob({:username => "defunkt", :repo => "facebox"}, "d4fc2d5e810d9b4bc1ce67702603080e3086a4ed", "README.txt")
       blob.name.should == 'README.txt'
       blob.sha.should == 'd4fc2d5e810d9b4bc1ce67702603080e3086a4ed'
     end
 
     should "return the contents of a blob with the blob's SHA" do
       begin
-        Octopussy.format = :yaml
+        Octokit.format = :yaml
         stub_get("blob/show/defunkt/facebox/4bf7a39e8c4ec54f8b4cd594a3616d69004aba69", "raw_git_data.yaml")
-        raw_text = Octopussy.raw({:username => "defunkt", :repo => "facebox"}, "4bf7a39e8c4ec54f8b4cd594a3616d69004aba69")
+        raw_text = Octokit.raw({:username => "defunkt", :repo => "facebox"}, "4bf7a39e8c4ec54f8b4cd594a3616d69004aba69")
       ensure
-        Octopussy.format = :json
+        Octokit.format = :json
       end
       assert raw_text.include?("cd13d9a61288dceb0a7aa73b55ed2fd019f4f1f7")
     end
@@ -417,20 +417,20 @@ class OctopussyTest < Test::Unit::TestCase
     #commits
     should "list commits for a repo's master branch by default" do
       stub_get("commits/list/defunkt/facebox/master", "commits.json")
-      commits_list = Octopussy.list_commits({:username => "defunkt", :repo => "facebox"})
+      commits_list = Octokit.list_commits({:username => "defunkt", :repo => "facebox"})
       assert commits_list.any? { |c| c.message == "Fixed CSS expression, throwing errors in IE6." }
     end
 
     should "list commits for a repo on a given branch" do
       stub_get("commits/list/schacon/simplegit/m/dev/cp", "branch_commits.json")
-      commits_list = Octopussy.list_commits({:username => "schacon", :repo => "simplegit"}, "m/dev/cp")
+      commits_list = Octokit.list_commits({:username => "schacon", :repo => "simplegit"}, "m/dev/cp")
       assert commits_list.any? { |c| c.message == "removed unnecessary test code" }
     end
 
     should "show a specific commit for a repo given its SHA" do
       sha = "1ff368f79b0f0aa0e1f1d78bcaa8691f94f9703e"
       stub_get("commits/show/defunkt/facebox/#{sha}", "show_commit.json")
-      show_commit = Octopussy.commit({:username => "defunkt", :repo => "facebox"}, sha)
+      show_commit = Octokit.commit({:username => "defunkt", :repo => "facebox"}, sha)
       assert show_commit.message == "Fixed CSS expression, throwing errors in IE6."
     end
 
@@ -438,42 +438,42 @@ class OctopussyTest < Test::Unit::TestCase
 
     should "fetch the public timeline" do
       stub_get("https://github.com/timeline.json", "timeline.json")
-      events = Octopussy.public_timeline
+      events = Octokit.public_timeline
       events.first['type'].should == 'FollowEvent'
-      events[1].repository.name.should == 'octopussy'
+      events[1].repository.name.should == 'octokit'
     end
 
     should "fetch a user's public timeline" do
       stub_get("https://github.com/pengwynn.json", "timeline.json")
-      events = Octopussy.public_timeline('pengwynn')
+      events = Octokit.public_timeline('pengwynn')
       events.first['type'].should == 'FollowEvent'
-      events[1].repository.name.should == 'octopussy'
+      events[1].repository.name.should == 'octokit'
     end
 
   end
 
   context "when Github responds with an error" do
     {
-      ["400", "BadRequest"]          => Octopussy::BadRequest,
-      ["401", "Unauthorized"]        => Octopussy::Unauthorized,
-      ["403", "Forbidden"]           => Octopussy::Forbidden,
-      ["404", "NotFound"]            => Octopussy::NotFound,
-      ["406", "NotAcceptable"]       => Octopussy::NotAcceptable,
-      ["500", "InternalServerError"] => Octopussy::InternalServerError,
-      ["501", "NotImplemented"]      => Octopussy::NotImplemented,
-      ["502", "BadGateway"]          => Octopussy::BadGateway,
-      ["503", "ServiceUnavailable"]  => Octopussy::ServiceUnavailable,
+      ["400", "BadRequest"]          => Octokit::BadRequest,
+      ["401", "Unauthorized"]        => Octokit::Unauthorized,
+      ["403", "Forbidden"]           => Octokit::Forbidden,
+      ["404", "NotFound"]            => Octokit::NotFound,
+      ["406", "NotAcceptable"]       => Octokit::NotAcceptable,
+      ["500", "InternalServerError"] => Octokit::InternalServerError,
+      ["501", "NotImplemented"]      => Octokit::NotImplemented,
+      ["502", "BadGateway"]          => Octokit::BadGateway,
+      ["503", "ServiceUnavailable"]  => Octokit::ServiceUnavailable,
     }.each do |status, exception|
       context "#{status.first}, a get" do
         should "raise an #{exception.name} error" do
           stub_get("user/show/pengwynn", nil, status)
-          lambda { Octopussy.user("pengwynn") }.should raise_error(exception)
+          lambda { Octokit.user("pengwynn") }.should raise_error(exception)
         end
       end
 
       context "#{status.first}, a post" do
         should "raise an #{exception.name} error" do
-          @client = Octopussy::Client.new(:login => 'pengwynn', :token => 'OU812')
+          @client = Octokit::Client.new(:login => 'pengwynn', :token => 'OU812')
           stub_post("user/show/pengwynn", nil, status)
           lambda { @client.update_user(:location => "Dallas, TX") }.should raise_error(exception)
         end
@@ -493,7 +493,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'pengwynn'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.user.should == 'pengwynn'
       event.published.year.should == 2009
       event.published.month.should == 12
@@ -512,7 +512,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'Tanner'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'repo'
       event.repo.username.should == 'Tanner'
       event.repo.name.should == 'Team-1261---Java'
@@ -528,7 +528,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'pengwynn'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'tag'
       event.repo.username.should == 'jnunemaker'
       event.repo.name.should == 'twitter'
@@ -545,7 +545,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'cwcore'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'branch'
       event.repo.username.should == 'Fabi'
       event.repo.name.should == 'cwcore'
@@ -563,7 +563,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'pengwynn'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'push'
       event.repo.name.should == 'twitter'
       event.branch.should == 'master'
@@ -579,7 +579,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'klauge'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'fork'
       event.repo.username.should == 'klauge'
       event.repo.name.should == 'aeon'
@@ -596,7 +596,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'jpablobr'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'watch'
       event.repo.username.should == 'bogolisk'
       event.repo.name.should == 'egg'
@@ -612,7 +612,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'pengwynn'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'follow'
       event.repo.should == nil
       event.target_user.should == 'swistak'
@@ -628,7 +628,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'pengwynn'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'issue'
       event.repo.name.should == 'twitter'
       event.action.should == 'closed'
@@ -645,7 +645,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'pengwynn'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'gist'
       event.repo.should == nil
       event.gist_number.should == 253987
@@ -656,14 +656,14 @@ class OctopussyTest < Test::Unit::TestCase
         :id => 'tag:github.com,2008:MemberEvent/110645788',
         :published => '2009-12-12T11:24:14-08:00',
         :updated => '2009-12-12T11:24:14-08:00',
-        :links => ['http://github.com/pengwynn/octopussy'],
-        :title => 'pengwynn added adamstac to octopussy',
+        :links => ['http://github.com/pengwynn/octokit'],
+        :title => 'pengwynn added adamstac to octokit',
         :author => 'pengwynn'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'member'
-      event.repo.name.should == 'octopussy'
+      event.repo.name.should == 'octokit'
       event.target_user.should == 'adamstac'
     end
 
@@ -677,7 +677,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'pengwynn'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'fork_apply'
       event.repo.name.should == 'linkedin'
       event.branch.should == 'integration'
@@ -693,7 +693,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'dxw'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'wiki'
       event.repo.name.should == 'Fammel'
       event.page.should == 'documentation'
@@ -709,7 +709,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'defunkt'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'comment'
       event.repo.name.should == 'resque'
     end
@@ -724,7 +724,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'jinzhu'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'delete'
       event.repo.name.should == 'vimlike-smooziee'
       event.branch.should == 'search'
@@ -740,7 +740,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'intalio'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'public'
       event.repo.name.should == 'bpmn2'
     end
@@ -755,7 +755,7 @@ class OctopussyTest < Test::Unit::TestCase
         :author => 'tobie'
       })
 
-      event = Octopussy::Event.load_from_atom(entry)
+      event = Octokit::Event.load_from_atom(entry)
       event.event_type.should == 'download'
       event.repo.name.should == 'prototype'
     end

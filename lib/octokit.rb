@@ -1,17 +1,17 @@
-require File.expand_path('../octopussy/configuration', __FILE__)
-require File.expand_path('../octopussy/client', __FILE__)
+require File.expand_path('../octokit/configuration', __FILE__)
+require File.expand_path('../octokit/client', __FILE__)
 
-module Octopussy
+module Octokit
   extend Configuration
 
-  # Alias for Octopussy::Client.new
+  # Alias for Octokit::Client.new
   #
-  # @return [Octopussy::Client]
+  # @return [Octokit::Client]
   def self.client(options={})
-    Octopussy::Client.new(options)
+    Octokit::Client.new(options)
   end
 
-  # Delegate to Octopussy::Client.new
+  # Delegate to Octokit::Client.new
   def self.method_missing(method, *args, &block)
     return super unless client.respond_to?(method)
     client.send(method, *args, &block)

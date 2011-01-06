@@ -1,4 +1,4 @@
-module Octopussy
+module Octokit
   class Event
 
     def self.load_from_atom(entry)

@@ -1,4 +1,4 @@
-module Octopussy
+module Octokit
   class Client
     module Request
       def get(path, options={}, raw=false, format_path=true)

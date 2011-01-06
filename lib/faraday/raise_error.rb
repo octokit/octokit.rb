@@ -7,23 +7,23 @@ module Faraday
       env[:response].on_complete do |response|
         case response[:status].to_i
         when 400
-          raise Octopussy::BadRequest, error_message(response)
+          raise Octokit::BadRequest, error_message(response)
         when 401
-          raise Octopussy::Unauthorized, error_message(response)
+          raise Octokit::Unauthorized, error_message(response)
         when 403
-          raise Octopussy::Forbidden, error_message(response)
+          raise Octokit::Forbidden, error_message(response)
         when 404
-          raise Octopussy::NotFound, error_message(response)
+          raise Octokit::NotFound, error_message(response)
         when 406
-          raise Octopussy::NotAcceptable, error_message(response)
+          raise Octokit::NotAcceptable, error_message(response)
         when 500
-          raise Octopussy::InternalServerError, error_message(response)
+          raise Octokit::InternalServerError, error_message(response)
         when 501
-          raise Octopussy::NotImplemented, error_message(response)
+          raise Octokit::NotImplemented, error_message(response)
         when 502
-          raise Octopussy::BadGateway, error_message(response)
+          raise Octokit::BadGateway, error_message(response)
         when 503
-          raise Octopussy::ServiceUnavailable, error_message(response)
+          raise Octokit::ServiceUnavailable, error_message(response)
         end
       end
     end

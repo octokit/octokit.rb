@@ -1,4 +1,4 @@
-module Octopussy
+module Octokit
   class Client
     module Pulls
       def create_pull_request(repo, options={})

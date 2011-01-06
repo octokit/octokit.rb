@@ -8,7 +8,7 @@ require 'fakeweb'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'octopussy'
+require 'octokit'
 
 FakeWeb.allow_net_connect = false
 
@@ -25,9 +25,9 @@ def github_url(url)
   if url =~ /^http/
     url
   elsif @client && @client.authenticated?
-    "https://pengwynn%2Ftoken:OU812@github.com/api/v#{Octopussy.version}/#{Octopussy.format}/#{url}"
+    "https://pengwynn%2Ftoken:OU812@github.com/api/v#{Octokit.version}/#{Octokit.format}/#{url}"
   else
-    "https://github.com/api/v#{Octopussy.version}/#{Octopussy.format}/#{url}"
+    "https://github.com/api/v#{Octokit.version}/#{Octokit.format}/#{url}"
   end
 end
 
