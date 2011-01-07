@@ -11,7 +11,7 @@ class RepoTest < Test::Unit::TestCase
       @repo.username.should == "pengwynn"
     end
 
-    should "repond to user and repo" do
+    should "respond to user and repo" do
       @repo.repo.should == "linkedin"
       @repo.user.should == "pengwynn"
     end
