@@ -1,4 +1,9 @@
 # Changelog
+## 0.4.1
+  * Patch from [karlfreeman](http://github.com/karlfreeman) to fix user search
+## 0.4.0
+  * Renamed to Ocotokit
+  * Switched to Faraday from HTTParty
 ## 0.3.0
   * Added set_repo_info patch from [Scott Bronson](http://github.com/bronson)
 ## 0.2.4
