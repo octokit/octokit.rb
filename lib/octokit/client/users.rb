@@ -5,10 +5,10 @@ module Octokit
 
       def search_users(search, options={})
         if search.match(EMAIL_RE)
-          get("user/email/#{search}", options)
+          get("user/email/#{search}", options)['user']
         else
-          get("user/search/#{search}", options)
-        end['users']
+          get("user/search/#{search}", options)['users']
+        end
       end
 
       def user(username=nil, options={})

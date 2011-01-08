@@ -7,10 +7,16 @@ class OctokitTest < Test::Unit::TestCase
       @client = Octokit::Client.new(:login => 'pengwynn', :token => 'OU812')
     end
 
-    should "should search users" do
-      stub_get("user/search/wynn", "search.json")
+    should "should search users by username" do
+      stub_get("user/search/wynn", "search-username.json")
       users = @client.search_users("wynn")
       users.first.username.should == 'pengwynn'
+    end
+    
+    should "should search users by email" do
+      stub_get("user/email/wynn.netherland@gmail.com", "search-email.json")
+      users = @client.search_users("wynn.netherland@gmail.com")
+      users.login.should == 'pengwynn'
     end
 
     should "return full user info for the authenticated user" do
@@ -256,9 +262,15 @@ class OctokitTest < Test::Unit::TestCase
   context "when unauthenticated" do
 
     should "search users" do
-      stub_get("user/search/wynn", "search.json")
+      stub_get("user/search/wynn", "search-username.json")
       users = Octokit.search_users("wynn")
       users.first.username.should == 'pengwynn'
+    end
+    
+    should "should search users by email" do
+      stub_get("user/email/wynn.netherland@gmail.com", "search-email.json")
+      users = Octokit.search_users("wynn.netherland@gmail.com")
+      users.login.should == 'pengwynn'
     end
 
     should "return user info" do
