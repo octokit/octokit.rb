@@ -1,0 +1,14 @@
+require File.expand_path('../helper', __FILE__)
+
+describe Octokit do
+  after do
+    Octokit.reset
+  end
+
+  describe ".client" do
+    it "should be a Octokit::Client" do
+      Octokit.client.should be_a Octokit::Client
+    end
+  end
+
+end
