@@ -43,15 +43,15 @@ module Octokit
       def labels(repo, options={})
         get("issues/labels/#{Repository.new(repo)}", options)['labels']
       end
-  
+
       def add_label(repo, number, label, options={})
         post("issues/label/add/#{Repository.new(repo)}/#{label}/#{number}", options)['labels']
       end
-  
+
       def remove_label(repo, number, label, options={})
         post("issues/label/remove/#{Repository.new(repo)}/#{label}/#{number}")['labels']
       end
-  
+
       def add_comment(repo, number, comment, options={})
         post("issues/comment/#{Repository.new(repo)}/#{number}", options.merge({:comment => comment}))['comment']
       end
