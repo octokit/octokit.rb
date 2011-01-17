@@ -10,7 +10,7 @@ describe Octokit::Client::Users do
 
     context "with a username passed" do
 
-      it "should return users matching username" do
+      it "should return matching username" do
         stub_get("user/search/sferik").
           to_return(:body => fixture("users.json"))
         users = @client.search_users("sferik")
@@ -21,7 +21,7 @@ describe Octokit::Client::Users do
 
     context "with an email address passed" do
 
-      it "should return the user matching email address" do
+      it "should return matching email address" do
         stub_get("user/email/sferik@gmail.com").
           to_return(:body => fixture("user.json"))
         user = @client.search_users("sferik@gmail.com")
@@ -36,7 +36,7 @@ describe Octokit::Client::Users do
 
     context "with a username passed" do
 
-      it "should return the user matching username" do
+      it "should return the user" do
         stub_get("user/show/sferik").
           to_return(:body => fixture("user.json"))
         user = @client.user("sferik")

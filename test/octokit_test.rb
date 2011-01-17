@@ -12,7 +12,7 @@ class OctokitTest < Test::Unit::TestCase
       users = @client.search_users("wynn")
       users.first.username.should == 'pengwynn'
     end
-    
+
     should "should search users by email" do
       stub_get("user/email/wynn.netherland@gmail.com", "search-email.json")
       users = @client.search_users("wynn.netherland@gmail.com")
@@ -266,7 +266,7 @@ class OctokitTest < Test::Unit::TestCase
       users = Octokit.search_users("wynn")
       users.first.username.should == 'pengwynn'
     end
-    
+
     should "should search users by email" do
       stub_get("user/email/wynn.netherland@gmail.com", "search-email.json")
       users = Octokit.search_users("wynn.netherland@gmail.com")
