@@ -103,9 +103,11 @@ module Octokit
         get("repos/pushable", options)['repositories']
       end
 
-      def teams(repo, options={})
+      def repository_teams(repo, options={})
         get("repos/show/#{Repository.new(repo)}/teams", options)['teams']
       end
+      alias :repo_teams :repository_teams
+      alias :teams :repository_teams
 
       def contributors(repo, anon=true, options={})
         if anon

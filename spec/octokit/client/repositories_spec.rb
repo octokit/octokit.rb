@@ -235,12 +235,12 @@ describe Octokit::Client::Repositories do
 
   end
 
-  describe ".teams" do
+  describe ".repository_teams" do
 
     it "should return all repository teams" do
       stub_get("repos/show/codeforamerica/open311/teams").
         to_return(:body => fixture("teams.json"))
-      teams = @client.teams("codeforamerica/open311")
+      teams = @client.repository_teams("codeforamerica/open311")
       teams.first.name.should == "Fellows"
     end
 

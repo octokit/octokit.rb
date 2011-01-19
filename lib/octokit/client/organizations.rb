@@ -23,7 +23,7 @@ module Octokit
       alias :list_orgs :organizations
       alias :orgs :organizations
 
-      def organization_repositories(org, options={})
+      def organization_repositories(org=nil, options={})
         if org
           get("organizations/#{org}/public_repositories", options)
         else
@@ -38,9 +38,10 @@ module Octokit
       end
       alias :org_members :organization_members
 
-      def teams(org, options={})
+      def organization_teams(org, options={})
         get("organizations/#{org}/teams", options)['teams']
       end
+      alias :org_teams :organization_teams
 
       def create_team(org, values, options={})
         post("organizations/#{org}/teams", options.merge({:team => values}))['team']
