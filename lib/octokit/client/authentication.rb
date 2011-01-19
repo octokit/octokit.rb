@@ -14,6 +14,10 @@ module Octokit
       def authenticated?
         !authentication.empty?
       end
+
+      def oauthed?
+        !oauth_token.nil?
+      end
     end
   end
 end

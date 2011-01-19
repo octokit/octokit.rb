@@ -2,6 +2,18 @@ require File.expand_path(File.dirname(__FILE__) + '/helper')
 
 class OctokitTest < Test::Unit::TestCase
 
+  context "when oauthed" do
+    setup do
+      @client = Octokit::Client.new(:login => 'pengwynn', :oauth_token => 'OU812')
+    end
+    should "return full user info for the authenticated user" do
+      stub_get("user/show", "full_user.json")
+      user = @client.user
+      user.plan.name.should == 'free'
+      user.plan.space.should == 307200
+    end
+  end
+
   context "when authenticated" do
     setup do
       @client = Octokit::Client.new(:login => 'pengwynn', :token => 'OU812')
