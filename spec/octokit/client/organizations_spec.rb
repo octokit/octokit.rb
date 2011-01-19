@@ -31,11 +31,26 @@ describe Octokit::Client::Organizations do
 
   describe ".organizations" do
 
-    it "should return all organizations for a user" do
-      stub_get("user/show/sferik/organizations").
-        to_return(:body => fixture("organizations.json"))
-      organizations = @client.organizations("sferik")
-      organizations.first.name.should == "Hubcap"
+    context "with an org passed" do
+
+      it "should return all organizations for a user" do
+        stub_get("user/show/sferik/organizations").
+          to_return(:body => fixture("organizations.json"))
+        organizations = @client.organizations("sferik")
+        organizations.first.name.should == "Hubcap"
+      end
+
+    end
+
+    context "without an org passed" do
+
+      it "should return all organizations for a user" do
+        stub_get("organizations").
+          to_return(:body => fixture("organizations.json"))
+        organizations = @client.organizations
+        organizations.first.name.should == "Hubcap"
+      end
+
     end
 
   end
