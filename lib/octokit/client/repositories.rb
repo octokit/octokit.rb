@@ -17,7 +17,7 @@ module Octokit
       end
       alias :update_repo :update_repository
 
-      def repositories(username=nil, options={})
+      def repositories(username=login, options={})
         get(["repos/show", username].compact.join('/'), options)['repositories']
       end
       alias :list_repositories :repositories
@@ -39,16 +39,27 @@ module Octokit
       end
       alias :fork :fork!
 
-      def create_repository(options={})
-        post("repos/create", options)['repository']
+      def create_repository(name, options={})
+        post("repos/create", options.merge(:name => name))['repository']
       end
       alias :create_repo :create_repository
       alias :create :create_repository
 
       def delete_repository(repo, options={})
-        post("repos/delete/#{Repository.new(repo)}", options)['repository']
+        response = post("repos/delete/#{Repository.new(repo)}", options)
+        if response.respond_to?(:delete_token)
+          response['delete_token']
+        else
+          response['repository']
+        end
       end
       alias :delete_repo :delete_repository
+
+      def delete_repository!(repo, options={})
+        response = post("repos/delete/#{Repository.new(repo)}", options)
+        post("repos/delete/#{Repository.new(repo)}", options.merge(:delete_token => response['delete_token']))['repository']
+      end
+      alias :delete_repo! :delete_repository!
 
       def set_private!(repo, options={})
         post("repos/set/private/#{Repository.new(repo)}", options)['repository']
@@ -65,7 +76,7 @@ module Octokit
       end
       alias :list_deploy_keys :deploy_keys
 
-      def add_deploy_key(repo, options={})
+      def add_deploy_key(repo, title, key, options={})
         post("repos/key/#{Repository.new(repo)}/add", options)['public_keys']
       end
 
@@ -93,7 +104,7 @@ module Octokit
       end
 
       def teams(repo, options={})
-        get("repos/show/#{Repository.new(repo)}/teams", options)['repositories']
+        get("repos/show/#{Repository.new(repo)}/teams", options)['teams']
       end
 
       def contributors(repo, anon=true, options={})
