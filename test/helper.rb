@@ -26,6 +26,8 @@ def github_url(url)
     url
   elsif @client && @client.authenticated?
     "https://pengwynn%2Ftoken:OU812@github.com/api/v#{Octokit.version}/#{Octokit.format}/#{url}"
+  elsif @client && @client.oauthed?
+    "https://github.com/api/v#{Octokit.version}/#{Octokit.format}/#{url}?access_token=#{@client.oauth_token}"
   else
     "https://github.com/api/v#{Octokit.version}/#{Octokit.format}/#{url}"
   end
