@@ -14,6 +14,8 @@ module Octokit
           :url => endpoint,
         }
 
+        options.merge!(:params => { :access_token => oauth_token }) if oauthed? && !authenticated?
+
         Faraday::Connection.new(options) do |connection|
           connection.adapter(adapter)
           connection.basic_auth authentication[:login], authentication[:password] if authenticate and authenticated?
