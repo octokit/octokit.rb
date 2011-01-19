@@ -109,11 +109,11 @@ module Octokit
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
 
-      def contributors(repo, anon=true, options={})
+      def contributors(repo, anon=false, options={})
         if anon
-          get("repos/show/#{Repository.new(repo)}/contributors", options)
-        else
           get("repos/show/#{Repository.new(repo)}/contributors/anon", options)
+        else
+          get("repos/show/#{Repository.new(repo)}/contributors", options)
         end['contributors']
       end
       alias :contribs :contributors

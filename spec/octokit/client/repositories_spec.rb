@@ -248,11 +248,26 @@ describe Octokit::Client::Repositories do
 
   describe ".contributors" do
 
-    it "should return all repository contributors" do
-      stub_get("repos/show/sferik/rails_admin/contributors").
-        to_return(:body => fixture("contributors.json"))
-      contributors = @client.contributors("sferik/rails_admin")
-      contributors.first.name.should == "Erik Michaels-Ober"
+    context "with anonymous users" do
+
+      it "should return all repository contributors" do
+        stub_get("repos/show/sferik/rails_admin/contributors/anon").
+          to_return(:body => fixture("contributors.json"))
+        contributors = @client.contributors("sferik/rails_admin", true)
+        contributors.first.name.should == "Erik Michaels-Ober"
+      end
+
+    end
+
+    context "without anonymous users" do
+
+      it "should return all repository contributors" do
+        stub_get("repos/show/sferik/rails_admin/contributors").
+          to_return(:body => fixture("contributors.json"))
+        contributors = @client.contributors("sferik/rails_admin")
+        contributors.first.name.should == "Erik Michaels-Ober"
+      end
+
     end
 
   end
