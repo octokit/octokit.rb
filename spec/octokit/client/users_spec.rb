@@ -6,7 +6,7 @@ describe Octokit::Client::Users do
     @client = Octokit::Client.new(:login => 'sferik')
   end
 
-  describe ".search_user" do
+  describe ".search_users" do
 
     context "with a username passed" do
 

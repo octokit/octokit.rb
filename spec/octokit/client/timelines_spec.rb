@@ -12,7 +12,6 @@ describe Octokit::Client::Users do
       events.first.repository.name.should == "homebrew"
     end
 
-
   end
 
   describe ".user_timeline" do
@@ -34,8 +33,8 @@ describe Octokit::Client::Users do
         events = client.user_timeline("sferik")
         events.first.repository.name.should == "homebrew"
       end
-    end
 
+    end
 
   end
 
