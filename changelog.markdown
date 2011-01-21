@@ -1,4 +1,7 @@
 # Changelog
+## 0.5.0
+	* Rewrote all tests in rspec
+	* A handful of backwards-incompatible API changes
 ## 0.4.1
   * Patch from [karlfreeman](http://github.com/karlfreeman) to fix user search
 ## 0.4.0
