@@ -6,8 +6,8 @@ module Octokit
         get("#{Repository.new(repo)}/network_meta", options, false, false)
       end
 
-      def network_data(repo, nethash, options={})
-        get("#{Repository.new(repo)}/network_data_chunk", options.merge({:nethash => nethash}), false, false)['commits']
+      def network_data(repo, options={})
+        get("#{Repository.new(repo)}/network_data_chunk", options, false, false)['commits']
       end
 
     end
