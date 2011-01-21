@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('shoulda', '~> 2.11')
   s.add_development_dependency('webmock', '~> 1.6')
   s.add_development_dependency('ZenTest', '~> 4.4')
-  s.add_runtime_dependency('addressable', '~> 2.2.2')
+  s.add_runtime_dependency('addressable', '~> 2.2.3')
   s.add_runtime_dependency('hashie', '~> 0.4.0')
   s.add_runtime_dependency('faraday', '~> 0.5.3')
   s.add_runtime_dependency('faraday_middleware', '~> 0.3.1')
