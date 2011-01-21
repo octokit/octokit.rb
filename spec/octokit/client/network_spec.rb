@@ -21,9 +21,9 @@ describe Octokit::Client::Network do
 
     it "should return network data" do
       stub_get("https://github.com/sferik/rails_admin/network_data_chunk").
-        to_return(:body => fixture("commits.json"))
-      commits = @client.network_data("sferik/rails_admin")
-      commits.first.login.should == "rosenfeld"
+        to_return(:body => fixture("network_data.json"))
+      network_data = @client.network_data("sferik/rails_admin")
+      network_data.first.login.should == "rosenfeld"
     end
 
   end

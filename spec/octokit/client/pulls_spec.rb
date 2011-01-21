@@ -20,7 +20,7 @@ describe Octokit::Client::Pulls do
 
   describe ".pull_requests" do
 
-    it "should return pull requests" do
+    it "should return all pull requests" do
       stub_get("pulls/sferik/rails_admin/open").
         to_return(:body => fixture("pulls.json"))
       pulls = @client.pulls("sferik/rails_admin")
@@ -31,7 +31,7 @@ describe Octokit::Client::Pulls do
 
   describe ".pull_request" do
 
-    it "should return pull requests" do
+    it "should return a pull request" do
       stub_get("pulls/sferik/rails_admin/251").
         to_return(:body => fixture("pull.json"))
       pull = @client.pull("sferik/rails_admin", 251)
