@@ -7,7 +7,7 @@ module Octokit
     module Connection
       private
 
-      def connection(raw=false)
+      def connection(raw=false, authenticate=true)
         options = {
           :proxy => proxy,
           :ssl => {:verify => false},
@@ -18,7 +18,7 @@ module Octokit
 
         Faraday::Connection.new(options) do |connection|
           connection.adapter(adapter)
-          connection.basic_auth authentication[:login], authentication[:password] if authenticated?
+          connection.basic_auth authentication[:login], authentication[:password] if authenticate and authenticated?
           connection.use Faraday::Response::RaiseError
           unless raw
             case format.to_s.downcase

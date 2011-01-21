@@ -20,7 +20,7 @@ module Octokit
       end
 
       def issue_comments(repo, number, options={})
-        post("issues/comments/#{Repository.new(repo)}/#{number}", options)['comments']
+        get("issues/comments/#{Repository.new(repo)}/#{number}", options)['comments']
       end
 
       def create_issue(repo, title, body, options={})
@@ -44,12 +44,12 @@ module Octokit
         get("issues/labels/#{Repository.new(repo)}", options)['labels']
       end
 
-      def add_label(repo, number, label, options={})
-        post("issues/label/add/#{Repository.new(repo)}/#{label}/#{number}", options)['labels']
+      def add_label(repo, label, number=nil, options={})
+        post(["issues/label/add/#{Repository.new(repo)}/#{label}", number].compact.join('/'), options)['labels']
       end
 
-      def remove_label(repo, number, label, options={})
-        post("issues/label/remove/#{Repository.new(repo)}/#{label}/#{number}")['labels']
+      def remove_label(repo, label, number=nil, options={})
+        post(["issues/label/remove/#{Repository.new(repo)}/#{label}", number].compact.join('/'), options)['labels']
       end
 
       def add_comment(repo, number, comment, options={})

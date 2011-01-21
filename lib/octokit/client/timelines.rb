@@ -2,17 +2,19 @@ module Octokit
   class Client
     module Timelines
 
-      def public_timeline(username=login, options={})
-        if username.nil?
-          path = "timeline.json"
-        else
-          path = "#{username}.json"
-        end
-        get(path, options, false, false)
+      def timeline(options={})
+        path = "https://github.com/timeline.json"
+        get(path, options, false, false, false)
       end
 
-      def timeline(options={})
-        get("#{login}.private.json", options, false, false)
+      def user_timeline(username=login, options={})
+        if token
+          path = "https://github.com/#{username}.private.json"
+          options[:token] = token
+        else
+          path = "https://github.com/#{username}.json"
+        end
+        get(path, options, false, false, false)
       end
 
     end

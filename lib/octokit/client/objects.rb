@@ -20,7 +20,7 @@ module Octokit
       alias :blob_meta :blob_metadata
 
       def tree_metadata(repo, tree_sha, options={})
-        get("tree/full/#{Repository.new(repo)}/#{tree_sha}", options)['blobs']
+        get("tree/full/#{Repository.new(repo)}/#{tree_sha}", options)['tree']
       end
       alias :tree_meta :tree_metadata
 

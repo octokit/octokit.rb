@@ -1,4 +1,3 @@
-require File.expand_path('../event', __FILE__)
 require File.expand_path('../repository', __FILE__)
 Dir[File.expand_path('../client/*.rb', __FILE__)].each{|file| require file}
 
