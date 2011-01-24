@@ -1,7 +1,0 @@
-tree f7a5de2e224ec94182a3c2c081f4e7f35f70da4d
-parent cd13d9a61288dceb0a7aa73b55ed2fd019f4f1f7
-parent 3211367cab73233af66dac2710c94682f3f3b9b2
-author Chris Wanstrath <chris@ozmm.org> 1213837237 -0700
-committer Chris Wanstrath <chris@ozmm.org> 1213837237 -0700
-
-Merge branch 'master' of git://github.com/webweaver/facebox into webweaver/master
