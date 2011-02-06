@@ -34,7 +34,7 @@ describe Octokit::Client::Objects do
       stub_get("blob/all/sferik/rails_admin/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
         to_return(:body => fixture("blobs.json"))
       blobs = @client.blobs("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-      blobs.first.first.should == "spec/dummy_app/public"
+      blobs[".gitignore"].should == "5efe0eb47a773fa6ea84a0bf190ee218b6a31ead"
     end
 
   end

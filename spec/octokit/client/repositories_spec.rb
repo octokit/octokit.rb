@@ -300,7 +300,7 @@ describe Octokit::Client::Repositories do
       stub_get("repos/show/sferik/rails_admin/languages").
         to_return(:body => fixture("languages.json"))
       languages = @client.languages("sferik/rails_admin")
-      languages.first.first.should == "Ruby"
+      languages["Ruby"].should == 205046
     end
 
   end
@@ -311,7 +311,7 @@ describe Octokit::Client::Repositories do
       stub_get("repos/show/pengwynn/octokit/tags").
         to_return(:body => fixture("tags.json"))
       tags = @client.tags("pengwynn/octokit")
-      tags.first.first.should == "v0.1.0"
+      tags["v0.0.1"].should == "0d7a03f2035ecd74e4d6eb9be58865c2a688ee55"
     end
 
   end
@@ -322,7 +322,7 @@ describe Octokit::Client::Repositories do
       stub_get("repos/show/pengwynn/octokit/branches").
         to_return(:body => fixture("branches.json"))
       branches = @client.branches("pengwynn/octokit")
-      branches.first.first.should == "rspec"
+      branches["master"].should == "4d9a9e9ca183bab1c3d0accf1d53edd85bd6200f"
     end
 
   end
