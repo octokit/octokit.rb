@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('nokogiri', '~> 1.4')
   s.add_development_dependency('rake', '~> 0.8')
   s.add_development_dependency('rspec', '~> 2.5')
-  s.add_development_dependency('simplecov', '~> 0.3')
+  s.add_development_dependency('simplecov', '~> 0.4')
   s.add_development_dependency('webmock', '~> 1.6')
   s.add_development_dependency('ZenTest', '~> 4.4')
   s.add_runtime_dependency('addressable', '~> 2.2.4')
