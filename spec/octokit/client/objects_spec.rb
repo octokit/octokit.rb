@@ -64,10 +64,15 @@ describe Octokit::Client::Objects do
   describe ".raw" do
 
     it "should return raw data" do
-      pending "TODO: This shouldn't get parsed as JSON"
       stub_get("blob/show/sferik/rails_admin/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
         to_return(:body => fixture("raw.txt"))
       raw = @client.raw("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
+      lambda {
+        ::MultiJson.decode(raw)
+      }.should raise_error
+      lambda {
+        ::MultiXml.decode(raw)
+      }.should raise_error
     end
 
   end

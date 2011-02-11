@@ -25,7 +25,7 @@ module Octokit
       alias :tree_meta :tree_metadata
 
       def raw(repo, sha, options={})
-        get("blob/show/#{Repository.new(repo)}/#{sha}", options)
+        get("blob/show/#{Repository.new(repo)}/#{sha}", options, true).body
       end
 
     end
