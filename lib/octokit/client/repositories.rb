@@ -24,20 +24,17 @@ module Octokit
       alias :list_repos :repositories
       alias :repos :repositories
 
-      def watch!(repo, options={})
+      def watch(repo, options={})
         post("repos/watch/#{Repository.new(repo)}", options)['repository']
       end
-      alias :watch :watch!
 
-      def unwatch!(repo, options={})
+      def unwatch(repo, options={})
         post("repos/unwatch/#{Repository.new(repo)}", options)['repository']
       end
-      alias :unwatch :unwatch!
 
-      def fork!(repo, options={})
+      def fork(repo, options={})
         post("repos/fork/#{Repository.new(repo)}", options)['repository']
       end
-      alias :fork :fork!
 
       def create_repository(name, options={})
         post("repos/create", options.merge(:name => name))['repository']
@@ -61,15 +58,13 @@ module Octokit
       end
       alias :delete_repo! :delete_repository!
 
-      def set_private!(repo, options={})
+      def set_private(repo, options={})
         post("repos/set/private/#{Repository.new(repo)}", options)['repository']
       end
-      alias :set_private :set_private!
 
-      def set_public!(repo, options={})
+      def set_public(repo, options={})
         post("repos/set/public/#{Repository.new(repo)}", options)['repository']
       end
-      alias :set_public :set_public!
 
       def deploy_keys(repo, options={})
         get("repos/keys/#{Repository.new(repo)}", options)['public_keys']

@@ -35,15 +35,13 @@ module Octokit
         following(user).include?(target)
       end
 
-      def follow!(user, options={})
+      def follow(user, options={})
         post("user/follow/#{user}", options)['users']
       end
-      alias :follow :follow!
 
-      def unfollow!(user, options={})
+      def unfollow(user, options={})
         post("user/unfollow/#{user}", options)['users']
       end
-      alias :unfollow :unfollow!
 
       def watched(user=login, options={})
         get("repos/watched/#{user}", options)['repositories']
