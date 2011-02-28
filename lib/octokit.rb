@@ -17,6 +17,10 @@ module Octokit
     client.send(method, *args, &block)
   end
 
+  def self.respond_to?(method)
+    client.respond_to?(method) || super
+  end
+
   # Custom error class for rescuing from all GitHub errors
   class Error < StandardError; end
 
