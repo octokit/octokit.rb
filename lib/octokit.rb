@@ -1,5 +1,5 @@
-require File.expand_path('../octokit/configuration', __FILE__)
-require File.expand_path('../octokit/client', __FILE__)
+require 'octokit/configuration'
+require 'octokit/client'
 
 module Octokit
   extend Configuration

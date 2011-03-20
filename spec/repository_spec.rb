@@ -1,4 +1,4 @@
-require File.expand_path('../helper', __FILE__)
+require 'helper'
 
 describe Octokit::Repository do
   context "when passed a string containg a slash" do

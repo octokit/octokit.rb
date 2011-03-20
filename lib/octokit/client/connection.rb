@@ -1,5 +1,5 @@
 require 'faraday_middleware'
-Dir[File.expand_path('../../../faraday/*.rb', __FILE__)].each{|file| require file}
+require 'faraday/raise_error'
 
 module Octokit
   class Client

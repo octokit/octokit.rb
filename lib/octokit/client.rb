@@ -1,5 +1,16 @@
-require File.expand_path('../repository', __FILE__)
-Dir[File.expand_path('../client/*.rb', __FILE__)].each{|file| require file}
+require 'octokit/repository'
+require 'octokit/client/authentication'
+require 'octokit/client/connection'
+require 'octokit/client/request'
+require 'octokit/client/commits'
+require 'octokit/client/issues'
+require 'octokit/client/network'
+require 'octokit/client/objects'
+require 'octokit/client/organizations'
+require 'octokit/client/pulls'
+require 'octokit/client/repositories'
+require 'octokit/client/timelines'
+require 'octokit/client/users'
 
 module Octokit
   class Client

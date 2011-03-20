@@ -1,5 +1,5 @@
 require 'faraday'
-require File.expand_path('../version', __FILE__)
+require 'octokit/version'
 
 module Octokit
   module Configuration
