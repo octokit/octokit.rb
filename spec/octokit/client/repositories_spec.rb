@@ -67,34 +67,34 @@ describe Octokit::Client::Repositories do
 
   end
 
-  describe ".watch!" do
+  describe ".watch" do
 
     it "should watch a repository" do
       stub_post("repos/watch/sferik/rails_admin").
         to_return(:body => fixture("repository.json"))
-      repository = @client.watch!("sferik/rails_admin")
+      repository = @client.watch("sferik/rails_admin")
       repository.name.should == "rails_admin"
     end
 
   end
 
-  describe ".unwatch!" do
+  describe ".unwatch" do
 
     it "should unwatch a repository" do
       stub_post("repos/unwatch/sferik/rails_admin").
         to_return(:body => fixture("repository.json"))
-      repository = @client.unwatch!("sferik/rails_admin")
+      repository = @client.unwatch("sferik/rails_admin")
       repository.name.should == "rails_admin"
     end
 
   end
 
-  describe ".fork!" do
+  describe ".fork" do
 
     it "should fork a repository" do
       stub_post("repos/fork/sferik/rails_admin").
         to_return(:body => fixture("repository.json"))
-      repository = @client.fork!("sferik/rails_admin")
+      repository = @client.fork("sferik/rails_admin")
       repository.name.should == "rails_admin"
     end
 
@@ -123,34 +123,34 @@ describe Octokit::Client::Repositories do
 
   end
 
-  describe ".delete_repository!" do
+  describe ".delete_repository" do
 
     it "should delete a repository" do
       stub_post("repos/delete/sferik/rails_admin").
         to_return(:body => fixture("repository.json"))
-      repository = @client.delete_repository!("sferik/rails_admin")
+      repository = @client.delete_repository("sferik/rails_admin")
       repository.name.should == "rails_admin"
     end
 
   end
 
-  describe ".set_private!" do
+  describe ".set_private" do
 
     it "should set a repository private" do
       stub_post("repos/set/private/sferik/rails_admin").
         to_return(:body => fixture("repository.json"))
-      repository = @client.set_private!("sferik/rails_admin")
+      repository = @client.set_private("sferik/rails_admin")
       repository.name.should == "rails_admin"
     end
 
   end
 
-  describe ".set_public!" do
+  describe ".set_public" do
 
     it "should set a repository public" do
       stub_post("repos/set/public/sferik/rails_admin").
         to_return(:body => fixture("repository.json"))
-      repository = @client.set_public!("sferik/rails_admin")
+      repository = @client.set_public("sferik/rails_admin")
       repository.name.should == "rails_admin"
     end
 

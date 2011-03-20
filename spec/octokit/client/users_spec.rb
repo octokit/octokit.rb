@@ -152,23 +152,23 @@ describe Octokit::Client::Users do
 
   end
 
-  describe ".follow!" do
+  describe ".follow" do
 
     it "should follow a user" do
       stub_post("user/follow/dianakimball").
         to_return(:body => fixture("following.json"))
-      following = @client.follow!("dianakimball")
+      following = @client.follow("dianakimball")
       following.should include("dianakimball")
     end
 
   end
 
-  describe ".unfollow!" do
+  describe ".unfollow" do
 
     it "should unfollow a user" do
       stub_post("user/unfollow/dogbrainz").
         to_return(:body => fixture("following.json"))
-      following = @client.unfollow!("dogbrainz")
+      following = @client.unfollow("dogbrainz")
       following.should_not include("dogbrainz")
     end
 
