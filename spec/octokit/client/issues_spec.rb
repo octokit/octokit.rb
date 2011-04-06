@@ -65,7 +65,6 @@ describe Octokit::Client::Issues do
 
     it "should create an issue" do
       stub_post("issues/open/sferik/rails_admin").
-        with(:body => {:title => "Use OrmAdapter instead of talking directly to ActiveRecord", :body => "Hi,\n\nI just tried to play with this in an app with no ActiveRecord.  I was disappointed.  It seems the only reason the engine relies on AR is to provide History functionality.  I would argue that having the History in a database, and therefore tying the app to AR & SQL, isn't worth it.  How about we change it to just dump to a CSV and remove the AR dep?\n\n$0.02"}).
         to_return(:body => fixture("issue.json"))
       issue = @client.create_issue("sferik/rails_admin", "Use OrmAdapter instead of talking directly to ActiveRecord", "Hi,\n\nI just tried to play with this in an app with no ActiveRecord.  I was disappointed.  It seems the only reason the engine relies on AR is to provide History functionality.  I would argue that having the History in a database, and therefore tying the app to AR & SQL, isn't worth it.  How about we change it to just dump to a CSV and remove the AR dep?\n\n$0.02")
       issue.number.should == 105
@@ -99,7 +98,6 @@ describe Octokit::Client::Issues do
 
     it "should update an issue" do
       stub_post("issues/edit/sferik/rails_admin/105").
-        with(:body => {:title => "Use OrmAdapter instead of talking directly to ActiveRecord", :body => "Hi,\n\nI just tried to play with this in an app with no ActiveRecord.  I was disappointed.  It seems the only reason the engine relies on AR is to provide History functionality.  I would argue that having the History in a database, and therefore tying the app to AR & SQL, isn't worth it.  How about we change it to just dump to a CSV and remove the AR dep?\n\n$0.02"}).
         to_return(:body => fixture("issue.json"))
       issue = @client.update_issue("sferik/rails_admin", 105, "Use OrmAdapter instead of talking directly to ActiveRecord", "Hi,\n\nI just tried to play with this in an app with no ActiveRecord.  I was disappointed.  It seems the only reason the engine relies on AR is to provide History functionality.  I would argue that having the History in a database, and therefore tying the app to AR & SQL, isn't worth it.  How about we change it to just dump to a CSV and remove the AR dep?\n\n$0.02")
       issue.number.should == 105
