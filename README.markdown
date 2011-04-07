@@ -5,7 +5,11 @@ Simple Ruby wrapper for the GitHub v2 API.
 Installation
 ------------
     gem install octokit
-    
+
+Continuous Integration
+----------------------
+[![Build Status](http://travis-ci.org/pengwynn/octokit.png)](http://travis-ci.org/pengwynn/octokit)
+
 Some examples
 -------------
 
