@@ -111,7 +111,7 @@ describe Octokit::Client::Organizations do
         with(:name => "Fellows").
         to_return(:body => fixture("team.json"))
       team = @client.create_team("codeforamerica", {:name => "Fellows"})
-      team.first.last.should == "Fellows"
+      team.name.should == "Fellows"
     end
 
   end
@@ -122,7 +122,7 @@ describe Octokit::Client::Organizations do
       stub_get("teams/32598").
         to_return(:body => fixture("team.json"))
       team = @client.team(32598)
-      team.first.last.should == "Fellows"
+      team.name.should == "Fellows"
     end
 
   end
@@ -134,7 +134,7 @@ describe Octokit::Client::Organizations do
         with(:name => "Fellows").
         to_return(:body => fixture("team.json"))
       team = @client.update_team(32598, :name => "Fellows")
-      team.first.last.should == "Fellows"
+      team.name.should == "Fellows"
     end
 
   end
@@ -145,7 +145,7 @@ describe Octokit::Client::Organizations do
       stub_delete("teams/32598").
         to_return(:body => fixture("team.json"))
       team = @client.delete_team(32598)
-      team.first.last.should == "Fellows"
+      team.name.should == "Fellows"
     end
 
   end
@@ -156,7 +156,7 @@ describe Octokit::Client::Organizations do
       stub_delete("teams/32598").
         to_return(:body => fixture("team.json"))
       team = @client.delete_team(32598)
-      team.first.last.should == "Fellows"
+      team.name.should == "Fellows"
     end
 
   end
