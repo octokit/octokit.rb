@@ -23,7 +23,7 @@ describe Octokit::Client::Users do
       events = client.user_timeline("sferik")
       events.first.repository.name.should == "homebrew"
     end
-    
+
     context "when authenticated" do
 
       it "should return a user timeline" do
