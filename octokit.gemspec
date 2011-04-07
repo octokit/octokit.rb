@@ -2,7 +2,7 @@
 require File.expand_path('../lib/octokit/version', __FILE__)
 
 Gem::Specification.new do |s|
-  s.add_development_dependency('json', '~> 1.5')
+  s.add_development_dependency('json_pure', '~> 1.5')
   s.add_development_dependency('nokogiri', '~> 1.4')
   s.add_development_dependency('rake', '~> 0.8')
   s.add_development_dependency('rspec', '~> 2.5')
