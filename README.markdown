@@ -1,6 +1,6 @@
 Octokit
 =======
-Simple Ruby wrapper for the GitHub v2 API. 
+Simple Ruby wrapper for the GitHub v2 API.
 
 Installation
 ------------
@@ -13,12 +13,12 @@ Some examples
 
     Octokit.user('pengwynn')
     => <#Hashie::Mash blog="http://wynnnetherland.com" company="Orrka" created_at="2008/02/25 10:24:19 -0800" email="wynn.netherland@gmail.com" followers_count=21 following_count=55 id=865 location="Dallas, TX" login="pengwynn" name="Wynn Netherland" public_gist_count=4 public_repo_count=16>
-    
+
 ### Show who a user follows
 
     Octokit.following('pengwynn')
     => ["cglee", "bryansray", "rails", "zachinglis", "wycats", "obie", "mully", "squeejee", "jderrett", "Shopify", "ReinH", "technoweenie", "errfree", "defunkt", "joshsusser", "hashrocket", "newbamboo", "bigtiger", "github", "jamis", "jeresig", "thoughtbot", "therealadam", "jnunemaker", "seaofclouds", "choan", "llimllib", "kwhinnery", "marshall", "handcrafted", "adamstac", "jashkenas", "dan", "remy", "hayesdavis", "documentcloud", "imathis", "mdeiters", "njonsson", "asenchi", "mattsa", "marclove", "webiest", "brogers", "polomasta", "stephp", "mchelen", "piyush", "davidnorth", "rmetzler", "jferris", "madrobby", "zh", "erikvold", "desandro"]
-    
+
 Working with repositories
 -------------------------
 For convenience, methods that require a repo argument may be passed in any of the following forms
@@ -32,7 +32,7 @@ For convenience, methods that require a repo argument may be passed in any of th
 
     Octokit.repo("pengwynn/linkedin")
     => <#Hashie::Mash description="Ruby wrapper for the LinkedIn API" fork=false forks=1 homepage="http://bit.ly/ruby-linkedin" name="linkedin" open_issues=2 owner="pengwynn" private=false url="http://github.com/pengwynn/linkedin" watchers=36>
-    
+
 Authenticated requests
 ----------------------
 Some methods require authentication so you'll need to pass a login and an api_token. You can find your GitHub API token on your [account page](https://github.com/account)
