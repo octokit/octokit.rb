@@ -1,5 +1,5 @@
 require 'faraday_middleware'
-require 'faraday/raise_error'
+require 'faraday/response/raise_error'
 
 module Octokit
   class Client
