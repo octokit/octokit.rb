@@ -16,7 +16,7 @@ module Octokit
 
         options.merge!(:params => { :access_token => oauth_token }) if oauthed? && !authenticated?
 
-        Faraday::Connection.new(options) do |connection|
+        con = Faraday::Connection.new(options) do |connection|
           connection.use Faraday::Response::RaiseError
           unless raw
             connection.use Faraday::Response::Mashify
@@ -25,9 +25,10 @@ module Octokit
             when 'xml' then connection.use Faraday::Response::ParseXml
             end
           end
-          connection.basic_auth authentication[:login], authentication[:password] if authenticate and authenticated?
           connection.adapter(adapter)
         end
+        con.basic_auth authentication[:login], authentication[:password] if authenticate and authenticated?
+        con
       end
     end
   end
