@@ -1,3 +1,3 @@
 module Octokit
-  VERSION = "0.6.1".freeze unless defined?(Octokit::VERSION)
+  VERSION = "0.6.2".freeze unless defined?(Octokit::VERSION)
 end
