@@ -71,9 +71,6 @@ describe Octokit::Client::Objects do
       lambda {
         ::MultiJson.decode(raw)
       }.should raise_error
-      lambda {
-        ::MultiXml.decode(raw)
-      }.should raise_error
     end
 
   end

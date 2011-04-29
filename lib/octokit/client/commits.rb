@@ -3,12 +3,12 @@ module Octokit
     module Commits
 
       def commits(repo, branch="master", options={})
-        get("commits/list/#{Repository.new(repo)}/#{branch}", options)['commits']
+        get("api/v2/json/commits/list/#{Repository.new(repo)}/#{branch}", options)['commits']
       end
       alias :list_commits :commits
 
       def commit(repo, sha, options={})
-        get("commits/show/#{Repository.new(repo)}/#{sha}", options)['commits']
+        get("api/v2/json/commits/show/#{Repository.new(repo)}/#{sha}", options)['commits']
       end
 
     end

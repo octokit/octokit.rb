@@ -20,10 +20,7 @@ module Octokit
           connection.use Faraday::Response::RaiseError
           unless raw
             connection.use Faraday::Response::Mashify
-            case format.to_s.downcase
-            when 'json' then connection.use Faraday::Response::ParseJson
-            when 'xml' then connection.use Faraday::Response::ParseXml
-            end
+            connection.use Faraday::Response::ParseJson
           end
           connection.adapter(adapter)
         end
