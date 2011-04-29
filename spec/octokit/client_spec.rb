@@ -18,4 +18,12 @@ describe Octokit::Client do
     }.should_not raise_exception
   end
 
+  it 'should work with basic auth and password' do
+    stub_request(:get, "https://foo:bar@github.com/api/v2/json/commits/list/baz/quux/master").
+             with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+             to_return(:status => 200, :body => '{"commits":[]}', :headers => {})
+    proc {
+      Octokit::Client.new(:login => 'foo', :password => 'bar').commits('baz/quux')
+    }.should_not raise_exception
+  end
 end
