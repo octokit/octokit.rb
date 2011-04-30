@@ -2,20 +2,21 @@
 require File.expand_path('../lib/octokit/version', __FILE__)
 
 Gem::Specification.new do |s|
-  s.add_development_dependency('json_pure', '~> 1.5')
-  s.add_development_dependency('nokogiri', '~> 1.4')
-  s.add_development_dependency('rake', '~> 0.8')
-  s.add_development_dependency('rspec', '~> 2.5')
-  s.add_development_dependency('simplecov', '~> 0.4')
-  s.add_development_dependency('webmock', '~> 1.6')
-  s.add_development_dependency('ZenTest', '~> 4.5')
-  s.add_runtime_dependency('addressable', '~> 2.2.4')
-  s.add_runtime_dependency('hashie', '~> 1.0.0')
-  s.add_runtime_dependency('faraday', '~> 0.6.0')
-  s.add_runtime_dependency('faraday_middleware', '~> 0.6.0')
-  s.add_runtime_dependency('jruby-openssl', '~> 0.7.3') if RUBY_PLATFORM == 'java'
-  s.add_runtime_dependency('multi_json', '~> 1.0.0')
-  s.add_runtime_dependency('rash', '~> 0.3.0')
+  s.add_development_dependency 'json_pure', '~> 1.5'
+  s.add_development_dependency 'nokogiri', '~> 1.4'
+  s.add_development_dependency 'rake', '~> 0.8'
+  s.add_development_dependency 'rspec', '~> 2.5'
+  s.add_development_dependency 'simplecov', '~> 0.4'
+  s.add_development_dependency 'yard', '~> 0.6'
+  s.add_development_dependency 'webmock', '~> 1.6'
+  s.add_development_dependency 'ZenTest', '~> 4.5'
+  s.add_runtime_dependency 'addressable', '~> 2.2.4'
+  s.add_runtime_dependency 'hashie', '~> 1.0.0'
+  s.add_runtime_dependency 'faraday', '~> 0.6.0'
+  s.add_runtime_dependency 'faraday_middleware', '~> 0.6.0'
+  s.add_runtime_dependency 'jruby-openssl', '~> 0.7.3' if RUBY_PLATFORM == 'java'
+  s.add_runtime_dependency 'multi_json', '~> 1.0.0'
+  s.add_runtime_dependency 'rash', '~> 0.3.0'
   s.name = 'octokit'
   s.authors = ["Wynn Netherland", "Adam Stacoviak", "Erik Michaels-Ober"]
   s.description = %q{Simple wrapper for the GitHub API v2}
