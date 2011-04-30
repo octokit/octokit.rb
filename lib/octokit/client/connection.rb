@@ -19,7 +19,7 @@ module Octokit
         con = Faraday::Connection.new(options) do |connection|
           connection.use Faraday::Response::RaiseError
           unless raw
-            connection.use Faraday::Response::Mashify
+            connection.use Faraday::Response::Rashify
             connection.use Faraday::Response::ParseJson
           end
           connection.adapter(adapter)

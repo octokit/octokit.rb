@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('faraday_middleware', '~> 0.6.0')
   s.add_runtime_dependency('jruby-openssl', '~> 0.7.3') if RUBY_PLATFORM == 'java'
   s.add_runtime_dependency('multi_json', '~> 1.0.0')
+  s.add_runtime_dependency('rash', '~> 0.3.0')
   s.name = 'octokit'
   s.authors = ["Wynn Netherland", "Adam Stacoviak", "Erik Michaels-Ober"]
   s.description = %q{Simple wrapper for the GitHub API v2}
