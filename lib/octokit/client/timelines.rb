@@ -3,18 +3,18 @@ module Octokit
     module Timelines
 
       def timeline(options={})
-        path = "https://github.com/timeline.json"
-        get(path, options, false)
+        path = "timeline.json"
+        get(path, options, 2, false)
       end
 
       def user_timeline(username=login, options={})
         if token
-          path = "https://github.com/#{username}.private.json"
+          path = "#{username}.private.json"
           options[:token] = token
         else
-          path = "https://github.com/#{username}.json"
+          path = "#{username}.json"
         end
-        get(path, options, false)
+        get(path, options, 2, false)
       end
 
     end
