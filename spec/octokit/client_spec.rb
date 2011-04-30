@@ -19,7 +19,7 @@ describe Octokit::Client do
   end
 
   it 'should work with basic auth and password' do
-    stub_request(:get, "https://foo%2Fbar@github.com/api/v2/json/commits/list/baz/quux/master").
+    stub_request(:get, "https://foo:bar@github.com/api/v2/json/commits/list/baz/quux/master").
       with(:headers => {'Accept'=>'*/*'}).
       to_return(:status => 200, :body => '{"commits":[]}', :headers => {})
     proc {
