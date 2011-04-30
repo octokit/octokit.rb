@@ -5,7 +5,7 @@ module Octokit
   module Configuration
     VALID_OPTIONS_KEYS = [
       :adapter,
-      :endpoint,
+      :api_version,
       :login,
       :password,
       :proxy,
@@ -14,7 +14,7 @@ module Octokit
       :user_agent].freeze
 
     DEFAULT_ADAPTER     = Faraday.default_adapter
-    DEFAULT_ENDPOINT    = 'https://github.com/'.freeze
+    DEFAULT_API_VERSION = 2
     DEFAULT_LOGIN       = nil
     DEFAULT_PASSWORD    = nil
     DEFAULT_PROXY       = nil
@@ -38,7 +38,7 @@ module Octokit
 
     def reset
       self.adapter     = DEFAULT_ADAPTER
-      self.endpoint    = DEFAULT_ENDPOINT
+      self.api_version = DEFAULT_API_VERSION
       self.login       = DEFAULT_LOGIN
       self.password    = DEFAULT_PASSWORD
       self.proxy       = DEFAULT_PROXY

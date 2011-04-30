@@ -7,11 +7,11 @@ module Octokit
     module Connection
       private
 
-      def connection(raw=false, authenticate=true)
+      def connection(url, authenticate=true, raw=false)
         options = {
           :proxy => proxy,
           :ssl => {:verify => false},
-          :url => endpoint,
+          :url => url,
         }
 
         options.merge!(:params => { :access_token => oauth_token }) if oauthed? && !authenticated?

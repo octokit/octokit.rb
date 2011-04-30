@@ -1,26 +1,31 @@
 module Octokit
   class Client
     module Request
-      def get(path, options={}, raw=false, authenticate=true)
-        request(:get, path, options, raw, authenticate)
+      def get(path, options={}, authenticate=true, raw=false)
+        request(:get, path, options, authenticate, raw)
       end
 
-      def post(path, options={}, raw=false, authenticate=true)
-        request(:post, path, options, raw, authenticate)
+      def post(path, options={}, authenticate=true, raw=false)
+        request(:post, path, options, authenticate, raw)
       end
 
-      def put(path, options={}, raw=false, authenticate=true)
-        request(:put, path, options, raw, authenticate)
+      def put(path, options={}, authenticate=true, raw=false)
+        request(:put, path, options, authenticate, raw)
       end
 
-      def delete(path, options={}, raw=false, authenticate=true)
-        request(:delete, path, options, raw, authenticate)
+      def delete(path, options={}, authenticate=true, raw=false)
+        request(:delete, path, options, authenticate, raw)
       end
 
       private
 
-      def request(method, path, options, raw, authenticate)
-        response = connection(raw, authenticate).send(method) do |request|
+      def request(method, path, options, authenticate, raw, version=api_version)
+        if [1, 2].include? api_version
+          url = "https://github.com/"
+        elsif api_version >= 3
+          url = "https://api.github.com/"
+        end
+        response = connection(url, authenticate, raw).send(method) do |request|
           case method
           when :get, :delete
             request.url(path, options)
