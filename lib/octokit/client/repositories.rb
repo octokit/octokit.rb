@@ -47,14 +47,14 @@ module Octokit
         if response.respond_to?(:delete_token)
           response['delete_token']
         else
-          response['repository']
+          response
         end
       end
       alias :delete_repo :delete_repository
 
       def delete_repository!(repo, options={})
-        response = post("api/v2/json/repos/delete/#{Repository.new(repo)}", options)
-        post("api/v2/json/repos/delete/#{Repository.new(repo)}", options.merge(:delete_token => response['delete_token']))['repository']
+        delete_token = post("api/v2/json/repos/delete/#{Repository.new(repo)}", options)
+        post("api/v2/json/repos/delete/#{Repository.new(repo)}", options.merge(:delete_token => delete_token))
       end
       alias :delete_repo! :delete_repository!
 
