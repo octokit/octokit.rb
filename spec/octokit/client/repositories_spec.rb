@@ -124,13 +124,26 @@ describe Octokit::Client::Repositories do
 
   end
 
-  describe ".delete_repository" do
+  describe ".delete_repository!" do
 
     it "should delete a repository" do
       stub_post("repos/delete/sferik/rails_admin").
-        to_return(:body => fixture("repository.json"))
-      repository = @client.delete_repository("sferik/rails_admin")
-      repository.name.should == "rails_admin"
+        to_return(:body => fixture("delete_token.json"))
+      stub_post("repos/delete/sferik/rails_admin").
+        with(:delete_token => "uhihwkkkzu").
+        to_return(:status => 204)
+      @client.delete_repo!("sferik/rails_admin")
+    end
+
+  end
+
+  describe ".delete_repository" do
+
+    it "should return an error for non-existant repo" do
+      stub_post("repos/delete/sferik/rails_admin_failure").
+        to_return(:body => fixture("delete_failure.json"))
+      response = @client.delete_repository("sferik/rails_admin_failure")
+      response.error.should == "sferik/rails_admin_failure Repository not found"
     end
 
   end
