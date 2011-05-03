@@ -11,7 +11,7 @@ describe Octokit::Client::Network do
 
     it "should return network meta" do
       stub_get("https://github.com/sferik/rails_admin/network_meta").
-        to_return(:body => fixture("network_meta.json"))
+        to_return(:body => fixture("v2/network_meta.json"))
       network_meta = @client.network_meta("sferik/rails_admin")
       network_meta.blocks.first.name.should == "sferik"
     end
@@ -22,7 +22,7 @@ describe Octokit::Client::Network do
 
     it "should return network data" do
       stub_get("https://github.com/sferik/rails_admin/network_data_chunk").
-        to_return(:body => fixture("network_data.json"))
+        to_return(:body => fixture("v2/network_data.json"))
       network_data = @client.network_data("sferik/rails_admin")
       network_data.first.login.should == "rosenfeld"
     end

@@ -12,7 +12,7 @@ describe Octokit::Client::Pulls do
     it "should create a pull request" do
       stub_post("pulls/sferik/rails_admin").
         with(:pull => {:base => "master", :head => "pengwynn:master", :title => "Title", :body => "Body"}).
-        to_return(:body => fixture("pulls.json"))
+        to_return(:body => fixture("v2/pulls.json"))
       issues = @client.create_pull_request("sferik/rails_admin", "master", "pengwynn:master", "Title", "Body")
       issues.first.number.should == 251
     end
@@ -23,7 +23,7 @@ describe Octokit::Client::Pulls do
 
     it "should return all pull requests" do
       stub_get("pulls/sferik/rails_admin/open").
-        to_return(:body => fixture("pulls.json"))
+        to_return(:body => fixture("v2/pulls.json"))
       pulls = @client.pulls("sferik/rails_admin")
       pulls.first.number.should == 251
     end
@@ -34,7 +34,7 @@ describe Octokit::Client::Pulls do
 
     it "should return a pull request" do
       stub_get("pulls/sferik/rails_admin/251").
-        to_return(:body => fixture("pull.json"))
+        to_return(:body => fixture("v2/pull.json"))
       pull = @client.pull("sferik/rails_admin", 251)
       pull.number.should == 251
     end
