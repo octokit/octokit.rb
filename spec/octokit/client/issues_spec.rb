@@ -7,6 +7,15 @@ describe Octokit::Client::Issues do
     @client = Octokit::Client.new(:login => 'sferik')
   end
 
+  describe ".search_issues" do
+    it "should return matching issues" do
+      stub_get("issues/search/sferik/rails_admin/open/activerecord").
+      to_return(:body => fixture("v2/issues.json"))
+      issues = @client.search_issues("sferik/rails_admin", "activerecord")
+      issues.first.number.should == 105
+    end
+  end
+
   describe ".issues" do
 
     it "should return issues" do

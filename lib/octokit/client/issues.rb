@@ -2,6 +2,10 @@ module Octokit
   class Client
     module Issues
 
+      def search_issues(repo, search_term, state='open', options={})
+        get("api/v2/json/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options)['issues']
+      end
+
       # List issues for a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
