@@ -18,13 +18,13 @@ describe Octokit::Client::Milestones do
 
   end
 
-  describe ".create_milestone" do
+  describe ".milestone" do
 
-    it "should create a new milestone belonging to a repository" do
-      stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/milestones").
-        to_return(:status => 201, :body => fixture('v3/milestone.json'))
-      milestone = @client.create_milestone("pengwynn/octokit", :title => 'demo')
-      milestone.title.should == "demo"
+    it "should get a single milestone belonging to repository" do
+      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/milestones/1").
+        to_return(:status => 200, :body => fixture('v3/milestone.json'))
+      milestones = @client.milestone("pengwynn/octokit", 1)
+      milestones.description.should == "Add support for API v3"
     end
 
   end
