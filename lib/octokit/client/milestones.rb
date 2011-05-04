@@ -35,6 +35,19 @@ module Octokit
         get("/repos/#{Repository.new(repository)}/milestones/#{number}", options, 3)
       end
 
+      # Delete a single milestone for a repository
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param options [Hash] A customizable set of options.
+      # @option options [Integer] :milestone Milestone number.
+      # @return [Response] Response with status 204, no content
+      # @see http://developer.github.com/v3/issues/milestones/#delete-a-milestone
+      # @example Delete a single milestone from a repository
+      #   Octokit.delete_milestone("sferik/rails_admin", 1)
+      def delete_milestone(repository, number, options={})
+        delete("/repos/#{Repository.new(repository)}/milestones/#{number}", options, 3, true, true)
+      end
+
     end
   end
 end

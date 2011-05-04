@@ -29,4 +29,15 @@ describe Octokit::Client::Milestones do
 
   end
 
+  describe ".delete_milestone" do
+
+    it "should delete a milestone from a repository" do
+      stub_request(:delete, "https://api.github.com/repos/pengwynn/octokit/milestones/2").
+        to_return(:status => 204, :body => "", :headers => {})
+      response = @client.delete_milestone("pengwynn/octokit", 2)  
+      response.status.should == 204 
+    end
+
+  end
+
 end
