@@ -21,12 +21,22 @@ describe Octokit::Client::Issues do
   describe ".list_issues" do
 
     it "should return issues" do
-      stub_get("https://api.github.com/repos/sferik/rails_admin/issues").
-        to_return(:body => fixture("v3/issues.json"))
+
+     stub_get("https://github.com/api/v2/json/issues/list/sferik/rails_admin/open").
+        to_return(:body => fixture("v2/issues.json"))
       issues = @client.issues("sferik/rails_admin")
-      issues.first.number.should == 388
+      issues.first.number.should == 105
     end
 
+  end
+
+  describe ".issues_labeled" do
+    it "should return issues with a particular label" do
+      stub_get("issues/list/sferik/rails_admin/label/bug").
+        to_return(:body => fixture("v2/issues.json"))
+      issues = @client.issues_labeled("sferik/rails_admin", "bug")
+      issues.first.number.should == 105
+    end
   end
 
   describe ".create_issue" do
