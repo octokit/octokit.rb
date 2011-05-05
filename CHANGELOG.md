@@ -6,7 +6,7 @@
 * [0.6.0 - March 20, 2011](https://github.com/pengwynn/octokit/compare/v0.5.2...v0.6.0)
 * [0.5.2 - February 6, 2011](https://github.com/pengwynn/octokit/compare/v0.5.1...v0.5.2)
 * [0.5.1 - February 3, 2011](https://github.com/pengwynn/octokit/compare/v0.5.0...v0.5.1)
-* [0.5.0 - January 21, 2011](https://github.com/pengwynn/octokit/compare/v0.4.1....v0.5.0)
+* [0.5.0 - January 21, 2011](https://github.com/pengwynn/octokit/compare/v0.4.1...v0.5.0)
 * [0.4.1 - January 8, 2011](https://github.com/pengwynn/octokit/compare/v0.2.3...v0.4.1)
 * [0.2.3 - June 17, 2010](https://github.com/pengwynn/octokit/compare/v0.2.2...v0.2.3)
 * [0.2.2 - June 8, 2010](https://github.com/pengwynn/octokit/compare/v0.2.1...v0.2.2)
