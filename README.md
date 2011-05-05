@@ -2,6 +2,10 @@ Octokit
 =======
 Simple Ruby wrapper for the GitHub v2 API.
 
+![The Puppeteer](https://github.com/pengwynn/octokit/raw/master/puppeteer.jpg "The Puppeteer")
+
+by [![Cameron McEfee)](https://secure.gravatar.com/avatar/a79ff2bb7da84e275361857d2feb2b1b?s=20 "Cameron McEfee")](https://github.com/cameronmcefee)
+
 Installation
 ------------
     gem install octokit
