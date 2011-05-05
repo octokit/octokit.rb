@@ -17,6 +17,7 @@ module Octokit
         options.merge!(:params => { :access_token => oauth_token }) if oauthed? && !authenticated?
 
         con = Faraday::Connection.new(options) do |connection|
+          connection.use Faraday::Request::UrlEncoded
           connection.use Faraday::Response::RaiseError
           unless raw
             connection.use Faraday::Response::Rashify
