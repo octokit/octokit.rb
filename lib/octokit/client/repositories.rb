@@ -23,6 +23,10 @@ module Octokit
       alias :list_repositories :repositories
       alias :list_repos :repositories
       alias :repos :repositories
+      
+      def watched_repositories(username=login,options={})
+        get(["api/v2/json/repos/watched", username].compact.join('/'), options)['repositories']
+      end
 
       def watch(repo, options={})
         post("api/v2/json/repos/watch/#{Repository.new(repo)}", options)['repository']
