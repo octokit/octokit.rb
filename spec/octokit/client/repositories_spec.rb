@@ -52,6 +52,13 @@ describe Octokit::Client::Repositories do
         repositories = @client.repositories("sferik")
         repositories.first.name.should == "One40Proof"
       end
+      
+      it "should return user's watched repositories" do
+        stub_get("repos/watched/sferik").
+          to_return(:body => fixture("v2/repositories.json"))
+        repositories = @client.watched_repositories("sferik")
+        repositories.first.name.should == "One40Proof"
+      end
 
     end
 
@@ -61,6 +68,13 @@ describe Octokit::Client::Repositories do
         stub_get("repos/show/sferik").
           to_return(:body => fixture("v2/repositories.json"))
         repositories = @client.repositories
+        repositories.first.name.should == "One40Proof"
+      end
+      
+      it "should return authenticated user's watched repositories" do
+        stub_get("repos/watched/sferik").
+          to_return(:body => fixture("v2/repositories.json"))
+        repositories = @client.watched_repositories
         repositories.first.name.should == "One40Proof"
       end
 
