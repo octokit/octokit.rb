@@ -20,18 +20,17 @@ module Octokit
       private
 
       def request(method, path, options, version, authenticate, raw)
-        if [1, 2].include? version
-          url = "https://github.com/"
-        elsif version >= 3
-          url = "https://api.github.com/"
-        end
-        response = connection(url, authenticate, raw).send(method) do |request|
+        response = connection(authenticate, raw, version).send(method) do |request|
           case method
           when :get, :delete
             request.url(path, options)
           when :post, :put
             request.path = path
-            request.body = options unless options.empty?
+            if version >= 3
+              request.body = options.to_json unless options.empty?
+            else
+              request.body = options unless options.empty?
+            end
           end
         end
         raw ? response : response.body
