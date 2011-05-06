@@ -29,6 +29,20 @@ describe Octokit::Client::Milestones do
 
   end
 
+  describe ".create_milestone" do
+
+    it "should create a single milestone" do
+       stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/milestones").
+         with(:body => '{"title":"0.7.0"}', 
+              :headers => {'Content-Type'=>'application/json'}).
+         to_return(:status => 201, :body => fixture('v3/milestone.json'))
+      
+      milestone = @client.create_milestone("pengwynn/octokit", "0.7.0")
+      milestone.title.should == "0.7.0"
+    end
+
+  end
+
   describe ".delete_milestone" do
 
     it "should delete a milestone from a repository" do

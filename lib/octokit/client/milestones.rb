@@ -35,6 +35,22 @@ module Octokit
         get("/repos/#{Repository.new(repository)}/milestones/#{number}", options, 3)
       end
 
+      # Create a milestone for a repository
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param title [String] A unique title.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
+      # @option options [String] :description A meaningful description
+      # @option options [Time] :due_on Set if the milestone has a due date
+      # @return [Milestone] A single milestone object
+      # @see http://developer.github.com/v3/issues/milestones/#create-a-milestone
+      # @example Create a milestone for a repository
+      #   Octokit.create_milestone("sferik/rails_admin", "0.7.0", {:description => 'Add support for v3 of Github API'})
+      def create_milestone(repository, title, options={})
+        post("/repos/#{Repository.new(repository)}/milestones", options.merge({:title => title}), 3)
+      end
+
       # Delete a single milestone for a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
