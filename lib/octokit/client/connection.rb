@@ -7,7 +7,14 @@ module Octokit
     module Connection
       private
 
-      def connection(url, authenticate=true, raw=false)
+      def connection(authenticate=true, raw=false, version=2)
+        
+        if [1, 2].include? version
+          url = "https://github.com/"
+        elsif version >= 3
+          url = "https://api.github.com/"
+        end
+
         options = {
           :proxy => proxy,
           :ssl => {:verify => false},
@@ -17,7 +24,11 @@ module Octokit
         options.merge!(:params => { :access_token => oauth_token }) if oauthed? && !authenticated?
 
         con = Faraday::Connection.new(options) do |connection|
-          connection.use Faraday::Request::UrlEncoded
+          if version >= 3
+            connection.use Faraday::Request::JSON
+          else 
+            connection.use Faraday::Request::UrlEncoded
+          end
           connection.use Faraday::Response::RaiseError
           unless raw
             connection.use Faraday::Response::Rashify
