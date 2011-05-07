@@ -61,7 +61,7 @@ Submitting a Pull Request
 
 Inspiration
 -----------
-Octokit was inspired by [Octopi](http://github.com/fcoury/octopi) and aims to be a lightweight, less-ActiveResourcey alternative.
+Octokit was inspired by [Octopi](https://github.com/fcoury/octopi) and aims to be a lightweight, less-ActiveResourcey alternative.
 
 Copyright
 ---------
