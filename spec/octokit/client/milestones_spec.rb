@@ -43,6 +43,19 @@ describe Octokit::Client::Milestones do
 
   end
 
+  describe ".update_milestone" do
+
+    it "should update a milestone" do
+       stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/milestones/1").
+         with(:body => "{\"description\":\"Add support for API v3\"}", 
+              :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json'}).
+         to_return(:status => 200, :body => fixture('v3/milestone.json'))
+      milestone = @client.update_milestone("pengwynn/octokit", 1, {:description => "Add support for API v3"})
+      milestone.description.should == "Add support for API v3"
+    end
+
+  end
+
   describe ".delete_milestone" do
 
     it "should delete a milestone from a repository" do
