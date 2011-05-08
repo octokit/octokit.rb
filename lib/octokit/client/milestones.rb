@@ -51,6 +51,24 @@ module Octokit
         post("/repos/#{Repository.new(repository)}/milestones", options.merge({:title => title}), 3)
       end
 
+      # Update a milestone for a repository
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param number [String, Integer] Number ID of a milestone
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :title A unique title.
+      # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
+      # @option options [String] :description A meaningful description
+      # @option options [Time] :due_on Set if the milestone has a due date
+      # @return [Milestone] A single milestone object
+      # @see http://developer.github.com/v3/issues/milestones/#update-a-milestone
+      # @example Update a milestone for a repository
+      #   Octokit.update_milestone("pengwynn/octokit", 1, {:description => 'Add support for v3 of Github API'})
+      def update_milestone(repository, number, options={})
+        post("/repos/#{Repository.new(repository)}/milestones/#{number}", options, 3)
+      end
+      alias :edit_milestone :update_milestone
+
       # Delete a single milestone for a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
