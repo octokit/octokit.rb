@@ -46,7 +46,7 @@ describe Octokit::Client::Milestones do
   describe ".update_milestone" do
 
     it "should update a milestone" do
-       stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/milestones/1").
+       stub_request(:patch, "https://api.github.com/repos/pengwynn/octokit/milestones/1").
          with(:body => "{\"description\":\"Add support for API v3\"}", 
               :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json'}).
          to_return(:status => 200, :body => fixture('v3/milestone.json'))

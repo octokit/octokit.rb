@@ -9,6 +9,10 @@ module Octokit
         request(:post, path, options, version, authenticate, raw)
       end
 
+      def patch(path, options={}, version=api_version, authenticate=true, raw=false)
+        request(:patch, path, options, version, authenticate, raw)
+      end
+
       def put(path, options={}, version=api_version, authenticate=true, raw=false)
         request(:put, path, options, version, authenticate, raw)
       end
@@ -24,7 +28,7 @@ module Octokit
           case method
           when :get, :delete
             request.url(path, options)
-          when :post, :put
+          when :post, :patch, :put
             request.path = path
             if version >= 3
               request.body = options.to_json unless options.empty?
