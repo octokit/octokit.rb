@@ -19,6 +19,18 @@ describe Octokit::Client::Pulls do
 
   end
 
+  describe ".create_pull_request_for_issue" do
+
+    it "should create a pull request and attach it to an existing issue" do
+      stub_post("pulls/pengwynn/octokit").
+        with(:pull => {:base => "master", :head => "pengwynn:master", :issue => "34"}).
+        to_return(:body => fixture("v2/pulls.json"))
+      issues = @client.create_pull_request_for_issue("pengwynn/octokit", "master", "pengwynn:master", "34")
+      issues.first.number.should == 251
+    end
+
+  end
+
   describe ".pull_requests" do
 
     it "should return all pull requests" do
