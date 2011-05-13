@@ -2,6 +2,15 @@ module Octokit
   class Client
     module Issues
 
+      # Search issues within a repository
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param search_term [String] The term to search for 
+      # @param state [String] :state (open) <tt>open</tt> or <tt>closed</tt>.
+      # @return [Array] A list of issues matching the search term and state
+      # @see http://develop.github.com/p/issues.html
+      # @example Search for 'test' in the open issues for sferik/rails_admin
+      #   Octokit.search_issues("sferik/rails_admin", 'test', 'open')
       def search_issues(repo, search_term, state='open', options={})
         get("api/v2/json/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options)['issues']
       end
@@ -21,17 +30,34 @@ module Octokit
       # @return [Array] A list of issues for a repository.
       # @see http://developer.github.com/v3/issues/#list-issues-for-this-repository
       # @example List issues for a repository
-      #   Octokit.list_isses("sferik/rails_admin")
+      #   Octokit.list_issues("sferik/rails_admin")
       def list_issues(repository, options={})
         get("/repos/#{Repository.new(repository)}/issues", options, 3)
       end
       alias :issues :list_issues
-
+      
+      # Create an issue for a repository
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param title [String] A descriptive title
+      # @param body [String] A concise description
+      # @return [Issue] Your newly created issue
+      # @see http://develop.github.com/p/issues.html
+      # @example List issues for a repository
+      #   Octokit.create_issue("sferik/rails_admin")
       def create_issue(repo, title, body, options={})
         post("api/v2/json/issues/open/#{Repository.new(repo)}", options.merge({:title => title, :body => body}))['issue']
       end
       alias :open_issue :create_issue
-
+      
+      # Get a single issue from a repository
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param number [String] Number ID of the issue
+      # @return [Issue] The issue you requested, if it exists
+      # @see http://developer.github.com/v3/issues/#get-a-single-issue
+      # @example Get issue #25 from pengwynn/octokit
+      #   Octokit.issue("pengwynn/octokit", "25")
       def issue(repo, number, options={})
         get("api/v2/json/issues/show/#{Repository.new(repo)}/#{number}", options)['issue']
       end
