@@ -112,7 +112,7 @@ module Octokit
       # @see http://develop.github.com/p/issues.html
       # @note This implementation needs to be adjusted with switch to API v3
       # @see http://developer.github.com/v3/issues/#edit-an-issue 
-      # @example Change the title of Issue #25 from pengwynn/octokit
+      # @example Change the title of Issue #25 
       #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
       def update_issue(repo, number, title, body, options={})
         post("api/v2/json/issues/edit/#{Repository.new(repo)}/#{number}", options.merge({:title => title, :body => body}))['issue']
