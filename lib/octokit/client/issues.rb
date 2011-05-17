@@ -118,22 +118,62 @@ module Octokit
         post("api/v2/json/issues/edit/#{Repository.new(repo)}/#{number}", options.merge({:title => title, :body => body}))['issue']
       end
 
+      # List available labels for a repository
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @return [Array] A list of the labels currently on the issue
+      # @see http://develop.github.com/p/issues.html
+      # @see http://developer.github.com/v3/issues/labels/
+      # @example List labels for pengwynn/octokit
+      #   Octokit.labels("pengwynn/octokit")
       def labels(repo, options={})
         get("api/v2/json/issues/labels/#{Repository.new(repo)}", options)['labels']
       end
-
+      
+      # Add a label to a repository
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param label [String] A new label 
+      # @param number [Integer] Optional Issue number to associate with the label
+      # @return [Array] A list of the labels currently on the issue
+      # @see http://develop.github.com/p/issues.html
+      # @see http://developer.github.com/v3/issues/labels/
+      # @example Add a new label and add it to Issue #11
+      #   Octokit.add_label("pengwynn/octokit", "Version 1.0", "11")
       def add_label(repo, label, number=nil, options={})
         post(["api/v2/json/issues/label/add/#{Repository.new(repo)}/#{label}", number].compact.join('/'), options)['labels']
       end
 
+      # Remove a label from a repository
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param label [String] Label you wish to remove
+      # @param number [Integer] Optional Issue number to remove the label from
+      # @note Leaving the number parameter out will remove this label from all issues
+      # @return [Array] A list of the labels currently on the issue
+      # @see http://develop.github.com/p/issues.html
+      # @see http://developer.github.com/v3/issues/labels/
+      # @example Remove the label "Version 1.0" from the repository
+      #   Octokit.remove_label("pengwynn/octokit", "Version 1.0")
       def remove_label(repo, label, number=nil, options={})
         post(["api/v2/json/issues/label/remove/#{Repository.new(repo)}/#{label}", number].compact.join('/'), options)['labels']
       end
-
+      
+      # Add a comment to an issue
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param number [Integer] Issue number 
+      # @param comment [String] Comment to be added
+      # @return [Comment] A JSON encoded Comment 
+      # @see http://develop.github.com/p/issues.html
+      # @see http://developer.github.com/v3/issues/labels/
+      # @example Add the comment "Almost to v1" to Issue #23 on pengwynn/octokit
+      #   Octokit.add_comment("pengwynn/octokit", 23, "Almost to v1")
       def add_comment(repo, number, comment, options={})
         post("api/v2/json/issues/comment/#{Repository.new(repo)}/#{number}", options.merge({:comment => comment}))['comment']
       end
     end
   end
 end
+
 
