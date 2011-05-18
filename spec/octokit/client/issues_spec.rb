@@ -54,10 +54,10 @@ describe Octokit::Client::Issues do
   describe ".issue_comments" do
 
     it "should return comments for an issue" do
-      stub_get("issues/comments/sferik/rails_admin/105").
-        to_return(:body => fixture("v2/comments.json"))
-      comments = @client.issue_comments("sferik/rails_admin", 105)
-      comments.first.user.should == "jackdempsey"
+      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/issues/19/comments").
+         to_return(:status => 200, :body => fixture('v3/comments.json'))
+      comments = @client.issue_comments("pengwynn/octokit", 19)
+      comments.first.user.login.should == "jamtur01"
     end
 
   end

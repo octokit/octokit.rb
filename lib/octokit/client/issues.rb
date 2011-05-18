@@ -71,7 +71,7 @@ module Octokit
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
       def issue_comments(repo, number, options={})
-        get("api/v2/json/issues/comments/#{Repository.new(repo)}/#{number}", options)['comments']
+        get("repos/#{Repository.new(repo)}/issues/#{number}/comments", options, 3)
       end
 
       # Close an issue

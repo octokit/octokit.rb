@@ -1,0 +1,114 @@
+[
+  {
+    "body": "Hi - any ideas - even if you can point me to - \"this is not an octokit problem ... it's one with...\"? :)",
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/comments/1063242",
+    "updated_at": "2011-04-27T09:03:30Z",
+    "created_at": "2011-04-27T09:03:30Z",
+    "body_html": "<p>Hi - any ideas - even if you can point me to - \"this is not an octokit problem ... it's one with...\"? :)</p>",
+    "user": {
+      "url": "https://api.github.com/users/jamtur01",
+      "gravatar_url": "https://secure.gravatar.com/avatar/31cc2100279326dd6148a7e163692097?s=30&d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "avatar_url": "https://secure.gravatar.com/avatar/31cc2100279326dd6148a7e163692097?d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "jamtur01",
+      "id": 4365
+    }
+  },
+  {
+    "body": "From the looks of your stack trace, it appears you're running an older version of Ruby (perhaps the stock Ruby that ships with Mac OSX?) I think we require at least 1.8.7 (1.9.2 is better still), which you can install with [RVM](https://rvm.beginrescueend.com/).",
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/comments/1069678",
+    "updated_at": "2011-04-28T13:05:46Z",
+    "created_at": "2011-04-28T13:05:46Z",
+    "body_html": "<p>From the looks of your stack trace, it appears you're running an older version of Ruby (perhaps the stock Ruby that ships with Mac OSX?) I think we require at least 1.8.7 (1.9.2 is better still), which you can install with <a href=\"https://rvm.beginrescueend.com/\">RVM</a>.</p>",
+    "user": {
+      "url": "https://api.github.com/users/pengwynn",
+      "gravatar_url": "https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?s=30&d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "avatar_url": "https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "pengwynn",
+      "id": 865
+    }
+  },
+  {
+    "body": "Nope:\n\nruby 1.8.7 (2011-02-18 patchlevel 334) [i386-linux]",
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/comments/1073298",
+    "updated_at": "2011-04-29T00:51:43Z",
+    "created_at": "2011-04-29T00:51:43Z",
+    "body_html": "<p>Nope:</p>\n\n<p>ruby 1.8.7 (2011-02-18 patchlevel 334) [i386-linux]</p>",
+    "user": {
+      "url": "https://api.github.com/users/jamtur01",
+      "gravatar_url": "https://secure.gravatar.com/avatar/31cc2100279326dd6148a7e163692097?s=30&d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "avatar_url": "https://secure.gravatar.com/avatar/31cc2100279326dd6148a7e163692097?d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "jamtur01",
+      "id": 4365
+    }
+  },
+  {
+    "body": "Blast hit enter too soon.  Ruby is ruby 1.8.7 (2011-02-18 patchlevel 334) [i386-linux] on Fedora 14.  ",
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/comments/1073301",
+    "updated_at": "2011-04-29T00:52:55Z",
+    "created_at": "2011-04-29T00:52:55Z",
+    "body_html": "<p>Blast hit enter too soon.  Ruby is ruby 1.8.7 (2011-02-18 patchlevel 334) [i386-linux] on Fedora 14.  </p>",
+    "user": {
+      "url": "https://api.github.com/users/jamtur01",
+      "gravatar_url": "https://secure.gravatar.com/avatar/31cc2100279326dd6148a7e163692097?s=30&d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "avatar_url": "https://secure.gravatar.com/avatar/31cc2100279326dd6148a7e163692097?d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "jamtur01",
+      "id": 4365
+    }
+  },
+  {
+    "body": "I don't get the issue with 1.9.2 albeit I get a new problem:\n\n/usr/local/rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/net/http.rb:1735:in `send_request_with_body': undefined method `bytesize' for {:comment=>\"comment\"}:Hash (NoMethodError)",
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/comments/1101992",
+    "updated_at": "2011-05-04T20:29:18Z",
+    "created_at": "2011-05-04T20:29:18Z",
+    "body_html": "<p>I don't get the issue with 1.9.2 albeit I get a new problem:</p>\n\n<p>/usr/local/rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/net/http.rb:1735:in <code>send_request_with_body': undefined method</code>bytesize' for {:comment=&gt;\"comment\"}:Hash (NoMethodError)</p>",
+    "user": {
+      "url": "https://api.github.com/users/jamtur01",
+      "gravatar_url": "https://secure.gravatar.com/avatar/31cc2100279326dd6148a7e163692097?s=30&d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "avatar_url": "https://secure.gravatar.com/avatar/31cc2100279326dd6148a7e163692097?d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "jamtur01",
+      "id": 4365
+    }
+  },
+  {
+    "body": "How about if you use `:repo` instead of `:repository` on line 4 of your example?",
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/comments/1187299",
+    "updated_at": "2011-05-17T01:57:05Z",
+    "created_at": "2011-05-17T01:57:05Z",
+    "body_html": "<p>How about if you use <code>:repo</code> instead of <code>:repository</code> on line 4 of your example?</p>",
+    "user": {
+      "url": "https://api.github.com/users/ctshryock",
+      "gravatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?s=30&d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "avatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "ctshryock",
+      "id": 61721
+    }
+  },
+  {
+    "body": "I've tried that a while back - my updated code is:\n\n<pre>\n  def self.close_pull_request(number,repo,url)\n    @gh_client = Octokit::Client.new(:login => @gh_user, :token => @gh_token)\n    puts \"Adding comment to GitHub pull request at #{repo}:#{number}\"\n    comment = \"Thanks for your request! It's been moved to our Redmine ticket tracker and you can now track this issue at #{url}\"\n    @gh_client.add_comment({:username => @gh_org, :repo => repo}, number, comment)\n    puts \"Closing GitHub issue #{repo}:#{number}\"\n    @gh_client.close_issue(\"#{@gh_org}/#{repo}\", number)\n  end \n</pre>\n",
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/comments/1187846",
+    "updated_at": "2011-05-17T05:17:31Z",
+    "created_at": "2011-05-17T05:17:31Z",
+    "body_html": "<p>I've tried that a while back - my updated code is:</p>\n\n<pre>\n  def self.close_pull_request(number,repo,url)\n    @gh_client = Octokit::Client.new(:login =&gt; @gh_user, :token =&gt; @gh_token)\n    puts \"Adding comment to GitHub pull request at #{repo}:#{number}\"\n    comment = \"Thanks for your request! It's been moved to our Redmine ticket tracker and you can now track this issue at #{url}\"\n    @gh_client.add_comment({:username =&gt; @gh_org, :repo =&gt; repo}, number, comment)\n    puts \"Closing GitHub issue #{repo}:#{number}\"\n    @gh_client.close_issue(\"#{@gh_org}/#{repo}\", number)\n  end \n</pre>",
+    "user": {
+      "url": "https://api.github.com/users/jamtur01",
+      "gravatar_url": "https://secure.gravatar.com/avatar/31cc2100279326dd6148a7e163692097?s=30&d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "avatar_url": "https://secure.gravatar.com/avatar/31cc2100279326dd6148a7e163692097?d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "jamtur01",
+      "id": 4365
+    }
+  },
+  {
+    "body": "...does it still give you an error?",
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/comments/1190250",
+    "updated_at": "2011-05-17T12:55:53Z",
+    "created_at": "2011-05-17T12:55:53Z",
+    "body_html": "<p>...does it still give you an error?</p>",
+    "user": {
+      "url": "https://api.github.com/users/ctshryock",
+      "gravatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?s=30&d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "avatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "ctshryock",
+      "id": 61721
+    }
+  }
+]
