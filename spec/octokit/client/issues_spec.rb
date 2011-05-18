@@ -131,11 +131,13 @@ describe Octokit::Client::Issues do
   describe ".add_comment" do
 
     it "should add a comment" do
-      stub_post("issues/comment/sferik/rails_admin/105").
-        with(:comment => "I don't think I'd like it in a CSV for a variety of reasons, but I do agree that it doesn't have to be AR. I would imagine if there was a patch and work done towards allowing a pluggable History model, it'd be at least considered. I don't have the time at the moment to do this, but I'd imagine you could start with abstracting out the calls to read/write History, ultimately allowing for a drop in of any storage structure. \r\n\r\nIn fact, it might be interesting to leverage wycats moneta towards this end: http://github.com/wycats/moneta").
-        to_return(:body => fixture("v2/comment.json"))
-      comment = @client.add_comment("sferik/rails_admin", 105, "I don't think I'd like it in a CSV for a variety of reasons, but I do agree that it doesn't have to be AR. I would imagine if there was a patch and work done towards allowing a pluggable History model, it'd be at least considered. I don't have the time at the moment to do this, but I'd imagine you could start with abstracting out the calls to read/write History, ultimately allowing for a drop in of any storage structure. \r\n\r\nIn fact, it might be interesting to leverage wycats moneta towards this end: http://github.com/wycats/moneta")
-      comment.user.should == "jackdempsey"
+      stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/issues/25/comments").
+        with(:body => "{\"body\":\"A test comment\"}", 
+        :headers => {'Content-Type'=>'application/json'}).
+      to_return(:status => 201, :body => fixture('v3/comment.json'))
+
+      comment = @client.add_comment("pengwynn/octokit", 25, "A test comment")
+      comment.user.login.should == "ctshryock"
     end
 
   end

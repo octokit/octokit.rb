@@ -170,7 +170,7 @@ module Octokit
       # @example Add the comment "Almost to v1" to Issue #23 on pengwynn/octokit
       #   Octokit.add_comment("pengwynn/octokit", 23, "Almost to v1")
       def add_comment(repo, number, comment, options={})
-        post("api/v2/json/issues/comment/#{Repository.new(repo)}/#{number}", options.merge({:comment => comment}))['comment']
+        post("repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment}), 3)
       end
     end
   end

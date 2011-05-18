@@ -1,0 +1,14 @@
+{
+  "body": "a new test comment",
+  "url": "https://api.github.com/repos/ctshryock/octokit/issues/comments/1194666",
+  "updated_at": "2011-05-18T03:02:54Z",
+  "created_at": "2011-05-18T03:02:54Z",
+  "body_html": "<p>a new test comment</p>",
+  "user": {
+    "url": "https://api.github.com/users/ctshryock",
+    "gravatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?s=30&d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+    "avatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png",
+    "id": 61721,
+    "login": "ctshryock"
+  }
+}
