@@ -51,17 +51,6 @@ describe Octokit::Client::Issues do
 
   end
 
-  describe ".issue_comments" do
-
-    it "should return comments for an issue" do
-      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/issues/19/comments").
-         to_return(:status => 200, :body => fixture('v3/comments.json'))
-      comments = @client.issue_comments("pengwynn/octokit", 19)
-      comments.first.user.login.should == "jamtur01"
-    end
-
-  end
-
   describe ".close_issue" do
 
     it "should close an issue" do
@@ -124,6 +113,29 @@ describe Octokit::Client::Issues do
         to_return(:body => fixture("v2/labels.json"))
       labels = @client.remove_label("sferik/rails_admin", "bug")
       labels.first.should == "bug"
+    end
+
+  end
+
+  describe ".issue_comments" do
+
+    it "should return comments for an issue" do
+      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/issues/25/comments").
+         to_return(:status => 200, :body => fixture('v3/comments.json'))
+      comments = @client.issue_comments("pengwynn/octokit", 25)
+      comments.first.user.login.should == "ctshryock"
+    end
+
+  end
+
+  describe ".issue_comment" do
+
+    it "should return a single comment for an issue" do
+      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/issues/comments/25").
+         to_return(:status => 200, :body => fixture('v3/comment.json'))
+      comments = @client.issue_comment("pengwynn/octokit", 25)
+      comments.user.login.should == "ctshryock"
+      comments.url.should == "https://api.github.com/repos/pengwynn/octokit/issues/comments/1194690"
     end
 
   end

@@ -62,18 +62,6 @@ module Octokit
         get("api/v2/json/issues/show/#{Repository.new(repo)}/#{number}", options)['issue']
       end
 
-      # Get all comments attached to an issue
-      #
-      # @param repository [String, Repository, Hash] A GitHub repository.
-      # @param number [String] Number ID of the issue
-      # @return [Array] Array of comments that belong to an issue
-      # @see http://develop.github.com/p/issues.html
-      # @example Get comments for issue #25 from pengwynn/octokit
-      #   Octokit.issue_comments("pengwynn/octokit", "25")
-      def issue_comments(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/#{number}/comments", options, 3)
-      end
-
       # Close an issue
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
@@ -159,6 +147,30 @@ module Octokit
         post(["api/v2/json/issues/label/remove/#{Repository.new(repo)}/#{label}", number].compact.join('/'), options)['labels']
       end
       
+      # Get all comments attached to an issue
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param number [String] Number ID of the issue
+      # @return [Array] Array of comments that belong to an issue
+      # @see http://develop.github.com/p/issues.html
+      # @example Get comments for issue #25 from pengwynn/octokit
+      #   Octokit.issue_comments("pengwynn/octokit", "25")
+      def issue_comments(repo, number, options={})
+        get("repos/#{Repository.new(repo)}/issues/#{number}/comments", options, 3)
+      end
+
+      # Get a single comment attached to an issue
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param number [String] Number ID of the issue
+      # @return [Array] Array of comments that belong to an issue
+      # @see http://develop.github.com/p/issues.html
+      # @example Get comments for issue #25 from pengwynn/octokit
+      #   Octokit.issue_comments("pengwynn/octokit", "25")
+      def issue_comment(repo, number, options={})
+        get("repos/#{Repository.new(repo)}/issues/comments/#{number}", options, 3)
+      end
+
       # Add a comment to an issue
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
