@@ -1,15 +1,10 @@
+$:.unshift File.expand_path('..', __FILE__)
+$:.unshift File.expand_path('../../lib', __FILE__)
 require 'simplecov'
-SimpleCov.start do
-  add_group 'Octokit', 'lib/octokit'
-  add_group 'Faraday Middleware', 'lib/faraday'
-  add_group 'Specs', 'spec'
-end
+SimpleCov.start
 require 'octokit'
 require 'rspec'
 require 'webmock/rspec'
-RSpec.configure do |config|
-  config.include WebMock::API
-end
 
 def a_delete(url)
   a_request(:delete, github_url(url))
