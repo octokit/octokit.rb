@@ -152,7 +152,7 @@ module Octokit
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param number [String] Number ID of the issue
       # @return [Array] Array of comments that belong to an issue
-      # @see http://develop.github.com/p/issues.html
+      # @see http://developer.github.com/v3/issues/comments
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
       def issue_comments(repo, number, options={})
@@ -164,7 +164,7 @@ module Octokit
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param number [String] Number ID of the issue
       # @return [Array] Array of comments that belong to an issue
-      # @see http://develop.github.com/p/issues.html
+      # @see http://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
       def issue_comment(repo, number, options={})
@@ -177,8 +177,7 @@ module Octokit
       # @param number [Integer] Issue number 
       # @param comment [String] Comment to be added
       # @return [Comment] A JSON encoded Comment 
-      # @see http://develop.github.com/p/issues.html
-      # @see http://developer.github.com/v3/issues/labels/
+      # @see http://developer.github.com/v3/issues/comments/#create-a-comment
       # @example Add the comment "Almost to v1" to Issue #23 on pengwynn/octokit
       #   Octokit.add_comment("pengwynn/octokit", 23, "Almost to v1")
       def add_comment(repo, number, comment, options={})
