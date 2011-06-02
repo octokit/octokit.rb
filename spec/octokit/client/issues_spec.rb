@@ -154,4 +154,29 @@ describe Octokit::Client::Issues do
 
   end
 
+  describe ".update_comment" do
+
+    it "should update an existing comment" do
+      stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/issues/comments/1194549").
+        with(:body => "{\"body\":\"A test comment update\"}", 
+        :headers => {'Content-Type'=>'application/json'}).
+      to_return(:status => 200, :body => fixture('v3/comment.json'))
+
+      comment = @client.update_comment("pengwynn/octokit", 1194549, "A test comment update")
+      comment.user.login.should == "ctshryock"
+    end
+
+  end
+
+  describe ".delete_comment" do
+
+    it "should delete an existing comment" do
+      stub_request(:delete, "https://api.github.com/repos/pengwynn/octokit/issues/comments/1194549").
+      to_return(:status => 204)
+
+      comment = @client.delete_comment("pengwynn/octokit", 1194549)
+      comment.status.should == 204
+    end
+
+  end
 end

@@ -183,6 +183,31 @@ module Octokit
       def add_comment(repo, number, comment, options={})
         post("repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment}), 3)
       end
+      
+      # Update a single comment on an issue
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param number [Integer] Comment number 
+      # @param comment [String] Body of the comment which will replace the existing body.
+      # @return [Comment] A JSON encoded Comment 
+      # @see http://developer.github.com/v3/issues/comments/#edit-a-comment
+      # @example Update the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
+      #   Octokit.update_comment("pengwynn/octokit", 25, "Almost to v1, added this on my fork")
+      def update_comment(repo, number, comment, options={})
+        post("repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment}), 3)
+      end
+      
+      # Delete a single comment 
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param number [Integer] Comment number 
+      # @return [Response] A response object with status
+      # @see http://developer.github.com/v3/issues/comments/#delete-a-comment
+      # @example Delete the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
+      #   Octokit.delete_comment("pengwynn/octokit", 1194549)
+      def delete_comment(repo, number, options={})
+        delete("repos/#{Repository.new(repo)}/issues/comments/#{number}", options, 3, true, true)
+      end
     end
   end
 end
