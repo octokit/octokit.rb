@@ -27,7 +27,11 @@ module Faraday
     end
 
     def error_message(response)
-      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:status]}#{(': ' + response[:body][:error]) if response[:body]}"
+      error = if response[:body]
+        error = response[:body][:error]
+        error = error.join(", ") if error.is_a?(Array)
+      end
+      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:status]}#{(': ' + error) if error}"
     end
   end
 end

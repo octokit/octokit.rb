@@ -31,4 +31,32 @@ describe Faraday::Response do
       end
     end
   end
+
+  context "when response[:body][:error] is a string" do
+
+    before do
+      stub_get('user/show/sferik').
+        to_return(:status => 403, :body=>"{\"error\":\"error\"}")
+    end
+
+    it "should raise exception without error" do
+      lambda do
+        @client.user('sferik')
+      end.should raise_error(Octokit::Forbidden)
+    end
+  end
+
+  context "when response[:body][:error] is an array" do
+
+    before do
+      stub_get('user/show/sferik').
+        to_return(:status => 403, :body=>"{\"error\":[\"a\",\"v\"]}")
+    end
+
+    it "should raise exception without error" do
+      lambda do
+        @client.user('sferik')
+      end.should raise_error(Octokit::Forbidden)
+    end
+  end
 end
