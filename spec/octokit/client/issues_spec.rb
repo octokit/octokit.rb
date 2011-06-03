@@ -51,17 +51,6 @@ describe Octokit::Client::Issues do
 
   end
 
-  describe ".issue_comments" do
-
-    it "should return comments for an issue" do
-      stub_get("issues/comments/sferik/rails_admin/105").
-        to_return(:body => fixture("v2/comments.json"))
-      comments = @client.issue_comments("sferik/rails_admin", 105)
-      comments.first.user.should == "jackdempsey"
-    end
-
-  end
-
   describe ".close_issue" do
 
     it "should close an issue" do
@@ -128,16 +117,66 @@ describe Octokit::Client::Issues do
 
   end
 
-  describe ".add_comment" do
+  describe ".issue_comments" do
 
-    it "should add a comment" do
-      stub_post("issues/comment/sferik/rails_admin/105").
-        with(:comment => "I don't think I'd like it in a CSV for a variety of reasons, but I do agree that it doesn't have to be AR. I would imagine if there was a patch and work done towards allowing a pluggable History model, it'd be at least considered. I don't have the time at the moment to do this, but I'd imagine you could start with abstracting out the calls to read/write History, ultimately allowing for a drop in of any storage structure. \r\n\r\nIn fact, it might be interesting to leverage wycats moneta towards this end: http://github.com/wycats/moneta").
-        to_return(:body => fixture("v2/comment.json"))
-      comment = @client.add_comment("sferik/rails_admin", 105, "I don't think I'd like it in a CSV for a variety of reasons, but I do agree that it doesn't have to be AR. I would imagine if there was a patch and work done towards allowing a pluggable History model, it'd be at least considered. I don't have the time at the moment to do this, but I'd imagine you could start with abstracting out the calls to read/write History, ultimately allowing for a drop in of any storage structure. \r\n\r\nIn fact, it might be interesting to leverage wycats moneta towards this end: http://github.com/wycats/moneta")
-      comment.user.should == "jackdempsey"
+    it "should return comments for an issue" do
+      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/issues/25/comments").
+         to_return(:status => 200, :body => fixture('v3/comments.json'))
+      comments = @client.issue_comments("pengwynn/octokit", 25)
+      comments.first.user.login.should == "ctshryock"
     end
 
   end
 
+  describe ".issue_comment" do
+
+    it "should return a single comment for an issue" do
+      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/issues/comments/25").
+         to_return(:status => 200, :body => fixture('v3/comment.json'))
+      comments = @client.issue_comment("pengwynn/octokit", 25)
+      comments.user.login.should == "ctshryock"
+      comments.url.should == "https://api.github.com/repos/pengwynn/octokit/issues/comments/1194690"
+    end
+
+  end
+
+  describe ".add_comment" do
+
+    it "should add a comment" do
+      stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/issues/25/comments").
+        with(:body => "{\"body\":\"A test comment\"}", 
+        :headers => {'Content-Type'=>'application/json'}).
+      to_return(:status => 201, :body => fixture('v3/comment.json'))
+
+      comment = @client.add_comment("pengwynn/octokit", 25, "A test comment")
+      comment.user.login.should == "ctshryock"
+    end
+
+  end
+
+  describe ".update_comment" do
+
+    it "should update an existing comment" do
+      stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/issues/comments/1194549").
+        with(:body => "{\"body\":\"A test comment update\"}", 
+        :headers => {'Content-Type'=>'application/json'}).
+      to_return(:status => 200, :body => fixture('v3/comment.json'))
+
+      comment = @client.update_comment("pengwynn/octokit", 1194549, "A test comment update")
+      comment.user.login.should == "ctshryock"
+    end
+
+  end
+
+  describe ".delete_comment" do
+
+    it "should delete an existing comment" do
+      stub_request(:delete, "https://api.github.com/repos/pengwynn/octokit/issues/comments/1194549").
+      to_return(:status => 204)
+
+      comment = @client.delete_comment("pengwynn/octokit", 1194549)
+      comment.status.should == 204
+    end
+
+  end
 end
