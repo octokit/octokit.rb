@@ -1,3 +1,5 @@
+require 'json/pure'
+
 module Octokit
   class Client
     module Request
