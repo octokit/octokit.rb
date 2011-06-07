@@ -95,6 +95,17 @@ describe Octokit::Client::Issues do
 
   end
 
+  describe ".label" do
+
+    it "should return a single labels" do
+      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/labels/V3%20Addition").
+        to_return(:status => 200, :body => fixture('v3/label.json'))
+      label = @client.label("pengwynn/octokit", 'V3 Addition')
+      label.name.should == "V3 Addition"
+    end
+
+  end
+
   describe ".add_label" do
 
     it "should add a label" do

@@ -115,9 +115,20 @@ module Octokit
       # @example List labels for pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
       def labels(repo, options={})
-        get("repos/#{Repository.new(repo)}/labels", options,3)
+        get("repos/#{Repository.new(repo)}/labels", options, 3)
       end
       
+      # Get single label for a repository
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param name [String] Name of the label
+      # @return [Label] A single label from the repository
+      # @see http://developer.github.com/v3/issues/labels/#get-a-single-label
+      # @example Get the "V3 Addition" label from pengwynn/octokit
+      #   Octokit.labels("pengwynn/octokit")
+      def label(repo, name, options={})
+        get("repos/#{Repository.new(repo)}/labels/#{URI.encode(name)}", options, 3)
+      end
       # Add a label to a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
