@@ -115,7 +115,7 @@ module Octokit
       # @example List labels for pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
       def labels(repo, options={})
-        get("api/v2/json/issues/labels/#{Repository.new(repo)}", options)['labels']
+        get("repos/#{Repository.new(repo)}/labels", options,3)
       end
       
       # Add a label to a repository

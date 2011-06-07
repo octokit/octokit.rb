@@ -87,10 +87,10 @@ describe Octokit::Client::Issues do
   describe ".labels" do
 
     it "should return labels" do
-      stub_get("issues/labels/sferik/rails_admin").
-        to_return(:body => fixture("v2/labels.json"))
-      labels = @client.labels("sferik/rails_admin")
-      labels.first.should == "bug"
+      stub_get("https://api.github.com/repos/pengwynn/octokit/labels").
+        to_return(:body => fixture("v3/labels.json"))
+      labels = @client.labels("pengwynn/octokit")
+      labels.first.name.should == "V3 Transition"
     end
 
   end
