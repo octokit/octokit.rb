@@ -122,14 +122,13 @@ module Octokit
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param label [String] A new label 
-      # @param number [Integer] Optional Issue number to associate with the label
+      # @param color [String] A color, in hex, without the leading #
       # @return [Array] A list of the labels currently on the issue
-      # @see http://develop.github.com/p/issues.html
       # @see http://developer.github.com/v3/issues/labels/
-      # @example Add a new label and add it to Issue #11
-      #   Octokit.add_label("pengwynn/octokit", "Version 1.0", "11")
-      def add_label(repo, label, number=nil, options={})
-        post(["api/v2/json/issues/label/add/#{Repository.new(repo)}/#{label}", number].compact.join('/'), options)['labels']
+      # @example Add a new label "Version 1.0" with color "#cccccc"
+      #   Octokit.add_label("pengwynn/octokit", "Version 1.0", "cccccc")
+      def add_label(repo, label, color="ffffff", options={})
+        post("repos/#{Repository.new(repo)}/labels", options.merge({:name => label, :color => color}), 3)
       end
 
       # Remove a label from a repository
