@@ -1,4 +1,4 @@
-require 'json/pure'
+require 'multi_json'
 
 module Octokit
   class Client
@@ -29,7 +29,7 @@ module Octokit
           when :post, :put
             request.path = path
             if version >= 3 && !force_urlencoded
-              request.body = options.to_json unless options.empty?
+              request.body = MultiJson.encode(options) unless options.empty?
             else
               request.body = options unless options.empty?
             end
