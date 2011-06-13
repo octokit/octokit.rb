@@ -9,6 +9,7 @@ require 'octokit/client/milestones'
 require 'octokit/client/objects'
 require 'octokit/client/organizations'
 require 'octokit/client/pub_sub_hub_bub'
+require 'octokit/client/service_hooks'
 require 'octokit/client/pulls'
 require 'octokit/client/repositories'
 require 'octokit/client/timelines'
@@ -37,6 +38,7 @@ module Octokit
     include Octokit::Client::Organizations
     include Octokit::Client::Pulls
     include Octokit::Client::PubSubHubBub
+    include Octokit::Client::ServiceHooks
     include Octokit::Client::Repositories
     include Octokit::Client::Timelines
     include Octokit::Client::Users
