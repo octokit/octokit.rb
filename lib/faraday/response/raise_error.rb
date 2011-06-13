@@ -15,6 +15,8 @@ module Faraday
         raise Octokit::NotFound, error_message(response)
       when 406
         raise Octokit::NotAcceptable, error_message(response)
+      when 422
+        raise Octokit::UnprocessableEntity, error_message(response)
       when 500
         raise Octokit::InternalServerError, error_message(response)
       when 501
