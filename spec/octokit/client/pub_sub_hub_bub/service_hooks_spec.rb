@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'helper'
 
-describe Octokit::Client::ServiceHooks do
+describe Octokit::Client::PubSubHubBub::ServiceHooks do
 
   let(:client) { Octokit::Client.new(:oauth_token => 'myfaketoken') }
 
