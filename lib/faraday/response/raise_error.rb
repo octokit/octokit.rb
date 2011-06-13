@@ -1,4 +1,5 @@
 require 'faraday'
+require 'multi_json'
 
 # @api private
 module Faraday
@@ -29,7 +30,13 @@ module Faraday
     end
 
     def error_message(response)
-      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:status]}#{(': ' + response[:body][:error]) if response[:body]}"
+      message = if body = response[:body]
+        body = ::MultiJson.decode(body)
+        ": #{body[:error] || body[:message] || ''}"
+      else
+        ''
+      end
+      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:status]}#{message}"
     end
   end
 end
