@@ -1,7 +1,6 @@
 module Octokit
   class Client
     module PubSubHubBub
-
       # Subscribe to a pubsub topic
       #
       # @param topic [String] A recoginized and supported pubsub topic
@@ -20,7 +19,7 @@ module Octokit
         true
       end
 
-      # Unsubscribe to a pubsub topic
+      # Unsubscribe from a pubsub topic
       #
       # @param topic [String] A recoginized pubsub topic
       # @param callback [String] A callback url to be unsubscribed from
