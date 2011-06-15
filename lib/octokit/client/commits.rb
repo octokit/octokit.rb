@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 module Octokit
   class Client
     module Commits
