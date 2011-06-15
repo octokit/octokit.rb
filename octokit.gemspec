@@ -33,5 +33,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec', '~> 2.6'
   gem.add_development_dependency 'simplecov', '~> 0.4'
   gem.add_development_dependency 'webmock', '~> 1.6'
+  gem.add_development_dependency 'yajl-ruby', '~> 0.8'
   gem.add_development_dependency 'yard', '~> 0.7'
 end
