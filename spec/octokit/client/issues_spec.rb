@@ -110,8 +110,6 @@ describe Octokit::Client::Issues do
 
     it "should add a label" do
       stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/labels").
-        with(:body => "{\"name\":\"bug\",\"color\":\"ededed\"}",
-          :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json'}).
         to_return(:status => 201, :body => fixture('v3/label.json'))
       labels = @client.add_label("pengwynn/octokit", "bug", 'ededed')
       labels.color.should == "ededed"
