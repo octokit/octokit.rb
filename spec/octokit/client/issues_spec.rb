@@ -87,10 +87,21 @@ describe Octokit::Client::Issues do
   describe ".labels" do
 
     it "should return labels" do
-      stub_get("issues/labels/sferik/rails_admin").
-        to_return(:body => fixture("v2/labels.json"))
-      labels = @client.labels("sferik/rails_admin")
-      labels.first.should == "bug"
+      stub_get("https://api.github.com/repos/pengwynn/octokit/labels").
+        to_return(:body => fixture("v3/labels.json"))
+      labels = @client.labels("pengwynn/octokit")
+      labels.first.name.should == "V3 Transition"
+    end
+
+  end
+
+  describe ".label" do
+
+    it "should return a single labels" do
+      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/labels/V3%20Addition").
+        to_return(:status => 200, :body => fixture('v3/label.json'))
+      label = @client.label("pengwynn/octokit", 'V3 Addition')
+      label.name.should == "V3 Addition"
     end
 
   end
@@ -98,10 +109,13 @@ describe Octokit::Client::Issues do
   describe ".add_label" do
 
     it "should add a label" do
-      stub_post("issues/label/add/sferik/rails_admin/bug").
-        to_return(:body => fixture("v2/labels.json"))
-      labels = @client.add_label("sferik/rails_admin", "bug")
-      labels.first.should == "bug"
+     stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/labels").
+       with(:body => "{\"name\":\"bug\",\"color\":\"ededed\"}", 
+            :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
+       to_return(:status => 201, :body => fixture('v3/label.json'))
+      labels = @client.add_label("pengwynn/octokit", "bug", 'ededed')
+      labels.color.should == "ededed"
+      labels.name.should  == "V3 Addition"
     end
 
   end
