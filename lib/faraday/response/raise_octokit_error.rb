@@ -2,7 +2,7 @@ require 'faraday'
 
 # @api private
 module Faraday
-  class Response::RaiseError < Response::Middleware
+  class Response::RaiseOctokitError < Response::Middleware
     def on_complete(response)
       case response[:status].to_i
       when 400

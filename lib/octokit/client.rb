@@ -1,7 +1,8 @@
+require 'octokit/connection'
 require 'octokit/repository'
+require 'octokit/request'
+
 require 'octokit/client/authentication'
-require 'octokit/client/connection'
-require 'octokit/client/request'
 require 'octokit/client/commits'
 require 'octokit/client/issues'
 require 'octokit/client/network'

@@ -1,5 +1,5 @@
 require 'faraday_middleware'
-require 'faraday/response/raise_error'
+require 'faraday/response/raise_octokit_error'
 
 module Octokit
   class Client
@@ -8,7 +8,6 @@ module Octokit
       private
 
       def connection(authenticate=true, raw=false, version=2)
-
         if [1, 2].include? version
           url = "https://github.com/"
         elsif version >= 3
@@ -21,7 +20,7 @@ module Octokit
           :url => url,
         }
 
-        options.merge!(:params => { :access_token => oauth_token }) if oauthed? && !authenticated?
+        options.merge!(:params => {:access_token => oauth_token}) if oauthed? && !authenticated?
 
         connection = Faraday.new(options) do |builder|
           if version >= 3
@@ -29,7 +28,7 @@ module Octokit
           else
             builder.use Faraday::Request::UrlEncoded
           end
-          builder.use Faraday::Response::RaiseError
+          builder.use Faraday::Response::RaiseOctokitError
           unless raw
             builder.use Faraday::Response::Rashify
             builder.use Faraday::Response::ParseJson
