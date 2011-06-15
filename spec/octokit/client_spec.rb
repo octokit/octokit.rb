@@ -3,7 +3,7 @@ require 'helper'
 describe Octokit::Client do
 
   it 'should work with basic auth' do
-    stub_request(:get, "https://foo%2Ftoken:bar@github.com/api/v2/json/commits/list/baz/quux/master").
+    stub_get("https://foo%2Ftoken:bar@github.com/api/v2/json/commits/list/baz/quux/master").
       with(:headers => {'Accept'=>'*/*'}).
       to_return(:status => 200, :body => '{"commits":[]}', :headers => {})
     proc {
@@ -12,7 +12,7 @@ describe Octokit::Client do
   end
 
   it 'should work with basic auth and password' do
-    stub_request(:get, "https://foo:bar@github.com/api/v2/json/commits/list/baz/quux/master").
+    stub_get("https://foo:bar@github.com/api/v2/json/commits/list/baz/quux/master").
       with(:headers => {'Accept'=>'*/*'}).
       to_return(:status => 200, :body => '{"commits":[]}', :headers => {})
     proc {
