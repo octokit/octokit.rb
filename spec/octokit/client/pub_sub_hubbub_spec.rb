@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'helper'
 
-describe Octokit::Client::PubSubHubBub do
+describe Octokit::Client::PubSubHubbub do
   let(:client) { Octokit::Client.new(:oauth_token => 'myfaketoken') }
 
   describe ".subscribe" do
