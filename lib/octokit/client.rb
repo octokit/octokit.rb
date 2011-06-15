@@ -1,8 +1,8 @@
+require 'octokit/authentication'
 require 'octokit/connection'
 require 'octokit/repository'
 require 'octokit/request'
 
-require 'octokit/client/authentication'
 require 'octokit/client/commits'
 require 'octokit/client/issues'
 require 'octokit/client/network'
@@ -27,9 +27,9 @@ module Octokit
       end
     end
 
-    include Octokit::Client::Authentication
-    include Octokit::Client::Connection
-    include Octokit::Client::Request
+    include Octokit::Authentication
+    include Octokit::Connection
+    include Octokit::Request
 
     include Octokit::Client::Commits
     include Octokit::Client::Issues
