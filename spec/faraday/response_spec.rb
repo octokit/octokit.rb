@@ -12,6 +12,7 @@ describe Faraday::Response do
     403 => Octokit::Forbidden,
     404 => Octokit::NotFound,
     406 => Octokit::NotAcceptable,
+    422 => Octokit::UnprocessableEntity,
     500 => Octokit::InternalServerError,
     501 => Octokit::NotImplemented,
     502 => Octokit::BadGateway,

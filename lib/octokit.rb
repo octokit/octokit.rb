@@ -39,6 +39,9 @@ module Octokit
   # Raised when GitHub returns a 406 HTTP status code
   class NotAcceptable < Error; end
 
+  # Raised when GitHub returns a 422 HTTP status code
+  class UnprocessableEntity < Error; end
+
   # Raised when GitHub returns a 500 HTTP status code
   class InternalServerError < Error; end
 
