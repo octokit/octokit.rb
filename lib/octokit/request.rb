@@ -1,35 +1,35 @@
-require 'json/pure'
+require 'multi_json'
 
 module Octokit
   class Client
     module Request
-      def get(path, options={}, version=api_version, authenticate=true, raw=false)
-        request(:get, path, options, version, authenticate, raw)
+      def get(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
+        request(:get, path, options, version, authenticate, raw, force_urlencoded)
       end
 
-      def post(path, options={}, version=api_version, authenticate=true, raw=false)
-        request(:post, path, options, version, authenticate, raw)
+      def post(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
+        request(:post, path, options, version, authenticate, raw, force_urlencoded)
       end
 
-      def put(path, options={}, version=api_version, authenticate=true, raw=false)
-        request(:put, path, options, version, authenticate, raw)
+      def put(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
+        request(:put, path, options, version, authenticate, raw, force_urlencoded)
       end
 
-      def delete(path, options={}, version=api_version, authenticate=true, raw=false)
-        request(:delete, path, options, version, authenticate, raw)
+      def delete(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
+        request(:delete, path, options, version, authenticate, raw, force_urlencoded)
       end
 
       private
 
-      def request(method, path, options, version, authenticate, raw)
-        response = connection(authenticate, raw, version).send(method) do |request|
+      def request(method, path, options, version, authenticate, raw, force_urlencoded)
+        response = connection(authenticate, raw, version, force_urlencoded).send(method) do |request|
           case method
           when :get, :delete
             request.url(path, options)
           when :post, :put
             request.path = path
-            if version >= 3
-              request.body = options.to_json unless options.empty?
+            if version >= 3 && !force_urlencoded
+              request.body = MultiJson.encode(options) unless options.empty?
             else
               request.body = options unless options.empty?
             end
