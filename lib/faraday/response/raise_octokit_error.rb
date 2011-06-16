@@ -31,7 +31,7 @@ module Faraday
 
     def error_message(response)
       message = if body = response[:body]
-        body = ::MultiJson.decode(body)
+        body = ::MultiJson.decode(body) if body.is_a? String
         ": #{body[:error] || body[:message] || ''}"
       else
         ''
