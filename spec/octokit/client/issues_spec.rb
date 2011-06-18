@@ -98,7 +98,7 @@ describe Octokit::Client::Issues do
   describe ".label" do
 
     it "should return a single labels" do
-      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/labels/V3%20Addition").
+      stub_get("https://api.github.com/repos/pengwynn/octokit/labels/V3%20Addition").
         to_return(:status => 200, :body => fixture('v3/label.json'))
       label = @client.label("pengwynn/octokit", 'V3 Addition')
       label.name.should == "V3 Addition"
@@ -109,9 +109,7 @@ describe Octokit::Client::Issues do
   describe ".add_label" do
 
     it "should add a label" do
-      stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/labels").
-        with(:body => "{\"name\":\"bug\",\"color\":\"ededed\"}",
-          :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json'}).
+      stub_post("https://api.github.com/repos/pengwynn/octokit/labels").
         to_return(:status => 201, :body => fixture('v3/label.json'))
       labels = @client.add_label("pengwynn/octokit", "bug", 'ededed')
       labels.color.should == "ededed"
@@ -134,7 +132,7 @@ describe Octokit::Client::Issues do
   describe ".issue_comments" do
 
     it "should return comments for an issue" do
-      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/issues/25/comments").
+      stub_get("https://api.github.com/repos/pengwynn/octokit/issues/25/comments").
         to_return(:status => 200, :body => fixture('v3/comments.json'))
       comments = @client.issue_comments("pengwynn/octokit", 25)
       comments.first.user.login.should == "ctshryock"
@@ -145,7 +143,7 @@ describe Octokit::Client::Issues do
   describe ".issue_comment" do
 
     it "should return a single comment for an issue" do
-      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/issues/comments/25").
+      stub_get("https://api.github.com/repos/pengwynn/octokit/issues/comments/25").
         to_return(:status => 200, :body => fixture('v3/comment.json'))
       comments = @client.issue_comment("pengwynn/octokit", 25)
       comments.user.login.should == "ctshryock"
@@ -157,7 +155,7 @@ describe Octokit::Client::Issues do
   describe ".add_comment" do
 
     it "should add a comment" do
-      stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/issues/25/comments").
+      stub_post("https://api.github.com/repos/pengwynn/octokit/issues/25/comments").
         with(:body => "{\"body\":\"A test comment\"}",
         :headers => {'Content-Type'=>'application/json'}).
         to_return(:status => 201, :body => fixture('v3/comment.json'))
@@ -170,7 +168,7 @@ describe Octokit::Client::Issues do
   describe ".update_comment" do
 
     it "should update an existing comment" do
-      stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/issues/comments/1194549").
+      stub_post("https://api.github.com/repos/pengwynn/octokit/issues/comments/1194549").
         with(:body => "{\"body\":\"A test comment update\"}",
         :headers => {'Content-Type'=>'application/json'}).
         to_return(:status => 200, :body => fixture('v3/comment.json'))
@@ -183,7 +181,7 @@ describe Octokit::Client::Issues do
   describe ".delete_comment" do
 
     it "should delete an existing comment" do
-      stub_request(:delete, "https://api.github.com/repos/pengwynn/octokit/issues/comments/1194549").
+      stub_delete("https://api.github.com/repos/pengwynn/octokit/issues/comments/1194549").
         to_return(:status => 204)
       comment = @client.delete_comment("pengwynn/octokit", 1194549)
       comment.status.should == 204

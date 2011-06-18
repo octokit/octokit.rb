@@ -1,6 +1,6 @@
 module Octokit
   class Client
-    module PubSubHubBub
+    module PubSubHubbub
       module ServiceHooks
 
         #

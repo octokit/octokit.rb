@@ -1,6 +1,6 @@
 module Octokit
   class Client
-    module PubSubHubBub
+    module PubSubHubbub
       # Subscribe to a pubsub topic
       #
       # @param topic [String] A recoginized and supported pubsub topic

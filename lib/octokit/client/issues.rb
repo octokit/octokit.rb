@@ -5,7 +5,7 @@ module Octokit
       # Search issues within a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
-      # @param search_term [String] The term to search for 
+      # @param search_term [String] The term to search for
       # @param state [String] :state (open) <tt>open</tt> or <tt>closed</tt>.
       # @return [Array] A list of issues matching the search term and state
       # @see http://develop.github.com/p/issues.html
@@ -35,7 +35,7 @@ module Octokit
         get("/repos/#{Repository.new(repository)}/issues", options, 3)
       end
       alias :issues :list_issues
-      
+
       # Create an issue for a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
@@ -49,7 +49,7 @@ module Octokit
         post("api/v2/json/issues/open/#{Repository.new(repo)}", options.merge({:title => title, :body => body}))['issue']
       end
       alias :open_issue :create_issue
-      
+
       # Get a single issue from a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
@@ -69,7 +69,7 @@ module Octokit
       # @return [Issue] The updated Issue
       # @see http://develop.github.com/p/issues.html
       # @note This implementation needs to be adjusted with switch to API v3
-      # @see http://developer.github.com/v3/issues/#edit-an-issue 
+      # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Close Issue #25 from pengwynn/octokit
       #   Octokit.close_issue("pengwynn/octokit", "25")
       def close_issue(repo, number, options={})
@@ -83,7 +83,7 @@ module Octokit
       # @return [Issue] The updated Issue
       # @see http://develop.github.com/p/issues.html
       # @note This implementation needs to be adjusted with switch to API v3
-      # @see http://developer.github.com/v3/issues/#edit-an-issue 
+      # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Reopen Issue #25 from pengwynn/octokit
       #   Octokit.reopen_issue("pengwynn/octokit", "25")
       def reopen_issue(repo, number, options={})
@@ -99,8 +99,8 @@ module Octokit
       # @return [Issue] The updated Issue
       # @see http://develop.github.com/p/issues.html
       # @note This implementation needs to be adjusted with switch to API v3
-      # @see http://developer.github.com/v3/issues/#edit-an-issue 
-      # @example Change the title of Issue #25 
+      # @see http://developer.github.com/v3/issues/#edit-an-issue
+      # @example Change the title of Issue #25
       #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
       def update_issue(repo, number, title, body, options={})
         post("api/v2/json/issues/edit/#{Repository.new(repo)}/#{number}", options.merge({:title => title, :body => body}))['issue']
@@ -117,7 +117,7 @@ module Octokit
       def labels(repo, options={})
         get("repos/#{Repository.new(repo)}/labels", options, 3)
       end
-      
+
       # Get single label for a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
@@ -132,7 +132,7 @@ module Octokit
       # Add a label to a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
-      # @param label [String] A new label 
+      # @param label [String] A new label
       # @param color [String] A color, in hex, without the leading #
       # @return [Array] A list of the labels currently on the issue
       # @see http://developer.github.com/v3/issues/labels/
@@ -156,7 +156,7 @@ module Octokit
       def remove_label(repo, label, number=nil, options={})
         post(["api/v2/json/issues/label/remove/#{Repository.new(repo)}/#{label}", number].compact.join('/'), options)['labels']
       end
-      
+
       # Get all comments attached to an issue
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
@@ -184,33 +184,33 @@ module Octokit
       # Add a comment to an issue
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
-      # @param number [Integer] Issue number 
+      # @param number [Integer] Issue number
       # @param comment [String] Comment to be added
-      # @return [Comment] A JSON encoded Comment 
+      # @return [Comment] A JSON encoded Comment
       # @see http://developer.github.com/v3/issues/comments/#create-a-comment
       # @example Add the comment "Almost to v1" to Issue #23 on pengwynn/octokit
       #   Octokit.add_comment("pengwynn/octokit", 23, "Almost to v1")
       def add_comment(repo, number, comment, options={})
         post("repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment}), 3)
       end
-      
+
       # Update a single comment on an issue
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
-      # @param number [Integer] Comment number 
+      # @param number [Integer] Comment number
       # @param comment [String] Body of the comment which will replace the existing body.
-      # @return [Comment] A JSON encoded Comment 
+      # @return [Comment] A JSON encoded Comment
       # @see http://developer.github.com/v3/issues/comments/#edit-a-comment
       # @example Update the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
       #   Octokit.update_comment("pengwynn/octokit", 25, "Almost to v1, added this on my fork")
       def update_comment(repo, number, comment, options={})
         post("repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment}), 3)
       end
-      
-      # Delete a single comment 
+
+      # Delete a single comment
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
-      # @param number [Integer] Comment number 
+      # @param number [Integer] Comment number
       # @return [Response] A response object with status
       # @see http://developer.github.com/v3/issues/comments/#delete-a-comment
       # @example Delete the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
@@ -221,5 +221,3 @@ module Octokit
     end
   end
 end
-
-
