@@ -24,7 +24,7 @@ describe Octokit::Client::Pulls do
       stub_get("commits/show/sferik/rails_admin/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
         to_return(:body => fixture("v2/commit.json"))
       commit = @client.commit("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-      commit.first.author.login.should == "caboteria"
+      commit.author.login.should == "caboteria"
     end
 
   end

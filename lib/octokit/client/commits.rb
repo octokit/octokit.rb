@@ -8,7 +8,7 @@ module Octokit
       alias :list_commits :commits
 
       def commit(repo, sha, options={})
-        get("api/v2/json/commits/show/#{Repository.new(repo)}/#{sha}", options)['commits']
+        get("api/v2/json/commits/show/#{Repository.new(repo)}/#{sha}", options)['commit']
       end
 
     end
