@@ -121,10 +121,13 @@ describe Octokit::Client::Issues do
   describe ".remove_label" do
 
     it "should remove a label" do
-      stub_post("issues/label/remove/sferik/rails_admin/bug").
-        to_return(:body => fixture("v2/labels.json"))
-      labels = @client.remove_label("sferik/rails_admin", "bug")
-      labels.first.should == "bug"
+      stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/labels/V3%20Transition").
+       with(:headers => {'Accept'=>'*/*', 'Content-Length'=>'0', 'User-Agent'=>'Ruby'}).
+       to_return(:status => 204)
+      
+      response = @client.remove_label("pengwynn/octokit", "V3 Transition")
+
+      
     end
 
   end

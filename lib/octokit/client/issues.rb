@@ -145,16 +145,12 @@ module Octokit
       # Remove a label from a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
-      # @param label [String] Label you wish to remove
-      # @param number [Integer] Optional Issue number to remove the label from
-      # @note Leaving the number parameter out will remove this label from all issues
-      # @return [Array] A list of the labels currently on the issue
-      # @see http://develop.github.com/p/issues.html
-      # @see http://developer.github.com/v3/issues/labels/
+      # @param id [String] String name of the label
+      # @see http://developer.github.com/v3/issues/labels/#delete-a-label
       # @example Remove the label "Version 1.0" from the repository
       #   Octokit.remove_label("pengwynn/octokit", "Version 1.0")
-      def remove_label(repo, label, number=nil, options={})
-        post(["api/v2/json/issues/label/remove/#{Repository.new(repo)}/#{label}", number].compact.join('/'), options)['labels']
+      def remove_label(repo, label, options={})
+        delete("repos/#{Repository.new(repo)}/labels/#{URI.encode(label)}", options, 3)
       end
 
       # Get all comments attached to an issue
