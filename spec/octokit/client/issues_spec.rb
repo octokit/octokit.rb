@@ -98,9 +98,9 @@ describe Octokit::Client::Issues do
   describe ".label" do
 
     it "should return a single labels" do
-      stub_get("https://api.github.com/repos/pengwynn/octokit/labels/V3%20Addition").
+      stub_get("https://api.github.com/repos/pengwynn/octokit/labels/V3+Addition").
         to_return(:status => 200, :body => fixture('v3/label.json'))
-      label = @client.label("pengwynn/octokit", 'V3 Addition')
+      label = @client.label("pengwynn/octokit", "V3 Addition")
       label.name.should == "V3 Addition"
     end
 
@@ -108,10 +108,22 @@ describe Octokit::Client::Issues do
 
   describe ".add_label" do
 
-    it "should add a label" do
+    it "should add a label with a color" do
       stub_post("https://api.github.com/repos/pengwynn/octokit/labels").
+        with(:body => "{\"name\":\"a significant bug\",\"color\":\"ededed\"}", 
+             :headers => {'Content-Type'=>'application/json'}).
         to_return(:status => 201, :body => fixture('v3/label.json'))
-      labels = @client.add_label("pengwynn/octokit", "bug", 'ededed')
+      labels = @client.add_label("pengwynn/octokit", "a significant bug", 'ededed')
+      labels.color.should == "ededed"
+      labels.name.should  == "V3 Addition"
+    end
+
+    it "should add a label with default color" do
+      stub_post("https://api.github.com/repos/pengwynn/octokit/labels").
+        with(:body => "{\"name\":\"another significant bug\",\"color\":\"ffffff\"}", 
+             :headers => {'Content-Type'=>'application/json'}).
+        to_return(:status => 201, :body => fixture('v3/label.json'))
+      labels = @client.add_label("pengwynn/octokit", "another significant bug")
       labels.color.should == "ededed"
       labels.name.should  == "V3 Addition"
     end
@@ -121,7 +133,7 @@ describe Octokit::Client::Issues do
   describe ".remove_label" do
 
     it "should remove a label" do
-      stub_delete("https://api.github.com/repos/pengwynn/octokit/labels/V3%20Transition").
+      stub_delete("https://api.github.com/repos/pengwynn/octokit/labels/V3+Transition").
        to_return(:status => 204)
       
       response = @client.remove_label("pengwynn/octokit", "V3 Transition")

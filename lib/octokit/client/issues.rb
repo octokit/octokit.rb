@@ -127,7 +127,7 @@ module Octokit
       # @example Get the "V3 Addition" label from pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
       def label(repo, name, options={})
-        get("repos/#{Repository.new(repo)}/labels/#{URI.encode(name)}", options, 3)
+        get("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(name)}", options, 3)
       end
       # Add a label to a repository
       #
@@ -152,7 +152,7 @@ module Octokit
       # @example Remove the label "Version 1.0" from the repository
       #   Octokit.remove_label("pengwynn/octokit", "Version 1.0")
       def remove_label(repo, label, options={})
-        delete("repos/#{Repository.new(repo)}/labels/#{URI.encode(label)}", options, 3, true, true)
+        delete("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(label)}", options, 3, true, true)
       end
 
       # Get all comments attached to an issue
