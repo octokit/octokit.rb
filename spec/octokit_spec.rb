@@ -18,4 +18,13 @@ describe Octokit do
     end
   end
 
+  describe ".delegate" do
+    it "should delegate missing methods to Octokit::Client" do
+      stub_get("https://api.github.com/repos/pengwynn/octokit/issues").
+        to_return(:status => 200, :body => fixture('v3/issues.json'))
+      issues = Octokit.issues('pengwynn/octokit')
+      issues.last.user.login.should == 'fellix'
+    end
+
+  end
 end
