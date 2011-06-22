@@ -146,7 +146,9 @@ module Octokit
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param id [String] String name of the label
+      # @return [Response] A Faraday Response object
       # @see http://developer.github.com/v3/issues/labels/#delete-a-label
+      # @see http://rubydoc.info/gems/faraday/0.5.3/Faraday/Response
       # @example Remove the label "Version 1.0" from the repository
       #   Octokit.remove_label("pengwynn/octokit", "Version 1.0")
       def remove_label(repo, label, options={})
