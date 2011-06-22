@@ -150,7 +150,7 @@ module Octokit
       # @example Remove the label "Version 1.0" from the repository
       #   Octokit.remove_label("pengwynn/octokit", "Version 1.0")
       def remove_label(repo, label, options={})
-        delete("repos/#{Repository.new(repo)}/labels/#{URI.encode(label)}", options, 3)
+        delete("repos/#{Repository.new(repo)}/labels/#{URI.encode(label)}", options, 3, true, true)
       end
 
       # Get all comments attached to an issue

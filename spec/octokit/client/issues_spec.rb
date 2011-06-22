@@ -121,13 +121,11 @@ describe Octokit::Client::Issues do
   describe ".remove_label" do
 
     it "should remove a label" do
-      stub_request(:post, "https://api.github.com/repos/pengwynn/octokit/labels/V3%20Transition").
-       with(:headers => {'Accept'=>'*/*', 'Content-Length'=>'0', 'User-Agent'=>'Ruby'}).
+      stub_delete("https://api.github.com/repos/pengwynn/octokit/labels/V3%20Transition").
        to_return(:status => 204)
       
       response = @client.remove_label("pengwynn/octokit", "V3 Transition")
-
-      
+      response.status.should == 204
     end
 
   end
