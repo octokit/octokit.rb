@@ -8,13 +8,13 @@ describe Octokit do
 
   describe ".respond_to?" do
     it "should be true if method exists" do
-      Octokit.respond_to?(:client, true).should be_true
+      Octokit.respond_to?(:new, true).should be_true
     end
   end
 
-  describe ".client" do
+  describe ".new" do
     it "should be a Octokit::Client" do
-      Octokit.client.should be_a Octokit::Client
+      Octokit.new.should be_a Octokit::Client
     end
   end
 
