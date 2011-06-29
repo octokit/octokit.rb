@@ -2,8 +2,6 @@ module Octokit
   class Client
     module PubSubHubbub
       module ServiceHooks
-
-        #
         # Subscribe to a repository through pubsub
         #
         # @param owner [String] owner of mentioned repository
@@ -22,7 +20,6 @@ module Octokit
           true
         end
 
-        #
         # Unsubscribe repository through pubsub
         #
         # @param owner [String] owner of mentioned repository
@@ -38,7 +35,6 @@ module Octokit
           unsubscribe(topic, callback)
           true
         end
-
       end
     end
   end

@@ -7,10 +7,11 @@ module Octokit
     private
 
     def connection(authenticate=true, raw=false, version=2, force_urlencoded=false)
-      if [1, 2].include? version
-        url = "https://github.com/"
-      elsif version >= 3
-        url = "https://api.github.com/"
+      case version
+      when 2
+        url = "https://github.com"
+      when 3
+        url = "https://api.github.com"
       end
 
       options = {
@@ -29,7 +30,7 @@ module Octokit
         end
         builder.use Faraday::Response::RaiseOctokitError
         unless raw
-          builder.use Faraday::Response::Rashify
+          builder.use Faraday::Response::Mashify
           builder.use Faraday::Response::ParseJson
         end
         builder.adapter(adapter)

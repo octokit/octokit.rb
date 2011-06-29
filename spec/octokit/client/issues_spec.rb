@@ -10,7 +10,7 @@ describe Octokit::Client::Issues do
   describe ".search_issues" do
 
     it "should return matching issues" do
-      stub_get("issues/search/sferik/rails_admin/open/activerecord").
+      stub_get("/api/v2/json/issues/search/sferik/rails_admin/open/activerecord").
       to_return(:body => fixture("v2/issues.json"))
       issues = @client.search_issues("sferik/rails_admin", "activerecord")
       issues.first.number.should == 105
@@ -32,7 +32,7 @@ describe Octokit::Client::Issues do
   describe ".create_issue" do
 
     it "should create an issue" do
-      stub_post("issues/open/sferik/rails_admin").
+      stub_post("/api/v2/json/issues/open/sferik/rails_admin").
         to_return(:body => fixture("v2/issue.json"))
       issue = @client.create_issue("sferik/rails_admin", "Use OrmAdapter instead of talking directly to ActiveRecord", "Hi,\n\nI just tried to play with this in an app with no ActiveRecord.  I was disappointed.  It seems the only reason the engine relies on AR is to provide History functionality.  I would argue that having the History in a database, and therefore tying the app to AR & SQL, isn't worth it.  How about we change it to just dump to a CSV and remove the AR dep?\n\n$0.02")
       issue.number.should == 105
@@ -43,7 +43,7 @@ describe Octokit::Client::Issues do
   describe ".issue" do
 
     it "should return an issue" do
-      stub_get("issues/show/sferik/rails_admin/105").
+      stub_get("/api/v2/json/issues/show/sferik/rails_admin/105").
         to_return(:body => fixture("v2/issue.json"))
       issue = @client.issue("sferik/rails_admin", 105)
       issue.number.should == 105
@@ -54,7 +54,7 @@ describe Octokit::Client::Issues do
   describe ".close_issue" do
 
     it "should close an issue" do
-      stub_post("issues/close/sferik/rails_admin/105").
+      stub_post("/api/v2/json/issues/close/sferik/rails_admin/105").
         to_return(:body => fixture("v2/issue.json"))
       issue = @client.close_issue("sferik/rails_admin", 105)
       issue.number.should == 105
@@ -65,7 +65,7 @@ describe Octokit::Client::Issues do
   describe ".reopen_issue" do
 
     it "should reopen an issue" do
-      stub_post("issues/reopen/sferik/rails_admin/105").
+      stub_post("/api/v2/json/issues/reopen/sferik/rails_admin/105").
         to_return(:body => fixture("v2/issue.json"))
       issue = @client.reopen_issue("sferik/rails_admin", 105)
       issue.number.should == 105
@@ -76,7 +76,7 @@ describe Octokit::Client::Issues do
   describe ".update_issue" do
 
     it "should update an issue" do
-      stub_post("issues/edit/sferik/rails_admin/105").
+      stub_post("/api/v2/json/issues/edit/sferik/rails_admin/105").
         to_return(:body => fixture("v2/issue.json"))
       issue = @client.update_issue("sferik/rails_admin", 105, "Use OrmAdapter instead of talking directly to ActiveRecord", "Hi,\n\nI just tried to play with this in an app with no ActiveRecord.  I was disappointed.  It seems the only reason the engine relies on AR is to provide History functionality.  I would argue that having the History in a database, and therefore tying the app to AR & SQL, isn't worth it.  How about we change it to just dump to a CSV and remove the AR dep?\n\n$0.02")
       issue.number.should == 105
