@@ -64,10 +64,10 @@ describe Octokit::Client::Users do
     context "with a location passed" do
 
       it "should update the user's location" do
-        stub_post("/api/v2/json/user/show/sferik").
-          with(:values => {:location => "San Francisco"}).
-          to_return(:body => fixture("v2/user.json"))
-        user = @client.update_user(:location => "San Francisco")
+        stub_patch("https://api.github.com/user").
+          with(:body => {:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false}).
+          to_return(:body => fixture("v3/user.json"))
+        user = @client.update_user(:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false)
         user.login.should == "sferik"
       end
 

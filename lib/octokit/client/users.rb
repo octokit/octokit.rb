@@ -24,8 +24,21 @@ module Octokit
         end
       end
 
-      def update_user(values, options={})
-        post("/api/v2/json/user/show/#{login}", options.merge({:values => values}))['user']
+      # Update the authenticated user
+      #
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :name
+      # @option options [String] :email Publically visible email address.
+      # @option options [String] :blog
+      # @option options [String] :company
+      # @option options [String] :location
+      # @option options [Boolean] :hireable
+      # @option options [String] :bio
+      # @return [Hashie::Mash]
+      # @example
+      #   Octokit.user(:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false)
+      def update_user(options)
+        patch("/user", options, 3)
       end
 
       def followers(user=login, options={})
