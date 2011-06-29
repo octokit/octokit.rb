@@ -10,7 +10,7 @@ describe Octokit::Client::Organizations do
   describe ".organization" do
 
     it "should return an organization" do
-      stub_get("organizations/codeforamerica").
+      stub_get("/api/v2/json/organizations/codeforamerica").
         to_return(:body => fixture("v2/organization.json"))
       organization = @client.organization("codeforamerica")
       organization.name.should == "Code For America"
@@ -21,7 +21,7 @@ describe Octokit::Client::Organizations do
   describe ".update_organization" do
 
     it "should update an organization" do
-      stub_put("organizations/codeforamerica").
+      stub_put("/api/v2/json/organizations/codeforamerica").
         with(:name => "Code For America").
         to_return(:body => fixture("v2/organization.json"))
       organization = @client.update_organization("codeforamerica", {:name => "Code For America"})
@@ -35,7 +35,7 @@ describe Octokit::Client::Organizations do
     context "with an org passed" do
 
       it "should return all organizations for a user" do
-        stub_get("user/show/sferik/organizations").
+        stub_get("/api/v2/json/user/show/sferik/organizations").
           to_return(:body => fixture("v2/organizations.json"))
         organizations = @client.organizations("sferik")
         organizations.first.name.should == "Hubcap"
@@ -46,7 +46,7 @@ describe Octokit::Client::Organizations do
     context "without an org passed" do
 
       it "should return all organizations for a user" do
-        stub_get("organizations").
+        stub_get("/api/v2/json/organizations").
           to_return(:body => fixture("v2/organizations.json"))
         organizations = @client.organizations
         organizations.first.name.should == "Hubcap"
@@ -61,7 +61,7 @@ describe Octokit::Client::Organizations do
     context "with an org passed" do
 
       it "should return all public repositories for an organization" do
-        stub_get("organizations/codeforamerica/public_repositories").
+        stub_get("/api/v2/json/organizations/codeforamerica/public_repositories").
           to_return(:body => fixture("v2/repositories.json"))
         repositories = @client.organization_repositories("codeforamerica")
         repositories.first.name.should == "One40Proof"
@@ -72,7 +72,7 @@ describe Octokit::Client::Organizations do
     context "without an org passed" do
 
       it "should return all organization repositories for a user" do
-        stub_get("organizations/repositories").
+        stub_get("/api/v2/json/organizations/repositories").
           to_return(:body => fixture("v2/repositories.json"))
         repositories = @client.organization_repositories
         repositories.first.name.should == "One40Proof"
@@ -85,7 +85,7 @@ describe Octokit::Client::Organizations do
   describe ".organization_members" do
 
     it "should return all public members of an organization" do
-      stub_get("organizations/codeforamerica/public_members").
+      stub_get("/api/v2/json/organizations/codeforamerica/public_members").
         to_return(:body => fixture("v2/users.json"))
       users = @client.organization_members("codeforamerica")
       users.first.name.should == "Erik Michaels-Ober"
@@ -96,7 +96,7 @@ describe Octokit::Client::Organizations do
   describe ".organization_teams" do
 
     it "should return all teams for an organization" do
-      stub_get("organizations/codeforamerica/teams").
+      stub_get("/api/v2/json/organizations/codeforamerica/teams").
         to_return(:body => fixture("v2/teams.json"))
       teams = @client.organization_teams("codeforamerica")
       teams.first.name.should == "Fellows"
@@ -107,7 +107,7 @@ describe Octokit::Client::Organizations do
   describe ".create_team" do
 
     it "should create a team" do
-      stub_post("organizations/codeforamerica/teams").
+      stub_post("/api/v2/json/organizations/codeforamerica/teams").
         with(:name => "Fellows").
         to_return(:body => fixture("v2/team.json"))
       team = @client.create_team("codeforamerica", {:name => "Fellows"})
@@ -119,7 +119,7 @@ describe Octokit::Client::Organizations do
   describe ".team" do
 
     it "should return a team" do
-      stub_get("teams/32598").
+      stub_get("/api/v2/json/teams/32598").
         to_return(:body => fixture("v2/team.json"))
       team = @client.team(32598)
       team.name.should == "Fellows"
@@ -130,7 +130,7 @@ describe Octokit::Client::Organizations do
   describe ".update_team" do
 
     it "should update a team" do
-      stub_put("teams/32598").
+      stub_put("/api/v2/json/teams/32598").
         with(:name => "Fellows").
         to_return(:body => fixture("v2/team.json"))
       team = @client.update_team(32598, :name => "Fellows")
@@ -142,7 +142,7 @@ describe Octokit::Client::Organizations do
   describe ".delete_team" do
 
     it "should delete a team" do
-      stub_delete("teams/32598").
+      stub_delete("/api/v2/json/teams/32598").
         to_return(:body => fixture("v2/team.json"))
       team = @client.delete_team(32598)
       team.name.should == "Fellows"
@@ -153,7 +153,7 @@ describe Octokit::Client::Organizations do
   describe ".delete_team" do
 
     it "should delete a team" do
-      stub_delete("teams/32598").
+      stub_delete("/api/v2/json/teams/32598").
         to_return(:body => fixture("v2/team.json"))
       team = @client.delete_team(32598)
       team.name.should == "Fellows"
@@ -164,7 +164,7 @@ describe Octokit::Client::Organizations do
   describe ".team_members" do
 
     it "should return team members" do
-      stub_get("teams/32598/members").
+      stub_get("/api/v2/json/teams/32598/members").
         to_return(:body => fixture("v2/users.json"))
       users = @client.team_members(32598)
       users.first.name.should == "Erik Michaels-Ober"
@@ -175,7 +175,7 @@ describe Octokit::Client::Organizations do
   describe ".add_team_member" do
 
     it "should add a team member" do
-      stub_post("teams/32598/members").
+      stub_post("/api/v2/json/teams/32598/members").
         with(:name => "sferik").
         to_return(:body => fixture("v2/user.json"))
       user = @client.add_team_member(32598, "sferik")
@@ -187,7 +187,7 @@ describe Octokit::Client::Organizations do
   describe ".remove_team_member" do
 
     it "should remove a team member" do
-      stub_delete("teams/32598/members").
+      stub_delete("/api/v2/json/teams/32598/members").
         with(:query => {:name => "sferik"}).
         to_return(:body => fixture("v2/user.json"))
       user = @client.remove_team_member(32598, "sferik")
@@ -199,7 +199,7 @@ describe Octokit::Client::Organizations do
   describe ".team_repositories" do
 
     it "should return team repositories" do
-      stub_get("teams/32598/repositories").
+      stub_get("/api/v2/json/teams/32598/repositories").
         to_return(:body => fixture("v2/repositories.json"))
       repositories = @client.team_repositories(32598)
       repositories.first.name.should == "One40Proof"
@@ -210,7 +210,7 @@ describe Octokit::Client::Organizations do
   describe ".add_team_repository" do
 
     it "should add a team repository" do
-      stub_post("teams/32598/repositories").
+      stub_post("/api/v2/json/teams/32598/repositories").
         with(:name => "reddavis/One40Proof").
         to_return(:body => fixture("v2/repositories.json"))
       repositories = @client.add_team_repository(32598, "reddavis/One40Proof")
@@ -222,7 +222,7 @@ describe Octokit::Client::Organizations do
   describe ".remove_team_repository" do
 
     it "should remove a team repository" do
-      stub_delete("teams/32598/repositories").
+      stub_delete("/api/v2/json/teams/32598/repositories").
         with(:query => {:name => "reddavis/One40Proof"}).
         to_return(:body => fixture("v2/repositories.json"))
       repositories = @client.remove_team_repository(32598, "reddavis/One40Proof")
