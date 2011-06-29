@@ -10,8 +10,18 @@ module Octokit
         end
       end
 
-      def user(username=nil, options={})
-        get(["/api/v2/json/user/show", username].compact.join('/'), options)['user']
+      # Get a single user
+      #
+      # @param user [String] A GitHub user name.
+      # @return [Hashie::Mash]
+      # @example
+      #   Octokit.user("sferik")
+      def user(user=nil)
+        if user
+          get("/users/#{user}", {}, 3)
+        else
+          get("/user", {}, 3)
+        end
       end
 
       def update_user(values, options={})

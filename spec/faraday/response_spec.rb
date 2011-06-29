@@ -21,7 +21,7 @@ describe Faraday::Response do
     context "when HTTP status is #{status}" do
 
       before do
-        stub_get('/api/v2/json/user/show/sferik').
+        stub_get('https://api.github.com/users/sferik').
           to_return(:status => status)
       end
 

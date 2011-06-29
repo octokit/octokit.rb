@@ -38,8 +38,8 @@ describe Octokit::Client::Users do
     context "with a username passed" do
 
       it "should return the user" do
-        stub_get("/api/v2/json/user/show/sferik").
-          to_return(:body => fixture("v2/user.json"))
+        stub_get("https://api.github.com/users/sferik").
+          to_return(:body => fixture("v3/user.json"))
         user = @client.user("sferik")
         user.login.should == "sferik"
       end
@@ -49,8 +49,8 @@ describe Octokit::Client::Users do
     context "without a username passed" do
 
       it "should return the authenticated user" do
-        stub_get("/api/v2/json/user/show").
-          to_return(:body => fixture("v2/user.json"))
+        stub_get("https://api.github.com/user").
+          to_return(:body => fixture("v3/user.json"))
         user = @client.user
         user.login.should == "sferik"
       end
