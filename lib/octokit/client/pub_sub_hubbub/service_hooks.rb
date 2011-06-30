@@ -13,8 +13,8 @@ module Octokit
         # @example Subscribe to push events to one of your repositories to Travis-CI
         #    client = Octokit::Client.new(:oauth_token = "token")
         #    client.subscribe_service_hook('joshk', 'device_imapable', 'Travis', { :token => "test", :domain => "domain", :user => "user" })
-        def subscribe_service_hook(owner, repository, service_name, service_arguments = {})
-          topic = "https://github.com/#{owner}/#{repository}/events/push"
+        def subscribe_service_hook(repo, service_name, service_arguments = {})
+          topic = "https://github.com/#{Repository.new(repo)}/events/push"
           callback = "github://#{service_name}?#{service_arguments.collect{ |k,v| [ k,v ].join("=") }.join("&") }"
           subscribe(topic, callback)
           true
@@ -29,8 +29,8 @@ module Octokit
         # @example Subscribe to push events to one of your repositories to Travis-CI
         #    client = Octokit::Client.new(:oauth_token = "token")
         #    client.unsubscribe_service_hook('joshk', 'device_imapable', 'Travis')
-        def unsubscribe_service_hook(owner, repository, service_name)
-          topic = "https://github.com/#{owner}/#{repository}/events/push"
+        def unsubscribe_service_hook(repo, service_name)
+          topic = "https://github.com/#{Repository.new(repo)}/events/push"
           callback = "github://#{service_name}"
           unsubscribe(topic, callback)
           true
