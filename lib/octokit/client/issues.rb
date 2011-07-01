@@ -110,7 +110,6 @@ module Octokit
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @return [Array] A list of the labels currently on the issue
-      # @see http://develop.github.com/p/issues.html
       # @see http://developer.github.com/v3/issues/labels/
       # @example List labels for pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
@@ -134,7 +133,7 @@ module Octokit
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param label [String] A new label
       # @param color [String] A color, in hex, without the leading #
-      # @return [Array] A list of the labels currently on the issue
+      # @return [Label] A Hashie of the new label
       # @see http://developer.github.com/v3/issues/labels/
       # @example Add a new label "Version 1.0" with color "#cccccc"
       #   Octokit.add_label("pengwynn/octokit", "Version 1.0", "cccccc")
