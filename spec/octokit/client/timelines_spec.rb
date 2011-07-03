@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'helper'
 
-describe Octokit::Client::Users do
+describe Octokit::Client::Timelines do
 
   describe ".timeline" do
 

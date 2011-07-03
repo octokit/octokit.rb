@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'helper'
 
-describe Octokit::Client::Pulls do
+describe Octokit::Client::Commits do
 
   before do
     @client = Octokit::Client.new(:login => 'sferik')
