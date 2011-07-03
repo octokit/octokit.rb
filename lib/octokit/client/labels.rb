@@ -38,6 +38,21 @@ module Octokit
         post("repos/#{Repository.new(repo)}/labels", options.merge({:name => label, :color => color}), 3)
       end
 
+      # Update a label 
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param label [String] The name of the label which will be updated
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :title An updated label name
+      # @option options [String] :color An updated color value, in hex, without leading #
+      # @return [Label] A Hashie of the updated label
+      # @see http://developer.github.com/v3/issues/labels/#update-a-label
+      # @example Update the label "Version 1.0" with new color "#cceeaa"
+      #   Octokit.update_label("pengwynn/octokit", "Version 1.0", {:color => "cceeaa"})
+      def update_label(repo, label, options={})
+        post("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(label)}", options, 3)
+      end
+
       # Remove a label from a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
