@@ -5,7 +5,7 @@ module Octokit
       # List available labels for a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
-      # @return [Array] A list of the labels currently on the issue
+      # @return [Array] A list of the labels across the repository
       # @see http://developer.github.com/v3/issues/labels/
       # @example List labels for pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
@@ -64,6 +64,18 @@ module Octokit
       #   Octokit.remove_label("pengwynn/octokit", "Version 1.0")
       def remove_label(repo, label, options={})
         delete("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(label)}", options, 3, true, true)
+      end
+
+      # List available for a given issue
+      #
+      # @param Repository [String, Repository, Hash] A GitHub repository.
+      # @param number [String] Number ID of the issue
+      # @return [Array] A list of the labels currently on the issue
+      # @see http://developer.github.com/v3/issues/labels/
+      # @example List labels for pengwynn/octokit
+      #   Octokit.labels("pengwynn/octokit")
+      def labels_for_issue(repo, number, options={})
+        get("repos/#{Repository.new(repo)}/issues/#{number}/labels", options, 3)
       end
 
     end
