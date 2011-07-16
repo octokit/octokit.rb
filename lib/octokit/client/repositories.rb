@@ -52,7 +52,7 @@ module Octokit
       alias :delete_repo :delete_repository
 
       def delete_repository!(repo, options={})
-        delete_token = post("/api/v2/json/repos/delete/#{Repository.new(repo)}", options)
+        delete_token = delete_repository(repo, options)
         post("/api/v2/json/repos/delete/#{Repository.new(repo)}", options.merge(:delete_token => delete_token))
       end
       alias :delete_repo! :delete_repository!

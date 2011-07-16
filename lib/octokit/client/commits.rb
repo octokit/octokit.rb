@@ -3,12 +3,13 @@ module Octokit
     module Commits
 
       def commits(repo, branch="master", options={})
-        get("/api/v2/json/commits/list/#{Repository.new(repo)}/#{branch}", options)['commits']
+        options = { :per_page => 35, :sha => branch }.merge options
+        get("/repos/#{Repository.new(repo)}/commits", options, 3)
       end
       alias :list_commits :commits
 
       def commit(repo, sha, options={})
-        get("/api/v2/json/commits/show/#{Repository.new(repo)}/#{sha}", options)['commit']
+        get("/repos/#{Repository.new(repo)}/commits/#{sha}", options, 3)
       end
 
     end

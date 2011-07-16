@@ -84,6 +84,52 @@ describe Octokit::Client::Issues do
 
   end
 
+  describe ".labels" do
+
+    it "should return labels" do
+      stub_get("https://api.github.com/repos/pengwynn/octokit/labels").
+        to_return(:body => fixture("v3/labels.json"))
+      labels = @client.labels("pengwynn/octokit")
+      labels.first.name.should == "V3 Transition"
+    end
+
+  end
+
+  describe ".label" do
+
+    it "should return a single labels" do
+      stub_get("https://api.github.com/repos/pengwynn/octokit/labels/V3%20Addition").
+        to_return(:status => 200, :body => fixture('v3/label.json'))
+      label = @client.label("pengwynn/octokit", 'V3 Addition')
+      label.name.should == "V3 Addition"
+    end
+
+  end
+
+  describe ".add_label" do
+
+    it "should add a label" do
+      stub_post("https://api.github.com/repos/pengwynn/octokit/labels").
+        with(:body => {:name => "bug", :color => "ededed"}).
+        to_return(:status => 201, :body => fixture('v3/label.json'))
+      labels = @client.add_label("pengwynn/octokit", "bug", 'ededed')
+      labels.color.should == "ededed"
+      labels.name.should  == "V3 Addition"
+    end
+
+  end
+
+  describe ".remove_label" do
+
+    it "should remove a label" do
+      stub_post("/api/v2/json/issues/label/remove/sferik/rails_admin/bug").
+        to_return(:body => fixture("v2/labels.json"))
+      labels = @client.remove_label("sferik/rails_admin", "bug")
+      labels.first.should == "bug"
+    end
+
+  end
+
   describe ".issue_comments" do
 
     it "should return comments for an issue" do
@@ -111,8 +157,7 @@ describe Octokit::Client::Issues do
 
     it "should add a comment" do
       stub_post("https://api.github.com/repos/pengwynn/octokit/issues/25/comments").
-        with(:body => "{\"body\":\"A test comment\"}",
-        :headers => {'Content-Type'=>'application/json'}).
+        with(:body => {"body" => "A test comment"}).
         to_return(:status => 201, :body => fixture('v3/comment.json'))
       comment = @client.add_comment("pengwynn/octokit", 25, "A test comment")
       comment.user.login.should == "ctshryock"
@@ -124,8 +169,7 @@ describe Octokit::Client::Issues do
 
     it "should update an existing comment" do
       stub_post("https://api.github.com/repos/pengwynn/octokit/issues/comments/1194549").
-        with(:body => "{\"body\":\"A test comment update\"}",
-        :headers => {'Content-Type'=>'application/json'}).
+        with(:body => {"body" => "A test comment update"}).
         to_return(:status => 200, :body => fixture('v3/comment.json'))
       comment = @client.update_comment("pengwynn/octokit", 1194549, "A test comment update")
       comment.user.login.should == "ctshryock"
