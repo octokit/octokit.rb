@@ -67,13 +67,13 @@ describe Octokit::Client::Issues do
 
   end
 
-  describe ".remove_label" do
+  describe ".delete_label!" do
 
-    it "should remove a label" do
+    it "should delete a label from the repository" do
       stub_delete("https://api.github.com/repos/pengwynn/octokit/labels/V3+Transition").
        to_return(:status => 204)
       
-      response = @client.remove_label("pengwynn/octokit", "V3 Transition")
+      response = @client.delete_label!("pengwynn/octokit", "V3 Transition")
       response.status.should == 204
     end
 

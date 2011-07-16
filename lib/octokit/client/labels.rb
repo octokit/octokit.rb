@@ -53,22 +53,24 @@ module Octokit
         post("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(label)}", options, 3)
       end
 
-      # Remove a label from a repository
+      # Delete a label from a repository.
+      #
+      # This deletes the label from the repository, and removes it from all issues.
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
-      # @param id [String] String name of the label
+      # @param label [String] String name of the label
       # @return [Response] A Faraday Response object
       # @see http://developer.github.com/v3/issues/labels/#delete-a-label
       # @see http://rubydoc.info/gems/faraday/0.5.3/Faraday/Response
-      # @example Remove the label "Version 1.0" from the repository
-      #   Octokit.remove_label("pengwynn/octokit", "Version 1.0")
-      def remove_label(repo, label, options={})
+      # @example Delete the label "Version 1.0" from the repository.
+      #   Octokit.delete_label!("pengwynn/octokit", "Version 1.0")
+      def delete_label!(repo, label, options={})
         delete("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(label)}", options, 3, true, true)
       end
 
       # List available for a given issue
       #
-      # @param Repository [String, Repository, Hash] A GitHub repository.
+      # @param repository [String, Repository, Hash] A GitHub repository.
       # @param number [String] Number ID of the issue
       # @return [Array] A list of the labels currently on the issue
       # @see http://developer.github.com/v3/issues/labels/
