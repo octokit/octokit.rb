@@ -79,4 +79,17 @@ describe Octokit::Client::Issues do
 
   end
 
+  describe ".add_labels_to_an_issue" do
+    it "should add labels to a given issue" do
+      stub_post("https://api.github.com/repos/pengwynn/octokit/issues/42/labels").
+        with(:body => "[\"V3 Transition\",\"Bug\"]", 
+            :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
+        to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
+    
+      labels = @client.add_labels_to_an_issue('pengwynn/octokit', 42, ['V3 Transition', 'Bug'])
+      labels.first.name.should == 'V3 Transition'
+      labels.last.name.should  == 'Bug'
+    end
+  end
+
 end

@@ -53,7 +53,7 @@ module Octokit
         post("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(label)}", options, 3)
       end
 
-      # Delete a label from a repository.
+      # Delete a label from a repository.  
       #
       # This deletes the label from the repository, and removes it from all issues.
       #
@@ -80,6 +80,18 @@ module Octokit
         get("repos/#{Repository.new(repo)}/issues/#{number}/labels", options, 3)
       end
 
+      # Add label(s) to an Issue
+      #
+      # @param repository [String, Repository, Hash] A Github repository
+      # @param number [String] Number ID of the issue
+      # @param labels [Array] An array of labels to apply to this Issue
+      # @return [Array] A list of the labels currently on the issue
+      # @see http://developer.github.com/v3/issues/labels/#add-labels-to-an-issue
+      # @example Add two labels for pengwynn/octokit
+      #   Octokit.add_labels_to_an_issue("pengwynn/octokit", 10, ['V3 Transition', 'Improvement'])
+      def add_labels_to_an_issue(repo, number, labels)
+        post("repos/#{Repository.new(repo)}/issues/#{number}/labels", labels, 3)
+      end
     end
   end
 end
