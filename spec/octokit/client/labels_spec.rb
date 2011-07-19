@@ -104,4 +104,16 @@ describe Octokit::Client::Issues do
     end
   end
 
+  describe ".replace_all_labels" do
+    it "should replace all labels for an issue" do
+       stub_put("https://api.github.com/repos/pengwynn/octokit/issues/42/labels").
+         with(:body => "[\"V3 Transition\",\"V3 Adding\"]",
+              :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
+         to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
+
+      labels = @client.replace_all_labels('pengwynn/octokit', 42, ['V3 Transition', 'V3 Adding'])
+      labels.first.name.should == 'V3 Transition'
+    end
+  end
+
 end

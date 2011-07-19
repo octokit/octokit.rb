@@ -96,6 +96,10 @@ module Octokit
       def add_labels_to_an_issue(repo, number, labels)
         post("repos/#{Repository.new(repo)}/issues/#{number}/labels", labels, 3)
       end
+
+      def replace_all_labels(repo, number, labels)
+        put("repos/#{Repository.new(repo)}/issues/#{number}/labels", labels, 3)
+      end
     end
   end
 end
