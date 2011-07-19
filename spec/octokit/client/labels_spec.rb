@@ -79,6 +79,18 @@ describe Octokit::Client::Issues do
 
   end
 
+  describe ".remove_label" do
+
+    it "should remove a label from the specified issue" do
+      stub_delete("https://api.github.com/repos/pengwynn/octokit/issues/23/labels/V3+Transition").
+        to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
+
+      response = @client.remove_label("pengwynn/octokit", 23, "V3 Transition")
+      response.last.name.should == 'Bug'
+    end
+
+  end
+
   describe ".add_labels_to_an_issue" do
     it "should add labels to a given issue" do
       stub_post("https://api.github.com/repos/pengwynn/octokit/issues/42/labels").

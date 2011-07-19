@@ -68,6 +68,10 @@ module Octokit
         delete("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(label)}", options, 3, true, true)
       end
 
+      def remove_label(repo, number, label, options={})
+        delete("repos/#{Repository.new(repo)}/issues/#{number}/labels/#{URI.encode_www_form_component(label)}", options, 3, true)
+      end
+
       # List available for a given issue
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
