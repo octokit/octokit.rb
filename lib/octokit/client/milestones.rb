@@ -54,7 +54,7 @@ module Octokit
       # Update a milestone for a repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
-      # @param number [String, Integer] Number ID of a milestone
+      # @param number [String, Integer] ID of the milestone
       # @param options [Hash] A customizable set of options.
       # @option options [String] :title A unique title.
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.

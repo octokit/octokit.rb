@@ -5,6 +5,7 @@ require 'octokit/request'
 
 require 'octokit/client/commits'
 require 'octokit/client/issues'
+require 'octokit/client/labels'
 require 'octokit/client/network'
 require 'octokit/client/milestones'
 require 'octokit/client/objects'
@@ -33,6 +34,7 @@ module Octokit
 
     include Octokit::Client::Commits
     include Octokit::Client::Issues
+    include Octokit::Client::Labels
     include Octokit::Client::Network
     include Octokit::Client::Milestones
     include Octokit::Client::Objects
