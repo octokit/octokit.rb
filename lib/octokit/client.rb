@@ -19,7 +19,7 @@ require 'octokit/client/users'
 
 module Octokit
   class Client
-    attr_accessor *Configuration::VALID_OPTIONS_KEYS
+    attr_accessor(*Configuration::VALID_OPTIONS_KEYS)
 
     def initialize(options={})
       options = Octokit.options.merge(options)
