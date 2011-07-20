@@ -22,7 +22,7 @@ module Octokit
     DEFAULT_OAUTH_TOKEN = nil
     DEFAULT_USER_AGENT  = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
 
-    attr_accessor *VALID_OPTIONS_KEYS
+    attr_accessor(*VALID_OPTIONS_KEYS)
 
     def self.extended(base)
       base.reset
