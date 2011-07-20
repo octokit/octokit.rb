@@ -84,9 +84,21 @@ describe Octokit::Client::Issues do
     it "should remove a label from the specified issue" do
       stub_delete("https://api.github.com/repos/pengwynn/octokit/issues/23/labels/V3+Transition").
         to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
-
+      
       response = @client.remove_label("pengwynn/octokit", 23, "V3 Transition")
       response.last.name.should == 'Bug'
+    end
+
+  end
+
+  describe ".remove_all_labels" do
+
+    it "should remove all labels from the specified issue" do
+     stub_delete("https://api.github.com/repos/pengwynn/octokit/issues/23/labels").
+       to_return(:status => 204)
+
+     response = @client.remove_all_labels('pengwynn/octokit', 23)
+     response.status.should == 204
     end
 
   end
@@ -107,12 +119,22 @@ describe Octokit::Client::Issues do
   describe ".replace_all_labels" do
     it "should replace all labels for an issue" do
        stub_put("https://api.github.com/repos/pengwynn/octokit/issues/42/labels").
-         with(:body => "[\"V3 Transition\",\"V3 Adding\"]",
+         with(:body => "[\"V3 Transition\",\"V3 Adding\"]", 
               :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
          to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
 
       labels = @client.replace_all_labels('pengwynn/octokit', 42, ['V3 Transition', 'V3 Adding'])
       labels.first.name.should == 'V3 Transition'
+    end
+  end
+
+  describe ".lables_for_milestone" do
+    it "should return all labels for a repository" do
+      stub_get('https://api.github.com/repos/pengwynn/octokit/milestones/2/labels').
+        to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
+
+      labels = @client.labels_for_milestone('pengwynn/octokit', 2)
+      labels.size.should == 3
     end
   end
 

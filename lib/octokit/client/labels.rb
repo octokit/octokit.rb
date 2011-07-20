@@ -68,8 +68,35 @@ module Octokit
         delete("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(label)}", options, 3, true, true)
       end
 
+      # Remove a label from an Issue
+      #
+      # This removes the label from the Issue
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param number [String] Number ID of the issue
+      # @param label [String] String name of the label
+      # @return [Array] A list of the labels currently on the issue
+      # @see http://rubydoc.info/gems/faraday/0.5.3/Faraday/Response
+      # @see http://developer.github.com/v3/issues/labels/#remove-a-label-from-an-issue
+      # @example Remove the label "Version 1.0" from the repository.
+      #   Octokit.remove_label("pengwynn/octokit", 23, "Version 1.0")
       def remove_label(repo, number, label, options={})
         delete("repos/#{Repository.new(repo)}/issues/#{number}/labels/#{URI.encode_www_form_component(label)}", options, 3, true)
+      end
+
+      # Remove all label from an Issue
+      #
+      # This removes the label from the Issue
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param number [String] Number ID of the issue
+      # @param label [String] String name of the label
+      # @return [Array] A list of the labels currently on the issue
+      # @see http://developer.github.com/v3/issues/labels/#remove-all-labels-from-an-issue
+      # @example Remove all labels from Issue #23
+      #   Octokit.remove_all_labels("pengwynn/octokit", 23)
+      def remove_all_labels(repo, number, options={})
+        delete("repos/#{Repository.new(repo)}/issues/#{number}/labels", options, 3, true, true)
       end
 
       # List available for a given issue
@@ -97,9 +124,31 @@ module Octokit
         post("repos/#{Repository.new(repo)}/issues/#{number}/labels", labels, 3)
       end
 
-      def replace_all_labels(repo, number, labels)
+      # Replace all labels on an Issue
+      #
+      # @param repository [String, Repository, Hash] A Github repository
+      # @param number [String] Number ID of the issue
+      # @param labels [Array] An array of labels to use as replacement
+      # @return [Array] A list of the labels currently on the issue
+      # @see http://developer.github.com/v3/issues/labels/#replace-all-labels-for-an-issue
+      # @example Replace labels for pengwynn/octokit Issue #10
+      #   Octokit.replace_all_labels("pengwynn/octokit", 10, ['V3 Transition', 'Improvement'])
+      def replace_all_labels(repo, number, labels, options={})
         put("repos/#{Repository.new(repo)}/issues/#{number}/labels", labels, 3)
       end
+
+      # Get labels for every issue in a milestone
+      #
+      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param number [String] Number ID of the milestone
+      # @return [Array] A list of the labels across the milestone 
+      # @see  http://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
+      # @example List all labels for milestone #2 on pengwynn/octokit
+      #   Octokit.labels_for_milestone("pengwynn/octokit", 2)
+      def labels_for_milestone(repo, number, options={}) 
+        get("repos/#{Repository.new(repo)}/milestones/#{number}/labels", options, 3) 
+      end
+
     end
   end
 end
