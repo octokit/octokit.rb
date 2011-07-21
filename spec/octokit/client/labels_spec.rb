@@ -138,4 +138,15 @@ describe Octokit::Client::Issues do
     end
   end
 
+  describe ".labels_for_issue" do
+    it "should return all labels for a given issue" do
+      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/issues/37/labels").
+        to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
+
+      labels = @client.labels_for_issue('pengwynn/octokit', 37)
+      labels.first.name.should == 'V3 Transition'
+      labels.last.name.should  == 'Bug'
+    end
+  end
+
 end
