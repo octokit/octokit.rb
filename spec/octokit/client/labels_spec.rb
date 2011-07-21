@@ -107,7 +107,7 @@ describe Octokit::Client::Issues do
     it "should add labels to a given issue" do
       stub_post("https://api.github.com/repos/pengwynn/octokit/issues/42/labels").
         with(:body => "[\"V3 Transition\",\"Bug\"]", 
-            :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
+            :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json'}).
         to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
     
       labels = @client.add_labels_to_an_issue('pengwynn/octokit', 42, ['V3 Transition', 'Bug'])
@@ -120,7 +120,7 @@ describe Octokit::Client::Issues do
     it "should replace all labels for an issue" do
        stub_put("https://api.github.com/repos/pengwynn/octokit/issues/42/labels").
          with(:body => "[\"V3 Transition\",\"V3 Adding\"]", 
-              :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json', 'User-Agent'=>'Ruby'}).
+              :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json'}).
          to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
 
       labels = @client.replace_all_labels('pengwynn/octokit', 42, ['V3 Transition', 'V3 Adding'])
