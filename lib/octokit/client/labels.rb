@@ -99,12 +99,12 @@ module Octokit
         delete("repos/#{Repository.new(repo)}/issues/#{number}/labels", options, 3, true, true)
       end
 
-      # List available for a given issue
+      # List labels for a given issue
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param number [String] Number ID of the issue
       # @return [Array] A list of the labels currently on the issue
-      # @see http://developer.github.com/v3/issues/labels/
+      # @see http://developer.github.com/v3/issues/labels/#list-labels-on-an-issue
       # @example List labels for pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
       def labels_for_issue(repo, number, options={})
