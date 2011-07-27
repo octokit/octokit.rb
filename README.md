@@ -10,7 +10,7 @@ Installation
 
 Continuous Integration
 ----------------------
-[![Build Status](http://travis-ci.org/pengwynn/octokit.png)](http://travis-ci.org/pengwynn/octokit)
+[![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png)](http://travis-ci.org/pengwynn/octokit)
 
 Documentation
 -------------
