@@ -42,9 +42,17 @@ For convenience, methods that require a repoistory argument may be passed in any
 
 Authenticated requests
 ----------------------
-Some methods require authentication so you'll need to pass a login and an api_token. You can find your GitHub API token on your [account page](https://github.com/account).
+For methods that require authentication, you'll need to setup a client with
+your login and password.
 
-    client = Octokit::Client.new(:login => "pengwynn", :token => "OU812")
+    client = Octokit::Client.new(:login => "me", :password => "sekret")
+    client.follow!("sferik")
+
+Alternately, you can authenticate with a GitHub OAuth2 token. Note: this is
+**NOT** the GitHub API token on your [account
+page](https://github.com/account).
+
+    client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
     client.follow!("sferik")
 
 Submitting a Pull Request
