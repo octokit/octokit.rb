@@ -28,8 +28,8 @@ describe Octokit::Client::Timelines do
     context "when authenticated" do
 
       it "should return a user timeline" do
-        client = Octokit::Client.new(:login => "sferik", :token => "OU812")
-        stub_get("https://github.com/sferik.private.json?token=OU812").
+        client = Octokit::Client.new(:login => "sferik", :password => "sekret")
+        stub_get("https://github.com/sferik.private.json").
           to_return(:body => fixture("timeline.json"))
         events = client.user_timeline("sferik")
         events.first.repository.name.should == "homebrew"

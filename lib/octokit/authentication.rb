@@ -1,9 +1,7 @@
 module Octokit
   module Authentication
     def authentication
-      if login && token
-        {:login => "#{login}/token", :password => token}
-      elsif login && password
+      if login && password
         {:login => login, :password => password}
       else
         {}

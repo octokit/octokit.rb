@@ -7,9 +7,8 @@ module Octokit
       end
 
       def user_timeline(username=login, options={})
-        if token
+        if authenticated?
           path = "/#{username}.private.json"
-          options[:token] = token
         else
           path = "/#{username}.json"
         end
