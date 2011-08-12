@@ -26,7 +26,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'hashie', '~> 1.1.0'
   gem.add_runtime_dependency 'multi_json', '~> 1.0.2'
 
-  gem.add_development_dependency 'ZenTest', '~> 4.5'
   gem.add_development_dependency 'nokogiri', '~> 1.4'
   gem.add_development_dependency 'rake', '~> 0.9'
   gem.add_development_dependency 'rspec', '~> 2.6'
