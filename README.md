@@ -4,19 +4,19 @@ Simple Ruby wrapper for the GitHub v2 API.
 
 ![The Puppeteer](https://github.com/pengwynn/octokit/raw/master/puppeteer.jpg "The Puppeteer") by [![Cameron McEfee)](https://secure.gravatar.com/avatar/a79ff2bb7da84e275361857d2feb2b1b?s=20 "Cameron McEfee")](https://github.com/cameronmcefee)
 
-Installation
+<a name="installation">Installation</a>
 ------------
     gem install octokit
 
-Continuous Integration
+<a name="ci">Continuous Integration</a>
 ----------------------
 [![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png)](http://travis-ci.org/pengwynn/octokit)
 
-Documentation
+<a name="documentation">Documentation</a>
 -------------
 http://rdoc.info/gems/octokit
 
-Examples
+<a name="examples">Examples</a>
 -------------
 
 ### Show a user
@@ -55,7 +55,7 @@ page](https://github.com/account).
     client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
     client.follow!("sferik")
 
-Submitting a Pull Request
+<a name="pulls">Submitting a Pull Request</a>
 -------------------------
 1. Fork the project.
 2. Create a topic branch.
@@ -67,7 +67,7 @@ Submitting a Pull Request
 8. Commit and push your changes.
 9. Submit a pull request. Please do not include changes to the version or gemspec. (If you want to create your own version for some reason, please do so in a separate commit.)
 
-Supported Rubies
+<a name="rubies">Supported Rubies</a>
 ----------------
 This library aims to support and is [tested
 against](http://travis-ci.org/pengwynn/octokit) the following Ruby
@@ -98,7 +98,7 @@ Inspiration
 -----------
 Octokit was inspired by [Octopi](https://github.com/fcoury/octopi) and aims to be a lightweight, less-ActiveResourcey alternative.
 
-Copyright
+<a name="copyright">Copyright</a>
 ---------
 Copyright (c) 2011 [Wynn Netherland](http://wynnnetherland.com), [Adam Stacoviak](http://adamstacoviak.com/), [Erik Michaels-Ober](https://github.com/sferik).
 See [LICENSE](https://github.com/pengwynn/octokit/blob/master/LICENSE) for details.
