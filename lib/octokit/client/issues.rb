@@ -4,7 +4,7 @@ module Octokit
 
       # Search issues within a repository
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param search_term [String] The term to search for
       # @param state [String] :state (open) <tt>open</tt> or <tt>closed</tt>.
       # @return [Array] A list of issues matching the search term and state
@@ -38,7 +38,7 @@ module Octokit
 
       # Create an issue for a repository
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param title [String] A descriptive title
       # @param body [String] A concise description
       # @return [Issue] Your newly created issue
@@ -52,7 +52,7 @@ module Octokit
 
       # Get a single issue from a repository
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
       # @return [Issue] The issue you requested, if it exists
       # @see http://developer.github.com/v3/issues/#get-a-single-issue
@@ -64,7 +64,7 @@ module Octokit
 
       # Close an issue
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
       # @return [Issue] The updated Issue
       # @see http://develop.github.com/p/issues.html
@@ -78,7 +78,7 @@ module Octokit
 
       # Reopen an issue
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
       # @return [Issue] The updated Issue
       # @see http://develop.github.com/p/issues.html
@@ -92,7 +92,7 @@ module Octokit
 
       # Update an issue
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
       # @param title [String] Updated title for the issue
       # @param body [String] Updated body of the issue
@@ -108,7 +108,7 @@ module Octokit
 
       # Get all comments attached to an issue
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
       # @return [Array] Array of comments that belong to an issue
       # @see http://developer.github.com/v3/issues/comments
@@ -120,7 +120,7 @@ module Octokit
 
       # Get a single comment attached to an issue
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
       # @return [Array] Array of comments that belong to an issue
       # @see http://developer.github.com/v3/issues/comments/#get-a-single-comment
@@ -132,7 +132,7 @@ module Octokit
 
       # Add a comment to an issue
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Issue number
       # @param comment [String] Comment to be added
       # @return [Comment] A JSON encoded Comment
@@ -145,7 +145,7 @@ module Octokit
 
       # Update a single comment on an issue
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Comment number
       # @param comment [String] Body of the comment which will replace the existing body.
       # @return [Comment] A JSON encoded Comment
@@ -158,7 +158,7 @@ module Octokit
 
       # Delete a single comment
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Comment number
       # @return [Response] A response object with status
       # @see http://developer.github.com/v3/issues/comments/#delete-a-comment

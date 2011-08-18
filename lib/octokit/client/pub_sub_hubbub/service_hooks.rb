@@ -4,8 +4,7 @@ module Octokit
       module ServiceHooks
         # Subscribe to a repository through pubsub
         #
-        # @param owner [String] owner of mentioned repository
-        # @param repository [String] repository name
+        # @param repo [String, Repository, Hash] A GitHub repository
         # @param service_name [String] service name owner
         # @param service_arguments [Hash] params that will be passed by subscibed hook.
         #    List of services is available @ https://github.com/github/github-services/tree/master/docs.
@@ -22,8 +21,7 @@ module Octokit
 
         # Unsubscribe repository through pubsub
         #
-        # @param owner [String] owner of mentioned repository
-        # @param repository [String] repository name
+        # @param repo [String, Repository, Hash] A GitHub repository
         # @param service_name [String] service name owner
         #    List of services is available @ https://github.com/github/github-services/tree/master/docs.
         # @example Subscribe to push events to one of your repositories to Travis-CI

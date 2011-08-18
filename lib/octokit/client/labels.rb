@@ -4,7 +4,7 @@ module Octokit
 
       # List available labels for a repository
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @return [Array] A list of the labels across the repository
       # @see http://developer.github.com/v3/issues/labels/
       # @example List labels for pengwynn/octokit
@@ -15,7 +15,7 @@ module Octokit
 
       # Get single label for a repository
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param name [String] Name of the label
       # @return [Label] A single label from the repository
       # @see http://developer.github.com/v3/issues/labels/#get-a-single-label
@@ -27,7 +27,7 @@ module Octokit
 
       # Add a label to a repository
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param label [String] A new label
       # @param color [String] A color, in hex, without the leading #
       # @return [Label] A Hashie of the new label
@@ -40,7 +40,7 @@ module Octokit
 
       # Update a label 
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param label [String] The name of the label which will be updated
       # @param options [Hash] A customizable set of options.
       # @option options [String] :title An updated label name
@@ -57,7 +57,7 @@ module Octokit
       #
       # This deletes the label from the repository, and removes it from all issues.
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param label [String] String name of the label
       # @return [Response] A Faraday Response object
       # @see http://developer.github.com/v3/issues/labels/#delete-a-label
@@ -72,7 +72,7 @@ module Octokit
       #
       # This removes the label from the Issue
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
       # @param label [String] String name of the label
       # @return [Array] A list of the labels currently on the issue
@@ -88,9 +88,8 @@ module Octokit
       #
       # This removes the label from the Issue
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
-      # @param label [String] String name of the label
       # @return [Array] A list of the labels currently on the issue
       # @see http://developer.github.com/v3/issues/labels/#remove-all-labels-from-an-issue
       # @example Remove all labels from Issue #23
@@ -101,7 +100,7 @@ module Octokit
 
       # List labels for a given issue
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
       # @return [Array] A list of the labels currently on the issue
       # @see http://developer.github.com/v3/issues/labels/#list-labels-on-an-issue
@@ -113,7 +112,7 @@ module Octokit
 
       # Add label(s) to an Issue
       #
-      # @param repository [String, Repository, Hash] A Github repository
+      # @param repo [String, Repository, Hash] A Github repository
       # @param number [String] Number ID of the issue
       # @param labels [Array] An array of labels to apply to this Issue
       # @return [Array] A list of the labels currently on the issue
@@ -126,7 +125,7 @@ module Octokit
 
       # Replace all labels on an Issue
       #
-      # @param repository [String, Repository, Hash] A Github repository
+      # @param repo [String, Repository, Hash] A Github repository
       # @param number [String] Number ID of the issue
       # @param labels [Array] An array of labels to use as replacement
       # @return [Array] A list of the labels currently on the issue
@@ -139,7 +138,7 @@ module Octokit
 
       # Get labels for every issue in a milestone
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the milestone
       # @return [Array] A list of the labels across the milestone 
       # @see  http://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
