@@ -71,7 +71,7 @@ module Octokit
       alias :list_deploy_keys :deploy_keys
 
       def add_deploy_key(repo, title, key, options={})
-        post("/api/v2/json/repos/key/#{Repository.new(repo)}/add", options)['public_keys']
+        post("/api/v2/json/repos/key/#{Repository.new(repo)}/add", options.merge(:title => title, :key => key))['public_keys']
       end
 
       def remove_deploy_key(repo, id, options={})
