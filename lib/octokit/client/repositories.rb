@@ -1,4 +1,4 @@
-,module Octokit
+module Octokit
   class Client
     module Repositories
       def search_repositories(q, options={})
