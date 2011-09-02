@@ -1,0 +1,16 @@
+[
+  {
+    "commit": {
+      "sha": "473cf978f7b44005cb44917e62831a2cd99eacc8",
+      "url": "https://api.github.com/repos/pengwynn/octokit/commits/473cf978f7b44005cb44917e62831a2cd99eacc8"
+    },
+    "name": "faraday-1.0"
+  },
+  {
+    "commit": {
+      "sha": "88553a397f7293b3ba176dc27cd1ab6bb93d5d14",
+      "url": "https://api.github.com/repos/pengwynn/octokit/commits/88553a397f7293b3ba176dc27cd1ab6bb93d5d14"
+    },
+    "name": "master"
+  }
+]

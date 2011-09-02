@@ -7,36 +7,49 @@ module Octokit
       alias :search_repos :search_repositories
 
       def repository(repo, options={})
-        get("/api/v2/json/repos/show/#{Repository.new(repo)}", options)['repository']
+        get "/repos/#{Repository.new repo}", options, 3
       end
       alias :repo :repository
 
-      def update_repository(repo, values, options={})
-        post("/api/v2/json/repos/show/#{Repository.new(repo)}", options.merge({:values => values}))['repository']
+      def edit_repository(repo, options={})
+        patch "/repos/#{Repository.new repo}", options, 3
       end
-      alias :update_repo :update_repository
+      alias :edit :edit_repository
+      alias :update_repository :edit_repository
+      alias :update :edit_repository
 
-      def repositories(username=login, options={})
-        get(["/api/v2/json/repos/show", username].compact.join('/'), options)['repositories']
+      def repositories(username=nil, options={})
+        if username.nil?
+          get '/user/repos', options, 3
+        else
+          get "/users/#{username}/repos", options, 3
+        end
       end
       alias :list_repositories :repositories
       alias :list_repos :repositories
       alias :repos :repositories
 
       def watch(repo, options={})
-        post("/api/v2/json/repos/watch/#{Repository.new(repo)}", options)['repository']
+        put "/user/watched/#{Repository.new repo}", options, 3
       end
 
       def unwatch(repo, options={})
-        post("/api/v2/json/repos/unwatch/#{Repository.new(repo)}", options)['repository']
+        delete "/user/watched/#{Repository.new repo}", options, 3
       end
 
       def fork(repo, options={})
-        post("/api/v2/json/repos/fork/#{Repository.new(repo)}", options)['repository']
+        post "/repos/#{Repository.new repo}/forks", options, 3
       end
 
       def create_repository(name, options={})
-        post("/api/v2/json/repos/create", options.merge(:name => name))['repository']
+        organization = options.delete :organization
+        options.merge! :name => name
+
+        if organization.nil?
+          post '/user/repos', options, 3
+        else
+          post "/orgs/#{organization}/repos", options, 3
+        end
       end
       alias :create_repo :create_repository
       alias :create :create_repository
@@ -58,38 +71,38 @@ module Octokit
       alias :delete_repo! :delete_repository!
 
       def set_private(repo, options={})
-        post("/api/v2/json/repos/set/private/#{Repository.new(repo)}", options)['repository']
+        update_repository repo, options.merge({ :public => false })
       end
 
       def set_public(repo, options={})
-        post("/api/v2/json/repos/set/public/#{Repository.new(repo)}", options)['repository']
+        update_repository repo, options.merge({ :public => true })
       end
 
       def deploy_keys(repo, options={})
-        get("/api/v2/json/repos/keys/#{Repository.new(repo)}", options)['public_keys']
+        get "/repos/#{Repository.new repo}/keys", options, 3
       end
       alias :list_deploy_keys :deploy_keys
 
       def add_deploy_key(repo, title, key, options={})
-        post("/api/v2/json/repos/key/#{Repository.new(repo)}/add", options.merge(:title => title, :key => key))['public_keys']
+        post "/repos/#{Repository.new repo}/keys", options.merge(:title => title, :key => key), 3
       end
 
       def remove_deploy_key(repo, id, options={})
-        post("/api/v2/json/repos/key/#{Repository.new(repo)}/remove", options.merge(:id => id))['public_keys']
+        delete "/repos/#{Repository.new repo}/keys/#{id}", options, 3
       end
 
       def collaborators(repo, options={})
-        get("/api/v2/json/repos/show/#{Repository.new(repo)}/collaborators", options)['collaborators']
+        get "/repos/#{Repository.new repo}/collaborators", options, 3
       end
       alias :collabs :collaborators
 
       def add_collaborator(repo, collaborator, options={})
-        post("/api/v2/json/repos/collaborators/#{Repository.new(repo)}/add/#{collaborator}")['collaborators']
+        put "/repos/#{Repository.new repo}/collaborators/#{collaborator}", options, 3
       end
       alias :add_collab :add_collaborator
 
       def remove_collaborator(repo, collaborator, options={})
-        post("/api/v2/json/repos/collaborators/#{Repository.new(repo)}/remove/#{collaborator}")['collaborators']
+        delete "/repos/#{Repository.new repo}/collaborators/#{collaborator}", options, 3
       end
       alias :remove_collab :remove_collaborator
 
@@ -98,38 +111,35 @@ module Octokit
       end
 
       def repository_teams(repo, options={})
-        get("/api/v2/json/repos/show/#{Repository.new(repo)}/teams", options)['teams']
+        get "/repos/#{Repository.new repo}/teams", options, 3
       end
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
 
       def contributors(repo, anon=false, options={})
-        if anon
-          get("/api/v2/json/repos/show/#{Repository.new(repo)}/contributors/anon", options)
-        else
-          get("/api/v2/json/repos/show/#{Repository.new(repo)}/contributors", options)
-        end['contributors']
+        get "/repos/#{Repository.new repo}/contributors", options.merge(:anon => anon), 3
       end
       alias :contribs :contributors
 
       def watchers(repo, options={})
-        get("/api/v2/json/repos/show/#{Repository.new(repo)}/watchers", options)['watchers']
+        get "/repos/#{Repository.new repo}/watchers", options, 3
       end
 
-      def network(repo, options={})
-        get("/api/v2/json/repos/show/#{Repository.new(repo)}/network", options)['network']
+      def forks(repo, options={})
+        get "/repos/#{Repository.new repo}/forks", options, 3
       end
+      alias :network :forks
 
       def languages(repo, options={})
-        get("/api/v2/json/repos/show/#{Repository.new(repo)}/languages", options)['languages']
+        get "/repos/#{Repository.new repo}/languages", options, 3
       end
 
       def tags(repo, options={})
-        get("/api/v2/json/repos/show/#{Repository.new(repo)}/tags", options)['tags']
+        get "/repos/#{Repository.new repo}/tags", options, 3
       end
 
       def branches(repo, options={})
-        get("/api/v2/json/repos/show/#{Repository.new(repo)}/branches", options)['branches']
+        get "/repos/#{Repository.new repo}/branches", options, 3
       end
     end
   end
