@@ -22,7 +22,7 @@ module Octokit
     end
 
     def slug
-      [@username, @name].compact.join('/')
+      "#{@username}/#{@name}"
     end
 
     def to_s
