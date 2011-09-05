@@ -10,7 +10,7 @@ describe Octokit::Client::Issues do
   describe ".labels" do
 
     it "should return labels" do
-      stub_get("https://api.github.com/repos/pengwynn/octokit/labels").
+      stub_get("/repos/pengwynn/octokit/labels").
         to_return(:body => fixture("v3/labels.json"))
       labels = @client.labels("pengwynn/octokit")
       labels.first.name.should == "V3 Transition"
@@ -21,7 +21,7 @@ describe Octokit::Client::Issues do
   describe ".label" do
 
     it "should return a single labels" do
-      stub_get("https://api.github.com/repos/pengwynn/octokit/labels/V3+Addition").
+      stub_get("/repos/pengwynn/octokit/labels/V3+Addition").
         to_return(:status => 200, :body => fixture('v3/label.json'))
       label = @client.label("pengwynn/octokit", "V3 Addition")
       label.name.should == "V3 Addition"
@@ -32,7 +32,7 @@ describe Octokit::Client::Issues do
   describe ".add_label" do
 
     it "should add a label with a color" do
-      stub_post("https://api.github.com/repos/pengwynn/octokit/labels").
+      stub_post("/repos/pengwynn/octokit/labels").
         with(:body => {"name" => "a significant bug", "color" => "ededed"},
              :headers => {'Content-Type'=>'application/json'}).
         to_return(:status => 201, :body => fixture('v3/label.json'))
@@ -42,7 +42,7 @@ describe Octokit::Client::Issues do
     end
 
     it "should add a label with default color" do
-      stub_post("https://api.github.com/repos/pengwynn/octokit/labels").
+      stub_post("/repos/pengwynn/octokit/labels").
         with(:body => {"name" => "another significant bug", "color" => "ffffff"},
              :headers => {'Content-Type'=>'application/json'}).
         to_return(:status => 201, :body => fixture('v3/label.json'))
@@ -56,7 +56,7 @@ describe Octokit::Client::Issues do
   describe ".update_label" do
 
     it "should update a label with a new color" do
-      stub_post("https://api.github.com/repos/pengwynn/octokit/labels/V3+Addition").
+      stub_post("/repos/pengwynn/octokit/labels/V3+Addition").
         with(:body => {"color" => "ededed"},
             :headers => {'Content-Type'=>'application/json'}).
         to_return(:status => 200, :body => fixture('v3/label.json'))
@@ -70,7 +70,7 @@ describe Octokit::Client::Issues do
   describe ".delete_label!" do
 
     it "should delete a label from the repository" do
-      stub_delete("https://api.github.com/repos/pengwynn/octokit/labels/V3+Transition").
+      stub_delete("/repos/pengwynn/octokit/labels/V3+Transition").
        to_return(:status => 204)
 
       response = @client.delete_label!("pengwynn/octokit", "V3 Transition")
@@ -82,7 +82,7 @@ describe Octokit::Client::Issues do
   describe ".remove_label" do
 
     it "should remove a label from the specified issue" do
-      stub_delete("https://api.github.com/repos/pengwynn/octokit/issues/23/labels/V3+Transition").
+      stub_delete("/repos/pengwynn/octokit/issues/23/labels/V3+Transition").
         to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
 
       response = @client.remove_label("pengwynn/octokit", 23, "V3 Transition")
@@ -94,7 +94,7 @@ describe Octokit::Client::Issues do
   describe ".remove_all_labels" do
 
     it "should remove all labels from the specified issue" do
-     stub_delete("https://api.github.com/repos/pengwynn/octokit/issues/23/labels").
+     stub_delete("/repos/pengwynn/octokit/issues/23/labels").
        to_return(:status => 204)
 
      response = @client.remove_all_labels('pengwynn/octokit', 23)
@@ -105,7 +105,7 @@ describe Octokit::Client::Issues do
 
   describe ".add_labels_to_an_issue" do
     it "should add labels to a given issue" do
-      stub_post("https://api.github.com/repos/pengwynn/octokit/issues/42/labels").
+      stub_post("/repos/pengwynn/octokit/issues/42/labels").
         with(:body => '["V3 Transition","Bug"]',
             :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json'}).
         to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
@@ -118,7 +118,7 @@ describe Octokit::Client::Issues do
 
   describe ".replace_all_labels" do
     it "should replace all labels for an issue" do
-       stub_put("https://api.github.com/repos/pengwynn/octokit/issues/42/labels").
+       stub_put("/repos/pengwynn/octokit/issues/42/labels").
          with(:body => '["V3 Transition","V3 Adding"]',
               :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json'}).
          to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
@@ -130,7 +130,7 @@ describe Octokit::Client::Issues do
 
   describe ".lables_for_milestone" do
     it "should return all labels for a repository" do
-      stub_get('https://api.github.com/repos/pengwynn/octokit/milestones/2/labels').
+      stub_get('/repos/pengwynn/octokit/milestones/2/labels').
         to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
 
       labels = @client.labels_for_milestone('pengwynn/octokit', 2)
@@ -140,7 +140,7 @@ describe Octokit::Client::Issues do
 
   describe ".labels_for_issue" do
     it "should return all labels for a given issue" do
-      stub_request(:get, "https://api.github.com/repos/pengwynn/octokit/issues/37/labels").
+      stub_get("/repos/pengwynn/octokit/issues/37/labels").
         to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
 
       labels = @client.labels_for_issue('pengwynn/octokit', 37)

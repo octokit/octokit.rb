@@ -14,7 +14,7 @@ describe Octokit::Client::PubSubHubbub::ServiceHooks do
       }
     }
     it "subscribes to pull events on specified topic" do
-      stub_post("https://api.github.com/hub?access_token=myfaketoken").
+      stub_post("/hub?access_token=myfaketoken").
         with(subscribe_request_body).
         to_return(:body => nil)
 
@@ -33,7 +33,7 @@ describe Octokit::Client::PubSubHubbub::ServiceHooks do
     }
 
     it "unsubscribes to stop receiving events on specified topic" do
-      stub_post("https://api.github.com/hub?access_token=myfaketoken").
+      stub_post("/hub?access_token=myfaketoken").
         with(unsubscribe_request_body).
         to_return(:body => nil)
 
