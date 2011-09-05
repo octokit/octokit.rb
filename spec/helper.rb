@@ -58,10 +58,10 @@ def github_url(url)
   if url =~ /^http/
     url
   elsif @client && @client.authenticated?
-    "https://pengwynn%2Ftoken:OU812@github.com#{url}"
+    "https://pengwynn%2Ftoken:OU812@api.github.com#{url}"
   elsif @client && @client.oauthed?
-    "https://github.com#{url}?access_token=#{@client.oauth_token}"
+    "https://api.github.com#{url}?access_token=#{@client.oauth_token}"
   else
-    "https://github.com#{url}"
+    "https://api.github.com#{url}"
   end
 end
