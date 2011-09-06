@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Fellows",
+    "id": 32598,
+    "permission": "push"
+  },
+  {
+    "name": "Staff",
+    "id": 32760,
+    "permission": "admin"
+  }
+]
