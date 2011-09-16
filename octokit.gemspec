@@ -7,12 +7,12 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'faraday_middleware', '~> 0.7.0'
   gem.add_dependency 'hashie', '~> 1.1.0'
   gem.add_dependency 'multi_json', '~> 1.0.2'
+  gem.add_development_dependency 'json', '~> 1.6'
   gem.add_development_dependency 'nokogiri', '~> 1.4'
   gem.add_development_dependency 'rake', '~> 0.9'
   gem.add_development_dependency 'rspec', '~> 2.6'
   gem.add_development_dependency 'simplecov', '~> 0.4'
   gem.add_development_dependency 'webmock', '~> 1.7'
-  gem.add_development_dependency 'yajl-ruby', '~> 0.8'
   gem.add_development_dependency 'yard', '~> 0.7'
   gem.authors = ["Wynn Netherland", "Adam Stacoviak", "Erik Michaels-Ober"]
   gem.description = %q{Simple wrapper for the GitHub API v2}
