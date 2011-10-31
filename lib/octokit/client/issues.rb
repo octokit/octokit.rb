@@ -167,6 +167,21 @@ module Octokit
       def delete_comment(repo, number, options={})
         delete("/repos/#{Repository.new(repo)}/issues/comments/#{number}", options, 3, true, true)
       end
+
+
+      # List events for an Issue
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Issue number
+      #
+      # @return [Array] Array of events for that issue
+      # @see http://developer.github.com/v3/issues/events/
+      # @example List all issues events for issue #38 on pengwynn/octokit
+      #   Octokit.issue_events("pengwynn/octokit", 38)
+      def issue_events(repo, number, options={})
+        get("/repos/#{Repository.new(repo)}/issues/#{number}/events", options, 3)
+      end
+
     end
   end
 end
