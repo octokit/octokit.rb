@@ -109,6 +109,15 @@ describe Octokit::Client::Repositories do
       repository.name.should == "rails_admin"
     end
 
+    it "should create a repository for an organization" do
+      stub_post("/orgs/comorichwebgroup/repos").
+        with(:name => "demo").
+        to_return(:body => fixture("v3/organization-repository.json"))
+      repository = @client.create_repository("demo", {:organization => 'comorichwebgroup'})
+      repository.name.should == "demo"
+      repository.organization.login.should == "CoMoRichWebGroup"
+    end
+
   end
 
   describe ".delete_repository" do
