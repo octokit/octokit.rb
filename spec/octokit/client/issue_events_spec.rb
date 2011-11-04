@@ -17,6 +17,14 @@ describe Octokit::Client::Issues do
       events.last.actor.login.should == "ctshryock"
     end
 
+    it "should get a single event" do
+      stub_get("/repos/pengwynn/octokit/issues/events/3094334").
+      to_return(:body => fixture("v3/issue_event.json"))
+      events = @client.issue_event("pengwynn/octokit", 3094334)
+      events.actor.login.should == "sferik"
+      events.event.should == "closed"
+    end
+
   end
 
 end
