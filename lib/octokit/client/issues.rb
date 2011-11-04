@@ -122,7 +122,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
-      # @return [Array] Array of comments that belong to an issue
+      # @return [Comment] The specific comment in question
       # @see http://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
@@ -167,6 +167,34 @@ module Octokit
       def delete_comment(repo, number, options={})
         delete("/repos/#{Repository.new(repo)}/issues/comments/#{number}", options, 3, true, true)
       end
+
+
+      # List events for an Issue
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Issue number
+      #
+      # @return [Array] Array of events for that issue
+      # @see http://developer.github.com/v3/issues/events/
+      # @example List all issues events for issue #38 on pengwynn/octokit
+      #   Octokit.issue_events("pengwynn/octokit", 38)
+      def issue_events(repo, number, options={})
+        get("/repos/#{Repository.new(repo)}/issues/#{number}/events", options, 3)
+      end
+
+      # Get information on a single Issue Event
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Event number
+      #
+      # @return [Event] A single Event for an Issue
+      # @see http://developer.github.com/v3/issues/events/#get-a-single-event
+      # @example Get Event information for ID 3094334 (a pull request was closed)
+      #   Octokit.issue_event("pengwynn/octokit", 3094334)
+      def issue_event(repo, number, options={})
+        get("/repos/#{Repository.new(repo)}/issues/events/#{number}", options, 3)
+      end
+
     end
   end
 end

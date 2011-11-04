@@ -1,0 +1,44 @@
+{
+  "actor": {
+    "url": "https://api.github.com/users/sferik",
+    "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+    "login": "sferik",
+    "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+    "id": 10308
+  },
+  "url": "https://api.github.com/repos/pengwynn/octokit/issues/events/3094334",
+  "created_at": "2011-09-08T15:14:06Z",
+  "commit_id": null,
+  "event": "closed",
+  "issue": {
+    "body": "This may just be my n00bness (and I apologize if it is), but I keep getting the following error when trying to use octokit with omniauth in a Sinatra project:\r\n\r\n    raise_if_conflicts': Unable to activate octokit-0.6.4, because addressable-2.2.4 conflicts with addressable (~> 2.2.6), faraday-0.6.1 conflicts with faraday (~> 0.7.3) (Gem::LoadError)`\r\n\r\nIs there a way to easily fix this? I've never run into a problem like it, and would be great if I could use the two gems together.\r\n\r\nThank you!",
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/54",
+    "created_at": "2011-09-05T03:55:21Z",
+    "comments": 2,
+    "title": "Can't use octokit with omniauth",
+    "html_url": "https://github.com/pengwynn/octokit/issues/54",
+    "closed_at": "2011-09-08T15:14:06Z",
+    "assignee": null,
+    "milestone": null,
+    "labels": [
+
+    ],
+    "number": 54,
+    "state": "closed",
+    "user": {
+      "url": "https://api.github.com/users/connormontgomery",
+      "gravatar_id": "f12ed6301268a1a8d40f292135e6bfca",
+      "login": "connormontgomery",
+      "avatar_url": "https://secure.gravatar.com/avatar/f12ed6301268a1a8d40f292135e6bfca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 97697
+    },
+    "pull_request": {
+      "html_url": null,
+      "diff_url": null,
+      "patch_url": null
+    },
+    "updated_at": "2011-09-08T15:14:06Z",
+    "id": 1564650
+  },
+  "id": 3094334
+}
