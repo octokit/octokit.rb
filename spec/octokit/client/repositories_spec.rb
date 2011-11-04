@@ -351,4 +351,16 @@ describe Octokit::Client::Repositories do
 
   end
 
+  describe ".events" do
+
+    it "should list event for all issues in a repository" do
+      stub_get("/repos/pengwynn/octokit/issues/events").
+      to_return(:body => fixture("v3/repo_issues_events.json"))
+      events = @client.repo_issue_events("pengwynn/octokit")
+      events.first.actor.login.should == "ctshryock"
+      events.first.event.should == "subscribed"
+    end
+
+  end
+
 end

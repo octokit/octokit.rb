@@ -1,0 +1,134 @@
+[
+  {
+    "actor": {
+      "url": "https://api.github.com/users/ctshryock",
+      "gravatar_id": "dfb3948650131e4f0385c3328187cfca",
+      "login": "ctshryock",
+      "avatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 61721
+    },
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/events/4942622",
+    "created_at": "2011-11-02T13:16:03Z",
+    "commit_id": null,
+    "event": "subscribed",
+    "issue": {
+      "body": "The brief description at the top has a link to http://wynnnetherland.com/projects/octokit , which now redirects back to github.com/pengwynn/octokit",
+      "url": "https://api.github.com/repos/pengwynn/octokit/issues/57",
+      "created_at": "2011-11-02T13:16:03Z",
+      "comments": 0,
+      "title": "Remove link in description",
+      "html_url": "https://github.com/pengwynn/octokit/issues/57",
+      "closed_at": null,
+      "assignee": null,
+      "labels": [
+
+      ],
+      "number": 57,
+      "state": "open",
+      "user": {
+        "url": "https://api.github.com/users/ctshryock",
+        "gravatar_id": "dfb3948650131e4f0385c3328187cfca",
+        "login": "ctshryock",
+        "avatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+        "id": 61721
+      },
+      "pull_request": {
+        "patch_url": null,
+        "html_url": null,
+        "diff_url": null
+      },
+      "updated_at": "2011-11-02T13:16:03Z",
+      "id": 2121224,
+      "milestone": null
+    },
+    "id": 4942622
+  },
+  {
+    "actor": {
+      "url": "https://api.github.com/users/ctshryock",
+      "gravatar_id": "dfb3948650131e4f0385c3328187cfca",
+      "login": "ctshryock",
+      "avatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 61721
+    },
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/events/4942562",
+    "created_at": "2011-11-02T13:13:26Z",
+    "commit_id": null,
+    "event": "closed",
+    "issue": {
+      "body": "Adding a test to cover the case where creating a repo for an organization, instead of a normal user. Added a new fixture, which has the `organization` section you get in return.\r\n\r\nTest coverage from 99.76% to 99.84%, hooray! ",
+      "url": "https://api.github.com/repos/pengwynn/octokit/issues/56",
+      "created_at": "2011-10-31T15:27:47Z",
+      "comments": 0,
+      "title": "Add spec test for creating a repo for an organization",
+      "html_url": "https://github.com/pengwynn/octokit/issues/56",
+      "closed_at": "2011-11-02T13:13:26Z",
+      "assignee": null,
+      "labels": [
+
+      ],
+      "number": 56,
+      "state": "closed",
+      "user": {
+        "url": "https://api.github.com/users/ctshryock",
+        "gravatar_id": "dfb3948650131e4f0385c3328187cfca",
+        "login": "ctshryock",
+        "avatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+        "id": 61721
+      },
+      "pull_request": {
+        "patch_url": "https://github.com/pengwynn/octokit/pull/56.patch",
+        "html_url": "https://github.com/pengwynn/octokit/pull/56",
+        "diff_url": "https://github.com/pengwynn/octokit/pull/56.diff"
+      },
+      "updated_at": "2011-11-02T13:13:26Z",
+      "id": 2098069,
+      "milestone": null
+    },
+    "id": 4942562
+  },
+  {
+    "actor": {
+      "url": "https://api.github.com/users/ctshryock",
+      "gravatar_id": "dfb3948650131e4f0385c3328187cfca",
+      "login": "ctshryock",
+      "avatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 61721
+    },
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/events/4942561",
+    "created_at": "2011-11-02T13:13:26Z",
+    "commit_id": "6aabedd72dcd4554f9243de7d23912bfa62c1c85",
+    "event": "merged",
+    "issue": {
+      "body": "Adding a test to cover the case where creating a repo for an organization, instead of a normal user. Added a new fixture, which has the `organization` section you get in return.\r\n\r\nTest coverage from 99.76% to 99.84%, hooray! ",
+      "url": "https://api.github.com/repos/pengwynn/octokit/issues/56",
+      "created_at": "2011-10-31T15:27:47Z",
+      "comments": 0,
+      "title": "Add spec test for creating a repo for an organization",
+      "html_url": "https://github.com/pengwynn/octokit/issues/56",
+      "closed_at": "2011-11-02T13:13:26Z",
+      "assignee": null,
+      "labels": [
+
+      ],
+      "number": 56,
+      "state": "closed",
+      "user": {
+        "url": "https://api.github.com/users/ctshryock",
+        "gravatar_id": "dfb3948650131e4f0385c3328187cfca",
+        "login": "ctshryock",
+        "avatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+        "id": 61721
+      },
+      "pull_request": {
+        "patch_url": "https://github.com/pengwynn/octokit/pull/56.patch",
+        "html_url": "https://github.com/pengwynn/octokit/pull/56",
+        "diff_url": "https://github.com/pengwynn/octokit/pull/56.diff"
+      },
+      "updated_at": "2011-11-02T13:13:26Z",
+      "id": 2098069,
+      "milestone": null
+    },
+    "id": 4942561
+  }
+]
