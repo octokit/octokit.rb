@@ -32,10 +32,12 @@ describe Octokit::Client::Issues do
   describe ".create_issue" do
 
     it "should create an issue" do
-      stub_post("https://github.com/api/v2/json/issues/open/sferik/rails_admin").
-        to_return(:body => fixture("v2/issue.json"))
-      issue = @client.create_issue("sferik/rails_admin", "Use OrmAdapter instead of talking directly to ActiveRecord", "Hi,\n\nI just tried to play with this in an app with no ActiveRecord.  I was disappointed.  It seems the only reason the engine relies on AR is to provide History functionality.  I would argue that having the History in a database, and therefore tying the app to AR & SQL, isn't worth it.  How about we change it to just dump to a CSV and remove the AR dep?\n\n$0.02")
-      issue.number.should == 105
+      stub_post("/repos/ctshryock/octokit/issues").
+        with(:body => {"title" => "Migrate issues to v3", "body" => "Move all Issues calls to v3 of the API"},
+             :headers => {'Content-Type'=>'application/json'}).
+        to_return(:body => fixture("v3/issue.json"))
+      issue = @client.create_issue("ctshryock/octokit", "Migrate issues to v3", "Move all Issues calls to v3 of the API")
+      issue.number.should == 12 
     end
 
   end
@@ -43,10 +45,10 @@ describe Octokit::Client::Issues do
   describe ".issue" do
 
     it "should return an issue" do
-      stub_get("https://github.com/api/v2/json/issues/show/sferik/rails_admin/105").
-        to_return(:body => fixture("v2/issue.json"))
-      issue = @client.issue("sferik/rails_admin", 105)
-      issue.number.should == 105
+      stub_get("/repos/ctshryock/octokit/issues/12").
+        to_return(:body => fixture("v3/issue.json"))
+      issue = @client.issue("ctshryock/octokit", 12)
+      issue.number.should == 12
     end
 
   end
@@ -54,10 +56,14 @@ describe Octokit::Client::Issues do
   describe ".close_issue" do
 
     it "should close an issue" do
-      stub_post("https://github.com/api/v2/json/issues/close/sferik/rails_admin/105").
-        to_return(:body => fixture("v2/issue.json"))
-      issue = @client.close_issue("sferik/rails_admin", 105)
-      issue.number.should == 105
+      stub_post("/repos/ctshryock/octokit/issues/12").
+        with(:body => {"state" => "closed"},
+             :headers => {'Content-Type'=>'application/json'}).
+        to_return(:body => fixture("v3/issue_closed.json"))
+      issue = @client.close_issue("ctshryock/octokit", 12)
+      issue.number.should == 12
+      issue.should include :closed_at
+      issue.state.should == "closed"
     end
 
   end
@@ -65,10 +71,13 @@ describe Octokit::Client::Issues do
   describe ".reopen_issue" do
 
     it "should reopen an issue" do
-      stub_post("https://github.com/api/v2/json/issues/reopen/sferik/rails_admin/105").
-        to_return(:body => fixture("v2/issue.json"))
-      issue = @client.reopen_issue("sferik/rails_admin", 105)
-      issue.number.should == 105
+      stub_post("/repos/ctshryock/octokit/issues/12").
+        with(:body => {"state" => "open"},
+             :headers => {'Content-Type'=>'application/json'}).
+        to_return(:body => fixture("v3/issue.json"))
+      issue = @client.reopen_issue("ctshryock/octokit", 12)
+      issue.number.should == 12
+      issue.state.should == "open"
     end
 
   end
@@ -76,10 +85,12 @@ describe Octokit::Client::Issues do
   describe ".update_issue" do
 
     it "should update an issue" do
-      stub_post("https://github.com/api/v2/json/issues/edit/sferik/rails_admin/105").
-        to_return(:body => fixture("v2/issue.json"))
-      issue = @client.update_issue("sferik/rails_admin", 105, "Use OrmAdapter instead of talking directly to ActiveRecord", "Hi,\n\nI just tried to play with this in an app with no ActiveRecord.  I was disappointed.  It seems the only reason the engine relies on AR is to provide History functionality.  I would argue that having the History in a database, and therefore tying the app to AR & SQL, isn't worth it.  How about we change it to just dump to a CSV and remove the AR dep?\n\n$0.02")
-      issue.number.should == 105
+      stub_post("/repos/ctshryock/octokit/issues/12").
+        with(:body => {"title" => "Use all the v3 api!", "body" => ""},
+             :headers => {'Content-Type'=>'application/json'}).
+        to_return(:body => fixture("v3/issue.json"))
+      issue = @client.update_issue("ctshryock/octokit", 12, "Use all the v3 api!", "")
+      issue.number.should == 12
     end
 
   end
