@@ -59,7 +59,7 @@ module Octokit
       # @example Get issue #25 from pengwynn/octokit
       #   Octokit.issue("pengwynn/octokit", "25")
       def issue(repo, number, options={})
-        get("/api/v2/json/issues/show/#{Repository.new(repo)}/#{number}", options)['issue']
+        get("/repos/#{Repository.new(repo)}/issues/#{number}", options, 3)
       end
 
       # Close an issue
@@ -73,7 +73,7 @@ module Octokit
       # @example Close Issue #25 from pengwynn/octokit
       #   Octokit.close_issue("pengwynn/octokit", "25")
       def close_issue(repo, number, options={})
-        post("/api/v2/json/issues/close/#{Repository.new(repo)}/#{number}", options)['issue']
+        post("/repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"}), 3)
       end
 
       # Reopen an issue
@@ -87,7 +87,7 @@ module Octokit
       # @example Reopen Issue #25 from pengwynn/octokit
       #   Octokit.reopen_issue("pengwynn/octokit", "25")
       def reopen_issue(repo, number, options={})
-        post("/api/v2/json/issues/reopen/#{Repository.new(repo)}/#{number}", options)['issue']
+        post("/repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"}), 3)
       end
 
       # Update an issue
@@ -103,7 +103,7 @@ module Octokit
       # @example Change the title of Issue #25
       #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
       def update_issue(repo, number, title, body, options={})
-        post("/api/v2/json/issues/edit/#{Repository.new(repo)}/#{number}", options.merge({:title => title, :body => body}))['issue']
+        post("/repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body}), 3)
       end
 
       # Get all comments attached to an issue
