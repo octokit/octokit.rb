@@ -33,6 +33,8 @@ describe Octokit::Client::Issues do
 
     it "should create an issue" do
       stub_post("/repos/ctshryock/octokit/issues").
+        with(:body => {"title" => "Migrate issues to v3", "body" => "Move all Issues calls to v3 of the API"},
+             :headers => {'Content-Type'=>'application/json'}).
         to_return(:body => fixture("v3/issue.json"))
       issue = @client.create_issue("ctshryock/octokit", "Migrate issues to v3", "Move all Issues calls to v3 of the API")
       issue.number.should == 12 
