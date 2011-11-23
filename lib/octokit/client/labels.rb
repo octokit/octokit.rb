@@ -38,7 +38,7 @@ module Octokit
         post("repos/#{Repository.new(repo)}/labels", options.merge({:name => label, :color => color}), 3)
       end
 
-      # Update a label 
+      # Update a label
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param label [String] The name of the label which will be updated
@@ -53,7 +53,7 @@ module Octokit
         post("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(label)}", options, 3)
       end
 
-      # Delete a label from a repository.  
+      # Delete a label from a repository.
       #
       # This deletes the label from the repository, and removes it from all issues.
       #
@@ -140,12 +140,12 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the milestone
-      # @return [Array] A list of the labels across the milestone 
+      # @return [Array] A list of the labels across the milestone
       # @see  http://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
       # @example List all labels for milestone #2 on pengwynn/octokit
       #   Octokit.labels_for_milestone("pengwynn/octokit", 2)
-      def labels_for_milestone(repo, number, options={}) 
-        get("repos/#{Repository.new(repo)}/milestones/#{number}/labels", options, 3) 
+      def labels_for_milestone(repo, number, options={})
+        get("repos/#{Repository.new(repo)}/milestones/#{number}/labels", options, 3)
       end
 
     end

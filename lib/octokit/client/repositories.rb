@@ -150,7 +150,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/events/#list-events-for-a-repository
       # @example Get all Issue Events for Octokit
       #   Octokit.repository_issue_events("pengwynn/octokit")
-      def repository_issue_events(repo, options={}) 
+      def repository_issue_events(repo, options={})
         get "/repos/#{Repository.new repo}/issues/events", options, 3
       end
       alias :repo_issue_events :repository_issue_events
