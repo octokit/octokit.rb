@@ -5,10 +5,14 @@ Simple Ruby wrapper for the GitHub v2 API.
     gem install octokit
 
 ## <a name="ci"></a>Continuous Integration
-[![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png)](http://travis-ci.org/pengwynn/octokit)
+[![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png)][ci]
+
+[ci]: http://travis-ci.org/pengwynn/octokit
 
 ## <a name="documentation"></a>Documentation
-http://rdoc.info/gems/octokit
+[http://rdoc.info/gems/octokit][documentation]
+
+[documentation]: http://rdoc.info/gems/octokit
 
 ## <a name="examples"></a>Examples
 ### Show a user
@@ -38,8 +42,9 @@ your login and password.
     client.follow!("sferik")
 
 Alternately, you can authenticate with a GitHub OAuth2 token. Note: this is
-**NOT** the GitHub API token on your [account
-page](https://github.com/account).
+**NOT** the GitHub API token on your [account page][account].
+
+[account]: https://github.com/account
 
     client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
     client.follow!("sferik")
@@ -49,23 +54,30 @@ page](https://github.com/account).
 2. Create a topic branch.
 3. Implement your feature or bug fix.
 4. Add documentation for your feature or bug fix.
-5. Run <tt>bundle exec rake doc:yard</tt>. If your changes are not 100% documented, go back to step 4.
+5. Run `bundle exec rake doc:yard`. If your changes are not 100% documented, go
+   back to step 4.
 6. Add specs for your feature or bug fix.
-7. Run <tt>bundle exec rake spec</tt>. If your changes are not 100% covered, go back to step 6.
+7. Run `bundle exec rake spec`. If your changes are not 100% covered, go back
+   to step 6.
 8. Commit and push your changes.
-9. Submit a pull request. Please do not include changes to the version or gemspec. (If you want to create your own version for some reason, please do so in a separate commit.)
+9. Submit a pull request. Please do not include changes to the version or
+   gemspec. (If you want to create your own version for some reason, please do
+   so in a separate commit.)
 
 ## <a name="versions"></a>Supported Ruby Versions
-This library aims to support and is [tested
-against](http://travis-ci.org/pengwynn/octokit) the following Ruby
+This library aims to support and is [tested against][ci] the following Ruby
 implementations:
 
 * Ruby 1.8.7
 * Ruby 1.9.1
 * Ruby 1.9.2
-* [JRuby](http://www.jruby.org/)
-* [Rubinius](http://rubini.us/)
-* [Ruby Enterprise Edition](http://www.rubyenterpriseedition.com/)
+* [JRuby][]
+* [Rubinius][]
+* [Ruby Enterprise Edition][ree]
+
+[jruby]: http://www.jruby.org/
+[rubinius]: http://rubini.us/
+[ree]: http://www.rubyenterpriseedition.com/
 
 If something doesn't work on one of these interpreters, it should be considered
 a bug.
@@ -82,9 +94,13 @@ timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
 
 ## <a name="inspiration"></a>Inspiration
-Octokit was inspired by [Octopi](https://github.com/fcoury/octopi) and aims to
-be a lightweight, less-ActiveResourcey alternative.
+Octokit was inspired by [Octopi][] and aims to be a lightweight,
+less-ActiveResourcey alternative.
+
+[octopi]: https://github.com/fcoury/octopi
 
 ## <a name="copyright"></a>Copyright
-Copyright (c) 2011 [Wynn Netherland](http://wynnnetherland.com), [Adam Stacoviak](http://adamstacoviak.com/), [Erik Michaels-Ober](https://github.com/sferik).
-See [LICENSE](https://github.com/pengwynn/octokit/blob/master/LICENSE) for details.
+Copyright (c) 2011 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober. See
+[LICENSE][] for details.
+
+[license]: https://github.com/pengwynn/octokit/blob/master/LICENSE
