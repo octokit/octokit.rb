@@ -31,7 +31,9 @@ module Faraday
 
     def error_message(response)
       message = if body = response[:body]
-        body = ::MultiJson.decode(body) if body.is_a? String
+        if body.is_a? String
+          body = ::MultiJson.decode body, :symbolize_keys => true
+        end
         ": #{body[:error] || body[:message] || ''}"
       else
         ''
