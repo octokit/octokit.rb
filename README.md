@@ -9,6 +9,11 @@ Simple Ruby wrapper for the GitHub v2 API.
 
 [ci]: http://travis-ci.org/pengwynn/octokit
 
+## <a name="dependencies"></a>Dependency Status
+[![Dependency Status](https://gemnasium.com/pengwynn/octokit.png)][gemnasium]
+
+[gemnasium]: https://gemnasium.com/pengwynn/octokit
+
 ## <a name="documentation"></a>Documentation
 [http://rdoc.info/gems/octokit][documentation]
 
@@ -69,8 +74,8 @@ This library aims to support and is [tested against][ci] the following Ruby
 implementations:
 
 * Ruby 1.8.7
-* Ruby 1.9.1
 * Ruby 1.9.2
+* Ruby 1.9.3
 * [JRuby][]
 * [Rubinius][]
 * [Ruby Enterprise Edition][ree]
