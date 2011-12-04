@@ -4,10 +4,10 @@ Simple Ruby wrapper for the GitHub v2 API.
 ## <a name="installation"></a>Installation
     gem install octokit
 
-## <a name="ci"></a>Continuous Integration
-[![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png)][ci]
+## <a name="build"></a>Build Status
+[![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png?branch=master)][travis]
 
-[ci]: http://travis-ci.org/pengwynn/octokit
+[travis]: http://travis-ci.org/pengwynn/octokit
 
 ## <a name="dependencies"></a>Dependency Status
 [![Dependency Status](https://gemnasium.com/pengwynn/octokit.png?travis)][gemnasium]
@@ -70,7 +70,7 @@ Alternately, you can authenticate with a GitHub OAuth2 token. Note: this is
    so in a separate commit.)
 
 ## <a name="versions"></a>Supported Ruby Versions
-This library aims to support and is [tested against][ci] the following Ruby
+This library aims to support and is [tested against][travis] the following Ruby
 implementations:
 
 * Ruby 1.8.7
