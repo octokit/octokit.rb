@@ -10,7 +10,7 @@ Simple Ruby wrapper for the GitHub v2 API.
 [ci]: http://travis-ci.org/pengwynn/octokit
 
 ## <a name="dependencies"></a>Dependency Status
-[![Dependency Status](https://gemnasium.com/pengwynn/octokit.png)][gemnasium]
+[![Dependency Status](https://gemnasium.com/pengwynn/octokit.png?travis)][gemnasium]
 
 [gemnasium]: https://gemnasium.com/pengwynn/octokit
 
