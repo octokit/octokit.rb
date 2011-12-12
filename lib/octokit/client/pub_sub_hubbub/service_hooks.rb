@@ -11,7 +11,7 @@ module Octokit
         #    Please refer Data node for complete list of arguments.
         # @example Subscribe to push events to one of your repositories to Travis-CI
         #    client = Octokit::Client.new(:oauth_token = "token")
-        #    client.subscribe_service_hook('joshk', 'device_imapable', 'Travis', { :token => "test", :domain => "domain", :user => "user" })
+        #    client.subscribe_service_hook('joshk/device_imapable', 'Travis', { :token => "test", :domain => "domain", :user => "user" })
         def subscribe_service_hook(repo, service_name, service_arguments = {})
           topic = "https://github.com/#{Repository.new(repo)}/events/push"
           callback = "github://#{service_name}?#{service_arguments.collect{ |k,v| [ k,v ].join("=") }.join("&") }"
@@ -26,7 +26,7 @@ module Octokit
         #    List of services is available @ https://github.com/github/github-services/tree/master/docs.
         # @example Subscribe to push events to one of your repositories to Travis-CI
         #    client = Octokit::Client.new(:oauth_token = "token")
-        #    client.unsubscribe_service_hook('joshk', 'device_imapable', 'Travis')
+        #    client.unsubscribe_service_hook('joshk/device_imapable', 'Travis')
         def unsubscribe_service_hook(repo, service_name)
           topic = "https://github.com/#{Repository.new(repo)}/events/push"
           callback = "github://#{service_name}"
