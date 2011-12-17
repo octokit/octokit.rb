@@ -1,18 +1,11 @@
-# Octokit
+# Octokit [![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/pengwynn/octokit.png?travis)][gemnasium]
 Simple Ruby wrapper for the GitHub v2 API.
+
+[travis]: http://travis-ci.org/pengwynn/octokit
+[gemnasium]: https://gemnasium.com/pengwynn/octokit
 
 ## <a name="installation"></a>Installation
     gem install octokit
-
-## <a name="build"></a>Build Status
-[![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png?branch=master)][travis]
-
-[travis]: http://travis-ci.org/pengwynn/octokit
-
-## <a name="dependencies"></a>Dependency Status
-[![Dependency Status](https://gemnasium.com/pengwynn/octokit.png?travis)][gemnasium]
-
-[gemnasium]: https://gemnasium.com/pengwynn/octokit
 
 ## <a name="documentation"></a>Documentation
 [http://rdoc.info/gems/octokit][documentation]
