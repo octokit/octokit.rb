@@ -38,24 +38,24 @@ module Octokit
       alias :org_members :organization_members
 
       def organization_teams(org, options={})
-        get("/api/v2/json/organizations/#{org}/teams", options)['teams']
+        get("orgs/#{org}/teams", options, 3)
       end
       alias :org_teams :organization_teams
 
       def create_team(org, values, options={})
-        post("/api/v2/json/organizations/#{org}/teams", options.merge({:team => values}))['team']
+        post("orgs/#{org}/teams", options.merge({:team => values}), 3)
       end
 
       def team(team_id, options={})
-        get("/api/v2/json/teams/#{team_id}", options)['team']
+        get("teams/#{team_id}", options, 3)
       end
 
       def update_team(team_id, values, options={})
-        put("/api/v2/json/teams/#{team_id}", options.merge({:team => values}))['team']
+        patch("teams/#{team_id}", options.merge({:team => values}), 3)
       end
 
       def delete_team(team_id, options={})
-        delete("/api/v2/json/teams/#{team_id}", options)['team']
+        delete("teams/#{team_id}", options, 3, true, true)
       end
 
       def team_members(team_id, options={})

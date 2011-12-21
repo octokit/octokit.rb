@@ -96,8 +96,8 @@ describe Octokit::Client::Organizations do
   describe ".organization_teams" do
 
     it "should return all teams for an organization" do
-      stub_get("https://github.com/api/v2/json/organizations/codeforamerica/teams").
-        to_return(:body => fixture("v2/teams.json"))
+      stub_get("https://api.github.com/orgs/codeforamerica/teams").
+        to_return(:body => fixture("v3/teams.json"))
       teams = @client.organization_teams("codeforamerica")
       teams.first.name.should == "Fellows"
     end
@@ -107,9 +107,9 @@ describe Octokit::Client::Organizations do
   describe ".create_team" do
 
     it "should create a team" do
-      stub_post("https://github.com/api/v2/json/organizations/codeforamerica/teams").
+      stub_post("https://api.github.com/orgs/codeforamerica/teams").
         with(:name => "Fellows").
-        to_return(:body => fixture("v2/team.json"))
+        to_return(:body => fixture("v3/team.json"))
       team = @client.create_team("codeforamerica", {:name => "Fellows"})
       team.name.should == "Fellows"
     end
@@ -119,8 +119,8 @@ describe Octokit::Client::Organizations do
   describe ".team" do
 
     it "should return a team" do
-      stub_get("https://github.com/api/v2/json/teams/32598").
-        to_return(:body => fixture("v2/team.json"))
+      stub_get("https://api.github.com/teams/32598").
+        to_return(:body => fixture("v3/team.json"))
       team = @client.team(32598)
       team.name.should == "Fellows"
     end
@@ -130,9 +130,9 @@ describe Octokit::Client::Organizations do
   describe ".update_team" do
 
     it "should update a team" do
-      stub_put("https://github.com/api/v2/json/teams/32598").
+      stub_patch("https://api.github.com/teams/32598").
         with(:name => "Fellows").
-        to_return(:body => fixture("v2/team.json"))
+        to_return(:body => fixture("v3/team.json"))
       team = @client.update_team(32598, :name => "Fellows")
       team.name.should == "Fellows"
     end
@@ -142,24 +142,14 @@ describe Octokit::Client::Organizations do
   describe ".delete_team" do
 
     it "should delete a team" do
-      stub_delete("https://github.com/api/v2/json/teams/32598").
-        to_return(:body => fixture("v2/team.json"))
-      team = @client.delete_team(32598)
-      team.name.should == "Fellows"
+      stub_delete("https://api.github.com/teams/32598").
+        to_return(:status => 204)
+      result = @client.delete_team(32598)
+      result.status.should == 204
     end
 
   end
 
-  describe ".delete_team" do
-
-    it "should delete a team" do
-      stub_delete("https://github.com/api/v2/json/teams/32598").
-        to_return(:body => fixture("v2/team.json"))
-      team = @client.delete_team(32598)
-      team.name.should == "Fellows"
-    end
-
-  end
 
   describe ".team_members" do
 
