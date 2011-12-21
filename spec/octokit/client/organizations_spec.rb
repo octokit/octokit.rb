@@ -10,8 +10,8 @@ describe Octokit::Client::Organizations do
   describe ".organization" do
 
     it "should return an organization" do
-      stub_get("https://github.com/api/v2/json/organizations/codeforamerica").
-        to_return(:body => fixture("v2/organization.json"))
+      stub_get("https://api.github.com/orgs/codeforamerica").
+        to_return(:body => fixture("v3/organization.json"))
       organization = @client.organization("codeforamerica")
       organization.name.should == "Code For America"
     end
@@ -21,9 +21,9 @@ describe Octokit::Client::Organizations do
   describe ".update_organization" do
 
     it "should update an organization" do
-      stub_put("https://github.com/api/v2/json/organizations/codeforamerica").
+      stub_patch("https://api.github.com/orgs/codeforamerica").
         with(:name => "Code For America").
-        to_return(:body => fixture("v2/organization.json"))
+        to_return(:body => fixture("v3/organization.json"))
       organization = @client.update_organization("codeforamerica", {:name => "Code For America"})
       organization.name.should == "Code For America"
     end
@@ -32,24 +32,24 @@ describe Octokit::Client::Organizations do
 
   describe ".organizations" do
 
-    context "with an org passed" do
+    context "with a user passed" do
 
       it "should return all organizations for a user" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/organizations").
-          to_return(:body => fixture("v2/organizations.json"))
+        stub_get("https://api.github.com/users/sferik/orgs").
+          to_return(:body => fixture("v3/organizations.json"))
         organizations = @client.organizations("sferik")
-        organizations.first.name.should == "Hubcap"
+        organizations.first.login.should == "Hubcap"
       end
 
     end
 
-    context "without an org passed" do
+    context "without user passed" do
 
       it "should return all organizations for a user" do
-        stub_get("https://github.com/api/v2/json/organizations").
-          to_return(:body => fixture("v2/organizations.json"))
+        stub_get("https://api.github.com/user/orgs").
+          to_return(:body => fixture("v3/organizations.json"))
         organizations = @client.organizations
-        organizations.first.name.should == "Hubcap"
+        organizations.first.login.should == "Hubcap"
       end
 
     end

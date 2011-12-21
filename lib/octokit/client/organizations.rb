@@ -2,21 +2,21 @@ module Octokit
   class Client
     module Organizations
       def organization(org, options={})
-        get("/api/v2/json/organizations/#{org}", options)['organization']
+        get("orgs/#{org}", options, 3)
       end
       alias :org :organization
 
       def update_organization(org, values, options={})
-        put("/api/v2/json/organizations/#{org}", options.merge({:organization => values}))['organization']
+        patch("orgs/#{org}", options.merge({:organization => values}), 3)
       end
       alias :update_org :update_organization
 
       def organizations(user=nil, options={})
         if user
-          get("/api/v2/json/user/show/#{user}/organizations", options)
+          get("users/#{user}/orgs", options, 3)
         else
-          get("/api/v2/json/organizations", options)
-        end['organizations']
+          get("user/orgs", options, 3)
+        end
       end
       alias :list_organizations :organizations
       alias :list_orgs :organizations
