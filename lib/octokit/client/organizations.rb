@@ -23,11 +23,11 @@ module Octokit
       alias :orgs :organizations
 
       def organization_repositories(org=nil, options={})
-        if org
-          get("/api/v2/json/organizations/#{org}/public_repositories", options)
-        else
+        if org.nil?
           get("/api/v2/json/organizations/repositories", options)
-        end['repositories']
+        else
+          get("orgs/#{org}/repos", options, 3)
+        end
       end
       alias :org_repositories :organization_repositories
       alias :org_repos :organization_repositories

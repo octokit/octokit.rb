@@ -61,10 +61,10 @@ describe Octokit::Client::Organizations do
     context "with an org passed" do
 
       it "should return all public repositories for an organization" do
-        stub_get("https://github.com/api/v2/json/organizations/codeforamerica/public_repositories").
-          to_return(:body => fixture("v2/repositories.json"))
+        stub_get("https://api.github.com/orgs/codeforamerica/repos").
+          to_return(:body => fixture("v3/organization-repositories.json"))
         repositories = @client.organization_repositories("codeforamerica")
-        repositories.first.name.should == "One40Proof"
+        repositories.first.name.should == "cfahelloworld"
       end
 
     end
@@ -75,7 +75,7 @@ describe Octokit::Client::Organizations do
         stub_get("https://github.com/api/v2/json/organizations/repositories").
           to_return(:body => fixture("v2/repositories.json"))
         repositories = @client.organization_repositories
-        repositories.first.name.should == "One40Proof"
+        repositories.repositories.first.name.should == "One40Proof"
       end
 
     end
