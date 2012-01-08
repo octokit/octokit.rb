@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'helper'
 
-describe Octokit::Client::Issues do
+describe Octokit::Client::Labels do
 
   before do
     @client = Octokit::Client.new(:login => 'sferik')
