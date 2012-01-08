@@ -1,0 +1,200 @@
+[
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-12-24T05:18:20Z",
+    "description": "Robawt",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-2.1.0.tar.gz",
+    "name": "hubot-2.1.0.tar.gz",
+    "download_count": 267,
+    "id": 165347,
+    "url": "https://api.github.com/repos/github/hubot/downloads/165347"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-12-01T08:48:32Z",
+    "description": "Robawt",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-2.0.5.tar.gz",
+    "name": "hubot-2.0.5.tar.gz",
+    "download_count": 3602,
+    "id": 155291,
+    "url": "https://api.github.com/repos/github/hubot/downloads/155291"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-11-25T20:07:31Z",
+    "description": "Robawt",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-2.0.4.tar.gz",
+    "name": "hubot-2.0.4.tar.gz",
+    "download_count": 383,
+    "id": 153174,
+    "url": "https://api.github.com/repos/github/hubot/downloads/153174"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-11-25T19:35:43Z",
+    "description": "Robawt",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-2.0.3.tar.gz",
+    "name": "hubot-2.0.3.tar.gz",
+    "download_count": 13,
+    "id": 153161,
+    "url": "https://api.github.com/repos/github/hubot/downloads/153161"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-11-25T19:04:34Z",
+    "description": "Robawt Rock",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-2.0.2.tar.gz",
+    "name": "hubot-2.0.2.tar.gz",
+    "download_count": 19,
+    "id": 153154,
+    "url": "https://api.github.com/repos/github/hubot/downloads/153154"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-11-07T22:19:33Z",
+    "description": "Robawt",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.1.11.tar.gz",
+    "name": "hubot-1.1.11.tar.gz",
+    "download_count": 1782,
+    "id": 146281,
+    "url": "https://api.github.com/repos/github/hubot/downloads/146281"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-11-01T07:16:36Z",
+    "description": "Robawt rock",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.1.9.tar.gz",
+    "name": "hubot-1.1.9.tar.gz",
+    "download_count": 1052,
+    "id": 143826,
+    "url": "https://api.github.com/repos/github/hubot/downloads/143826"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-10-31T19:28:40Z",
+    "description": "Robawt",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.1.7.tar.gz",
+    "name": "hubot-1.1.7.tar.gz",
+    "download_count": 108,
+    "id": 143655,
+    "url": "https://api.github.com/repos/github/hubot/downloads/143655"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-10-29T23:01:19Z",
+    "description": "Robawt",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.1.6.tar.gz",
+    "name": "hubot-1.1.6.tar.gz",
+    "download_count": 316,
+    "id": 143105,
+    "url": "https://api.github.com/repos/github/hubot/downloads/143105"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-10-28T07:04:19Z",
+    "description": "Robawt",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.1.3.tar.gz",
+    "name": "hubot-1.1.3.tar.gz",
+    "download_count": 230,
+    "id": 142582,
+    "url": "https://api.github.com/repos/github/hubot/downloads/142582"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-10-28T04:38:13Z",
+    "description": "Hubot",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.1.2.tar.gz",
+    "name": "hubot-1.1.2.tar.gz",
+    "download_count": 44,
+    "id": 142560,
+    "url": "https://api.github.com/repos/github/hubot/downloads/142560"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-10-28T04:11:02Z",
+    "description": "Hubot 1.1.1",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.1.1.tar.gz",
+    "name": "hubot-1.1.1.tar.gz",
+    "download_count": 15,
+    "id": 142558,
+    "url": "https://api.github.com/repos/github/hubot/downloads/142558"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-10-26T06:55:32Z",
+    "description": "Version 1.0.5 of Hubot",
+    "size": 5120,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.0.6.tar.gz",
+    "name": "hubot-1.0.6.tar.gz",
+    "download_count": 2897,
+    "id": 141895,
+    "url": "https://api.github.com/repos/github/hubot/downloads/141895"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-10-26T06:21:53Z",
+    "description": "Version 1.0.5 of Hubot",
+    "size": 5120,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.0.5.tar.gz",
+    "name": "hubot-1.0.5.tar.gz",
+    "download_count": 69,
+    "id": 141885,
+    "url": "https://api.github.com/repos/github/hubot/downloads/141885"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-10-26T00:43:03Z",
+    "description": "Version 1.0.3 of the Hubot Chat Bot",
+    "size": 5120,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.0.3.tar.gz",
+    "name": "hubot-1.0.3.tar.gz",
+    "download_count": 466,
+    "id": 141820,
+    "url": "https://api.github.com/repos/github/hubot/downloads/141820"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-10-25T20:27:13Z",
+    "description": "Version 1.0.2 of the Hubot Chat Bot",
+    "size": 4096,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.0.2.tar.gz",
+    "name": "hubot-1.0.2.tar.gz",
+    "download_count": 895,
+    "id": 141760,
+    "url": "https://api.github.com/repos/github/hubot/downloads/141760"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-10-25T20:23:18Z",
+    "description": "Version 1.0.1 of the Hubot Campfire Bot",
+    "size": 4096,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.0.1.tar.gz",
+    "name": "hubot-1.0.1.tar.gz",
+    "download_count": 15,
+    "id": 141759,
+    "url": "https://api.github.com/repos/github/hubot/downloads/141759"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-10-25T18:29:37Z",
+    "description": "Version 1.0.0 of the Hubot Campfire Bot",
+    "size": 5120,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-1.0.0.tar.gz",
+    "name": "hubot-1.0.0.tar.gz",
+    "download_count": 1115,
+    "id": 141700,
+    "url": "https://api.github.com/repos/github/hubot/downloads/141700"
+  }
+]
