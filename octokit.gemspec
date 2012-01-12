@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'multi_json', '~> 1.0'
   gem.add_development_dependency 'json'
   gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'rspec', '~> 2.8'
   gem.add_development_dependency 'simplecov'
   gem.add_development_dependency 'webmock'
   gem.add_development_dependency 'yard'
