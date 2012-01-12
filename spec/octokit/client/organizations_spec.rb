@@ -85,10 +85,10 @@ describe Octokit::Client::Organizations do
   describe ".organization_members" do
 
     it "should return all public members of an organization" do
-      stub_get("https://github.com/api/v2/json/organizations/codeforamerica/public_members").
-        to_return(:body => fixture("v2/users.json"))
+      stub_get("https://api.github.com/orgs/codeforamerica/members").
+        to_return(:body => fixture("v3/organization_members.json"))
       users = @client.organization_members("codeforamerica")
-      users.first.name.should == "Erik Michaels-Ober"
+      users.first.login.should == "akit"
     end
 
   end
@@ -154,10 +154,10 @@ describe Octokit::Client::Organizations do
   describe ".team_members" do
 
     it "should return team members" do
-      stub_get("https://github.com/api/v2/json/teams/32598/members").
-        to_return(:body => fixture("v2/users.json"))
-      users = @client.team_members(32598)
-      users.first.name.should == "Erik Michaels-Ober"
+      stub_get("https://api.github.com/teams/33239/members").
+        to_return(:body => fixture("v3/organization_team_members.json"))
+      users = @client.team_members(33239)
+      users.first.login.should == "ctshryock"
     end
 
   end
@@ -189,10 +189,11 @@ describe Octokit::Client::Organizations do
   describe ".team_repositories" do
 
     it "should return team repositories" do
-      stub_get("https://github.com/api/v2/json/teams/32598/repositories").
-        to_return(:body => fixture("v2/repositories.json"))
-      repositories = @client.team_repositories(32598)
-      repositories.first.name.should == "One40Proof"
+      stub_get("https://api.github.com/teams/33239/repos").
+        to_return(:body => fixture("v3/organization_team_repos.json"))
+      repositories = @client.team_repositories(33239)
+      repositories.first.name.should == "GitTalk"
+      repositories.first.owner.id.should == 570695
     end
 
   end

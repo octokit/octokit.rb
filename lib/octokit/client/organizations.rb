@@ -33,7 +33,7 @@ module Octokit
       alias :org_repos :organization_repositories
 
       def organization_members(org, options={})
-        get("/api/v2/json/organizations/#{org}/public_members", options)['users']
+        get("orgs/#{org}/members", options, 3)
       end
       alias :org_members :organization_members
 
@@ -59,7 +59,7 @@ module Octokit
       end
 
       def team_members(team_id, options={})
-        get("/api/v2/json/teams/#{team_id}/members", options)['users']
+        get("teams/#{team_id}/members", options, 3)
       end
 
       def add_team_member(team_id, user, options={})
@@ -71,7 +71,7 @@ module Octokit
       end
 
       def team_repositories(team_id, options={})
-        get("/api/v2/json/teams/#{team_id}/repositories", options)['repositories']
+        get("teams/#{team_id}/repos", options, 3)
       end
       alias :team_repos :team_repositories
 
