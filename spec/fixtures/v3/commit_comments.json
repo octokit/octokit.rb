@@ -1,0 +1,78 @@
+[
+  {
+    "commit_id": "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3",
+    "created_at": "2012-01-12T10:21:32Z",
+    "position": null,
+    "line": null,
+    "body": "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/860296",
+    "html_url": "https://github.com/sferik/rails_admin/commit/629e9fd9d4#commitcomment-860296",
+    "updated_at": "2012-01-12T10:21:32Z",
+    "user": {
+      "url": "https://api.github.com/users/bbenezech",
+      "avatar_url": "https://secure.gravatar.com/avatar/c1607873b99845b2cd53f8634860d4d4?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "bbenezech",
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794
+    },
+    "path": null,
+    "id": 860296
+  },
+  {
+    "commit_id": "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3",
+    "created_at": "2012-01-12T17:09:17Z",
+    "position": null,
+    "line": null,
+    "body": "I'm not sure what you mean by \"dissections\". Could you please spell out the reasons you're against this?\r\n\r\nI want to make sure our tests pass regardless of what order they're run in. For example, if one test creates something and the next test depends on that thing exiting for it to pass, that indicates an incomplete test that needs to be fixed.",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/861577",
+    "html_url": "https://github.com/sferik/rails_admin/commit/629e9fd9d4#commitcomment-861577",
+    "updated_at": "2012-01-12T17:09:17Z",
+    "user": {
+      "url": "https://api.github.com/users/sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "sferik",
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308
+    },
+    "path": null,
+    "id": 861577
+  },
+  {
+    "commit_id": "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3",
+    "created_at": "2012-01-12T18:34:03Z",
+    "position": null,
+    "line": null,
+    "body": "  (1) I do not agree with 'needs to be fixed'.\r\n\r\nwhy can't tests be order dependent after all? it doesn't hurt actually, and I have yet to see a refactoring case where it became a PITA.\r\n\r\n  (2) Even if you don't care about the reason builds fail ('a.k.a needs to be fixed'), you are supposing that tests are not order dependent because of the 'order random'. But in reality you are just checking a random subset of random (hem..), you can't assert that with the color. \r\n\r\nA green build can then mean 2 things: \r\n\r\n* build is green\r\n* build is greenish, order dependent\r\n\r\nWhich doesn't help with (1)\r\n\r\n  (3) When comparing builds on Travis or with git dissect, (2) will bite you while debugging at 12pm and make you cry your Mum that you really don't give a shit about (1)\r\n\r\nI guess.",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/861907",
+    "html_url": "https://github.com/sferik/rails_admin/commit/629e9fd9d4#commitcomment-861907",
+    "updated_at": "2012-01-12T18:35:59Z",
+    "user": {
+      "url": "https://api.github.com/users/bbenezech",
+      "avatar_url": "https://secure.gravatar.com/avatar/c1607873b99845b2cd53f8634860d4d4?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "bbenezech",
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794
+    },
+    "path": null,
+    "id": 861907
+  },
+  {
+    "commit_id": "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3",
+    "created_at": "2012-01-12T18:52:25Z",
+    "position": null,
+    "line": null,
+    "body": "From the [RSpec 2.8 release notes](http://blog.davidchelimsky.net/2012/01/04/rspec-28-is-released/): \r\n\r\n> When you use --order random, RSpec prints out the random number it used to seed the randomizer. When you think you’ve found an order-dependency bug, you can pass the seed along and the order will remain consistent:\r\n\r\n>     --order rand:3455\r\n\r\nSo specs can be made deterministic for any particular seed.\r\n\r\nOver time, we should catch all of the order-dependency bugs in the specs.",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/861948",
+    "html_url": "https://github.com/sferik/rails_admin/commit/629e9fd9d4#commitcomment-861948",
+    "updated_at": "2012-01-12T18:52:25Z",
+    "user": {
+      "url": "https://api.github.com/users/sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "sferik",
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308
+    },
+    "path": null,
+    "id": 861948
+  }
+]
