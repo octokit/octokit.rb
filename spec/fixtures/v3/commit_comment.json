@@ -1,0 +1,19 @@
+{
+  "commit_id": "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3",
+  "created_at": "2012-01-12T18:34:03Z",
+  "position": null,
+  "line": null,
+  "body": "  (1) I do not agree with 'needs to be fixed'.\r\n\r\nwhy can't tests be order dependent after all? it doesn't hurt actually, and I have yet to see a refactoring case where it became a PITA.\r\n\r\n  (2) Even if you don't care about the reason builds fail ('a.k.a needs to be fixed'), you are supposing that tests are not order dependent because of the 'order random'. But in reality you are just checking a random subset of random (hem..), you can't assert that with the color. \r\n\r\nA green build can then mean 2 things: \r\n\r\n* build is green\r\n* build is greenish, order dependent\r\n\r\nWhich doesn't help with (1)\r\n\r\n  (3) When comparing builds on Travis or with git dissect, (2) will bite you while debugging at 12pm and make you cry your Mum that you really don't give a shit about (1)\r\n\r\nI guess.",
+  "url": "https://api.github.com/repos/sferik/rails_admin/comments/861907",
+  "updated_at": "2012-01-12T18:35:59Z",
+  "user": {
+    "url": "https://api.github.com/users/bbenezech",
+    "login": "bbenezech",
+    "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+    "avatar_url": "https://secure.gravatar.com/avatar/c1607873b99845b2cd53f8634860d4d4?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+    "id": 26794
+  },
+  "path": null,
+  "id": 861907,
+  "html_url": "https://github.com/sferik/rails_admin/commit/629e9fd9d4#commitcomment-861907"
+}

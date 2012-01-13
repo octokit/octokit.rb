@@ -1,0 +1,572 @@
+[
+  {
+    "created_at": "2011-07-30T18:59:10Z",
+    "position": null,
+    "line": null,
+    "body": "This commit appears to have broken the build: http://ci.railsadmin.org/job/RailsAdmin/478/",
+    "commit_id": "0667424ae17990941624f1dc84dece421fecd595",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/504455",
+    "updated_at": "2011-07-30T18:59:10Z",
+    "user": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 10308
+    },
+    "path": null,
+    "id": 504455,
+    "html_url": "https://github.com/sferik/rails_admin/commit/0667424ae1#commitcomment-504455"
+  },
+  {
+    "created_at": "2010-12-22T12:33:46Z",
+    "position": null,
+    "line": null,
+    "body": "This is a really common mistake, should we add an assertion to test suite that dummy_app really outputs English? I bet it's confusing for many of the users who take RailsAdmin for a test drive using dummy_app when it outputs a foreign language.",
+    "commit_id": "07597b5fed5febe9ae159378b3c3f2dc0637489c",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/224114",
+    "updated_at": "2010-12-22T12:33:46Z",
+    "user": {
+      "gravatar_id": "40a0afa49eb7b12db4dcda70b2e1520d",
+      "url": "https://api.github.com/users/kaapa",
+      "login": "kaapa",
+      "avatar_url": "https://secure.gravatar.com/avatar/40a0afa49eb7b12db4dcda70b2e1520d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 215071
+    },
+    "path": "",
+    "id": 224114,
+    "html_url": "https://github.com/sferik/rails_admin/commit/07597b5fed#commitcomment-224114"
+  },
+  {
+    "created_at": "2010-12-22T19:51:45Z",
+    "position": null,
+    "line": null,
+    "body": "Yes, I'd be in favor of adding that test. Thanks for catching this and fixing it.",
+    "commit_id": "07597b5fed5febe9ae159378b3c3f2dc0637489c",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/224469",
+    "updated_at": "2010-12-22T19:51:45Z",
+    "user": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 10308
+    },
+    "path": "",
+    "id": 224469,
+    "html_url": "https://github.com/sferik/rails_admin/commit/07597b5fed#commitcomment-224469"
+  },
+  {
+    "created_at": "2010-12-22T22:14:29Z",
+    "position": null,
+    "line": null,
+    "body": "Added in ef73d5843b64083b5e9de26fb0bcc722e2484c53.",
+    "commit_id": "07597b5fed5febe9ae159378b3c3f2dc0637489c",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/224582",
+    "updated_at": "2010-12-22T22:14:29Z",
+    "user": {
+      "gravatar_id": "40a0afa49eb7b12db4dcda70b2e1520d",
+      "url": "https://api.github.com/users/kaapa",
+      "login": "kaapa",
+      "avatar_url": "https://secure.gravatar.com/avatar/40a0afa49eb7b12db4dcda70b2e1520d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 215071
+    },
+    "path": "",
+    "id": 224582,
+    "html_url": "https://github.com/sferik/rails_admin/commit/07597b5fed#commitcomment-224582"
+  },
+  {
+    "created_at": "2011-09-06T23:29:20Z",
+    "position": null,
+    "line": null,
+    "body": "Nice one @bbenezech! You're on a roll.",
+    "commit_id": "08e296957f04ed07c7ad930ed41e66cb1e3c41ef",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/573186",
+    "updated_at": "2011-09-06T23:29:20Z",
+    "user": {
+      "gravatar_id": "67c0c5d4a82a8b28405d2fe4f581cc65",
+      "url": "https://api.github.com/users/gunn",
+      "login": "gunn",
+      "avatar_url": "https://secure.gravatar.com/avatar/67c0c5d4a82a8b28405d2fe4f581cc65?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 42500
+    },
+    "path": null,
+    "id": 573186,
+    "html_url": "https://github.com/sferik/rails_admin/commit/08e296957f#commitcomment-573186"
+  },
+  {
+    "created_at": "2010-11-16T18:32:36Z",
+    "position": null,
+    "line": null,
+    "body": "This one needs preview as well... The performance benefit here is big, but is it too risky to make it spec's responsibility to reset the environment once it's been run?",
+    "commit_id": "0f47569290af9fabb3002d0009cd57245e8453de",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/195206",
+    "updated_at": "2010-11-16T18:32:48Z",
+    "user": {
+      "gravatar_id": "40a0afa49eb7b12db4dcda70b2e1520d",
+      "url": "https://api.github.com/users/kaapa",
+      "login": "kaapa",
+      "avatar_url": "https://secure.gravatar.com/avatar/40a0afa49eb7b12db4dcda70b2e1520d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 215071
+    },
+    "path": "",
+    "id": 195206,
+    "html_url": "https://github.com/sferik/rails_admin/commit/0f47569290#commitcomment-195206"
+  },
+  {
+    "created_at": "2010-11-16T20:15:57Z",
+    "position": null,
+    "line": null,
+    "body": "The risk is that someone might write a spec but forget to call reset, which could have side-effects? Or are there some other risk?\n\nIn my testing, these changes make the specs run 33% faster, which seems like a worthwhile tradeoff.",
+    "commit_id": "0f47569290af9fabb3002d0009cd57245e8453de",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/195300",
+    "updated_at": "2010-11-16T22:32:05Z",
+    "user": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 10308
+    },
+    "path": "",
+    "id": 195300,
+    "html_url": "https://github.com/sferik/rails_admin/commit/0f47569290#commitcomment-195300"
+  },
+  {
+    "created_at": "2010-11-16T20:31:26Z",
+    "position": null,
+    "line": null,
+    "body": "Indeed that's what I meant. It would have been nice to stick to automatic reset after each test, but I wanted to introduce this approach as it is a real time saver in development cycle. Good thing is though that it only affects the tests in the config section of the suite. Also the performance benefit will become even greater as more tests are written to the config section.",
+    "commit_id": "0f47569290af9fabb3002d0009cd57245e8453de",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/195306",
+    "updated_at": "2010-11-16T20:31:26Z",
+    "user": {
+      "gravatar_id": "40a0afa49eb7b12db4dcda70b2e1520d",
+      "url": "https://api.github.com/users/kaapa",
+      "login": "kaapa",
+      "avatar_url": "https://secure.gravatar.com/avatar/40a0afa49eb7b12db4dcda70b2e1520d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 215071
+    },
+    "path": "",
+    "id": 195306,
+    "html_url": "https://github.com/sferik/rails_admin/commit/0f47569290#commitcomment-195306"
+  },
+  {
+    "created_at": "2010-11-16T20:56:03Z",
+    "position": null,
+    "line": null,
+    "body": "Can't we just split this big file into files dedicated to different features of the admin?\nWhen I develop a new feature I just run the tests that are specific to what I wrote and before pushing to master I run the whole suite.\nAnd the performance improvement is really great so it's worth the risk!",
+    "commit_id": "0f47569290af9fabb3002d0009cd57245e8453de",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/195333",
+    "updated_at": "2010-11-16T20:59:22Z",
+    "user": {
+      "gravatar_id": "dfa3143343f3680753e0ae09de57bcd6",
+      "url": "https://api.github.com/users/hurrycane",
+      "login": "hurrycane",
+      "avatar_url": "https://secure.gravatar.com/avatar/dfa3143343f3680753e0ae09de57bcd6?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 2641
+    },
+    "path": "",
+    "id": 195333,
+    "html_url": "https://github.com/sferik/rails_admin/commit/0f47569290#commitcomment-195333"
+  },
+  {
+    "created_at": "2010-11-16T21:27:54Z",
+    "position": null,
+    "line": null,
+    "body": "yeah, splitting the file would be great - you can run just the file that you want during development and then run them all before you check in.\r\n\r\nyou can also tell rspec to run only specific specs, e.g.,\r\n$ rake spec SPEC_OPTS=\"-l 1539\" SPEC=\"spec/requests/rails_admin_spec.rb\"\r\n\r\nFor some unknown reason the \"-l\" flag (line number) works but the \"-e\" flag doesnt, it never matches anthing.  Might be me doing it wrong:\r\n$ rake spec SPEC_OPTS=\"-e \\\"has-and-belongs\\\"\" SPEC=\"spec/requests/rails_admin_spec.rb\"\r\n\r\n(in /home/ccabot/rails_admin)\r\n/home/ccabot/.rvm/rubies/ruby-1.8.7-p302/bin/ruby -S bundle exec rspec spec/requests/rails_admin_spec.rb\r\nWARNING: SimpleCov is activated, but you're not running Ruby 1.9 - no coverage analysis will happen\r\nRun filtered using {:full_description=>/(?-mix:\"has-and-belongs\")/}\r\nNo examples were matched. Perhaps {:unless=>#<Proc:0xb73f8538@/home/ccabot/.rvm/gems/ruby-1.8.7-p302/gems/rspec-core-2.1.0/lib/rspec/core/configuration.rb:53>, :if=>#<Proc:0xb73f863c@/home/ccabot/.rvm/gems/ruby-1.8.7-p302/gems/rspec-core-2.1.0/lib/rspec/core/configuration.rb:52>} is excluding everything?\r\n",
+    "commit_id": "0f47569290af9fabb3002d0009cd57245e8453de",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/195370",
+    "updated_at": "2010-11-16T21:27:54Z",
+    "user": {
+      "gravatar_id": "6d246f2dde05095bebd3ba3cb54c676a",
+      "url": "https://api.github.com/users/ccabot",
+      "login": "ccabot",
+      "avatar_url": "https://secure.gravatar.com/avatar/6d246f2dde05095bebd3ba3cb54c676a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 331883
+    },
+    "path": "",
+    "id": 195370,
+    "html_url": "https://github.com/sferik/rails_admin/commit/0f47569290#commitcomment-195370"
+  },
+  {
+    "created_at": "2010-11-16T22:06:44Z",
+    "position": null,
+    "line": null,
+    "body": "+1 on splitting the suite - great idea!",
+    "commit_id": "0f47569290af9fabb3002d0009cd57245e8453de",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/195402",
+    "updated_at": "2010-11-16T22:06:44Z",
+    "user": {
+      "gravatar_id": "40a0afa49eb7b12db4dcda70b2e1520d",
+      "url": "https://api.github.com/users/kaapa",
+      "login": "kaapa",
+      "avatar_url": "https://secure.gravatar.com/avatar/40a0afa49eb7b12db4dcda70b2e1520d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 215071
+    },
+    "path": "",
+    "id": 195402,
+    "html_url": "https://github.com/sferik/rails_admin/commit/0f47569290#commitcomment-195402"
+  },
+  {
+    "created_at": "2010-11-16T22:11:24Z",
+    "position": null,
+    "line": null,
+    "body": "I nominate Bogdan (hurrycane) to do the splitting, since it was his idea. ;)",
+    "commit_id": "0f47569290af9fabb3002d0009cd57245e8453de",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/195408",
+    "updated_at": "2010-11-16T22:11:24Z",
+    "user": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 10308
+    },
+    "path": "",
+    "id": 195408,
+    "html_url": "https://github.com/sferik/rails_admin/commit/0f47569290#commitcomment-195408"
+  },
+  {
+    "created_at": "2010-11-16T22:27:32Z",
+    "position": null,
+    "line": null,
+    "body": "On it :D",
+    "commit_id": "0f47569290af9fabb3002d0009cd57245e8453de",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/195419",
+    "updated_at": "2010-11-16T22:27:32Z",
+    "user": {
+      "gravatar_id": "dfa3143343f3680753e0ae09de57bcd6",
+      "url": "https://api.github.com/users/hurrycane",
+      "login": "hurrycane",
+      "avatar_url": "https://secure.gravatar.com/avatar/dfa3143343f3680753e0ae09de57bcd6?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 2641
+    },
+    "path": "",
+    "id": 195419,
+    "html_url": "https://github.com/sferik/rails_admin/commit/0f47569290#commitcomment-195419"
+  },
+  {
+    "created_at": "2011-07-31T18:24:18Z",
+    "position": null,
+    "line": null,
+    "body": "See the Markdown section of http://about.travis-ci.org/docs/user/status-images/",
+    "commit_id": "105ab72638b528b2542a22ece9736e2dd2e9dafa",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/505142",
+    "updated_at": "2011-07-31T18:24:18Z",
+    "user": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 10308
+    },
+    "path": null,
+    "id": 505142,
+    "html_url": "https://github.com/sferik/rails_admin/commit/105ab72638#commitcomment-505142"
+  },
+  {
+    "created_at": "2010-12-21T21:16:37Z",
+    "position": null,
+    "line": null,
+    "body": "Sferik, please review this approach to support CI with multiple db backends.\r\n\r\nThe idea here is that the test suite has minimal relation to needs of the CI. With a setup like this Hudson can invoke a build with each ruby version / database backend with a command like this (when setup with a multi-axis build configuration):\r\n    bash -l -c \"rvm use $CI_RUBY_VERSION && export CI_DB_ADAPTER=$CI_DB_ADAPTER && cd spec/dummy_app && bundle install && rake admin:prepare_ci_env && cd ../../ && bundle exec rake\"\r\n\r\nThere probably would be a better location for prepare_ci_env rake task somewhere within the engine itself, but that was beyond the scope of this first iteration.",
+    "commit_id": "107a4d2231a213eb46763d48f8feab4ec8a7c7ee",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/223633",
+    "updated_at": "2010-12-21T21:16:37Z",
+    "user": {
+      "gravatar_id": "40a0afa49eb7b12db4dcda70b2e1520d",
+      "url": "https://api.github.com/users/kaapa",
+      "login": "kaapa",
+      "avatar_url": "https://secure.gravatar.com/avatar/40a0afa49eb7b12db4dcda70b2e1520d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 215071
+    },
+    "path": "",
+    "id": 223633,
+    "html_url": "https://github.com/sferik/rails_admin/commit/107a4d2231#commitcomment-223633"
+  },
+  {
+    "created_at": "2010-12-21T21:19:27Z",
+    "position": null,
+    "line": null,
+    "body": "Also, I picked the db driver versions for the Gemfile from rubygems.org and only tested that it works on sqlite3.",
+    "commit_id": "107a4d2231a213eb46763d48f8feab4ec8a7c7ee",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/223639",
+    "updated_at": "2010-12-21T21:19:27Z",
+    "user": {
+      "gravatar_id": "40a0afa49eb7b12db4dcda70b2e1520d",
+      "url": "https://api.github.com/users/kaapa",
+      "login": "kaapa",
+      "avatar_url": "https://secure.gravatar.com/avatar/40a0afa49eb7b12db4dcda70b2e1520d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 215071
+    },
+    "path": "",
+    "id": 223639,
+    "html_url": "https://github.com/sferik/rails_admin/commit/107a4d2231#commitcomment-223639"
+  },
+  {
+    "created_at": "2010-12-21T22:14:58Z",
+    "position": null,
+    "line": null,
+    "body": "This looks good to me! I can't wait to see this up and running with multiple backends.",
+    "commit_id": "107a4d2231a213eb46763d48f8feab4ec8a7c7ee",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/223714",
+    "updated_at": "2010-12-21T22:16:29Z",
+    "user": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 10308
+    },
+    "path": "",
+    "id": 223714,
+    "html_url": "https://github.com/sferik/rails_admin/commit/107a4d2231#commitcomment-223714"
+  },
+  {
+    "created_at": "2010-11-13T13:27:00Z",
+    "position": null,
+    "line": null,
+    "body": "[About disabling registerable](https://github.com/plataformatec/devise/wiki/How-To:-Manage-users-through-a-CRUD-interface). Perhaps we now need to either document initial user creation or write it to the generator?",
+    "commit_id": "11440180fb09b3136840f277cf80bab05a7eb8ec",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/193186",
+    "updated_at": "2010-11-13T13:27:00Z",
+    "user": {
+      "gravatar_id": "40a0afa49eb7b12db4dcda70b2e1520d",
+      "url": "https://api.github.com/users/kaapa",
+      "login": "kaapa",
+      "avatar_url": "https://secure.gravatar.com/avatar/40a0afa49eb7b12db4dcda70b2e1520d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 215071
+    },
+    "path": "",
+    "id": 193186,
+    "html_url": "https://github.com/sferik/rails_admin/commit/11440180fb#commitcomment-193186"
+  },
+  {
+    "created_at": "2010-12-21T22:03:43Z",
+    "position": null,
+    "line": null,
+    "body": "Removing :registerable makes it harder for new users to try out RailsAdmin by running the dummy app. I think I understand the rationale behind removing it in production apps, but I don't think this applies to the dummy app.\n\nAs an aside, I wish this was done in two separate commits, so I could revert just that change. As a general rule, if you find yourself using the word \"and\" in a commit message, you should consider splitting it up.",
+    "commit_id": "11440180fb09b3136840f277cf80bab05a7eb8ec",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/223703",
+    "updated_at": "2010-12-21T22:24:20Z",
+    "user": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 10308
+    },
+    "path": "",
+    "id": 223703,
+    "html_url": "https://github.com/sferik/rails_admin/commit/11440180fb#commitcomment-223703"
+  },
+  {
+    "created_at": "2010-12-21T22:19:29Z",
+    "position": null,
+    "line": null,
+    "body": "True, didn't realize that point at the time. Good note about the commits also, there's definitely room for improvement for me there.",
+    "commit_id": "11440180fb09b3136840f277cf80bab05a7eb8ec",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/223719",
+    "updated_at": "2010-12-21T22:19:29Z",
+    "user": {
+      "gravatar_id": "40a0afa49eb7b12db4dcda70b2e1520d",
+      "url": "https://api.github.com/users/kaapa",
+      "login": "kaapa",
+      "avatar_url": "https://secure.gravatar.com/avatar/40a0afa49eb7b12db4dcda70b2e1520d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 215071
+    },
+    "path": "",
+    "id": 223719,
+    "html_url": "https://github.com/sferik/rails_admin/commit/11440180fb#commitcomment-223719"
+  },
+  {
+    "created_at": "2010-12-21T22:24:37Z",
+    "position": null,
+    "line": null,
+    "body": "No big deal. I'll manually revert the change.",
+    "commit_id": "11440180fb09b3136840f277cf80bab05a7eb8ec",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/223730",
+    "updated_at": "2010-12-21T22:24:37Z",
+    "user": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 10308
+    },
+    "path": "",
+    "id": 223730,
+    "html_url": "https://github.com/sferik/rails_admin/commit/11440180fb#commitcomment-223730"
+  },
+  {
+    "created_at": "2011-07-27T21:38:09Z",
+    "position": null,
+    "line": null,
+    "body": "I like Aristo too, but can you elaborate why to diverge from the Activo theme?",
+    "commit_id": "12aa156d0bba244a1584f32f9f7a3862c8307ef7",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/499913",
+    "updated_at": "2011-07-27T21:38:09Z",
+    "user": {
+      "gravatar_id": "40a0afa49eb7b12db4dcda70b2e1520d",
+      "url": "https://api.github.com/users/kaapa",
+      "login": "kaapa",
+      "avatar_url": "https://secure.gravatar.com/avatar/40a0afa49eb7b12db4dcda70b2e1520d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 215071
+    },
+    "path": null,
+    "id": 499913,
+    "html_url": "https://github.com/sferik/rails_admin/commit/12aa156d0b#commitcomment-499913"
+  },
+  {
+    "created_at": "2011-07-28T07:43:28Z",
+    "position": null,
+    "line": null,
+    "body": "Activo uses some default ugly jquery-ui theme, I just changed it to aristo. It's totally independent from Activo's styling.\r\nAn idea would be to make it configurable. (jquery-ui themes can be served by google CDN, and we can serve activo locally).",
+    "commit_id": "12aa156d0bba244a1584f32f9f7a3862c8307ef7",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/500561",
+    "updated_at": "2011-07-28T07:43:28Z",
+    "user": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech",
+      "avatar_url": "https://secure.gravatar.com/avatar/c1607873b99845b2cd53f8634860d4d4?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 26794
+    },
+    "path": null,
+    "id": 500561,
+    "html_url": "https://github.com/sferik/rails_admin/commit/12aa156d0b#commitcomment-500561"
+  },
+  {
+    "created_at": "2011-08-25T15:20:57Z",
+    "position": null,
+    "line": null,
+    "body": "hi @bbenezech \r\n\r\ncan you please jump in #travis when you have a chance\r\n\r\nthanks",
+    "commit_id": "18fe8c2c9ff11c93b4c29d76de0e4dece3a16614",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/551697",
+    "updated_at": "2011-08-25T15:20:57Z",
+    "user": {
+      "gravatar_id": "21b21efe14359ec323f9a70464b91e39",
+      "url": "https://api.github.com/users/joshk",
+      "login": "joshk",
+      "avatar_url": "https://secure.gravatar.com/avatar/21b21efe14359ec323f9a70464b91e39?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 8701
+    },
+    "path": null,
+    "id": 551697,
+    "html_url": "https://github.com/sferik/rails_admin/commit/18fe8c2c9f#commitcomment-551697"
+  },
+  {
+    "created_at": "2011-08-27T19:52:10Z",
+    "position": null,
+    "line": null,
+    "body": "This causes tests to break in Ruby versions < 1.8: http://travis-ci.org/#!/sferik/rails_admin/builds/104957",
+    "commit_id": "18fe8c2c9ff11c93b4c29d76de0e4dece3a16614",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/555420",
+    "updated_at": "2011-08-27T19:52:10Z",
+    "user": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 10308
+    },
+    "path": null,
+    "id": 555420,
+    "html_url": "https://github.com/sferik/rails_admin/commit/18fe8c2c9f#commitcomment-555420"
+  },
+  {
+    "created_at": "2011-07-21T07:11:07Z",
+    "position": null,
+    "line": null,
+    "body": "This commit appears to be causing tests to fail: http://ci.railsadmin.org/job/RailsAdmin/437/\r\n\r\n@bbenezech Since you merged it, can you please make sure it either gets fixed or reverted?",
+    "commit_id": "1cf63f4b596df69db57a0db65337dba308b9358f",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/488557",
+    "updated_at": "2011-07-21T07:11:07Z",
+    "user": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 10308
+    },
+    "path": null,
+    "id": 488557,
+    "html_url": "https://github.com/sferik/rails_admin/commit/1cf63f4b59#commitcomment-488557"
+  },
+  {
+    "created_at": "2011-07-27T14:33:24Z",
+    "position": 5,
+    "line": 147,
+    "body": "I've always declared attributes as a hash. Is this new functionality in haml?",
+    "commit_id": "2282a77bac957849c3aec745d17df50b63f5bd0c",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/499003",
+    "updated_at": "2011-07-27T14:33:24Z",
+    "user": {
+      "gravatar_id": "7b8632be88e93b4764bbab50c2515182",
+      "url": "https://api.github.com/users/jbrown",
+      "login": "jbrown",
+      "avatar_url": "https://secure.gravatar.com/avatar/7b8632be88e93b4764bbab50c2515182?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 47560
+    },
+    "path": "app/views/rails_admin/main/list.html.haml",
+    "id": 499003,
+    "html_url": "https://github.com/sferik/rails_admin/commit/2282a77bac#commitcomment-499003"
+  },
+  {
+    "created_at": "2011-09-13T06:36:46Z",
+    "position": 17,
+    "line": 13,
+    "body": "This change is actually breaking custom devise routing.\n\nI have a specific overload for the session controller in my app, which does not live in 'devise/sessions'\n\nI will fork, fix and submit a pull request\n\nNinja",
+    "commit_id": "22a7e9b2dc829909d641264bd91fb96252b5fa82",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/585211",
+    "updated_at": "2011-09-13T06:36:46Z",
+    "user": {
+      "gravatar_id": "84e83f58b9a0e02926ffb700dbf3d88f",
+      "url": "https://api.github.com/users/davetheninja",
+      "login": "davetheninja",
+      "avatar_url": "https://secure.gravatar.com/avatar/84e83f58b9a0e02926ffb700dbf3d88f?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 117323
+    },
+    "path": "app/views/layouts/rails_admin/_header.html.haml",
+    "id": 585211,
+    "html_url": "https://github.com/sferik/rails_admin/commit/22a7e9b2dc#commitcomment-585211"
+  },
+  {
+    "created_at": "2011-07-01T01:44:41Z",
+    "position": 12,
+    "line": 27,
+    "body": "This change breaks some configurations.  \n\nWhen I updated to this commit my ckeditor configuration throws the error:\n\n    undefined method `sort_by!' for #<Array:0x1054d0d68>\n\nWhen I go back to the commit before this my ckeditor configuration works fine.  My configuration currently looks like:\n\n    config.model BlogPost do\n      edit do\n        field :title\n        field :body, :text do\n          ckeditor true\n        end\n        field :blog_id\n        field :user_id\n      end\n  end",
+    "commit_id": "241a3bfb2f6f56021f94a74c16c657225f15afc2",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/456491",
+    "updated_at": "2011-07-01T01:44:41Z",
+    "user": {
+      "gravatar_id": "3917b9c81197f1cd96f4546930b39d54",
+      "url": "https://api.github.com/users/jdutil",
+      "login": "jdutil",
+      "avatar_url": "https://secure.gravatar.com/avatar/3917b9c81197f1cd96f4546930b39d54?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 25104
+    },
+    "path": "lib/rails_admin/config/has_fields.rb",
+    "id": 456491,
+    "html_url": "https://github.com/sferik/rails_admin/commit/241a3bfb2f#commitcomment-456491"
+  },
+  {
+    "created_at": "2011-07-01T01:57:22Z",
+    "position": 12,
+    "line": 27,
+    "body": "Fix in this pull request https://github.com/sferik/rails_admin/pull/507",
+    "commit_id": "241a3bfb2f6f56021f94a74c16c657225f15afc2",
+    "url": "https://api.github.com/repos/sferik/rails_admin/comments/456497",
+    "updated_at": "2011-07-01T01:57:22Z",
+    "user": {
+      "gravatar_id": "3917b9c81197f1cd96f4546930b39d54",
+      "url": "https://api.github.com/users/jdutil",
+      "login": "jdutil",
+      "avatar_url": "https://secure.gravatar.com/avatar/3917b9c81197f1cd96f4546930b39d54?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "id": 25104
+    },
+    "path": "lib/rails_admin/config/has_fields.rb",
+    "id": 456497,
+    "html_url": "https://github.com/sferik/rails_admin/commit/241a3bfb2f#commitcomment-456497"
+  }
+]
