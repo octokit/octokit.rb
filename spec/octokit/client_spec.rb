@@ -9,4 +9,20 @@ describe Octokit::Client do
       Octokit::Client.new(:login => 'foo', :password => 'bar').commits('baz/quux')
     }.should_not raise_exception
   end
+
+  it "should paginate the response if auto_paginate is on" do
+    stub_get("https://api.github.com/foo/bar").
+      to_return(:status => 200, :body => %q{["stuff"]}, :headers => 
+        { 'Link' => %q{<https://api.github.com/foo/bar?page=2>; rel="next", <https://api.github.com/foo/bar?page=3>; rel="last"} })
+
+    stub_get("https://api.github.com/foo/bar?page=2").
+      to_return(:status => 200, :body => %q{["even more stuff"]}, :headers => 
+        { 'Link' => %q{<https://api.github.com/foo/bar?page=3>; rel="next", <https://api.github.com/foo/bar?page=3>; rel="last", <https://api.github.com/foo/bar?page=1>; rel="prev", <https://api.github.com/foo/bar?page=1>; rel="first"} })
+
+    stub_get("https://api.github.com/foo/bar?page=3").
+      to_return(:status => 200, :body => %q{["stuffapalooza"]}, :headers => 
+        { 'Link' => %q{<https://api.github.com/foo/bar?page=2>; rel="prev", <https://api.github.com/foo/bar?page=1>; rel="first"} })
+
+    Octokit::Client.new(:auto_paginate => true).get("https://api.github.com/foo/bar", {}, 3).should == ['stuff', 'even more stuff', 'stuffapalooza']
+  end
 end

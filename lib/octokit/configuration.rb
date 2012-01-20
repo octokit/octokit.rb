@@ -10,11 +10,13 @@ module Octokit
       :password,
       :proxy,
       :oauth_token,
-      :user_agent].freeze
+      :user_agent,
+      :auto_paginate].freeze
 
-    DEFAULT_ADAPTER     = Faraday.default_adapter
-    DEFAULT_API_VERSION = 2
-    DEFAULT_USER_AGENT  = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
+    DEFAULT_ADAPTER       = Faraday.default_adapter
+    DEFAULT_API_VERSION   = 2
+    DEFAULT_USER_AGENT    = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
+    DEFAULT_AUTO_PAGINATE = false
 
     attr_accessor(*VALID_OPTIONS_KEYS)
 
@@ -31,13 +33,14 @@ module Octokit
     end
 
     def reset
-      self.adapter     = DEFAULT_ADAPTER
-      self.api_version = DEFAULT_API_VERSION
-      self.login       = nil
-      self.password    = nil
-      self.proxy       = nil
-      self.oauth_token = nil
-      self.user_agent  = DEFAULT_USER_AGENT
+      self.adapter       = DEFAULT_ADAPTER
+      self.api_version   = DEFAULT_API_VERSION
+      self.login         = nil
+      self.password      = nil
+      self.proxy         = nil
+      self.oauth_token   = nil
+      self.user_agent    = DEFAULT_USER_AGENT
+      self.auto_paginate = DEFAULT_AUTO_PAGINATE
     end
   end
 end
