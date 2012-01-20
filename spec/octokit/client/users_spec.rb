@@ -80,10 +80,10 @@ describe Octokit::Client::Users do
     context "with a username passed" do
 
       it "should return the user's followers" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/followers").
-          to_return(:body => fixture("v2/followers.json"))
+        stub_get("https://api.github.com/users/sferik/followers").
+          to_return(:body => fixture("v3/followers.json"))
         users = @client.followers("sferik")
-        users.first.should == "puls"
+        users.first.login.should == "puls"
       end
 
     end
@@ -91,10 +91,10 @@ describe Octokit::Client::Users do
     context "without a username passed" do
 
       it "should return the user's followers" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/followers").
-          to_return(:body => fixture("v2/followers.json"))
+        stub_get("https://api.github.com/users/sferik/followers").
+          to_return(:body => fixture("v3/followers.json"))
         users = @client.followers
-        users.first.should == "puls"
+        users.first.login.should == "puls"
       end
 
     end
@@ -106,10 +106,10 @@ describe Octokit::Client::Users do
     context "with a username passed" do
 
       it "should return the user's following" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/following").
-          to_return(:body => fixture("v2/following.json"))
+        stub_get("https://api.github.com/users/sferik/following").
+          to_return(:body => fixture("v3/following.json"))
         users = @client.following("sferik")
-        users.first.should == "rails"
+        users.first.login.should == "rails"
       end
 
     end
@@ -117,10 +117,10 @@ describe Octokit::Client::Users do
     context "without a username passed" do
 
       it "should return the user's following" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/following").
-          to_return(:body => fixture("v2/following.json"))
+        stub_get("https://api.github.com/users/sferik/following").
+          to_return(:body => fixture("v3/following.json"))
         users = @client.following
-        users.first.should == "rails"
+        users.first.login.should == "rails"
       end
 
     end
@@ -132,9 +132,9 @@ describe Octokit::Client::Users do
     context "with one user following another" do
 
       it "should return true" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/following").
-          to_return(:body => fixture("v2/following.json"))
-        follows = @client.follows?("sferik", "pengwynn")
+        stub_get("https://api.github.com/user/following/puls").
+          to_return(:status => 204, :body => "")
+        follows = @client.follows?("sferik", "puls")
         follows.should be_true
       end
 
@@ -143,8 +143,8 @@ describe Octokit::Client::Users do
     context "with one user not following another" do
 
       it "should return false" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/following").
-          to_return(:body => fixture("v2/following.json"))
+        stub_get("https://api.github.com/user/following/dogbrainz").
+          to_return(:status => 404, :body => "")
         follows = @client.follows?("sferik", "dogbrainz")
         follows.should be_false
       end
@@ -156,10 +156,10 @@ describe Octokit::Client::Users do
   describe ".follow" do
 
     it "should follow a user" do
-      stub_post("https://github.com/api/v2/json/user/follow/dianakimball").
-        to_return(:body => fixture("v2/following.json"))
+      stub_put("https://api.github.com/user/following/dianakimball").
+        to_return(:status => 204, :body => "")
       following = @client.follow("dianakimball")
-      following.should include("dianakimball")
+      following.should be_true
     end
 
   end
@@ -167,10 +167,10 @@ describe Octokit::Client::Users do
   describe ".unfollow" do
 
     it "should unfollow a user" do
-      stub_post("https://github.com/api/v2/json/user/unfollow/dogbrainz").
-        to_return(:body => fixture("v2/following.json"))
+      stub_delete("https://api.github.com/user/following/dogbrainz").
+        to_return(:status => 204, :body => "")
       following = @client.unfollow("dogbrainz")
-      following.should_not include("dogbrainz")
+      following.should be_true
     end
 
   end
@@ -180,10 +180,10 @@ describe Octokit::Client::Users do
     context "with a username passed" do
 
       it "should return watched repositories" do
-        stub_get("https://github.com/api/v2/json/repos/watched/sferik").
-          to_return(:body => fixture("v2/repositories.json"))
+        stub_get("https://api.github.com/users/sferik/watched").
+          to_return(:body => fixture("v3/watched.json"))
         repositories = @client.watched("sferik")
-        repositories.first.name.should == "One40Proof"
+        repositories.first.name.should == "grit"
       end
 
     end
@@ -191,10 +191,10 @@ describe Octokit::Client::Users do
     context "without a username passed" do
 
       it "should return watched repositories" do
-        stub_get("https://github.com/api/v2/json/repos/watched/sferik").
-          to_return(:body => fixture("v2/repositories.json"))
+        stub_get("https://api.github.com/users/sferik/watched").
+          to_return(:body => fixture("v3/watched.json"))
         repositories = @client.watched
-        repositories.first.name.should == "One40Proof"
+        repositories.first.name.should == "grit"
       end
 
     end
@@ -204,8 +204,8 @@ describe Octokit::Client::Users do
   describe ".keys" do
 
     it "should return public keys" do
-      stub_get("https://github.com/api/v2/json/user/keys").
-        to_return(:body => fixture("v2/public_keys.json"))
+      stub_get("https://api.github.com/user/keys").
+        to_return(:body => fixture("v3/public_keys.json"))
       public_keys = @client.keys
       public_keys.first.id.should == 103205
     end
@@ -215,11 +215,12 @@ describe Octokit::Client::Users do
   describe ".add_key" do
 
     it "should add a public key" do
-      stub_post("https://github.com/api/v2/json/user/key/add").
-        with(:title => "Moss", :key => "ssh-dss AAAAB3NzaC1kc3MAAACBAJz7HanBa18ad1YsdFzHO5Wy1/WgXd4BV+czbKq7q23jungbfjN3eo2a0SVdxux8GG+RZ9ia90VD/X+PE4s3LV60oXZ7PDAuyPO1CTF0TaDoKf9mPaHcPa6agMJVocMsgBgwviWT1Q9VgN1SccDsYVDtxkIAwuw25YeHZlG6myx1AAAAFQCgW+OvXWUdUJPBGkRJ8ML7uf0VHQAAAIAlP5G96tTss0SKYVSCJCyocn9cyGQdNjxah4/aYuYFTbLI1rxk7sr/AkZfJNIoF2UFyO5STbbratykIQGUPdUBg1a2t72bu31x+4ZYJMngNsG/AkZ2oqLiH6dJKHD7PFx2oSPalogwsUV7iSMIZIYaPa03A9763iFsN0qJjaed+gAAAIBxz3Prxdzt/os4XGXSMNoWcS03AFC/05NOkoDMrXxQnTTpp1wrOgyRqEnKz15qC5dWk1ynzK+LJXHDZGA8lXPfCjHpJO3zrlZ/ivvLhgPdDpt13MAhIJFH06hTal0woxbk/fIdY71P3kbgXC0Ppx/0S7BC+VxqRCA4/wcM+BoDbA== host").
-        to_return(:body => fixture("v2/public_keys.json"))
-      public_keys = @client.add_key("Moss", "ssh-dss AAAAB3NzaC1kc3MAAACBAJz7HanBa18ad1YsdFzHO5Wy1/WgXd4BV+czbKq7q23jungbfjN3eo2a0SVdxux8GG+RZ9ia90VD/X+PE4s3LV60oXZ7PDAuyPO1CTF0TaDoKf9mPaHcPa6agMJVocMsgBgwviWT1Q9VgN1SccDsYVDtxkIAwuw25YeHZlG6myx1AAAAFQCgW+OvXWUdUJPBGkRJ8ML7uf0VHQAAAIAlP5G96tTss0SKYVSCJCyocn9cyGQdNjxah4/aYuYFTbLI1rxk7sr/AkZfJNIoF2UFyO5STbbratykIQGUPdUBg1a2t72bu31x+4ZYJMngNsG/AkZ2oqLiH6dJKHD7PFx2oSPalogwsUV7iSMIZIYaPa03A9763iFsN0qJjaed+gAAAIBxz3Prxdzt/os4XGXSMNoWcS03AFC/05NOkoDMrXxQnTTpp1wrOgyRqEnKz15qC5dWk1ynzK+LJXHDZGA8lXPfCjHpJO3zrlZ/ivvLhgPdDpt13MAhIJFH06hTal0woxbk/fIdY71P3kbgXC0Ppx/0S7BC+VxqRCA4/wcM+BoDbA== host")
-      public_keys.first.id.should == 103205
+      title, key = "Moss", "ssh-dss AAAAB3NzaC1kc3MAAACBAJz7HanBa18ad1YsdFzHO5Wy1/WgXd4BV+czbKq7q23jungbfjN3eo2a0SVdxux8GG+RZ9ia90VD/X+PE4s3LV60oXZ7PDAuyPO1CTF0TaDoKf9mPaHcPa6agMJVocMsgBgwviWT1Q9VgN1SccDsYVDtxkIAwuw25YeHZlG6myx1AAAAFQCgW+OvXWUdUJPBGkRJ8ML7uf0VHQAAAIAlP5G96tTss0SKYVSCJCyocn9cyGQdNjxah4/aYuYFTbLI1rxk7sr/AkZfJNIoF2UFyO5STbbratykIQGUPdUBg1a2t72bu31x+4ZYJMngNsG/AkZ2oqLiH6dJKHD7PFx2oSPalogwsUV7iSMIZIYaPa03A9763iFsN0qJjaed+gAAAIBxz3Prxdzt/os4XGXSMNoWcS03AFC/05NOkoDMrXxQnTTpp1wrOgyRqEnKz15qC5dWk1ynzK+LJXHDZGA8lXPfCjHpJO3zrlZ/ivvLhgPdDpt13MAhIJFH06hTal0woxbk/fIdY71P3kbgXC0Ppx/0S7BC+VxqRCA4/wcM+BoDbA== host"
+      stub_post("https://api.github.com/user/keys").
+        with(:title => title, :key => key).
+        to_return(:status => 201, :body => fixture("v3/public_key.json"))
+      public_key = @client.add_key(title, key)
+      public_key.id.should == 103205
     end
 
   end
@@ -227,11 +228,10 @@ describe Octokit::Client::Users do
   describe ".remove_key" do
 
     it "should remove a public key" do
-      stub_post("https://github.com/api/v2/json/user/key/remove").
-        with(:id => 103205).
-        to_return(:body => fixture("v2/public_keys.json"))
-      public_keys = @client.remove_key(103205)
-      public_keys.first.id.should == 103205
+      stub_delete("https://api.github.com/user/keys/103205").
+        to_return(:status => 204, :body => "")
+      response = @client.remove_key(103205)
+      response.should be_true
     end
 
   end
@@ -239,8 +239,8 @@ describe Octokit::Client::Users do
   describe ".emails" do
 
     it "should return email addresses" do
-      stub_get("https://github.com/api/v2/json/user/emails").
-        to_return(:body => fixture("v2/emails.json"))
+      stub_get("https://api.github.com/user/emails").
+        to_return(:body => fixture("v3/emails.json"))
       emails = @client.emails
       emails.first.should == "sferik@gmail.com"
     end
@@ -250,23 +250,22 @@ describe Octokit::Client::Users do
   describe ".add_email" do
 
     it "should add an email address" do
-      stub_post("https://github.com/api/v2/json/user/email/add").
+      stub_post("https://api.github.com/user/emails").
         with(:email => "sferik@gmail.com").
-        to_return(:body => fixture("v2/emails.json"))
+        to_return(:body => fixture("v3/emails.json"))
       emails = @client.add_email("sferik@gmail.com")
       emails.first.should == "sferik@gmail.com"
     end
 
   end
 
-  describe ".remove_key" do
+  describe ".remove_email" do
 
     it "should remove an email address" do
-      stub_post("https://github.com/api/v2/json/user/email/remove").
-        with(:email => "sferik@gmail.com").
-        to_return(:body => fixture("v2/emails.json"))
-      emails = @client.remove_email("sferik@gmail.com")
-      emails.first.should == "sferik@gmail.com"
+      stub_delete("https://api.github.com/user/emails?email=sferik@gmail.com").
+        to_return(:status => 204, :body => "")
+      response = @client.remove_email("sferik@gmail.com")
+      response.should be_true
     end
 
   end
