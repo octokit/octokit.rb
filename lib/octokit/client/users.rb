@@ -42,11 +42,11 @@ module Octokit
       end
 
       def followers(user=login, options={})
-        get("/api/v2/json/user/show/#{user}/followers", options)['users']
+        get("/users/#{user}/followers", options, 3)
       end
 
       def following(user=login, options={})
-        get("/api/v2/json/user/show/#{user}/following", options)['users']
+        get("/users/#{user}/following", options, 3)
       end
 
       def follows?(*args)
@@ -54,43 +54,47 @@ module Octokit
         user = args.first
         user ||= login
         return if user.nil?
-        following(user).include?(target)
+        get("/user/following/#{target}", {}, 3, true, raw=true).status == 204
+      rescue Octokit::NotFound
+        false
       end
 
       def follow(user, options={})
-        post("/api/v2/json/user/follow/#{user}", options)['users']
+        put("/user/following/#{user}", options, 3, true, raw=true).status == 204
       end
 
       def unfollow(user, options={})
-        post("/api/v2/json/user/unfollow/#{user}", options)['users']
+        delete("/user/following/#{user}", options, 3, true, raw=true).status == 204
       end
 
       def watched(user=login, options={})
-        get("/api/v2/json/repos/watched/#{user}", options)['repositories']
+        get("/users/#{user}/watched", options, 3)
       end
 
+      # Not yet supported: get a single key, update an existing key
+
       def keys(options={})
-        get("/api/v2/json/user/keys", options)['public_keys']
+        get("/user/keys", options, 3)
       end
 
       def add_key(title, key, options={})
-        post("/api/v2/json/user/key/add", options.merge({:title => title, :key => key}))['public_keys']
+        post("/user/keys", options.merge({:title => title, :key => key}), 3)
       end
 
       def remove_key(id, options={})
-        post("/api/v2/json/user/key/remove", options.merge({:id => id}))['public_keys']
+        delete("/user/keys/#{id}", options, 3, true, raw=true)
       end
 
       def emails(options={})
-        get("/api/v2/json/user/emails", options)['emails']
+        get("/user/emails", options, 3)
       end
 
       def add_email(email, options={})
-        post("/api/v2/json/user/email/add", options.merge({:email => email}))['emails']
+        post("/user/emails", options.merge({:email => email}), 3)
       end
 
       def remove_email(email, options={})
-        post("/api/v2/json/user/email/remove", options.merge({:email => email}))['emails']
+        delete("/user/emails", options.merge({:email => email}), 3, true, raw=true).status == 204
       end
     end
   end
