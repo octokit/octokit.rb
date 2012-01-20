@@ -80,10 +80,10 @@ describe Octokit::Client::Users do
     context "with a username passed" do
 
       it "should return the user's followers" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/followers").
-          to_return(:body => fixture("v2/followers.json"))
+        stub_get("https://api.github.com/users/sferik/followers").
+          to_return(:body => fixture("v3/followers.json"))
         users = @client.followers("sferik")
-        users.first.should == "puls"
+        users.first.login.should == "puls"
       end
 
     end
@@ -91,10 +91,10 @@ describe Octokit::Client::Users do
     context "without a username passed" do
 
       it "should return the user's followers" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/followers").
-          to_return(:body => fixture("v2/followers.json"))
+        stub_get("https://api.github.com/users/sferik/followers").
+          to_return(:body => fixture("v3/followers.json"))
         users = @client.followers
-        users.first.should == "puls"
+        users.first.login.should == "puls"
       end
 
     end
@@ -106,10 +106,10 @@ describe Octokit::Client::Users do
     context "with a username passed" do
 
       it "should return the user's following" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/following").
-          to_return(:body => fixture("v2/following.json"))
+        stub_get("https://api.github.com/users/sferik/following").
+          to_return(:body => fixture("v3/following.json"))
         users = @client.following("sferik")
-        users.first.should == "rails"
+        users.first.login.should == "rails"
       end
 
     end
@@ -117,10 +117,10 @@ describe Octokit::Client::Users do
     context "without a username passed" do
 
       it "should return the user's following" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/following").
-          to_return(:body => fixture("v2/following.json"))
+        stub_get("https://api.github.com/users/sferik/following").
+          to_return(:body => fixture("v3/following.json"))
         users = @client.following
-        users.first.should == "rails"
+        users.first.login.should == "rails"
       end
 
     end
@@ -132,9 +132,9 @@ describe Octokit::Client::Users do
     context "with one user following another" do
 
       it "should return true" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/following").
-          to_return(:body => fixture("v2/following.json"))
-        follows = @client.follows?("sferik", "pengwynn")
+        stub_get("https://api.github.com/user/following/puls").
+          to_return(:status => 204, :body => "")
+        follows = @client.follows?("sferik", "puls")
         follows.should be_true
       end
 
@@ -143,8 +143,8 @@ describe Octokit::Client::Users do
     context "with one user not following another" do
 
       it "should return false" do
-        stub_get("https://github.com/api/v2/json/user/show/sferik/following").
-          to_return(:body => fixture("v2/following.json"))
+        stub_get("https://api.github.com/user/following/dogbrainz").
+          to_return(:status => 404, :body => "")
         follows = @client.follows?("sferik", "dogbrainz")
         follows.should be_false
       end

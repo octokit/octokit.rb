@@ -42,11 +42,11 @@ module Octokit
       end
 
       def followers(user=login, options={})
-        get("/api/v2/json/user/show/#{user}/followers", options)['users']
+        get("/users/#{user}/followers", options, 3)
       end
 
       def following(user=login, options={})
-        get("/api/v2/json/user/show/#{user}/following", options)['users']
+        get("/users/#{user}/following", options, 3)
       end
 
       def follows?(*args)
@@ -54,7 +54,9 @@ module Octokit
         user = args.first
         user ||= login
         return if user.nil?
-        following(user).include?(target)
+        get("/user/following/#{target}", {}, 3, true, raw=true).status == 204
+      rescue Octokit::NotFound
+        false
       end
 
       def follow(user, options={})
