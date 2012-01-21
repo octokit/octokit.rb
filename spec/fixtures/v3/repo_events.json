@@ -1,0 +1,1668 @@
+[
+  {
+    "type": "IssuesEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-21T10:27:24Z",
+    "payload": {
+      "action": "opened",
+      "issue": {
+        "number": 938,
+        "pull_request": {
+          "diff_url": null,
+          "patch_url": null,
+          "html_url": null
+        },
+        "created_at": "2012-01-21T10:27:24Z",
+        "body": "After updating to latest version catch a bug, when all edit-action doesn't works. \r\n\r\n```\r\nNoMethodError in Rails_admin/main#edit\r\n\r\nShowing /home/gadfgdfgd/.rvm/gems/ruby-1.9.2-p290/bundler/gems/rails_admin-d381ac95b1ea/app/views/rails_admin/main/_form_filtering_multiselect.html.haml where line #32 raised:\r\n\r\nundefined method `title' for #<Personality:0x007f5e4c625190>\r\n\r\nExtracted source (around line #32):\r\n\r\n29: - if authorized? :new, config.abstract_model\r\n30:   - path_hash = { :model_name => config.abstract_model.to_param, :modal => true }\r\n31:   - path_hash.merge!({ :associations => { field.inverse_of => (form.object.id || 'new') } }) if field.inverse_of\r\n32:   = link_to wording_for(:link, :new, config.abstract_model), '#', :data => { :link => new_path(path_hash) }, :class => \"create btn\", :style => 'margin-left:10px'  \r\n33:   \r\n34: = form.javascript_for(field) do\r\n35:   :plain\r\n```",
+        "title": "NoMethodError in Rails_admin/main#edit ",
+        "comments": 0,
+        "updated_at": "2012-01-21T10:27:24Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/938",
+        "id": 2920762,
+        "assignee": null,
+        "milestone": null,
+        "closed_at": null,
+        "html_url": "https://github.com/sferik/rails_admin/issues/938",
+        "user": {
+          "gravatar_id": "5834104e2a5c757c33586a0968c097ba",
+          "avatar_url": "https://secure.gravatar.com/avatar/5834104e2a5c757c33586a0968c097ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/wildDAlex",
+          "id": 841673,
+          "login": "wildDAlex"
+        },
+        "labels": [
+
+        ],
+        "state": "open"
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "5834104e2a5c757c33586a0968c097ba",
+      "id": 841673,
+      "url": "https://api.github.com/users/wildDAlex",
+      "login": "wildDAlex"
+    },
+    "id": "1513284402"
+  },
+  {
+    "type": "ForkEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-21T06:24:42Z",
+    "payload": {
+      "forkee": {
+        "name": "rails_admin",
+        "master_branch": null,
+        "size": 420,
+        "has_wiki": true,
+        "created_at": "2012-01-21T06:24:41Z",
+        "clone_url": "https://github.com/nathanpsouza/rails_admin.git",
+        "public": true,
+        "updated_at": "2012-01-21T06:24:41Z",
+        "private": false,
+        "watchers": 1,
+        "url": "https://api.github.com/repos/nathanpsouza/rails_admin",
+        "language": "Ruby",
+        "fork": true,
+        "git_url": "git://github.com/nathanpsouza/rails_admin.git",
+        "ssh_url": "git@github.com:nathanpsouza/rails_admin.git",
+        "id": 3232500,
+        "svn_url": "https://github.com/nathanpsouza/rails_admin",
+        "pushed_at": "2012-01-20T16:20:43Z",
+        "has_downloads": true,
+        "mirror_url": null,
+        "open_issues": 0,
+        "has_issues": false,
+        "homepage": "",
+        "forks": 0,
+        "description": "RailsAdmin is a Rails 3 engine that provides an easy-to-use interface for managing your data",
+        "html_url": "https://github.com/nathanpsouza/rails_admin",
+        "owner": {
+          "gravatar_id": "c830b700b5183b16c3c0a7fd76da12d9",
+          "avatar_url": "https://secure.gravatar.com/avatar/c830b700b5183b16c3c0a7fd76da12d9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/nathanpsouza",
+          "id": 244316,
+          "login": "nathanpsouza"
+        }
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c830b700b5183b16c3c0a7fd76da12d9",
+      "id": 244316,
+      "url": "https://api.github.com/users/nathanpsouza",
+      "login": "nathanpsouza"
+    },
+    "id": "1513265963"
+  },
+  {
+    "type": "IssuesEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-21T00:09:29Z",
+    "payload": {
+      "action": "closed",
+      "issue": {
+        "number": 934,
+        "pull_request": {
+          "diff_url": null,
+          "patch_url": null,
+          "html_url": null
+        },
+        "created_at": "2012-01-20T14:36:57Z",
+        "body": "I've just upgraded to the recent commit and found the following issues which I believe seem to be caused by the following line in the wording_for helper:\r\n\r\n    :object_label => model_config && object.try(model_config.object_label_method)\r\n\r\nSituation 1:\r\nI haven't defined an own object_label_method for a model and the the model has no attribute called \"name\". I such situations the above line throws an error.\r\n\r\nI've fixed this by defining an object_label_method for each model, but I'd prefer this to be caught in the helper.\r\n\r\nSituation 2:\r\nIn the _form_filtering_select and  _form_filtering_multiselect views, \r\n\r\n    = link_to wording_for(:link, :new, config.abstract_model) ...\r\n\r\nthrows an error when the associated_model has not an attribute of the name of the object_label_method of the @object model.\r\n\r\nI've fixed this by adding a nil object, but should be in the helper.\r\n\r\n    = link_to wording_for(:link, :new, config.abstract_model, nil)",
+        "title": "Error caused by wording_for",
+        "comments": 2,
+        "updated_at": "2012-01-21T00:09:27Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/934",
+        "id": 2911854,
+        "assignee": null,
+        "milestone": null,
+        "closed_at": "2012-01-21T00:09:27Z",
+        "labels": [
+
+        ],
+        "html_url": "https://github.com/sferik/rails_admin/issues/934",
+        "user": {
+          "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+          "avatar_url": "https://secure.gravatar.com/avatar/7bfe9ec5c9e4bc4e78fbf40c72ebaf95?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/reinkcar",
+          "id": 12294,
+          "login": "reinkcar"
+        },
+        "state": "closed"
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+      "id": 12294,
+      "url": "https://api.github.com/users/reinkcar",
+      "login": "reinkcar"
+    },
+    "id": "1513226679"
+  },
+  {
+    "type": "IssueCommentEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-21T00:09:29Z",
+    "payload": {
+      "comment": {
+        "created_at": "2012-01-21T00:09:27Z",
+        "body": "Hi,\r\n\r\nfor #2: I've submitted a fix (#937)\r\nfor #1: Error seems to be caused by another gem I've used.\r\n\r\nClosing.\r\n\r\n",
+        "updated_at": "2012-01-21T00:09:27Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/comments/3592970",
+        "id": 3592970,
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/7bfe9ec5c9e4bc4e78fbf40c72ebaf95?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+          "url": "https://api.github.com/users/reinkcar",
+          "id": 12294,
+          "login": "reinkcar"
+        }
+      },
+      "action": "created",
+      "issue": {
+        "number": 934,
+        "pull_request": {
+          "diff_url": null,
+          "patch_url": null,
+          "html_url": null
+        },
+        "created_at": "2012-01-20T14:36:57Z",
+        "body": "I've just upgraded to the recent commit and found the following issues which I believe seem to be caused by the following line in the wording_for helper:\r\n\r\n    :object_label => model_config && object.try(model_config.object_label_method)\r\n\r\nSituation 1:\r\nI haven't defined an own object_label_method for a model and the the model has no attribute called \"name\". I such situations the above line throws an error.\r\n\r\nI've fixed this by defining an object_label_method for each model, but I'd prefer this to be caught in the helper.\r\n\r\nSituation 2:\r\nIn the _form_filtering_select and  _form_filtering_multiselect views, \r\n\r\n    = link_to wording_for(:link, :new, config.abstract_model) ...\r\n\r\nthrows an error when the associated_model has not an attribute of the name of the object_label_method of the @object model.\r\n\r\nI've fixed this by adding a nil object, but should be in the helper.\r\n\r\n    = link_to wording_for(:link, :new, config.abstract_model, nil)",
+        "title": "Error caused by wording_for",
+        "comments": 2,
+        "updated_at": "2012-01-21T00:09:27Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/934",
+        "id": 2911854,
+        "assignee": null,
+        "milestone": null,
+        "closed_at": "2012-01-21T00:09:27Z",
+        "html_url": "https://github.com/sferik/rails_admin/issues/934",
+        "labels": [
+
+        ],
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/7bfe9ec5c9e4bc4e78fbf40c72ebaf95?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+          "url": "https://api.github.com/users/reinkcar",
+          "id": 12294,
+          "login": "reinkcar"
+        },
+        "state": "closed"
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+      "id": 12294,
+      "url": "https://api.github.com/users/reinkcar",
+      "login": "reinkcar"
+    },
+    "id": "1513226684"
+  },
+  {
+    "type": "PullRequestEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T23:45:05Z",
+    "payload": {
+      "number": 937,
+      "pull_request": {
+        "issue_url": "https://github.com/sferik/rails_admin/issues/937",
+        "head": {
+          "repo": {
+            "name": "rails_admin",
+            "master_branch": null,
+            "created_at": "2011-11-08T19:48:51Z",
+            "has_wiki": true,
+            "size": 2712,
+            "clone_url": "https://github.com/reinkcar/rails_admin.git",
+            "watchers": 1,
+            "private": false,
+            "updated_at": "2012-01-20T23:38:03Z",
+            "git_url": "git://github.com/reinkcar/rails_admin.git",
+            "language": "Ruby",
+            "fork": true,
+            "ssh_url": "git@github.com:reinkcar/rails_admin.git",
+            "url": "https://api.github.com/repos/reinkcar/rails_admin",
+            "pushed_at": "2012-01-20T23:38:03Z",
+            "svn_url": "https://github.com/reinkcar/rails_admin",
+            "id": 2736456,
+            "open_issues": 0,
+            "mirror_url": null,
+            "has_downloads": true,
+            "homepage": "",
+            "has_issues": false,
+            "forks": 0,
+            "description": "RailsAdmin is a Rails 3 engine that provides an easy-to-use interface for managing your data",
+            "html_url": "https://github.com/reinkcar/rails_admin",
+            "owner": {
+              "avatar_url": "https://secure.gravatar.com/avatar/7bfe9ec5c9e4bc4e78fbf40c72ebaf95?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+              "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+              "url": "https://api.github.com/users/reinkcar",
+              "id": 12294,
+              "login": "reinkcar"
+            }
+          },
+          "label": "reinkcar:master",
+          "sha": "de3cadb81c34ce9ec4f0ce69a0a8742eb87039d5",
+          "ref": "master",
+          "user": {
+            "avatar_url": "https://secure.gravatar.com/avatar/7bfe9ec5c9e4bc4e78fbf40c72ebaf95?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+            "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+            "url": "https://api.github.com/users/reinkcar",
+            "id": 12294,
+            "login": "reinkcar"
+          }
+        },
+        "number": 937,
+        "merged_by": null,
+        "created_at": "2012-01-20T23:45:04Z",
+        "merged": false,
+        "changed_files": 1,
+        "body": "wording_for now checks, if object is an instance of abstract_model.model",
+        "title": "Fix for Issue #934 / Bug in wording_for",
+        "comments": 0,
+        "additions": 1,
+        "diff_url": "https://github.com/sferik/rails_admin/pull/937.diff",
+        "updated_at": "2012-01-20T23:45:04Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/pulls/937",
+        "_links": {
+          "html": {
+            "href": "https://github.com/sferik/rails_admin/pull/937"
+          },
+          "self": {
+            "href": "https://api.github.com/repos/sferik/rails_admin/pulls/937"
+          },
+          "comments": {
+            "href": "https://api.github.com/repos/sferik/rails_admin/issues/937/comments"
+          },
+          "review_comments": {
+            "href": "https://api.github.com/repos/sferik/rails_admin/pulls/937/comments"
+          }
+        },
+        "id": 718281,
+        "patch_url": "https://github.com/sferik/rails_admin/pull/937.patch",
+        "mergeable": null,
+        "closed_at": null,
+        "commits": 2,
+        "merged_at": null,
+        "review_comments": 0,
+        "deletions": 1,
+        "html_url": "https://github.com/sferik/rails_admin/pull/937",
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/7bfe9ec5c9e4bc4e78fbf40c72ebaf95?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+          "url": "https://api.github.com/users/reinkcar",
+          "id": 12294,
+          "login": "reinkcar"
+        },
+        "base": {
+          "repo": {
+            "name": "rails_admin",
+            "master_branch": null,
+            "created_at": "2010-08-01T17:01:00Z",
+            "has_wiki": true,
+            "size": 420,
+            "clone_url": "https://github.com/sferik/rails_admin.git",
+            "watchers": 2722,
+            "private": false,
+            "updated_at": "2012-01-20T16:20:43Z",
+            "git_url": "git://github.com/sferik/rails_admin.git",
+            "language": "Ruby",
+            "fork": false,
+            "ssh_url": "git@github.com:sferik/rails_admin.git",
+            "url": "https://api.github.com/repos/sferik/rails_admin",
+            "pushed_at": "2012-01-20T16:20:43Z",
+            "svn_url": "https://github.com/sferik/rails_admin",
+            "id": 810796,
+            "open_issues": 59,
+            "mirror_url": null,
+            "has_downloads": true,
+            "homepage": "",
+            "has_issues": true,
+            "forks": 535,
+            "description": "RailsAdmin is a Rails 3 engine that provides an easy-to-use interface for managing your data",
+            "html_url": "https://github.com/sferik/rails_admin",
+            "owner": {
+              "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+              "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+              "url": "https://api.github.com/users/sferik",
+              "id": 10308,
+              "login": "sferik"
+            }
+          },
+          "label": "sferik:master",
+          "sha": "d381ac95b1ea1a33c3b1671ff513e91879c324c4",
+          "ref": "master",
+          "user": {
+            "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+            "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+            "url": "https://api.github.com/users/sferik",
+            "id": 10308,
+            "login": "sferik"
+          }
+        },
+        "state": "open"
+      },
+      "action": "opened"
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+      "id": 12294,
+      "url": "https://api.github.com/users/reinkcar",
+      "login": "reinkcar"
+    },
+    "id": "1513221979"
+  },
+  {
+    "type": "CommitCommentEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T21:46:45Z",
+    "payload": {
+      "comment": {
+        "position": null,
+        "created_at": "2012-01-20T21:46:45Z",
+        "body": "Okay, now that you've explained it, it makes sense, but big decisions like this need to be brought up for discussion before they're made.",
+        "line": null,
+        "commit_id": "135a4693fa231dd0fa0438a20bf4835be75f2772",
+        "updated_at": "2012-01-20T21:46:45Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/comments/887427",
+        "id": 887427,
+        "path": null,
+        "html_url": "https://github.com/sferik/rails_admin/commit/135a4693fa#commitcomment-887427",
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+          "url": "https://api.github.com/users/sferik",
+          "id": 10308,
+          "login": "sferik"
+        }
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "id": "1513194035"
+  },
+  {
+    "type": "IssueCommentEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T21:41:48Z",
+    "payload": {
+      "comment": {
+        "created_at": "2012-01-20T21:41:48Z",
+        "body": "Sucks! We need some integration testing with JS to tackle this kind of regressions..\r\nCan you test on the dummy app to see if it's specific to your app? I'm not on my workstation atm.",
+        "updated_at": "2012-01-20T21:41:48Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/comments/3591063",
+        "id": 3591063,
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/c1607873b99845b2cd53f8634860d4d4?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+          "url": "https://api.github.com/users/bbenezech",
+          "id": 26794,
+          "login": "bbenezech"
+        }
+      },
+      "action": "created",
+      "issue": {
+        "number": 936,
+        "pull_request": {
+          "diff_url": null,
+          "patch_url": null,
+          "html_url": null
+        },
+        "created_at": "2012-01-20T20:57:00Z",
+        "body": "My remote form modals for both belong_to and has_many through association are no longer working for me.  Let's say I'm editing a Post in my system which has_many tags through taggings (polymorphic on the taggable).  When I click \"add tag\" it takes me into editing the current post in modal form.  Not creating a new tag!  When I double click on an existing tag, however, it let's me edit it.\r\n\r\nNow let's say I edit something with a belongs_to relationship.  I can neither add a new nor edit the existing association in the dropdown or it takes me to editing the current selected object in the model.\r\n\r\nWha's weirder is when I close out the model, I get some weird html bugs where it will clone the association boxes on the page and break them.\r\n\r\nThis happens for me in all 3 web browsers.  Chrome, Firefox, and Safari.\r\n\r\nI've tried clearing out everything in my rails_admin initializer so it just uses the model definitions.  Still not working.\r\n\r\nLet me know what you need from me to help debug more.\r\n\r\n",
+        "title": "Remote Form Modals on \"Create\" no longer working",
+        "comments": 1,
+        "updated_at": "2012-01-20T21:41:48Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/936",
+        "id": 2916704,
+        "assignee": null,
+        "milestone": null,
+        "closed_at": null,
+        "labels": [
+
+        ],
+        "html_url": "https://github.com/sferik/rails_admin/issues/936",
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/52fbfdf72bf76e14d1961931849b8bbf?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "52fbfdf72bf76e14d1961931849b8bbf",
+          "url": "https://api.github.com/users/mediavine",
+          "id": 852746,
+          "login": "mediavine"
+        },
+        "state": "open"
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513192790"
+  },
+  {
+    "type": "IssuesEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T20:57:00Z",
+    "payload": {
+      "action": "opened",
+      "issue": {
+        "number": 936,
+        "pull_request": {
+          "diff_url": null,
+          "patch_url": null,
+          "html_url": null
+        },
+        "created_at": "2012-01-20T20:57:00Z",
+        "body": "My remote form modals for both belong_to and has_many through association are no longer working for me.  Let's say I'm editing a Post in my system which has_many tags through taggings (polymorphic on the taggable).  When I click \"add tag\" it takes me into editing the current post in modal form.  Not creating a new tag!  When I double click on an existing tag, however, it let's me edit it.\r\n\r\nNow let's say I edit something with a belongs_to relationship.  I can neither add a new nor edit the existing association in the dropdown or it takes me to editing the current selected object in the model.\r\n\r\nWha's weirder is when I close out the model, I get some weird html bugs where it will clone the association boxes on the page and break them.\r\n\r\nThis happens for me in all 3 web browsers.  Chrome, Firefox, and Safari.\r\n\r\nI've tried clearing out everything in my rails_admin initializer so it just uses the model definitions.  Still not working.\r\n\r\nLet me know what you need from me to help debug more.\r\n\r\n",
+        "title": "Remote Form Modals on \"Create\" no longer working",
+        "comments": 0,
+        "updated_at": "2012-01-20T20:57:00Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/936",
+        "id": 2916704,
+        "assignee": null,
+        "milestone": null,
+        "closed_at": null,
+        "labels": [
+
+        ],
+        "html_url": "https://github.com/sferik/rails_admin/issues/936",
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/52fbfdf72bf76e14d1961931849b8bbf?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "52fbfdf72bf76e14d1961931849b8bbf",
+          "url": "https://api.github.com/users/mediavine",
+          "id": 852746,
+          "login": "mediavine"
+        },
+        "state": "open"
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "52fbfdf72bf76e14d1961931849b8bbf",
+      "id": 852746,
+      "url": "https://api.github.com/users/mediavine",
+      "login": "mediavine"
+    },
+    "id": "1513176989"
+  },
+  {
+    "type": "CommitCommentEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T20:34:46Z",
+    "payload": {
+      "comment": {
+        "position": null,
+        "created_at": "2012-01-20T20:34:46Z",
+        "body": "Devise translations don't belong here, it's plain old duplication. Lot of them are totally outdated.\r\n\r\nAbout the rest, wasn't much I could do.\r\nBecause of the refact., 80% keys changed. Couldn't just leave that mess, or just reset all translations with english. It was the right time to move it to the wiki.\r\n\r\nLoud thinking:\r\n\r\n* I18n adds a lot of overhead (adding keys in 20 files, noise when searching/refactoring, pull requests)\r\n* RailsAdmin is maturing, we can't leave unmaintained code inside, it gives a wrong message about the quality of the software. And we can't maintain 20 languages we don't know or just rely on PR that we can't review\r\n* It's too awkward to officially support some translation in the codebase and not another. Now, officially supported is neutral English, copy and translate it to your needs, go wiki for example in your language, share&maintain your own if you like\r\n* Since actions are dynamic, any custom code or plugin will add it's own keys, there is no such thing as 'the right translation'\r\n* I18n is not only translation, it is also configuration, do your own cooking\r\n",
+        "line": null,
+        "commit_id": "135a4693fa231dd0fa0438a20bf4835be75f2772",
+        "updated_at": "2012-01-20T20:34:46Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/comments/887240",
+        "id": 887240,
+        "path": null,
+        "html_url": "https://github.com/sferik/rails_admin/commit/135a4693fa#commitcomment-887240",
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/c1607873b99845b2cd53f8634860d4d4?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+          "url": "https://api.github.com/users/bbenezech",
+          "id": 26794,
+          "login": "bbenezech"
+        }
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513171403"
+  },
+  {
+    "type": "CommitCommentEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:47:14Z",
+    "payload": {
+      "comment": {
+        "position": null,
+        "created_at": "2012-01-20T16:47:14Z",
+        "body": "I'm just seeing this commit now. Was this really the best solution to the problem. Why are translations in the wiki better than translations in the codebase? If you think it's too much of a maintenance burden, then we should just add more maintainers who are responsible just for maintaining translations.\r\n\r\nIf general, I'd prefer you if you brought issues like this up for discussion before committing them to master. This commit breaks the app for a large number of our international users. :(",
+        "line": null,
+        "commit_id": "135a4693fa231dd0fa0438a20bf4835be75f2772",
+        "updated_at": "2012-01-20T16:47:14Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/comments/886554",
+        "id": 886554,
+        "path": null,
+        "html_url": "https://github.com/sferik/rails_admin/commit/135a4693fa#commitcomment-886554",
+        "user": {
+          "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+          "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/sferik",
+          "id": 10308,
+          "login": "sferik"
+        }
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "id": "1513112467"
+  },
+  {
+    "type": "PushEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:20:46Z",
+    "payload": {
+      "head": "d381ac95b1ea1a33c3b1671ff513e91879c324c4",
+      "size": 1,
+      "push_id": 58423090,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "d381ac95b1ea1a33c3b1671ff513e91879c324c4",
+          "author": {
+            "name": "Benoit Bénézech",
+            "email": "benoit.benezech@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/rails_admin/commits/d381ac95b1ea1a33c3b1671ff513e91879c324c4",
+          "message": "Update README.md"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513105167"
+  },
+  {
+    "type": "PushEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:19:05Z",
+    "payload": {
+      "head": "7d175815851bcc1f2e700f27d6a9d81bb4d9163d",
+      "size": 1,
+      "push_id": 58422798,
+      "commits": [
+        {
+          "sha": "7d175815851bcc1f2e700f27d6a9d81bb4d9163d",
+          "author": {
+            "name": "Benoit Bénézech",
+            "email": "benoit.benezech@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/rails_admin/commits/7d175815851bcc1f2e700f27d6a9d81bb4d9163d",
+          "message": "test is not necessary anymore (visible not checked if bindings are absents)"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513104683"
+  },
+  {
+    "type": "GollumEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:17:46Z",
+    "payload": {
+      "pages": [
+        {
+          "sha": "3cb2f0b02d0b00c12fd24af7add2608d5b0d6c0f",
+          "title": "Actions",
+          "action": "edited",
+          "page_name": "Actions",
+          "summary": null,
+          "html_url": "https://github.com/sferik/rails_admin/wiki/Actions"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513104297"
+  },
+  {
+    "type": "GollumEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:16:50Z",
+    "payload": {
+      "pages": [
+        {
+          "sha": "9267814055198113f937127bb71874f3f93713bb",
+          "title": "Actions",
+          "action": "edited",
+          "page_name": "Actions",
+          "summary": null,
+          "html_url": "https://github.com/sferik/rails_admin/wiki/Actions"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513104045"
+  },
+  {
+    "type": "GollumEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:15:40Z",
+    "payload": {
+      "pages": [
+        {
+          "sha": "3c4a708fd2c3ec8b646d5b1915f59d8b3819ff73",
+          "title": "Actions",
+          "action": "edited",
+          "page_name": "Actions",
+          "summary": null,
+          "html_url": "https://github.com/sferik/rails_admin/wiki/Actions"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513103710"
+  },
+  {
+    "type": "GollumEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:15:12Z",
+    "payload": {
+      "pages": [
+        {
+          "sha": "fc7985ea8bc2033ddadfbc51b97d8d84830f5170",
+          "title": "Actions",
+          "action": "edited",
+          "page_name": "Actions",
+          "summary": null,
+          "html_url": "https://github.com/sferik/rails_admin/wiki/Actions"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513103575"
+  },
+  {
+    "type": "GollumEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:14:20Z",
+    "payload": {
+      "pages": [
+        {
+          "sha": "4f8779696a3a794f4a0ebdd615f51f8437453882",
+          "title": "Actions",
+          "action": "edited",
+          "page_name": "Actions",
+          "summary": null,
+          "html_url": "https://github.com/sferik/rails_admin/wiki/Actions"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513103328"
+  },
+  {
+    "type": "GollumEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:13:39Z",
+    "payload": {
+      "pages": [
+        {
+          "sha": "fe36f71b19845fe10f389dc784bb8ea1328bc2c4",
+          "title": "Actions",
+          "action": "edited",
+          "page_name": "Actions",
+          "summary": null,
+          "html_url": "https://github.com/sferik/rails_admin/wiki/Actions"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513103119"
+  },
+  {
+    "type": "GollumEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:12:27Z",
+    "payload": {
+      "pages": [
+        {
+          "sha": "91361f5733f617b59ea290d8780bdd0fec404a4d",
+          "title": "Actions",
+          "action": "edited",
+          "page_name": "Actions",
+          "summary": null,
+          "html_url": "https://github.com/sferik/rails_admin/wiki/Actions"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513102773"
+  },
+  {
+    "type": "GollumEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:12:17Z",
+    "payload": {
+      "pages": [
+        {
+          "sha": "4be985fd23cbd0e34335f0a41962cbd4f68bcbd3",
+          "title": "Actions",
+          "action": "edited",
+          "page_name": "Actions",
+          "summary": null,
+          "html_url": "https://github.com/sferik/rails_admin/wiki/Actions"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513102731"
+  },
+  {
+    "type": "GollumEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:11:54Z",
+    "payload": {
+      "pages": [
+        {
+          "sha": "ae7bf058a4cb983f4fa9d5ebdfb6ebdf4221cfe6",
+          "title": "Actions",
+          "action": "edited",
+          "page_name": "Actions",
+          "summary": null,
+          "html_url": "https://github.com/sferik/rails_admin/wiki/Actions"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513102628"
+  },
+  {
+    "type": "GollumEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T16:11:36Z",
+    "payload": {
+      "pages": [
+        {
+          "sha": "f19b36b09a0da4887cc625572e06c5bc595e2536",
+          "title": "Actions",
+          "action": "edited",
+          "page_name": "Actions",
+          "summary": null,
+          "html_url": "https://github.com/sferik/rails_admin/wiki/Actions"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513102556"
+  },
+  {
+    "type": "PullRequestEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T15:44:29Z",
+    "payload": {
+      "number": 935,
+      "pull_request": {
+        "head": {
+          "label": "msamoylov:master",
+          "repo": {
+            "name": "rails_admin",
+            "master_branch": null,
+            "size": 172,
+            "has_wiki": true,
+            "created_at": "2012-01-20T14:18:02Z",
+            "clone_url": "https://github.com/msamoylov/rails_admin.git",
+            "updated_at": "2012-01-20T14:39:07Z",
+            "private": false,
+            "watchers": 1,
+            "url": "https://api.github.com/repos/msamoylov/rails_admin",
+            "git_url": "git://github.com/msamoylov/rails_admin.git",
+            "language": "Ruby",
+            "fork": true,
+            "ssh_url": "git@github.com:msamoylov/rails_admin.git",
+            "id": 3226804,
+            "svn_url": "https://github.com/msamoylov/rails_admin",
+            "pushed_at": "2012-01-20T14:39:06Z",
+            "has_downloads": true,
+            "mirror_url": null,
+            "open_issues": 0,
+            "has_issues": false,
+            "homepage": "",
+            "forks": 0,
+            "description": "RailsAdmin is a Rails 3 engine that provides an easy-to-use interface for managing your data",
+            "html_url": "https://github.com/msamoylov/rails_admin",
+            "owner": {
+              "gravatar_id": "1f9ff0601c00db567d4e5ae2540c47df",
+              "avatar_url": "https://secure.gravatar.com/avatar/1f9ff0601c00db567d4e5ae2540c47df?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+              "url": "https://api.github.com/users/msamoylov",
+              "id": 106813,
+              "login": "msamoylov"
+            }
+          },
+          "sha": "955e420f390175c2467621857d242a53baf7e10e",
+          "ref": "master",
+          "user": {
+            "gravatar_id": "1f9ff0601c00db567d4e5ae2540c47df",
+            "avatar_url": "https://secure.gravatar.com/avatar/1f9ff0601c00db567d4e5ae2540c47df?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+            "url": "https://api.github.com/users/msamoylov",
+            "id": 106813,
+            "login": "msamoylov"
+          }
+        },
+        "number": 935,
+        "issue_url": "https://github.com/sferik/rails_admin/issues/935",
+        "changed_files": 1,
+        "merged": false,
+        "created_at": "2012-01-20T14:42:02Z",
+        "merged_by": null,
+        "body": "Hi.\r\n\r\nI created initial russian translation for your great app.",
+        "title": "Initial russian translation",
+        "comments": 1,
+        "updated_at": "2012-01-20T15:44:28Z",
+        "additions": 129,
+        "diff_url": "https://github.com/sferik/rails_admin/pull/935.diff",
+        "url": "https://api.github.com/repos/sferik/rails_admin/pulls/935",
+        "_links": {
+          "html": {
+            "href": "https://github.com/sferik/rails_admin/pull/935"
+          },
+          "self": {
+            "href": "https://api.github.com/repos/sferik/rails_admin/pulls/935"
+          },
+          "comments": {
+            "href": "https://api.github.com/repos/sferik/rails_admin/issues/935/comments"
+          },
+          "review_comments": {
+            "href": "https://api.github.com/repos/sferik/rails_admin/pulls/935/comments"
+          }
+        },
+        "id": 715511,
+        "patch_url": "https://github.com/sferik/rails_admin/pull/935.patch",
+        "mergeable": true,
+        "commits": 1,
+        "merged_at": null,
+        "closed_at": "2012-01-20T15:44:28Z",
+        "html_url": "https://github.com/sferik/rails_admin/pull/935",
+        "user": {
+          "gravatar_id": "1f9ff0601c00db567d4e5ae2540c47df",
+          "avatar_url": "https://secure.gravatar.com/avatar/1f9ff0601c00db567d4e5ae2540c47df?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/msamoylov",
+          "id": 106813,
+          "login": "msamoylov"
+        },
+        "deletions": 0,
+        "review_comments": 0,
+        "base": {
+          "label": "sferik:master",
+          "repo": {
+            "name": "rails_admin",
+            "master_branch": null,
+            "size": 420,
+            "has_wiki": true,
+            "created_at": "2010-08-01T17:01:00Z",
+            "clone_url": "https://github.com/sferik/rails_admin.git",
+            "updated_at": "2012-01-20T15:33:49Z",
+            "private": false,
+            "watchers": 2722,
+            "url": "https://api.github.com/repos/sferik/rails_admin",
+            "git_url": "git://github.com/sferik/rails_admin.git",
+            "language": "Ruby",
+            "fork": false,
+            "ssh_url": "git@github.com:sferik/rails_admin.git",
+            "id": 810796,
+            "svn_url": "https://github.com/sferik/rails_admin",
+            "pushed_at": "2012-01-20T15:33:48Z",
+            "has_downloads": true,
+            "mirror_url": null,
+            "open_issues": 57,
+            "has_issues": true,
+            "homepage": "",
+            "forks": 535,
+            "description": "RailsAdmin is a Rails 3 engine that provides an easy-to-use interface for managing your data",
+            "html_url": "https://github.com/sferik/rails_admin",
+            "owner": {
+              "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+              "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+              "url": "https://api.github.com/users/sferik",
+              "id": 10308,
+              "login": "sferik"
+            }
+          },
+          "sha": "34ac333dbdc8b1af2da24323caf04229cfa2ee67",
+          "ref": "master",
+          "user": {
+            "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+            "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+            "url": "https://api.github.com/users/sferik",
+            "id": 10308,
+            "login": "sferik"
+          }
+        },
+        "state": "closed"
+      },
+      "action": "closed"
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513095161"
+  },
+  {
+    "type": "IssueCommentEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T15:44:29Z",
+    "payload": {
+      "comment": {
+        "created_at": "2012-01-20T15:44:28Z",
+        "body": "Hi Michael,\r\n\r\nThank you very much for your time!\r\n\r\nCan you add it to the wiki instead? Translations are not included in codebase anymore, because of maintenance limitations.\r\n\r\nhttps://github.com/sferik/rails_admin/wiki/Translations\r\n\r\nThanks again!",
+        "updated_at": "2012-01-20T15:44:28Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/comments/3585405",
+        "id": 3585405,
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/c1607873b99845b2cd53f8634860d4d4?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+          "url": "https://api.github.com/users/bbenezech",
+          "id": 26794,
+          "login": "bbenezech"
+        }
+      },
+      "action": "created",
+      "issue": {
+        "number": 935,
+        "pull_request": {
+          "diff_url": "https://github.com/sferik/rails_admin/pull/935.diff",
+          "patch_url": "https://github.com/sferik/rails_admin/pull/935.patch",
+          "html_url": "https://github.com/sferik/rails_admin/pull/935"
+        },
+        "created_at": "2012-01-20T14:42:02Z",
+        "body": "Hi.\r\n\r\nI created initial russian translation for your great app.",
+        "title": "Initial russian translation",
+        "comments": 1,
+        "updated_at": "2012-01-20T15:44:28Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/935",
+        "id": 2911903,
+        "assignee": null,
+        "milestone": null,
+        "closed_at": "2012-01-20T15:44:28Z",
+        "html_url": "https://github.com/sferik/rails_admin/issues/935",
+        "labels": [
+
+        ],
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/1f9ff0601c00db567d4e5ae2540c47df?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "1f9ff0601c00db567d4e5ae2540c47df",
+          "url": "https://api.github.com/users/msamoylov",
+          "id": 106813,
+          "login": "msamoylov"
+        },
+        "state": "closed"
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513095159"
+  },
+  {
+    "type": "IssueCommentEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T15:41:35Z",
+    "payload": {
+      "comment": {
+        "created_at": "2012-01-20T15:41:35Z",
+        "body": "Hi Carsten,\r\n\r\nAbout 1, `model_config.object_label_method` should return at least `:rails_admin_default_object_label_method` (which is mixed in `ActiveRecord::Base` at application start-up) if your model does not respond to any of the `Config.label_methods`.\r\nPlease provide a failing spec, I don't get the issue.\r\n\r\nAbout 2, wording_for should not try to use `object_label_method` of a different model anymore, it should be fixed in HEAD.\r\nCan you try and report back?",
+        "updated_at": "2012-01-20T15:41:35Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/comments/3585352",
+        "id": 3585352,
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/c1607873b99845b2cd53f8634860d4d4?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+          "url": "https://api.github.com/users/bbenezech",
+          "id": 26794,
+          "login": "bbenezech"
+        }
+      },
+      "action": "created",
+      "issue": {
+        "number": 934,
+        "pull_request": {
+          "diff_url": null,
+          "patch_url": null,
+          "html_url": null
+        },
+        "created_at": "2012-01-20T14:36:57Z",
+        "body": "I've just upgraded to the recent commit and found the following issues which I believe seem to be caused by the following line in the wording_for helper:\r\n\r\n    :object_label => model_config && object.try(model_config.object_label_method)\r\n\r\nSituation 1:\r\nI haven't defined an own object_label_method for a model and the the model has no attribute called \"name\". I such situations the above line throws an error.\r\n\r\nI've fixed this by defining an object_label_method for each model, but I'd prefer this to be caught in the helper.\r\n\r\nSituation 2:\r\nIn the _form_filtering_select and  _form_filtering_multiselect views, \r\n\r\n    = link_to wording_for(:link, :new, config.abstract_model) ...\r\n\r\nthrows an error when the associated_model has not an attribute of the name of the object_label_method of the @object model.\r\n\r\nI've fixed this by adding a nil object, but should be in the helper.\r\n\r\n    = link_to wording_for(:link, :new, config.abstract_model, nil)",
+        "title": "Error caused by wording_for",
+        "comments": 1,
+        "updated_at": "2012-01-20T15:41:35Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/934",
+        "id": 2911854,
+        "assignee": null,
+        "milestone": null,
+        "closed_at": null,
+        "labels": [
+
+        ],
+        "html_url": "https://github.com/sferik/rails_admin/issues/934",
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/7bfe9ec5c9e4bc4e78fbf40c72ebaf95?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+          "url": "https://api.github.com/users/reinkcar",
+          "id": 12294,
+          "login": "reinkcar"
+        },
+        "state": "open"
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513094437"
+  },
+  {
+    "type": "PushEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T15:33:51Z",
+    "payload": {
+      "head": "5469bcc7dcc0d4f71cadea3abd7cee20a2b1220a",
+      "size": 1,
+      "push_id": 58414877,
+      "commits": [
+        {
+          "sha": "5469bcc7dcc0d4f71cadea3abd7cee20a2b1220a",
+          "author": {
+            "name": "Benoit Bénézech",
+            "email": "benoit.benezech@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/rails_admin/commits/5469bcc7dcc0d4f71cadea3abd7cee20a2b1220a",
+          "message": "added specs for actions"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "c1607873b99845b2cd53f8634860d4d4",
+      "id": 26794,
+      "url": "https://api.github.com/users/bbenezech",
+      "login": "bbenezech"
+    },
+    "id": "1513092255"
+  },
+  {
+    "type": "PullRequestEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T14:42:03Z",
+    "payload": {
+      "number": 935,
+      "pull_request": {
+        "head": {
+          "label": "msamoylov:master",
+          "repo": {
+            "master_branch": null,
+            "name": "rails_admin",
+            "size": 172,
+            "has_wiki": true,
+            "created_at": "2012-01-20T14:18:02Z",
+            "clone_url": "https://github.com/msamoylov/rails_admin.git",
+            "updated_at": "2012-01-20T14:39:07Z",
+            "private": false,
+            "watchers": 1,
+            "url": "https://api.github.com/repos/msamoylov/rails_admin",
+            "ssh_url": "git@github.com:msamoylov/rails_admin.git",
+            "fork": true,
+            "language": "Ruby",
+            "git_url": "git://github.com/msamoylov/rails_admin.git",
+            "id": 3226804,
+            "svn_url": "https://github.com/msamoylov/rails_admin",
+            "pushed_at": "2012-01-20T14:39:06Z",
+            "has_downloads": true,
+            "mirror_url": null,
+            "open_issues": 0,
+            "has_issues": false,
+            "homepage": "",
+            "description": "RailsAdmin is a Rails 3 engine that provides an easy-to-use interface for managing your data",
+            "forks": 0,
+            "html_url": "https://github.com/msamoylov/rails_admin",
+            "owner": {
+              "gravatar_id": "1f9ff0601c00db567d4e5ae2540c47df",
+              "avatar_url": "https://secure.gravatar.com/avatar/1f9ff0601c00db567d4e5ae2540c47df?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+              "url": "https://api.github.com/users/msamoylov",
+              "id": 106813,
+              "login": "msamoylov"
+            }
+          },
+          "sha": "955e420f390175c2467621857d242a53baf7e10e",
+          "ref": "master",
+          "user": {
+            "gravatar_id": "1f9ff0601c00db567d4e5ae2540c47df",
+            "avatar_url": "https://secure.gravatar.com/avatar/1f9ff0601c00db567d4e5ae2540c47df?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+            "url": "https://api.github.com/users/msamoylov",
+            "id": 106813,
+            "login": "msamoylov"
+          }
+        },
+        "issue_url": "https://github.com/sferik/rails_admin/issues/935",
+        "number": 935,
+        "merged_by": null,
+        "merged": false,
+        "changed_files": 1,
+        "created_at": "2012-01-20T14:42:02Z",
+        "body": "Hi.\r\n\r\nI created initial russian translation for your great app.",
+        "title": "Initial russian translation",
+        "comments": 0,
+        "updated_at": "2012-01-20T14:42:02Z",
+        "additions": 129,
+        "diff_url": "https://github.com/sferik/rails_admin/pull/935.diff",
+        "_links": {
+          "html": {
+            "href": "https://github.com/sferik/rails_admin/pull/935"
+          },
+          "self": {
+            "href": "https://api.github.com/repos/sferik/rails_admin/pulls/935"
+          },
+          "comments": {
+            "href": "https://api.github.com/repos/sferik/rails_admin/issues/935/comments"
+          },
+          "review_comments": {
+            "href": "https://api.github.com/repos/sferik/rails_admin/pulls/935/comments"
+          }
+        },
+        "url": "https://api.github.com/repos/sferik/rails_admin/pulls/935",
+        "id": 715511,
+        "patch_url": "https://github.com/sferik/rails_admin/pull/935.patch",
+        "mergeable": null,
+        "closed_at": null,
+        "commits": 1,
+        "merged_at": null,
+        "review_comments": 0,
+        "html_url": "https://github.com/sferik/rails_admin/pull/935",
+        "user": {
+          "gravatar_id": "1f9ff0601c00db567d4e5ae2540c47df",
+          "avatar_url": "https://secure.gravatar.com/avatar/1f9ff0601c00db567d4e5ae2540c47df?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/msamoylov",
+          "id": 106813,
+          "login": "msamoylov"
+        },
+        "deletions": 0,
+        "base": {
+          "label": "sferik:master",
+          "repo": {
+            "master_branch": null,
+            "name": "rails_admin",
+            "size": 432,
+            "has_wiki": true,
+            "created_at": "2010-08-01T17:01:00Z",
+            "clone_url": "https://github.com/sferik/rails_admin.git",
+            "updated_at": "2012-01-20T14:30:30Z",
+            "private": false,
+            "watchers": 2724,
+            "url": "https://api.github.com/repos/sferik/rails_admin",
+            "ssh_url": "git@github.com:sferik/rails_admin.git",
+            "fork": false,
+            "language": "Ruby",
+            "git_url": "git://github.com/sferik/rails_admin.git",
+            "id": 810796,
+            "svn_url": "https://github.com/sferik/rails_admin",
+            "pushed_at": "2012-01-19T15:39:58Z",
+            "has_downloads": true,
+            "mirror_url": null,
+            "open_issues": 58,
+            "has_issues": true,
+            "homepage": "",
+            "description": "RailsAdmin is a Rails 3 engine that provides an easy-to-use interface for managing your data",
+            "forks": 535,
+            "html_url": "https://github.com/sferik/rails_admin",
+            "owner": {
+              "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+              "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+              "url": "https://api.github.com/users/sferik",
+              "id": 10308,
+              "login": "sferik"
+            }
+          },
+          "sha": "34ac333dbdc8b1af2da24323caf04229cfa2ee67",
+          "ref": "master",
+          "user": {
+            "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+            "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+            "url": "https://api.github.com/users/sferik",
+            "id": 10308,
+            "login": "sferik"
+          }
+        },
+        "state": "open"
+      },
+      "action": "opened"
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "1f9ff0601c00db567d4e5ae2540c47df",
+      "id": 106813,
+      "url": "https://api.github.com/users/msamoylov",
+      "login": "msamoylov"
+    },
+    "id": "1513079075"
+  },
+  {
+    "type": "IssuesEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T14:37:00Z",
+    "payload": {
+      "action": "opened",
+      "issue": {
+        "number": 934,
+        "pull_request": {
+          "diff_url": null,
+          "patch_url": null,
+          "html_url": null
+        },
+        "created_at": "2012-01-20T14:36:57Z",
+        "body": "I've just upgraded to the recent commit and found the following issues which I believe seem to be caused by the following line in the wording_for helper:\r\n\r\n    :object_label => model_config && object.try(model_config.object_label_method)\r\n\r\nSituation 1:\r\nI haven't defined an own object_label_method for a model and the the model has no attribute called \"name\". I such situations the above line throws an error.\r\n\r\nI've fixed this by defining an object_label_method for each model, but I'd prefer this to be caught in the helper.\r\n\r\nSituation 2:\r\nIn the _form_filtering_select and  _form_filtering_multiselect views, \r\n\r\n    = link_to wording_for(:link, :new, config.abstract_model) ...\r\n\r\nthrows an error when the associated_model has not an attribute of the name of the object_label_method of the @object model.\r\n\r\nI've fixed this by adding a nil object, but should be in the helper.\r\n\r\n    = link_to wording_for(:link, :new, config.abstract_model, nil)",
+        "title": "Error caused by wording_for",
+        "comments": 0,
+        "updated_at": "2012-01-20T14:36:57Z",
+        "url": "https://api.github.com/repos/sferik/rails_admin/issues/934",
+        "id": 2911854,
+        "assignee": null,
+        "milestone": null,
+        "closed_at": null,
+        "labels": [
+
+        ],
+        "html_url": "https://github.com/sferik/rails_admin/issues/934",
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/7bfe9ec5c9e4bc4e78fbf40c72ebaf95?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+          "url": "https://api.github.com/users/reinkcar",
+          "id": 12294,
+          "login": "reinkcar"
+        },
+        "state": "open"
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "7bfe9ec5c9e4bc4e78fbf40c72ebaf95",
+      "id": 12294,
+      "url": "https://api.github.com/users/reinkcar",
+      "login": "reinkcar"
+    },
+    "id": "1513077908"
+  },
+  {
+    "type": "GollumEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T14:34:00Z",
+    "payload": {
+      "pages": [
+        {
+          "sha": "c047cdaaa86de93d2f43d17c6ab2de274eacca9b",
+          "title": "Translations",
+          "action": "edited",
+          "page_name": "Translations",
+          "summary": null,
+          "html_url": "https://github.com/sferik/rails_admin/wiki/Translations"
+        }
+      ]
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "3d889804514d950384b9ab4cd4a73a23",
+      "id": 26083,
+      "url": "https://api.github.com/users/Knack",
+      "login": "Knack"
+    },
+    "id": "1513077210"
+  },
+  {
+    "type": "ForkEvent",
+    "public": true,
+    "repo": {
+      "id": 810796,
+      "name": "sferik/rails_admin",
+      "url": "https://api.github.com/repos/sferik/rails_admin"
+    },
+    "created_at": "2012-01-20T14:30:31Z",
+    "payload": {
+      "forkee": {
+        "name": "rails_admin",
+        "master_branch": null,
+        "size": 432,
+        "has_wiki": true,
+        "created_at": "2012-01-20T14:30:30Z",
+        "clone_url": "https://github.com/bowmande/rails_admin.git",
+        "public": true,
+        "updated_at": "2012-01-20T14:30:30Z",
+        "private": false,
+        "watchers": 1,
+        "url": "https://api.github.com/repos/bowmande/rails_admin",
+        "language": "Ruby",
+        "fork": true,
+        "git_url": "git://github.com/bowmande/rails_admin.git",
+        "ssh_url": "git@github.com:bowmande/rails_admin.git",
+        "id": 3226882,
+        "svn_url": "https://github.com/bowmande/rails_admin",
+        "pushed_at": "2012-01-19T15:39:58Z",
+        "has_downloads": true,
+        "mirror_url": null,
+        "open_issues": 0,
+        "has_issues": false,
+        "homepage": "",
+        "forks": 0,
+        "description": "RailsAdmin is a Rails 3 engine that provides an easy-to-use interface for managing your data",
+        "html_url": "https://github.com/bowmande/rails_admin",
+        "owner": {
+          "gravatar_id": "cd34bec6e1d5c13962d370a28ea73208",
+          "avatar_url": "https://secure.gravatar.com/avatar/cd34bec6e1d5c13962d370a28ea73208?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/bowmande",
+          "id": 404647,
+          "login": "bowmande"
+        }
+      }
+    },
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+      "gravatar_id": "cd34bec6e1d5c13962d370a28ea73208",
+      "id": 404647,
+      "url": "https://api.github.com/users/bowmande",
+      "login": "bowmande"
+    },
+    "id": "1513076383"
+  }
+]

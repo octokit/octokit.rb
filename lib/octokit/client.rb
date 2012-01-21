@@ -16,6 +16,7 @@ require 'octokit/client/pulls'
 require 'octokit/client/repositories'
 require 'octokit/client/timelines'
 require 'octokit/client/users'
+require 'octokit/client/events'
 
 module Octokit
   class Client
@@ -45,5 +46,6 @@ module Octokit
     include Octokit::Client::Repositories
     include Octokit::Client::Timelines
     include Octokit::Client::Users
+    include Octokit::Client::Events
   end
 end
