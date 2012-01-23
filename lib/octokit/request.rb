@@ -38,7 +38,23 @@ module Octokit
           end
         end
       end
-      raw ? response : response.body
+
+      if raw
+        response
+      elsif auto_traversal && ( next_url = links(response)["next"] )
+        response.body + request(method, next_url, options, version, authenticate, raw, force_urlencoded)
+      else
+        response.body
+      end
+    end
+
+    def links(response)
+      links = ( response.headers["Link"] || "" ).split(', ').map do |link|
+        url, type = link.match(/<(.*?)>; rel="(\w+)"/).captures
+        [ type, url ]
+      end
+
+      Hash[ *links.flatten ]
     end
   end
 end
