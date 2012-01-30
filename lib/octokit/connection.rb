@@ -30,8 +30,8 @@ module Octokit
         end
         builder.use Faraday::Response::RaiseOctokitError
         unless raw
-          builder.use Faraday::Response::Mashify
-          builder.use Faraday::Response::ParseJson
+          builder.use FaradayMiddleware::Mashify
+          builder.use FaradayMiddleware::ParseJson
         end
         builder.adapter(adapter)
       end
