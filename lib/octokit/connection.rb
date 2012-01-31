@@ -9,9 +9,21 @@ module Octokit
     def connection(authenticate=true, raw=false, version=2, force_urlencoded=false)
       case version
       when 2
-        url = "https://github.com"
+        if github_url
+          url = github_url
+        else
+          url = "https://github.com"
+        end
       when 3
-        url = "https://api.github.com"
+        if github_url
+          if github_url[/(https|http):\/\/(.*)/]
+            url = "#{$1}://api.#{$2}"
+          else
+            url = "https://api.github.com"
+          end
+        else
+          url = "https://api.github.com"
+        end
       end
 
       options = {
