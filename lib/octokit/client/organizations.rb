@@ -26,7 +26,7 @@ module Octokit
         if org
           get("orgs/#{org}/repos", options, 3)
         else
-          get("/api/v2/json/organizations/repositories", options)
+          get("/api/v2/json/organizations/repositories", options)["repositories"]
         end
       end
       alias :org_repositories :organization_repositories
