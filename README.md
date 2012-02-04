@@ -1,5 +1,5 @@
 # Octokit [![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/pengwynn/octokit.png?travis)][gemnasium]
-Simple Ruby wrapper for the GitHub v2 API.
+Simple Ruby wrapper for the GitHub v2 & v3 API.
 
 [travis]: http://travis-ci.org/pengwynn/octokit
 [gemnasium]: https://gemnasium.com/pengwynn/octokit

@@ -73,7 +73,7 @@ describe Octokit::Client::Repositories do
     it "should watch a repository" do
       stub_put("/user/watched/sferik/rails_admin").
         to_return(:status => 204)
-      @client.watch("sferik/rails_admin").should == ''
+      @client.watch("sferik/rails_admin").should be_nil
     end
 
   end
@@ -83,7 +83,7 @@ describe Octokit::Client::Repositories do
     it "should unwatch a repository" do
       stub_delete("/user/watched/sferik/rails_admin").
         to_return(:status => 204)
-      @client.unwatch("sferik/rails_admin").should == ''
+      @client.unwatch("sferik/rails_admin").should be_nil
     end
 
   end
@@ -208,7 +208,7 @@ describe Octokit::Client::Repositories do
       stub_delete("/repos/sferik/rails_admin/keys/#{103205}").
         to_return(:status => 204)
       result = @client.remove_deploy_key("sferik/rails_admin", 103205)
-      result.should == ''
+      result.should be_nil
     end
 
   end
@@ -230,7 +230,7 @@ describe Octokit::Client::Repositories do
       stub_put("/repos/sferik/rails_admin/collaborators/sferik").
         to_return(:status => 204)
       result = @client.add_collaborator("sferik/rails_admin", "sferik")
-      result.should == ''
+      result.should be_nil
     end
 
   end
@@ -241,7 +241,7 @@ describe Octokit::Client::Repositories do
       stub_delete("/repos/sferik/rails_admin/collaborators/sferik").
         to_return(:status => 204)
       result = @client.remove_collaborator("sferik/rails_admin", "sferik")
-      result.should == ''
+      result.should be_nil
     end
 
   end
