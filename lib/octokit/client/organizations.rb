@@ -68,7 +68,7 @@ module Octokit
       end
 
       def remove_team_member(team_id, user, options={})
-        delete("/api/v2/json/teams/#{team_id}/members", options.merge({:name => user}))['user']
+        delete("teams/#{team_id}/members/#{user}", options, 3, true, raw=true).status == 204
       end
 
       def team_repositories(team_id, options={})

@@ -177,11 +177,10 @@ describe Octokit::Client::Organizations do
   describe ".remove_team_member" do
 
     it "should remove a team member" do
-      stub_delete("https://github.com/api/v2/json/teams/32598/members").
-        with(:query => {:name => "sferik"}).
-        to_return(:body => fixture("v2/user.json"))
-      user = @client.remove_team_member(32598, "sferik")
-      user.name.should == "Erik Michaels-Ober"
+      stub_delete("https://api.github.com/teams/32598/members/sferik").
+        to_return(:status => 204)
+      result = @client.remove_team_member(32598, "sferik")
+      result.should be_true
     end
 
   end
