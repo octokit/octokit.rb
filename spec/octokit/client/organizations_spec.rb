@@ -200,11 +200,11 @@ describe Octokit::Client::Organizations do
   describe ".add_team_repository" do
 
     it "should add a team repository" do
-      stub_post("https://github.com/api/v2/json/teams/32598/repositories").
+      stub_put("https://api.github.com/teams/32598/repos/reddavis/One40Proof").
         with(:name => "reddavis/One40Proof").
-        to_return(:body => fixture("v2/repositories.json"))
-      repositories = @client.add_team_repository(32598, "reddavis/One40Proof")
-      repositories.first.name.should == "One40Proof"
+        to_return(:status => 204)
+      result = @client.add_team_repository(32598, "reddavis/One40Proof")
+      result.should be_true
     end
 
   end
@@ -212,11 +212,10 @@ describe Octokit::Client::Organizations do
   describe ".remove_team_repository" do
 
     it "should remove a team repository" do
-      stub_delete("https://github.com/api/v2/json/teams/32598/repositories").
-        with(:query => {:name => "reddavis/One40Proof"}).
-        to_return(:body => fixture("v2/repositories.json"))
-      repositories = @client.remove_team_repository(32598, "reddavis/One40Proof")
-      repositories.first.name.should == "One40Proof"
+      stub_delete("https://api.github.com/teams/32598/repos/reddavis/One40Proof").
+        to_return(:status => 204)
+      result = @client.remove_team_repository(32598, "reddavis/One40Proof")
+      result.should be_true
     end
 
   end

@@ -24,7 +24,7 @@ module Octokit
 
       def organization_repositories(org=nil, options={})
         if org.nil?
-          # This is no longer supported inAPI v3
+          # This is no longer supported in API v3
           get("/api/v2/json/organizations/repositories", options)
         else
           get("orgs/#{org}/repos", options, 3)
@@ -80,12 +80,12 @@ module Octokit
       alias :team_repos :team_repositories
 
       def add_team_repository(team_id, repo, options={})
-        post("/api/v2/json/teams/#{team_id}/repositories", options.merge(:name => Repository.new(repo)))['repositories']
+        put("teams/#{team_id}/repos/#{Repository.new(repo)}", options.merge(:name => Repository.new(repo)), 3, true, raw=true).status == 204
       end
       alias :add_team_repo :add_team_repository
 
       def remove_team_repository(team_id, repo, options={})
-        delete("/api/v2/json/teams/#{team_id}/repositories", options.merge(:name => Repository.new(repo)))['repositories']
+        delete("teams/#{team_id}/repos/#{Repository.new(repo)}", options, 3, true, raw=true).status == 204
       end
       alias :remove_team_repo :remove_team_repository
     end
