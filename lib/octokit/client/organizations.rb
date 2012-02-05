@@ -64,7 +64,10 @@ module Octokit
       end
 
       def add_team_member(team_id, user, options={})
-        post("/api/v2/json/teams/#{team_id}/members", options.merge({:name => user}))['user']
+        # There's a bug in this API call. The docs say to leave the body blank,
+        # but it fails if the body is both blank and the content-length header
+        # is not 0.
+        put("teams/#{team_id}/members/#{user}", options.merge({:name => user}), 3, true, raw=true).status == 204
       end
 
       def remove_team_member(team_id, user, options={})

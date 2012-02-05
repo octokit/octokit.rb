@@ -165,11 +165,11 @@ describe Octokit::Client::Organizations do
   describe ".add_team_member" do
 
     it "should add a team member" do
-      stub_post("https://github.com/api/v2/json/teams/32598/members").
+      stub_put("https://api.github.com/teams/32598/members/sferik").
         with(:name => "sferik").
-        to_return(:body => fixture("v2/user.json"))
-      user = @client.add_team_member(32598, "sferik")
-      user.name.should == "Erik Michaels-Ober"
+        to_return(:status => 204)
+      result = @client.add_team_member(32598, "sferik")
+      result.should be_true
     end
 
   end
