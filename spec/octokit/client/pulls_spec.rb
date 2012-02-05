@@ -34,10 +34,10 @@ describe Octokit::Client::Pulls do
   describe ".pull_requests" do
 
     it "should return all pull requests" do
-      stub_get("https://github.com/api/v2/json/pulls/sferik/rails_admin/open").
-        to_return(:body => fixture("v2/pulls.json"))
+      stub_get("https://api.github.com/repos/sferik/rails_admin/pulls?state=open").
+        to_return(:body => fixture("v3/pull_requests.json"))
       pulls = @client.pulls("sferik/rails_admin")
-      pulls.first.number.should == 251
+      pulls.first.number.should == 928
     end
 
   end

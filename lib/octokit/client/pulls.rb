@@ -21,7 +21,7 @@ module Octokit
       end
 
       def pull_requests(repo, state='open', options={})
-        get("/api/v2/json/pulls/#{Repository.new(repo)}/#{state}", options)['pulls']
+        get("repos/#{Repository.new(repo)}/pulls", options.merge({:state => state}), 3)
       end
       alias :pulls :pull_requests
 
