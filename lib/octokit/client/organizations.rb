@@ -25,7 +25,7 @@ module Octokit
       def organization_repositories(org=nil, options={})
         if org.nil?
           # This is no longer supported in API v3
-          get("/api/v2/json/organizations/repositories", options)
+          get("/api/v2/json/organizations/repositories", options, 2)
         else
           get("orgs/#{org}/repos", options, 3)
         end

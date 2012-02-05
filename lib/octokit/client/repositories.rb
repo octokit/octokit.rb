@@ -2,7 +2,8 @@ module Octokit
   class Client
     module Repositories
       def search_repositories(q, options={})
-        get("/api/v2/json/repos/search/#{q}", options)['repositories']
+        # depreciated in v3
+        get("/api/v2/json/repos/search/#{q}", options, 2)['repositories']
       end
       alias :search_repos :search_repositories
 
@@ -53,22 +54,6 @@ module Octokit
       end
       alias :create_repo :create_repository
       alias :create :create_repository
-
-      def delete_repository(repo, options={})
-        response = post("/api/v2/json/repos/delete/#{Repository.new(repo)}", options)
-        if response.respond_to?(:delete_token)
-          response['delete_token']
-        else
-          response
-        end
-      end
-      alias :delete_repo :delete_repository
-
-      def delete_repository!(repo, options={})
-        delete_token = delete_repository(repo, options)
-        post("/api/v2/json/repos/delete/#{Repository.new(repo)}", options.merge(:delete_token => delete_token))
-      end
-      alias :delete_repo! :delete_repository!
 
       def set_private(repo, options={})
         update_repository repo, options.merge({ :public => false })
