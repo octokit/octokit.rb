@@ -92,7 +92,8 @@ module Octokit
       alias :remove_collab :remove_collaborator
 
       def pushable(options={})
-        get("/api/v2/json/repos/pushable", options)['repositories']
+        # There isn't a matching method in V3 of the api
+        get("/api/v2/json/repos/pushable", options, 2)['repositories']
       end
 
       def repository_teams(repo, options={})
