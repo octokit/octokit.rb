@@ -26,7 +26,7 @@ module Octokit
       alias :pulls :pull_requests
 
       def pull_request(repo, number, options={})
-        get("/api/v2/json/pulls/#{Repository.new(repo)}/#{number}", options)['pull']
+        get("repos/#{Repository.new(repo)}/pulls/#{number}", options)
       end
       alias :pull :pull_request
     end

@@ -45,10 +45,10 @@ describe Octokit::Client::Pulls do
   describe ".pull_request" do
 
     it "should return a pull request" do
-      stub_get("https://github.com/api/v2/json/pulls/sferik/rails_admin/251").
-        to_return(:body => fixture("v2/pull.json"))
-      pull = @client.pull("sferik/rails_admin", 251)
-      pull.number.should == 251
+      stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67").
+        to_return(:body => fixture("v3/pull_request.json"))
+      pull = @client.pull("pengwynn/octokit", 67)
+      pull.number.should == 67 
     end
 
   end
