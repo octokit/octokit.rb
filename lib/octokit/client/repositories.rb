@@ -2,7 +2,7 @@ module Octokit
   class Client
     module Repositories
       def search_repositories(q, options={})
-        # depreciated in v3
+        # Depreciated 
         get("/api/v2/json/repos/search/#{q}", options, 2)['repositories']
       end
       alias :search_repos :search_repositories

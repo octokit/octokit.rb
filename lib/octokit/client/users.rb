@@ -2,7 +2,7 @@ module Octokit
   class Client
     module Users
       EMAIL_RE = /[\w.!#\$%+-]+@[\w-]+(?:\.[\w-]+)+/
-      # V3 of the API does not allow searching users
+      # Depreciated: V3 of the API does not allow searching users
       def search_users(search, options={})
         if search.match(EMAIL_RE)
           get("/api/v2/json/user/email/#{search}", options, 2)['user']
