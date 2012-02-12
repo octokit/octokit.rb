@@ -2,19 +2,19 @@ module Octokit
   class Client
     module Objects
       def tree(repo, tree_sha, options={})
-        get("/api/v2/json/tree/show/#{Repository.new(repo)}/#{tree_sha}", options)['tree']
+        get("repos/#{Repository.new(repo)}/git/trees/#{tree_sha}", options)
       end
 
-      def blob(repo, tree_sha, path, options={})
-        get("/api/v2/json/blob/show/#{Repository.new(repo)}/#{tree_sha}/#{path}", options)['blob']
+      def blob(repo, tree_sha, options={})
+        get("repos/#{Repository.new(repo)}/git/blobs/#{tree_sha}", options)
       end
 
-      # Depreciated
+      # Depreciated 
       def blobs(repo, tree_sha, options={})
         get("/api/v2/json/blob/all/#{Repository.new(repo)}/#{tree_sha}", options, 2)['blobs']
       end
 
-      # Depreciated
+      # Depreciated 
       def blob_metadata(repo, tree_sha, options={})
         get("/api/v2/json/blob/full/#{Repository.new(repo)}/#{tree_sha}", options, 2)['blobs']
       end

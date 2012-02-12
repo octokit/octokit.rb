@@ -10,10 +10,11 @@ describe Octokit::Client::Objects do
   describe ".tree" do
 
     it "should return a tree" do
-      stub_get("https://github.com/api/v2/json/tree/show/sferik/rails_admin/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
-        to_return(:body => fixture("v2/tree.json"))
-      tree = @client.tree("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-      tree.first.name.should == ".gitignore"
+      stub_get("https://api.github.com/repos/sferik/rails_admin/git/trees/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
+        to_return(:body => fixture("v3/tree.json"))
+      result = @client.tree("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
+      result.sha.should == "3cdfabd973bc3caac209cba903cfdb3bf6636bcd"
+      result.tree.first.path.should == ".gitignore"
     end
 
   end
@@ -21,10 +22,10 @@ describe Octokit::Client::Objects do
   describe ".blob" do
 
     it "should return a blob" do
-      stub_get("https://github.com/api/v2/json/blob/show/sferik/rails_admin/3cdfabd973bc3caac209cba903cfdb3bf6636bcd/README.mkd").
-        to_return(:body => fixture("v2/blob.json"))
-      blob = @client.blob("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd", "README.mkd")
-      blob.name.should == "README.mkd"
+      stub_get("https://api.github.com/repos/sferik/rails_admin/git/blobs/94616fa57520ac8147522c7cf9f03d555595c5ea").
+        to_return(:body => fixture("v3/blob.json"))
+      blob = @client.blob("sferik/rails_admin", "94616fa57520ac8147522c7cf9f03d555595c5ea")
+      blob.sha.should == "94616fa57520ac8147522c7cf9f03d555595c5ea"
     end
 
   end
