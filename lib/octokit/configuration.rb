@@ -14,7 +14,7 @@ module Octokit
       :auto_traversal].freeze
 
     DEFAULT_ADAPTER        = Faraday.default_adapter
-    DEFAULT_API_VERSION    = 2
+    DEFAULT_API_VERSION    = 3
     DEFAULT_USER_AGENT     = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
     DEFAULT_AUTO_TRAVERSAL = false
 

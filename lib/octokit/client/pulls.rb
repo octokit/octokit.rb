@@ -8,7 +8,7 @@ module Octokit
           :title => title,
           :body  => body,
         }
-        post("/api/v2/json/pulls/#{Repository.new(repo)}", options.merge({:pull => pull}))['pulls']
+        post("repos/#{Repository.new(repo)}/pulls", options.merge({:pull => pull}))
       end
 
       def create_pull_request_for_issue(repo, base, head, issue, options={})
@@ -17,16 +17,16 @@ module Octokit
           :head  => head,
           :issue => issue
         }
-        post("/api/v2/json/pulls/#{Repository.new(repo)}", options.merge({:pull => pull}))['pulls']
+        post("repos/#{Repository.new(repo)}/pulls", options.merge({:pull => pull}))
       end
 
       def pull_requests(repo, state='open', options={})
-        get("/api/v2/json/pulls/#{Repository.new(repo)}/#{state}", options)['pulls']
+        get("repos/#{Repository.new(repo)}/pulls", options.merge({:state => state}), 3)
       end
       alias :pulls :pull_requests
 
       def pull_request(repo, number, options={})
-        get("/api/v2/json/pulls/#{Repository.new(repo)}/#{number}", options)['pull']
+        get("repos/#{Repository.new(repo)}/pulls/#{number}", options)
       end
       alias :pull :pull_request
     end
