@@ -23,17 +23,18 @@ module Octokit
       alias :orgs :organizations
 
       def organization_repositories(org=nil, options={})
-        if org
-          get("/api/v2/json/organizations/#{org}/public_repositories", options)
+        if org.nil?
+          # Depreciated
+          get("/api/v2/json/organizations/repositories", options, 2)
         else
-          get("/api/v2/json/organizations/repositories", options)
-        end['repositories']
+          get("orgs/#{org}/repos", options, 3)
+        end
       end
       alias :org_repositories :organization_repositories
       alias :org_repos :organization_repositories
 
       def organization_members(org, options={})
-        get("/api/v2/json/organizations/#{org}/public_members", options)['users']
+        get("orgs/#{org}/members", options, 3)
       end
       alias :org_members :organization_members
 
@@ -59,29 +60,32 @@ module Octokit
       end
 
       def team_members(team_id, options={})
-        get("/api/v2/json/teams/#{team_id}/members", options)['users']
+        get("teams/#{team_id}/members", options, 3)
       end
 
       def add_team_member(team_id, user, options={})
-        post("/api/v2/json/teams/#{team_id}/members", options.merge({:name => user}))['user']
+        # There's a bug in this API call. The docs say to leave the body blank,
+        # but it fails if the body is both blank and the content-length header
+        # is not 0.
+        put("teams/#{team_id}/members/#{user}", options.merge({:name => user}), 3, true, raw=true).status == 204
       end
 
       def remove_team_member(team_id, user, options={})
-        delete("/api/v2/json/teams/#{team_id}/members", options.merge({:name => user}))['user']
+        delete("teams/#{team_id}/members/#{user}", options, 3, true, raw=true).status == 204
       end
 
       def team_repositories(team_id, options={})
-        get("/api/v2/json/teams/#{team_id}/repositories", options)['repositories']
+        get("teams/#{team_id}/repos", options, 3)
       end
       alias :team_repos :team_repositories
 
       def add_team_repository(team_id, repo, options={})
-        post("/api/v2/json/teams/#{team_id}/repositories", options.merge(:name => Repository.new(repo)))['repositories']
+        put("teams/#{team_id}/repos/#{Repository.new(repo)}", options.merge(:name => Repository.new(repo)), 3, true, raw=true).status == 204
       end
       alias :add_team_repo :add_team_repository
 
       def remove_team_repository(team_id, repo, options={})
-        delete("/api/v2/json/teams/#{team_id}/repositories", options.merge(:name => Repository.new(repo)))['repositories']
+        delete("teams/#{team_id}/repos/#{Repository.new(repo)}", options, 3, true, raw=true).status == 204
       end
       alias :remove_team_repo :remove_team_repository
     end

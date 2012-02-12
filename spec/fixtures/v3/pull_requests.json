@@ -1,0 +1,187 @@
+[
+  {
+    "number": 928,
+    "patch_url": "https://github.com/sferik/rails_admin/pull/928.patch",
+    "url": "https://api.github.com/repos/sferik/rails_admin/pulls/928",
+    "body": "Without this patch, rails\\_admin skips hidden fields when it's handing out classnames.\r\n\r\n_Bummer._\r\n\r\nBecause, I found a case where I really wanted to hook into classnames on hidden fields, too.\r\n\r\nThe case goes like this: I want to drag-and-drop nested items around, re-order them. So, I hacked together something using the `position` attribute rails\\_admin already favors, and I add `position` to the form as a hidden input.\r\nNext, I have to get jQuery UI's Sortables to _find_ that hidden `position` input. But all I have is a name and an id to work with. So unless I do something ugly like `$(\"input[name$='[position]']\")` I can't find the hidden inputs and add behavior to them.\r\n\r\nIt seemed that if I just had a classname to grab onto, it would make the code much more clear.\r\n\r\nSo, with the code in this pull request, now I get a `hidden_position_field` on the div containing the `position` inputs. Now I can update the position values whenever I drag and drop a nested item around. \r\n\r\n_Totally sweet._\r\n\r\nHow about an example? Well, given a configuration like this:\r\n\r\n    config.model Thing do\r\n      nested do\r\n        field :position, :hidden do\r\n          help '' # no caption\r\n        end\r\n        field :description\r\n      end\r\n    end\r\n\r\n… I can setup jQuery UI's Sortables on the nested items like so:\r\n\r\n    $(function() {\r\n      var sortable_model        = 'things';\r\n  \r\n      var sortable_target       = '#' + sortable_model + '_attributes_field';\r\n      var sortable_input_field  = '.hidden_position_field';\r\n      var sortable_items        = 'div.fields';\r\n      $(sortable_target).sortable({\r\n        items: sortable_items,\r\n        cursor: 'all-scroll',\r\n        tolerance: 'pointer',\r\n        scroll: true,\r\n        scrollSensitivity: 100,\r\n        placeholder: 'ui-state-highlight',\r\n        forcePlaceholderSize: true,\r\n        forceHelperSize: true,\r\n        update: function() {\r\n          $.each($(sortable_target).find(sortable_input_field), function(n, obj) {\r\n            $(obj).find('input').val(n);\r\n          });\r\n        }\r\n      });\r\n    });\r\n",
+    "closed_at": null,
+    "diff_url": "https://github.com/sferik/rails_admin/pull/928.diff",
+    "updated_at": "2012-01-16T04:09:55Z",
+    "state": "open",
+    "_links": {
+      "html": {
+        "href": "https://github.com/sferik/rails_admin/pull/928"
+      },
+      "review_comments": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/pulls/928/comments"
+      },
+      "comments": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/issues/928/comments"
+      },
+      "self": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/pulls/928"
+      }
+    },
+    "issue_url": "https://github.com/sferik/rails_admin/issues/928",
+    "merged_at": null,
+    "user": {
+      "url": "https://api.github.com/users/audionerd",
+      "avatar_url": "https://secure.gravatar.com/avatar/9c1b01901ef90d3908c63fd3118938c7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "gravatar_id": "9c1b01901ef90d3908c63fd3118938c7",
+      "login": "audionerd",
+      "id": 23459
+    },
+    "title": "Give hidden input fields a field-specific classname",
+    "html_url": "https://github.com/sferik/rails_admin/pull/928",
+    "id": 691424,
+    "created_at": "2012-01-15T06:53:07Z"
+  },
+  {
+    "number": 833,
+    "patch_url": "https://github.com/sferik/rails_admin/pull/833.patch",
+    "url": "https://api.github.com/repos/sferik/rails_admin/pulls/833",
+    "body": "Works the same as enum, but use 'multi' keyword to create multi select form.",
+    "closed_at": null,
+    "diff_url": "https://github.com/sferik/rails_admin/pull/833.diff",
+    "updated_at": "2011-11-23T15:32:23Z",
+    "state": "open",
+    "_links": {
+      "html": {
+        "href": "https://github.com/sferik/rails_admin/pull/833"
+      },
+      "review_comments": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/pulls/833/comments"
+      },
+      "comments": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/issues/833/comments"
+      },
+      "self": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/pulls/833"
+      }
+    },
+    "issue_url": "https://github.com/sferik/rails_admin/issues/833",
+    "merged_at": null,
+    "user": {
+      "url": "https://api.github.com/users/stiller",
+      "avatar_url": "https://secure.gravatar.com/avatar/150b7dfb3c10c343999c41183f3253cd?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "gravatar_id": "150b7dfb3c10c343999c41183f3253cd",
+      "login": "stiller",
+      "id": 548535
+    },
+    "title": "Added multi select option to enum",
+    "html_url": "https://github.com/sferik/rails_admin/pull/833",
+    "id": 496043,
+    "created_at": "2011-11-15T15:13:44Z"
+  },
+  {
+    "number": 827,
+    "patch_url": "https://github.com/sferik/rails_admin/pull/827.patch",
+    "url": "https://api.github.com/repos/sferik/rails_admin/pulls/827",
+    "body": "model Event\r\nhas_many :timings\r\nhas_many :placements\r\n\r\nmodel Event::Timing\r\nhas_many :timing_placements\r\nhas_many :placements, :source => :placement, :through => :timing_placements\r\n\r\nmodel Event::Placement\r\n\r\nmodel Event::TimingPlacement\r\nbelongs_to :timing\r\nbelongs_to :placement\r\n\r\nWhen I edit the event and click \"create timing\" I want to see a multiselect with placements for the event\r\n\r\n    config.model Event::Timing do\r\n      parent Event\r\n\r\n      field :placements do\r\n        associated_collection_scope do\r\n          timing = bindings[:object]\r\n          Proc.new { |scope|\r\n            scope = scope.where(:event_id => timing.event_id) if timing.present?\r\n            scope\r\n          }\r\n        end\r\n      end\r\n    end\r\n",
+    "closed_at": null,
+    "diff_url": "https://github.com/sferik/rails_admin/pull/827.diff",
+    "updated_at": "2011-11-23T15:32:23Z",
+    "state": "open",
+    "_links": {
+      "html": {
+        "href": "https://github.com/sferik/rails_admin/pull/827"
+      },
+      "review_comments": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/pulls/827/comments"
+      },
+      "comments": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/issues/827/comments"
+      },
+      "self": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/pulls/827"
+      }
+    },
+    "issue_url": "https://github.com/sferik/rails_admin/issues/827",
+    "merged_at": null,
+    "user": {
+      "url": "https://api.github.com/users/mokevnin",
+      "avatar_url": "https://secure.gravatar.com/avatar/104200ed9f8e87411934cba84d04fa95?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "gravatar_id": "104200ed9f8e87411934cba84d04fa95",
+      "login": "mokevnin",
+      "id": 308430
+    },
+    "title": "added associations to new object",
+    "html_url": "https://github.com/sferik/rails_admin/pull/827",
+    "id": 485317,
+    "created_at": "2011-11-11T08:23:32Z"
+  },
+  {
+    "number": 561,
+    "patch_url": "https://github.com/sferik/rails_admin/pull/561.patch",
+    "url": "https://api.github.com/repos/sferik/rails_admin/pulls/561",
+    "body": "In a couple of my projects, I used rails_admin as my application framework. It covers 80% of what I needed and I only had to implement a few home made controllers to handle the 20% left.\r\n\r\nNote that to accomplish this I used the following technique: https://gist.github.com/1086055 which allows to reuse the awesome Activo theme of Rails Admin for my whole application.\r\n\r\nNow, I needed to insert some additional links to my home made controllers into the Rails Admin navigation.\r\n\r\nAnother use case would be if I wanted to have a permanent link always in the navigation: for instance, let's say I have a customer model, and I want to always see a link to \"Add new customer\" in my navigation (from every admin pages). I could use the feature as well.\r\n\r\nThis pull request is a first stab at it, which I think is not ideal:\r\n1) I don't like the configuration syntax that much\r\n2) It's missing tests and docs (to be fixed of course)\r\n\r\nThe syntax currently looks like this\r\n\r\n``` ruby\r\nRailsAdmin.config do |config|\r\n    config.nav_before_models = {\r\n        'foo' => {\r\n            'label' => 'Foo',\r\n            'url' => 'foo/foo',\r\n        },\r\n        'bar' => {\r\n            'label' => 'Bar',\r\n            'url' => 'bar/bar'\r\n        }\r\n    }\r\n    config.nav_after_models = {\r\n        'stuff' => {\r\n            'label' => 'More stuff',\r\n            'url' => 'more/stuff'\r\n        }\r\n    }\r\nend\r\n```\r\n\r\nIdeally, I wanted to use the RailsAdmin::Config::Navigation class, but it's being deprecated. The syntax could have looked like this:\r\n\r\n``` ruby\r\nRailsAdmin.config do |config|\r\n    config.navigation.before_models do\r\n        link :foo do\r\n            label 'Foo'\r\n            url 'foo/foo'\r\n        end\r\n        link :bar do\r\n            label 'Bar'\r\n            url 'bar/bar'\r\n        end\r\n    end\r\n    config.navigation.after_models do end\r\n        link :stuff do\r\n            label 'More stuff'\r\n            url 'more/stuff'\r\n        end\r\n    end\r\nend\r\n```\r\n\r\n\r\nWhat do you think? Any suggestion on what would be the best approach?\r\n",
+    "closed_at": null,
+    "diff_url": "https://github.com/sferik/rails_admin/pull/561.diff",
+    "updated_at": "2011-11-23T15:32:23Z",
+    "state": "open",
+    "_links": {
+      "html": {
+        "href": "https://github.com/sferik/rails_admin/pull/561"
+      },
+      "review_comments": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/pulls/561/comments"
+      },
+      "comments": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/issues/561/comments"
+      },
+      "self": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/pulls/561"
+      }
+    },
+    "issue_url": "https://github.com/sferik/rails_admin/issues/561",
+    "merged_at": null,
+    "user": {
+      "url": "https://api.github.com/users/jphpsf",
+      "avatar_url": "https://secure.gravatar.com/avatar/c1cb39f9320d1b293114a6dc447b7873?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "gravatar_id": "c1cb39f9320d1b293114a6dc447b7873",
+      "login": "jphpsf",
+      "id": 100218
+    },
+    "title": "Additional navigation proposal",
+    "html_url": "https://github.com/sferik/rails_admin/pull/561",
+    "id": 226217,
+    "created_at": "2011-07-16T06:03:23Z"
+  },
+  {
+    "number": 560,
+    "patch_url": "https://github.com/sferik/rails_admin/pull/560.patch",
+    "url": "https://api.github.com/repos/sferik/rails_admin/pulls/560",
+    "body": "This is a simple change to allow to customize the text in the footer of Rails Admin. ",
+    "closed_at": null,
+    "diff_url": "https://github.com/sferik/rails_admin/pull/560.diff",
+    "updated_at": "2011-11-23T15:32:23Z",
+    "state": "open",
+    "_links": {
+      "html": {
+        "href": "https://github.com/sferik/rails_admin/pull/560"
+      },
+      "review_comments": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/pulls/560/comments"
+      },
+      "comments": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/issues/560/comments"
+      },
+      "self": {
+        "href": "https://api.github.com/repos/sferik/rails_admin/pulls/560"
+      }
+    },
+    "issue_url": "https://github.com/sferik/rails_admin/issues/560",
+    "merged_at": null,
+    "user": {
+      "url": "https://api.github.com/users/jphpsf",
+      "avatar_url": "https://secure.gravatar.com/avatar/c1cb39f9320d1b293114a6dc447b7873?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "gravatar_id": "c1cb39f9320d1b293114a6dc447b7873",
+      "login": "jphpsf",
+      "id": 100218
+    },
+    "title": "Make the footer customizable",
+    "html_url": "https://github.com/sferik/rails_admin/pull/560",
+    "id": 226194,
+    "created_at": "2011-07-16T04:24:26Z"
+  }
+]

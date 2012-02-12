@@ -6,7 +6,7 @@ module Octokit
   module Connection
     private
 
-    def connection(authenticate=true, raw=false, version=2, force_urlencoded=false)
+    def connection(authenticate=true, raw=false, version=3, force_urlencoded=false)
       case version
       when 2
         url = "https://github.com"
