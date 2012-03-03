@@ -1,0 +1,1724 @@
+
+[
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "e99fc3fedd7fa79a590911ef5c3415a6ab4d5d5f",
+      "size": 2,
+      "push_id": 65327953,
+      "commits": [
+        {
+          "sha": "eae82e96148fa21d7e062d89f683567f3decf07c",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/follow-all/commits/eae82e96148fa21d7e062d89f683567f3decf07c",
+          "distinct": true,
+          "message": "Update rails dependency to version 3.2.2"
+        },
+        {
+          "sha": "e99fc3fedd7fa79a590911ef5c3415a6ab4d5d5f",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/follow-all/commits/e99fc3fedd7fa79a590911ef5c3415a6ab4d5d5f",
+          "distinct": true,
+          "message": "Update omniauth-oauth dependency to version 1.0.1"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "ec81184c572bc827b72ebb489d49f821",
+      "id": 337792,
+      "url": "https://api.github.com/orgs/",
+      "login": "codeforamerica"
+    },
+    "repo": {
+      "id": 1255356,
+      "url": "https://api.github.com/repos/codeforamerica/follow-all",
+      "name": "codeforamerica/follow-all"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-03-02T22:01:29Z",
+    "id": "1525888969"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "092cb80b33268ed6b49b45d58ef3e50d4c9eca85",
+      "size": 2,
+      "push_id": 65327945,
+      "commits": [
+        {
+          "sha": "f1f47383f20a05ecda1b4cb34378408c53a7fbc3",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/f1f47383f20a05ecda1b4cb34378408c53a7fbc3",
+          "distinct": true,
+          "message": "Update rails dependency to version 3.2.2"
+        },
+        {
+          "sha": "092cb80b33268ed6b49b45d58ef3e50d4c9eca85",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/092cb80b33268ed6b49b45d58ef3e50d4c9eca85",
+          "distinct": true,
+          "message": "Update omniauth-oauth dependency to version 1.0.1"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 1716295,
+      "url": "https://api.github.com/repos/sferik/sign-in-with-twitter",
+      "name": "sferik/sign-in-with-twitter"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-03-02T22:01:27Z",
+    "id": "1525888950"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "998e82b60e095ecb59da22b9f8a0c5ad506bf8ea",
+      "size": 2,
+      "push_id": 64981731,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "99719154e84d8a25c1367f2abc8b8de827a25aa7",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant/commits/99719154e84d8a25c1367f2abc8b8de827a25aa7",
+          "distinct": true,
+          "message": "Update jquery-rails dependency to version 2.0.1"
+        },
+        {
+          "sha": "998e82b60e095ecb59da22b9f8a0c5ad506bf8ea",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant/commits/998e82b60e095ecb59da22b9f8a0c5ad506bf8ea",
+          "distinct": true,
+          "message": "Update validates_formatting_of dependency to version 0.5.0"
+        }
+      ]
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "ec81184c572bc827b72ebb489d49f821",
+      "id": 337792,
+      "url": "https://api.github.com/orgs/",
+      "login": "codeforamerica"
+    },
+    "repo": {
+      "id": 1366239,
+      "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant",
+      "name": "codeforamerica/adopt-a-hydrant"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-03-01T08:11:37Z",
+    "id": "1525169068"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "7a3172dd4bf318eccc6b1ad378115eceddf84858",
+      "size": 1,
+      "push_id": 64826684,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "7a3172dd4bf318eccc6b1ad378115eceddf84858",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/follow-all/commits/7a3172dd4bf318eccc6b1ad378115eceddf84858",
+          "distinct": true,
+          "message": "Update mocha dependency to version 0.10.5"
+        }
+      ]
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "ec81184c572bc827b72ebb489d49f821",
+      "id": 337792,
+      "url": "https://api.github.com/orgs/",
+      "login": "codeforamerica"
+    },
+    "repo": {
+      "id": 1255356,
+      "url": "https://api.github.com/repos/codeforamerica/follow-all",
+      "name": "codeforamerica/follow-all"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-29T15:26:39Z",
+    "id": "1524865281"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "da8e7dd9a0fe3551e0414508f0697aa362299f3c",
+      "size": 1,
+      "push_id": 64826557,
+      "commits": [
+        {
+          "sha": "da8e7dd9a0fe3551e0414508f0697aa362299f3c",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/da8e7dd9a0fe3551e0414508f0697aa362299f3c",
+          "distinct": true,
+          "message": "Update mocha dependency to version 0.10.5"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 1716295,
+      "url": "https://api.github.com/repos/sferik/sign-in-with-twitter",
+      "name": "sferik/sign-in-with-twitter"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-29T15:26:05Z",
+    "id": "1524865066"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "64ae7006c40ebfba542ad89390622dae94139e2c",
+      "size": 2,
+      "push_id": 64739837,
+      "commits": [
+        {
+          "sha": "6829994f4d8ca1e6d444fa75dc78c06bd01a5d74",
+          "author": {
+            "name": "David Aaron Fendley",
+            "email": "tricon@me.com"
+          },
+          "url": "https://api.github.com/repos/jnunemaker/twitter/commits/6829994f4d8ca1e6d444fa75dc78c06bd01a5d74",
+          "distinct": true,
+          "message": "Added Twitter::Mention#source"
+        },
+        {
+          "sha": "64ae7006c40ebfba542ad89390622dae94139e2c",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/jnunemaker/twitter/commits/64ae7006c40ebfba542ad89390622dae94139e2c",
+          "distinct": true,
+          "message": "Merge pull request #240 from Tricon/master\n\nAdded method to return the user that made the mention"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 507,
+      "url": "https://api.github.com/repos/jnunemaker/twitter",
+      "name": "jnunemaker/twitter"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-29T03:42:23Z",
+    "id": "1524696524"
+  },
+  {
+    "type": "PullRequestEvent",
+    "payload": {
+      "number": 240,
+      "pull_request": {
+        "issue_url": "https://github.com/jnunemaker/twitter/issues/240",
+        "head": {
+          "label": "Tricon:master",
+          "repo": {
+            "name": "twitter",
+            "master_branch": null,
+            "size": 156,
+            "created_at": "2012-02-29T03:11:28Z",
+            "has_wiki": true,
+            "clone_url": "https://github.com/Tricon/twitter.git",
+            "updated_at": "2012-02-29T03:23:12Z",
+            "private": false,
+            "watchers": 1,
+            "url": "https://api.github.com/repos/Tricon/twitter",
+            "language": "Ruby",
+            "fork": true,
+            "ssh_url": "git@github.com:Tricon/twitter.git",
+            "git_url": "git://github.com/Tricon/twitter.git",
+            "id": 3578173,
+            "pushed_at": "2012-02-29T03:23:11Z",
+            "svn_url": "https://github.com/Tricon/twitter",
+            "open_issues": 0,
+            "mirror_url": null,
+            "has_downloads": true,
+            "homepage": "http://rdoc.info/gems/twitter",
+            "has_issues": false,
+            "forks": 0,
+            "description": "A Ruby wrapper for the Twitter REST and Search APIs",
+            "html_url": "https://github.com/Tricon/twitter",
+            "owner": {
+              "gravatar_id": "fd3570a7da4cc9e159b4bda5b66f5664",
+              "avatar_url": "https://secure.gravatar.com/avatar/fd3570a7da4cc9e159b4bda5b66f5664?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+              "url": "https://api.github.com/users/Tricon",
+              "id": 2576,
+              "login": "Tricon"
+            }
+          },
+          "sha": "6829994f4d8ca1e6d444fa75dc78c06bd01a5d74",
+          "ref": "master",
+          "user": {
+            "gravatar_id": "fd3570a7da4cc9e159b4bda5b66f5664",
+            "avatar_url": "https://secure.gravatar.com/avatar/fd3570a7da4cc9e159b4bda5b66f5664?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+            "url": "https://api.github.com/users/Tricon",
+            "id": 2576,
+            "login": "Tricon"
+          }
+        },
+        "number": 240,
+        "merged": true,
+        "changed_files": 2,
+        "merged_by": {
+          "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+          "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/sferik",
+          "id": 10308,
+          "login": "sferik"
+        },
+        "created_at": "2012-02-29T03:25:32Z",
+        "body": "As discussed on the mailing list, this simply returns the first item of the sources array.",
+        "title": "Added method to return the user that made the mention",
+        "comments": 0,
+        "updated_at": "2012-02-29T03:42:21Z",
+        "diff_url": "https://github.com/jnunemaker/twitter/pull/240.diff",
+        "additions": 18,
+        "url": "https://api.github.com/repos/jnunemaker/twitter/pulls/240",
+        "_links": {
+          "html": {
+            "href": "https://github.com/jnunemaker/twitter/pull/240"
+          },
+          "self": {
+            "href": "https://api.github.com/repos/jnunemaker/twitter/pulls/240"
+          },
+          "comments": {
+            "href": "https://api.github.com/repos/jnunemaker/twitter/issues/240/comments"
+          },
+          "review_comments": {
+            "href": "https://api.github.com/repos/jnunemaker/twitter/pulls/240/comments"
+          }
+        },
+        "id": 902087,
+        "patch_url": "https://github.com/jnunemaker/twitter/pull/240.patch",
+        "mergeable": null,
+        "commits": 1,
+        "merged_at": "2012-02-29T03:42:21Z",
+        "closed_at": "2012-02-29T03:42:21Z",
+        "user": {
+          "gravatar_id": "fd3570a7da4cc9e159b4bda5b66f5664",
+          "avatar_url": "https://secure.gravatar.com/avatar/fd3570a7da4cc9e159b4bda5b66f5664?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/Tricon",
+          "id": 2576,
+          "login": "Tricon"
+        },
+        "deletions": 0,
+        "review_comments": 0,
+        "html_url": "https://github.com/jnunemaker/twitter/pull/240",
+        "base": {
+          "label": "jnunemaker:master",
+          "repo": {
+            "name": "twitter",
+            "master_branch": null,
+            "size": 240,
+            "created_at": "2008-02-14T02:20:50Z",
+            "has_wiki": true,
+            "clone_url": "https://github.com/jnunemaker/twitter.git",
+            "updated_at": "2012-02-29T03:42:22Z",
+            "private": false,
+            "watchers": 1580,
+            "url": "https://api.github.com/repos/jnunemaker/twitter",
+            "language": "Ruby",
+            "fork": false,
+            "ssh_url": "git@github.com:jnunemaker/twitter.git",
+            "git_url": "git://github.com/jnunemaker/twitter.git",
+            "id": 507,
+            "pushed_at": "2012-02-29T03:42:22Z",
+            "svn_url": "https://github.com/jnunemaker/twitter",
+            "open_issues": 4,
+            "mirror_url": null,
+            "has_downloads": true,
+            "homepage": "http://rdoc.info/gems/twitter",
+            "has_issues": true,
+            "forks": 266,
+            "description": "A Ruby wrapper for the Twitter REST and Search APIs",
+            "html_url": "https://github.com/jnunemaker/twitter",
+            "owner": {
+              "gravatar_id": "3783e88128f2773aa70a8f925d5f795d",
+              "avatar_url": "https://secure.gravatar.com/avatar/3783e88128f2773aa70a8f925d5f795d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+              "url": "https://api.github.com/users/jnunemaker",
+              "id": 235,
+              "login": "jnunemaker"
+            }
+          },
+          "sha": "f50ff25cff3307090f602ff83d21519599d11559",
+          "ref": "master",
+          "user": {
+            "gravatar_id": "3783e88128f2773aa70a8f925d5f795d",
+            "avatar_url": "https://secure.gravatar.com/avatar/3783e88128f2773aa70a8f925d5f795d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+            "url": "https://api.github.com/users/jnunemaker",
+            "id": 235,
+            "login": "jnunemaker"
+          }
+        },
+        "state": "closed"
+      },
+      "action": "closed"
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 507,
+      "url": "https://api.github.com/repos/jnunemaker/twitter",
+      "name": "jnunemaker/twitter"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-29T03:42:22Z",
+    "id": "1524696520"
+  },
+  {
+    "type": "IssueCommentEvent",
+    "payload": {
+      "comment": {
+        "created_at": "2012-02-28T22:46:15Z",
+        "body": "Agreed. @kmayer, it looks like you contributed just 1 patch to bundler 8 months ago: f7448830dd7f81d86136422a5fa1b09a494dea3b. Time to get off the dime!",
+        "updated_at": "2012-02-28T22:46:15Z",
+        "url": "https://api.github.com/repos/carlhuda/bundler/issues/comments/4227551",
+        "id": 4227551,
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+          "url": "https://api.github.com/users/sferik",
+          "id": 10308,
+          "login": "sferik"
+        }
+      },
+      "action": "created",
+      "issue": {
+        "number": 1684,
+        "pull_request": {
+          "diff_url": null,
+          "patch_url": null,
+          "html_url": null
+        },
+        "created_at": "2012-02-28T21:19:52Z",
+        "title": "It's been 2 months since 1.1.rc.7",
+        "comments": 1,
+        "body": " --- time to get off the dime\r\n\r\n",
+        "updated_at": "2012-02-28T22:46:15Z",
+        "url": "https://api.github.com/repos/carlhuda/bundler/issues/1684",
+        "id": 3426393,
+        "assignee": null,
+        "milestone": null,
+        "closed_at": null,
+        "labels": [
+
+        ],
+        "html_url": "https://github.com/carlhuda/bundler/issues/1684",
+        "user": {
+          "avatar_url": "https://secure.gravatar.com/avatar/22ac2c4ff350ee0b58f67a625d08748e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "gravatar_id": "22ac2c4ff350ee0b58f67a625d08748e",
+          "url": "https://api.github.com/users/kmayer",
+          "id": 19684,
+          "login": "kmayer"
+        },
+        "state": "open"
+      }
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "d1c067780d4e27fd72212543162c7053",
+      "id": 76794,
+      "url": "https://api.github.com/orgs/",
+      "login": "carlhuda"
+    },
+    "repo": {
+      "id": 488514,
+      "url": "https://api.github.com/repos/carlhuda/bundler",
+      "name": "carlhuda/bundler"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-28T22:46:16Z",
+    "id": "1524603717"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "06c54a23e754de957e13fe206c3ccf52d60fb641",
+      "size": 2,
+      "push_id": 64653530,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "9e977a9cb2d04b81d83062d3cf09803da3c86dae",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/dotfiles/commits/9e977a9cb2d04b81d83062d3cf09803da3c86dae",
+          "distinct": true,
+          "message": "Add gist to default gems"
+        },
+        {
+          "sha": "06c54a23e754de957e13fe206c3ccf52d60fb641",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/dotfiles/commits/06c54a23e754de957e13fe206c3ccf52d60fb641",
+          "distinct": true,
+          "message": "Add rbenv-rehash to default gems"
+        }
+      ]
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 1075011,
+      "url": "https://api.github.com/repos/sferik/dotfiles",
+      "name": "sferik/dotfiles"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-28T19:09:43Z",
+    "id": "1524515118"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "b861f8b9b7e9c67500ca698549a0aea333502e95",
+      "size": 2,
+      "push_id": 64472411,
+      "commits": [
+        {
+          "sha": "97dfa3aeec67f69aeec879b0bfa4f134a315efb7",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/dotfiles/commits/97dfa3aeec67f69aeec879b0bfa4f134a315efb7",
+          "distinct": true,
+          "message": "Add alias for git push"
+        },
+        {
+          "sha": "b861f8b9b7e9c67500ca698549a0aea333502e95",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/dotfiles/commits/b861f8b9b7e9c67500ca698549a0aea333502e95",
+          "distinct": true,
+          "message": "Update default MRI 1.8.7 version to patchlevel 358"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 1075011,
+      "url": "https://api.github.com/repos/sferik/dotfiles",
+      "name": "sferik/dotfiles"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-27T22:17:21Z",
+    "id": "1524141493"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "425860350a5a1698983790b3ae95041e6d2f1bdd",
+      "size": 2,
+      "push_id": 64316060,
+      "commits": [
+        {
+          "sha": "0557787e8d679089769c0df717bf3cc7ecb3e4c8",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/jeremydurham/isitrubinius/commits/0557787e8d679089769c0df717bf3cc7ecb3e4c8",
+          "message": "Update addressable dependency to version 2.2.7"
+        },
+        {
+          "sha": "425860350a5a1698983790b3ae95041e6d2f1bdd",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/jeremydurham/isitrubinius/commits/425860350a5a1698983790b3ae95041e6d2f1bdd",
+          "message": "Update parallel_tests dependency to version 0.6.19"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 1602462,
+      "url": "https://api.github.com/repos/jeremydurham/isitrubinius",
+      "name": "jeremydurham/isitrubinius"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-27T05:09:51Z",
+    "id": "1523828587"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "ff0ac9ca662a71d897d874c9c85f9538dea82bd4",
+      "size": 20,
+      "push_id": 64210682,
+      "commits": [
+        {
+          "sha": "bf169459273f94f802414158c55cad7772c0bd4e",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/bf169459273f94f802414158c55cad7772c0bd4e",
+          "message": "Update validates_formatting_of dependency to version 0.4.1"
+        },
+        {
+          "sha": "f49d4c3aa98452aa762b7b1352585c230de60614",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/f49d4c3aa98452aa762b7b1352585c230de60614",
+          "message": "Update addressable dependency to version 2.2.7"
+        },
+        {
+          "sha": "94299ee2f183a0d1d04565bed09e6ce0c358bd07",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/94299ee2f183a0d1d04565bed09e6ce0c358bd07",
+          "message": "Update newrelic_rpm dependency to version 3.3.2"
+        },
+        {
+          "sha": "c879eab7012dfbb57697f0b5ac7dface72eebbc7",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/c879eab7012dfbb57697f0b5ac7dface72eebbc7",
+          "message": "Update factory_girl_rails dependency to version 1.7.0"
+        },
+        {
+          "sha": "169a840a03af032d3082521de3228552b9a847de",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/169a840a03af032d3082521de3228552b9a847de",
+          "message": "Update cucumber dependency to version 1.1.5"
+        },
+        {
+          "sha": "d0f4625429ff046f36783c4b558e4ff09a3f2db7",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/d0f4625429ff046f36783c4b558e4ff09a3f2db7",
+          "message": "Update YouTube video on maintenance page"
+        },
+        {
+          "sha": "53d8431aa5192d61172fa598420bb4cae9553d79",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/53d8431aa5192d61172fa598420bb4cae9553d79",
+          "message": "Update cucumber dependency to version 1.1.6"
+        },
+        {
+          "sha": "6f8db842256b6c095afae2730c3fe683e81c761e",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/6f8db842256b6c095afae2730c3fe683e81c761e",
+          "message": "Update cucumber dependency to version 1.1.7"
+        },
+        {
+          "sha": "e7047984c57f16141b5955f92eb819b66d961f99",
+          "author": {
+            "name": "Evan Phoenix",
+            "email": "evan@phx.io"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/e7047984c57f16141b5955f92eb819b66d961f99",
+          "message": "Include all Errnos as failures"
+        },
+        {
+          "sha": "21a03cd7a787ffc29e5804e8b25264dd28dc1ac0",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/21a03cd7a787ffc29e5804e8b25264dd28dc1ac0",
+          "message": "Update capistrano dependency to version 2.10.0"
+        },
+        {
+          "sha": "37b1953fcea7d97b23eb5baeac32be6c6269318e",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/37b1953fcea7d97b23eb5baeac32be6c6269318e",
+          "message": "Update cucumber dependency to version 1.1.8"
+        },
+        {
+          "sha": "9833497049f4ee0c1625777a071670141b3b9852",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/9833497049f4ee0c1625777a071670141b3b9852",
+          "message": "Update cucumber-rails dependency to version 1.3.0"
+        },
+        {
+          "sha": "eb1ab659dd1d11d3308cdaea1f1f4fcc0b35ff5a",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/eb1ab659dd1d11d3308cdaea1f1f4fcc0b35ff5a",
+          "message": "Update capistrano dependency to version 2.11.0"
+        },
+        {
+          "sha": "ae870a8782ac1f453d39578c645e4af9ef5563a6",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/ae870a8782ac1f453d39578c645e4af9ef5563a6",
+          "message": "Update capistrano dependency to version 2.11.1"
+        },
+        {
+          "sha": "2c455849d8fa93c342bc742ddf1244d5db627870",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/2c455849d8fa93c342bc742ddf1244d5db627870",
+          "message": "Update cucumber dependency to version 1.1.9"
+        },
+        {
+          "sha": "8fc8b973ec658c7f8f92c66ea0feabf8a2b787c7",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/8fc8b973ec658c7f8f92c66ea0feabf8a2b787c7",
+          "message": "Update capistrano dependency to version 2.11.2"
+        },
+        {
+          "sha": "f9cc10724edfd797e577bcbf34d957b146ad4f30",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/f9cc10724edfd797e577bcbf34d957b146ad4f30",
+          "message": "Update excon dependency to version 0.9.6"
+        },
+        {
+          "sha": "147f922decfae8ee51a3f6e3cadcf3698d93baf4",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/147f922decfae8ee51a3f6e3cadcf3698d93baf4",
+          "message": "Update pg dependency to version 0.13.2"
+        },
+        {
+          "sha": "d7bc97ae0cabe50dfcc56080daf3d22f5ca6902a",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/d7bc97ae0cabe50dfcc56080daf3d22f5ca6902a",
+          "message": "Update high_voltage dependency to version 1.1.0"
+        },
+        {
+          "sha": "ff0ac9ca662a71d897d874c9c85f9538dea82bd4",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/ff0ac9ca662a71d897d874c9c85f9538dea82bd4",
+          "message": "Update high_voltage dependency to version 1.1.1"
+        }
+      ],
+      "ref": "refs/heads/staging"
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "bf4014334f65ba54fb31d21da71978fb",
+      "id": 208761,
+      "url": "https://api.github.com/orgs/",
+      "login": "rubygems"
+    },
+    "repo": {
+      "id": 117646,
+      "url": "https://api.github.com/repos/rubygems/rubygems.org",
+      "name": "rubygems/rubygems.org"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-26T01:21:25Z",
+    "id": "1523600991"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "ff0ac9ca662a71d897d874c9c85f9538dea82bd4",
+      "size": 11,
+      "push_id": 64210650,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "21a03cd7a787ffc29e5804e8b25264dd28dc1ac0",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/21a03cd7a787ffc29e5804e8b25264dd28dc1ac0",
+          "message": "Update capistrano dependency to version 2.10.0"
+        },
+        {
+          "sha": "37b1953fcea7d97b23eb5baeac32be6c6269318e",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/37b1953fcea7d97b23eb5baeac32be6c6269318e",
+          "message": "Update cucumber dependency to version 1.1.8"
+        },
+        {
+          "sha": "9833497049f4ee0c1625777a071670141b3b9852",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/9833497049f4ee0c1625777a071670141b3b9852",
+          "message": "Update cucumber-rails dependency to version 1.3.0"
+        },
+        {
+          "sha": "eb1ab659dd1d11d3308cdaea1f1f4fcc0b35ff5a",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/eb1ab659dd1d11d3308cdaea1f1f4fcc0b35ff5a",
+          "message": "Update capistrano dependency to version 2.11.0"
+        },
+        {
+          "sha": "ae870a8782ac1f453d39578c645e4af9ef5563a6",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/ae870a8782ac1f453d39578c645e4af9ef5563a6",
+          "message": "Update capistrano dependency to version 2.11.1"
+        },
+        {
+          "sha": "2c455849d8fa93c342bc742ddf1244d5db627870",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/2c455849d8fa93c342bc742ddf1244d5db627870",
+          "message": "Update cucumber dependency to version 1.1.9"
+        },
+        {
+          "sha": "8fc8b973ec658c7f8f92c66ea0feabf8a2b787c7",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/8fc8b973ec658c7f8f92c66ea0feabf8a2b787c7",
+          "message": "Update capistrano dependency to version 2.11.2"
+        },
+        {
+          "sha": "f9cc10724edfd797e577bcbf34d957b146ad4f30",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/f9cc10724edfd797e577bcbf34d957b146ad4f30",
+          "message": "Update excon dependency to version 0.9.6"
+        },
+        {
+          "sha": "147f922decfae8ee51a3f6e3cadcf3698d93baf4",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/147f922decfae8ee51a3f6e3cadcf3698d93baf4",
+          "message": "Update pg dependency to version 0.13.2"
+        },
+        {
+          "sha": "d7bc97ae0cabe50dfcc56080daf3d22f5ca6902a",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/d7bc97ae0cabe50dfcc56080daf3d22f5ca6902a",
+          "message": "Update high_voltage dependency to version 1.1.0"
+        },
+        {
+          "sha": "ff0ac9ca662a71d897d874c9c85f9538dea82bd4",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/rubygems/rubygems.org/commits/ff0ac9ca662a71d897d874c9c85f9538dea82bd4",
+          "message": "Update high_voltage dependency to version 1.1.1"
+        }
+      ]
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "bf4014334f65ba54fb31d21da71978fb",
+      "id": 208761,
+      "url": "https://api.github.com/orgs/",
+      "login": "rubygems"
+    },
+    "repo": {
+      "id": 117646,
+      "url": "https://api.github.com/repos/rubygems/rubygems.org",
+      "name": "rubygems/rubygems.org"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-26T01:20:54Z",
+    "id": "1523600935"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "9cca2127285b3f512d9469ff7d9cb53c592b8a4c",
+      "size": 1,
+      "push_id": 64077172,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "9cca2127285b3f512d9469ff7d9cb53c592b8a4c",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/follow-all/commits/9cca2127285b3f512d9469ff7d9cb53c592b8a4c",
+          "message": "Update simplecov dependency to version 0.6.1"
+        }
+      ]
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "ec81184c572bc827b72ebb489d49f821",
+      "id": 337792,
+      "url": "https://api.github.com/orgs/",
+      "login": "codeforamerica"
+    },
+    "repo": {
+      "id": 1255356,
+      "url": "https://api.github.com/repos/codeforamerica/follow-all",
+      "name": "codeforamerica/follow-all"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-24T19:57:50Z",
+    "id": "1523312268"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "b7d20e97210fb55d2430f5c3cef8791411c8d21f",
+      "size": 1,
+      "push_id": 64077157,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "b7d20e97210fb55d2430f5c3cef8791411c8d21f",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/b7d20e97210fb55d2430f5c3cef8791411c8d21f",
+          "message": "Update simplecov dependency to version 0.6.1"
+        }
+      ]
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 1716295,
+      "url": "https://api.github.com/repos/sferik/sign-in-with-twitter",
+      "name": "sferik/sign-in-with-twitter"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-24T19:57:47Z",
+    "id": "1523312240"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "68800b75ce6b3a49bae1c6f7f4720438d03b7b84",
+      "size": 1,
+      "push_id": 64077040,
+      "commits": [
+        {
+          "sha": "68800b75ce6b3a49bae1c6f7f4720438d03b7b84",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant/commits/68800b75ce6b3a49bae1c6f7f4720438d03b7b84",
+          "message": "Update simplecov dependency to version 0.6.1"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "ec81184c572bc827b72ebb489d49f821",
+      "id": 337792,
+      "url": "https://api.github.com/orgs/",
+      "login": "codeforamerica"
+    },
+    "repo": {
+      "id": 1366239,
+      "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant",
+      "name": "codeforamerica/adopt-a-hydrant"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-24T19:57:13Z",
+    "id": "1523312002"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "00984918e3fc49de3a115548fafd2a624304a6a8",
+      "size": 1,
+      "push_id": 63907530,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "00984918e3fc49de3a115548fafd2a624304a6a8",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/rails_admin/commits/00984918e3fc49de3a115548fafd2a624304a6a8",
+          "message": "Run specs in random order to catch order-dependency bugs\n\n@bbenezech: Please do not revert."
+        }
+      ]
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 810796,
+      "url": "https://api.github.com/repos/sferik/rails_admin",
+      "name": "sferik/rails_admin"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-23T22:53:44Z",
+    "id": "1522970614"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "3c3453192439e5638ac323e3e250cfcfee20e096",
+      "size": 1,
+      "push_id": 63878122,
+      "commits": [
+        {
+          "sha": "3c3453192439e5638ac323e3e250cfcfee20e096",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/3c3453192439e5638ac323e3e250cfcfee20e096",
+          "message": "Update twitter-text dependency to version 1.4.17"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 1716295,
+      "url": "https://api.github.com/repos/sferik/sign-in-with-twitter",
+      "name": "sferik/sign-in-with-twitter"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-23T20:28:17Z",
+    "id": "1522912836"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "bf753736f51a1c1d2d8d955c3c89ad922aaeb536",
+      "size": 1,
+      "push_id": 63857290,
+      "commits": [
+        {
+          "sha": "bf753736f51a1c1d2d8d955c3c89ad922aaeb536",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/rails_admin/commits/bf753736f51a1c1d2d8d955c3c89ad922aaeb536",
+          "message": "Don't raise exceptions on mass assignment protection for Active Record models"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 810796,
+      "url": "https://api.github.com/repos/sferik/rails_admin",
+      "name": "sferik/rails_admin"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-23T18:48:30Z",
+    "id": "1522874036"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "8dae7078b54e9b197776d31425c092b7f28681d3",
+      "size": 1,
+      "push_id": 63857041,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "8dae7078b54e9b197776d31425c092b7f28681d3",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/rails_admin/commits/8dae7078b54e9b197776d31425c092b7f28681d3",
+          "message": "Update dummy_app to Rails 3.2"
+        }
+      ]
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 810796,
+      "url": "https://api.github.com/repos/sferik/rails_admin",
+      "name": "sferik/rails_admin"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-23T18:47:15Z",
+    "id": "1522873578"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "d3b313dced63ed655a6766f075ad249b7afdcd82",
+      "size": 1,
+      "push_id": 63855705,
+      "commits": [
+        {
+          "sha": "d3b313dced63ed655a6766f075ad249b7afdcd82",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/rails_admin/commits/d3b313dced63ed655a6766f075ad249b7afdcd82",
+          "message": "Cleanup trailing whitespace"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 810796,
+      "url": "https://api.github.com/repos/sferik/rails_admin",
+      "name": "sferik/rails_admin"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-23T18:40:55Z",
+    "id": "1522870949"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "0f423f9b511e5b6fa327063ee76a8cf6816b91d7",
+      "size": 1,
+      "push_id": 63677158,
+      "commits": [
+        {
+          "sha": "0f423f9b511e5b6fa327063ee76a8cf6816b91d7",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant/commits/0f423f9b511e5b6fa327063ee76a8cf6816b91d7",
+          "message": "Update pg dependency to version 0.13.2"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "ec81184c572bc827b72ebb489d49f821",
+      "id": 337792,
+      "url": "https://api.github.com/orgs/",
+      "login": "codeforamerica"
+    },
+    "repo": {
+      "id": 1366239,
+      "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant",
+      "name": "codeforamerica/adopt-a-hydrant"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-22T21:51:48Z",
+    "id": "1522528550"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "df2df8973c5646cdeb1ffdfb403446c5f1ef8062",
+      "size": 2,
+      "push_id": 63663653,
+      "commits": [
+        {
+          "sha": "41f3060c49a7e24c9cbe4a598f95f4d772e05515",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant/commits/41f3060c49a7e24c9cbe4a598f95f4d772e05515",
+          "message": "Update journey dependency to version 1.0.3"
+        },
+        {
+          "sha": "df2df8973c5646cdeb1ffdfb403446c5f1ef8062",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant/commits/df2df8973c5646cdeb1ffdfb403446c5f1ef8062",
+          "message": "Update simplecov dependency to version 0.6.0"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "ec81184c572bc827b72ebb489d49f821",
+      "id": 337792,
+      "url": "https://api.github.com/orgs/",
+      "login": "codeforamerica"
+    },
+    "repo": {
+      "id": 1366239,
+      "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant",
+      "name": "codeforamerica/adopt-a-hydrant"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-22T20:48:45Z",
+    "id": "1522500788"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "367b59172f180deaf75291f47d66e70c6db9806f",
+      "size": 2,
+      "push_id": 63663593,
+      "commits": [
+        {
+          "sha": "d24b8d448736c1d6fbc0798a7dec1104b44b0767",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/follow-all/commits/d24b8d448736c1d6fbc0798a7dec1104b44b0767",
+          "message": "Update journey dependency to version 1.0.3"
+        },
+        {
+          "sha": "367b59172f180deaf75291f47d66e70c6db9806f",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/follow-all/commits/367b59172f180deaf75291f47d66e70c6db9806f",
+          "message": "Update simplecov dependency to version 0.6.0"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "ec81184c572bc827b72ebb489d49f821",
+      "id": 337792,
+      "url": "https://api.github.com/orgs/",
+      "login": "codeforamerica"
+    },
+    "repo": {
+      "id": 1255356,
+      "url": "https://api.github.com/repos/codeforamerica/follow-all",
+      "name": "codeforamerica/follow-all"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-22T20:48:28Z",
+    "id": "1522500647"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "1dd5a8c9bd70126b653f004bab17f3bbe7ecc520",
+      "size": 2,
+      "push_id": 63663569,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "1e5f24f89d693894ec81a9ece5a8f4c67005dbf6",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/1e5f24f89d693894ec81a9ece5a8f4c67005dbf6",
+          "message": "Update journey dependency to version 1.0.3"
+        },
+        {
+          "sha": "1dd5a8c9bd70126b653f004bab17f3bbe7ecc520",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/1dd5a8c9bd70126b653f004bab17f3bbe7ecc520",
+          "message": "Update simplecov dependency to version 0.6.0"
+        }
+      ]
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 1716295,
+      "url": "https://api.github.com/repos/sferik/sign-in-with-twitter",
+      "name": "sferik/sign-in-with-twitter"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-22T20:48:20Z",
+    "id": "1522500595"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "15c967f897a130d1de5212528d1f1534ea282e96",
+      "size": 1,
+      "push_id": 63542083,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "15c967f897a130d1de5212528d1f1534ea282e96",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/follow-all/commits/15c967f897a130d1de5212528d1f1534ea282e96",
+          "message": "Update arel dependency to version 3.0.2"
+        }
+      ]
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "ec81184c572bc827b72ebb489d49f821",
+      "id": 337792,
+      "url": "https://api.github.com/orgs/",
+      "login": "codeforamerica"
+    },
+    "repo": {
+      "id": 1255356,
+      "url": "https://api.github.com/repos/codeforamerica/follow-all",
+      "name": "codeforamerica/follow-all"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-22T08:59:32Z",
+    "id": "1522242424"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "2fc55d8cd41fba71a387cb7bc1b539c30db8d7f7",
+      "size": 1,
+      "push_id": 63542071,
+      "commits": [
+        {
+          "sha": "2fc55d8cd41fba71a387cb7bc1b539c30db8d7f7",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/2fc55d8cd41fba71a387cb7bc1b539c30db8d7f7",
+          "message": "Update arel dependency to version 3.0.2"
+        }
+      ],
+      "ref": "refs/heads/master"
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 1716295,
+      "url": "https://api.github.com/repos/sferik/sign-in-with-twitter",
+      "name": "sferik/sign-in-with-twitter"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-22T08:59:25Z",
+    "id": "1522242403"
+  },
+  {
+    "type": "PushEvent",
+    "payload": {
+      "head": "f5103918ab828f3745138136f8d59d7b4d5f0685",
+      "size": 1,
+      "push_id": 63542059,
+      "ref": "refs/heads/master",
+      "commits": [
+        {
+          "sha": "f5103918ab828f3745138136f8d59d7b4d5f0685",
+          "author": {
+            "name": "Erik Michaels-Ober",
+            "email": "sferik@gmail.com"
+          },
+          "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant/commits/f5103918ab828f3745138136f8d59d7b4d5f0685",
+          "message": "Update arel dependency to version 3.0.2"
+        }
+      ]
+    },
+    "public": true,
+    "org": {
+      "gravatar_id": "ec81184c572bc827b72ebb489d49f821",
+      "id": 337792,
+      "url": "https://api.github.com/orgs/",
+      "login": "codeforamerica"
+    },
+    "repo": {
+      "id": 1366239,
+      "url": "https://api.github.com/repos/codeforamerica/adopt-a-hydrant",
+      "name": "codeforamerica/adopt-a-hydrant"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-22T08:59:19Z",
+    "id": "1522242386"
+  },
+  {
+    "type": "IssuesEvent",
+    "payload": {
+      "action": "closed",
+      "issue": {
+        "number": 237,
+        "pull_request": {
+          "diff_url": null,
+          "patch_url": null,
+          "html_url": null
+        },
+        "created_at": "2012-02-19T22:04:45Z",
+        "title": "Retrieve raw http headers to see rate limit",
+        "comments": 7,
+        "body": "Although I know I can do a call to the twitter api to retrieve my current rate limit status it would be nice to benefit from the fact that twitter sends your rate limit back on every request.\r\n\r\nHow can I access the raw http headers of a request?\r\n\r\n",
+        "updated_at": "2012-02-21T19:18:08Z",
+        "url": "https://api.github.com/repos/jnunemaker/twitter/issues/237",
+        "id": 3287609,
+        "assignee": null,
+        "milestone": null,
+        "closed_at": "2012-02-21T19:18:08Z",
+        "labels": [
+
+        ],
+        "user": {
+          "gravatar_id": "a7e25a29e1e25927092f94ea835e8833",
+          "avatar_url": "https://secure.gravatar.com/avatar/a7e25a29e1e25927092f94ea835e8833?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/dennisvdvliet",
+          "id": 789163,
+          "login": "dennisvdvliet"
+        },
+        "html_url": "https://github.com/jnunemaker/twitter/issues/237",
+        "state": "closed"
+      }
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 507,
+      "url": "https://api.github.com/repos/jnunemaker/twitter",
+      "name": "jnunemaker/twitter"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-21T19:18:09Z",
+    "id": "1522006498"
+  },
+  {
+    "type": "IssueCommentEvent",
+    "payload": {
+      "comment": {
+        "created_at": "2012-02-21T19:18:08Z",
+        "body": "Yes. :)",
+        "updated_at": "2012-02-21T19:18:08Z",
+        "url": "https://api.github.com/repos/jnunemaker/twitter/issues/comments/4082397",
+        "id": 4082397,
+        "user": {
+          "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+          "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/sferik",
+          "id": 10308,
+          "login": "sferik"
+        }
+      },
+      "action": "created",
+      "issue": {
+        "number": 237,
+        "pull_request": {
+          "diff_url": null,
+          "patch_url": null,
+          "html_url": null
+        },
+        "created_at": "2012-02-19T22:04:45Z",
+        "title": "Retrieve raw http headers to see rate limit",
+        "comments": 7,
+        "body": "Although I know I can do a call to the twitter api to retrieve my current rate limit status it would be nice to benefit from the fact that twitter sends your rate limit back on every request.\r\n\r\nHow can I access the raw http headers of a request?\r\n\r\n",
+        "updated_at": "2012-02-21T19:18:08Z",
+        "url": "https://api.github.com/repos/jnunemaker/twitter/issues/237",
+        "id": 3287609,
+        "assignee": null,
+        "milestone": null,
+        "closed_at": "2012-02-21T19:18:08Z",
+        "labels": [
+
+        ],
+        "user": {
+          "gravatar_id": "a7e25a29e1e25927092f94ea835e8833",
+          "avatar_url": "https://secure.gravatar.com/avatar/a7e25a29e1e25927092f94ea835e8833?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+          "url": "https://api.github.com/users/dennisvdvliet",
+          "id": 789163,
+          "login": "dennisvdvliet"
+        },
+        "html_url": "https://github.com/jnunemaker/twitter/issues/237",
+        "state": "closed"
+      }
+    },
+    "public": true,
+    "org": {
+      "url": "https://api.github.com/orgs/"
+    },
+    "repo": {
+      "id": 507,
+      "url": "https://api.github.com/repos/jnunemaker/twitter",
+      "name": "jnunemaker/twitter"
+    },
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "url": "https://api.github.com/users/sferik",
+      "login": "sferik"
+    },
+    "created_at": "2012-02-21T19:18:09Z",
+    "id": "1522006490"
+  }
+]

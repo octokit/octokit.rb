@@ -10,6 +10,16 @@ module Octokit
       def public_events(options={})
         get("/events", options, 3)
       end
+      
+      # List all user events
+      #
+      # @return [Array] A list of all user events
+      # @see http://developer.github.com/v3/events
+      # @example List all user events
+      #   Octokit.user_events("sferik")
+      def user_events(user, options={})
+        get("/users/#{user}/events", options, 3)
+      end
 
       # List events for a repository
       #
