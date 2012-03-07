@@ -1,0 +1,35 @@
+[
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-12-24T05:18:20Z",
+    "description": "Robawt",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-2.1.0.tar.gz",
+    "name": "hubot-2.1.0.tar.gz",
+    "download_count": 267,
+    "id": 165347,
+    "url": "https://api.github.com/repos/github/hubot/downloads/165347"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-12-01T08:48:32Z",
+    "description": "Robawt",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-2.0.5.tar.gz",
+    "name": "hubot-2.0.5.tar.gz",
+    "download_count": 3602,
+    "id": 155291,
+    "url": "https://api.github.com/repos/github/hubot/downloads/155291"
+  },
+  {
+    "content_type": "application/gzip",
+    "created_at": "2011-11-25T20:07:31Z",
+    "description": "Robawt",
+    "size": 6144,
+    "html_url": "https://github.com/downloads/github/hubot/hubot-2.0.4.tar.gz",
+    "name": "hubot-2.0.4.tar.gz",
+    "download_count": 383,
+    "id": 153174,
+    "url": "https://api.github.com/repos/github/hubot/downloads/153174"
+  }
+]
