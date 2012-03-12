@@ -11,12 +11,14 @@ module Octokit
       :proxy,
       :oauth_token,
       :user_agent,
-      :auto_traversal].freeze
+      :auto_traversal,
+      :github_url].freeze
 
     DEFAULT_ADAPTER        = Faraday.default_adapter
     DEFAULT_API_VERSION    = 3
     DEFAULT_USER_AGENT     = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
     DEFAULT_AUTO_TRAVERSAL = false
+    DEFAULT_GITHUB_URL     = "https://github.com"
 
     attr_accessor(*VALID_OPTIONS_KEYS)
 
@@ -41,6 +43,7 @@ module Octokit
       self.oauth_token    = nil
       self.user_agent     = DEFAULT_USER_AGENT
       self.auto_traversal = DEFAULT_AUTO_TRAVERSAL
+      self.github_url     = DEFAULT_GITHUB_URL
     end
   end
 end

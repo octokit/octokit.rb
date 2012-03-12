@@ -30,7 +30,11 @@ module Octokit
     end
 
     def url
-      "https://github.com/#{slug}"
+      if Client.github_url
+        "#{Client.github_url}/#{slug}"
+      else
+        "https://github.com/#{slug}"
+      end
     end
 
     alias :user :username
