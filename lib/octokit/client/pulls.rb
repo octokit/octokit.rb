@@ -8,7 +8,7 @@ module Octokit
           :title => title,
           :body  => body,
         }
-        post("repos/#{Repository.new(repo)}/pulls", options.merge({:pull => pull}))
+        post("repos/#{Repository.new(repo)}/pulls", options.merge(pull))
       end
 
       def create_pull_request_for_issue(repo, base, head, issue, options={})
@@ -17,7 +17,7 @@ module Octokit
           :head  => head,
           :issue => issue
         }
-        post("repos/#{Repository.new(repo)}/pulls", options.merge({:pull => pull}))
+        post("repos/#{Repository.new(repo)}/pulls", options.merge(pull))
       end
 
       def pull_requests(repo, state='open', options={})
