@@ -2,7 +2,7 @@ module Octokit
   class Client
     module Repositories
       def search_repositories(q, options={})
-        # Deprecated 
+        warn 'DEPRECATED: V3 of the API does not support searching repos. Please use Octokit.repositories instead.'
         get("/api/v2/json/repos/search/#{q}", options, 2)['repositories']
       end
       alias :search_repos :search_repositories

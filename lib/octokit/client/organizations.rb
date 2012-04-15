@@ -24,7 +24,7 @@ module Octokit
 
       def organization_repositories(org=nil, options={})
         if org.nil?
-          # Depreciated
+          warn 'DEPRECATED: Please pass org name to list repos.'
           get("/api/v2/json/organizations/repositories", options, 2)
         else
           get("orgs/#{org}/repos", options, 3)
