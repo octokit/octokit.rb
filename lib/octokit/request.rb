@@ -32,7 +32,7 @@ module Octokit
         when :patch, :post, :put
           request.path = path
           if 3 == version && !force_urlencoded
-            request.body = MultiJson.encode(options) unless options.empty?
+            request.body = MultiJson.dump(options) unless options.empty?
           else
             request.body = options unless options.empty?
           end

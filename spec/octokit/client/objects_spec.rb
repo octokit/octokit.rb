@@ -70,7 +70,7 @@ describe Octokit::Client::Objects do
         to_return(:body => fixture("v2/raw.txt"))
       raw = @client.raw("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
       lambda {
-        ::MultiJson.decode(raw)
+        MultiJson.load(raw)
       }.should raise_error
     end
 
