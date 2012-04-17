@@ -3,7 +3,6 @@
 *.swp
 *.tmproj
 *~
-.DS_Store
 .\#*
 .bundle
 .config
