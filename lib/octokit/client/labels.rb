@@ -1,3 +1,5 @@
+require 'cgi'
+
 module Octokit
   class Client
     module Labels
@@ -22,7 +24,7 @@ module Octokit
       # @example Get the "V3 Addition" label from pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
       def label(repo, name, options={})
-        get("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(name)}", options, 3)
+        get("repos/#{Repository.new(repo)}/labels/#{CGI.escape(name)}", options, 3)
       end
 
       # Add a label to a repository
@@ -50,7 +52,7 @@ module Octokit
       # @example Update the label "Version 1.0" with new color "#cceeaa"
       #   Octokit.update_label("pengwynn/octokit", "Version 1.0", {:color => "cceeaa"})
       def update_label(repo, label, options={})
-        post("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(label)}", options, 3)
+        post("repos/#{Repository.new(repo)}/labels/#{CGI.escape(label)}", options, 3)
       end
 
       # Delete a label from a repository.
@@ -65,7 +67,7 @@ module Octokit
       # @example Delete the label "Version 1.0" from the repository.
       #   Octokit.delete_label!("pengwynn/octokit", "Version 1.0")
       def delete_label!(repo, label, options={})
-        delete("repos/#{Repository.new(repo)}/labels/#{URI.encode_www_form_component(label)}", options, 3, true, true)
+        delete("repos/#{Repository.new(repo)}/labels/#{CGI.escape(label)}", options, 3, true, true)
       end
 
       # Remove a label from an Issue
@@ -81,7 +83,7 @@ module Octokit
       # @example Remove the label "Version 1.0" from the repository.
       #   Octokit.remove_label("pengwynn/octokit", 23, "Version 1.0")
       def remove_label(repo, number, label, options={})
-        delete("repos/#{Repository.new(repo)}/issues/#{number}/labels/#{URI.encode_www_form_component(label)}", options, 3, true)
+        delete("repos/#{Repository.new(repo)}/issues/#{number}/labels/#{CGI.escape(label)}", options, 3, true)
       end
 
       # Remove all label from an Issue
