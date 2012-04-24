@@ -24,9 +24,9 @@ module Octokit
 
       connection = Faraday.new(options) do |builder|
         if version >= 3 && !force_urlencoded
-          builder.use Faraday::Request::JSON
+          builder.request :json
         else
-          builder.use Faraday::Request::UrlEncoded
+          builder.request :url_encoded
         end
         builder.use Faraday::Response::RaiseOctokitError
         unless raw
