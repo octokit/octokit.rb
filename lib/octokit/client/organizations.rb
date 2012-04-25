@@ -43,16 +43,16 @@ module Octokit
       end
       alias :org_teams :organization_teams
 
-      def create_team(org, values, options={})
-        post("orgs/#{org}/teams", options.merge({:team => values}), 3)
+      def create_team(org, options={})
+        post("orgs/#{org}/teams", options, 3)
       end
 
       def team(team_id, options={})
         get("teams/#{team_id}", options, 3)
       end
 
-      def update_team(team_id, values, options={})
-        patch("teams/#{team_id}", options.merge({:team => values}), 3)
+      def update_team(team_id, options={})
+        patch("teams/#{team_id}", options, 3)
       end
 
       def delete_team(team_id, options={})
