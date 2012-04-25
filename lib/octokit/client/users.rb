@@ -4,11 +4,11 @@ module Octokit
 
       EMAIL_RE = /[\w.!#\$%+-]+@[\w-]+(?:\.[\w-]+)+/
       def search_users(search, options={})
-        warn 'DEPRECATED: V3 of the API does not allow searching users.'
         if search.match(EMAIL_RE)
+          warn 'DEPRECATED: V3 of the API does not allow searching users by email'
           get("/api/v2/json/user/email/#{search}", options, 2)['user']
         else
-          get("/api/v2/json/user/search/#{search}", options, 2)['users']
+          get("/legacy/user/search/#{search}", options, 3)['users']
         end
       end
 

@@ -12,7 +12,7 @@ describe Octokit::Client::Users do
     context "with a username passed" do
 
       it "should return matching username" do
-        stub_get("https://github.com/api/v2/json/user/search/sferik").
+        stub_get("https://api.github.com/legacy/user/search/sferik").
           to_return(:body => fixture("v2/users.json"))
         users = @client.search_users("sferik")
         users.first.username.should == "sferik"

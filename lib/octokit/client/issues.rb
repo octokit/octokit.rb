@@ -13,8 +13,7 @@ module Octokit
       #   Octokit.search_issues("sferik/rails_admin", 'test', 'open')
       # @deprecated Please use `list_issues` instead
       def search_issues(repo, search_term, state='open', options={})
-        warn 'DEPRECATED: Please use Octokit.list_issues instead.'
-        get("/api/v2/json/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options, 2)['issues']
+        get("/legacy/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options, 3)['issues']
       end
 
       # List issues for a repository

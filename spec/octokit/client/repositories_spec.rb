@@ -10,7 +10,7 @@ describe Octokit::Client::Repositories do
   describe ".search_user" do
 
     it "should return matching repositories" do
-      stub_get("https://github.com/api/v2/json/repos/search/One40Proof").
+      stub_get("https://api.github.com/legacy/repos/search/One40Proof").
         to_return(:body => fixture("v2/repositories.json"))
       repositories = @client.search_repositories("One40Proof")
       repositories.first.name.should == "One40Proof"

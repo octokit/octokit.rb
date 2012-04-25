@@ -10,7 +10,7 @@ describe Octokit::Client::Issues do
   describe ".search_issues" do
 
     it "should return matching issues" do
-      stub_get("https://github.com/api/v2/json/issues/search/sferik/rails_admin/open/activerecord").
+      stub_get("https://api.github.com/legacy/issues/search/sferik/rails_admin/open/activerecord").
       to_return(:body => fixture("v2/issues.json"))
       issues = @client.search_issues("sferik/rails_admin", "activerecord")
       issues.first.number.should == 105
@@ -37,7 +37,7 @@ describe Octokit::Client::Issues do
              :headers => {'Content-Type'=>'application/json'}).
         to_return(:body => fixture("v3/issue.json"))
       issue = @client.create_issue("ctshryock/octokit", "Migrate issues to v3", "Move all Issues calls to v3 of the API")
-      issue.number.should == 12 
+      issue.number.should == 12
     end
 
   end
