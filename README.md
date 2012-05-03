@@ -4,15 +4,15 @@ Simple Ruby wrapper for the GitHub v2 & v3 API.
 [travis]: http://travis-ci.org/pengwynn/octokit
 [gemnasium]: https://gemnasium.com/pengwynn/octokit
 
-## <a name="installation"></a>Installation
+## Installation
     gem install octokit
 
-## <a name="documentation"></a>Documentation
+## Documentation
 [http://rdoc.info/gems/octokit][documentation]
 
 [documentation]: http://rdoc.info/gems/octokit
 
-## <a name="examples"></a>Examples
+## Examples
 ### Show a user
 ```ruby
 Octokit.user("sferik")
@@ -38,7 +38,7 @@ Octokit.repo("pengwynn/octokit")
 => <#Hashie::Rash created_at="2009/12/10 13:41:49 -0800" description="Simple Ruby wrapper for the GitHub v2 API and feeds" fork=false forks=25 has_downloads=true has_issues=true has_wiki=true homepage="http://wynnnetherland.com/projects/octokit" integrate_branch="master" language="Ruby" name="octokit" open_issues=8 owner="pengwynn" private=false pushed_at="2011/05/05 10:48:57 -0700" size=1804 url="https://github.com/pengwynn/octokit" watchers=92>
 ```
 
-## <a name="authenticated_requests"></a>Authenticated Requests
+## Authenticated Requests
 For methods that require authentication, you'll need to setup a client with
 your login and password.
 
@@ -56,7 +56,7 @@ client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
 client.follow!("sferik")
 ```
 
-## <a name="pulls"></a>Submitting a Pull Request
+## Submitting a Pull Request
 1. Fork the project.
 2. Create a topic branch.
 3. Implement your feature or bug fix.
@@ -71,7 +71,7 @@ client.follow!("sferik")
    gemspec. (If you want to create your own version for some reason, please do
    so in a separate commit.)
 
-## <a name="versions"></a>Supported Ruby Versions
+## Supported Ruby Versions
 This library aims to support and is [tested against][travis] the following Ruby
 implementations:
 
@@ -98,13 +98,13 @@ implementation, you will be personally responsible for providing patches in a
 timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
 
-## <a name="inspiration"></a>Inspiration
+## Inspiration
 Octokit was inspired by [Octopi][] and aims to be a lightweight,
 less-ActiveResourcey alternative.
 
 [octopi]: https://github.com/fcoury/octopi
 
-## <a name="copyright"></a>Copyright
+## Copyright
 Copyright (c) 2011 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober. See
 [LICENSE][] for details.
 
