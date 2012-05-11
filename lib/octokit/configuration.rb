@@ -11,7 +11,8 @@ module Octokit
       :proxy,
       :oauth_token,
       :user_agent,
-      :auto_traversal].freeze
+      :auto_traversal,
+      :per_page].freeze
 
     DEFAULT_ADAPTER        = Faraday.default_adapter
     DEFAULT_API_VERSION    = 3

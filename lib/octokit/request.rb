@@ -28,6 +28,10 @@ module Octokit
       response = connection(authenticate, raw, version, force_urlencoded).send(method) do |request|
         case method
         when :delete, :get
+          if auto_traversal && per_page.nil?
+            self.per_page = 100
+          end
+          options.merge!(:per_page => per_page) if per_page
           request.url(path, options)
         when :patch, :post, :put
           request.path = path
