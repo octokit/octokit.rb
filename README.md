@@ -26,7 +26,7 @@ Octokit.following("sferik")
 ```
 
 ### Repositories
-For convenience, methods that require a repoistory argument may be passed in any of the following forms:
+For convenience, methods that require a repository argument may be passed in any of the following forms:
 
 * `"pengwynn/octokit"`
 * `{:username => "pengwynn", :name => "octokit"}`
