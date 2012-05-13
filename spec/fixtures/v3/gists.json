@@ -1,0 +1,548 @@
+[
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "dmesg |grep -i dma",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/2631715.git",
+    "updated_at": "2012-05-08T00:41:20Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:2631715.git",
+    "url": "https://api.github.com/gists/2631715",
+    "id": "2631715",
+    "created_at": "2012-05-08T00:41:08Z",
+    "files": {
+      "dma": {
+        "type": "text/plain",
+        "raw_url": "https://gist.github.com/raw/2631715/50a717e0f73db498205d4423c30c6953403bd942/dma",
+        "size": 1408,
+        "filename": "dma",
+        "language": null
+      },
+      "vesa": {
+        "type": "text/plain",
+        "raw_url": "https://gist.github.com/raw/2631715/492508eb7f1cc9d71d92d13e78a4124f6a3e1704/vesa",
+        "size": 450,
+        "filename": "vesa",
+        "language": null
+      }
+    },
+    "html_url": "https://gist.github.com/2631715"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/1480971.git",
+    "updated_at": "2011-12-15T12:43:00Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:1480971.git",
+    "url": "https://api.github.com/gists/1480971",
+    "id": "1480971",
+    "created_at": "2011-12-15T12:43:00Z",
+    "files": {
+      "export_logs.sh": {
+        "type": "application/sh",
+        "raw_url": "https://gist.github.com/raw/1480971/8c1101586c344e53de2a76bb05cf596f1909fba6/export_logs.sh",
+        "size": 395,
+        "filename": "export_logs.sh",
+        "language": "Shell"
+      },
+      "compress_iphone_logs.sh": {
+        "type": "application/sh",
+        "raw_url": "https://gist.github.com/raw/1480971/0131940697d28348c100fa0fa1c95f34304684b6/compress_iphone_logs.sh",
+        "size": 228,
+        "filename": "compress_iphone_logs.sh",
+        "language": "Shell"
+      }
+    },
+    "html_url": "https://gist.github.com/1480971"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/1467395.git",
+    "updated_at": "2011-12-12T14:17:27Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:1467395.git",
+    "url": "https://api.github.com/gists/1467395",
+    "id": "1467395",
+    "created_at": "2011-12-12T14:17:27Z",
+    "files": {
+      "android_shit.xml": {
+        "type": "application/xml",
+        "raw_url": "https://gist.github.com/raw/1467395/712a11748a19bc0b377e67f542aeac39ef18261e/android_shit.xml",
+        "size": 1057,
+        "filename": "android_shit.xml",
+        "language": "XML"
+      }
+    },
+    "html_url": "https://gist.github.com/1467395"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/1202712.git",
+    "updated_at": "2011-09-08T05:41:42Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:1202712.git",
+    "url": "https://api.github.com/gists/1202712",
+    "id": "1202712",
+    "created_at": "2011-09-08T05:41:42Z",
+    "files": {
+      ".tmux.conf": {
+        "type": "text/plain",
+        "raw_url": "https://gist.github.com/raw/1202712/9180aeb256e9cdbeb9e5306623336295f2aa2a6f/.tmux.conf",
+        "size": 724,
+        "filename": ".tmux.conf",
+        "language": null
+      }
+    },
+    "html_url": "https://gist.github.com/1202712"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "Patch to IRB to allow a custom context.",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/948725.git",
+    "updated_at": "2011-04-29T18:03:33Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:948725.git",
+    "url": "https://api.github.com/gists/948725",
+    "id": "948725",
+    "created_at": "2011-04-29T18:02:39Z",
+    "files": {
+      "usage.rb": {
+        "type": "application/ruby",
+        "raw_url": "https://gist.github.com/raw/948725/fec4365da7c0c165fda5f3ac0c17cde9bfe6f2ac/usage.rb",
+        "size": 274,
+        "filename": "usage.rb",
+        "language": "Ruby"
+      },
+      "core_ext-irb.rb": {
+        "type": "application/ruby",
+        "raw_url": "https://gist.github.com/raw/948725/b674832074a400984abbb15251d8ed93dff42274/core_ext-irb.rb",
+        "size": 729,
+        "filename": "core_ext-irb.rb",
+        "language": "Ruby"
+      }
+    },
+    "html_url": "https://gist.github.com/948725"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-demo.txt",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/898327.git",
+    "updated_at": "2011-04-01T15:23:34Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:898327.git",
+    "url": "https://api.github.com/gists/898327",
+    "id": "898327",
+    "created_at": "2011-04-01T15:23:34Z",
+    "files": {
+      "UTF-8-demo.txt": {
+        "type": "text/plain",
+        "raw_url": "https://gist.github.com/raw/898327/82922114965f59b974c67dc1e8c6afc4f347779d/UTF-8-demo.txt",
+        "size": 13986,
+        "filename": "UTF-8-demo.txt",
+        "language": "Text"
+      }
+    },
+    "html_url": "https://gist.github.com/898327"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "Minecraft shell script launcher.",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/820388.git",
+    "updated_at": "2011-02-10T13:42:12Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:820388.git",
+    "url": "https://api.github.com/gists/820388",
+    "id": "820388",
+    "created_at": "2011-02-10T11:45:53Z",
+    "files": {
+      "minecraft.sh": {
+        "type": "application/sh",
+        "raw_url": "https://gist.github.com/raw/820388/9f80242b24d11933320006387be9829bd15edf53/minecraft.sh",
+        "size": 191,
+        "filename": "minecraft.sh",
+        "language": "Shell"
+      },
+      "server.sh": {
+        "type": "application/sh",
+        "raw_url": "https://gist.github.com/raw/820388/9c90b98c7afaaf6ef68e7134ea7ad86b7e4241e4/server.sh",
+        "size": 371,
+        "filename": "server.sh",
+        "language": "Shell"
+      }
+    },
+    "html_url": "https://gist.github.com/820388"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/785564.git",
+    "updated_at": "2011-01-19T02:13:26Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:785564.git",
+    "url": "https://api.github.com/gists/785564",
+    "id": "785564",
+    "created_at": "2011-01-19T02:13:26Z",
+    "files": {
+      "what_the_fuck.java": {
+        "type": "text/plain",
+        "raw_url": "https://gist.github.com/raw/785564/9b8e75700e13951fd2de42e42af36ffbeca59c1f/what_the_fuck.java",
+        "size": 316,
+        "filename": "what_the_fuck.java",
+        "language": "Java"
+      }
+    },
+    "html_url": "https://gist.github.com/785564"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/774410.git",
+    "updated_at": "2011-01-11T14:04:20Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:774410.git",
+    "url": "https://api.github.com/gists/774410",
+    "id": "774410",
+    "created_at": "2011-01-11T13:37:55Z",
+    "files": {
+      ".tmux.conf": {
+        "type": "text/plain",
+        "raw_url": "https://gist.github.com/raw/774410/75703e54e8370162d5e0988c7bd92eaeff94c3ef/.tmux.conf",
+        "size": 676,
+        "filename": ".tmux.conf",
+        "language": null
+      }
+    },
+    "html_url": "https://gist.github.com/774410"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/703242.git",
+    "updated_at": "2010-11-17T10:48:36Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:703242.git",
+    "url": "https://api.github.com/gists/703242",
+    "id": "703242",
+    "created_at": "2010-11-17T10:42:26Z",
+    "files": {
+      "auto_ssh.zsh": {
+        "type": "text/plain",
+        "raw_url": "https://gist.github.com/raw/703242/c295cd25427b297e6ed9da9db4ffa3ab00faea2b/auto_ssh.zsh",
+        "size": 553,
+        "filename": "auto_ssh.zsh",
+        "language": "Shell"
+      }
+    },
+    "html_url": "https://gist.github.com/703242"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": null,
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/701304.git",
+    "updated_at": "2010-11-16T11:40:12Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:701304.git",
+    "url": "https://api.github.com/gists/701304",
+    "id": "701304",
+    "created_at": "2010-11-16T01:57:00Z",
+    "files": {
+      "array_object_webapp.rb": {
+        "type": "application/ruby",
+        "raw_url": "https://gist.github.com/raw/701304/cdcd06a99aa94ac09f262a633b0874c18efefcbe/array_object_webapp.rb",
+        "size": 712,
+        "filename": "array_object_webapp.rb",
+        "language": "Ruby"
+      },
+      "webapp.rb": {
+        "type": "application/ruby",
+        "raw_url": "https://gist.github.com/raw/701304/04642793ee8da46b8c241f2a602d57146f9e4582/webapp.rb",
+        "size": 679,
+        "filename": "webapp.rb",
+        "language": "Ruby"
+      },
+      "object_app.rb": {
+        "type": "application/ruby",
+        "raw_url": "https://gist.github.com/raw/701304/b4b05072d9524769a347ae14afa90ec6e5233472/object_app.rb",
+        "size": 476,
+        "filename": "object_app.rb",
+        "language": "Ruby"
+      }
+    },
+    "html_url": "https://gist.github.com/701304"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/700200.git",
+    "updated_at": "2010-12-21T00:19:14Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:700200.git",
+    "url": "https://api.github.com/gists/700200",
+    "id": "700200",
+    "created_at": "2010-11-15T09:27:41Z",
+    "files": {
+      ".gitconfig": {
+        "type": "text/plain",
+        "raw_url": "https://gist.github.com/raw/700200/f449eb20c34c7e6675cdf7fd1034a18589afb0bc/.gitconfig",
+        "size": 603,
+        "filename": ".gitconfig",
+        "language": "INI"
+      }
+    },
+    "html_url": "https://gist.github.com/700200"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "Simple script to make an attempt at geolocating an IP.",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/675201.git",
+    "updated_at": "2010-11-13T09:04:53Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:675201.git",
+    "url": "https://api.github.com/gists/675201",
+    "id": "675201",
+    "created_at": "2010-11-13T09:04:53Z",
+    "files": {
+      "geo_ip.rb": {
+        "type": "application/ruby",
+        "raw_url": "https://gist.github.com/raw/675201/7a9153a842cc929a97b0a5fa27b61eeccb5f3572/geo_ip.rb",
+        "size": 2078,
+        "filename": "geo_ip.rb",
+        "language": "Ruby"
+      }
+    },
+    "html_url": "https://gist.github.com/675201"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "Simple script which adds the given IPs to /etc/hosts.deny (or the specified file).",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/673321.git",
+    "updated_at": "2010-11-11T22:25:23Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:673321.git",
+    "url": "https://api.github.com/gists/673321",
+    "id": "673321",
+    "created_at": "2010-11-11T22:25:22Z",
+    "files": {
+      "deny_ip.rb": {
+        "type": "application/ruby",
+        "raw_url": "https://gist.github.com/raw/673321/5b24d7f28e5bc6f455d456d124f30e16be20aa10/deny_ip.rb",
+        "size": 3506,
+        "filename": "deny_ip.rb",
+        "language": "Ruby"
+      }
+    },
+    "html_url": "https://gist.github.com/673321"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "Rack middleware to fuck with bot requests.",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/658309.git",
+    "updated_at": "2010-11-04T19:43:58Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:658309.git",
+    "url": "https://api.github.com/gists/658309",
+    "id": "658309",
+    "created_at": "2010-11-01T15:07:45Z",
+    "files": {
+      "bot_protector.rb": {
+        "type": "application/ruby",
+        "raw_url": "https://gist.github.com/raw/658309/c4d2dfef3ce6a9ff1a1670e002958cb554322593/bot_protector.rb",
+        "size": 1957,
+        "filename": "bot_protector.rb",
+        "language": "Ruby"
+      }
+    },
+    "html_url": "https://gist.github.com/658309"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "Command line tool to send something to the Gnome Trash (with restore info).",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/646536.git",
+    "updated_at": "2010-10-26T08:29:53Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:646536.git",
+    "url": "https://api.github.com/gists/646536",
+    "id": "646536",
+    "created_at": "2010-10-26T08:29:53Z",
+    "files": {
+      "trash.rb": {
+        "type": "application/ruby",
+        "raw_url": "https://gist.github.com/raw/646536/e685ab55ed9865ad4dadd4008e49837a6dce6326/trash.rb",
+        "size": 1312,
+        "filename": "trash.rb",
+        "language": "Ruby"
+      }
+    },
+    "html_url": "https://gist.github.com/646536"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": "",
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/646418.git",
+    "updated_at": "2010-10-26T06:37:04Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:646418.git",
+    "url": "https://api.github.com/gists/646418",
+    "id": "646418",
+    "created_at": "2010-10-26T06:13:25Z",
+    "files": {
+      "mount_iso.zsh": {
+        "type": "text/plain",
+        "raw_url": "https://gist.github.com/raw/646418/b757d1c49f51929476ca5bb8f76706ab58dc65f5/mount_iso.zsh",
+        "size": 704,
+        "filename": "mount_iso.zsh",
+        "language": "Shell"
+      }
+    },
+    "html_url": "https://gist.github.com/646418"
+  },
+  {
+    "user": {
+      "url": "https://api.github.com/users/Oshuma",
+      "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+      "login": "Oshuma",
+      "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+      "id": 2441
+    },
+    "description": null,
+    "comments": 0,
+    "git_pull_url": "git://gist.github.com/550984.git",
+    "updated_at": "2010-08-26T07:17:39Z",
+    "public": true,
+    "git_push_url": "git@gist.github.com:550984.git",
+    "url": "https://api.github.com/gists/550984",
+    "id": "550984",
+    "created_at": "2010-08-26T07:17:38Z",
+    "files": {
+      "i fucking hate bundler": {
+        "type": "text/plain",
+        "raw_url": "https://gist.github.com/raw/550984/467a4c993ef143d8485844eaa7384ec955665cbe/i fucking hate bundler",
+        "size": 3609,
+        "filename": "i fucking hate bundler",
+        "language": null
+      }
+    },
+    "html_url": "https://gist.github.com/550984"
+  }
+]

@@ -1,10 +1,12 @@
 require 'octokit/authentication'
 require 'octokit/connection'
+require 'octokit/gist'
 require 'octokit/repository'
 require 'octokit/request'
 
 require 'octokit/client/commits'
 require 'octokit/client/downloads'
+require 'octokit/client/gists'
 require 'octokit/client/issues'
 require 'octokit/client/labels'
 require 'octokit/client/network'
@@ -36,6 +38,7 @@ module Octokit
 
     include Octokit::Client::Commits
     include Octokit::Client::Downloads
+    include Octokit::Client::Gists
     include Octokit::Client::Issues
     include Octokit::Client::Labels
     include Octokit::Client::Network
