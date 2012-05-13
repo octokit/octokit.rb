@@ -1,12 +1,12 @@
 [
-  {
-    "name": "Fellows",
-    "url": "https://api.github.com/teams/32598",
-    "id": 32598
-  },
-  {
-    "name": "Staff",
-    "url": "https://api.github.com/teams/32760",
-    "id": 32760
-  }
+    {
+        "id": 32598, 
+        "name": "Fellows", 
+        "url": "https://api.github.com/teams/32598"
+    }, 
+    {
+        "id": 32760, 
+        "name": "Staff", 
+        "url": "https://api.github.com/teams/32760"
+    }
 ]

@@ -1,8 +1,8 @@
 {
-  "url": "https://api.github.com/teams/32598",
-  "name": "Fellows",
-  "id": 325981,
-  "permission": "push",
-  "members_count": 3,
-  "repos_count": 10
+    "id": 325981, 
+    "members_count": 3, 
+    "name": "Fellows", 
+    "permission": "push", 
+    "repos_count": 10, 
+    "url": "https://api.github.com/teams/32598"
 }

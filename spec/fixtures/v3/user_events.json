@@ -1,102 +1,101 @@
-
 [
-  {
-    "type": "PushEvent",
-    "payload": {
-      "head": "e99fc3fedd7fa79a590911ef5c3415a6ab4d5d5f",
-      "size": 2,
-      "push_id": 65327953,
-      "commits": [
-        {
-          "sha": "eae82e96148fa21d7e062d89f683567f3decf07c",
-          "author": {
-            "name": "Erik Michaels-Ober",
-            "email": "sferik@gmail.com"
-          },
-          "url": "https://api.github.com/repos/codeforamerica/follow-all/commits/eae82e96148fa21d7e062d89f683567f3decf07c",
-          "distinct": true,
-          "message": "Update rails dependency to version 3.2.2"
-        },
-        {
-          "sha": "e99fc3fedd7fa79a590911ef5c3415a6ab4d5d5f",
-          "author": {
-            "name": "Erik Michaels-Ober",
-            "email": "sferik@gmail.com"
-          },
-          "url": "https://api.github.com/repos/codeforamerica/follow-all/commits/e99fc3fedd7fa79a590911ef5c3415a6ab4d5d5f",
-          "distinct": true,
-          "message": "Update omniauth-oauth dependency to version 1.0.1"
-        }
-      ],
-      "ref": "refs/heads/master"
-    },
-    "public": true,
-    "org": {
-      "gravatar_id": "ec81184c572bc827b72ebb489d49f821",
-      "id": 337792,
-      "url": "https://api.github.com/orgs/",
-      "login": "codeforamerica"
-    },
-    "repo": {
-      "id": 1255356,
-      "url": "https://api.github.com/repos/codeforamerica/follow-all",
-      "name": "codeforamerica/follow-all"
-    },
-    "actor": {
-      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
-      "id": 10308,
-      "url": "https://api.github.com/users/sferik",
-      "login": "sferik"
-    },
-    "created_at": "2012-03-02T22:01:29Z",
-    "id": "1525888969"
-  },
-  {
-    "type": "PushEvent",
-    "payload": {
-      "head": "092cb80b33268ed6b49b45d58ef3e50d4c9eca85",
-      "size": 2,
-      "push_id": 65327945,
-      "commits": [
-        {
-          "sha": "f1f47383f20a05ecda1b4cb34378408c53a7fbc3",
-          "author": {
-            "name": "Erik Michaels-Ober",
-            "email": "sferik@gmail.com"
-          },
-          "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/f1f47383f20a05ecda1b4cb34378408c53a7fbc3",
-          "distinct": true,
-          "message": "Update rails dependency to version 3.2.2"
-        },
-        {
-          "sha": "092cb80b33268ed6b49b45d58ef3e50d4c9eca85",
-          "author": {
-            "name": "Erik Michaels-Ober",
-            "email": "sferik@gmail.com"
-          },
-          "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/092cb80b33268ed6b49b45d58ef3e50d4c9eca85",
-          "distinct": true,
-          "message": "Update omniauth-oauth dependency to version 1.0.1"
-        }
-      ],
-      "ref": "refs/heads/master"
-    },
-    "public": true,
-    "org": {
-      "url": "https://api.github.com/orgs/"
-    },
-    "repo": {
-      "id": 1716295,
-      "url": "https://api.github.com/repos/sferik/sign-in-with-twitter",
-      "name": "sferik/sign-in-with-twitter"
-    },
-    "actor": {
-      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
-      "id": 10308,
-      "url": "https://api.github.com/users/sferik",
-      "login": "sferik"
-    },
-    "created_at": "2012-03-02T22:01:27Z",
-    "id": "1525888950"
-  }
+    {
+        "actor": {
+            "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb", 
+            "id": 10308, 
+            "login": "sferik", 
+            "url": "https://api.github.com/users/sferik"
+        }, 
+        "created_at": "2012-03-02T22:01:29Z", 
+        "id": "1525888969", 
+        "org": {
+            "gravatar_id": "ec81184c572bc827b72ebb489d49f821", 
+            "id": 337792, 
+            "login": "codeforamerica", 
+            "url": "https://api.github.com/orgs/"
+        }, 
+        "payload": {
+            "commits": [
+                {
+                    "author": {
+                        "email": "sferik@gmail.com", 
+                        "name": "Erik Michaels-Ober"
+                    }, 
+                    "distinct": true, 
+                    "message": "Update rails dependency to version 3.2.2", 
+                    "sha": "eae82e96148fa21d7e062d89f683567f3decf07c", 
+                    "url": "https://api.github.com/repos/codeforamerica/follow-all/commits/eae82e96148fa21d7e062d89f683567f3decf07c"
+                }, 
+                {
+                    "author": {
+                        "email": "sferik@gmail.com", 
+                        "name": "Erik Michaels-Ober"
+                    }, 
+                    "distinct": true, 
+                    "message": "Update omniauth-oauth dependency to version 1.0.1", 
+                    "sha": "e99fc3fedd7fa79a590911ef5c3415a6ab4d5d5f", 
+                    "url": "https://api.github.com/repos/codeforamerica/follow-all/commits/e99fc3fedd7fa79a590911ef5c3415a6ab4d5d5f"
+                }
+            ], 
+            "head": "e99fc3fedd7fa79a590911ef5c3415a6ab4d5d5f", 
+            "push_id": 65327953, 
+            "ref": "refs/heads/master", 
+            "size": 2
+        }, 
+        "public": true, 
+        "repo": {
+            "id": 1255356, 
+            "name": "codeforamerica/follow-all", 
+            "url": "https://api.github.com/repos/codeforamerica/follow-all"
+        }, 
+        "type": "PushEvent"
+    }, 
+    {
+        "actor": {
+            "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb", 
+            "id": 10308, 
+            "login": "sferik", 
+            "url": "https://api.github.com/users/sferik"
+        }, 
+        "created_at": "2012-03-02T22:01:27Z", 
+        "id": "1525888950", 
+        "org": {
+            "url": "https://api.github.com/orgs/"
+        }, 
+        "payload": {
+            "commits": [
+                {
+                    "author": {
+                        "email": "sferik@gmail.com", 
+                        "name": "Erik Michaels-Ober"
+                    }, 
+                    "distinct": true, 
+                    "message": "Update rails dependency to version 3.2.2", 
+                    "sha": "f1f47383f20a05ecda1b4cb34378408c53a7fbc3", 
+                    "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/f1f47383f20a05ecda1b4cb34378408c53a7fbc3"
+                }, 
+                {
+                    "author": {
+                        "email": "sferik@gmail.com", 
+                        "name": "Erik Michaels-Ober"
+                    }, 
+                    "distinct": true, 
+                    "message": "Update omniauth-oauth dependency to version 1.0.1", 
+                    "sha": "092cb80b33268ed6b49b45d58ef3e50d4c9eca85", 
+                    "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/092cb80b33268ed6b49b45d58ef3e50d4c9eca85"
+                }
+            ], 
+            "head": "092cb80b33268ed6b49b45d58ef3e50d4c9eca85", 
+            "push_id": 65327945, 
+            "ref": "refs/heads/master", 
+            "size": 2
+        }, 
+        "public": true, 
+        "repo": {
+            "id": 1716295, 
+            "name": "sferik/sign-in-with-twitter", 
+            "url": "https://api.github.com/repos/sferik/sign-in-with-twitter"
+        }, 
+        "type": "PushEvent"
+    }
 ]
