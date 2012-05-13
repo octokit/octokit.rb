@@ -1,5 +1,5 @@
 {
-  "color": "ededed",
-  "url": "https://api.github.com/repos/pengwynn/octokit/labels/V3+Addition",
-  "name": "V3 Addition"
+    "color": "ededed", 
+    "name": "V3 Addition", 
+    "url": "https://api.github.com/repos/pengwynn/octokit/labels/V3+Addition"
 }

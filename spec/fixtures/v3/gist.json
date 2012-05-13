@@ -1,0 +1,51 @@
+{
+  "created_at": "2011-12-12T14:17:27Z",
+  "public": true,
+  "html_url": "https://gist.github.com/1467395",
+  "history": [
+    {
+      "change_status": {
+        "total": 35,
+        "deletions": 0,
+        "additions": 35
+      },
+      "committed_at": "2011-12-12T14:17:27Z",
+      "version": "feec2d7e642c34a02db2e3ba14c48836869e2de8",
+      "url": "https://api.github.com/gists/1467395/feec2d7e642c34a02db2e3ba14c48836869e2de8",
+      "user": {
+        "login": "Oshuma",
+        "url": "https://api.github.com/users/Oshuma",
+        "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+        "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+        "id": 2441
+      }
+    }
+  ],
+  "forks": [
+
+  ],
+  "files": {
+    "android_shit.xml": {
+      "type": "application/xml",
+      "filename": "android_shit.xml",
+      "raw_url": "https://gist.github.com/raw/1467395/712a11748a19bc0b377e67f542aeac39ef18261e/android_shit.xml",
+      "content": "    <target\n        name=\"run\"\n        description=\"Build and run the app on the default emulator.\"\n        depends=\"clean, debug, installd\">\n\n        <property name=\"adb\"\n            value=\"${sdk.dir}/platform-tools/adb\" />\n\n        <property name=\"main.activity\"\n            value=\"de.nerdno.android/de.nerdno.android.NerdNode\" />\n\n        <property name=\"command.opts\"\n            value=\"shell am start -a android.intent.action.MAIN -n ${main.activity}\" />\n\n        <echo message=\"Running on emulator...\" />\n\n        <exec executable=\"${adb}\">\n            <arg line=\"${command.opts}\" />\n        </exec>\n    </target>\n\n    <target\n      name=\"simulator\"\n      description=\"Start the simulator defined as 'avd.target'.\">\n\n      <fail\n        unless=\"avd.target\"\n        message=\"Define an 'avd.target' like:  ant -Davd.target=target_name simulator\" />\n\n      <echo message=\"Running AVD '${avd.target}'...\" />\n\n      <exec spawn=\"true\" executable=\"${sdk.dir}/tools/emulator\">\n        <arg line=\"-avd ${avd.target} -scale 0.8\" />\n      </exec>\n    </target>\n",
+      "size": 1057,
+      "language": "XML"
+    }
+  },
+  "git_pull_url": "git://gist.github.com/1467395.git",
+  "comments": 0,
+  "description": "",
+  "updated_at": "2011-12-12T14:17:27Z",
+  "git_push_url": "git@gist.github.com:1467395.git",
+  "id": "1467395",
+  "url": "https://api.github.com/gists/1467395",
+  "user": {
+    "login": "Oshuma",
+    "url": "https://api.github.com/users/Oshuma",
+    "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
+    "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
+    "id": 2441
+  }
+}
