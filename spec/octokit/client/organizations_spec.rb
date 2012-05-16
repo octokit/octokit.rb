@@ -220,4 +220,28 @@ describe Octokit::Client::Organizations do
 
   end
 
+  describe ".publicize_membership" do
+
+    it "should pulicize membership" do
+      stub_put("https://api.github.com/orgs/codeforamerica/public_members/sferik").
+        with(:name => "sferik").
+        to_return(:status => 204)
+      result = @client.publicize_membership("codeforamerica", "sferik")
+      result.should be_true
+    end
+
+  end
+
+  describe ".unpublicize_membership" do
+
+    it "should unpulicize membership" do
+      stub_delete("https://api.github.com/orgs/codeforamerica/public_members/sferik").
+        with(:name => "sferik").
+        to_return(:status => 204)
+      result = @client.unpublicize_membership("codeforamerica", "sferik")
+      result.should be_true
+    end
+
+  end
+
 end
