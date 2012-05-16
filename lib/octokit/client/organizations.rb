@@ -96,6 +96,7 @@ module Octokit
       def unpublicize_membership(org, user, options={})
         delete("orgs/#{org}/public_members/#{user}", options, 3, true, raw=true).status == 204
       end
+      alias :conceal_membership :unpublicize_membership
 
     end
   end
