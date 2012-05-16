@@ -88,6 +88,15 @@ module Octokit
         delete("teams/#{team_id}/repos/#{Repository.new(repo)}", options, 3, true, raw=true).status == 204
       end
       alias :remove_team_repo :remove_team_repository
+
+      def publicize_membership(org, user, options={})
+        put("orgs/#{org}/public_members/#{user}", options, 3, true, raw=true).status == 204
+      end
+
+      def unpublicize_membership(org, user, options={})
+        delete("orgs/#{org}/public_members/#{user}", options, 3, true, raw=true).status == 204
+      end
+
     end
   end
 end
