@@ -16,7 +16,10 @@ describe Octokit::Client::Authorizations do
   end
 
   it "should return a single authorization" do
-
+    stub_get("/authorizations/999999").
+    to_return(:body => fixture("v3/authorization.json"))
+    authorizations = @client.authorization(999999)
+    authorizations.app.name.should == "Travis" 
   end
 
   it "should create a new authorization" do
