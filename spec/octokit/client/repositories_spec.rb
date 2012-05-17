@@ -374,6 +374,16 @@ describe Octokit::Client::Repositories do
 
   end
 
+  describe ".test_hook" do
+
+    it "should test a hook" do
+      stub_post("/repos/railsbp/railsbp.com/hooks/154284/test").
+        to_return(:status => 204)
+      @client.test_hook("railsbp/railsbp.com", 154284).should be_nil
+    end
+
+  end
+
   describe ".events" do
 
     it "should list event for all issues in a repository" do

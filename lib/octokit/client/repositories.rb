@@ -149,6 +149,10 @@ module Octokit
         delete "/repos/#{Repository.new repo}/hooks/#{id}", options, 3
       end
 
+      def test_hook(repo, id, options={})
+        post "/repos/#{Repository.new repo}/hooks/#{id}/test", options, 3
+      end
+
       # Get all Issue Events for a given Repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
