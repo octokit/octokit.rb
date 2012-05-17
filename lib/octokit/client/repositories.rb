@@ -135,6 +135,20 @@ module Octokit
         get "/repos/#{Repository.new repo}/hooks/#{id}", options, 3
       end
 
+      def create_hook(repo, name, config, options={})
+        options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
+        post "/repos/#{Repository.new repo}/hooks", options, 3
+      end
+
+      def edit_hook(repo, id, name, config, options={})
+        options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
+        patch "/repos/#{Repository.new repo}/hooks/#{id}", options, 3
+      end
+
+      def remove_hook(repo, id, options={})
+        delete "/repos/#{Repository.new repo}/hooks/#{id}", options, 3
+      end
+
       # Get all Issue Events for a given Repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
