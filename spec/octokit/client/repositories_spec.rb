@@ -316,6 +316,29 @@ describe Octokit::Client::Repositories do
 
   end
 
+  describe ".hooks" do
+
+    it "should return a repository's hooks" do
+      stub_get("/repos/railsbp/railsbp.com/hooks").
+        to_return(:body => fixture("v3/hooks.json"))
+      hooks = @client.hooks("railsbp/railsbp.com")
+      hook = hooks.find { |hook| hook.name == "railsbp" }
+      hook.config.token.should == "xAAQZtJhYHGagsed1kYR"
+    end
+
+  end
+
+  describe ".hook" do
+
+    it "should return a repository's hooks" do
+      stub_get("/repos/railsbp/railsbp.com/hooks/154284").
+        to_return(:body => fixture("v3/hook.json"))
+      hook = @client.hook("railsbp/railsbp.com", 154284)
+      hook.config.token.should == "xAAQZtJhYHGagsed1kYR"
+    end
+
+  end
+
   describe ".events" do
 
     it "should list event for all issues in a repository" do

@@ -127,6 +127,14 @@ module Octokit
         get "/repos/#{Repository.new repo}/branches", options, 3
       end
 
+      def hooks(repo, options={})
+        get "/repos/#{Repository.new repo}/hooks", options, 3
+      end
+
+      def hook(repo, id, options={})
+        get "/repos/#{Repository.new repo}/hooks/#{id}", options, 3
+      end
+
       # Get all Issue Events for a given Repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
