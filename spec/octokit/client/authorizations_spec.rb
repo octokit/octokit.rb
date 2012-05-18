@@ -41,23 +41,19 @@ describe Octokit::Client::Authorizations do
   end
 
   it "should update and existing authorization" do
-
+    stub_patch('/authorizations/999999').
+      with(:body => {"scopes"=>"", "add_scopes" => ["public_repo", "gist"]},
+           :headers => {'Content-Type'=>'application/json'}).
+      to_return(:body => fixture("v3/authorization.json"))
+    authorization = @client.update_authorization(999999, {:add_scopes => ['public_repo', 'gist']})
+    authorization.scopes.should include("public_repo")
   end
 
   it "should delete an existing authorization" do
-
-  end
-
-  describe "restrictions" do
-
-    it "should work with basic auth" do
-
-    end
-
-    it "should raise an error when used with OAuth" do
-
-    end
-
+    stub_delete('/authorizations/999999').
+      to_return(:status => 204)
+    authorization = @client.delete_authorization(999999)
+    authorization.status.should == 204
   end
 
 end
