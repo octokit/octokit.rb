@@ -21,6 +21,16 @@ module Octokit
         get("/users/#{user}/events", options, 3)
       end
 
+      # List events that a user has received
+      #
+      # @return [Array] A list of all user received events
+      # @see http://developer.github.com/v3/received_events
+      # @example List all user events
+      #   Octokit.user_events("sferik")
+      def received_events(user, options={})
+        get("/users/#{user}/received_events", options, 3)
+      end
+
       # List events for a repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
