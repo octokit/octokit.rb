@@ -316,6 +316,74 @@ describe Octokit::Client::Repositories do
 
   end
 
+  describe ".hooks" do
+
+    it "should return a repository's hooks" do
+      stub_get("/repos/railsbp/railsbp.com/hooks").
+        to_return(:body => fixture("v3/hooks.json"))
+      hooks = @client.hooks("railsbp/railsbp.com")
+      hook = hooks.find { |hook| hook.name == "railsbp" }
+      hook.config.token.should == "xAAQZtJhYHGagsed1kYR"
+    end
+
+  end
+
+  describe ".hook" do
+
+    it "should return a repository's single hook" do
+      stub_get("/repos/railsbp/railsbp.com/hooks/154284").
+        to_return(:body => fixture("v3/hook.json"))
+      hook = @client.hook("railsbp/railsbp.com", 154284)
+      hook.config.token.should == "xAAQZtJhYHGagsed1kYR"
+    end
+
+  end
+
+  describe ".create_hook" do
+
+    it "should create a hook" do
+      stub_post("/repos/railsbp/railsbp.com/hooks").
+        with(:body => {:name => "railsbp", :config => {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"}, :events => ["push"], :active => true}).
+        to_return(:body => fixture("v3/hook.json"))
+      hook = @client.create_hook("railsbp/railsbp.com", "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+      hook.id.should == 154284
+    end
+
+  end
+
+  describe ".edit_hook" do
+
+    it "should edit a hook" do
+      stub_patch("/repos/railsbp/railsbp.com/hooks/154284").
+        with(:body => {:name => "railsbp", :config => {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"}, :events => ["push"], :active => true}).
+        to_return(:body => fixture("v3/hook.json"))
+      hook = @client.edit_hook("railsbp/railsbp.com", 154284, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+      hook.id.should == 154284
+      hook.config.token.should == "xAAQZtJhYHGagsed1kYR"
+    end
+
+  end
+
+  describe ".remove_hook" do
+
+    it "should remove a hook" do
+      stub_delete("/repos/railsbp/railsbp.com/hooks/154284").
+        to_return(:status => 204)
+      @client.remove_hook("railsbp/railsbp.com", 154284).should be_nil
+    end
+
+  end
+
+  describe ".test_hook" do
+
+    it "should test a hook" do
+      stub_post("/repos/railsbp/railsbp.com/hooks/154284/test").
+        to_return(:status => 204)
+      @client.test_hook("railsbp/railsbp.com", 154284).should be_nil
+    end
+
+  end
+
   describe ".events" do
 
     it "should list event for all issues in a repository" do

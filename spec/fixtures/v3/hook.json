@@ -1,0 +1,18 @@
+{
+  "active": true,
+  "config": {
+    "railsbp_url": "http://railsbp.com",
+    "token": "xAAQZtJhYHGagsed1kYR"
+  },
+  "created_at": "2012-01-23T14:11:50Z",
+  "events": ["push"],
+  "id": 154284,
+  "last_response": {
+    "code": 200,
+    "message": "OK",
+    "status": "ok"
+  },
+  "name": "railsbp",
+  "updated_at": "2012-05-13T13:09:51Z",
+  "url": "https://api.github.com/repos/railsbp/railsbp.com/hooks/154284"
+}
