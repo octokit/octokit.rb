@@ -14,13 +14,22 @@ describe Octokit::Client::Events do
       public_events.first.id.should == '1513284759'
     end
   end
-  
+
   describe ".user_events" do
     it "should return all user events" do
       stub_get("/users/sferik/events").
         to_return(:body => fixture("v3/user_events.json"))
       user_events = @client.user_events('sferik')
       user_events.first.id.should == '1525888969'
+    end
+  end
+
+  describe ".received_events" do
+    it "should return all user received events" do
+      stub_get("/users/sferik/received_events").
+        to_return(:body => fixture("v3/user_events.json"))
+      received_events = @client.received_events('sferik')
+      received_events.first.type.should == 'PushEvent'
     end
   end
 
