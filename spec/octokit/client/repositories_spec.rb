@@ -124,7 +124,7 @@ describe Octokit::Client::Repositories do
 
     it "should set a repository private" do
       stub_patch("/repos/sferik/rails_admin").
-        with({ :name => "rails_admin", :public => false }).
+        with({ :name => "rails_admin", :private => false }).
         to_return(:body => fixture("v3/repository.json"))
       repository = @client.set_private("sferik/rails_admin")
       repository.name.should == "rails_admin"
@@ -136,10 +136,11 @@ describe Octokit::Client::Repositories do
 
     it "should set a repository public" do
       stub_patch("/repos/sferik/rails_admin").
-        with({ :name => "rails_admin", :public => false }).
+        with({ :name => "rails_admin", :private => true }).
         to_return(:body => fixture("v3/repository.json"))
       repository = @client.set_public("sferik/rails_admin")
       repository.name.should == "rails_admin"
+      repository.private.should == false
     end
 
   end
