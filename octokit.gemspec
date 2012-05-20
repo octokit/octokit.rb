@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'webmock'
   gem.add_development_dependency 'yard'
   gem.authors = ["Wynn Netherland", "Adam Stacoviak", "Erik Michaels-Ober"]
-  gem.description = %q{Simple wrapper for the GitHub API (v2 and v3)}
+  gem.description = %q{Simple wrapper for the GitHub v3 API}
   gem.email = ['wynn.netherland@gmail.com', 'adam@stacoviak.com', 'sferik@gmail.com']
   gem.files = `git ls-files`.split("\n")
   gem.homepage = 'https://github.com/pengwynn/octokit'
@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   gem.platform = Gem::Platform::RUBY
   gem.require_paths = ['lib']
   gem.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
-  gem.summary = %q{Wrapper for the GitHub API}
+  gem.summary = gem.description
   gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
-  gem.version = Octokit::VERSION.dup
+  gem.version = Octokit::VERSION
 end
