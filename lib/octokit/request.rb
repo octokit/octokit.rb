@@ -22,6 +22,16 @@ module Octokit
       request(:put, path, options, version, authenticate, raw, force_urlencoded)
     end
 
+    def ratelimit
+      resp = get("/", {}, api_version, false, true)
+      return resp.headers["X-RateLimit-Limit"].to_i
+    end
+
+    def ratelimit_remaining
+      resp = get("/", {}, api_version, false, true)
+      return resp.headers["X-RateLimit-Remaining"].to_i
+    end
+
     private
 
     def request(method, path, options, version, authenticate, raw, force_urlencoded)
