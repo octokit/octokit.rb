@@ -23,13 +23,13 @@ module Octokit
     end
 
     def ratelimit
-      resp = get("/", {}, api_version, false, true)
-      return resp.headers["X-RateLimit-Limit"].to_i
+      headers = request(:head, "/", {}, api_version, true, true, false)
+      return headers["X-RateLimit-Limit"].to_i
     end
 
     def ratelimit_remaining
-      resp = get("/", {}, api_version, false, true)
-      return resp.headers["X-RateLimit-Remaining"].to_i
+      headers = request(:head, "/", {}, api_version, true, true, false)
+      return headers["X-RateLimit-Remaining"].to_i
     end
 
     private
@@ -53,7 +53,9 @@ module Octokit
         end
       end
 
-      if raw
+      if method == :head
+        response.headers
+      elsif raw
         response
       elsif auto_traversal && ( next_url = links(response)["next"] )
         response.body + request(method, next_url, options, version, authenticate, raw, force_urlencoded)
