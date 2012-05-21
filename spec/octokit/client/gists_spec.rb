@@ -72,7 +72,7 @@ describe Octokit::Client::Gists do
     it "should edit an existing gist" do
       gist_content = JSON.parse(fixture("v3/gist.json").read)
       gist_id = gist_content['id']
-      updated_gist = gist_content.merge(:description => 'updated')
+      updated_gist = gist_content.merge('description' => 'updated')
 
       stub_patch("/gists/#{gist_id}").
         to_return(:body => updated_gist)
