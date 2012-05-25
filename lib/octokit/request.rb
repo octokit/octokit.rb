@@ -29,7 +29,7 @@ module Octokit
     def ratelimit(force=false)
       headers = @@last_header
       if @@last_header.nil? || force
-        headers = head("/")
+        headers = head("/rate_limit")
       end
       return headers["X-RateLimit-Limit"].to_i
     end
@@ -37,7 +37,7 @@ module Octokit
     def ratelimit_remaining(force=false)
       headers = @@last_header
       if @@last_header.nil? || force
-        headers = head("/")
+        headers = head("/rate_limit")
       end
       return headers["X-RateLimit-Remaining"].to_i
     end
