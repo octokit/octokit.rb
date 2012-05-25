@@ -23,16 +23,16 @@ module Octokit
     end
 
     def ratelimit
-      # TODO: Switch over to head once github doesn't decrement counter on HEAD requests.
       headers = get("/rate_limit",{}, api_version, true, true).headers
       return headers["X-RateLimit-Limit"].to_i
     end
+    alias rate_limit ratelimit
 
     def ratelimit_remaining
-      # TODO: Switch over to head once github doesn't decrement counter on HEAD requests.
       headers = get("/rate_limit",{}, api_version, true, true).headers
       return headers["X-RateLimit-Remaining"].to_i
     end
+    alias rate_limit_remaining ratelimit_remaining
 
     private
 
