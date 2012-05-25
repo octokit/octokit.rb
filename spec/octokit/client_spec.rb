@@ -46,42 +46,18 @@ describe Octokit::Client do
   describe "ratelimit" do
 
     before(:each) do
-      stub_request(:get, "https://api.github.com/foo/bar").
+      stub_request(:get, "https://api.github.com/rate_limit").
         to_return(:status => 200, :body => '', :headers =>
-          { 'X-RateLimit-Limit' => 5000, 'X-RateLimit-Remaining' => 4999})
-      stub_request(:get, "https://api.github.com/foo/bar2").
-        to_return(:status => 200, :body => '', :headers =>
-          { 'X-RateLimit-Limit' => 5000, 'X-RateLimit-Remaining' => 4998})
-      stub_request(:head, "https://api.github.com").
-        to_return(:status => 200, :body => '', :headers =>
-          { 'X-RateLimit-Limit' => 5000, 'X-RateLimit-Remaining' => 4998}) 
-      @force = true
+          { 'X-RateLimit-Limit' => 5000, 'X-RateLimit-Remaining' => 5000})
       @client = Octokit::Client.new()
     end
 
     it "should get the ratelimit-limit from the header" do
-      @client.get("https://api.github.com/foo/bar")
       @client.ratelimit.should == 5000
-      @client.ratelimit(true).should == 5000
     end
 
-    it "should use the update old header when using new request ratelimit-remaining" do
-      @client.get("https://api.github.com/foo/bar")
-      @client.ratelimit_remaining.should == 4999
-      @client.get("https://api.github.com/foo/bar2")
-      @client.ratelimit_remaining.should == 4998
-    end
-
-    it "should use the new header when asking for ratelimit-remaining(force)" do
-      @client.get("https://api.github.com/foo/bar")
-      @client.ratelimit_remaining.should == 4999
-      @client.ratelimit_remaining(true).should == 4998
-    end
-
-    it "should use the last header when asking for ratelimit-remaining" do
-      @client.get("https://api.github.com/foo/bar")
-      @client.ratelimit_remaining.should == 4999
-      @client.ratelimit_remaining.should == 4999
+    it "should get the ratelimit-remaining using header" do
+      @client.ratelimit_remaining.should == 5000
     end
 
   end
