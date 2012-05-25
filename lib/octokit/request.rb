@@ -33,7 +33,6 @@ module Octokit
 
     def ratelimit_remaining(force=false)
       headers = head("/rate_limit")
-      p headers
       return headers["X-RateLimit-Remaining"].to_i
     end
 
