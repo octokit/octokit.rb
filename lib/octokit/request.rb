@@ -27,12 +27,13 @@ module Octokit
     end
 
     def ratelimit(force=false)
-      headers = head("/rate_limit")
+      headers = get("/rate_limit",{}, api_version, true, true).headers
       return headers["X-RateLimit-Limit"].to_i
     end
 
     def ratelimit_remaining(force=false)
-      headers = head("/rate_limit")
+      # TODO: Switch over to head once github doesn't decrement counter on HEAD requests.
+      headers = get("/rate_limit",{}, api_version, true, true).headers
       return headers["X-RateLimit-Remaining"].to_i
     end
 
