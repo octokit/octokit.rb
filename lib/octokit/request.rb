@@ -22,13 +22,19 @@ module Octokit
       request(:put, path, options, version, authenticate, raw, force_urlencoded)
     end
 
-    def ratelimit
-      headers = request(:head, "/", {}, api_version, true, true, false)
+    def ratelimit(force=false)
+      headers = @last_header
+      if @last_header == nil || force
+        headers = request(:head, "/", {}, api_version, true, true, false)
+      end
       return headers["X-RateLimit-Limit"].to_i
     end
 
-    def ratelimit_remaining
-      headers = request(:head, "/", {}, api_version, true, true, false)
+    def ratelimit_remaining(force=false)
+      headers = @last_header
+      if @last_header == nil || force
+        headers = request(:head, "/", {}, api_version, true, true, false)
+      end
       return headers["X-RateLimit-Remaining"].to_i
     end
 
@@ -53,6 +59,7 @@ module Octokit
         end
       end
 
+      @last_header = response.headers
       if method == :head
         response.headers
       elsif raw
