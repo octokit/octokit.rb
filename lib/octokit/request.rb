@@ -22,6 +22,18 @@ module Octokit
       request(:put, path, options, version, authenticate, raw, force_urlencoded)
     end
 
+    def ratelimit
+      # TODO: Switch over to head once github doesn't decrement counter on HEAD requests.
+      headers = get("/rate_limit",{}, api_version, true, true).headers
+      return headers["X-RateLimit-Limit"].to_i
+    end
+
+    def ratelimit_remaining
+      # TODO: Switch over to head once github doesn't decrement counter on HEAD requests.
+      headers = get("/rate_limit",{}, api_version, true, true).headers
+      return headers["X-RateLimit-Remaining"].to_i
+    end
+
     private
 
     def request(method, path, options, version, authenticate, raw, force_urlencoded)
