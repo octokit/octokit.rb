@@ -22,10 +22,6 @@ module Octokit
       request(:put, path, options, version, authenticate, raw, force_urlencoded)
     end
 
-    def head(path, options={}, version=api_version, authenticate=true, raw=true, force_urlencoded=false)
-      request(:head, path, options, version, authenticate, raw, force_urlencoded)
-    end
-
     def ratelimit
       # TODO: Switch over to head once github doesn't decrement counter on HEAD requests.
       headers = get("/rate_limit",{}, api_version, true, true).headers
@@ -59,9 +55,7 @@ module Octokit
         end
       end
 
-      if method == :head
-        response.headers
-      elsif raw
+      if raw
         response
       elsif auto_traversal && ( next_url = links(response)["next"] )
         response.body + request(method, next_url, options, version, authenticate, raw, force_urlencoded)
