@@ -43,4 +43,23 @@ describe Octokit::Client do
 
   end
 
+  describe "ratelimit" do
+
+    before(:each) do
+      stub_request(:get, "https://api.github.com/rate_limit").
+        to_return(:status => 200, :body => '', :headers =>
+          { 'X-RateLimit-Limit' => 5000, 'X-RateLimit-Remaining' => 5000})
+      @client = Octokit::Client.new()
+    end
+
+    it "should get the ratelimit-limit from the header" do
+      @client.ratelimit.should == 5000
+    end
+
+    it "should get the ratelimit-remaining using header" do
+      @client.ratelimit_remaining.should == 5000
+    end
+
+  end
+
 end
