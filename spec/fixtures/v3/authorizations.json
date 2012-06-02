@@ -1,0 +1,66 @@
+[
+  {
+    "created_at": "2011-08-23T15:56:09Z",
+    "scopes": [
+      "user"
+    ],
+    "url": "https://api.github.com/authorizations/999999",
+    "updated_at": "2011-12-14T13:15:47Z",
+    "app": {
+      "url": "http://calendaraboutnothing.com",
+      "name": "Calendar About Nothing"
+    },
+    "note_url": null,
+    "token": "eCx/G1S8O2YuoNp72qrCRPur+k4tUr20hiEs9UjfvS9aHs2x",
+    "note": null,
+    "id": 999999
+  },
+  {
+    "created_at": "2011-09-16T03:17:07Z",
+    "scopes": [
+      "repo"
+    ],
+    "url": "https://api.github.com/authorizations/999999",
+    "updated_at": "2011-09-16T21:08:16Z",
+    "app": {
+      "url": "http://forrst.com",
+      "name": "Forrst"
+    },
+    "note_url": null,
+    "token": "eCx/G1S8O2YuoNp72qrCRPur+k4tUr20hiEs9UjfvS9aHs2x",
+    "note": null,
+    "id": 999999
+  },
+  {
+    "created_at": "2011-09-16T13:26:32Z",
+    "scopes": [
+
+    ],
+    "url": "https://api.github.com/authorizations/999999",
+    "updated_at": "2012-03-13T12:40:36Z",
+    "app": {
+      "url": "http://coderwall.com",
+      "name": "coderwall.com"
+    },
+    "note_url": null,
+    "token": "eCx/G1S8O2YuoNp72qrCRPur+k4tUr20hiEs9UjfvS9aHs2x",
+    "note": null,
+    "id": 999999
+  },
+  {
+    "created_at": "2012-02-08T01:47:27Z",
+    "scopes": [
+      "public_repo"
+    ],
+    "url": "https://api.github.com/authorizations/999999",
+    "updated_at": "2012-03-08T14:26:36Z",
+    "app": {
+      "url": "http://travis-ci.org",
+      "name": "Travis"
+    },
+    "note_url": null,
+    "token": "eCx/G1S8O2YuoNp72qrCRPur+k4tUr20hiEs9UjfvS9aHs2x",
+    "note": null,
+    "id": 999999
+  }
+]
