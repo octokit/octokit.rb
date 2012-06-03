@@ -46,6 +46,7 @@ module Octokit
         }
         post("repos/#{Repository.new(repo)}/git/refs", options.merge(parameters))
       end
+      alias :create_reference :create_ref
 
       # Update a reference
       #
@@ -64,6 +65,7 @@ module Octokit
         }
         patch("repos/#{Repository.new(repo)}/git/refs/#{ref}", options.merge(parameters))
       end
+      alias :update_reference :update_ref
 
       # Delete a single reference
       #
@@ -76,6 +78,7 @@ module Octokit
       def delete_ref(repo, ref, options={})
         delete("/repos/#{Repository.new(repo)}/git/refs/#{ref}", options, 3, true, true)
       end
+      alias :delete_reference :delete_ref
 
     end
   end
