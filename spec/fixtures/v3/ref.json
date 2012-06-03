@@ -1,0 +1,9 @@
+{
+  "object": {
+    "sha": "0591c7b765779ea8797f0f0b9222299e600393ca",
+    "type": "tag",
+    "url": "https://api.github.com/repos/sferik/rails_admin/git/tags/0591c7b765779ea8797f0f0b9222299e600393ca"
+  },
+  "ref": "refs/tags/v0.0.3",
+  "url": "https://api.github.com/repos/sferik/rails_admin/git/refs/tags/v0.0.3"
+}
