@@ -21,6 +21,7 @@ require 'octokit/client/timelines'
 require 'octokit/client/users'
 require 'octokit/client/events'
 require 'octokit/client/authorizations'
+require 'octokit/client/refs'
 
 module Octokit
   class Client
@@ -54,5 +55,6 @@ module Octokit
     include Octokit::Client::Users
     include Octokit::Client::Events
     include Octokit::Client::Authorizations
+    include Octokit::Client::Refs
   end
 end

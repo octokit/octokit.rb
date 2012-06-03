@@ -1,0 +1,29 @@
+[
+  {
+    "object": {
+      "sha": "69edc0b0ac7dfa2780a39c113b54718b6defe081",
+      "type": "tag",
+      "url": "https://api.github.com/repos/sferik/rails_admin/git/tags/69edc0b0ac7dfa2780a39c113b54718b6defe081"
+    },
+    "ref": "refs/tags/v0.0.1",
+    "url": "https://api.github.com/repos/sferik/rails_admin/git/refs/tags/v0.0.1"
+  },
+  {
+    "object": {
+      "sha": "daa8d377587115484ab4f06272a9242436ab615c",
+      "type": "tag",
+      "url": "https://api.github.com/repos/sferik/rails_admin/git/tags/daa8d377587115484ab4f06272a9242436ab615c"
+    },
+    "ref": "refs/tags/v0.0.2",
+    "url": "https://api.github.com/repos/sferik/rails_admin/git/refs/tags/v0.0.2"
+  },
+  {
+    "object": {
+      "sha": "0591c7b765779ea8797f0f0b9222299e600393ca",
+      "type": "tag",
+      "url": "https://api.github.com/repos/sferik/rails_admin/git/tags/0591c7b765779ea8797f0f0b9222299e600393ca"
+    },
+    "ref": "refs/tags/v0.0.3",
+    "url": "https://api.github.com/repos/sferik/rails_admin/git/refs/tags/v0.0.3"
+  }
+]
