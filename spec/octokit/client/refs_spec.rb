@@ -25,5 +25,18 @@ describe Octokit::Client::Refs do
 
   end
 
+  describe ".ref" do
+
+    it "should return the tags/v0.0.3 ref" do
+      stub_get("/repos/sferik/rails_admin/git/refs/tags/v0.0.3").
+        to_return(:body => fixture("v3/ref.json"))
+      ref = @client.ref("sferik/rails_admin","tags/v0.0.3")
+      ref.object.type.should eq("tag")
+      ref.ref.should eq("refs/tags/v0.0.3")
+      ref.url.should eq("https://api.github.com/repos/sferik/rails_admin/git/refs/tags/v0.0.3")
+    end
+
+  end
+
 end
 
