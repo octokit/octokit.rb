@@ -28,6 +28,7 @@ module Octokit
       def ref(repo, ref, options={})
         get("/repos/#{Repository.new(repo)}/git/refs/#{ref}", options, 3)
       end
+      alias :reference :ref
 
     end
   end
