@@ -65,6 +65,18 @@ module Octokit
         patch("repos/#{Repository.new(repo)}/git/refs/#{ref}", options.merge(parameters))
       end
 
+      # Delete a single reference
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param ref [String] The ref, e.g. <tt>tags/v0.0.3</tt>
+      # @return [Response] A response object with status
+      # @see http://developer.github.com/v3/git/refs/
+      # @example Delete tags/v0.0.3 for sferik/rails_admin
+      #   Octokit.delete_ref("sferik/rails_admin","tags/v0.0.3")
+      def delete_ref(repo, ref, options={})
+        delete("/repos/#{Repository.new(repo)}/git/refs/#{ref}", options, 3, true, true)
+      end
+
     end
   end
 end

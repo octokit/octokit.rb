@@ -64,5 +64,16 @@ describe Octokit::Client::Refs do
     end
   end
 
+  describe ".delete_ref" do
+
+    it "should delete an existing ref" do
+      stub_delete("/repos/octocat/Hello-World/git/refs/heads/feature-a").
+        to_return(:status => 204)
+      ref = @client.delete_ref("octocat/Hello-World", "heads/feature-a")
+      ref.status.should == 204
+    end
+
+  end
+
 end
 
