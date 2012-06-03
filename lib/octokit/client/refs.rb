@@ -30,6 +30,23 @@ module Octokit
       end
       alias :reference :ref
 
+      # Create a reference
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param ref [String] The ref, e.g. <tt>tags/v0.0.3</tt>
+      # @param sha [String] A SHA, e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
+      # @return [Array] The list of references, already containing the new one
+      # @see http://developer.github.com/v3/git/refs/
+      # @example Create refs/tags/v0.0.3 for sferik/rails_admin
+      #   Octokit.create_ref("octocat/Hello-World","heads/master", "827efc6d56897b048c772eb4087f854f46256132")
+      def create_ref(repo, ref, sha, options={})
+        parameters = {
+          :ref  => "refs/#{ref}",
+          :sha  => sha
+        }
+        post("repos/#{Repository.new(repo)}/git/refs", options.merge(parameters))
+      end
+
     end
   end
 end

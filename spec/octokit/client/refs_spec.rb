@@ -38,5 +38,18 @@ describe Octokit::Client::Refs do
 
   end
 
+  describe ".create_ref" do
+
+    it "should create a ref" do
+      stub_post("/repos/octocat/Hello-World/git/refs").
+        with(:body => { "ref" => "refs/heads/master", "sha" => "827efc6d56897b048c772eb4087f854f46256132" },
+             :headers => {'Content-Type'=>'application/json'}).
+        to_return(:body => fixture("v3/ref_create.json"))
+      ref = @client.create_ref("octocat/Hello-World","heads/master", "827efc6d56897b048c772eb4087f854f46256132")
+      ref.first.ref.should eq("refs/heads/master")
+    end
+
+  end
+
 end
 
