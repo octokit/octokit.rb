@@ -47,6 +47,24 @@ module Octokit
         post("repos/#{Repository.new(repo)}/git/refs", options.merge(parameters))
       end
 
+      # Update a reference
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param ref [String] The ref, e.g. <tt>tags/v0.0.3</tt>
+      # @param sha [String] A SHA, e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
+      # @param force [Boolean] A flag indicating one wants to force the update to make sure the update is a fast-forward update.
+      # @return [Array] The list of references updated
+      # @see http://developer.github.com/v3/git/refs/
+      # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
+      #   Octokit.update_ref("octocat/Hello-World","heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
+      def update_ref(repo, ref, sha, force=true, options={})
+        parameters = {
+          :sha  => sha,
+          :force => force
+        }
+        patch("repos/#{Repository.new(repo)}/git/refs/#{ref}", options.merge(parameters))
+      end
+
     end
   end
 end

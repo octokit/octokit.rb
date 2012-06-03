@@ -51,5 +51,18 @@ describe Octokit::Client::Refs do
 
   end
 
+  describe ".update_ref" do
+
+    it "should update a ref" do
+      stub_patch("/repos/octocat/Hello-World/git/refs/heads/sc/featureA").
+        with(:body => { "sha" => "aa218f56b14c9653891f9e74264a383fa43fefbd", "force" => true },
+             :headers => {'Content-Type'=>'application/json'}).
+        to_return(:body => fixture("v3/ref_update.json"))
+      refs = @client.update_ref("octocat/Hello-World","heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd", true)
+      refs.first.ref.should eq("refs/heads/sc/featureA")
+      refs.first.object.sha.should eq("aa218f56b14c9653891f9e74264a383fa43fefbd")
+    end
+  end
+
 end
 
