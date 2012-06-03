@@ -1,0 +1,38 @@
+[
+  {
+    "object": {
+      "sha": "19453d77913e5cc92dd836294bcb6e7ceb4d2a7f",
+      "type": "commit",
+      "url": "https://api.github.com/repos/sferik/rails_admin/git/commits/19453d77913e5cc92dd836294bcb6e7ceb4d2a7f"
+    },
+    "ref": "refs/heads/actions",
+    "url": "https://api.github.com/repos/sferik/rails_admin/git/refs/heads/actions"
+  },
+  {
+    "object": {
+      "sha": "1cb0628eea5be6120c4bfcbe609b3cea5f246290",
+      "type": "commit",
+      "url": "https://api.github.com/repos/sferik/rails_admin/git/commits/1cb0628eea5be6120c4bfcbe609b3cea5f246290"
+    },
+    "ref": "refs/heads/activo",
+    "url": "https://api.github.com/repos/sferik/rails_admin/git/refs/heads/activo"
+  },
+  {
+    "object": {
+      "sha": "acfa1e5d2bf3c80a511d3d2ea6dcd60169d5c564",
+      "type": "commit",
+      "url": "https://api.github.com/repos/sferik/rails_admin/git/commits/acfa1e5d2bf3c80a511d3d2ea6dcd60169d5c564"
+    },
+    "ref": "refs/heads/associated-collection-refact",
+    "url": "https://api.github.com/repos/sferik/rails_admin/git/refs/heads/associated-collection-refact"
+  },
+  {
+    "object": {
+      "sha": "14cdd3be4ada38f8e6974935f806c8de170abf11",
+      "type": "commit",
+      "url": "https://api.github.com/repos/sferik/rails_admin/git/commits/14cdd3be4ada38f8e6974935f806c8de170abf11"
+    },
+    "ref": "refs/heads/dsl-refactoring",
+    "url": "https://api.github.com/repos/sferik/rails_admin/git/refs/heads/dsl-refactoring"
+  }
+]
