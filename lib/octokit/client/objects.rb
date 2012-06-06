@@ -5,7 +5,7 @@ module Octokit
       #
       # Pass <tt>:recursive => true</tt> in <tt>options</tt> to fetch information about all of the tree's objects, including those in subdirectories.
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [String, Hash, Repository] A GitHub repository
       # @param tree_sha [String] The SHA of the tree to fetch
       # @return [Hashie::Mash] A hash representing the fetched tree
       # @see http://developer.github.com/v3/git/trees/
@@ -19,13 +19,29 @@ module Octokit
         get("repos/#{Repository.new(repo)}/git/trees/#{tree_sha}", options)
       end
 
-      def blob(repo, tree_sha, options={})
-        get("repos/#{Repository.new(repo)}/git/blobs/#{tree_sha}", options)
+      # Get a single blob, fetching its content and encoding
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param blob_sha [String] The SHA of the blob to fetch
+      # @return [Hashie::Mash] A hash representing the fetched blob
+      # @see http://developer.github.com/v3/git/blobs/
+      # @example Fetch a blob and inspect its contents
+      #    blob = Octokit.blob("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132")
+      #    blob.encoding # => "utf-8"
+      #    blob.content # => "Foo bar baz"
+      # @example Fetch a base64-encoded blob and inspect its contents
+      #    require "base64"
+      #    blob = Octokit.blob("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132")
+      #    blob.encoding # => "base64"
+      #    blob.content # => "Rm9vIGJhciBiYXo="
+      #    Base64.decode64(blob.content) # => "Foo bar baz"
+      def blob(repo, blob_sha, options={})
+        get("repos/#{Repository.new(repo)}/git/blobs/#{blob_sha}", options)
       end
 
       # Create a blob
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [String, Hash, Repository] A GitHub repository
       # @param content [String] Content of the blob
       # @param encoding [String] The content's encoding. <tt>utf-8</tt> and <tt>base64</tt> are accepted. If your data cannot be losslessly sent as a UTF-8 string, you can base64 encode it
       # @return [String] The new blob's SHA, e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
