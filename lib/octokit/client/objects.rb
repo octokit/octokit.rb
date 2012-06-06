@@ -1,6 +1,20 @@
 module Octokit
   class Client
     module Objects
+      # Get a single tree, fetching information about its root-level objects
+      #
+      # Pass <tt>:recursive => true</tt> in <tt>options</tt> to fetch information about all of the tree's objects, including those in subdirectories.
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param tree_sha [String] The SHA of the tree to fetch
+      # @return [Hashie::Mash] A hash representing the fetched tree
+      # @see http://developer.github.com/v3/git/trees/
+      # @example Fetch a tree and inspect the path of one of its files
+      #   tree = Octokit.tree("octocat/Hello-World", "9fb037999f264ba9a7fc6274d15fa3ae2ab98312")
+      #   tree.tree.first.path # => "file.rb"
+      # @example Fetch a tree recursively
+      #   tree = Octokit.tree("octocat/Hello-World", "fc6274d15fa3ae2ab983129fb037999f264ba9a7")
+      #   tree.tree.first.path # => "subdir/file.txt"
       def tree(repo, tree_sha, options={})
         get("repos/#{Repository.new(repo)}/git/trees/#{tree_sha}", options)
       end
