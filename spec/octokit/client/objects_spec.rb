@@ -30,6 +30,19 @@ describe Octokit::Client::Objects do
 
   end
 
+  describe ".create_blob" do
+    
+    it "should create a blob" do
+      stub_post("/repos/octocat/Hello-World/git/blobs").
+        with(:body => { :content => "content", :encoding => "utf-8" },
+             :headers => { "Content-Type" => "application/json" }).
+        to_return(:body => fixture("v3/blob_create.json"))
+      blob = @client.create_blob("octocat/Hello-World", "content")
+      blob.should == "3a0f86fb8db8eea7ccbb9a95f325ddbedfb25e15"
+    end
+
+  end
+
   describe ".blobs" do
 
     it "should return blobs" do
