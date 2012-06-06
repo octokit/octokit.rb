@@ -17,7 +17,6 @@ require 'octokit/client/pub_sub_hubbub'
 require 'octokit/client/pub_sub_hubbub/service_hooks'
 require 'octokit/client/pulls'
 require 'octokit/client/repositories'
-require 'octokit/client/timelines'
 require 'octokit/client/users'
 require 'octokit/client/events'
 require 'octokit/client/authorizations'
@@ -51,7 +50,6 @@ module Octokit
     include Octokit::Client::PubSubHubbub
     include Octokit::Client::PubSubHubbub::ServiceHooks
     include Octokit::Client::Repositories
-    include Octokit::Client::Timelines
     include Octokit::Client::Users
     include Octokit::Client::Events
     include Octokit::Client::Authorizations
