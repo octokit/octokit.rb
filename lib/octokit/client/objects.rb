@@ -26,6 +26,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param tree [Array] An array of hashes representing a tree structure
       # @return [Hashie::Mash] A hash representing the new tree
+      # @see http://developer.github.com/v3/git/trees/
       # @example Create a tree containing one file
       #   tree = Octokit.create_tree("octocat/Hello-World", [ { :path => "file.rb", :mode => "100644", :type => "blob", :sha => "44b4fc6d56897b048c772eb4087f854f46256132" } ])
       #   tree.sha # => "cd8274d15fa3ae2ab983129fb037999f264ba9a7"
