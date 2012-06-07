@@ -19,6 +19,22 @@ module Octokit
         get("repos/#{Repository.new(repo)}/git/trees/#{tree_sha}", options)
       end
 
+      # Create a tree
+      #
+      # Pass <tt>:base_tree => "827efc6..."</tt> in <tt>options</tt> to update an existing tree with new data.
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param tree [Array] An array of hashes representing a tree structure
+      # @return [Hashie::Mash] A hash representing the new tree
+      # @example Create a tree containing one file
+      #   tree = Octokit.create_tree("octocat/Hello-World", [ { :path => "file.rb", :mode => "100644", :type => "blob", :sha => "44b4fc6d56897b048c772eb4087f854f46256132" } ])
+      #   tree.sha # => "cd8274d15fa3ae2ab983129fb037999f264ba9a7"
+      #   tree.tree.first.path # => "file.rb"
+      def create_tree(repo, tree, options={})
+        parameters = { :tree => tree }
+        post("/repos/#{Repository.new(repo)}/git/trees", options.merge(parameters), 3)
+      end
+
       # Get a single blob, fetching its content and encoding
       #
       # @param repo [String, Hash, Repository] A GitHub repository

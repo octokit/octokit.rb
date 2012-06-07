@@ -19,6 +19,21 @@ describe Octokit::Client::Objects do
 
   end
 
+  describe ".create_tree" do
+    
+    it "should create a tree" do
+      stub_post("/repos/octocat/Hello-World/git/trees").
+        with(:body => { :tree => [ { :path => "file.rb", "mode" => "100644", "type" => "blob", "sha" => "44b4fc6d56897b048c772eb4087f854f46256132" } ] },
+             :headers => { "Content-Type" => "application/json" }).
+        to_return(:body => fixture("v3/tree_create.json"))
+      response = @client.create_tree("octocat/Hello-World", [ { "path" => "file.rb", "mode" => "100644", "type" => "blob", "sha" => "44b4fc6d56897b048c772eb4087f854f46256132" } ])
+      response.sha.should == "cd8274d15fa3ae2ab983129fb037999f264ba9a7"
+      response.tree.size.should == 1
+      response.tree.first.sha.should == "7c258a9869f33c1e1e1f74fbb32f07c86cb5a75b"
+    end
+
+  end
+
   describe ".blob" do
 
     it "should return a blob" do
