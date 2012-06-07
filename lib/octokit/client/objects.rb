@@ -42,15 +42,15 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the fetched blob
       # @see http://developer.github.com/v3/git/blobs/
       # @example Fetch a blob and inspect its contents
-      #    blob = Octokit.blob("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132")
-      #    blob.encoding # => "utf-8"
-      #    blob.content # => "Foo bar baz"
+      #   blob = Octokit.blob("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132")
+      #   blob.encoding # => "utf-8"
+      #   blob.content # => "Foo bar baz"
       # @example Fetch a base64-encoded blob and inspect its contents
-      #    require "base64"
-      #    blob = Octokit.blob("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132")
-      #    blob.encoding # => "base64"
-      #    blob.content # => "Rm9vIGJhciBiYXo="
-      #    Base64.decode64(blob.content) # => "Foo bar baz"
+      #   require "base64"
+      #   blob = Octokit.blob("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132")
+      #   blob.encoding # => "base64"
+      #   blob.content # => "Rm9vIGJhciBiYXo="
+      #   Base64.decode64(blob.content) # => "Foo bar baz"
       def blob(repo, blob_sha, options={})
         get("repos/#{Repository.new(repo)}/git/blobs/#{blob_sha}", options)
       end
