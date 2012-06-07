@@ -24,6 +24,28 @@ module Octokit
       def download(repo, id, options={})
         get("repos/#{Repository.new(repo)}/downloads/#{id}", options, 3)
       end
+
+      
+      def create_download(repo, name, size, options={})
+        resource = create_download_resource(repo, name, size, options)
+        resource_hash = {
+          'key' => resource.path,
+          'acl' => resource.acl,
+          'success_action_status' => 201,
+          'Filename' => resource.name,
+          'AWSAccessKeyId' => resource.accesskeyid,
+          'Policy' => resource.policy,
+          'Signature' => resource.signature,
+          'Content-Type' => resource.mime_type,
+          'file' => "@#{resource.name}"
+        }
+        post("https://github.s3.amazonaws.com/", resource_hash, 3, true, true).status == 201
+      end
+
+      private
+      def create_download_resource(repo, name, size, options={})
+        post("/repos/#{Repository.new(repo)}/downloads", options.merge({:name => name, :size => size}))
+      end
     end
   end
 end
