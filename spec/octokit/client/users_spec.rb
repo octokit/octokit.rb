@@ -20,17 +20,6 @@ describe Octokit::Client::Users do
 
     end
 
-    context "with an email address passed" do
-
-      it "should return matching email address" do
-        stub_get("https://github.com/api/v2/json/user/email/sferik@gmail.com").
-          to_return(:body => fixture("v2/user.json"))
-        user = @client.search_users("sferik@gmail.com")
-        user.login.should == "sferik"
-      end
-
-    end
-
   end
 
   describe ".user" do
