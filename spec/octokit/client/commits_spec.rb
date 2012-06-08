@@ -29,6 +29,22 @@ describe Octokit::Client::Commits do
 
   end
 
+  describe ".create_commit" do
+    
+    it "should create a commit" do
+      stub_post("/repos/octocat/Hello-World/git/commits").
+        with(:body => { :message => "My commit message", :tree => "827efc6d56897b048c772eb4087f854f46256132", :parents => ["7d1b31e74ee336d15cbd21741bc88a537ed063a0"] },
+             :headers => { "Content-Type" => "application/json" }).
+        to_return(:body => fixture("v3/commit_create.json"))
+      commit = @client.create_commit("octocat/Hello-World", "My commit message", "827efc6d56897b048c772eb4087f854f46256132", "7d1b31e74ee336d15cbd21741bc88a537ed063a0")
+      commit.sha.should == "7638417db6d59f3c431d3e1f261cc637155684cd"
+      commit.message.should == "My commit message"
+      commit.parents.size.should == 1
+      commit.parents.first.sha.should == "7d1b31e74ee336d15cbd21741bc88a537ed063a0"
+    end
+
+  end
+
   describe ".list_commit_comments" do
 
     it "should return a list of all commit comments" do
