@@ -30,6 +30,7 @@ module Octokit
         options[:content_type] ||= 'text/plain'
         file = Faraday::UploadIO.new(name, options[:content_type])
         resource = create_download_resource(repo, file.original_filename, file.size, options)
+
         resource_hash = {
           'key' => resource.path,
           'acl' => resource.acl,
@@ -39,10 +40,9 @@ module Octokit
           'Policy' => resource.policy,
           'Signature' => resource.signature,
           'Content-Type' => resource.mime_type,
-          'file' => "@#{resource.name}",
-          'Expires' => DateTime.parse(resource.expirationdate).strftime('%s').to_i
+          'file' => file
         }
-        
+
         conn = Faraday.new('https://github.s3.amazonaws.com') do |builder|
           builder.request :multipart
           builder.request :url_encoded
