@@ -20,7 +20,7 @@ describe Octokit::Client::Objects do
   end
 
   describe ".create_tree" do
-    
+
     it "should create a tree" do
       stub_post("/repos/octocat/Hello-World/git/trees").
         with(:body => { :tree => [ { :path => "file.rb", "mode" => "100644", "type" => "blob", "sha" => "44b4fc6d56897b048c772eb4087f854f46256132" } ] },
@@ -46,7 +46,7 @@ describe Octokit::Client::Objects do
   end
 
   describe ".create_blob" do
-    
+
     it "should create a blob" do
       stub_post("/repos/octocat/Hello-World/git/blobs").
         with(:body => { :content => "content", :encoding => "utf-8" },
@@ -54,52 +54,6 @@ describe Octokit::Client::Objects do
         to_return(:body => fixture("v3/blob_create.json"))
       blob = @client.create_blob("octocat/Hello-World", "content")
       blob.should == "3a0f86fb8db8eea7ccbb9a95f325ddbedfb25e15"
-    end
-
-  end
-
-  describe ".blobs" do
-
-    it "should return blobs" do
-      stub_get("https://github.com/api/v2/json/blob/all/sferik/rails_admin/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
-        to_return(:body => fixture("v2/blobs.json"))
-      blobs = @client.blobs("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-      blobs[".gitignore"].should == "5efe0eb47a773fa6ea84a0bf190ee218b6a31ead"
-    end
-
-  end
-
-  describe ".blob_metadata" do
-
-    it "should return blob metadata" do
-      stub_get("https://github.com/api/v2/json/blob/full/sferik/rails_admin/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
-        to_return(:body => fixture("v2/blob_metadata.json"))
-      blob_metadata = @client.blob_metadata("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-      blob_metadata.first.name.should == ".gitignore"
-    end
-
-  end
-
-  describe ".tree_metadata" do
-
-    it "should return tree metadata" do
-      stub_get("https://github.com/api/v2/json/tree/full/sferik/rails_admin/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
-        to_return(:body => fixture("v2/tree_metadata.json"))
-      tree_metadata = @client.tree_metadata("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-      tree_metadata.first.name.should == ".gitignore"
-    end
-
-  end
-
-  describe ".raw" do
-
-    it "should return raw data" do
-      stub_get("https://github.com/api/v2/json/blob/show/sferik/rails_admin/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
-        to_return(:body => fixture("v2/raw.txt"))
-      raw = @client.raw("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-      lambda {
-        MultiJson.load(raw)
-      }.should raise_error
     end
 
   end

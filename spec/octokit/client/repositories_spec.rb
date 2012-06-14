@@ -11,7 +11,7 @@ describe Octokit::Client::Repositories do
 
     it "should return matching repositories" do
       stub_get("https://api.github.com/legacy/repos/search/One40Proof").
-        to_return(:body => fixture("v2/repositories.json"))
+        to_return(:body => fixture("legacy/repositories.json"))
       repositories = @client.search_repositories("One40Proof")
       repositories.first.name.should == "One40Proof"
     end
@@ -208,17 +208,6 @@ describe Octokit::Client::Repositories do
         to_return(:status => 204)
       result = @client.remove_collaborator("sferik/rails_admin", "sferik")
       result.should be_nil
-    end
-
-  end
-
-  describe ".pushable" do
-
-    it "should return all pushable repositories" do
-      stub_get("https://github.com/api/v2/json/repos/pushable").
-        to_return(:body => fixture("v2/repositories.json"))
-      repositories = @client.pushable
-      repositories.first.name.should == "One40Proof"
     end
 
   end
