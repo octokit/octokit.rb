@@ -30,7 +30,7 @@ module Octokit
     end
 
     def url
-      "https://github.com/#{slug}"
+      Octokit.web_endpoint + slug
     end
 
     alias :user :username
