@@ -9,7 +9,7 @@ module Octokit
     def connection(authenticate=true, raw=false, version=3, force_urlencoded=false)
       case version
       when 3
-        url = "https://api.github.com"
+        url = Octokit.api_endpoint
       end
 
       options = {
@@ -20,6 +20,7 @@ module Octokit
 
       options.merge!(:params => {:access_token => oauth_token}) if oauthed? && !authenticated?
 
+      # TODO: Don't build on every request
       connection = Faraday.new(options) do |builder|
         if version >= 3 && !force_urlencoded
           builder.request :json
