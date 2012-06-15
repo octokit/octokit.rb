@@ -1,5 +1,5 @@
 # Octokit [![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/pengwynn/octokit.png?travis)][gemnasium]
-Simple Ruby wrapper for the GitHub v2 & v3 API.
+Simple Ruby wrapper for the GitHub v3 API.
 
 [travis]: http://travis-ci.org/pengwynn/octokit
 [gemnasium]: https://gemnasium.com/pengwynn/octokit
@@ -26,7 +26,8 @@ Octokit.following("sferik")
 ```
 
 ### Repositories
-For convenience, methods that require a repository argument may be passed in any of the following forms:
+For convenience, methods that require a repository argument may be passed in
+any of the following forms:
 
 * `"pengwynn/octokit"`
 * `{:username => "pengwynn", :name => "octokit"}`
@@ -35,7 +36,7 @@ For convenience, methods that require a repository argument may be passed in any
 
 ```ruby
 Octokit.repo("pengwynn/octokit")
-=> <#Hashie::Rash created_at="2009/12/10 13:41:49 -0800" description="Simple Ruby wrapper for the GitHub v2 API and feeds" fork=false forks=25 has_downloads=true has_issues=true has_wiki=true homepage="http://wynnnetherland.com/projects/octokit" integrate_branch="master" language="Ruby" name="octokit" open_issues=8 owner="pengwynn" private=false pushed_at="2011/05/05 10:48:57 -0700" size=1804 url="https://github.com/pengwynn/octokit" watchers=92>
+=> <#Hashie::Rash created_at="2009/12/10 13:41:49 -0800" description="Simple Ruby wrapper for the GitHub API and feeds" fork=false forks=25 has_downloads=true has_issues=true has_wiki=true homepage="http://wynnnetherland.com/projects/octokit" integrate_branch="master" language="Ruby" name="octokit" open_issues=8 owner="pengwynn" private=false pushed_at="2011/05/05 10:48:57 -0700" size=1804 url="https://github.com/pengwynn/octokit" watchers=92>
 ```
 
 ## Authenticated Requests
