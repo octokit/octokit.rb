@@ -6,6 +6,8 @@ module Octokit
     VALID_OPTIONS_KEYS = [
       :adapter,
       :api_version,
+      :api_endpoint,
+      :web_endpoint,
       :login,
       :password,
       :proxy,
@@ -16,6 +18,8 @@ module Octokit
 
     DEFAULT_ADAPTER        = Faraday.default_adapter
     DEFAULT_API_VERSION    = 3
+    DEFAULT_API_ENDPOINT   = 'https://api.github.com'
+    DEFAULT_WEB_ENDPOINT   = 'https://github.com/'
     DEFAULT_USER_AGENT     = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
     DEFAULT_AUTO_TRAVERSAL = false
 
@@ -36,6 +40,8 @@ module Octokit
     def reset
       self.adapter        = DEFAULT_ADAPTER
       self.api_version    = DEFAULT_API_VERSION
+      self.api_endpoint   = DEFAULT_API_ENDPOINT
+      self.web_endpoint   = DEFAULT_WEB_ENDPOINT
       self.login          = nil
       self.password       = nil
       self.proxy          = nil
