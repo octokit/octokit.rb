@@ -120,6 +120,17 @@ describe Octokit::Client::Repositories do
 
   end
 
+  describe ".delete_repository" do
+
+    it "should delete a repository" do
+      stub_delete("/repos/sferik/rails_admin").
+        to_return(:status => 204, :body => "")
+      result = @client.delete_repository("sferik/rails_admin")
+      result.should be_nil
+    end
+
+  end
+
   describe ".set_private" do
 
     it "should set a repository private" do
