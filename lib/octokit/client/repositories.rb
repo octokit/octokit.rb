@@ -54,6 +54,11 @@ module Octokit
       alias :create_repo :create_repository
       alias :create :create_repository
 
+      def delete_repository(repo, options={})
+        delete "/repos/#{Repository.new repo}", options, 3
+      end
+      alias :delete_repo :delete_repository
+
       def set_private(repo, options={})
         update_repository repo, options.merge({ :private => true })
       end
