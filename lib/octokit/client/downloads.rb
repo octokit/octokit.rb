@@ -26,7 +26,16 @@ module Octokit
         get("repos/#{Repository.new(repo)}/downloads/#{id}", options, 3)
       end
 
-
+      # Create a download in a repository
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param name [String, Repository, Hash] A display name for the download
+      # @option options [String] :description The download description
+      # @option options [String] :content_type The content type. Defaults to 'text/plain'
+      # @return [Download] A single download from the repository
+      # @see http://developer.github.com/v3/repos/downloads/#create-a-new-download-part-1-create-the-resource
+      # @example Create the "Robawt" download on Github/Hubot
+      #   Octokit.create_download("github/hubot", 'Robawt')
       def create_download(repo, name, options={})
         options[:content_type] ||= 'text/plain'
         file = Faraday::UploadIO.new(name, options[:content_type])
