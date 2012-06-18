@@ -103,6 +103,16 @@ implementation, you will be personally responsible for providing patches in a
 timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
 
+## Contributors
+
+Octokit was initially created by Wynn Netherland and [Adam
+Stacoviak](http://twitter.com/adamstac) but has
+turned into a true community effort. Special thanks to the follow core
+contributors:
+
+* [Erik Michaels-Ober](http://github.com/sferik)
+* [Clint Shryock](http://github.com/ctshryock)
+
 ## Inspiration
 Octokit was inspired by [Octopi][] and aims to be a lightweight,
 less-ActiveResourcey alternative.
