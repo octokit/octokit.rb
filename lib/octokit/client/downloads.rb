@@ -24,6 +24,39 @@ module Octokit
       def download(repo, id, options={})
         get("repos/#{Repository.new(repo)}/downloads/#{id}", options, 3)
       end
+
+      
+      def create_download(repo, name, options={})
+        options[:content_type] ||= 'text/plain'
+        file = Faraday::UploadIO.new(name, options[:content_type])
+        resource = create_download_resource(repo, file.original_filename, file.size, options)
+
+        resource_hash = {
+          'key' => resource.path,
+          'acl' => resource.acl,
+          'success_action_status' => 201,
+          'Filename' => resource.name,
+          'AWSAccessKeyId' => resource.accesskeyid,
+          'Policy' => resource.policy,
+          'Signature' => resource.signature,
+          'Content-Type' => resource.mime_type,
+          'file' => file
+        }
+
+        conn = Faraday.new(resource.s3_url) do |builder|
+          builder.request :multipart
+          builder.request :url_encoded
+          builder.adapter :net_http
+        end
+
+        response = conn.post '/', resource_hash
+        response.status == 201  
+      end
+
+      private
+      def create_download_resource(repo, name, size, options={})
+        post("/repos/#{Repository.new(repo)}/downloads", options.merge({:name => name, :size => size}))
+      end
     end
   end
 end
