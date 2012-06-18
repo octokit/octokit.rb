@@ -107,7 +107,7 @@ time of a major release, support for that Ruby version may be dropped.
 
 Octokit was initially created by Wynn Netherland and [Adam
 Stacoviak](http://twitter.com/adamstac) but has
-turned into a true community effort. Special thanks to the follow core
+turned into a true community effort. Special thanks to the following core
 contributors:
 
 * [Erik Michaels-Ober](http://github.com/sferik)
