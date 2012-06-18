@@ -43,15 +43,14 @@ module Octokit
           'file' => file
         }
 
-        conn = Faraday.new('https://github.s3.amazonaws.com') do |builder|
+        conn = Faraday.new(resource.s3_url) do |builder|
           builder.request :multipart
           builder.request :url_encoded
-          builder.response :logger
           builder.adapter :net_http
         end
 
         response = conn.post '/', resource_hash
-        puts response.body
+        response.status == 201  
       end
 
       private

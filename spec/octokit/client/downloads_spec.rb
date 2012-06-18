@@ -29,21 +29,21 @@ describe Octokit::Client::Downloads do
   describe ".create a download" do
     before(:each) do 
       stub_post("/repos/octocat/Hello-World/downloads").
-        with(:body => {:name => "new_file.jpg", :size => 1024, 
+        with(:body => {:name => "download_create.json", :size => 690, 
                        :description => "Description of your download",
-                       :content_type => ".jpg" }).
+                       :content_type => "text/plain" }).
         to_return(:body => fixture("v3/download_create.json"))
     end
     it "should create a download resource" do
-      resource = @client.send(:create_download_resource, "octocat/Hello-World", "new_file.jpg", 1024, {:description => "Description of your download", :content_type => ".jpg"})
+      resource = @client.send(:create_download_resource, "octocat/Hello-World", "download_create.json", 690, {:description => "Description of your download", :content_type => "text/plain"})
       resource.s3_url.should == "https://github.s3.amazonaws.com/"
     end
     
     it "should post to a S3 url" do
       stub_post("https://github.s3.amazonaws.com/").
-         with(:body => "{\"key\":\"downloads/ocotocat/Hello-World/new_file.jpg\",\"acl\":\"public-read\",\"success_action_status\":201,\"Filename\":\"new_file.jpg\",\"AWSAccessKeyId\":\"1ABCDEFG...\",\"Policy\":\"ewogICAg...\",\"Signature\":\"mwnFDC...\",\"Content-Type\":\"image/jpeg\",\"file\":\"@new_file.jpg\"}").
         to_return(:status => 201)
-      @client.create_download("octocat/Hello-World", "new_file.jpg", 1024, {:description => "Description of your download", :content_type => ".jpg"}).should == true
+      file_path = File.expand_path 'spec/fixtures/v3/download_create.json'
+      @client.create_download("octocat/Hello-World", file_path, {:description => "Description of your download", :content_type => "text/plain"}).should == true
     end
   end
 
