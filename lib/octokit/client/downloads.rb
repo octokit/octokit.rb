@@ -30,7 +30,7 @@ module Octokit
       def create_download(repo, name, options={})
         options[:content_type] ||= 'text/plain'
         file = Faraday::UploadIO.new(name, options[:content_type])
-        resource = create_download_resource(repo, file.original_filename, file.size, options)
+        resource = create_download_resource(repo, file.original_filename, File.size(name), options)
 
         resource_hash = {
           'key' => resource.path,
