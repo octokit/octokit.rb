@@ -12,6 +12,7 @@ module Octokit
       def downloads(repo, options={})
         get("repos/#{Repository.new(repo)}/downloads", options, 3)
       end
+      alias :list_downloads :downloads
 
       # Get single download for a repository
       #
@@ -53,6 +54,13 @@ module Octokit
         response.status == 201
       end
 
+      # Delete a single download for a repository
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param id [Integer] ID of the download
+      # @see http://developer.github.com/v3/repos/downloads/#delete-a-single-download
+      # @example Get the "Robawt" download from Github/Hubot
+      #   Octokit.delete_download("github/hubot", 1234)
       def delete_download(repo, id)
         delete("repos/#{Repository.new(repo)}/downloads/#{id}", {}, 3, true, true, true)
       end
