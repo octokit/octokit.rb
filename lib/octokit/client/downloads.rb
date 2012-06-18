@@ -1,6 +1,6 @@
 module Octokit
   class Client
-    module Downloads 
+    module Downloads
 
       # List available downloads for a repository
       #
@@ -16,16 +16,16 @@ module Octokit
       # Get single download for a repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
-      # @param id [Integer] ID of the download 
+      # @param id [Integer] ID of the download
       # @return [Download] A single download from the repository
       # @see http://developer.github.com/v3/repos/downloads/#get-a-single-download
-      # @example Get the "Robawt" download from Github/Hubot 
+      # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.download("github/hubot")
       def download(repo, id, options={})
         get("repos/#{Repository.new(repo)}/downloads/#{id}", options, 3)
       end
 
-      
+
       def create_download(repo, name, options={})
         options[:content_type] ||= 'text/plain'
         file = Faraday::UploadIO.new(name, options[:content_type])
@@ -50,7 +50,11 @@ module Octokit
         end
 
         response = conn.post '/', resource_hash
-        response.status == 201  
+        response.status == 201
+      end
+
+      def delete_download(repo, id)
+        delete("repos/#{Repository.new(repo)}/downloads/#{id}", {}, 3, true, true, true)
       end
 
       private
