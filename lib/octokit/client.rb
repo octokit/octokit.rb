@@ -9,7 +9,6 @@ require 'octokit/client/downloads'
 require 'octokit/client/gists'
 require 'octokit/client/issues'
 require 'octokit/client/labels'
-require 'octokit/client/network'
 require 'octokit/client/milestones'
 require 'octokit/client/objects'
 require 'octokit/client/organizations'
@@ -42,7 +41,6 @@ module Octokit
     include Octokit::Client::Gists
     include Octokit::Client::Issues
     include Octokit::Client::Labels
-    include Octokit::Client::Network
     include Octokit::Client::Milestones
     include Octokit::Client::Objects
     include Octokit::Client::Organizations

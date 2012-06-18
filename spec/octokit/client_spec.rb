@@ -62,4 +62,23 @@ describe Octokit::Client do
 
   end
 
+  describe "api_endpoint" do
+
+    after(:each) do
+      Octokit.reset
+    end
+
+    it "should default to https://api.github.com" do
+      client = Octokit::Client.new
+      client.api_endpoint.should == 'https://api.github.com'
+    end
+
+    it "should be set " do
+      Octokit.api_endpoint = 'http://foo.dev'
+      client = Octokit::Client.new
+      client.api_endpoint.should == 'http://foo.dev'
+    end
+  end
+
+
 end

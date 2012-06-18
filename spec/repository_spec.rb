@@ -41,6 +41,7 @@ describe Octokit::Repository do
       repository = Octokit::Repository.new(Octokit::Repository.new('sferik/octokit'))
       repository.name.should == "octokit"
       repository.username.should == "sferik"
+      repository.url.should == 'https://github.com/sferik/octokit'
     end
   end
 

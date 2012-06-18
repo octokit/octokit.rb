@@ -13,20 +13,9 @@ describe Octokit::Client::Users do
 
       it "should return matching username" do
         stub_get("https://api.github.com/legacy/user/search/sferik").
-          to_return(:body => fixture("v2/users.json"))
+          to_return(:body => fixture("legacy/users.json"))
         users = @client.search_users("sferik")
         users.first.username.should == "sferik"
-      end
-
-    end
-
-    context "with an email address passed" do
-
-      it "should return matching email address" do
-        stub_get("https://github.com/api/v2/json/user/email/sferik@gmail.com").
-          to_return(:body => fixture("v2/user.json"))
-        user = @client.search_users("sferik@gmail.com")
-        user.login.should == "sferik"
       end
 
     end

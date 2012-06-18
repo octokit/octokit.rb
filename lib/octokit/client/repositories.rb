@@ -54,6 +54,11 @@ module Octokit
       alias :create_repo :create_repository
       alias :create :create_repository
 
+      def delete_repository(repo, options={})
+        delete "/repos/#{Repository.new repo}", options, 3
+      end
+      alias :delete_repo :delete_repository
+
       def set_private(repo, options={})
         update_repository repo, options.merge({ :private => true })
       end
@@ -89,11 +94,6 @@ module Octokit
         delete "/repos/#{Repository.new repo}/collaborators/#{collaborator}", options, 3
       end
       alias :remove_collab :remove_collaborator
-
-      def pushable(options={})
-        # There isn't a matching method in V3 of the api
-        get("/api/v2/json/repos/pushable", options, 2)['repositories']
-      end
 
       def repository_teams(repo, options={})
         get "/repos/#{Repository.new repo}/teams", options, 3
