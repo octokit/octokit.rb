@@ -7,7 +7,7 @@ describe Octokit::Client::Downloads do
     @client = Octokit::Client.new(:login => 'sferik')
   end
 
-  describe ".getting downloads" do
+  describe ".downloads" do
 
     it "should list available downloads" do
       stub_get("/repos/github/hubot/downloads").
@@ -15,6 +15,10 @@ describe Octokit::Client::Downloads do
       downloads = @client.downloads("github/hubot")
       downloads.first.description.should == "Robawt"
     end
+
+  end
+
+  describe ".download" do
 
     it "should get a single download" do
       stub_get("/repos/github/hubot/downloads/165347").
@@ -26,10 +30,10 @@ describe Octokit::Client::Downloads do
 
   end
 
-  describe ".create a download" do
-    before(:each) do 
+  describe ".create_download" do
+    before(:each) do
       stub_post("/repos/octocat/Hello-World/downloads").
-        with(:body => {:name => "download_create.json", :size => 690, 
+        with(:body => {:name => "download_create.json", :size => 690,
                        :description => "Description of your download",
                        :content_type => "text/plain" }).
         to_return(:body => fixture("v3/download_create.json"))
@@ -38,7 +42,7 @@ describe Octokit::Client::Downloads do
       resource = @client.send(:create_download_resource, "octocat/Hello-World", "download_create.json", 690, {:description => "Description of your download", :content_type => "text/plain"})
       resource.s3_url.should == "https://github.s3.amazonaws.com/"
     end
-    
+
     it "should post to a S3 url" do
       stub_post("https://github.s3.amazonaws.com/").
         to_return(:status => 201)
