@@ -170,6 +170,15 @@ describe Octokit::Client::Organizations do
 
   end
 
+  describe ".remove_organization_member" do
+    it "should remove a member from an organization" do
+      stub_delete("https://api.github.com/orgs/codeforamerica/members/glow-mdsol").
+          to_return(:status => 204)
+      result = @client.remove_organization_member("codeforamerica", "glow-mdsol")
+      result.should be_true
+    end
+
+  end
   describe ".team_repositories" do
 
     it "should return team repositories" do

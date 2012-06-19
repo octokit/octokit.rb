@@ -60,10 +60,12 @@ module Octokit
       alias :delete_repo :delete_repository
 
       def set_private(repo, options={})
+        # GitHub Api for setting private updated to use private attr, rather than public
         update_repository repo, options.merge({ :private => true })
       end
 
       def set_public(repo, options={})
+        # GitHub Api for setting private updated to use private attr, rather than public
         update_repository repo, options.merge({ :private => false })
       end
 
