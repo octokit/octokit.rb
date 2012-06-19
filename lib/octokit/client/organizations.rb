@@ -84,6 +84,13 @@ module Octokit
       end
       alias :remove_team_repo :remove_team_repository
 
+      def remove_organization_member(org, user, options={})
+        # this is a synonym for: for team in org.teams: remove_team_member(team.id, user)
+        # provided in the GH API v3
+        delete("orgs/#{org}/members/#{user}", options, 3, true, raw=true).status == 204
+      end
+      alias :remove_org_member :remove_organization_member
+
       def publicize_membership(org, user, options={})
         put("orgs/#{org}/public_members/#{user}", options, 3, true, raw=true).status == 204
       end
