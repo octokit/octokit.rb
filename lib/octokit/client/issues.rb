@@ -11,7 +11,6 @@ module Octokit
       # @see http://develop.github.com/p/issues.html
       # @example Search for 'test' in the open issues for sferik/rails_admin
       #   Octokit.search_issues("sferik/rails_admin", 'test', 'open')
-      # @deprecated Please use `list_issues` instead
       def search_issues(repo, search_term, state='open', options={})
         get("/legacy/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options, 3)['issues']
       end

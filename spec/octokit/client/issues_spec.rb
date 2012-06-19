@@ -11,7 +11,7 @@ describe Octokit::Client::Issues do
 
     it "should return matching issues" do
       stub_get("https://api.github.com/legacy/issues/search/sferik/rails_admin/open/activerecord").
-      to_return(:body => fixture("v2/issues.json"))
+      to_return(:body => fixture("legacy/issues.json"))
       issues = @client.search_issues("sferik/rails_admin", "activerecord")
       issues.first.number.should == 105
     end

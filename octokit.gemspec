@@ -14,9 +14,9 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'simplecov'
   gem.add_development_dependency 'webmock'
   gem.add_development_dependency 'yard'
-  gem.authors = ["Wynn Netherland", "Adam Stacoviak", "Erik Michaels-Ober"]
+  gem.authors = ["Wynn Netherland", "Erik Michaels-Ober", "Clint Shryock"]
   gem.description = %q{Simple wrapper for the GitHub v3 API}
-  gem.email = ['wynn.netherland@gmail.com', 'adam@stacoviak.com', 'sferik@gmail.com']
+  gem.email = ['wynn.netherland@gmail.com', 'sferik@gmail.com', 'clint@ctshryock.com']
   gem.files = `git ls-files`.split("\n")
   gem.homepage = 'https://github.com/pengwynn/octokit'
   gem.name = 'octokit'
