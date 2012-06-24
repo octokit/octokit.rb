@@ -33,7 +33,7 @@ module Octokit
 	# This method will provide a URL to download a tarball or zipball archive for a repository. 
 	#
 	# @param repo [String, Repository, Hash] A GitHub repository.
-	# @param archive_format [String] Either tarball (default) or zipball.
+	# @option options format [String] Either tarball (default) or zipball.
 	# @option options [String] :ref Optional valid Git reference, defaults to master.
 	# @return [Faraday::Utils::Headers] The header of the response.
 	# @see http://developer.github.com/v3/repos/contents/
