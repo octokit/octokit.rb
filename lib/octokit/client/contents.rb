@@ -25,8 +25,9 @@ module Octokit
 	# @example List the contents of lib/octokit.rb
 	#   Octokit.contents("pengwynn/octokit", :path => 'lib/octokit.rb')
 			def contents(repo, options={})
-				repo_path, repo_ref = options.delete("path"), options.delete("ref")
-				get("/repos/#{Repository.new repo}/contents/#{repo_path}/#{repo_ref}", options, 3)
+				repo_path = options.delete :path
+				url = "/repos/#{Repository.new repo}/contents/#{repo_path}"
+				get(url, options, 3)
 			end
 			
 	# This method will provide a URL to download a tarball or zipball archive for a repository. 
@@ -38,9 +39,11 @@ module Octokit
 	# @see http://developer.github.com/v3/repos/contents/
 	# @example Get archive link for pengwynn/octokit
 	#   Octokit.archive_link("pengwynn/octokit")
-			def archive_link(repo, archive_format="tarball", options={})
-				url_to_get = "/repos/#{Repository.new repo}/#{archive_format}/#{options.delete("ref")}"
-			  get(url_to_get, options, 3, false, true).headers
+			def archive_link(repo, options={})
+				repo_ref = options.delete :ref
+				format = (options.delete :format) || 'tarball'
+				url = "/repos/#{Repository.new repo}/#{format}/#{repo_ref}"
+			  get(url, options, 3, false, true).headers
 		  end
 	end
 end
