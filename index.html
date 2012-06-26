@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Octokit by ctshryock</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Octokit</h1>
+        <p>Simple Ruby wrapper for the GitHub v2 API and feeds</p>
+
+        <p class="view"><a href="https://github.com/ctshryock/octokit">View the Project on GitHub <small>ctshryock/octokit</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/ctshryock/octokit/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/ctshryock/octokit/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/ctshryock/octokit">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Octokit <a href="http://travis-ci.org/pengwynn/octokit"><img src="https://secure.travis-ci.org/pengwynn/octokit.png?branch=master" alt="Build Status"></a> <a href="https://gemnasium.com/pengwynn/octokit"><img src="https://gemnasium.com/pengwynn/octokit.png?travis" alt="Dependency Status"></a>
+</h1>
+
+<p>Simple Ruby wrapper for the GitHub v3 API.</p>
+
+<h2>Installation</h2>
+
+<pre><code>gem install octokit
+</code></pre>
+
+<h2>Documentation</h2>
+
+<p><a href="http://rdoc.info/gems/octokit">http://rdoc.info/gems/octokit</a></p>
+
+<h2>Examples</h2>
+
+<h3>Show a user</h3>
+
+<div class="highlight">
+<pre><span class="no">Octokit</span><span class="o">.</span><span class="n">user</span><span class="p">(</span><span class="s2">"sferik"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">&lt;</span><span class="c1">#Hashie::Rash blog="http://twitter.com/sferik" company="Code for America" created_at="2008/05/14 13:36:12 -0700" email="sferik@gmail.com" followers_count=177 following_count=83 gravatar_id="1f74b13f1e5c6c69cb5d7fbaabb1e2cb" id=10308 location="San Francisco" login="sferik" name="Erik Michaels-Ober" permission=nil public_gist_count=16 public_repo_count=30 type="User"&gt;</span>
+</pre>
+</div>
+
+
+<h3>Show who a user follows</h3>
+
+<div class="highlight">
+<pre><span class="no">Octokit</span><span class="o">.</span><span class="n">following</span><span class="p">(</span><span class="s2">"sferik"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">"rails"</span><span class="p">,</span> <span class="s2">"puls"</span><span class="p">,</span> <span class="s2">"wycats"</span><span class="p">,</span> <span class="s2">"dhh"</span><span class="p">,</span> <span class="s2">"jm3"</span><span class="p">,</span> <span class="s2">"joshsusser"</span><span class="p">,</span> <span class="s2">"nkallen"</span><span class="p">,</span> <span class="s2">"technoweenie"</span><span class="p">,</span> <span class="s2">"blaine"</span><span class="p">,</span> <span class="s2">"al3x"</span><span class="p">,</span> <span class="s2">"defunkt"</span><span class="p">,</span> <span class="s2">"schacon"</span><span class="p">,</span> <span class="s2">"bmizerany"</span><span class="p">,</span> <span class="s2">"rtomayko"</span><span class="p">,</span> <span class="s2">"jpr5"</span><span class="p">,</span> <span class="s2">"lholden"</span><span class="p">,</span> <span class="s2">"140proof"</span><span class="p">,</span> <span class="s2">"ephramzerb"</span><span class="p">,</span> <span class="s2">"carlhuda"</span><span class="p">,</span> <span class="s2">"carllerche"</span><span class="p">,</span> <span class="s2">"jnunemaker"</span><span class="p">,</span> <span class="s2">"josh"</span><span class="p">,</span> <span class="s2">"hoverbird"</span><span class="p">,</span> <span class="s2">"jamiew"</span><span class="p">,</span> <span class="s2">"jeremyevans"</span><span class="p">,</span> <span class="s2">"brynary"</span><span class="p">,</span> <span class="s2">"mojodna"</span><span class="p">,</span> <span class="s2">"mojombo"</span><span class="p">,</span> <span class="s2">"joshbuddy"</span><span class="p">,</span> <span class="s2">"igrigorik"</span><span class="p">,</span> <span class="s2">"perplexes"</span><span class="p">,</span> <span class="s2">"joearasin"</span><span class="p">,</span> <span class="s2">"hassox"</span><span class="p">,</span> <span class="s2">"nickmarden"</span><span class="p">,</span> <span class="s2">"pengwynn"</span><span class="p">,</span> <span class="s2">"mmcgrana"</span><span class="p">,</span> <span class="s2">"reddavis"</span><span class="p">,</span> <span class="s2">"reinh"</span><span class="p">,</span> <span class="s2">"mzsanford"</span><span class="p">,</span> <span class="s2">"aanand"</span><span class="p">,</span> <span class="s2">"pjhyett"</span><span class="p">,</span> <span class="s2">"kneath"</span><span class="p">,</span> <span class="s2">"tekkub"</span><span class="p">,</span> <span class="s2">"adamstac"</span><span class="p">,</span> <span class="s2">"timtrueman"</span><span class="p">,</span> <span class="s2">"aaronblohowiak"</span><span class="p">,</span> <span class="s2">"josevalim"</span><span class="p">,</span> <span class="s2">"kaapa"</span><span class="p">,</span> <span class="s2">"hurrycane"</span><span class="p">,</span> <span class="s2">"jackdempsey"</span><span class="p">,</span> <span class="s2">"drogus"</span><span class="p">,</span> <span class="s2">"cameronpriest"</span><span class="p">,</span> <span class="s2">"danmelton"</span><span class="p">,</span> <span class="s2">"marcel"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="s2">"atmos"</span><span class="p">,</span> <span class="s2">"mbleigh"</span><span class="p">,</span> <span class="s2">"isaacs"</span><span class="p">,</span> <span class="s2">"maxogden"</span><span class="p">,</span> <span class="s2">"codeforamerica"</span><span class="p">,</span> <span class="s2">"chadk"</span><span class="p">,</span> <span class="s2">"laserlemon"</span><span class="p">,</span> <span class="s2">"gruber"</span><span class="p">,</span> <span class="s2">"lsegal"</span><span class="p">,</span> <span class="s2">"bblimke"</span><span class="p">,</span> <span class="s2">"wayneeseguin"</span><span class="p">,</span> <span class="s2">"brixen"</span><span class="p">,</span> <span class="s2">"dkubb"</span><span class="p">,</span> <span class="s2">"bhb"</span><span class="p">,</span> <span class="s2">"bcardarella"</span><span class="p">,</span> <span class="s2">"elliottcable"</span><span class="p">,</span> <span class="s2">"fbjork"</span><span class="p">,</span> <span class="s2">"mlightner"</span><span class="p">,</span> <span class="s2">"dianakimball"</span><span class="p">,</span> <span class="s2">"amerine"</span><span class="p">,</span> <span class="s2">"danchoi"</span><span class="p">,</span> <span class="s2">"develop"</span><span class="p">,</span> <span class="s2">"dmfrancisco"</span><span class="p">,</span> <span class="s2">"unruthless"</span><span class="p">,</span> <span class="s2">"trotter"</span><span class="p">,</span> <span class="s2">"hannestyden"</span><span class="p">,</span> <span class="s2">"codahale"</span><span class="p">,</span> <span class="s2">"ry"</span><span class="o">]</span>
+</pre>
+</div>
+
+
+<h3>Repositories</h3>
+
+<p>For convenience, methods that require a repository argument may be passed in
+any of the following forms:</p>
+
+<ul>
+<li><code>"pengwynn/octokit"</code></li>
+<li><code>{:username =&gt; "pengwynn", :name =&gt; "octokit"}</code></li>
+<li><code>{:username =&gt; "pengwynn", :repo =&gt; "octokit"}</code></li>
+<li>instance of <code>Repository</code>
+</li>
+</ul><div class="highlight">
+<pre><span class="no">Octokit</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span><span class="s2">"pengwynn/octokit"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">&lt;</span><span class="c1">#Hashie::Rash created_at="2009/12/10 13:41:49 -0800" description="Simple Ruby wrapper for the GitHub API and feeds" fork=false forks=25 has_downloads=true has_issues=true has_wiki=true homepage="http://wynnnetherland.com/projects/octokit" integrate_branch="master" language="Ruby" name="octokit" open_issues=8 owner="pengwynn" private=false pushed_at="2011/05/05 10:48:57 -0700" size=1804 url="https://github.com/pengwynn/octokit" watchers=92&gt;</span>
+</pre>
+</div>
+
+
+<h2>Authenticated Requests</h2>
+
+<p>For methods that require authentication, you'll need to setup a client with
+your login and password.</p>
+
+<div class="highlight">
+<pre><span class="n">client</span> <span class="o">=</span> <span class="no">Octokit</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:login</span> <span class="o">=&gt;</span> <span class="s2">"me"</span><span class="p">,</span> <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="s2">"sekret"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">follow!</span><span class="p">(</span><span class="s2">"sferik"</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<p>Alternately, you can authenticate with a GitHub OAuth2 token. Note: this is
+<strong>NOT</strong> the GitHub API token on your <a href="https://github.com/account">account page</a>.</p>
+
+<div class="highlight">
+<pre><span class="n">client</span> <span class="o">=</span> <span class="no">Octokit</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:login</span> <span class="o">=&gt;</span> <span class="s2">"me"</span><span class="p">,</span> <span class="ss">:oauth_token</span> <span class="o">=&gt;</span> <span class="s2">"oauth2token"</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">follow!</span><span class="p">(</span><span class="s2">"sferik"</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<h2>Submitting a Pull Request</h2>
+
+<ol>
+<li><a href="http://help.github.com/fork-a-repo/">Fork the repository.</a></li>
+<li><a href="http://learn.github.com/p/branching.html">Create a topic branch.</a></li>
+<li>Add specs for your unimplemented feature or bug fix.</li>
+<li>Run <code>bundle exec rake spec</code>. If your specs pass, return to step 3.</li>
+<li>Implement your feature or bug fix.</li>
+<li>Run <code>bundle exec rake spec</code>. If your specs fail, return to step 5.</li>
+<li>Run <code>open coverage/index.html</code>. If your changes are not completely covered
+by your tests, return to step 3.</li>
+<li>Add documentation for your feature or bug fix.</li>
+<li>Run <code>bundle exec rake doc:yard</code>. If your changes are not 100% documented, go
+back to step 8.</li>
+<li>Add, commit, and push your changes.</li>
+<li><a href="http://help.github.com/send-pull-requests/">Submit a pull request.</a></li>
+</ol><h2>Supported Ruby Versions</h2>
+
+<p>This library aims to support and is <a href="http://travis-ci.org/pengwynn/octokit">tested against</a> the following Ruby
+implementations:</p>
+
+<ul>
+<li>Ruby 1.8.7</li>
+<li>Ruby 1.9.2</li>
+<li>Ruby 1.9.3</li>
+<li><a href="http://www.jruby.org/">JRuby</a></li>
+<li><a href="http://rubini.us/">Rubinius</a></li>
+</ul><p>If something doesn't work on one of these interpreters, it should be considered
+a bug.</p>
+
+<p>This library may inadvertently work (or seem to work) on other Ruby
+implementations, however support will only be provided for the versions listed
+above.</p>
+
+<p>If you would like this library to support another Ruby version, you may
+volunteer to be a maintainer. Being a maintainer entails making sure all tests
+run and pass on that implementation. When something breaks on your
+implementation, you will be personally responsible for providing patches in a
+timely fashion. If critical issues for a particular implementation exist at the
+time of a major release, support for that Ruby version may be dropped.</p>
+
+<h2>Contributors</h2>
+
+<p>Octokit was initially created by Wynn Netherland and <a href="http://twitter.com/adamstac">Adam
+Stacoviak</a> but has
+turned into a true community effort. Special thanks to the following core
+contributors:</p>
+
+<ul>
+<li><a href="http://github.com/sferik">Erik Michaels-Ober</a></li>
+<li><a href="http://github.com/ctshryock">Clint Shryock</a></li>
+</ul><h2>Inspiration</h2>
+
+<p>Octokit was inspired by <a href="https://github.com/fcoury/octopi">Octopi</a> and aims to be a lightweight,
+less-ActiveResourcey alternative.</p>
+
+<h2>Copyright</h2>
+
+<p>Copyright (c) 2011 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober. See
+<a href="https://github.com/pengwynn/octokit/blob/master/LICENSE">LICENSE</a> for details.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/ctshryock">ctshryock</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
