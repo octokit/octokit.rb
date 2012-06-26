@@ -1,0 +1,14 @@
+{
+  "type": "file",
+  "content": "cmVxdWlyZSAnb2N0b2tpdC9jb25maWd1cmF0aW9uJwpyZXF1aXJlICdvY3Rv\na2l0L2NsaWVudCcKcmVxdWlyZSAnb2N0b2tpdC9lcnJvcicKCm1vZHVsZSBP\nY3Rva2l0CiAgZXh0ZW5kIENvbmZpZ3VyYXRpb24KICBjbGFzcyA8PCBzZWxm\nCiAgICAjIEFsaWFzIGZvciBPY3Rva2l0OjpDbGllbnQubmV3CiAgICAjCiAg\nICAjIEByZXR1cm4gW09jdG9raXQ6OkNsaWVudF0KICAgIGRlZiBuZXcob3B0\naW9ucz17fSkKICAgICAgT2N0b2tpdDo6Q2xpZW50Lm5ldyhvcHRpb25zKQog\nICAgZW5kCgogICAgIyBEZWxlZ2F0ZSB0byBPY3Rva2l0OjpDbGllbnQubmV3\nCiAgICBkZWYgbWV0aG9kX21pc3NpbmcobWV0aG9kLCAqYXJncywgJmJsb2Nr\nKQogICAgICByZXR1cm4gc3VwZXIgdW5sZXNzIG5ldy5yZXNwb25kX3RvPyht\nZXRob2QpCiAgICAgIG5ldy5zZW5kKG1ldGhvZCwgKmFyZ3MsICZibG9jaykK\nICAgIGVuZAoKICAgIGRlZiByZXNwb25kX3RvPyhtZXRob2QsIGluY2x1ZGVf\ncHJpdmF0ZT1mYWxzZSkKICAgICAgbmV3LnJlc3BvbmRfdG8/KG1ldGhvZCwg\naW5jbHVkZV9wcml2YXRlKSB8fCBzdXBlcihtZXRob2QsIGluY2x1ZGVfcHJp\ndmF0ZSkKICAgIGVuZAogIGVuZAplbmQK\n",
+  "sha": "21787fb105676aad095f575bd00f9d18ddcb5a42",
+  "encoding": "base64",
+  "size": 609,
+  "_links": {
+    "html": "https://github.com/pengwynn/octokit/blob/master/lib/octokit.rb",
+    "self": "https://api.github.com/repos/pengwynn/octokit/contents/lib/octokit.rb",
+    "git": "https://api.github.com/repos/pengwynn/octokit/git/blobs/21787fb105676aad095f575bd00f9d18ddcb5a42"
+  },
+  "name": "lib/octokit.rb",
+  "path": "lib/octokit.rb"
+}
