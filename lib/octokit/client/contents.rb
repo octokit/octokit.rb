@@ -35,7 +35,7 @@ module Octokit
 	# @param repo [String, Repository, Hash] A GitHub repository.
 	# @option options format [String] Either tarball (default) or zipball.
 	# @option options [String] :ref Optional valid Git reference, defaults to master.
-	# @return [Faraday::Utils::Headers] The header of the response.
+	# @return [String] Location of the download
 	# @see http://developer.github.com/v3/repos/contents/
 	# @example Get archive link for pengwynn/octokit
 	#   Octokit.archive_link("pengwynn/octokit")
@@ -43,7 +43,8 @@ module Octokit
 				repo_ref = options.delete :ref
 				format = (options.delete :format) || 'tarball'
 				url = "/repos/#{Repository.new repo}/#{format}/#{repo_ref}"
-			  get(url, options, 3, false, true).headers
+			  headers = get(url, options, 3, false, true).headers
+			  return headers['location']
 		  end
 	end
 end

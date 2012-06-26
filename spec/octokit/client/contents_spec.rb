@@ -40,7 +40,7 @@ describe Octokit::Client::Contents do
 				to_return(:status => 302, :body => '', :headers => 
 					{ 'location' => "https://nodeload.github.com/repos/pengwynn/octokit/tarball/"})
 			archive_link = @client.archive_link('pengwynn/octokit', :ref => "master")
-			archive_link['location'] == "https://nodeload.github.com/pengwynn/octokit/tarball/"
+			archive_link == "https://nodeload.github.com/pengwynn/octokit/tarball/"
 		end
 
 	end
