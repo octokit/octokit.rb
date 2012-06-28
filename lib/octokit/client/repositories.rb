@@ -129,6 +129,19 @@ module Octokit
         get "/repos/#{Repository.new repo}/branches", options, 3
       end
 
+      # Get a single branch from a repository
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param branch [String] Branch name 
+      # @return [Branch] The branch requested, if it exists
+      # @see http://developer.github.com/v3/repos/#get-branch
+      # @example Get branch 'master` from pengwynn/octokit
+      #   Octokit.issue("pengwynn/octokit", "master")
+      def branch(repo, branch, options={})
+        get "/repos/#{Repository.new repo}/branches/#{branch}", options, 3
+      end
+      alias :get_branch :branch 
+
       def hooks(repo, options={})
         get "/repos/#{Repository.new repo}/hooks", options, 3
       end
