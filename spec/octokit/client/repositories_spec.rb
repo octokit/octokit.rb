@@ -315,6 +315,14 @@ describe Octokit::Client::Repositories do
       master.commit.sha.should == "88553a397f7293b3ba176dc27cd1ab6bb93d5d14"
     end
 
+    it "should return a single branch" do
+      branch = JSON.parse(fixture("v3/branches.json").read).last
+      stub_get("/repos/pengwynn/octokit/branches/master").
+        to_return(:body => branch)
+      branch = @client.branch("pengwynn/octokit", "master")
+      branch.commit.sha.should == "88553a397f7293b3ba176dc27cd1ab6bb93d5d14"
+    end
+
   end
 
   describe ".hooks" do
