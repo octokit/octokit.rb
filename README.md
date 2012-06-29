@@ -74,7 +74,7 @@ Octokit.configure do |c|
   c.web_endpoint = 'https://github.company.com/'
 end
 
-@client = Octokit::Client.new(login => 'USERNAME', password => 'PASSWORD')
+@client = Octokit::Client.new(:login => 'USERNAME', :password => 'PASSWORD')
 ```
 
 ## Submitting a Pull Request
