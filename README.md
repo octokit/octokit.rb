@@ -63,6 +63,20 @@ client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
 client.follow!("sferik")
 ```
 
+## Using with GitHub Enterprise
+
+To use with [GitHub Enterprise](https://enterprise.github.com/), you'll need to
+set the API and web endpoints before instantiating a client.
+
+```ruby
+Octokit.configure do |c|
+  c.api_endpoint = 'https://github.company.com/api/v3'
+  c.web_endpoint = 'https://github.company.com/'
+end
+
+@client = Octokit::Client.new(login => 'USERNAME', password => 'PASSWORD')
+```
+
 ## Submitting a Pull Request
 1. [Fork the repository.][fork]
 2. [Create a topic branch.][branch]
