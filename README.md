@@ -29,13 +29,19 @@ Octokit.following("sferik")
 For convenience, methods that require a repository argument may be passed in
 any of the following forms:
 
-* `"pengwynn/octokit"`
-* `{:username => "pengwynn", :name => "octokit"}`
-* `{:username => "pengwynn", :repo => "octokit"}`
-* instance of `Repository`
-
 ```ruby
+# String
 Octokit.repo("pengwynn/octokit")
+
+# Hash
+Octokit.repo({:username => "pengwynn", :name => "octokit"})
+
+# or
+Octokit.repo({:username => "pengwynn", :repo => "octokit"})
+
+# Instance of Repository
+Octokit.repo(Repository.new('pengwynn/octokit'))
+
 => <#Hashie::Rash created_at="2009/12/10 13:41:49 -0800" description="Simple Ruby wrapper for the GitHub API and feeds" fork=false forks=25 has_downloads=true has_issues=true has_wiki=true homepage="http://wynnnetherland.com/projects/octokit" integrate_branch="master" language="Ruby" name="octokit" open_issues=8 owner="pengwynn" private=false pushed_at="2011/05/05 10:48:57 -0700" size=1804 url="https://github.com/pengwynn/octokit" watchers=92>
 ```
 
