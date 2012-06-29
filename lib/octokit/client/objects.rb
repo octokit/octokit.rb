@@ -33,7 +33,7 @@ module Octokit
       #   tree.tree.first.path # => "file.rb"
       def create_tree(repo, tree, options={})
         parameters = { :tree => tree }
-        post("/repos/#{Repository.new(repo)}/git/trees", options.merge(parameters), 3)
+        post("repos/#{Repository.new(repo)}/git/trees", options.merge(parameters), 3)
       end
 
       # Get a single blob, fetching its content and encoding
@@ -73,7 +73,7 @@ module Octokit
           :content => content,
           :encoding => encoding
         }
-        post("/repos/#{Repository.new(repo)}/git/blobs", options.merge(parameters), 3).sha
+        post("repos/#{Repository.new(repo)}/git/blobs", options.merge(parameters), 3).sha
       end
     end
   end

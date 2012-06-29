@@ -12,7 +12,7 @@ module Octokit
       # @example Search for 'test' in the open issues for sferik/rails_admin
       #   Octokit.search_issues("sferik/rails_admin", 'test', 'open')
       def search_issues(repo, search_term, state='open', options={})
-        get("/legacy/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options, 3)['issues']
+        get("legacy/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options, 3)['issues']
       end
 
       # List issues for a repository
@@ -32,7 +32,7 @@ module Octokit
       # @example List issues for a repository
       #   Octokit.list_issues("sferik/rails_admin")
       def list_issues(repository, options={})
-        get("/repos/#{Repository.new(repository)}/issues", options, 3)
+        get("repos/#{Repository.new(repository)}/issues", options, 3)
       end
       alias :issues :list_issues
 
@@ -46,7 +46,7 @@ module Octokit
       # @example Create a new Issues for a repository
       #   Octokit.create_issue("sferik/rails_admin")
       def create_issue(repo, title, body, options={})
-        post("/repos/#{Repository.new(repo)}/issues", options.merge({:title => title, :body => body}), 3)
+        post("repos/#{Repository.new(repo)}/issues", options.merge({:title => title, :body => body}), 3)
       end
       alias :open_issue :create_issue
 
@@ -59,7 +59,7 @@ module Octokit
       # @example Get issue #25 from pengwynn/octokit
       #   Octokit.issue("pengwynn/octokit", "25")
       def issue(repo, number, options={})
-        get("/repos/#{Repository.new(repo)}/issues/#{number}", options, 3)
+        get("repos/#{Repository.new(repo)}/issues/#{number}", options, 3)
       end
 
       # Close an issue
@@ -73,7 +73,7 @@ module Octokit
       # @example Close Issue #25 from pengwynn/octokit
       #   Octokit.close_issue("pengwynn/octokit", "25")
       def close_issue(repo, number, options={})
-        post("/repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"}), 3)
+        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"}), 3)
       end
 
       # Reopen an issue
@@ -87,7 +87,7 @@ module Octokit
       # @example Reopen Issue #25 from pengwynn/octokit
       #   Octokit.reopen_issue("pengwynn/octokit", "25")
       def reopen_issue(repo, number, options={})
-        post("/repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"}), 3)
+        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"}), 3)
       end
 
       # Update an issue
@@ -103,7 +103,7 @@ module Octokit
       # @example Change the title of Issue #25
       #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
       def update_issue(repo, number, title, body, options={})
-        post("/repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body}), 3)
+        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body}), 3)
       end
 
       # Get all comments attached to an issue
@@ -115,7 +115,7 @@ module Octokit
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
       def issue_comments(repo, number, options={})
-        get("/repos/#{Repository.new(repo)}/issues/#{number}/comments", options, 3)
+        get("repos/#{Repository.new(repo)}/issues/#{number}/comments", options, 3)
       end
 
       # Get a single comment attached to an issue
@@ -127,7 +127,7 @@ module Octokit
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
       def issue_comment(repo, number, options={})
-        get("/repos/#{Repository.new(repo)}/issues/comments/#{number}", options, 3)
+        get("repos/#{Repository.new(repo)}/issues/comments/#{number}", options, 3)
       end
 
       # Add a comment to an issue
@@ -140,7 +140,7 @@ module Octokit
       # @example Add the comment "Almost to v1" to Issue #23 on pengwynn/octokit
       #   Octokit.add_comment("pengwynn/octokit", 23, "Almost to v1")
       def add_comment(repo, number, comment, options={})
-        post("/repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment}), 3)
+        post("repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment}), 3)
       end
 
       # Update a single comment on an issue
@@ -153,7 +153,7 @@ module Octokit
       # @example Update the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
       #   Octokit.update_comment("pengwynn/octokit", 25, "Almost to v1, added this on my fork")
       def update_comment(repo, number, comment, options={})
-        post("/repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment}), 3)
+        post("repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment}), 3)
       end
 
       # Delete a single comment
@@ -165,7 +165,7 @@ module Octokit
       # @example Delete the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
       #   Octokit.delete_comment("pengwynn/octokit", 1194549)
       def delete_comment(repo, number, options={})
-        delete("/repos/#{Repository.new(repo)}/issues/comments/#{number}", options, 3, true, true)
+        delete("repos/#{Repository.new(repo)}/issues/comments/#{number}", options, 3, true, true)
       end
 
 
@@ -179,7 +179,7 @@ module Octokit
       # @example List all issues events for issue #38 on pengwynn/octokit
       #   Octokit.issue_events("pengwynn/octokit", 38)
       def issue_events(repo, number, options={})
-        get("/repos/#{Repository.new(repo)}/issues/#{number}/events", options, 3)
+        get("repos/#{Repository.new(repo)}/issues/#{number}/events", options, 3)
       end
 
       # Get information on a single Issue Event
@@ -192,7 +192,7 @@ module Octokit
       # @example Get Event information for ID 3094334 (a pull request was closed)
       #   Octokit.issue_event("pengwynn/octokit", 3094334)
       def issue_event(repo, number, options={})
-        get("/repos/#{Repository.new(repo)}/issues/events/#{number}", options, 3)
+        get("repos/#{Repository.new(repo)}/issues/events/#{number}", options, 3)
       end
 
     end

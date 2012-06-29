@@ -3,7 +3,7 @@ module Octokit
     module Users
 
       def search_users(search, options={})
-        get("/legacy/user/search/#{search}", options, 3)['users']
+        get("legacy/user/search/#{search}", options, 3)['users']
       end
 
       # Get a single user
@@ -14,9 +14,9 @@ module Octokit
       #   Octokit.user("sferik")
       def user(user=nil)
         if user
-          get("/users/#{user}", {}, 3)
+          get("users/#{user}", {}, 3)
         else
-          get("/user", {}, 3)
+          get("user", {}, 3)
         end
       end
 
@@ -34,15 +34,15 @@ module Octokit
       # @example
       #   Octokit.user(:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false)
       def update_user(options)
-        patch("/user", options, 3)
+        patch("user", options, 3)
       end
 
       def followers(user=login, options={})
-        get("/users/#{user}/followers", options, 3)
+        get("users/#{user}/followers", options, 3)
       end
 
       def following(user=login, options={})
-        get("/users/#{user}/following", options, 3)
+        get("users/#{user}/following", options, 3)
       end
 
       def follows?(*args)
@@ -50,47 +50,47 @@ module Octokit
         user = args.first
         user ||= login
         return if user.nil?
-        get("/user/following/#{target}", {}, 3, true, raw=true).status == 204
+        get("user/following/#{target}", {}, 3, true, raw=true).status == 204
       rescue Octokit::NotFound
         false
       end
 
       def follow(user, options={})
-        put("/user/following/#{user}", options, 3, true, raw=true).status == 204
+        put("user/following/#{user}", options, 3, true, raw=true).status == 204
       end
 
       def unfollow(user, options={})
-        delete("/user/following/#{user}", options, 3, true, raw=true).status == 204
+        delete("user/following/#{user}", options, 3, true, raw=true).status == 204
       end
 
       def watched(user=login, options={})
-        get("/users/#{user}/watched", options, 3)
+        get("users/#{user}/watched", options, 3)
       end
 
       # Not yet supported: get a single key, update an existing key
 
       def keys(options={})
-        get("/user/keys", options, 3)
+        get("user/keys", options, 3)
       end
 
       def add_key(title, key, options={})
-        post("/user/keys", options.merge({:title => title, :key => key}), 3)
+        post("user/keys", options.merge({:title => title, :key => key}), 3)
       end
 
       def remove_key(id, options={})
-        delete("/user/keys/#{id}", options, 3, true, raw=true)
+        delete("user/keys/#{id}", options, 3, true, raw=true)
       end
 
       def emails(options={})
-        get("/user/emails", options, 3)
+        get("user/emails", options, 3)
       end
 
       def add_email(email, options={})
-        post("/user/emails", options.merge({:email => email}), 3)
+        post("user/emails", options.merge({:email => email}), 3)
       end
 
       def remove_email(email, options={})
-        delete("/user/emails", options.merge({:email => email}), 3, true, raw=true).status == 204
+        delete("user/emails", options.merge({:email => email}), 3, true, raw=true).status == 204
       end
     end
   end

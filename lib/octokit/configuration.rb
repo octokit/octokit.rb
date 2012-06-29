@@ -18,8 +18,8 @@ module Octokit
 
     DEFAULT_ADAPTER        = Faraday.default_adapter
     DEFAULT_API_VERSION    = 3
-    DEFAULT_API_ENDPOINT   = 'https://api.github.com'
-    DEFAULT_WEB_ENDPOINT   = 'https://github.com'
+    DEFAULT_API_ENDPOINT   = 'https://api.github.com/'
+    DEFAULT_WEB_ENDPOINT   = 'https://github.com/'
     DEFAULT_USER_AGENT     = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
     DEFAULT_AUTO_TRAVERSAL = false
 
@@ -35,6 +35,14 @@ module Octokit
 
     def options
       VALID_OPTIONS_KEYS.inject({}){|o,k| o.merge!(k => send(k)) }
+    end
+
+    def api_endpoint=(value)
+      @api_endpoint = File.join(value, "")
+    end
+
+    def web_endpoint=(value)
+      @web_endpoint = File.join(value, "")
     end
 
     def reset

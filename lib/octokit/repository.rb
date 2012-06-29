@@ -30,7 +30,7 @@ module Octokit
     end
 
     def url
-      "#{Octokit.web_endpoint}/#{slug}"
+      "#{Octokit.web_endpoint}#{slug}"
     end
 
     alias :user :username

@@ -13,7 +13,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/commits/
       def commits(repo, sha_or_branch="master", options={})
         params = { :sha => sha_or_branch, :per_page => 35 }
-        get("/repos/#{Repository.new(repo)}/commits", options.merge(params), 3)
+        get("repos/#{Repository.new(repo)}/commits", options.merge(params), 3)
       end
       alias :list_commits :commits
 
@@ -24,7 +24,7 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the commit
       # @see http://developer.github.com/v3/repos/commits/
       def commit(repo, sha, options={})
-        get("/repos/#{Repository.new(repo)}/commits/#{sha}", options, 3)
+        get("repos/#{Repository.new(repo)}/commits/#{sha}", options, 3)
       end
 
       # Create a commit
@@ -50,7 +50,7 @@ module Octokit
         params = { :message => message, :tree => tree }.tap do |params|
           params[:parents] = [parents].flatten if parents
         end
-        post("/repos/#{Repository.new(repo)}/git/commits", options.merge(params), 3)
+        post("repos/#{Repository.new(repo)}/git/commits", options.merge(params), 3)
       end
 
       # List all commit comments
@@ -59,7 +59,7 @@ module Octokit
       # @return [Array] An array of hashes representing comments
       # @see http://developer.github.com/v3/repos/comments/
       def list_commit_comments(repo, options={})
-        get("/repos/#{Repository.new(repo)}/comments", options, 3)
+        get("repos/#{Repository.new(repo)}/comments", options, 3)
       end
 
       # List comments for a single commit
@@ -69,7 +69,7 @@ module Octokit
       # @return [Array] An array of hashes representing comments
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comments(repo, sha, options={})
-        get("/repos/#{Repository.new(repo)}/commits/#{sha}/comments", options, 3)
+        get("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options, 3)
       end
 
       # Get a single commit comment
@@ -79,7 +79,7 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the comment
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comment(repo, id, options={})
-        get("/repos/#{Repository.new(repo)}/comments/#{id}", options, 3)
+        get("repos/#{Repository.new(repo)}/comments/#{id}", options, 3)
       end
 
     end

@@ -13,7 +13,7 @@ module Octokit
         #    client = Octokit::Client.new(:oauth_token = "token")
         #    client.subscribe_service_hook('joshk/device_imapable', 'Travis', { :token => "test", :domain => "domain", :user => "user" })
         def subscribe_service_hook(repo, service_name, service_arguments = {})
-          topic = "#{Octokit.web_endpoint}/#{Repository.new(repo)}/events/push"
+          topic = "#{Octokit.web_endpoint}#{Repository.new(repo)}/events/push"
           callback = "github://#{service_name}?#{service_arguments.collect{ |k,v| [ k,v ].join("=") }.join("&") }"
           subscribe(topic, callback)
           true
@@ -28,7 +28,7 @@ module Octokit
         #    client = Octokit::Client.new(:oauth_token = "token")
         #    client.unsubscribe_service_hook('joshk/device_imapable', 'Travis')
         def unsubscribe_service_hook(repo, service_name)
-          topic = "#{Octokit.web_endpoint}/#{Repository.new(repo)}/events/push"
+          topic = "#{Octokit.web_endpoint}#{Repository.new(repo)}/events/push"
           callback = "github://#{service_name}"
           unsubscribe(topic, callback)
           true
