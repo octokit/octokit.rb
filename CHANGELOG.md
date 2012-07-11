@@ -1,5 +1,6 @@
 # CHANGELOG
 
+* [1.9.0 - July 11, 2012](https://github.com/pengwynn/octokit/compare/v1.8.1...v1.9.0)
 * [1.8.1 - June 18, 2012](https://github.com/pengwynn/octokit/compare/v1.8.0...v1.8.1)
 * [1.7.0 - June 18, 2012](https://github.com/pengwynn/octokit/compare/v1.6.1...v1.7.0)
 * [1.6.1 - June 14, 2012](https://github.com/pengwynn/octokit/compare/v1.6.0...v1.6.1)
