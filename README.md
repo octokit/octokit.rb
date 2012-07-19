@@ -51,7 +51,7 @@ your login and password.
 
 ```ruby
 client = Octokit::Client.new(:login => "me", :password => "sekret")
-client.follow!("sferik")
+client.follow("sferik")
 ```
 
 Alternately, you can authenticate with a GitHub OAuth2 token. Note: this is
@@ -60,7 +60,7 @@ Alternately, you can authenticate with a GitHub OAuth2 token. Note: this is
 [account]: https://github.com/account
 ```ruby
 client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
-client.follow!("sferik")
+client.follow("sferik")
 ```
 
 ## Using with GitHub Enterprise
