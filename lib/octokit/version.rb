@@ -1,3 +1,3 @@
 module Octokit
-  VERSION = "1.9.1" unless defined?(Octokit::VERSION)
+  VERSION = "1.9.2" unless defined?(Octokit::VERSION)
 end
