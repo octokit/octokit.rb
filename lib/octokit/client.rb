@@ -22,6 +22,7 @@ require 'octokit/client/authorizations'
 require 'octokit/client/refs'
 require 'octokit/client/contents'
 require 'octokit/client/markdown'
+require 'octokit/client/emojis'
 
 module Octokit
   class Client
@@ -56,5 +57,6 @@ module Octokit
     include Octokit::Client::Refs
     include Octokit::Client::Contents
     include Octokit::Client::Markdown
+    include Octokit::Client::Emojis
   end
 end
