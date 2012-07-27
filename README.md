@@ -98,19 +98,11 @@ end
 
 ## Supported Ruby Versions
 This library aims to support and is [tested against][travis] the following Ruby
-implementations:
+versions:
 
 * Ruby 1.8.7
 * Ruby 1.9.2
 * Ruby 1.9.3
-* [JRuby][]
-* [Rubinius][]
-
-[jruby]: http://www.jruby.org/
-[rubinius]: http://rubini.us/
-
-If something doesn't work on one of these interpreters, it should be considered
-a bug.
 
 This library may inadvertently work (or seem to work) on other Ruby
 implementations, however support will only be provided for the versions listed
