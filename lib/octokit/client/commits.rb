@@ -13,7 +13,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/commits/
       def commits(repo, sha_or_branch="master", options={})
         params = { :sha => sha_or_branch, :per_page => 35 }
-        get("repos/#{Repository.new(repo)}/commits", options.merge(params), 3)
+        get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
       end
       alias :list_commits :commits
 
