@@ -32,7 +32,7 @@ module Octokit
           builder.use FaradayMiddleware::Mashify
           builder.use FaradayMiddleware::ParseJson
         end
-        builder.adapter(adapter)
+        builder.adapter *adapter
       end
       connection.basic_auth authentication[:login], authentication[:password] if authenticate and authenticated?
       connection
