@@ -82,6 +82,17 @@ module Octokit
         get("repos/#{Repository.new(repo)}/comments/#{id}", options, 3)
       end
 
+      # Compare two commits
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param base [String] The sha of the starting commit
+      # @param end [String] The sha of the ending commit
+      # @return [Hashie::Mash] A hash representing the comparison
+      # @see http://developer.github.com/v3/repos/commits/
+      def compare(repo, start, endd, options={})
+        get("repos/#{Repository.new(repo)}/compare/#{start}...#{endd}", options, 3)
+      end
+
     end
   end
 end
