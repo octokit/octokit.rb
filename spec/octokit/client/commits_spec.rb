@@ -78,4 +78,15 @@ describe Octokit::Client::Commits do
 
   end
 
+  describe ".compare" do
+
+    it "should return a comparison" do
+      stub_get("/repos/gvaughn/octokit/compare/0e0d7ae299514da692eb1cab741562c253d44188...b7b37f75a80b8e84061cd45b246232ad958158f5").
+        to_return(:body => fixture("v3/compare.json"))
+      comparison = @client.compare("gvaughn/octokit", '0e0d7ae299514da692eb1cab741562c253d44188', 'b7b37f75a80b8e84061cd45b246232ad958158f5')
+      comparison.base_commit.sha.should == '0e0d7ae299514da692eb1cab741562c253d44188'
+      comparison.merge_base_commit.sha.should == 'b7b37f75a80b8e84061cd45b246232ad958158f5'
+    end
+  end
+
 end
