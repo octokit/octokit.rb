@@ -12,7 +12,7 @@ module Octokit
   # @example Get the readme file for a repo
   #   Octokit.readme("pengwynn/octokit")
   def readme(repo, options={})
-    get("/repos/#{Repository.new repo}/readme", options, 3)
+    get("repos/#{Repository.new repo}/readme", options, 3)
   end
 
   # Receive a listing of a repository folder or the contents of a file
@@ -26,7 +26,7 @@ module Octokit
   #   Octokit.contents("pengwynn/octokit", :path => 'lib/octokit.rb')
   def contents(repo, options={})
     repo_path = options.delete :path
-    url = "/repos/#{Repository.new repo}/contents/#{repo_path}"
+    url = "repos/#{Repository.new repo}/contents/#{repo_path}"
     get(url, options, 3)
   end
 
@@ -42,7 +42,7 @@ module Octokit
   def archive_link(repo, options={})
     repo_ref = options.delete :ref
     format = (options.delete :format) || 'tarball'
-    url = "/repos/#{Repository.new repo}/#{format}/#{repo_ref}"
+    url = "repos/#{Repository.new repo}/#{format}/#{repo_ref}"
     headers = get(url, options, 3, false, true).headers
     return headers['location']
   end

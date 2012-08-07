@@ -23,13 +23,13 @@ module Octokit
     end
 
     def ratelimit
-      headers = get("/rate_limit",{}, api_version, true, true).headers
+      headers = get("rate_limit",{}, api_version, true, true).headers
       return headers["X-RateLimit-Limit"].to_i
     end
     alias rate_limit ratelimit
 
     def ratelimit_remaining
-      headers = get("/rate_limit",{}, api_version, true, true).headers
+      headers = get("rate_limit",{}, api_version, true, true).headers
       return headers["X-RateLimit-Remaining"].to_i
     end
     alias rate_limit_remaining ratelimit_remaining
@@ -37,6 +37,7 @@ module Octokit
     private
 
     def request(method, path, options, version, authenticate, raw, force_urlencoded)
+      path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
       response = connection(authenticate, raw, version, force_urlencoded).send(method) do |request|
         case method
         when :delete, :get
