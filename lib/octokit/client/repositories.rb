@@ -181,6 +181,10 @@ module Octokit
       end
       alias :repo_issue_events :repository_issue_events
 
+      def repository_assignees(repo, options={})
+        get "repos/#{Repository.new repo}/assignees", options, 3
+      end
+      alias :repo_assignees :repository_assignees
     end
   end
 end
