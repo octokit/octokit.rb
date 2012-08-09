@@ -405,4 +405,15 @@ describe Octokit::Client::Repositories do
 
   end
 
+  describe ".assignees" do
+
+    it "should list all the available assignees (owner + collaborators)" do
+      stub_get("/repos/pengwynn/octokit/assignees").
+      to_return(:body => fixture("v3/repo_assignees.json"))
+      assignees = @client.repo_assignees("pengwynn/octokit") 
+      assignees.first.login.should == "adamstac"
+    end
+
+  end
+
 end
