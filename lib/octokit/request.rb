@@ -41,17 +41,16 @@ module Octokit
       response = connection(authenticate, raw, version, force_urlencoded).send(method) do |request|
         case method
         when :delete, :get
-          if auto_traversal && per_page.nil?
-            self.per_page = 100
-          end
+          per_page = 100 if auto_traversal && per_page.nil?
           options.merge!(:per_page => per_page) if per_page
+
           request.url(path, options)
         when :patch, :post, :put
           request.path = path
-          if 3 == version && !force_urlencoded
-            request.body = MultiJson.dump(options) unless options.empty?
-          else
-            request.body = options unless options.empty?
+
+          use_multi_json = version == 3 && !force_urlencoded
+          unless options.empty?
+            request.body = use_multi_json ? MultiJson.dump(options) : options
           end
         end
       end
@@ -66,12 +65,11 @@ module Octokit
     end
 
     def links(response)
-      links = ( response.headers["Link"] || "" ).split(', ').map do |link|
-        url, type = link.match(/<(.*?)>; rel="(\w+)"/).captures
-        [ type, url ]
-      end
+      return {} unless response.headers["Link"]
+      
+      links = response.headers["Link"].scan(/<(.*?)>; rel="(\w+)"/)
 
-      Hash[ *links.flatten ]
+      Hash[links.flatten].invert
     end
   end
 end
