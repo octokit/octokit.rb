@@ -30,7 +30,7 @@ describe Octokit::Client::Commits do
   end
 
   describe ".create_commit" do
-    
+
     it "should create a commit" do
       stub_post("/repos/octocat/Hello-World/git/commits").
         with(:body => { :message => "My commit message", :tree => "827efc6d56897b048c772eb4087f854f46256132", :parents => ["7d1b31e74ee336d15cbd21741bc88a537ed063a0"] },

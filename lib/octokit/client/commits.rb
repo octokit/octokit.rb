@@ -47,9 +47,8 @@ module Octokit
       #   commit.message # => "My commit message"
       #   commit.committer # => { "name" => "Wynn Netherland", "email" => "wynn@github.com", ... }
       def create_commit(repo, message, tree, parents=nil, options={})
-        params = { :message => message, :tree => tree }.tap do |params|
-          params[:parents] = [parents].flatten if parents
-        end
+        params = { :message => message, :tree => tree }
+        params[:parents] = [parents].flatten if parents
         post("repos/#{Repository.new(repo)}/git/commits", options.merge(params), 3)
       end
 
