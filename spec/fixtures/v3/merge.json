@@ -1,0 +1,47 @@
+{
+  "author": {
+    "gravatar_id": "7e19cd5486b5d6dc1ef90e671ba52ae0",
+    "login": "pengwynn",
+    "url": "https://api.github.com/users/pengwynn",
+    "id": 865,
+    "avatar_url": "https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+  },
+  "commit": {
+    "author": {
+      "date": "2012-08-29T17:59:52-07:00",
+      "name": "Wynn Netherland",
+      "email": "wynn@github.com"
+    },
+    "tree": {
+      "sha": "574baabd931c510792e65dd11a09ed0bc4df740c",
+      "url": "https://api.github.com/repos/pengwynn/api-sandbox/git/trees/574baabd931c510792e65dd11a09ed0bc4df740c"
+    },
+    "message": "Testing the merge API",
+    "comment_count": 0,
+    "url": "https://api.github.com/repos/pengwynn/api-sandbox/git/commits/4298c8499e0a7a160975adefdecdf9d8a5437095",
+    "committer": {
+      "date": "2012-08-29T17:59:52-07:00",
+      "name": "Wynn Netherland",
+      "email": "wynn@github.com"
+    }
+  },
+  "sha": "4298c8499e0a7a160975adefdecdf9d8a5437095",
+  "parents": [
+    {
+      "sha": "abf4b791145f0b44114e5db96bf548bcd2aa9c6b",
+      "url": "https://api.github.com/repos/pengwynn/api-sandbox/commits/abf4b791145f0b44114e5db96bf548bcd2aa9c6b"
+    },
+    {
+      "sha": "ed65f66e1fd65351cf2b63bba905b6571ad98d4b",
+      "url": "https://api.github.com/repos/pengwynn/api-sandbox/commits/ed65f66e1fd65351cf2b63bba905b6571ad98d4b"
+    }
+  ],
+  "url": "https://api.github.com/repos/pengwynn/api-sandbox/commits/4298c8499e0a7a160975adefdecdf9d8a5437095",
+  "committer": {
+    "gravatar_id": "7e19cd5486b5d6dc1ef90e671ba52ae0",
+    "login": "pengwynn",
+    "url": "https://api.github.com/users/pengwynn",
+    "id": 865,
+    "avatar_url": "https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+  }
+}

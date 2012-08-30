@@ -92,6 +92,23 @@ module Octokit
         get("repos/#{Repository.new(repo)}/compare/#{start}...#{endd}", options, 3)
       end
 
+      # Merge a branch or sha
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param base [String] The name of the base branch to merge into
+      # @param head [String] The branch or SHA1 to merge
+      # @option options [String] :commit_message The commit message for the merge
+      # @return [Hashie::Mash] A hash representing the comparison
+      # @see http://developer.github.com/v3/repos/merging/
+      def merge(repo, base, head, options={})
+        params = {
+          :base => base,
+          :head => head
+        }.merge(options)
+        post("repos/#{Repository.new(repo)}/merges", params, 3)
+      end
+
+
     end
   end
 end
