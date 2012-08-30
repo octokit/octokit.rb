@@ -89,4 +89,18 @@ describe Octokit::Client::Commits do
     end
   end
 
+  describe ".merge" do
+
+    before do
+      stub_post("/repos/pengwynn/api-sandbox/merges").
+        to_return(:body => fixture("v3/merge.json"))
+    end
+
+    it "should merge a branch into another" do
+      merge = @client.merge("pengwynn/api-sandbox", "master", "new-branch", :commit_message => "Testing the merge API")
+      merge.sha.should == '4298c8499e0a7a160975adefdecdf9d8a5437095'
+      merge.commit.message.should == 'Testing the merge API'
+    end
+
+  end
 end
