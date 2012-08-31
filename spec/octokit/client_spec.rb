@@ -62,6 +62,32 @@ describe Octokit::Client do
 
   end
 
+  describe "unauthed rate limit" do
+
+    before(:each) do
+      Octokit.client_id = "OU812"
+      Octokit.client_secret = "P4N4MA"
+
+      stub_request(:get, "https://api.github.com/rate_limit?client_id=OU812&client_secret=P4N4MA").
+        to_return(:status => 200, :body => '', :headers =>
+          { 'X-RateLimit-Limit' => 62500, 'X-RateLimit-Remaining' => 62500})
+      @client = Octokit::Client.new()
+    end
+
+    after(:each) do
+      Octokit.reset
+    end
+
+    it "should get the ratelimit-limit from the header" do
+      @client.ratelimit.should == 62500
+    end
+
+    it "should get the ratelimit-remaining using header" do
+      @client.ratelimit_remaining.should == 62500
+    end
+
+  end
+
   describe "api_endpoint" do
 
     after(:each) do

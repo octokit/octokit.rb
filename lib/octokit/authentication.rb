@@ -15,5 +15,16 @@ module Octokit
     def oauthed?
       !oauth_token.nil?
     end
+
+    def unauthed_rate_limited?
+      client_id && client_secret
+    end
+
+    def unauthed_rate_limit_params
+      {
+        :client_id => client_id,
+        :client_secret => client_secret
+      }
+    end
   end
 end

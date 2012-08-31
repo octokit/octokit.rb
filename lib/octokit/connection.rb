@@ -19,6 +19,7 @@ module Octokit
       }
 
       options.merge!(:params => {:access_token => oauth_token}) if oauthed? && !authenticated?
+      options.merge!(:params => unauthed_rate_limit_params) if !oauthed? && !authenticated? && unauthed_rate_limited?
 
       # TODO: Don't build on every request
       connection = Faraday.new(options) do |builder|
