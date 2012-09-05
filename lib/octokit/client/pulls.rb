@@ -29,6 +29,11 @@ module Octokit
         get("repos/#{Repository.new(repo)}/pulls/#{number}", options)
       end
       alias :pull :pull_request
+
+      def pull_request_commits(repo, number, options={})
+        get("repos/#{Repository.new(repo)}/pulls/#{number}/commits", options)
+      end
+      alias :pull_commits :pull_request_commits
     end
   end
 end
