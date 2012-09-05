@@ -1,0 +1,45 @@
+[
+  {
+    "sha": "2097821c7c5aa4dc02a2cc54d5ca51968b373f95",
+    "parents": [
+      {
+        "sha": "9c5d4c76b42f535bc796f46d0bf7a5526b6066bb",
+        "url": "https://api.github.com/repos/pengwynn/octokit/commits/9c5d4c76b42f535bc796f46d0bf7a5526b6066bb"
+      }
+    ],
+    "url": "https://api.github.com/repos/pengwynn/octokit/commits/2097821c7c5aa4dc02a2cc54d5ca51968b373f95",
+    "author": {
+      "gravatar_id": "1ce18b10bd8f911566c5577042b6a44c",
+      "login": "koichiro",
+      "avatar_url": "https://secure.gravatar.com/avatar/1ce18b10bd8f911566c5577042b6a44c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+      "url": "https://api.github.com/users/koichiro",
+      "id": 9646
+    },
+    "committer": {
+      "gravatar_id": "1ce18b10bd8f911566c5577042b6a44c",
+      "login": "koichiro",
+      "avatar_url": "https://secure.gravatar.com/avatar/1ce18b10bd8f911566c5577042b6a44c?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+      "url": "https://api.github.com/users/koichiro",
+      "id": 9646
+    },
+    "commit": {
+      "tree": {
+        "sha": "72bebc0a0a87b11b7ce4f1b766d2af375fc4cc24",
+        "url": "https://api.github.com/repos/pengwynn/octokit/git/trees/72bebc0a0a87b11b7ce4f1b766d2af375fc4cc24"
+      },
+      "message": "Added new paramater for github_url\n\nSupport github alternative sites.\nfor example: github:enterprise https://enterprise.github.com/",
+      "url": "https://api.github.com/repos/pengwynn/octokit/git/commits/2097821c7c5aa4dc02a2cc54d5ca51968b373f95",
+      "comment_count": 0,
+      "author": {
+        "date": "2012-01-31T02:47:47-08:00",
+        "email": "koichiro@meadowy.org",
+        "name": "Koichiro Ohba"
+      },
+      "committer": {
+        "date": "2012-01-31T02:47:47-08:00",
+        "email": "koichiro@meadowy.org",
+        "name": "Koichiro Ohba"
+      }
+    }
+  }
+]

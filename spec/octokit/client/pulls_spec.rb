@@ -54,4 +54,15 @@ describe Octokit::Client::Pulls do
 
   end
 
+  describe ".pull_request_commits" do
+
+    it "should return the commits for a pull request" do
+      stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67/commits").
+        to_return(:body => fixture("v3/pull_request_commits.json"))
+      commits = @client.pull_commits("pengwynn/octokit", 67)
+      commits.first["sha"].should == "2097821c7c5aa4dc02a2cc54d5ca51968b373f95"
+    end
+
+  end
+
 end
