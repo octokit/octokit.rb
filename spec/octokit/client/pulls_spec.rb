@@ -65,4 +65,15 @@ describe Octokit::Client::Pulls do
 
   end
 
+  describe ".merge_pull_request" do
+
+    it "should merge the pull request" do
+      stub_put("https://api.github.com/repos/pengwynn/octokit/pulls/67/merge").
+        to_return(:body => fixture("v3/pull_request_merged.json"))
+      response = @client.merge_pull_request("pengwynn/octokit", 67)
+      response["sha"].should == "2097821c7c5aa4dc02a2cc54d5ca51968b373f95"
+    end
+
+  end
+
 end
