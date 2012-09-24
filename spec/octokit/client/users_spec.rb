@@ -164,6 +164,58 @@ describe Octokit::Client::Users do
 
   end
 
+  describe ".starred?" do
+
+    context "with on user starring a repo" do
+
+      it "should return true" do
+        stub_get("https://api.github.com/user/starred/sferik/rails_admin").
+          to_return(:status => 204, :body => "")
+        starred = @client.starred?("sferik", "rails_admin")
+        starred.should be_true
+      end
+
+    end
+
+    context "with on user not starring a repo" do
+
+      it "should return false" do
+        stub_get("https://api.github.com/user/starred/sferik/dogbrainz").
+          to_return(:status => 404, :body => "")
+        starred = @client.starred?("sferik", "dogbrainz")
+        starred.should be_false
+      end
+
+    end
+
+  end
+
+  describe ".starred" do
+
+    context "with a username passed" do
+
+      it "should return starred repositories" do
+        stub_get("https://api.github.com/users/sferik/starred").
+          to_return(:body => fixture("v3/starred.json"))
+        repositories = @client.starred("sferik")
+        repositories.first.name.should == "grit"
+      end
+
+    end
+
+    context "without a username passed" do
+
+      it "should return starred repositories" do
+        stub_get("https://api.github.com/users/sferik/starred").
+          to_return(:body => fixture("v3/starred.json"))
+        repositories = @client.starred
+        repositories.first.name.should == "grit"
+      end
+
+    end
+
+  end
+
   describe ".watched" do
 
     context "with a username passed" do

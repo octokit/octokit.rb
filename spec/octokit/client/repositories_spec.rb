@@ -68,6 +68,26 @@ describe Octokit::Client::Repositories do
 
   end
 
+  describe ".star" do
+
+    it "should star a repository" do
+      stub_put("/user/starred/sferik/rails_admin").
+        to_return(:status => 204)
+      @client.star("sferik/rails_admin").should be_nil
+    end
+
+  end
+
+  describe ".unstar" do
+
+    it "should unstar a repository" do
+      stub_delete("/user/starred/sferik/rails_admin").
+        to_return(:status => 204)
+      @client.unstar("sferik/rails_admin").should be_nil
+    end
+
+  end
+
   describe ".watch" do
 
     it "should watch a repository" do
@@ -256,6 +276,17 @@ describe Octokit::Client::Repositories do
         contributors.first.login.should == "sferik"
       end
 
+    end
+
+  end
+
+  describe ".stargazers" do
+
+    it "should return all repository stargazers" do
+      stub_get("/repos/sferik/rails_admin/stargazers").
+        to_return(:body => fixture("v3/stargazers.json"))
+      stargazers = @client.stargazers("sferik/rails_admin")
+      stargazers.first.login.should == "sferik"
     end
 
   end
