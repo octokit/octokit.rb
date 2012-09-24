@@ -1,8 +1,9 @@
 # CHANGELOG
 
+* [1.15.0 - September 24,2012](https://github.com/pengwynn/octokit/compare/v1.14.0...v1.15.0)
 * [1.14.0 - September 22,2012](https://github.com/pengwynn/octokit/compare/v1.13.0...v1.14.0)
-* [1.13.0 - September 5,2012](https://github.com/pengwynn/octokit/compare/v1.12.0...v1.13.0)
-* [1.12.0 - September 4,2012](https://github.com/pengwynn/octokit/compare/v1.11.0...v1.12.0)
+* [1.13.0 - September 5, 2012](https://github.com/pengwynn/octokit/compare/v1.12.0...v1.13.0)
+* [1.12.0 - September 4, 2012](https://github.com/pengwynn/octokit/compare/v1.11.0...v1.12.0)
 * [1.11.0 - August 29, 2012](https://github.com/pengwynn/octokit/compare/v1.10.0...v1.11.0)
 * [1.10.0 - August 8, 2012](https://github.com/pengwynn/octokit/compare/v1.9.4...v1.10.0)
 * [1.9.4 - August 6, 2012](https://github.com/pengwynn/octokit/compare/v1.9.3...v1.9.4)
