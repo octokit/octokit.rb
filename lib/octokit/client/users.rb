@@ -63,6 +63,16 @@ module Octokit
         delete("user/following/#{user}", options, 3, true, raw=true).status == 204
       end
 
+      def starred(user=login, options={})
+        get("users/#{user}/starred", options, 3)
+      end
+
+      def starred?(user, repo, options={})
+        get("user/starred/#{user}/#{repo}", options, 3, true, raw=true).status == 204
+      rescue Octokit::NotFound
+        false
+      end
+
       def watched(user=login, options={})
         get("users/#{user}/watched", options, 3)
       end

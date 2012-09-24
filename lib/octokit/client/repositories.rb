@@ -29,6 +29,14 @@ module Octokit
       alias :list_repos :repositories
       alias :repos :repositories
 
+      def star(repo, options={})
+        put "user/starred/#{Repository.new repo}", options, 3
+      end
+
+      def unstar(repo, options={})
+        delete "user/starred/#{Repository.new repo}", options, 3
+      end
+
       def watch(repo, options={})
         put "user/watched/#{Repository.new repo}", options, 3
       end
@@ -107,6 +115,10 @@ module Octokit
         get "repos/#{Repository.new repo}/contributors", options.merge(:anon => anon), 3
       end
       alias :contribs :contributors
+
+      def stargazers(repo, options={})
+        get "repos/#{Repository.new repo}/stargazers", options, 3
+      end
 
       def watchers(repo, options={})
         get "repos/#{Repository.new repo}/watchers", options, 3
