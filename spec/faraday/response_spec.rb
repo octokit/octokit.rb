@@ -32,4 +32,24 @@ describe Faraday::Response do
       end
     end
   end
+
+  [
+    {:message => "Problems parsing JSON"},
+    {:error => "Body should be a JSON Hash"}
+  ].each do |body|
+    context "when the response body contains an error message" do
+
+      before do
+        stub_get('https://api.github.com/users/sferik').
+          to_return(:status => 400, :body => body)
+      end
+
+      it "should raise an error with the error message" do
+        lambda do
+          @client.user('sferik')
+        end.should raise_error(Octokit::BadRequest, /#{body.values.first}/)
+      end
+    end
+  end
+
 end
