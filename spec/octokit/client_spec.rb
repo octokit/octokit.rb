@@ -106,5 +106,38 @@ describe Octokit::Client do
     end
   end
 
+  describe "request_host" do
+    after(:each) { Octokit.reset }
+
+    it "should default to nil" do
+      client = Octokit::Client.new
+      client.request_host.should be_nil
+    end
+
+    it "should be settable" do
+      Octokit.request_host = 'github.company.com'
+      client = Octokit::Client.new
+      client.request_host.should == 'github.company.com'
+    end
+
+    it "does not change the Host header when not set" do
+      Octokit.api_endpoint = 'http://github.internal'
+
+      stub_request(:any, /.*/)
+      req = stub_request(:get, 'http://github.internal/users/me').with(:headers => { 'Host' => /.*/})
+      Octokit.user "me"
+      req.should_not have_been_requested
+    end
+
+    it "changes the Host header when set" do
+      Octokit.api_endpoint = 'http://github.internal'
+      Octokit.request_host = 'github.company.com'
+
+      req = stub_request(:get, 'http://github.internal/users/me').with(:headers => { 'Host' => 'github.company.com' })
+      Octokit.user "me"
+      req.should have_been_requested
+    end
+  end
+
 
 end

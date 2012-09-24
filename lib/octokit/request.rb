@@ -54,6 +54,8 @@ module Octokit
             request.body = options unless options.empty?
           end
         end
+
+        request.headers['Host'] = Octokit.request_host if Octokit.request_host
       end
 
       if raw
