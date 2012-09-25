@@ -78,6 +78,47 @@ describe Octokit::Client::Commits do
 
   end
 
+  describe ".create_commit_comment" do
+
+    it "should create a commit comment" do
+      stub_post("/repos/sferik/rails_admin/commits/629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3/comments").
+        with(:body => { :body => "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n", :commit_id => "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3", :line => 1, :path => ".rspec", :position => 4 },
+             :headers => { "Content-Type" => "application/json" }).
+        to_return(:body => fixture("v3/commit_comment_create.json"))
+      commit_comment = @client.create_commit_comment("sferik/rails_admin", "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3", "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n", ".rspec", 1, 4)
+      commit_comment.body.should == "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n"
+      commit_comment.commit_id.should == "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3"
+      commit_comment.path.should == ".rspec"
+      commit_comment.line.should == 1
+      commit_comment.position.should == 4
+    end
+
+  end
+
+  describe ".update_commit_comment" do
+
+    it "should update a commit comment" do
+      stub_patch("/repos/sferik/rails_admin/comments/860296").
+        with(:body => { :body => "Hey Eric,\r\n\r\nI think it's a terrible idea. The test suite should stay deterministic IMO.\r\n" },
+          :headers => { "Content-Type" => "application/json" }).
+        to_return(:body => fixture("v3/commit_comment_update.json"))
+        commit_comment = @client.update_commit_comment("sferik/rails_admin", "860296", "Hey Eric,\r\n\r\nI think it's a terrible idea. The test suite should stay deterministic IMO.\r\n")
+        commit_comment.body.should == "Hey Eric,\r\n\r\nI think it's a terrible idea. The test suite should stay deterministic IMO.\r\n"
+    end
+
+  end
+
+  describe ".delete_commit_comment" do
+
+    it "should delete a commit comment" do
+      stub_delete("/repos/sferik/rails_admin/comments/860296").
+        to_return(:status => 204, :body => "")
+      commit_comment = @client.delete_commit_comment("sferik/rails_admin", "860296")
+      commit_comment.should be_false
+    end
+
+  end
+
   describe ".compare" do
 
     it "should return a comparison" do
