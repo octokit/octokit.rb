@@ -90,7 +90,7 @@ module Octokit
       # @param line [Integer] Line number in the file to comment on
       # @param position [Integer] Line index in the diff to comment on
       # @return [Hashie::Mash] A hash representing the new commit comment
-      # @see http://developer.github.com/v3/git/commits/
+      # @see http://developer.github.com/v3/repos/comments/
       # @example Create a commit comment
       #   commit = Octokit.create_commit_comment("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132", "My comment message", "README.md", 10, 1)
       #   commit.commit_id # => "827efc6d56897b048c772eb4087f854f46256132"
@@ -115,7 +115,7 @@ module Octokit
       # @param id [String] The ID of the comment to update
       # @param body [String] Message
       # @return [Hashie::Mash] A hash representing the updated commit comment
-      # @see http://developer.github.com/v3/git/commits/
+      # @see http://developer.github.com/v3/repos/comments/
       # @example Update a commit comment
       #   commit = Octokit.update_commit_comment("octocat/Hello-World", "860296", "Updated commit comment")
       #   commit.id # => 860296
@@ -132,7 +132,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param id [String] The ID of the comment to delete
       # @return [nil] nil
-      # @see http://developer.github.com/v3/git/commits/
+      # @see http://developer.github.com/v3/repos/comments/
       def delete_commit_comment(repo, id, options={})
         delete("repos/#{Repository.new(repo)}/comments/#{id}", options, 3)
       end
