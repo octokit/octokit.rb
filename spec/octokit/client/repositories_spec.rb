@@ -270,7 +270,7 @@ describe Octokit::Client::Repositories do
     context "without anonymous users" do
 
       it "should return all repository contributors" do
-        stub_get("/repos/sferik/rails_admin/contributors?anon=false").
+        stub_get("/repos/sferik/rails_admin/contributors?anon").
           to_return(:body => fixture("v3/contributors.json"))
         contributors = @client.contributors("sferik/rails_admin")
         contributors.first.login.should == "sferik"
