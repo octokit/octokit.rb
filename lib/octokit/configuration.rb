@@ -5,6 +5,7 @@ module Octokit
   module Configuration
     VALID_OPTIONS_KEYS = [
       :adapter,
+      :faraday_config_block,
       :api_version,
       :api_endpoint,
       :web_endpoint,
@@ -46,6 +47,10 @@ module Octokit
 
     def web_endpoint=(value)
       @web_endpoint = File.join(value, "")
+    end
+
+    def faraday_config(&block)
+      @faraday_config_block = block
     end
 
     def reset

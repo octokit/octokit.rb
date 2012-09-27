@@ -10,6 +10,19 @@ describe Octokit::Client do
     }.should_not raise_exception
   end
 
+  it 'should configure faraday from faraday_config_block' do
+    mw_evaluated = false
+    Octokit.configure do |c|
+      c.faraday_config { |f| mw_evaluated = true }
+    end
+    stub_request(:get, "https://api.github.com/rate_limit").
+      to_return(:status => 200, :body => '', :headers =>
+                { 'X-RateLimit-Limit' => 5000, 'X-RateLimit-Remaining' => 5000})
+    client = Octokit::Client.new()
+    client.rate_limit
+    mw_evaluated.should be_true
+  end
+
 
   describe "auto_traversal" do
 
