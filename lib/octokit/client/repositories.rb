@@ -111,7 +111,7 @@ module Octokit
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
 
-      def contributors(repo, anon=false, options={})
+      def contributors(repo, anon=nil, options={})
         get "repos/#{Repository.new repo}/contributors", options.merge(:anon => anon), 3
       end
       alias :contribs :contributors
