@@ -28,13 +28,19 @@ module Octokit
         else
           builder.request :url_encoded
         end
+
         builder.use Faraday::Response::RaiseOctokitError
+
         unless raw
           builder.use FaradayMiddleware::Mashify
           builder.use FaradayMiddleware::ParseJson
         end
+
+        faraday_config_block.call(builder) if faraday_config_block
+
         builder.adapter *adapter
       end
+
       connection.basic_auth authentication[:login], authentication[:password] if authenticate and authenticated?
       connection
     end
