@@ -22,6 +22,7 @@ module Octokit
       # @option options [Integer] :milestone Milestone number.
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
       # @option options [String] :assignee User login.
+      # @option options [String] :creator User login.
       # @option options [String] :mentioned User login.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
