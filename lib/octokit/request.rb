@@ -62,7 +62,7 @@ module Octokit
       end
 
       self.last_modified = response.headers['Last-Modified']
-      self.etag = response.headers['ETag'].gsub('"', '')
+      self.etag = response.headers['ETag'].gsub('"', '') unless response.headers['ETag'].nil?
 
       if raw
         response
