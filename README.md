@@ -64,6 +64,34 @@ client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
 client.follow("sferik")
 ```
 
+## Rate Limiting and Conditional Requests
+GitHub limits API requests to 5000 per hour.
+
+```ruby
+client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
+client.ratelimit_remaining  # 5000
+client.repositories
+client.ratelimit_remaining  # 4999
+```
+
+You can make conditional requests which will only return data to you if there
+have been changes since your last request. Pass either the `since` or `etag`
+option to any API call to perform a conditional request, and immediately after
+the request is complete the client will have the attributes `last_modified` and
+`etag` populated to be used for the next identical API call.
+
+```ruby
+client = Octokit::Client(:login => "me", :oauth_token => "oauth2token")
+client.ratelimit_remaining                    # 5000
+client.repositories                           # (Returns an array of repositories)
+client.ratelimit_remaining                    # 4999
+repos_last_modified = client.last_modified
+
+client.repositories(nil,
+              :since => repos_last_modified)  # nil
+client.ratelimit_remaining                    # 4999
+```
+
 ## Using with GitHub Enterprise
 
 To use with [GitHub Enterprise](https://enterprise.github.com/), you'll need to
