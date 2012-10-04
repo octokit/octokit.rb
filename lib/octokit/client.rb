@@ -28,6 +28,7 @@ require 'octokit/client/statuses'
 module Octokit
   class Client
     attr_accessor(*Configuration::VALID_OPTIONS_KEYS)
+    attr_accessor(:last_modified, :etag)
 
     def initialize(options={})
       options = Octokit.options.merge(options)
