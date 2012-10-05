@@ -35,6 +35,11 @@ module Octokit
       end
       alias :pull_commits :pull_request_commits
 
+      def pull_request_files(repo, number, options={})
+        get("repos/#{Repository.new(repo)}/pulls/#{number}/files", options)
+      end
+      alias :pull_files :pull_request_files
+
       def merge_pull_request(repo, number, commit_message='', options={})
         put("repos/#{Repository.new(repo)}/pulls/#{number}/merge", options.merge({:commit_message => commit_message}))
       end

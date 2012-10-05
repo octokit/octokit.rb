@@ -1,0 +1,35 @@
+[
+  {
+    "filename": "README.md",
+    "raw_url": "https://github.com/pengwynn/octokit/raw/55b0fffd7e73fc9e098beee486b31e0fba343e40/README.md",
+    "blob_url": "https://github.com/pengwynn/octokit/blob/55b0fffd7e73fc9e098beee486b31e0fba343e40/README.md",
+    "status": "modified",
+    "additions": 28,
+    "sha": "050957c6c397050ac809b4350971d15103cdea54",
+    "patch": "@@ -64,6 +64,34 @@ client = Octokit::Client.new(:login => \"me\", :oauth_token => \"oauth2token\")\n client.follow(\"sferik\")\n ```\n \n+## Rate Limiting and Conditional Requests\n+GitHub limits API requests to 5000 per hour.\n+\n+```ruby\n+client = Octokit::Client.new(:login => \"me\", :oauth_token => \"oauth2token\")\n+client.ratelimit_remaining  # 5000\n+client.repositories\n+client.ratelimit_remaining  # 4999\n+```\n+\n+You can make conditional requests which will only return data to you if there\n+have been changes since your last request. Pass either the `since` or `etag`\n+option to any API call to perform a conditional request, and immediately after\n+the request is complete the client will have the attributes `last_modified` and\n+`etag` populated to be used for the next identical API call.\n+\n+```ruby\n+client = Octokit::Client(:login => \"me\", :oauth_token => \"oauth2token\")\n+client.ratelimit_remaining                    # 5000\n+client.repositories                           # (Returns an array of repositories)\n+client.ratelimit_remaining                    # 4999\n+repos_last_modified = client.last_modified\n+\n+client.repositories(nil,\n+              :since => repos_last_modified)  # nil\n+client.ratelimit_remaining                    # 4999\n+```\n+\n ## Using with GitHub Enterprise\n \n To use with [GitHub Enterprise](https://enterprise.github.com/), you'll need to",
+    "deletions": 0,
+    "changes": 28
+  },
+  {
+    "filename": "lib/octokit/client.rb",
+    "raw_url": "https://github.com/pengwynn/octokit/raw/55b0fffd7e73fc9e098beee486b31e0fba343e40/lib/octokit/client.rb",
+    "blob_url": "https://github.com/pengwynn/octokit/blob/55b0fffd7e73fc9e098beee486b31e0fba343e40/lib/octokit/client.rb",
+    "status": "modified",
+    "additions": 1,
+    "sha": "feb96c24ec0a8a0bedf8d55289693e1de59cec40",
+    "patch": "@@ -28,6 +28,7 @@\n module Octokit\n   class Client\n     attr_accessor(*Configuration::VALID_OPTIONS_KEYS)\n+    attr_accessor(:last_modified, :etag)\n \n     def initialize(options={})\n       options = Octokit.options.merge(options)",
+    "deletions": 0,
+    "changes": 1
+  },
+  {
+    "filename": "lib/octokit/request.rb",
+    "raw_url": "https://github.com/pengwynn/octokit/raw/55b0fffd7e73fc9e098beee486b31e0fba343e40/lib/octokit/request.rb",
+    "blob_url": "https://github.com/pengwynn/octokit/blob/55b0fffd7e73fc9e098beee486b31e0fba343e40/lib/octokit/request.rb",
+    "status": "modified",
+    "additions": 6,
+    "sha": "5af4a1f92333ea52d35475fdea108564f617a7eb",
+    "patch": "@@ -39,6 +39,9 @@ def ratelimit_remaining\n     def request(method, path, options, version, authenticate, raw, force_urlencoded)\n       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise\n       response = connection(authenticate, raw, version, force_urlencoded).send(method) do |request|\n+        request.headers['If-Modified-Since'] = options.delete(:since) unless options[:since].nil?\n+        request.headers['If-None-Match'] = options.delete(:etag) unless options[:etag].nil?\n+\n         case method\n         when :delete, :get\n           if auto_traversal && per_page.nil?\n@@ -58,6 +61,9 @@ def request(method, path, options, version, authenticate, raw, force_urlencoded)\n         request.headers['Host'] = Octokit.request_host if Octokit.request_host\n       end\n \n+      self.last_modified = response.headers['Last-Modified']\n+      self.etag = response.headers['ETag'].gsub('\"', '') unless response.headers['ETag'].nil?\n+\n       if raw\n         response\n       elsif auto_traversal && ( next_url = links(response)[\"next\"] )",
+    "deletions": 0,
+    "changes": 6
+  }
+]

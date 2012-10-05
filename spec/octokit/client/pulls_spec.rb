@@ -27,7 +27,7 @@ describe Octokit::Client::Pulls do
         with(:pull => {:base => "master", :head => "pengwynn:octokit", :issue => "15"}).
         to_return(:body => fixture("v3/pull_created.json"))
       pull = @client.create_pull_request_for_issue("pengwynn/octokit", "master", "pengwynn:octokit", "15")
-      pull.number.should == 15 
+      pull.number.should == 15
     end
 
   end
@@ -49,7 +49,7 @@ describe Octokit::Client::Pulls do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67").
         to_return(:body => fixture("v3/pull_request.json"))
       pull = @client.pull("pengwynn/octokit", 67)
-      pull.number.should == 67 
+      pull.number.should == 67
     end
 
   end
@@ -72,6 +72,20 @@ describe Octokit::Client::Pulls do
         to_return(:body => fixture("v3/pull_request_merged.json"))
       response = @client.merge_pull_request("pengwynn/octokit", 67)
       response["sha"].should == "2097821c7c5aa4dc02a2cc54d5ca51968b373f95"
+    end
+
+  end
+
+  describe ".pull_request_files" do
+
+    it "should list files for a pull request" do
+      stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/142/files").
+        to_return(:body => fixture("v3/pull_request_files.json"))
+
+      files = @client.pull_request_files("pengwynn/octokit", 142)
+      file = files.first
+      file.filename.should == 'README.md'
+      file.additions.should == 28
     end
 
   end
