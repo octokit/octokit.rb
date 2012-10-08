@@ -101,4 +101,14 @@ describe Octokit::Client::Pulls do
 
   end
 
+  describe ".pull_merged?" do
+
+    it "should see if the pull request has been merged" do
+      stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67/merged").
+        to_return(:status => 204)
+      merged = @client.pull_merged?("pengwynn/octokit", 67)
+      merged.should be_true
+    end
+  end
+
 end

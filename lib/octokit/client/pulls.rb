@@ -114,6 +114,22 @@ module Octokit
       def merge_pull_request(repo, number, commit_message='', options={})
         put("repos/#{Repository.new(repo)}/pulls/#{number}/merge", options.merge({:commit_message => commit_message}))
       end
+
+      # Check pull request merge status
+      #
+      # @see http://developer.github.com/v3/pulls/#get-if-a-pull-request-has-been-merged
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param number [Integer] Number of pull request
+      # @return [Boolean] True if the pull request has been merged
+      def pull_merged?(repo, number, options={})
+        begin
+          get("repos/#{Repository.new(repo)}/pulls/#{number}/merged", options)
+          return true
+        rescue Octokit::NotFound
+          return false
+        end
+      end
+
     end
   end
 end
