@@ -10,7 +10,7 @@ describe Octokit::Client::Gists do
 
   describe ".public_gists" do
     it "should return public gists" do
-      stub_get("/gists").to_return(:body => fixture("v3/public_gists.json"))
+      stub_get("/gists/public").to_return(:body => fixture("v3/public_gists.json"))
       gists = @client.public_gists
       gists.should_not be_empty
     end

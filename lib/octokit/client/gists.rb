@@ -42,7 +42,7 @@ module Octokit
       end
 
       def public_gists(options={})
-        get 'gists', options, 3
+        get 'gists/public', options, 3
       end
 
       def starred_gists(options={})
