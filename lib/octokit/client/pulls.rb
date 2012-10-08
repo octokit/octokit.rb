@@ -129,6 +129,7 @@ module Octokit
           return false
         end
       end
+      alias :pull_request_merged? :pull_merged?
 
     end
   end
