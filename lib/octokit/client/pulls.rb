@@ -39,7 +39,8 @@ module Octokit
         # return the comments for a pull request
         get("repos/#{Repository.new(repo)}/pulls/#{number}/comments", options)
       end
-      alias :pull_comments :pull_request_comments
+      alias :pull_comments   :pull_request_comments
+      alias :review_comments :pull_request_comments
 
       def pull_request_files(repo, number, options={})
         get("repos/#{Repository.new(repo)}/pulls/#{number}/files", options)
