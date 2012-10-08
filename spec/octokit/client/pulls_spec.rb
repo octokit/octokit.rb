@@ -65,6 +65,17 @@ describe Octokit::Client::Pulls do
 
   end
 
+  describe ".pull_request_comments" do
+
+    it "should return the comments for a pull request" do
+      stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67/comments").
+        to_return(:body => fixture("v3/pull_request_comments.json"))
+      commits = @client.pull_comments("pengwynn/octokit", 67)
+      commits.first["id"].should == 401530
+    end
+
+  end
+
   describe ".merge_pull_request" do
 
     it "should merge the pull request" do
