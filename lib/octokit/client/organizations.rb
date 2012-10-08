@@ -22,7 +22,12 @@ module Octokit
       alias :list_orgs :organizations
       alias :orgs :organizations
 
-      def organization_repositories(org=nil, options={})
+      # List organization repositories
+      #
+      # @see http://developer.github.com/v3/repos/#list-organization-repositories
+      # @param org [String] Organization handle for which to list repos
+      # @return [Array<Hashie::Mash>] List of repositories
+      def organization_repositories(org, options={})
         get("orgs/#{org}/repos", options, 3)
       end
       alias :org_repositories :organization_repositories

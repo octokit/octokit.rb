@@ -73,7 +73,7 @@ describe Octokit::Client::Repositories do
     it "should star a repository" do
       stub_put("/user/starred/sferik/rails_admin").
         to_return(:status => 204)
-      @client.star("sferik/rails_admin").should be_nil
+      @client.star("sferik/rails_admin").should be_true
     end
 
   end
@@ -83,7 +83,7 @@ describe Octokit::Client::Repositories do
     it "should unstar a repository" do
       stub_delete("/user/starred/sferik/rails_admin").
         to_return(:status => 204)
-      @client.unstar("sferik/rails_admin").should be_nil
+      @client.unstar("sferik/rails_admin").should be_true
     end
 
   end
@@ -93,7 +93,7 @@ describe Octokit::Client::Repositories do
     it "should watch a repository" do
       stub_put("/user/watched/sferik/rails_admin").
         to_return(:status => 204)
-      @client.watch("sferik/rails_admin").should be_nil
+      @client.watch("sferik/rails_admin").should be_true
     end
 
   end
@@ -103,7 +103,7 @@ describe Octokit::Client::Repositories do
     it "should unwatch a repository" do
       stub_delete("/user/watched/sferik/rails_admin").
         to_return(:status => 204)
-      @client.unwatch("sferik/rails_admin").should be_nil
+      @client.unwatch("sferik/rails_admin").should be_true
     end
 
   end
@@ -146,7 +146,7 @@ describe Octokit::Client::Repositories do
       stub_delete("/repos/sferik/rails_admin").
         to_return(:status => 204, :body => "")
       result = @client.delete_repository("sferik/rails_admin")
-      result.should be_nil
+      result.should be_true
     end
 
   end
