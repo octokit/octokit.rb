@@ -20,10 +20,17 @@ describe Octokit::Client::Issues do
 
   describe ".list_issues" do
 
-    it "should return issues" do
+    it "should return issues for a repository" do
       stub_get("/repos/sferik/rails_admin/issues").
         to_return(:body => fixture("v3/issues.json"))
       issues = @client.issues("sferik/rails_admin")
+      issues.first.number.should == 388
+    end
+
+    it "should return issues for the authenticated user" do
+      stub_get("/issues").
+        to_return(:body => fixture("v3/issues.json"))
+      issues = @client.issues
       issues.first.number.should == 388
     end
 
