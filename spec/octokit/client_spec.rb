@@ -1,16 +1,16 @@
 require 'helper'
 
 describe Octokit::Client do
-  it 'should work with basic auth and password' do
+  it "works with basic auth and password" do
     stub_get("https://foo:bar@api.github.com/repos/baz/quux/commits?per_page=35&sha=master").
       with(:headers => {'Accept'=>'*/*'}).
       to_return(:status => 200, :body => '{"commits":[]}', :headers => {})
-    proc {
+    expect {
       Octokit::Client.new(:login => 'foo', :password => 'bar').commits('baz/quux')
-    }.should_not raise_exception
+    }.not_to raise_exception
   end
 
-  it 'should configure faraday from faraday_config_block' do
+  it "configures faraday from faraday_config_block" do
     mw_evaluated = false
     Octokit.configure do |c|
       c.faraday_config { |f| mw_evaluated = true }
@@ -20,13 +20,13 @@ describe Octokit::Client do
                 { 'X-RateLimit-Limit' => 5000, 'X-RateLimit-Remaining' => 5000})
     client = Octokit::Client.new()
     client.rate_limit
-    mw_evaluated.should be_true
+    expect(mw_evaluated).to be_true
   end
 
 
   describe "auto_traversal" do
 
-    it "should traverse a paginated response using the maximum allowed number of items per page" do
+    it "traverses a paginated response using the maximum allowed number of items per page" do
       stub_get("https://api.github.com/foo/bar?per_page=100").
         to_return(:status => 200, :body => %q{["stuff"]}, :headers =>
           { 'Link' => %q{<https://api.github.com/foo/bar?page=2>; rel="next", <https://api.github.com/foo/bar?page=3>; rel="last"} })
@@ -39,10 +39,10 @@ describe Octokit::Client do
         to_return(:status => 200, :body => %q{["stuffapalooza"]}, :headers =>
           { 'Link' => %q{<https://api.github.com/foo/bar?page=2>; rel="prev", <https://api.github.com/foo/bar?page=1>; rel="first"} })
 
-      Octokit::Client.new(:auto_traversal => true).get("https://api.github.com/foo/bar", {}, 3).should == ['stuff', 'even more stuff', 'stuffapalooza']
+      expect(Octokit::Client.new(:auto_traversal => true).get("https://api.github.com/foo/bar", {}, 3)).to eq(['stuff', 'even more stuff', 'stuffapalooza'])
     end
 
-    it "should use the number set in the per_page configuration option when present" do
+    it "uses the number set in the per_page configuration option when present" do
       stub_get("https://api.github.com/foo/bar?per_page=50").
         to_return(:status => 200, :body => %q{["stuff"]}, :headers =>
           { 'Link' => %q{<https://api.github.com/foo/bar?page=2>; rel="next", <https://api.github.com/foo/bar?page=3>; rel="last"} })
@@ -51,7 +51,7 @@ describe Octokit::Client do
         to_return(:status => 200, :body => %q{["even more stuff"]}, :headers =>
           { 'Link' => %q{<https://api.github.com/foo/bar?page=3>; rel="last", <https://api.github.com/foo/bar?page=1>; rel="prev", <https://api.github.com/foo/bar?page=1>; rel="first"} })
 
-      Octokit::Client.new(:auto_traversal => true, :per_page => 50).get("https://api.github.com/foo/bar", {}, 3).should
+      expect(Octokit::Client.new(:auto_traversal => true, :per_page => 50).get("https://api.github.com/foo/bar", {}, 3)).to be
     end
 
   end
@@ -65,12 +65,12 @@ describe Octokit::Client do
       @client = Octokit::Client.new()
     end
 
-    it "should get the ratelimit-limit from the header" do
-      @client.ratelimit.should == 5000
+    it "gets the ratelimit-limit from the header" do
+      expect(@client.ratelimit).to eq(5000)
     end
 
-    it "should get the ratelimit-remaining using header" do
-      @client.ratelimit_remaining.should == 5000
+    it "gets the ratelimit-remaining using header" do
+      expect(@client.ratelimit_remaining).to eq(5000)
     end
 
   end
@@ -91,12 +91,12 @@ describe Octokit::Client do
       Octokit.reset
     end
 
-    it "should get the ratelimit-limit from the header" do
-      @client.ratelimit.should == 62500
+    it "gets the ratelimit-limit from the header" do
+      expect(@client.ratelimit).to eq(62500)
     end
 
-    it "should get the ratelimit-remaining using header" do
-      @client.ratelimit_remaining.should == 62500
+    it "gets the ratelimit-remaining using header" do
+      expect(@client.ratelimit_remaining).to eq(62500)
     end
 
   end
@@ -107,30 +107,30 @@ describe Octokit::Client do
       Octokit.reset
     end
 
-    it "should default to https://api.github.com" do
+    it "defaults to https://api.github.com" do
       client = Octokit::Client.new
-      client.api_endpoint.should == 'https://api.github.com/'
+      expect(client.api_endpoint).to eq('https://api.github.com/')
     end
 
-    it "should be set " do
+    it "is set " do
       Octokit.api_endpoint = 'http://foo.dev'
       client = Octokit::Client.new
-      client.api_endpoint.should == 'http://foo.dev/'
+      expect(client.api_endpoint).to eq('http://foo.dev/')
     end
   end
 
   describe "request_host" do
     after(:each) { Octokit.reset }
 
-    it "should default to nil" do
+    it "defaults to nil" do
       client = Octokit::Client.new
-      client.request_host.should be_nil
+      expect(client.request_host).to be_nil
     end
 
-    it "should be settable" do
+    it "is settable" do
       Octokit.request_host = 'github.company.com'
       client = Octokit::Client.new
-      client.request_host.should == 'github.company.com'
+      expect(client.request_host).to eq('github.company.com')
     end
 
     it "does not change the Host header when not set" do
@@ -139,7 +139,7 @@ describe Octokit::Client do
       stub_request(:any, /.*/)
       req = stub_request(:get, 'http://github.internal/users/me').with(:headers => { 'Host' => /.*/})
       Octokit.user "me"
-      req.should_not have_been_requested
+      expect(req).not_to have_been_requested
     end
 
     it "changes the Host header when set" do
@@ -148,7 +148,7 @@ describe Octokit::Client do
 
       req = stub_request(:get, 'http://github.internal/users/me').with(:headers => { 'Host' => 'github.company.com' })
       Octokit.user "me"
-      req.should have_been_requested
+      expect(req).to have_been_requested
     end
   end
 

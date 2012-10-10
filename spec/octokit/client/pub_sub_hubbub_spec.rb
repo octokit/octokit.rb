@@ -14,7 +14,7 @@ describe Octokit::Client::PubSubHubbub do
         }).
         to_return(:body => nil)
 
-      client.subscribe("https://github.com/joshk/completeness-fu/events/push", "github://Travis?token=travistoken").should == true
+      expect(client.subscribe("https://github.com/joshk/completeness-fu/events/push", "github://Travis?token=travistoken")).to eq(true)
     end
 
     it "raises an error if the topic is not recognized" do
@@ -26,9 +26,9 @@ describe Octokit::Client::PubSubHubbub do
         }).
         to_return(:status => 422)
 
-      proc {
+      expect {
         client.subscribe("https://github.com/joshk/completeness-fud/events/push", "github://Travis?token=travistoken")
-      }.should raise_exception
+      }.to raise_exception
     end
   end
 
@@ -42,7 +42,7 @@ describe Octokit::Client::PubSubHubbub do
       }).
       to_return(:body => nil)
 
-      client.unsubscribe("https://github.com/joshk/completeness-fu/events/push", "github://Travis?token=travistoken").should == true
+      expect(client.unsubscribe("https://github.com/joshk/completeness-fu/events/push", "github://Travis?token=travistoken")).to eq(true)
     end
   end
 

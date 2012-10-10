@@ -25,10 +25,10 @@ describe Faraday::Response do
           to_return(:status => status)
       end
 
-      it "should raise #{exception.name} error" do
-        lambda do
+      it "raises #{exception.name} error" do
+        expect {
           @client.user('sferik')
-        end.should raise_error(exception)
+        }.to raise_error(exception)
       end
     end
   end
@@ -44,10 +44,10 @@ describe Faraday::Response do
           to_return(:status => 400, :body => body)
       end
 
-      it "should raise an error with the error message" do
-        lambda do
+      it "raises an error with the error message" do
+        expect {
           @client.user('sferik')
-        end.should raise_error(Octokit::BadRequest, /#{body.values.first}/)
+        }.to raise_error(Octokit::BadRequest, /#{body.values.first}/)
       end
     end
   end

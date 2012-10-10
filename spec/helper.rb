@@ -4,9 +4,16 @@ unless ENV['CI']
     add_filter "/spec"
   end
 end
+
 require 'octokit'
 require 'rspec'
 require 'webmock/rspec'
+
+RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+end
 
 def a_delete(url)
   a_request(:delete, github_url(url))

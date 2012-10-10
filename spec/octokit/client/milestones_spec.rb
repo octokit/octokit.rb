@@ -9,57 +9,57 @@ describe Octokit::Client::Milestones do
 
   describe ".list_milestones" do
 
-    it "should list milestones belonging to repository" do
+    it "lists milestones belonging to repository" do
       stub_get("/repos/pengwynn/octokit/milestones").
         to_return(:status => 200, :body => fixture('v3/milestones.json'))
       milestones = @client.list_milestones("pengwynn/octokit")
-      milestones.first.description.should == "Add support for API v3"
+      expect(milestones.first.description).to eq("Add support for API v3")
     end
 
   end
 
   describe ".milestone" do
 
-    it "should get a single milestone belonging to repository" do
+    it "gets a single milestone belonging to repository" do
       stub_get("/repos/pengwynn/octokit/milestones/1").
         to_return(:status => 200, :body => fixture('v3/milestone.json'))
       milestones = @client.milestone("pengwynn/octokit", 1)
-      milestones.description.should == "Add support for API v3"
+      expect(milestones.description).to eq("Add support for API v3")
     end
 
   end
 
   describe ".create_milestone" do
 
-    it "should create a single milestone" do
+    it "creates a single milestone" do
       stub_post("/repos/pengwynn/octokit/milestones").
         with(:body => '{"title":"0.7.0"}', :headers => {'Content-Type'=>'application/json'}).
         to_return(:status => 201, :body => fixture('v3/milestone.json'))
       milestone = @client.create_milestone("pengwynn/octokit", "0.7.0")
-      milestone.title.should == "0.7.0"
+      expect(milestone.title).to eq("0.7.0")
     end
 
   end
 
   describe ".update_milestone" do
 
-    it "should update a milestone" do
+    it "updates a milestone" do
       stub_post("/repos/pengwynn/octokit/milestones/1").
         with(:body => {"description" => "Add support for API v3"}, :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json'}).
         to_return(:status => 200, :body => fixture('v3/milestone.json'))
       milestone = @client.update_milestone("pengwynn/octokit", 1, {:description => "Add support for API v3"})
-      milestone.description.should == "Add support for API v3"
+      expect(milestone.description).to eq("Add support for API v3")
     end
 
   end
 
   describe ".delete_milestone" do
 
-    it "should delete a milestone from a repository" do
+    it "deletes a milestone from a repository" do
       stub_delete("/repos/pengwynn/octokit/milestones/2").
         to_return(:status => 204, :body => "", :headers => {})
       response = @client.delete_milestone("pengwynn/octokit", 2)
-      response.status.should == 204
+      expect(response.status).to eq(204)
     end
 
   end

@@ -9,38 +9,38 @@ describe Octokit::Client::Contents do
 
   describe ".readme" do
 
-    it "should return the default readme" do
+    it "returns the default readme" do
       stub_get("/repos/pengwynn/octokit/readme").
         to_return(:body => fixture("v3/readme.json"))
       readme = @client.readme('pengwynn/octokit')
-      readme.encoding.should == "base64"
-      readme.type.should == "file"
+      expect(readme.encoding).to eq("base64")
+      expect(readme.type).to eq("file")
     end
 
   end
 
   describe ".contents" do
 
-    it "should return the contents of a file" do
+    it "returns the contents of a file" do
       stub_get("/repos/pengwynn/octokit/contents/lib/octokit.rb").
         to_return(:body => fixture("v3/contents.json"))
       contents = @client.contents('pengwynn/octokit', :path => "lib/octokit.rb")
-      contents.path.should == "lib/octokit.rb"
-      contents.name.should == "lib/octokit.rb"
-      contents.encoding.should == "base64"
-      contents.type.should == "file"
+      expect(contents.path).to eq("lib/octokit.rb")
+      expect(contents.name).to eq("lib/octokit.rb")
+      expect(contents.encoding).to eq("base64")
+      expect(contents.type).to eq("file")
     end
 
   end
 
   describe ".archive_link" do
 
-    it "should return the headers of the request" do
+    it "returns the headers of the request" do
       stub_get("/repos/pengwynn/octokit/tarball/master").
         to_return(:status => 302, :body => '', :headers =>
           { 'location' => "https://nodeload.github.com/repos/pengwynn/octokit/tarball/"})
       archive_link = @client.archive_link('pengwynn/octokit', :ref => "master")
-      archive_link == "https://nodeload.github.com/pengwynn/octokit/tarball/"
+      expect(archive_link).to eq("https://nodeload.github.com/repos/pengwynn/octokit/tarball/")
     end
 
   end
