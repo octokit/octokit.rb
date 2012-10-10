@@ -15,7 +15,7 @@ module Octokit
         get("legacy/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options, 3)['issues']
       end
 
-      # List issues for a repository
+      # List issues for a the authenticated user or repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param options [Hash] A customizable set of options.
@@ -32,8 +32,14 @@ module Octokit
       # @see http://developer.github.com/v3/issues/#list-issues-for-this-repository
       # @example List issues for a repository
       #   Octokit.list_issues("sferik/rails_admin")
-      def list_issues(repository, options={})
-        get("repos/#{Repository.new(repository)}/issues", options, 3)
+      # @example List issues for the authenticted user across repositories
+      #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
+      #   @client.list_issues
+      def list_issues(repository = nil, options={})
+        path = ''
+        path = "repos/#{Repository.new(repository)}" if repository
+        path += "/issues"
+        get(path, options, 3)
       end
       alias :issues :list_issues
 

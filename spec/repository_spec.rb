@@ -7,49 +7,49 @@ describe Octokit::Repository do
       @repository = Octokit::Repository.new("sferik/octokit")
     end
 
-    it "should set the repository name and username" do
-      @repository.name.should == "octokit"
-      @repository.username.should == "sferik"
+    it "sets the repository name and username" do
+      expect(@repository.name).to eq("octokit")
+      expect(@repository.username).to eq("sferik")
     end
 
-    it "should respond to repo and user" do
-      @repository.repo.should == "octokit"
-      @repository.user.should == "sferik"
+    it "responds to repo and user" do
+      expect(@repository.repo).to eq("octokit")
+      expect(@repository.user).to eq("sferik")
     end
 
-    it "should render slug as string" do
-      @repository.slug.should == "sferik/octokit"
-      @repository.to_s.should == @repository.slug
+    it "renders slug as string" do
+      expect(@repository.slug).to eq("sferik/octokit")
+      expect(@repository.to_s).to eq(@repository.slug)
     end
 
-    it "should render url as string" do
-      @repository.url.should == 'https://github.com/sferik/octokit'
+    it "renders url as string" do
+      expect(@repository.url).to eq('https://github.com/sferik/octokit')
     end
 
   end
 
   context "when passed a hash" do
-    it "should set the repository name and username" do
+    it "sets the repository name and username" do
       repository = Octokit::Repository.new({:username => 'sferik', :name => 'octokit'})
-      repository.name.should == "octokit"
-      repository.username.should == "sferik"
+      expect(repository.name).to eq("octokit")
+      expect(repository.username).to eq("sferik")
     end
   end
 
   context "when passed a Repo" do
-    it "should set the repository name and username" do
+    it "sets the repository name and username" do
       repository = Octokit::Repository.new(Octokit::Repository.new('sferik/octokit'))
-      repository.name.should == "octokit"
-      repository.username.should == "sferik"
-      repository.url.should == 'https://github.com/sferik/octokit'
+      expect(repository.name).to eq("octokit")
+      expect(repository.username).to eq("sferik")
+      expect(repository.url).to eq('https://github.com/sferik/octokit')
     end
   end
 
   context "when given a URL" do
-    it "should set the repository name and username" do
+    it "sets the repository name and username" do
       repository = Octokit::Repository.from_url("https://github.com/sferik/octokit")
-      repository.name.should == "octokit"
-      repository.username.should == "sferik"
+      expect(repository.name).to eq("octokit")
+      expect(repository.username).to eq("sferik")
     end
   end
 end

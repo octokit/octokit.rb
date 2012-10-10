@@ -18,7 +18,7 @@ describe Octokit::Client::PubSubHubbub::ServiceHooks do
         with(subscribe_request_body).
         to_return(:body => nil)
 
-      client.subscribe_service_hook("joshk/completeness-fu", "Travis", { :token => 'travistoken' }).should == true
+      expect(client.subscribe_service_hook("joshk/completeness-fu", "Travis", { :token => 'travistoken' })).to eq(true)
       assert_requested :post, "https://api.github.com/hub?access_token=myfaketoken", :body => subscribe_request_body, :times => 1
     end
   end
@@ -37,7 +37,7 @@ describe Octokit::Client::PubSubHubbub::ServiceHooks do
         with(unsubscribe_request_body).
         to_return(:body => nil)
 
-      client.unsubscribe_service_hook("joshk/completeness-fu", "Travis").should == true
+      expect(client.unsubscribe_service_hook("joshk/completeness-fu", "Travis")).to eq(true)
       assert_requested :post, "https://api.github.com/hub?access_token=myfaketoken", :body => unsubscribe_request_body, :times => 1
     end
   end
