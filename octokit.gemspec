@@ -7,6 +7,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'faraday_middleware', '~> 0.8'
   gem.add_dependency 'hashie', '~> 1.2'
   gem.add_dependency 'multi_json', '~> 1.3'
+  gem.add_development_dependency 'json', '~> 1.7'
   gem.add_development_dependency 'maruku'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec'
