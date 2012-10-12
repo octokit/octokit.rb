@@ -88,7 +88,7 @@ module Octokit
       end
 
       def remove_key(id, options={})
-        delete("user/keys/#{id}", options, 3, true, raw=true)
+        delete("user/keys/#{id}", options, 3, true, raw=true).status == 204
       end
 
       def emails(options={})
