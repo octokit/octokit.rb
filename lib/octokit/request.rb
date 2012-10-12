@@ -39,6 +39,9 @@ module Octokit
     def request(method, path, options, version, authenticate, raw, force_urlencoded)
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
       response = connection(authenticate, raw, version, force_urlencoded).send(method) do |request|
+        request.headers['If-Modified-Since'] = options.delete(:since) unless options[:since].nil?
+        request.headers['If-None-Match'] = options.delete(:etag) unless options[:etag].nil?
+
         case method
         when :delete, :get
           if auto_traversal && per_page.nil?
@@ -57,6 +60,9 @@ module Octokit
 
         request.headers['Host'] = Octokit.request_host if Octokit.request_host
       end
+
+      self.last_modified = response.headers['Last-Modified']
+      self.etag = response.headers['ETag'].gsub('"', '') unless response.headers['ETag'].nil?
 
       if raw
         response
