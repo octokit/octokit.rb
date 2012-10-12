@@ -200,7 +200,7 @@ module Octokit
       # @example
       #   @client.remove_key(1)
       def remove_key(id, options={})
-        delete("user/keys/#{id}", options, 3, true, raw=true)
+        delete("user/keys/#{id}", options, 3, true, raw=true).status == 204
       end
 
       # List email addresses for a user.
