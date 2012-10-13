@@ -132,6 +132,74 @@ module Octokit
         response.status == 204
       end
 
+      # List gist comments
+      #
+      # @param gist_id [Integer] Gist Id.
+      # @return [Array<Hashie::Mash>] Array of hashes representing comments.
+      # @see http://developer.github.com/v3/gists/comments/#list-comments-on-a-gist
+      # @example
+      #   Octokit.gist_comments(3528645)
+      def gist_comments(gist_id, options={})
+        get "gists/#{gist_id}/comments", options, 3
+      end
+
+      # Get gist comment
+      #
+      # @param gist_comment_id [Integer] Id of the gist comment.
+      # @return [Hashie::Mash] Hash representing gist comment.
+      # @see http://developer.github.com/v3/gists/comments/#get-a-single-comment
+      # @example
+      #   Octokit.gist_comment(451398)
+      def gist_comment(gist_comment_id, options={})
+        get "gists/comments/#{gist_comment_id}", options, 3
+      end
+
+      # Create gist comment
+      #
+      # Requires authenticated client.
+      #
+      # @param gist_id [Integer] Id of the gist.
+      # @param comment [String] Comment contents.
+      # @return [Hashie::Mash] Hash representing the new comment.
+      # @see Octokit::Client
+      # @see http://developer.github.com/v3/gists/comments/#create-a-comment
+      # @example
+      #   @client.create_gist_comment(3528645, 'This is very helpful.')
+      def create_gist_comment(gist_id, comment, options={})
+        options.merge!({:body => comment})
+        post "gists/#{gist_id}/comments", options, 3
+      end
+
+      # Update gist comment
+      #
+      # Requires authenticated client
+      #
+      # @param gist_comment_id [Integer] Id of the gist comment to update.
+      # @param comment [String] Updated comment contents.
+      # @return [Hashie::Mash] Hash representing the updated comment.
+      # @see Octokit::Client
+      # @see http://developer.github.com/v3/gists/comments/#edit-a-comment
+      # @example
+      #   @client.update_gist_comment(3528645, ':heart:')
+      def update_gist_comment(gist_comment_id, comment, options={})
+        options.merge!({:body => comment})
+        patch "gists/comments/#{gist_comment_id}", options, 3
+      end
+
+      # Delete gist comment
+      #
+      # Requires authenticated client.
+      #
+      # @param gist_comment_id [Integer] Id of the gist comment to delete.
+      # @return [Boolean] True if comment deleted, false otherwise.
+      # @see Octokit::Client
+      # @see http://developer.github.com/v3/gists/comments/#delete-a-comment
+      # @example
+      #   @client.delete_gist_comment(586399)
+      def delete_gist_comment(gist_comment_id, options={})
+        delete("gists/comments/#{gist_comment_id}", options, 3, true, true).status == 204
+      end
+
     end
   end
 end
