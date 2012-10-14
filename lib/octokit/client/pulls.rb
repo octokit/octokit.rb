@@ -68,6 +68,31 @@ module Octokit
         post("repos/#{Repository.new(repo)}/pulls", options.merge(pull))
       end
 
+      # Update a pull request
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @param id [Integer] Id of pull request to update.
+      # @param title [String] Title for the pull request.
+      # @param body [String] Body content for pull request. Supports GFM.
+      # @param state [String] State of the pull request. `open` or `closed`.
+      # @return [Hashie::Mash] Hash representing updated pull request.
+      # @see http://developer.github.com/v3/pulls/#update-a-pull-request
+      # @example
+      #   @client.update_pull_request('pengwynn/octokit', 67, 'new title', 'updated body', 'closed')
+      # @example Passing nil for optional attributes to update specific attributes.
+      #   @client.update_pull_request('pengwynn/octokit', 67, nil, nil, 'open')
+      # @example Empty body by passing empty string
+      #   @client.update_pull_request('pengwynn/octokit', 67, nil, '')
+      def update_pull_request(repo, id, title=nil, body=nil, state=nil, options={})
+        options.merge!({
+          :title => title,
+          :body => body,
+          :state => state
+        })
+        options.reject! { |_, value| value.nil? }
+        post("repos/#{Repository.new repo}/pulls/#{id}", options, 3)
+      end
+
 
       # List commits on a pull request
       #
