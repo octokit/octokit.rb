@@ -58,4 +58,52 @@ describe Octokit::Client::Objects do
 
   end
 
+  describe ".tag" do
+
+    it "returns a tag" do
+      stub_get("/repos/pengwynn/octokit/git/tags/23aad20633f4d2981b1c7209a800db3014774e96").
+        to_return(:body => fixture("v3/tag.json"))
+      tag = @client.tag("pengwynn/octokit", "23aad20633f4d2981b1c7209a800db3014774e96")
+      expect(tag.sha).to eq("23aad20633f4d2981b1c7209a800db3014774e96")
+      expect(tag.message).to eq("Version 1.4.0\n")
+      expect(tag.tag).to eq("v1.4.0")
+    end
+
+  end
+
+  describe ".create_tag" do
+
+    it "creates a tag" do
+      stub_post("/repos/pengwynn/octokit/git/tags").
+        with(:body => {
+                :tag => "v9000.0.0",
+                :message => "Version 9000\n",
+                :object => "f4cdf6eb734f32343ce3f27670c17b35f54fd82e",
+                :type => "commit",
+                :tagger => {
+                  :name => "Wynn Netherland",
+                  :email => "wynn.netherland@gmail.com",
+                  :date => "2012-06-03T17:03:11-07:00"
+                }
+              },
+            :headers => { "Content-Type" => "application/json" }).
+              to_return(:body => fixture("v3/tag_create.json"))
+      tag = @client.create_tag(
+        "pengwynn/octokit",
+        "v9000.0.0",
+        "Version 9000\n",
+        "f4cdf6eb734f32343ce3f27670c17b35f54fd82e",
+        "commit",
+        "Wynn Netherland",
+        "wynn.netherland@gmail.com",
+        "2012-06-03T17:03:11-07:00"
+      )
+      expect(tag.tag).to eq("v9000.0.0")
+      expect(tag.message).to eq("Version 9000\n")
+      expect(tag.sha).to eq("23aad20633f4d2981b1c7209a800db3014774e96")
+    end
+
+  end
+
+
 end
