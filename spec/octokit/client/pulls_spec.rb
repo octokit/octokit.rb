@@ -20,6 +20,20 @@ describe Octokit::Client::Pulls do
 
   end
 
+  describe ".update_pull_request" do
+
+    it "updates a pull request" do
+      stub_post("https://api.github.com/repos/pengwynn/octokit/pulls/67").
+        with(:pull => { :title => "New title", :body => "Updated body", :state => "closed"}).
+          to_return(:body => fixture('v3/pull_update.json'))
+      pull = @client.update_pull_request('pengwynn/octokit', 67, 'New title', 'Updated body', 'closed')
+      expect(pull.title).to eq('New title')
+      expect(pull.body).to eq('Updated body')
+      expect(pull.state).to eq('closed')
+    end
+
+  end
+
   describe ".create_pull_request_for_issue" do
 
     it "creates a pull request and attach it to an existing issue" do
