@@ -125,7 +125,11 @@ module Octokit
       # @example
       #   Octokit.org_members('github')
       def organization_members(org, options={})
-        get("orgs/#{org}/members", options, 3)
+        if authenticated?
+          get("orgs/#{org}/members", options, 3)
+        else
+          get("orgs/#{org}/public_members", options, 3)
+        end
       end
       alias :org_members :organization_members
 
