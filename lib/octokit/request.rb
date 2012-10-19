@@ -2,24 +2,24 @@ require 'multi_json'
 
 module Octokit
   module Request
-    def delete(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:delete, path, options, version, authenticate, raw, force_urlencoded)
+    def delete(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false, mime_type=:json)
+      request(:delete, path, options, version, authenticate, raw, force_urlencoded, mime_type)
     end
 
-    def get(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:get, path, options, version, authenticate, raw, force_urlencoded)
+    def get(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false, mime_type=:json)
+      request(:get, path, options, version, authenticate, raw, force_urlencoded, mime_type)
     end
 
-    def patch(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:patch, path, options, version, authenticate, raw, force_urlencoded)
+    def patch(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false, mime_type=:json)
+      request(:patch, path, options, version, authenticate, raw, force_urlencoded, mime_type)
     end
 
-    def post(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:post, path, options, version, authenticate, raw, force_urlencoded)
+    def post(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false, mime_type=:json)
+      request(:post, path, options, version, authenticate, raw, force_urlencoded, mime_type)
     end
 
-    def put(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:put, path, options, version, authenticate, raw, force_urlencoded)
+    def put(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false, mime_type=:json)
+      request(:put, path, options, version, authenticate, raw, force_urlencoded, mime_type)
     end
 
     def ratelimit
@@ -36,9 +36,9 @@ module Octokit
 
     private
 
-    def request(method, path, options, version, authenticate, raw, force_urlencoded)
+    def request(method, path, options, version, authenticate, raw, force_urlencoded, mime_type)
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
-      response = connection(authenticate, raw, version, force_urlencoded).send(method) do |request|
+      response = connection(authenticate, raw, version, force_urlencoded, mime_type).send(method) do |request|
         case method
         when :delete, :get
           if auto_traversal && per_page.nil?
@@ -61,7 +61,7 @@ module Octokit
       if raw
         response
       elsif auto_traversal && ( next_url = links(response)["next"] )
-        response.body + request(method, next_url, options, version, authenticate, raw, force_urlencoded)
+        response.body + request(method, next_url, options, version, authenticate, raw, force_urlencoded, mime_type)
       else
         response.body
       end

@@ -1,5 +1,6 @@
 module Octokit
   class Client
+    # @todo Implement http://developer.github.com/v3/orgs/members/#check-public-membership
     module Organizations
       # Get an organization
       #
@@ -110,9 +111,14 @@ module Octokit
 
       # Get organization members
       #
-      # Public members of the organization are returned by default. An
-      # authenticated client that is a member of the GitHub organization
-      # is required to get private members.
+      # Requires authenticated member of the organization.
+      # 
+      # This is intended to be used with an authenticated client to
+      # retrieve organization members that the user is a member. If you
+      # intend to get the public members of an organization please use
+      # '#organization_public_members'. This method returns the organizations
+      # public members by default only as a means to prevent regression
+      # breaking other peoples code.
       #
       # @param org [String] Organization GitHub username.
       # @return [Array<Hashie::Mash>] Array of hashes representing users.
@@ -125,9 +131,28 @@ module Octokit
       # @example
       #   Octokit.org_members('github')
       def organization_members(org, options={})
-        get("orgs/#{org}/members", options, 3)
+        response = get("orgs/#{org}/members", options, 3, true, true)
+        if response.status == 302
+          organization_public_members(org, options)
+        else
+          response.body
+        end
       end
       alias :org_members :organization_members
+
+      # Get organization public members
+      #
+      # @param org [String] Organization GitHub username.
+      # @return [Array<Hashie::Mash>] Array of hashes representing users.
+      # @see http://developer.github.com/v3/orgs/members/#public-members-list
+      # @example
+      #   @client.organization_public_members('github')
+      # @example
+      #   Octokit.org_public_members('github')
+      def organization_public_members(org, options={})
+        get("orgs/#{org}/public_members", options, 3)
+      end
+      alias :org_public_members :organization_public_members
 
       # List teams
       #
