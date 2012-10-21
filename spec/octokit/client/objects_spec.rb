@@ -43,6 +43,13 @@ describe Octokit::Client::Objects do
       expect(blob.sha).to eq("94616fa57520ac8147522c7cf9f03d555595c5ea")
     end
 
+    it "returns a blob with :raw media_type" do
+      stub_get("https://api.github.com/repos/pengwynn/octokit/git/blobs/f6820a4cb0386c6f302deb0c2145f4ddd5a45f99").
+        to_return(:body => fixture('v3/blob.raw'))
+      blob = @client.blob("pengwynn/octokit", "f6820a4cb0386c6f302deb0c2145f4ddd5a45f99", {}, :raw)
+      expect(blob).to include("Simple Ruby wrapper for the GitHub v3 API.")
+    end
+
   end
 
   describe ".create_blob" do
