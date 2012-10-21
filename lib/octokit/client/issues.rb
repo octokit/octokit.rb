@@ -56,7 +56,7 @@ module Octokit
       # @see http://develop.github.com/p/issues.html
       # @example Create a new Issues for a repository
       #   Octokit.create_issue("sferik/rails_admin")
-      def create_issue(repo, title, body, options={}, media_type)
+      def create_issue(repo, title, body, options={}, media_type=:json)
         post("repos/#{Repository.new(repo)}/issues", options.merge({:title => title, :body => body}), 3, true, false, false, media_type)
       end
       alias :open_issue :create_issue
