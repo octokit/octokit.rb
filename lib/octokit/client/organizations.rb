@@ -140,6 +140,38 @@ module Octokit
       end
       alias :org_members :organization_members
 
+
+      # Check if user is an organization member
+      #
+      # Requires authenticated member of the organization.
+      #
+      # This method alternatively checks organization_public_member? if an
+      # authenticated client is not used. If you are looking to check if a user
+      # is a member of an organization that you are not a member, please use
+      # '#organization_public_member?' instead.
+      #
+      # @param org [String] Organization GitHub username.
+      # @param user [String] User's GitHub username to check.
+      # @return [Boolean] True if user is a member, otherwise false.
+      # @see http://developer.github.com/v3/orgs/members/index.html#check-membership
+      # @example
+      #   @client.organization_member?('github', 'pegnwynn')
+      # @example
+      #   @client.org_member?('github', 'pengwynn')
+      def organization_member?(org, user, options={})
+        begin
+          status = get("orgs/#{org}/members/#{user}", options, 3, true, true).status
+          if status == 302
+            organization_public_member?(org, user, options)
+          else
+            true
+          end
+        rescue Octokit::NotFound
+          false
+        end
+      end
+      alias :org_member? :organization_member?
+
       # Get organization public members
       #
       # @param org [String] Organization GitHub username.
@@ -153,6 +185,25 @@ module Octokit
         get("orgs/#{org}/public_members", options, 3)
       end
       alias :org_public_members :organization_public_members
+
+      # Check if user is an organization public member
+      #
+      # @param org [String] Organization GitHub username.
+      # @param user [String] User's GitHub username to check.
+      # @return [Boolean] True if user is a member, false otherwise.
+      # @see http://developer.github.com/v3/orgs/members/index.html#check-public-membership
+      # @example
+      #   @client.organization_public_member?('github', 'pengwynn')
+      # @example
+      #   @client.org_public_member?('github', 'pengwynn')
+      def organization_public_member?(org, user, options={})
+        begin
+          get("orgs/#{org}/public_members/#{user}", options, 3, false, true).status == 204
+        rescue Octokit::NotFound
+          false
+        end
+      end
+      alias :org_public_member? :organization_public_member?
 
       # List teams
       #

@@ -95,6 +95,52 @@ describe Octokit::Client::Organizations do
 
   end
 
+  describe ".organization_member?" do
+
+    context "with authenticated user" do
+
+      it "checks if a user is an organization member" do
+        stub_get("https://api.github.com/orgs/github/members/pengwynn").
+          to_return(:status => 204)
+        is_org_member = @client.organization_member?('github', 'pengwynn')
+        expect(is_org_member).to be_true
+      end
+
+      it "checks if a user is an organization member" do
+        stub_get("https://api.github.com/orgs/github/members/joeyw").
+          to_return(:status => 404)
+        is_org_member = @client.organization_member?('github', 'joeyw')
+        expect(is_org_member).to be_false
+      end
+
+    end
+
+    context "without authenticated client" do
+
+      it "checks if user is an organization member" do
+        stub_get("https://api.github.com/orgs/github/members/pengwynn").
+          to_return(:status => 302)
+        stub_get("https://api.github.com/orgs/github/public_members/pengwynn").
+          to_return(:status => 204)
+        is_org_member = @client.organization_member?('github', 'pengwynn')
+        expect(is_org_member).to be_true
+      end
+
+    end
+
+  end
+
+  describe ".organization_public_member?" do
+
+    it "checks if user is an organization public member" do
+      stub_get("https://api.github.com/orgs/github/public_members/pengwynn").
+        to_return(:status => 204)
+      is_org_member = @client.organization_public_member?('github', 'pengwynn')
+      expect(is_org_member).to be_true
+    end
+
+  end
+
   describe ".organization_public_members" do
 
     it "returns all public members" do
