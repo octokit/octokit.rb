@@ -42,9 +42,7 @@ module Octokit
   def archive_link(repo, options={})
     repo_ref = options.delete :ref
     format = (options.delete :format) || 'tarball'
-    url = "repos/#{Repository.new repo}/#{format}/#{repo_ref}"
-    headers = get(url, options, 3, false, true).headers
-    return headers['location']
+    Octokit.api_endpoint + "repos/#{Repository.new repo}/#{format}/#{repo_ref}"
   end
   end
 end

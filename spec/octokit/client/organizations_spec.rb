@@ -69,9 +69,24 @@ describe Octokit::Client::Organizations do
 
   describe ".organization_members" do
 
-    it "returns all public members of an organization" do
+    it "returns all public members of an organization for non-members" do
+
+      stub_get("https://api.github.com/orgs/codeforamerica/members").
+        to_return(:status => 302, :headers => {:location => "https://api.github.com/orgs/codeforamerica/public_members"})
+
+      stub_get("https://api.github.com/orgs/codeforamerica/public_members").
+        to_return(:body => fixture("v3/organization_members.json"))
+
+
+      users = @client.organization_members("codeforamerica")
+      expect(users.first.login).to eq("akit")
+    end
+
+    it "returns all members of an organization for members" do
+
       stub_get("https://api.github.com/orgs/codeforamerica/members").
         to_return(:body => fixture("v3/organization_members.json"))
+
       users = @client.organization_members("codeforamerica")
       expect(users.first.login).to eq("akit")
     end
