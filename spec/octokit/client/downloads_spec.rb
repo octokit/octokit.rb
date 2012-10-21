@@ -55,7 +55,6 @@ describe Octokit::Client::Downloads do
 
     it "deletes a download" do
       stub_request(:delete, "https://api.github.com/repos/octocat/Hellow-World/downloads/165347").
-        with(:headers => {'Accept'=>'*/*'}).
         to_return(:status => 204, :body => "", :headers => {})
       expect(@client.delete_download('octocat/Hellow-World', 165347).status).to eq(204)
     end

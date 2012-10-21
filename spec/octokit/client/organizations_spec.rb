@@ -69,10 +69,99 @@ describe Octokit::Client::Organizations do
 
   describe ".organization_members" do
 
-    it "returns all public members of an organization" do
-      stub_get("https://api.github.com/orgs/codeforamerica/members").
-        to_return(:body => fixture("v3/organization_members.json"))
-      users = @client.organization_members("codeforamerica")
+    context "without an authenticated client" do
+
+      it "regresses to .organization_public_members" do
+        stub_get("https://api.github.com/orgs/codeforamerica/members").
+          to_return(:status => 302)
+        stub_get("https://api.github.com/orgs/codeforamerica/public_members").
+          to_return(:body => fixture('v3/organization_members.json'))
+        users = @client.organization_members("codeforamerica")
+        expect(users.first.login).to eq("akit")
+      end
+
+    end
+
+    context "with an authenticated client" do
+
+      it "returns public and private members of an organization" do
+        stub_get("https://api.github.com/orgs/codeforamerica/members").
+          to_return(:status => 200, :body => fixture('v3/organization_members.json'))
+        users = @client.organization_members("codeforamerica")
+        expect(users.first.login).to eq("akit")
+      end
+
+    end
+
+  end
+
+  describe ".organization_member?" do
+
+    context "with authenticated user" do
+
+      it "checks if a user is an organization member" do
+        stub_get("https://api.github.com/orgs/github/members/pengwynn").
+          to_return(:status => 204)
+        is_org_member = @client.organization_member?('github', 'pengwynn')
+        expect(is_org_member).to be_true
+      end
+
+      it "checks if a user is an organization member" do
+        stub_get("https://api.github.com/orgs/github/members/joeyw").
+          to_return(:status => 404)
+        is_org_member = @client.organization_member?('github', 'joeyw')
+        expect(is_org_member).to be_false
+      end
+
+    end
+
+    context "without authenticated client" do
+
+      it "checks if user is an organization member" do
+        stub_get("https://api.github.com/orgs/github/members/pengwynn").
+          to_return(:status => 302)
+        stub_get("https://api.github.com/orgs/github/public_members/pengwynn").
+          to_return(:status => 204)
+        is_org_member = @client.organization_member?('github', 'pengwynn')
+        expect(is_org_member).to be_true
+      end
+
+    end
+
+  end
+
+  describe ".organization_public_member?" do
+
+    context "user is a public member" do
+
+      it "checks if user is an organization public member" do
+        stub_get("https://api.github.com/orgs/github/public_members/pengwynn").
+          to_return(:status => 204)
+        is_org_member = @client.organization_public_member?('github', 'pengwynn')
+        expect(is_org_member).to be_true
+      end
+
+    end
+
+    context "user is not a public member" do
+
+      it "checks if the user is an organization public member" do
+        stub_get("https://api.github.com/orgs/github/public_members/joeyw").
+          to_return(:status => 404)
+        is_org_member = @client.organization_public_member?('github', 'joeyw')
+        expect(is_org_member).to be_false
+      end
+
+    end
+
+  end
+
+  describe ".organization_public_members" do
+
+    it "returns all public members" do
+      stub_get("https://api.github.com/orgs/codeforamerica/public_members").
+        to_return(:body => fixture('v3/organization_members.json'))
+      users = @client.organization_public_members("codeforamerica")
       expect(users.first.login).to eq("akit")
     end
 
