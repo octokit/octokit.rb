@@ -134,7 +134,7 @@ describe Octokit::Client::Gists do
     it "returns the list of gist comments" do
       stub_get("/gists/12345/comments").
         to_return(:body => fixture("v3/gist_comments.json"))
-      comments = @client.gist_comments(12345)
+      comments = @client.gist_comments(12345, {}, :json)
       expect(comments.first.id).to eq(451398)
     end
   end
@@ -143,7 +143,7 @@ describe Octokit::Client::Gists do
     it "returns a gist comment" do
       stub_get("/gists/comments/12345").
         to_return(:body => fixture("v3/gist_comment.json"))
-      comment = @client.gist_comment(12345)
+      comment = @client.gist_comment(12345, {}, :json)
       expect(comment.id).to eq(451398)
     end
   end
@@ -152,7 +152,7 @@ describe Octokit::Client::Gists do
     it "creates a gist comment" do
       stub_post("/gists/12345/comments").
         to_return(:body => fixture("v3/gist_comment_create.json"))
-      comment = @client.create_gist_comment(12345, "This is very helpful.")
+      comment = @client.create_gist_comment(12345, "This is very helpful.", {}, :json)
       expect(comment.id).to eq(586399)
       expect(comment.body).to eq("This is very helpful.")
     end
@@ -162,7 +162,7 @@ describe Octokit::Client::Gists do
     it "updates a gist comment" do
       stub_patch("/gists/comments/12345").
         to_return(:body => fixture("v3/gist_comment_update.json"))
-      comment = @client.update_gist_comment(12345, ":heart:")
+      comment = @client.update_gist_comment(12345, ":heart:", {}, :json)
       expect(comment.body).to eq(":heart:")
     end
   end
