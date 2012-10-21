@@ -132,11 +132,26 @@ describe Octokit::Client::Organizations do
 
   describe ".organization_public_member?" do
 
-    it "checks if user is an organization public member" do
-      stub_get("https://api.github.com/orgs/github/public_members/pengwynn").
-        to_return(:status => 204)
-      is_org_member = @client.organization_public_member?('github', 'pengwynn')
-      expect(is_org_member).to be_true
+    context "user is a public member" do
+
+      it "checks if user is an organization public member" do
+        stub_get("https://api.github.com/orgs/github/public_members/pengwynn").
+          to_return(:status => 204)
+        is_org_member = @client.organization_public_member?('github', 'pengwynn')
+        expect(is_org_member).to be_true
+      end
+
+    end
+
+    context "user is not a public member" do
+
+      it "checks if the user is an organization public member" do
+        stub_get("https://api.github.com/orgs/github/public_members/joeyw").
+          to_return(:status => 404)
+        is_org_member = @client.organization_public_member?('github', 'joeyw')
+        expect(is_org_member).to be_false
+      end
+
     end
 
   end
