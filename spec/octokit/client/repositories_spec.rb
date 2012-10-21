@@ -429,7 +429,7 @@ describe Octokit::Client::Repositories do
     it "lists events for all issues in a repository" do
       stub_get("/repos/pengwynn/octokit/issues/events").
       to_return(:body => fixture("v3/repo_issues_events.json"))
-      events = @client.repo_issue_events("pengwynn/octokit", {}, :json)
+      events = @client.repo_issue_events("pengwynn/octokit")
       expect(events.first.actor.login).to eq("ctshryock")
       expect(events.first.event).to eq("subscribed")
     end

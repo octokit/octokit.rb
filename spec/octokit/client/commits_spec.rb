@@ -50,7 +50,7 @@ describe Octokit::Client::Commits do
     it "returns a list of all commit comments" do
       stub_get("/repos/sferik/rails_admin/comments").
         to_return(:body => fixture("v3/list_commit_comments.json"))
-      commit_comments = @client.list_commit_comments("sferik/rails_admin", {}, :json)
+      commit_comments = @client.list_commit_comments("sferik/rails_admin")
       expect(commit_comments.first.user.login).to eq("sferik")
     end
 
@@ -61,7 +61,7 @@ describe Octokit::Client::Commits do
     it "returns a list of comments for a specific commit" do
       stub_get("/repos/sferik/rails_admin/commits/629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3/comments").
         to_return(:body => fixture("v3/commit_comments.json"))
-      commit_comments = @client.commit_comments("sferik/rails_admin", "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3", {}, :json)
+      commit_comments = @client.commit_comments("sferik/rails_admin", "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3")
       expect(commit_comments.first.user.login).to eq("bbenezech")
     end
 
@@ -72,7 +72,7 @@ describe Octokit::Client::Commits do
     it "returns a single commit comment" do
       stub_get("/repos/sferik/rails_admin/comments/861907").
         to_return(:body => fixture("v3/commit_comment.json"))
-      commit = @client.commit_comment("sferik/rails_admin", "861907", {}, :json)
+      commit = @client.commit_comment("sferik/rails_admin", "861907")
       expect(commit.user.login).to eq("bbenezech")
     end
 
@@ -85,7 +85,7 @@ describe Octokit::Client::Commits do
         with(:body => { :body => "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n", :commit_id => "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3", :line => 1, :path => ".rspec", :position => 4 },
              :headers => { "Content-Type" => "application/json" }).
         to_return(:body => fixture("v3/commit_comment_create.json"))
-      commit_comment = @client.create_commit_comment("sferik/rails_admin", "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3", "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n", ".rspec", 1, 4, {}, :json)
+      commit_comment = @client.create_commit_comment("sferik/rails_admin", "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3", "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n", ".rspec", 1, 4)
       expect(commit_comment.body).to eq("Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n")
       expect(commit_comment.commit_id).to eq("629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3")
       expect(commit_comment.path).to eq(".rspec")
@@ -102,7 +102,7 @@ describe Octokit::Client::Commits do
         with(:body => { :body => "Hey Eric,\r\n\r\nI think it's a terrible idea. The test suite should stay deterministic IMO.\r\n" },
           :headers => { "Content-Type" => "application/json" }).
         to_return(:body => fixture("v3/commit_comment_update.json"))
-        commit_comment = @client.update_commit_comment("sferik/rails_admin", "860296", "Hey Eric,\r\n\r\nI think it's a terrible idea. The test suite should stay deterministic IMO.\r\n", {}, :json)
+        commit_comment = @client.update_commit_comment("sferik/rails_admin", "860296", "Hey Eric,\r\n\r\nI think it's a terrible idea. The test suite should stay deterministic IMO.\r\n")
         expect(commit_comment.body).to eq("Hey Eric,\r\n\r\nI think it's a terrible idea. The test suite should stay deterministic IMO.\r\n")
     end
 

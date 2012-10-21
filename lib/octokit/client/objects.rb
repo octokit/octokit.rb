@@ -40,7 +40,6 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param blob_sha [String] The SHA of the blob to fetch
-      # @param media_type [Symbol] Request media type
       # @return [Hashie::Mash] A hash representing the fetched blob
       # @see http://developer.github.com/v3/git/blobs/
       # @example Fetch a blob and inspect its contents
@@ -53,12 +52,8 @@ module Octokit
       #   blob.encoding # => "base64"
       #   blob.content # => "Rm9vIGJhciBiYXo="
       #   Base64.decode64(blob.content) # => "Foo bar baz"
-      # @example Fetch a blobs raw contents
-      #   # This blob is Octokit's Readme.md file.
-      #   Octokit.blob("pegnwynn/octokit", "f6820a4cb0386c6f302deb0c2145f4ddd5a45f99", {}, :raw)
-      #   => "# Octokit [![Build Status]..."
-      def blob(repo, blob_sha, options={}, media_type=:json)
-        get("repos/#{Repository.new(repo)}/git/blobs/#{blob_sha}", options, 3, authenticated?, false, false, media_type)
+      def blob(repo, blob_sha, options={})
+        get("repos/#{Repository.new(repo)}/git/blobs/#{blob_sha}", options)
       end
 
       # Create a blob

@@ -55,33 +55,30 @@ module Octokit
       # List all commit comments
       #
       # @param repo [String, Hash, Repository] A GitHub repository
-      # @param media_type [Symbol] Media type to return
       # @return [Array] An array of hashes representing comments
       # @see http://developer.github.com/v3/repos/comments/
-      def list_commit_comments(repo, options={}, media_type=:json)
-        get("repos/#{Repository.new(repo)}/comments", options, 3, true, false, false, media_type)
+      def list_commit_comments(repo, options={})
+        get("repos/#{Repository.new(repo)}/comments", options, 3)
       end
 
       # List comments for a single commit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param sha [String] The SHA of the commit whose comments will be fetched
-      # @param media_type [Symbol] Media type to return
       # @return [Array] An array of hashes representing comments
       # @see http://developer.github.com/v3/repos/comments/
-      def commit_comments(repo, sha, options={}, media_type=:json)
-        get("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options, 3, true, false, false, media_type)
+      def commit_comments(repo, sha, options={})
+        get("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options, 3)
       end
 
       # Get a single commit comment
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param id [String] The ID of the comment to fetch
-      # @param media_type [Symbol] Media type to return
       # @return [Hashie::Mash] A hash representing the comment
       # @see http://developer.github.com/v3/repos/comments/
-      def commit_comment(repo, id, options={}, media_type=:json)
-        get("repos/#{Repository.new(repo)}/comments/#{id}", options, 3, true, false, false, media_type)
+      def commit_comment(repo, id, options={})
+        get("repos/#{Repository.new(repo)}/comments/#{id}", options, 3)
       end
 
       # Create a commit comment
@@ -92,7 +89,6 @@ module Octokit
       # @param path [String] Relative path of file to comment on
       # @param line [Integer] Line number in the file to comment on
       # @param position [Integer] Line index in the diff to comment on
-      # @param media_type [Symbol] Media type to return
       # @return [Hashie::Mash] A hash representing the new commit comment
       # @see http://developer.github.com/v3/repos/comments/
       # @example Create a commit comment
@@ -102,7 +98,7 @@ module Octokit
       #   commit.path # => "README.md"
       #   commit.line # => 10
       #   commit.position # => 1
-      def create_commit_comment(repo, sha, body, path=nil, line=nil, position=nil, options={}, media_type=:json)
+      def create_commit_comment(repo, sha, body, path=nil, line=nil, position=nil, options={})
         params = {
           :body => body,
           :commit_id => sha,
@@ -110,7 +106,7 @@ module Octokit
           :line => line,
           :position => position
         }
-        post("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options.merge(params), 3, true, false, false, media_type)
+        post("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options.merge(params), 3)
       end
 
       # Update a commit comment
@@ -118,18 +114,17 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param id [String] The ID of the comment to update
       # @param body [String] Message
-      # @param media_type [Symbol] Media type to return
       # @return [Hashie::Mash] A hash representing the updated commit comment
       # @see http://developer.github.com/v3/repos/comments/
       # @example Update a commit comment
       #   commit = Octokit.update_commit_comment("octocat/Hello-World", "860296", "Updated commit comment")
       #   commit.id # => 860296
       #   commit.body # => "Updated commit comment"
-      def update_commit_comment(repo, id, body, options={}, media_type=:json)
+      def update_commit_comment(repo, id, body, options={})
         params = {
           :body => body
         }
-        patch("repos/#{Repository.new(repo)}/comments/#{id}", options.merge(params), 3, true, false, false, media_type)
+        patch("repos/#{Repository.new(repo)}/comments/#{id}", options.merge(params), 3)
       end
 
       # Delete a commit comment

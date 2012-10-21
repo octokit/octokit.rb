@@ -12,7 +12,7 @@ describe Octokit::Client::Contents do
     it "returns the default readme" do
       stub_get("/repos/pengwynn/octokit/readme").
         to_return(:body => fixture("v3/readme.json"))
-      readme = @client.readme('pengwynn/octokit', {}, :json)
+      readme = @client.readme('pengwynn/octokit')
       expect(readme.encoding).to eq("base64")
       expect(readme.type).to eq("file")
     end
@@ -24,7 +24,7 @@ describe Octokit::Client::Contents do
     it "returns the contents of a file" do
       stub_get("/repos/pengwynn/octokit/contents/lib/octokit.rb").
         to_return(:body => fixture("v3/contents.json"))
-      contents = @client.contents('pengwynn/octokit', {:path => "lib/octokit.rb"}, :json)
+      contents = @client.contents('pengwynn/octokit', :path => "lib/octokit.rb")
       expect(contents.path).to eq("lib/octokit.rb")
       expect(contents.name).to eq("lib/octokit.rb")
       expect(contents.encoding).to eq("base64")
