@@ -56,6 +56,7 @@ module Octokit
         end
 
         request.headers['Host'] = Octokit.request_host if Octokit.request_host
+        request.headers['Accept'] = media_type_header(version, media_type)
       end
 
       if raw
@@ -74,6 +75,21 @@ module Octokit
       end
 
       Hash[ *links.flatten ]
+    end
+
+    def media_type_header(version, media_type)
+      case media_type
+      when :json
+        "application/vnd.github.v#{version}+json"
+      when :raw
+        "application/vnd.github.v#{version}.raw+json"
+      when :text
+        "application/vnd.github.v#{version}.text+json"
+      when :html
+        "application/vnd.github.v#{version}.html+json"
+      when :full
+        "application/vnd.github.v#{version}.full+json"
+      end
     end
   end
 end
