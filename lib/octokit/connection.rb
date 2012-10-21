@@ -33,7 +33,7 @@ module Octokit
         builder.use Faraday::Response::RaiseOctokitError
         builder.use FaradayMiddleware::Mashify
 
-        if media_type == :json
+        if media_type != :raw
           builder.use FaradayMiddleware::ParseJson
         end
 

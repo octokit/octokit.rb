@@ -14,7 +14,7 @@ module Octokit
       def markdown(text, options={})
         options[:text] = text
         options[:repo] = Repository.new(options[:repo]) if options[:repo]
-        post("markdown", options, 3, true, true, false, :html).body
+        post("markdown", options, 3, true, true, false, :raw).body
       end
 
     end
