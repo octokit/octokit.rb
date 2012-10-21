@@ -6,7 +6,7 @@ module Octokit
   module Connection
     private
 
-    def connection(authenticate=true, raw=false, version=3, force_urlencoded=false, mime_type=:json)
+    def connection(authenticate=true, raw=false, version=3, force_urlencoded=false, media_type=:json)
       case version
       when 3
         url = Octokit.api_endpoint
@@ -33,7 +33,7 @@ module Octokit
         builder.use Faraday::Response::RaiseOctokitError
         builder.use FaradayMiddleware::Mashify
 
-        if mime_type == :json
+        if media_type == :json
           builder.use FaradayMiddleware::ParseJson
         end
 
