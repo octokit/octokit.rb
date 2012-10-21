@@ -3,7 +3,6 @@ require 'helper'
 describe Octokit::Client do
   it "works with basic auth and password" do
     stub_get("https://foo:bar@api.github.com/repos/baz/quux/commits?per_page=35&sha=master").
-      with(:headers => {'Accept'=>'*/*'}).
       to_return(:status => 200, :body => '{"commits":[]}', :headers => {})
     expect {
       Octokit::Client.new(:login => 'foo', :password => 'bar').commits('baz/quux')
