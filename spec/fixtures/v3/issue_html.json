@@ -1,0 +1,47 @@
+{
+  "number": 2,
+  "url": "https://api.github.com/repos/octocat/Hello-World/issues/2",
+  "updated_at": "2011-05-12T14:34:22Z",
+  "assignee": null,
+  "state": "closed",
+  "body_html": "<p>My first pull request on GitHub! Yep!</p>",
+  "closed_at": "2011-05-12T14:34:22Z",
+  "html_url": "https://github.com/octocat/Hello-World/issues/2",
+  "labels": [
+
+  ],
+  "user": {
+    "url": "https://api.github.com/users/mattstifanelli",
+    "gravatar_id": "7816a5cf4127996b190a743b616e4dbc",
+    "login": "mattstifanelli",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/users/mattstifanelli"
+      }
+    },
+    "id": 783382,
+    "avatar_url": "https://secure.gravatar.com/avatar/7816a5cf4127996b190a743b616e4dbc?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+  },
+  "closed_by": {
+    "url": "https://api.github.com/users/mattstifanelli",
+    "gravatar_id": "7816a5cf4127996b190a743b616e4dbc",
+    "login": "mattstifanelli",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/users/mattstifanelli"
+      }
+    },
+    "id": 783382,
+    "avatar_url": "https://secure.gravatar.com/avatar/7816a5cf4127996b190a743b616e4dbc?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"
+  },
+  "pull_request": {
+    "html_url": "https://github.com/octocat/Hello-World/pull/2",
+    "patch_url": "https://github.com/octocat/Hello-World/pull/2.patch",
+    "diff_url": "https://github.com/octocat/Hello-World/pull/2.diff"
+  },
+  "created_at": "2011-05-12T14:32:47Z",
+  "comments": 1,
+  "milestone": null,
+  "title": "README file modified ",
+  "id": 889727
+}

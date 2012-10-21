@@ -28,18 +28,21 @@ module Octokit
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
+      # @param media_type [Symbol] Media type to return.
       # @return [Array] A list of issues for a repository.
       # @see http://developer.github.com/v3/issues/#list-issues-for-this-repository
       # @example List issues for a repository
       #   Octokit.list_issues("sferik/rails_admin")
+      # @example List issues for a repository with text media type
+      #   Octokit.list_issues("sferik/rails_admin", {}, :text)
       # @example List issues for the authenticted user across repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.list_issues
-      def list_issues(repository = nil, options={})
+      def list_issues(repository = nil, options={}, media_type=:json)
         path = ''
         path = "repos/#{Repository.new(repository)}" if repository
         path += "/issues"
-        get(path, options, 3)
+        get(path, options, 3, true, false, false, media_type)
       end
       alias :issues :list_issues
 
@@ -48,12 +51,13 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param title [String] A descriptive title
       # @param body [String] A concise description
+      # @param media_type [Symbol] Media type to return
       # @return [Issue] Your newly created issue
       # @see http://develop.github.com/p/issues.html
       # @example Create a new Issues for a repository
       #   Octokit.create_issue("sferik/rails_admin")
-      def create_issue(repo, title, body, options={})
-        post("repos/#{Repository.new(repo)}/issues", options.merge({:title => title, :body => body}), 3)
+      def create_issue(repo, title, body, options={}, media_type)
+        post("repos/#{Repository.new(repo)}/issues", options.merge({:title => title, :body => body}), 3, true, false, false, media_type)
       end
       alias :open_issue :create_issue
 
@@ -61,40 +65,45 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
+      # @param media_type [Symbol] Media type to return
       # @return [Issue] The issue you requested, if it exists
       # @see http://developer.github.com/v3/issues/#get-a-single-issue
       # @example Get issue #25 from pengwynn/octokit
       #   Octokit.issue("pengwynn/octokit", "25")
-      def issue(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/#{number}", options, 3)
+      # @example Get issue #25 from pengwynn/octokit with html media type
+      #   Octokit.issue("pengwynn/octokit", 25, {}, :html)
+      def issue(repo, number, options={}, media_type=:json)
+        get("repos/#{Repository.new(repo)}/issues/#{number}", options, 3, true, false, false, media_type)
       end
 
       # Close an issue
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
+      # @param media_type [Symbol] Media type to return
       # @return [Issue] The updated Issue
       # @see http://develop.github.com/p/issues.html
       # @note This implementation needs to be adjusted with switch to API v3
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Close Issue #25 from pengwynn/octokit
       #   Octokit.close_issue("pengwynn/octokit", "25")
-      def close_issue(repo, number, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"}), 3)
+      def close_issue(repo, number, options={}, media_type=:json)
+        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"}), 3, true, false, false, media_type)
       end
 
       # Reopen an issue
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
+      # @param media_type [Symbol] Media type to return
       # @return [Issue] The updated Issue
       # @see http://develop.github.com/p/issues.html
       # @note This implementation needs to be adjusted with switch to API v3
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Reopen Issue #25 from pengwynn/octokit
       #   Octokit.reopen_issue("pengwynn/octokit", "25")
-      def reopen_issue(repo, number, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"}), 3)
+      def reopen_issue(repo, number, options={}, media_type=:json)
+        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"}), 3, true, false, false, media_type)
       end
 
       # Update an issue
@@ -103,38 +112,41 @@ module Octokit
       # @param number [String] Number ID of the issue
       # @param title [String] Updated title for the issue
       # @param body [String] Updated body of the issue
+      # @param media_type [Symbol] Media type to return
       # @return [Issue] The updated Issue
       # @see http://develop.github.com/p/issues.html
       # @note This implementation needs to be adjusted with switch to API v3
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Change the title of Issue #25
       #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
-      def update_issue(repo, number, title, body, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body}), 3)
+      def update_issue(repo, number, title, body, options={}, media_type=:json)
+        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body}), 3, true, false, false, media_type)
       end
 
       # Get all comments attached to an issue
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
+      # @param media_type [Symbol] Media type to return
       # @return [Array] Array of comments that belong to an issue
       # @see http://developer.github.com/v3/issues/comments
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
-      def issue_comments(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/#{number}/comments", options, 3)
+      def issue_comments(repo, number, options={}, media_type=:json)
+        get("repos/#{Repository.new(repo)}/issues/#{number}/comments", options, 3, true, false, false, media_type)
       end
 
       # Get a single comment attached to an issue
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
+      # @param media_type [Symbol] Media type to return
       # @return [Comment] The specific comment in question
       # @see http://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
-      def issue_comment(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/comments/#{number}", options, 3)
+      def issue_comment(repo, number, options={}, media_type=:json)
+        get("repos/#{Repository.new(repo)}/issues/comments/#{number}", options, 3, true, false, false, media_type)
       end
 
       # Add a comment to an issue
@@ -142,12 +154,13 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Issue number
       # @param comment [String] Comment to be added
+      # @param media_type [Symbol] Media type to return
       # @return [Comment] A JSON encoded Comment
       # @see http://developer.github.com/v3/issues/comments/#create-a-comment
       # @example Add the comment "Almost to v1" to Issue #23 on pengwynn/octokit
       #   Octokit.add_comment("pengwynn/octokit", 23, "Almost to v1")
-      def add_comment(repo, number, comment, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment}), 3)
+      def add_comment(repo, number, comment, options={}, media_type=:json)
+        post("repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment}), 3, true, false, false, media_type)
       end
 
       # Update a single comment on an issue
@@ -155,12 +168,13 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Comment number
       # @param comment [String] Body of the comment which will replace the existing body.
+      # @param media_type [Symbol] Media type to return
       # @return [Comment] A JSON encoded Comment
       # @see http://developer.github.com/v3/issues/comments/#edit-a-comment
       # @example Update the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
       #   Octokit.update_comment("pengwynn/octokit", 25, "Almost to v1, added this on my fork")
-      def update_comment(repo, number, comment, options={})
-        post("repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment}), 3)
+      def update_comment(repo, number, comment, options={}, media_type=:json)
+        post("repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment}), 3, true, false, false, media_type)
       end
 
       # Delete a single comment
@@ -180,26 +194,26 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Issue number
-      #
+      # @param media_type [Symbol] Media type to return
       # @return [Array] Array of events for that issue
       # @see http://developer.github.com/v3/issues/events/
       # @example List all issues events for issue #38 on pengwynn/octokit
       #   Octokit.issue_events("pengwynn/octokit", 38)
-      def issue_events(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/#{number}/events", options, 3)
+      def issue_events(repo, number, options={}, media_type=:json)
+        get("repos/#{Repository.new(repo)}/issues/#{number}/events", options, 3, true, false, false, media_type)
       end
 
       # Get information on a single Issue Event
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Event number
-      #
+      # @param media_type [Symbol] Media type to return
       # @return [Event] A single Event for an Issue
       # @see http://developer.github.com/v3/issues/events/#get-a-single-event
       # @example Get Event information for ID 3094334 (a pull request was closed)
       #   Octokit.issue_event("pengwynn/octokit", 3094334)
-      def issue_event(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/events/#{number}", options, 3)
+      def issue_event(repo, number, options={}, media_type=:json)
+        get("repos/#{Repository.new(repo)}/issues/events/#{number}", options, 3, true, false, false, media_type)
       end
 
     end
