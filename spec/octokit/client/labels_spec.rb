@@ -33,8 +33,7 @@ describe Octokit::Client::Labels do
 
     it "adds a label with a color" do
       stub_post("/repos/pengwynn/octokit/labels").
-        with(:body => {"name" => "a significant bug", "color" => "ededed"},
-             :headers => {'Content-Type'=>'application/json'}).
+        with(:body => {"name" => "a significant bug", "color" => "ededed"}).
         to_return(:status => 201, :body => fixture('v3/label.json'))
       labels = @client.add_label("pengwynn/octokit", "a significant bug", 'ededed')
       expect(labels.color).to eq("ededed")
@@ -43,8 +42,7 @@ describe Octokit::Client::Labels do
 
     it "adds a label with default color" do
       stub_post("/repos/pengwynn/octokit/labels").
-        with(:body => {"name" => "another significant bug", "color" => "ffffff"},
-             :headers => {'Content-Type'=>'application/json'}).
+        with(:body => {"name" => "another significant bug", "color" => "ffffff"}).
         to_return(:status => 201, :body => fixture('v3/label.json'))
       labels = @client.add_label("pengwynn/octokit", "another significant bug")
       expect(labels.color).to eq("ededed")
@@ -106,8 +104,7 @@ describe Octokit::Client::Labels do
   describe ".add_labels_to_an_issue" do
     it "adds labels to a given issue" do
       stub_post("/repos/pengwynn/octokit/issues/42/labels").
-        with(:body => '["V3 Transition","Bug"]',
-            :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json'}).
+        with(:body => '["V3 Transition","Bug"]').
         to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
 
       labels = @client.add_labels_to_an_issue('pengwynn/octokit', 42, ['V3 Transition', 'Bug'])
@@ -119,8 +116,7 @@ describe Octokit::Client::Labels do
   describe ".replace_all_labels" do
     it "replaces all labels for an issue" do
        stub_put("/repos/pengwynn/octokit/issues/42/labels").
-         with(:body => '["V3 Transition","V3 Adding"]',
-              :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json'}).
+         with(:body => '["V3 Transition","V3 Adding"]').
          to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
 
       labels = @client.replace_all_labels('pengwynn/octokit', 42, ['V3 Transition', 'V3 Adding'])
