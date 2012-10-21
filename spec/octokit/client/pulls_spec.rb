@@ -13,7 +13,7 @@ describe Octokit::Client::Pulls do
       stub_post("https://api.github.com/repos/pengwynn/octokit/pulls").
         with(:pull => {:base => "master", :head => "pengwynn:master", :title => "Title", :body => "Body"}).
         to_return(:body => fixture("v3/pull_created.json"))
-      pull = @client.create_pull_request("pengwynn/octokit", "master", "pengwynn:master", "Title", "Body")
+      pull = @client.create_pull_request("pengwynn/octokit", "master", "pengwynn:master", "Title", "Body", {}, :json)
       expect(pull.number).to eq(15)
       expect(pull.title).to eq("Pull this awesome v3 stuff")
     end
@@ -26,7 +26,7 @@ describe Octokit::Client::Pulls do
       stub_post("https://api.github.com/repos/pengwynn/octokit/pulls/67").
         with(:pull => { :title => "New title", :body => "Updated body", :state => "closed"}).
           to_return(:body => fixture('v3/pull_update.json'))
-      pull = @client.update_pull_request('pengwynn/octokit', 67, 'New title', 'Updated body', 'closed')
+      pull = @client.update_pull_request('pengwynn/octokit', 67, 'New title', 'Updated body', 'closed', {}, :json)
       expect(pull.title).to eq('New title')
       expect(pull.body).to eq('Updated body')
       expect(pull.state).to eq('closed')
@@ -40,7 +40,7 @@ describe Octokit::Client::Pulls do
       stub_post("https://api.github.com/repos/pengwynn/octokit/pulls").
         with(:pull => {:base => "master", :head => "pengwynn:octokit", :issue => "15"}).
         to_return(:body => fixture("v3/pull_created.json"))
-      pull = @client.create_pull_request_for_issue("pengwynn/octokit", "master", "pengwynn:octokit", "15")
+      pull = @client.create_pull_request_for_issue("pengwynn/octokit", "master", "pengwynn:octokit", "15", {}, :json)
       expect(pull.number).to eq(15)
     end
 
@@ -51,7 +51,7 @@ describe Octokit::Client::Pulls do
     it "returns all pull requests" do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls?state=open").
         to_return(:body => fixture("v3/pull_requests.json"))
-      pulls = @client.pulls("pengwynn/octokit")
+      pulls = @client.pulls("pengwynn/octokit", "open", {}, :json)
       expect(pulls.first.number).to eq(928)
     end
 
@@ -62,7 +62,7 @@ describe Octokit::Client::Pulls do
     it "returns a pull request" do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67").
         to_return(:body => fixture("v3/pull_request.json"))
-      pull = @client.pull("pengwynn/octokit", 67)
+      pull = @client.pull("pengwynn/octokit", 67, {}, :json)
       expect(pull.number).to eq(67)
     end
 
@@ -84,7 +84,7 @@ describe Octokit::Client::Pulls do
     it "returns the comments for a pull request" do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67/comments").
         to_return(:body => fixture("v3/pull_request_comments.json"))
-      commits = @client.pull_comments("pengwynn/octokit", 67)
+      commits = @client.pull_comments("pengwynn/octokit", 67, {}, :json)
       expect(commits.first["id"]).to eq(401530)
     end
 
