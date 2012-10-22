@@ -12,12 +12,9 @@ module Octokit
         :force_urlencoded => false,
         :raw => false,
         :ssl => { :verify => false },
+        :url => Octokit.api_endpoint,
         :version => Octokit.api_version
       }.merge(options)
-
-      if options[:version] == 3
-        options[:url] = Octokit.api_endpoint
-      end
 
       if !proxy.nil?
         options.merge!(:proxy => proxy)
