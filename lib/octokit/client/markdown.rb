@@ -14,6 +14,7 @@ module Octokit
       def markdown(text, options={})
         options[:text] = text
         options[:repo] = Repository.new(options[:repo]) if options[:repo]
+        options.merge!({ :octokit => { :media_type => :raw } })
         post("markdown", options, 3, true, true).body
       end
 
