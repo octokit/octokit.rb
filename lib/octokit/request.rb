@@ -48,8 +48,8 @@ module Octokit
       }
 
       if options.is_a?(Hash) && !options[:octokit].nil?
-        options[:octokit].select! do |key, _|
-          [:media_type, :raw, :authenticate].include? key
+        options[:octokit].reject! do |key, _|
+          ![:media_type, :raw, :authenticate].include?(key)
         end
         octokit_options.merge!(options[:octokit])
       end
