@@ -44,14 +44,13 @@ module Octokit
         :raw => raw,
         :version => version,
         :force_urlencoded => force_urlencoded,
-        :media_type => :json
+        :media_type => {}
       }
 
       if options.is_a?(Hash) && !options[:octokit].nil?
-        options[:octokit].reject! do |key, _|
-          ![:media_type, :raw, :authenticate].include?(key)
-        end
-        octokit_options.merge!(options[:octokit])
+        valid_octokit_keys = [:media_type, :raw, :authenticate]
+        options[:octokit].reject! { |key, _| !valid_octokit_keys.include?(key) }
+        octokit_options.merge! options.delete(:octokit)
       end
 
       response = connection(octokit_options).send(method) do |request|
@@ -75,7 +74,7 @@ module Octokit
           request.headers['Host'] = Octokit.request_host
         end
 
-        request.headers['Accept'] = media_type_header(octokit_options)
+        request.headers['Accept'] = media_type_header(octokit_options[:media_type])
       end
 
       if raw
@@ -96,19 +95,31 @@ module Octokit
       Hash[ *links.flatten ]
     end
 
-    def media_type_header(octokit_options)
-      case octokit_options[:media_type]
-      when :json
-        "application/vnd.github.v#{octokit_options[:version]}+json"
-      when :raw
-        "application/vnd.github.v#{octokit_options[:version]}.raw+json"
-      when :text
-        "application/vnd.github.v#{octokit_options[:version]}.text+json"
-      when :html
-        "application/vnd.github.v#{octokit_options[:version]}.html+json"
-      when :full
-        "application/vnd.github.v#{octokit_options[:version]}.full+json"
+    def media_type_header(options={})
+      options = {
+        :version => nil,
+        :param => nil,
+        :format => 'json'
+      }.merge(options)
+
+      media_type = 'application/vnd.github'
+
+      case options[:version]
+      when String
+        media_type << '.' << options[:version]
+      when Integer
+        media_type << '.v' << options[:version].to_s
       end
+
+      if options[:param]
+        media_type << '.' << options[:param]
+      end
+
+      if options[:format]
+        media_type << '+' << options[:format]
+      end
+
+      media_type
     end
   end
 end

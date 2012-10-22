@@ -10,7 +10,6 @@ module Octokit
       options = {
         :authenticate => true,
         :force_urlencoded => false,
-        :media_type => :json,
         :raw => false,
         :ssl => { :verify => false },
         :version => Octokit.api_version
@@ -43,7 +42,7 @@ module Octokit
         builder.use Faraday::Response::RaiseOctokitError
         builder.use FaradayMiddleware::Mashify
 
-        if options[:media_type] != :raw
+        if options[:media_type][:param] != 'raw'
           builder.use FaradayMiddleware::ParseJson
         end
 
