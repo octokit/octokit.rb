@@ -38,7 +38,19 @@ module Octokit
 
     def request(method, path, options, version, authenticate, raw, force_urlencoded)
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
-      response = connection(authenticate, raw, version, force_urlencoded).send(method) do |request|
+
+      octokit_options = {
+        :authenticate => authenticate,
+        :raw => raw,
+        :version => version,
+        :force_urlencoded => force_urlencoded
+      }
+
+      if options.is_a?(Hash) && !options[:octokit].nil?
+        octokit_options.merge! options.delete(:octokit)
+      end
+
+      response = connection(octokit_options).send(method) do |request|
         case method
         when :delete, :get
           if auto_traversal && per_page.nil?
@@ -55,7 +67,13 @@ module Octokit
           end
         end
 
-        request.headers['Host'] = Octokit.request_host if Octokit.request_host
+        if Octokit.request_host
+          request.headers['Host'] = Octokit.request_host
+        end
+
+        if !octokit_options[:media_type].nil?
+          request.headers['Accept'] = octokit_options[:media_type]
+        end
       end
 
       if raw
@@ -75,5 +93,6 @@ module Octokit
 
       Hash[ *links.flatten ]
     end
+
   end
 end
