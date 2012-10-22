@@ -2,24 +2,23 @@ require 'multi_json'
 
 module Octokit
   module Request
-    def delete(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:delete, path, options, version, authenticate, raw, force_urlencoded)
+
+    def self.request_method(http_method)
+      module_eval <<-RUBY
+        def #{http_method}(path, options={}, version=api_version, authenticated=true, raw=options.delete(:raw){false}, force_urlencoded=false)
+          request(:#{http_method}, path, options, version, authenticated, raw, force_urlencoded)
+                end
+      RUBY
+
     end
 
-    def get(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:get, path, options, version, authenticate, raw, force_urlencoded)
+    %w{delete get patch post put}.each do |meth|
+      request_method meth
     end
 
-    def patch(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:patch, path, options, version, authenticate, raw, force_urlencoded)
-    end
-
-    def post(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:post, path, options, version, authenticate, raw, force_urlencoded)
-    end
-
-    def put(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:put, path, options, version, authenticate, raw, force_urlencoded)
+    def head(path, options={}, version=api_version, authenticate=true, raw=true, force_urlencoded=false)
+      request(:head, path, options, version, authenticate, true, force_urlencoded)
+      # head requests are always raw because there is never a body
     end
 
     def ratelimit
@@ -40,7 +39,7 @@ module Octokit
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
       response = connection(authenticate, raw, version, force_urlencoded).send(method) do |request|
         case method
-        when :delete, :get
+        when :delete, :get, :head
           if auto_traversal && per_page.nil?
             self.per_page = 100
           end
