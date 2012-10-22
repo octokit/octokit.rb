@@ -39,7 +39,7 @@ module Octokit
         builder.use Faraday::Response::RaiseOctokitError
         builder.use FaradayMiddleware::Mashify
 
-        if options[:media_type][:param] != 'raw'
+        if options[:media_type][:format] == 'json'
           builder.use FaradayMiddleware::ParseJson
         end
 

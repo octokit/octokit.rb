@@ -44,7 +44,11 @@ module Octokit
         :raw => raw,
         :version => version,
         :force_urlencoded => force_urlencoded,
-        :media_type => {}
+        :media_type => {
+          :version => nil,
+          :param => nil,
+          :format => 'json'
+        }
       }
 
       if options.is_a?(Hash) && !options[:octokit].nil?
@@ -96,12 +100,6 @@ module Octokit
     end
 
     def media_type_header(options={})
-      options = {
-        :version => nil,
-        :param => nil,
-        :format => 'json'
-      }.merge(options)
-
       media_type = 'application/vnd.github'
 
       case options[:version]
