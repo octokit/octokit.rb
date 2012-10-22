@@ -69,10 +69,38 @@ describe Octokit::Client::Organizations do
 
   describe ".organization_members" do
 
-    it "returns all public members of an organization" do
-      stub_get("https://api.github.com/orgs/codeforamerica/members").
-        to_return(:body => fixture("v3/organization_members.json"))
-      users = @client.organization_members("codeforamerica")
+    context "without an authenticated client" do
+
+      it "regresses to .organization_public_members" do
+        stub_get("https://api.github.com/orgs/codeforamerica/members").
+          to_return(:status => 302)
+        stub_get("https://api.github.com/orgs/codeforamerica/public_members").
+          to_return(:body => fixture('v3/organization_members.json'))
+        users = @client.organization_members("codeforamerica")
+        expect(users.first.login).to eq("akit")
+      end
+
+    end
+
+    context "with an authenticated client" do
+
+      it "returns public and private members of an organization" do
+        stub_get("https://api.github.com/orgs/codeforamerica/members").
+          to_return(:status => 200, :body => fixture('v3/organization_members.json'))
+        users = @client.organization_members("codeforamerica")
+        expect(users.first.login).to eq("akit")
+      end
+
+    end
+
+  end
+
+  describe ".organization_public_members" do
+
+    it "returns all public members" do
+      stub_get("https://api.github.com/orgs/codeforamerica/public_members").
+        to_return(:body => fixture('v3/organization_members.json'))
+      users = @client.organization_public_members("codeforamerica")
       expect(users.first.login).to eq("akit")
     end
 
