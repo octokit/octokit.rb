@@ -52,8 +52,6 @@ module Octokit
       }
 
       if options.is_a?(Hash) && !options[:octokit].nil?
-        valid_octokit_keys = [:media_type, :raw, :authenticate]
-        options[:octokit].reject! { |key, _| !valid_octokit_keys.include?(key) }
         octokit_options.merge! options.delete(:octokit)
       end
 
