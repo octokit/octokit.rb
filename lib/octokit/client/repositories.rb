@@ -34,6 +34,7 @@ module Octokit
       # @option options [String] :has_issues `true` enables issues for this repo, `false` disables issues.
       # @option options [String] :has_wiki `true` enables wiki for this repo, `false` disables wiki.
       # @option options [String] :has_downloads `true` enables downloads for this repo, `false` disables downloads.
+      # @option options [String] :default_branch Update the default branch for this repository.
       # @return [Hashie::Mash] Repository information
       def edit_repository(repo, options={})
         patch "repos/#{Repository.new repo}", options, 3
