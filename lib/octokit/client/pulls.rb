@@ -118,6 +118,94 @@ module Octokit
       alias :pull_comments   :pull_request_comments
       alias :review_comments :pull_request_comments
 
+      # Get a pull request comment
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param comment_id [Integer] Id of comment to get
+      # @return [Hashie::Mash] Hash representing the comment
+      # @see http://developer.github.com/v3/pulls/comments/#get-a-single-comment
+      # @example
+      #   @client.pull_request_comment("pengwynn/octkit", 1903950)
+      def pull_request_comment(repo, comment_id, options={})
+        get("repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options)
+      end
+      alias :pull_comment   :pull_request_comment
+      alias :review_comment :pull_request_comment
+
+      # Create a pull request comment
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param pull_id [Integer] Pull request id
+      # @param body [String] Comment content
+      # @param commit_id [String] Sha of the commit to comment on.
+      # @param path [String] Relative path of the file to comment on.
+      # @param position [Integer] Line index in the diff to comment on.
+      # @return [Hashie::Mash] Hash representing the new comment
+      # @see http://developer.github.com/v3/pulls/comments/#create-a-comment
+      # @example
+      #   @client.create_pull_request_comment("pengwynn/octokit", 163, ":shipit:",
+      #     "2d3201e4440903d8b04a5487842053ca4883e5f0", "lib/octokit/request.rb", 47)
+      def create_pull_request_comment(repo, pull_id, body, commit_id, path, position, options={})
+        options.merge!({
+          :body => body,
+          :commit_id => commit_id,
+          :path => path,
+          :position => position
+        })
+        post("repos/#{Repository.new repo}/pulls/#{pull_id}/comments", options)
+      end
+      alias :create_pull_comment :create_pull_request_comment
+      alias :create_view_comment :create_pull_request_comment
+
+      # Create reply to a pull request comment
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param pull_id [Integer] Pull request id
+      # @param body [String] Comment contents
+      # @param comment_id [Integer] Comment id to reply to
+      # @return [Hashie::Mash] Hash representing new comment
+      # @see http://developer.github.com/v3/pulls/comments/#create-a-comment
+      # @example
+      #   @client.create_pull_request_comment_reply("pengwynn/octokit", 1903950, "done.")
+      def create_pull_request_comment_reply(repo, pull_id, body, comment_id, options={})
+        options.merge!({
+          :body => body,
+          :in_reply_to => comment_id
+        })
+        post("repos/#{Repository.new repo}/pulls/#{pull_id}/comments", options)
+      end
+      alias :create_pull_reply   :create_pull_request_comment_reply
+      alias :create_review_reply :create_pull_request_comment_reply
+
+      # Update pull request comment
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param comment_id [Integer] Id of the comment to update
+      # @param body [String] Updated comment content
+      # @return [Hashie::Mash] Hash representing the updated comment
+      # @see http://developer.github.com/v3/pulls/comments/#edit-a-comment
+      # @example
+      #   @client.update_pull_request_comment("pengwynn/octokit", 1903950, ":shipit:")
+      def update_pull_request_comment(repo, comment_id, body, options={})
+        options.merge! :body => body
+        patch("repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options)
+      end
+      alias :update_pull_comment   :update_pull_request_comment
+      alias :update_review_comment :update_pull_request_comment
+
+      # Delete pull request comment
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param comment_id [Integer] Id of the comment to delete
+      # @return [Boolean] True if deleted, false otherwise
+      # @example
+      #   @client.delete_pull_request_comment("pengwynn/octokit", 1902707)
+      def delete_pull_request_comment(repo, comment_id, options={})
+        delete("repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options, 3, true, true).status == 204
+      end
+      alias :delete_pull_comment   :delete_pull_request_comment
+      alias :delete_review_comment :delete_pull_request_comment
+
       # List files on a pull request
       #
       # @see http://developer.github.com/v3/pulls/#list-files-on-a-pull-request

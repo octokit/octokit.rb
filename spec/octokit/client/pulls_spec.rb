@@ -90,6 +90,77 @@ describe Octokit::Client::Pulls do
 
   end
 
+  describe ".pull_request_comment" do
+
+    it "returns a comment on a pull request" do
+      stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/comments/1903950").
+        to_return(:body => fixture("v3/pull_request_comment.json"))
+      comment = @client.pull_request_comment("pengwynn/octokit", 1903950)
+      expect(comment.id).to eq(1903950)
+      expect(comment.body).to include("Tests FTW.")
+    end
+
+  end
+
+  describe ".create_pull_request_comment" do
+
+    it "creates a new comment on a pull request" do
+      comment_content = JSON.parse(fixture("v3/pull_request_comment_create.json").read)
+      new_comment = {
+        :body => comment_content['body'],
+        :commit_id => comment_content['commit_id'],
+        :path => comment_content['path'],
+        :position => comment_content['position']
+      }
+      stub_post("https://api.github.com/repos/pengwynn/octokit/pulls/163/comments").
+        with(:body => new_comment).
+          to_return(:body => fixture("v3/pull_request_comment_create.json"))
+      comment = @client.create_pull_request_comment("pengwynn/octokit", 163, new_comment[:body], new_comment[:commit_id], new_comment[:path], new_comment[:position])
+      expect(comment).to eq(comment_content)
+    end
+
+  end
+
+  describe ".create_pull_request_comment_reply" do
+
+    it "creates a new reply to a pull request comment" do
+      new_comment = {
+        :body => "done.",
+        :in_reply_to => 1903950
+      }
+      stub_post("https://api.github.com/repos/pengwynn/octokit/pulls/163/comments").
+        with(:body => new_comment).
+          to_return(:body => fixture("v3/pull_request_comment_reply.json"))
+      reply = @client.create_pull_request_comment_reply("pengwynn/octokit", 163, new_comment[:body], new_comment[:in_reply_to])
+      expect(reply.id).to eq(1907270)
+      expect(reply.body).to eq(new_comment[:body])
+    end
+
+  end
+
+  describe ".update_pull_request_comment" do
+
+    it "updates a pull request comment" do
+      stub_patch("https://api.github.com/repos/pengwynn/octokit/pulls/comments/1907270").
+        with(:body => { :body => ":shipit:"}).
+          to_return(:body => fixture("v3/pull_request_comment_update.json"))
+      comment = @client.update_pull_request_comment("pengwynn/octokit", 1907270, ":shipit:")
+      expect(comment.body).to eq(":shipit:")
+    end
+
+  end
+
+  describe ".delete_pull_request_comment" do
+
+    it "deletes a pull request comment" do
+      stub_delete("https://api.github.com/repos/pengwynn/octokit/pulls/comments/1907270").
+        to_return(:status => 204)
+      result = @client.delete_pull_request_comment("pengwynn/octokit", 1907270)
+      expect(result).to be_true
+    end
+
+  end
+
   describe ".merge_pull_request" do
 
     it "merges the pull request" do
