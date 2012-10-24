@@ -1,9 +1,5 @@
 module Octokit
   class Client
-    #@todo Add support for getting a single public key by id.
-    #  http://developer.github.com/v3/users/keys/#get-a-single-public-key
-    #@todo Add support for updating a public key.
-    #  http://developer.github.com/v3/users/keys/#update-a-public-key
     module Users
 
       # Search for user.
@@ -161,6 +157,33 @@ module Octokit
         get("users/#{user}/watched", options, 3)
       end
 
+      # Get a public key.
+      #
+      # Note, when using dot notation to retrieve the values, ruby will return
+      # the hash key for the public keys value instead of the actual value, use
+      # symbol or key string to retrieve the value. See example.
+      #
+      # Requires authenticated client.
+      #
+      # @param key_id [Integer] Key to retreive.
+      # @param [Hashie::Mash] Hash representing the key.
+      # @see http://developer.github.com/v3/users/keys/#get-a-single-public-key
+      # @example
+      #   @client.key(1)
+      # @example Retrieve public key contents
+      #   public_key = @client.key(1)
+      #   public_key.key
+      #   # => Error
+      #
+      #   public_key[:key]
+      #   # => "ssh-rsa AAA..."
+      #
+      #   public_key['key']
+      #   # => "ssh-rsa AAA..."
+      def key(key_id, options={})
+        get("user/keys/#{key_id}", options, 3)
+      end
+
       # Get list of public keys for user.
       #
       # Requires authenticated client.
@@ -187,6 +210,22 @@ module Octokit
       #   @client.add_key('Personal projects key', 'ssh-rsa AAA...')
       def add_key(title, key, options={})
         post("user/keys", options.merge({:title => title, :key => key}), 3)
+      end
+
+      # Update a public key
+      #
+      # Requires authenticated client
+      #
+      # @param key_id [Integer] Id of key to update.
+      # @param options [Hash] Hash containing attributes to update.
+      # @option options [String] :title
+      # @option options [String] :key
+      # @return [Hashie::Mash] Hash representing the updated public key.
+      # @see http://developer.github.com/v3/users/keys/#update-a-public-key
+      # @example
+      #   @client.update_key(1, :title => 'new title', :key => "ssh-rsa BBB")
+      def update_key(key_id, options={})
+        patch("/user/keys/#{key_id}", options)
       end
 
       # Remove a public key from user account.

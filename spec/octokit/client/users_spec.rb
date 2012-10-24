@@ -242,6 +242,18 @@ describe Octokit::Client::Users do
 
   end
 
+  describe ".key" do
+
+    it "returns a public key" do
+      stub_get("https://api.github.com/user/keys/103205").
+        to_return(:body => fixture('v3/public_key.json'))
+      public_key = @client.key(103205)
+      expect(public_key.id).to eq(103205)
+      expect(public_key[:key]).to include("ssh-dss AAAAB")
+    end
+
+  end
+
   describe ".keys" do
 
     it "returns public keys" do
@@ -262,6 +274,23 @@ describe Octokit::Client::Users do
         to_return(:status => 201, :body => fixture("v3/public_key.json"))
       public_key = @client.add_key(title, key)
       expect(public_key.id).to eq(103205)
+    end
+
+  end
+
+  describe ".update_key" do
+
+    it "updates a public key" do
+      updated_key = {
+        :title => "updated title",
+        :key => "ssh-rsa BBBB..."
+      }
+      stub_patch("https://api.github.com/user/keys/1").
+        with(updated_key).
+          to_return(:body => fixture("v3/public_key_update.json"))
+      public_key = @client.update_key(1, updated_key)
+      expect(public_key[:title]).to eq(updated_key[:title])
+      expect(public_key[:key]).to eq(updated_key[:key])
     end
 
   end
