@@ -34,7 +34,7 @@ module Faraday
         if body.is_a?(String)
           body = MultiJson.load(body, :symbolize_keys => true)
         end
-        ": #{body[:error] || body[:message] || ''}"
+        ": #{body[:errors].map{|e|e[:message]}.join(', ') || body[:error] || body[:message] || ''}"
       else
         ''
       end
