@@ -34,11 +34,14 @@ module Faraday
         if body.is_a?(String)
           body = MultiJson.load(body, :symbolize_keys => true)
         end
-        ": #{body[:errors].map{|e|e[:message]}.join(', ') || body[:error] || body[:message] || ''}"
+        ": #{body[:error] || body[:message] || ''}"
       else
         ''
       end
-      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:status]}#{message}"
+      errors = unless message.empty?
+        body[:errors] ?  ": #{body[:errors].map{|e|e[:message]}.join(', ')}" : ''
+      end
+      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:status]}#{message}#{errors}"
     end
   end
 end
