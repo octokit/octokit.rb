@@ -447,4 +447,56 @@ describe Octokit::Client::Repositories do
 
   end
 
+  describe ".subscribers" do
+
+    it "lists all the users watching the repository" do
+      stub_get("/repos/pengwynn/octokit/subscribers").
+        to_return(:body => fixture("v3/subscribers.json"))
+      subscribers = @client.subscribers("pengwynn/octokit")
+      expect(subscribers.first.id).to eq(865)
+      expect(subscribers.first.login).to eq("pengwynn")
+    end
+
+  end
+
+  describe ".subscription" do
+
+    it "returns a repository subscription" do
+      stub_get("/repos/pengwynn/octokit/subscription").
+        to_return(:body => fixture("v3/subscription.json"))
+      subscription = @client.subscription("pengwynn/octokit")
+      expect(subscription.subscribed).to be_true
+    end
+
+  end
+
+  describe ".update_subscription" do
+
+    it "updates a repository subscription" do
+      stub_put("/repos/pengwynn/octokit/subscription").
+        to_return(:body => fixture("v3/subscription_update.json"))
+      subscription = @client.update_subscription("pengwynn/octokit", :subscribed => false)
+      expect(subscription.subscribed).to be_false
+    end
+
+  end
+
+  describe ".delete_subscription" do
+
+    it "returns true when repo subscription deleted" do
+      stub_delete("/repos/pengwynn/octokit/subscription").
+        to_return(:status => 204)
+      result = @client.delete_subscription("pengwynn/octokit")
+      expect(result).to be_true
+    end
+
+    it "returns false when delete repo subscription fails" do
+      stub_delete("/repos/pengwynn/octokit/subscription").
+        to_return(:status => 500)
+      result = @client.delete_subscription("pengwynn/octokit")
+      expect(result).to be_false
+    end
+
+  end
+
 end
