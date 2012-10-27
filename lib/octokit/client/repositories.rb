@@ -613,6 +613,74 @@ module Octokit
         get "repos/#{Repository.new repo}/assignees", options, 3
       end
       alias :repo_assignees :repository_assignees
+
+      # List watchers subscribing to notifications for a repo
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      #
+      # @return [Array] Array of users watching.
+      #
+      # @see http://developer.github.com/v3/activity/watching/#list-watchers
+      #
+      # @example
+      #   @client.subscribers("pengwynn/octokit")
+      def subscribers(repo, options={})
+        get("repos/#{Repository.new repo}/subscribers", options, 3)
+      end
+
+      # Get a repository subscription
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      #
+      # @return [Hashie::Mash] Repository subscription.
+      #
+      # @see http://developer.github.com/v3/activity/watching/#get-a-repository-subscription
+      #
+      # @example
+      #   @client.subscription("pengwynn/octokit")
+      def subscription(repo, options={})
+        get("repos/#{Repository.new repo}/subscription", options, 3)
+      end
+
+      # Update repository subscription
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @param options [Hash]
+      #
+      # @option options [Boolean] :subscribed Determines if notifications
+      #   should be received from this repository.
+      #
+      # @option options [Boolean] :ignored Deterimines if all notifications
+      #   should be blocked from this repository.
+      #
+      # @return [Hashie::Mash] Updated repository subscription.
+      #
+      # @see http://developer.github.com/v3/activity/watching/#set-a-repository-subscription
+      #
+      # @example Subscribe to notifications for a repository
+      #   @client.update_subscription("pengwynn/octokit", {subscribed: true})
+      def update_subscription(repo, options={})
+        put("repos/#{Repository.new repo}/subscription", options, 3)
+      end
+
+      # Delete a repository subscription
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      #
+      # @return [Boolean] True if subscription deleted, false otherwise.
+      #
+      # @see http://developer.github.com/v3/activity/watching/#delete-a-repository-subscription
+      #
+      # @example
+      #   @client.delete_subscription("pengwynn/octokit")
+      def delete_subscription(repo, options={})
+        begin
+          delete("repos/#{Repository.new repo}/subscription", options, 3, true, true).status == 204
+        rescue
+          false
+        end
+      end
+
     end
   end
 end
