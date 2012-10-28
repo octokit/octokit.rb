@@ -38,7 +38,10 @@ module Faraday
       else
         ''
       end
-      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:status]}#{message}"
+      errors = unless message.empty?
+        body[:errors] ?  ": #{body[:errors].map{|e|e[:message]}.join(', ')}" : ''
+      end
+      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:status]}#{message}#{errors}"
     end
   end
 end
