@@ -31,6 +31,7 @@ module Octokit
         end
 
         builder.use Faraday::Response::RaiseOctokitError
+        builder.use FaradayMiddleware::FollowRedirects
 
         unless raw
           builder.use FaradayMiddleware::Mashify
