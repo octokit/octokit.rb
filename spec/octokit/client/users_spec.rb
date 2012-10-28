@@ -340,4 +340,15 @@ describe Octokit::Client::Users do
 
   end
 
+  describe ".subscriptions" do
+
+    it "returns the repositories the user watches for notifications" do
+      stub_get("https://api.github.com/users/pengwynn/subscriptions").
+        to_return(:body => fixture("v3/subscriptions.json"))
+      subscriptions = @client.subscriptions("pengwynn")
+      expect(subscriptions.first.id).to eq(11560)
+      expect(subscriptions.first.name).to eq("ujs_sort_helper")
+    end
+  end
+
 end

@@ -282,6 +282,21 @@ module Octokit
       def remove_email(email, options={})
         delete("user/emails", options.merge({:email => email}), 3, true, raw=true).status == 204
       end
+
+      # List repositories being watched by a user.
+      #
+      # @param user [String] User's GitHub username.
+      #
+      # @return [Array<Hashie::Mashie>] Array of repositories.
+      #
+      # @see http://developer.github.com/v3/activity/watching/#list-repositories-being-watched
+      #
+      # @example
+      #   @client.subscriptions("pengwynn")
+      def subscriptions(user=login, options={})
+        get("users/#{user}/subscriptions", options, 3)
+      end
+
     end
   end
 end
