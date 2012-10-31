@@ -56,8 +56,8 @@ module Octokit
     def reset
       self.adapter        = DEFAULT_ADAPTER
       self.api_version    = DEFAULT_API_VERSION
-      self.api_endpoint   = DEFAULT_API_ENDPOINT
-      self.web_endpoint   = DEFAULT_WEB_ENDPOINT
+      self.api_endpoint   = ENV['OCTOKIT_API_ENDPOINT'] || DEFAULT_API_ENDPOINT
+      self.web_endpoint   = ENV['OCTOKIT_WEB_ENDPOINT'] || DEFAULT_WEB_ENDPOINT
       self.login          = nil
       self.password       = nil
       self.proxy          = nil
