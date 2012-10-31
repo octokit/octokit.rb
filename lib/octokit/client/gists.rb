@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 module Octokit
   class Client
     module Gists
 
       # List gists for a user or all public gists
       #
-      # @param username [String] An optional user to filter listing 
+      # @param username [String] An optional user to filter listing
       # @return [Array<Hashie::Mash>] A list of gists
       # @example Fetch all gists for defunkt
       #   Octokit.gists('defunkt')
@@ -67,11 +68,11 @@ module Octokit
       # @option options [Boolean] :public Sets gist visibility
       # @option options [Array<Hash>] :files Files that make up this gist. Keys
       #   should be the filename, the value a Hash with a :content key with text
-      #   conent of the Gist. 
+      #   conent of the Gist.
       #
       #   NOTE: All files from the previous version of the
       #   gist are carried over by default if not included in the hash. Deletes
-      #   can be performed by including the filename with a null hash.  
+      #   can be performed by including the filename with a null hash.
       # @return
       #   [Hashie::Mash] Newly created gist info
       # @see http://developer.github.com/v3/gists/#edit-a-gist
@@ -134,7 +135,7 @@ module Octokit
 
       # List gist comments
       #
-      # @param gist_id [Integer] Gist Id.
+      # @param gist_id [String] Gist Id.
       # @return [Array<Hashie::Mash>] Array of hashes representing comments.
       # @see http://developer.github.com/v3/gists/comments/#list-comments-on-a-gist
       # @example
@@ -145,20 +146,21 @@ module Octokit
 
       # Get gist comment
       #
+      # @param gist_id [String] Gist Id.
       # @param gist_comment_id [Integer] Id of the gist comment.
       # @return [Hashie::Mash] Hash representing gist comment.
       # @see http://developer.github.com/v3/gists/comments/#get-a-single-comment
       # @example
       #   Octokit.gist_comment(451398)
-      def gist_comment(gist_comment_id, options={})
-        get "gists/comments/#{gist_comment_id}", options, 3
+      def gist_comment(gist_id, gist_comment_id, options={})
+        get "gists/#{gist_id}/comments/#{gist_comment_id}", options, 3
       end
 
       # Create gist comment
       #
       # Requires authenticated client.
       #
-      # @param gist_id [Integer] Id of the gist.
+      # @param gist_id [String] Id of the gist.
       # @param comment [String] Comment contents.
       # @return [Hashie::Mash] Hash representing the new comment.
       # @see Octokit::Client
@@ -174,6 +176,7 @@ module Octokit
       #
       # Requires authenticated client
       #
+      # @param gist_id [String] Gist Id.
       # @param gist_comment_id [Integer] Id of the gist comment to update.
       # @param comment [String] Updated comment contents.
       # @return [Hashie::Mash] Hash representing the updated comment.
@@ -181,23 +184,24 @@ module Octokit
       # @see http://developer.github.com/v3/gists/comments/#edit-a-comment
       # @example
       #   @client.update_gist_comment(3528645, ':heart:')
-      def update_gist_comment(gist_comment_id, comment, options={})
+      def update_gist_comment(gist_id, gist_comment_id, comment, options={})
         options.merge!({:body => comment})
-        patch "gists/comments/#{gist_comment_id}", options, 3
+        patch "gists/#{gist_id}/comments/#{gist_comment_id}", options, 3
       end
 
       # Delete gist comment
       #
       # Requires authenticated client.
       #
+      # @param gist_id [String] Gist Id.
       # @param gist_comment_id [Integer] Id of the gist comment to delete.
       # @return [Boolean] True if comment deleted, false otherwise.
       # @see Octokit::Client
       # @see http://developer.github.com/v3/gists/comments/#delete-a-comment
       # @example
       #   @client.delete_gist_comment(586399)
-      def delete_gist_comment(gist_comment_id, options={})
-        delete("gists/comments/#{gist_comment_id}", options, 3, true, true).status == 204
+      def delete_gist_comment(gist_id, gist_comment_id, options={})
+        delete("gists/#{gist_id}/comments/#{gist_comment_id}", options, 3, true, true).status == 204
       end
 
     end
