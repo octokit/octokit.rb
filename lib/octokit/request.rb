@@ -38,32 +38,8 @@ module Octokit
 
     def request(method, path, options, version, authenticate, raw, force_urlencoded)
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
-      response = connection(authenticate, raw, version, force_urlencoded).send(method) do |request|
-        case method
-        when :delete, :get
-          if auto_traversal && per_page.nil?
-            self.per_page = 100
-          end
-          options.merge!(:per_page => per_page) if per_page
-          request.url(path, options)
-        when :patch, :post, :put
-          request.path = path
-          if 3 == version && !force_urlencoded
-            request.body = MultiJson.dump(options) unless options.empty?
-          else
-            request.body = options unless options.empty?
-          end
-        end
-
+      response = agent.call(method, path) do |request|
         request.headers['Host'] = Octokit.request_host if Octokit.request_host
-      end
-
-      if raw
-        response
-      elsif auto_traversal && ( next_url = links(response)["next"] )
-        response.body + request(method, next_url, options, version, authenticate, raw, force_urlencoded)
-      else
-        response.body
       end
     end
 
