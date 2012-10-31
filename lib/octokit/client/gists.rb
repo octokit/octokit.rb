@@ -145,13 +145,14 @@ module Octokit
 
       # Get gist comment
       #
+      # @param gist_id [String] Id of the gist.
       # @param gist_comment_id [Integer] Id of the gist comment.
       # @return [Hashie::Mash] Hash representing gist comment.
       # @see http://developer.github.com/v3/gists/comments/#get-a-single-comment
       # @example
-      #   Octokit.gist_comment(451398)
-      def gist_comment(gist_comment_id, options={})
-        get "gists/comments/#{gist_comment_id}", options, 3
+      #   Octokit.gist_comment('208sdaz3', 1451398)
+      def gist_comment(gist_id, gist_comment_id, options={})
+        get "gists/#{gist_id}/comments/#{gist_comment_id}", options, 3
       end
 
       # Create gist comment
@@ -174,30 +175,32 @@ module Octokit
       #
       # Requires authenticated client
       #
+      # @param gist_id [String] Id of the gist.
       # @param gist_comment_id [Integer] Id of the gist comment to update.
       # @param comment [String] Updated comment contents.
       # @return [Hashie::Mash] Hash representing the updated comment.
       # @see Octokit::Client
       # @see http://developer.github.com/v3/gists/comments/#edit-a-comment
       # @example
-      #   @client.update_gist_comment(3528645, ':heart:')
-      def update_gist_comment(gist_comment_id, comment, options={})
+      #   @client.update_gist_comment('208sdaz3', 3528645, ':heart:')
+      def update_gist_comment(gist_id, gist_comment_id, comment, options={})
         options.merge!({:body => comment})
-        patch "gists/comments/#{gist_comment_id}", options, 3
+        patch "gists/#{gist_id}/comments/#{gist_comment_id}", options, 3
       end
 
       # Delete gist comment
       #
       # Requires authenticated client.
       #
+      # @param gist_id [String] Id of the gist.
       # @param gist_comment_id [Integer] Id of the gist comment to delete.
       # @return [Boolean] True if comment deleted, false otherwise.
       # @see Octokit::Client
       # @see http://developer.github.com/v3/gists/comments/#delete-a-comment
       # @example
-      #   @client.delete_gist_comment(586399)
-      def delete_gist_comment(gist_comment_id, options={})
-        delete("gists/comments/#{gist_comment_id}", options, 3, true, true).status == 204
+      #   @client.delete_gist_comment('208sdaz3', 586399)
+      def delete_gist_comment(gist_id, gist_comment_id, options={})
+        delete("gists/#{gist_id}/comments/#{gist_comment_id}", options, 3, true, true).status == 204
       end
 
     end
