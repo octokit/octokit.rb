@@ -53,7 +53,7 @@ module Octokit
       # @option options [Boolean] :public Sets gist visibility
       # @option options [Array<Hash>] :files Files that make up this gist. Keys
       #   should be the filename, the value a Hash with a :content key with text
-      #   conent of the Gist.
+      #   content of the Gist.
       # @return [Hashie::Mash] Newly created gist info
       # @see http://developer.github.com/v3/gists/#create-a-gist
       def create_gist(options={})
@@ -67,7 +67,7 @@ module Octokit
       # @option options [Boolean] :public Sets gist visibility
       # @option options [Array<Hash>] :files Files that make up this gist. Keys
       #   should be the filename, the value a Hash with a :content key with text
-      #   conent of the Gist. 
+      #   content of the Gist. 
       #
       #   NOTE: All files from the previous version of the
       #   gist are carried over by default if not included in the hash. Deletes
@@ -78,6 +78,7 @@ module Octokit
       def edit_gist(gist, options={})
         patch "gists/#{Gist.new gist}", options, 3
       end
+
       #
       # Star a gist
       #
@@ -134,11 +135,11 @@ module Octokit
 
       # List gist comments
       #
-      # @param gist_id [Integer] Gist Id.
+      # @param gist_id [String] Gist Id.
       # @return [Array<Hashie::Mash>] Array of hashes representing comments.
       # @see http://developer.github.com/v3/gists/comments/#list-comments-on-a-gist
       # @example
-      #   Octokit.gist_comments(3528645)
+      #   Octokit.gist_comments('3528ae645')
       def gist_comments(gist_id, options={})
         get "gists/#{gist_id}/comments", options, 3
       end
@@ -159,13 +160,13 @@ module Octokit
       #
       # Requires authenticated client.
       #
-      # @param gist_id [Integer] Id of the gist.
+      # @param gist_id [String] Id of the gist.
       # @param comment [String] Comment contents.
       # @return [Hashie::Mash] Hash representing the new comment.
       # @see Octokit::Client
       # @see http://developer.github.com/v3/gists/comments/#create-a-comment
       # @example
-      #   @client.create_gist_comment(3528645, 'This is very helpful.')
+      #   @client.create_gist_comment('3528645', 'This is very helpful.')
       def create_gist_comment(gist_id, comment, options={})
         options.merge!({:body => comment})
         post "gists/#{gist_id}/comments", options, 3
