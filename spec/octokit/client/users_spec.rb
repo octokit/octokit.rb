@@ -249,7 +249,7 @@ describe Octokit::Client::Users do
         to_return(:body => fixture('v3/public_key.json'))
       public_key = @client.key(103205)
       expect(public_key.id).to eq(103205)
-      expect(public_key[:key]).to include("ssh-dss AAAAB")
+      expect(public_key.key).to include("ssh-dss AAAAB")
     end
 
   end
@@ -289,8 +289,8 @@ describe Octokit::Client::Users do
         with(updated_key).
           to_return(:body => fixture("v3/public_key_update.json"))
       public_key = @client.update_key(1, updated_key)
-      expect(public_key[:title]).to eq(updated_key[:title])
-      expect(public_key[:key]).to eq(updated_key[:key])
+      expect(public_key.title).to eq(updated_key[:title])
+      expect(public_key.key).to eq(updated_key[:key])
     end
 
   end
@@ -332,8 +332,9 @@ describe Octokit::Client::Users do
   describe ".remove_email" do
 
     it "removes an email address" do
-      stub_delete("https://api.github.com/user/emails?email=sferik@gmail.com").
-        to_return(:status => 204, :body => "")
+      stub_delete("https://api.github.com/user/emails").
+        with(:email => 'sferik@gmail.com').
+        to_return(:status => 204)
       response = @client.remove_email("sferik@gmail.com")
       expect(response).to be_true
     end

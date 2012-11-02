@@ -1,0 +1,54 @@
+{
+  "_links": {
+    "html": "https://github.com/pengwynn/octokit/tree/gh-pages",
+    "self": "https://api.github.com/repos/pengwynn/octokit/branches/gh-pages"
+  },
+  "name": "gh-pages",
+  "commit": {
+    "committer": {
+      "gravatar_id": "7e19cd5486b5d6dc1ef90e671ba52ae0",
+      "url": "https://api.github.com/users/pengwynn",
+      "login": "pengwynn",
+      "avatar_url": "https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+      "id": 865
+    },
+    "url": "https://api.github.com/repos/pengwynn/octokit/commits/24046beeade2115311c8dfc625720b68e2bf89aa",
+    "author": {
+      "gravatar_id": "7e19cd5486b5d6dc1ef90e671ba52ae0",
+      "url": "https://api.github.com/users/pengwynn",
+      "login": "pengwynn",
+      "avatar_url": "https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+      "id": 865
+    },
+    "sha": "24046beeade2115311c8dfc625720b68e2bf89aa",
+    "parents": [
+      {
+        "url": "https://api.github.com/repos/pengwynn/octokit/commits/57a03788c422980b859bc0f593fb960c7da63f5e",
+        "sha": "57a03788c422980b859bc0f593fb960c7da63f5e"
+      },
+      {
+        "url": "https://api.github.com/repos/pengwynn/octokit/commits/ecad42b9a408cdc9c86a4b27cf0adbc535c6fef1",
+        "sha": "ecad42b9a408cdc9c86a4b27cf0adbc535c6fef1"
+      }
+    ],
+    "commit": {
+      "committer": {
+        "email": "wynn@github.com",
+        "date": "2012-06-29T01:31:22Z",
+        "name": "Wynn Netherland"
+      },
+      "comment_count": 0,
+      "url": "https://api.github.com/repos/pengwynn/octokit/git/commits/24046beeade2115311c8dfc625720b68e2bf89aa",
+      "author": {
+        "email": "wynn@github.com",
+        "date": "2012-06-29T01:31:22Z",
+        "name": "Wynn Netherland"
+      },
+      "message": "Merge branch 'gh-pages' of github.com:pengwynn/octokit into gh-pages",
+      "tree": {
+        "url": "https://api.github.com/repos/pengwynn/octokit/git/trees/9450f65b82f3dee3d125c3eec9927af60dd38918",
+        "sha": "9450f65b82f3dee3d125c3eec9927af60dd38918"
+      }
+    }
+  }
+}

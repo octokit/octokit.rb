@@ -64,7 +64,7 @@ describe Octokit::Client::Gists do
         to_return(:body => fixture("v3/gist.json"))
 
       gist = @client.create_gist(new_gist)
-      expect(gist).to eq(gist_content)
+      expect(gist.description).to eq(gist_content['description'])
     end
   end
 
@@ -72,13 +72,12 @@ describe Octokit::Client::Gists do
     it "edit an existing gist" do
       gist_content = JSON.parse(fixture("v3/gist.json").read)
       gist_id = gist_content['id']
-      updated_gist = gist_content.merge('description' => 'updated')
 
       stub_patch("/gists/#{gist_id}").
-        to_return(:body => updated_gist)
+        to_return(:body => fixture("v3/gist.json"))
 
       gist = @client.edit_gist(gist_id, :description => 'updated')
-      expect(gist['description']).to eq('updated')
+      expect(gist.id).to eq(gist_id)
     end
   end
 

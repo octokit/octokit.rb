@@ -205,7 +205,7 @@ describe Octokit::Client::Repositories do
       stub_delete("/repos/sferik/rails_admin/keys/#{103205}").
         to_return(:status => 204)
       result = @client.remove_deploy_key("sferik/rails_admin", 103205)
-      expect(result).to be_nil
+      expect(result).to be_true
     end
 
   end
@@ -238,7 +238,7 @@ describe Octokit::Client::Repositories do
       stub_delete("/repos/sferik/rails_admin/collaborators/sferik").
         to_return(:status => 204)
       result = @client.remove_collaborator("sferik/rails_admin", "sferik")
-      expect(result).to be_nil
+      expect(result).to be_true
     end
 
   end
@@ -319,7 +319,7 @@ describe Octokit::Client::Repositories do
       stub_get("/repos/sferik/rails_admin/languages").
         to_return(:body => fixture("v3/languages.json"))
       languages = @client.languages("sferik/rails_admin")
-      expect(languages["Ruby"]).to eq(345701)
+      expect(languages.Ruby).to eq(345701)
     end
 
   end
@@ -347,11 +347,10 @@ describe Octokit::Client::Repositories do
     end
 
     it "returns a single branch" do
-      branch = JSON.parse(fixture("v3/branches.json").read).last
       stub_get("/repos/pengwynn/octokit/branches/master").
-        to_return(:body => branch)
-      branch = @client.branch("pengwynn/octokit", "master")
-      expect(branch.commit.sha).to eq("88553a397f7293b3ba176dc27cd1ab6bb93d5d14")
+        to_return(:body => fixture("v3/branch.json"))
+      result = @client.branch("pengwynn/octokit", "master")
+      expect(result.commit.sha).to eq("24046beeade2115311c8dfc625720b68e2bf89aa")
     end
 
   end

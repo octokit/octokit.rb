@@ -4,7 +4,7 @@ module Octokit
 
       # List gists for a user or all public gists
       #
-      # @param username [String] An optional user to filter listing 
+      # @param username [String] An optional user to filter listing
       # @return [Array<Hashie::Mash>] A list of gists
       # @example Fetch all gists for defunkt
       #   Octokit.gists('defunkt')
@@ -13,9 +13,9 @@ module Octokit
       # @see http://developer.github.com/v3/gists/#list-gists
       def gists(username=nil, options={})
         if username.nil?
-          get 'gists', options, 3
+          get('gists', options).data
         else
-          get "users/#{username}/gists", options, 3
+          get("users/#{username}/gists", options).data
         end
       end
       alias :list_gists :gists
@@ -27,14 +27,14 @@ module Octokit
       #   Octokit.public_gists
       # @see http://developer.github.com/v3/gists/#list-gists
       def public_gists(options={})
-        get 'gists/public', options, 3
+        get('gists/public', options).data
       end
 
       # List the authenticated user’s starred gists
       #
       # @return [Array<Hashie::Mash>] A list of gists
       def starred_gists(options={})
-        get 'gists/starred', options, 3
+        get('gists/starred', options).data
       end
 
       # Get a single gist
@@ -43,7 +43,7 @@ module Octokit
       # @return [Hash::Mash] Gist information
       # @see http://developer.github.com/v3/gists/#get-a-single-gist
       def gist(gist, options={})
-        get "gists/#{Gist.new gist}", options, 3
+        get("gists/#{Gist.new gist}", options).data
       end
 
       # Create a gist
@@ -57,7 +57,7 @@ module Octokit
       # @return [Hashie::Mash] Newly created gist info
       # @see http://developer.github.com/v3/gists/#create-a-gist
       def create_gist(options={})
-        post 'gists', options, 3
+        post('gists', options).data
       end
 
       # Edit a gist
@@ -67,16 +67,16 @@ module Octokit
       # @option options [Boolean] :public Sets gist visibility
       # @option options [Array<Hash>] :files Files that make up this gist. Keys
       #   should be the filename, the value a Hash with a :content key with text
-      #   conent of the Gist. 
+      #   conent of the Gist.
       #
       #   NOTE: All files from the previous version of the
       #   gist are carried over by default if not included in the hash. Deletes
-      #   can be performed by including the filename with a null hash.  
+      #   can be performed by including the filename with a null hash.
       # @return
       #   [Hashie::Mash] Newly created gist info
       # @see http://developer.github.com/v3/gists/#edit-a-gist
       def edit_gist(gist, options={})
-        patch "gists/#{Gist.new gist}", options, 3
+        patch("gists/#{Gist.new gist}", options).data
       end
       #
       # Star a gist
@@ -85,7 +85,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is starred successfully
       # @see http://developer.github.com/v3/gists/#star-a-gist
       def star_gist(gist, options={})
-        response = put("gists/#{Gist.new gist}/star", options, 3, true, true)
+        response = put("gists/#{Gist.new gist}/star", options)
         response.status == 204
       end
 
@@ -95,7 +95,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is unstarred successfully
       # @see http://developer.github.com/v3/gists/#unstar-a-gist
       def unstar_gist(gist, options={})
-        response = delete("gists/#{Gist.new gist}/star", options, 3, true, true)
+        response = delete("gists/#{Gist.new gist}/star", options)
         response.status == 204
       end
 
@@ -105,12 +105,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is starred
       # @see http://developer.github.com/v3/gists/#check-if-a-gist-is-starred
       def gist_starred?(gist, options={})
-        begin
-          get("gists/#{Gist.new gist}/star", options, 3, true, true)
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        get("gists/#{Gist.new gist}/star", options).status == 204
       end
 
       # Fork a gist
@@ -119,7 +114,7 @@ module Octokit
       # @return [Hashie::Mash] Data for the new gist
       # @see http://developer.github.com/v3/gists/#fork-a-gist
       def fork_gist(gist, options={})
-        post "gists/#{Gist.new gist}/fork", options, 3
+        post("gists/#{Gist.new gist}/fork", options).data
       end
 
       # Delete a gist
@@ -128,7 +123,7 @@ module Octokit
       # @return [Boolean] Indicating success of deletion
       # @see http://developer.github.com/v3/gists/#delete-a-gist
       def delete_gist(gist, options={})
-        response = delete("gists/#{Gist.new gist}", options, 3, true, true)
+        response = delete("gists/#{Gist.new gist}", options)
         response.status == 204
       end
 
@@ -140,7 +135,7 @@ module Octokit
       # @example
       #   Octokit.gist_comments(3528645)
       def gist_comments(gist_id, options={})
-        get "gists/#{gist_id}/comments", options, 3
+        get("gists/#{gist_id}/comments", options).data
       end
 
       # Get gist comment
@@ -151,7 +146,7 @@ module Octokit
       # @example
       #   Octokit.gist_comment(451398)
       def gist_comment(gist_comment_id, options={})
-        get "gists/comments/#{gist_comment_id}", options, 3
+        get("gists/comments/#{gist_comment_id}", options).data
       end
 
       # Create gist comment
@@ -167,7 +162,7 @@ module Octokit
       #   @client.create_gist_comment(3528645, 'This is very helpful.')
       def create_gist_comment(gist_id, comment, options={})
         options.merge!({:body => comment})
-        post "gists/#{gist_id}/comments", options, 3
+        post("gists/#{gist_id}/comments", options).data
       end
 
       # Update gist comment
@@ -183,7 +178,7 @@ module Octokit
       #   @client.update_gist_comment(3528645, ':heart:')
       def update_gist_comment(gist_comment_id, comment, options={})
         options.merge!({:body => comment})
-        patch "gists/comments/#{gist_comment_id}", options, 3
+        patch("gists/comments/#{gist_comment_id}", options).data
       end
 
       # Delete gist comment
@@ -197,7 +192,7 @@ module Octokit
       # @example
       #   @client.delete_gist_comment(586399)
       def delete_gist_comment(gist_comment_id, options={})
-        delete("gists/comments/#{gist_comment_id}", options, 3, true, true).status == 204
+        delete("gists/comments/#{gist_comment_id}", options).status == 204
       end
 
     end

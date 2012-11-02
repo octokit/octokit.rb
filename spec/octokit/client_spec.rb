@@ -65,11 +65,11 @@ describe Octokit::Client do
       @client = Octokit::Client.new()
     end
 
-    pending "gets the ratelimit-limit from the header" do
+    it "gets the ratelimit-limit from the header" do
       expect(@client.ratelimit).to eq(5000)
     end
 
-    pending "gets the ratelimit-remaining using header" do
+    it "gets the ratelimit-remaining using header" do
       expect(@client.ratelimit_remaining).to eq(5000)
     end
 
@@ -91,11 +91,11 @@ describe Octokit::Client do
       Octokit.reset
     end
 
-    pending "gets the ratelimit-limit from the header" do
+    it "gets the ratelimit-limit from the header" do
       expect(@client.ratelimit).to eq(62500)
     end
 
-    pending "gets the ratelimit-remaining using header" do
+    it "gets the ratelimit-remaining using header" do
       expect(@client.ratelimit_remaining).to eq(62500)
     end
 

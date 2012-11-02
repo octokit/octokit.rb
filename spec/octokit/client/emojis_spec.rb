@@ -11,7 +11,7 @@ describe Octokit::Client::Emojis do
       stub_get("/emojis").
         to_return(:body => fixture("v3/emojis.json"))
       emojis = @client.emojis
-      expect(emojis[:metal]).to eq('https://a248.e.akamai.net/assets.github.com/images/icons/emoji/metal.png?v5')
+      expect(emojis.metal).to eq('https://a248.e.akamai.net/assets.github.com/images/icons/emoji/metal.png?v5')
     end
   end
 

@@ -11,7 +11,7 @@ module Octokit
       # @example Fetch all refs for sferik/rails_admin
       #   Octokit.refs("sferik/rails_admin")
       def refs(repo, namespace="", options={})
-        get("repos/#{Repository.new(repo)}/git/refs/#{namespace}", options, 3)
+        get("repos/#{Repository.new(repo)}/git/refs/#{namespace}", options).data
       end
       alias :list_refs :refs
       alias :references :refs
@@ -26,7 +26,7 @@ module Octokit
       # @example Fetch tags/v0.0.3 for sferik/rails_admin
       #   Octokit.ref("sferik/rails_admin","tags/v0.0.3")
       def ref(repo, ref, options={})
-        get("repos/#{Repository.new(repo)}/git/refs/#{ref}", options, 3)
+        get("repos/#{Repository.new(repo)}/git/refs/#{ref}", options).data
       end
       alias :reference :ref
 
@@ -44,7 +44,7 @@ module Octokit
           :ref  => "refs/#{ref}",
           :sha  => sha
         }
-        post("repos/#{Repository.new(repo)}/git/refs", options.merge(parameters))
+        post("repos/#{Repository.new(repo)}/git/refs", options.merge(parameters)).data
       end
       alias :create_reference :create_ref
 
@@ -63,7 +63,7 @@ module Octokit
           :sha  => sha,
           :force => force
         }
-        patch("repos/#{Repository.new(repo)}/git/refs/#{ref}", options.merge(parameters))
+        patch("repos/#{Repository.new(repo)}/git/refs/#{ref}", options.merge(parameters)).data
       end
       alias :update_reference :update_ref
 
@@ -76,7 +76,7 @@ module Octokit
       # @example Delete tags/v0.0.3 for sferik/rails_admin
       #   Octokit.delete_ref("sferik/rails_admin","tags/v0.0.3")
       def delete_ref(repo, ref, options={})
-        delete("repos/#{Repository.new(repo)}/git/refs/#{ref}", options, 3, true, true)
+        delete("repos/#{Repository.new(repo)}/git/refs/#{ref}", options).status == 204
       end
       alias :delete_reference :delete_ref
 

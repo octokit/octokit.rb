@@ -14,7 +14,19 @@ module Octokit
       def markdown(text, options={})
         options[:text] = text
         options[:repo] = Repository.new(options[:repo]) if options[:repo]
-        post("markdown", options, 3, true, true).body
+        # TODO: move to a Faraday factory and share with Sawyer
+        conn = Faraday.new(:url => Octokit.api_endpoint) do |faraday|
+          faraday.headers['user-agent']   = Octokit.user_agent
+          faraday.adapter :net_http
+        end
+
+        response = conn.post do |req|
+          req.url 'markdown'
+          req.body = options
+          req.headers['Content-Type'] = 'text/x-markdown'
+        end
+
+        response.body
       end
 
     end

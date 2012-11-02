@@ -69,7 +69,6 @@ describe Octokit::Client::Issues do
         to_return(:body => fixture("v3/issue_closed.json"))
       issue = @client.close_issue("ctshryock/octokit", 12)
       expect(issue.number).to eq(12)
-      expect(issue).to include :closed_at
       expect(issue.state).to eq("closed")
     end
 
@@ -154,8 +153,8 @@ describe Octokit::Client::Issues do
     it "deletes an existing comment" do
       stub_delete("/repos/pengwynn/octokit/issues/comments/1194549").
         to_return(:status => 204)
-      comment = @client.delete_comment("pengwynn/octokit", 1194549)
-      expect(comment.status).to eq(204)
+      result = @client.delete_comment("pengwynn/octokit", 1194549)
+      expect(result).to be_true
     end
 
   end

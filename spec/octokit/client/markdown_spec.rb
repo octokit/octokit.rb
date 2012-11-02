@@ -14,7 +14,6 @@ describe Octokit::Client::Markdown do
         to_return(:body => fixture("v3/markdown_gfm"))
       text = "This is for #111"
       markdown = @client.markdown(text, :context => 'pengwynn/octokit', :mode => 'gfm')
-
       expect(markdown).to include('https://github.com/pengwynn/octokit/issues/111')
     end
 

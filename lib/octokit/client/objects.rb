@@ -16,7 +16,7 @@ module Octokit
       #   tree = Octokit.tree("octocat/Hello-World", "fc6274d15fa3ae2ab983129fb037999f264ba9a7")
       #   tree.tree.first.path # => "subdir/file.txt"
       def tree(repo, tree_sha, options={})
-        get("repos/#{Repository.new(repo)}/git/trees/#{tree_sha}", options)
+        get("repos/#{Repository.new(repo)}/git/trees/#{tree_sha}", options).data
       end
 
       # Create a tree
@@ -33,7 +33,7 @@ module Octokit
       #   tree.tree.first.path # => "file.rb"
       def create_tree(repo, tree, options={})
         parameters = { :tree => tree }
-        post("repos/#{Repository.new(repo)}/git/trees", options.merge(parameters), 3)
+        post("repos/#{Repository.new(repo)}/git/trees", options.merge(parameters)).data
       end
 
       # Get a single blob, fetching its content and encoding
@@ -53,7 +53,7 @@ module Octokit
       #   blob.content # => "Rm9vIGJhciBiYXo="
       #   Base64.decode64(blob.content) # => "Foo bar baz"
       def blob(repo, blob_sha, options={})
-        get("repos/#{Repository.new(repo)}/git/blobs/#{blob_sha}", options)
+        get("repos/#{Repository.new(repo)}/git/blobs/#{blob_sha}", options).data
       end
 
       # Create a blob
@@ -73,7 +73,7 @@ module Octokit
           :content => content,
           :encoding => encoding
         }
-        post("repos/#{Repository.new(repo)}/git/blobs", options.merge(parameters), 3).sha
+        post("repos/#{Repository.new(repo)}/git/blobs", options.merge(parameters)).data.sha
       end
 
       # Get a tag
@@ -85,7 +85,7 @@ module Octokit
       # @example Fetch a tag
       #   Octokit.tag('pengwynn/octokit', '23aad20633f4d2981b1c7209a800db3014774e96')
       def tag(repo, tag_sha, options={})
-        get("repos/#{Repository.new repo}/git/tags/#{tag_sha}", options, 3)
+        get("repos/#{Repository.new repo}/git/tags/#{tag_sha}", options).data
       end
 
       # Create a tag
@@ -127,7 +127,7 @@ module Octokit
             :date => tagger_date
           }
         )
-        post("repos/#{Repository.new repo}/git/tags", options, 3)
+        post("repos/#{Repository.new repo}/git/tags", options).data
       end
     end
   end

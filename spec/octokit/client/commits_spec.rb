@@ -10,7 +10,7 @@ describe Octokit::Client::Commits do
   describe ".commits" do
 
     it "returns all commits" do
-      stub_get("/repos/sferik/rails_admin/commits?per_page=35&sha=master").
+      stub_get("/repos/sferik/rails_admin/commits").
         to_return(:body => fixture("v3/commits.json"))
       commits = @client.commits("sferik/rails_admin")
       expect(commits.first.author.login).to eq("caboteria")

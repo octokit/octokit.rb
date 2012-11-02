@@ -74,7 +74,7 @@ describe Octokit::Client::Pulls do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67/commits").
         to_return(:body => fixture("v3/pull_request_commits.json"))
       commits = @client.pull_commits("pengwynn/octokit", 67)
-      expect(commits.first["sha"]).to eq("2097821c7c5aa4dc02a2cc54d5ca51968b373f95")
+      expect(commits.first.sha).to eq("2097821c7c5aa4dc02a2cc54d5ca51968b373f95")
     end
 
   end
@@ -85,7 +85,7 @@ describe Octokit::Client::Pulls do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67/comments").
         to_return(:body => fixture("v3/pull_request_comments.json"))
       commits = @client.pull_comments("pengwynn/octokit", 67)
-      expect(commits.first["id"]).to eq(401530)
+      expect(commits.first.id).to eq(401530)
     end
 
   end
@@ -116,7 +116,7 @@ describe Octokit::Client::Pulls do
         with(:body => new_comment).
           to_return(:body => fixture("v3/pull_request_comment_create.json"))
       comment = @client.create_pull_request_comment("pengwynn/octokit", 163, new_comment[:body], new_comment[:commit_id], new_comment[:path], new_comment[:position])
-      expect(comment).to eq(comment_content)
+      expect(comment.original_commit_id).to eq('6ed6909ceb8f285de6562cca41dd1e4331c00722')
     end
 
   end
@@ -167,7 +167,7 @@ describe Octokit::Client::Pulls do
       stub_put("https://api.github.com/repos/pengwynn/octokit/pulls/67/merge").
         to_return(:body => fixture("v3/pull_request_merged.json"))
       response = @client.merge_pull_request("pengwynn/octokit", 67)
-      expect(response["sha"]).to eq("2097821c7c5aa4dc02a2cc54d5ca51968b373f95")
+      expect(response.sha).to eq("2097821c7c5aa4dc02a2cc54d5ca51968b373f95")
     end
 
   end

@@ -2,7 +2,7 @@
 require File.expand_path('../lib/octokit/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.add_dependency 'sawyer', '~>0.0.5'
+  #gem.add_dependency 'sawyer', '~>0.0.5'
   gem.add_development_dependency 'json', '~> 1.7'
   gem.add_development_dependency 'maruku'
   gem.add_development_dependency 'rake'
