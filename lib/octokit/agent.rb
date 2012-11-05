@@ -10,6 +10,8 @@ module Octokit
         http.basic_auth authentication[:login], authentication[:password] if authenticated? and !oauthed?
       end
 
+      agent.links_parser = Octokit::Halogen.new
+
       agent
     end
   end

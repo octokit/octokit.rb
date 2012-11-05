@@ -164,5 +164,18 @@ describe Octokit::Client do
 
   end
 
+  describe "rels and link templates" do
+
+    it "loads rels from the root" do
+
+      stub_get("https://api.github.com/").
+        to_return(:body => fixture("v3/root.json"))
+
+      root = Octokit.agent.start.data
+      expect(root.rels[:user].href(:user => 'pengwynn')).to eq('https://api.github.com/users/pengwynn')
+    end
+
+  end
+
 
 end

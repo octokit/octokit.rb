@@ -1,4 +1,5 @@
 require 'octokit/authentication'
+require 'octokit/halogen'
 require 'octokit/agent'
 require 'octokit/gist'
 require 'octokit/repository'
