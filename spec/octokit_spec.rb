@@ -2,6 +2,7 @@
 require 'helper'
 
 describe Octokit do
+
   after do
     Octokit.reset
   end

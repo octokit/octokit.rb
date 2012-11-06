@@ -1,6 +1,12 @@
 require 'helper'
 
 describe Octokit::Client do
+
+  before(:each) do
+    stub_get("https://api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
+  end
+
   it "works with basic auth and password" do
     stub_get("https://foo:bar@api.github.com/repos/baz/quux/commits").
       with(:headers => {'Accept'=>'*/*'}).
