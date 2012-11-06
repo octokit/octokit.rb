@@ -98,6 +98,7 @@ end
 [pr]: http://help.github.com/send-pull-requests/
 
 ## Supported Ruby Versions
+
 This library aims to support and is [tested against][travis] the following Ruby
 versions:
 
@@ -115,6 +116,13 @@ run and pass on that implementation. When something breaks on your
 implementation, you will be personally responsible for providing patches in a
 timely fashion. If critical issues for a particular implementation exist at the
 time of a major release, support for that Ruby version may be dropped.
+
+### JSON dependency
+
+Since JSON is included in 1.9 now, we no longer include it as a hard
+dependency. Please require it explicitly if you're running Ruby 1.8
+
+    gem 'json', '~> 1.7'
 
 ## Contributors
 

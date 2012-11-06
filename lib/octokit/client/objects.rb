@@ -75,6 +75,60 @@ module Octokit
         }
         post("repos/#{Repository.new(repo)}/git/blobs", options.merge(parameters), 3).sha
       end
+
+      # Get a tag
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @param tag_sha [String] The SHA of the tag to fetch.
+      # @return [Hashie::Mash] Hash representing the tag.
+      # @see http://developer.github.com/v3/git/tags/#get-a-tag
+      # @example Fetch a tag
+      #   Octokit.tag('pengwynn/octokit', '23aad20633f4d2981b1c7209a800db3014774e96')
+      def tag(repo, tag_sha, options={})
+        get("repos/#{Repository.new repo}/git/tags/#{tag_sha}", options, 3)
+      end
+
+      # Create a tag
+      #
+      # Requires authenticated client.
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @param tag [String] Tag string.
+      # @param message [String] Tag message.
+      # @param object_sha [String] SHA of the git object this is tagging.
+      # @param type [String] Type of the object we're tagging. Normally this is
+      #   a `commit` but it can also be a `tree` or a `blob`.
+      # @param tagger_name [String] Name of the author of the tag.
+      # @param tagger_email [String] Email of the author of the tag.
+      # @param tagger_date [string] Timestamp of when this object was tagged.
+      # @return [Hashie::Mash] Hash representing new tag.
+      # @see Octokit::Client
+      # @see http://developer.github.com/v3/git/tags/#create-a-tag-object
+      # @example
+      #   @client.create_tag(
+      #     "pengwynn/octokit",
+      #     "v9000.0.0",
+      #     "Version 9000\n",
+      #     "f4cdf6eb734f32343ce3f27670c17b35f54fd82e",
+      #     "commit",
+      #     "Wynn Netherland",
+      #     "wynn.netherland@gmail.com",
+      #     "2012-06-03T17:03:11-07:00"
+      #   )
+      def create_tag(repo, tag, message, object_sha, type, tagger_name, tagger_email, tagger_date, options={})
+        options.merge!(
+          :tag => tag,
+          :message => message,
+          :object => object_sha,
+          :type => type,
+          :tagger => {
+            :name => tagger_name,
+            :email => tagger_email,
+            :date => tagger_date
+          }
+        )
+        post("repos/#{Repository.new repo}/git/tags", options, 3)
+      end
     end
   end
 end

@@ -13,10 +13,11 @@ module Octokit
       end
 
       options = {
-        :proxy => proxy,
         :ssl => { :verify => false },
         :url => url,
       }
+
+      options[:proxy] = proxy unless proxy.nil?
 
       options.merge!(:params => {:access_token => oauth_token}) if oauthed? && !authenticated?
       options.merge!(:params => unauthed_rate_limit_params) if !oauthed? && !authenticated? && unauthed_rate_limited?

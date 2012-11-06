@@ -130,4 +130,49 @@ describe Octokit::Client::Gists do
     end
   end
 
+  describe ".gist_comments" do
+    it "returns the list of gist comments" do
+      stub_get("/gists/12345/comments").
+        to_return(:body => fixture("v3/gist_comments.json"))
+      comments = @client.gist_comments(12345)
+      expect(comments.first.id).to eq(451398)
+    end
+  end
+
+  describe ".gist_comment" do
+    it "returns a gist comment" do
+      stub_get("/gists/comments/12345").
+        to_return(:body => fixture("v3/gist_comment.json"))
+      comment = @client.gist_comment(12345)
+      expect(comment.id).to eq(451398)
+    end
+  end
+
+  describe ".create_gist_comment" do
+    it "creates a gist comment" do
+      stub_post("/gists/12345/comments").
+        to_return(:body => fixture("v3/gist_comment_create.json"))
+      comment = @client.create_gist_comment(12345, "This is very helpful.")
+      expect(comment.id).to eq(586399)
+      expect(comment.body).to eq("This is very helpful.")
+    end
+  end
+
+  describe ".update_gist_comment" do
+    it "updates a gist comment" do
+      stub_patch("/gists/comments/12345").
+        to_return(:body => fixture("v3/gist_comment_update.json"))
+      comment = @client.update_gist_comment(12345, ":heart:")
+      expect(comment.body).to eq(":heart:")
+    end
+  end
+
+  describe ".delete_gist_comment" do
+    it "deletes a gist comment" do
+      stub_delete("/gists/comments/12345").to_return(:status => 204)
+      result = @client.delete_gist_comment(12345)
+      expect(result).to be_true
+    end
+  end
+
 end

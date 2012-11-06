@@ -18,6 +18,7 @@ require 'octokit/client/pulls'
 require 'octokit/client/repositories'
 require 'octokit/client/users'
 require 'octokit/client/events'
+require 'octokit/client/notifications'
 require 'octokit/client/authorizations'
 require 'octokit/client/refs'
 require 'octokit/client/contents'
@@ -54,6 +55,7 @@ module Octokit
     include Octokit::Client::Repositories
     include Octokit::Client::Users
     include Octokit::Client::Events
+    include Octokit::Client::Notifications
     include Octokit::Client::Authorizations
     include Octokit::Client::Refs
     include Octokit::Client::Contents
