@@ -1,10 +1,14 @@
 {
-  "user_url": "https://api.github.com/users/{user}",
-  "authenticated_user_url": "https://api.github.com/user",
-  "org_repos_url": "https://api.github.com/orgs/{org}/repos/{?type,page,per_page,sort}",
-  "emojis_url": "https://api.github.com/emojis",
   "repo_url": "https://api.github.com/repos/{owner}/{repo}",
   "user_repos_url": "https://api.github.com/users/{user}/repos/{?type,page,per_page,sort}",
   "repos_url": "https://api.github.com/user/repos/{?type,page,per_page,sort}",
-  "rate_limit_url": "https://api.github.com/rate_limit"
+  "keys_url": "https://api.github.com/user/keys{/key_id}",
+  "emails_url": "https://api.github.com/user/emails",
+  "rate_limit_url": "https://api.github.com/rate_limit",
+  "authenticated_user_url": "https://api.github.com/user",
+  "user_url": "https://api.github.com/users/{user}",
+  "org_repos_url": "https://api.github.com/orgs/{org}/repos/{?type,page,per_page,sort}",
+  "user_search_url": "https://api.github.com/legacy/user/search/{q}",
+  "following_url": "https://api.github.com/user/following{/target}",
+  "emojis_url": "https://api.github.com/emojis"
 }

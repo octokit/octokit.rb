@@ -4,6 +4,9 @@ require 'helper'
 describe Octokit::Client::Users do
 
   before do
+    stub_get("https://api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
+
     @client = Octokit::Client.new(:login => 'sferik')
   end
 
@@ -69,6 +72,8 @@ describe Octokit::Client::Users do
     context "with a username passed" do
 
       it "returns the user's followers" do
+        stub_get("/users/sferik").
+          to_return(:body => fixture("v3/user.json"))
         stub_get("https://api.github.com/users/sferik/followers").
           to_return(:body => fixture("v3/followers.json"))
         users = @client.followers("sferik")
@@ -80,6 +85,8 @@ describe Octokit::Client::Users do
     context "without a username passed" do
 
       it "returns the user's followers" do
+        stub_get("/users/sferik").
+          to_return(:body => fixture("v3/user.json"))
         stub_get("https://api.github.com/users/sferik/followers").
           to_return(:body => fixture("v3/followers.json"))
         users = @client.followers
@@ -95,6 +102,8 @@ describe Octokit::Client::Users do
     context "with a username passed" do
 
       it "returns the user's following" do
+        stub_get("/users/sferik").
+          to_return(:body => fixture("v3/user.json"))
         stub_get("https://api.github.com/users/sferik/following").
           to_return(:body => fixture("v3/following.json"))
         users = @client.following("sferik")
@@ -106,6 +115,8 @@ describe Octokit::Client::Users do
     context "without a username passed" do
 
       it "returns the user's following" do
+        stub_get("/users/sferik").
+          to_return(:body => fixture("v3/user.json"))
         stub_get("https://api.github.com/users/sferik/following").
           to_return(:body => fixture("v3/following.json"))
         users = @client.following
@@ -166,10 +177,12 @@ describe Octokit::Client::Users do
 
   describe ".starred?" do
 
-    context "with on user starring a repo" do
+    context "with a starred repo" do
 
       it "returns true" do
-        stub_get("https://api.github.com/user/starred/sferik/rails_admin").
+        stub_get("/users/sferik").
+          to_return(:body => fixture("v3/user.json"))
+        stub_get("https://api.github.com/users/sferik/starred/rails_admin").
           to_return(:status => 204, :body => "")
         starred = @client.starred?("sferik", "rails_admin")
         expect(starred).to be_true
@@ -177,10 +190,12 @@ describe Octokit::Client::Users do
 
     end
 
-    context "with on user not starring a repo" do
+    context "without a starred repo" do
 
       it "returns false" do
-        stub_get("https://api.github.com/user/starred/sferik/dogbrainz").
+        stub_get("/users/sferik").
+          to_return(:body => fixture("v3/user.json"))
+        stub_get("https://api.github.com/users/sferik/starred/dogbrainz").
           to_return(:status => 404, :body => "")
         starred = @client.starred?("sferik", "dogbrainz")
         expect(starred).to be_false
@@ -195,6 +210,8 @@ describe Octokit::Client::Users do
     context "with a username passed" do
 
       it "returns starred repositories" do
+        stub_get("/users/sferik").
+          to_return(:body => fixture("v3/user.json"))
         stub_get("https://api.github.com/users/sferik/starred").
           to_return(:body => fixture("v3/starred.json"))
         repositories = @client.starred("sferik")
@@ -206,6 +223,8 @@ describe Octokit::Client::Users do
     context "without a username passed" do
 
       it "returns starred repositories" do
+        stub_get("/users/sferik").
+          to_return(:body => fixture("v3/user.json"))
         stub_get("https://api.github.com/users/sferik/starred").
           to_return(:body => fixture("v3/starred.json"))
         repositories = @client.starred
@@ -344,9 +363,11 @@ describe Octokit::Client::Users do
   describe ".subscriptions" do
 
     it "returns the repositories the user watches for notifications" do
-      stub_get("https://api.github.com/users/pengwynn/subscriptions").
+      stub_get("/users/sferik").
+        to_return(:body => fixture("v3/user.json"))
+      stub_get("https://api.github.com/users/sferik/subscriptions").
         to_return(:body => fixture("v3/subscriptions.json"))
-      subscriptions = @client.subscriptions("pengwynn")
+      subscriptions = @client.subscriptions("sferik")
       expect(subscriptions.first.id).to eq(11560)
       expect(subscriptions.first.name).to eq("ujs_sort_helper")
     end

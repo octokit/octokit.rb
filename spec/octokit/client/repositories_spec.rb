@@ -4,6 +4,8 @@ require 'helper'
 describe Octokit::Client::Repositories do
 
   before do
+    stub_get("https://api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
     @client = Octokit::Client.new(:login => 'sferik')
   end
 

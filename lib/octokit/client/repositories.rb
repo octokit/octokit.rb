@@ -18,7 +18,8 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Hashie::Mash] Repository information
       def repository(repo, options={})
-        get("repos/#{Repository.new repo}", options).data
+        repo = Repository.new(repo)
+        root.rels[:repo].get(:uri => {:owner => repo.user, :repo => repo.name}).data
       end
       alias :repo :repository
 

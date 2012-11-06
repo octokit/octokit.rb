@@ -10,7 +10,8 @@ module Octokit
       # @example
       #   Octokit.search_users('pengwynn')
       def search_users(search, options={})
-        get("legacy/user/search/#{search}", options).data.users
+        options.merge! :uri => { :q => search }
+        root.rels[:user_search].get(options).data.users
       end
 
       # Get a single user
@@ -22,9 +23,9 @@ module Octokit
       #   Octokit.user("sferik")
       def user(user=nil)
         if user
-          get("users/#{user}", {}).data
+          root.rels[:user].get(:uri => {:user => user }).data
         else
-          get("user", {}).data
+          root.rels[:authenticated_user].get.data
         end
       end
 
@@ -42,7 +43,7 @@ module Octokit
       # @example
       #   Octokit.user(:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false)
       def update_user(options)
-        patch("user", options).data
+        root.rels[:authenticated_user].patch(options).data
       end
 
       # Get a user's followers.
@@ -52,8 +53,8 @@ module Octokit
       # @see http://developer.github.com/v3/users/followers/#list-followers-of-a-user
       # @example
       #   Octokit.followers('pengwynn')
-      def followers(user=login, options={})
-        get("users/#{user}/followers", options).data
+      def followers(username = login, options={})
+        user(username).rels[:followers].get.data
       end
 
       # Get list of users a user is following.
@@ -63,14 +64,14 @@ module Octokit
       # @see  http://developer.github.com/v3/users/followers/#list-users-following-another-user
       # @example
       #   Octokit.following('pengwynn')
-      def following(user=login, options={})
-        get("users/#{user}/following", options).data
+      def following(username = login, options={})
+        user(username).rels[:following].get.data
       end
 
       # Check if you are following a user.
       #
       # Requries an authenticated client.
-      # 
+      #
       # @param user [String] Username of the user that you want to check if you are following.
       # @return [Boolean] True if you are following the user, false otherwise.
       # @see Octokit::Client
@@ -78,13 +79,11 @@ module Octokit
       # @example
       #   @client.follows?('pengwynn')
       def follows?(*args)
+        # TODO: wire up a public checking endpoint
         target = args.pop
         user = args.first
         user ||= login
-        return if user.nil?
-        get("user/following/#{target}").status == 204
-      rescue Octokit::NotFound
-        false
+        root.rels[:following].get(:uri => {:target => target}).status == 204
       end
 
       # Follow a user.
@@ -97,8 +96,8 @@ module Octokit
       # @see http://developer.github.com/v3/users/followers/#follow-a-user
       # @example
       #   @client.follow('holman')
-      def follow(user, options={})
-        put("user/following/#{user}", options).status == 204
+      def follow(target, options={})
+        root.rels[:following].put(options, :uri => {:target => target}).status == 204
       end
 
       # Unfollow a user.
@@ -111,8 +110,8 @@ module Octokit
       # @see http://developer.github.com/v3/users/followers/#unfollow-a-user
       # @example
       #   @client.unfollow('holman')
-      def unfollow(user, options={})
-        delete("user/following/#{user}", options).status == 204
+      def unfollow(target, options={})
+        root.rels[:following].delete(options, :uri => {:target => target}).status == 204
       end
 
       # Get list of repos starred by a user.
@@ -123,7 +122,7 @@ module Octokit
       # @example
       #   Octokit.starred('pengwynn')
       def starred(user=login, options={})
-        get("users/#{user}/starred", options).data
+        user(user).rels[:starred].get(options).data
       end
 
       # Check if you are starring a repo.
@@ -138,13 +137,12 @@ module Octokit
       # @example
       #   @client.starred?('pengwynn', 'octokit')
       def starred?(user, repo, options={})
-        get("user/starred/#{user}/#{repo}", options).status == 204
-      rescue Octokit::NotFound
-        false
+        options.merge! :uri => {:repo => repo}
+        user(user).rels[:starred].get(options).status == 204
       end
 
       # Get list of repos watched by a user.
-      # 
+      #
       # Legacy, using github.beta media type. Use `Users#starred` instead.
       #
       # @param user [String] Username of the user to get the list of repositories they are watching.
@@ -154,6 +152,7 @@ module Octokit
       # @example
       #   Octokit.watched('pengwynn')
       def watched(user=login, options={})
+        # TODO: Deprecated?
         get("users/#{user}/watched", options).data
       end
 
@@ -181,7 +180,7 @@ module Octokit
       #   public_key['key']
       #   # => "ssh-rsa AAA..."
       def key(key_id, options={})
-        get("user/keys/#{key_id}", options).data
+        root.rels[:keys].get(:uri => { :key_id => key_id }).data
       end
 
       # Get list of public keys for user.
@@ -194,7 +193,7 @@ module Octokit
       # @example
       #   @client.keys
       def keys(options={})
-        get("user/keys", options).data
+        root.rels[:keys].get(options).data
       end
 
       # Add public key to user account.
@@ -209,7 +208,8 @@ module Octokit
       # @example
       #   @client.add_key('Personal projects key', 'ssh-rsa AAA...')
       def add_key(title, key, options={})
-        post("user/keys", options.merge({:title => title, :key => key})).data
+        options.merge! :title => title, :key => key
+        root.rels[:keys].post(options).data
       end
 
       # Update a public key
@@ -225,7 +225,7 @@ module Octokit
       # @example
       #   @client.update_key(1, :title => 'new title', :key => "ssh-rsa BBB")
       def update_key(key_id, options={})
-        patch("/user/keys/#{key_id}", options).data
+        root.rels[:keys].patch(options, :uri => { :key_id => key_id }).data
       end
 
       # Remove a public key from user account.
@@ -238,8 +238,8 @@ module Octokit
       # @see http://developer.github.com/v3/users/keys/#delete-a-public-key
       # @example
       #   @client.remove_key(1)
-      def remove_key(id, options={})
-        delete("user/keys/#{id}", options).status == 204
+      def remove_key(key_id, options={})
+        root.rels[:keys].delete(options, :uri => { :key_id => key_id }).status == 204
       end
 
       # List email addresses for a user.
@@ -252,7 +252,7 @@ module Octokit
       # @example
       #   @client.emails
       def emails(options={})
-        get("user/emails", options).data
+        root.rels[:emails].get(options).data
       end
 
       # Add email address to user.
@@ -266,7 +266,8 @@ module Octokit
       # @example
       #   @client.add_email('new_email@user.com')
       def add_email(email, options={})
-        post("user/emails", options.merge({:email => email})).data
+        options.merge! :email => email
+        root.rels[:emails].post(options).data
       end
 
       # Remove email from user.
@@ -280,7 +281,8 @@ module Octokit
       # @example
       #   @client.remove_email('old_email@user.com')
       def remove_email(email, options={})
-        delete("user/emails", options.merge({:email => email})).status == 204
+        options.merge! :email => email
+        root.rels[:emails].delete(options).status == 204
       end
 
       # List repositories being watched by a user.
@@ -294,7 +296,7 @@ module Octokit
       # @example
       #   @client.subscriptions("pengwynn")
       def subscriptions(user=login, options={})
-        get("users/#{user}/subscriptions", options).data
+        user(user).rels[:subscriptions].get(options).data
       end
 
     end
