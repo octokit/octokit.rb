@@ -10,7 +10,7 @@ module Octokit
       # @example
       #   Octokit.search_users('pengwynn')
       def search_users(search, options={})
-        options.merge! :uri => { :q => search }
+        options.merge! :uri => { :keyword => search }
         root.rels[:user_search].get(options).data.users
       end
 

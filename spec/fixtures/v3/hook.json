@@ -14,5 +14,6 @@
   },
   "name": "railsbp",
   "updated_at": "2012-05-13T13:09:51Z",
-  "url": "https://api.github.com/repos/railsbp/railsbp.com/hooks/154284"
+  "url": "https://api.github.com/repos/sferik/rails_admin/hooks/154284",
+  "test_url": "https://api.github.com/repos/sferik/rails_admin/hooks/154284/test"
 }

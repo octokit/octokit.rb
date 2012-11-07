@@ -34,6 +34,7 @@ module Octokit
     end
 
     alias :user :username
+    alias :owner :username
     alias :repo :name
   end
 end

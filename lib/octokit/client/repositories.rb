@@ -7,8 +7,9 @@ module Octokit
       # @see http://developer.github.com/v3/search/#search-repositories
       # @param q [String] Search keyword
       # @return [Array<Hashie::Mash>] List of repositories found
-      def search_repositories(q, options={})
-        get("legacy/repos/search/#{q}", options).data.repositories
+      def search_repositories(keyword, options={})
+        options.merge! :keyword => keyword
+        root.rels[:repo_search].get(:uri => options).data.repositories
       end
       alias :search_repos :search_repositories
 
@@ -38,7 +39,7 @@ module Octokit
       # @option options [String] :default_branch Update the default branch for this repository.
       # @return [Hashie::Mash] Repository information
       def edit_repository(repo, options={})
-        patch("repos/#{Repository.new repo}", options).data
+        repository(repo).rels[:self].patch(options).data
       end
       alias :edit :edit_repository
       alias :update_repository :edit_repository
@@ -53,11 +54,7 @@ module Octokit
       # @param username [String] Optional username for which to list repos
       # @return [Array<Hashie::Mash>] List of repositories
       def repositories(username=nil, options={})
-        if username.nil?
-          get('user/repos', options).data
-        else
-          get("users/#{username}/repos", options).data
-        end
+        user(username).rels[:repos].get(options).data
       end
       alias :list_repositories :repositories
       alias :list_repos :repositories
@@ -68,12 +65,9 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully starred
       def star(repo, options={})
-        begin
-          put("user/starred/#{Repository.new repo}", options).data
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        repo = Repository.new(repo)
+        uri_options = { :uri => { :owner => repo.owner, :repo => repo.name } }
+        root.rels[:starred].put(nil, uri_options).status == 204
       end
 
       # Unstar a repository
@@ -81,40 +75,9 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unstarred
       def unstar(repo, options={})
-        begin
-          delete("user/starred/#{Repository.new repo}", options).data
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
-      end
-
-      # Watch a repository
-      #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @return [Boolean] `true` if successfully watched
-      # @deprecated Use #star instead
-      def watch(repo, options={})
-        begin
-          put("user/watched/#{Repository.new repo}", options)
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
-      end
-
-      # Unwatch a repository
-      #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @return [Boolean] `true` if successfully unwatched
-      # @deprecated Use #unstar instead
-      def unwatch(repo, options={})
-        begin
-          delete "user/watched/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        repo = Repository.new(repo)
+        uri_options = { :uri => { :owner => repo.owner, :repo => repo.name } }
+        root.rels[:starred].delete(nil, uri_options).status == 204
       end
 
       # Fork a repository
@@ -122,7 +85,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Hashie::Mash] Repository info for the new fork
       def fork(repo, options={})
-        post("repos/#{Repository.new repo}/forks", options).data
+        repository(repo).rels[:forks].post(options).data
       end
 
       # Create a repository for a user or organization
@@ -141,13 +104,13 @@ module Octokit
       # @return [Hashie::Mash] Repository info for the new repository
       # @see http://developer.github.com/v3/repos/#create
       def create_repository(name, options={})
-        organization = options.delete :organization
+        org_name = options.delete :organization
         options.merge! :name => name
 
-        if organization.nil?
-          post('user/repos', options).data
+        if org_name.nil?
+          root.rels[:repos].post(options).data
         else
-          post("orgs/#{organization}/repos", options).data
+          organization(org_name).rels[:repos].post(options).data
         end
       end
       alias :create_repo :create_repository
@@ -161,12 +124,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if repository was deleted
       def delete_repository(repo, options={})
-        begin
-          delete "repos/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        repository(repo).rels[:self].delete(options).status == 204
       end
       alias :delete_repo :delete_repository
 
@@ -191,7 +149,7 @@ module Octokit
       # Get deploy keys on a repo
       #
       # Requires authenticated client.
-      # 
+      #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Array<Hashie::Mash>] Array of hashes representing deploy keys.
       # @see Octokit::Client
@@ -201,7 +159,7 @@ module Octokit
       # @example
       #   @client.list_deploy_keys('pengwynn/octokit')
       def deploy_keys(repo, options={})
-        get("repos/#{Repository.new repo}/keys", options).data
+        repository(repo).rels[:keys].get(options).data
       end
       alias :list_deploy_keys :deploy_keys
 
@@ -218,7 +176,8 @@ module Octokit
       # @example
       #    @client.add_deploy_key('pengwynn/octokit', 'Staging server', 'ssh-rsa AAA...')
       def add_deploy_key(repo, title, key, options={})
-        post("repos/#{Repository.new repo}/keys", options.merge(:title => title, :key => key)).data
+        options.merge! :title => title, :key => key
+        repository(repo).rels[:keys].post(options).data
       end
 
       # Remove deploy key from a repo
@@ -233,7 +192,8 @@ module Octokit
       # @example
       #   @client.remove_deploy_key('pengwynn/octokit', 100000)
       def remove_deploy_key(repo, id, options={})
-        delete("repos/#{Repository.new repo}/keys/#{id}", options).status == 204
+        uri_options = { :uri => { :key_id => id } }
+        repository(repo).rels[:keys].delete(options, uri_options).status == 204
       end
 
       # List collaborators
@@ -251,7 +211,7 @@ module Octokit
       # @example
       #   @client.collabs('pengwynn/octokit')
       def collaborators(repo, options={})
-        get("repos/#{Repository.new repo}/collaborators", options).data
+        repository(repo).rels[:collaborators].get(options).data
       end
       alias :collabs :collaborators
 
@@ -269,7 +229,8 @@ module Octokit
       # @example
       #   @client.add_collab('pengwynn/octokit', 'holman')
       def add_collaborator(repo, collaborator, options={})
-        put("repos/#{Repository.new repo}/collaborators/#{collaborator}", options).data
+        uri_options = { :uri => {:collaborator => collaborator } }
+        repository(repo).rels[:collaborators].put(options, uri_options).status == 204
       end
       alias :add_collab :add_collaborator
 
@@ -287,7 +248,8 @@ module Octokit
       # @example
       #   @client.remove_collab('pengwynn/octokit', 'holman')
       def remove_collaborator(repo, collaborator, options={})
-        delete("repos/#{Repository.new repo}/collaborators/#{collaborator}", options).status
+        uri_options = { :uri => {:collaborator => collaborator } }
+        repository(repo).rels[:collaborators].delete(options, uri_options).status == 204
       end
       alias :remove_collab :remove_collaborator
 
@@ -306,7 +268,7 @@ module Octokit
       # @example
       #   @client.teams('octokit/pengwynn')
       def repository_teams(repo, options={})
-        get("repos/#{Repository.new repo}/teams", options).data
+        repository(repo).rels[:teams].get(options).data
       end
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
@@ -325,9 +287,10 @@ module Octokit
       # @example
       #   Octokit.contribs('pengwynn/octokit')
       # @example
-      #   @client.contribs('pengwynn/octokit') 
+      #   @client.contribs('pengwynn/octokit')
       def contributors(repo, anon=false, options={})
-        get("repos/#{Repository.new repo}/contributors", options.merge(:anon => anon)).data
+        options.merge! :query => {:anon => anon.to_s}
+        repository(repo).rels[:contributors].get(options).data
       end
       alias :contribs :contributors
 
@@ -344,26 +307,7 @@ module Octokit
       # @example
       #   @client.stargazers('pengwynn/octokit')
       def stargazers(repo, options={})
-        get("repos/#{Repository.new repo}/stargazers", options).data
-      end
-
-      # @deprecated Use #stargazers instead
-      #
-      # List watchers of repo.  
-      #
-      # Requires authenticated client for private repos.
-      #
-      # @param repo [String, Hash, Repository] A GitHub repository.
-      # @return [Array<Hashie::Mash>] Array of hashes representing users.
-      # @see Octokit::Client::Repositories#stargazers
-      # @see Octokit::Client
-      # @see http://developer.github.com/v3/repos/watching/#list-watchers
-      # @example
-      #   Octokit.watchers('pengwynn/octokit')
-      # @example
-      #   @client.watchers('pengwynn/octokit')
-      def watchers(repo, options={})
-        get("repos/#{Repository.new repo}/watchers", options).data
+        repository(repo).rels[:stargazers].get(options).data
       end
 
       # List forks
@@ -381,7 +325,7 @@ module Octokit
       # @example
       #   @client.forks('pengwynn/octokit')
       def forks(repo, options={})
-        get("repos/#{Repository.new repo}/forks", options).data
+        repository(repo).rels[:forks].get(options).data
       end
       alias :network :forks
 
@@ -398,7 +342,7 @@ module Octokit
       # @example
       #   @client.languages('pengwynn/octokit')
       def languages(repo, options={})
-        get("repos/#{Repository.new repo}/languages", options).data
+        repository(repo).rels[:languages].get(options).data
       end
 
       # List tags
@@ -414,7 +358,7 @@ module Octokit
       # @example
       #   @client.tags('pengwynn/octokit')
       def tags(repo, options={})
-        get("repos/#{Repository.new repo}/tags", options).data
+        repository(repo).rels[:tags].get(options).data
       end
 
       # List branches
@@ -430,7 +374,7 @@ module Octokit
       # @example
       #   @client.branches('pengwynn/octokit')
       def branches(repo, options={})
-        get("repos/#{Repository.new repo}/branches", options).data
+        repository(repo).rels[:branches].get(options).data
       end
 
       # Get a single branch from a repository
@@ -442,7 +386,8 @@ module Octokit
       # @example Get branch 'master` from pengwynn/octokit
       #   Octokit.issue("pengwynn/octokit", "master")
       def branch(repo, branch, options={})
-        get("repos/#{Repository.new repo}/branches/#{branch}", options).data
+        options.merge! :uri => { :branch => branch }
+        repository(repo).rels[:branches].get(options).data
       end
       alias :get_branch :branch
 
@@ -457,7 +402,7 @@ module Octokit
       # @example
       #   @client.hooks('pengwynn/octokit')
       def hooks(repo, options={})
-        get("repos/#{Repository.new repo}/hooks", options).data
+        repository(repo).rels[:hooks].get(options).data
       end
 
       # Get single hook
@@ -472,7 +417,8 @@ module Octokit
       # @example
       #   @client.hook('pengwynn/octokit', 100000)
       def hook(repo, id, options={})
-        get("repos/#{Repository.new repo}/hooks/#{id}", options).data
+        options.merge! :uri => { :hook_id => id }
+        repository(repo).rels[:hooks].get(options).data
       end
 
       # Create a hook
@@ -508,7 +454,7 @@ module Octokit
       #   )
       def create_hook(repo, name, config, options={})
         options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
-        post("repos/#{Repository.new repo}/hooks", options).data
+        repository(repo).rels[:hooks].post(options).data
       end
 
       # Edit a hook
@@ -522,7 +468,7 @@ module Octokit
       # @param config [Hash] A Hash containing key/value pairs to provide
       #   settings for this hook. These settings vary between the services and
       #   are defined in the {https://github.com/github/github-services github-services} repo.
-      # @option options [Array<String>] :events ('["push"]') Determines what 
+      # @option options [Array<String>] :events ('["push"]') Determines what
       #   events the hook is triggered for.
       # @option options [Array<String>] :add_events Determines a list of events
       #   to be added to the list of events that the Hook triggers for.
@@ -550,7 +496,7 @@ module Octokit
       #   )
       def edit_hook(repo, id, name, config, options={})
         options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
-        patch("repos/#{Repository.new repo}/hooks/#{id}", options).data
+        repository(repo).rels[:hooks].patch(options, :uri => { :hook_id => id }).data
       end
 
       # Delete hook
@@ -565,7 +511,7 @@ module Octokit
       # @example
       #   @client.remove_hook('pengwynn/octokit', 1000000)
       def remove_hook(repo, id, options={})
-        delete("repos/#{Repository.new repo}/hooks/#{id}", options).data
+        repository(repo).rels[:hooks].delete(options, :uri => {:hook_id => id}).data
       end
 
       # Test hook
@@ -580,7 +526,7 @@ module Octokit
       # @example
       #   @client.test_hook('pengwynn/octokit', 1000000)
       def test_hook(repo, id, options={})
-        post("repos/#{Repository.new repo}/hooks/#{id}/test", options).data
+        hook(repo, id).rels[:test].post(options).data
       end
 
       # Get all Issue Events for a given Repository
@@ -592,7 +538,7 @@ module Octokit
       # @example Get all Issue Events for Octokit
       #   Octokit.repository_issue_events("pengwynn/octokit")
       def repository_issue_events(repo, options={})
-        get("repos/#{Repository.new repo}/issues/events", options).data
+        repository(repo).rels[:issue_events].get(options).data
       end
       alias :repo_issue_events :repository_issue_events
 
@@ -611,7 +557,7 @@ module Octokit
       # @example
       #   @client.repository_assignees('pengwynn/octokit')
       def repository_assignees(repo, options={})
-        get("repos/#{Repository.new repo}/assignees", options).data
+        repository(repo).rels[:assignees].get(options).data
       end
       alias :repo_assignees :repository_assignees
 
@@ -626,7 +572,7 @@ module Octokit
       # @example
       #   @client.subscribers("pengwynn/octokit")
       def subscribers(repo, options={})
-        get("repos/#{Repository.new repo}/subscribers", options).data
+        repository(repo).rels[:subscribers].get(options).data
       end
 
       # Get a repository subscription
@@ -640,7 +586,7 @@ module Octokit
       # @example
       #   @client.subscription("pengwynn/octokit")
       def subscription(repo, options={})
-        get("repos/#{Repository.new repo}/subscription", options).data
+        repository(repo).rels[:subscription].get(options).data
       end
 
       # Update repository subscription
@@ -661,7 +607,7 @@ module Octokit
       # @example Subscribe to notifications for a repository
       #   @client.update_subscription("pengwynn/octokit", {subscribed: true})
       def update_subscription(repo, options={})
-        put("repos/#{Repository.new repo}/subscription", options).data
+        repository(repo).rels[:subscription].put(options).data
       end
 
       # Delete a repository subscription
@@ -675,11 +621,7 @@ module Octokit
       # @example
       #   @client.delete_subscription("pengwynn/octokit")
       def delete_subscription(repo, options={})
-        begin
-          delete("repos/#{Repository.new repo}/subscription", options).status == 204
-        rescue
-          false
-        end
+        repository(repo).rels[:subscription].delete(options).status == 204
       end
 
     end

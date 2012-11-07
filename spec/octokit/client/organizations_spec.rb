@@ -10,6 +10,8 @@ describe Octokit::Client::Organizations do
   describe ".organization" do
 
     it "returns an organization" do
+      stub_get("https://api.github.com/").
+        to_return(:body => fixture("v3/root.json"))
       stub_get("https://api.github.com/orgs/codeforamerica").
         to_return(:body => fixture("v3/organization.json"))
       organization = @client.organization("codeforamerica")

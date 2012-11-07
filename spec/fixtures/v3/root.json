@@ -1,14 +1,17 @@
 {
   "repo_url": "https://api.github.com/repos/{owner}/{repo}",
-  "user_repos_url": "https://api.github.com/users/{user}/repos/{?type,page,per_page,sort}",
-  "repos_url": "https://api.github.com/user/repos/{?type,page,per_page,sort}",
+  "user_repos_url": "https://api.github.com/users/{user}/repos{?type,page,per_page,sort}",
+  "repos_url": "https://api.github.com/user/repos{?type,page,per_page,sort}",
   "keys_url": "https://api.github.com/user/keys{/key_id}",
   "emails_url": "https://api.github.com/user/emails",
   "rate_limit_url": "https://api.github.com/rate_limit",
   "authenticated_user_url": "https://api.github.com/user",
   "user_url": "https://api.github.com/users/{user}",
+  "org_url": "https://api.github.com/orgs/{org}",
   "org_repos_url": "https://api.github.com/orgs/{org}/repos/{?type,page,per_page,sort}",
-  "user_search_url": "https://api.github.com/legacy/user/search/{q}",
+  "user_search_url": "https://api.github.com/legacy/user/search/{keyword}",
+  "repo_search_url": "https://api.github.com/legacy/repos/search/{keyword}{?language,start_page}",
   "following_url": "https://api.github.com/user/following{/target}",
+  "starred_url": "https://api.github.com/user/starred{/owner}{/repo}",
   "emojis_url": "https://api.github.com/emojis"
 }

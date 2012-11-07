@@ -11,7 +11,8 @@ module Octokit
       # @example
       #   Octokit.org('github')
       def organization(org, options={})
-        get("orgs/#{org}", options).data
+        options.merge! :uri => { :org => org }
+        root.rels[:org].get(options).data
       end
       alias :org :organization
 

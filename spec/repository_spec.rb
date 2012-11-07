@@ -12,9 +12,10 @@ describe Octokit::Repository do
       expect(@repository.username).to eq("sferik")
     end
 
-    it "responds to repo and user" do
+    it "responds to repo, user, and owner" do
       expect(@repository.repo).to eq("octokit")
       expect(@repository.user).to eq("sferik")
+      expect(@repository.owner).to eq("sferik")
     end
 
     it "renders slug as string" do

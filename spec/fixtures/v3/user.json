@@ -17,8 +17,9 @@
     "public_repos": 37,
     "type": "User",
     "url": "https://api.github.com/users/sferik",
+    "repos_url": "https://api.github.com/users/sferik/repos",
     "following_url": "https://api.github.com/users/sferik/following",
     "followers_url": "https://api.github.com/users/sferik/followers",
-    "starred_url": "https://api.github.com/users/sferik/starred{/repo}",
+    "starred_url": "https://api.github.com/users/sferik/starred{/owner}{/repo}",
     "subscriptions_url": "https://api.github.com/users/sferik/subscriptions"
 }
