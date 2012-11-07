@@ -4,6 +4,8 @@ require 'helper'
 describe Octokit::Client::Authorizations do
 
   before do
+    stub_get("https://ctshryock:secret@api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
     @client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
   end
 
@@ -52,8 +54,8 @@ describe Octokit::Client::Authorizations do
   it "deletes an existing authorization" do
     stub_delete('/authorizations/999999').
       to_return(:status => 204)
-    status = @client.delete_authorization(999999)
-    expect(status).to eq(204)
+    result = @client.delete_authorization(999999)
+    expect(result).to be_true
   end
 
 end

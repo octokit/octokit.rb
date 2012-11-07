@@ -13,5 +13,6 @@
   "repo_search_url": "https://api.github.com/legacy/repos/search/{keyword}{?language,start_page}",
   "following_url": "https://api.github.com/user/following{/target}",
   "starred_url": "https://api.github.com/user/starred{/owner}{/repo}",
+  "authorizations_url": "https://api.github.com/authorizations{/authorization_id}",
   "emojis_url": "https://api.github.com/emojis"
 }

@@ -14,7 +14,7 @@ module Octokit
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorizations
       def authorizations
-        get('authorizations').data
+        root.rels[:authorizations].get.data
       end
 
 
@@ -29,7 +29,7 @@ module Octokit
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorization(999999)
       def authorization(number)
-        get("authorizations/#{number}").data
+        root.rels[:authorizations].get(:uri => { :authorization_id => number }).data
       end
 
       # Create an authorization for the authenticated user.
@@ -52,7 +52,7 @@ module Octokit
         # Techincally we can omit scopes as GitHub has a default, however the
         # API will reject us if we send a POST request with an empty body.
         options = {:scopes => ""}.merge(options)
-        post('authorizations', options).data
+        root.rels[:authorizations].post(options).data
       end
 
       # Update an authorization for the authenticated user.
@@ -77,7 +77,7 @@ module Octokit
         # Techincally we can omit scopes as GitHub has a default, however the
         # API will reject us if we send a POST request with an empty body.
         options = {:scopes => ""}.merge(options)
-        patch("authorizations/#{number}", options).data
+        root.rels[:authorizations].patch(options, :uri => { :authorization_id => number }).data
       end
 
       # Delete an authorization for the authenticated user.
@@ -93,7 +93,7 @@ module Octokit
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.delete_authorization(999999)
       def delete_authorization(number)
-        delete("authorizations/#{number}").status
+        root.rels[:authorizations].delete(nil, :uri => { :authorization_id => number }).status == 204
       end
 
     end
