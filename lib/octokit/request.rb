@@ -25,6 +25,7 @@ module Octokit
     private
 
     def request(method, path, options, version, authenticate)
+      puts "Deprecated: Please use Agent or Sawyer Resource Relation -- #{method.to_s.upcase} #{path}"
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
       response = agent.call(method, path, options) do |request|
         request.headers['Host'] = Octokit.request_host if Octokit.request_host
