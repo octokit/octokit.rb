@@ -12,8 +12,8 @@ module Octokit
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       def commits(repo, sha_or_branch=nil, options={})
-        options[:sha] = sha_or_branch if sha_or_branch
-        get("repos/#{Repository.new(repo)}/commits", options).data
+        options[:uri][:sha] = sha_or_branch if sha_or_branch
+        repository(repo).rels[:commits].get(options).data
       end
       alias :list_commits :commits
 
@@ -24,7 +24,8 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the commit
       # @see http://developer.github.com/v3/repos/commits/
       def commit(repo, sha, options={})
-        get("repos/#{Repository.new(repo)}/commits/#{sha}", options).data
+        options.merge! :uri => { :sha => sha }
+        repository(repo).rels[:commits].get(options).data
       end
 
       # Create a commit

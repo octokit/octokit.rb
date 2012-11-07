@@ -4,6 +4,10 @@ require 'helper'
 describe Octokit::Client::Commits do
 
   before do
+    stub_get("https://api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
+    stub_get("https://api.github.com/repos/sferik/rails_admin").
+      to_return(:body => fixture("v3/repository.json"))
     @client = Octokit::Client.new(:login => 'sferik')
   end
 
