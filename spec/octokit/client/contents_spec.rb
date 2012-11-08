@@ -40,11 +40,11 @@ describe Octokit::Client::Contents do
   describe ".archive_link" do
 
     it "returns the headers of the request" do
-      stub_get("/repos/pengwynn/octokit/tarball/master").
+      stub_get("/repos/sferik/rails_admin/tarball/master").
         to_return(:status => 302, :body => '', :headers =>
-          { 'location' => "https://nodeload.github.com/repos/pengwynn/octokit/tarball/"})
-      archive_link = @client.archive_link('pengwynn/octokit', :ref => "master")
-      expect(archive_link).to eq("https://nodeload.github.com/repos/pengwynn/octokit/tarball/")
+          { 'location' => "https://nodeload.github.com/repos/sferik/rails_admin/tarball/"})
+      archive_link = @client.archive_link('sferik/rails_admin', :ref => "master")
+      expect(archive_link).to eq("https://nodeload.github.com/repos/sferik/rails_admin/tarball/")
     end
 
   end
