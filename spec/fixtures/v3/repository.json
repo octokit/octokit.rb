@@ -53,5 +53,6 @@
     "compare_url": "https://api.github.com/repos/sferik/rails_admin/compare/{base}...{head}",
     "merges_url": "https://api.github.com/repos/sferik/rails_admin/merges",
     "archive_url": "https://api.github.com/repos/sferik/rails_admin/{archive_format}{/ref}",
+    "downloads_url": "https://api.github.com/repos/sferik/rails_admin/downloads{/download_id}",
     "watchers": 2299
 }
