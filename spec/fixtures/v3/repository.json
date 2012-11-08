@@ -46,5 +46,11 @@
     "contributors_url": "https://api.github.com/repos/sferik/rails_admin/contributors",
     "stargazers_url": "https://api.github.com/repos/sferik/rails_admin/stargazers",
     "commits_url": "https://api.github.com/repos/sferik/rails_admin/commits{/sha}",
+    "git_commits_url": "https://api.github.com/repos/sferik/rails_admin/git/commits{/sha}",
+    "comments_url": "https://api.github.com/repos/sferik/rails_admin/comments{/comment_id}",
+    "contents_url": "https://api.github.com/repos/sferik/rails_admin/contents/{+path}",
+    "readme_url": "https://api.github.com/repos/sferik/rails_admin/readme",
+    "compare_url": "https://api.github.com/repos/sferik/rails_admin/compare/{base}...{head}",
+    "merges_url": "https://api.github.com/repos/sferik/rails_admin/merges",
     "watchers": 2299
 }

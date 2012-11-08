@@ -4,15 +4,19 @@ require 'helper'
 describe Octokit::Client::Contents do
 
   before do
+    stub_get("https://api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
+    stub_get("/repos/sferik/rails_admin").
+      to_return(:body => fixture("v3/repository.json"))
     @client = Octokit::Client.new(:login => 'sferik')
   end
 
   describe ".readme" do
 
     it "returns the default readme" do
-      stub_get("/repos/pengwynn/octokit/readme").
+      stub_get("/repos/sferik/rails_admin/readme").
         to_return(:body => fixture("v3/readme.json"))
-      readme = @client.readme('pengwynn/octokit')
+      readme = @client.readme('sferik/rails_admin')
       expect(readme.encoding).to eq("base64")
       expect(readme.type).to eq("file")
     end
@@ -22,9 +26,9 @@ describe Octokit::Client::Contents do
   describe ".contents" do
 
     it "returns the contents of a file" do
-      stub_get("/repos/pengwynn/octokit/contents/lib/octokit.rb").
+      stub_get("/repos/sferik/rails_admin/contents/lib/octokit.rb").
         to_return(:body => fixture("v3/contents.json"))
-      contents = @client.contents('pengwynn/octokit', :path => "lib/octokit.rb")
+      contents = @client.contents('sferik/rails_admin', :path => "lib/octokit.rb")
       expect(contents.path).to eq("lib/octokit.rb")
       expect(contents.name).to eq("lib/octokit.rb")
       expect(contents.encoding).to eq("base64")

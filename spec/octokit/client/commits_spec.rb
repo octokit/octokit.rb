@@ -36,11 +36,11 @@ describe Octokit::Client::Commits do
   describe ".create_commit" do
 
     it "creates a commit" do
-      stub_post("/repos/octocat/Hello-World/git/commits").
+      stub_post("/repos/sferik/rails_admin/git/commits").
         with(:body => { :message => "My commit message", :tree => "827efc6d56897b048c772eb4087f854f46256132", :parents => ["7d1b31e74ee336d15cbd21741bc88a537ed063a0"] },
              :headers => { "Content-Type" => "application/json" }).
         to_return(:body => fixture("v3/commit_create.json"))
-      commit = @client.create_commit("octocat/Hello-World", "My commit message", "827efc6d56897b048c772eb4087f854f46256132", "7d1b31e74ee336d15cbd21741bc88a537ed063a0")
+      commit = @client.create_commit("sferik/rails_admin", "My commit message", "827efc6d56897b048c772eb4087f854f46256132", "7d1b31e74ee336d15cbd21741bc88a537ed063a0")
       expect(commit.sha).to eq("7638417db6d59f3c431d3e1f261cc637155684cd")
       expect(commit.message).to eq("My commit message")
       expect(commit.parents.size).to eq(1)
@@ -63,9 +63,11 @@ describe Octokit::Client::Commits do
   describe ".commit_comments" do
 
     it "returns a list of comments for a specific commit" do
-      stub_get("/repos/sferik/rails_admin/commits/629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3/comments").
+      stub_get("/repos/sferik/rails_admin/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
+        to_return(:body => fixture("v3/commit.json"))
+      stub_get("/repos/sferik/rails_admin/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd/comments").
         to_return(:body => fixture("v3/commit_comments.json"))
-      commit_comments = @client.commit_comments("sferik/rails_admin", "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3")
+      commit_comments = @client.commit_comments("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
       expect(commit_comments.first.user.login).to eq("bbenezech")
     end
 
@@ -85,13 +87,15 @@ describe Octokit::Client::Commits do
   describe ".create_commit_comment" do
 
     it "creates a commit comment" do
-      stub_post("/repos/sferik/rails_admin/commits/629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3/comments").
-        with(:body => { :body => "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n", :commit_id => "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3", :line => 1, :path => ".rspec", :position => 4 },
-             :headers => { "Content-Type" => "application/json" }).
+      stub_get("/repos/sferik/rails_admin/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
+        to_return(:body => fixture("v3/commit.json"))
+      stub_request(:post, "https://api.github.com/repos/sferik/rails_admin/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd/comments").
+        with(:body => "{\"body\":\"Hey Eric,\\r\\n\\r\\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\\r\\n\",\"commit_id\":\"3cdfabd973bc3caac209cba903cfdb3bf6636bcd\",\"path\":\".rspec\",\"line\":1,\"position\":4}",
+              :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/json', 'User-Agent'=>'Octokit Ruby Gem 1.18.0'}).
         to_return(:body => fixture("v3/commit_comment_create.json"))
-      commit_comment = @client.create_commit_comment("sferik/rails_admin", "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3", "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n", ".rspec", 1, 4)
+      commit_comment = @client.create_commit_comment("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd", "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n", ".rspec", 1, 4)
       expect(commit_comment.body).to eq("Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n")
-      expect(commit_comment.commit_id).to eq("629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3")
+      expect(commit_comment.commit_id).to eq("3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
       expect(commit_comment.path).to eq(".rspec")
       expect(commit_comment.line).to eq(1)
       expect(commit_comment.position).to eq(4)
@@ -102,6 +106,8 @@ describe Octokit::Client::Commits do
   describe ".update_commit_comment" do
 
     it "updates a commit comment" do
+      stub_get("/repos/sferik/rails_admin/comments/860296").
+        to_return(:body => fixture("v3/commit_comment_update.json"))
       stub_patch("/repos/sferik/rails_admin/comments/860296").
         with(:body => { :body => "Hey Eric,\r\n\r\nI think it's a terrible idea. The test suite should stay deterministic IMO.\r\n" },
           :headers => { "Content-Type" => "application/json" }).
@@ -115,10 +121,12 @@ describe Octokit::Client::Commits do
   describe ".delete_commit_comment" do
 
     it "deletes a commit comment" do
+      stub_get("/repos/sferik/rails_admin/comments/860296").
+        to_return(:body => fixture("v3/commit_comment_update.json"))
       stub_delete("/repos/sferik/rails_admin/comments/860296").
         to_return(:status => 204, :body => "")
-      commit_comment = @client.delete_commit_comment("sferik/rails_admin", "860296")
-      expect(commit_comment).to be_false
+      result = @client.delete_commit_comment("sferik/rails_admin", "860296")
+      expect(result).to be_true
     end
 
   end
@@ -126,9 +134,9 @@ describe Octokit::Client::Commits do
   describe ".compare" do
 
     it "returns a comparison" do
-      stub_get("/repos/gvaughn/octokit/compare/0e0d7ae299514da692eb1cab741562c253d44188...b7b37f75a80b8e84061cd45b246232ad958158f5").
+      stub_get("/repos/sferik/rails_admin/compare/0e0d7ae299514da692eb1cab741562c253d44188...b7b37f75a80b8e84061cd45b246232ad958158f5").
         to_return(:body => fixture("v3/compare.json"))
-      comparison = @client.compare("gvaughn/octokit", '0e0d7ae299514da692eb1cab741562c253d44188', 'b7b37f75a80b8e84061cd45b246232ad958158f5')
+      comparison = @client.compare("sferik/rails_admin", '0e0d7ae299514da692eb1cab741562c253d44188', 'b7b37f75a80b8e84061cd45b246232ad958158f5')
       expect(comparison.base_commit.sha).to eq('0e0d7ae299514da692eb1cab741562c253d44188')
       expect(comparison.merge_base_commit.sha).to eq('b7b37f75a80b8e84061cd45b246232ad958158f5')
     end
@@ -137,12 +145,12 @@ describe Octokit::Client::Commits do
   describe ".merge" do
 
     before do
-      stub_post("/repos/pengwynn/api-sandbox/merges").
+      stub_post("/repos/sferik/rails_admin/merges").
         to_return(:body => fixture("v3/merge.json"))
     end
 
     it "merges a branch into another" do
-      merge = @client.merge("pengwynn/api-sandbox", "master", "new-branch", :commit_message => "Testing the merge API")
+      merge = @client.merge("sferik/rails_admin", "master", "new-branch", :commit_message => "Testing the merge API")
       expect(merge.sha).to eq('4298c8499e0a7a160975adefdecdf9d8a5437095')
       expect(merge.commit.message).to eq('Testing the merge API')
     end

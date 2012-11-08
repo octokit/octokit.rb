@@ -5,14 +5,18 @@ describe Octokit::Client do
   before(:each) do
     stub_get("https://api.github.com/").
       to_return(:body => fixture("v3/root.json"))
+    stub_get("https://foo:bar@api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
   end
 
   it "works with basic auth and password" do
-    stub_get("https://foo:bar@api.github.com/repos/baz/quux/commits").
+    stub_get("https://foo:bar@api.github.com/repos/sferik/rails_admin").
+      to_return(:body => fixture("v3/repository.json"))
+    stub_get("https://foo:bar@api.github.com/repos/sferik/rails_admin/commits").
       with(:headers => {'Accept'=>'*/*'}).
       to_return(:status => 200, :body => '{"commits":[]}', :headers => {})
     expect {
-      Octokit::Client.new(:login => 'foo', :password => 'bar').commits('baz/quux')
+      Octokit::Client.new(:login => 'foo', :password => 'bar').commits('sferik/rails_admin')
     }.not_to raise_exception
   end
 

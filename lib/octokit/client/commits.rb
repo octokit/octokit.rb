@@ -50,7 +50,7 @@ module Octokit
       def create_commit(repo, message, tree, parents=nil, options={})
         params = { :message => message, :tree => tree }
         params[:parents] = [parents].flatten if parents
-        post("repos/#{Repository.new(repo)}/git/commits", options.merge(params)).data
+        repository(repo).rels[:git_commits].post(options.merge(params)).data
       end
 
       # List all commit comments
@@ -59,7 +59,7 @@ module Octokit
       # @return [Array] An array of hashes representing comments
       # @see http://developer.github.com/v3/repos/comments/
       def list_commit_comments(repo, options={})
-        get("repos/#{Repository.new(repo)}/comments", options).data
+        repository(repo).rels[:comments].get(options).data
       end
 
       # List comments for a single commit
@@ -69,7 +69,7 @@ module Octokit
       # @return [Array] An array of hashes representing comments
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comments(repo, sha, options={})
-        get("repos/#{Repository.new(repo)}/commits/#{sha}/comments").data
+        commit(repo, sha).rels[:comments].get(options).data
       end
 
       # Get a single commit comment
@@ -79,7 +79,7 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the comment
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comment(repo, id, options={})
-        get("repos/#{Repository.new(repo)}/comments/#{id}", options).data
+        repo(repo).rels[:comments].get(:uri => {:comment_id => id}).data
       end
 
       # Create a commit comment
@@ -107,7 +107,7 @@ module Octokit
           :line => line,
           :position => position
         }
-        post("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options.merge(params)).data
+        commit(repo, sha).rels[:comments].post(options.merge(params)).data
       end
 
       # Update a commit comment
@@ -125,7 +125,7 @@ module Octokit
         params = {
           :body => body
         }
-        patch("repos/#{Repository.new(repo)}/comments/#{id}", options.merge(params)).data
+        commit_comment(repo, id).rels[:self].patch(options.merge(params)).data
       end
 
       # Delete a commit comment
@@ -135,7 +135,7 @@ module Octokit
       # @return [nil] nil
       # @see http://developer.github.com/v3/repos/comments/
       def delete_commit_comment(repo, id, options={})
-        delete("repos/#{Repository.new(repo)}/comments/#{id}", options).data
+        commit_comment(repo, id).rels[:self].delete(options).status == 204
       end
 
       # Compare two commits
@@ -146,7 +146,8 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the comparison
       # @see http://developer.github.com/v3/repos/commits/
       def compare(repo, start, endd, options={})
-        get("repos/#{Repository.new(repo)}/compare/#{start}...#{endd}", options).data
+        options.merge! :uri => { :base => start, :head => endd }
+        repository(repo).rels[:compare].get(options).data
       end
 
       # Merge a branch or sha
@@ -162,7 +163,7 @@ module Octokit
           :base => base,
           :head => head
         }.merge(options)
-        post("repos/#{Repository.new(repo)}/merges", params).data
+        repository(repo).rels[:merges].post(params).data
       end
 
 
