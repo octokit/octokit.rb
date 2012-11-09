@@ -18,6 +18,8 @@
     "type": "User",
     "url": "https://api.github.com/users/sferik",
     "repos_url": "https://api.github.com/users/sferik/repos",
+    "events_url": "https://api.github.com/users/sferik/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/sferik/received_events",
     "following_url": "https://api.github.com/users/sferik/following",
     "followers_url": "https://api.github.com/users/sferik/followers",
     "starred_url": "https://api.github.com/users/sferik/starred{/owner}{/repo}",

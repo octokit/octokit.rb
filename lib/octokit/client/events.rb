@@ -8,7 +8,7 @@ module Octokit
       # @example List all pubilc events
       #   Octokit.public_events
       def public_events(options={})
-        get("events", options).data
+        root.rels[:events].get(options).data
       end
 
       # List all user events
@@ -18,7 +18,7 @@ module Octokit
       # @example List all user events
       #   Octokit.user_events("sferik")
       def user_events(user, options={})
-        get("users/#{user}/events", options).data
+        user(user).rels[:events].get(options).data
       end
 
       # List events that a user has received
@@ -28,7 +28,7 @@ module Octokit
       # @example List all user received events
       #   Octokit.received_events("sferik")
       def received_events(user, options={})
-        get("users/#{user}/received_events", options).data
+        user(user).rels[:received_events].get(options).data
       end
 
       # List events for a repository
@@ -39,7 +39,7 @@ module Octokit
       # @example List events for a repository
       #   Octokit.repository_events("sferik/rails_admin")
       def repository_events(repo, options={})
-        get("repos/#{Repository.new(repo)}/events", options).data
+        repo(repo).rels[:events].get(options).data
       end
     end
   end

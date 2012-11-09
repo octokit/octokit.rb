@@ -14,5 +14,6 @@
   "following_url": "https://api.github.com/user/following{/target}",
   "starred_url": "https://api.github.com/user/starred{/owner}{/repo}",
   "authorizations_url": "https://api.github.com/authorizations{/authorization_id}",
-  "emojis_url": "https://api.github.com/emojis"
+  "emojis_url": "https://api.github.com/emojis",
+  "events_url": "https://api.github.com/events"
 }

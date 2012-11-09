@@ -54,5 +54,6 @@
     "merges_url": "https://api.github.com/repos/sferik/rails_admin/merges",
     "archive_url": "https://api.github.com/repos/sferik/rails_admin/{archive_format}{/ref}",
     "downloads_url": "https://api.github.com/repos/sferik/rails_admin/downloads{/download_id}",
+    "events_url": "https://api.github.com/repos/sferik/rails_admin/events",
     "watchers": 2299
 }
