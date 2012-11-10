@@ -4,7 +4,11 @@ require 'helper'
 describe Octokit::Client::Gists do
 
   before do
-    @username = "Oshuma"
+    stub_get("https://api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
+    stub_get("/users/sferik").
+      to_return(:body => fixture("v3/user.json"))
+    @username = "sferik"
     @client = Octokit::Client.new(:login => @username)
   end
 
@@ -83,75 +87,84 @@ describe Octokit::Client::Gists do
 
   describe ".star_gist" do
     it "stars an existing gist" do
-      stub_put("/gists/12345/star").to_return(:status => 204)
-      success = @client.star_gist(12345)
+      stub_get("/gists/1467395").to_return(:body => fixture("v3/gist.json"))
+      stub_put("/gists/1467395/star").to_return(:status => 204)
+      success = @client.star_gist(1467395)
       expect(success).to be_true
     end
   end
 
   describe ".unstar_gist" do
     it "unstars an existing gist" do
-      stub_delete("/gists/12345/star").to_return(:status => 204)
-      success = @client.unstar_gist(12345)
+      stub_get("/gists/1467395").to_return(:body => fixture("v3/gist.json"))
+      stub_delete("/gists/1467395/star").to_return(:status => 204)
+      success = @client.unstar_gist(1467395)
       expect(success).to be_true
     end
   end
 
   describe ".gist_starred?" do
     it "is starred" do
-      stub_get("/gists/12345/star").to_return(:status => 204)
-      starred = @client.gist_starred?(12345)
+      stub_get("/gists/1467395").to_return(:body => fixture("v3/gist.json"))
+      stub_get("/gists/1467395/star").to_return(:status => 204)
+      starred = @client.gist_starred?(1467395)
       expect(starred).to be_true
     end
 
     it "is not starred" do
-      stub_get("/gists/12345/star").to_return(:status => 404)
-      starred = @client.gist_starred?(12345)
+      stub_get("/gists/1467395").to_return(:body => fixture("v3/gist.json"))
+      stub_get("/gists/1467395/star").to_return(:status => 404)
+      starred = @client.gist_starred?(1467395)
       expect(starred).to be_false
     end
   end
 
   describe ".fork_gist" do
     it "forks an existing gist" do
-      stub_post("/gists/12345/fork").
+      stub_get("/gists/1467395").to_return(:body => fixture("v3/gist.json"))
+      stub_post("/gists/1467395/fork").
         to_return(:body => fixture("v3/gist.json"))
 
-      gist = @client.fork_gist(12345)
+      gist = @client.fork_gist(1467395)
       expect(gist.user.login).to eq(@username)
     end
   end
 
   describe ".delete_gist" do
     it "deletes an existing gist" do
-      stub_delete("/gists/12345").to_return(:status => 204)
-      deleted = @client.delete_gist(12345)
+      stub_get("/gists/1467395").to_return(:body => fixture("v3/gist.json"))
+      stub_delete("/gists/1467395").to_return(:status => 204)
+      deleted = @client.delete_gist(1467395)
       expect(deleted).to be_true
     end
   end
 
   describe ".gist_comments" do
     it "returns the list of gist comments" do
-      stub_get("/gists/12345/comments").
+      stub_get("/gists/1467395").to_return(:body => fixture("v3/gist.json"))
+      stub_get("/gists/1467395/comments").
         to_return(:body => fixture("v3/gist_comments.json"))
-      comments = @client.gist_comments(12345)
+      comments = @client.gist_comments(1467395)
       expect(comments.first.id).to eq(451398)
     end
   end
 
   describe ".gist_comment" do
     it "returns a gist comment" do
-      stub_get("/gists/comments/12345").
+      stub_get("/gists/1467395").to_return(:body => fixture("v3/gist.json"))
+      stub_get("/gists/1467395/comments/451398").
         to_return(:body => fixture("v3/gist_comment.json"))
-      comment = @client.gist_comment(12345)
+      comment = @client.gist_comment(1467395, 451398)
       expect(comment.id).to eq(451398)
     end
   end
 
   describe ".create_gist_comment" do
     it "creates a gist comment" do
-      stub_post("/gists/12345/comments").
+      stub_get("/gists/1467395").to_return(:body => fixture("v3/gist.json"))
+      stub_post("/gists/1467395/comments").
         to_return(:body => fixture("v3/gist_comment_create.json"))
-      comment = @client.create_gist_comment(12345, "This is very helpful.")
+      comment = @client.create_gist_comment(1467395, "This is very helpful.")
       expect(comment.id).to eq(586399)
       expect(comment.body).to eq("This is very helpful.")
     end
@@ -159,17 +172,19 @@ describe Octokit::Client::Gists do
 
   describe ".update_gist_comment" do
     it "updates a gist comment" do
-      stub_patch("/gists/comments/12345").
+      stub_get("/gists/1467395").to_return(:body => fixture("v3/gist.json"))
+      stub_patch("/gists/1467395/comments/586399").
         to_return(:body => fixture("v3/gist_comment_update.json"))
-      comment = @client.update_gist_comment(12345, ":heart:")
+      comment = @client.update_gist_comment(1467395, 586399, ":heart:")
       expect(comment.body).to eq(":heart:")
     end
   end
 
   describe ".delete_gist_comment" do
     it "deletes a gist comment" do
-      stub_delete("/gists/comments/12345").to_return(:status => 204)
-      result = @client.delete_gist_comment(12345)
+      stub_get("/gists/1467395").to_return(:body => fixture("v3/gist.json"))
+      stub_delete("/gists/1467395/comments/586399").to_return(:status => 204)
+      result = @client.delete_gist_comment(1467395, 586399)
       expect(result).to be_true
     end
   end

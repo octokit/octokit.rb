@@ -12,7 +12,9 @@
   },
   "git_push_url": "git@gist.github.com:1467395.git",
   "url": "https://api.github.com/gists/1467395",
-  "comments_url": "https://api.github.com/gists/1467395/comments",
+  "comments_url": "https://api.github.com/gists/1467395/comments{/comment_id}",
+  "star_url": "https://api.github.com/gists/1467395/star",
+  "fork_url": "https://api.github.com/gists/1467395/fork",
   "public": true,
   "history": [
     {
@@ -26,8 +28,8 @@
       "version": "feec2d7e642c34a02db2e3ba14c48836869e2de8",
       "user": {
         "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
-        "url": "https://api.github.com/users/Oshuma",
-        "login": "Oshuma",
+        "url": "https://api.github.com/users/sferik",
+        "login": "sferik",
         "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
         "id": 2441
       }
@@ -38,8 +40,8 @@
   "html_url": "https://gist.github.com/1467395",
   "user": {
     "gravatar_id": "f97047e2464cd5909b8bc8c6888b290a",
-    "url": "https://api.github.com/users/Oshuma",
-    "login": "Oshuma",
+    "url": "https://api.github.com/users/sferik",
+    "login": "sferik",
     "avatar_url": "https://secure.gravatar.com/avatar/f97047e2464cd5909b8bc8c6888b290a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
     "id": 2441
   },

@@ -13,9 +13,9 @@ module Octokit
       # @see http://developer.github.com/v3/gists/#list-gists
       def gists(username=nil, options={})
         if username.nil?
-          get('gists', options).data
+          root.rels[:gists].get(options).data
         else
-          get("users/#{username}/gists", options).data
+          user(username).rels[:gists].get(options).data
         end
       end
       alias :list_gists :gists
@@ -27,14 +27,14 @@ module Octokit
       #   Octokit.public_gists
       # @see http://developer.github.com/v3/gists/#list-gists
       def public_gists(options={})
-        get('gists/public', options).data
+        root.rels[:public_gists].get(options).data
       end
 
       # List the authenticated user’s starred gists
       #
       # @return [Array<Hashie::Mash>] A list of gists
       def starred_gists(options={})
-        get('gists/starred', options).data
+        root.rels[:starred_gists].get(options).data
       end
 
       # Get a single gist
@@ -43,7 +43,8 @@ module Octokit
       # @return [Hash::Mash] Gist information
       # @see http://developer.github.com/v3/gists/#get-a-single-gist
       def gist(gist, options={})
-        get("gists/#{Gist.new gist}", options).data
+        options.merge! :uri => { :gist_id => Gist.new(gist) }
+        root.rels[:gists].get(options).data
       end
 
       # Create a gist
@@ -57,7 +58,7 @@ module Octokit
       # @return [Hashie::Mash] Newly created gist info
       # @see http://developer.github.com/v3/gists/#create-a-gist
       def create_gist(options={})
-        post('gists', options).data
+        root.rels[:gists].post(options).data
       end
 
       # Edit a gist
@@ -76,7 +77,8 @@ module Octokit
       #   [Hashie::Mash] Newly created gist info
       # @see http://developer.github.com/v3/gists/#edit-a-gist
       def edit_gist(gist, options={})
-        patch("gists/#{Gist.new gist}", options).data
+        uri_options = { :uri => { :gist_id => Gist.new(gist) } }
+        root.rels[:gists].patch(options, uri_options).data
       end
       #
       # Star a gist
@@ -85,8 +87,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is starred successfully
       # @see http://developer.github.com/v3/gists/#star-a-gist
       def star_gist(gist, options={})
-        response = put("gists/#{Gist.new gist}/star", options)
-        response.status == 204
+        gist(gist).rels[:star].put(options).status == 204
       end
 
       # Unstar a gist
@@ -95,8 +96,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is unstarred successfully
       # @see http://developer.github.com/v3/gists/#unstar-a-gist
       def unstar_gist(gist, options={})
-        response = delete("gists/#{Gist.new gist}/star", options)
-        response.status == 204
+        gist(gist).rels[:star].delete(options).status == 204
       end
 
       # Check if a gist is starred
@@ -105,7 +105,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is starred
       # @see http://developer.github.com/v3/gists/#check-if-a-gist-is-starred
       def gist_starred?(gist, options={})
-        get("gists/#{Gist.new gist}/star", options).status == 204
+        gist(gist).rels[:star].get(options).status == 204
       end
 
       # Fork a gist
@@ -114,7 +114,7 @@ module Octokit
       # @return [Hashie::Mash] Data for the new gist
       # @see http://developer.github.com/v3/gists/#fork-a-gist
       def fork_gist(gist, options={})
-        post("gists/#{Gist.new gist}/fork", options).data
+        gist(gist).rels[:fork].post(options).data
       end
 
       # Delete a gist
@@ -123,8 +123,7 @@ module Octokit
       # @return [Boolean] Indicating success of deletion
       # @see http://developer.github.com/v3/gists/#delete-a-gist
       def delete_gist(gist, options={})
-        response = delete("gists/#{Gist.new gist}", options)
-        response.status == 204
+        gist(gist).rels[:self].delete(options).status == 204
       end
 
       # List gist comments
@@ -135,7 +134,7 @@ module Octokit
       # @example
       #   Octokit.gist_comments(3528645)
       def gist_comments(gist_id, options={})
-        get("gists/#{gist_id}/comments", options).data
+        gist(gist_id).rels[:comments].get(options).data
       end
 
       # Get gist comment
@@ -145,8 +144,9 @@ module Octokit
       # @see http://developer.github.com/v3/gists/comments/#get-a-single-comment
       # @example
       #   Octokit.gist_comment(451398)
-      def gist_comment(gist_comment_id, options={})
-        get("gists/comments/#{gist_comment_id}", options).data
+      def gist_comment(gist_id, gist_comment_id, options={})
+        options.merge! :uri => { :comment_id => gist_comment_id }
+        gist(gist_id).rels[:comments].get(options).data
       end
 
       # Create gist comment
@@ -162,7 +162,7 @@ module Octokit
       #   @client.create_gist_comment(3528645, 'This is very helpful.')
       def create_gist_comment(gist_id, comment, options={})
         options.merge!({:body => comment})
-        post("gists/#{gist_id}/comments", options).data
+        gist(gist_id).rels[:comments].post(options).data
       end
 
       # Update gist comment
@@ -176,9 +176,10 @@ module Octokit
       # @see http://developer.github.com/v3/gists/comments/#edit-a-comment
       # @example
       #   @client.update_gist_comment(3528645, ':heart:')
-      def update_gist_comment(gist_comment_id, comment, options={})
+      def update_gist_comment(gist_id, gist_comment_id, comment, options={})
         options.merge!({:body => comment})
-        patch("gists/comments/#{gist_comment_id}", options).data
+        uri_options = {:uri => { :comment_id => gist_comment_id } }
+        gist(gist_id).rels[:comments].patch(options, uri_options).data
       end
 
       # Delete gist comment
@@ -191,8 +192,9 @@ module Octokit
       # @see http://developer.github.com/v3/gists/comments/#delete-a-comment
       # @example
       #   @client.delete_gist_comment(586399)
-      def delete_gist_comment(gist_comment_id, options={})
-        delete("gists/comments/#{gist_comment_id}", options).status == 204
+      def delete_gist_comment(gist_id, gist_comment_id, options={})
+        uri_options = {:uri => { :comment_id => gist_comment_id } }
+        gist(gist_id).rels[:comments].delete(options, uri_options).status == 204
       end
 
     end
