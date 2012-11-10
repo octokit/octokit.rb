@@ -4,6 +4,10 @@ require 'helper'
 describe Octokit::Client::Issues do
 
   before do
+    stub_get("https://api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
+    stub_get("/repos/sferik/rails_admin").
+      to_return(:body => fixture("v3/repository.json"))
     @client = Octokit::Client.new(:login => 'sferik')
   end
 
@@ -39,11 +43,11 @@ describe Octokit::Client::Issues do
   describe ".create_issue" do
 
     it "creates an issue" do
-      stub_post("/repos/ctshryock/octokit/issues").
+      stub_post("/repos/sferik/rails_admin/issues").
         with(:body => {"title" => "Migrate issues to v3", "body" => "Move all Issues calls to v3 of the API"},
              :headers => {'Content-Type'=>'application/json'}).
         to_return(:body => fixture("v3/issue.json"))
-      issue = @client.create_issue("ctshryock/octokit", "Migrate issues to v3", "Move all Issues calls to v3 of the API")
+      issue = @client.create_issue("sferik/rails_admin", "Migrate issues to v3", "Move all Issues calls to v3 of the API")
       expect(issue.number).to eq(12)
     end
 
@@ -52,9 +56,9 @@ describe Octokit::Client::Issues do
   describe ".issue" do
 
     it "returns an issue" do
-      stub_get("/repos/ctshryock/octokit/issues/12").
+      stub_get("/repos/sferik/rails_admin/issues/12").
         to_return(:body => fixture("v3/issue.json"))
-      issue = @client.issue("ctshryock/octokit", 12)
+      issue = @client.issue("sferik/rails_admin", 12)
       expect(issue.number).to eq(12)
     end
 
@@ -63,11 +67,11 @@ describe Octokit::Client::Issues do
   describe ".close_issue" do
 
     it "closes an issue" do
-      stub_post("/repos/ctshryock/octokit/issues/12").
+      stub_post("/repos/sferik/rails_admin/issues/12").
         with(:body => {"state" => "closed"},
              :headers => {'Content-Type'=>'application/json'}).
         to_return(:body => fixture("v3/issue_closed.json"))
-      issue = @client.close_issue("ctshryock/octokit", 12)
+      issue = @client.close_issue("sferik/rails_admin", 12)
       expect(issue.number).to eq(12)
       expect(issue.state).to eq("closed")
     end
@@ -77,11 +81,11 @@ describe Octokit::Client::Issues do
   describe ".reopen_issue" do
 
     it "reopens an issue" do
-      stub_post("/repos/ctshryock/octokit/issues/12").
+      stub_post("/repos/sferik/rails_admin/issues/12").
         with(:body => {"state" => "open"},
              :headers => {'Content-Type'=>'application/json'}).
         to_return(:body => fixture("v3/issue.json"))
-      issue = @client.reopen_issue("ctshryock/octokit", 12)
+      issue = @client.reopen_issue("sferik/rails_admin", 12)
       expect(issue.number).to eq(12)
       expect(issue.state).to eq("open")
     end
@@ -91,11 +95,11 @@ describe Octokit::Client::Issues do
   describe ".update_issue" do
 
     it "updates an issue" do
-      stub_post("/repos/ctshryock/octokit/issues/12").
+      stub_patch("/repos/sferik/rails_admin/issues/12").
         with(:body => {"title" => "Use all the v3 api!", "body" => ""},
              :headers => {'Content-Type'=>'application/json'}).
         to_return(:body => fixture("v3/issue.json"))
-      issue = @client.update_issue("ctshryock/octokit", 12, "Use all the v3 api!", "")
+      issue = @client.update_issue("sferik/rails_admin", 12, "Use all the v3 api!", "")
       expect(issue.number).to eq(12)
     end
 
@@ -104,9 +108,11 @@ describe Octokit::Client::Issues do
   describe ".issue_comments" do
 
     it "returns comments for an issue" do
-      stub_get("/repos/pengwynn/octokit/issues/25/comments").
+      stub_get("/repos/sferik/rails_admin/issues/12").
+        to_return(:body => fixture("v3/issue.json"))
+      stub_get("/repos/sferik/rails_admin/issues/12/comments").
         to_return(:status => 200, :body => fixture('v3/comments.json'))
-      comments = @client.issue_comments("pengwynn/octokit", 25)
+      comments = @client.issue_comments("sferik/rails_admin", 12)
       expect(comments.first.user.login).to eq("ctshryock")
     end
 
@@ -115,11 +121,11 @@ describe Octokit::Client::Issues do
   describe ".issue_comment" do
 
     it "returns a single comment for an issue" do
-      stub_get("/repos/pengwynn/octokit/issues/comments/25").
+      stub_get("/repos/sferik/rails_admin/issues/comments/25").
         to_return(:status => 200, :body => fixture('v3/comment.json'))
-      comments = @client.issue_comment("pengwynn/octokit", 25)
+      comments = @client.issue_comment("sferik/rails_admin", 25)
       expect(comments.user.login).to eq("ctshryock")
-      expect(comments.url).to eq("https://api.github.com/repos/pengwynn/octokit/issues/comments/1194690")
+      expect(comments.url).to eq("https://api.github.com/repos/sferik/rails_admin/issues/comments/1194690")
     end
 
   end
@@ -127,10 +133,10 @@ describe Octokit::Client::Issues do
   describe ".add_comment" do
 
     it "adds a comment" do
-      stub_post("/repos/pengwynn/octokit/issues/25/comments").
+      stub_post("/repos/sferik/rails_admin/issues/25/comments").
         with(:body => {"body" => "A test comment"}).
         to_return(:status => 201, :body => fixture('v3/comment.json'))
-      comment = @client.add_comment("pengwynn/octokit", 25, "A test comment")
+      comment = @client.add_comment("sferik/rails_admin", 25, "A test comment")
       expect(comment.user.login).to eq("ctshryock")
     end
 
@@ -139,10 +145,10 @@ describe Octokit::Client::Issues do
   describe ".update_comment" do
 
     it "updates an existing comment" do
-      stub_post("/repos/pengwynn/octokit/issues/comments/1194549").
+      stub_post("/repos/sferik/rails_admin/issues/comments/1194549").
         with(:body => {"body" => "A test comment update"}).
         to_return(:status => 200, :body => fixture('v3/comment.json'))
-      comment = @client.update_comment("pengwynn/octokit", 1194549, "A test comment update")
+      comment = @client.update_comment("sferik/rails_admin", 1194549, "A test comment update")
       expect(comment.user.login).to eq("ctshryock")
     end
 
@@ -151,9 +157,9 @@ describe Octokit::Client::Issues do
   describe ".delete_comment" do
 
     it "deletes an existing comment" do
-      stub_delete("/repos/pengwynn/octokit/issues/comments/1194549").
+      stub_delete("/repos/sferik/rails_admin/issues/comments/1194549").
         to_return(:status => 204)
-      result = @client.delete_comment("pengwynn/octokit", 1194549)
+      result = @client.delete_comment("sferik/rails_admin", 1194549)
       expect(result).to be_true
     end
 

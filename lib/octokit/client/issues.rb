@@ -12,7 +12,14 @@ module Octokit
       # @example Search for 'test' in the open issues for sferik/rails_admin
       #   Octokit.search_issues("sferik/rails_admin", 'test', 'open')
       def search_issues(repo, search_term, state='open', options={})
-        get("legacy/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options).data.issues
+        repo = Repository.new(repo)
+        options.merge! :uri => {
+          :owner    => repo.owner,
+          :repo     => repo.repo,
+          :state    => state,
+          :keyword  => search_term
+        }
+        root.rels[:issue_search].get(options).data.issues
       end
 
       # List issues for a the authenticated user or repository
@@ -35,11 +42,12 @@ module Octokit
       # @example List issues for the authenticted user across repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.list_issues
-      def list_issues(repository = nil, options={})
-        path = ''
-        path = "repos/#{Repository.new(repository)}" if repository
-        path += "/issues"
-        get(path, options).data
+      def list_issues(issues_repo = nil, options={})
+        if issues_repo.nil?
+          root.rels[:issues].get(options).data
+        else
+          repository(issues_repo).rels[:issues].get(options).data
+        end
       end
       alias :issues :list_issues
 
@@ -53,7 +61,8 @@ module Octokit
       # @example Create a new Issues for a repository
       #   Octokit.create_issue("sferik/rails_admin")
       def create_issue(repo, title, body, options={})
-        post("repos/#{Repository.new(repo)}/issues", options.merge({:title => title, :body => body})).data
+        options.merge! :title => title, :body => body
+        repository(repo).rels[:issues].post(options).data
       end
       alias :open_issue :create_issue
 
@@ -66,7 +75,8 @@ module Octokit
       # @example Get issue #25 from pengwynn/octokit
       #   Octokit.issue("pengwynn/octokit", "25")
       def issue(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/#{number}", options).data
+        options.merge! :uri => { :number => number }
+        repository(repo).rels[:issues].get(options).data
       end
 
       # Close an issue
@@ -80,7 +90,9 @@ module Octokit
       # @example Close Issue #25 from pengwynn/octokit
       #   Octokit.close_issue("pengwynn/octokit", "25")
       def close_issue(repo, number, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"})).data
+        options.merge! :state => "closed"
+        uri_options = { :uri => { :number => number } }
+        repository(repo).rels[:issues].post(options, uri_options).data
       end
 
       # Reopen an issue
@@ -94,7 +106,9 @@ module Octokit
       # @example Reopen Issue #25 from pengwynn/octokit
       #   Octokit.reopen_issue("pengwynn/octokit", "25")
       def reopen_issue(repo, number, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"})).data
+        options.merge! :state => "open"
+        uri_options = { :uri => { :number => number } }
+        repository(repo).rels[:issues].post(options, uri_options).data
       end
 
       # Update an issue
@@ -110,7 +124,9 @@ module Octokit
       # @example Change the title of Issue #25
       #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
       def update_issue(repo, number, title, body, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body})).data
+        options.merge! :title => title, :body => body
+        uri_options = { :uri => { :number => number } }
+        repository(repo).rels[:issues].patch(options, uri_options).data
       end
 
       # Get all comments attached to an issue
@@ -122,7 +138,7 @@ module Octokit
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
       def issue_comments(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/#{number}/comments", options).data
+        issue(repo, number).rels[:comments].get(options).data
       end
 
       # Get a single comment attached to an issue
