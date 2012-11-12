@@ -142,7 +142,7 @@ module Octokit
       # Compare two commits
       #
       # @param repo [String, Hash, Repository] A GitHub repository
-      # @param base [String] The sha of the starting commit
+      # @param start [String] The sha of the starting commit
       # @param endd [String] The sha of the ending commit
       # @return [Hashie::Mash] A hash representing the comparison
       # @see http://developer.github.com/v3/repos/commits/
@@ -175,6 +175,8 @@ module Octokit
       # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_since('pengwynn/octokit', '2012-10-01')
       def commits_since(repo, date, sha_or_branch="master", options={})
         begin
           _date = DateTime.parse(date)
@@ -194,6 +196,8 @@ module Octokit
       # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_before('pengwynn/octokit', '2012-10-01')
       def commits_before(repo, date, sha_or_branch="master", options={})
         begin
           _date = DateTime.parse(date)
@@ -212,6 +216,8 @@ module Octokit
       # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01')
       def commits_on(repo, date, sha_or_branch="master", options={})
         begin
           # defaults to 00:00:00
@@ -235,6 +241,8 @@ module Octokit
       # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01', '2012-11-01')
       def commits_between(repo, start_date, end_date, sha_or_branch="master", options={})
         begin
           # defaults to 00:00:00
