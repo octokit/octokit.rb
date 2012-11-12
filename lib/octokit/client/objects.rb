@@ -16,7 +16,8 @@ module Octokit
       #   tree = Octokit.tree("octocat/Hello-World", "fc6274d15fa3ae2ab983129fb037999f264ba9a7")
       #   tree.tree.first.path # => "subdir/file.txt"
       def tree(repo, tree_sha, options={})
-        get("repos/#{Repository.new(repo)}/git/trees/#{tree_sha}", options).data
+        options.merge! :uri => { :sha => tree_sha }
+        repository(repo).rels[:trees].get(options).data
       end
 
       # Create a tree
@@ -32,8 +33,8 @@ module Octokit
       #   tree.sha # => "cd8274d15fa3ae2ab983129fb037999f264ba9a7"
       #   tree.tree.first.path # => "file.rb"
       def create_tree(repo, tree, options={})
-        parameters = { :tree => tree }
-        post("repos/#{Repository.new(repo)}/git/trees", options.merge(parameters)).data
+        options.merge! :tree => tree
+        repository(repo).rels[:trees].post(options).data
       end
 
       # Get a single blob, fetching its content and encoding
@@ -53,7 +54,8 @@ module Octokit
       #   blob.content # => "Rm9vIGJhciBiYXo="
       #   Base64.decode64(blob.content) # => "Foo bar baz"
       def blob(repo, blob_sha, options={})
-        get("repos/#{Repository.new(repo)}/git/blobs/#{blob_sha}", options).data
+        options.merge! :uri => { :sha => blob_sha }
+        repository(repo).rels[:blobs].get(options).data
       end
 
       # Create a blob
@@ -69,11 +71,11 @@ module Octokit
       #   require "base64"
       #   Octokit.create_blob("octocat/Hello-World", Base64.encode64("foo bar baz"), "base64")
       def create_blob(repo, content, encoding="utf-8", options={})
-        parameters = {
+        options.merge!(
           :content => content,
           :encoding => encoding
-        }
-        post("repos/#{Repository.new(repo)}/git/blobs", options.merge(parameters)).data.sha
+        )
+        repository(repo).rels[:blobs].post(options).data
       end
 
       # Get a tag
@@ -85,7 +87,8 @@ module Octokit
       # @example Fetch a tag
       #   Octokit.tag('pengwynn/octokit', '23aad20633f4d2981b1c7209a800db3014774e96')
       def tag(repo, tag_sha, options={})
-        get("repos/#{Repository.new repo}/git/tags/#{tag_sha}", options).data
+        options.merge! :uri => { :sha => tag_sha }
+        repository(repo).rels[:git_tags].get(options).data
       end
 
       # Create a tag
@@ -127,7 +130,7 @@ module Octokit
             :date => tagger_date
           }
         )
-        post("repos/#{Repository.new repo}/git/tags", options).data
+        repository(repo).rels[:git_tags].post(options).data
       end
     end
   end

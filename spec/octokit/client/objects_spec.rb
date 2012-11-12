@@ -4,6 +4,10 @@ require 'helper'
 describe Octokit::Client::Objects do
 
   before do
+    stub_get("https://api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
+    stub_get("/repos/sferik/rails_admin").
+      to_return(:body => fixture("v3/repository.json"))
     @client = Octokit::Client.new(:login => 'sferik')
   end
 
@@ -22,11 +26,11 @@ describe Octokit::Client::Objects do
   describe ".create_tree" do
 
     it "creates a tree" do
-      stub_post("/repos/octocat/Hello-World/git/trees").
+      stub_post("/repos/sferik/rails_admin/git/trees").
         with(:body => { :tree => [ { :path => "file.rb", "mode" => "100644", "type" => "blob", "sha" => "44b4fc6d56897b048c772eb4087f854f46256132" } ] },
              :headers => { "Content-Type" => "application/json" }).
         to_return(:body => fixture("v3/tree_create.json"))
-      response = @client.create_tree("octocat/Hello-World", [ { "path" => "file.rb", "mode" => "100644", "type" => "blob", "sha" => "44b4fc6d56897b048c772eb4087f854f46256132" } ])
+      response = @client.create_tree("sferik/rails_admin", [ { "path" => "file.rb", "mode" => "100644", "type" => "blob", "sha" => "44b4fc6d56897b048c772eb4087f854f46256132" } ])
       expect(response.sha).to eq("cd8274d15fa3ae2ab983129fb037999f264ba9a7")
       expect(response.tree.size).to eq(1)
       expect(response.tree.first.sha).to eq("7c258a9869f33c1e1e1f74fbb32f07c86cb5a75b")
@@ -48,12 +52,12 @@ describe Octokit::Client::Objects do
   describe ".create_blob" do
 
     it "creates a blob" do
-      stub_post("/repos/octocat/Hello-World/git/blobs").
+      stub_post("/repos/sferik/rails_admin/git/blobs").
         with(:body => { :content => "content", :encoding => "utf-8" },
              :headers => { "Content-Type" => "application/json" }).
         to_return(:body => fixture("v3/blob_create.json"))
-      blob = @client.create_blob("octocat/Hello-World", "content")
-      expect(blob).to eq("3a0f86fb8db8eea7ccbb9a95f325ddbedfb25e15")
+      blob = @client.create_blob("sferik/rails_admin", "content")
+      expect(blob.sha).to eq("3a0f86fb8db8eea7ccbb9a95f325ddbedfb25e15")
     end
 
   end
@@ -61,9 +65,9 @@ describe Octokit::Client::Objects do
   describe ".tag" do
 
     it "returns a tag" do
-      stub_get("/repos/pengwynn/octokit/git/tags/23aad20633f4d2981b1c7209a800db3014774e96").
+      stub_get("/repos/sferik/rails_admin/git/tags/23aad20633f4d2981b1c7209a800db3014774e96").
         to_return(:body => fixture("v3/tag.json"))
-      tag = @client.tag("pengwynn/octokit", "23aad20633f4d2981b1c7209a800db3014774e96")
+      tag = @client.tag("sferik/rails_admin", "23aad20633f4d2981b1c7209a800db3014774e96")
       expect(tag.sha).to eq("23aad20633f4d2981b1c7209a800db3014774e96")
       expect(tag.message).to eq("Version 1.4.0\n")
       expect(tag.tag).to eq("v1.4.0")
@@ -74,7 +78,7 @@ describe Octokit::Client::Objects do
   describe ".create_tag" do
 
     it "creates a tag" do
-      stub_post("/repos/pengwynn/octokit/git/tags").
+      stub_post("/repos/sferik/rails_admin/git/tags").
         with(:body => {
                 :tag => "v9000.0.0",
                 :message => "Version 9000\n",
@@ -89,7 +93,7 @@ describe Octokit::Client::Objects do
             :headers => { "Content-Type" => "application/json" }).
               to_return(:body => fixture("v3/tag_create.json"))
       tag = @client.create_tag(
-        "pengwynn/octokit",
+        "sferik/rails_admin",
         "v9000.0.0",
         "Version 9000\n",
         "f4cdf6eb734f32343ce3f27670c17b35f54fd82e",
