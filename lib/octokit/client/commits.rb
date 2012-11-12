@@ -179,13 +179,13 @@ module Octokit
       #   Octokit.commits_since('pengwynn/octokit', '2012-10-01')
       def commits_since(repo, date, sha_or_branch="master", options={})
         begin
-          _date = DateTime.parse(date)
+          date = DateTime.parse(date)
         rescue ArgumentError
           raise ArgumentError, "#{date} is not a valid date"
         end
         
         params = { :sha => sha_or_branch, :per_page => 35, 
-          :since => _date.iso8601 }
+          :since => iso8601(date) }
         get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
       end
 
@@ -200,12 +200,12 @@ module Octokit
       #   Octokit.commits_before('pengwynn/octokit', '2012-10-01')
       def commits_before(repo, date, sha_or_branch="master", options={})
         begin
-          _date = DateTime.parse(date)
+          date = DateTime.parse(date)
         rescue ArgumentError
           raise ArgumentError, "#{date} is not a valid date"
         end
         params = { :sha => sha_or_branch, :per_page => 35, 
-          :until => _date.iso8601}
+          :until => iso8601(date)}
         get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
       end
 
@@ -221,15 +221,15 @@ module Octokit
       def commits_on(repo, date, sha_or_branch="master", options={})
         begin
           # defaults to 00:00:00
-          _start_date = DateTime.parse(date)
+          start_date = DateTime.parse(date)
           # addition defaults to n days
-          _end_date = _start_date + 1
+          end_date = start_date + 1
         rescue ArgumentError
           raise ArgumentError, "#{date} is not a valid date"
         end
         params = { :sha => sha_or_branch, :per_page => 35, 
-          :since => _start_date.iso8601, 
-          :until => _end_date.iso8601 }
+          :since => iso8601(start_date), 
+          :until => iso8601(end_date) }
         get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
       end
 
@@ -246,12 +246,14 @@ module Octokit
       def commits_between(repo, start_date, end_date, sha_or_branch="master", options={})
         begin
           # defaults to 00:00:00
+          # use a second var for the parsed date so error message is consistent
           _start_date = DateTime.parse(start_date)
         rescue ArgumentError
           raise ArgumentError, "#{start_date} is not a valid date"
         end
         begin
           # defaults to 00:00:00
+          # use a second var for the parsed date so error message is consistent
           _end_date = DateTime.parse(end_date)
         rescue ArgumentError
           raise ArgumentError, "#{end_date} is not a valid date"
@@ -260,9 +262,19 @@ module Octokit
           raise ArgumentError, "Start date #{start_date} does not precede #{end_date}"
         end
         params = { :sha => sha_or_branch, :per_page => 35,
-          :since => _start_date.iso8601,
-          :until => _end_date.iso8601 }
+          :since => iso8601(_start_date),
+          :until => iso8601(_end_date) }
         get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
+      end
+      
+      protected
+      
+      def iso8601(date)
+        if date.respond_to?(:iso8601)
+          date.iso8601
+        else
+          date.strftime("%Y-%m-%dT%H:%M:%S%Z")
+        end
       end
       
     end
