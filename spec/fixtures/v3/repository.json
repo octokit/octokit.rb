@@ -56,5 +56,6 @@
     "downloads_url": "https://api.github.com/repos/sferik/rails_admin/downloads{/download_id}",
     "events_url": "https://api.github.com/repos/sferik/rails_admin/events",
     "issues_url": "https://api.github.com/repos/sferik/rails_admin/issues{/number}",
+    "labels_url": "https://api.github.com/repos/sferik/rails_admin/labels{/name}",
     "watchers": 2299
 }

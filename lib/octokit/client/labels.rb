@@ -12,7 +12,7 @@ module Octokit
       # @example List labels for pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
       def labels(repo, options={})
-        get("repos/#{Repository.new(repo)}/labels", options).data
+        repository(repo).rels[:labels].get(options).data
       end
 
       # Get single label for a repository
@@ -24,7 +24,8 @@ module Octokit
       # @example Get the "V3 Addition" label from pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
       def label(repo, name, options={})
-        get("repos/#{Repository.new(repo)}/labels/#{CGI.escape(name)}", options).data
+        options.merge! :uri => { :name => CGI.escape(name) }
+        repository(repo).rels[:labels].get(options).data
       end
 
       # Add a label to a repository
@@ -37,7 +38,8 @@ module Octokit
       # @example Add a new label "Version 1.0" with color "#cccccc"
       #   Octokit.add_label("pengwynn/octokit", "Version 1.0", "cccccc")
       def add_label(repo, label, color="ffffff", options={})
-        post("repos/#{Repository.new(repo)}/labels", options.merge({:name => label, :color => color})).data
+        options.merge! :name => label, :color => color
+        repository(repo).rels[:labels].post(options).data
       end
 
       # Update a label
@@ -52,7 +54,8 @@ module Octokit
       # @example Update the label "Version 1.0" with new color "#cceeaa"
       #   Octokit.update_label("pengwynn/octokit", "Version 1.0", {:color => "cceeaa"})
       def update_label(repo, label, options={})
-        post("repos/#{Repository.new(repo)}/labels/#{CGI.escape(label)}", options).data
+        uri_options = { :uri => { :name => CGI.escape(label) } }
+        repository(repo).rels[:labels].put(options, uri_options).data
       end
 
       # Delete a label from a repository.
@@ -67,7 +70,8 @@ module Octokit
       # @example Delete the label "Version 1.0" from the repository.
       #   Octokit.delete_label!("pengwynn/octokit", "Version 1.0")
       def delete_label!(repo, label, options={})
-        delete("repos/#{Repository.new(repo)}/labels/#{CGI.escape(label)}", options).status == 204
+        uri_options = { :uri => { :name => CGI.escape(label) } }
+        repository(repo).rels[:labels].delete(options, uri_options).status == 204
       end
 
       # Remove a label from an Issue
@@ -76,14 +80,15 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
-      # @param label [String] String name of the label
+      # @param name [String] String name of the label
       # @return [Array] A list of the labels currently on the issue
       # @see http://rubydoc.info/gems/faraday/0.5.3/Faraday/Response
       # @see http://developer.github.com/v3/issues/labels/#remove-a-label-from-an-issue
       # @example Remove the label "Version 1.0" from the repository.
       #   Octokit.remove_label("pengwynn/octokit", 23, "Version 1.0")
-      def remove_label(repo, number, label, options={})
-        delete("repos/#{Repository.new(repo)}/issues/#{number}/labels/#{CGI.escape(label)}", options).data
+      def remove_label(repo, number, name, options={})
+        uri_options = { :uri => { :name => CGI.escape(name) } }
+        issue(repo, number).rels[:labels].delete(options, uri_options).data
       end
 
       # Remove all label from an Issue
@@ -97,7 +102,7 @@ module Octokit
       # @example Remove all labels from Issue #23
       #   Octokit.remove_all_labels("pengwynn/octokit", 23)
       def remove_all_labels(repo, number, options={})
-        delete("repos/#{Repository.new(repo)}/issues/#{number}/labels", options).status == 204
+        issue(repo, number).rels[:labels].delete(options).status == 204
       end
 
       # List labels for a given issue
@@ -109,7 +114,7 @@ module Octokit
       # @example List labels for pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
       def labels_for_issue(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/#{number}/labels", options).data
+        issue(repo, number).rels[:labels].get(options).data
       end
 
       # Add label(s) to an Issue
@@ -122,7 +127,7 @@ module Octokit
       # @example Add two labels for pengwynn/octokit
       #   Octokit.add_labels_to_an_issue("pengwynn/octokit", 10, ['V3 Transition', 'Improvement'])
       def add_labels_to_an_issue(repo, number, labels)
-        post("repos/#{Repository.new(repo)}/issues/#{number}/labels", labels).data
+        issue(repo, number).rels[:labels].post(labels).data
       end
 
       # Replace all labels on an Issue
@@ -134,8 +139,8 @@ module Octokit
       # @see http://developer.github.com/v3/issues/labels/#replace-all-labels-for-an-issue
       # @example Replace labels for pengwynn/octokit Issue #10
       #   Octokit.replace_all_labels("pengwynn/octokit", 10, ['V3 Transition', 'Improvement'])
-      def replace_all_labels(repo, number, labels, options={})
-        put("repos/#{Repository.new(repo)}/issues/#{number}/labels", labels).data
+      def replace_all_labels(repo, number, labels)
+        issue(repo, number).rels[:labels].put(labels).data
       end
 
       # Get labels for every issue in a milestone
