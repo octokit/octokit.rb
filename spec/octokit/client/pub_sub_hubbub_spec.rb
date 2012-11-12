@@ -2,6 +2,11 @@
 require 'helper'
 
 describe Octokit::Client::PubSubHubbub do
+  before do
+    stub_get("https://api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
+  end
+
   let(:client) { Octokit::Client.new(:oauth_token => 'myfaketoken') }
 
   describe ".subscribe" do

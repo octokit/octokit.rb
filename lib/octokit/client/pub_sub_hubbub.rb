@@ -15,7 +15,7 @@ module Octokit
           :"hub.topic" => topic,
           :"hub.callback" => callback,
         }
-        post("hub", options).status == 204
+        root.rels[:hub].post(options).status == 204
       end
 
       # Unsubscribe from a pubsub topic
@@ -32,7 +32,7 @@ module Octokit
           :"hub.topic" => topic,
           :"hub.callback" => callback,
         }
-        post("hub", options).status == 204
+        root.rels[:hub].post(options).status == 204
       end
     end
   end
