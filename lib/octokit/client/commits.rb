@@ -1,3 +1,5 @@
+require 'date'
+
 module Octokit
   class Client
     module Commits
@@ -164,7 +166,97 @@ module Octokit
         post("repos/#{Repository.new(repo)}/merges", params, 3)
       end
 
+      # Get commits based on time windows
+      
+      # Get commits after a specified date
+      # 
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      def commits_since(repo, date, sha_or_branch="master", options={})
+        begin
+          _date = DateTime.parse(date)
+        rescue ArgumentError
+          raise ArgumentError, "#{date} is not a valid date"
+        end
+        
+        params = { :sha => sha_or_branch, :per_page => 35, 
+          :since => _date.iso8601 }
+        get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
+      end
 
+      # Get commits before a specified date
+      # 
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      def commits_before(repo, date, sha_or_branch="master", options={})
+        begin
+          _date = DateTime.parse(date)
+        rescue ArgumentError
+          raise ArgumentError, "#{date} is not a valid date"
+        end
+        params = { :sha => sha_or_branch, :per_page => 35, 
+          :until => _date.iso8601}
+        get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
+      end
+
+      # Get commits on a specified date
+      # 
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      def commits_on(repo, date, sha_or_branch="master", options={})
+        begin
+          # defaults to 00:00:00
+          _start_date = DateTime.parse(date)
+          # addition defaults to n days
+          _end_date = _start_date + 1
+        rescue ArgumentError
+          raise ArgumentError, "#{date} is not a valid date"
+        end
+        params = { :sha => sha_or_branch, :per_page => 35, 
+          :since => _start_date.iso8601, 
+          :until => _end_date.iso8601 }
+        get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
+      end
+
+      # Get commits made between two nominated dates
+      # 
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param start_date [String] Start Date on which we want to compare
+      # @param end_date [String] End Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      def commits_between(repo, start_date, end_date, sha_or_branch="master", options={})
+        begin
+          # defaults to 00:00:00
+          _start_date = DateTime.parse(start_date)
+        rescue ArgumentError
+          raise ArgumentError, "#{start_date} is not a valid date"
+        end
+        begin
+          # defaults to 00:00:00
+          _end_date = DateTime.parse(end_date)
+        rescue ArgumentError
+          raise ArgumentError, "#{end_date} is not a valid date"
+        end
+        if _end_date < _start_date
+          raise ArgumentError, "Start date #{start_date} does not precede #{end_date}"
+        end
+        params = { :sha => sha_or_branch, :per_page => 35,
+          :since => _start_date.iso8601,
+          :until => _end_date.iso8601 }
+        get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
+      end
+      
     end
   end
 end
