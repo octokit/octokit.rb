@@ -143,7 +143,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param base [String] The sha of the starting commit
-      # @param end [String] The sha of the ending commit
+      # @param endd [String] The sha of the ending commit
       # @return [Hashie::Mash] A hash representing the comparison
       # @see http://developer.github.com/v3/repos/commits/
       def compare(repo, start, endd, options={})
