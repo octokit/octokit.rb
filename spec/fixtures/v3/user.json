@@ -24,5 +24,6 @@
     "followers_url": "https://api.github.com/users/sferik/followers",
     "starred_url": "https://api.github.com/users/sferik/starred{/owner}{/repo}",
     "subscriptions_url": "https://api.github.com/users/sferik/subscriptions",
+    "organizations_url": "https://api.github.com/users/sferik/orgs",
     "gists_url": "https://api.github.com/users/sferik/gists{/gist_id}"
 }

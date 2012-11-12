@@ -4,6 +4,16 @@ require 'helper'
 describe Octokit::Client::Organizations do
 
   before do
+    stub_get("https://api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
+
+    stub_get("/users/sferik").
+      to_return(:body => fixture("v3/user.json"))
+
+    stub_get("https://api.github.com/orgs/codeforamerica").
+      with(:name => "Code For America").
+      to_return(:body => fixture("v3/organization.json"))
+
     @client = Octokit::Client.new(:login => 'sferik')
   end
 
@@ -83,6 +93,8 @@ describe Octokit::Client::Organizations do
   describe ".organization_teams" do
 
     it "returns all teams for an organization" do
+      stub_get("https://api.github.com/orgs/codeforamerica").
+        to_return(:body => fixture("v3/organization.json"))
       stub_get("https://api.github.com/orgs/codeforamerica/teams").
         to_return(:body => fixture("v3/teams.json"))
       teams = @client.organization_teams("codeforamerica")
@@ -94,6 +106,8 @@ describe Octokit::Client::Organizations do
   describe ".create_team" do
 
     it "creates a team" do
+      stub_get("https://api.github.com/orgs/codeforamerica").
+        to_return(:body => fixture("v3/organization.json"))
       stub_post("https://api.github.com/orgs/codeforamerica/teams").
         with(:name => "Fellows").
         to_return(:body => fixture("v3/team.json"))
@@ -106,6 +120,8 @@ describe Octokit::Client::Organizations do
   describe ".team" do
 
     it "returns a team" do
+      stub_get("https://api.github.com/orgs/codeforamerica").
+        to_return(:body => fixture("v3/organization.json"))
       stub_get("https://api.github.com/teams/32598").
         to_return(:body => fixture("v3/team.json"))
       team = @client.team(32598)
@@ -141,9 +157,11 @@ describe Octokit::Client::Organizations do
   describe ".team_members" do
 
     it "returns team members" do
-      stub_get("https://api.github.com/teams/33239/members").
+      stub_get("https://api.github.com/teams/32598").
+        to_return(:body => fixture("v3/team.json"))
+      stub_get("https://api.github.com/teams/32598/members").
         to_return(:body => fixture("v3/organization_team_members.json"))
-      users = @client.team_members(33239)
+      users = @client.team_members(32598)
       expect(users.first.login).to eq("ctshryock")
     end
 
@@ -152,6 +170,8 @@ describe Octokit::Client::Organizations do
   describe ".add_team_member" do
 
     it "adds a team member" do
+      stub_get("https://api.github.com/teams/32598").
+        to_return(:body => fixture("v3/team.json"))
       stub_put("https://api.github.com/teams/32598/members/sferik").
         with(:name => "sferik").
         to_return(:status => 204)
@@ -164,6 +184,8 @@ describe Octokit::Client::Organizations do
   describe ".remove_team_member" do
 
     it "removes a team member" do
+      stub_get("https://api.github.com/teams/32598").
+        to_return(:body => fixture("v3/team.json"))
       stub_delete("https://api.github.com/teams/32598/members/sferik").
         to_return(:status => 204)
       result = @client.remove_team_member(32598, "sferik")
@@ -184,9 +206,11 @@ describe Octokit::Client::Organizations do
   describe ".team_repositories" do
 
     it "returns team repositories" do
-      stub_get("https://api.github.com/teams/33239/repos").
+      stub_get("https://api.github.com/teams/32598").
+        to_return(:body => fixture("v3/team.json"))
+      stub_get("https://api.github.com/teams/32598/repos").
         to_return(:body => fixture("v3/organization_team_repos.json"))
-      repositories = @client.team_repositories(33239)
+      repositories = @client.team_repositories(32598)
       expect(repositories.first.name).to eq("GitTalk")
       expect(repositories.first.owner.id).to eq(570695)
     end
@@ -196,6 +220,8 @@ describe Octokit::Client::Organizations do
   describe ".add_team_repository" do
 
     it "adds a team repository" do
+      stub_get("https://api.github.com/teams/32598").
+        to_return(:body => fixture("v3/team.json"))
       stub_put("https://api.github.com/teams/32598/repos/reddavis/One40Proof").
         with(:name => "reddavis/One40Proof").
         to_return(:status => 204)
@@ -208,6 +234,8 @@ describe Octokit::Client::Organizations do
   describe ".remove_team_repository" do
 
     it "removes a team repository" do
+      stub_get("https://api.github.com/teams/32598").
+        to_return(:body => fixture("v3/team.json"))
       stub_delete("https://api.github.com/teams/32598/repos/reddavis/One40Proof").
         to_return(:status => 204)
       result = @client.remove_team_repository(32598, "reddavis/One40Proof")

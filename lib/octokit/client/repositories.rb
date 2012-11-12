@@ -108,9 +108,9 @@ module Octokit
         options.merge! :name => name
 
         if org_name.nil?
-          root.rels[:repos].post(options).data
+          root.rels[:repositories].post(options).data
         else
-          organization(org_name).rels[:repos].post(options).data
+          organization(org_name).rels[:repositories].post(options).data
         end
       end
       alias :create_repo :create_repository

@@ -15,6 +15,9 @@
     "public_repos": 142,
     "type": "Organization",
     "url": "https://api.github.com/orgs/codeforamerica",
-    "repos_url": "https://api.github.com/orgs/codeforamerica/repos",
-    "events_url": "https://api.github.com/orgs/codeforamerica/events"
+    "repositories_url": "https://api.github.com/orgs/codeforamerica/repos",
+    "events_url": "https://api.github.com/orgs/codeforamerica/events",
+    "members_url": "https://api.github.com/orgs/codeforamerica/members{/member}",
+    "public_members_url": "https://api.github.com/orgs/codeforamerica/public_members{/member}",
+    "teams_url": "https://api.github.com/orgs/codeforamerica/teams"
 }
