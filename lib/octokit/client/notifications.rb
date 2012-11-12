@@ -27,7 +27,7 @@ module Octokit
       # @example Get all notifications since a certain time.
       #   @client.notifications({all: true, since: '2012-10-09T23:39:01Z'})
       def notifications(options={})
-        get("notifications", options).data
+        root.rels[:notifications].get(options).data
       end
 
       # List your notifications in a repository
@@ -56,7 +56,7 @@ module Octokit
       # @example Get your notifications for pengwynn/octokit since a time.
       #   @client.repository_notifications({since: '2012-10-09T23:39:01Z'})
       def repository_notifications(repo, options={})
-        get("repos/#{Repository.new repo}/notifications", options).data
+        repository(repo).rels[:notifications].get(options).data
       end
       alias :repo_notifications :repository_notifications
 
@@ -81,11 +81,7 @@ module Octokit
       # @example
       #   @client.mark_notifications_as_read
       def mark_notifications_as_read(options={})
-        begin
-          put("notifications", options).status == 205
-        rescue
-          false
-        end
+        root.rels[:notifications].put(options).status == 205
       end
 
       # Mark notifications from a specific repository as read
@@ -110,11 +106,7 @@ module Octokit
       # @example
       #   @client.mark_notifications_as_read("pengwynn/octokit")
       def mark_repository_notifications_as_read(repo, options={})
-        begin
-          put("repos/#{Repository.new repo}/notifications", options).status == 205
-        rescue
-          false
-        end
+        repository(repo).rels[:notifications].put(options).status == 205
       end
       alias :mark_repo_notifications_as_read :mark_repository_notifications_as_read
 
@@ -122,14 +114,15 @@ module Octokit
       #
       # @param thread_id [Integer] Id of the thread.
       #
-      # @return [Array<Hashie::Mashie>] Array of notifications.
+      # @return <Hashie::Mashie> Thread info
       #
       # @see http://developer.github.com/v3/activity/notifications/#view-a-single-thread
       #
       # @example
       #   @client.notification_thread(1000)
-      def thread_notifications(thread_id, options={})
-        get("notifications/threads/#{thread_id}", options).data
+      def notifications_thread(thread_id, options={})
+        options.merge! :uri => { :thread_id => thread_id }
+        root.rels[:notification_thread].get(options).data
       end
 
       # Mark thread as read
@@ -149,11 +142,8 @@ module Octokit
       # @example
       #   @client.mark_thread_as_ready(1, :read => false)
       def mark_thread_as_read(thread_id, options={})
-        begin
-          patch("notifications/threads/#{thread_id}", options).status == 205
-        rescue
-          false
-        end
+        uri_options = {:uri => { :thread_id => thread_id } }
+        root.rels[:notification_thread].patch(options, uri_options).status == 205
       end
 
       # Get thread subscription
@@ -167,7 +157,7 @@ module Octokit
       # @example
       #   @client.thread_subscription(1)
       def thread_subscription(thread_id, options={})
-        get("notifications/threads/#{thread_id}/subscription", options).data
+        notifications_thread(thread_id).rels[:subscription].get(options).data
       end
 
       # Update thread subscription
@@ -196,7 +186,7 @@ module Octokit
       # @example Ignore notifications from a repo
       #   @client.update_thread_subscription(1, :ignored => true)
       def update_thread_subscription(thread_id, options={})
-        put("notifications/threads/#{thread_id}/subscription", options).data
+        notifications_thread(thread_id).rels[:subscription].put(options).data
       end
 
       # Delete a thread subscription
@@ -210,11 +200,7 @@ module Octokit
       # @example
       #   @client.delete_thread_subscription(1)
       def delete_thread_subscription(thread_id, options={})
-        begin
-          delete("notifications/threads/#{thread_id}", options).status == 204
-        rescue
-          false
-        end
+        notifications_thread(thread_id).rels[:subscription].delete.status == 204
       end
 
     end

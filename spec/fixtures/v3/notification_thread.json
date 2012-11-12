@@ -1,32 +1,34 @@
-[
-  {
-    "id": 1,
-    "repository": {
-      "id": 1296269,
-      "owner": {
-        "login": "octocat",
-        "id": 1,
-        "avatar_url": "https://github.com/images/error/octocat_happy.gif",
-        "gravatar_id": "somehexcode",
-        "url": "https://api.github.com/users/octocat"
-      },
-      "name": "Hello-World",
-      "full_name": "octocat/Hello-World",
-      "description": "This your first repo!",
-      "private": false,
-      "fork": false,
-      "url": "https://api.github.com/repos/octocat/Hello-World",
-      "html_url": "https://github.com/octocat/Hello-World"
+{
+  "subject": {
+    "type": "PullRequest",
+    "latest_comment_url": "https://api.github.com/repos/sferik/rails_admin/issues/comments/9330777",
+    "title": "Share an item with a team",
+    "url": "https://api.github.com/repos/sferik/rails_admin/pulls/6"
+  },
+  "subscription_url": "https://api.github.com/notifications/threads/1573564/subscription",
+  "repository": {
+    "notifications_url": "https://api.github.com/repos/sferik/rails_admin/notifications{?since,all,participating}",
+    "subscription_url": "https://api.github.com/repos/sferik/rails_admin/subscription",
+    "owner": {
+      "avatar_url": "https://secure.gravatar.com/avatar/61024896f291303615bcd4f7a0dcfb74?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png",
+      "url": "https://api.github.com/users/github",
+      "gravatar_id": "61024896f291303615bcd4f7a0dcfb74",
+      "id": 9919,
+      "login": "github"
     },
-    "subject": {
-      "title": "Greetings",
-      "url": "https://api.github.com/repos/pengwynn/octokit/issues/123",
-      "latest_comment_url": "https://api.github.com/repos/pengwynn/octokit/issues/comments/123"
-    },
-    "reason": "subscribed",
-    "unread": true,
-    "updated_at": "2012-09-25T07:54:41-07:00",
-    "last_read_at": "2012-09-25T07:54:41-07:00",
-    "url": "https://api.github.com/notifications/threads/1"
-  }
-]
+    "description": "A password management app with support for sharing with groups.",
+    "fork": false,
+    "url": "https://api.github.com/repos/sferik/rails_admin",
+    "html_url": "https://github.com/sferik/rails_admin",
+    "name": "swordfish",
+    "private": false,
+    "id": 5185922,
+    "full_name": "sferik/rails_admin"
+  },
+  "reason": "subscribed",
+  "last_read_at": null,
+  "unread": true,
+  "updated_at": "2012-10-11T07:16:31Z",
+  "url": "https://api.github.com/notifications/threads/1573564",
+  "id": "1573564"
+}

@@ -58,5 +58,6 @@
     "issues_url": "https://api.github.com/repos/sferik/rails_admin/issues{/number}",
     "milestones_url": "https://api.github.com/repos/sferik/rails_admin/milestones{/number}",
     "labels_url": "https://api.github.com/repos/sferik/rails_admin/labels{/name}",
+    "notifications_url": "https://api.github.com/repos/sferik/rails_admin/notifications{?since,all,participating}",
     "watchers": 2299
 }
