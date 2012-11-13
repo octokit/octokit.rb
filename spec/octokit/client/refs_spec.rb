@@ -4,6 +4,10 @@ require 'helper'
 describe Octokit::Client::Refs do
 
   before do
+    stub_get("https://api.github.com/").
+      to_return(:body => fixture("v3/root.json"))
+    stub_get("/repos/sferik/rails_admin").
+      to_return(:body => fixture("v3/repository.json"))
     @client = Octokit::Client.new(:login => 'sferik')
   end
 
@@ -41,11 +45,11 @@ describe Octokit::Client::Refs do
   describe ".create_ref" do
 
     it "creates a ref" do
-      stub_post("/repos/octocat/Hello-World/git/refs").
+      stub_post("/repos/sferik/rails_admin/git/refs/").
         with(:body => { "ref" => "refs/heads/master", "sha" => "827efc6d56897b048c772eb4087f854f46256132" },
              :headers => {'Content-Type'=>'application/json'}).
         to_return(:body => fixture("v3/ref_create.json"))
-      ref = @client.create_ref("octocat/Hello-World","heads/master", "827efc6d56897b048c772eb4087f854f46256132")
+      ref = @client.create_ref("sferik/rails_admin","heads/master", "827efc6d56897b048c772eb4087f854f46256132")
       expect(ref.first.ref).to eq("refs/heads/master")
     end
 
@@ -54,11 +58,11 @@ describe Octokit::Client::Refs do
   describe ".update_ref" do
 
     it "updates a ref" do
-      stub_patch("/repos/octocat/Hello-World/git/refs/heads/sc/featureA").
+      stub_patch("/repos/sferik/rails_admin/git/refs/heads/sc/featureA").
         with(:body => { "sha" => "aa218f56b14c9653891f9e74264a383fa43fefbd", "force" => true },
              :headers => {'Content-Type'=>'application/json'}).
         to_return(:body => fixture("v3/ref_update.json"))
-      refs = @client.update_ref("octocat/Hello-World","heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd", true)
+      refs = @client.update_ref("sferik/rails_admin","heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd", true)
       expect(refs.first.ref).to eq("refs/heads/sc/featureA")
       expect(refs.first.object.sha).to eq("aa218f56b14c9653891f9e74264a383fa43fefbd")
     end
@@ -67,9 +71,9 @@ describe Octokit::Client::Refs do
   describe ".delete_ref" do
 
     it "deletes an existing ref" do
-      stub_delete("/repos/octocat/Hello-World/git/refs/heads/feature-a").
+      stub_delete("/repos/sferik/rails_admin/git/refs/heads/feature-a").
         to_return(:status => 204)
-      result = @client.delete_ref("octocat/Hello-World", "heads/feature-a")
+      result = @client.delete_ref("sferik/rails_admin", "heads/feature-a")
       expect(result).to be_true
     end
 

@@ -42,6 +42,7 @@
     "tags_url": "https://api.github.com/repos/sferik/rails_admin/tags{/tag}",
     "blobs_url": "https://api.github.com/repos/sferik/rails_admin/git/blobs{/sha}",
     "git_tags_url": "https://api.github.com/repos/sferik/rails_admin/git/tags{/sha}",
+    "git_refs_url": "https://api.github.com/repos/sferik/rails_admin/git/refs/{+ref}",
     "trees_url": "https://api.github.com/repos/sferik/rails_admin/git/trees{/sha}",
     "branches_url": "https://api.github.com/repos/sferik/rails_admin/branches{/branch}",
     "subscribers_url": "https://api.github.com/repos/sferik/rails_admin/subscribers",
