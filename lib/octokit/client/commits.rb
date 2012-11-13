@@ -79,7 +79,7 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the comment
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comment(repo, id, options={})
-        repo(repo).rels[:comments].get(:uri => {:comment_id => id}).data
+        repository(repo).rels[:comments].get(:uri => {:number => id}).data
       end
 
       # Create a commit comment

@@ -27,6 +27,7 @@
     "url": "https://api.github.com/repos/sferik/rails_admin/issues/12",
     "labels_url": "https://api.github.com/repos/sferik/rails_admin/issues/12/labels{/name}",
     "comments_url": "https://api.github.com/repos/sferik/rails_admin/issues/12/comments",
+    "events_url": "https://api.github.com/repos/sferik/rails_admin/issues/12/events",
     "user": {
         "avatar_url": "https://secure.gravatar.com/avatar/dfb3948650131e4f0385c3328187cfca?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png",
         "gravatar_id": "dfb3948650131e4f0385c3328187cfca",

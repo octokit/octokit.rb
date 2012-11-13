@@ -47,5 +47,5 @@
         "total": 0
     },
     "url": "https://api.github.com/repos/sferik/rails_admin/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd",
-    "comments_url": "https://api.github.com/repos/sferik/rails_admin/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd/comments{/comment_id}"
+    "comments_url": "https://api.github.com/repos/sferik/rails_admin/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd/comments"
 }

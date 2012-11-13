@@ -150,7 +150,8 @@ module Octokit
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
       def issue_comment(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/comments/#{number}", options).data
+        options.merge! :uri => {:number => number }
+        repository(repo).rels[:issue_comment].get(options).data
       end
 
       # Add a comment to an issue
@@ -163,7 +164,9 @@ module Octokit
       # @example Add the comment "Almost to v1" to Issue #23 on pengwynn/octokit
       #   Octokit.add_comment("pengwynn/octokit", 23, "Almost to v1")
       def add_comment(repo, number, comment, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment})).data
+        options.merge! :body => comment
+        uri_options = { :uri => {:number => number } }
+        issue(repo, number).rels[:comments].post(options, uri_options).data
       end
 
       # Update a single comment on an issue
@@ -176,7 +179,9 @@ module Octokit
       # @example Update the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
       #   Octokit.update_comment("pengwynn/octokit", 25, "Almost to v1, added this on my fork")
       def update_comment(repo, number, comment, options={})
-        post("repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment})).data
+        options.merge! :body => comment
+        uri_options = { :uri => {:number => number } }
+        repository(repo).rels[:issue_comment].patch(options, uri_options).data
       end
 
       # Delete a single comment
@@ -188,7 +193,8 @@ module Octokit
       # @example Delete the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
       #   Octokit.delete_comment("pengwynn/octokit", 1194549)
       def delete_comment(repo, number, options={})
-        delete("repos/#{Repository.new(repo)}/issues/comments/#{number}", options).status == 204
+        uri_options = { :uri => {:number => number } }
+        repository(repo).rels[:issue_comment].delete(options, uri_options).status == 204
       end
 
 
@@ -202,7 +208,7 @@ module Octokit
       # @example List all issues events for issue #38 on pengwynn/octokit
       #   Octokit.issue_events("pengwynn/octokit", 38)
       def issue_events(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/#{number}/events", options).data
+        issue(repo, number).rels[:events].get(options).data
       end
 
       # Get information on a single Issue Event
@@ -215,7 +221,8 @@ module Octokit
       # @example Get Event information for ID 3094334 (a pull request was closed)
       #   Octokit.issue_event("pengwynn/octokit", 3094334)
       def issue_event(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/events/#{number}", options).data
+        options.merge! :uri => {:number => number }
+        repository(repo).rels[:issue_events].get(options).data
       end
 
     end

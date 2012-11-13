@@ -133,10 +133,12 @@ describe Octokit::Client::Issues do
   describe ".add_comment" do
 
     it "adds a comment" do
-      stub_post("/repos/sferik/rails_admin/issues/25/comments").
+      stub_get("/repos/sferik/rails_admin/issues/12").
+        to_return(:body => fixture("v3/issue.json"))
+      stub_post("/repos/sferik/rails_admin/issues/12/comments").
         with(:body => {"body" => "A test comment"}).
         to_return(:status => 201, :body => fixture('v3/comment.json'))
-      comment = @client.add_comment("sferik/rails_admin", 25, "A test comment")
+      comment = @client.add_comment("sferik/rails_admin", 12, "A test comment")
       expect(comment.user.login).to eq("ctshryock")
     end
 
@@ -145,7 +147,7 @@ describe Octokit::Client::Issues do
   describe ".update_comment" do
 
     it "updates an existing comment" do
-      stub_post("/repos/sferik/rails_admin/issues/comments/1194549").
+      stub_patch("/repos/sferik/rails_admin/issues/comments/1194549").
         with(:body => {"body" => "A test comment update"}).
         to_return(:status => 200, :body => fixture('v3/comment.json'))
       comment = @client.update_comment("sferik/rails_admin", 1194549, "A test comment update")
