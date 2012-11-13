@@ -143,10 +143,12 @@ describe Octokit::Client::Labels do
 
   describe ".labels_for_milestone" do
     it "returns all labels for a repository" do
-      stub_get('/repos/sferik/rails_admin/milestones/12/labels').
+      stub_get("/repos/sferik/rails_admin/milestones/1").
+        to_return(:status => 200, :body => fixture('v3/milestone.json'))
+      stub_get('/repos/sferik/rails_admin/milestones/1/labels').
         to_return(:status => 200, :body => fixture('v3/labels.json'), :headers => {})
 
-      labels = @client.labels_for_milestone('sferik/rails_admin', 12)
+      labels = @client.labels_for_milestone('sferik/rails_admin', 1)
       expect(labels.size).to eq(3)
     end
   end

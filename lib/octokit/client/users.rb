@@ -153,7 +153,7 @@ module Octokit
       #   Octokit.watched('pengwynn')
       def watched(user=login, options={})
         # TODO: Deprecated?
-        get("users/#{user}/watched", options).data
+        starred(user, options)
       end
 
       # Get a public key.

@@ -235,31 +235,6 @@ describe Octokit::Client::Users do
 
   end
 
-  describe ".watched" do
-
-    context "with a username passed" do
-
-      it "returns watched repositories" do
-        stub_get("https://api.github.com/users/sferik/watched").
-          to_return(:body => fixture("v3/watched.json"))
-        repositories = @client.watched("sferik")
-        expect(repositories.first.name).to eq("grit")
-      end
-
-    end
-
-    context "without a username passed" do
-
-      it "returns watched repositories" do
-        stub_get("https://api.github.com/users/sferik/watched").
-          to_return(:body => fixture("v3/watched.json"))
-        repositories = @client.watched
-        expect(repositories.first.name).to eq("grit")
-      end
-
-    end
-
-  end
 
   describe ".key" do
 
