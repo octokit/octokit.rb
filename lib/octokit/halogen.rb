@@ -7,7 +7,7 @@ module Octokit
     def parse(data)
 
       links = {}
-      inline_links = data.keys.select {|k| k[LINK_REGEX] }
+      inline_links = data.keys.select {|k| k.to_s[LINK_REGEX] }
       inline_links.each do |key|
         rel_name = key.to_s == 'url' ? 'self' : key.to_s.gsub(LINK_REGEX, '')
         links[rel_name.to_sym] = data[key]
