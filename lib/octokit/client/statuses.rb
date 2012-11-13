@@ -9,7 +9,8 @@ module Octokit
       # @return [Array] A list of statuses
       # @see http://developer.github.com/v3/repos/status
       def statuses(repo, sha, options={})
-        get("repos/#{Repository.new(repo)}/statuses/#{sha}", options).data
+        options.merge! :uri => {:sha => sha} 
+        repository(repo).rels[:statuses].get(options).data
       end
       alias :list_statuses :statuses
 
@@ -22,7 +23,8 @@ module Octokit
       # @see http://developer.github.com/v3/repos/status
       def create_status(repo, sha, state, options={})
         options.merge!(:state => state)
-        post("repos/#{Repository.new(repo)}/statuses/#{sha}", options).data
+        uri_options = {:uri => {:sha => sha}}
+        repository(repo).rels[:statuses].post(options, uri_options).data
       end
     end
   end
