@@ -108,7 +108,7 @@ module Octokit
         options.merge! :name => name
 
         if org_name.nil?
-          root.rels[:repositories].post(options).data
+          root.rels[:current_user_repositories].post(options).data
         else
           organization(org_name).rels[:repositories].post(options).data
         end

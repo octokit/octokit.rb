@@ -1,5 +1,6 @@
 {
   "authorizations_url": "/authorizations",
+  "current_user_repositories_url": "/user/repos{?type,page,per_page,sort}",
   "current_user_url": "/user",
   "emails_url": "https://api.github.com/user/emails",
   "emojis_url": "https://api.github.com/emojis",
@@ -18,7 +19,6 @@
   "rate_limit_url": "https://api.github.com/rate_limit",
   "repo_search_url": "https://api.github.com/legacy/repos/search/{keyword}{?language,start_page}",
   "repo_url": "https://api.github.com/repos/{owner}/{repo}",
-  "repositories_url": "https://api.github.com/user/repos{?type,page,per_page,sort}",
   "starred_gists_url": "https://api.github.com/gists/starred",
   "starred_url": "https://api.github.com/user/starred{/owner}{/repo}",
   "team_url": "https://api.github.com/teams/{team_id}",
