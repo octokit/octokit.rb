@@ -25,7 +25,7 @@ module Octokit
         if user
           root.rels[:user].get(:uri => {:user => user }).data
         else
-          root.rels[:authenticated_user].get.data
+          root.rels[:current_user].get.data
         end
       end
 
@@ -43,7 +43,7 @@ module Octokit
       # @example
       #   Octokit.user(:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false)
       def update_user(options)
-        root.rels[:authenticated_user].patch(options).data
+        root.rels[:current_user].patch(options).data
       end
 
       # Get a user's followers.

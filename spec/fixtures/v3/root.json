@@ -1,6 +1,6 @@
 {
-  "authenticated_user_url": "https://api.github.com/user",
   "authorizations_url": "https://api.github.com/authorizations{/authorization_id}",
+  "current_user_url": "/user",
   "emails_url": "https://api.github.com/user/emails",
   "emojis_url": "https://api.github.com/emojis",
   "events_url": "https://api.github.com/events",
