@@ -1,5 +1,5 @@
 {
-  "authorizations_url": "https://api.github.com/authorizations{/authorization_id}",
+  "authorizations_url": "/authorizations",
   "current_user_url": "/user",
   "emails_url": "https://api.github.com/user/emails",
   "emojis_url": "https://api.github.com/emojis",
