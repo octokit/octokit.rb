@@ -2,7 +2,7 @@
   "authorizations_url": "/authorizations",
   "current_user_repositories_url": "/user/repos{?type,page,per_page,sort}",
   "current_user_url": "/user",
-  "emails_url": "https://api.github.com/user/emails",
+  "emails_url": "/user/emails",
   "emojis_url": "https://api.github.com/emojis",
   "events_url": "https://api.github.com/events",
   "following_url": "https://api.github.com/user/following{/target}",
