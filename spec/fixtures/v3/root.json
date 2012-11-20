@@ -11,7 +11,6 @@
   "issue_search_url": "/legacy/issues/search/{owner}/{repo}/{state}/{keyword}",
   "issues_url": "/issues",
   "keys_url": "/user/keys{/key_id}",
-  "notification_thread_url": "https://api.github.com/notifications/threads/{thread_id}",
   "notifications_url": "https://api.github.com/notifications",
   "org_repos_url": "https://api.github.com/orgs/{org}/repos/{?type,page,per_page,sort}",
   "organization_url": "https://api.github.com/orgs/{org}",
