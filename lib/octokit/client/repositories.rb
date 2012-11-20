@@ -20,7 +20,7 @@ module Octokit
       # @return [Hashie::Mash] Repository information
       def repository(repo, options={})
         repo = Repository.new(repo)
-        root.rels[:repo].get(:uri => {:owner => repo.user, :repo => repo.name}).data
+        root.rels[:repository].get(:uri => {:owner => repo.user, :repo => repo.name}).data
       end
       alias :repo :repository
 

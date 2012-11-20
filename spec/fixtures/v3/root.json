@@ -17,7 +17,7 @@
   "public_gists_url": "/gists/public",
   "rate_limit_url": "/rate_limit",
   "repository_search_url": "/legacy/repos/search/{keyword}{?language,start_page}",
-  "repo_url": "https://api.github.com/repos/{owner}/{repo}",
+  "repository_url": "/repos/{owner}/{repo}",
   "starred_gists_url": "https://api.github.com/gists/starred",
   "starred_url": "https://api.github.com/user/starred{/owner}{/repo}",
   "team_url": "https://api.github.com/teams/{team_id}",
