@@ -6,7 +6,7 @@
   "emojis_url": "/emojis",
   "events_url": "/events",
   "following_url": "/user/following{/target}",
-  "gists_url": "https://api.github.com/gists{/gist_id}{/version}",
+  "gists_url": "/gists{/gist_id}{/version}",
   "hub_url": "https://api.github.com/hub",
   "issue_search_url": "https://api.github.com/legacy/issues/search/{owner}/{repo}/{state}/{keyword}",
   "issues_url": "https://api.github.com/issues",
