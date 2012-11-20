@@ -23,6 +23,6 @@
   "team_url": "/teams/{team_id}",
   "user_organizations_url": "/user/orgs",
   "user_repositories_url": "/users/{user}/repos{?type,page,per_page,sort}",
-  "user_search_url": "https://api.github.com/legacy/user/search/{keyword}",
+  "user_search_url": "/legacy/user/search/{keyword}",
   "user_url": "https://api.github.com/users/{user}"
 }
