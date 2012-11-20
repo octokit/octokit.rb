@@ -9,7 +9,7 @@ module Octokit
       # @return [Array<Hashie::Mash>] List of repositories found
       def search_repositories(keyword, options={})
         options.merge! :keyword => keyword
-        root.rels[:repo_search].get(:uri => options).data.repositories
+        root.rels[:repository_search].get(:uri => options).data.repositories
       end
       alias :search_repos :search_repositories
 
