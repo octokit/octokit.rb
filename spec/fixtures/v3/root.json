@@ -8,7 +8,7 @@
   "following_url": "/user/following{/target}",
   "gists_url": "/gists{/gist_id}{/version}",
   "hub_url": "/hub",
-  "issue_search_url": "https://api.github.com/legacy/issues/search/{owner}/{repo}/{state}/{keyword}",
+  "issue_search_url": "/legacy/issues/search/{owner}/{repo}/{state}/{keyword}",
   "issues_url": "https://api.github.com/issues",
   "keys_url": "https://api.github.com/user/keys{/key_id}",
   "notification_thread_url": "https://api.github.com/notifications/threads/{thread_id}",
