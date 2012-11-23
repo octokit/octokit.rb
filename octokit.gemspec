@@ -1,29 +1,29 @@
 # encoding: utf-8
 require File.expand_path('../lib/octokit/version', __FILE__)
 
-Gem::Specification.new do |gem|
-  gem.add_dependency 'addressable', '~> 2.2'
-  gem.add_dependency 'faraday', '~> 0.8'
-  gem.add_dependency 'faraday_middleware', '~> 0.8'
-  gem.add_dependency 'hashie', '~> 1.2'
-  gem.add_dependency 'multi_json', '~> 1.3'
-  gem.add_development_dependency 'json', '~> 1.7'
-  gem.add_development_dependency 'maruku'
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rspec'
-  gem.add_development_dependency 'simplecov'
-  gem.add_development_dependency 'webmock'
-  gem.add_development_dependency 'yard'
-  gem.authors = ["Wynn Netherland", "Erik Michaels-Ober", "Clint Shryock"]
-  gem.description = %q{Simple wrapper for the GitHub v3 API}
-  gem.email = ['wynn.netherland@gmail.com', 'sferik@gmail.com', 'clint@ctshryock.com']
-  gem.files = `git ls-files`.split("\n")
-  gem.homepage = 'https://github.com/pengwynn/octokit'
-  gem.name = 'octokit'
-  gem.platform = Gem::Platform::RUBY
-  gem.require_paths = ['lib']
-  gem.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
-  gem.summary = gem.description
-  gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
-  gem.version = Octokit::VERSION
+Gem::Specification.new do |spec|
+  spec.add_dependency 'addressable', '~> 2.2'
+  spec.add_dependency 'faraday', '~> 0.8'
+  spec.add_dependency 'faraday_middleware', '~> 0.8'
+  spec.add_dependency 'hashie', '~> 1.2'
+  spec.add_dependency 'multi_json', '~> 1.3'
+  spec.add_development_dependency 'json', '~> 1.7'
+  spec.add_development_dependency 'maruku'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'yard'
+  spec.authors = ["Wynn Netherland", "Erik Michaels-Ober", "Clint Shryock"]
+  spec.description = %q{Simple wrapper for the GitHub v3 API}
+  spec.email = ['wynn.netherland@gmail.com', 'sferik@gmail.com', 'clint@ctshryock.com']
+  spec.files = `git ls-files`.split("\n")
+  spec.homepage = 'https://github.com/pengwynn/octokit'
+  spec.licenses = ['MIT']
+  spec.name = 'octokit'
+  spec.require_paths = ['lib']
+  spec.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
+  spec.summary = spec.description
+  spec.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
+  spec.version = Octokit::VERSION
 end
