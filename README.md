@@ -155,4 +155,4 @@ less-ActiveResourcey alternative.
 Copyright (c) 2011 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober. See
 [LICENSE][] for details.
 
-[license]: https://github.com/pengwynn/octokit/blob/master/LICENSE
+[license]: https://github.com/pengwynn/octokit/blob/master/LICENSE.md
