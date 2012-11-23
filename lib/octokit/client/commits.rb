@@ -184,9 +184,8 @@ module Octokit
           raise ArgumentError, "#{date} is not a valid date"
         end
         
-        params = { :sha => sha_or_branch, :per_page => 35, 
-          :since => iso8601(date) }
-        get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
+        params = {:since => iso8601(date) }
+        commits(repo, sha_or_branch, params.merge(options))
       end
 
       # Get commits before a specified date
@@ -204,9 +203,8 @@ module Octokit
         rescue ArgumentError
           raise ArgumentError, "#{date} is not a valid date"
         end
-        params = { :sha => sha_or_branch, :per_page => 35, 
-          :until => iso8601(date)}
-        get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
+        params = {:until => iso8601(date)}
+        commits(repo, sha_or_branch, params.merge(options))
       end
 
       # Get commits on a specified date
@@ -227,10 +225,8 @@ module Octokit
         rescue ArgumentError
           raise ArgumentError, "#{date} is not a valid date"
         end
-        params = { :sha => sha_or_branch, :per_page => 35, 
-          :since => iso8601(start_date), 
-          :until => iso8601(end_date) }
-        get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
+        params = { :since => iso8601(start_date), :until => iso8601(end_date) }
+        commits(repo, sha_or_branch, params.merge(options))
       end
 
       # Get commits made between two nominated dates
@@ -261,10 +257,9 @@ module Octokit
         if _end_date < _start_date
           raise ArgumentError, "Start date #{start_date} does not precede #{end_date}"
         end
-        params = { :sha => sha_or_branch, :per_page => 35,
-          :since => iso8601(_start_date),
+        params = {:since => iso8601(_start_date),
           :until => iso8601(_end_date) }
-        get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
+        commits(repo, sha_or_branch, params.merge(options))
       end
       
       protected
