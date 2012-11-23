@@ -600,7 +600,7 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @returns [Array<Hashie::Mash>] Array of hashes representing users.
+      # @return [Array<Hashie::Mash>] Array of hashes representing users.
       # @see Octokit::Client
       # @see http://developer.github.com/v3/issues/assignees/#list-assignees
       # @example

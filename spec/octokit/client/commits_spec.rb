@@ -1,6 +1,10 @@
 # -*- encoding: utf-8 -*-
 require 'helper'
 
+# need this to filter the data
+require 'json'
+require 'date'
+
 describe Octokit::Client::Commits do
 
   before do
@@ -18,6 +22,141 @@ describe Octokit::Client::Commits do
 
   end
 
+  describe ".commits_on" do
+
+    it "returns all commits on the specified date" do
+      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| x['commit']['committer']['date'].start_with?("2011-01-20T")})
+      stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
+        with(:query=>{"per_page" => 35, "sha" => "master", 
+          "since" => "2011-01-20T00:00:00+00:00", "until" => "2011-01-21T00:00:00+00:00"}).
+        to_return(:status => 200, :body => filtered, :headers => {})
+      commits = @client.commits_on("sferik/rails_admin", "2011-01-20")
+      expect(commits.collect {|x| x["sha"]}).to match_array(["4a600e61db3cdc67a471ead5e71cc97c298fbb43", "611fb66c11218b63990d0fbceb2bd4d9b9a71239", 
+        "3fe5aeee217934f39112caa9d14483328e6f86c8", 
+        "433e7114cc7f761db8a08f4ce1bb7f1fb56e2920", "ec218eb7b5e4cccc1315bed761045571bb5ee2c0", 
+        "fc09f63da396238d529db2bea8ebbebe8f67374e", "24dec08a97d1e5e4d4183d60555371109ee69637", 
+        "42d40ee3ae6ec4b26ff781d089f9bfba909ca6f9", "1c2f2519318b7429e32cadc42916a0ecc4020a06"])
+    end
+
+    it "returns an empty array if there are no commits on the specified date" do
+      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| x['commit']['committer']['date'].start_with?("2011-01-15T")})
+      stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
+        with(:query=>{"per_page" => 35, "sha" => "master", 
+          "since" => "2011-01-15T00:00:00+00:00", 
+          "until" => "2011-01-16T00:00:00+00:00"}).
+        to_return(:status => 200, :body => filtered, :headers => {})
+      commits = @client.commits_on("sferik/rails_admin", "2011-01-15")
+      expect(commits.length).to eq(0)
+    end
+
+    it "errors if the date is invalid" do
+      expect {@client.commits_on("sferik/rails_admin", "A pear")}.to raise_exception(ArgumentError, "A pear is not a valid date")
+    end
+
+  end
+
+  describe ".commits_since" do
+
+    it "returns all commits after the specified date" do
+      start_date = Date.parse("2011-01-16T00:00:00+00:00")
+      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) >= start_date})
+      stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
+        with(:query=>{"per_page" => 35, "sha" => "master", 
+          "since" => "2011-01-16T00:00:00+00:00"}).
+        to_return(:status => 200, :body => filtered, :headers => {})
+      commits = @client.commits_since("sferik/rails_admin", "2011-01-16")
+      expect(commits.length).to eq(35)
+    end
+
+    it "returns an empty array if there are no commits after the specified date" do
+      start_date = Date.parse("2011-01-22T00:00:00+00:00")
+      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) >= start_date})
+      stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
+        with(:query=>{"per_page" => 35, "sha" => "master", 
+          "since" => "2011-01-22T00:00:00+00:00"}).
+        to_return(:status => 200, :body => filtered, :headers => {})
+      commits = @client.commits_since("sferik/rails_admin", "2011-01-22")
+      expect(commits).to match_array([])
+    end
+
+    it "errors if the date is invalid" do
+      expect {@client.commits_since("sferik/rails_admin", "A pear")}.to raise_exception(ArgumentError, "A pear is not a valid date")
+    end
+
+  end
+
+  describe ".commits_before" do
+
+    it "returns all commits before the specified date" do
+      end_date = Date.parse("2011-01-17T00:00:00+00:00")
+      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) < end_date})
+      stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
+        with(:query=>{"per_page" => 35, "sha" => "master", 
+          "until" => "2011-01-17T00:00:00+00:00"}).
+          to_return(:status => 200, :body => filtered, :headers => {})
+      commits = @client.commits_before("sferik/rails_admin", "2011-01-17")
+      expect(commits.length).to eq(1)
+    end
+
+    it "returns an empty array if there are no commits before the specified date" do
+      end_date = DateTime.parse("2011-01-16T00:00:00%2000:00")
+      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) < end_date})
+      stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
+        with(:query=>{"per_page" => 35, "sha" => "master", 
+          "until" => "2011-01-16T00:00:00+00:00"}).
+          to_return(:status => 200, :body => filtered, :headers => {})
+      commits = @client.commits_before("sferik/rails_admin", "2011-01-16")
+      expect(commits).to match_array([])
+    end
+
+    it "errors if the date is invalid" do
+      expect {@client.commits_before("sferik/rails_admin", "A pear")}.to raise_exception(ArgumentError, "A pear is not a valid date")
+    end
+
+  end
+
+  describe ".commits_between" do
+
+    it "returns all commits between the specified dates" do
+      start_date = DateTime.parse("2011-01-17T00:00:00+00:00")
+      end_date = DateTime.parse("2011-01-20T00:00:00+00:00")
+      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) >= start_date && 
+        Date.parse(x['commit']['committer']['date']) < end_date})
+      stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
+        with(:query=>{"per_page" => 35, "sha" => "master", 
+          "since" => "2011-01-17T00:00:00+00:00", "until" => "2011-01-20T00:00:00+00:00"}).
+        to_return(:status => 200, :body => filtered, :headers => {})
+      commits = @client.commits_between("sferik/rails_admin", "2011-01-17", "2011-01-20")
+      expect(commits.length).to eq(21)
+    end
+
+    it "returns an empty array if there are no commits between the specified dates" do
+      start_date = Date.parse("2011-01-15T00:00:00+00:00")
+      end_date = Date.parse("2011-01-16T00:00:00+00:00")
+      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) >= start_date && 
+        Date.parse(x['commit']['committer']['date']) < end_date})
+      stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
+        with(:query=>{"per_page" => 35, "sha" => "master", 
+          "since" => "2011-01-15T00:00:00+00:00", "until" => "2011-01-16T00:00:00+00:00"}).
+        to_return(:status => 200, :body => filtered, :headers => {})
+      commits = @client.commits_between("sferik/rails_admin", "2011-01-15", "2011-01-16")
+      expect(commits).to match_array([])
+    end
+
+    it "errors if the end_date preceeds the start_date" do
+      expect {@client.commits_between("sferik/rails_admin", "2011-01-16", "2011-01-15")}.to raise_exception(ArgumentError, "Start date 2011-01-16 does not precede 2011-01-15")
+    end
+    
+    it "errors if the start date is invalid" do
+      expect {@client.commits_between("sferik/rails_admin", "A pear", "2011-01-15")}.to raise_exception(ArgumentError, "A pear is not a valid date")
+    end
+
+    it "errors if the end date is invalid" do
+      expect {@client.commits_between("sferik/rails_admin", "2011-01-16", "A walrus")}.to raise_exception(ArgumentError, "A walrus is not a valid date")
+    end
+    
+  end
+  
   describe ".commit" do
 
     it "returns a commit" do
