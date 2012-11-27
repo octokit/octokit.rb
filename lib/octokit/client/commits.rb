@@ -1,3 +1,5 @@
+require 'date'
+
 module Octokit
   class Client
     module Commits
@@ -140,8 +142,8 @@ module Octokit
       # Compare two commits
       #
       # @param repo [String, Hash, Repository] A GitHub repository
-      # @param base [String] The sha of the starting commit
-      # @param end [String] The sha of the ending commit
+      # @param start [String] The sha of the starting commit
+      # @param endd [String] The sha of the ending commit
       # @return [Hashie::Mash] A hash representing the comparison
       # @see http://developer.github.com/v3/repos/commits/
       def compare(repo, start, endd, options={})
@@ -164,7 +166,112 @@ module Octokit
         post("repos/#{Repository.new(repo)}/merges", params, 3)
       end
 
+      # Get commits based on time windows
+      
+      # Get commits after a specified date
+      # 
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_since('pengwynn/octokit', '2012-10-01')
+      def commits_since(repo, date, sha_or_branch="master", options={})
+        begin
+          date = DateTime.parse(date)
+        rescue ArgumentError
+          raise ArgumentError, "#{date} is not a valid date"
+        end
+        
+        params = {:since => iso8601(date) }
+        commits(repo, sha_or_branch, params.merge(options))
+      end
 
+      # Get commits before a specified date
+      # 
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_before('pengwynn/octokit', '2012-10-01')
+      def commits_before(repo, date, sha_or_branch="master", options={})
+        begin
+          date = DateTime.parse(date)
+        rescue ArgumentError
+          raise ArgumentError, "#{date} is not a valid date"
+        end
+        params = {:until => iso8601(date)}
+        commits(repo, sha_or_branch, params.merge(options))
+      end
+
+      # Get commits on a specified date
+      # 
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01')
+      def commits_on(repo, date, sha_or_branch="master", options={})
+        begin
+          # defaults to 00:00:00
+          start_date = DateTime.parse(date)
+          # addition defaults to n days
+          end_date = start_date + 1
+        rescue ArgumentError
+          raise ArgumentError, "#{date} is not a valid date"
+        end
+        params = { :since => iso8601(start_date), :until => iso8601(end_date) }
+        commits(repo, sha_or_branch, params.merge(options))
+      end
+
+      # Get commits made between two nominated dates
+      # 
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param start_date [String] Start Date on which we want to compare
+      # @param end_date [String] End Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01', '2012-11-01')
+      def commits_between(repo, start_date, end_date, sha_or_branch="master", options={})
+        begin
+          # defaults to 00:00:00
+          # use a second var for the parsed date so error message is consistent
+          _start_date = DateTime.parse(start_date)
+        rescue ArgumentError
+          raise ArgumentError, "#{start_date} is not a valid date"
+        end
+        begin
+          # defaults to 00:00:00
+          # use a second var for the parsed date so error message is consistent
+          _end_date = DateTime.parse(end_date)
+        rescue ArgumentError
+          raise ArgumentError, "#{end_date} is not a valid date"
+        end
+        if _end_date < _start_date
+          raise ArgumentError, "Start date #{start_date} does not precede #{end_date}"
+        end
+        params = {:since => iso8601(_start_date),
+          :until => iso8601(_end_date) }
+        commits(repo, sha_or_branch, params.merge(options))
+      end
+      
+      protected
+      
+      def iso8601(date)
+        if date.respond_to?(:iso8601)
+          date.iso8601
+        else
+          date.strftime("%Y-%m-%dT%H:%M:%S%Z")
+        end
+      end
+      
     end
   end
 end

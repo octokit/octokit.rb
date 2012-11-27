@@ -1,0 +1,35 @@
+{
+  "created_at": "2012-10-22T14:05:25Z",
+  "original_commit_id": "6ed6909ceb8f285de6562cca41dd1e4331c00722",
+  "original_position": 46,
+  "position": null,
+  "path": "lib/octokit/request.rb",
+  "updated_at": "2012-10-22T20:20:10Z",
+  "commit_id": "2d3201e4440903d8b04a5487842053ca4883e5f0",
+  "id": 1903950,
+  "url": "https://api.github.com/repos/pengwynn/octokit/pulls/comments/1903950",
+  "_links": {
+    "pull_request": {
+      "href": "https://api.github.com/repos/pengwynn/octokit/pulls/163"
+    },
+    "self": {
+      "href": "https://api.github.com/repos/pengwynn/octokit/pulls/comments/1903950"
+    },
+    "html": {
+      "href": "https://github.com/pengwynn/octokit/pull/163#discussion_r1903950"
+    }
+  },
+  "user": {
+    "gravatar_id": "7e19cd5486b5d6dc1ef90e671ba52ae0",
+    "avatar_url": "https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+    "url": "https://api.github.com/users/pengwynn",
+    "id": 865,
+    "login": "pengwynn",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/users/pengwynn"
+      }
+    }
+  },
+  "body": "I like that. Tests FTW. Thanks for patching this."
+}

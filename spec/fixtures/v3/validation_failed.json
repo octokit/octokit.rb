@@ -1,0 +1,11 @@
+{
+  "errors": [
+    {
+      "field": "name",
+      "message": "name is too short (minimum is 1 characters)",
+      "code": "custom",
+      "resource": "Repository"
+    }
+  ],
+  "message": "Validation Failed"
+}
