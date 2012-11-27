@@ -58,6 +58,22 @@ describe Octokit::Client::Issues do
       expect(issue.number).to eq(12)
     end
 
+    context "with media_type param full" do
+
+      it "returns an issue" do
+        stub_get("/repos/pengwynn/octokit/issues/1").
+          to_return(:body => fixture('v3/issue_full.json'))
+        options = {
+          :octokit => {
+            :media_type => 'application/vnd.github.beta.full+json'
+          }
+        }
+        issue = @client.issue("pengwynn/octokit", 1, options)
+        expect(issue.body_html).to include('<p>Create, Edit, Delete missing')
+        expect(issue.body_text).to include('Create, Edit, Delete missing')
+      end
+    end
+
   end
 
   describe ".close_issue" do

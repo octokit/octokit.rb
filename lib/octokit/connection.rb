@@ -6,34 +6,40 @@ module Octokit
   module Connection
     private
 
-    def connection(authenticate=true, raw=false, version=3, force_urlencoded=false)
-      case version
-      when 3
-        url = Octokit.api_endpoint
+    def connection(options={})
+      options = {
+        :authenticate => true,
+        :force_urlencoded => false,
+        :raw => false,
+        :ssl => { :verify => false },
+        :url => Octokit.api_endpoint,
+        :version => Octokit.api_version
+      }.merge(options)
+
+      if !proxy.nil?
+        options.merge!(:proxy => proxy)
       end
 
-      options = {
-        :ssl => { :verify => false },
-        :url => url,
-      }
+      if oauthed? && !authenticated?
+        options.merge!(:params => {:access_token => oauth_token})
+      end
 
-      options[:proxy] = proxy unless proxy.nil?
-
-      options.merge!(:params => {:access_token => oauth_token}) if oauthed? && !authenticated?
-      options.merge!(:params => unauthed_rate_limit_params) if !oauthed? && !authenticated? && unauthed_rate_limited?
+      if !oauthed? && !authenticated? && unauthed_rate_limited?
+        options.merge!(:params => unauthed_rate_limit_params)
+      end
 
       # TODO: Don't build on every request
       connection = Faraday.new(options) do |builder|
-        if version >= 3 && !force_urlencoded
+        if options[:version] >= 3 && !options[:force_urlencoded]
           builder.request :json
         else
           builder.request :url_encoded
         end
 
         builder.use Faraday::Response::RaiseOctokitError
+        builder.use FaradayMiddleware::Mashify
 
-        unless raw
-          builder.use FaradayMiddleware::Mashify
+        if options[:media_type].nil? || options[:media_type].include?('json')
           builder.use FaradayMiddleware::ParseJson
         end
 
@@ -42,7 +48,10 @@ module Octokit
         builder.adapter *adapter
       end
 
-      connection.basic_auth authentication[:login], authentication[:password] if authenticate and authenticated?
+      if options[:authenticate] and authenticated?
+        connection.basic_auth authentication[:login], authentication[:password]
+      end
+
       connection
     end
   end
