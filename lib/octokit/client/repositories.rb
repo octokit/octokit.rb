@@ -9,7 +9,7 @@ module Octokit
       # @return [Array<Hashie::Mash>] List of repositories found
       def search_repositories(keyword, options={})
         options.merge! :keyword => keyword
-        root.rels[:repo_search].get(:uri => options).data.repositories
+        root.rels[:repository_search].get(:uri => options).data.repositories
       end
       alias :search_repos :search_repositories
 
@@ -20,7 +20,7 @@ module Octokit
       # @return [Hashie::Mash] Repository information
       def repository(repo, options={})
         repo = Repository.new(repo)
-        root.rels[:repo].get(:uri => {:owner => repo.user, :repo => repo.name}).data
+        root.rels[:repository].get(:uri => {:owner => repo.user, :repo => repo.name}).data
       end
       alias :repo :repository
 
@@ -108,7 +108,7 @@ module Octokit
         options.merge! :name => name
 
         if org_name.nil?
-          root.rels[:repositories].post(options).data
+          root.rels[:current_user_repositories].post(options).data
         else
           organization(org_name).rels[:repositories].post(options).data
         end

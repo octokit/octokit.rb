@@ -73,7 +73,7 @@ describe Octokit::Client::Notifications do
 
   describe ".notifications_thread" do
 
-    it "returns notifications for a specific thread" do
+    pending "returns notifications for a specific thread" do
       stub_get("https://api.github.com/notifications/threads/1573564").
         to_return(:body => fixture('v3/notification_thread.json'))
       notification = @client.notifications_thread(1573564)
@@ -85,14 +85,14 @@ describe Octokit::Client::Notifications do
 
   describe ".mark_thread_as_read" do
 
-    it "marks a thread as read" do
+    pending "marks a thread as read" do
       stub_patch("https://api.github.com/notifications/threads/1573564").
         to_return(:status => 205)
       result = @client.mark_thread_as_read(1573564)
       expect(result).to be_true
     end
 
-    it "returns false when unsuccessful" do
+    pending "returns false when unsuccessful" do
       stub_patch("https://api.github.com/notifications/threads/1573564").
         to_return(:status => 500)
       result = @client.mark_thread_as_read(1573564)
@@ -103,7 +103,7 @@ describe Octokit::Client::Notifications do
 
   describe ".thread_subscription" do
 
-    it "returns a thread subscription" do
+    pending "returns a thread subscription" do
       stub_get("https://api.github.com/notifications/threads/1573564").
         to_return(:body => fixture('v3/notification_thread.json'))
       stub_get("https://api.github.com/notifications/threads/1573564/subscription").
@@ -116,7 +116,7 @@ describe Octokit::Client::Notifications do
 
   describe ".update_thread_subscription" do
 
-    it "updates a thread subscription" do
+    pending "updates a thread subscription" do
       stub_get("https://api.github.com/notifications/threads/1573564").
         to_return(:body => fixture('v3/notification_thread.json'))
       stub_put("https://api.github.com/notifications/threads/1573564/subscription").
@@ -129,7 +129,7 @@ describe Octokit::Client::Notifications do
 
   describe ".delete_thread_subscription" do
 
-    it "returns true with successful thread deletion" do
+    pending "returns true with successful thread deletion" do
       stub_get("https://api.github.com/notifications/threads/1573564").
         to_return(:body => fixture('v3/notification_thread.json'))
       stub_delete("https://api.github.com/notifications/threads/1573564/subscription").
@@ -138,7 +138,7 @@ describe Octokit::Client::Notifications do
       expect(result).to be_true
     end
 
-    it "returns false when subscription deletion fails" do
+    pending "returns false when subscription deletion fails" do
       stub_get("https://api.github.com/notifications/threads/1573564").
         to_return(:body => fixture('v3/notification_thread.json'))
       stub_delete("https://api.github.com/notifications/threads/1573564/subscription").

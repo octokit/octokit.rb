@@ -182,7 +182,7 @@ describe Octokit::Client do
         to_return(:body => fixture("v3/root.json"))
 
       root = Octokit.agent.start.data
-      expect(root.rels[:user].href(:user => 'pengwynn')).to eq('https://api.github.com/users/pengwynn')
+      expect(root.rels[:user].href(:user => 'pengwynn')).to eq('/users/pengwynn')
     end
 
   end
