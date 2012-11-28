@@ -20,11 +20,11 @@ module Octokit
       # @see http://developer.github.com/v3/users/#get-a-single-user
       # @example
       #   Octokit.user("sferik")
-      def user(user=nil, options={})
+      def user(user=nil)
         if user
-          get "users/#{user}", options
+          get "users/#{user}", {}
         else
-          get "user", options
+          get "user", {}
         end
       end
 
@@ -82,7 +82,7 @@ module Octokit
         user = args.first
         user ||= login
         return if user.nil?
-        request(:get, "user/following/#{target}", {}).status == 204
+        request(:get, "user/following/#{target}").status == 204
       rescue Octokit::NotFound
         false
       end
