@@ -170,7 +170,7 @@ describe Octokit::Client do
 
     it "displays validation errors" do
       stub_patch("https://foo:bar@api.github.com/repos/pengwynn/api-sandbox").
-        to_return(json_response("v3/validation_failed.json"))
+        to_return(json_response("validation_failed.json"))
 
       response = Octokit::Client.new(:login => 'foo', :password => 'bar').update_repository('pengwynn/api-sandbox')
       expect(response.errors.first.message).to eq('name is too short (minimum is 1 characters)')
