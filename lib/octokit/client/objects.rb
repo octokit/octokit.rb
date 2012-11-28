@@ -33,7 +33,7 @@ module Octokit
       #   tree.tree.first.path # => "file.rb"
       def create_tree(repo, tree, options={})
         parameters = { :tree => tree }
-        post("repos/#{Repository.new(repo)}/git/trees", options.merge(parameters), 3)
+        post("repos/#{Repository.new(repo)}/git/trees", options.merge(parameters))
       end
 
       # Get a single blob, fetching its content and encoding
@@ -73,7 +73,7 @@ module Octokit
           :content => content,
           :encoding => encoding
         }
-        post("repos/#{Repository.new(repo)}/git/blobs", options.merge(parameters), 3).sha
+        post("repos/#{Repository.new(repo)}/git/blobs", options.merge(parameters)).sha
       end
 
       # Get a tag
@@ -85,7 +85,7 @@ module Octokit
       # @example Fetch a tag
       #   Octokit.tag('pengwynn/octokit', '23aad20633f4d2981b1c7209a800db3014774e96')
       def tag(repo, tag_sha, options={})
-        get("repos/#{Repository.new repo}/git/tags/#{tag_sha}", options, 3)
+        get("repos/#{Repository.new repo}/git/tags/#{tag_sha}", options)
       end
 
       # Create a tag
@@ -127,7 +127,7 @@ module Octokit
             :date => tagger_date
           }
         )
-        post("repos/#{Repository.new repo}/git/tags", options, 3)
+        post("repos/#{Repository.new repo}/git/tags", options)
       end
     end
   end

@@ -11,7 +11,7 @@ module Octokit
       # @example
       #   Octokit.org('github')
       def organization(org, options={})
-        get("orgs/#{org}", options, 3)
+        get("orgs/#{org}", options)
       end
       alias :org :organization
 
@@ -40,7 +40,7 @@ module Octokit
       # @example
       #   @client.update_org('github', {:company => 'Unicorns, Inc.'})
       def update_organization(org, values, options={})
-        patch("orgs/#{org}", options.merge({:organization => values}), 3)
+        patch("orgs/#{org}", options.merge({:organization => values}))
       end
       alias :update_org :update_organization
 
@@ -73,9 +73,9 @@ module Octokit
       #   @client.organizations
       def organizations(user=nil, options={})
         if user
-          get("users/#{user}/orgs", options, 3)
+          get("users/#{user}/orgs", options)
         else
-          get("user/orgs", options, 3)
+          get("user/orgs", options)
         end
       end
       alias :list_organizations :organizations
@@ -103,7 +103,7 @@ module Octokit
       # @example
       #   @client.org_repos('github', {:type => 'private'})
       def organization_repositories(org, options={})
-        get("orgs/#{org}/repos", options, 3)
+        get("orgs/#{org}/repos", options)
       end
       alias :org_repositories :organization_repositories
       alias :org_repos :organization_repositories
@@ -125,7 +125,7 @@ module Octokit
       # @example
       #   Octokit.org_members('github')
       def organization_members(org, options={})
-        get("orgs/#{org}/members", options, 3)
+        get("orgs/#{org}/members", options)
       end
       alias :org_members :organization_members
 
@@ -142,7 +142,7 @@ module Octokit
       # @example
       #   @client.org_teams('github')
       def organization_teams(org, options={})
-        get("orgs/#{org}/teams", options, 3)
+        get("orgs/#{org}/teams", options)
       end
       alias :org_teams :organization_teams
 
@@ -169,7 +169,7 @@ module Octokit
       #     :permission => 'push'
       #   })
       def create_team(org, options={})
-        post("orgs/#{org}/teams", options, 3)
+        post("orgs/#{org}/teams", options)
       end
 
       # Get team
@@ -183,7 +183,7 @@ module Octokit
       # @example
       #   @client.team(100000)
       def team(team_id, options={})
-        get("teams/#{team_id}", options, 3)
+        get("teams/#{team_id}", options)
       end
 
       # Update team
@@ -206,7 +206,7 @@ module Octokit
       #     :permission => 'push'
       #   })
       def update_team(team_id, options={})
-        patch("teams/#{team_id}", options, 3)
+        patch("teams/#{team_id}", options)
       end
 
       # Delete team
@@ -220,7 +220,8 @@ module Octokit
       # @example
       #   @client.delete_team(100000)
       def delete_team(team_id, options={})
-        delete("teams/#{team_id}", options, 3, true, true)
+        # TODO: Return boolean based on status
+        request(:delete, "teams/#{team_id}", options)
       end
 
       # List team members
@@ -234,7 +235,7 @@ module Octokit
       # @example
       #   @client.team_members(100000)
       def team_members(team_id, options={})
-        get("teams/#{team_id}/members", options, 3)
+        get("teams/#{team_id}/members", options)
       end
 
       # Add team member
@@ -253,7 +254,7 @@ module Octokit
         # There's a bug in this API call. The docs say to leave the body blank,
         # but it fails if the body is both blank and the content-length header
         # is not 0.
-        put("teams/#{team_id}/members/#{user}", options.merge({:name => user}), 3, true, raw=true).status == 204
+        request(:put, "teams/#{team_id}/members/#{user}", options.merge({:name => user})).status == 204
       end
 
       # Remove team member
@@ -269,7 +270,7 @@ module Octokit
       # @example
       #   @client.remove_team_member(100000, 'pengwynn')
       def remove_team_member(team_id, user, options={})
-        delete("teams/#{team_id}/members/#{user}", options, 3, true, raw=true).status == 204
+        request(:delete, "teams/#{team_id}/members/#{user}", options).status == 204
       end
 
       # List team repositories
@@ -285,7 +286,7 @@ module Octokit
       # @example
       #   @client.team_repos(100000)
       def team_repositories(team_id, options={})
-        get("teams/#{team_id}/repos", options, 3)
+        get("teams/#{team_id}/repos", options)
       end
       alias :team_repos :team_repositories
 
@@ -306,7 +307,7 @@ module Octokit
       # @example
       #   @client.add_team_repo(100000, 'github/developer.github.com')
       def add_team_repository(team_id, repo, options={})
-        put("teams/#{team_id}/repos/#{Repository.new(repo)}", options.merge(:name => Repository.new(repo)), 3, true, raw=true).status == 204
+        request(:put, "teams/#{team_id}/repos/#{Repository.new(repo)}", options.merge(:name => Repository.new(repo))).status == 204
       end
       alias :add_team_repo :add_team_repository
 
@@ -327,7 +328,7 @@ module Octokit
       # @example
       #   @client.remove_team_repo(100000, 'github/developer.github.com')
       def remove_team_repository(team_id, repo, options={})
-        delete("teams/#{team_id}/repos/#{Repository.new(repo)}", options, 3, true, raw=true).status == 204
+        request(:delete, "teams/#{team_id}/repos/#{Repository.new(repo)}").status == 204
       end
       alias :remove_team_repo :remove_team_repository
 
@@ -347,7 +348,7 @@ module Octokit
       def remove_organization_member(org, user, options={})
         # this is a synonym for: for team in org.teams: remove_team_member(team.id, user)
         # provided in the GH API v3
-        delete("orgs/#{org}/members/#{user}", options, 3, true, raw=true).status == 204
+        request(:delete, "orgs/#{org}/members/#{user}", options).status == 204
       end
       alias :remove_org_member :remove_organization_member
 
@@ -363,7 +364,7 @@ module Octokit
       # @example
       #   @client.publicize_membership('github', 'pengwynn')
       def publicize_membership(org, user, options={})
-        put("orgs/#{org}/public_members/#{user}", options, 3, true, raw=true).status == 204
+        request(:put, "orgs/#{org}/public_members/#{user}", options).status == 204
       end
 
       # Conceal a user's membership of an organization.
@@ -380,7 +381,7 @@ module Octokit
       # @example
       #   @client.conceal_membership('github', 'pengwynn')
       def unpublicize_membership(org, user, options={})
-        delete("orgs/#{org}/public_members/#{user}", options, 3, true, raw=true).status == 204
+        request(:delete, "orgs/#{org}/public_members/#{user}", options).status == 204
       end
       alias :conceal_membership :unpublicize_membership
 

@@ -11,7 +11,7 @@ describe Octokit::Client::Downloads do
 
     it "lists available downloads" do
       stub_get("/repos/github/hubot/downloads").
-        to_return(:body => fixture("v3/downloads.json"))
+        to_return(json_response("v3/downloads.json"))
       downloads = @client.downloads("github/hubot")
       expect(downloads.first.description).to eq("Robawt")
     end
@@ -22,7 +22,7 @@ describe Octokit::Client::Downloads do
 
     it "gets a single download" do
       stub_get("/repos/github/hubot/downloads/165347").
-        to_return(:body => fixture("v3/download.json"))
+        to_return(json_response("v3/download.json"))
       download = @client.download("github/hubot", 165347)
       expect(download.id).to eq(165347)
       expect(download.name).to eq('hubot-2.1.0.tar.gz')
@@ -36,7 +36,7 @@ describe Octokit::Client::Downloads do
         with(:body => {:name => "download_create.json", :size => 690,
                        :description => "Description of your download",
                        :content_type => "text/plain" }).
-        to_return(:body => fixture("v3/download_create.json"))
+        to_return(json_response("v3/download_create.json"))
     end
     it "creates a download resource" do
       resource = @client.send(:create_download_resource, "octocat/Hello-World", "download_create.json", 690, {:description => "Description of your download", :content_type => "text/plain"})

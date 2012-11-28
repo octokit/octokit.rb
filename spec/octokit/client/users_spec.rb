@@ -13,7 +13,7 @@ describe Octokit::Client::Users do
 
       it "returns matching username" do
         stub_get("https://api.github.com/legacy/user/search/sferik").
-          to_return(:body => fixture("legacy/users.json"))
+          to_return(json_response("legacy/users.json"))
         users = @client.search_users("sferik")
         expect(users.first.username).to eq("sferik")
       end
@@ -28,7 +28,7 @@ describe Octokit::Client::Users do
 
       it "returns the user" do
         stub_get("/users/sferik").
-          to_return(:body => fixture("v3/user.json"))
+          to_return(json_response("v3/user.json"))
         user = @client.user("sferik")
         expect(user.login).to eq("sferik")
       end
@@ -39,7 +39,7 @@ describe Octokit::Client::Users do
 
       it "returns the authenticated user" do
         stub_get("/user").
-          to_return(:body => fixture("v3/user.json"))
+          to_return(json_response("v3/user.json"))
         user = @client.user
         expect(user.login).to eq("sferik")
       end
@@ -55,7 +55,7 @@ describe Octokit::Client::Users do
       it "updates the user's location" do
         stub_patch("/user").
           with(:body => {:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false}).
-          to_return(:body => fixture("v3/user.json"))
+          to_return(json_response("v3/user.json"))
         user = @client.update_user(:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false)
         expect(user.login).to eq("sferik")
       end
@@ -70,7 +70,7 @@ describe Octokit::Client::Users do
 
       it "returns the user's followers" do
         stub_get("https://api.github.com/users/sferik/followers").
-          to_return(:body => fixture("v3/followers.json"))
+          to_return(json_response("v3/followers.json"))
         users = @client.followers("sferik")
         expect(users.first.login).to eq("puls")
       end
@@ -81,7 +81,7 @@ describe Octokit::Client::Users do
 
       it "returns the user's followers" do
         stub_get("https://api.github.com/users/sferik/followers").
-          to_return(:body => fixture("v3/followers.json"))
+          to_return(json_response("v3/followers.json"))
         users = @client.followers
         expect(users.first.login).to eq("puls")
       end
@@ -96,7 +96,7 @@ describe Octokit::Client::Users do
 
       it "returns the user's following" do
         stub_get("https://api.github.com/users/sferik/following").
-          to_return(:body => fixture("v3/following.json"))
+          to_return(json_response("v3/following.json"))
         users = @client.following("sferik")
         expect(users.first.login).to eq("rails")
       end
@@ -107,7 +107,7 @@ describe Octokit::Client::Users do
 
       it "returns the user's following" do
         stub_get("https://api.github.com/users/sferik/following").
-          to_return(:body => fixture("v3/following.json"))
+          to_return(json_response("v3/following.json"))
         users = @client.following
         expect(users.first.login).to eq("rails")
       end
@@ -196,7 +196,7 @@ describe Octokit::Client::Users do
 
       it "returns starred repositories" do
         stub_get("https://api.github.com/users/sferik/starred").
-          to_return(:body => fixture("v3/starred.json"))
+          to_return(json_response("v3/starred.json"))
         repositories = @client.starred("sferik")
         expect(repositories.first.name).to eq("grit")
       end
@@ -207,7 +207,7 @@ describe Octokit::Client::Users do
 
       it "returns starred repositories" do
         stub_get("https://api.github.com/users/sferik/starred").
-          to_return(:body => fixture("v3/starred.json"))
+          to_return(json_response("v3/starred.json"))
         repositories = @client.starred
         expect(repositories.first.name).to eq("grit")
       end
@@ -222,7 +222,7 @@ describe Octokit::Client::Users do
 
       it "returns watched repositories" do
         stub_get("https://api.github.com/users/sferik/watched").
-          to_return(:body => fixture("v3/watched.json"))
+          to_return(json_response("v3/watched.json"))
         repositories = @client.watched("sferik")
         expect(repositories.first.name).to eq("grit")
       end
@@ -233,7 +233,7 @@ describe Octokit::Client::Users do
 
       it "returns watched repositories" do
         stub_get("https://api.github.com/users/sferik/watched").
-          to_return(:body => fixture("v3/watched.json"))
+          to_return(json_response("v3/watched.json"))
         repositories = @client.watched
         expect(repositories.first.name).to eq("grit")
       end
@@ -246,7 +246,7 @@ describe Octokit::Client::Users do
 
     it "returns a public key" do
       stub_get("https://api.github.com/user/keys/103205").
-        to_return(:body => fixture('v3/public_key.json'))
+        to_return(json_response('v3/public_key.json'))
       public_key = @client.key(103205)
       expect(public_key.id).to eq(103205)
       expect(public_key[:key]).to include("ssh-dss AAAAB")
@@ -258,7 +258,7 @@ describe Octokit::Client::Users do
 
     it "returns public keys" do
       stub_get("https://api.github.com/user/keys").
-        to_return(:body => fixture("v3/public_keys.json"))
+        to_return(json_response("v3/public_keys.json"))
       public_keys = @client.keys
       expect(public_keys.first.id).to eq(103205)
     end
@@ -271,7 +271,7 @@ describe Octokit::Client::Users do
       title, key = "Moss", "ssh-dss AAAAB3NzaC1kc3MAAACBAJz7HanBa18ad1YsdFzHO5Wy1/WgXd4BV+czbKq7q23jungbfjN3eo2a0SVdxux8GG+RZ9ia90VD/X+PE4s3LV60oXZ7PDAuyPO1CTF0TaDoKf9mPaHcPa6agMJVocMsgBgwviWT1Q9VgN1SccDsYVDtxkIAwuw25YeHZlG6myx1AAAAFQCgW+OvXWUdUJPBGkRJ8ML7uf0VHQAAAIAlP5G96tTss0SKYVSCJCyocn9cyGQdNjxah4/aYuYFTbLI1rxk7sr/AkZfJNIoF2UFyO5STbbratykIQGUPdUBg1a2t72bu31x+4ZYJMngNsG/AkZ2oqLiH6dJKHD7PFx2oSPalogwsUV7iSMIZIYaPa03A9763iFsN0qJjaed+gAAAIBxz3Prxdzt/os4XGXSMNoWcS03AFC/05NOkoDMrXxQnTTpp1wrOgyRqEnKz15qC5dWk1ynzK+LJXHDZGA8lXPfCjHpJO3zrlZ/ivvLhgPdDpt13MAhIJFH06hTal0woxbk/fIdY71P3kbgXC0Ppx/0S7BC+VxqRCA4/wcM+BoDbA== host"
       stub_post("https://api.github.com/user/keys").
         with(:title => title, :key => key).
-        to_return(:status => 201, :body => fixture("v3/public_key.json"))
+        to_return(json_response("v3/public_key.json"))
       public_key = @client.add_key(title, key)
       expect(public_key.id).to eq(103205)
     end
@@ -287,7 +287,7 @@ describe Octokit::Client::Users do
       }
       stub_patch("https://api.github.com/user/keys/1").
         with(updated_key).
-          to_return(:body => fixture("v3/public_key_update.json"))
+          to_return(json_response("v3/public_key_update.json"))
       public_key = @client.update_key(1, updated_key)
       expect(public_key[:title]).to eq(updated_key[:title])
       expect(public_key[:key]).to eq(updated_key[:key])
@@ -310,7 +310,7 @@ describe Octokit::Client::Users do
 
     it "returns email addresses" do
       stub_get("https://api.github.com/user/emails").
-        to_return(:body => fixture("v3/emails.json"))
+        to_return(json_response("v3/emails.json"))
       emails = @client.emails
       expect(emails.first).to eq("sferik@gmail.com")
     end
@@ -322,7 +322,7 @@ describe Octokit::Client::Users do
     it "adds an email address" do
       stub_post("https://api.github.com/user/emails").
         with(:email => "sferik@gmail.com").
-        to_return(:body => fixture("v3/emails.json"))
+        to_return(json_response("v3/emails.json"))
       emails = @client.add_email("sferik@gmail.com")
       expect(emails.first).to eq("sferik@gmail.com")
     end
@@ -344,7 +344,7 @@ describe Octokit::Client::Users do
 
     it "returns the repositories the user watches for notifications" do
       stub_get("https://api.github.com/users/pengwynn/subscriptions").
-        to_return(:body => fixture("v3/subscriptions.json"))
+        to_return(json_response("v3/subscriptions.json"))
       subscriptions = @client.subscriptions("pengwynn")
       expect(subscriptions.first.id).to eq(11560)
       expect(subscriptions.first.name).to eq("ujs_sort_helper")

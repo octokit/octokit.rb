@@ -12,8 +12,7 @@ module Octokit
         :force_urlencoded => false,
         :raw => false,
         :ssl => { :verify => false },
-        :url => Octokit.api_endpoint,
-        :version => Octokit.api_version
+        :url => Octokit.api_endpoint
       }.merge(options)
 
       if !proxy.nil?
@@ -30,18 +29,13 @@ module Octokit
 
       # TODO: Don't build on every request
       connection = Faraday.new(options) do |builder|
-        if options[:version] >= 3 && !options[:force_urlencoded]
-          builder.request :json
-        else
-          builder.request :url_encoded
-        end
+
+        builder.request :json
 
         builder.use Faraday::Response::RaiseOctokitError
         builder.use FaradayMiddleware::Mashify
 
-        if options[:media_type][:format] == 'json'
-          builder.use FaradayMiddleware::ParseJson
-        end
+        builder.use FaradayMiddleware::ParseJson, :content_type => /\bjson$/
 
         faraday_config_block.call(builder) if faraday_config_block
 

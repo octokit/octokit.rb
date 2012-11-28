@@ -2,90 +2,79 @@ require 'multi_json'
 
 module Octokit
   module Request
-    def delete(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:delete, path, options, version, authenticate, raw, force_urlencoded)
+
+    def delete(path, options={})
+      request(:delete, path, options).body
     end
 
-    def get(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:get, path, options, version, authenticate, raw, force_urlencoded)
+    def get(path, options={})
+      response = request(:get, path, options)
+      body = response.body
+
+      if auto_traversal && body.is_a?(Array)
+        while next_url = links(response)["next"]
+          response = request(:get, next_url, options)
+          body += response.body
+        end
+      end
+
+      body
     end
 
-    def patch(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:patch, path, options, version, authenticate, raw, force_urlencoded)
+    def patch(path, options={})
+      request(:patch, path, options).body
     end
 
-    def post(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:post, path, options, version, authenticate, raw, force_urlencoded)
+    def post(path, options={})
+      request(:post, path, options).body
     end
 
-    def put(path, options={}, version=api_version, authenticate=true, raw=false, force_urlencoded=false)
-      request(:put, path, options, version, authenticate, raw, force_urlencoded)
+    def put(path, options={})
+      request(:put, path, options).body
     end
 
-    def ratelimit
-      headers = get("rate_limit",{}, api_version, true, true).headers
+    def ratelimit(options={})
+      headers = request(:get, "rate_limit", options).headers
       return headers["X-RateLimit-Limit"].to_i
     end
     alias rate_limit ratelimit
 
-    def ratelimit_remaining
-      headers = get("rate_limit",{}, api_version, true, true).headers
+    def ratelimit_remaining(options={})
+      headers = request(:get, "rate_limit", options).headers
       return headers["X-RateLimit-Remaining"].to_i
     end
     alias rate_limit_remaining ratelimit_remaining
 
     private
 
-    def request(method, path, options, version, authenticate, raw, force_urlencoded)
+    def request(method, path, options={})
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
 
-      octokit_options = {
-        :authenticate => authenticate,
-        :raw => raw,
-        :version => version,
-        :force_urlencoded => force_urlencoded,
-        :media_type => {
-          :version => nil,
-          :param => nil,
-          :format => 'json'
-        }
-      }
+      response = connection.send(method) do |request|
 
-      if options.is_a?(Hash) && !options[:octokit].nil?
-        octokit_options.merge! options.delete(:octokit)
-      end
+        request.headers['Accept'] =  options.delete(:accept) || 'application/vnd.github.beta+json'
 
-      response = connection(octokit_options).send(method) do |request|
         case method
-        when :delete, :get
+        when :get
           if auto_traversal && per_page.nil?
             self.per_page = 100
           end
           options.merge!(:per_page => per_page) if per_page
           request.url(path, options)
+        when :delete
+          request.url(path, options)
         when :patch, :post, :put
           request.path = path
-          if 3 == version && !force_urlencoded
-            request.body = MultiJson.dump(options) unless options.empty?
-          else
-            request.body = options unless options.empty?
-          end
+          request.body = MultiJson.dump(options) unless options.empty?
         end
 
         if Octokit.request_host
           request.headers['Host'] = Octokit.request_host
         end
 
-        request.headers['Accept'] = media_type_header(octokit_options[:media_type])
       end
 
-      if raw
-        response
-      elsif auto_traversal && ( next_url = links(response)["next"] )
-        response.body + request(method, next_url, options, version, authenticate, raw, force_urlencoded)
-      else
-        response.body
-      end
+      response
     end
 
     def links(response)
@@ -97,25 +86,5 @@ module Octokit
       Hash[ *links.flatten ]
     end
 
-    def media_type_header(options={})
-      media_type = 'application/vnd.github'
-
-      case options[:version]
-      when String
-        media_type << '.' << options[:version]
-      when Integer
-        media_type << '.v' << options[:version].to_s
-      end
-
-      if options[:param]
-        media_type << '.' << options[:param]
-      end
-
-      if options[:format]
-        media_type << '+' << options[:format]
-      end
-
-      media_type
-    end
   end
 end

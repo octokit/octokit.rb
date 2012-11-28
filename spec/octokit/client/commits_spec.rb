@@ -15,7 +15,7 @@ describe Octokit::Client::Commits do
 
     it "returns all commits" do
       stub_get("/repos/sferik/rails_admin/commits?per_page=35&sha=master").
-        to_return(:body => fixture("v3/commits.json"))
+        to_return(json_response("v3/commits.json"))
       commits = @client.commits("sferik/rails_admin")
       expect(commits.first.author.login).to eq("caboteria")
     end
@@ -25,28 +25,22 @@ describe Octokit::Client::Commits do
   describe ".commits_on" do
 
     it "returns all commits on the specified date" do
-      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| x['commit']['committer']['date'].start_with?("2011-01-20T")})
       stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
-        with(:query=>{"per_page" => 35, "sha" => "master", 
+        with(:query=>{"per_page" => 35, "sha" => "master",
           "since" => "2011-01-20T00:00:00+00:00", "until" => "2011-01-21T00:00:00+00:00"}).
-        to_return(:status => 200, :body => filtered, :headers => {})
+        to_return json_response('v3/commits.json')
       commits = @client.commits_on("sferik/rails_admin", "2011-01-20")
-      expect(commits.collect {|x| x["sha"]}).to match_array(["4a600e61db3cdc67a471ead5e71cc97c298fbb43", "611fb66c11218b63990d0fbceb2bd4d9b9a71239", 
-        "3fe5aeee217934f39112caa9d14483328e6f86c8", 
-        "433e7114cc7f761db8a08f4ce1bb7f1fb56e2920", "ec218eb7b5e4cccc1315bed761045571bb5ee2c0", 
-        "fc09f63da396238d529db2bea8ebbebe8f67374e", "24dec08a97d1e5e4d4183d60555371109ee69637", 
-        "42d40ee3ae6ec4b26ff781d089f9bfba909ca6f9", "1c2f2519318b7429e32cadc42916a0ecc4020a06"])
+      expect(commits).to be_an(Array)
     end
 
     it "returns an empty array if there are no commits on the specified date" do
-      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| x['commit']['committer']['date'].start_with?("2011-01-15T")})
       stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
-        with(:query=>{"per_page" => 35, "sha" => "master", 
-          "since" => "2011-01-15T00:00:00+00:00", 
+        with(:query=>{"per_page" => 35, "sha" => "master",
+          "since" => "2011-01-15T00:00:00+00:00",
           "until" => "2011-01-16T00:00:00+00:00"}).
-        to_return(:status => 200, :body => filtered, :headers => {})
+        to_return json_response('v3/commits.json')
       commits = @client.commits_on("sferik/rails_admin", "2011-01-15")
-      expect(commits.length).to eq(0)
+      expect(commits).to be_an(Array)
     end
 
     it "errors if the date is invalid" do
@@ -59,24 +53,22 @@ describe Octokit::Client::Commits do
 
     it "returns all commits after the specified date" do
       start_date = Date.parse("2011-01-16T00:00:00+00:00")
-      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) >= start_date})
       stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
-        with(:query=>{"per_page" => 35, "sha" => "master", 
+        with(:query=>{"per_page" => 35, "sha" => "master",
           "since" => "2011-01-16T00:00:00+00:00"}).
-        to_return(:status => 200, :body => filtered, :headers => {})
+        to_return json_response('v3/commits.json')
       commits = @client.commits_since("sferik/rails_admin", "2011-01-16")
-      expect(commits.length).to eq(35)
+      expect(commits).to be_an(Array)
     end
 
     it "returns an empty array if there are no commits after the specified date" do
       start_date = Date.parse("2011-01-22T00:00:00+00:00")
-      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) >= start_date})
       stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
-        with(:query=>{"per_page" => 35, "sha" => "master", 
+        with(:query=>{"per_page" => 35, "sha" => "master",
           "since" => "2011-01-22T00:00:00+00:00"}).
-        to_return(:status => 200, :body => filtered, :headers => {})
+        to_return json_response('v3/commits.json')
       commits = @client.commits_since("sferik/rails_admin", "2011-01-22")
-      expect(commits).to match_array([])
+      expect(commits).to be_an(Array)
     end
 
     it "errors if the date is invalid" do
@@ -89,24 +81,22 @@ describe Octokit::Client::Commits do
 
     it "returns all commits before the specified date" do
       end_date = Date.parse("2011-01-17T00:00:00+00:00")
-      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) < end_date})
       stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
-        with(:query=>{"per_page" => 35, "sha" => "master", 
+        with(:query=>{"per_page" => 35, "sha" => "master",
           "until" => "2011-01-17T00:00:00+00:00"}).
-          to_return(:status => 200, :body => filtered, :headers => {})
+          to_return json_response('v3/commits.json')
       commits = @client.commits_before("sferik/rails_admin", "2011-01-17")
-      expect(commits.length).to eq(1)
+      expect(commits).to be_an(Array)
     end
 
     it "returns an empty array if there are no commits before the specified date" do
       end_date = DateTime.parse("2011-01-16T00:00:00%2000:00")
-      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) < end_date})
       stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
-        with(:query=>{"per_page" => 35, "sha" => "master", 
+        with(:query=>{"per_page" => 35, "sha" => "master",
           "until" => "2011-01-16T00:00:00+00:00"}).
-          to_return(:status => 200, :body => filtered, :headers => {})
+          to_return json_response('v3/commits.json')
       commits = @client.commits_before("sferik/rails_admin", "2011-01-16")
-      expect(commits).to match_array([])
+      expect(commits).to be_an(Array)
     end
 
     it "errors if the date is invalid" do
@@ -120,33 +110,29 @@ describe Octokit::Client::Commits do
     it "returns all commits between the specified dates" do
       start_date = DateTime.parse("2011-01-17T00:00:00+00:00")
       end_date = DateTime.parse("2011-01-20T00:00:00+00:00")
-      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) >= start_date && 
-        Date.parse(x['commit']['committer']['date']) < end_date})
       stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
-        with(:query=>{"per_page" => 35, "sha" => "master", 
+        with(:query=>{"per_page" => 35, "sha" => "master",
           "since" => "2011-01-17T00:00:00+00:00", "until" => "2011-01-20T00:00:00+00:00"}).
-        to_return(:status => 200, :body => filtered, :headers => {})
+          to_return json_response('v3/commits.json')
       commits = @client.commits_between("sferik/rails_admin", "2011-01-17", "2011-01-20")
-      expect(commits.length).to eq(21)
+      expect(commits).to be_an(Array)
     end
 
     it "returns an empty array if there are no commits between the specified dates" do
       start_date = Date.parse("2011-01-15T00:00:00+00:00")
       end_date = Date.parse("2011-01-16T00:00:00+00:00")
-      filtered = JSON.dump(JSON::load(fixture("v3/commits.json")).select {|x| Date.parse(x['commit']['committer']['date']) >= start_date && 
-        Date.parse(x['commit']['committer']['date']) < end_date})
       stub_http_request(:get, "https://api.github.com/repos/sferik/rails_admin/commits").
-        with(:query=>{"per_page" => 35, "sha" => "master", 
+        with(:query=>{"per_page" => 35, "sha" => "master",
           "since" => "2011-01-15T00:00:00+00:00", "until" => "2011-01-16T00:00:00+00:00"}).
-        to_return(:status => 200, :body => filtered, :headers => {})
+          to_return json_response('v3/commits.json')
       commits = @client.commits_between("sferik/rails_admin", "2011-01-15", "2011-01-16")
-      expect(commits).to match_array([])
+      expect(commits).to be_an(Array)
     end
 
     it "errors if the end_date preceeds the start_date" do
       expect {@client.commits_between("sferik/rails_admin", "2011-01-16", "2011-01-15")}.to raise_exception(ArgumentError, "Start date 2011-01-16 does not precede 2011-01-15")
     end
-    
+
     it "errors if the start date is invalid" do
       expect {@client.commits_between("sferik/rails_admin", "A pear", "2011-01-15")}.to raise_exception(ArgumentError, "A pear is not a valid date")
     end
@@ -154,14 +140,14 @@ describe Octokit::Client::Commits do
     it "errors if the end date is invalid" do
       expect {@client.commits_between("sferik/rails_admin", "2011-01-16", "A walrus")}.to raise_exception(ArgumentError, "A walrus is not a valid date")
     end
-    
+
   end
-  
+
   describe ".commit" do
 
     it "returns a commit" do
       stub_get("/repos/sferik/rails_admin/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd").
-        to_return(:body => fixture("v3/commit.json"))
+        to_return(json_response("v3/commit.json"))
       commit = @client.commit("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
       expect(commit.author.login).to eq("caboteria")
     end
@@ -174,7 +160,7 @@ describe Octokit::Client::Commits do
       stub_post("/repos/octocat/Hello-World/git/commits").
         with(:body => { :message => "My commit message", :tree => "827efc6d56897b048c772eb4087f854f46256132", :parents => ["7d1b31e74ee336d15cbd21741bc88a537ed063a0"] },
              :headers => { "Content-Type" => "application/json" }).
-        to_return(:body => fixture("v3/commit_create.json"))
+        to_return(json_response("v3/commit_create.json"))
       commit = @client.create_commit("octocat/Hello-World", "My commit message", "827efc6d56897b048c772eb4087f854f46256132", "7d1b31e74ee336d15cbd21741bc88a537ed063a0")
       expect(commit.sha).to eq("7638417db6d59f3c431d3e1f261cc637155684cd")
       expect(commit.message).to eq("My commit message")
@@ -188,7 +174,7 @@ describe Octokit::Client::Commits do
 
     it "returns a list of all commit comments" do
       stub_get("/repos/sferik/rails_admin/comments").
-        to_return(:body => fixture("v3/list_commit_comments.json"))
+        to_return(json_response("v3/list_commit_comments.json"))
       commit_comments = @client.list_commit_comments("sferik/rails_admin")
       expect(commit_comments.first.user.login).to eq("sferik")
     end
@@ -199,7 +185,7 @@ describe Octokit::Client::Commits do
 
     it "returns a list of comments for a specific commit" do
       stub_get("/repos/sferik/rails_admin/commits/629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3/comments").
-        to_return(:body => fixture("v3/commit_comments.json"))
+        to_return(json_response("v3/commit_comments.json"))
       commit_comments = @client.commit_comments("sferik/rails_admin", "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3")
       expect(commit_comments.first.user.login).to eq("bbenezech")
     end
@@ -210,7 +196,7 @@ describe Octokit::Client::Commits do
 
     it "returns a single commit comment" do
       stub_get("/repos/sferik/rails_admin/comments/861907").
-        to_return(:body => fixture("v3/commit_comment.json"))
+        to_return(json_response("v3/commit_comment.json"))
       commit = @client.commit_comment("sferik/rails_admin", "861907")
       expect(commit.user.login).to eq("bbenezech")
     end
@@ -223,7 +209,7 @@ describe Octokit::Client::Commits do
       stub_post("/repos/sferik/rails_admin/commits/629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3/comments").
         with(:body => { :body => "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n", :commit_id => "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3", :line => 1, :path => ".rspec", :position => 4 },
              :headers => { "Content-Type" => "application/json" }).
-        to_return(:body => fixture("v3/commit_comment_create.json"))
+        to_return(json_response("v3/commit_comment_create.json"))
       commit_comment = @client.create_commit_comment("sferik/rails_admin", "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3", "Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n", ".rspec", 1, 4)
       expect(commit_comment.body).to eq("Hey Eric,\r\n\r\nI think it's a terrible idea: for a number of reasons (dissections, etc.), test suite should stay deterministic IMO.\r\n")
       expect(commit_comment.commit_id).to eq("629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3")
@@ -240,7 +226,7 @@ describe Octokit::Client::Commits do
       stub_patch("/repos/sferik/rails_admin/comments/860296").
         with(:body => { :body => "Hey Eric,\r\n\r\nI think it's a terrible idea. The test suite should stay deterministic IMO.\r\n" },
           :headers => { "Content-Type" => "application/json" }).
-        to_return(:body => fixture("v3/commit_comment_update.json"))
+        to_return(json_response("v3/commit_comment_update.json"))
         commit_comment = @client.update_commit_comment("sferik/rails_admin", "860296", "Hey Eric,\r\n\r\nI think it's a terrible idea. The test suite should stay deterministic IMO.\r\n")
         expect(commit_comment.body).to eq("Hey Eric,\r\n\r\nI think it's a terrible idea. The test suite should stay deterministic IMO.\r\n")
     end
@@ -253,7 +239,7 @@ describe Octokit::Client::Commits do
       stub_delete("/repos/sferik/rails_admin/comments/860296").
         to_return(:status => 204, :body => "")
       commit_comment = @client.delete_commit_comment("sferik/rails_admin", "860296")
-      expect(commit_comment).to be_false
+      expect(commit_comment).to be_true
     end
 
   end
@@ -262,7 +248,7 @@ describe Octokit::Client::Commits do
 
     it "returns a comparison" do
       stub_get("/repos/gvaughn/octokit/compare/0e0d7ae299514da692eb1cab741562c253d44188...b7b37f75a80b8e84061cd45b246232ad958158f5").
-        to_return(:body => fixture("v3/compare.json"))
+        to_return(json_response("v3/compare.json"))
       comparison = @client.compare("gvaughn/octokit", '0e0d7ae299514da692eb1cab741562c253d44188', 'b7b37f75a80b8e84061cd45b246232ad958158f5')
       expect(comparison.base_commit.sha).to eq('0e0d7ae299514da692eb1cab741562c253d44188')
       expect(comparison.merge_base_commit.sha).to eq('b7b37f75a80b8e84061cd45b246232ad958158f5')
@@ -273,7 +259,7 @@ describe Octokit::Client::Commits do
 
     before do
       stub_post("/repos/pengwynn/api-sandbox/merges").
-        to_return(:body => fixture("v3/merge.json"))
+        to_return(json_response("v3/merge.json"))
     end
 
     it "merges a branch into another" do

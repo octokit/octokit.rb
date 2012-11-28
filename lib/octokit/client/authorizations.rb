@@ -13,8 +13,8 @@ module Octokit
       # @example List authorizations for user ctshryock
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorizations
-      def authorizations
-        get('authorizations')
+      def authorizations(options={})
+        get 'authorizations', options
       end
 
 
@@ -28,8 +28,8 @@ module Octokit
       # @example Show authorization for user ctshryock's Travis auth
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorization(999999)
-      def authorization(number)
-        get("authorizations/#{number}")
+      def authorization(number, options={})
+        get "authorizations/#{number}", options
       end
 
       # Create an authorization for the authenticated user.
@@ -92,8 +92,9 @@ module Octokit
       # @example Delete an authorization
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.delete_authorization(999999)
-      def delete_authorization(number)
-        delete("authorizations/#{number}", {}, 3, true, true)
+      def delete_authorization(number, option={})
+        # TODO Make this a Boolean on status == 204
+        request :delete, "authorizations/#{number}"
       end
 
     end

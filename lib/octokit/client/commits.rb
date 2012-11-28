@@ -15,7 +15,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/commits/
       def commits(repo, sha_or_branch="master", options={})
         params = { :sha => sha_or_branch, :per_page => 35 }
-        get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
+        get("repos/#{Repository.new(repo)}/commits", params.merge(options))
       end
       alias :list_commits :commits
 
@@ -26,7 +26,7 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the commit
       # @see http://developer.github.com/v3/repos/commits/
       def commit(repo, sha, options={})
-        get("repos/#{Repository.new(repo)}/commits/#{sha}", options, 3)
+        get("repos/#{Repository.new(repo)}/commits/#{sha}", options)
       end
 
       # Create a commit
@@ -51,7 +51,7 @@ module Octokit
       def create_commit(repo, message, tree, parents=nil, options={})
         params = { :message => message, :tree => tree }
         params[:parents] = [parents].flatten if parents
-        post("repos/#{Repository.new(repo)}/git/commits", options.merge(params), 3)
+        post("repos/#{Repository.new(repo)}/git/commits", options.merge(params))
       end
 
       # List all commit comments
@@ -60,7 +60,7 @@ module Octokit
       # @return [Array] An array of hashes representing comments
       # @see http://developer.github.com/v3/repos/comments/
       def list_commit_comments(repo, options={})
-        get("repos/#{Repository.new(repo)}/comments", options, 3)
+        get("repos/#{Repository.new(repo)}/comments", options)
       end
 
       # List comments for a single commit
@@ -70,7 +70,7 @@ module Octokit
       # @return [Array] An array of hashes representing comments
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comments(repo, sha, options={})
-        get("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options, 3)
+        get("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options)
       end
 
       # Get a single commit comment
@@ -80,7 +80,7 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the comment
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comment(repo, id, options={})
-        get("repos/#{Repository.new(repo)}/comments/#{id}", options, 3)
+        get("repos/#{Repository.new(repo)}/comments/#{id}", options)
       end
 
       # Create a commit comment
@@ -108,7 +108,7 @@ module Octokit
           :line => line,
           :position => position
         }
-        post("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options.merge(params), 3)
+        post("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options.merge(params))
       end
 
       # Update a commit comment
@@ -126,7 +126,7 @@ module Octokit
         params = {
           :body => body
         }
-        patch("repos/#{Repository.new(repo)}/comments/#{id}", options.merge(params), 3)
+        patch("repos/#{Repository.new(repo)}/comments/#{id}", options.merge(params))
       end
 
       # Delete a commit comment
@@ -136,7 +136,7 @@ module Octokit
       # @return [nil] nil
       # @see http://developer.github.com/v3/repos/comments/
       def delete_commit_comment(repo, id, options={})
-        delete("repos/#{Repository.new(repo)}/comments/#{id}", options, 3)
+        delete("repos/#{Repository.new(repo)}/comments/#{id}", options)
       end
 
       # Compare two commits
@@ -147,7 +147,7 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the comparison
       # @see http://developer.github.com/v3/repos/commits/
       def compare(repo, start, endd, options={})
-        get("repos/#{Repository.new(repo)}/compare/#{start}...#{endd}", options, 3)
+        get("repos/#{Repository.new(repo)}/compare/#{start}...#{endd}", options)
       end
 
       # Merge a branch or sha
@@ -163,13 +163,13 @@ module Octokit
           :base => base,
           :head => head
         }.merge(options)
-        post("repos/#{Repository.new(repo)}/merges", params, 3)
+        post("repos/#{Repository.new(repo)}/merges", params)
       end
 
       # Get commits based on time windows
-      
+
       # Get commits after a specified date
-      # 
+      #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param date [String] Date on which we want to compare
       # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
@@ -183,13 +183,13 @@ module Octokit
         rescue ArgumentError
           raise ArgumentError, "#{date} is not a valid date"
         end
-        
+
         params = {:since => iso8601(date) }
         commits(repo, sha_or_branch, params.merge(options))
       end
 
       # Get commits before a specified date
-      # 
+      #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param date [String] Date on which we want to compare
       # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
@@ -208,7 +208,7 @@ module Octokit
       end
 
       # Get commits on a specified date
-      # 
+      #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param date [String] Date on which we want to compare
       # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
@@ -230,7 +230,7 @@ module Octokit
       end
 
       # Get commits made between two nominated dates
-      # 
+      #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param start_date [String] Start Date on which we want to compare
       # @param end_date [String] End Date on which we want to compare
@@ -261,9 +261,9 @@ module Octokit
           :until => iso8601(_end_date) }
         commits(repo, sha_or_branch, params.merge(options))
       end
-      
+
       protected
-      
+
       def iso8601(date)
         if date.respond_to?(:iso8601)
           date.iso8601
@@ -271,7 +271,7 @@ module Octokit
           date.strftime("%Y-%m-%dT%H:%M:%S%Z")
         end
       end
-      
+
     end
   end
 end

@@ -11,7 +11,7 @@ module Octokit
       # @example
       #   Octokit.pull_requests('rails/rails')
       def pull_requests(repo, state='open', options={})
-        get("repos/#{Repository.new(repo)}/pulls", options.merge({:state => state}), 3)
+        get("repos/#{Repository.new(repo)}/pulls", options.merge({:state => state}))
       end
       alias :pulls :pull_requests
 
@@ -90,7 +90,7 @@ module Octokit
           :state => state
         })
         options.reject! { |_, value| value.nil? }
-        post("repos/#{Repository.new repo}/pulls/#{id}", options, 3)
+        post("repos/#{Repository.new repo}/pulls/#{id}", options)
       end
 
 
@@ -201,7 +201,7 @@ module Octokit
       # @example
       #   @client.delete_pull_request_comment("pengwynn/octokit", 1902707)
       def delete_pull_request_comment(repo, comment_id, options={})
-        delete("repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options, 3, true, true).status == 204
+        request(:delete, "repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options).status == 204
       end
       alias :delete_pull_comment   :delete_pull_request_comment
       alias :delete_review_comment :delete_pull_request_comment
