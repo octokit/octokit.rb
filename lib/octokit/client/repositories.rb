@@ -268,7 +268,7 @@ module Octokit
       # @example
       #   @client.add_collab('pengwynn/octokit', 'holman')
       def add_collaborator(repo, collaborator, options={})
-        put "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
+        request(:put, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options).status == 204
       end
       alias :add_collab :add_collaborator
 
