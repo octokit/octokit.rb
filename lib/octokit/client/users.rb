@@ -28,6 +28,20 @@ module Octokit
         end
       end
 
+      # Validate user username and password
+      #
+      # @param options [Hash] User credentials
+      # @option options [String] :login GitHub login
+      # @option options [String] :password GitHub password
+      # @return [Boolean] True if credentials are valid
+      def validate_credentials(options = {})
+        begin
+          !self.class.new(options).user.nil?
+        rescue Octokit::Unauthorized
+          false
+        end
+      end
+
       # Update the authenticated user
       #
       # @param options [Hash] A customizable set of options.

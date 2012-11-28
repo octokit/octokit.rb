@@ -48,6 +48,15 @@ describe Octokit::Client::Users do
 
   end
 
+  describe ".validate_credentials" do
+    it "validates username and password" do
+      stub_get("https://sferik:foobar@api.github.com/user").
+        to_return(json_response("user.json"))
+
+        expect(Octokit.validate_credentials(:login => 'sferik', :password => 'foobar')).to eq(true)
+    end
+  end
+
   describe ".update_user" do
 
     context "with a location passed" do

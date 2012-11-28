@@ -96,7 +96,11 @@ module Octokit
         request(:delete, "authorizations/#{number}").status == 204
       end
 
-
+      # Check scopes for a token
+      #
+      # @param token [String] GitHub OAuth token
+      # @return [Array<String>] OAuth scopes
+      # @see http://developer.github.com/v3/oauth/#scopes
       def scopes(token=nil)
         request(:get, "user", :access_token => token).
           headers[:x_oauth_scopes].
