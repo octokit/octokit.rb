@@ -82,7 +82,7 @@ module Octokit
       #   @client.mark_notifications_as_read
       def mark_notifications_as_read(options={})
         begin
-          put("notifications", options, 3, true, true).status == 205
+          request(:put, "notifications", options).status == 205
         rescue
           false
         end
@@ -111,7 +111,7 @@ module Octokit
       #   @client.mark_notifications_as_read("pengwynn/octokit")
       def mark_repository_notifications_as_read(repo, options={})
         begin
-          put("repos/#{Repository.new repo}/notifications", options, 3, true, true).status == 205
+          request(:put, "repos/#{Repository.new repo}/notifications", options).status == 205
         rescue
           false
         end
@@ -150,7 +150,7 @@ module Octokit
       #   @client.mark_thread_as_ready(1, :read => false)
       def mark_thread_as_read(thread_id, options={})
         begin
-          patch("notifications/threads/#{thread_id}", options, 3, true, true).status == 205
+          request(:patch, "notifications/threads/#{thread_id}", options).status == 205
         rescue
           false
         end
@@ -211,7 +211,7 @@ module Octokit
       #   @client.delete_thread_subscription(1)
       def delete_thread_subscription(thread_id, options={})
         begin
-          delete("notifications/threads/#{thread_id}", options, 3, true, true).status == 204
+          request(:delete, "notifications/threads/#{thread_id}", options).status == 204
         rescue
           false
         end

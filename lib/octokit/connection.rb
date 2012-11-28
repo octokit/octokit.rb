@@ -6,43 +6,42 @@ module Octokit
   module Connection
     private
 
-    def connection(authenticate=true, raw=false, version=3, force_urlencoded=false)
-      case version
-      when 3
-        url = Octokit.api_endpoint
+    def connection(options={})
+      options = {
+        :authenticate => true,
+        :force_urlencoded => false,
+        :raw => false,
+        :ssl => { :verify => false },
+        :url => Octokit.api_endpoint
+      }.merge(options)
+
+      if !proxy.nil?
+        options.merge!(:proxy => proxy)
       end
 
-      options = {
-        :ssl => { :verify => false },
-        :url => url,
-      }
-
-      options[:proxy] = proxy unless proxy.nil?
-
-      options.merge!(:params => {:access_token => oauth_token}) if oauthed? && !authenticated?
-      options.merge!(:params => unauthed_rate_limit_params) if !oauthed? && !authenticated? && unauthed_rate_limited?
+      if !oauthed? && !authenticated? && unauthed_rate_limited?
+        options.merge!(:params => unauthed_rate_limit_params)
+      end
 
       # TODO: Don't build on every request
       connection = Faraday.new(options) do |builder|
-        if version >= 3 && !force_urlencoded
-          builder.request :json
-        else
-          builder.request :url_encoded
-        end
+
+        builder.request :json
 
         builder.use Faraday::Response::RaiseOctokitError
+        builder.use FaradayMiddleware::Mashify
 
-        unless raw
-          builder.use FaradayMiddleware::Mashify
-          builder.use FaradayMiddleware::ParseJson
-        end
+        builder.use FaradayMiddleware::ParseJson, :content_type => /\bjson$/
 
         faraday_config_block.call(builder) if faraday_config_block
 
         builder.adapter *adapter
       end
 
-      connection.basic_auth authentication[:login], authentication[:password] if authenticate and authenticated?
+      if options[:authenticate] and authenticated?
+        connection.basic_auth authentication[:login], authentication[:password]
+      end
+
       connection
     end
   end

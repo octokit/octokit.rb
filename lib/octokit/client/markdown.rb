@@ -14,7 +14,8 @@ module Octokit
       def markdown(text, options={})
         options[:text] = text
         options[:repo] = Repository.new(options[:repo]) if options[:repo]
-        post("markdown", options, 3, true, true).body
+        options[:accept] = 'application/vnd.github.raw'
+        request(:post, "markdown", options).body
       end
 
     end

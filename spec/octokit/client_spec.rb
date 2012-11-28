@@ -3,7 +3,6 @@ require 'helper'
 describe Octokit::Client do
   it "works with basic auth and password" do
     stub_get("https://foo:bar@api.github.com/repos/baz/quux/commits?per_page=35&sha=master").
-      with(:headers => {'Accept'=>'*/*'}).
       to_return(:status => 200, :body => '{"commits":[]}', :headers => {})
     expect {
       Octokit::Client.new(:login => 'foo', :password => 'bar').commits('baz/quux')
@@ -28,30 +27,45 @@ describe Octokit::Client do
 
     it "traverses a paginated response using the maximum allowed number of items per page" do
       stub_get("https://api.github.com/foo/bar?per_page=100").
-        to_return(:status => 200, :body => %q{["stuff"]}, :headers =>
-          { 'Link' => %q{<https://api.github.com/foo/bar?page=2>; rel="next", <https://api.github.com/foo/bar?page=3>; rel="last"} })
+        to_return \
+          :status => 200,
+          :body => %q{["stuff"]},
+          :headers => {
+            :content_type => 'application/json; charset=utf-8',
+            :link => %q{<https://api.github.com/foo/bar?page=2>; rel="next", <https://api.github.com/foo/bar?page=3>; rel="last"}
+          }
 
       stub_get("https://api.github.com/foo/bar?page=2&per_page=100").
-        to_return(:status => 200, :body => %q{["even more stuff"]}, :headers =>
-          { 'Link' => %q{<https://api.github.com/foo/bar?page=3>; rel="next", <https://api.github.com/foo/bar?page=3>; rel="last", <https://api.github.com/foo/bar?page=1>; rel="prev", <https://api.github.com/foo/bar?page=1>; rel="first"} })
+        to_return \
+          :status => 200,
+          :body => %q{["even more stuff"]},
+          :headers => {
+            :content_type => 'application/json; charset=utf-8',
+            :link => %q{<https://api.github.com/foo/bar?page=3>; rel="next", <https://api.github.com/foo/bar?page=3>; rel="last", <https://api.github.com/foo/bar?page=1>; rel="prev", <https://api.github.com/foo/bar?page=1>; rel="first"}
+          }
 
       stub_get("https://api.github.com/foo/bar?page=3&per_page=100").
-        to_return(:status => 200, :body => %q{["stuffapalooza"]}, :headers =>
-          { 'Link' => %q{<https://api.github.com/foo/bar?page=2>; rel="prev", <https://api.github.com/foo/bar?page=1>; rel="first"} })
+        to_return \
+          :status => 200,
+          :body => %q{["stuffapalooza"]},
+          :headers => {
+            :content_type => 'application/json; charset=utf-8',
+            :link => %q{<https://api.github.com/foo/bar?page=2>; rel="prev", <https://api.github.com/foo/bar?page=1>; rel="first"}
+          }
 
-      expect(Octokit::Client.new(:auto_traversal => true).get("https://api.github.com/foo/bar", {}, 3)).to eq(['stuff', 'even more stuff', 'stuffapalooza'])
+      expect(Octokit::Client.new(:auto_traversal => true).get("https://api.github.com/foo/bar")).to eq(['stuff', 'even more stuff', 'stuffapalooza'])
     end
 
     it "uses the number set in the per_page configuration option when present" do
       stub_get("https://api.github.com/foo/bar?per_page=50").
         to_return(:status => 200, :body => %q{["stuff"]}, :headers =>
-          { 'Link' => %q{<https://api.github.com/foo/bar?page=2>; rel="next", <https://api.github.com/foo/bar?page=3>; rel="last"} })
+          { :link => %q{<https://api.github.com/foo/bar?page=2>; rel="next", <https://api.github.com/foo/bar?page=3>; rel="last"} })
 
       stub_get("https://api.github.com/foo/bar?page=2&per_page=50").
         to_return(:status => 200, :body => %q{["even more stuff"]}, :headers =>
-          { 'Link' => %q{<https://api.github.com/foo/bar?page=3>; rel="last", <https://api.github.com/foo/bar?page=1>; rel="prev", <https://api.github.com/foo/bar?page=1>; rel="first"} })
+          { :link => %q{<https://api.github.com/foo/bar?page=3>; rel="last", <https://api.github.com/foo/bar?page=1>; rel="prev", <https://api.github.com/foo/bar?page=1>; rel="first"} })
 
-      expect(Octokit::Client.new(:auto_traversal => true, :per_page => 50).get("https://api.github.com/foo/bar", {}, 3)).to be
+      expect(Octokit::Client.new(:auto_traversal => true, :per_page => 50).get("https://api.github.com/foo/bar")).to be
     end
 
   end
@@ -156,7 +170,7 @@ describe Octokit::Client do
 
     it "displays validation errors" do
       stub_patch("https://foo:bar@api.github.com/repos/pengwynn/api-sandbox").
-        to_return(:body => fixture("v3/validation_failed.json"))
+        to_return(json_response("validation_failed.json"))
 
       response = Octokit::Client.new(:login => 'foo', :password => 'bar').update_repository('pengwynn/api-sandbox')
       expect(response.errors.first.message).to eq('name is too short (minimum is 1 characters)')

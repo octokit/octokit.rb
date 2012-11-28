@@ -11,7 +11,7 @@ describe Octokit::Client::Markdown do
 
     it "renders markdown" do
       stub_post("/markdown").
-        to_return(:body => fixture("v3/markdown_gfm"))
+        to_return(:body => fixture("markdown_gfm"))
       text = "This is for #111"
       markdown = @client.markdown(text, :context => 'pengwynn/octokit', :mode => 'gfm')
 

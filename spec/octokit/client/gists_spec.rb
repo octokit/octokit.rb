@@ -10,7 +10,7 @@ describe Octokit::Client::Gists do
 
   describe ".public_gists" do
     it "returns public gists" do
-      stub_get("/gists/public").to_return(:body => fixture("v3/public_gists.json"))
+      stub_get("/gists/public").to_return(json_response("public_gists.json"))
       gists = @client.public_gists
       expect(gists).not_to be_empty
     end
@@ -20,7 +20,7 @@ describe Octokit::Client::Gists do
     context "with username passed" do
       it "returns a list of gists" do
         stub_get("/users/#{@username}/gists").
-          to_return(:body => fixture("v3/gists.json"))
+          to_return(json_response("gists.json"))
         gists = @client.gists(@username)
         expect(gists.first.user.login).to eq(@username)
       end
@@ -28,7 +28,7 @@ describe Octokit::Client::Gists do
 
     context "without a username passed" do
       it "returns a list of gists" do
-        stub_get("/gists").to_return(:body => fixture("v3/gists.json"))
+        stub_get("/gists").to_return(json_response("gists.json"))
         gists = @client.gists
         expect(gists.first.user.login).to eq(@username)
       end
@@ -37,7 +37,7 @@ describe Octokit::Client::Gists do
 
   describe ".starred_gists" do
     it "returns the user's starred gists" do
-      stub_get("/gists/starred").to_return(:body => fixture("v3/starred_gists.json"))
+      stub_get("/gists/starred").to_return(json_response("starred_gists.json"))
       gists = @client.starred_gists
       expect(gists).not_to be_empty
     end
@@ -45,7 +45,7 @@ describe Octokit::Client::Gists do
 
   describe ".gist" do
     it "returns the gist by ID" do
-      stub_get("/gists/1").to_return(:body => fixture("v3/gist.json"))
+      stub_get("/gists/1").to_return(json_response("gist.json"))
       gist = @client.gist(1)
       expect(gist.user.login).to eq(@username)
     end
@@ -53,7 +53,7 @@ describe Octokit::Client::Gists do
 
   describe ".create_gist" do
     it "creates a new gist" do
-      gist_content = JSON.parse(fixture("v3/gist.json").read)
+      gist_content = JSON.parse(fixture("gist.json").read)
       new_gist = {
         :description => gist_content['description'],
         :public      => gist_content['public'],
@@ -61,7 +61,7 @@ describe Octokit::Client::Gists do
       }
 
       stub_post("/gists").with(new_gist).
-        to_return(:body => fixture("v3/gist.json"))
+        to_return(json_response("gist.json"))
 
       gist = @client.create_gist(new_gist)
       expect(gist).to eq(gist_content)
@@ -70,7 +70,7 @@ describe Octokit::Client::Gists do
 
   describe ".edit_gist" do
     it "edit an existing gist" do
-      gist_content = JSON.parse(fixture("v3/gist.json").read)
+      gist_content = JSON.parse(fixture("gist.json").read)
       gist_id = gist_content['id']
       updated_gist = gist_content.merge('description' => 'updated')
 
@@ -115,7 +115,7 @@ describe Octokit::Client::Gists do
   describe ".fork_gist" do
     it "forks an existing gist" do
       stub_post("/gists/12345/fork").
-        to_return(:body => fixture("v3/gist.json"))
+        to_return(json_response("gist.json"))
 
       gist = @client.fork_gist(12345)
       expect(gist.user.login).to eq(@username)
@@ -133,7 +133,7 @@ describe Octokit::Client::Gists do
   describe ".gist_comments" do
     it "returns the list of gist comments" do
       stub_get("/gists/12345/comments").
-        to_return(:body => fixture("v3/gist_comments.json"))
+        to_return(json_response("gist_comments.json"))
       comments = @client.gist_comments(12345)
       expect(comments.first.id).to eq(451398)
     end
@@ -142,7 +142,7 @@ describe Octokit::Client::Gists do
   describe ".gist_comment" do
     it "returns a gist comment" do
       stub_get("/gists/4bcad24/comments/12345").
-        to_return(:body => fixture("v3/gist_comment.json"))
+        to_return(json_response("gist_comment.json"))
       comment = @client.gist_comment("4bcad24", 12345)
       expect(comment.id).to eq(451398)
     end
@@ -151,8 +151,8 @@ describe Octokit::Client::Gists do
   describe ".create_gist_comment" do
     it "creates a gist comment" do
       stub_post("/gists/12345/comments").
-        to_return(:body => fixture("v3/gist_comment_create.json"))
-      comment = @client.create_gist_comment(12345, "This is very helpful.")
+        to_return(json_response("gist_comment_create.json"))
+      comment = @client.create_gist_comment('12345', "This is very helpful.")
       expect(comment.id).to eq(586399)
       expect(comment.body).to eq("This is very helpful.")
     end
@@ -161,7 +161,7 @@ describe Octokit::Client::Gists do
   describe ".update_gist_comment" do
     it "updates a gist comment" do
       stub_patch("/gists/4bcad24/comments/12345").
-        to_return(:body => fixture("v3/gist_comment_update.json"))
+        to_return(json_response("gist_comment_update.json"))
       comment = @client.update_gist_comment("4bcad24", 12345, ":heart:")
       expect(comment.body).to eq(":heart:")
     end

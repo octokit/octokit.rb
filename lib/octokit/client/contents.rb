@@ -12,7 +12,7 @@ module Octokit
   # @example Get the readme file for a repo
   #   Octokit.readme("pengwynn/octokit")
   def readme(repo, options={})
-    get("repos/#{Repository.new repo}/readme", options, 3)
+    get("repos/#{Repository.new repo}/readme", options)
   end
 
   # Receive a listing of a repository folder or the contents of a file
@@ -27,7 +27,7 @@ module Octokit
   def contents(repo, options={})
     repo_path = options.delete :path
     url = "repos/#{Repository.new repo}/contents/#{repo_path}"
-    get(url, options, 3)
+    get(url, options)
   end
 
   # This method will provide a URL to download a tarball or zipball archive for a repository.
@@ -43,7 +43,7 @@ module Octokit
     repo_ref = options.delete :ref
     format = (options.delete :format) || 'tarball'
     url = "repos/#{Repository.new repo}/#{format}/#{repo_ref}"
-    headers = get(url, options, 3, true, true).headers
+    headers = request(:get, url, options).headers
     return headers['location']
   end
   end

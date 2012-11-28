@@ -1,3 +1,5 @@
+require 'date'
+
 module Octokit
   class Client
     module Commits
@@ -13,7 +15,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/commits/
       def commits(repo, sha_or_branch="master", options={})
         params = { :sha => sha_or_branch, :per_page => 35 }
-        get("repos/#{Repository.new(repo)}/commits", params.merge(options), 3)
+        get("repos/#{Repository.new(repo)}/commits", params.merge(options))
       end
       alias :list_commits :commits
 
@@ -24,7 +26,7 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the commit
       # @see http://developer.github.com/v3/repos/commits/
       def commit(repo, sha, options={})
-        get("repos/#{Repository.new(repo)}/commits/#{sha}", options, 3)
+        get("repos/#{Repository.new(repo)}/commits/#{sha}", options)
       end
 
       # Create a commit
@@ -49,7 +51,7 @@ module Octokit
       def create_commit(repo, message, tree, parents=nil, options={})
         params = { :message => message, :tree => tree }
         params[:parents] = [parents].flatten if parents
-        post("repos/#{Repository.new(repo)}/git/commits", options.merge(params), 3)
+        post("repos/#{Repository.new(repo)}/git/commits", options.merge(params))
       end
 
       # List all commit comments
@@ -58,7 +60,7 @@ module Octokit
       # @return [Array] An array of hashes representing comments
       # @see http://developer.github.com/v3/repos/comments/
       def list_commit_comments(repo, options={})
-        get("repos/#{Repository.new(repo)}/comments", options, 3)
+        get("repos/#{Repository.new(repo)}/comments", options)
       end
 
       # List comments for a single commit
@@ -68,7 +70,7 @@ module Octokit
       # @return [Array] An array of hashes representing comments
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comments(repo, sha, options={})
-        get("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options, 3)
+        get("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options)
       end
 
       # Get a single commit comment
@@ -78,7 +80,7 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the comment
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comment(repo, id, options={})
-        get("repos/#{Repository.new(repo)}/comments/#{id}", options, 3)
+        get("repos/#{Repository.new(repo)}/comments/#{id}", options)
       end
 
       # Create a commit comment
@@ -106,7 +108,7 @@ module Octokit
           :line => line,
           :position => position
         }
-        post("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options.merge(params), 3)
+        post("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options.merge(params))
       end
 
       # Update a commit comment
@@ -124,7 +126,7 @@ module Octokit
         params = {
           :body => body
         }
-        patch("repos/#{Repository.new(repo)}/comments/#{id}", options.merge(params), 3)
+        patch("repos/#{Repository.new(repo)}/comments/#{id}", options.merge(params))
       end
 
       # Delete a commit comment
@@ -134,18 +136,18 @@ module Octokit
       # @return [nil] nil
       # @see http://developer.github.com/v3/repos/comments/
       def delete_commit_comment(repo, id, options={})
-        delete("repos/#{Repository.new(repo)}/comments/#{id}", options, 3)
+        request(:delete, "repos/#{Repository.new(repo)}/comments/#{id}", options).status == 204
       end
 
       # Compare two commits
       #
       # @param repo [String, Hash, Repository] A GitHub repository
-      # @param base [String] The sha of the starting commit
-      # @param end [String] The sha of the ending commit
+      # @param start [String] The sha of the starting commit
+      # @param endd [String] The sha of the ending commit
       # @return [Hashie::Mash] A hash representing the comparison
       # @see http://developer.github.com/v3/repos/commits/
       def compare(repo, start, endd, options={})
-        get("repos/#{Repository.new(repo)}/compare/#{start}...#{endd}", options, 3)
+        get("repos/#{Repository.new(repo)}/compare/#{start}...#{endd}", options)
       end
 
       # Merge a branch or sha
@@ -161,9 +163,114 @@ module Octokit
           :base => base,
           :head => head
         }.merge(options)
-        post("repos/#{Repository.new(repo)}/merges", params, 3)
+        post("repos/#{Repository.new(repo)}/merges", params)
       end
 
+      # Get commits based on time windows
+
+      # Get commits after a specified date
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_since('pengwynn/octokit', '2012-10-01')
+      def commits_since(repo, date, sha_or_branch="master", options={})
+        begin
+          date = DateTime.parse(date)
+        rescue ArgumentError
+          raise ArgumentError, "#{date} is not a valid date"
+        end
+
+        params = {:since => iso8601(date) }
+        commits(repo, sha_or_branch, params.merge(options))
+      end
+
+      # Get commits before a specified date
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_before('pengwynn/octokit', '2012-10-01')
+      def commits_before(repo, date, sha_or_branch="master", options={})
+        begin
+          date = DateTime.parse(date)
+        rescue ArgumentError
+          raise ArgumentError, "#{date} is not a valid date"
+        end
+        params = {:until => iso8601(date)}
+        commits(repo, sha_or_branch, params.merge(options))
+      end
+
+      # Get commits on a specified date
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01')
+      def commits_on(repo, date, sha_or_branch="master", options={})
+        begin
+          # defaults to 00:00:00
+          start_date = DateTime.parse(date)
+          # addition defaults to n days
+          end_date = start_date + 1
+        rescue ArgumentError
+          raise ArgumentError, "#{date} is not a valid date"
+        end
+        params = { :since => iso8601(start_date), :until => iso8601(end_date) }
+        commits(repo, sha_or_branch, params.merge(options))
+      end
+
+      # Get commits made between two nominated dates
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param start_date [String] Start Date on which we want to compare
+      # @param end_date [String] End Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01', '2012-11-01')
+      def commits_between(repo, start_date, end_date, sha_or_branch="master", options={})
+        begin
+          # defaults to 00:00:00
+          # use a second var for the parsed date so error message is consistent
+          _start_date = DateTime.parse(start_date)
+        rescue ArgumentError
+          raise ArgumentError, "#{start_date} is not a valid date"
+        end
+        begin
+          # defaults to 00:00:00
+          # use a second var for the parsed date so error message is consistent
+          _end_date = DateTime.parse(end_date)
+        rescue ArgumentError
+          raise ArgumentError, "#{end_date} is not a valid date"
+        end
+        if _end_date < _start_date
+          raise ArgumentError, "Start date #{start_date} does not precede #{end_date}"
+        end
+        params = {:since => iso8601(_start_date),
+          :until => iso8601(_end_date) }
+        commits(repo, sha_or_branch, params.merge(options))
+      end
+
+      protected
+
+      def iso8601(date)
+        if date.respond_to?(:iso8601)
+          date.iso8601
+        else
+          date.strftime("%Y-%m-%dT%H:%M:%S%Z")
+        end
+      end
 
     end
   end

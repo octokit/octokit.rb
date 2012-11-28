@@ -13,8 +13,8 @@ module Octokit
       # @example List authorizations for user ctshryock
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorizations
-      def authorizations
-        get('authorizations')
+      def authorizations(options={})
+        get 'authorizations', options
       end
 
 
@@ -28,8 +28,8 @@ module Octokit
       # @example Show authorization for user ctshryock's Travis auth
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorization(999999)
-      def authorization(number)
-        get("authorizations/#{number}")
+      def authorization(number, options={})
+        get "authorizations/#{number}", options
       end
 
       # Create an authorization for the authenticated user.
@@ -87,13 +87,22 @@ module Octokit
       #
       # @param number [Number] An existing Authorization ID
       #
-      # @return [Status] A raw status response
+      # @return [Boolean] Success
       # @see http://developer.github.com/v3/oauth/#delete-an-authorization
       # @example Delete an authorization
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.delete_authorization(999999)
-      def delete_authorization(number)
-        delete("authorizations/#{number}", {}, 3, true, true)
+      def delete_authorization(number, option={})
+        request(:delete, "authorizations/#{number}").status == 204
+      end
+
+
+      def scopes(token=nil)
+        request(:get, "user", :access_token => token).
+          headers[:x_oauth_scopes].
+          split(',').
+          map(&:strip).
+          sort
       end
 
     end

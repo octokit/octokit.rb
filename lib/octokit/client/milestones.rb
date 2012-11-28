@@ -15,7 +15,7 @@ module Octokit
       # @example List milestones for a repository
       #   Octokit.list_milestones("pengwynn/octokit")
       def list_milestones(repository, options={})
-        get("repos/#{Repository.new(repository)}/milestones", options, 3)
+        get("repos/#{Repository.new(repository)}/milestones", options)
       end
       alias :milestones :list_milestones
 
@@ -32,7 +32,7 @@ module Octokit
       # @example Get a single milestone for a repository
       #   Octokit.milestone("pengwynn/octokit", 1)
       def milestone(repository, number, options={})
-        get("repos/#{Repository.new(repository)}/milestones/#{number}", options, 3)
+        get("repos/#{Repository.new(repository)}/milestones/#{number}", options)
       end
 
       # Create a milestone for a repository
@@ -48,7 +48,7 @@ module Octokit
       # @example Create a milestone for a repository
       #   Octokit.create_milestone("pengwynn/octokit", "0.7.0", {:description => 'Add support for v3 of Github API'})
       def create_milestone(repository, title, options={})
-        post("repos/#{Repository.new(repository)}/milestones", options.merge({:title => title}), 3)
+        post("repos/#{Repository.new(repository)}/milestones", options.merge({:title => title}))
       end
 
       # Update a milestone for a repository
@@ -65,7 +65,7 @@ module Octokit
       # @example Update a milestone for a repository
       #   Octokit.update_milestone("pengwynn/octokit", 1, {:description => 'Add support for v3 of Github API'})
       def update_milestone(repository, number, options={})
-        post("repos/#{Repository.new(repository)}/milestones/#{number}", options, 3)
+        post("repos/#{Repository.new(repository)}/milestones/#{number}", options)
       end
       alias :edit_milestone :update_milestone
 
@@ -74,12 +74,12 @@ module Octokit
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :milestone Milestone number.
-      # @return [Response] Response with status 204, no content
+      # @return [Boolean] Success
       # @see http://developer.github.com/v3/issues/milestones/#delete-a-milestone
       # @example Delete a single milestone from a repository
       #   Octokit.delete_milestone("pengwynn/octokit", 1)
       def delete_milestone(repository, number, options={})
-        delete("repos/#{Repository.new(repository)}/milestones/#{number}", options, 3, true, true)
+        request(:delete, "repos/#{Repository.new(repository)}/milestones/#{number}", options).status == 204
       end
 
     end

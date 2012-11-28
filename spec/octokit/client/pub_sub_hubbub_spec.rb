@@ -6,7 +6,7 @@ describe Octokit::Client::PubSubHubbub do
 
   describe ".subscribe" do
     it "subscribes to pull events" do
-      stub_post("/hub?access_token=myfaketoken").
+      stub_post("/hub").
         with({
           :"hub.callback" => 'github://Travis?token=travistoken',
           :"hub.mode" => 'subscribe',
@@ -18,7 +18,7 @@ describe Octokit::Client::PubSubHubbub do
     end
 
     it "raises an error if the topic is not recognized" do
-      stub_post("/hub?access_token=myfaketoken").
+      stub_post("/hub").
         with({
           :"hub.callback" => 'github://Travis?token=travistoken',
           :"hub.mode" => 'subscribe',
@@ -34,7 +34,7 @@ describe Octokit::Client::PubSubHubbub do
 
   describe ".unsubscribe" do
     it "unsubscribes from pull events" do
-      stub_post("/hub?access_token=myfaketoken").
+      stub_post("/hub").
       with({
         :"hub.callback" => 'github://Travis?token=travistoken',
         :"hub.mode" => 'unsubscribe',

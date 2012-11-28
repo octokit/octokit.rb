@@ -12,7 +12,7 @@ describe Octokit::Client::Pulls do
     it "creates a pull request" do
       stub_post("https://api.github.com/repos/pengwynn/octokit/pulls").
         with(:pull => {:base => "master", :head => "pengwynn:master", :title => "Title", :body => "Body"}).
-        to_return(:body => fixture("v3/pull_created.json"))
+        to_return(json_response("pull_created.json"))
       pull = @client.create_pull_request("pengwynn/octokit", "master", "pengwynn:master", "Title", "Body")
       expect(pull.number).to eq(15)
       expect(pull.title).to eq("Pull this awesome v3 stuff")
@@ -25,7 +25,7 @@ describe Octokit::Client::Pulls do
     it "updates a pull request" do
       stub_post("https://api.github.com/repos/pengwynn/octokit/pulls/67").
         with(:pull => { :title => "New title", :body => "Updated body", :state => "closed"}).
-          to_return(:body => fixture('v3/pull_update.json'))
+          to_return(json_response('pull_update.json'))
       pull = @client.update_pull_request('pengwynn/octokit', 67, 'New title', 'Updated body', 'closed')
       expect(pull.title).to eq('New title')
       expect(pull.body).to eq('Updated body')
@@ -39,7 +39,7 @@ describe Octokit::Client::Pulls do
     it "creates a pull request and attach it to an existing issue" do
       stub_post("https://api.github.com/repos/pengwynn/octokit/pulls").
         with(:pull => {:base => "master", :head => "pengwynn:octokit", :issue => "15"}).
-        to_return(:body => fixture("v3/pull_created.json"))
+        to_return(json_response("pull_created.json"))
       pull = @client.create_pull_request_for_issue("pengwynn/octokit", "master", "pengwynn:octokit", "15")
       expect(pull.number).to eq(15)
     end
@@ -50,7 +50,7 @@ describe Octokit::Client::Pulls do
 
     it "returns all pull requests" do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls?state=open").
-        to_return(:body => fixture("v3/pull_requests.json"))
+        to_return(json_response("pull_requests.json"))
       pulls = @client.pulls("pengwynn/octokit")
       expect(pulls.first.number).to eq(928)
     end
@@ -61,7 +61,7 @@ describe Octokit::Client::Pulls do
 
     it "returns a pull request" do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67").
-        to_return(:body => fixture("v3/pull_request.json"))
+        to_return(json_response("pull_request.json"))
       pull = @client.pull("pengwynn/octokit", 67)
       expect(pull.number).to eq(67)
     end
@@ -72,7 +72,7 @@ describe Octokit::Client::Pulls do
 
     it "returns the commits for a pull request" do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67/commits").
-        to_return(:body => fixture("v3/pull_request_commits.json"))
+        to_return(json_response("pull_request_commits.json"))
       commits = @client.pull_commits("pengwynn/octokit", 67)
       expect(commits.first["sha"]).to eq("2097821c7c5aa4dc02a2cc54d5ca51968b373f95")
     end
@@ -83,7 +83,7 @@ describe Octokit::Client::Pulls do
 
     it "returns the comments for a pull request" do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67/comments").
-        to_return(:body => fixture("v3/pull_request_comments.json"))
+        to_return(json_response("pull_request_comments.json"))
       commits = @client.pull_comments("pengwynn/octokit", 67)
       expect(commits.first["id"]).to eq(401530)
     end
@@ -94,7 +94,7 @@ describe Octokit::Client::Pulls do
 
     it "returns a comment on a pull request" do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/comments/1903950").
-        to_return(:body => fixture("v3/pull_request_comment.json"))
+        to_return(json_response("pull_request_comment.json"))
       comment = @client.pull_request_comment("pengwynn/octokit", 1903950)
       expect(comment.id).to eq(1903950)
       expect(comment.body).to include("Tests FTW.")
@@ -105,7 +105,7 @@ describe Octokit::Client::Pulls do
   describe ".create_pull_request_comment" do
 
     it "creates a new comment on a pull request" do
-      comment_content = JSON.parse(fixture("v3/pull_request_comment_create.json").read)
+      comment_content = JSON.parse(fixture("pull_request_comment_create.json").read)
       new_comment = {
         :body => comment_content['body'],
         :commit_id => comment_content['commit_id'],
@@ -114,7 +114,7 @@ describe Octokit::Client::Pulls do
       }
       stub_post("https://api.github.com/repos/pengwynn/octokit/pulls/163/comments").
         with(:body => new_comment).
-          to_return(:body => fixture("v3/pull_request_comment_create.json"))
+          to_return(json_response("pull_request_comment_create.json"))
       comment = @client.create_pull_request_comment("pengwynn/octokit", 163, new_comment[:body], new_comment[:commit_id], new_comment[:path], new_comment[:position])
       expect(comment).to eq(comment_content)
     end
@@ -130,7 +130,7 @@ describe Octokit::Client::Pulls do
       }
       stub_post("https://api.github.com/repos/pengwynn/octokit/pulls/163/comments").
         with(:body => new_comment).
-          to_return(:body => fixture("v3/pull_request_comment_reply.json"))
+          to_return(json_response("pull_request_comment_reply.json"))
       reply = @client.create_pull_request_comment_reply("pengwynn/octokit", 163, new_comment[:body], new_comment[:in_reply_to])
       expect(reply.id).to eq(1907270)
       expect(reply.body).to eq(new_comment[:body])
@@ -143,7 +143,7 @@ describe Octokit::Client::Pulls do
     it "updates a pull request comment" do
       stub_patch("https://api.github.com/repos/pengwynn/octokit/pulls/comments/1907270").
         with(:body => { :body => ":shipit:"}).
-          to_return(:body => fixture("v3/pull_request_comment_update.json"))
+          to_return(json_response("pull_request_comment_update.json"))
       comment = @client.update_pull_request_comment("pengwynn/octokit", 1907270, ":shipit:")
       expect(comment.body).to eq(":shipit:")
     end
@@ -165,7 +165,7 @@ describe Octokit::Client::Pulls do
 
     it "merges the pull request" do
       stub_put("https://api.github.com/repos/pengwynn/octokit/pulls/67/merge").
-        to_return(:body => fixture("v3/pull_request_merged.json"))
+        to_return(json_response("pull_request_merged.json"))
       response = @client.merge_pull_request("pengwynn/octokit", 67)
       expect(response["sha"]).to eq("2097821c7c5aa4dc02a2cc54d5ca51968b373f95")
     end
@@ -176,7 +176,7 @@ describe Octokit::Client::Pulls do
 
     it "lists files for a pull request" do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/142/files").
-        to_return(:body => fixture("v3/pull_request_files.json"))
+        to_return(json_response("pull_request_files.json"))
 
       files = @client.pull_request_files("pengwynn/octokit", 142)
       file = files.first

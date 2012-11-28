@@ -11,7 +11,7 @@ describe Octokit::Client::Organizations do
 
     it "returns an organization" do
       stub_get("https://api.github.com/orgs/codeforamerica").
-        to_return(:body => fixture("v3/organization.json"))
+        to_return(json_response("organization.json"))
       organization = @client.organization("codeforamerica")
       expect(organization.name).to eq("Code For America")
     end
@@ -23,7 +23,7 @@ describe Octokit::Client::Organizations do
     it "updates an organization" do
       stub_patch("https://api.github.com/orgs/codeforamerica").
         with(:name => "Code For America").
-        to_return(:body => fixture("v3/organization.json"))
+        to_return(json_response("organization.json"))
       organization = @client.update_organization("codeforamerica", {:name => "Code For America"})
       expect(organization.name).to eq("Code For America")
     end
@@ -36,7 +36,7 @@ describe Octokit::Client::Organizations do
 
       it "returns all organizations for a user" do
         stub_get("https://api.github.com/users/sferik/orgs").
-          to_return(:body => fixture("v3/organizations.json"))
+          to_return(json_response("organizations.json"))
         organizations = @client.organizations("sferik")
         expect(organizations.first.login).to eq("Hubcap")
       end
@@ -47,7 +47,7 @@ describe Octokit::Client::Organizations do
 
       it "returns all organizations for a user" do
         stub_get("https://api.github.com/user/orgs").
-          to_return(:body => fixture("v3/organizations.json"))
+          to_return(json_response("organizations.json"))
         organizations = @client.organizations
         expect(organizations.first.login).to eq("Hubcap")
       end
@@ -60,7 +60,7 @@ describe Octokit::Client::Organizations do
 
     it "returns all public repositories for an organization" do
       stub_get("https://api.github.com/orgs/codeforamerica/repos").
-        to_return(:body => fixture("v3/organization-repositories.json"))
+        to_return(json_response("organization-repositories.json"))
       repositories = @client.organization_repositories("codeforamerica")
       expect(repositories.first.name).to eq("cfahelloworld")
     end
@@ -71,7 +71,7 @@ describe Octokit::Client::Organizations do
 
     it "returns all public members of an organization" do
       stub_get("https://api.github.com/orgs/codeforamerica/members").
-        to_return(:body => fixture("v3/organization_members.json"))
+        to_return(json_response("organization_members.json"))
       users = @client.organization_members("codeforamerica")
       expect(users.first.login).to eq("akit")
     end
@@ -82,7 +82,7 @@ describe Octokit::Client::Organizations do
 
     it "returns all teams for an organization" do
       stub_get("https://api.github.com/orgs/codeforamerica/teams").
-        to_return(:body => fixture("v3/teams.json"))
+        to_return(json_response("teams.json"))
       teams = @client.organization_teams("codeforamerica")
       expect(teams.first.name).to eq("Fellows")
     end
@@ -94,7 +94,7 @@ describe Octokit::Client::Organizations do
     it "creates a team" do
       stub_post("https://api.github.com/orgs/codeforamerica/teams").
         with(:name => "Fellows").
-        to_return(:body => fixture("v3/team.json"))
+        to_return(json_response("team.json"))
       team = @client.create_team("codeforamerica", {:name => "Fellows"})
       expect(team.name).to eq("Fellows")
     end
@@ -105,7 +105,7 @@ describe Octokit::Client::Organizations do
 
     it "returns a team" do
       stub_get("https://api.github.com/teams/32598").
-        to_return(:body => fixture("v3/team.json"))
+        to_return(json_response("team.json"))
       team = @client.team(32598)
       expect(team.name).to eq("Fellows")
     end
@@ -117,7 +117,7 @@ describe Octokit::Client::Organizations do
     it "updates a team" do
       stub_patch("https://api.github.com/teams/32598").
         with(:name => "Fellows").
-        to_return(:body => fixture("v3/team.json"))
+        to_return(json_response("team.json"))
       team = @client.update_team(32598, :name => "Fellows")
       expect(team.name).to eq("Fellows")
     end
@@ -130,7 +130,7 @@ describe Octokit::Client::Organizations do
       stub_delete("https://api.github.com/teams/32598").
         to_return(:status => 204)
       result = @client.delete_team(32598)
-      expect(result.status).to eq(204)
+      expect(result).to be_true
     end
 
   end
@@ -140,7 +140,7 @@ describe Octokit::Client::Organizations do
 
     it "returns team members" do
       stub_get("https://api.github.com/teams/33239/members").
-        to_return(:body => fixture("v3/organization_team_members.json"))
+        to_return(json_response("organization_team_members.json"))
       users = @client.team_members(33239)
       expect(users.first.login).to eq("ctshryock")
     end
@@ -183,7 +183,7 @@ describe Octokit::Client::Organizations do
 
     it "returns team repositories" do
       stub_get("https://api.github.com/teams/33239/repos").
-        to_return(:body => fixture("v3/organization_team_repos.json"))
+        to_return(json_response("organization_team_repos.json"))
       repositories = @client.team_repositories(33239)
       expect(repositories.first.name).to eq("GitTalk")
       expect(repositories.first.owner.id).to eq(570695)

@@ -63,13 +63,20 @@ def fixture(file)
   File.new(fixture_path + '/' + file)
 end
 
+def json_response(file)
+  {
+    :body => fixture(file),
+    :headers => {
+      :content_type => 'application/json; charset=utf-8'
+    }
+  }
+end
+
 def github_url(url)
   if url =~ /^http/
     url
   elsif @client && @client.authenticated?
     "https://#{@client.login}:#{@client.password}@api.github.com#{url}"
-  elsif @client && @client.oauthed?
-    "https://api.github.com#{url}?access_token=#{@client.oauth_token}"
   else
     "https://api.github.com#{url}"
   end

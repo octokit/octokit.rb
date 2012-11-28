@@ -21,7 +21,7 @@ describe Octokit do
   describe ".delegate" do
     it "delegates missing methods to Octokit::Client" do
       stub_get("/repos/pengwynn/octokit/issues").
-        to_return(:status => 200, :body => fixture('v3/issues.json'))
+        to_return(json_response('issues.json'))
       issues = Octokit.issues('pengwynn/octokit')
       expect(issues.last.user.login).to eq('fellix')
     end

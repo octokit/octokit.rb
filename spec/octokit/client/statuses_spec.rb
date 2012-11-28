@@ -11,7 +11,7 @@ describe Octokit::Client::Statuses do
 
     it "lists commit statuses" do
       stub_get('https://api.github.com/repos/pengwynn/octokit/statuses/7d069dedd4cb56bf57760688657abd0e6b5a28b8').
-        to_return(:body => fixture('v3/statuses.json'))
+        to_return(json_response('statuses.json'))
       statuses = @client.statuses('pengwynn/octokit', '7d069dedd4cb56bf57760688657abd0e6b5a28b8')
       expect(statuses.first.target_url).to eq('http://travis-ci.org/pengwynn/octokit/builds/2092930')
     end
@@ -22,7 +22,7 @@ describe Octokit::Client::Statuses do
 
     it "creates status" do
       stub_post('https://api.github.com/repos/pengwynn/octokit/statuses/7d069dedd4cb56bf57760688657abd0e6b5a28b8').
-        to_return(:body => fixture('v3/status.json'))
+        to_return(json_response('status.json'))
       info = {
         :target_url => 'http://wynnnetherland.com'
       }

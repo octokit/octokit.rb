@@ -15,7 +15,7 @@ module Octokit
           :"hub.topic" => topic,
           :"hub.callback" => callback,
         }
-        post("hub", options, 3, true, true, true)
+        post("hub", options)
         true
       end
 
@@ -33,7 +33,7 @@ module Octokit
           :"hub.topic" => topic,
           :"hub.callback" => callback,
         }
-        post("hub", options, 3, true, true, true)
+        post("hub", options)
         true
       end
     end

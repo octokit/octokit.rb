@@ -10,7 +10,7 @@ module Octokit
       # @example List all downloads for Github/Hubot
       #   Octokit.downloads("github/hubot")
       def downloads(repo, options={})
-        get("repos/#{Repository.new(repo)}/downloads", options, 3)
+        get("repos/#{Repository.new(repo)}/downloads", options)
       end
       alias :list_downloads :downloads
 
@@ -23,7 +23,7 @@ module Octokit
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.download("github/hubot")
       def download(repo, id, options={})
-        get("repos/#{Repository.new(repo)}/downloads/#{id}", options, 3)
+        get("repos/#{Repository.new(repo)}/downloads/#{id}", options)
       end
 
       # Create a download in a repository
@@ -68,10 +68,11 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param id [Integer] ID of the download
       # @see http://developer.github.com/v3/repos/downloads/#delete-a-single-download
+      # @return [Boolean] Status
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.delete_download("github/hubot", 1234)
       def delete_download(repo, id)
-        delete("repos/#{Repository.new(repo)}/downloads/#{id}", {}, 3, true, true, true)
+        request(:delete, "repos/#{Repository.new(repo)}/downloads/#{id}").status == 204
       end
 
       private

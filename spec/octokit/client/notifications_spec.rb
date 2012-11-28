@@ -11,7 +11,7 @@ describe Octokit::Client::Notifications do
 
     it "lists the notifications for the current user" do
       stub_get("https://api.github.com/notifications").
-        to_return(:body => fixture("v3/notifications.json"))
+        to_return(json_response("notifications.json"))
       notifications = @client.notifications
       expect(notifications.first.id).to eq(1)
       expect(notifications.first.unread).to be_true
@@ -23,7 +23,7 @@ describe Octokit::Client::Notifications do
 
     it "lists all notifications for a repository" do
       stub_get("https://api.github.com/repos/pengwynn/octokit/notifications").
-        to_return(:body => fixture("v3/repository_notifications.json"))
+        to_return(json_response("repository_notifications.json"))
       notifications = @client.repository_notifications("pengwynn/octokit")
       expect(notifications.first.id).to eq(1)
       expect(notifications.first.unread).to be_true
@@ -71,7 +71,7 @@ describe Octokit::Client::Notifications do
 
     it "returns notifications for a specific thread" do
       stub_get("https://api.github.com/notifications/threads/1").
-        to_return(:body => fixture('v3/notification_thread.json'))
+        to_return(json_response('notification_thread.json'))
       notifications = @client.thread_notifications(1)
       expect(notifications.first.id).to eq(1)
       expect(notifications.first.unread).to be_true
@@ -101,7 +101,7 @@ describe Octokit::Client::Notifications do
 
     it "returns a thread subscription" do
       stub_get("https://api.github.com/notifications/threads/1/subscription").
-        to_return(:body => fixture("v3/thread_subscription.json"))
+        to_return(json_response("thread_subscription.json"))
       subscription = @client.thread_subscription(1)
       expect(subscription.subscribed).to be_true
     end
@@ -112,7 +112,7 @@ describe Octokit::Client::Notifications do
 
     it "updates a thread subscription" do
       stub_put("https://api.github.com/notifications/threads/1/subscription").
-        to_return(:body => fixture("v3/thread_subscription_update.json"))
+        to_return(json_response("thread_subscription_update.json"))
       subscription = @client.update_thread_subscription(1, :subscribed => true)
       expect(subscription.subscribed).to be_true
     end
