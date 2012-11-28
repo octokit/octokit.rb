@@ -38,9 +38,21 @@ module Octokit
     def request(method, path, options={})
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
 
-      response = connection.send(method) do |request|
+      token = options.delete(:access_token) ||
+              options.delete(:oauth_token)  ||
+              oauth_token
+
+      conn_options = {
+        :authenticate => token.nil?
+      }
+
+      response = connection(conn_options).send(method) do |request|
 
         request.headers['Accept'] =  options.delete(:accept) || 'application/vnd.github.beta+json'
+
+        if token
+          request.headers[:authorization] = "token #{token}"
+        end
 
         case method
         when :get

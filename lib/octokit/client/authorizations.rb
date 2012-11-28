@@ -96,6 +96,15 @@ module Octokit
         request(:delete, "authorizations/#{number}").status == 204
       end
 
+
+      def scopes(token=nil)
+        request(:get, "user", :access_token => token).
+          headers[:x_oauth_scopes].
+          split(',').
+          map(&:strip).
+          sort
+      end
+
     end
   end
 end

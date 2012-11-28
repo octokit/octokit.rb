@@ -77,8 +77,6 @@ def github_url(url)
     url
   elsif @client && @client.authenticated?
     "https://#{@client.login}:#{@client.password}@api.github.com#{url}"
-  elsif @client && @client.oauthed?
-    "https://api.github.com#{url}?access_token=#{@client.oauth_token}"
   else
     "https://api.github.com#{url}"
   end

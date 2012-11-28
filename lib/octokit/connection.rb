@@ -19,10 +19,6 @@ module Octokit
         options.merge!(:proxy => proxy)
       end
 
-      if oauthed? && !authenticated?
-        options.merge!(:params => {:access_token => oauth_token})
-      end
-
       if !oauthed? && !authenticated? && unauthed_rate_limited?
         options.merge!(:params => unauthed_rate_limit_params)
       end

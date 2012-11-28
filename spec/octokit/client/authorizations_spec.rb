@@ -56,4 +56,41 @@ describe Octokit::Client::Authorizations do
     expect(result).to be_true
   end
 
+  context "when working with tokens" do
+    before(:each) do
+      Octokit.reset
+    end
+
+    it "checks the scopes on a token" do
+      stub_get("https://api.github.com/user").
+        to_return \
+          :status => 200,
+          :body => fixture('user.json'),
+          :headers => {
+            :content_type => 'application/json; charset=utf-8',
+            :x_oauth_scopes => 'user, gist'
+          }
+
+      client = Octokit::Client.new :oauth_token => 'abcdabcdabcdabcdabcdabcdabcdabcdabcd'
+      scopes = Octokit.scopes
+      expect(scopes).to eq(['gist', 'user'])
+    end
+
+    it "checks the scopes on a one-off token" do
+      stub_get("https://api.github.com/user").
+        to_return \
+          :status => 200,
+          :body => fixture('user.json'),
+          :headers => {
+            :content_type => 'application/json; charset=utf-8',
+            :x_oauth_scopes => 'user, gist, repo'
+          }
+
+      client = Octokit::Client.new
+      scopes = Octokit.scopes('abcdabcdabcdabcdabcdabcdabcdabcdabcd')
+      expect(scopes).to eq(['gist', 'repo', 'user'])
+    end
+
+  end
+
 end
