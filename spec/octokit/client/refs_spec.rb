@@ -69,8 +69,8 @@ describe Octokit::Client::Refs do
     it "deletes an existing ref" do
       stub_delete("/repos/octocat/Hello-World/git/refs/heads/feature-a").
         to_return(:status => 204)
-      ref = @client.delete_ref("octocat/Hello-World", "heads/feature-a")
-      expect(ref.status).to eq(204)
+      result = @client.delete_ref("octocat/Hello-World", "heads/feature-a")
+      expect(result).to be_true
     end
 
   end

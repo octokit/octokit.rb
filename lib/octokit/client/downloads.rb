@@ -68,11 +68,11 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param id [Integer] ID of the download
       # @see http://developer.github.com/v3/repos/downloads/#delete-a-single-download
+      # @return [Boolean] Status
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.delete_download("github/hubot", 1234)
       def delete_download(repo, id)
-        # TODO Make this return a Boolean for status == 204
-        request(:delete, "repos/#{Repository.new(repo)}/downloads/#{id}")
+        request(:delete, "repos/#{Repository.new(repo)}/downloads/#{id}").status == 204
       end
 
       private

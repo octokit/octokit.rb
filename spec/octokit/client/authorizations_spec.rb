@@ -52,8 +52,8 @@ describe Octokit::Client::Authorizations do
   it "deletes an existing authorization" do
     stub_delete('/authorizations/999999').
       to_return(:status => 204)
-    authorization = @client.delete_authorization(999999)
-    expect(authorization.status).to eq(204)
+    result = @client.delete_authorization(999999)
+    expect(result).to be_true
   end
 
 end

@@ -87,14 +87,13 @@ module Octokit
       #
       # @param number [Number] An existing Authorization ID
       #
-      # @return [Status] A raw status response
+      # @return [Boolean] Success
       # @see http://developer.github.com/v3/oauth/#delete-an-authorization
       # @example Delete an authorization
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.delete_authorization(999999)
       def delete_authorization(number, option={})
-        # TODO Make this a Boolean on status == 204
-        request :delete, "authorizations/#{number}"
+        request(:delete, "authorizations/#{number}").status == 204
       end
 
     end

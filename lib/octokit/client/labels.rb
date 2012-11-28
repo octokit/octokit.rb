@@ -61,13 +61,13 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param label [String] String name of the label
-      # @return [Response] A Faraday Response object
+      # @return [Boolean] Success
       # @see http://developer.github.com/v3/issues/labels/#delete-a-label
       # @see http://rubydoc.info/gems/faraday/0.5.3/Faraday/Response
       # @example Delete the label "Version 1.0" from the repository.
       #   Octokit.delete_label!("pengwynn/octokit", "Version 1.0")
       def delete_label!(repo, label, options={})
-        request(:delete, "repos/#{Repository.new(repo)}/labels/#{CGI.escape(label)}", options)
+        request(:delete, "repos/#{Repository.new(repo)}/labels/#{CGI.escape(label)}", options).status == 204
       end
 
       # Remove a label from an Issue
@@ -92,13 +92,12 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
-      # @return [Array] A list of the labels currently on the issue
+      # @return [Boolean] Success of operation
       # @see http://developer.github.com/v3/issues/labels/#remove-all-labels-from-an-issue
       # @example Remove all labels from Issue #23
       #   Octokit.remove_all_labels("pengwynn/octokit", 23)
       def remove_all_labels(repo, number, options={})
-        # TODO: Return a boolean based on status
-        request(:delete, "repos/#{Repository.new(repo)}/issues/#{number}/labels", options)
+        request(:delete, "repos/#{Repository.new(repo)}/issues/#{number}/labels", options).status == 204
       end
 
       # List labels for a given issue

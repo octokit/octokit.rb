@@ -130,7 +130,7 @@ describe Octokit::Client::Organizations do
       stub_delete("https://api.github.com/teams/32598").
         to_return(:status => 204)
       result = @client.delete_team(32598)
-      expect(result.status).to eq(204)
+      expect(result).to be_true
     end
 
   end

@@ -58,8 +58,8 @@ describe Octokit::Client::Milestones do
     it "deletes a milestone from a repository" do
       stub_delete("/repos/pengwynn/octokit/milestones/2").
         to_return(:status => 204, :body => "", :headers => {})
-      response = @client.delete_milestone("pengwynn/octokit", 2)
-      expect(response.status).to eq(204)
+      result = @client.delete_milestone("pengwynn/octokit", 2)
+      expect(result).to be_true
     end
 
   end

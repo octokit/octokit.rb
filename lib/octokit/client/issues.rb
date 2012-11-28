@@ -167,12 +167,12 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Comment number
-      # @return [Response] A response object with status
+      # @return [Boolean] Success
       # @see http://developer.github.com/v3/issues/comments/#delete-a-comment
       # @example Delete the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
       #   Octokit.delete_comment("pengwynn/octokit", 1194549)
       def delete_comment(repo, number, options={})
-        request(:delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options)
+        request(:delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options).status == 204
       end
 
 

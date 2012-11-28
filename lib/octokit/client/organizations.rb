@@ -220,8 +220,7 @@ module Octokit
       # @example
       #   @client.delete_team(100000)
       def delete_team(team_id, options={})
-        # TODO: Return boolean based on status
-        request(:delete, "teams/#{team_id}", options)
+        request(:delete, "teams/#{team_id}", options).status == 204
       end
 
       # List team members

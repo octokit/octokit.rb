@@ -74,13 +74,12 @@ module Octokit
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :milestone Milestone number.
-      # @return [Response] Response with status 204, no content
+      # @return [Boolean] Success
       # @see http://developer.github.com/v3/issues/milestones/#delete-a-milestone
       # @example Delete a single milestone from a repository
       #   Octokit.delete_milestone("pengwynn/octokit", 1)
       def delete_milestone(repository, number, options={})
-        # TODO: Return a Boolean based on status
-        request(:delete, "repos/#{Repository.new(repository)}/milestones/#{number}", options)
+        request(:delete, "repos/#{Repository.new(repository)}/milestones/#{number}", options).status == 204
       end
 
     end
