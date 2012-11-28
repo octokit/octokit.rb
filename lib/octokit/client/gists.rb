@@ -53,7 +53,7 @@ module Octokit
       # @option options [Boolean] :public Sets gist visibility
       # @option options [Array<Hash>] :files Files that make up this gist. Keys
       #   should be the filename, the value a Hash with a :content key with text
-      #   conent of the Gist.
+      #   content of the Gist.
       # @return [Hashie::Mash] Newly created gist info
       # @see http://developer.github.com/v3/gists/#create-a-gist
       def create_gist(options={})
@@ -67,7 +67,7 @@ module Octokit
       # @option options [Boolean] :public Sets gist visibility
       # @option options [Array<Hash>] :files Files that make up this gist. Keys
       #   should be the filename, the value a Hash with a :content key with text
-      #   conent of the Gist. 
+      #   content of the Gist. 
       #
       #   NOTE: All files from the previous version of the
       #   gist are carried over by default if not included in the hash. Deletes
@@ -78,6 +78,7 @@ module Octokit
       def edit_gist(gist, options={})
         patch "gists/#{Gist.new gist}", options
       end
+
       #
       # Star a gist
       #
@@ -85,8 +86,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is starred successfully
       # @see http://developer.github.com/v3/gists/#star-a-gist
       def star_gist(gist, options={})
-        response = request(:put, "gists/#{Gist.new gist}/star", options)
-        response.status == 204
+        request(:put, "gists/#{Gist.new gist}/star", options).status == 204
       end
 
       # Unstar a gist
@@ -95,8 +95,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is unstarred successfully
       # @see http://developer.github.com/v3/gists/#unstar-a-gist
       def unstar_gist(gist, options={})
-        response = request(:delete, "gists/#{Gist.new gist}/star", options)
-        response.status == 204
+        request(:delete, "gists/#{Gist.new gist}/star", options).status == 204
       end
 
       # Check if a gist is starred
@@ -134,37 +133,38 @@ module Octokit
 
       # List gist comments
       #
-      # @param gist_id [Integer] Gist Id.
+      # @param gist_id [String] Gist Id.
       # @return [Array<Hashie::Mash>] Array of hashes representing comments.
       # @see http://developer.github.com/v3/gists/comments/#list-comments-on-a-gist
       # @example
-      #   Octokit.gist_comments(3528645)
+      #   Octokit.gist_comments('3528ae645')
       def gist_comments(gist_id, options={})
         get "gists/#{gist_id}/comments", options
       end
 
       # Get gist comment
       #
+      # @param gist_id [String] Id of the gist.
       # @param gist_comment_id [Integer] Id of the gist comment.
       # @return [Hashie::Mash] Hash representing gist comment.
       # @see http://developer.github.com/v3/gists/comments/#get-a-single-comment
       # @example
-      #   Octokit.gist_comment(451398)
-      def gist_comment(gist_comment_id, options={})
-        get "gists/comments/#{gist_comment_id}", options
+      #   Octokit.gist_comment('208sdaz3', 1451398)
+      def gist_comment(gist_id, gist_comment_id, options={})
+        get "gists/#{gist_id}/comments/#{gist_comment_id}", options
       end
 
       # Create gist comment
       #
       # Requires authenticated client.
       #
-      # @param gist_id [Integer] Id of the gist.
+      # @param gist_id [String] Id of the gist.
       # @param comment [String] Comment contents.
       # @return [Hashie::Mash] Hash representing the new comment.
       # @see Octokit::Client
       # @see http://developer.github.com/v3/gists/comments/#create-a-comment
       # @example
-      #   @client.create_gist_comment(3528645, 'This is very helpful.')
+      #   @client.create_gist_comment('3528645', 'This is very helpful.')
       def create_gist_comment(gist_id, comment, options={})
         options.merge!({:body => comment})
         post "gists/#{gist_id}/comments", options
@@ -174,30 +174,32 @@ module Octokit
       #
       # Requires authenticated client
       #
+      # @param gist_id [String] Id of the gist.
       # @param gist_comment_id [Integer] Id of the gist comment to update.
       # @param comment [String] Updated comment contents.
       # @return [Hashie::Mash] Hash representing the updated comment.
       # @see Octokit::Client
       # @see http://developer.github.com/v3/gists/comments/#edit-a-comment
       # @example
-      #   @client.update_gist_comment(3528645, ':heart:')
-      def update_gist_comment(gist_comment_id, comment, options={})
+      #   @client.update_gist_comment('208sdaz3', '3528645', ':heart:')
+      def update_gist_comment(gist_id, gist_comment_id, comment, options={})
         options.merge!({:body => comment})
-        patch "gists/comments/#{gist_comment_id}", options
+        patch "gists/#{gist_id}/comments/#{gist_comment_id}", options
       end
 
       # Delete gist comment
       #
       # Requires authenticated client.
       #
+      # @param gist_id [String] Id of the gist.
       # @param gist_comment_id [Integer] Id of the gist comment to delete.
       # @return [Boolean] True if comment deleted, false otherwise.
       # @see Octokit::Client
       # @see http://developer.github.com/v3/gists/comments/#delete-a-comment
       # @example
-      #   @client.delete_gist_comment(586399)
-      def delete_gist_comment(gist_comment_id, options={})
-        request(:delete, "gists/comments/#{gist_comment_id}", options).status == 204
+      #   @client.delete_gist_comment('208sdaz3', '586399')
+      def delete_gist_comment(gist_id, gist_comment_id, options={})
+        request(:delete, "gists/#{gist_id}/comments/#{gist_comment_id}", options).status == 204
       end
 
     end
