@@ -8,7 +8,7 @@ describe Octokit::Client::Say do
 
   describe ".say" do
     it "returns an ASCII octocat" do
-      stub_get("/say").
+      stub_get("/octocat").
         to_return \
           :status => 200,
           :body => fixture("say.txt"),
@@ -21,7 +21,7 @@ describe Octokit::Client::Say do
     end
 
     it "returns an ASCII octocat with custom text" do
-      stub_get("/say").
+      stub_get("/octocat").
         to_return \
           :status => 200,
           :body => fixture("say_custom.txt"),
