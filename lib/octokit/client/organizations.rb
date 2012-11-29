@@ -129,6 +129,51 @@ module Octokit
       end
       alias :org_members :organization_members
 
+      # Check if a user is a member of an organization.
+      #
+      # Use this to check if another user is a member of an organization that
+      # you are a member. If you are not in the organization you are checking,
+      # use .organization_public_member? instead.
+      #
+      # @param org [String] Organization GitHub username.
+      # @param user [String] GitHub username of the user to check.
+      #
+      # @return [Boolean] Is a member?
+      #
+      # @see http://developer.github.com/v3/orgs/members/#check-membership
+      #
+      # @example Check if a user is in your organization
+      #   @client.organization_member?('your_organization', 'pengwynn')
+      #   => false
+      def organization_member?(org, user, options={})
+        request(:get, "orgs/#{org}/members/#{user}", options).status == 204
+      rescue Octokit::NotFound
+        false
+      end
+      alias :org_member? :organization_member?
+
+      # Check if a user is a public member of an organization.
+      #
+      # If you are checking for membership of a user of an organization that
+      # you are in, use .organization_member? instead.
+      #
+      # @param org [String] Organization GitHub username.
+      # @param user [String] GitHub username of the user to check.
+      #
+      # @return [Boolean] Is a public member?
+      #
+      # @see http://developer.github.com/v3/orgs/members/#check-public-membership
+      #
+      # @example Check if a user is a hubbernaut
+      #   @client.organization_public_member?('github', 'pengwynn')
+      #   => true
+      def organization_public_member?(org, user, options={})
+        request(:get, "orgs/#{org}/public_members/#{user}", options).status == 204
+      rescue Octokit::NotFound
+        false
+      end
+      alias :org_public_member? :organization_public_member?
+
       # List teams
       #
       # Requires authenticated organization member.

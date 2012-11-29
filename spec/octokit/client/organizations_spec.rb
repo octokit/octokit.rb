@@ -78,6 +78,58 @@ describe Octokit::Client::Organizations do
 
   end
 
+  describe ".organization_member?" do
+
+    context "user is actually a member of the organization" do
+
+      it "returns true" do
+        stub_get("https://api.github.com/orgs/github/members/pengwynn").
+          to_return(:status => 204)
+        is_hubbernaut = @client.organization_member?('github', 'pengwynn')
+        expect(is_hubbernaut).to be_true
+      end
+
+    end
+
+    context "user is not actually a member of the organization" do
+
+      it "returns false" do
+        stub_get("https://api.github.com/orgs/github/members/joeyw").
+          to_return(:status => 404)
+        is_hubbernaut = @client.organization_member?('github', 'joeyw')
+        expect(is_hubbernaut).to be_false
+      end
+
+    end
+
+  end
+
+  describe ".organization_public_member?" do
+
+    context "user is actually a public member of the organization" do
+
+      it "returns true" do
+        stub_get("https://api.github.com/orgs/github/public_members/pengwynn").
+          to_return(:status => 204)
+        is_hubbernaut = @client.organization_public_member?('github', 'pengwynn')
+        expect(is_hubbernaut).to be_true
+      end
+
+    end
+
+    context "user is not actually a public member of the organization" do
+
+      it "returns false" do
+        stub_get("https://api.github.com/orgs/github/public_members/joeyw").
+          to_return(:status => 404)
+        is_hubbernaut = @client.organization_public_member?('github', 'joeyw')
+        expect(is_hubbernaut).to be_false
+      end
+
+    end
+
+  end
+
   describe ".organization_teams" do
 
     it "returns all teams for an organization" do
