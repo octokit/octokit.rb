@@ -236,7 +236,7 @@ module Octokit
       # @return [Boolean] True if the pull request has been merged
       def pull_merged?(repo, number, options={})
         begin
-          get("repos/#{Repository.new(repo)}/pulls/#{number}/merged", options)
+          get("repos/#{Repository.new(repo)}/pulls/#{number}/merge", options)
           return true
         rescue Octokit::NotFound
           return false
