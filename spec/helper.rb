@@ -43,6 +43,10 @@ def stub_get(url)
   stub_request(:get, github_url(url))
 end
 
+def stub_head(url)
+  stub_request(:head, github_url(url))
+end
+
 def stub_patch(url)
   stub_request(:patch, github_url(url))
 end

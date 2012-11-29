@@ -4,7 +4,7 @@ require File.expand_path('../lib/octokit/version', __FILE__)
 Gem::Specification.new do |spec|
   spec.add_dependency 'addressable', '~> 2.2'
   spec.add_dependency 'faraday', '~> 0.8'
-  spec.add_dependency 'faraday_middleware', '~> 0.8'
+  spec.add_dependency 'faraday_middleware', '~> 0.9'
   spec.add_dependency 'hashie', '~> 1.2'
   spec.add_dependency 'multi_json', '~> 1.3'
   spec.add_development_dependency 'json', '~> 1.7'

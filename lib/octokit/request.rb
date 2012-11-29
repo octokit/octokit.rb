@@ -61,7 +61,7 @@ module Octokit
           end
           options.merge!(:per_page => per_page) if per_page
           request.url(path, options)
-        when :delete
+        when :delete, :head
           request.url(path, options)
         when :patch, :post, :put
           request.path = path

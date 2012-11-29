@@ -43,8 +43,7 @@ module Octokit
     repo_ref = options.delete :ref
     format = (options.delete :format) || 'tarball'
     url = "repos/#{Repository.new repo}/#{format}/#{repo_ref}"
-    headers = request(:get, url, options).headers
-    return headers['location']
+    request(:head, url, options).env[:url].to_s
   end
   end
 end
