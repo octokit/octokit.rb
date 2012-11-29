@@ -1,5 +1,27 @@
 # CHANGELOG
 
+# 1.19.0
+
+This version has some substantial rewiring internally to support non-JSON
+[media types][media-types]:
+
+```ruby
+Octokit.contents 'pengwynn/octokit', :path => 'README.md', :accept => 'application/vnd.github.html'
+```
+
+Additionally, all methods that return empty body responses for `GET`, `DELETE`,
+and `PUT`, return a Boolean instead of raw HTTP Response or status code.
+
+This version also introduces a couple of new methods:
+
+* `scopes`: Check the scopes on an OAuth token
+* `octocat`: Your daily dose of GitHub API Zen.
+
+View [the full changelog][1.19.0].
+[1.19.0]: https://github.com/pengwynn/octokit/compare/v1.18.0...v1.19.0
+
+## Previous versions
+
 * [1.18.0 - October 15, 2012](https://github.com/pengwynn/octokit/compare/v1.17.1...v1.18.0)
 * [1.17.1 - October 11, 2012](https://github.com/pengwynn/octokit/compare/v1.17.0...v1.17.1)
 * [1.17.0 - October 8, 2012](https://github.com/pengwynn/octokit/compare/v1.16.0...v1.17.0)
@@ -53,3 +75,6 @@
 * [0.1.1 - December 15, 2009](https://github.com/pengwynn/octokit/compare/v0.1.0...v0.1.1)
 * [0.1.0 - December 12, 2009](https://github.com/pengwynn/octokit/compare/v0.0.1...v0.1.0)
 * [0.0.1 - December 12, 2009](https://github.com/pengwynn/octokit/compare/cb7d5480944229e1a5ddfa9d1113903628765584...v0.0.1)
+
+
+[media-types]: http://developer.github.com/v3/media/

@@ -31,16 +31,12 @@ For convenience, methods that require a repository argument may be passed in
 any of the following forms:
 
 ```ruby
-# String
 Octokit.repo("pengwynn/octokit")
 
-# Hash
 Octokit.repo({:username => "pengwynn", :name => "octokit"})
 
-# or
 Octokit.repo({:username => "pengwynn", :repo => "octokit"})
 
-# Instance of Repository
 Octokit.repo(Repository.new('pengwynn/octokit'))
 
 => <#Hashie::Rash created_at="2009/12/10 13:41:49 -0800" description="Simple Ruby wrapper for the GitHub API and feeds" fork=false forks=25 has_downloads=true has_issues=true has_wiki=true homepage="http://wynnnetherland.com/projects/octokit" integrate_branch="master" language="Ruby" name="octokit" open_issues=8 owner="pengwynn" private=false pushed_at="2011/05/05 10:48:57 -0700" size=1804 url="https://github.com/pengwynn/octokit" watchers=92>
@@ -51,7 +47,6 @@ Octokit.repo(Repository.new('pengwynn/octokit'))
 ```ruby
 Octokit.commits("pengwynn/octokit")
 
-# or
 Octokit.list_commits("pengwynn/octokit")
 
 => [#<Hashie::Mash author=#<Hashie::Mash avatar_url="https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" gravatar_id="7e19cd5486b5d6dc1ef90e671ba52ae0" id=865 login="pengwynn" url="https://api.github.com/users/pengwynn"> commit=#<Hashie::Mash author=#<Hashie::Mash date="2012-10-31T15:17:51Z" email="wynn@github.com" name="Wynn Netherland"> comment_count=0 committer=#<Hashie::Mash date="2012-10-31T15:17:51Z" email="wynn@github.com" name="Wynn Netherland"> message="Fix bug with archive_link for private repo" tree=#<Hashie::Mash sha="49bf2a476aa819f29b0fc1a8805f7567f010006d" url="https://api.github.com/repos/pengwynn/octokit/git/trees/49bf2a476aa819f29b0fc1a8805f7567f010006d"> url="https://api.github.com/repos/pengwynn/octokit/git/commits/8db3df37fad3a021eb8036b007c718149836cb32"> committer=#<Hashie::Mash avatar_url="https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" gravatar_id="7e19cd5486b5d6dc1ef90e671ba52ae0" id=865 login="pengwynn" url="https://api.github.com/users/pengwynn"> parents=[#<Hashie::Mash sha="7a67f4b47791cb77de33e491df87cef06012c79f" url="https://api.github.com/repos/pengwynn/octokit/commits/7a67f4b47791cb77de33e491df87cef06012c79f">] sha="8db3df37fad3a021eb8036b007c718149836cb32" url="https://api.github.com/repos/pengwynn/octokit/commits/8db3df37fad3a021eb8036b007c718149836cb32">, ... , ...]
@@ -66,13 +61,20 @@ client = Octokit::Client.new(:login => "me", :password => "sekret")
 client.follow("sferik")
 ```
 
-Alternately, you can authenticate with a GitHub OAuth2 token. Note: this is
-**NOT** the GitHub API token on your [account page][account].
+Alternately, you can authenticate with a [GitHub OAuth2 token][oauth]. 
 
-[account]: https://github.com/account
 ```ruby
 client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
 client.follow("sferik")
+```
+
+## Requesting a specific media type
+
+You can pass an `:accept` option value to request a particular [media
+type][media-types].
+
+```ruby
+Octokit.contents 'pengwynn/octokit', :path => 'README.md', :accept => 'application/vnd.github.html'
 ```
 
 ## Using with GitHub Enterprise
@@ -144,6 +146,8 @@ contributors:
 
 * [Erik Michaels-Ober](http://github.com/sferik)
 * [Clint Shryock](http://github.com/ctshryock)
+* [Joey Wendt](http://github.com/joeyw)
+
 
 ## Inspiration
 Octokit was inspired by [Octopi][] and aims to be a lightweight,
@@ -156,3 +160,5 @@ Copyright (c) 2011 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober. See
 [LICENSE][] for details.
 
 [license]: https://github.com/pengwynn/octokit/blob/master/LICENSE.md
+[media-types]: http://developer.github.com/v3/media/
+[oauth]: http://developer.github.com/v3/oauth
