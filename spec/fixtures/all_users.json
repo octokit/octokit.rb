@@ -1,0 +1,34 @@
+[
+  {
+    "avatar_url": "https://secure.gravatar.com/avatar/25c7c18223fb42a4c6ae1c8db6f50f9b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+    "login": "mojombo",
+    "events_url": "https://api.github.com/users/mojombo/events{/privacy}",
+    "gists_url": "https://api.github.com/users/mojombo/gists{/gist_id}",
+    "organizations_url": "https://api.github.com/users/mojombo/orgs",
+    "starred_url": "https://api.github.com/users/mojombo/starred{/owner}{/repo}",
+    "followers_url": "https://api.github.com/users/mojombo/followers",
+    "url": "https://api.github.com/users/mojombo",
+    "repos_url": "https://api.github.com/users/mojombo/repos",
+    "following_url": "https://api.github.com/users/mojombo/following",
+    "gravatar_id": "25c7c18223fb42a4c6ae1c8db6f50f9b",
+    "received_events_url": "https://api.github.com/users/mojombo/received_events",
+    "subscriptions_url": "https://api.github.com/users/mojombo/subscriptions",
+    "id": 1
+  },
+  {
+    "avatar_url": "https://secure.gravatar.com/avatar/b8dbb1987e8e5318584865f880036796?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+    "login": "defunkt",
+    "events_url": "https://api.github.com/users/defunkt/events{/privacy}",
+    "gists_url": "https://api.github.com/users/defunkt/gists{/gist_id}",
+    "organizations_url": "https://api.github.com/users/defunkt/orgs",
+    "starred_url": "https://api.github.com/users/defunkt/starred{/owner}{/repo}",
+    "followers_url": "https://api.github.com/users/defunkt/followers",
+    "url": "https://api.github.com/users/defunkt",
+    "repos_url": "https://api.github.com/users/defunkt/repos",
+    "following_url": "https://api.github.com/users/defunkt/following",
+    "gravatar_id": "b8dbb1987e8e5318584865f880036796",
+    "received_events_url": "https://api.github.com/users/defunkt/received_events",
+    "subscriptions_url": "https://api.github.com/users/defunkt/subscriptions",
+    "id": 2
+  }
+]

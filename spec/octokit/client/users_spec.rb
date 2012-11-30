@@ -22,6 +22,17 @@ describe Octokit::Client::Users do
 
   end
 
+  describe ".all_users" do
+
+    it "returns all GitHub users" do
+      stub_get("/users").
+        to_return(json_response("all_users.json"))
+      users = @client.all_users
+      expect(users.first.login).to eq("mojombo")
+    end
+
+  end
+
   describe ".user" do
 
     context "with a username passed" do

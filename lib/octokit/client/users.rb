@@ -13,6 +13,22 @@ module Octokit
         get("legacy/user/search/#{search}", options)['users']
       end
 
+      # List all GitHub users
+      #
+      # This provides a dump of every user, in the order that they signed up
+      # for GitHub.
+      #
+      # @param options [Hash] Optional options.
+      # @option options [Integer] :since The integer ID of the last User that
+      #   you’ve seen.
+      #
+      # @see http://developer.github.com/v3/users/#get-all-users
+      #
+      # @return [Array] List of GitHub users.
+      def all_users(options={})
+        get "users", options
+      end
+
       # Get a single user
       #
       # @param user [String] A GitHub user name.
