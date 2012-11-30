@@ -62,6 +62,22 @@ module Octokit
       alias :list_repos :repositories
       alias :repos :repositories
 
+      # List all repositories
+      #
+      # This provides a dump of every repository, in the order that they were
+      # created.
+      #
+      # @see http://developer.github.com/v3/repos/#list-all-repositories
+      #
+      # @param options [Hash] Optional options
+      # @option options [Integer] :since The integer ID of the last Repository
+      #   that you’ve seen.
+      #
+      # @return [Array] List of repositories.
+      def all_repositories(options={})
+        get '/repositories', options
+      end
+
       # Star a repository
       #
       # @param repo [String, Hash, Repository] A GitHub repository

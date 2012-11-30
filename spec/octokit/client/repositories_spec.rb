@@ -68,6 +68,17 @@ describe Octokit::Client::Repositories do
 
   end
 
+  describe ".all_repositories" do
+
+    it "returns all repositories on github" do
+      stub_get("/repositories").
+        to_return(json_response("all_repositories.json"))
+      repositories = @client.all_repositories
+      expect(repositories.first.name).to eq("grit")
+    end
+
+  end
+
   describe ".star" do
 
     it "stars a repository" do
