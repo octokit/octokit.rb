@@ -35,6 +35,10 @@ module Octokit
 
     private
 
+    def repository_delete_action(repo, segment, parameter, options={})
+      request(:delete, "repos/#{Repository.new(repo)}/#{segment}/#{parameter}", options).status == 204
+    end
+
     def request(method, path, options={})
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
 

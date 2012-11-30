@@ -248,7 +248,7 @@ module Octokit
       # @example
       #   @client.remove_deploy_key('pengwynn/octokit', 100000)
       def remove_deploy_key(repo, id, options={})
-        request(:delete, "repos/#{Repository.new repo}/keys/#{id}", options).status == 204
+        repository_delete_action(repo, "keys", id, options)
       end
 
       # List collaborators
@@ -580,7 +580,7 @@ module Octokit
       # @example
       #   @client.remove_hook('pengwynn/octokit', 1000000)
       def remove_hook(repo, id, options={})
-        request(:delete, "repos/#{Repository.new repo}/hooks/#{id}", options).status == 204
+        repository_delete_action(repo, "hooks", id, options)
       end
 
       # Test hook

@@ -76,7 +76,7 @@ module Octokit
       # @example Delete tags/v0.0.3 for sferik/rails_admin
       #   Octokit.delete_ref("sferik/rails_admin","tags/v0.0.3")
       def delete_ref(repo, ref, options={})
-        request(:delete, "repos/#{Repository.new(repo)}/git/refs/#{ref}", options).status == 204
+        repository_delete_action(repo, "git/refs", ref, options)
       end
       alias :delete_reference :delete_ref
 
