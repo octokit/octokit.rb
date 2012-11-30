@@ -165,7 +165,7 @@ module Octokit
       # @return [Boolean] `true` if repository was deleted
       def delete_repository(repo, options={})
         not Octokit::NotFound.check do
-          request :delete, "repos/#{Repository.new repo}", options
+          repository_delete_action repo, "", "", options
         end
       end
       alias :delete_repo :delete_repository
