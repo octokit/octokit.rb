@@ -83,11 +83,8 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully starred
       def star(repo, options={})
-        begin
+        not Octokit::NotFound.check do
           put "user/starred/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
         end
       end
 
@@ -96,11 +93,8 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unstarred
       def unstar(repo, options={})
-        begin
+        not Octokit::NotFound.check do
           request :delete, "user/starred/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
         end
       end
 
@@ -110,11 +104,8 @@ module Octokit
       # @return [Boolean] `true` if successfully watched
       # @deprecated Use #star instead
       def watch(repo, options={})
-        begin
+        not Octokit::NotFound.check do
           put "user/watched/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
         end
       end
 
@@ -124,11 +115,8 @@ module Octokit
       # @return [Boolean] `true` if successfully unwatched
       # @deprecated Use #unstar instead
       def unwatch(repo, options={})
-        begin
+        not Octokit::NotFound.check do
           request :delete, "user/watched/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
         end
       end
 
@@ -176,11 +164,8 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if repository was deleted
       def delete_repository(repo, options={})
-        begin
+        not Octokit::NotFound.check do
           request :delete, "repos/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
         end
       end
       alias :delete_repo :delete_repository

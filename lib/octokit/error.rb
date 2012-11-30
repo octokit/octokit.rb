@@ -12,7 +12,20 @@ module Octokit
   class Forbidden < Error; end
 
   # Raised when GitHub returns a 404 HTTP status code
-  class NotFound < Error; end
+  class NotFound < Error
+    # Invokes the given block and catches any Octokit::NotFound
+    # exception thrown inside.
+    #
+    # @return [Boolean] `true` if a Octokit::NotFound exception was thrown
+    def self.check
+      begin
+        yield
+        false
+      rescue Octokit::NotFound
+        true
+      end
+    end
+  end
 
   # Raised when GitHub returns a 406 HTTP status code
   class NotAcceptable < Error; end
