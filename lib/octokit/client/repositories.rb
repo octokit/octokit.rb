@@ -218,7 +218,7 @@ module Octokit
       # @example
       #    @client.add_deploy_key('pengwynn/octokit', 'Staging server', 'ssh-rsa AAA...')
       def add_deploy_key(repo, title, key, options={})
-        post "repos/#{Repository.new repo}/keys", options.merge(:title => title, :key => key)
+        repository_post_action(repo, "keys", "", options.merge(:title => title, :key => key))
       end
 
       # Remove deploy key from a repo
