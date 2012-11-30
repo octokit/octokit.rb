@@ -16,7 +16,7 @@ describe Octokit::Client::Gitignore do
     end
   end
 
-  describe ".gitignore_templates" do
+  describe ".gitignore_template" do
     it "returns the ruby gitignore template" do
       stub_get("/gitignore/templates/Ruby").
         to_return(json_response("gitignore_template_ruby.json"))
