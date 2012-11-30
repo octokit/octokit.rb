@@ -1,6 +1,6 @@
 require 'octokit/configuration'
-require 'octokit/client'
 require 'octokit/error'
+require 'octokit/client'
 
 module Octokit
   extend Configuration

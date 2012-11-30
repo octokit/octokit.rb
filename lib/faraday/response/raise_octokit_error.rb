@@ -4,29 +4,22 @@ require 'multi_json'
 # @api private
 module Faraday
   class Response::RaiseOctokitError < Response::Middleware
+    ERROR_MAP = {
+      400 => Octokit::BadRequest,
+      401 => Octokit::Unauthorized,
+      403 => Octokit::Forbidden,
+      404 => Octokit::NotFound,
+      406 => Octokit::NotAcceptable,
+      422 => Octokit::UnprocessableEntity,
+      500 => Octokit::InternalServerError,
+      501 => Octokit::NotImplemented,
+      502 => Octokit::BadGateway,
+      503 => Octokit::ServiceUnavailable
+    }
+
     def on_complete(response)
-      case response[:status].to_i
-      when 400
-        raise Octokit::BadRequest, error_message(response)
-      when 401
-        raise Octokit::Unauthorized, error_message(response)
-      when 403
-        raise Octokit::Forbidden, error_message(response)
-      when 404
-        raise Octokit::NotFound, error_message(response)
-      when 406
-        raise Octokit::NotAcceptable, error_message(response)
-      when 422
-        raise Octokit::UnprocessableEntity, error_message(response)
-      when 500
-        raise Octokit::InternalServerError, error_message(response)
-      when 501
-        raise Octokit::NotImplemented, error_message(response)
-      when 502
-        raise Octokit::BadGateway, error_message(response)
-      when 503
-        raise Octokit::ServiceUnavailable, error_message(response)
-      end
+      key = response[:status].to_i
+      raise ERROR_MAP[key], error_message(response) if ERROR_MAP.has_key? key
     end
 
     def error_message(response)
