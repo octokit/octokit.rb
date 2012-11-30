@@ -1,0 +1,4 @@
+{
+  "source": "*.gem\n*.rbc\n.bundle\n.config\ncoverage\nInstalledFiles\nlib/bundler/man\npkg\nrdoc\nspec/reports\ntest/tmp\ntest/version_tmp\ntmp\n\n# YARD artifacts\n.yardoc\n_yardoc\ndoc/\n",
+  "name": "Ruby"
+}
