@@ -287,7 +287,7 @@ module Octokit
       # @example
       #   @client.remove_collab('pengwynn/octokit', 'holman')
       def remove_collaborator(repo, collaborator, options={})
-        request :delete, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
+        repository_delete_action repo, "collaborators", collaborator, options
       end
       alias :remove_collab :remove_collaborator
 
