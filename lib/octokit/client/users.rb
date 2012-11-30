@@ -38,9 +38,9 @@ module Octokit
       #   Octokit.user("sferik")
       def user(user=nil)
         if user
-          get "users/#{user}", {}
+          get "users/#{user}"
         else
-          get "user", {}
+          get "user"
         end
       end
 
