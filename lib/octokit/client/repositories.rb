@@ -83,11 +83,8 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully starred
       def star(repo, options={})
-        begin
+        not Octokit::NotFound.check do
           put "user/starred/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
         end
       end
 
@@ -96,11 +93,8 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unstarred
       def unstar(repo, options={})
-        begin
+        not Octokit::NotFound.check do
           request :delete, "user/starred/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
         end
       end
 
@@ -110,11 +104,8 @@ module Octokit
       # @return [Boolean] `true` if successfully watched
       # @deprecated Use #star instead
       def watch(repo, options={})
-        begin
+        not Octokit::NotFound.check do
           put "user/watched/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
         end
       end
 
@@ -124,11 +115,8 @@ module Octokit
       # @return [Boolean] `true` if successfully unwatched
       # @deprecated Use #unstar instead
       def unwatch(repo, options={})
-        begin
+        not Octokit::NotFound.check do
           request :delete, "user/watched/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
         end
       end
 
@@ -176,11 +164,8 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if repository was deleted
       def delete_repository(repo, options={})
-        begin
-          request :delete, "repos/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
+        not Octokit::NotFound.check do
+          repository_delete_action repo, "", "", options
         end
       end
       alias :delete_repo :delete_repository
@@ -233,7 +218,7 @@ module Octokit
       # @example
       #    @client.add_deploy_key('pengwynn/octokit', 'Staging server', 'ssh-rsa AAA...')
       def add_deploy_key(repo, title, key, options={})
-        post "repos/#{Repository.new repo}/keys", options.merge(:title => title, :key => key)
+        repository_post_action(repo, "keys", "", options.merge(:title => title, :key => key))
       end
 
       # Remove deploy key from a repo
@@ -248,7 +233,7 @@ module Octokit
       # @example
       #   @client.remove_deploy_key('pengwynn/octokit', 100000)
       def remove_deploy_key(repo, id, options={})
-        request(:delete, "repos/#{Repository.new repo}/keys/#{id}", options).status == 204
+        repository_delete_action(repo, "keys", id, options)
       end
 
       # List collaborators
@@ -302,7 +287,7 @@ module Octokit
       # @example
       #   @client.remove_collab('pengwynn/octokit', 'holman')
       def remove_collaborator(repo, collaborator, options={})
-        request :delete, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
+        repository_delete_action repo, "collaborators", collaborator, options
       end
       alias :remove_collab :remove_collaborator
 
@@ -580,7 +565,7 @@ module Octokit
       # @example
       #   @client.remove_hook('pengwynn/octokit', 1000000)
       def remove_hook(repo, id, options={})
-        request(:delete, "repos/#{Repository.new repo}/hooks/#{id}", options).status == 204
+        repository_delete_action(repo, "hooks", id, options)
       end
 
       # Test hook
@@ -691,7 +676,7 @@ module Octokit
       #   @client.delete_subscription("pengwynn/octokit")
       def delete_subscription(repo, options={})
         begin
-          request(:delete, "repos/#{Repository.new repo}/subscription", options).status == 204
+          repository_delete_action(repo, "subscription", "", options)
         rescue
           false
         end

@@ -53,7 +53,7 @@ module Octokit
       # @example Create a new Issues for a repository
       #   Octokit.create_issue("sferik/rails_admin")
       def create_issue(repo, title, body, options={})
-        post("repos/#{Repository.new(repo)}/issues", options.merge({:title => title, :body => body}))
+        repository_post_action(repo, "issues", "", options.merge({:title => title, :body => body}))
       end
       alias :open_issue :create_issue
 
@@ -80,7 +80,7 @@ module Octokit
       # @example Close Issue #25 from pengwynn/octokit
       #   Octokit.close_issue("pengwynn/octokit", "25")
       def close_issue(repo, number, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"}))
+        repository_post_action(repo, "issues", number, options.merge({:state => "closed"}))
       end
 
       # Reopen an issue
@@ -94,7 +94,7 @@ module Octokit
       # @example Reopen Issue #25 from pengwynn/octokit
       #   Octokit.reopen_issue("pengwynn/octokit", "25")
       def reopen_issue(repo, number, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"}))
+        repository_post_action(repo, "issues", number, options.merge({:state => "open"}))
       end
 
       # Update an issue
@@ -172,7 +172,7 @@ module Octokit
       # @example Delete the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
       #   Octokit.delete_comment("pengwynn/octokit", 1194549)
       def delete_comment(repo, number, options={})
-        request(:delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options).status == 204
+        repository_delete_action(repo, "issues/comments", number, options)
       end
 
 

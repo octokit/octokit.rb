@@ -136,7 +136,7 @@ module Octokit
       # @return [nil] nil
       # @see http://developer.github.com/v3/repos/comments/
       def delete_commit_comment(repo, id, options={})
-        request(:delete, "repos/#{Repository.new(repo)}/comments/#{id}", options).status == 204
+        repository_delete_action(repo, "comments", id, options)
       end
 
       # Compare two commits
@@ -178,13 +178,7 @@ module Octokit
       # @example
       #   Octokit.commits_since('pengwynn/octokit', '2012-10-01')
       def commits_since(repo, date, sha_or_branch="master", options={})
-        begin
-          date = DateTime.parse(date)
-        rescue ArgumentError
-          raise ArgumentError, "#{date} is not a valid date"
-        end
-
-        params = {:since => iso8601(date) }
+        params = {:since => iso8601(parse_date(date))}
         commits(repo, sha_or_branch, params.merge(options))
       end
 
@@ -198,12 +192,7 @@ module Octokit
       # @example
       #   Octokit.commits_before('pengwynn/octokit', '2012-10-01')
       def commits_before(repo, date, sha_or_branch="master", options={})
-        begin
-          date = DateTime.parse(date)
-        rescue ArgumentError
-          raise ArgumentError, "#{date} is not a valid date"
-        end
-        params = {:until => iso8601(date)}
+        params = {:until => iso8601(parse_date(date))}
         commits(repo, sha_or_branch, params.merge(options))
       end
 
@@ -272,6 +261,13 @@ module Octokit
         end
       end
 
+      def parse_date(date)
+        begin
+          date = DateTime.parse(date)
+        rescue ArgumentError
+          raise ArgumentError, "#{date} is not a valid date"
+        end
+      end
     end
   end
 end

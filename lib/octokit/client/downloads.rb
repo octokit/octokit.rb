@@ -77,7 +77,7 @@ module Octokit
 
       private
       def create_download_resource(repo, name, size, options={})
-        post("repos/#{Repository.new(repo)}/downloads", options.merge({:name => name, :size => size}))
+        repository_post_action(repo, "downloads", "", options.merge({:name => name, :size => size}))
       end
     end
   end
