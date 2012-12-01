@@ -146,9 +146,9 @@ module Octokit
       #   @client.organization_member?('your_organization', 'pengwynn')
       #   => false
       def organization_member?(org, user, options={})
-        request(:get, "orgs/#{org}/members/#{user}", options).status == 204
-      rescue Octokit::NotFound
-        false
+        not Octokit::NotFound.check do
+          request(:get, "orgs/#{org}/members/#{user}", options).status == 204
+        end
       end
       alias :org_member? :organization_member?
 
@@ -168,9 +168,9 @@ module Octokit
       #   @client.organization_public_member?('github', 'pengwynn')
       #   => true
       def organization_public_member?(org, user, options={})
-        request(:get, "orgs/#{org}/public_members/#{user}", options).status == 204
-      rescue Octokit::NotFound
-        false
+        not Octokit::NotFound.check do
+          request(:get, "orgs/#{org}/public_members/#{user}", options).status == 204
+        end
       end
       alias :org_public_member? :organization_public_member?
 
