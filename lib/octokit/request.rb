@@ -35,6 +35,14 @@ module Octokit
 
     private
 
+    def request_throws?(expected_exception, method, path, options={})
+      request(method, path, options)
+      false
+    rescue Exception => e
+      raise e if !e.is_a? expected_exception
+      true
+    end
+
     def request(method, path, options={})
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
 

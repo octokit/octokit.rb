@@ -96,12 +96,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unstarred
       def unstar(repo, options={})
-        begin
-          request :delete, "user/starred/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        !request_throws? Octokit::NotFound, :delete, "user/starred/#{Repository.new repo}", options
       end
 
       # Watch a repository
