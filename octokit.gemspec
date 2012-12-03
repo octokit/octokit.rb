@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'hashie', '~> 1.2'
   spec.add_dependency 'multi_json', '~> 1.3'
   spec.add_development_dependency 'json', '~> 1.7'
-  spec.add_development_dependency 'maruku'
+  spec.add_development_dependency 'kramdown'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'simplecov'
