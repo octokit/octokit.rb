@@ -84,7 +84,7 @@ describe Octokit::Client::Repositories do
     it "stars a repository" do
       stub_put("/user/starred/sferik/rails_admin").
         to_return(:status => 204)
-      expect(@client.star("sferik/rails_admin")).to be_true
+      expect(@client.star("sferik/rails_admin")).to eq(true)
     end
 
   end
@@ -94,7 +94,7 @@ describe Octokit::Client::Repositories do
     it "unstars a repository" do
       stub_delete("/user/starred/sferik/rails_admin").
         to_return(:status => 204)
-      expect(@client.unstar("sferik/rails_admin")).to be_true
+      expect(@client.unstar("sferik/rails_admin")).to eq(true)
     end
 
   end
@@ -104,7 +104,7 @@ describe Octokit::Client::Repositories do
     it "watches a repository" do
       stub_put("/user/watched/sferik/rails_admin").
         to_return(:status => 204)
-      expect(@client.watch("sferik/rails_admin")).to be_true
+      expect(@client.watch("sferik/rails_admin")).to eq(true)
     end
 
   end
@@ -114,7 +114,7 @@ describe Octokit::Client::Repositories do
     it "unwatches a repository" do
       stub_delete("/user/watched/sferik/rails_admin").
         to_return(:status => 204)
-      expect(@client.unwatch("sferik/rails_admin")).to be_true
+      expect(@client.unwatch("sferik/rails_admin")).to eq(true)
     end
 
   end
@@ -157,7 +157,7 @@ describe Octokit::Client::Repositories do
       stub_delete("/repos/sferik/rails_admin").
         to_return(:status => 204, :body => "")
       result = @client.delete_repository("sferik/rails_admin")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -216,7 +216,7 @@ describe Octokit::Client::Repositories do
       stub_delete("/repos/sferik/rails_admin/keys/#{103205}").
         to_return(:status => 204)
       result = @client.remove_deploy_key("sferik/rails_admin", 103205)
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -238,7 +238,7 @@ describe Octokit::Client::Repositories do
       stub_put("/repos/sferik/rails_admin/collaborators/sferik").
         to_return(:status => 204)
       result = @client.add_collaborator("sferik/rails_admin", "sferik")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -249,7 +249,7 @@ describe Octokit::Client::Repositories do
       stub_delete("/repos/sferik/rails_admin/collaborators/sferik").
         to_return(:status => 204)
       result = @client.remove_collaborator("sferik/rails_admin", "sferik")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -420,7 +420,7 @@ describe Octokit::Client::Repositories do
     it "removes a hook" do
       stub_delete("/repos/railsbp/railsbp.com/hooks/154284").
         to_return(:status => 204)
-      expect(@client.remove_hook("railsbp/railsbp.com", 154284)).to be_true
+      expect(@client.remove_hook("railsbp/railsbp.com", 154284)).to eq(true)
     end
 
   end
@@ -430,7 +430,7 @@ describe Octokit::Client::Repositories do
     it "tests a hook" do
       stub_post("/repos/railsbp/railsbp.com/hooks/154284/test").
         to_return(:status => 204)
-      expect(@client.test_hook("railsbp/railsbp.com", 154284)).to be_true
+      expect(@client.test_hook("railsbp/railsbp.com", 154284)).to eq(true)
     end
 
   end
@@ -476,7 +476,7 @@ describe Octokit::Client::Repositories do
       stub_get("/repos/pengwynn/octokit/subscription").
         to_return(json_response("subscription.json"))
       subscription = @client.subscription("pengwynn/octokit")
-      expect(subscription.subscribed).to be_true
+      expect(subscription.subscribed).to eq(true)
     end
 
   end
@@ -498,7 +498,7 @@ describe Octokit::Client::Repositories do
       stub_delete("/repos/pengwynn/octokit/subscription").
         to_return(:status => 204)
       result = @client.delete_subscription("pengwynn/octokit")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
     it "returns false when delete repo subscription fails" do
