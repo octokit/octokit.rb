@@ -1,6 +1,27 @@
 require 'helper'
 
 describe Octokit::Client do
+
+  it "sets a default user agent" do
+    stub_request(:get, "https://api.github.com/rate_limit").
+      with(:headers => {:user_agent => Octokit.user_agent }).
+      to_return(:status => 200, :body => '', :headers =>
+        { 'X-RateLimit-Limit' => 5000, 'X-RateLimit-Remaining' => 5000})
+
+    Octokit.rate_limit
+  end
+
+  it "allows a custom user agent" do
+    Octokit.user_agent = 'My mashup'
+
+    stub_request(:get, "https://api.github.com/rate_limit").
+      with(:headers => {:user_agent => 'My mashup' }).
+      to_return(:status => 200, :body => '', :headers =>
+        { 'X-RateLimit-Limit' => 5000, 'X-RateLimit-Remaining' => 5000})
+
+    Octokit.rate_limit
+  end
+
   it "works with basic auth and password" do
     stub_get("https://foo:bar@api.github.com/repos/baz/quux/commits?per_page=35&sha=master").
       to_return(:status => 200, :body => '{"commits":[]}', :headers => {})

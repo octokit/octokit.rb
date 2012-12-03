@@ -8,11 +8,11 @@ module Octokit
 
     def connection(options={})
       options = {
-        :authenticate => true,
+        :authenticate     => true,
         :force_urlencoded => false,
-        :raw => false,
-        :ssl => { :verify => false },
-        :url => Octokit.api_endpoint
+        :raw              => false,
+        :ssl              => { :verify => false },
+        :url              => api_endpoint
       }.merge(options)
 
       if !proxy.nil?
@@ -42,6 +42,8 @@ module Octokit
       if options[:authenticate] and authenticated?
         connection.basic_auth authentication[:login], authentication[:password]
       end
+
+      connection.headers[:user_agent] = user_agent
 
       connection
     end
