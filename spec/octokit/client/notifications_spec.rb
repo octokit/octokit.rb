@@ -14,7 +14,7 @@ describe Octokit::Client::Notifications do
         to_return(json_response("notifications.json"))
       notifications = @client.notifications
       expect(notifications.first.id).to eq(1)
-      expect(notifications.first.unread).to be_true
+      expect(notifications.first.unread).to eq(true)
     end
 
   end
@@ -26,7 +26,7 @@ describe Octokit::Client::Notifications do
         to_return(json_response("repository_notifications.json"))
       notifications = @client.repository_notifications("pengwynn/octokit")
       expect(notifications.first.id).to eq(1)
-      expect(notifications.first.unread).to be_true
+      expect(notifications.first.unread).to eq(true)
     end
 
   end
@@ -37,7 +37,7 @@ describe Octokit::Client::Notifications do
       stub_put("https://api.github.com/notifications").
         to_return(:status => 205)
       result = @client.mark_notifications_as_read
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
     it "returns false when unsuccessful" do
@@ -55,7 +55,7 @@ describe Octokit::Client::Notifications do
       stub_put("https://api.github.com/repos/pengwynn/octokit/notifications").
         to_return(:status => 205)
       result = @client.mark_repository_notifications_as_read("pengwynn/octokit")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
     it "returns false when unsuccessful" do
@@ -74,7 +74,7 @@ describe Octokit::Client::Notifications do
         to_return(json_response('notification_thread.json'))
       notifications = @client.thread_notifications(1)
       expect(notifications.first.id).to eq(1)
-      expect(notifications.first.unread).to be_true
+      expect(notifications.first.unread).to eq(true)
     end
 
   end
@@ -85,7 +85,7 @@ describe Octokit::Client::Notifications do
       stub_patch("https://api.github.com/notifications/threads/1").
         to_return(:status => 205)
       result = @client.mark_thread_as_read(1)
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
     it "returns false when unsuccessful" do
@@ -103,7 +103,7 @@ describe Octokit::Client::Notifications do
       stub_get("https://api.github.com/notifications/threads/1/subscription").
         to_return(json_response("thread_subscription.json"))
       subscription = @client.thread_subscription(1)
-      expect(subscription.subscribed).to be_true
+      expect(subscription.subscribed).to eq(true)
     end
 
   end
@@ -114,7 +114,7 @@ describe Octokit::Client::Notifications do
       stub_put("https://api.github.com/notifications/threads/1/subscription").
         to_return(json_response("thread_subscription_update.json"))
       subscription = @client.update_thread_subscription(1, :subscribed => true)
-      expect(subscription.subscribed).to be_true
+      expect(subscription.subscribed).to eq(true)
     end
 
   end
@@ -125,7 +125,7 @@ describe Octokit::Client::Notifications do
       stub_delete("https://api.github.com/notifications/threads/1").
         to_return(:status => 204)
       result = @client.delete_thread_subscription(1)
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
     it "returns false when subscription deletion fails" do

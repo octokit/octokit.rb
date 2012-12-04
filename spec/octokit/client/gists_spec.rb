@@ -86,7 +86,7 @@ describe Octokit::Client::Gists do
     it "stars an existing gist" do
       stub_put("/gists/12345/star").to_return(:status => 204)
       success = @client.star_gist(12345)
-      expect(success).to be_true
+      expect(success).to eq(true)
     end
   end
 
@@ -94,7 +94,7 @@ describe Octokit::Client::Gists do
     it "unstars an existing gist" do
       stub_delete("/gists/12345/star").to_return(:status => 204)
       success = @client.unstar_gist(12345)
-      expect(success).to be_true
+      expect(success).to eq(true)
     end
   end
 
@@ -102,7 +102,7 @@ describe Octokit::Client::Gists do
     it "is starred" do
       stub_get("/gists/12345/star").to_return(:status => 204)
       starred = @client.gist_starred?(12345)
-      expect(starred).to be_true
+      expect(starred).to eq(true)
     end
 
     it "is not starred" do
@@ -126,7 +126,7 @@ describe Octokit::Client::Gists do
     it "deletes an existing gist" do
       stub_delete("/gists/12345").to_return(:status => 204)
       deleted = @client.delete_gist(12345)
-      expect(deleted).to be_true
+      expect(deleted).to eq(true)
     end
   end
 
@@ -171,7 +171,7 @@ describe Octokit::Client::Gists do
     it "deletes a gist comment" do
       stub_delete("/gists/4bcad24/comments/12345").to_return(:status => 204)
       result = @client.delete_gist_comment("4bcad24", 12345)
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
   end
 

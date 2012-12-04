@@ -72,7 +72,7 @@ describe Octokit::Client::Labels do
        to_return(:status => 204)
 
       result = @client.delete_label!("pengwynn/octokit", "V3 Transition")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -96,7 +96,7 @@ describe Octokit::Client::Labels do
        to_return(:status => 204)
 
      result = @client.remove_all_labels('pengwynn/octokit', 23)
-     expect(result).to be_true
+     expect(result).to eq(true)
     end
 
   end

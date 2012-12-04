@@ -8,7 +8,7 @@ describe Octokit do
 
   describe ".respond_to?" do
     it "is true if method exists" do
-      expect(Octokit.respond_to?(:new, true)).to be_true
+      expect(Octokit.respond_to?(:new, true)).to eq(true)
     end
   end
 

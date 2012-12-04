@@ -59,7 +59,7 @@ describe Octokit::Client::Milestones do
       stub_delete("/repos/pengwynn/octokit/milestones/2").
         to_return(:status => 204, :body => "", :headers => {})
       result = @client.delete_milestone("pengwynn/octokit", 2)
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end

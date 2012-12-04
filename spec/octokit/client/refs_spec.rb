@@ -70,7 +70,7 @@ describe Octokit::Client::Refs do
       stub_delete("/repos/octocat/Hello-World/git/refs/heads/feature-a").
         to_return(:status => 204)
       result = @client.delete_ref("octocat/Hello-World", "heads/feature-a")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end

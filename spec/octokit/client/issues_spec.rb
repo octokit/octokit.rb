@@ -166,7 +166,7 @@ describe Octokit::Client::Issues do
       stub_delete("/repos/pengwynn/octokit/issues/comments/1194549").
         to_return(:status => 204)
       result = @client.delete_comment("pengwynn/octokit", 1194549)
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end

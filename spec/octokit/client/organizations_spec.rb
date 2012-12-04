@@ -86,7 +86,7 @@ describe Octokit::Client::Organizations do
         stub_get("https://api.github.com/orgs/github/members/pengwynn").
           to_return(:status => 204)
         is_hubbernaut = @client.organization_member?('github', 'pengwynn')
-        expect(is_hubbernaut).to be_true
+        expect(is_hubbernaut).to eq(true)
       end
 
     end
@@ -112,7 +112,7 @@ describe Octokit::Client::Organizations do
         stub_get("https://api.github.com/orgs/github/public_members/pengwynn").
           to_return(:status => 204)
         is_hubbernaut = @client.organization_public_member?('github', 'pengwynn')
-        expect(is_hubbernaut).to be_true
+        expect(is_hubbernaut).to eq(true)
       end
 
     end
@@ -182,7 +182,7 @@ describe Octokit::Client::Organizations do
       stub_delete("https://api.github.com/teams/32598").
         to_return(:status => 204)
       result = @client.delete_team(32598)
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -206,7 +206,7 @@ describe Octokit::Client::Organizations do
         with(:name => "sferik").
         to_return(:status => 204)
       result = @client.add_team_member(32598, "sferik")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -217,7 +217,7 @@ describe Octokit::Client::Organizations do
       stub_delete("https://api.github.com/teams/32598/members/sferik").
         to_return(:status => 204)
       result = @client.remove_team_member(32598, "sferik")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -227,7 +227,7 @@ describe Octokit::Client::Organizations do
       stub_delete("https://api.github.com/orgs/codeforamerica/members/glow-mdsol").
           to_return(:status => 204)
       result = @client.remove_organization_member("codeforamerica", "glow-mdsol")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -250,7 +250,7 @@ describe Octokit::Client::Organizations do
         with(:name => "reddavis/One40Proof").
         to_return(:status => 204)
       result = @client.add_team_repository(32598, "reddavis/One40Proof")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -261,7 +261,7 @@ describe Octokit::Client::Organizations do
       stub_delete("https://api.github.com/teams/32598/repos/reddavis/One40Proof").
         to_return(:status => 204)
       result = @client.remove_team_repository(32598, "reddavis/One40Proof")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -273,7 +273,7 @@ describe Octokit::Client::Organizations do
         with(:name => "sferik").
         to_return(:status => 204)
       result = @client.publicize_membership("codeforamerica", "sferik")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -285,7 +285,7 @@ describe Octokit::Client::Organizations do
         with(:name => "sferik").
         to_return(:status => 204)
       result = @client.unpublicize_membership("codeforamerica", "sferik")
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end

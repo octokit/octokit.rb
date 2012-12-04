@@ -40,7 +40,7 @@ describe Octokit::Client do
                 { 'X-RateLimit-Limit' => 5000, 'X-RateLimit-Remaining' => 5000})
     client = Octokit::Client.new()
     client.rate_limit
-    expect(mw_evaluated).to be_true
+    expect(mw_evaluated).to eq(true)
   end
 
 

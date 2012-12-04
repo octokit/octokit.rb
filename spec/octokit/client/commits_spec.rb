@@ -239,7 +239,7 @@ describe Octokit::Client::Commits do
       stub_delete("/repos/sferik/rails_admin/comments/860296").
         to_return(:status => 204, :body => "")
       commit_comment = @client.delete_commit_comment("sferik/rails_admin", "860296")
-      expect(commit_comment).to be_true
+      expect(commit_comment).to eq(true)
     end
 
   end

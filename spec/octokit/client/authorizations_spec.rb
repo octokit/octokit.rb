@@ -53,7 +53,7 @@ describe Octokit::Client::Authorizations do
     stub_delete('/authorizations/999999').
       to_return(:status => 204)
     result = @client.delete_authorization(999999)
-    expect(result).to be_true
+    expect(result).to eq(true)
   end
 
   context "when working with tokens" do

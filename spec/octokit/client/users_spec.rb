@@ -144,7 +144,7 @@ describe Octokit::Client::Users do
         stub_get("https://api.github.com/user/following/puls").
           to_return(:status => 204, :body => "")
         follows = @client.follows?("sferik", "puls")
-        expect(follows).to be_true
+        expect(follows).to eq(true)
       end
 
     end
@@ -168,7 +168,7 @@ describe Octokit::Client::Users do
       stub_put("https://api.github.com/user/following/dianakimball").
         to_return(:status => 204, :body => "")
       following = @client.follow("dianakimball")
-      expect(following).to be_true
+      expect(following).to eq(true)
     end
 
   end
@@ -179,7 +179,7 @@ describe Octokit::Client::Users do
       stub_delete("https://api.github.com/user/following/dogbrainz").
         to_return(:status => 204, :body => "")
       following = @client.unfollow("dogbrainz")
-      expect(following).to be_true
+      expect(following).to eq(true)
     end
 
   end
@@ -192,7 +192,7 @@ describe Octokit::Client::Users do
         stub_get("https://api.github.com/user/starred/sferik/rails_admin").
           to_return(:status => 204, :body => "")
         starred = @client.starred?("sferik", "rails_admin")
-        expect(starred).to be_true
+        expect(starred).to eq(true)
       end
 
     end
@@ -321,7 +321,7 @@ describe Octokit::Client::Users do
       stub_delete("https://api.github.com/user/keys/103205").
         to_return(:status => 204, :body => "")
       response = @client.remove_key(103205)
-      expect(response).to be_true
+      expect(response).to eq(true)
     end
 
   end
@@ -355,7 +355,7 @@ describe Octokit::Client::Users do
       stub_delete("https://api.github.com/user/emails?email=sferik@gmail.com").
         to_return(:status => 204, :body => "")
       response = @client.remove_email("sferik@gmail.com")
-      expect(response).to be_true
+      expect(response).to eq(true)
     end
 
   end

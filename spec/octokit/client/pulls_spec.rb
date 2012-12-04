@@ -156,7 +156,7 @@ describe Octokit::Client::Pulls do
       stub_delete("https://api.github.com/repos/pengwynn/octokit/pulls/comments/1907270").
         to_return(:status => 204)
       result = @client.delete_pull_request_comment("pengwynn/octokit", 1907270)
-      expect(result).to be_true
+      expect(result).to eq(true)
     end
 
   end
@@ -192,7 +192,7 @@ describe Octokit::Client::Pulls do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/67/merge").
         to_return(:status => 204)
       merged = @client.pull_merged?("pengwynn/octokit", 67)
-      expect(merged).to be_true
+      expect(merged).to eq(true)
     end
   end
 
