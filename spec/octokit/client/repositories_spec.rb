@@ -428,7 +428,7 @@ describe Octokit::Client::Repositories do
   describe ".test_hook" do
 
     it "tests a hook" do
-      stub_post("/repos/railsbp/railsbp.com/hooks/154284/test").
+      stub_post("/repos/railsbp/railsbp.com/hooks/154284/tests").
         to_return(:status => 204)
       expect(@client.test_hook("railsbp/railsbp.com", 154284)).to eq(true)
     end

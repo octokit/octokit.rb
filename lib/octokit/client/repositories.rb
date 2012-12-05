@@ -595,7 +595,7 @@ module Octokit
       # @example
       #   @client.test_hook('pengwynn/octokit', 1000000)
       def test_hook(repo, id, options={})
-        request(:post, "repos/#{Repository.new repo}/hooks/#{id}/test", options).status == 204
+        request(:post, "repos/#{Repository.new repo}/hooks/#{id}/tests", options).status == 204
       end
 
       # Get all Issue Events for a given Repository

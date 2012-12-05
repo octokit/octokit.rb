@@ -118,7 +118,7 @@ module Octokit
       # @return [Hashie::Mash] Data for the new gist
       # @see http://developer.github.com/v3/gists/#fork-a-gist
       def fork_gist(gist, options={})
-        post "gists/#{Gist.new gist}/fork", options
+        post "gists/#{Gist.new gist}/forks", options
       end
 
       # Delete a gist

@@ -114,7 +114,7 @@ describe Octokit::Client::Gists do
 
   describe ".fork_gist" do
     it "forks an existing gist" do
-      stub_post("/gists/12345/fork").
+      stub_post("/gists/12345/forks").
         to_return(json_response("gist.json"))
 
       gist = @client.fork_gist(12345)
