@@ -83,12 +83,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully starred
       def star(repo, options={})
-        begin
-          put "user/starred/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        boolean_from_response(:put, "user/starred/#{Repository.new repo}", options)
       end
 
       # Unstar a repository
@@ -96,12 +91,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unstarred
       def unstar(repo, options={})
-        begin
-          request :delete, "user/starred/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        boolean_from_response(:delete, "user/starred/#{Repository.new repo}", options)
       end
 
       # Watch a repository
@@ -110,12 +100,7 @@ module Octokit
       # @return [Boolean] `true` if successfully watched
       # @deprecated Use #star instead
       def watch(repo, options={})
-        begin
-          put "user/watched/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        boolean_from_response(:put, "user/watched/#{Repository.new repo}", options)
       end
 
       # Unwatch a repository
@@ -124,12 +109,7 @@ module Octokit
       # @return [Boolean] `true` if successfully unwatched
       # @deprecated Use #unstar instead
       def unwatch(repo, options={})
-        begin
-          request :delete, "user/watched/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        boolean_from_response(:delete, "user/watched/#{Repository.new repo}", options)
       end
 
       # Fork a repository
@@ -176,12 +156,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if repository was deleted
       def delete_repository(repo, options={})
-        begin
-          request :delete, "repos/#{Repository.new repo}", options
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        boolean_from_response(:delete, "repos/#{Repository.new repo}", options)
       end
       alias :delete_repo :delete_repository
 
@@ -248,7 +223,7 @@ module Octokit
       # @example
       #   @client.remove_deploy_key('pengwynn/octokit', 100000)
       def remove_deploy_key(repo, id, options={})
-        request(:delete, "repos/#{Repository.new repo}/keys/#{id}", options).status == 204
+        boolean_from_response(:delete, "repos/#{Repository.new repo}/keys/#{id}", options)
       end
 
       # List collaborators
@@ -284,7 +259,7 @@ module Octokit
       # @example
       #   @client.add_collab('pengwynn/octokit', 'holman')
       def add_collaborator(repo, collaborator, options={})
-        request(:put, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options).status == 204
+        boolean_from_response(:put, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options)
       end
       alias :add_collab :add_collaborator
 
@@ -302,7 +277,7 @@ module Octokit
       # @example
       #   @client.remove_collab('pengwynn/octokit', 'holman')
       def remove_collaborator(repo, collaborator, options={})
-        request(:delete, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options).status == 204
+        boolean_from_response(:delete, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options)
       end
       alias :remove_collab :remove_collaborator
 
@@ -580,7 +555,7 @@ module Octokit
       # @example
       #   @client.remove_hook('pengwynn/octokit', 1000000)
       def remove_hook(repo, id, options={})
-        request(:delete, "repos/#{Repository.new repo}/hooks/#{id}", options).status == 204
+        boolean_from_response(:delete, "repos/#{Repository.new repo}/hooks/#{id}", options)
       end
 
       # Test hook
@@ -595,7 +570,7 @@ module Octokit
       # @example
       #   @client.test_hook('pengwynn/octokit', 1000000)
       def test_hook(repo, id, options={})
-        request(:post, "repos/#{Repository.new repo}/hooks/#{id}/tests", options).status == 204
+        boolean_from_response(:post, "repos/#{Repository.new repo}/hooks/#{id}/tests", options)
       end
 
       # Get all Issue Events for a given Repository
@@ -691,7 +666,7 @@ module Octokit
       #   @client.delete_subscription("pengwynn/octokit")
       def delete_subscription(repo, options={})
         begin
-          request(:delete, "repos/#{Repository.new repo}/subscription", options).status == 204
+          boolean_from_response(:delete, "repos/#{Repository.new repo}/subscription", options)
         rescue
           false
         end

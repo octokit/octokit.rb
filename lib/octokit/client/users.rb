@@ -112,9 +112,7 @@ module Octokit
         user = args.first
         user ||= login
         return if user.nil?
-        request(:get, "user/following/#{target}").status == 204
-      rescue Octokit::NotFound
-        false
+        boolean_from_response(:get, "user/following/#{target}")
       end
 
       # Follow a user.
@@ -128,7 +126,7 @@ module Octokit
       # @example
       #   @client.follow('holman')
       def follow(user, options={})
-        request(:put, "user/following/#{user}", options).status == 204
+        boolean_from_response(:put, "user/following/#{user}", options)
       end
 
       # Unfollow a user.
@@ -142,7 +140,7 @@ module Octokit
       # @example
       #   @client.unfollow('holman')
       def unfollow(user, options={})
-        request(:delete, "user/following/#{user}", options).status == 204
+        boolean_from_response(:delete, "user/following/#{user}", options)
       end
 
       # Get list of repos starred by a user.
@@ -168,9 +166,7 @@ module Octokit
       # @example
       #   @client.starred?('pengwynn', 'octokit')
       def starred?(user, repo, options={})
-        request(:get, "user/starred/#{user}/#{repo}", options).status == 204
-      rescue Octokit::NotFound
-        false
+        boolean_from_response(:get, "user/starred/#{user}/#{repo}", options)
       end
 
       # Get list of repos watched by a user.
@@ -269,7 +265,7 @@ module Octokit
       # @example
       #   @client.remove_key(1)
       def remove_key(id, options={})
-        request(:delete, "user/keys/#{id}", options).status == 204
+        boolean_from_response(:delete, "user/keys/#{id}", options)
       end
 
       # List email addresses for a user.
@@ -310,7 +306,7 @@ module Octokit
       # @example
       #   @client.remove_email('old_email@user.com')
       def remove_email(email, options={})
-        request(:delete, "user/emails", options.merge({:email => email})).status == 204
+        boolean_from_response(:delete, "user/emails", options.merge({:email => email}))
       end
 
       # List repositories being watched by a user.

@@ -79,7 +79,7 @@ module Octokit
       # @example Delete a single milestone from a repository
       #   Octokit.delete_milestone("pengwynn/octokit", 1)
       def delete_milestone(repository, number, options={})
-        request(:delete, "repos/#{Repository.new(repository)}/milestones/#{number}", options).status == 204
+        boolean_from_response(:delete, "repos/#{Repository.new(repository)}/milestones/#{number}", options)
       end
 
     end

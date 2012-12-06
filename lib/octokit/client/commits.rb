@@ -136,7 +136,7 @@ module Octokit
       # @return [nil] nil
       # @see http://developer.github.com/v3/repos/comments/
       def delete_commit_comment(repo, id, options={})
-        request(:delete, "repos/#{Repository.new(repo)}/comments/#{id}", options).status == 204
+        boolean_from_response(:delete, "repos/#{Repository.new(repo)}/comments/#{id}", options)
       end
 
       # Compare two commits
