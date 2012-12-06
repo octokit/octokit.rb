@@ -86,7 +86,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is starred successfully
       # @see http://developer.github.com/v3/gists/#star-a-gist
       def star_gist(gist, options={})
-        request(:put, "gists/#{Gist.new gist}/star", options).status == 204
+        boolean_from_response(:put, "gists/#{Gist.new gist}/star", options)
       end
 
       # Unstar a gist
@@ -95,7 +95,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is unstarred successfully
       # @see http://developer.github.com/v3/gists/#unstar-a-gist
       def unstar_gist(gist, options={})
-        request(:delete, "gists/#{Gist.new gist}/star", options).status == 204
+        boolean_from_response(:delete, "gists/#{Gist.new gist}/star", options)
       end
 
       # Check if a gist is starred
@@ -104,12 +104,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is starred
       # @see http://developer.github.com/v3/gists/#check-if-a-gist-is-starred
       def gist_starred?(gist, options={})
-        begin
-          get("gists/#{Gist.new gist}/star", options)
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        boolean_from_response(:get, "gists/#{Gist.new gist}/star", options)
       end
 
       # Fork a gist
@@ -127,8 +122,7 @@ module Octokit
       # @return [Boolean] Indicating success of deletion
       # @see http://developer.github.com/v3/gists/#delete-a-gist
       def delete_gist(gist, options={})
-        response = request(:delete, "gists/#{Gist.new gist}", options)
-        response.status == 204
+        boolean_from_response(:delete, "gists/#{Gist.new gist}", options)
       end
 
       # List gist comments
@@ -199,7 +193,7 @@ module Octokit
       # @example
       #   @client.delete_gist_comment('208sdaz3', '586399')
       def delete_gist_comment(gist_id, gist_comment_id, options={})
-        request(:delete, "gists/#{gist_id}/comments/#{gist_comment_id}", options).status == 204
+        boolean_from_response(:delete, "gists/#{gist_id}/comments/#{gist_comment_id}", options)
       end
 
     end

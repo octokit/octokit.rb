@@ -93,7 +93,7 @@ module Octokit
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.delete_authorization(999999)
       def delete_authorization(number, option={})
-        request(:delete, "authorizations/#{number}").status == 204
+        boolean_from_response(:delete, "authorizations/#{number}")
       end
 
       # Check scopes for a token

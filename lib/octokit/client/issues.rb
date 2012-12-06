@@ -201,7 +201,7 @@ module Octokit
       # @example Delete the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
       #   Octokit.delete_comment("pengwynn/octokit", 1194549)
       def delete_comment(repo, number, options={})
-        request(:delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options).status == 204
+        boolean_from_response(:delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options)
       end
 
 

@@ -67,7 +67,7 @@ module Octokit
       # @example Delete the label "Version 1.0" from the repository.
       #   Octokit.delete_label!("pengwynn/octokit", "Version 1.0")
       def delete_label!(repo, label, options={})
-        request(:delete, "repos/#{Repository.new(repo)}/labels/#{CGI.escape(label)}", options).status == 204
+        boolean_from_response(:delete, "repos/#{Repository.new(repo)}/labels/#{CGI.escape(label)}", options)
       end
 
       # Remove a label from an Issue
@@ -97,7 +97,7 @@ module Octokit
       # @example Remove all labels from Issue #23
       #   Octokit.remove_all_labels("pengwynn/octokit", 23)
       def remove_all_labels(repo, number, options={})
-        request(:delete, "repos/#{Repository.new(repo)}/issues/#{number}/labels", options).status == 204
+        boolean_from_response(:delete, "repos/#{Repository.new(repo)}/issues/#{number}/labels", options)
       end
 
       # List labels for a given issue

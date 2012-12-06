@@ -232,7 +232,7 @@ module Octokit
       # @example
       #   @client.delete_pull_request_comment("pengwynn/octokit", 1902707)
       def delete_pull_request_comment(repo, comment_id, options={})
-        request(:delete, "repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options).status == 204
+        boolean_from_response(:delete, "repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options)
       end
       alias :delete_pull_comment   :delete_pull_request_comment
       alias :delete_review_comment :delete_pull_request_comment
@@ -266,12 +266,7 @@ module Octokit
       # @param number [Integer] Number of pull request
       # @return [Boolean] True if the pull request has been merged
       def pull_merged?(repo, number, options={})
-        begin
-          get("repos/#{Repository.new(repo)}/pulls/#{number}/merge", options)
-          return true
-        rescue Octokit::NotFound
-          return false
-        end
+        boolean_from_response(:get, "repos/#{Repository.new(repo)}/pulls/#{number}/merge", options)
       end
       alias :pull_request_merged? :pull_merged?
 

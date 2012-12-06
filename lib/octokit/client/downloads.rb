@@ -72,7 +72,7 @@ module Octokit
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.delete_download("github/hubot", 1234)
       def delete_download(repo, id)
-        request(:delete, "repos/#{Repository.new(repo)}/downloads/#{id}").status == 204
+        boolean_from_response(:delete, "repos/#{Repository.new(repo)}/downloads/#{id}")
       end
 
       private
