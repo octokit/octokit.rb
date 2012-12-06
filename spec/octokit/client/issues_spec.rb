@@ -113,6 +113,17 @@ describe Octokit::Client::Issues do
 
   end
 
+  describe ".repository_issues_comments" do
+
+    it "returns comments for all issues in a repository" do
+      stub_get("/repos/pengwynn/octokit/issues/comments").
+        to_return(json_response('repository_issues_comments.json'))
+      comments = @client.issues_comments("pengwynn/octokit")
+      expect(comments.first.user.login).to eq("pengwynn")
+    end
+
+  end
+
   describe ".issue_comments" do
 
     it "returns comments for an issue" do

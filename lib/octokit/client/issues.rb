@@ -113,6 +113,33 @@ module Octokit
         post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body}))
       end
 
+      # Get all comments attached to issues for the repository
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param options [Hash] Optional parameters
+      # @option options [String] :sort created or updated
+      # @option options [String] :direction asc or desc. Ignored without sort
+      #   parameter.
+      # @option options [String] :since Timestamp in ISO 8601
+      #   format: YYYY-MM-DDTHH:MM:SSZ
+      #
+      # @return [Array] List of issues comments.
+      #
+      # @see http://developer.github.com/v3/issues/comments/#list-comments-in-a-repository
+      #
+      # @example Get the comments for issues in the octokit repository
+      #   @client.issues_comments("pengwynn/octokit")
+      #
+      # @example Get issues comments, sort by updated descending since a time
+      #   @client.issues_comments("pengwynn/octokit", {
+      #     :sort => 'desc',
+      #     :direction => 'down',
+      #     :since => '2010-05-04T23:45:02Z'
+      #   })
+      def issues_comments(repo, options={})
+        get "/repos/#{Repository.new repo}/issues/comments", options
+      end
+
       # Get all comments attached to an issue
       #
       # @param repo [String, Repository, Hash] A GitHub repository

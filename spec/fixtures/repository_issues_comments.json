@@ -1,0 +1,52 @@
+[
+  {
+    "created_at": "2010-05-04T23:45:02Z",
+    "body": "It looks like it's a bug in HTTParty. I can patch on my end but I think it should really handle 404's without parsing. I'll submit a patch. Thanks!",
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/comments/229900",
+    "user": {
+      "type": "User",
+      "subscriptions_url": "https://api.github.com/users/pengwynn/subscriptions",
+      "url": "https://api.github.com/users/pengwynn",
+      "starred_url": "https://api.github.com/users/pengwynn/starred{/owner}{/repo}",
+      "repos_url": "https://api.github.com/users/pengwynn/repos",
+      "avatar_url": "https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+      "gists_url": "https://api.github.com/users/pengwynn/gists{/gist_id}",
+      "events_url": "https://api.github.com/users/pengwynn/events{/privacy}",
+      "gravatar_id": "7e19cd5486b5d6dc1ef90e671ba52ae0",
+      "login": "pengwynn",
+      "organizations_url": "https://api.github.com/users/pengwynn/orgs",
+      "received_events_url": "https://api.github.com/users/pengwynn/received_events",
+      "followers_url": "https://api.github.com/users/pengwynn/followers",
+      "id": 865,
+      "following_url": "https://api.github.com/users/pengwynn/following"
+    },
+    "updated_at": "2010-05-04T23:45:02Z",
+    "issue_url": "https://api.github.com/repos/pengwynn/octokit/issues/186583",
+    "id": 229900
+  },
+  {
+    "created_at": "2010-05-25T08:28:03Z",
+    "body": "Now github return the same type has request in 404 result :\n\nhttp://support.github.com/discussions/api/11-return-404-instead-of-403-in-issues-api-for-non-existent-repository",
+    "url": "https://api.github.com/repos/pengwynn/octokit/issues/comments/252641",
+    "user": {
+      "type": "User",
+      "subscriptions_url": "https://api.github.com/users/shingara/subscriptions",
+      "url": "https://api.github.com/users/shingara",
+      "starred_url": "https://api.github.com/users/shingara/starred{/owner}{/repo}",
+      "repos_url": "https://api.github.com/users/shingara/repos",
+      "avatar_url": "https://secure.gravatar.com/avatar/2fd0206c71a1b22a9cc6293f38537461?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+      "gists_url": "https://api.github.com/users/shingara/gists{/gist_id}",
+      "events_url": "https://api.github.com/users/shingara/events{/privacy}",
+      "gravatar_id": "2fd0206c71a1b22a9cc6293f38537461",
+      "login": "shingara",
+      "organizations_url": "https://api.github.com/users/shingara/orgs",
+      "received_events_url": "https://api.github.com/users/shingara/received_events",
+      "followers_url": "https://api.github.com/users/shingara/followers",
+      "id": 1088,
+      "following_url": "https://api.github.com/users/shingara/following"
+    },
+    "updated_at": "2010-05-25T08:28:03Z",
+    "issue_url": "https://api.github.com/repos/pengwynn/octokit/issues/186583",
+    "id": 252641
+  }
+]
