@@ -57,6 +57,17 @@ describe Octokit::Client::Pulls do
 
   end
 
+  describe ".pull_requests_comments" do
+
+    it "returns all comments on all pull requests" do
+      stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/comments").
+        to_return(json_response("pull_requests_comments.json"))
+      comments = @client.pull_requests_comments("pengwynn/octokit")
+      expect(comments.first.user.login).to eq("sferik")
+    end
+
+  end
+
   describe ".pull_request" do
 
     it "returns a pull request" do

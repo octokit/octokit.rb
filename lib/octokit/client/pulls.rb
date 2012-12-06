@@ -105,6 +105,37 @@ module Octokit
       end
       alias :pull_commits :pull_request_commits
 
+      # List pull request comments for a repository
+      #
+      # By default, Review Comments are ordered by ascending ID.
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param options [Hash] Optional parameters
+      # @option options [String] :sort created or updated
+      # @option options [String] :direction asc or desc. Ignored without sort
+      #   parameter.
+      # @option options [String] :since Timestamp in ISO 8601
+      #   format: YYYY-MM-DDTHH:MM:SSZ
+      #
+      # @return [Array] List of pull request review comments.
+      #
+      # @see http://developer.github.com/v3/pulls/comments/#list-comments-in-a-repository
+      #
+      # @example Get the pull request review comments in the octokit repository
+      #   @client.issues_comments("pengwynn/octokit")
+      #
+      # @example Get review comments, sort by updated asc since a time
+      #   @client.pull_requests_comments("pengwynn/octokit", {
+      #     :sort => 'asc',
+      #     :direction => 'down',
+      #     :since => '2010-05-04T23:45:02Z'
+      #   })
+      def pull_requests_comments(repo, options={})
+        get("repos/#{Repository.new repo}/pulls/comments")
+      end
+      alias :pulls_comments   :pull_requests_comments
+      alias :reviews_comments :pull_requests_comments
+
       # List comments on a pull request
       #
       # @see http://developer.github.com/v3/pulls/#list-comments-on-a-pull-request
