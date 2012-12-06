@@ -115,6 +115,8 @@ module Octokit
 
       # Get all comments attached to issues for the repository
       #
+      # By default, Issue Comments are ordered by ascending ID.
+      #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param options [Hash] Optional parameters
       # @option options [String] :sort created or updated
