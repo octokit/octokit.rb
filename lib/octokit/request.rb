@@ -35,6 +35,15 @@ module Octokit
 
     private
 
+    # Executes the request, checking if it was successful
+    #
+    # @return [Boolean] True on success, false otherwise
+    def boolean_from_response(method, path, options={})
+     request(method, path, options).status == 204
+    rescue Octokit::NotFound
+      false
+    end
+
     def request(method, path, options={})
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
 
