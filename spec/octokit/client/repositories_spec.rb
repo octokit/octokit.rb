@@ -503,7 +503,7 @@ describe Octokit::Client::Repositories do
 
     it "returns false when delete repo subscription fails" do
       stub_delete("/repos/pengwynn/octokit/subscription").
-        to_return(:status => 500)
+        to_return(:status => 404)
       result = @client.delete_subscription("pengwynn/octokit")
       expect(result).to be_false
     end

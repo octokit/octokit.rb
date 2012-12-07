@@ -210,11 +210,7 @@ module Octokit
       # @example
       #   @client.delete_thread_subscription(1)
       def delete_thread_subscription(thread_id, options={})
-        begin
-          boolean_from_response(:delete, "notifications/threads/#{thread_id}", options)
-        rescue
-          false
-        end
+        boolean_from_response(:delete, "notifications/threads/#{thread_id}", options)
       end
 
     end

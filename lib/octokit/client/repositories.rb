@@ -665,11 +665,7 @@ module Octokit
       # @example
       #   @client.delete_subscription("pengwynn/octokit")
       def delete_subscription(repo, options={})
-        begin
-          boolean_from_response(:delete, "repos/#{Repository.new repo}/subscription", options)
-        rescue
-          false
-        end
+        boolean_from_response(:delete, "repos/#{Repository.new repo}/subscription", options)
       end
 
     end

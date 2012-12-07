@@ -130,7 +130,7 @@ describe Octokit::Client::Notifications do
 
     it "returns false when subscription deletion fails" do
       stub_delete("https://api.github.com/notifications/threads/1").
-        to_return(:status => 500)
+        to_return(:status => 404)
       result = @client.delete_thread_subscription(1)
       expect(result).to be_false
     end
