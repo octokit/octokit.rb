@@ -89,7 +89,7 @@ module Octokit
       #
       # @param org [String] Organization handle for which to list repos
       # @option options [String] :type ('all') Filter by repository type.
-      #   `all`, `public`, `member` or `private`.
+      #   `all`, `public`, `member`, `sources`, `forks`, or `private`.
       #
       # @return [Array<Hashie::Mash>] List of repositories
       # @see Octokit::Client
