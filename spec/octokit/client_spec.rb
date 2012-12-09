@@ -2,6 +2,10 @@ require 'helper'
 
 describe Octokit::Client do
 
+  before do
+    Octokit.reset
+  end
+
   it "sets a default user agent" do
     stub_request(:get, "https://api.github.com/rate_limit").
       with(:headers => {:user_agent => Octokit.user_agent }).
@@ -28,6 +32,25 @@ describe Octokit::Client do
     expect {
       Octokit::Client.new(:login => 'foo', :password => 'bar').commits('baz/quux')
     }.not_to raise_exception
+  end
+
+  it "can read .netrc files" do
+    stub_get("https://sferik:il0veruby@api.github.com/user").
+      to_return(json_response("user.json"))
+    Octokit.reset
+    client = Octokit::Client.new(:netrc => File.join(fixture_path, '.netrc'))
+    user = client.user
+    expect(user.login).to eq("sferik")
+  end
+
+  it "can read non-standard API endpoint creds from .netrc" do
+    stub_get("http://defunkt:il0veruby@api.github.dev/user").
+      to_return(json_response("user.json"))
+    Octokit.reset
+    Octokit.api_endpoint = "http://api.github.dev"
+    client = Octokit::Client.new(:netrc => File.join(fixture_path, '.netrc'))
+    user = client.user
+    expect(user.followers).to eq(205)
   end
 
   it "configures faraday from faraday_config_block" do

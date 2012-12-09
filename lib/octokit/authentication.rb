@@ -26,5 +26,20 @@ module Octokit
         :client_secret => client_secret
       }
     end
+
+    def login_and_password_from_netrc(rc = false)
+      return unless rc
+
+      info = case rc
+              when TrueClass
+                Netrc.read
+              when String
+                Netrc.read rc
+              end
+      netrc_host = URI.parse(api_endpoint).host
+      creds = info[netrc_host]
+      self.login = creds.shift
+      self.password = creds.shift
+    end
   end
 end

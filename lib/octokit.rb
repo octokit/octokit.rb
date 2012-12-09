@@ -1,3 +1,4 @@
+require 'netrc'
 require 'octokit/configuration'
 require 'octokit/error'
 require 'octokit/client'
