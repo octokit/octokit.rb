@@ -52,4 +52,24 @@ describe Faraday::Response do
     end
   end
 
+  {
+    ['etag', :etag] => '"5999a524d53874f13d57f70a5b4bd1a6"',
+    ['last-modified', :last_modified] => '"Mon, 10 Dec 2012 18:30:20 GMT',
+    ['x-ratelimit-limit', :rate_limit] => 60,
+    ['x-ratelimit-remaining', :rate_remaining] => 54
+  }.each do |(header_name, header_method), header_value|
+    context "when conditional header is present in response" do
+
+      before do
+        stub_get('https://api.github.com/users/sferik').
+          to_return(:headers => { header_name => header_value },
+                    :body => json_response("user.json"))
+      end
+
+      it "adds version to response hash" do
+        response = @client.user 'sferik'
+        expect(response.send header_method).to eq(header_value)
+      end
+    end
+  end
 end

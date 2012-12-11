@@ -1,5 +1,6 @@
 require 'faraday_middleware'
 require 'faraday/response/raise_octokit_error'
+require 'faraday/response/headers'
 
 module Octokit
   # @private
@@ -28,6 +29,7 @@ module Octokit
 
         builder.request :json
 
+        builder.use Faraday::Response::Headers
         builder.use Faraday::Response::RaiseOctokitError
         builder.use FaradayMiddleware::FollowRedirects
         builder.use FaradayMiddleware::Mashify

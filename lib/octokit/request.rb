@@ -58,6 +58,8 @@ module Octokit
       response = connection(conn_options).send(method) do |request|
 
         request.headers['Accept'] =  options.delete(:accept) || 'application/vnd.github.beta+json'
+        request.headers['If-None-Match'] = options.delete(:etag).to_s
+        request.headers['If-Modified-Since'] = options.delete(:last_modified).to_s
 
         if token
           request.headers[:authorization] = "token #{token}"

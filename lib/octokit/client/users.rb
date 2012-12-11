@@ -36,11 +36,11 @@ module Octokit
       # @see http://developer.github.com/v3/users/#get-a-single-user
       # @example
       #   Octokit.user("sferik")
-      def user(user=nil)
+      def user(user=nil, options={})
         if user
-          get "users/#{user}"
+          get "users/#{user}", options
         else
-          get "user"
+          get "user", options
         end
       end
 
