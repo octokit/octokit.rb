@@ -264,7 +264,7 @@ module Octokit
       # Parses the given string representation of a date, throwing a meaningful exception
       # (containing the date that failed to parse) in case of failure.
       #
-      # @param [String] String representation of a date
+      # @param date [String] String representation of a date
       # @return [DateTime]
       def parse_date(date)
         begin

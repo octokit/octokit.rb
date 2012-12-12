@@ -192,7 +192,7 @@ module Octokit
       # Requires authenticated client.
       #
       # @param key_id [Integer] Key to retreive.
-      # @param [Hashie::Mash] Hash representing the key.
+      # @return [Hashie::Mash] Hash representing the key.
       # @see http://developer.github.com/v3/users/keys/#get-a-single-public-key
       # @example
       #   @client.key(1)
