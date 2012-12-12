@@ -6,6 +6,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A Github Repository
       # @return [Array] A list of available downloads
+      # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
       # @see http://developer.github.com/v3/repos/downloads/#list-downloads-for-a-repository
       # @example List all downloads for Github/Hubot
       #   Octokit.downloads("github/hubot")
@@ -19,6 +20,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param id [Integer] ID of the download
       # @return [Download] A single download from the repository
+      # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
       # @see http://developer.github.com/v3/repos/downloads/#get-a-single-download
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.download("github/hubot")
@@ -33,6 +35,7 @@ module Octokit
       # @option options [String] :description The download description
       # @option options [String] :content_type The content type. Defaults to 'text/plain'
       # @return [Download] A single download from the repository
+      # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
       # @see http://developer.github.com/v3/repos/downloads/#create-a-new-download-part-1-create-the-resource
       # @example Create the "Robawt" download on Github/Hubot
       #   Octokit.create_download("github/hubot", 'Robawt')
@@ -67,6 +70,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param id [Integer] ID of the download
+      # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
       # @see http://developer.github.com/v3/repos/downloads/#delete-a-single-download
       # @return [Boolean] Status
       # @example Get the "Robawt" download from Github/Hubot
