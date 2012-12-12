@@ -5,7 +5,6 @@ module Octokit
       # Receive the default Readme for a repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
-      # @param ref [String] The String name of the Commit/Branch/Tag. Defaults to “master”.
       # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to “master”.
       # @return [Hash] The detail of the readme
       # @see http://developer.github.com/v3/repos/contents/
