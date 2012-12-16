@@ -3,6 +3,7 @@ require 'helper'
 describe Octokit::Client do
 
   before do
+    File.chmod 0600, "spec/fixtures/.netrc"
     Octokit.reset
   end
 
