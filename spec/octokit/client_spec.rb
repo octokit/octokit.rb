@@ -176,6 +176,7 @@ describe Octokit::Client do
       client = Octokit::Client.new
       expect(client.api_endpoint).to eq('http://foo.dev/')
     end
+
   end
 
   describe "request_host" do
