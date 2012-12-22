@@ -1,5 +1,16 @@
 # CHANGELOG
 
+# 1.20.0
+
+* [@joeyw](https://github.com/joeyw) added `.all_users` and `.all_repositories`
+* [@joeyw](https://github.com/joeyw) added `.issues_comments` and `.pull_request_comments`
+* [@x3ro](https://github.com/x3ro) added some date parsing to Commits API
+* .netrc support
+
+View [the full changelog][1.20.0].
+[1.20.0]: https://github.com/pengwynn/octokit/compare/v1.19.0...v1.20.0
+
+
 # 1.19.0
 
 This version has some substantial rewiring internally to support non-JSON

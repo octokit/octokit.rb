@@ -68,6 +68,23 @@ client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
 client.follow("sferik")
 ```
 
+### Using `.netrc` for stored credentials
+
+Octokit now supports [`.netrc`][netrc] files for storing your GitHub Basic Auth
+credentials. Given a `~/.netrc` like the following
+
+```
+machine api.github.com login pengwynn password 0ct0c4tz4ev3r!
+```
+
+You can make authenticated calls by telling Octokit to use credentials from
+this file:
+
+```ruby
+Octokit.netrc => true # or /path/to/file
+Octokit.user # authenticates as 'pengwynn' user
+```
+
 ## Requesting a specific media type
 
 You can pass an `:accept` option value to request a particular [media
@@ -178,3 +195,4 @@ Copyright (c) 2011 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober. See
 [license]: https://github.com/pengwynn/octokit/blob/master/LICENSE.md
 [media-types]: http://developer.github.com/v3/media/
 [oauth]: http://developer.github.com/v3/oauth
+[netrc]: http://www.gnu.org/software/inetutils/manual/html_node/The-_002enetrc-File.html
