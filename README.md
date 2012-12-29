@@ -81,7 +81,7 @@ You can make authenticated calls by telling Octokit to use credentials from
 this file:
 
 ```ruby
-Octokit.netrc => true # or /path/to/file
+Octokit.netrc = true # or /path/to/file
 Octokit.user # authenticates as 'pengwynn' user
 ```
 
