@@ -11,7 +11,6 @@ module Octokit
         :authenticate     => true,
         :force_urlencoded => false,
         :raw              => false,
-        :ssl              => { :verify => false },
         :url              => api_endpoint
       }.merge(options)
 
