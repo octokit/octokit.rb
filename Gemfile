@@ -1,7 +1,5 @@
-source 'https://rubygems.org'
+source :rubygems
 
-platforms :jruby do
-  gem "jruby-openssl", "~> 0.7"
-end
+gem 'jruby-openssl', :platforms => :jruby
 
 gemspec
