@@ -19,22 +19,7 @@ module Faraday
 
     def on_complete(response)
       key = response[:status].to_i
-      raise ERROR_MAP[key], error_message(response) if ERROR_MAP.has_key? key
-    end
-
-    def error_message(response)
-      message = if (body = response[:body]) && !body.empty?
-        if body.is_a?(String)
-          body = MultiJson.load(body, :symbolize_keys => true)
-        end
-        ": #{body[:error] || body[:message] || ''}"
-      else
-        ''
-      end
-      errors = unless message.empty?
-        body[:errors] ?  ": #{body[:errors].map{|e|e[:message]}.join(', ')}" : ''
-      end
-      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:status]}#{message}#{errors}"
+      raise ERROR_MAP[key].new(response) if ERROR_MAP.has_key? key
     end
   end
 end
