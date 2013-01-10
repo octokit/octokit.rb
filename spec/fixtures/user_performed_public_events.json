@@ -1,0 +1,78 @@
+[
+  {
+    "type": "PushEvent",
+    "public": true,
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+      "login": "sferik",
+      "url": "https://api.github.com/users/sferik"
+    },
+    "repo": {
+      "id": 507,
+      "url": "https://api.github.com/repos/sferik/twitter",
+      "name": "sferik/twitter"
+    },
+    "created_at": "2013-01-10T00:27:21Z",
+    "payload": {
+      "commits": [
+        {
+          "distinct": true,
+          "sha": "887f72586c323a9d9750072697edf78b9d4c29ab",
+          "url": "https://api.github.com/repos/sferik/twitter/commits/887f72586c323a9d9750072697edf78b9d4c29ab",
+          "author": {
+            "email": "sferik@gmail.com",
+            "name": "Erik Michaels-Ober"
+          },
+          "message": "Rename YARD tag \"Authentication Required?\" to \"Authentication\""
+        }
+      ],
+      "head": "887f72586c323a9d9750072697edf78b9d4c29ab",
+      "distinct_size": 1,
+      "size": 1,
+      "push_id": 134034131,
+      "ref": "refs/heads/master",
+      "before": "b4484cbc74ba598cbeeaebaf25e4534ff5a69950"
+    },
+    "id": "1652715007"
+  },
+  {
+    "type": "PushEvent",
+    "public": true,
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "id": 10308,
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+      "login": "sferik",
+      "url": "https://api.github.com/users/sferik"
+    },
+    "repo": {
+      "id": 1716295,
+      "url": "https://api.github.com/repos/sferik/sign-in-with-twitter",
+      "name": "sferik/sign-in-with-twitter"
+    },
+    "created_at": "2013-01-10T00:20:14Z",
+    "payload": {
+      "commits": [
+        {
+          "distinct": true,
+          "sha": "131783a5ff0714b34e06b8c1a76d2821b968a349",
+          "url": "https://api.github.com/repos/sferik/sign-in-with-twitter/commits/131783a5ff0714b34e06b8c1a76d2821b968a349",
+          "message": "Update twitter dependency to version 4.4.4",
+          "author": {
+            "email": "sferik@gmail.com",
+            "name": "Erik Michaels-Ober"
+          }
+        }
+      ],
+      "head": "131783a5ff0714b34e06b8c1a76d2821b968a349",
+      "distinct_size": 1,
+      "size": 1,
+      "ref": "refs/heads/master",
+      "push_id": 134032306,
+      "before": "b4b2114eea201569406cf0c1c0306cbeab2ac8fa"
+    },
+    "id": "1652711641"
+  }
+]

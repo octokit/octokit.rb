@@ -21,6 +21,17 @@ module Octokit
         get("users/#{user}/events", options)
       end
 
+      # List public user events
+      #
+      # @param user [String] GitHub username
+      # @return [Array] A list of public user events
+      # @see http://developer.github.com/v3/activity/events/#list-public-events-performed-by-a-user
+      # @example List public user events
+      #   Octokit.user_events("sferik")
+      def user_public_events(user, options={})
+        get("users/#{user}/events/public", options)
+      end
+
       # List events that a user has received
       #
       # @return [Array] A list of all user received events

@@ -24,6 +24,15 @@ describe Octokit::Client::Events do
     end
   end
 
+  describe ".user_public_events" do
+    it "returns public events performed by a GitHubber" do
+      stub_get("/users/sferik/events/public").
+        to_return json_response("user_performed_public_events.json")
+      user_public_events = @client.user_public_events("sferik")
+      expect(user_public_events.first.id).to eq("1652715007")
+    end
+  end
+
   describe ".received_events" do
     it "returns all user received events" do
       stub_get("/users/sferik/received_events").
