@@ -33,6 +33,15 @@ describe Octokit::Client::Events do
     end
   end
 
+  describe ".received_public_events" do
+    it "returns public user received events" do
+      stub_get("/users/sferik/received_events/public").
+        to_return json_response("user_public_events.json")
+      received_public_events = @client.received_public_events("sferik")
+      expect(received_public_events.first.id).to eq("1652756065")
+    end
+  end
+
   describe ".repository_events" do
     it "returns events for a repository" do
       stub_get("/repos/sferik/rails_admin/events").
