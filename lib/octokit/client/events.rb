@@ -74,6 +74,19 @@ module Octokit
         get("networks/#{Repository.new repo}/events", options)
       end
 
+      # List all events for an organization
+      #
+      # Requires authenticated client.
+      #
+      # @param org [String] Organization GitHub handle
+      # @return [Array] List of all events from a GitHub organization
+      # @see http://developer.github.com/v3/activity/events/#list-events-for-an-organization
+      # @example List events for the lostisland organization
+      #   @client.organization_events("lostisland")
+      def organization_events(org, options={})
+        get("users/#{login}/events/orgs/#{org}", options)
+      end
+
       # List an organization's public events
       #
       # @param org [String] Organization GitHub username

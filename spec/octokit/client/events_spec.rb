@@ -69,6 +69,15 @@ describe Octokit::Client::Events do
     end
   end
 
+  describe ".organization_events" do
+    it "returns all events for an organization" do
+      stub_get("/users/sferik/events/orgs/lostisland").
+        to_return json_response("organization_events.json")
+      org_events = @client.organization_events("lostisland")
+      expect(org_events.first.id).to eq("1652750175")
+    end
+  end
+
   describe ".organization_public_events" do
     it "returns an organization's public events" do
       stub_get("/orgs/github/events").
