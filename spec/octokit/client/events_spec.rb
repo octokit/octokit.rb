@@ -50,4 +50,14 @@ describe Octokit::Client::Events do
       expect(repo_network_events.first.id).to eq("1651989733")
     end
   end
+
+  describe ".organization_public_events" do
+    it "returns an organization's public events" do
+      stub_get("/orgs/github/events").
+        to_return json_response("organization_public_events.json")
+      org_public_events = @client.organization_public_events("github")
+      expect(org_public_events.first.id).to eq("1652750175")
+    end
+  end
+
 end

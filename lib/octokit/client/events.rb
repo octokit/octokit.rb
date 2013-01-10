@@ -53,6 +53,17 @@ module Octokit
         get("networks/#{Repository.new repo}/events", options)
       end
 
+      # List an organization's public events
+      #
+      # @param org [String] Organization GitHub username
+      # @return [Array] List of public events from a GitHub organization
+      # @see http://developer.github.com/v3/activity/events/#list-public-events-for-an-organization
+      # @example List public events for GitHub
+      #   Octokit.organization_public_events("GitHub")
+      def organization_public_events(org, options={})
+        get("orgs/#{org}/events", options)
+      end
+
     end
   end
 end
