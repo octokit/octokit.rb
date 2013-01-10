@@ -41,6 +41,18 @@ module Octokit
       def repository_events(repo, options={})
         get("repos/#{Repository.new(repo)}/events", options)
       end
+
+      # List public events for a repository's network
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @return [Array] A list of events for a repository's network
+      # @see http://developer.github.com/v3/activity/events/#list-public-events-for-a-network-of-repositories
+      # @example List events for a repository's network
+      #   Octokit.repository_network_events("sferik/rails_admin")
+      def repository_network_events(repo, options={})
+        get("networks/#{Repository.new repo}/events", options)
+      end
+
     end
   end
 end

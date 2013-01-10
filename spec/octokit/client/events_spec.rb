@@ -40,6 +40,14 @@ describe Octokit::Client::Events do
       repo_events = @client.repository_events("sferik/rails_admin")
       expect(repo_events.first.type).to eq("IssuesEvent")
     end
+  end
 
+  describe ".repository_network_events" do
+    it "returns events for a repository's network" do
+      stub_get("/networks/sferik/rails_admin/events").
+        to_return json_response("repository_network_events.json")
+      repo_network_events = @client.repository_network_events("sferik/rails_admin")
+      expect(repo_network_events.first.id).to eq("1651989733")
+    end
   end
 end
