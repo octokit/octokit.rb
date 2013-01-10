@@ -1,5 +1,18 @@
 # CHANGELOG
 
+# 1.21.0
+
+[@joeyw](https://github.com/joeyw) added:
+
+* 9df8662f3dddceba88a179029d9811ca8f201784 `.repository network events`
+* 005723269f56fc59fc58c2d7f4eb2b6da1ee0b4a `.organization_public_events`
+* f952ab54207f3d0bc5dc50bb822768444a777a70 `.received_public_events`
+* c2e42b70d4f5fc219bd399bc2e645cce2cc168e9 `.user_public_events`
+* ae9aaea3a25bee4cc17176419ebc5142aba2f729 `.organization_events`
+
+View [the full changelog][1.21.0].
+[1.21.0]: https://github.com/pengwynn/octokit/compare/v1.20.0...v1.21.0
+
 # 1.20.0
 
 * [@joeyw](https://github.com/joeyw) added `.all_users` and `.all_repositories`
