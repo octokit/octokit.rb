@@ -1,6 +1,38 @@
 module Octokit
   # Custom error class for rescuing from all GitHub errors
-  class Error < StandardError; end
+  class Error < StandardError
+    def initialize(response)
+      @response = response
+      super(build_error_message)
+    end
+
+    def response_body
+      @response_body ||=
+        if (body = @response[:body]) && !body.empty?
+          if body.is_a?(String)
+            MultiJson.load(body, :symbolize_keys => true)
+          else
+            body
+          end
+        else
+          nil
+        end
+    end
+
+    private
+
+    def build_error_message
+      message = if response_body
+        ": #{response_body[:error] || response_body[:message] || ''}"
+      else
+        ''
+      end
+      errors = unless message.empty?
+        response_body[:errors] ?  ": #{response_body[:errors].map{|e|e[:message]}.join(', ')}" : ''
+      end
+      "#{@response[:method].to_s.upcase} #{@response[:url].to_s}: #{@response[:status]}#{message}#{errors}"
+    end
+  end
 
   # Raised when GitHub returns a 400 HTTP status code
   class BadRequest < Error; end
