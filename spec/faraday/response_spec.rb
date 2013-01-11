@@ -49,6 +49,14 @@ describe Faraday::Response do
           @client.user('sferik')
         }.to raise_error(Octokit::BadRequest, /#{body.values.first}/)
       end
+
+      it "includes the body on the error" do
+        expect {
+          @client.user('sferik')
+        }.to raise_error { |error|
+          error.response_body.should == body
+        }
+      end
     end
   end
 
