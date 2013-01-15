@@ -51,8 +51,11 @@ module Octokit
               options.delete(:oauth_token)  ||
               oauth_token
 
+      force_urlencoded = options.delete(:force_urlencoded) || false
+
       conn_options = {
-        :authenticate => token.nil?
+        :authenticate => token.nil?,
+        :force_urlencoded => force_urlencoded
       }
 
       response = connection(conn_options).send(method) do |request|
@@ -74,7 +77,11 @@ module Octokit
           request.url(path, options)
         when :patch, :post, :put
           request.path = path
-          request.body = MultiJson.dump(options) unless options.empty?
+          if force_urlencoded
+            request.body = options unless options.empty?
+          else
+            request.body = MultiJson.dump(options) unless options.empty?
+          end
         end
 
         if Octokit.request_host

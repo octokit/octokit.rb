@@ -19,7 +19,9 @@ describe Octokit::Client::PubSubHubbub::ServiceHooks do
         to_return(:body => nil)
 
       expect(client.subscribe_service_hook("joshk/completeness-fu", "Travis", { :token => 'travistoken' })).to eq(true)
-      assert_requested :post, "https://api.github.com/hub", :body => subscribe_request_body, :times => 1
+      assert_requested :post, "https://api.github.com/hub", :body => subscribe_request_body, :times => 1,
+        :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
+
     end
   end
 
@@ -38,7 +40,8 @@ describe Octokit::Client::PubSubHubbub::ServiceHooks do
         to_return(:body => nil)
 
       expect(client.unsubscribe_service_hook("joshk/completeness-fu", "Travis")).to eq(true)
-      assert_requested :post, "https://api.github.com/hub", :body => unsubscribe_request_body, :times => 1
+      assert_requested :post, "https://api.github.com/hub", :body => unsubscribe_request_body, :times => 1,
+        :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
     end
   end
 end

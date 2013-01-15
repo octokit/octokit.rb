@@ -14,6 +14,7 @@ module Octokit
           :"hub.mode" => "subscribe",
           :"hub.topic" => topic,
           :"hub.callback" => callback,
+          :force_urlencoded => true
         }
         post("hub", options)
         true
@@ -32,6 +33,7 @@ module Octokit
           :"hub.mode" => "unsubscribe",
           :"hub.topic" => topic,
           :"hub.callback" => callback,
+          :force_urlencoded => true
         }
         post("hub", options)
         true
