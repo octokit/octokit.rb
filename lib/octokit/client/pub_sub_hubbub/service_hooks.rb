@@ -16,7 +16,6 @@ module Octokit
           topic = "#{Octokit.web_endpoint}#{Repository.new(repo)}/events/push"
           callback = "github://#{service_name}?#{service_arguments.collect{ |k,v| [ k,v ].join("=") }.join("&") }"
           subscribe(topic, callback)
-          true
         end
 
         # Unsubscribe repository through pubsub
@@ -31,7 +30,6 @@ module Octokit
           topic = "#{Octokit.web_endpoint}#{Repository.new(repo)}/events/push"
           callback = "github://#{service_name}"
           unsubscribe(topic, callback)
-          true
         end
       end
     end

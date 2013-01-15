@@ -25,7 +25,11 @@ module Octokit
       # TODO: Don't build on every request
       connection = Faraday.new(options) do |builder|
 
-        builder.request :json
+        if options[:force_urlencoded]
+          builder.request :url_encoded
+        else
+          builder.request :json
+        end
 
         builder.use Faraday::Response::RaiseOctokitError
         builder.use FaradayMiddleware::FollowRedirects
