@@ -16,7 +16,7 @@ describe Octokit::Client::PubSubHubbub do
       it "subscribes to pull events" do
         stub_post("/hub").
           with(subscribe_request_body).
-          to_return(:body => nil)
+          to_return(:status => 204)
 
         expect(client.subscribe("https://github.com/joshk/completeness-fu/events/push", "github://Travis?token=travistoken")).to eq(true)
         assert_requested :post, "https://api.github.com/hub", :body => subscribe_request_body, :times => 1,
@@ -57,7 +57,7 @@ describe Octokit::Client::PubSubHubbub do
     it "unsubscribes from pull events" do
       stub_post("/hub").
         with(unsubscribe_request_body).
-        to_return(:body => nil)
+        to_return(:status => 204)
 
       expect(client.unsubscribe("https://github.com/joshk/completeness-fu/events/push", "github://Travis?token=travistoken")).to eq(true)
       assert_requested :post, "https://api.github.com/hub", :body => unsubscribe_request_body, :times => 1,

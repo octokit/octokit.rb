@@ -16,8 +16,7 @@ module Octokit
           :"hub.callback" => callback,
           :force_urlencoded => true
         }
-        post("hub", options)
-        true
+        boolean_from_response(:post, "hub", options)
       end
 
       # Unsubscribe from a pubsub topic
@@ -35,8 +34,7 @@ module Octokit
           :"hub.callback" => callback,
           :force_urlencoded => true
         }
-        post("hub", options)
-        true
+        boolean_from_response(:post, "hub", options)
       end
     end
   end
