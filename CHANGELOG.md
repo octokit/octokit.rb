@@ -1,5 +1,14 @@
 # CHANGELOG
 
+# 1.22.0
+
+* Patch from @[gonzoyumo][] to fix service hooks
+
+[gonzoyumo]: https://github.com/gonzoyumo
+
+View [the full changelog][1.22.0].
+[1.22.0]: https://github.com/pengwynn/octokit/compare/v1.21.0...v1.22.0
+
 # 1.21.0
 
 [@joeyw](https://github.com/joeyw) added:
