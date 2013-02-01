@@ -212,6 +212,24 @@ describe Octokit::Client do
     end
   end
 
+  describe "endpoint url" do
+
+    it "defaults to api.github.com" do
+      stub_request(:get, 'https://api.github.com').
+        to_return(:body => 'octocat')
+      response = Octokit.get '/'
+      expect(response).to eq('octocat')
+    end
+
+    it "can be set in the options" do
+      stub_request(:get, 'http://wynnnetherland.com').
+        to_return(:body => 'pengwynn')
+      response = Octokit.get '/', {:endpoint => 'http://wynnnetherland.com'}
+      expect(response).to eq('pengwynn')
+    end
+
+  end
+
   describe "error handling" do
 
     it "displays validation errors" do
