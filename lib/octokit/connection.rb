@@ -11,7 +11,7 @@ module Octokit
         :authenticate     => true,
         :force_urlencoded => false,
         :raw              => false,
-        :url              => api_endpoint
+        :ssl              => { :verify => false }
       }.merge(options)
 
       if !proxy.nil?
