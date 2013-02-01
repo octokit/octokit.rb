@@ -222,6 +222,32 @@ describe Octokit::Client::Organizations do
 
   end
 
+  describe ".team_member?" do
+
+    context "user is actually a member of the team" do
+
+      it "returns true" do
+        stub_get("https://api.github.com/teams/32598/members/pengwynn").
+          to_return(:status => 204)
+        is_team_member = @client.team_member?(32598, 'pengwynn')
+        expect(is_team_member).to eq(true)
+      end
+
+    end
+
+    context "user is not actually a member of the team" do
+
+      it "returns false" do
+        stub_get("https://api.github.com/teams/32598/members/joeyw").
+          to_return(:status => 404)
+        is_team_member = @client.team_member?(32598, 'joeyw')
+        expect(is_team_member).to be_false
+      end
+
+    end
+
+  end
+
   describe ".remove_organization_member" do
     it "removes a member from an organization" do
       stub_delete("https://api.github.com/orgs/codeforamerica/members/glow-mdsol").

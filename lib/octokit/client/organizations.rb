@@ -313,6 +313,25 @@ module Octokit
         boolean_from_response(:delete, "teams/#{team_id}/members/#{user}", options)
       end
 
+      # Check if a user is a member of a team.
+      #
+      # Use this to check if another user is a member of a team that
+      # you are a member.
+      #
+      # @param team_id [Integer] Team id.
+      # @param user [String] GitHub username of the user to check.
+      #
+      # @return [Boolean] Is a member?
+      #
+      # @see http://developer.github.com/v3/orgs/teams/#get-team-member
+      #
+      # @example Check if a user is in your team
+      #   @client.team_member?('your_team', 'pengwynn')
+      #   => false
+      def team_member?(team_id, user, options={})
+        boolean_from_response(:get, "teams/#{team_id}/members/#{user}", options)
+      end
+
       # List team repositories
       #
       # Requires authenticated organization member.
