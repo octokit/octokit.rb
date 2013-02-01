@@ -55,17 +55,6 @@ describe Octokit::Client::Users do
         expect(user.login).to eq("sferik")
       end
 
-      context 'with an oauth_token passed' do
-
-        it "returns the authenticated user" do
-          stub_get("/user").
-            to_return(json_response("user.json"))
-          user = @client.user(nil, :oauth_token => 'trust.me')
-          expect(user.login).to eq("sferik")
-        end
-
-      end
-
     end
 
   end

@@ -32,14 +32,16 @@ module Octokit
       # Get a single user
       #
       # @param user [String] A GitHub user name.
-      # @param options [String] For passing, e.g., :oauth_token => 'xxxx'.
       # @return [Hashie::Mash]
       # @see http://developer.github.com/v3/users/#get-a-single-user
       # @example
       #   Octokit.user("sferik")
-      #   Octokit.user(nil, :oauth_token => 'xxxx')
-      def user(user=nil, options={})
-        get(user ? "users/#{user}" : 'user', options)
+      def user(user=nil)
+        if user
+          get "users/#{user}"
+        else
+          get 'user'
+        end
       end
 
       # Retrieve the access_token.
@@ -53,12 +55,8 @@ module Octokit
       # @example
       #   @client.access_token('aaaa', 'xxxx', 'yyyy', {:accept => 'application/json'})
       def access_token(code, app_id, app_secret, options = {})
-        begin
-          original_endpoint, self.api_endpoint = self.api_endpoint, Octokit::Configuration::DEFAULT_WEB_ENDPOINT
-          post("login/oauth/access_token", options.merge({:code => code, :client_id => app_id, :client_secret => app_secret}))
-        ensure
-          self.api_endpoint = original_endpoint
-        end
+        post("login/oauth/access_token", options.merge({:endpoint => Octokit.web_endpoint, :code => code,
+          :client_id => app_id, :client_secret => app_secret}))
       end
 
       # Validate user username and password
