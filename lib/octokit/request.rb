@@ -53,9 +53,12 @@ module Octokit
 
       force_urlencoded = options.delete(:force_urlencoded) || false
 
+      url = options.delete(:endpoint) || api_endpoint
+
       conn_options = {
         :authenticate => token.nil?,
-        :force_urlencoded => force_urlencoded
+        :force_urlencoded => force_urlencoded,
+        :url => url
       }
 
       response = connection(conn_options).send(method) do |request|
