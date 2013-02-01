@@ -55,6 +55,32 @@ describe Octokit::Client::Users do
         expect(user.login).to eq("sferik")
       end
 
+      context 'with an oauth_token passed' do
+
+        it "returns the authenticated user" do
+          stub_get("/user").
+            to_return(json_response("user.json"))
+          user = @client.user(nil, :oauth_token => 'trust.me')
+          expect(user.login).to eq("sferik")
+        end
+
+      end
+
+    end
+
+  end
+
+  describe '.access_token' do
+
+    context 'with authorization code, client id, and client secret' do
+
+      it 'returns the access_token' do
+        stub_post("https://github.com/login/oauth/access_token").
+          to_return(json_response("user_token.json"))
+        resp = @client.access_token('code', 'id_here', 'secret_here')
+        expect(resp.access_token).to eq('this_be_ye_token/use_it_wisely')
+      end
+
     end
 
   end
