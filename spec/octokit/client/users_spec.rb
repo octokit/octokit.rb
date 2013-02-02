@@ -59,6 +59,21 @@ describe Octokit::Client::Users do
 
   end
 
+  describe '.access_token' do
+
+    context 'with authorization code, client id, and client secret' do
+
+      it 'returns the access_token' do
+        stub_post("https://github.com/login/oauth/access_token").
+          to_return(json_response("user_token.json"))
+        resp = @client.access_token('code', 'id_here', 'secret_here')
+        expect(resp.access_token).to eq('this_be_ye_token/use_it_wisely')
+      end
+
+    end
+
+  end
+
   describe ".validate_credentials" do
     it "validates username and password" do
       stub_get("https://sferik:foobar@api.github.com/user").
