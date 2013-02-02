@@ -32,4 +32,37 @@ describe Octokit::Client::Statuses do
 
   end
 
+  describe ".github_status" do
+
+    it "returns the current system status" do
+      stub_get('https://status.github.com/api/status.json').
+        to_return(json_response('github_status.json'))
+      github_status = @client.github_status
+      expect(github_status.status).to eq('good')
+    end
+
+  end
+
+  describe ".github_status_last_message" do
+
+    it "returns the last human communication, status, and timestamp" do
+      stub_get('https://status.github.com/api/last-message.json').
+        to_return(json_response('github_status_last_message.json'))
+      last_message = @client.github_status_last_message
+      expect(last_message.body).to eq('Everything operating normally.')
+    end
+
+  end
+
+  describe ".github_status_messages" do
+
+    it "returns the most recent human communications" do
+      stub_get('https://status.github.com/api/messages.json').
+        to_return(json_response('github_status_messages.json'))
+      status_messages = @client.github_status_messages
+      expect(status_messages.first.body).to eq("I'm seeing, like, unicorns man.")
+    end
+
+  end
+
 end
