@@ -1,7 +1,7 @@
 module Octokit
   # Custom error class for rescuing from all GitHub errors
   class Error < StandardError
-    def initialize(response)
+    def initialize(response=nil)
       @response = response
       super(build_error_message)
     end
@@ -22,6 +22,8 @@ module Octokit
     private
 
     def build_error_message
+      return nil  if @response.nil?
+
       message = if response_body
         ": #{response_body[:error] || response_body[:message] || ''}"
       else
