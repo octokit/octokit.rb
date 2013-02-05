@@ -28,6 +28,7 @@ require 'octokit/client/statuses'
 require 'octokit/client/say'
 require 'octokit/client/rate_limit'
 require 'octokit/client/gitignore'
+require 'octokit/client/github'
 
 module Octokit
   class Client
@@ -70,5 +71,6 @@ module Octokit
     include Octokit::Client::Say
     include Octokit::Client::RateLimit
     include Octokit::Client::Gitignore
+    include Octokit::Client::GitHub
   end
 end
