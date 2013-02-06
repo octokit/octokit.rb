@@ -4,7 +4,7 @@ module Octokit
       # List all public events for GitHub
       #
       # @return [Array] A list of all public events from GitHub
-      # @see http://developer.github.com/v3/events
+      # @see http://developer.github.com/v3/activity/events/#list-public-events
       # @example List all pubilc events
       #   Octokit.public_events
       def public_events(options={})
@@ -14,7 +14,7 @@ module Octokit
       # List all user events
       #
       # @return [Array] A list of all user events
-      # @see http://developer.github.com/v3/events
+      # @see http://developer.github.com/v3/activity/events/#list-events-performed-by-a-user
       # @example List all user events
       #   Octokit.user_events("sferik")
       def user_events(user, options={})
@@ -35,7 +35,7 @@ module Octokit
       # List events that a user has received
       #
       # @return [Array] A list of all user received events
-      # @see http://developer.github.com/v3/received_events
+      # @see http://developer.github.com/v3/activity/events/#list-events-that-a-user-has-received
       # @example List all user received events
       #   Octokit.received_events("sferik")
       def received_events(user, options={})
@@ -56,7 +56,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @return [Array] A list of events for a repository
-      # @see http://developer.github.com/v3/events
+      # @see http://developer.github.com/v3/activity/events/#list-repository-events
       # @example List events for a repository
       #   Octokit.repository_events("sferik/rails_admin")
       def repository_events(repo, options={})
