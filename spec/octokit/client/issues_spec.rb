@@ -35,6 +35,17 @@ describe Octokit::Client::Issues do
     end
 
   end
+  
+  describe ".user_issues" do
+
+    it "returns issues for the authenticated user" do
+      stub_get("/user/issues").
+        to_return(json_response("user_issues.json"))
+      issues = @client.user_issues
+      expect(issues.first.number).to eq(43)
+    end
+
+  end
 
   describe ".create_issue" do
 
