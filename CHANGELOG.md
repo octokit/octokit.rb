@@ -1,5 +1,17 @@
 # CHANGELOG
 
+# 1.23.0
+
+* [Meta API][]
+* [Status API][]
+
+View [the full changelog][1.23.0].
+[1.23.0]: https://github.com/pengwynn/octokit/compare/v1.22.0...v1.23.0
+
+
+[Meta API]: http://developer.github.com/v3/meta/
+[Status API]: https://status.github.com/api
+
 # 1.22.0
 
 * Patch from @[gonzoyumo][] to fix service hooks
