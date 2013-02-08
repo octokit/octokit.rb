@@ -43,6 +43,47 @@ module Octokit
       end
       alias :issues :list_issues
 
+      # List all issues across owned and member repositories for the authenticated user
+      #
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :filter (assigned) State: <tt>assigned</tt>, <tt>created</tt>, <tt>mentioned</tt>, <tt>subscribed</tt> or <tt>closed</tt>.
+      # @option options [String] :state (open) State: <tt>open</tt> or <tt>all</tt>.
+      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
+      # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
+      # @option options [Integer] :page (1) Page number.
+      # @option options [String] :since Timestamp in ISO 8601
+      #   format: YYYY-MM-DDTHH:MM:SSZ
+      # @return [Array] A list of issues for a repository.
+      # @see http://developer.github.com/v3/issues/#list-issues
+      # @example List issues for the authenticted user across owned and member repositories
+      #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
+      #   @client.user_issues
+      def user_issues(options={})
+        get('/user/issues', options)
+      end
+      
+      # List all issues for a given organization for the authenticated user
+      #
+      # @param org [String] Organization GitHub username.
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :filter (assigned) State: <tt>assigned</tt>, <tt>created</tt>, <tt>mentioned</tt>, <tt>subscribed</tt> or <tt>closed</tt>.
+      # @option options [String] :state (open) State: <tt>open</tt> or <tt>all</tt>.
+      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
+      # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
+      # @option options [Integer] :page (1) Page number.
+      # @option options [String] :since Timestamp in ISO 8601
+      #   format: YYYY-MM-DDTHH:MM:SSZ
+      # @return [Array] A list of issues for a repository.
+      # @see http://developer.github.com/v3/issues/#list-issues
+      # @example List issues for the authenticted user across owned and member repositories
+      #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
+      #   @client.user_issues
+      def org_issues(org, options={})
+        get("/orgs/#{org}/issues", options)
+      end
+
       # Create an issue for a repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
