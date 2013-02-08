@@ -7,7 +7,6 @@ gem 'yard'
 group :development do
   gem 'kramdown'
   gem 'pry'
-  gem 'pry-debugger', :platforms => :mri_19
 end
 
 group :test do
