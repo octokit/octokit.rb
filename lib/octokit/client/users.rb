@@ -66,11 +66,9 @@ module Octokit
       # @option options [String] :password GitHub password
       # @return [Boolean] True if credentials are valid
       def validate_credentials(options = {})
-        begin
-          !self.class.new(options).user.nil?
-        rescue Octokit::Unauthorized
-          false
-        end
+        !self.class.new(options).user.nil?
+      rescue Octokit::Unauthorized
+        false
       end
 
       # Update the authenticated user
