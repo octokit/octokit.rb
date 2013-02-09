@@ -1,9 +1,16 @@
-# Octokit [![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png?branch=master)][travis] [![Dependency Status](https://gemnasium.com/pengwynn/octokit.png?travis)][gemnasium] [![Code Climate](https://codeclimate.com/badge.png)][codeclimate]
-Simple Ruby wrapper for the GitHub v3 API.
+# Octokit
 
+[![Gem Version](https://badge.fury.io/rb/octokit.png)][gem]
+[![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png?branch=master)][travis]
+[![Dependency Status](https://gemnasium.com/pengwynn/octokit.png?travis)][gemnasium]
+[![Code Climate](https://codeclimate.com/github/pengwynn/octokit.png)][codeclimate]
+
+[gem]: https://rubygems.org/gems/octokit
 [travis]: http://travis-ci.org/pengwynn/octokit
 [gemnasium]: https://gemnasium.com/pengwynn/octokit
 [codeclimate]: https://codeclimate.com/github/pengwynn/octokit
+
+Simple Ruby wrapper for the GitHub v3 API.
 
 ## Installation
     gem install octokit
