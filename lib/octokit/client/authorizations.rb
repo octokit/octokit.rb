@@ -14,7 +14,7 @@ module Octokit
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorizations
       def authorizations(options={})
-        get 'authorizations', options
+        get('authorizations', options)
       end
 
 
@@ -29,7 +29,7 @@ module Octokit
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorization(999999)
       def authorization(number, options={})
-        get "authorizations/#{number}", options
+        get("authorizations/#{number}", options)
       end
 
       # Create an authorization for the authenticated user.

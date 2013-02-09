@@ -32,8 +32,7 @@ module Octokit
       #   tree.sha # => "cd8274d15fa3ae2ab983129fb037999f264ba9a7"
       #   tree.tree.first.path # => "file.rb"
       def create_tree(repo, tree, options={})
-        parameters = { :tree => tree }
-        post("repos/#{Repository.new(repo)}/git/trees", options.merge(parameters))
+        post("repos/#{Repository.new(repo)}/git/trees", options.merge({:tree => tree}))
       end
 
       # Get a single blob, fetching its content and encoding
@@ -69,11 +68,11 @@ module Octokit
       #   require "base64"
       #   Octokit.create_blob("octocat/Hello-World", Base64.encode64("foo bar baz"), "base64")
       def create_blob(repo, content, encoding="utf-8", options={})
-        parameters = {
+        options.merge!({
           :content => content,
           :encoding => encoding
-        }
-        post("repos/#{Repository.new(repo)}/git/blobs", options.merge(parameters)).sha
+        })
+        post("repos/#{Repository.new(repo)}/git/blobs", options).sha
       end
 
       # Get a tag

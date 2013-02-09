@@ -5,7 +5,7 @@ module Octokit
       def say(text=nil)
         options = {}
         options[:s] = text if text
-        get "/octocat", options
+        get("/octocat", options)
       end
       alias :octocat :say
 

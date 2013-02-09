@@ -18,7 +18,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Hashie::Mash] Repository information
       def repository(repo, options={})
-        get "repos/#{Repository.new repo}", options
+        get("repos/#{Repository.new repo}", options)
       end
       alias :repo :repository
 
@@ -53,9 +53,9 @@ module Octokit
       # @return [Array<Hashie::Mash>] List of repositories
       def repositories(username=nil, options={})
         if username.nil?
-          get 'user/repos', options
+          get('user/repos', options)
         else
-          get "users/#{username}/repos", options
+          get("users/#{username}/repos", options)
         end
       end
       alias :list_repositories :repositories
@@ -75,7 +75,7 @@ module Octokit
       #
       # @return [Array] List of repositories.
       def all_repositories(options={})
-        get '/repositories', options
+        get('/repositories', options)
       end
 
       # Star a repository
@@ -117,7 +117,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Hashie::Mash] Repository info for the new fork
       def fork(repo, options={})
-        post "repos/#{Repository.new repo}/forks", options
+        post("repos/#{Repository.new repo}/forks", options)
       end
 
       # Create a repository for a user or organization
@@ -140,9 +140,9 @@ module Octokit
         options.merge! :name => name
 
         if organization.nil?
-          post 'user/repos', options
+          post('user/repos', options)
         else
-          post "orgs/#{organization}/repos", options
+          post("orgs/#{organization}/repos", options)
         end
       end
       alias :create_repo :create_repository
@@ -191,7 +191,7 @@ module Octokit
       # @example
       #   @client.list_deploy_keys('pengwynn/octokit')
       def deploy_keys(repo, options={})
-        get "repos/#{Repository.new repo}/keys", options
+        get("repos/#{Repository.new repo}/keys", options)
       end
       alias :list_deploy_keys :deploy_keys
 
@@ -208,7 +208,7 @@ module Octokit
       # @example
       #    @client.add_deploy_key('pengwynn/octokit', 'Staging server', 'ssh-rsa AAA...')
       def add_deploy_key(repo, title, key, options={})
-        post "repos/#{Repository.new repo}/keys", options.merge(:title => title, :key => key)
+        post("repos/#{Repository.new repo}/keys", options.merge({:title => title, :key => key}))
       end
 
       # Remove deploy key from a repo
@@ -241,7 +241,7 @@ module Octokit
       # @example
       #   @client.collabs('pengwynn/octokit')
       def collaborators(repo, options={})
-        get "repos/#{Repository.new repo}/collaborators", options
+        get("repos/#{Repository.new repo}/collaborators", options)
       end
       alias :collabs :collaborators
 
@@ -296,7 +296,7 @@ module Octokit
       # @example
       #   @client.teams('octokit/pengwynn')
       def repository_teams(repo, options={})
-        get "repos/#{Repository.new repo}/teams", options
+        get("repos/#{Repository.new repo}/teams", options)
       end
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
@@ -317,7 +317,7 @@ module Octokit
       # @example
       #   @client.contribs('pengwynn/octokit') 
       def contributors(repo, anon=false, options={})
-        get "repos/#{Repository.new repo}/contributors", options.merge(:anon => anon)
+        get("repos/#{Repository.new repo}/contributors", options.merge({:anon => anon}))
       end
       alias :contribs :contributors
 
@@ -334,7 +334,7 @@ module Octokit
       # @example
       #   @client.stargazers('pengwynn/octokit')
       def stargazers(repo, options={})
-        get "repos/#{Repository.new repo}/stargazers", options
+        get("repos/#{Repository.new repo}/stargazers", options)
       end
 
       # @deprecated Use #stargazers instead
@@ -353,7 +353,7 @@ module Octokit
       # @example
       #   @client.watchers('pengwynn/octokit')
       def watchers(repo, options={})
-        get "repos/#{Repository.new repo}/watchers", options
+        get("repos/#{Repository.new repo}/watchers", options)
       end
 
       # List forks
@@ -371,7 +371,7 @@ module Octokit
       # @example
       #   @client.forks('pengwynn/octokit')
       def forks(repo, options={})
-        get "repos/#{Repository.new repo}/forks", options
+        get("repos/#{Repository.new repo}/forks", options)
       end
       alias :network :forks
 
@@ -388,7 +388,7 @@ module Octokit
       # @example
       #   @client.languages('pengwynn/octokit')
       def languages(repo, options={})
-        get "repos/#{Repository.new repo}/languages", options
+        get("repos/#{Repository.new repo}/languages", options)
       end
 
       # List tags
@@ -404,7 +404,7 @@ module Octokit
       # @example
       #   @client.tags('pengwynn/octokit')
       def tags(repo, options={})
-        get "repos/#{Repository.new repo}/tags", options
+        get("repos/#{Repository.new repo}/tags", options)
       end
 
       # List branches
@@ -420,7 +420,7 @@ module Octokit
       # @example
       #   @client.branches('pengwynn/octokit')
       def branches(repo, options={})
-        get "repos/#{Repository.new repo}/branches", options
+        get("repos/#{Repository.new repo}/branches", options)
       end
 
       # Get a single branch from a repository
@@ -432,7 +432,7 @@ module Octokit
       # @example Get branch 'master` from pengwynn/octokit
       #   Octokit.issue("pengwynn/octokit", "master")
       def branch(repo, branch, options={})
-        get "repos/#{Repository.new repo}/branches/#{branch}", options
+        get("repos/#{Repository.new repo}/branches/#{branch}", options)
       end
       alias :get_branch :branch
 
@@ -447,7 +447,7 @@ module Octokit
       # @example
       #   @client.hooks('pengwynn/octokit')
       def hooks(repo, options={})
-        get "repos/#{Repository.new repo}/hooks", options
+        get("repos/#{Repository.new repo}/hooks", options)
       end
 
       # Get single hook
@@ -462,7 +462,7 @@ module Octokit
       # @example
       #   @client.hook('pengwynn/octokit', 100000)
       def hook(repo, id, options={})
-        get "repos/#{Repository.new repo}/hooks/#{id}", options
+        get("repos/#{Repository.new repo}/hooks/#{id}", options)
       end
 
       # Create a hook
@@ -497,8 +497,13 @@ module Octokit
       #     }
       #   )
       def create_hook(repo, name, config, options={})
-        options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
-        post "repos/#{Repository.new repo}/hooks", options
+        options.merge!({
+          :name => name, 
+          :config => config, 
+          :events => ["push"], 
+          :active => true
+        })
+        post("repos/#{Repository.new repo}/hooks", options)
       end
 
       # Edit a hook
@@ -539,8 +544,13 @@ module Octokit
       #     }
       #   )
       def edit_hook(repo, id, name, config, options={})
-        options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
-        patch "repos/#{Repository.new repo}/hooks/#{id}", options
+        options.merge!({
+          :name => name, 
+          :config => config, 
+          :events => ["push"], 
+          :active => true
+        })
+        patch("repos/#{Repository.new repo}/hooks/#{id}", options)
       end
 
       # Delete hook
@@ -582,7 +592,7 @@ module Octokit
       # @example Get all Issue Events for Octokit
       #   Octokit.repository_issue_events("pengwynn/octokit")
       def repository_issue_events(repo, options={})
-        get "repos/#{Repository.new repo}/issues/events", options
+        get("repos/#{Repository.new repo}/issues/events", options)
       end
       alias :repo_issue_events :repository_issue_events
 
@@ -601,7 +611,7 @@ module Octokit
       # @example
       #   @client.repository_assignees('pengwynn/octokit')
       def repository_assignees(repo, options={})
-        get "repos/#{Repository.new repo}/assignees", options
+        get("repos/#{Repository.new repo}/assignees", options)
       end
       alias :repo_assignees :repository_assignees
 

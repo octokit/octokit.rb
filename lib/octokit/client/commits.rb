@@ -14,8 +14,7 @@ module Octokit
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       def commits(repo, sha_or_branch="master", options={})
-        params = { :sha => sha_or_branch, :per_page => 35 }
-        get("repos/#{Repository.new(repo)}/commits", params.merge(options))
+        get("repos/#{Repository.new(repo)}/commits", options.merge({ :sha => sha_or_branch, :per_page => 35 }))
       end
       alias :list_commits :commits
 
@@ -49,9 +48,12 @@ module Octokit
       #   commit.message # => "My commit message"
       #   commit.committer # => { "name" => "Wynn Netherland", "email" => "wynn@github.com", ... }
       def create_commit(repo, message, tree, parents=nil, options={})
-        params = { :message => message, :tree => tree }
-        params[:parents] = [parents].flatten if parents
-        post("repos/#{Repository.new(repo)}/git/commits", options.merge(params))
+        options.merge!({
+          :message => message,
+          :tree => tree
+        })
+        options[:parents] = [parents].flatten if parents
+        post("repos/#{Repository.new(repo)}/git/commits", options)
       end
 
       # List all commit comments
@@ -101,14 +103,14 @@ module Octokit
       #   commit.line # => 10
       #   commit.position # => 1
       def create_commit_comment(repo, sha, body, path=nil, line=nil, position=nil, options={})
-        params = {
+        options.merge!({
           :body => body,
           :commit_id => sha,
           :path => path,
           :line => line,
           :position => position
-        }
-        post("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options.merge(params))
+        })
+        post("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options)
       end
 
       # Update a commit comment
@@ -123,10 +125,7 @@ module Octokit
       #   commit.id # => 860296
       #   commit.body # => "Updated commit comment"
       def update_commit_comment(repo, id, body, options={})
-        params = {
-          :body => body
-        }
-        patch("repos/#{Repository.new(repo)}/comments/#{id}", options.merge(params))
+        patch("repos/#{Repository.new(repo)}/comments/#{id}", options.merge({:body => body}))
       end
 
       # Delete a commit comment
@@ -159,11 +158,11 @@ module Octokit
       # @return [Hashie::Mash] A hash representing the comparison
       # @see http://developer.github.com/v3/repos/merging/
       def merge(repo, base, head, options={})
-        params = {
+         options.merge!({
           :base => base,
           :head => head
-        }.merge(options)
-        post("repos/#{Repository.new(repo)}/merges", params)
+        })
+        post("repos/#{Repository.new(repo)}/merges", options)
       end
 
       # Get commits based on time windows
@@ -178,8 +177,7 @@ module Octokit
       # @example
       #   Octokit.commits_since('pengwynn/octokit', '2012-10-01')
       def commits_since(repo, date, sha_or_branch="master", options={})
-        params = {:since => iso8601(parse_date(date))}
-        commits(repo, sha_or_branch, params.merge(options))
+        commits(repo, sha_or_branch, options.merge({:since => iso8601(parse_date(date))}))
       end
 
       # Get commits before a specified date
@@ -192,8 +190,7 @@ module Octokit
       # @example
       #   Octokit.commits_before('pengwynn/octokit', '2012-10-01')
       def commits_before(repo, date, sha_or_branch="master", options={})
-        params = {:until => iso8601(parse_date(date))}
-        commits(repo, sha_or_branch, params.merge(options))
+        commits(repo, sha_or_branch, options.merge({:until => iso8601(parse_date(date))}))
       end
 
       # Get commits on a specified date
@@ -214,8 +211,11 @@ module Octokit
         rescue ArgumentError
           raise ArgumentError, "#{date} is not a valid date"
         end
-        params = { :since => iso8601(start_date), :until => iso8601(end_date) }
-        commits(repo, sha_or_branch, params.merge(options))
+        options.merge!({
+          :since => iso8601(start_date), 
+          :until => iso8601(end_date)
+        })
+        commits(repo, sha_or_branch, options)
       end
 
       # Get commits made between two nominated dates
@@ -246,9 +246,11 @@ module Octokit
         if _end_date < _start_date
           raise ArgumentError, "Start date #{start_date} does not precede #{end_date}"
         end
-        params = {:since => iso8601(_start_date),
-          :until => iso8601(_end_date) }
-        commits(repo, sha_or_branch, params.merge(options))
+        options.merge!({
+          :since => iso8601(_start_date),
+          :until => iso8601(_end_date)
+        })
+        commits(repo, sha_or_branch, options)
       end
 
       protected
