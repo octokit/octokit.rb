@@ -13,6 +13,6 @@
 10. Add, commit, and push your changes.
 11. [Submit a pull request.][pr]
 
-[fork]: http://help.github.com/fork-a-repo/
+[fork]: https://help.github.com/articles/fork-a-repo
 [branch]: http://learn.github.com/p/branching.html
-[pr]: http://help.github.com/send-pull-requests/
+[pr]: https://help.github.com/articles/using-pull-requests

@@ -8,7 +8,6 @@ module Octokit
       # @param search_term [String] The term to search for
       # @param state [String] :state (open) <tt>open</tt> or <tt>closed</tt>.
       # @return [Array] A list of issues matching the search term and state
-      # @see http://develop.github.com/p/issues.html
       # @example Search for 'test' in the open issues for sferik/rails_admin
       #   Octokit.search_issues("sferik/rails_admin", 'test', 'open')
       def search_issues(repo, search_term, state='open', options={})
@@ -89,10 +88,14 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param title [String] A descriptive title
       # @param body [String] A concise description
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :assignee User login.
+      # @option options [Integer] :milestone Milestone number.
+      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @return [Issue] Your newly created issue
-      # @see http://develop.github.com/p/issues.html
+      # @see http://developer.github.com/v3/issues/#create-an-issue
       # @example Create a new Issues for a repository
-      #   Octokit.create_issue("sferik/rails_admin")
+      #   Octokit.create_issue("sferik/rails_admin", 'Updated Docs', 'Added some extra links')
       def create_issue(repo, title, body, options={})
         post("repos/#{Repository.new(repo)}/issues", options.merge({:title => title, :body => body}))
       end
@@ -114,9 +117,11 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :assignee User login.
+      # @option options [Integer] :milestone Milestone number.
+      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @return [Issue] The updated Issue
-      # @see http://develop.github.com/p/issues.html
-      # @note This implementation needs to be adjusted with switch to API v3
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Close Issue #25 from pengwynn/octokit
       #   Octokit.close_issue("pengwynn/octokit", "25")
@@ -128,9 +133,11 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :assignee User login.
+      # @option options [Integer] :milestone Milestone number.
+      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @return [Issue] The updated Issue
-      # @see http://develop.github.com/p/issues.html
-      # @note This implementation needs to be adjusted with switch to API v3
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Reopen Issue #25 from pengwynn/octokit
       #   Octokit.reopen_issue("pengwynn/octokit", "25")
@@ -144,9 +151,11 @@ module Octokit
       # @param number [String] Number ID of the issue
       # @param title [String] Updated title for the issue
       # @param body [String] Updated body of the issue
+      # @param options [Hash] A customizable set of options.
+      # @option options [String] :assignee User login.
+      # @option options [Integer] :milestone Milestone number.
+      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @return [Issue] The updated Issue
-      # @see http://develop.github.com/p/issues.html
-      # @note This implementation needs to be adjusted with switch to API v3
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Change the title of Issue #25
       #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
@@ -198,11 +207,11 @@ module Octokit
       # Get a single comment attached to an issue
       #
       # @param repo [String, Repository, Hash] A GitHub repository
-      # @param number [String] Number ID of the issue
+      # @param number [String] Number ID of the comment
       # @return [Comment] The specific comment in question
       # @see http://developer.github.com/v3/issues/comments/#get-a-single-comment
-      # @example Get comments for issue #25 from pengwynn/octokit
-      #   Octokit.issue_comments("pengwynn/octokit", "25")
+      # @example Get comment #1194549 from an issue on pengwynn/octokit
+      #   Octokit.issue_comments("pengwynn/octokit", 1194549)
       def issue_comment(repo, number, options={})
         get("repos/#{Repository.new(repo)}/issues/comments/#{number}", options)
       end
@@ -227,8 +236,8 @@ module Octokit
       # @param comment [String] Body of the comment which will replace the existing body.
       # @return [Comment] A JSON encoded Comment
       # @see http://developer.github.com/v3/issues/comments/#edit-a-comment
-      # @example Update the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
-      #   Octokit.update_comment("pengwynn/octokit", 25, "Almost to v1, added this on my fork")
+      # @example Update the comment #1194549 with body "I've started this on my 25-issue-comments-v3 fork" on an issue on pengwynn/octokit
+      #   Octokit.update_comment("pengwynn/octokit", 1194549, "Almost to v1, added this on my fork")
       def update_comment(repo, number, comment, options={})
         post("repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment}))
       end
@@ -239,12 +248,11 @@ module Octokit
       # @param number [Integer] Comment number
       # @return [Boolean] Success
       # @see http://developer.github.com/v3/issues/comments/#delete-a-comment
-      # @example Delete the comment "I've started this on my 25-issue-comments-v3 fork" on Issue #25 on pengwynn/octokit
+      # @example Delete the comment #1194549 on an issue on pengwynn/octokit
       #   Octokit.delete_comment("pengwynn/octokit", 1194549)
       def delete_comment(repo, number, options={})
         boolean_from_response(:delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options)
       end
-
 
       # List events for an Issue
       #
@@ -252,7 +260,7 @@ module Octokit
       # @param number [Integer] Issue number
       #
       # @return [Array] Array of events for that issue
-      # @see http://developer.github.com/v3/issues/events/
+      # @see http://developer.github.com/v3/issues/events/#list-events-for-an-issue
       # @example List all issues events for issue #38 on pengwynn/octokit
       #   Octokit.issue_events("pengwynn/octokit", 38)
       def issue_events(repo, number, options={})
