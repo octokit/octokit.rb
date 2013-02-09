@@ -54,7 +54,7 @@ describe Octokit::Client::Labels do
   describe ".update_label" do
 
     it "updates a label with a new color" do
-      stub_post("/repos/pengwynn/octokit/labels/V3+Addition").
+      stub_patch("/repos/pengwynn/octokit/labels/V3+Addition").
         with(:body => {"color" => "ededed"},
             :headers => {'Content-Type'=>'application/json'}).
         to_return(json_response('label.json'))

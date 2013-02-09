@@ -23,7 +23,7 @@ describe Octokit::Client::Pulls do
   describe ".update_pull_request" do
 
     it "updates a pull request" do
-      stub_post("https://api.github.com/repos/pengwynn/octokit/pulls/67").
+      stub_patch("https://api.github.com/repos/pengwynn/octokit/pulls/67").
         with(:pull => { :title => "New title", :body => "Updated body", :state => "closed"}).
           to_return(json_response('pull_update.json'))
       pull = @client.update_pull_request('pengwynn/octokit', 67, 'New title', 'Updated body', 'closed')
