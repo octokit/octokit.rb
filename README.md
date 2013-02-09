@@ -70,6 +70,8 @@ client.follow("sferik")
 
 Alternately, you can authenticate with a [GitHub OAuth2 token][oauth].
 
+[oauth]: http://developer.github.com/v3/oauth
+
 ```ruby
 client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
 client.follow("sferik")
@@ -79,6 +81,8 @@ client.follow("sferik")
 
 Octokit now supports [`.netrc`][netrc] files for storing your GitHub Basic Auth
 credentials. Given a `~/.netrc` like the following
+
+[netrc]: http://www.gnu.org/software/inetutils/manual/html_node/The-_002enetrc-File.html
 
 ```
 machine api.github.com login pengwynn password 0ct0c4tz4ev3r!
@@ -96,6 +100,8 @@ Octokit.user # authenticates as 'pengwynn' user
 
 You can pass an `:accept` option value to request a particular [media
 type][media-types].
+
+[media-types]: http://developer.github.com/v3/media/
 
 ```ruby
 Octokit.contents 'pengwynn/octokit', :path => 'README.md', :accept => 'application/vnd.github.html'
@@ -183,7 +189,4 @@ less-ActiveResourcey alternative.
 Copyright (c) 2011 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober. See
 [LICENSE][] for details.
 
-[license]: https://github.com/pengwynn/octokit/blob/master/LICENSE.md
-[media-types]: http://developer.github.com/v3/media/
-[oauth]: http://developer.github.com/v3/oauth
-[netrc]: http://www.gnu.org/software/inetutils/manual/html_node/The-_002enetrc-File.html
+[license]: LICENSE.md
