@@ -44,7 +44,7 @@ describe Octokit::Client::Milestones do
   describe ".update_milestone" do
 
     it "updates a milestone" do
-      stub_post("/repos/pengwynn/octokit/milestones/1").
+      stub_patch("/repos/pengwynn/octokit/milestones/1").
         with(:body => {"description" => "Add support for API v3"}).
         to_return(json_response('milestone.json'))
       milestone = @client.update_milestone("pengwynn/octokit", 1, {:description => "Add support for API v3"})

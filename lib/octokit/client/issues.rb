@@ -126,7 +126,7 @@ module Octokit
       # @example Close Issue #25 from pengwynn/octokit
       #   Octokit.close_issue("pengwynn/octokit", "25")
       def close_issue(repo, number, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"}))
+        patch("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"}))
       end
 
       # Reopen an issue
@@ -142,7 +142,7 @@ module Octokit
       # @example Reopen Issue #25 from pengwynn/octokit
       #   Octokit.reopen_issue("pengwynn/octokit", "25")
       def reopen_issue(repo, number, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"}))
+        patch("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"}))
       end
 
       # Update an issue
@@ -160,7 +160,7 @@ module Octokit
       # @example Change the title of Issue #25
       #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
       def update_issue(repo, number, title, body, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body}))
+        patch("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body}))
       end
 
       # Get all comments attached to issues for the repository
@@ -239,7 +239,7 @@ module Octokit
       # @example Update the comment #1194549 with body "I've started this on my 25-issue-comments-v3 fork" on an issue on pengwynn/octokit
       #   Octokit.update_comment("pengwynn/octokit", 1194549, "Almost to v1, added this on my fork")
       def update_comment(repo, number, comment, options={})
-        post("repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment}))
+        patch("repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment}))
       end
 
       # Delete a single comment

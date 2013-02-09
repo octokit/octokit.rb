@@ -52,7 +52,7 @@ module Octokit
       # @example Update the label "Version 1.0" with new color "#cceeaa"
       #   Octokit.update_label("pengwynn/octokit", "Version 1.0", {:color => "cceeaa"})
       def update_label(repo, label, options={})
-        post("repos/#{Repository.new(repo)}/labels/#{CGI.escape(label)}", options)
+        patch("repos/#{Repository.new(repo)}/labels/#{CGI.escape(label)}", options)
       end
 
       # Delete a label from a repository.

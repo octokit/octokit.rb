@@ -96,7 +96,7 @@ describe Octokit::Client::Issues do
   describe ".close_issue" do
 
     it "closes an issue" do
-      stub_post("/repos/ctshryock/octokit/issues/12").
+      stub_patch("/repos/ctshryock/octokit/issues/12").
         with(:body => {"state" => "closed"},
              :headers => {'Content-Type'=>'application/json'}).
         to_return(json_response("issue_closed.json"))
@@ -111,7 +111,7 @@ describe Octokit::Client::Issues do
   describe ".reopen_issue" do
 
     it "reopens an issue" do
-      stub_post("/repos/ctshryock/octokit/issues/12").
+      stub_patch("/repos/ctshryock/octokit/issues/12").
         with(:body => {"state" => "open"},
              :headers => {'Content-Type'=>'application/json'}).
         to_return(json_response("issue.json"))
@@ -125,7 +125,7 @@ describe Octokit::Client::Issues do
   describe ".update_issue" do
 
     it "updates an issue" do
-      stub_post("/repos/ctshryock/octokit/issues/12").
+      stub_patch("/repos/ctshryock/octokit/issues/12").
         with(:body => {"title" => "Use all the v3 api!", "body" => ""},
              :headers => {'Content-Type'=>'application/json'}).
         to_return(json_response("issue.json"))
@@ -184,7 +184,7 @@ describe Octokit::Client::Issues do
   describe ".update_comment" do
 
     it "updates an existing comment" do
-      stub_post("/repos/pengwynn/octokit/issues/comments/1194549").
+      stub_patch("/repos/pengwynn/octokit/issues/comments/1194549").
         with(:body => {"body" => "A test comment update"}).
         to_return(json_response('comment.json'))
       comment = @client.update_comment("pengwynn/octokit", 1194549, "A test comment update")

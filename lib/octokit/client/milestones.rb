@@ -65,7 +65,7 @@ module Octokit
       # @example Update a milestone for a repository
       #   Octokit.update_milestone("pengwynn/octokit", 1, {:description => 'Add support for v3 of Github API'})
       def update_milestone(repository, number, options={})
-        post("repos/#{Repository.new(repository)}/milestones/#{number}", options)
+        patch("repos/#{Repository.new(repository)}/milestones/#{number}", options)
       end
       alias :edit_milestone :update_milestone
 

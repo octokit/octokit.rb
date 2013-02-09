@@ -90,7 +90,7 @@ module Octokit
           :state => state
         })
         options.reject! { |_, value| value.nil? }
-        post("repos/#{Repository.new repo}/pulls/#{id}", options)
+        patch("repos/#{Repository.new repo}/pulls/#{id}", options)
       end
 
 
