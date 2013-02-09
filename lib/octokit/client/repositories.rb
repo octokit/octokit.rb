@@ -605,6 +605,19 @@ module Octokit
       end
       alias :repo_assignees :repository_assignees
 
+      # Check to see if a particular user is an assignee for a repository.
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @param assignee [String] User login to check
+      # @return [Boolean] True if assignable on project, false otherwise.
+      # @see Octokit::Client
+      # @see http://developer.github.com/v3/issues/assignees/#check-assignee
+      # @example
+      #   Octokit.check_assignee('pengwynn/octokit', 'andrew')
+      def check_assignee(repo, assignee, options={})
+        boolean_from_response(:get, "repos/#{Repository.new repo}/assignees/#{assignee}", options)
+      end
+
       # List watchers subscribing to notifications for a repo
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
