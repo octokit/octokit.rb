@@ -13,9 +13,9 @@ module Octokit
       # @see http://developer.github.com/v3/gists/#list-gists
       def gists(username=nil, options={})
         if username.nil?
-          get 'gists', options
+          get('gists', options)
         else
-          get "users/#{username}/gists", options
+          get("users/#{username}/gists", options)
         end
       end
       alias :list_gists :gists
@@ -27,14 +27,14 @@ module Octokit
       #   Octokit.public_gists
       # @see http://developer.github.com/v3/gists/#list-gists
       def public_gists(options={})
-        get 'gists/public', options
+        get('gists/public', options)
       end
 
       # List the authenticated user’s starred gists
       #
       # @return [Array<Hashie::Mash>] A list of gists
       def starred_gists(options={})
-        get 'gists/starred', options
+        get('gists/starred', options)
       end
 
       # Get a single gist
@@ -43,7 +43,7 @@ module Octokit
       # @return [Hash::Mash] Gist information
       # @see http://developer.github.com/v3/gists/#get-a-single-gist
       def gist(gist, options={})
-        get "gists/#{Gist.new gist}", options
+        get("gists/#{Gist.new gist}", options)
       end
 
       # Create a gist
@@ -57,7 +57,7 @@ module Octokit
       # @return [Hashie::Mash] Newly created gist info
       # @see http://developer.github.com/v3/gists/#create-a-gist
       def create_gist(options={})
-        post 'gists', options
+        post('gists', options)
       end
 
       # Edit a gist
@@ -76,7 +76,7 @@ module Octokit
       #   [Hashie::Mash] Newly created gist info
       # @see http://developer.github.com/v3/gists/#edit-a-gist
       def edit_gist(gist, options={})
-        patch "gists/#{Gist.new gist}", options
+        patch("gists/#{Gist.new gist}", options)
       end
 
       #
@@ -113,7 +113,7 @@ module Octokit
       # @return [Hashie::Mash] Data for the new gist
       # @see http://developer.github.com/v3/gists/#fork-a-gist
       def fork_gist(gist, options={})
-        post "gists/#{Gist.new gist}/forks", options
+        post("gists/#{Gist.new gist}/forks", options)
       end
 
       # Delete a gist
@@ -133,7 +133,7 @@ module Octokit
       # @example
       #   Octokit.gist_comments('3528ae645')
       def gist_comments(gist_id, options={})
-        get "gists/#{gist_id}/comments", options
+        get("gists/#{gist_id}/comments", options)
       end
 
       # Get gist comment
@@ -145,7 +145,7 @@ module Octokit
       # @example
       #   Octokit.gist_comment('208sdaz3', 1451398)
       def gist_comment(gist_id, gist_comment_id, options={})
-        get "gists/#{gist_id}/comments/#{gist_comment_id}", options
+        get("gists/#{gist_id}/comments/#{gist_comment_id}", options)
       end
 
       # Create gist comment
@@ -160,8 +160,7 @@ module Octokit
       # @example
       #   @client.create_gist_comment('3528645', 'This is very helpful.')
       def create_gist_comment(gist_id, comment, options={})
-        options.merge!({:body => comment})
-        post "gists/#{gist_id}/comments", options
+        post("gists/#{gist_id}/comments", options.merge({:body => comment}))
       end
 
       # Update gist comment
@@ -177,8 +176,7 @@ module Octokit
       # @example
       #   @client.update_gist_comment('208sdaz3', '3528645', ':heart:')
       def update_gist_comment(gist_id, gist_comment_id, comment, options={})
-        options.merge!({:body => comment})
-        patch "gists/#{gist_id}/comments/#{gist_comment_id}", options
+        patch("gists/#{gist_id}/comments/#{gist_comment_id}", options.merge({:body => comment}))
       end
 
       # Delete gist comment

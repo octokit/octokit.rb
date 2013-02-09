@@ -11,7 +11,7 @@ module Octokit
       # @example Get GitHub meta information
       #   @client.github_meta
       def github_meta(options={})
-        get "/meta", options
+        get("/meta", options)
       end
 
     end

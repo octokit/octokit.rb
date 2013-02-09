@@ -7,7 +7,7 @@ module Octokit
       # @example List all emojis
       #   Octokit.emojis
       def emojis
-        get "emojis"
+        get("emojis")
       end
     end
   end

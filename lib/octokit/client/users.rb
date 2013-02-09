@@ -26,7 +26,7 @@ module Octokit
       #
       # @return [Array] List of GitHub users.
       def all_users(options={})
-        get "users", options
+        get("users", options)
       end
 
       # Get a single user
@@ -38,9 +38,9 @@ module Octokit
       #   Octokit.user("sferik")
       def user(user=nil)
         if user
-          get "users/#{user}"
+          get("users/#{user}")
         else
-          get 'user'
+          get('user')
         end
       end
 
@@ -55,8 +55,13 @@ module Octokit
       # @example
       #   @client.access_token('aaaa', 'xxxx', 'yyyy', {:accept => 'application/json'})
       def access_token(code, app_id, app_secret, options = {})
-        post("login/oauth/access_token", options.merge({:endpoint => Octokit.web_endpoint, :code => code,
-          :client_id => app_id, :client_secret => app_secret}))
+        options.merge!({
+          :endpoint => Octokit.web_endpoint,
+          :code => code,
+          :client_id => app_id,
+          :client_secret => app_secret
+        })
+        post("login/oauth/access_token", options)
       end
 
       # Validate user username and password

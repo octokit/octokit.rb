@@ -40,11 +40,11 @@ module Octokit
       # @example Create refs/heads/master for octocat/Hello-World with sha 827efc6d56897b048c772eb4087f854f46256132
       #   Octokit.create_ref("octocat/Hello-World","heads/master", "827efc6d56897b048c772eb4087f854f46256132")
       def create_ref(repo, ref, sha, options={})
-        parameters = {
+        options.merge!({
           :ref  => "refs/#{ref}",
           :sha  => sha
-        }
-        post("repos/#{Repository.new(repo)}/git/refs", options.merge(parameters))
+        })
+        post("repos/#{Repository.new(repo)}/git/refs", options)
       end
       alias :create_reference :create_ref
 
@@ -59,11 +59,11 @@ module Octokit
       # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
       #   Octokit.update_ref("octocat/Hello-World","heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
       def update_ref(repo, ref, sha, force=true, options={})
-        parameters = {
+        options.merge!({
           :sha  => sha,
           :force => force
-        }
-        patch("repos/#{Repository.new(repo)}/git/refs/#{ref}", options.merge(parameters))
+        })
+        patch("repos/#{Repository.new(repo)}/git/refs/#{ref}", options)
       end
       alias :update_reference :update_ref
 

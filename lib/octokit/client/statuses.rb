@@ -21,8 +21,7 @@ module Octokit
       # @return [Hash] A status
       # @see http://developer.github.com/v3/repos/status
       def create_status(repo, sha, state, options={})
-        options.merge!(:state => state)
-        post("repos/#{Repository.new(repo)}/statuses/#{sha}", options)
+        post("repos/#{Repository.new(repo)}/statuses/#{sha}", options.merge({:state => state}))
       end
 
       # Returns the current system status
