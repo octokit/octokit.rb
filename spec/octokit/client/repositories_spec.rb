@@ -458,6 +458,17 @@ describe Octokit::Client::Repositories do
 
   end
 
+  describe ".check_assignee" do
+
+    it "checks to see if a particular user is an assignee for a repository" do
+      stub_get("/repos/pengwynn/octokit/assignees/andrew").
+      to_return(:status => 204)
+      is_assignee = @client.check_assignee("pengwynn/octokit", 'andrew')
+      expect(is_assignee).to eq(true)
+    end
+
+  end
+
   describe ".subscribers" do
 
     it "lists all the users watching the repository" do
