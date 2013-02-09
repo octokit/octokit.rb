@@ -186,7 +186,7 @@ less-ActiveResourcey alternative.
 [octopi]: https://github.com/fcoury/octopi
 
 ## Copyright
-Copyright (c) 2011 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober. See
-[LICENSE][] for details.
+Copyright (c) 2011-2013 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober.
+See [LICENSE][] for details.
 
 [license]: LICENSE.md
