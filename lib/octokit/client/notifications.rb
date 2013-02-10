@@ -81,11 +81,9 @@ module Octokit
       # @example
       #   @client.mark_notifications_as_read
       def mark_notifications_as_read(options={})
-        begin
-          request(:put, "notifications", options).status == 205
-        rescue
-          false
-        end
+        request(:put, "notifications", options).status == 205
+      rescue Octokit::Error
+        false
       end
 
       # Mark notifications from a specific repository as read
@@ -110,11 +108,9 @@ module Octokit
       # @example
       #   @client.mark_notifications_as_read("pengwynn/octokit")
       def mark_repository_notifications_as_read(repo, options={})
-        begin
-          request(:put, "repos/#{Repository.new repo}/notifications", options).status == 205
-        rescue
-          false
-        end
+        request(:put, "repos/#{Repository.new repo}/notifications", options).status == 205
+      rescue Octokit::Error
+        false
       end
       alias :mark_repo_notifications_as_read :mark_repository_notifications_as_read
 
@@ -149,11 +145,9 @@ module Octokit
       # @example
       #   @client.mark_thread_as_ready(1, :read => false)
       def mark_thread_as_read(thread_id, options={})
-        begin
-          request(:patch, "notifications/threads/#{thread_id}", options).status == 205
-        rescue
-          false
-        end
+        request(:patch, "notifications/threads/#{thread_id}", options).status == 205
+      rescue Octokit::Error
+        false
       end
 
       # Get thread subscription
