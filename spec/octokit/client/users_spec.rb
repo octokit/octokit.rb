@@ -299,6 +299,17 @@ describe Octokit::Client::Users do
     end
 
   end
+  
+  describe ".user_keys" do
+
+    it "returns public keys for a user" do
+      stub_get("https://api.github.com/users/pengwynn/keys").
+        to_return(json_response("public_keys.json"))
+      public_keys = @client.user_keys 'pengwynn'
+      expect(public_keys.first.id).to eq(103205)
+    end
+
+  end
 
   describe ".add_key" do
 

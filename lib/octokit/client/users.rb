@@ -236,6 +236,19 @@ module Octokit
         get("user/keys", options)
       end
 
+      # Get list of public keys for user.
+      #
+      # Requires authenticated client.
+      #
+      # @return [Array<Hashie::Mash>] Array of hashes representing public keys.
+      # @see Octokit::Client
+      # @see http://developer.github.com/v3/users/keys/#list-public-keys-for-a-user
+      # @example
+      #   @client.user_keys('pengwynn'
+      def user_keys(user, options={})
+        get("users/#{user}/keys", options)
+      end
+
       # Add public key to user account.
       #
       # Requires authenticated client.
