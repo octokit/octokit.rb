@@ -229,7 +229,7 @@ module Octokit
       #
       # @return [Array<Hashie::Mash>] Array of hashes representing public keys.
       # @see Octokit::Client
-      # @see http://developer.github.com/v3/users/keys/#list-public-keys-for-a-user
+      # @see http://developer.github.com/v3/users/keys/#list-your-public-keys
       # @example
       #   @client.keys
       def keys(options={})
