@@ -4,11 +4,13 @@
 [![Build Status](https://secure.travis-ci.org/pengwynn/octokit.png?branch=master)][travis]
 [![Dependency Status](https://gemnasium.com/pengwynn/octokit.png?travis)][gemnasium]
 [![Code Climate](https://codeclimate.com/github/pengwynn/octokit.png)][codeclimate]
+[![Coverage Status](https://coveralls.io/repos/pengwynn/octokit/badge.png?branch=master)][coveralls]
 
 [gem]: https://rubygems.org/gems/octokit
 [travis]: http://travis-ci.org/pengwynn/octokit
 [gemnasium]: https://gemnasium.com/pengwynn/octokit
 [codeclimate]: https://codeclimate.com/github/pengwynn/octokit
+[coveralls]: https://coveralls.io/r/pengwynn/octokit
 
 Simple Ruby wrapper for the GitHub v3 API.
 
