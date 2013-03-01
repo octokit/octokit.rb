@@ -430,7 +430,7 @@ module Octokit
       # @return [Branch] The branch requested, if it exists
       # @see http://developer.github.com/v3/repos/#get-branch
       # @example Get branch 'master` from pengwynn/octokit
-      #   Octokit.issue("pengwynn/octokit", "master")
+      #   Octokit.branch("pengwynn/octokit", "master")
       def branch(repo, branch, options={})
         get "repos/#{Repository.new repo}/branches/#{branch}", options
       end
