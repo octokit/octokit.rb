@@ -65,7 +65,7 @@ module Octokit
       # @param options [Hash] Gist information.
       # @option options [String] :description
       # @option options [Boolean] :public Sets gist visibility
-      # @option options [Array<Hash>] :files Files that make up this gist. Keys
+      # @option options [Hash] :files Files that make up this gist. Keys
       #   should be the filename, the value a Hash with a :content key with text
       #   content of the Gist. 
       #
@@ -75,6 +75,10 @@ module Octokit
       # @return
       #   [Hashie::Mash] Newly created gist info
       # @see http://developer.github.com/v3/gists/#edit-a-gist
+      # @example Update a gist
+      #   @client.edit_gist('some_id', {
+      #     :files => {"boo.md" => {"content" => "updated stuff"}}
+      #   })
       def edit_gist(gist, options={})
         patch "gists/#{Gist.new gist}", options
       end
