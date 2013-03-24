@@ -1,5 +1,13 @@
 # CHANGELOG
 
+# 1.24.0
+
+* Missing issues methods, thanks [@andrew](https://github.com/andrew)
+* Don't bypass SSL verification
+
+View [the full changelog][1.24.0].
+[1.24.0]: https://github.com/pengwynn/octokit/compare/v1.23.0...v1.24.0
+
 # 1.23.0
 
 * [Meta API][]
