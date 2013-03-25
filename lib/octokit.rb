@@ -15,8 +15,10 @@ module Octokit
 
     # Delegate to Octokit::Client.new
     def method_missing(method, *args, &block)
-      return super unless new.respond_to?(method)
-      new.send(method, *args, &block)
+      client = new
+
+      return super unless client.respond_to?(method)
+      client.send(method, *args, &block)
     end
 
     def respond_to?(method, include_private=false)
