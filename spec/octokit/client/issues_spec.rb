@@ -133,6 +133,15 @@ describe Octokit::Client::Issues do
       expect(issue.number).to eq(12)
     end
 
+    it "doesn't require a title and a body" do
+      stub_patch("/repos/ctshryock/octokit/issues/12").
+        with(:body => {"labels" => %w(bug)},
+             :headers => {'Content-Type'=>'application/json'}).
+        to_return(json_response("issue.json"))
+      issue = @client.update_issue("ctshryock/octokit", 12, :labels => %w(bug))
+      expect(issue.number).to eq(12)
+    end
+
   end
 
   describe ".repository_issues_comments" do
