@@ -149,18 +149,18 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
-      # @param title [String] Updated title for the issue
-      # @param body [String] Updated body of the issue
       # @param options [Hash] A customizable set of options.
+      # @option options [String] :title Updated title for the issue
+      # @option options [String] :body Updated body of the issue
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @return [Issue] The updated Issue
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Change the title of Issue #25
-      #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
-      def update_issue(repo, number, title, body, options={})
-        patch("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body}))
+      #   Octokit.update_issue("pengwynn/octokit", "25", :title => "A new title")
+      def update_issue(repo, number, options={})
+        patch("repos/#{Repository.new(repo)}/issues/#{number}", options)
       end
 
       # Get all comments attached to issues for the repository
