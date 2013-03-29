@@ -126,11 +126,11 @@ describe Octokit::Client::Issues do
 
     it "updates an issue" do
       stub_patch("/repos/ctshryock/octokit/issues/12").
-        with(:body => {"title" => "Use all the v3 api!", "body" => ""},
+        with(:body => {"title" => "Migrate issues to v3"},
              :headers => {'Content-Type'=>'application/json'}).
         to_return(json_response("issue.json"))
-      issue = @client.update_issue("ctshryock/octokit", 12, "Use all the v3 api!", "")
-      expect(issue.number).to eq(12)
+      issue = @client.update_issue("ctshryock/octokit", 12, :title => "Migrate issues to v3")
+      expect(issue.title).to eq("Migrate issues to v3")
     end
 
   end
