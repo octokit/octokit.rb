@@ -72,7 +72,7 @@ module Octokit
       # @see http://developer.github.com/v3/oauth/#scopes for available scopes
       # @example Update the authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
-      #  client.create_authorization({:add_scopes => ["gist", "repo"], :note => "Why not Zoidberg possibly?"})
+      #  client.update_authorization(999999, {:add_scopes => ["gist", "repo"], :note => "Why not Zoidberg possibly?"})
       def update_authorization(number, options={})
         # Techincally we can omit scopes as GitHub has a default, however the
         # API will reject us if we send a POST request with an empty body.
