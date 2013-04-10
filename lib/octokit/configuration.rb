@@ -63,7 +63,7 @@ module Octokit
       self.api_endpoint        = DEFAULT_API_ENDPOINT
       self.web_endpoint        = DEFAULT_WEB_ENDPOINT
       self.status_api_endpoint = DEFAULT_STATUS_API_ENDPOINT
-	  self.faraday_options     = {}
+      self.faraday_options     = {}
       self.login               = nil
       self.password            = nil
       self.proxy               = nil
