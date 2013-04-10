@@ -5,7 +5,7 @@ module Octokit
   module Configuration
     VALID_OPTIONS_KEYS = [
       :adapter,
-	  :faraday_options,
+      :faraday_options,
       :faraday_config_block,
       :api_version,
       :api_endpoint,
