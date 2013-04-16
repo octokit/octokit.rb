@@ -161,6 +161,9 @@ module Octokit
       # Get list of repos starred by a user.
       #
       # @param user [String] Username of the user to get the list of their starred repositories.
+      # @param options [Hash] Optional options
+      # @option options [String] :sort (created) Sort: <tt>created</tt> or <tt>updated</tt>.
+      # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @return [Array<Hashie::Mash>] Array of hashes representing repositories starred by user.
       # @see http://developer.github.com/v3/repos/starring/#list-repositories-being-starred
       # @example
