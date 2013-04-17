@@ -13,7 +13,9 @@ describe Octokit do
       client = Octokit.client
       Octokit.access_token = "87614b09dd141c22800f96f11737ade5226d7ba8"
       client_two = Octokit.client
+      client_three = Octokit.client
       client.wont_equal client_two
+      client_three.must_equal client_two
     end
   end
 
