@@ -1,16 +1,20 @@
 module Octokit
   module Configurable
-    attr_accessor :api_endpoint, :auto_paginate, :login, :per_page, :proxy, :user_agent, :web_endpoint
-    attr_writer :access_token, :client_id, :client_secret, :password
+    attr_accessor :api_endpoint, :auto_paginate, :client_id, :login, :per_page, :proxy, :user_agent, :web_endpoint
+    attr_writer :access_token, :client_secret, :password
 
     class << self
 
       def keys
         @keys ||= [
+          :access_token,
           :api_endpoint,
           :auto_paginate,
+          :client_id,
+          :client_secret,
           :login,
           :per_page,
+          :password,
           :proxy,
           :user_agent,
           :web_endpoint
