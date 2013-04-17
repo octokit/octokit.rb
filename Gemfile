@@ -11,9 +11,9 @@ end
 
 group :test do
   gem 'coveralls', :require => false
-  gem 'guard-rspec'
+  gem 'guard-minitest'
   gem 'json', '~> 1.7', :platforms => [:ruby_18, :jruby]
-  gem 'rspec', '>= 2.11'
+  gem 'rb-fsevent', '~> 0.9'
   gem 'simplecov', :require => false
   gem 'webmock'
 end

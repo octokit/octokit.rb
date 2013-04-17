@@ -1,11 +1,11 @@
 require 'bundler'
 Bundler::GemHelper.install_tasks
 
-require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new(:spec)
+require "rake/testtask"
 
-task :test => :spec
-task :default => :spec
+Rake::TestTask.new do |t|
+  t.pattern = "spec/**/*_spec.rb"
+end
 
 namespace :doc do
   require 'yard'
