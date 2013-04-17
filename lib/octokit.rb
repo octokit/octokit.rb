@@ -1,26 +1,24 @@
-require 'netrc'
-require 'octokit/configuration'
-require 'octokit/error'
 require 'octokit/client'
+require 'octokit/default'
 
 module Octokit
-  extend Configuration
   class << self
-    # Alias for Octokit::Client.new
-    #
-    # @return [Octokit::Client]
-    def new(options={})
-      Octokit::Client.new(options)
+    include Octokit::Configurable
+
+    def client
+      @client = Octokit::Client.new(options) unless defined?(@client) && @client.same_options?(options)
+      @client
     end
 
-    # Delegate to Octokit::Client.new
-    def method_missing(method, *args, &block)
-      return super unless new.respond_to?(method)
-      new.send(method, *args, &block)
+    def respond_to_missing?(method_name, include_private=false); client.respond_to?(method_name, include_private); end if RUBY_VERSION >= "1.9"
+    def respond_to?(method_name, include_private=false); client.respond_to?(method_name, include_private) || super; end if RUBY_VERSION < "1.9"
+
+  private
+
+    def method_missing(method_name, *args, &block)
+      return super unless client.respond_to?(method_name)
+      client.send(method_name, *args, &block)
     end
 
-    def respond_to?(method, include_private=false)
-      new.respond_to?(method, include_private) || super(method, include_private)
-    end
   end
 end

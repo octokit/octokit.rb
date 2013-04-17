@@ -15,6 +15,7 @@ group :test do
   gem 'json', '~> 1.7', :platforms => [:ruby_18, :jruby]
   gem 'rb-fsevent', '~> 0.9'
   gem 'simplecov', :require => false
+  gem 'turn'
   gem 'webmock'
 end
 
