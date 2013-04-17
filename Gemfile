@@ -5,8 +5,12 @@ gem 'rake'
 gem 'yard'
 
 group :development do
+  gem 'awesome_print', :require => 'ap'
+  gem 'hirb-unicode'
   gem 'kramdown'
   gem 'pry'
+  gem 'wirb'
+  gem 'wirble'
 end
 
 group :test do

@@ -56,6 +56,23 @@ describe Octokit::Client do
         client.client_id.must_equal Octokit.client_id
       end
 
+      it "masks passwords on inspect" do
+        client = Octokit::Client.new(@opts)
+        inspected = client.inspect
+        inspected.wont_match "il0veruby"
+      end
+
+      it "masks tokens on inspect" do
+        client = Octokit::Client.new(:access_token => '87614b09dd141c22800f96f11737ade5226d7ba8')
+        inspected = client.inspect
+        inspected.wont_match "87614b09dd141c22800f96f11737ade5226d7ba8"
+      end
+
+      it "masks client secrets on inspect" do
+        client = Octokit::Client.new(:client_secret => '87614b09dd141c22800f96f11737ade5226d7ba8')
+        inspected = client.inspect
+        inspected.wont_match "87614b09dd141c22800f96f11737ade5226d7ba8"
+      end
     end
   end
 end
