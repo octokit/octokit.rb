@@ -18,8 +18,13 @@ describe Octokit do
   end
 
   describe ".configure" do
-    it "sets all the things" do
-
+    Octokit::Configurable.keys.each do |key|
+      it "sets the #{key.to_s.gsub('_', ' ')}" do
+        Octokit.configure do |config|
+          config.send("#{key}=", key)
+        end
+        Octokit.instance_variable_get(:"@#{key}").must_equal key
+      end
     end
   end
 
