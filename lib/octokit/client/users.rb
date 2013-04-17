@@ -120,12 +120,8 @@ module Octokit
       # @see http://developer.github.com/v3/users/followers/#check-if-you-are-following-a-user
       # @example
       #   @client.follows?('pengwynn')
-      def follows?(*args)
-        target = args.pop
-        user = args.first
-        user ||= login
-        return if user.nil?
-        boolean_from_response(:get, "user/following/#{target}")
+      def follows?(user)
+        boolean_from_response(:get, "user/following/#{user}")
       end
 
       # Follow a user.
