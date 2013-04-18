@@ -1,11 +1,13 @@
 require 'sawyer'
 require 'octokit/configurable'
+require 'octokit/authentication'
 require 'octokit/rate_limit'
 require 'octokit/client/rate_limit'
 
 
 module Octokit
   class Client
+    include Octokit::Authentication
     include Octokit::Configurable
     include Octokit::Client::RateLimit
 
@@ -60,10 +62,20 @@ module Octokit
     private
 
     def agent
-      @agent ||= Sawyer::Agent.new(api_endpoint, sawyer_options)
+      @agent ||= Sawyer::Agent.new(api_endpoint, sawyer_options) do |http|
+        if basic_authenticated?
+          http.basic_auth(@login, @password)
+        elsif token_authenticated?
+          http.authorization 'token', @access_token
+        end
+      end
     end
 
     def request(method, url, options)
+      if application_authenticated?
+        options[:query] ||= {}
+        options[:query].merge! application_authentication
+      end
       @last_response = agent.call(method, url, options)
     end
 

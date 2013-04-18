@@ -61,7 +61,7 @@ end
 def github_url(url)
   if url =~ /^http/
     url
-  elsif @client && @client.authenticated?
+  elsif @client && @client.basic_authenticated?
     "https://#{@client.login}:#{@client.password}@api.github.com#{url}"
   else
     "https://api.github.com#{url}"

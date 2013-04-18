@@ -76,6 +76,141 @@ describe Octokit::Client do
     end
   end
 
+  describe "authentication" do
+    before do
+      Octokit.reset!
+      @client = Octokit.client
+    end
+
+    describe "with module level config" do
+      before do
+        Octokit.reset!
+      end
+      it "sets basic auth creds with .configure" do
+        Octokit.configure do |config|
+          config.login = 'pengwynn'
+          config.password = 'il0veruby'
+        end
+        assert Octokit.client.basic_authenticated?
+      end
+      it "sets basic auth creds with module methods" do
+        Octokit.login = 'pengwynn'
+        Octokit.password = 'il0veruby'
+        assert Octokit.client.basic_authenticated?
+      end
+      it "sets oauth token with .configure" do
+        Octokit.configure do |config|
+          config.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+        end
+        refute Octokit.client.basic_authenticated?
+        assert Octokit.client.token_authenticated?
+      end
+      it "sets oauth token with module methods" do
+        Octokit.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+        refute Octokit.client.basic_authenticated?
+        assert Octokit.client.token_authenticated?
+      end
+      it "sets oauth application creds with .configure" do
+        Octokit.configure do |config|
+          config.client_id     = '97b4937b385eb63d1f46'
+          config.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+        end
+        refute Octokit.client.basic_authenticated?
+        refute Octokit.client.token_authenticated?
+        assert Octokit.client.application_authenticated?
+      end
+      it "sets oauth token with module methods" do
+        Octokit.client_id     = '97b4937b385eb63d1f46'
+        Octokit.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+        refute Octokit.client.basic_authenticated?
+        refute Octokit.client.token_authenticated?
+        assert Octokit.client.application_authenticated?
+      end
+    end
+
+    describe "with class level config" do
+      it "sets basic auth creds with .configure" do
+        @client.configure do |config|
+          config.login = 'pengwynn'
+          config.password = 'il0veruby'
+        end
+        assert @client.basic_authenticated?
+      end
+      it "sets basic auth creds with instance methods" do
+        @client.login = 'pengwynn'
+        @client.password = 'il0veruby'
+        assert @client.basic_authenticated?
+      end
+      it "sets oauth token with .configure" do
+        @client.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+        refute @client.basic_authenticated?
+        assert @client.token_authenticated?
+      end
+      it "sets oauth token with instance methods" do
+        @client.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+        refute @client.basic_authenticated?
+        assert @client.token_authenticated?
+      end
+      it "sets oauth application creds with .configure" do
+        @client.configure do |config|
+          config.client_id     = '97b4937b385eb63d1f46'
+          config.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+        end
+        refute @client.basic_authenticated?
+        refute @client.token_authenticated?
+        assert @client.application_authenticated?
+      end
+      it "sets oauth token with module methods" do
+        @client.client_id     = '97b4937b385eb63d1f46'
+        @client.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+        refute @client.basic_authenticated?
+        refute @client.token_authenticated?
+        assert @client.application_authenticated?
+      end
+    end
+
+    describe "when basic authenticated" do
+      it "makes authenticated calls" do
+        Octokit.configure do |config|
+          config.login = 'pengwynn'
+          config.password = 'il0veruby'
+        end
+
+        VCR.use_cassette 'root' do
+          root_request = stub_get("https://pengwynn:il0veruby@api.github.com/")
+          Octokit.client.get("/")
+          assert_requested root_request
+        end
+      end
+    end
+    describe "when token authenticated" do
+      it "makes authenticated calls" do
+        client = Octokit.client
+        client.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+
+        VCR.use_cassette 'root' do
+          root_request = stub_get("/").
+            with(:headers => {:authorization => "token d255197b4937b385eb63d1f4677e3ffee61fbaea"})
+          client.get("/")
+          assert_requested root_request
+        end
+      end
+    end
+    describe "when application authenticated" do
+      it "makes authenticated calls" do
+        client = Octokit.client
+        client.client_id     = '97b4937b385eb63d1f46'
+        client.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+
+        VCR.use_cassette 'root' do
+          root_request = stub_get("/?client_id=97b4937b385eb63d1f46&client_secret=d255197b4937b385eb63d1f4677e3ffee61fbaea")
+          client.get("/")
+          assert_requested root_request
+        end
+      end
+    end
+  end
+
   describe "#agent" do
     before do
       Octokit.reset!
