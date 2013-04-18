@@ -7,7 +7,7 @@ Rake::TestTask.new do |t|
   t.libs.push 'spec'
 end
 
-task :test => :spec
+task :spec => :test
 task :default => :test
 
 namespace :doc do
