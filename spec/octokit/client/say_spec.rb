@@ -9,8 +9,7 @@ describe Octokit::Client::Say do
     it "returns an ASCII octocat" do
       VCR.use_cassette('say', :match_requests_on => [:uri, :query]) do
         text = @client.say
-        puts text.inspect
-        text.must_match /logically awesome/
+        text.must_match /Half measures/
       end
     end
 

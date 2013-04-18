@@ -260,5 +260,25 @@ describe Octokit::Client do
         @client.last_response.status.must_equal 200
       end
     end
+    it "sets a default user agent" do
+      VCR.use_cassette 'root' do
+        root_request = stub_get("/").
+          with(:headers => {:user_agent => Octokit::Default.user_agent})
+        @client.get "/"
+        assert_requested root_request
+        @client.last_response.status.must_equal 200
+      end
+    end
+    it "sets a custom user agent" do
+      user_agent = "Mozilla/5.0 Pengwynn"
+      VCR.use_cassette 'root' do
+        root_request = stub_get("/").
+          with(:headers => {:user_agent => user_agent})
+        client = Octokit::Client.new :user_agent => user_agent
+        client.get "/"
+        assert_requested root_request
+        client.last_response.status.must_equal 200
+      end
+    end
   end
 end

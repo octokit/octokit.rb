@@ -66,6 +66,7 @@ module Octokit
     def agent
       @agent ||= Sawyer::Agent.new(api_endpoint, sawyer_options) do |http|
         http.headers[:accept] = default_media_type
+        http.headers[:user_agent] = user_agent
         if basic_authenticated?
           http.basic_auth(@login, @password)
         elsif token_authenticated?
