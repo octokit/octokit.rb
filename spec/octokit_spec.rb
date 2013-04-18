@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe Octokit do
 
+  it "sets defaults" do
+    Octokit::Configurable.keys.each do |key|
+      Octokit.instance_variable_get(:"@#{key}").must_equal Octokit::Default.send(key)
+    end
+  end
+
   describe ".client" do
     it "creates an Octokit::Client" do
       Octokit.client.must_be_kind_of Octokit::Client

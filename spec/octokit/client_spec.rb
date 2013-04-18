@@ -75,4 +75,19 @@ describe Octokit::Client do
       end
     end
   end
+
+  describe "#agent" do
+    before do
+      Octokit.reset!
+    end
+
+    it "acts like a Sawyer agent" do
+      Octokit.client.agent.must_respond_to :start
+    end
+
+    it "caches the agent" do
+      agent = Octokit.client.agent
+      agent.object_id.must_equal Octokit.client.agent.object_id
+    end
+  end
 end

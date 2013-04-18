@@ -1,3 +1,4 @@
+require 'sawyer'
 require 'octokit/configurable'
 
 module Octokit
@@ -9,6 +10,10 @@ module Octokit
       Octokit::Configurable.keys.each do |key|
         instance_variable_set(:"@#{key}", options[key] || Octokit.instance_variable_get(:"@#{key}"))
       end
+    end
+
+    def agent
+      @agent ||= Sawyer::Agent.new(api_endpoint, sawyer_options)
     end
 
     def same_options?(requested_options)
@@ -24,6 +29,12 @@ module Octokit
       inspected = inspected.gsub(/(access_token|client_secret)="(\w+)(",)/) { "#{$1}=\"#{"*"*36}#{$2[36..-1]}#{$3}" }
 
       inspected
+    end
+
+    private
+
+    def sawyer_options
+      { :links_parser => Sawyer::LinkParsers::Simple.new }
     end
 
   end

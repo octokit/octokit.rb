@@ -22,3 +22,5 @@ module Octokit
 
   end
 end
+
+Octokit.setup
