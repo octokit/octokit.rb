@@ -3,6 +3,7 @@ require 'octokit/configurable'
 require 'octokit/authentication'
 require 'octokit/rate_limit'
 require 'octokit/client/rate_limit'
+require 'octokit/client/say'
 
 
 module Octokit
@@ -10,6 +11,7 @@ module Octokit
     include Octokit::Authentication
     include Octokit::Configurable
     include Octokit::Client::RateLimit
+    include Octokit::Client::Say
 
     attr_reader :last_response
 
@@ -63,6 +65,7 @@ module Octokit
 
     def agent
       @agent ||= Sawyer::Agent.new(api_endpoint, sawyer_options) do |http|
+        http.headers[:accept] = default_media_type
         if basic_authenticated?
           http.basic_auth(@login, @password)
         elsif token_authenticated?
@@ -76,7 +79,22 @@ module Octokit
         options[:query] ||= {}
         options[:query].merge! application_authentication
       end
-      @last_response = agent.call(method, url, options)
+      if accept = options.delete(:accept)
+        options[:headers] ||= {}
+        options[:headers][:accept] = accept
+      end
+
+      @last_response = response = agent.call(method, url, options)
+      response.data
+    end
+
+    # Executes the request, checking if it was successful
+    #
+    # @return [Boolean] True on success, false otherwise
+    def boolean_from_response(method, path, options={})
+     request(method, path, options).status == 204
+    rescue Octokit::NotFound
+      false
     end
 
 

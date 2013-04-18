@@ -2,8 +2,9 @@ module Octokit
   module Default
 
     API_ENDPOINT = "https://api.github.com".freeze
-    WEB_ENDPOINT = "https://github.com".freeze
     USER_AGENT   = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
+    MEDIA_TYPE   = "application/vnd.github.beta+json"
+    WEB_ENDPOINT = "https://github.com".freeze
 
     class << self
 
@@ -29,6 +30,10 @@ module Octokit
 
       def client_secret
         ENV['OCTOKIT_SECRET']
+      end
+
+      def default_media_type 
+        ENV['OCTOKIT_DEFAULT_MEDIA_TYPE'] || MEDIA_TYPE
       end
 
       def login

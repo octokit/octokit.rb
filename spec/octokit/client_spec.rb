@@ -236,4 +236,29 @@ describe Octokit::Client do
       end
     end
   end
+
+  describe "when making requests" do
+    before do
+      Octokit.reset!
+      @client = Octokit.client
+    end
+    it "Accepts application/vnd.github.beta+json by default" do
+      VCR.use_cassette 'root' do
+        root_request = stub_get("/").
+          with(:headers => {:accept => "application/vnd.github.beta+json"})
+        @client.get "/"
+        assert_requested root_request
+        @client.last_response.status.must_equal 200
+      end
+    end
+    it "allows Accept'ing another media type" do
+      VCR.use_cassette 'root' do
+        root_request = stub_get("/").
+          with(:headers => {:accept => "application/vnd.github.beta.diff+json"})
+        @client.get "/", :accept => "application/vnd.github.beta.diff+json"
+        assert_requested root_request
+        @client.last_response.status.must_equal 200
+      end
+    end
+  end
 end

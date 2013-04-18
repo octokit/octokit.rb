@@ -1,0 +1,109 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: https://api.github.com/octocat
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      User-Agent: 
+      - Faraday v0.8.7
+      Accept: 
+      - application/vnd.github.beta+json
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Thu, 18 Apr 2013 19:34:58 GMT
+      Content-Type: 
+      - text/plain
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "46"
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"cce8a58bc3cfb2b01f2d5337ad487873\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: ASCII-8BIT
+      string: "\n           MMM.           .MMM\n           MMMMMMMMMMMMMMMMMMM\n           MMMMMMMMMMMMMMMMMMM      ____________________________\n          MMMMMMMMMMMMMMMMMMMMM    |                            |\n         MMMMMMMMMMMMMMMMMMMMMMM   | Keep it logically awesome. |\n        MMMMMMMMMMMMMMMMMMMMMMMM   |_   ________________________|\n        MMMM::- -:::::::- -::MMMM    |/\n         MM~:~   ~:::::~   ~:~MM\n    .. MMMMM::. .:::+:::. .::MMMMM ..\n          .MM::::: ._. :::::MM.\n             MMMM;:::::;MMMM\n      -MM        MMMMMMM\n      ^  M+     MMMMMMMMM\n          MMMMMMM MM MM MM\n               MM MM MM MM\n               MM MM MM MM\n            .~~MM~MM~MM~MM~~.\n         ~~~~MM:~MM~~~MM~:MM~~~~\n        ~~~~~~==~==~~~==~==~~~~~~\n         ~~~~~~==~==~==~==~~~~~~\n             :~==~==~==~==~~\n"
+    http_version: 
+  recorded_at: Thu, 18 Apr 2013 19:34:59 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/octocat?s=There%20is%20no%20need%20to%20be%20upset
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      User-Agent: 
+      - Faraday v0.8.7
+      Accept: 
+      - application/vnd.github.beta+json
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Thu, 18 Apr 2013 19:34:59 GMT
+      Content-Type: 
+      - text/plain
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "45"
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"bbee694cbe99be1c70a68f5c6d3effe5\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: ASCII-8BIT
+      string: "\n           MMM.           .MMM\n           MMMMMMMMMMMMMMMMMMM\n           MMMMMMMMMMMMMMMMMMM      ______________________________\n          MMMMMMMMMMMMMMMMMMMMM    |                              |\n         MMMMMMMMMMMMMMMMMMMMMMM   | There is no need to be upset |\n        MMMMMMMMMMMMMMMMMMMMMMMM   |_   __________________________|\n        MMMM::- -:::::::- -::MMMM    |/\n         MM~:~   ~:::::~   ~:~MM\n    .. MMMMM::. .:::+:::. .::MMMMM ..\n          .MM::::: ._. :::::MM.\n             MMMM;:::::;MMMM\n      -MM        MMMMMMM\n      ^  M+     MMMMMMMMM\n          MMMMMMM MM MM MM\n               MM MM MM MM\n               MM MM MM MM\n            .~~MM~MM~MM~MM~~.\n         ~~~~MM:~MM~~~MM~:MM~~~~\n        ~~~~~~==~==~~~==~==~~~~~~\n         ~~~~~~==~==~==~==~~~~~~\n             :~==~==~==~==~~\n"
+    http_version: 
+  recorded_at: Thu, 18 Apr 2013 19:34:59 GMT
+recorded_with: VCR 2.4.0

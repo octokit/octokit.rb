@@ -5,7 +5,7 @@ require 'octokit/version'
 
 Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.0'
-  spec.add_dependency 'sawyer', '~> 0.0.8'
+  spec.add_dependency 'sawyer', '~> 0.0.9'
   spec.authors = ["Wynn Netherland", "Erik Michaels-Ober", "Clint Shryock"]
   spec.description = %q{Simple wrapper for the GitHub v3 API}
   spec.email = ['wynn.netherland@gmail.com', 'sferik@gmail.com', 'clint@ctshryock.com']
