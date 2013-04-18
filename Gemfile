@@ -20,7 +20,8 @@ group :test do
   gem 'rb-fsevent', '~> 0.9'
   gem 'simplecov', :require => false
   gem 'turn'
-  gem 'webmock'
+  gem 'vcr'
+  gem 'webmock', '~> 1.9.0'
 end
 
 gemspec

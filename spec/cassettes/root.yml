@@ -1,0 +1,58 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: https://api.github.com/
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      User-Agent: 
+      - Faraday v0.8.7
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: 
+      - "*/*"
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Thu, 18 Apr 2013 15:32:47 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "59"
+      X-Github-Media-Type: 
+      - github.beta
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"0e2423cbc08777ba92f98a11ee785561\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: ASCII-8BIT
+      string: "{\"current_user_url\":\"https://api.github.com/user\",\"authorizations_url\":\"https://api.github.com/authorizations\",\"emails_url\":\"https://api.github.com/user/emails\",\"emojis_url\":\"https://api.github.com/emojis\",\"events_url\":\"https://api.github.com/events\",\"following_url\":\"https://api.github.com/user/following{/target}\",\"gists_url\":\"https://api.github.com/gists{/gist_id}\",\"hub_url\":\"https://api.github.com/hub\",\"issue_search_url\":\"https://api.github.com/legacy/issues/search/{owner}/{repo}/{state}/{keyword}\",\"issues_url\":\"https://api.github.com/issues\",\"keys_url\":\"https://api.github.com/user/keys\",\"notifications_url\":\"https://api.github.com/notifications\",\"organization_repositories_url\":\"https://api.github.com/orgs/{org}/repos/{?type,page,per_page,sort}\",\"organization_url\":\"https://api.github.com/orgs/{org}\",\"public_gists_url\":\"https://api.github.com/gists/public\",\"rate_limit_url\":\"https://api.github.com/rate_limit\",\"repository_url\":\"https://api.github.com/repos/{owner}/{repo}\",\"repository_search_url\":\"https://api.github.com/legacy/repos/search/{keyword}{?language,start_page}\",\"current_user_repositories_url\":\"https://api.github.com/user/repos{?type,page,per_page,sort}\",\"starred_url\":\"https://api.github.com/user/starred{/owner}{/repo}\",\"starred_gists_url\":\"https://api.github.com/gists/starred\",\"team_url\":\"https://api.github.com/teams\",\"user_url\":\"https://api.github.com/users/{user}\",\"user_organizations_url\":\"https://api.github.com/user/orgs\",\"user_repositories_url\":\"https://api.github.com/users/{user}/repos{?type,page,per_page,sort}\",\"user_search_url\":\"https://api.github.com/legacy/user/search/{keyword}\"}"
+    http_version: 
+  recorded_at: Thu, 18 Apr 2013 15:32:49 GMT
+recorded_with: VCR 2.4.0

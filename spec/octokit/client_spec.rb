@@ -82,12 +82,23 @@ describe Octokit::Client do
     end
 
     it "acts like a Sawyer agent" do
-      Octokit.client.agent.must_respond_to :start
+      Octokit.client.send(:agent).must_respond_to :start
     end
 
     it "caches the agent" do
-      agent = Octokit.client.agent
-      agent.object_id.must_equal Octokit.client.agent.object_id
+      agent = Octokit.client.send(:agent)
+      agent.object_id.must_equal Octokit.client.send(:agent).object_id
+    end
+  end
+
+  describe "#last_response" do
+    it "caches the last agent response" do
+      VCR.use_cassette 'root' do
+        client = Octokit.client
+        client.last_response.must_be_nil
+        client.get "/"
+        client.last_response.status.must_equal 200
+      end
     end
   end
 end
