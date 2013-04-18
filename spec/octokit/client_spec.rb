@@ -27,6 +27,7 @@ describe Octokit::Client do
 
       before do
         @opts = {
+          :connection_options => {:ssl => {:verify => false}},
           :per_page => 40,
           :login    => "defunkt",
           :password => "il0veruby"

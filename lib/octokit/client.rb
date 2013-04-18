@@ -98,9 +98,15 @@ module Octokit
       false
     end
 
-
     def sawyer_options
-      { :links_parser => Sawyer::LinkParsers::Simple.new }
+      opts = {
+        :links_parser => Sawyer::LinkParsers::Simple.new
+      }
+      conn_opts = @connection_options
+      conn_opts[:builder] = @middleware if @middleware
+      opts[:faraday] = Faraday.new(conn_opts)
+
+      opts
     end
 
   end

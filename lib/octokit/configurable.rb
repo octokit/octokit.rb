@@ -1,6 +1,7 @@
 module Octokit
   module Configurable
-    attr_accessor :api_endpoint, :auto_paginate, :client_id, :default_media_type, :login, :per_page, :proxy, :user_agent, :web_endpoint
+    attr_accessor :api_endpoint, :auto_paginate, :client_id, :default_media_type, :connection_options, 
+                  :login, :middleware, :per_page, :proxy, :user_agent, :web_endpoint
     attr_writer :access_token, :client_secret, :password
 
     class << self
@@ -12,8 +13,10 @@ module Octokit
           :auto_paginate,
           :client_id,
           :client_secret,
+          :connection_options,
           :default_media_type,
           :login,
+          :middleware,
           :per_page,
           :password,
           :proxy,

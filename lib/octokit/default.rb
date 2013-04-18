@@ -5,6 +5,9 @@ module Octokit
     USER_AGENT   = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
     MEDIA_TYPE   = "application/vnd.github.beta+json"
     WEB_ENDPOINT = "https://github.com".freeze
+    MIDDLEWARE = Faraday::Builder.new do |builder|
+      builder.adapter Faraday.default_adapter
+    end unless defined?(Octokit::Default::MIDDLEWARE)
 
     class << self
 
@@ -32,12 +35,25 @@ module Octokit
         ENV['OCTOKIT_SECRET']
       end
 
-      def default_media_type 
+      def connection_options
+        {
+          :headers => {
+            :accept => default_media_type,
+            :user_agent => user_agent
+          }
+        }
+      end
+
+      def default_media_type
         ENV['OCTOKIT_DEFAULT_MEDIA_TYPE'] || MEDIA_TYPE
       end
 
       def login
         ENV['OCTOKIT_LOGIN']
+      end
+
+      def middleware
+        MIDDLEWARE
       end
 
       def password
