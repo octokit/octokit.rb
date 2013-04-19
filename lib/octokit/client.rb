@@ -66,8 +66,21 @@ module Octokit
 
     def paginate(url, options = {})
       options[:query] ||= {}
-      options[:query][:per_page] = @per_page if @per_page
-      request :get, url, options
+      if @auto_paginate || @per_page
+        options[:query][:per_page] = @per_page || (@auto_paginate ? 100 : nil)
+      end
+
+      data = request(:get, url, options)
+
+      if @auto_paginate && data.is_a?(Array)
+        while @last_response.rels[:next] && rate_limit.remaining > 0
+          @last_response = @last_response.rels[:next].get
+          data.concat(@last_response.data) if @last_response.data.is_a?(Array)
+        end
+
+      end
+
+      data
     end
 
     private

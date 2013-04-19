@@ -291,8 +291,26 @@ describe Octokit::Client do
   end
 
   describe "auto pagination" do
+    before do
+      Octokit.reset!
+      Octokit.configure do |config|
+        config.auto_paginate = true
+        config.per_page = 3
+      end
+    end
+
+    after do
+      Octokit.reset!
+    end
+
     it "fetches all the pages" do
-      skip "Not implemented"
+      VCR.use_cassette('pagination', :erb => true, :record => :none) do
+        Octokit.client.paginate('/repos/rails/rails/issues', :query => {:state => 'closed'})
+        assert_requested :get, github_url("/repos/rails/rails/issues?per_page=3&state=closed")
+        (2..30).each do |i|
+          assert_requested :get, github_url("/repositories/8514/issues?per_page=3&page=#{i}&state=closed")
+        end
+      end
     end
   end
 end
