@@ -271,7 +271,7 @@ describe Octokit::Client do
       end
     end
     it "sets a custom user agent" do
-      user_agent = "Mozilla/5.0 Pengwynn"
+      user_agent = "Mozilla/5.0 I am Spartacus!"
       VCR.use_cassette 'root' do
         root_request = stub_get("/").
           with(:headers => {:user_agent => user_agent})
@@ -280,6 +280,14 @@ describe Octokit::Client do
         assert_requested root_request
         client.last_response.status.must_equal 200
       end
+    end
+    it "sets a proxy server" do
+      Octokit.configure do |config|
+        config.proxy = 'http://proxy.example.com:80'
+      end
+      conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
+      puts conn.inspect
+      conn.proxy[:uri].to_s.must_equal 'http://proxy.example.com'
     end
   end
 end
