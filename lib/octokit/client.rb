@@ -3,6 +3,7 @@ require 'octokit/configurable'
 require 'octokit/authentication'
 require 'octokit/gist'
 require 'octokit/rate_limit'
+require 'octokit/client/emojis'
 require 'octokit/client/gists'
 require 'octokit/client/rate_limit'
 require 'octokit/client/say'
@@ -12,6 +13,7 @@ module Octokit
   class Client
     include Octokit::Authentication
     include Octokit::Configurable
+    include Octokit::Client::Emojis
     include Octokit::Client::Gists
     include Octokit::Client::RateLimit
     include Octokit::Client::Say
