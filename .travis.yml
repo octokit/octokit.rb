@@ -11,3 +11,6 @@ rvm:
   - 1.9.2
   - 1.9.3
   - 2.0.0
+env:
+  - OCTOKIT_TEST_GITHUB_LOGIN="api-padawan"
+  - OCTOKIT_TEST_GITHUB_PASSWORD="MYSOCRATESNOTE"

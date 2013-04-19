@@ -13,9 +13,9 @@ module Octokit
       # @see http://developer.github.com/v3/gists/#list-gists
       def gists(username=nil, options={})
         if username.nil?
-          get 'gists', options
+          paginate 'gists', options
         else
-          get "users/#{username}/gists", options
+          paginate "users/#{username}/gists", options
         end
       end
       alias :list_gists :gists
@@ -27,14 +27,14 @@ module Octokit
       #   Octokit.public_gists
       # @see http://developer.github.com/v3/gists/#list-gists
       def public_gists(options={})
-        get 'gists/public', options
+        paginate 'gists/public', options
       end
 
       # List the authenticated user’s starred gists
       #
       # @return [Array<Hashie::Mash>] A list of gists
       def starred_gists(options={})
-        get 'gists/starred', options
+        paginate 'gists/starred', options
       end
 
       # Get a single gist
@@ -137,7 +137,7 @@ module Octokit
       # @example
       #   Octokit.gist_comments('3528ae645')
       def gist_comments(gist_id, options={})
-        get "gists/#{gist_id}/comments", options
+        paginate "gists/#{gist_id}/comments", options
       end
 
       # Get gist comment

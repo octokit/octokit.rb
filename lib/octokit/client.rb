@@ -1,7 +1,9 @@
 require 'sawyer'
 require 'octokit/configurable'
 require 'octokit/authentication'
+require 'octokit/gist'
 require 'octokit/rate_limit'
+require 'octokit/client/gists'
 require 'octokit/client/rate_limit'
 require 'octokit/client/say'
 
@@ -10,6 +12,7 @@ module Octokit
   class Client
     include Octokit::Authentication
     include Octokit::Configurable
+    include Octokit::Client::Gists
     include Octokit::Client::RateLimit
     include Octokit::Client::Say
 
@@ -50,15 +53,21 @@ module Octokit
     end
 
     def patch(url, options = {})
-      request :patch, options
+      request :patch, url, options
     end
 
     def delete(url, options = {})
-      request :delete, options
+      request :delete, url, options
     end
 
     def head(url, options = {})
-      request :head, options
+      request :head, url, options
+    end
+
+    def paginate(url, options = {})
+      options[:query] ||= {}
+      options[:query][:per_page] = @per_page if @per_page
+      request :get, url, options
     end
 
     private
@@ -93,9 +102,8 @@ module Octokit
     #
     # @return [Boolean] True on success, false otherwise
     def boolean_from_response(method, path, options={})
-     request(method, path, options).status == 204
-    rescue Octokit::NotFound
-      false
+      request(method, path, options)
+      @last_response.status == 204
     end
 
     def sawyer_options

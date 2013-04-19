@@ -1,0 +1,837 @@
+--- 
+http_interactions: 
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists
+    body: 
+      encoding: UTF-8
+      string: "{\"description\":\"A gist from Octokit\",\"public\":true,\"files\":{\"zen.text\":{\"content\":\"Keep it logically awesome.\"}}}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:38:57 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4992"
+      Location: 
+      - https://api.github.com/gists/5421529
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "3060"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"ff642a7886760a5623413bf6204a51ae\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/gists/5421529\",\"forks_url\":\"https://api.github.com/gists/5421529/forks\",\"commits_url\":\"https://api.github.com/gists/5421529/commits\",\"id\":\"5421529\",\"git_pull_url\":\"https://gist.github.com/5421529.git\",\"git_push_url\":\"https://gist.github.com/5421529.git\",\"html_url\":\"https://gist.github.com/5421529\",\"files\":{\"zen.text\":{\"filename\":\"zen.text\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421529/fde0619cfe8ece129304af54eed78bf866287178/zen.text\",\"size\":26,\"content\":\"Keep it logically awesome.\"}},\"public\":true,\"created_at\":\"2013-04-19T16:38:56Z\",\"updated_at\":\"2013-04-19T16:38:56Z\",\"description\":\"A gist from Octokit\",\"comments\":0,\"user\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421529/comments\",\"forks\":[],\"history\":[{\"user\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"version\":\"92b7b67a347c6298db851d62a75f372c9cdc19e2\",\"committed_at\":\"2013-04-19T16:38:57Z\",\"change_status\":{\"total\":1,\"additions\":1,\"deletions\":0},\"url\":\"https://api.github.com/gists/5421529/92b7b67a347c6298db851d62a75f372c9cdc19e2\"}]}"
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:38:57 GMT
+- request: 
+    method: patch
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421307
+    body: 
+      encoding: UTF-8
+      string: "{\"description\":\"GitHub Zen\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:38:57 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4991"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "3051"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"aaac7f8bf5cc98d99d7c041139fb1856\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/gists/5421307\",\"forks_url\":\"https://api.github.com/gists/5421307/forks\",\"commits_url\":\"https://api.github.com/gists/5421307/commits\",\"id\":\"5421307\",\"git_pull_url\":\"https://gist.github.com/5421307.git\",\"git_push_url\":\"https://gist.github.com/5421307.git\",\"html_url\":\"https://gist.github.com/5421307\",\"files\":{\"zen.text\":{\"filename\":\"zen.text\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421307/fde0619cfe8ece129304af54eed78bf866287178/zen.text\",\"size\":26,\"content\":\"Keep it logically awesome.\"}},\"public\":true,\"created_at\":\"2013-04-19T16:00:46Z\",\"updated_at\":\"2013-04-19T16:31:13Z\",\"description\":\"GitHub Zen\",\"comments\":0,\"user\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421307/comments\",\"forks\":[],\"history\":[{\"user\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"version\":\"61fb8c7ec15602777796dbac25ade4bcc8195f36\",\"committed_at\":\"2013-04-19T16:00:46Z\",\"change_status\":{\"total\":1,\"additions\":1,\"deletions\":0},\"url\":\"https://api.github.com/gists/5421307/61fb8c7ec15602777796dbac25ade4bcc8195f36\"}]}"
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:38:57 GMT
+- request: 
+    method: get
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:38:58 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4990"
+      Vary: 
+      - Accept, Authorization, Cookie
+      - Accept-Encoding
+      Cache-Control: 
+      - private, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Fri, 19 Apr 2013 16:38:56 GMT
+      Etag: 
+      - "\"3481815f0d9d27597c01f9b979083399\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "[{\"url\":\"https://api.github.com/gists/5421529\",\"forks_url\":\"https://api.github.com/gists/5421529/forks\",\"commits_url\":\"https://api.github.com/gists/5421529/commits\",\"id\":\"5421529\",\"git_pull_url\":\"https://gist.github.com/5421529.git\",\"git_push_url\":\"https://gist.github.com/5421529.git\",\"html_url\":\"https://gist.github.com/5421529\",\"files\":{\"zen.text\":{\"filename\":\"zen.text\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421529/fde0619cfe8ece129304af54eed78bf866287178/zen.text\",\"size\":26}},\"public\":true,\"created_at\":\"2013-04-19T16:38:56Z\",\"updated_at\":\"2013-04-19T16:38:56Z\",\"description\":\"A gist from Octokit\",\"comments\":0,\"user\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421529/comments\"},{\"url\":\"https://api.github.com/gists/5421307\",\"forks_url\":\"https://api.github.com/gists/5421307/forks\",\"commits_url\":\"https://api.github.com/gists/5421307/commits\",\"id\":\"5421307\",\"git_pull_url\":\"https://gist.github.com/5421307.git\",\"git_push_url\":\"https://gist.github.com/5421307.git\",\"html_url\":\"https://gist.github.com/5421307\",\"files\":{\"zen.text\":{\"filename\":\"zen.text\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421307/fde0619cfe8ece129304af54eed78bf866287178/zen.text\",\"size\":26}},\"public\":true,\"created_at\":\"2013-04-19T16:00:46Z\",\"updated_at\":\"2013-04-19T16:31:13Z\",\"description\":\"GitHub Zen\",\"comments\":0,\"user\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421307/comments\"},{\"url\":\"https://api.github.com/gists/5420776\",\"forks_url\":\"https://api.github.com/gists/5420776/forks\",\"commits_url\":\"https://api.github.com/gists/5420776/commits\",\"id\":\"5420776\",\"git_pull_url\":\"https://gist.github.com/5420776.git\",\"git_push_url\":\"https://gist.github.com/5420776.git\",\"html_url\":\"https://gist.github.com/5420776\",\"files\":{\"gistfile1.txt\":{\"filename\":\"gistfile1.txt\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5420776/34609f8b9275b589b82a94d82ee456d2d065d4f4/gistfile1.txt\",\"size\":1622}},\"public\":true,\"created_at\":\"2013-04-19T14:40:16Z\",\"updated_at\":\"2013-04-19T14:40:17Z\",\"description\":\"Hello world\",\"comments\":0,\"user\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5420776/comments\"}]"
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:38:58 GMT
+- request: 
+    method: put
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421463/star
+    body: 
+      encoding: UTF-8
+      string: "{}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 204
+      message: No Content
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:38:58 GMT
+      Connection: 
+      - keep-alive
+      Status: 
+      - 204 No Content
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4989"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: ""
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:38:58 GMT
+- request: 
+    method: get
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/starred
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:38:59 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4988"
+      Vary: 
+      - Accept, Authorization, Cookie
+      - Accept-Encoding
+      Cache-Control: 
+      - private, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Fri, 19 Apr 2013 16:29:24 GMT
+      Etag: 
+      - "\"3ac6ebc8a121297534498b6a729a5738\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "[{\"url\":\"https://api.github.com/gists/5421463\",\"forks_url\":\"https://api.github.com/gists/5421463/forks\",\"commits_url\":\"https://api.github.com/gists/5421463/commits\",\"id\":\"5421463\",\"git_pull_url\":\"https://gist.github.com/5421463.git\",\"git_push_url\":\"https://gist.github.com/5421463.git\",\"html_url\":\"https://gist.github.com/5421463\",\"files\":{\"blinky.css\":{\"filename\":\"blinky.css\",\"type\":\"text/css\",\"language\":\"CSS\",\"raw_url\":\"https://gist.github.com/raw/5421463/6a189b8eb83f7912d472132fa5fce395c707f462/blinky.css\",\"size\":558}},\"public\":true,\"created_at\":\"2013-04-19T16:29:23Z\",\"updated_at\":\"2013-04-19T16:29:24Z\",\"description\":\"\",\"comments\":0,\"user\":{\"login\":\"SeanJA\",\"id\":102889,\"avatar_url\":\"https://secure.gravatar.com/avatar/74cc83022ea14b42b49ea487b95d5f1e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"74cc83022ea14b42b49ea487b95d5f1e\",\"url\":\"https://api.github.com/users/SeanJA\",\"html_url\":\"https://github.com/SeanJA\",\"followers_url\":\"https://api.github.com/users/SeanJA/followers\",\"following_url\":\"https://api.github.com/users/SeanJA/following\",\"gists_url\":\"https://api.github.com/users/SeanJA/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/SeanJA/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/SeanJA/subscriptions\",\"organizations_url\":\"https://api.github.com/users/SeanJA/orgs\",\"repos_url\":\"https://api.github.com/users/SeanJA/repos\",\"events_url\":\"https://api.github.com/users/SeanJA/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/SeanJA/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421463/comments\"}]"
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:38:59 GMT
+- request: 
+    method: delete
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421463/star
+    body: 
+      encoding: UTF-8
+      string: "{}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 204
+      message: No Content
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:38:59 GMT
+      Connection: 
+      - keep-alive
+      Status: 
+      - 204 No Content
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4987"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: ""
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:38:59 GMT
+- request: 
+    method: get
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421307/star
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 204
+      message: No Content
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:45:13 GMT
+      Connection: 
+      - keep-alive
+      Status: 
+      - 204 No Content
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4986"
+      Vary: 
+      - Accept, Authorization, Cookie
+      - Accept-Encoding
+      Cache-Control: 
+      - private, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Fri, 19 Apr 2013 16:43:18 GMT
+      Etag: 
+      - "\"7d74a7005b10c30036c71fd697e968f3\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: US-ASCII
+      string: ""
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:45:13 GMT
+- request: 
+    method: get
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421308/star
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 404
+      message: Not Found
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:45:13 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 404 Not Found
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4985"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "2"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: US-ASCII
+      string: "{}"
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:45:14 GMT
+- request: 
+    method: delete
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421529
+    body: 
+      encoding: UTF-8
+      string: "{}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 204
+      message: No Content
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:50:52 GMT
+      Connection: 
+      - keep-alive
+      Status: 
+      - 204 No Content
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4999"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: ""
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:50:52 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/gists
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:51:09 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "51"
+      Vary: 
+      - Accept
+      - Accept-Encoding
+      Cache-Control: 
+      - public, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Fri, 19 Apr 2013 16:50:28 GMT
+      Etag: 
+      - "\"60742fada6486630bdc1734c7a1f0caf\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      Link: 
+      - <https://api.github.com/gists?page=2>; rel="next", <https://api.github.com/gists?page=40069>; rel="last"
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "[{\"url\":\"https://api.github.com/gists/5421603\",\"forks_url\":\"https://api.github.com/gists/5421603/forks\",\"commits_url\":\"https://api.github.com/gists/5421603/commits\",\"id\":\"5421603\",\"git_pull_url\":\"https://gist.github.com/5421603.git\",\"git_push_url\":\"https://gist.github.com/5421603.git\",\"html_url\":\"https://gist.github.com/5421603\",\"files\":{\"lipsum_helper.php\":{\"filename\":\"lipsum_helper.php\",\"type\":\"application/httpd-php\",\"language\":\"PHP\",\"raw_url\":\"https://gist.github.com/raw/5421603/fa8c2445dd9a3969d2d9888cff7a412508ef330d/lipsum_helper.php\",\"size\":938}},\"public\":true,\"created_at\":\"2013-04-19T16:50:27Z\",\"updated_at\":\"2013-04-19T16:50:28Z\",\"description\":\"Lightweight lipsum generator\",\"comments\":0,\"user\":{\"login\":\"Naatan\",\"id\":278649,\"avatar_url\":\"https://secure.gravatar.com/avatar/0bba0ddcdbb7fa3de8455389251e2f6d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"0bba0ddcdbb7fa3de8455389251e2f6d\",\"url\":\"https://api.github.com/users/Naatan\",\"html_url\":\"https://github.com/Naatan\",\"followers_url\":\"https://api.github.com/users/Naatan/followers\",\"following_url\":\"https://api.github.com/users/Naatan/following\",\"gists_url\":\"https://api.github.com/users/Naatan/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/Naatan/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/Naatan/subscriptions\",\"organizations_url\":\"https://api.github.com/users/Naatan/orgs\",\"repos_url\":\"https://api.github.com/users/Naatan/repos\",\"events_url\":\"https://api.github.com/users/Naatan/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/Naatan/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421603/comments\"},{\"url\":\"https://api.github.com/gists/5421598\",\"forks_url\":\"https://api.github.com/gists/5421598/forks\",\"commits_url\":\"https://api.github.com/gists/5421598/commits\",\"id\":\"5421598\",\"git_pull_url\":\"https://gist.github.com/5421598.git\",\"git_push_url\":\"https://gist.github.com/5421598.git\",\"html_url\":\"https://gist.github.com/5421598\",\"files\":{\"gistfile1.java\":{\"filename\":\"gistfile1.java\",\"type\":\"text/plain\",\"language\":\"Java\",\"raw_url\":\"https://gist.github.com/raw/5421598/d86807ca5e2be01b6f301a9fdb0c1c27bfc08d41/gistfile1.java\",\"size\":305}},\"public\":true,\"created_at\":\"2013-04-19T16:49:50Z\",\"updated_at\":\"2013-04-19T16:49:51Z\",\"description\":\" Decimal and Special Flags String.format\",\"comments\":0,\"user\":{\"login\":\"bmchild\",\"id\":612803,\"avatar_url\":\"https://secure.gravatar.com/avatar/73d2f29f2e102cdb08229451c5cd2064?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"73d2f29f2e102cdb08229451c5cd2064\",\"url\":\"https://api.github.com/users/bmchild\",\"html_url\":\"https://github.com/bmchild\",\"followers_url\":\"https://api.github.com/users/bmchild/followers\",\"following_url\":\"https://api.github.com/users/bmchild/following\",\"gists_url\":\"https://api.github.com/users/bmchild/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bmchild/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bmchild/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bmchild/orgs\",\"repos_url\":\"https://api.github.com/users/bmchild/repos\",\"events_url\":\"https://api.github.com/users/bmchild/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bmchild/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421598/comments\"},{\"url\":\"https://api.github.com/gists/5421595\",\"forks_url\":\"https://api.github.com/gists/5421595/forks\",\"commits_url\":\"https://api.github.com/gists/5421595/commits\",\"id\":\"5421595\",\"git_pull_url\":\"https://gist.github.com/5421595.git\",\"git_push_url\":\"https://gist.github.com/5421595.git\",\"html_url\":\"https://gist.github.com/5421595\",\"files\":{\"gistfile1.java\":{\"filename\":\"gistfile1.java\",\"type\":\"text/plain\",\"language\":\"Java\",\"raw_url\":\"https://gist.github.com/raw/5421595/0b9a87197b8edeb63d5a59c4ccbf4d8950b9dded/gistfile1.java\",\"size\":323}},\"public\":true,\"created_at\":\"2013-04-19T16:49:05Z\",\"updated_at\":\"2013-04-19T16:49:06Z\",\"description\":\"Money and Decimal String.format\",\"comments\":0,\"user\":{\"login\":\"bmchild\",\"id\":612803,\"avatar_url\":\"https://secure.gravatar.com/avatar/73d2f29f2e102cdb08229451c5cd2064?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"73d2f29f2e102cdb08229451c5cd2064\",\"url\":\"https://api.github.com/users/bmchild\",\"html_url\":\"https://github.com/bmchild\",\"followers_url\":\"https://api.github.com/users/bmchild/followers\",\"following_url\":\"https://api.github.com/users/bmchild/following\",\"gists_url\":\"https://api.github.com/users/bmchild/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bmchild/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bmchild/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bmchild/orgs\",\"repos_url\":\"https://api.github.com/users/bmchild/repos\",\"events_url\":\"https://api.github.com/users/bmchild/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bmchild/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421595/comments\"},{\"url\":\"https://api.github.com/gists/5421589\",\"forks_url\":\"https://api.github.com/gists/5421589/forks\",\"commits_url\":\"https://api.github.com/gists/5421589/commits\",\"id\":\"5421589\",\"git_pull_url\":\"https://gist.github.com/5421589.git\",\"git_push_url\":\"https://gist.github.com/5421589.git\",\"html_url\":\"https://gist.github.com/5421589\",\"files\":{\"gistfile1.java\":{\"filename\":\"gistfile1.java\",\"type\":\"text/plain\",\"language\":\"Java\",\"raw_url\":\"https://gist.github.com/raw/5421589/abb63ec5922f36554fbcd147fdfe80662107c50c/gistfile1.java\",\"size\":389}},\"public\":true,\"created_at\":\"2013-04-19T16:48:19Z\",\"updated_at\":\"2013-04-19T16:48:20Z\",\"description\":\"Date And Time String.format\",\"comments\":0,\"user\":{\"login\":\"bmchild\",\"id\":612803,\"avatar_url\":\"https://secure.gravatar.com/avatar/73d2f29f2e102cdb08229451c5cd2064?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"73d2f29f2e102cdb08229451c5cd2064\",\"url\":\"https://api.github.com/users/bmchild\",\"html_url\":\"https://github.com/bmchild\",\"followers_url\":\"https://api.github.com/users/bmchild/followers\",\"following_url\":\"https://api.github.com/users/bmchild/following\",\"gists_url\":\"https://api.github.com/users/bmchild/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/bmchild/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/bmchild/subscriptions\",\"organizations_url\":\"https://api.github.com/users/bmchild/orgs\",\"repos_url\":\"https://api.github.com/users/bmchild/repos\",\"events_url\":\"https://api.github.com/users/bmchild/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/bmchild/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421589/comments\"},{\"url\":\"https://api.github.com/gists/5421588\",\"forks_url\":\"https://api.github.com/gists/5421588/forks\",\"commits_url\":\"https://api.github.com/gists/5421588/commits\",\"id\":\"5421588\",\"git_pull_url\":\"https://gist.github.com/5421588.git\",\"git_push_url\":\"https://gist.github.com/5421588.git\",\"html_url\":\"https://gist.github.com/5421588\",\"files\":{\"brew --config\":{\"filename\":\"brew --config\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421588/0553d67bdc6dbd69ae958e4e96ef416c42754cee/brew%20--config\",\"size\":580}},\"public\":true,\"created_at\":\"2013-04-19T16:48:13Z\",\"updated_at\":\"2013-04-19T16:48:14Z\",\"description\":\"brew --config for debugging\",\"comments\":0,\"user\":{\"login\":\"derekaug\",\"id\":663177,\"avatar_url\":\"https://secure.gravatar.com/avatar/e63994c0c304a4380a2fcf837823c842?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"e63994c0c304a4380a2fcf837823c842\",\"url\":\"https://api.github.com/users/derekaug\",\"html_url\":\"https://github.com/derekaug\",\"followers_url\":\"https://api.github.com/users/derekaug/followers\",\"following_url\":\"https://api.github.com/users/derekaug/following\",\"gists_url\":\"https://api.github.com/users/derekaug/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/derekaug/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/derekaug/subscriptions\",\"organizations_url\":\"https://api.github.com/users/derekaug/orgs\",\"repos_url\":\"https://api.github.com/users/derekaug/repos\",\"events_url\":\"https://api.github.com/users/derekaug/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/derekaug/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421588/comments\"},{\"url\":\"https://api.github.com/gists/5421585\",\"forks_url\":\"https://api.github.com/gists/5421585/forks\",\"commits_url\":\"https://api.github.com/gists/5421585/commits\",\"id\":\"5421585\",\"git_pull_url\":\"https://gist.github.com/5421585.git\",\"git_push_url\":\"https://gist.github.com/5421585.git\",\"html_url\":\"https://gist.github.com/5421585\",\"files\":{\"gistfile1.txt\":{\"filename\":\"gistfile1.txt\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421585/1156723c8374f887b42eaa900fd93c533b7d6b06/gistfile1.txt\",\"size\":350}},\"public\":true,\"created_at\":\"2013-04-19T16:47:53Z\",\"updated_at\":\"2013-04-19T16:47:54Z\",\"description\":\"Options for the content view select on systems page\",\"comments\":0,\"user\":{\"login\":\"daviddavis\",\"id\":86290,\"avatar_url\":\"https://secure.gravatar.com/avatar/497cd40cb47206741700dc90c84dd9d0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"497cd40cb47206741700dc90c84dd9d0\",\"url\":\"https://api.github.com/users/daviddavis\",\"html_url\":\"https://github.com/daviddavis\",\"followers_url\":\"https://api.github.com/users/daviddavis/followers\",\"following_url\":\"https://api.github.com/users/daviddavis/following\",\"gists_url\":\"https://api.github.com/users/daviddavis/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/daviddavis/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/daviddavis/subscriptions\",\"organizations_url\":\"https://api.github.com/users/daviddavis/orgs\",\"repos_url\":\"https://api.github.com/users/daviddavis/repos\",\"events_url\":\"https://api.github.com/users/daviddavis/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/daviddavis/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421585/comments\"},{\"url\":\"https://api.github.com/gists/5421583\",\"forks_url\":\"https://api.github.com/gists/5421583/forks\",\"commits_url\":\"https://api.github.com/gists/5421583/commits\",\"id\":\"5421583\",\"git_pull_url\":\"https://gist.github.com/5421583.git\",\"git_push_url\":\"https://gist.github.com/5421583.git\",\"html_url\":\"https://gist.github.com/5421583\",\"files\":{\"flip.py\":{\"filename\":\"flip.py\",\"type\":\"application/python\",\"language\":\"Python\",\"raw_url\":\"https://gist.github.com/raw/5421583/ad59fbaf71972361c595fee22b6c0399a4eef087/flip.py\",\"size\":91}},\"public\":true,\"created_at\":\"2013-04-19T16:47:45Z\",\"updated_at\":\"2013-04-19T16:47:46Z\",\"description\":\"\",\"comments\":0,\"user\":{\"login\":\"mouradmourafiq\",\"id\":1261626,\"avatar_url\":\"https://secure.gravatar.com/avatar/9223e527062da3c1957abec151d47777?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"9223e527062da3c1957abec151d47777\",\"url\":\"https://api.github.com/users/mouradmourafiq\",\"html_url\":\"https://github.com/mouradmourafiq\",\"followers_url\":\"https://api.github.com/users/mouradmourafiq/followers\",\"following_url\":\"https://api.github.com/users/mouradmourafiq/following\",\"gists_url\":\"https://api.github.com/users/mouradmourafiq/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/mouradmourafiq/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/mouradmourafiq/subscriptions\",\"organizations_url\":\"https://api.github.com/users/mouradmourafiq/orgs\",\"repos_url\":\"https://api.github.com/users/mouradmourafiq/repos\",\"events_url\":\"https://api.github.com/users/mouradmourafiq/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/mouradmourafiq/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421583/comments\"},{\"url\":\"https://api.github.com/gists/5421582\",\"forks_url\":\"https://api.github.com/gists/5421582/forks\",\"commits_url\":\"https://api.github.com/gists/5421582/commits\",\"id\":\"5421582\",\"git_pull_url\":\"https://gist.github.com/5421582.git\",\"git_push_url\":\"https://gist.github.com/5421582.git\",\"html_url\":\"https://gist.github.com/5421582\",\"files\":{\"gistfile1.txt\":{\"filename\":\"gistfile1.txt\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421582/de8cc70622c549006974048164e7806bf841fd96/gistfile1.txt\",\"size\":3118}},\"public\":true,\"created_at\":\"2013-04-19T16:47:44Z\",\"updated_at\":\"2013-04-19T16:47:45Z\",\"description\":\"\",\"comments\":0,\"user\":{\"login\":\"fromonesrc\",\"id\":550256,\"avatar_url\":\"https://secure.gravatar.com/avatar/f71525fec8cbb00c959afe657aa2c8fa?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"f71525fec8cbb00c959afe657aa2c8fa\",\"url\":\"https://api.github.com/users/fromonesrc\",\"html_url\":\"https://github.com/fromonesrc\",\"followers_url\":\"https://api.github.com/users/fromonesrc/followers\",\"following_url\":\"https://api.github.com/users/fromonesrc/following\",\"gists_url\":\"https://api.github.com/users/fromonesrc/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/fromonesrc/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/fromonesrc/subscriptions\",\"organizations_url\":\"https://api.github.com/users/fromonesrc/orgs\",\"repos_url\":\"https://api.github.com/users/fromonesrc/repos\",\"events_url\":\"https://api.github.com/users/fromonesrc/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/fromonesrc/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421582/comments\"},{\"url\":\"https://api.github.com/gists/5421580\",\"forks_url\":\"https://api.github.com/gists/5421580/forks\",\"commits_url\":\"https://api.github.com/gists/5421580/commits\",\"id\":\"5421580\",\"git_pull_url\":\"https://gist.github.com/5421580.git\",\"git_push_url\":\"https://gist.github.com/5421580.git\",\"html_url\":\"https://gist.github.com/5421580\",\"files\":{\"gistfile1.coffee\":{\"filename\":\"gistfile1.coffee\",\"type\":\"text/coffescript\",\"language\":\"CoffeeScript\",\"raw_url\":\"https://gist.github.com/raw/5421580/9859e27a5dcaf610c34bb7f7bef541f674b0d93b/gistfile1.coffee\",\"size\":1482}},\"public\":true,\"created_at\":\"2013-04-19T16:47:31Z\",\"updated_at\":\"2013-04-19T16:47:32Z\",\"description\":\"\",\"comments\":0,\"user\":{\"login\":\"wfendler\",\"id\":511928,\"avatar_url\":\"https://secure.gravatar.com/avatar/b3c6c0cb32da929da2da8c3b05cd5ed6?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"b3c6c0cb32da929da2da8c3b05cd5ed6\",\"url\":\"https://api.github.com/users/wfendler\",\"html_url\":\"https://github.com/wfendler\",\"followers_url\":\"https://api.github.com/users/wfendler/followers\",\"following_url\":\"https://api.github.com/users/wfendler/following\",\"gists_url\":\"https://api.github.com/users/wfendler/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/wfendler/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/wfendler/subscriptions\",\"organizations_url\":\"https://api.github.com/users/wfendler/orgs\",\"repos_url\":\"https://api.github.com/users/wfendler/repos\",\"events_url\":\"https://api.github.com/users/wfendler/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/wfendler/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421580/comments\"},{\"url\":\"https://api.github.com/gists/5421575\",\"forks_url\":\"https://api.github.com/gists/5421575/forks\",\"commits_url\":\"https://api.github.com/gists/5421575/commits\",\"id\":\"5421575\",\"git_pull_url\":\"https://gist.github.com/5421575.git\",\"git_push_url\":\"https://gist.github.com/5421575.git\",\"html_url\":\"https://gist.github.com/5421575\",\"files\":{\"kaldur.py\":{\"filename\":\"kaldur.py\",\"type\":\"application/python\",\"language\":\"Python\",\"raw_url\":\"https://gist.github.com/raw/5421575/5942f1b6e361c521f21233b876b1adbe29fea0d1/kaldur.py\",\"size\":4026}},\"public\":true,\"created_at\":\"2013-04-19T16:46:28Z\",\"updated_at\":\"2013-04-19T16:46:46Z\",\"description\":\"This is a Python script for computing the strong paradigm for Icelandic 'kaldur' ('cold') given the toy analysis presented in Drummond & Hornstein (forthcoming).\",\"comments\":0,\"user\":{\"login\":\"addrummond\",\"id\":120347,\"avatar_url\":\"https://secure.gravatar.com/avatar/5424ce14e7c8df30b795032ac08e7d88?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"5424ce14e7c8df30b795032ac08e7d88\",\"url\":\"https://api.github.com/users/addrummond\",\"html_url\":\"https://github.com/addrummond\",\"followers_url\":\"https://api.github.com/users/addrummond/followers\",\"following_url\":\"https://api.github.com/users/addrummond/following\",\"gists_url\":\"https://api.github.com/users/addrummond/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/addrummond/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/addrummond/subscriptions\",\"organizations_url\":\"https://api.github.com/users/addrummond/orgs\",\"repos_url\":\"https://api.github.com/users/addrummond/repos\",\"events_url\":\"https://api.github.com/users/addrummond/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/addrummond/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421575/comments\"},{\"url\":\"https://api.github.com/gists/5421571\",\"forks_url\":\"https://api.github.com/gists/5421571/forks\",\"commits_url\":\"https://api.github.com/gists/5421571/commits\",\"id\":\"5421571\",\"git_pull_url\":\"https://gist.github.com/5421571.git\",\"git_push_url\":\"https://gist.github.com/5421571.git\",\"html_url\":\"https://gist.github.com/5421571\",\"files\":{\"gistfile1.txt\":{\"filename\":\"gistfile1.txt\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421571/cf58c9013882a2a1a1e4aa0d3de80d5a510543ef/gistfile1.txt\",\"size\":44593}},\"public\":true,\"created_at\":\"2013-04-19T16:45:44Z\",\"updated_at\":\"2013-04-19T16:45:45Z\",\"description\":\"PR 1353 using MSSQL via ODBC\",\"comments\":0,\"user\":{\"login\":\"Noxwizard\",\"id\":442353,\"avatar_url\":\"https://secure.gravatar.com/avatar/7a781cdd74264b4f82121b5c95a5cc97?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"7a781cdd74264b4f82121b5c95a5cc97\",\"url\":\"https://api.github.com/users/Noxwizard\",\"html_url\":\"https://github.com/Noxwizard\",\"followers_url\":\"https://api.github.com/users/Noxwizard/followers\",\"following_url\":\"https://api.github.com/users/Noxwizard/following\",\"gists_url\":\"https://api.github.com/users/Noxwizard/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/Noxwizard/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/Noxwizard/subscriptions\",\"organizations_url\":\"https://api.github.com/users/Noxwizard/orgs\",\"repos_url\":\"https://api.github.com/users/Noxwizard/repos\",\"events_url\":\"https://api.github.com/users/Noxwizard/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/Noxwizard/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421571/comments\"},{\"url\":\"https://api.github.com/gists/5421559\",\"forks_url\":\"https://api.github.com/gists/5421559/forks\",\"commits_url\":\"https://api.github.com/gists/5421559/commits\",\"id\":\"5421559\",\"git_pull_url\":\"https://gist.github.com/5421559.git\",\"git_push_url\":\"https://gist.github.com/5421559.git\",\"html_url\":\"https://gist.github.com/5421559\",\"files\":{\"gistfile1.txt\":{\"filename\":\"gistfile1.txt\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421559/15c0eedf9afe400410c3890d215e1149571e2d7d/gistfile1.txt\",\"size\":200}},\"public\":true,\"created_at\":\"2013-04-19T16:44:07Z\",\"updated_at\":\"2013-04-19T16:44:08Z\",\"description\":\"\",\"comments\":0,\"user\":{\"login\":\"lojack\",\"id\":180470,\"avatar_url\":\"https://secure.gravatar.com/avatar/6b330538a13e9eca147322812cbdf3c7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"6b330538a13e9eca147322812cbdf3c7\",\"url\":\"https://api.github.com/users/lojack\",\"html_url\":\"https://github.com/lojack\",\"followers_url\":\"https://api.github.com/users/lojack/followers\",\"following_url\":\"https://api.github.com/users/lojack/following\",\"gists_url\":\"https://api.github.com/users/lojack/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/lojack/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/lojack/subscriptions\",\"organizations_url\":\"https://api.github.com/users/lojack/orgs\",\"repos_url\":\"https://api.github.com/users/lojack/repos\",\"events_url\":\"https://api.github.com/users/lojack/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/lojack/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421559/comments\"},{\"url\":\"https://api.github.com/gists/5421556\",\"forks_url\":\"https://api.github.com/gists/5421556/forks\",\"commits_url\":\"https://api.github.com/gists/5421556/commits\",\"id\":\"5421556\",\"git_pull_url\":\"https://gist.github.com/5421556.git\",\"git_push_url\":\"https://gist.github.com/5421556.git\",\"html_url\":\"https://gist.github.com/5421556\",\"files\":{\"gistfile1.txt\":{\"filename\":\"gistfile1.txt\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421556/b99a76ee7ca2595e73740f60d743972945bfe522/gistfile1.txt\",\"size\":27}},\"public\":true,\"created_at\":\"2013-04-19T16:43:42Z\",\"updated_at\":\"2013-04-19T16:43:43Z\",\"description\":\"test\",\"comments\":0,\"user\":{\"login\":\"yoshifuji\",\"id\":127993,\"avatar_url\":\"https://secure.gravatar.com/avatar/2c2e6de5efe890cc7fa16f1cc3601db3?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"2c2e6de5efe890cc7fa16f1cc3601db3\",\"url\":\"https://api.github.com/users/yoshifuji\",\"html_url\":\"https://github.com/yoshifuji\",\"followers_url\":\"https://api.github.com/users/yoshifuji/followers\",\"following_url\":\"https://api.github.com/users/yoshifuji/following\",\"gists_url\":\"https://api.github.com/users/yoshifuji/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/yoshifuji/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/yoshifuji/subscriptions\",\"organizations_url\":\"https://api.github.com/users/yoshifuji/orgs\",\"repos_url\":\"https://api.github.com/users/yoshifuji/repos\",\"events_url\":\"https://api.github.com/users/yoshifuji/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/yoshifuji/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421556/comments\"},{\"url\":\"https://api.github.com/gists/5421555\",\"forks_url\":\"https://api.github.com/gists/5421555/forks\",\"commits_url\":\"https://api.github.com/gists/5421555/commits\",\"id\":\"5421555\",\"git_pull_url\":\"https://gist.github.com/5421555.git\",\"git_push_url\":\"https://gist.github.com/5421555.git\",\"html_url\":\"https://gist.github.com/5421555\",\"files\":{\"gistfile1.py\":{\"filename\":\"gistfile1.py\",\"type\":\"application/python\",\"language\":\"Python\",\"raw_url\":\"https://gist.github.com/raw/5421555/91ee849788a37f54f7e68559b2d6a47615aacc88/gistfile1.py\",\"size\":336}},\"public\":true,\"created_at\":\"2013-04-19T16:43:41Z\",\"updated_at\":\"2013-04-19T16:43:42Z\",\"description\":\"\",\"comments\":0,\"user\":{\"login\":\"AeroNotix\",\"id\":975962,\"avatar_url\":\"https://secure.gravatar.com/avatar/4135af2286afe93571b0d1b5ca85fec0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"4135af2286afe93571b0d1b5ca85fec0\",\"url\":\"https://api.github.com/users/AeroNotix\",\"html_url\":\"https://github.com/AeroNotix\",\"followers_url\":\"https://api.github.com/users/AeroNotix/followers\",\"following_url\":\"https://api.github.com/users/AeroNotix/following\",\"gists_url\":\"https://api.github.com/users/AeroNotix/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/AeroNotix/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/AeroNotix/subscriptions\",\"organizations_url\":\"https://api.github.com/users/AeroNotix/orgs\",\"repos_url\":\"https://api.github.com/users/AeroNotix/repos\",\"events_url\":\"https://api.github.com/users/AeroNotix/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/AeroNotix/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421555/comments\"},{\"url\":\"https://api.github.com/gists/5421550\",\"forks_url\":\"https://api.github.com/gists/5421550/forks\",\"commits_url\":\"https://api.github.com/gists/5421550/commits\",\"id\":\"5421550\",\"git_pull_url\":\"https://gist.github.com/5421550.git\",\"git_push_url\":\"https://gist.github.com/5421550.git\",\"html_url\":\"https://gist.github.com/5421550\",\"files\":{\"gistfile1.cs\":{\"filename\":\"gistfile1.cs\",\"type\":\"text/plain\",\"language\":\"C#\",\"raw_url\":\"https://gist.github.com/raw/5421550/8109cdcf04bdc26a760bf03e367b292ed131b909/gistfile1.cs\",\"size\":382}},\"public\":true,\"created_at\":\"2013-04-19T16:43:12Z\",\"updated_at\":\"2013-04-19T16:48:25Z\",\"description\":\"How to get header values in C#\",\"comments\":0,\"user\":{\"login\":\"tynorton\",\"id\":811086,\"avatar_url\":\"https://secure.gravatar.com/avatar/b622f58b1aaa75d9fc1157cb619442d6?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"b622f58b1aaa75d9fc1157cb619442d6\",\"url\":\"https://api.github.com/users/tynorton\",\"html_url\":\"https://github.com/tynorton\",\"followers_url\":\"https://api.github.com/users/tynorton/followers\",\"following_url\":\"https://api.github.com/users/tynorton/following\",\"gists_url\":\"https://api.github.com/users/tynorton/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/tynorton/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/tynorton/subscriptions\",\"organizations_url\":\"https://api.github.com/users/tynorton/orgs\",\"repos_url\":\"https://api.github.com/users/tynorton/repos\",\"events_url\":\"https://api.github.com/users/tynorton/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/tynorton/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421550/comments\"},{\"url\":\"https://api.github.com/gists/5421544\",\"forks_url\":\"https://api.github.com/gists/5421544/forks\",\"commits_url\":\"https://api.github.com/gists/5421544/commits\",\"id\":\"5421544\",\"git_pull_url\":\"https://gist.github.com/5421544.git\",\"git_push_url\":\"https://gist.github.com/5421544.git\",\"html_url\":\"https://gist.github.com/5421544\",\"files\":{\"gistfile1.txt\":{\"filename\":\"gistfile1.txt\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421544/a0c82c1a6d3c533353b787f3466f2a3738d7595e/gistfile1.txt\",\"size\":341}},\"public\":true,\"created_at\":\"2013-04-19T16:41:13Z\",\"updated_at\":\"2013-04-19T16:41:14Z\",\"description\":\"my bash prompt\",\"comments\":0,\"user\":{\"login\":\"verdi327\",\"id\":1141380,\"avatar_url\":\"https://secure.gravatar.com/avatar/a6a4e40745c6cc57b9f4db2204a9fd8d?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"a6a4e40745c6cc57b9f4db2204a9fd8d\",\"url\":\"https://api.github.com/users/verdi327\",\"html_url\":\"https://github.com/verdi327\",\"followers_url\":\"https://api.github.com/users/verdi327/followers\",\"following_url\":\"https://api.github.com/users/verdi327/following\",\"gists_url\":\"https://api.github.com/users/verdi327/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/verdi327/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/verdi327/subscriptions\",\"organizations_url\":\"https://api.github.com/users/verdi327/orgs\",\"repos_url\":\"https://api.github.com/users/verdi327/repos\",\"events_url\":\"https://api.github.com/users/verdi327/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/verdi327/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421544/comments\"},{\"url\":\"https://api.github.com/gists/5421543\",\"forks_url\":\"https://api.github.com/gists/5421543/forks\",\"commits_url\":\"https://api.github.com/gists/5421543/commits\",\"id\":\"5421543\",\"git_pull_url\":\"https://gist.github.com/5421543.git\",\"git_push_url\":\"https://gist.github.com/5421543.git\",\"html_url\":\"https://gist.github.com/5421543\",\"files\":{\"my-py-header.sublime-snippet\":{\"filename\":\"my-py-header.sublime-snippet\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421543/1ef92dabc7a6123e4f423d6258d71e58198f3078/my-py-header.sublime-snippet\",\"size\":383}},\"public\":true,\"created_at\":\"2013-04-19T16:41:08Z\",\"updated_at\":\"2013-04-19T16:41:08Z\",\"description\":\"python-header\",\"comments\":0,\"user\":{\"login\":\"oliveagle\",\"id\":2270205,\"avatar_url\":\"https://secure.gravatar.com/avatar/f1ff9ee2951d485bbd7cae388842fcc2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"f1ff9ee2951d485bbd7cae388842fcc2\",\"url\":\"https://api.github.com/users/oliveagle\",\"html_url\":\"https://github.com/oliveagle\",\"followers_url\":\"https://api.github.com/users/oliveagle/followers\",\"following_url\":\"https://api.github.com/users/oliveagle/following\",\"gists_url\":\"https://api.github.com/users/oliveagle/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/oliveagle/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/oliveagle/subscriptions\",\"organizations_url\":\"https://api.github.com/users/oliveagle/orgs\",\"repos_url\":\"https://api.github.com/users/oliveagle/repos\",\"events_url\":\"https://api.github.com/users/oliveagle/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/oliveagle/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421543/comments\"},{\"url\":\"https://api.github.com/gists/5421542\",\"forks_url\":\"https://api.github.com/gists/5421542/forks\",\"commits_url\":\"https://api.github.com/gists/5421542/commits\",\"id\":\"5421542\",\"git_pull_url\":\"https://gist.github.com/5421542.git\",\"git_push_url\":\"https://gist.github.com/5421542.git\",\"html_url\":\"https://gist.github.com/5421542\",\"files\":{\"Output from cmd.exe (garbled as usual)\":{\"filename\":\"Output from cmd.exe (garbled as usual)\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421542/b7ed45b248e6e6337a10b8ab7e75f7ac6bc26b33/Output%20from%20cmd.exe%20(garbled%20as%20usual)\",\"size\":2230}},\"public\":true,\"created_at\":\"2013-04-19T16:40:50Z\",\"updated_at\":\"2013-04-19T16:40:51Z\",\"description\":\"Errors when trying to build the librsvg lib file from librsvg-2-2.def\",\"comments\":0,\"user\":{\"login\":\"Bluehorn\",\"id\":975735,\"avatar_url\":\"https://secure.gravatar.com/avatar/5b8a655286e854ab7843569f915344a7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"5b8a655286e854ab7843569f915344a7\",\"url\":\"https://api.github.com/users/Bluehorn\",\"html_url\":\"https://github.com/Bluehorn\",\"followers_url\":\"https://api.github.com/users/Bluehorn/followers\",\"following_url\":\"https://api.github.com/users/Bluehorn/following\",\"gists_url\":\"https://api.github.com/users/Bluehorn/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/Bluehorn/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/Bluehorn/subscriptions\",\"organizations_url\":\"https://api.github.com/users/Bluehorn/orgs\",\"repos_url\":\"https://api.github.com/users/Bluehorn/repos\",\"events_url\":\"https://api.github.com/users/Bluehorn/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/Bluehorn/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421542/comments\"},{\"url\":\"https://api.github.com/gists/5421540\",\"forks_url\":\"https://api.github.com/gists/5421540/forks\",\"commits_url\":\"https://api.github.com/gists/5421540/commits\",\"id\":\"5421540\",\"git_pull_url\":\"https://gist.github.com/5421540.git\",\"git_push_url\":\"https://gist.github.com/5421540.git\",\"html_url\":\"https://gist.github.com/5421540\",\"files\":{\"TechnologyResource.java\":{\"filename\":\"TechnologyResource.java\",\"type\":\"text/plain\",\"language\":\"Java\",\"raw_url\":\"https://gist.github.com/raw/5421540/83b63c199c7fbc94b795c9e90c98e5f2b3760341/TechnologyResource.java\",\"size\":298}},\"public\":true,\"created_at\":\"2013-04-19T16:40:44Z\",\"updated_at\":\"2013-04-19T16:40:45Z\",\"description\":\"\",\"comments\":0,\"user\":{\"login\":\"cabynum\",\"id\":1630919,\"avatar_url\":\"https://secure.gravatar.com/avatar/71a0ea9a08e4c078fe8d614216690ba1?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"71a0ea9a08e4c078fe8d614216690ba1\",\"url\":\"https://api.github.com/users/cabynum\",\"html_url\":\"https://github.com/cabynum\",\"followers_url\":\"https://api.github.com/users/cabynum/followers\",\"following_url\":\"https://api.github.com/users/cabynum/following\",\"gists_url\":\"https://api.github.com/users/cabynum/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/cabynum/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/cabynum/subscriptions\",\"organizations_url\":\"https://api.github.com/users/cabynum/orgs\",\"repos_url\":\"https://api.github.com/users/cabynum/repos\",\"events_url\":\"https://api.github.com/users/cabynum/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/cabynum/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421540/comments\"},{\"url\":\"https://api.github.com/gists/5421538\",\"forks_url\":\"https://api.github.com/gists/5421538/forks\",\"commits_url\":\"https://api.github.com/gists/5421538/commits\",\"id\":\"5421538\",\"git_pull_url\":\"https://gist.github.com/5421538.git\",\"git_push_url\":\"https://gist.github.com/5421538.git\",\"html_url\":\"https://gist.github.com/5421538\",\"files\":{\"CSS: Reset\":{\"filename\":\"CSS: Reset\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421538/af5d7e5aaacca301e09a619da203851ba4f4b670/CSS:%20Reset\",\"size\":1096}},\"public\":true,\"created_at\":\"2013-04-19T16:40:31Z\",\"updated_at\":\"2013-04-19T16:40:31Z\",\"description\":\"CSS: Reset\",\"comments\":0,\"user\":{\"login\":\"dnikonov\",\"id\":3995104,\"avatar_url\":\"https://secure.gravatar.com/avatar/4d0b3a325511a34ddd891885c7db1c48?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"4d0b3a325511a34ddd891885c7db1c48\",\"url\":\"https://api.github.com/users/dnikonov\",\"html_url\":\"https://github.com/dnikonov\",\"followers_url\":\"https://api.github.com/users/dnikonov/followers\",\"following_url\":\"https://api.github.com/users/dnikonov/following\",\"gists_url\":\"https://api.github.com/users/dnikonov/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/dnikonov/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/dnikonov/subscriptions\",\"organizations_url\":\"https://api.github.com/users/dnikonov/orgs\",\"repos_url\":\"https://api.github.com/users/dnikonov/repos\",\"events_url\":\"https://api.github.com/users/dnikonov/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/dnikonov/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421538/comments\"},{\"url\":\"https://api.github.com/gists/5421527\",\"forks_url\":\"https://api.github.com/gists/5421527/forks\",\"commits_url\":\"https://api.github.com/gists/5421527/commits\",\"id\":\"5421527\",\"git_pull_url\":\"https://gist.github.com/5421527.git\",\"git_push_url\":\"https://gist.github.com/5421527.git\",\"html_url\":\"https://gist.github.com/5421527\",\"files\":{\"connection_pool_patch.rb\":{\"filename\":\"connection_pool_patch.rb\",\"type\":\"application/ruby\",\"language\":\"Ruby\",\"raw_url\":\"https://gist.github.com/raw/5421527/7ddc62716e53e1289d2d0acba885c3ce90ea4116/connection_pool_patch.rb\",\"size\":14628}},\"public\":true,\"created_at\":\"2013-04-19T16:38:33Z\",\"updated_at\":\"2013-04-19T16:38:43Z\",\"description\":null,\"comments\":0,\"user\":{\"login\":\"robblovell\",\"id\":137123,\"avatar_url\":\"https://secure.gravatar.com/avatar/8f16008df1a99769045b0f10b6dc6777?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"8f16008df1a99769045b0f10b6dc6777\",\"url\":\"https://api.github.com/users/robblovell\",\"html_url\":\"https://github.com/robblovell\",\"followers_url\":\"https://api.github.com/users/robblovell/followers\",\"following_url\":\"https://api.github.com/users/robblovell/following\",\"gists_url\":\"https://api.github.com/users/robblovell/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/robblovell/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/robblovell/subscriptions\",\"organizations_url\":\"https://api.github.com/users/robblovell/orgs\",\"repos_url\":\"https://api.github.com/users/robblovell/repos\",\"events_url\":\"https://api.github.com/users/robblovell/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/robblovell/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421527/comments\"},{\"url\":\"https://api.github.com/gists/5421526\",\"forks_url\":\"https://api.github.com/gists/5421526/forks\",\"commits_url\":\"https://api.github.com/gists/5421526/commits\",\"id\":\"5421526\",\"git_pull_url\":\"https://gist.github.com/5421526.git\",\"git_push_url\":\"https://gist.github.com/5421526.git\",\"html_url\":\"https://gist.github.com/5421526\",\"files\":{\"designoper.md\":{\"filename\":\"designoper.md\",\"type\":\"text/plain\",\"language\":\"Markdown\",\"raw_url\":\"https://gist.github.com/raw/5421526/dfa59cba1848687d2a74b73d1a804aec819d343f/designoper.md\",\"size\":2102}},\"public\":true,\"created_at\":\"2013-04-19T16:38:28Z\",\"updated_at\":\"2013-04-19T16:38:29Z\",\"description\":\"Lead Designoper\",\"comments\":0,\"user\":{\"login\":\"vanpelt\",\"id\":17,\"avatar_url\":\"https://secure.gravatar.com/avatar/1da36d4c1f34454de6c07855098675f6?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"1da36d4c1f34454de6c07855098675f6\",\"url\":\"https://api.github.com/users/vanpelt\",\"html_url\":\"https://github.com/vanpelt\",\"followers_url\":\"https://api.github.com/users/vanpelt/followers\",\"following_url\":\"https://api.github.com/users/vanpelt/following\",\"gists_url\":\"https://api.github.com/users/vanpelt/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/vanpelt/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/vanpelt/subscriptions\",\"organizations_url\":\"https://api.github.com/users/vanpelt/orgs\",\"repos_url\":\"https://api.github.com/users/vanpelt/repos\",\"events_url\":\"https://api.github.com/users/vanpelt/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/vanpelt/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421526/comments\"},{\"url\":\"https://api.github.com/gists/5421525\",\"forks_url\":\"https://api.github.com/gists/5421525/forks\",\"commits_url\":\"https://api.github.com/gists/5421525/commits\",\"id\":\"5421525\",\"git_pull_url\":\"https://gist.github.com/5421525.git\",\"git_push_url\":\"https://gist.github.com/5421525.git\",\"html_url\":\"https://gist.github.com/5421525\",\"files\":{\"gistfile1.js\":{\"filename\":\"gistfile1.js\",\"type\":\"application/javascript\",\"language\":\"JavaScript\",\"raw_url\":\"https://gist.github.com/raw/5421525/4c72df3604a4bc517ec5cdc31e8ae372d5358306/gistfile1.js\",\"size\":1887}},\"public\":true,\"created_at\":\"2013-04-19T16:38:00Z\",\"updated_at\":\"2013-04-19T16:40:18Z\",\"description\":\"siscop\",\"comments\":1,\"user\":{\"login\":\"joellobo\",\"id\":22237,\"avatar_url\":\"https://secure.gravatar.com/avatar/e25cc304fd918c36bcf93ecc9e10fea8?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"e25cc304fd918c36bcf93ecc9e10fea8\",\"url\":\"https://api.github.com/users/joellobo\",\"html_url\":\"https://github.com/joellobo\",\"followers_url\":\"https://api.github.com/users/joellobo/followers\",\"following_url\":\"https://api.github.com/users/joellobo/following\",\"gists_url\":\"https://api.github.com/users/joellobo/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/joellobo/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/joellobo/subscriptions\",\"organizations_url\":\"https://api.github.com/users/joellobo/orgs\",\"repos_url\":\"https://api.github.com/users/joellobo/repos\",\"events_url\":\"https://api.github.com/users/joellobo/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/joellobo/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421525/comments\"},{\"url\":\"https://api.github.com/gists/5421524\",\"forks_url\":\"https://api.github.com/gists/5421524/forks\",\"commits_url\":\"https://api.github.com/gists/5421524/commits\",\"id\":\"5421524\",\"git_pull_url\":\"https://gist.github.com/5421524.git\",\"git_push_url\":\"https://gist.github.com/5421524.git\",\"html_url\":\"https://gist.github.com/5421524\",\"files\":{\"realtime-traffic-info.ipynb\":{\"filename\":\"realtime-traffic-info.ipynb\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421524/10bebb725470ffd323276634a5acc38f09841b67/realtime-traffic-info.ipynb\",\"size\":351508}},\"public\":true,\"created_at\":\"2013-04-19T16:37:31Z\",\"updated_at\":\"2013-04-19T16:37:32Z\",\"description\":\"A simple IPython notebook showing how to retrieve realtime traffic information in the UK, specifically within England.\",\"comments\":0,\"user\":{\"login\":\"rjw57\",\"id\":146860,\"avatar_url\":\"https://secure.gravatar.com/avatar/aaaba1caf3cb2529e9684005837154f2?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"aaaba1caf3cb2529e9684005837154f2\",\"url\":\"https://api.github.com/users/rjw57\",\"html_url\":\"https://github.com/rjw57\",\"followers_url\":\"https://api.github.com/users/rjw57/followers\",\"following_url\":\"https://api.github.com/users/rjw57/following\",\"gists_url\":\"https://api.github.com/users/rjw57/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/rjw57/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/rjw57/subscriptions\",\"organizations_url\":\"https://api.github.com/users/rjw57/orgs\",\"repos_url\":\"https://api.github.com/users/rjw57/repos\",\"events_url\":\"https://api.github.com/users/rjw57/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/rjw57/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421524/comments\"},{\"url\":\"https://api.github.com/gists/5421523\",\"forks_url\":\"https://api.github.com/gists/5421523/forks\",\"commits_url\":\"https://api.github.com/gists/5421523/commits\",\"id\":\"5421523\",\"git_pull_url\":\"https://gist.github.com/5421523.git\",\"git_push_url\":\"https://gist.github.com/5421523.git\",\"html_url\":\"https://gist.github.com/5421523\",\"files\":{\"git_installation.sh\":{\"filename\":\"git_installation.sh\",\"type\":\"application/sh\",\"language\":\"Shell\",\"raw_url\":\"https://gist.github.com/raw/5421523/51a2361c143f346db2d712d6909db4855fe53c1d/git_installation.sh\",\"size\":249}},\"public\":true,\"created_at\":\"2013-04-19T16:37:21Z\",\"updated_at\":\"2013-04-19T16:37:22Z\",\"description\":\"CentOS Git installation\\r\\nTo install git client on CentOS you have to run these commands:\",\"comments\":0,\"user\":{\"login\":\"choiceforyou\",\"id\":1298665,\"avatar_url\":\"https://secure.gravatar.com/avatar/dafb06ae45da803d944499a197e93833?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"dafb06ae45da803d944499a197e93833\",\"url\":\"https://api.github.com/users/choiceforyou\",\"html_url\":\"https://github.com/choiceforyou\",\"followers_url\":\"https://api.github.com/users/choiceforyou/followers\",\"following_url\":\"https://api.github.com/users/choiceforyou/following\",\"gists_url\":\"https://api.github.com/users/choiceforyou/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/choiceforyou/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/choiceforyou/subscriptions\",\"organizations_url\":\"https://api.github.com/users/choiceforyou/orgs\",\"repos_url\":\"https://api.github.com/users/choiceforyou/repos\",\"events_url\":\"https://api.github.com/users/choiceforyou/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/choiceforyou/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421523/comments\"},{\"url\":\"https://api.github.com/gists/5421522\",\"forks_url\":\"https://api.github.com/gists/5421522/forks\",\"commits_url\":\"https://api.github.com/gists/5421522/commits\",\"id\":\"5421522\",\"git_pull_url\":\"https://gist.github.com/5421522.git\",\"git_push_url\":\"https://gist.github.com/5421522.git\",\"html_url\":\"https://gist.github.com/5421522\",\"files\":{\"gistfile1.js\":{\"filename\":\"gistfile1.js\",\"type\":\"application/javascript\",\"language\":\"JavaScript\",\"raw_url\":\"https://gist.github.com/raw/5421522/275d11d0d6f405d0120487951219ceadac4cec37/gistfile1.js\",\"size\":918}},\"public\":true,\"created_at\":\"2013-04-19T16:37:10Z\",\"updated_at\":\"2013-04-19T16:37:11Z\",\"description\":\"Rock, paper, scissors in JS\",\"comments\":0,\"user\":{\"login\":\"JasonStark\",\"id\":3942902,\"avatar_url\":\"https://secure.gravatar.com/avatar/a9a326f2507d7e95892cd1ffe1bb60ba?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"a9a326f2507d7e95892cd1ffe1bb60ba\",\"url\":\"https://api.github.com/users/JasonStark\",\"html_url\":\"https://github.com/JasonStark\",\"followers_url\":\"https://api.github.com/users/JasonStark/followers\",\"following_url\":\"https://api.github.com/users/JasonStark/following\",\"gists_url\":\"https://api.github.com/users/JasonStark/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/JasonStark/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/JasonStark/subscriptions\",\"organizations_url\":\"https://api.github.com/users/JasonStark/orgs\",\"repos_url\":\"https://api.github.com/users/JasonStark/repos\",\"events_url\":\"https://api.github.com/users/JasonStark/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/JasonStark/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421522/comments\"},{\"url\":\"https://api.github.com/gists/5421521\",\"forks_url\":\"https://api.github.com/gists/5421521/forks\",\"commits_url\":\"https://api.github.com/gists/5421521/commits\",\"id\":\"5421521\",\"git_pull_url\":\"https://gist.github.com/5421521.git\",\"git_push_url\":\"https://gist.github.com/5421521.git\",\"html_url\":\"https://gist.github.com/5421521\",\"files\":{\"git.sh\":{\"filename\":\"git.sh\",\"type\":\"application/sh\",\"language\":\"Shell\",\"raw_url\":\"https://gist.github.com/raw/5421521/7f36aa3284c8e6e8d815ef2b3efbebd814ab8002/git.sh\",\"size\":238}},\"public\":true,\"created_at\":\"2013-04-19T16:37:10Z\",\"updated_at\":\"2013-04-19T16:41:35Z\",\"description\":\"shell script to get git branch to show in prompt\",\"comments\":0,\"user\":{\"login\":\"yawboakye\",\"id\":929886,\"avatar_url\":\"https://secure.gravatar.com/avatar/da3f48615ab0a868a701b6d7679c3d6b?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"da3f48615ab0a868a701b6d7679c3d6b\",\"url\":\"https://api.github.com/users/yawboakye\",\"html_url\":\"https://github.com/yawboakye\",\"followers_url\":\"https://api.github.com/users/yawboakye/followers\",\"following_url\":\"https://api.github.com/users/yawboakye/following\",\"gists_url\":\"https://api.github.com/users/yawboakye/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/yawboakye/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/yawboakye/subscriptions\",\"organizations_url\":\"https://api.github.com/users/yawboakye/orgs\",\"repos_url\":\"https://api.github.com/users/yawboakye/repos\",\"events_url\":\"https://api.github.com/users/yawboakye/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/yawboakye/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421521/comments\"},{\"url\":\"https://api.github.com/gists/5421519\",\"forks_url\":\"https://api.github.com/gists/5421519/forks\",\"commits_url\":\"https://api.github.com/gists/5421519/commits\",\"id\":\"5421519\",\"git_pull_url\":\"https://gist.github.com/5421519.git\",\"git_push_url\":\"https://gist.github.com/5421519.git\",\"html_url\":\"https://gist.github.com/5421519\",\"files\":{\"tictactoe.html\":{\"filename\":\"tictactoe.html\",\"type\":\"text/html\",\"language\":\"HTML\",\"raw_url\":\"https://gist.github.com/raw/5421519/94c5c8101687091b9c8553d552ad3181314228aa/tictactoe.html\",\"size\":670},\"tictactoe.js\":{\"filename\":\"tictactoe.js\",\"type\":\"application/javascript\",\"language\":\"JavaScript\",\"raw_url\":\"https://gist.github.com/raw/5421519/bfd54d6c5cf323ebdd104a024f83b14c2a4101c4/tictactoe.js\",\"size\":2279}},\"public\":true,\"created_at\":\"2013-04-19T16:37:04Z\",\"updated_at\":\"2013-04-19T16:37:05Z\",\"description\":\"HTML markup for Tic Tac Toe\",\"comments\":0,\"user\":{\"login\":\"gfazioli\",\"id\":432181,\"avatar_url\":\"https://secure.gravatar.com/avatar/d509515ba3ae42e8053e632462af5207?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"d509515ba3ae42e8053e632462af5207\",\"url\":\"https://api.github.com/users/gfazioli\",\"html_url\":\"https://github.com/gfazioli\",\"followers_url\":\"https://api.github.com/users/gfazioli/followers\",\"following_url\":\"https://api.github.com/users/gfazioli/following\",\"gists_url\":\"https://api.github.com/users/gfazioli/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/gfazioli/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/gfazioli/subscriptions\",\"organizations_url\":\"https://api.github.com/users/gfazioli/orgs\",\"repos_url\":\"https://api.github.com/users/gfazioli/repos\",\"events_url\":\"https://api.github.com/users/gfazioli/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/gfazioli/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421519/comments\"},{\"url\":\"https://api.github.com/gists/5421513\",\"forks_url\":\"https://api.github.com/gists/5421513/forks\",\"commits_url\":\"https://api.github.com/gists/5421513/commits\",\"id\":\"5421513\",\"git_pull_url\":\"https://gist.github.com/5421513.git\",\"git_push_url\":\"https://gist.github.com/5421513.git\",\"html_url\":\"https://gist.github.com/5421513\",\"files\":{\"gistfile1.js\":{\"filename\":\"gistfile1.js\",\"type\":\"application/javascript\",\"language\":\"JavaScript\",\"raw_url\":\"https://gist.github.com/raw/5421513/179e83f573fa6d1aa0e41ca7fdd2ad9207be5100/gistfile1.js\",\"size\":664}},\"public\":true,\"created_at\":\"2013-04-19T16:36:15Z\",\"updated_at\":\"2013-04-19T16:36:16Z\",\"description\":\"\",\"comments\":0,\"user\":{\"login\":\"ggrillone\",\"id\":1205249,\"avatar_url\":\"https://secure.gravatar.com/avatar/9aba6882335588af5858a255872282c5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"9aba6882335588af5858a255872282c5\",\"url\":\"https://api.github.com/users/ggrillone\",\"html_url\":\"https://github.com/ggrillone\",\"followers_url\":\"https://api.github.com/users/ggrillone/followers\",\"following_url\":\"https://api.github.com/users/ggrillone/following\",\"gists_url\":\"https://api.github.com/users/ggrillone/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/ggrillone/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/ggrillone/subscriptions\",\"organizations_url\":\"https://api.github.com/users/ggrillone/orgs\",\"repos_url\":\"https://api.github.com/users/ggrillone/repos\",\"events_url\":\"https://api.github.com/users/ggrillone/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/ggrillone/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421513/comments\"},{\"url\":\"https://api.github.com/gists/5421506\",\"forks_url\":\"https://api.github.com/gists/5421506/forks\",\"commits_url\":\"https://api.github.com/gists/5421506/commits\",\"id\":\"5421506\",\"git_pull_url\":\"https://gist.github.com/5421506.git\",\"git_push_url\":\"https://gist.github.com/5421506.git\",\"html_url\":\"https://gist.github.com/5421506\",\"files\":{\"curse-wow-update\":{\"filename\":\"curse-wow-update\",\"type\":\"text/plain\",\"language\":null,\"raw_url\":\"https://gist.github.com/raw/5421506/c3536c87e1b031748ad0a65d71686bef336820e5/curse-wow-update\",\"size\":2009}},\"public\":true,\"created_at\":\"2013-04-19T16:35:20Z\",\"updated_at\":\"2013-04-19T16:35:52Z\",\"description\":\"Un script pour mettre \xC3\xA0 jour les addon de wow sur linux depuis Curse\\r\\n\\r\\nA script to update wow's addon on linux from Curse\",\"comments\":0,\"user\":{\"login\":\"cipher16\",\"id\":308733,\"avatar_url\":\"https://secure.gravatar.com/avatar/328fb6647671343931323da3c69fe050?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"328fb6647671343931323da3c69fe050\",\"url\":\"https://api.github.com/users/cipher16\",\"html_url\":\"https://github.com/cipher16\",\"followers_url\":\"https://api.github.com/users/cipher16/followers\",\"following_url\":\"https://api.github.com/users/cipher16/following\",\"gists_url\":\"https://api.github.com/users/cipher16/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/cipher16/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/cipher16/subscriptions\",\"organizations_url\":\"https://api.github.com/users/cipher16/orgs\",\"repos_url\":\"https://api.github.com/users/cipher16/repos\",\"events_url\":\"https://api.github.com/users/cipher16/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/cipher16/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421506/comments\"}]"
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:51:09 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421603/forks
+    body: 
+      encoding: UTF-8
+      string: "{}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:51:10 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4998"
+      Location: 
+      - https://api.github.com/gists/5421608
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "1571"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"e62007969aa66d6d32e2738b0de08300\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/gists/5421608\",\"forks_url\":\"https://api.github.com/gists/5421608/forks\",\"commits_url\":\"https://api.github.com/gists/5421608/commits\",\"id\":\"5421608\",\"git_pull_url\":\"https://gist.github.com/5421608.git\",\"git_push_url\":\"https://gist.github.com/5421608.git\",\"html_url\":\"https://gist.github.com/5421608\",\"files\":{},\"public\":true,\"created_at\":\"2013-04-19T16:51:09Z\",\"updated_at\":\"2013-04-19T16:51:09Z\",\"description\":\"Lightweight lipsum generator\",\"comments\":0,\"user\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5421608/comments\"}"
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:51:10 GMT
+- request: 
+    method: get
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421307/comments
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:55:18 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4997"
+      Vary: 
+      - Accept, Authorization, Cookie
+      - Accept-Encoding
+      Cache-Control: 
+      - private, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Fri, 19 Apr 2013 16:54:24 GMT
+      Etag: 
+      - "\"c8ae95bfa6564777e6bc8c0805434842\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "[{\"url\":\"https://api.github.com/gists/5421307/comments/818334\",\"id\":818334,\"user\":{\"login\":\"pengwynn\",\"id\":865,\"avatar_url\":\"https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"7e19cd5486b5d6dc1ef90e671ba52ae0\",\"url\":\"https://api.github.com/users/pengwynn\",\"html_url\":\"https://github.com/pengwynn\",\"followers_url\":\"https://api.github.com/users/pengwynn/followers\",\"following_url\":\"https://api.github.com/users/pengwynn/following\",\"gists_url\":\"https://api.github.com/users/pengwynn/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/pengwynn/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/pengwynn/subscriptions\",\"organizations_url\":\"https://api.github.com/users/pengwynn/orgs\",\"repos_url\":\"https://api.github.com/users/pengwynn/repos\",\"events_url\":\"https://api.github.com/users/pengwynn/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/pengwynn/received_events\",\"type\":\"User\"},\"created_at\":\"2013-04-19T16:54:24Z\",\"updated_at\":\"2013-04-19T16:54:24Z\",\"body\":\":sparkles:\"}]"
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:55:19 GMT
+- request: 
+    method: get
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421307/comments/818334
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:58:29 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4996"
+      Vary: 
+      - Accept, Authorization, Cookie
+      - Accept-Encoding
+      Cache-Control: 
+      - private, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Fri, 19 Apr 2013 16:54:24 GMT
+      Etag: 
+      - "\"c8ae95bfa6564777e6bc8c0805434842\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "{\"url\":\"https://api.github.com/gists/5421307/comments/818334\",\"id\":818334,\"user\":{\"login\":\"pengwynn\",\"id\":865,\"avatar_url\":\"https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"7e19cd5486b5d6dc1ef90e671ba52ae0\",\"url\":\"https://api.github.com/users/pengwynn\",\"html_url\":\"https://github.com/pengwynn\",\"followers_url\":\"https://api.github.com/users/pengwynn/followers\",\"following_url\":\"https://api.github.com/users/pengwynn/following\",\"gists_url\":\"https://api.github.com/users/pengwynn/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/pengwynn/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/pengwynn/subscriptions\",\"organizations_url\":\"https://api.github.com/users/pengwynn/orgs\",\"repos_url\":\"https://api.github.com/users/pengwynn/repos\",\"events_url\":\"https://api.github.com/users/pengwynn/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/pengwynn/received_events\",\"type\":\"User\"},\"created_at\":\"2013-04-19T16:54:24Z\",\"updated_at\":\"2013-04-19T16:54:24Z\",\"body\":\":sparkles:\"}"
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:58:29 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421307/comments
+    body: 
+      encoding: UTF-8
+      string: "{\"body\":\":metal:\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 16:59:29 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4995"
+      Location: 
+      - https://api.github.com/gists/5421307/comments/818337
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "1186"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"3a01e77977d88c568fa5b9c3f3e7b4dd\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/gists/5421307/comments/818337\",\"id\":818337,\"user\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"created_at\":\"2013-04-19T16:59:29Z\",\"updated_at\":\"2013-04-19T16:59:29Z\",\"body\":\":metal:\"}"
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 16:59:30 GMT
+- request: 
+    method: delete
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421307/comments/818337
+    body: 
+      encoding: UTF-8
+      string: "{}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 204
+      message: No Content
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 17:01:52 GMT
+      Connection: 
+      - keep-alive
+      Status: 
+      - 204 No Content
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4994"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: ""
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 17:01:53 GMT
+- request: 
+    method: patch
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5421307/comments/818337
+    body: 
+      encoding: UTF-8
+      string: "{\"body\":\":heart:\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 404
+      message: Not Found
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 19 Apr 2013 17:03:37 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 404 Not Found
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4992"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "23"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: US-ASCII
+      string: "{\"message\":\"Not Found\"}"
+    http_version: 
+  recorded_at: Fri, 19 Apr 2013 17:03:37 GMT
+recorded_with: VCR 2.4.0

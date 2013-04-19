@@ -286,8 +286,13 @@ describe Octokit::Client do
         config.proxy = 'http://proxy.example.com:80'
       end
       conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
-      puts conn.inspect
       conn.proxy[:uri].to_s.must_equal 'http://proxy.example.com'
+    end
+  end
+
+  describe "auto pagination" do
+    it "fetches all the pages" do
+      skip "Not implemented"
     end
   end
 end

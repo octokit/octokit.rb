@@ -8,6 +8,12 @@ WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
 require 'vcr'
 VCR.configure do |c|
+  c.filter_sensitive_data("<GITHUB_LOGIN>") do
+      ENV['OCTOKIT_TEST_GITHUB_LOGIN']
+  end
+  c.filter_sensitive_data("<GITHUB_PASSWORD>") do
+      ENV['OCTOKIT_TEST_GITHUB_PASSWORD']
+  end
   c.default_cassette_options = {
     :serialize_with => :syck,
     :decode_compressed_response => true,
@@ -15,6 +21,14 @@ VCR.configure do |c|
   }
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
+end
+
+def test_github_login
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_LOGIN'
+end
+
+def test_github_password
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_PASSWORD'
 end
 
 def stub_delete(url)
@@ -62,9 +76,16 @@ def github_url(url)
   if url =~ /^http/
     url
   elsif @client && @client.basic_authenticated?
-    "https://#{@client.login}:#{@client.password}@api.github.com#{url}"
+    "https://#{@client.login}:#{@client.instance_variable_get(:"@password")}@api.github.com#{url}"
   else
     "https://api.github.com#{url}"
   end
+end
+
+def basic_github_url(path, options = {})
+  login = options.fetch(:login, test_github_login)
+  password = options.fetch(:password, test_github_password)
+
+  "https://#{login}:#{password}@api.github.com#{path}"
 end
 
