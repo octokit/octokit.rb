@@ -9,6 +9,10 @@ module Octokit
       !!@access_token
     end
 
+    def user_authenticated?
+      basic_authenticated? || token_authenticated?
+    end
+
     def application_authenticated?
       !!application_authentication
     end

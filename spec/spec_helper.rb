@@ -89,3 +89,11 @@ def basic_github_url(path, options = {})
   "https://#{login}:#{password}@api.github.com#{path}"
 end
 
+def basic_auth_client(login = test_github_login, password = test_github_password )
+  client = Octokit.client
+  client.login = test_github_login
+  client.password = test_github_password
+
+  client
+end
+

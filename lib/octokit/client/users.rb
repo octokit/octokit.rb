@@ -54,9 +54,13 @@ module Octokit
       # @see http://developer.github.com/v3/oauth/#web-application-flow
       # @example
       #   @client.access_token('aaaa', 'xxxx', 'yyyy', {:accept => 'application/json'})
-      def access_token(code, app_id, app_secret, options = {})
-        post("login/oauth/access_token", options.merge({:endpoint => Octokit.web_endpoint, :code => code,
-          :client_id => app_id, :client_secret => app_secret}))
+      def exchange_code_for_token(code, app_id = client_id, app_secret = client_secret, options = {})
+        options.merge!({
+          :code => code,
+          :client_id => app_id,
+          :client_secret => app_secret
+        })
+        post("#{web_endpoint}/login/oauth/access_token", options)
       end
 
       # Validate user username and password
@@ -167,7 +171,8 @@ module Octokit
       # @example
       #   Octokit.starred('pengwynn')
       def starred(user=login, options={})
-        get("users/#{user}/starred", options)
+        path = user_authenticated? ? "/user/starred" : "/users/#{user}/starred"
+        paginate(path, options)
       end
 
       # Check if you are starring a repo.
@@ -183,20 +188,6 @@ module Octokit
       #   @client.starred?('pengwynn', 'octokit')
       def starred?(user, repo, options={})
         boolean_from_response(:get, "user/starred/#{user}/#{repo}", options)
-      end
-
-      # Get list of repos watched by a user.
-      #
-      # Legacy, using github.beta media type. Use `Users#starred` instead.
-      #
-      # @param user [String] Username of the user to get the list of repositories they are watching.
-      # @return [Array<Hashie::Mash>] Array of hashes representing repositories watched by user.
-      # @see Users#starred
-      # @see http://developer.github.com/v3/repos/starring/#list-stargazers
-      # @example
-      #   Octokit.watched('pengwynn')
-      def watched(user=login, options={})
-        get("users/#{user}/watched", options)
       end
 
       # Get a public key.
@@ -236,7 +227,7 @@ module Octokit
       # @example
       #   @client.keys
       def keys(options={})
-        get("user/keys", options)
+        paginate("user/keys", options)
       end
 
       # Get list of public keys for user.
@@ -249,7 +240,8 @@ module Octokit
       # @example
       #   @client.user_keys('pengwynn'
       def user_keys(user, options={})
-        get("users/#{user}/keys", options)
+        # TODO: Roll this into .keys
+        paginate("users/#{user}/keys", options)
       end
 
       # Add public key to user account.
@@ -307,7 +299,7 @@ module Octokit
       # @example
       #   @client.emails
       def emails(options={})
-        get("user/emails", options)
+        paginate("user/emails", options)
       end
 
       # Add email address to user.
@@ -334,8 +326,9 @@ module Octokit
       # @see http://developer.github.com/v3/users/emails/#delete-email-addresses
       # @example
       #   @client.remove_email('old_email@user.com')
-      def remove_email(email, options={})
-        boolean_from_response(:delete, "user/emails", options.merge({:email => email}))
+      def remove_email(emails)
+        emails = Array(emails)
+        boolean_from_response(:delete, "user/emails", emails)
       end
 
       # List repositories being watched by a user.
@@ -349,8 +342,10 @@ module Octokit
       # @example
       #   @client.subscriptions("pengwynn")
       def subscriptions(user=login, options={})
-        get("users/#{user}/subscriptions", options)
+        path = user_authenticated? ? "/user/subscriptions" : "/users/#{user}/subscriptions"
+        paginate(path, options)
       end
+      alias :watched :subscriptions
 
     end
   end
