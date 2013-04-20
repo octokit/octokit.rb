@@ -214,6 +214,7 @@ describe Octokit::Client::Users do
       response = Octokit.exchange_code_for_token('code', 'id_here', 'secret_here')
       response.access_token.must_equal 'this_be_ye_token/use_it_wisely'
       assert_requested :post, "https://github.com/login/oauth/access_token"
+      VCR.turn_on!
     end
   end # .access_token
 

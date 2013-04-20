@@ -7,6 +7,7 @@ require 'octokit/client/emojis'
 require 'octokit/client/gists'
 require 'octokit/client/rate_limit'
 require 'octokit/client/say'
+require 'octokit/client/service_status'
 require 'octokit/client/users'
 
 
@@ -18,6 +19,7 @@ module Octokit
     include Octokit::Client::Gists
     include Octokit::Client::RateLimit
     include Octokit::Client::Say
+    include Octokit::Client::ServiceStatus
     include Octokit::Client::Users
 
     attr_reader :last_response

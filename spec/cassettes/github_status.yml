@@ -1,0 +1,151 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: https://status.github.com/api.json
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Sat, 20 Apr 2013 22:04:47 GMT
+      Content-Type: 
+      - application/json;charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      Content-Length: 
+      - "188"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "{\"status_url\":\"https://status.github.com/api/status.json\",\"messages_url\":\"https://status.github.com/api/messages.json\",\"last_message_url\":\"https://status.github.com/api/last-message.json\"}"
+    http_version: 
+  recorded_at: Sat, 20 Apr 2013 22:04:48 GMT
+- request: 
+    method: get
+    uri: https://status.github.com/api/status.json
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Sat, 20 Apr 2013 22:07:41 GMT
+      Content-Type: 
+      - application/json;charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      Content-Length: 
+      - "55"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "{\"status\":\"good\",\"last_updated\":\"2013-04-20T22:07:10Z\"}"
+    http_version: 
+  recorded_at: Sat, 20 Apr 2013 22:07:42 GMT
+- request: 
+    method: get
+    uri: https://status.github.com/api/messages.json
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Sat, 20 Apr 2013 22:08:05 GMT
+      Content-Type: 
+      - application/json;charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      Content-Length: 
+      - "1859"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "[{\"status\":\"good\",\"body\":\"Everything operating normally.\",\"created_on\":\"2013-04-20T17:04:17Z\"},{\"status\":\"minor\",\"body\":\"A small percentage of repositories are offline while we perform maintenance on a single fileserver pair.\",\"created_on\":\"2013-04-20T16:07:55Z\"},{\"status\":\"good\",\"body\":\"Everything operating normally.\",\"created_on\":\"2013-04-18T00:59:33Z\"},{\"status\":\"minor\",\"body\":\"We are investigating issues with one of our fileserver clusters. A small number of repositories may be affected.\",\"created_on\":\"2013-04-18T00:38:23Z\"},{\"status\":\"good\",\"body\":\"We've completed the maintenance on the filesystem cluster.\",\"created_on\":\"2013-04-17T20:57:25Z\"},{\"status\":\"minor\",\"body\":\"We are still performing manual verification of a single filesystem cluster. A reminder that a small percentage of repositories will be offline as we continue this work.\",\"created_on\":\"2013-04-17T16:56:11Z\"},{\"status\":\"minor\",\"body\":\"A very small percentage of repositories are currently offline while we perform manual verification of a fileserver cluster.\",\"created_on\":\"2013-04-17T14:13:19Z\"},{\"status\":\"good\",\"body\":\"Everything operating normally.\",\"created_on\":\"2013-04-16T14:08:28Z\"},{\"status\":\"minor\",\"body\":\"We're investigating an elevated rate of timeouts and exceptions on github.com.\",\"created_on\":\"2013-04-16T13:42:55Z\"},{\"status\":\"good\",\"body\":\"Everything operating normally.\",\"created_on\":\"2013-04-16T10:36:43Z\"},{\"status\":\"minor\",\"body\":\"We are investigating issues with one of our fileserver pairs. A small number of respositories may be affected.\",\"created_on\":\"2013-04-16T09:59:39Z\"},{\"status\":\"good\",\"body\":\"Everything operating normally.\",\"created_on\":\"2013-04-14T15:08:56Z\"},{\"status\":\"minor\",\"body\":\"A few queues are backed up, causing forks and other actions to be delayed. We're working to resolve the backlog now.\",\"created_on\":\"2013-04-14T15:00:56Z\"}]"
+    http_version: 
+  recorded_at: Sat, 20 Apr 2013 22:08:06 GMT
+- request: 
+    method: get
+    uri: https://status.github.com/api/last-message.json
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Sat, 20 Apr 2013 22:08:06 GMT
+      Content-Type: 
+      - application/json;charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      Content-Length: 
+      - "93"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "{\"status\":\"good\",\"body\":\"Everything operating normally.\",\"created_on\":\"2013-04-20T17:04:17Z\"}"
+    http_version: 
+  recorded_at: Sat, 20 Apr 2013 22:08:06 GMT
+recorded_with: VCR 2.4.0
