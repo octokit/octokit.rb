@@ -4,7 +4,7 @@ module Octokit
 
       # List gists for a user or all public gists
       #
-      # @param username [String] An optional user to filter listing 
+      # @param username [String] An optional user to filter listing
       # @return [Array<Hashie::Mash>] A list of gists
       # @example Fetch all gists for defunkt
       #   Octokit.gists('defunkt')
@@ -67,11 +67,11 @@ module Octokit
       # @option options [Boolean] :public Sets gist visibility
       # @option options [Hash] :files Files that make up this gist. Keys
       #   should be the filename, the value a Hash with a :content key with text
-      #   content of the Gist. 
+      #   content of the Gist.
       #
       #   NOTE: All files from the previous version of the
       #   gist are carried over by default if not included in the hash. Deletes
-      #   can be performed by including the filename with a null hash.  
+      #   can be performed by including the filename with a null hash.
       # @return
       #   [Hashie::Mash] Newly created gist info
       # @see http://developer.github.com/v3/gists/#edit-a-gist
