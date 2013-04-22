@@ -8,6 +8,7 @@ WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
 require 'vcr'
 VCR.configure do |c|
+  # TODO: Strip authorization header to hide tokens
   c.filter_sensitive_data("<GITHUB_LOGIN>") do
       ENV['OCTOKIT_TEST_GITHUB_LOGIN']
   end
@@ -73,13 +74,7 @@ def json_response(file)
 end
 
 def github_url(url)
-  if url =~ /^http/
-    url
-  elsif @client && @client.basic_authenticated?
-    "https://#{@client.login}:#{@client.instance_variable_get(:"@password")}@api.github.com#{url}"
-  else
-    "https://api.github.com#{url}"
-  end
+  url =~ /^http/ ? url : "https://api.github.com#{url}"
 end
 
 def basic_github_url(path, options = {})

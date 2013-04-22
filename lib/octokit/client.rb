@@ -3,6 +3,7 @@ require 'octokit/configurable'
 require 'octokit/authentication'
 require 'octokit/gist'
 require 'octokit/rate_limit'
+require 'octokit/client/authorizations'
 require 'octokit/client/emojis'
 require 'octokit/client/gists'
 require 'octokit/client/rate_limit'
@@ -15,6 +16,7 @@ module Octokit
   class Client
     include Octokit::Authentication
     include Octokit::Configurable
+    include Octokit::Client::Authorizations
     include Octokit::Client::Emojis
     include Octokit::Client::Gists
     include Octokit::Client::RateLimit
@@ -135,6 +137,10 @@ module Octokit
       opts[:faraday] = Faraday.new(conn_opts)
 
       opts
+    end
+
+    def access_token
+      @access_token
     end
 
   end

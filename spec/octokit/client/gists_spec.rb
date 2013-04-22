@@ -74,7 +74,7 @@ describe Octokit::Client::Gists do
       it "returns a list of gists" do
         gists = @client.gists
         gists.wont_be_empty
-        assert_requested :get, github_url("/gists")
+        assert_requested :get, basic_github_url("/gists")
       end
     end # .gists
 
