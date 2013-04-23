@@ -212,7 +212,7 @@ describe Octokit::Client do
     end
   end
 
-  describe "#agent" do
+  describe ".agent" do
     before do
       Octokit.reset!
     end
@@ -227,13 +227,48 @@ describe Octokit::Client do
     end
   end
 
-  describe "#last_response" do
+  describe ".last_response" do
     it "caches the last agent response" do
+      Octokit.reset!
       VCR.use_cassette 'root' do
         client = Octokit.client
         client.last_response.must_be_nil
         client.get "/"
         client.last_response.status.must_equal 200
+      end
+    end
+  end
+
+  describe ".get" do
+    it "handles query params" do
+      VCR.use_cassette 'root' do
+        Octokit.get "/", :foo => "bar"
+        assert_requested :get, "https://api.github.com?foo=bar"
+      end
+    end
+    it "handles headers" do
+      VCR.use_cassette 'root' do
+        request = stub_get("/zen").
+          with(:query => {:foo => "bar"}, :headers => {:accept => "text/plain"})
+        Octokit.get "/zen", :foo => "bar", :accept => "text/plain"
+        assert_requested request
+      end
+    end
+  end
+
+  describe ".head" do
+    it "handles query params" do
+      VCR.use_cassette 'root' do
+        Octokit.head "/", :foo => "bar"
+        assert_requested :head, "https://api.github.com?foo=bar"
+      end
+    end
+    it "handles headers" do
+      VCR.use_cassette 'root' do
+        request = stub_head("/zen").
+          with(:query => {:foo => "bar"}, :headers => {:accept => "text/plain"})
+        Octokit.head "/zen", :foo => "bar", :accept => "text/plain"
+        assert_requested request
       end
     end
   end

@@ -26,6 +26,8 @@ module Octokit
 
     attr_reader :last_response
 
+    CONVENIENCE_HEADERS = Set.new [:accept] 
+
     def initialize(options={})
       # Use options passed in, but fall back to module defaults
       Octokit::Configurable.keys.each do |key|
@@ -49,7 +51,7 @@ module Octokit
     end
 
     def get(url, options = {})
-      request :get, url, options
+      request :get, url, parse_query_and_convenience_headers(options)
     end
 
     def post(url, options = {})
@@ -69,7 +71,7 @@ module Octokit
     end
 
     def head(url, options = {})
-      request :head, url, options
+      request :head, url, parse_query_and_convenience_headers(options)
     end
 
     def paginate(url, options = {})
@@ -141,6 +143,19 @@ module Octokit
 
     def access_token
       @access_token
+    end
+
+    def parse_query_and_convenience_headers(options)
+      headers = options.fetch(:headers, {})
+      CONVENIENCE_HEADERS.each do |h|
+        if header = options.delete(h)
+          headers[h] = header
+        end
+      end
+      opts = {:query => options}
+      opts[:headers] = headers unless headers.empty?
+
+      opts
     end
 
   end
