@@ -16,6 +16,7 @@ group :test do
   gem 'rspec', '>= 2.11'
   gem 'simplecov', :require => false
   gem 'webmock'
+  gem 'test-queue'
 end
 
 gemspec
