@@ -1,9 +1,13 @@
 require 'sawyer'
+require 'octokit/arguments'
+require 'octokit/repo_arguments'
 require 'octokit/configurable'
 require 'octokit/authentication'
 require 'octokit/gist'
 require 'octokit/rate_limit'
+require 'octokit/repository'
 require 'octokit/client/authorizations'
+require 'octokit/client/commits'
 require 'octokit/client/emojis'
 require 'octokit/client/gists'
 require 'octokit/client/rate_limit'
@@ -17,6 +21,7 @@ module Octokit
     include Octokit::Authentication
     include Octokit::Configurable
     include Octokit::Client::Authorizations
+    include Octokit::Client::Commits
     include Octokit::Client::Emojis
     include Octokit::Client::Gists
     include Octokit::Client::RateLimit
@@ -26,7 +31,7 @@ module Octokit
 
     attr_reader :last_response
 
-    CONVENIENCE_HEADERS = Set.new [:accept] 
+    CONVENIENCE_HEADERS = Set.new [:accept]
 
     def initialize(options={})
       # Use options passed in, but fall back to module defaults
@@ -75,12 +80,12 @@ module Octokit
     end
 
     def paginate(url, options = {})
-      options[:query] ||= {}
+      opts = parse_query_and_convenience_headers(options.dup)
       if @auto_paginate || @per_page
-        options[:query][:per_page] = @per_page || (@auto_paginate ? 100 : nil)
+        opts[:query][:per_page] ||=  @per_page || (@auto_paginate ? 100 : nil)
       end
 
-      data = request(:get, url, options)
+      data = request(:get, url, opts)
 
       if @auto_paginate && data.is_a?(Array)
         while @last_response.rels[:next] && rate_limit.remaining > 0
@@ -152,7 +157,9 @@ module Octokit
           headers[h] = header
         end
       end
+      query = options.delete(:query)
       opts = {:query => options}
+      opts[:query].merge!(query) if query && query.is_a?(Hash)
       opts[:headers] = headers unless headers.empty?
 
       opts

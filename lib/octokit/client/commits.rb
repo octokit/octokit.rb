@@ -10,14 +10,114 @@ module Octokit
       # only return commits containing the given file path.
       #
       # @param repo [String, Hash, Repository] A GitHub repository
+      # @param options [String] :sha Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      def commits(*args)
+        arguments = Octokit::RepoArguments.new(args)
+        sha_or_branch = arguments.pop
+        if sha_or_branch
+          puts "sha_or_branch is deprecated: Please use options[:sha] instead"
+          arguments.options[:sha] = sha_or_branch
+        end
+        paginate("repos/#{Repository.new(arguments.repo)}/commits", arguments.options)
+      end
+      alias :list_commits :commits
+
+      # Get commits after a specified date
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
+      # @param options [String] :sha Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_since('pengwynn/octokit', '2012-10-01')
+      def commits_since(*args)
+        arguments = Octokit::RepoArguments.new(args)
+        date   = parse_date(arguments.shift)
+        params = arguments.options
+        end_date = date + 1
+        params.merge!(:since => iso8601(date))
+        sha_or_branch = arguments.pop
+        if sha_or_branch
+          puts "sha_or_branch is deprecated: Please use options[:sha] instead"
+          params[:sha] = sha_or_branch
+        end
+        commits(arguments.repo, params)
+      end
+
+      # Get commits before a specified date
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
       # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
-      def commits(repo, sha_or_branch="master", options={})
-        params = { :sha => sha_or_branch, :per_page => 35 }
-        get("repos/#{Repository.new(repo)}/commits", params.merge(options))
+      # @example
+      #   Octokit.commits_before('pengwynn/octokit', '2012-10-01')
+      def commits_before(*args)
+        arguments = Octokit::RepoArguments.new(args)
+        date   = parse_date(arguments.shift)
+        params = arguments.options
+        end_date = date + 1
+        params.merge!(:until => iso8601(date))
+        sha_or_branch = arguments.pop
+        if sha_or_branch
+          puts "sha_or_branch is deprecated: Please use options[:sha] instead"
+          params[:sha] = sha_or_branch
+        end
+        commits(arguments.repo, params)
       end
-      alias :list_commits :commits
+
+      # Get commits on a specified date
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param date [String] Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01')
+      def commits_on(*args)
+        arguments = Octokit::RepoArguments.new(args)
+        date   = parse_date(arguments.shift)
+        params = arguments.options
+        end_date = date + 1
+        params.merge!(:since => iso8601(date), :until => iso8601(end_date))
+        sha_or_branch = arguments.pop
+        if sha_or_branch
+          puts "sha_or_branch is deprecated: Please use options[:sha] instead"
+          params[:sha] = sha_or_branch
+        end
+        commits(arguments.repo, params)
+      end
+
+      # Get commits made between two nominated dates
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param start_date [String] Start Date on which we want to compare
+      # @param end_date [String] End Date on which we want to compare
+      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @return [Array] An array of hashes representing commits
+      # @see http://developer.github.com/v3/repos/commits/
+      # @example
+      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01', '2012-11-01')
+      def commits_between(*args)
+        arguments = Octokit::RepoArguments.new(args)
+        date       = parse_date(arguments.shift)
+        end_date   = parse_date(arguments.shift)
+        raise ArgumentError, "Start date #{date} does not precede #{end_date}" if date > end_date
+
+        params = arguments.options
+        params.merge!(:since => iso8601(date), :until => iso8601(end_date))
+        sha_or_branch = arguments.pop
+        if sha_or_branch
+          puts "sha_or_branch is deprecated: Please use options[:sha] instead"
+          params[:sha] = sha_or_branch
+        end
+        commits(arguments.repo, params)
+      end
 
       # Get a single commit
       #
@@ -166,73 +266,6 @@ module Octokit
         post("repos/#{Repository.new(repo)}/merges", params)
       end
 
-      # Get commits based on time windows
-
-      # Get commits after a specified date
-      #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @param date [String] Date on which we want to compare
-      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
-      # @return [Array] An array of hashes representing commits
-      # @see http://developer.github.com/v3/repos/commits/
-      # @example
-      #   Octokit.commits_since('pengwynn/octokit', '2012-10-01')
-      def commits_since(repo, date, sha_or_branch="master", options={})
-        params = {:since => iso8601(parse_date(date))}
-        commits(repo, sha_or_branch, params.merge(options))
-      end
-
-      # Get commits before a specified date
-      #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @param date [String] Date on which we want to compare
-      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
-      # @return [Array] An array of hashes representing commits
-      # @see http://developer.github.com/v3/repos/commits/
-      # @example
-      #   Octokit.commits_before('pengwynn/octokit', '2012-10-01')
-      def commits_before(repo, date, sha_or_branch="master", options={})
-        params = {:until => iso8601(parse_date(date))}
-        commits(repo, sha_or_branch, params.merge(options))
-      end
-
-      # Get commits on a specified date
-      #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @param date [String] Date on which we want to compare
-      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
-      # @return [Array] An array of hashes representing commits
-      # @see http://developer.github.com/v3/repos/commits/
-      # @example
-      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01')
-      def commits_on(repo, date, sha_or_branch="master", options={})
-        start_date = parse_date(date)
-        end_date = start_date + 1
-        params = { :since => iso8601(start_date), :until => iso8601(end_date) }
-        commits(repo, sha_or_branch, params.merge(options))
-      end
-
-      # Get commits made between two nominated dates
-      #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @param start_date [String] Start Date on which we want to compare
-      # @param end_date [String] End Date on which we want to compare
-      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
-      # @return [Array] An array of hashes representing commits
-      # @see http://developer.github.com/v3/repos/commits/
-      # @example
-      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01', '2012-11-01')
-      def commits_between(repo, start_date, end_date, sha_or_branch="master", options={})
-        _start_date = parse_date(start_date)
-        _end_date = parse_date(end_date)
-        if _end_date < _start_date
-          raise ArgumentError, "Start date #{start_date} does not precede #{end_date}"
-        end
-        params = {:since => iso8601(_start_date),
-          :until => iso8601(_end_date) }
-        commits(repo, sha_or_branch, params.merge(options))
-      end
-
       protected
 
       def iso8601(date)
@@ -249,7 +282,7 @@ module Octokit
       # @param date [String] String representation of a date
       # @return [DateTime]
       def parse_date(date)
-        date = DateTime.parse(date)
+        date = Date.parse(date.to_s)
       rescue ArgumentError
         raise ArgumentError, "#{date} is not a valid date"
       end
