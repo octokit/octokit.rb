@@ -9,6 +9,7 @@ require 'octokit/repository'
 require 'octokit/client/authorizations'
 require 'octokit/client/commits'
 require 'octokit/client/contents'
+require 'octokit/client/downloads'
 require 'octokit/client/emojis'
 require 'octokit/client/gists'
 require 'octokit/client/rate_limit'
@@ -24,6 +25,7 @@ module Octokit
     include Octokit::Client::Authorizations
     include Octokit::Client::Commits
     include Octokit::Client::Contents
+    include Octokit::Client::Downloads
     include Octokit::Client::Emojis
     include Octokit::Client::Gists
     include Octokit::Client::RateLimit

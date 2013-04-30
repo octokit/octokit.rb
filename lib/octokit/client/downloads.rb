@@ -56,7 +56,7 @@ module Octokit
           'file' => file
         }
 
-        conn = Faraday.new(resource.s3_url) do |builder|
+        conn = Faraday.new(resource.rels[:s3].href) do |builder|
           builder.request :multipart
           builder.request :url_encoded
           builder.adapter :net_http

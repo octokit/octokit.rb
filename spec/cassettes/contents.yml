@@ -1,0 +1,172 @@
+--- 
+http_interactions: 
+- request: 
+    method: head
+    uri: https://api.github.com/repos/pengwynn/octokit/tarball/master
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 302
+      message: Found
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 16:06:35 GMT
+      Content-Type: 
+      - text/html;charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 302 Found
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "59"
+      Cache-Control: 
+      - public, must-revalidate, max-age=0
+      Expires: 
+      - Tue, 30 Apr 2013 16:06:35 GMT
+      Location: 
+      - https://codeload.github.com/pengwynn/octokit/legacy.tar.gz/master
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "0"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: ""
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 16:06:35 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/repos/pengwynn/octokit/contents/lib/octokit.rb
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 16:06:35 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "58"
+      Vary: 
+      - Accept
+      - Accept-Encoding
+      Cache-Control: 
+      - public, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Tue, 16 Apr 2013 13:18:30 GMT
+      Etag: 
+      - "\"7da238871ebe8a1d4279981ff32f82c9\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "{\"name\":\"octokit.rb\",\"path\":\"lib/octokit.rb\",\"sha\":\"fff6fe3a23bf1c8ea0692b4a883af99bee26fd3b\",\"size\":625,\"url\":\"https://api.github.com/repos/pengwynn/octokit/contents/lib/octokit.rb?ref=master\",\"html_url\":\"https://github.com/pengwynn/octokit/blob/master/lib/octokit.rb\",\"git_url\":\"https://api.github.com/repos/pengwynn/octokit/git/blobs/fff6fe3a23bf1c8ea0692b4a883af99bee26fd3b\",\"type\":\"file\",\"content\":\"cmVxdWlyZSAnbmV0cmMnCnJlcXVpcmUgJ29jdG9raXQvY29uZmlndXJhdGlv\\nbicKcmVxdWlyZSAnb2N0b2tpdC9lcnJvcicKcmVxdWlyZSAnb2N0b2tpdC9j\\nbGllbnQnCgptb2R1bGUgT2N0b2tpdAogIGV4dGVuZCBDb25maWd1cmF0aW9u\\nCiAgY2xhc3MgPDwgc2VsZgogICAgIyBBbGlhcyBmb3IgT2N0b2tpdDo6Q2xp\\nZW50Lm5ldwogICAgIwogICAgIyBAcmV0dXJuIFtPY3Rva2l0OjpDbGllbnRd\\nCiAgICBkZWYgbmV3KG9wdGlvbnM9e30pCiAgICAgIE9jdG9raXQ6OkNsaWVu\\ndC5uZXcob3B0aW9ucykKICAgIGVuZAoKICAgICMgRGVsZWdhdGUgdG8gT2N0\\nb2tpdDo6Q2xpZW50Lm5ldwogICAgZGVmIG1ldGhvZF9taXNzaW5nKG1ldGhv\\nZCwgKmFyZ3MsICZibG9jaykKICAgICAgcmV0dXJuIHN1cGVyIHVubGVzcyBu\\nZXcucmVzcG9uZF90bz8obWV0aG9kKQogICAgICBuZXcuc2VuZChtZXRob2Qs\\nICphcmdzLCAmYmxvY2spCiAgICBlbmQKCiAgICBkZWYgcmVzcG9uZF90bz8o\\nbWV0aG9kLCBpbmNsdWRlX3ByaXZhdGU9ZmFsc2UpCiAgICAgIG5ldy5yZXNw\\nb25kX3RvPyhtZXRob2QsIGluY2x1ZGVfcHJpdmF0ZSkgfHwgc3VwZXIobWV0\\naG9kLCBpbmNsdWRlX3ByaXZhdGUpCiAgICBlbmQKICBlbmQKZW5kCg==\\n\",\"encoding\":\"base64\",\"_links\":{\"self\":\"https://api.github.com/repos/pengwynn/octokit/contents/lib/octokit.rb?ref=master\",\"git\":\"https://api.github.com/repos/pengwynn/octokit/git/blobs/fff6fe3a23bf1c8ea0692b4a883af99bee26fd3b\",\"html\":\"https://github.com/pengwynn/octokit/blob/master/lib/octokit.rb\"}}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 16:06:36 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/repos/pengwynn/octokit/readme
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 16:06:35 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "57"
+      Vary: 
+      - Accept
+      - Accept-Encoding
+      Cache-Control: 
+      - public, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Tue, 16 Apr 2013 13:18:30 GMT
+      Etag: 
+      - "\"7da238871ebe8a1d4279981ff32f82c9\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "{\"name\":\"README.md\",\"path\":\"README.md\",\"sha\":\"abab527cdd5644de8812f6120aaccf74e9bc6a49\",\"size\":8931,\"url\":\"https://api.github.com/repos/pengwynn/octokit/contents/README.md?ref=master\",\"html_url\":\"https://github.com/pengwynn/octokit/blob/master/README.md\",\"git_url\":\"https://api.github.com/repos/pengwynn/octokit/git/blobs/abab527cdd5644de8812f6120aaccf74e9bc6a49\",\"type\":\"file\",\"content\":\"IyBPY3Rva2l0CgpbIVtHZW0gVmVyc2lvbl0oaHR0cHM6Ly9iYWRnZS5mdXJ5\\nLmlvL3JiL29jdG9raXQucG5nKV1bZ2VtXQpbIVtCdWlsZCBTdGF0dXNdKGh0\\ndHBzOi8vc2VjdXJlLnRyYXZpcy1jaS5vcmcvcGVuZ3d5bm4vb2N0b2tpdC5w\\nbmc/YnJhbmNoPW1hc3RlcildW3RyYXZpc10KWyFbRGVwZW5kZW5jeSBTdGF0\\ndXNdKGh0dHBzOi8vZ2VtbmFzaXVtLmNvbS9wZW5nd3lubi9vY3Rva2l0LnBu\\nZz90cmF2aXMpXVtnZW1uYXNpdW1dClshW0NvZGUgQ2xpbWF0ZV0oaHR0cHM6\\nLy9jb2RlY2xpbWF0ZS5jb20vZ2l0aHViL3Blbmd3eW5uL29jdG9raXQucG5n\\nKV1bY29kZWNsaW1hdGVdClshW0NvdmVyYWdlIFN0YXR1c10oaHR0cHM6Ly9j\\nb3ZlcmFsbHMuaW8vcmVwb3MvcGVuZ3d5bm4vb2N0b2tpdC9iYWRnZS5wbmc/\\nYnJhbmNoPW1hc3RlcildW2NvdmVyYWxsc10KCltnZW1dOiBodHRwczovL3J1\\nYnlnZW1zLm9yZy9nZW1zL29jdG9raXQKW3RyYXZpc106IGh0dHA6Ly90cmF2\\naXMtY2kub3JnL3Blbmd3eW5uL29jdG9raXQKW2dlbW5hc2l1bV06IGh0dHBz\\nOi8vZ2VtbmFzaXVtLmNvbS9wZW5nd3lubi9vY3Rva2l0Cltjb2RlY2xpbWF0\\nZV06IGh0dHBzOi8vY29kZWNsaW1hdGUuY29tL2dpdGh1Yi9wZW5nd3lubi9v\\nY3Rva2l0Cltjb3ZlcmFsbHNdOiBodHRwczovL2NvdmVyYWxscy5pby9yL3Bl\\nbmd3eW5uL29jdG9raXQKClNpbXBsZSBSdWJ5IHdyYXBwZXIgZm9yIHRoZSBH\\naXRIdWIgdjMgQVBJLgoKIyMgSW5zdGFsbGF0aW9uCiAgICBnZW0gaW5zdGFs\\nbCBvY3Rva2l0CgojIyBEb2N1bWVudGF0aW9uCltodHRwOi8vcmRvYy5pbmZv\\nL2dlbXMvb2N0b2tpdF1bZG9jdW1lbnRhdGlvbl0KCltkb2N1bWVudGF0aW9u\\nXTogaHR0cDovL3Jkb2MuaW5mby9nZW1zL29jdG9raXQKCiMjIEV4YW1wbGVz\\nCiMjIyBTaG93IGEgdXNlcgpgYGBydWJ5Ck9jdG9raXQudXNlcigic2Zlcmlr\\nIikKPT4gPCNIYXNoaWU6OlJhc2ggYmxvZz0iaHR0cDovL3R3aXR0ZXIuY29t\\nL3NmZXJpayIgY29tcGFueT0iQ29kZSBmb3IgQW1lcmljYSIgY3JlYXRlZF9h\\ndD0iMjAwOC8wNS8xNCAxMzozNjoxMiAtMDcwMCIgZW1haWw9InNmZXJpa0Bn\\nbWFpbC5jb20iIGZvbGxvd2Vyc19jb3VudD0xNzcgZm9sbG93aW5nX2NvdW50\\nPTgzIGdyYXZhdGFyX2lkPSIxZjc0YjEzZjFlNWM2YzY5Y2I1ZDdmYmFhYmIx\\nZTJjYiIgaWQ9MTAzMDggbG9jYXRpb249IlNhbiBGcmFuY2lzY28iIGxvZ2lu\\nPSJzZmVyaWsiIG5hbWU9IkVyaWsgTWljaGFlbHMtT2JlciIgcGVybWlzc2lv\\nbj1uaWwgcHVibGljX2dpc3RfY291bnQ9MTYgcHVibGljX3JlcG9fY291bnQ9\\nMzAgdHlwZT0iVXNlciI+CmBgYAoKIyMjIFNob3cgd2hvIGEgdXNlciBmb2xs\\nb3dzCmBgYHJ1YnkKT2N0b2tpdC5mb2xsb3dpbmcoInNmZXJpayIpCj0+IFsi\\ncmFpbHMiLCAicHVscyIsICJ3eWNhdHMiLCAiZGhoIiwgImptMyIsICJqb3No\\nc3Vzc2VyIiwgIm5rYWxsZW4iLCAidGVjaG5vd2VlbmllIiwgImJsYWluZSIs\\nICJhbDN4IiwgImRlZnVua3QiLCAic2NoYWNvbiIsICJibWl6ZXJhbnkiLCAi\\ncnRvbWF5a28iLCAianByNSIsICJsaG9sZGVuIiwgIjE0MHByb29mIiwgImVw\\naHJhbXplcmIiLCAiY2FybGh1ZGEiLCAiY2FybGxlcmNoZSIsICJqbnVuZW1h\\na2VyIiwgImpvc2giLCAiaG92ZXJiaXJkIiwgImphbWlldyIsICJqZXJlbXll\\ndmFucyIsICJicnluYXJ5IiwgIm1vam9kbmEiLCAibW9qb21ibyIsICJqb3No\\nYnVkZHkiLCAiaWdyaWdvcmlrIiwgInBlcnBsZXhlcyIsICJqb2VhcmFzaW4i\\nLCAiaGFzc294IiwgIm5pY2ttYXJkZW4iLCAicGVuZ3d5bm4iLCAibW1jZ3Jh\\nbmEiLCAicmVkZGF2aXMiLCAicmVpbmgiLCAibXpzYW5mb3JkIiwgImFhbmFu\\nZCIsICJwamh5ZXR0IiwgImtuZWF0aCIsICJ0ZWtrdWIiLCAiYWRhbXN0YWMi\\nLCAidGltdHJ1ZW1hbiIsICJhYXJvbmJsb2hvd2lhayIsICJqb3NldmFsaW0i\\nLCAia2FhcGEiLCAiaHVycnljYW5lIiwgImphY2tkZW1wc2V5IiwgImRyb2d1\\ncyIsICJjYW1lcm9ucHJpZXN0IiwgImRhbm1lbHRvbiIsICJtYXJjZWwiLCAi\\nciIsICJhdG1vcyIsICJtYmxlaWdoIiwgImlzYWFjcyIsICJtYXhvZ2RlbiIs\\nICJjb2RlZm9yYW1lcmljYSIsICJjaGFkayIsICJsYXNlcmxlbW9uIiwgImdy\\ndWJlciIsICJsc2VnYWwiLCAiYmJsaW1rZSIsICJ3YXluZWVzZWd1aW4iLCAi\\nYnJpeGVuIiwgImRrdWJiIiwgImJoYiIsICJiY2FyZGFyZWxsYSIsICJlbGxp\\nb3R0Y2FibGUiLCAiZmJqb3JrIiwgIm1saWdodG5lciIsICJkaWFuYWtpbWJh\\nbGwiLCAiYW1lcmluZSIsICJkYW5jaG9pIiwgImRldmVsb3AiLCAiZG1mcmFu\\nY2lzY28iLCAidW5ydXRobGVzcyIsICJ0cm90dGVyIiwgImhhbm5lc3R5ZGVu\\nIiwgImNvZGFoYWxlIiwgInJ5Il0KYGBgCgojIyMgUmVwb3NpdG9yaWVzCkZv\\nciBjb252ZW5pZW5jZSwgbWV0aG9kcyB0aGF0IHJlcXVpcmUgYSByZXBvc2l0\\nb3J5IGFyZ3VtZW50IG1heSBiZSBwYXNzZWQgaW4KYW55IG9mIHRoZSBmb2xs\\nb3dpbmcgZm9ybXM6CgpgYGBydWJ5Ck9jdG9raXQucmVwbygicGVuZ3d5bm4v\\nb2N0b2tpdCIpCgpPY3Rva2l0LnJlcG8oezp1c2VybmFtZSA9PiAicGVuZ3d5\\nbm4iLCA6bmFtZSA9PiAib2N0b2tpdCJ9KQoKT2N0b2tpdC5yZXBvKHs6dXNl\\ncm5hbWUgPT4gInBlbmd3eW5uIiwgOnJlcG8gPT4gIm9jdG9raXQifSkKCk9j\\ndG9raXQucmVwbyhSZXBvc2l0b3J5Lm5ldygncGVuZ3d5bm4vb2N0b2tpdCcp\\nKQoKPT4gPCNIYXNoaWU6OlJhc2ggY3JlYXRlZF9hdD0iMjAwOS8xMi8xMCAx\\nMzo0MTo0OSAtMDgwMCIgZGVzY3JpcHRpb249IlNpbXBsZSBSdWJ5IHdyYXBw\\nZXIgZm9yIHRoZSBHaXRIdWIgQVBJIGFuZCBmZWVkcyIgZm9yaz1mYWxzZSBm\\nb3Jrcz0yNSBoYXNfZG93bmxvYWRzPXRydWUgaGFzX2lzc3Vlcz10cnVlIGhh\\nc193aWtpPXRydWUgaG9tZXBhZ2U9Imh0dHA6Ly93eW5ubmV0aGVybGFuZC5j\\nb20vcHJvamVjdHMvb2N0b2tpdCIgaW50ZWdyYXRlX2JyYW5jaD0ibWFzdGVy\\nIiBsYW5ndWFnZT0iUnVieSIgbmFtZT0ib2N0b2tpdCIgb3Blbl9pc3N1ZXM9\\nOCBvd25lcj0icGVuZ3d5bm4iIHByaXZhdGU9ZmFsc2UgcHVzaGVkX2F0PSIy\\nMDExLzA1LzA1IDEwOjQ4OjU3IC0wNzAwIiBzaXplPTE4MDQgdXJsPSJodHRw\\nczovL2dpdGh1Yi5jb20vcGVuZ3d5bm4vb2N0b2tpdCIgd2F0Y2hlcnM9OTI+\\nCmBgYAoKIyMjIExpc3QgdGhlIGNvbW1pdHMgZm9yIGEgcmVwb3NpdG9yeQoK\\nYGBgcnVieQpPY3Rva2l0LmNvbW1pdHMoInBlbmd3eW5uL29jdG9raXQiKQoK\\nT2N0b2tpdC5saXN0X2NvbW1pdHMoInBlbmd3eW5uL29jdG9raXQiKQoKPT4g\\nWyM8SGFzaGllOjpNYXNoIGF1dGhvcj0jPEhhc2hpZTo6TWFzaCBhdmF0YXJf\\ndXJsPSJodHRwczovL3NlY3VyZS5ncmF2YXRhci5jb20vYXZhdGFyLzdlMTlj\\nZDU0ODZiNWQ2ZGMxZWY5MGU2NzFiYTUyYWUwP2Q9aHR0cHM6Ly9hMjQ4LmUu\\nYWthbWFpLm5ldC9hc3NldHMuZ2l0aHViLmNvbSUyRmltYWdlcyUyRmdyYXZh\\ndGFycyUyRmdyYXZhdGFyLXVzZXItNDIwLnBuZyIgZ3JhdmF0YXJfaWQ9Ijdl\\nMTljZDU0ODZiNWQ2ZGMxZWY5MGU2NzFiYTUyYWUwIiBpZD04NjUgbG9naW49\\nInBlbmd3eW5uIiB1cmw9Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNlcnMv\\ncGVuZ3d5bm4iPiBjb21taXQ9IzxIYXNoaWU6Ok1hc2ggYXV0aG9yPSM8SGFz\\naGllOjpNYXNoIGRhdGU9IjIwMTItMTAtMzFUMTU6MTc6NTFaIiBlbWFpbD0i\\nd3lubkBnaXRodWIuY29tIiBuYW1lPSJXeW5uIE5ldGhlcmxhbmQiPiBjb21t\\nZW50X2NvdW50PTAgY29tbWl0dGVyPSM8SGFzaGllOjpNYXNoIGRhdGU9IjIw\\nMTItMTAtMzFUMTU6MTc6NTFaIiBlbWFpbD0id3lubkBnaXRodWIuY29tIiBu\\nYW1lPSJXeW5uIE5ldGhlcmxhbmQiPiBtZXNzYWdlPSJGaXggYnVnIHdpdGgg\\nYXJjaGl2ZV9saW5rIGZvciBwcml2YXRlIHJlcG8iIHRyZWU9IzxIYXNoaWU6\\nOk1hc2ggc2hhPSI0OWJmMmE0NzZhYTgxOWYyOWIwZmMxYTg4MDVmNzU2N2Yw\\nMTAwMDZkIiB1cmw9Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vcmVwb3MvcGVu\\nZ3d5bm4vb2N0b2tpdC9naXQvdHJlZXMvNDliZjJhNDc2YWE4MTlmMjliMGZj\\nMWE4ODA1Zjc1NjdmMDEwMDA2ZCI+IHVybD0iaHR0cHM6Ly9hcGkuZ2l0aHVi\\nLmNvbS9yZXBvcy9wZW5nd3lubi9vY3Rva2l0L2dpdC9jb21taXRzLzhkYjNk\\nZjM3ZmFkM2EwMjFlYjgwMzZiMDA3YzcxODE0OTgzNmNiMzIiPiBjb21taXR0\\nZXI9IzxIYXNoaWU6Ok1hc2ggYXZhdGFyX3VybD0iaHR0cHM6Ly9zZWN1cmUu\\nZ3JhdmF0YXIuY29tL2F2YXRhci83ZTE5Y2Q1NDg2YjVkNmRjMWVmOTBlNjcx\\nYmE1MmFlMD9kPWh0dHBzOi8vYTI0OC5lLmFrYW1haS5uZXQvYXNzZXRzLmdp\\ndGh1Yi5jb20lMkZpbWFnZXMlMkZncmF2YXRhcnMlMkZncmF2YXRhci11c2Vy\\nLTQyMC5wbmciIGdyYXZhdGFyX2lkPSI3ZTE5Y2Q1NDg2YjVkNmRjMWVmOTBl\\nNjcxYmE1MmFlMCIgaWQ9ODY1IGxvZ2luPSJwZW5nd3lubiIgdXJsPSJodHRw\\nczovL2FwaS5naXRodWIuY29tL3VzZXJzL3Blbmd3eW5uIj4gcGFyZW50cz1b\\nIzxIYXNoaWU6Ok1hc2ggc2hhPSI3YTY3ZjRiNDc3OTFjYjc3ZGUzM2U0OTFk\\nZjg3Y2VmMDYwMTJjNzlmIiB1cmw9Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20v\\ncmVwb3MvcGVuZ3d5bm4vb2N0b2tpdC9jb21taXRzLzdhNjdmNGI0Nzc5MWNi\\nNzdkZTMzZTQ5MWRmODdjZWYwNjAxMmM3OWYiPl0gc2hhPSI4ZGIzZGYzN2Zh\\nZDNhMDIxZWI4MDM2YjAwN2M3MTgxNDk4MzZjYjMyIiB1cmw9Imh0dHBzOi8v\\nYXBpLmdpdGh1Yi5jb20vcmVwb3MvcGVuZ3d5bm4vb2N0b2tpdC9jb21taXRz\\nLzhkYjNkZjM3ZmFkM2EwMjFlYjgwMzZiMDA3YzcxODE0OTgzNmNiMzIiPiwg\\nLi4uICwgLi4uXQpgYGAKCiMjIEF1dGhlbnRpY2F0ZWQgUmVxdWVzdHMKRm9y\\nIG1ldGhvZHMgdGhhdCByZXF1aXJlIGF1dGhlbnRpY2F0aW9uLCB5b3UnbGwg\\nbmVlZCB0byBzZXR1cCBhIGNsaWVudCB3aXRoCnlvdXIgbG9naW4gYW5kIHBh\\nc3N3b3JkLgoKYGBgcnVieQpjbGllbnQgPSBPY3Rva2l0OjpDbGllbnQubmV3\\nKDpsb2dpbiA9PiAibWUiLCA6cGFzc3dvcmQgPT4gInNla3JldCIpCmNsaWVu\\ndC5mb2xsb3coInNmZXJpayIpCmBgYAoKQWx0ZXJuYXRlbHksIHlvdSBjYW4g\\nYXV0aGVudGljYXRlIHdpdGggYSBbR2l0SHViIE9BdXRoMiB0b2tlbl1bb2F1\\ndGhdLgoKW29hdXRoXTogaHR0cDovL2RldmVsb3Blci5naXRodWIuY29tL3Yz\\nL29hdXRoCgpgYGBydWJ5CmNsaWVudCA9IE9jdG9raXQ6OkNsaWVudC5uZXco\\nOmxvZ2luID0+ICJtZSIsIDpvYXV0aF90b2tlbiA9PiAib2F1dGgydG9rZW4i\\nKQpjbGllbnQuZm9sbG93KCJzZmVyaWsiKQpgYGAKCiMjIyBVc2luZyBgLm5l\\ndHJjYCBmb3Igc3RvcmVkIGNyZWRlbnRpYWxzCgpPY3Rva2l0IG5vdyBzdXBw\\nb3J0cyBbYC5uZXRyY2BdW25ldHJjXSBmaWxlcyBmb3Igc3RvcmluZyB5b3Vy\\nIEdpdEh1YiBCYXNpYyBBdXRoCmNyZWRlbnRpYWxzLiBHaXZlbiBhIGB+Ly5u\\nZXRyY2AgbGlrZSB0aGUgZm9sbG93aW5nCgpbbmV0cmNdOiBodHRwOi8vd3d3\\nLmdudS5vcmcvc29mdHdhcmUvaW5ldHV0aWxzL21hbnVhbC9odG1sX25vZGUv\\nVGhlLV8wMDJlbmV0cmMtRmlsZS5odG1sCgpgYGAKbWFjaGluZSBhcGkuZ2l0\\naHViLmNvbSBsb2dpbiBwZW5nd3lubiBwYXNzd29yZCAwY3QwYzR0ejRldjNy\\nIQpgYGAKCllvdSBjYW4gbWFrZSBhdXRoZW50aWNhdGVkIGNhbGxzIGJ5IHRl\\nbGxpbmcgT2N0b2tpdCB0byB1c2UgY3JlZGVudGlhbHMgZnJvbQp0aGlzIGZp\\nbGU6CgpgYGBydWJ5Ck9jdG9raXQubmV0cmMgPSB0cnVlICMgb3IgL3BhdGgv\\ndG8vZmlsZQpPY3Rva2l0LnVzZXIgIyBhdXRoZW50aWNhdGVzIGFzICdwZW5n\\nd3lubicgdXNlcgpgYGAKCiMjIFJlcXVlc3RpbmcgYSBzcGVjaWZpYyBtZWRp\\nYSB0eXBlCgpZb3UgY2FuIHBhc3MgYW4gYDphY2NlcHRgIG9wdGlvbiB2YWx1\\nZSB0byByZXF1ZXN0IGEgcGFydGljdWxhciBbbWVkaWEKdHlwZV1bbWVkaWEt\\ndHlwZXNdLgoKW21lZGlhLXR5cGVzXTogaHR0cDovL2RldmVsb3Blci5naXRo\\ndWIuY29tL3YzL21lZGlhLwoKYGBgcnVieQpPY3Rva2l0LmNvbnRlbnRzICdw\\nZW5nd3lubi9vY3Rva2l0JywgOnBhdGggPT4gJ1JFQURNRS5tZCcsIDphY2Nl\\ncHQgPT4gJ2FwcGxpY2F0aW9uL3ZuZC5naXRodWIuaHRtbCcKYGBgCgojIyBV\\nc2luZyB3aXRoIEdpdEh1YiBFbnRlcnByaXNlCgpUbyB1c2Ugd2l0aCBbR2l0\\nSHViIEVudGVycHJpc2VdKGh0dHBzOi8vZW50ZXJwcmlzZS5naXRodWIuY29t\\nLyksIHlvdSdsbCBuZWVkIHRvCnNldCB0aGUgQVBJIGFuZCB3ZWIgZW5kcG9p\\nbnRzIGJlZm9yZSBpbnN0YW50aWF0aW5nIGEgY2xpZW50LgoKYGBgcnVieQpP\\nY3Rva2l0LmNvbmZpZ3VyZSBkbyB8Y3wKICBjLmFwaV9lbmRwb2ludCA9ICdo\\ndHRwczovL2dpdGh1Yi5jb21wYW55LmNvbS9hcGkvdjMnCiAgYy53ZWJfZW5k\\ncG9pbnQgPSAnaHR0cHM6Ly9naXRodWIuY29tcGFueS5jb20vJwplbmQKCkBj\\nbGllbnQgPSBPY3Rva2l0OjpDbGllbnQubmV3KDpsb2dpbiA9PiAnVVNFUk5B\\nTUUnLCA6cGFzc3dvcmQgPT4gJ1BBU1NXT1JEJykKYGBgCgojIyBTdXBwb3J0\\nZWQgUnVieSBWZXJzaW9ucwoKVGhpcyBsaWJyYXJ5IGFpbXMgdG8gc3VwcG9y\\ndCBhbmQgaXMgW3Rlc3RlZCBhZ2FpbnN0XVt0cmF2aXNdIHRoZSBmb2xsb3dp\\nbmcgUnVieQppbXBsZW1lbnRhdGlvbnM6CgoqIFJ1YnkgMS44LjcKKiBSdWJ5\\nIDEuOS4yCiogUnVieSAxLjkuMwoqIFJ1YnkgMi4wLjAKCklmIHNvbWV0aGlu\\nZyBkb2Vzbid0IHdvcmsgb24gb25lIG9mIHRoZXNlIFJ1YnkgdmVyc2lvbnMs\\nIGl0J3MgYSBidWcuCgpUaGlzIGxpYnJhcnkgbWF5IGluYWR2ZXJ0ZW50bHkg\\nd29yayAob3Igc2VlbSB0byB3b3JrKSBvbiBvdGhlciBSdWJ5CmltcGxlbWVu\\ndGF0aW9ucywgaG93ZXZlciBzdXBwb3J0IHdpbGwgb25seSBiZSBwcm92aWRl\\nZCBmb3IgdGhlIHZlcnNpb25zIGxpc3RlZAphYm92ZS4KCklmIHlvdSB3b3Vs\\nZCBsaWtlIHRoaXMgbGlicmFyeSB0byBzdXBwb3J0IGFub3RoZXIgUnVieSB2\\nZXJzaW9uLCB5b3UgbWF5CnZvbHVudGVlciB0byBiZSBhIG1haW50YWluZXIu\\nIEJlaW5nIGEgbWFpbnRhaW5lciBlbnRhaWxzIG1ha2luZyBzdXJlIGFsbCB0\\nZXN0cwpydW4gYW5kIHBhc3Mgb24gdGhhdCBpbXBsZW1lbnRhdGlvbi4gV2hl\\nbiBzb21ldGhpbmcgYnJlYWtzIG9uIHlvdXIKaW1wbGVtZW50YXRpb24sIHlv\\ndSB3aWxsIGJlIHJlc3BvbnNpYmxlIGZvciBwcm92aWRpbmcgcGF0Y2hlcyBp\\nbiBhIHRpbWVseQpmYXNoaW9uLiBJZiBjcml0aWNhbCBpc3N1ZXMgZm9yIGEg\\ncGFydGljdWxhciBpbXBsZW1lbnRhdGlvbiBleGlzdCBhdCB0aGUgdGltZQpv\\nZiBhIG1ham9yIHJlbGVhc2UsIHN1cHBvcnQgZm9yIHRoYXQgUnVieSB2ZXJz\\naW9uIG1heSBiZSBkcm9wcGVkLgoKIyMgVmVyc2lvbmluZwoKVGhpcyBsaWJy\\nYXJ5IGFpbXMgdG8gYWRoZXJlIHRvIFtTZW1hbnRpYyBWZXJzaW9uaW5nIDIu\\nMC4wXVtzZW12ZXJdLiBWaW9sYXRpb25zCm9mIHRoaXMgc2NoZW1lIHNob3Vs\\nZCBiZSByZXBvcnRlZCBhcyBidWdzLiBTcGVjaWZpY2FsbHksIGlmIGEgbWlu\\nb3Igb3IgcGF0Y2gKdmVyc2lvbiBpcyByZWxlYXNlZCB0aGF0IGJyZWFrcyBi\\nYWNrd2FyZCBjb21wYXRpYmlsaXR5LCB0aGF0IHZlcnNpb24gc2hvdWxkIGJl\\nCmltbWVkaWF0ZWx5IHlhbmtlZCBhbmQvb3IgYSBuZXcgdmVyc2lvbiBzaG91\\nbGQgYmUgaW1tZWRpYXRlbHkgcmVsZWFzZWQgdGhhdApyZXN0b3JlcyBjb21w\\nYXRpYmlsaXR5LiBCcmVha2luZyBjaGFuZ2VzIHRvIHRoZSBwdWJsaWMgQVBJ\\nIHdpbGwgb25seSBiZQppbnRyb2R1Y2VkIHdpdGggbmV3IG1ham9yIHZlcnNp\\nb25zLiBBcyBhIHJlc3VsdCBvZiB0aGlzIHBvbGljeSwgeW91IGNhbiAoYW5k\\nCnNob3VsZCkgc3BlY2lmeSBhIGRlcGVuZGVuY3kgb24gdGhpcyBnZW0gdXNp\\nbmcgdGhlIFtQZXNzaW1pc3RpYyBWZXJzaW9uCkNvbnN0cmFpbnRdW3B2Y10g\\nd2l0aCB0d28gZGlnaXRzIG9mIHByZWNpc2lvbi4gRm9yIGV4YW1wbGU6Cgog\\nICAgc3BlYy5hZGRfZGVwZW5kZW5jeSAnb2N0b2tpdCcsICd+PiAxLjAnCgpb\\nc2VtdmVyXTogaHR0cDovL3NlbXZlci5vcmcvCltwdmNdOiBodHRwOi8vZG9j\\ncy5ydWJ5Z2Vtcy5vcmcvcmVhZC9jaGFwdGVyLzE2I3BhZ2U3NAoKIyMjIEpT\\nT04gZGVwZW5kZW5jeQoKU2luY2UgSlNPTiBpcyBpbmNsdWRlZCBpbiAxLjkg\\nbm93LCB3ZSBubyBsb25nZXIgaW5jbHVkZSBpdCBhcyBhIGhhcmQKZGVwZW5k\\nZW5jeS4gUGxlYXNlIHJlcXVpcmUgaXQgZXhwbGljaXRseSBpZiB5b3UncmUg\\ncnVubmluZyBSdWJ5IDEuOAoKICAgIGdlbSAnanNvbicsICd+PiAxLjcnCgoj\\nIyBDb250cmlidXRvcnMKCk9jdG9raXQgd2FzIGluaXRpYWxseSBjcmVhdGVk\\nIGJ5IFd5bm4gTmV0aGVybGFuZCBhbmQgW0FkYW0KU3RhY292aWFrXShodHRw\\nOi8vdHdpdHRlci5jb20vYWRhbXN0YWMpIGJ1dCBoYXMKdHVybmVkIGludG8g\\nYSB0cnVlIGNvbW11bml0eSBlZmZvcnQuIFNwZWNpYWwgdGhhbmtzIHRvIHRo\\nZSBmb2xsb3dpbmcgY29yZQpjb250cmlidXRvcnM6CgoqIFtFcmlrIE1pY2hh\\nZWxzLU9iZXJdKGh0dHA6Ly9naXRodWIuY29tL3NmZXJpaykKKiBbQ2xpbnQg\\nU2hyeW9ja10oaHR0cDovL2dpdGh1Yi5jb20vY3RzaHJ5b2NrKQoqIFtKb2V5\\nIFdlbmR0XShodHRwOi8vZ2l0aHViLmNvbS9qb2V5dykKCgojIyBJbnNwaXJh\\ndGlvbgpPY3Rva2l0IHdhcyBpbnNwaXJlZCBieSBbT2N0b3BpXVtdIGFuZCBh\\naW1zIHRvIGJlIGEgbGlnaHR3ZWlnaHQsCmxlc3MtQWN0aXZlUmVzb3VyY2V5\\nIGFsdGVybmF0aXZlLgoKW29jdG9waV06IGh0dHBzOi8vZ2l0aHViLmNvbS9m\\nY291cnkvb2N0b3BpCgojIyBDb3B5cmlnaHQKQ29weXJpZ2h0IChjKSAyMDEx\\nLTIwMTMgV3lubiBOZXRoZXJsYW5kLCBBZGFtIFN0YWNvdmlhaywgRXJpayBN\\naWNoYWVscy1PYmVyLgpTZWUgW0xJQ0VOU0VdW10gZm9yIGRldGFpbHMuCgpb\\nbGljZW5zZV06IExJQ0VOU0UubWQK\\n\",\"encoding\":\"base64\",\"_links\":{\"self\":\"https://api.github.com/repos/pengwynn/octokit/contents/README.md?ref=master\",\"git\":\"https://api.github.com/repos/pengwynn/octokit/git/blobs/abab527cdd5644de8812f6120aaccf74e9bc6a49\",\"html\":\"https://github.com/pengwynn/octokit/blob/master/README.md\"}}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 16:06:36 GMT
+recorded_with: VCR 2.4.0
