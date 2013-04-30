@@ -13,6 +13,7 @@ require 'octokit/client/downloads'
 require 'octokit/client/emojis'
 require 'octokit/client/events'
 require 'octokit/client/gists'
+require 'octokit/client/gitignore'
 require 'octokit/client/meta'
 require 'octokit/client/rate_limit'
 require 'octokit/client/say'
@@ -31,6 +32,7 @@ module Octokit
     include Octokit::Client::Emojis
     include Octokit::Client::Events
     include Octokit::Client::Gists
+    include Octokit::Client::Gitignore
     include Octokit::Client::Meta
     include Octokit::Client::RateLimit
     include Octokit::Client::Say
