@@ -1,6 +1,6 @@
 module Octokit
   class Client
-    module GitHub
+    module Meta
 
       # Get meta information about GitHub.com, the service.
       #
@@ -10,9 +10,10 @@ module Octokit
       #
       # @example Get GitHub meta information
       #   @client.github_meta
-      def github_meta(options={})
+      def meta(options={})
         get "/meta", options
       end
+      alias :github_meta :meta
 
     end
   end
