@@ -1,0 +1,77 @@
+require File.expand_path('../../../spec_helper.rb', __FILE__)
+
+describe Octokit::Client::Objects do
+
+  before do
+    Octokit.reset!
+    VCR.insert_cassette 'objects'
+    @client = basic_auth_client
+  end
+
+  after do
+    Octokit.reset!
+    VCR.eject_cassette
+  end
+
+  describe ".tree" do
+    it "gets a tree" do
+      result = @client.tree("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
+      result.sha.must_equal "3cdfabd973bc3caac209cba903cfdb3bf6636bcd"
+      result.tree.first.path.must_equal ".gitignore"
+      assert_requested :get, basic_github_url("/repos/sferik/rails_admin/git/trees/3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
+    end
+    it "gets a tree recursively" do
+      result = @client.tree("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd", :recursive => true)
+      result.sha.must_equal "3cdfabd973bc3caac209cba903cfdb3bf6636bcd"
+      result.tree.first.path.must_equal ".gitignore"
+      assert_requested :get, basic_github_url("/repos/sferik/rails_admin/git/trees/3cdfabd973bc3caac209cba903cfdb3bf6636bcd?recursive=true")
+    end
+  end # .tree
+
+  describe ".create_tree" do
+    it "creates a tree" do
+      tree = @client.create_tree("pengwynn/api-sandbox", [ { "path" => "wynning.rb", "mode" => "100644", "type" => "blob", :content => "require 'fun'"} ])
+      assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/git/trees")
+    end
+  end # .create_tree
+
+  describe ".blob" do
+    it "returns a blob" do
+      blob = @client.blob("sferik/rails_admin", "94616fa57520ac8147522c7cf9f03d555595c5ea")
+      blob.sha.must_equal "94616fa57520ac8147522c7cf9f03d555595c5ea"
+      assert_requested :get, basic_github_url("/repos/sferik/rails_admin/git/blobs/94616fa57520ac8147522c7cf9f03d555595c5ea")
+    end
+  end # .blob
+
+  describe ".create_blob" do
+    it "creates a blob" do
+      blob = @client.create_blob("pengwynn/api-sandbox", "content")
+      assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/git/blobs")
+    end
+  end # .create_blob
+
+  describe ".tag" do
+    it "returns a tag" do
+      tag = @client.tag("pengwynn/octokit", "23aad20633f4d2981b1c7209a800db3014774e96")
+      assert_requested :get, basic_github_url("/repos/pengwynn/octokit/git/tags/23aad20633f4d2981b1c7209a800db3014774e96")
+    end
+  end # .tag
+
+  describe ".create_tag" do
+    it "creates a tag" do
+      tag = @client.create_tag(
+        "pengwynn/api-sandbox",
+        "v9000.0.0",
+        "Version 9000\n",
+        "eb11b3141c9dec3ba88d15b499d597a65df15320",
+        "commit",
+        "Wynn Netherland",
+        "wynn.netherland@gmail.com",
+        "2012-06-03T17:03:11-07:00"
+      )
+      assert_equal tag.tag, "v9000.0.0"
+      assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/git/tags")
+    end
+  end # .create_tag
+
+end

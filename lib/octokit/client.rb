@@ -20,6 +20,7 @@ require 'octokit/client/meta'
 require 'octokit/client/markdown'
 require 'octokit/client/milestones'
 require 'octokit/client/notifications'
+require 'octokit/client/objects'
 require 'octokit/client/rate_limit'
 require 'octokit/client/say'
 require 'octokit/client/service_status'
@@ -44,6 +45,7 @@ module Octokit
     include Octokit::Client::Markdown
     include Octokit::Client::Milestones
     include Octokit::Client::Notifications
+    include Octokit::Client::Objects
     include Octokit::Client::RateLimit
     include Octokit::Client::Say
     include Octokit::Client::ServiceStatus
