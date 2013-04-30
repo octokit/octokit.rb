@@ -1,0 +1,54 @@
+--- 
+http_interactions: 
+- request: 
+    method: post
+    uri: https://api.github.com/markdown
+    body: 
+      encoding: UTF-8
+      string: "{\"context\":\"pengwynn/octokit\",\"mode\":\"gfm\",\"text\":\"This is for #111\",\"headers\":{\"accept\":\"application/vnd.github.raw\"}}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 21:21:42 GMT
+      Content-Type: 
+      - text/html;charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "32"
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "168"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"02644231f80a16240bd2cb73647218aa\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: <p>This is for <a href="https://github.com/pengwynn/octokit/issues/111" class="issue-link" title="[GitHub Enterprise] Calls to custom endpoints return 404">#111</a></p>
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 21:21:43 GMT
+recorded_with: VCR 2.4.0
