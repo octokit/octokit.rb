@@ -1,0 +1,1536 @@
+--- 
+http_interactions: 
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355176\",\"color\":\"ededed\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:52:57 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4969"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355176
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"3309aa55ce5b040df368eb9bc7b94d9f\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355176\",\"name\":\"label-1367355176\",\"color\":\"ededed\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:52:57 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355177\",\"color\":\"ffffff\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:52:57 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4968"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355177
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"9ff18cdb116ee28d12e489094b0a3243\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355177\",\"name\":\"label-1367355177\",\"color\":\"ffffff\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:52:57 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/issues
+    body: 
+      encoding: UTF-8
+      string: "{\"title\":\"Issue for label test\",\"body\":\"The body\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:52:58 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4967"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/issues/24
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "1732"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"79c6d90fd8abe69fbcb9165b437a14b5\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/issues/24\",\"labels_url\":\"https://api.github.com/repos/pengwynn/api-sandbox/issues/24/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/pengwynn/api-sandbox/issues/24/comments\",\"events_url\":\"https://api.github.com/repos/pengwynn/api-sandbox/issues/24/events\",\"html_url\":\"https://github.com/pengwynn/api-sandbox/issues/24\",\"id\":13826623,\"number\":24,\"title\":\"Issue for label test\",\"user\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"labels\":[],\"state\":\"open\",\"assignee\":null,\"milestone\":null,\"comments\":0,\"created_at\":\"2013-04-30T20:52:57Z\",\"updated_at\":\"2013-04-30T20:52:57Z\",\"closed_at\":null,\"pull_request\":{\"html_url\":null,\"diff_url\":null,\"patch_url\":null},\"body\":\"The body\",\"closed_by\":null}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:52:58 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/issues/24/labels
+    body: 
+      encoding: UTF-8
+      string: "[\"bug\"]"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:52:58 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4966"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "102"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"11ae40fbb79825bcade9a2446359040b\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "[{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/bug\",\"name\":\"bug\",\"color\":\"ededed\"}]"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:52:58 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/repos/pengwynn/octokit/labels/V3+Addition
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:52:58 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "36"
+      Vary: 
+      - Accept
+      - Accept-Encoding
+      Cache-Control: 
+      - public, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Sat, 20 Oct 2007 11:24:19 GMT
+      Etag: 
+      - "\"af5b24937f20d4d72e8dc0bd275cbf5f\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/octokit/labels/V3+Addition\",\"name\":\"V3 Addition\",\"color\":\"ededed\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:52:59 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/repos/pengwynn/octokit/labels
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:52:59 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "35"
+      Vary: 
+      - Accept
+      - Accept-Encoding
+      Cache-Control: 
+      - public, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Sat, 20 Oct 2007 11:24:19 GMT
+      Etag: 
+      - "\"af5b24937f20d4d72e8dc0bd275cbf5f\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "[{\"url\":\"https://api.github.com/repos/pengwynn/octokit/labels/V3+Transition\",\"name\":\"V3 Transition\",\"color\":\"02d7e1\"},{\"url\":\"https://api.github.com/repos/pengwynn/octokit/labels/V3+Addition\",\"name\":\"V3 Addition\",\"color\":\"ededed\"},{\"url\":\"https://api.github.com/repos/pengwynn/octokit/labels/Bug\",\"name\":\"Bug\",\"color\":\"e10c02\"},{\"url\":\"https://api.github.com/repos/pengwynn/octokit/labels/feature+request\",\"name\":\"feature request\",\"color\":\"0b02e1\"}]"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:52:59 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/repos/pengwynn/octokit/milestones/2/labels
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:52:59 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "34"
+      Vary: 
+      - Accept
+      - Accept-Encoding
+      Cache-Control: 
+      - public, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Tue, 30 Apr 2013 20:27:07 GMT
+      Etag: 
+      - "\"ed49f13aeb50dbaf933188841746cbae\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "[{\"url\":\"https://api.github.com/repos/pengwynn/octokit/labels/V3+Transition\",\"name\":\"V3 Transition\",\"color\":\"02d7e1\"},{\"url\":\"https://api.github.com/repos/pengwynn/octokit/labels/V3+Addition\",\"name\":\"V3 Addition\",\"color\":\"ededed\"},{\"url\":\"https://api.github.com/repos/pengwynn/octokit/labels/Bug\",\"name\":\"Bug\",\"color\":\"e10c02\"}]"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:52:59 GMT
+- request: 
+    method: delete
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/issues/24/labels
+    body: 
+      encoding: UTF-8
+      string: "{}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 204
+      message: No Content
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:52:59 GMT
+      Connection: 
+      - keep-alive
+      Status: 
+      - 204 No Content
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4965"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: ""
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:53:00 GMT
+- request: 
+    method: delete
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/issues/24/labels/bug
+    body: 
+      encoding: UTF-8
+      string: "{}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:53:00 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4964"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "2"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"d751713988987e9331980363e24189ce\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "[]"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:53:00 GMT
+- request: 
+    method: put
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/issues/24/labels
+    body: 
+      encoding: UTF-8
+      string: "[\"bug\",\"pdi\"]"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:53:00 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4963"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "203"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"faf4462bb5159641a5d7fd06298f7df2\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "[{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/bug\",\"name\":\"bug\",\"color\":\"ededed\"},{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/pdi\",\"name\":\"pdi\",\"color\":\"ededed\"}]"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:53:00 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355180\",\"color\":\"ffffff\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:53:00 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4962"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355180
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"642f00786d480e6ffb16823085d60cf4\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355180\",\"name\":\"label-1367355180\",\"color\":\"ffffff\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:53:01 GMT
+- request: 
+    method: patch
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355180
+    body: 
+      encoding: UTF-8
+      string: "{\"color\":\"ededed\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:53:01 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4961"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"4be13b11c8f8cdecb3b2bebf1a69a3ec\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355180\",\"name\":\"label-1367355180\",\"color\":\"ededed\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:53:01 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355374\",\"color\":\"ededed\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:56:15 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4960"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355374
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"543fdee9c753eac301d581d2b78399a5\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355374\",\"name\":\"label-1367355374\",\"color\":\"ededed\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:56:15 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355375\",\"color\":\"ffffff\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:56:15 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4959"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355375
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"56e3a09c52915a43189e2ab8cebc572d\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355375\",\"name\":\"label-1367355375\",\"color\":\"ffffff\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:56:16 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355376\",\"color\":\"ffffff\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:56:16 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4958"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355376
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"f9592e7223c8104fc202a03cf40e175e\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355376\",\"name\":\"label-1367355376\",\"color\":\"ffffff\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:56:17 GMT
+- request: 
+    method: patch
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355376
+    body: 
+      encoding: UTF-8
+      string: "{\"color\":\"ededed\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:56:17 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4957"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"fff6e93c98f6ba0eafd5f937762ed893\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355376\",\"name\":\"label-1367355376\",\"color\":\"ededed\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:56:17 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355463\",\"color\":\"ededed\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:44 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4956"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355463
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"22de50b95e638b9cbad7b7f5139c841e\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355463\",\"name\":\"label-1367355463\",\"color\":\"ededed\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:44 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355464\",\"color\":\"ffffff\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:44 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4955"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355464
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"ec62fd328361783c01efb49ef09a992a\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355464\",\"name\":\"label-1367355464\",\"color\":\"ffffff\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:45 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355465\",\"color\":\"ffffff\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:45 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4954"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355465
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"7436b1db6ed4437f1fbb863613e51fee\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355465\",\"name\":\"label-1367355465\",\"color\":\"ffffff\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:46 GMT
+- request: 
+    method: delete
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355465
+    body: 
+      encoding: UTF-8
+      string: "{\"color\":\"ededed\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 204
+      message: No Content
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:46 GMT
+      Connection: 
+      - keep-alive
+      Status: 
+      - 204 No Content
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4953"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: ""
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:46 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/repos/pengwynn/octokit/issues/37/labels
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:46 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "33"
+      Vary: 
+      - Accept
+      - Accept-Encoding
+      Cache-Control: 
+      - public, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Tue, 30 Apr 2013 20:27:07 GMT
+      Etag: 
+      - "\"ed49f13aeb50dbaf933188841746cbae\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "[{\"url\":\"https://api.github.com/repos/pengwynn/octokit/labels/Bug\",\"name\":\"Bug\",\"color\":\"e10c02\"},{\"url\":\"https://api.github.com/repos/pengwynn/octokit/labels/V3+Addition\",\"name\":\"V3 Addition\",\"color\":\"ededed\"},{\"url\":\"https://api.github.com/repos/pengwynn/octokit/labels/V3+Transition\",\"name\":\"V3 Transition\",\"color\":\"02d7e1\"}]"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:47 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355467\",\"color\":\"ffffff\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:47 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4952"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355467
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"4bae67921228c7e02f4fd4a3524f0bef\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355467\",\"name\":\"label-1367355467\",\"color\":\"ffffff\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:48 GMT
+- request: 
+    method: patch
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355467
+    body: 
+      encoding: UTF-8
+      string: "{\"color\":\"ededed\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:48 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4951"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"fa5d010095cfb9d57e34059fe0f36964\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355467\",\"name\":\"label-1367355467\",\"color\":\"ededed\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:48 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355471\",\"color\":\"ededed\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:51 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4950"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355471
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"73960931ff175041d9f194993f6096a3\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355471\",\"name\":\"label-1367355471\",\"color\":\"ededed\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:52 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355472\",\"color\":\"ffffff\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:52 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4949"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355472
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"0ccadc12657e4e92de860e262b8c56b0\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355472\",\"name\":\"label-1367355472\",\"color\":\"ffffff\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:52 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355473\",\"color\":\"ffffff\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:53 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4948"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355473
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"1e51bdd793b9aff704c0be2fc5cd9cd5\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355473\",\"name\":\"label-1367355473\",\"color\":\"ffffff\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:53 GMT
+- request: 
+    method: delete
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355473
+    body: 
+      encoding: UTF-8
+      string: "{\"color\":\"ededed\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 204
+      message: No Content
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:53 GMT
+      Connection: 
+      - keep-alive
+      Status: 
+      - 204 No Content
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4947"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: ""
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:54 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels
+    body: 
+      encoding: UTF-8
+      string: "{\"name\":\"label-1367355474\",\"color\":\"ffffff\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:54 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4946"
+      Location: 
+      - https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355474
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"a1b83c1cc416aabec34aa4d04b3ae60a\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355474\",\"name\":\"label-1367355474\",\"color\":\"ffffff\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:54 GMT
+- request: 
+    method: patch
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355474
+    body: 
+      encoding: UTF-8
+      string: "{\"color\":\"ededed\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 30 Apr 2013 20:57:54 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4945"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "126"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"58df69e258967b0206307cde450f8f57\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/labels/label-1367355474\",\"name\":\"label-1367355474\",\"color\":\"ededed\"}"
+    http_version: 
+  recorded_at: Tue, 30 Apr 2013 20:57:55 GMT
+recorded_with: VCR 2.4.0

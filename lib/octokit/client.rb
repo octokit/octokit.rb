@@ -15,6 +15,7 @@ require 'octokit/client/events'
 require 'octokit/client/gists'
 require 'octokit/client/gitignore'
 require 'octokit/client/issues'
+require 'octokit/client/labels'
 require 'octokit/client/meta'
 require 'octokit/client/rate_limit'
 require 'octokit/client/say'
@@ -35,6 +36,7 @@ module Octokit
     include Octokit::Client::Gists
     include Octokit::Client::Gitignore
     include Octokit::Client::Issues
+    include Octokit::Client::Labels
     include Octokit::Client::Meta
     include Octokit::Client::RateLimit
     include Octokit::Client::Say
