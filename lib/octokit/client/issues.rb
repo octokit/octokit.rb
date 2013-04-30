@@ -38,7 +38,7 @@ module Octokit
         path = ''
         path = "repos/#{Repository.new(repository)}" if repository
         path += "/issues"
-        get(path, options)
+        paginate(path, options)
       end
       alias :issues :list_issues
 
@@ -59,9 +59,9 @@ module Octokit
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.user_issues
       def user_issues(options={})
-        get('/user/issues', options)
+        paginate('/user/issues', options)
       end
-      
+
       # List all issues for a given organization for the authenticated user
       #
       # @param org [String] Organization GitHub username.
@@ -80,7 +80,7 @@ module Octokit
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.user_issues
       def org_issues(org, options={})
-        get("/orgs/#{org}/issues", options)
+        paginate("/orgs/#{org}/issues", options)
       end
 
       # Create an issue for a repository
@@ -185,11 +185,11 @@ module Octokit
       # @example Get issues comments, sort by updated descending since a time
       #   @client.issues_comments("pengwynn/octokit", {
       #     :sort => 'desc',
-      #     :direction => 'down',
+      #     :direction => 'asc',
       #     :since => '2010-05-04T23:45:02Z'
       #   })
       def issues_comments(repo, options={})
-        get "/repos/#{Repository.new repo}/issues/comments", options
+        paginate "/repos/#{Repository.new repo}/issues/comments", options
       end
 
       # Get all comments attached to an issue
@@ -201,7 +201,7 @@ module Octokit
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
       def issue_comments(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/#{number}/comments", options)
+        paginate("repos/#{Repository.new(repo)}/issues/#{number}/comments", options)
       end
 
       # Get a single comment attached to an issue
@@ -213,7 +213,7 @@ module Octokit
       # @example Get comment #1194549 from an issue on pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", 1194549)
       def issue_comment(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/comments/#{number}", options)
+        paginate("repos/#{Repository.new(repo)}/issues/comments/#{number}", options)
       end
 
       # Add a comment to an issue
