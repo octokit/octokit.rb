@@ -253,33 +253,6 @@ module Octokit
       def delete_comment(repo, number, options={})
         boolean_from_response(:delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options)
       end
-
-      # List events for an Issue
-      #
-      # @param repo [String, Repository, Hash] A GitHub repository
-      # @param number [Integer] Issue number
-      #
-      # @return [Array] Array of events for that issue
-      # @see http://developer.github.com/v3/issues/events/#list-events-for-an-issue
-      # @example List all issues events for issue #38 on pengwynn/octokit
-      #   Octokit.issue_events("pengwynn/octokit", 38)
-      def issue_events(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/#{number}/events", options)
-      end
-
-      # Get information on a single Issue Event
-      #
-      # @param repo [String, Repository, Hash] A GitHub repository
-      # @param number [Integer] Event number
-      #
-      # @return [Event] A single Event for an Issue
-      # @see http://developer.github.com/v3/issues/events/#get-a-single-event
-      # @example Get Event information for ID 3094334 (a pull request was closed)
-      #   Octokit.issue_event("pengwynn/octokit", 3094334)
-      def issue_event(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/events/#{number}", options)
-      end
-
     end
   end
 end

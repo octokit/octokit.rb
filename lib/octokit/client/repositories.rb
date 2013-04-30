@@ -573,19 +573,6 @@ module Octokit
         boolean_from_response(:post, "repos/#{Repository.new repo}/hooks/#{id}/tests", options)
       end
 
-      # Get all Issue Events for a given Repository
-      #
-      # @param repo [String, Repository, Hash] A GitHub repository
-      #
-      # @return [Array] Array of all Issue Events for this Repository
-      # @see http://developer.github.com/v3/issues/events/#list-events-for-a-repository
-      # @example Get all Issue Events for Octokit
-      #   Octokit.repository_issue_events("pengwynn/octokit")
-      def repository_issue_events(repo, options={})
-        get "repos/#{Repository.new repo}/issues/events", options
-      end
-      alias :repo_issue_events :repository_issue_events
-
       # List users available for assigning to issues.
       #
       # Requires authenticated client for private repos.
