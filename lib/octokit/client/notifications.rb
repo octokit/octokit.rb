@@ -27,7 +27,7 @@ module Octokit
       # @example Get all notifications since a certain time.
       #   @client.notifications({all: true, since: '2012-10-09T23:39:01Z'})
       def notifications(options={})
-        get("notifications", options)
+        paginate("notifications", options)
       end
 
       # List your notifications in a repository
@@ -56,7 +56,7 @@ module Octokit
       # @example Get your notifications for pengwynn/octokit since a time.
       #   @client.repository_notifications({since: '2012-10-09T23:39:01Z'})
       def repository_notifications(repo, options={})
-        get("repos/#{Repository.new repo}/notifications", options)
+        paginate("repos/#{Repository.new repo}/notifications", options)
       end
       alias :repo_notifications :repository_notifications
 
@@ -81,9 +81,9 @@ module Octokit
       # @example
       #   @client.mark_notifications_as_read
       def mark_notifications_as_read(options={})
-        request(:put, "notifications", options).status == 205
-      rescue Octokit::Error
-        false
+        request(:put, "notifications", options)
+
+        last_response.status == 205
       end
 
       # Mark notifications from a specific repository as read
@@ -108,9 +108,9 @@ module Octokit
       # @example
       #   @client.mark_notifications_as_read("pengwynn/octokit")
       def mark_repository_notifications_as_read(repo, options={})
-        request(:put, "repos/#{Repository.new repo}/notifications", options).status == 205
-      rescue Octokit::Error
-        false
+        request(:put, "repos/#{Repository.new repo}/notifications", options)
+
+        last_response.status == 205
       end
       alias :mark_repo_notifications_as_read :mark_repository_notifications_as_read
 
@@ -145,9 +145,9 @@ module Octokit
       # @example
       #   @client.mark_thread_as_ready(1, :read => false)
       def mark_thread_as_read(thread_id, options={})
-        request(:patch, "notifications/threads/#{thread_id}", options).status == 205
-      rescue Octokit::Error
-        false
+        request(:patch, "notifications/threads/#{thread_id}", options)
+
+        last_response.status == 205
       end
 
       # Get thread subscription
@@ -204,7 +204,7 @@ module Octokit
       # @example
       #   @client.delete_thread_subscription(1)
       def delete_thread_subscription(thread_id, options={})
-        boolean_from_response(:delete, "notifications/threads/#{thread_id}", options)
+        boolean_from_response(:delete, "notifications/threads/#{thread_id}/subscription", options)
       end
 
     end

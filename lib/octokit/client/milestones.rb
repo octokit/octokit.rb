@@ -15,7 +15,7 @@ module Octokit
       # @example List milestones for a repository
       #   Octokit.list_milestones("pengwynn/octokit")
       def list_milestones(repository, options={})
-        get("repos/#{Repository.new(repository)}/milestones", options)
+        paginate("repos/#{Repository.new(repository)}/milestones", options)
       end
       alias :milestones :list_milestones
 
