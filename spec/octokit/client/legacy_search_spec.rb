@@ -22,4 +22,13 @@ describe "Legacy search" do
     end
   end # .legacy_searcy_users
 
+  describe ".legacy_search_repos" do
+    it "returns matching repositories" do
+      skip
+      stub_get("https://api.github.com/legacy/repos/search/One40Proof").
+        to_return(json_response("legacy/repositories.json"))
+      repositories = @client.search_repositories("One40Proof")
+      expect(repositories.first.name).to eq("One40Proof")
+    end
+  end # .legacy_search_repos
 end

@@ -37,7 +37,9 @@ module Octokit
       # @option options [String] :default_branch Update the default branch for this repository.
       # @return [Hashie::Mash] Repository information
       def edit_repository(repo, options={})
-        patch "repos/#{Repository.new repo}", options
+        repo = Repository.new(repo)
+        options[:name] ||= repo.name
+        patch "repos/#{repo}", options
       end
       alias :edit :edit_repository
       alias :update_repository :edit_repository
@@ -53,9 +55,9 @@ module Octokit
       # @return [Array<Hashie::Mash>] List of repositories
       def repositories(username=nil, options={})
         if username.nil?
-          get 'user/repos', options
+          paginate 'user/repos', options
         else
-          get "users/#{username}/repos", options
+          paginate "users/#{username}/repos", options
         end
       end
       alias :list_repositories :repositories
@@ -75,7 +77,7 @@ module Octokit
       #
       # @return [Array] List of repositories.
       def all_repositories(options={})
-        get '/repositories', options
+        paginate '/repositories', options
       end
 
       # Star a repository
@@ -191,7 +193,7 @@ module Octokit
       # @example
       #   @client.list_deploy_keys('pengwynn/octokit')
       def deploy_keys(repo, options={})
-        get "repos/#{Repository.new repo}/keys", options
+        paginate "repos/#{Repository.new repo}/keys", options
       end
       alias :list_deploy_keys :deploy_keys
 
@@ -241,7 +243,7 @@ module Octokit
       # @example
       #   @client.collabs('pengwynn/octokit')
       def collaborators(repo, options={})
-        get "repos/#{Repository.new repo}/collaborators", options
+        paginate "repos/#{Repository.new repo}/collaborators", options
       end
       alias :collabs :collaborators
 
@@ -296,7 +298,7 @@ module Octokit
       # @example
       #   @client.teams('octokit/pengwynn')
       def repository_teams(repo, options={})
-        get "repos/#{Repository.new repo}/teams", options
+        paginate "repos/#{Repository.new repo}/teams", options
       end
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
@@ -316,8 +318,9 @@ module Octokit
       #   Octokit.contribs('pengwynn/octokit')
       # @example
       #   @client.contribs('pengwynn/octokit') 
-      def contributors(repo, anon=false, options={})
-        get "repos/#{Repository.new repo}/contributors", options.merge(:anon => anon)
+      def contributors(repo, anon = nil, options={})
+        options[:anon] = 1 if anon.to_s[/1|true/]
+        paginate "repos/#{Repository.new repo}/contributors", options
       end
       alias :contribs :contributors
 
@@ -334,7 +337,7 @@ module Octokit
       # @example
       #   @client.stargazers('pengwynn/octokit')
       def stargazers(repo, options={})
-        get "repos/#{Repository.new repo}/stargazers", options
+        paginate "repos/#{Repository.new repo}/stargazers", options
       end
 
       # @deprecated Use #stargazers instead
@@ -353,7 +356,7 @@ module Octokit
       # @example
       #   @client.watchers('pengwynn/octokit')
       def watchers(repo, options={})
-        get "repos/#{Repository.new repo}/watchers", options
+        paginate "repos/#{Repository.new repo}/watchers", options
       end
 
       # List forks
@@ -371,7 +374,7 @@ module Octokit
       # @example
       #   @client.forks('pengwynn/octokit')
       def forks(repo, options={})
-        get "repos/#{Repository.new repo}/forks", options
+        paginate "repos/#{Repository.new repo}/forks", options
       end
       alias :network :forks
 
@@ -388,7 +391,7 @@ module Octokit
       # @example
       #   @client.languages('pengwynn/octokit')
       def languages(repo, options={})
-        get "repos/#{Repository.new repo}/languages", options
+        paginate "repos/#{Repository.new repo}/languages", options
       end
 
       # List tags
@@ -404,7 +407,7 @@ module Octokit
       # @example
       #   @client.tags('pengwynn/octokit')
       def tags(repo, options={})
-        get "repos/#{Repository.new repo}/tags", options
+        paginate "repos/#{Repository.new repo}/tags", options
       end
 
       # List branches
@@ -420,7 +423,7 @@ module Octokit
       # @example
       #   @client.branches('pengwynn/octokit')
       def branches(repo, options={})
-        get "repos/#{Repository.new repo}/branches", options
+        paginate "repos/#{Repository.new repo}/branches", options
       end
 
       # Get a single branch from a repository
@@ -447,7 +450,7 @@ module Octokit
       # @example
       #   @client.hooks('pengwynn/octokit')
       def hooks(repo, options={})
-        get "repos/#{Repository.new repo}/hooks", options
+        paginate "repos/#{Repository.new repo}/hooks", options
       end
 
       # Get single hook
@@ -588,7 +591,7 @@ module Octokit
       # @example
       #   @client.repository_assignees('pengwynn/octokit')
       def repository_assignees(repo, options={})
-        get "repos/#{Repository.new repo}/assignees", options
+        paginate "repos/#{Repository.new repo}/assignees", options
       end
       alias :repo_assignees :repository_assignees
 
@@ -616,7 +619,7 @@ module Octokit
       # @example
       #   @client.subscribers("pengwynn/octokit")
       def subscribers(repo, options={})
-        get("repos/#{Repository.new repo}/subscribers", options)
+        paginate("repos/#{Repository.new repo}/subscribers", options)
       end
 
       # Get a repository subscription
