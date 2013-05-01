@@ -1,0 +1,164 @@
+--- 
+http_interactions: 
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/<GITHUB_LOGIN>/rails_admin/statuses/ebbda2c02d067bb9c3ee1c0a86de2c72fc882d6e
+    body: 
+      encoding: UTF-8
+      string: "{\"target_url\":\"http://wynnnetherland.com\",\"state\":\"success\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Wed, 01 May 2013 19:38:30 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4999"
+      Location: 
+      - https://api.github.com/repos/<GITHUB_LOGIN>/rails_admin/statuses/ebbda2c02d067bb9c3ee1c0a86de2c72fc882d6e
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "1301"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"9e92ded1d0b7f01e2c912f78b4bea50f\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/<GITHUB_LOGIN>/rails_admin/statuses/ebbda2c02d067bb9c3ee1c0a86de2c72fc882d6e\",\"id\":9245099,\"state\":\"success\",\"description\":null,\"target_url\":\"http://wynnnetherland.com\",\"creator\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"created_at\":\"2013-05-01T19:38:30Z\",\"updated_at\":\"2013-05-01T19:38:30Z\"}"
+    http_version: 
+  recorded_at: Wed, 01 May 2013 19:38:30 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/repos/pengwynn/octokit/statuses/7d069dedd4cb56bf57760688657abd0e6b5a28b8
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Wed, 01 May 2013 19:38:30 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "42"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"2def387a9f8e53660950c188aea1be23\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: ASCII-8BIT
+      string: "[{\"url\":\"https://api.github.com/repos/pengwynn/octokit/statuses/7d069dedd4cb56bf57760688657abd0e6b5a28b8\",\"id\":64171,\"state\":\"failure\",\"description\":\"The Travis build failed\",\"target_url\":\"http://travis-ci.org/pengwynn/octokit/builds/2092930\",\"creator\":{\"login\":\"pengwynn\",\"id\":865,\"avatar_url\":\"https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"7e19cd5486b5d6dc1ef90e671ba52ae0\",\"url\":\"https://api.github.com/users/pengwynn\",\"html_url\":\"https://github.com/pengwynn\",\"followers_url\":\"https://api.github.com/users/pengwynn/followers\",\"following_url\":\"https://api.github.com/users/pengwynn/following\",\"gists_url\":\"https://api.github.com/users/pengwynn/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/pengwynn/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/pengwynn/subscriptions\",\"organizations_url\":\"https://api.github.com/users/pengwynn/orgs\",\"repos_url\":\"https://api.github.com/users/pengwynn/repos\",\"events_url\":\"https://api.github.com/users/pengwynn/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/pengwynn/received_events\",\"type\":\"User\"},\"created_at\":\"2012-08-11T06:49:10Z\",\"updated_at\":\"2012-08-11T06:49:10Z\"},{\"url\":\"https://api.github.com/repos/pengwynn/octokit/statuses/7d069dedd4cb56bf57760688657abd0e6b5a28b8\",\"id\":64167,\"state\":\"pending\",\"description\":\"The Travis build is in progress\",\"target_url\":\"http://travis-ci.org/pengwynn/octokit/builds/2092930\",\"creator\":{\"login\":\"pengwynn\",\"id\":865,\"avatar_url\":\"https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"7e19cd5486b5d6dc1ef90e671ba52ae0\",\"url\":\"https://api.github.com/users/pengwynn\",\"html_url\":\"https://github.com/pengwynn\",\"followers_url\":\"https://api.github.com/users/pengwynn/followers\",\"following_url\":\"https://api.github.com/users/pengwynn/following\",\"gists_url\":\"https://api.github.com/users/pengwynn/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/pengwynn/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/pengwynn/subscriptions\",\"organizations_url\":\"https://api.github.com/users/pengwynn/orgs\",\"repos_url\":\"https://api.github.com/users/pengwynn/repos\",\"events_url\":\"https://api.github.com/users/pengwynn/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/pengwynn/received_events\",\"type\":\"User\"},\"created_at\":\"2012-08-11T06:48:35Z\",\"updated_at\":\"2012-08-11T06:48:35Z\"}]"
+    http_version: 
+  recorded_at: Wed, 01 May 2013 19:38:31 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/<GITHUB_LOGIN>/rails_admin/statuses/99a0932e18dfecec394228443f92782123496548
+    body: 
+      encoding: UTF-8
+      string: "{\"target_url\":\"http://wynnnetherland.com\",\"state\":\"success\"}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Wed, 01 May 2013 19:43:51 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4998"
+      Location: 
+      - https://api.github.com/repos/<GITHUB_LOGIN>/rails_admin/statuses/99a0932e18dfecec394228443f92782123496548
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "1301"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"b9a38d37b84fea06f5be7af87101a1d3\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/repos/<GITHUB_LOGIN>/rails_admin/statuses/99a0932e18dfecec394228443f92782123496548\",\"id\":9245457,\"state\":\"success\",\"description\":null,\"target_url\":\"http://wynnnetherland.com\",\"creator\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"created_at\":\"2013-05-01T19:43:51Z\",\"updated_at\":\"2013-05-01T19:43:51Z\"}"
+    http_version: 
+  recorded_at: Wed, 01 May 2013 19:43:52 GMT
+recorded_with: VCR 2.4.0

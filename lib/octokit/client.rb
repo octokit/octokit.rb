@@ -29,6 +29,7 @@ require 'octokit/client/refs'
 require 'octokit/client/repositories'
 require 'octokit/client/say'
 require 'octokit/client/service_status'
+require 'octokit/client/statuses'
 require 'octokit/client/users'
 
 
@@ -59,6 +60,7 @@ module Octokit
     include Octokit::Client::Repositories
     include Octokit::Client::Say
     include Octokit::Client::ServiceStatus
+    include Octokit::Client::Statuses
     include Octokit::Client::Users
 
     attr_reader :last_response
