@@ -1,6 +1,6 @@
 module Octokit
   class Client
-    module Pulls
+    module PullRequests
       # List pull requests for a repository
       #
       # @see http://developer.github.com/v3/pulls/#list-pull-requests
@@ -10,8 +10,9 @@ module Octokit
       # @return [Array<Hashie::Mash>] Array of pulls
       # @example
       #   Octokit.pull_requests('rails/rails')
-      def pull_requests(repo, state='open', options={})
-        get("repos/#{Repository.new(repo)}/pulls", options.merge({:state => state}))
+      def pull_requests(repo, state = nil, options={})
+        options[:state] = state if state
+        get("repos/#{Repository.new(repo)}/pulls", options)
       end
       alias :pulls :pull_requests
 

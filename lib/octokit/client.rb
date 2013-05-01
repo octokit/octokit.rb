@@ -23,6 +23,7 @@ require 'octokit/client/notifications'
 require 'octokit/client/objects'
 require 'octokit/client/organizations'
 require 'octokit/client/pub_sub_hubbub'
+require 'octokit/client/pull_requests'
 require 'octokit/client/rate_limit'
 require 'octokit/client/say'
 require 'octokit/client/service_status'
@@ -50,6 +51,7 @@ module Octokit
     include Octokit::Client::Objects
     include Octokit::Client::Organizations
     include Octokit::Client::PubSubHubbub
+    include Octokit::Client::PullRequests
     include Octokit::Client::RateLimit
     include Octokit::Client::Say
     include Octokit::Client::ServiceStatus
