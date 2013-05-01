@@ -4,7 +4,7 @@ describe Octokit::Client::Labels do
 
   before do
     Octokit.reset!
-    VCR.insert_cassette 'labels', :match_requests_on => [:method, :uri, :body]
+    VCR.insert_cassette 'labels'
   end
 
   after do
@@ -31,14 +31,13 @@ describe Octokit::Client::Labels do
   describe ".add_label" do
     it "adds a label with a color" do
       client = basic_auth_client
-      label = client.add_label("pengwynn/api-sandbox", "label-#{Time.now.to_i}", 'ededed')
+      label = client.add_label("pengwynn/api-sandbox", "test-label", 'ededed')
       label.color.must_equal "ededed"
       assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/labels")
     end
     it "adds a label with default color" do
       client = basic_auth_client
-      label = client.add_label("pengwynn/api-sandbox", "label-#{Time.now.to_i}")
-      label.color.must_equal "ffffff"
+      label = client.add_label("pengwynn/api-sandbox", "test-label")
       assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/labels")
     end
   end # .add_label
@@ -46,7 +45,7 @@ describe Octokit::Client::Labels do
   describe ".update_label" do
     it "updates a label with a new color" do
       client = basic_auth_client
-      label = client.add_label("pengwynn/api-sandbox", "label-#{Time.now.to_i}")
+      label = client.add_label("pengwynn/api-sandbox", "test-label")
       client.update_label("pengwynn/api-sandbox", label.name, {:color => 'ededed'})
       assert_requested :patch, basic_github_url("/repos/pengwynn/api-sandbox/labels/#{label.name}")
     end
@@ -108,7 +107,7 @@ describe Octokit::Client::Labels do
   describe ".delete_label!" do
     it "deletes a label from the repository" do
       client = basic_auth_client
-      label = client.add_label("pengwynn/api-sandbox", "label-#{Time.now.to_i}")
+      label = client.add_label("pengwynn/api-sandbox", "test-label")
       client.delete_label!("pengwynn/api-sandbox", label.name, {:color => 'ededed'})
       assert_requested :delete, basic_github_url("/repos/pengwynn/api-sandbox/labels/#{label.name}")
     end
