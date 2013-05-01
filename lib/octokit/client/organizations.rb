@@ -146,7 +146,12 @@ module Octokit
       #   @client.organization_member?('your_organization', 'pengwynn')
       #   => false
       def organization_member?(org, user, options={})
-        boolean_from_response(:get, "orgs/#{org}/members/#{user}", options)
+        result = boolean_from_response(:get, "orgs/#{org}/members/#{user}", options)
+        if last_response.status == 302
+          boolean_from_response(:get, last_response.headers['Location'])
+        else
+          result
+        end
       end
       alias :org_member? :organization_member?
 
