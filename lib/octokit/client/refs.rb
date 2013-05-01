@@ -10,8 +10,10 @@ module Octokit
       # @see http://developer.github.com/v3/git/refs/
       # @example Fetch all refs for sferik/rails_admin
       #   Octokit.refs("sferik/rails_admin")
-      def refs(repo, namespace="", options={})
-        get("repos/#{Repository.new(repo)}/git/refs/#{namespace}", options)
+      def refs(repo, namespace = nil, options={})
+        path = "repos/#{Repository.new(repo)}/git/refs"
+        path += "/#{namespace}" unless namespace.nil?
+        get(path, options)
       end
       alias :list_refs :refs
       alias :references :refs
