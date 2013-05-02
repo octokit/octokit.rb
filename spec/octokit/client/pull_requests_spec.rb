@@ -105,58 +105,59 @@ describe Octokit::Client::PullRequests do
   end # .create_pull_request_comment
 
   describe ".create_pull_request_comment_reply" do
-    xit "creates a new reply to a pull request comment" do
+    it "creates a new reply to a pull request comment" do
       new_comment = {
         :body => "done.",
-        :in_reply_to => 1903950
+        :in_reply_to => 4038128
       }
-      stub_post("https://api.github.com/repos/pengwynn/octokit/pulls/163/comments").
-        with(:body => new_comment).
-          to_return(json_response("pull_request_comment_reply.json"))
-      reply = @client.create_pull_request_comment_reply("pengwynn/octokit", 163, new_comment[:body], new_comment[:in_reply_to])
-      expect(reply.id).to eq(1907270)
+      reply = @client.create_pull_request_comment_reply("api-playground/api-sandbox", 1, new_comment[:body], new_comment[:in_reply_to])
+      assert_requested :post, basic_github_url("/repos/api-playground/api-sandbox/pulls/1/comments")
       expect(reply.body).to eq(new_comment[:body])
     end
   end # .create_pull_request_comment_reply
 
   describe ".update_pull_request_comment" do
-    xit "updates a pull request comment" do
-      stub_patch("https://api.github.com/repos/pengwynn/octokit/pulls/comments/1907270").
-        with(:body => { :body => ":shipit:"}).
-          to_return(json_response("pull_request_comment_update.json"))
-      comment = @client.update_pull_request_comment("pengwynn/octokit", 1907270, ":shipit:")
+    it "updates a pull request comment" do
+      new_comment = {
+        :body => "done.",
+        :in_reply_to => 4038128
+      }
+      reply = @client.create_pull_request_comment_reply("api-playground/api-sandbox", 1, new_comment[:body], new_comment[:in_reply_to])
+      comment = @client.update_pull_request_comment("api-playground/api-sandbox", reply.id, ":shipit:")
       expect(comment.body).to eq(":shipit:")
+      assert_requested :patch, basic_github_url("/repos/api-playground/api-sandbox/pulls/comments/#{reply.id}")
     end
   end # .update_pull_request_comment
 
   describe ".delete_pull_request_comment" do
-    xit "deletes a pull request comment" do
-      stub_delete("https://api.github.com/repos/pengwynn/octokit/pulls/comments/1907270").
-        to_return(:status => 204)
-      result = @client.delete_pull_request_comment("pengwynn/octokit", 1907270)
+    it "deletes a pull request comment" do
+      new_comment = {
+        :body => "done.",
+        :in_reply_to => 4038128
+      }
+      reply = @client.create_pull_request_comment_reply("api-playground/api-sandbox", 1, new_comment[:body], new_comment[:in_reply_to])
+      result = @client.delete_pull_request_comment("api-playground/api-sandbox", reply.id)
       expect(result).to eq(true)
+      assert_requested :delete, basic_github_url("/repos/api-playground/api-sandbox/pulls/comments/#{reply.id}")
     end
   end # .delete_pull_request_comment
 
-  describe ".merge_pull_request" do
-    xit "merges the pull request" do
-      stub_put("https://api.github.com/repos/pengwynn/octokit/pulls/67/merge").
-        to_return(json_response("pull_request_merged.json"))
-      response = @client.merge_pull_request("pengwynn/octokit", 67)
-      expect(response["sha"]).to eq("2097821c7c5aa4dc02a2cc54d5ca51968b373f95")
-    end
-  end # .merge_pull_request
-
   describe ".pull_request_files" do
-    xit "lists files for a pull request" do
-      stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/142/files").
-        to_return(json_response("pull_request_files.json"))
-
-      files = @client.pull_request_files("pengwynn/octokit", 142)
+    it "lists files for a pull request" do
+      files = @client.pull_request_files("api-playground/api-sandbox", 1)
       file = files.first
-      expect(file.filename).to eq('README.md')
-      expect(file.additions).to eq(28)
+      expect(file.filename).to eq('README')
+      expect(file.additions).to eq(1)
+      assert_requested :get, basic_github_url("/repos/api-playground/api-sandbox/pulls/1/files")
     end
   end # .pull_request_files
+
+  describe ".merge_pull_request" do
+    it "merges the pull request" do
+      response = @client.merge_pull_request("api-playground/api-sandbox", 1)
+      expect(response).to respond_to :sha
+      assert_requested :put, basic_github_url("/repos/api-playground/api-sandbox/pulls/1/merge")
+    end
+  end # .merge_pull_request
 
 end
