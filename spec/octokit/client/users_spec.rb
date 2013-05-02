@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Users do
 
@@ -13,29 +13,27 @@ describe Octokit::Client::Users do
   end
 
   describe ".all_users" do
-
     it "returns all GitHub users" do
       users = Octokit.all_users
-      users.must_be_kind_of Array
+      expect(users).to be_kind_of Array
     end
-
   end # .all_users
 
   describe ".user" do
     it "returns a user" do
       user = Octokit.client.user("sferik")
-      user.login.must_equal 'sferik'
+      expect(user.login).to eq 'sferik'
     end
     it "returns the authenticated user" do
       client = basic_auth_client
       user = client.user
-      user.login.must_equal test_github_login
+      expect(user.login).to eq test_github_login
     end
   end # .user
 
   describe ".validate_credentials" do
     it "validates username and password" do
-      Octokit.validate_credentials(:login => test_github_login, :password => test_github_password).must_equal true
+      expect(Octokit.validate_credentials(:login => test_github_login, :password => test_github_password)).to be_true
     end
   end # .validate_credentials
 
@@ -43,7 +41,7 @@ describe Octokit::Client::Users do
     it "updates a user profile" do
       client = basic_auth_client
       user = client.update_user(:location => "San Francisco, CA", :hireable => false)
-      user.login.must_equal test_github_login
+      expect(user.login).to eq test_github_login
       assert_requested :patch, basic_github_url("/user")
     end
   end # .update_user
@@ -51,13 +49,13 @@ describe Octokit::Client::Users do
   describe ".followers" do
     it "returns followers for a user" do
       users = Octokit.followers("sferik")
-      users.must_be_kind_of Array
+      expect(users).to be_kind_of Array
       assert_requested :get, github_url("/users/sferik/followers")
     end
     it "returns the authenticated user's followers" do
       client = basic_auth_client
       users = client.followers
-      users.must_be_kind_of Array
+      expect(users).to be_kind_of Array
       assert_requested :get, basic_github_url("/users/#{test_github_login}/followers")
     end
   end # .followers
@@ -65,13 +63,13 @@ describe Octokit::Client::Users do
   describe ".following" do
     it "returns following for a user" do
       users = Octokit.following("sferik")
-      users.must_be_kind_of Array
+      expect(users).to be_kind_of Array
       assert_requested :get, github_url("/users/sferik/following")
     end
     it "returns the authenticated user's following" do
       client = basic_auth_client
       users = client.following
-      users.must_be_kind_of Array
+      expect(users).to be_kind_of Array
       assert_requested :get, basic_github_url("/users/#{test_github_login}/following")
     end
   end # .following
@@ -122,7 +120,7 @@ describe Octokit::Client::Users do
 
   describe ".key" do
     it "returns a public key" do
-      skip "Enable hypermedia for this one"
+      pending "Enable hypermedia for this one"
     end
   end
 
@@ -130,7 +128,7 @@ describe Octokit::Client::Users do
     it "returns public keys for the authenticated user" do
       client = basic_auth_client
       public_keys = client.keys
-      public_keys.must_be_kind_of Array
+      expect(public_keys).to be_kind_of Array
       assert_requested :get, basic_github_url("/user/keys")
     end
   end # .keys
@@ -138,7 +136,7 @@ describe Octokit::Client::Users do
   describe ".user_keys" do
     it "returns public keys for another user" do
       public_keys = Octokit.user_keys("pengwynn")
-      public_keys.must_be_kind_of Array
+      expect(public_keys).to be_kind_of Array
       assert_requested :get, github_url("/users/pengwynn/keys")
     end
   end # .user_keys
@@ -172,7 +170,7 @@ describe Octokit::Client::Users do
     it "returns email addresses" do
       client = basic_auth_client
       emails = client.emails
-      emails.must_be_kind_of Array
+      expect(emails).to be_kind_of Array
       assert_requested :get, basic_github_url("/user/emails")
     end
   end # .emails
@@ -212,7 +210,7 @@ describe Octokit::Client::Users do
       stub_post("https://github.com/login/oauth/access_token").
         to_return(json_response("web_flow_token.json"))
       response = Octokit.exchange_code_for_token('code', 'id_here', 'secret_here')
-      response.access_token.must_equal 'this_be_ye_token/use_it_wisely'
+      expect(response.access_token).to eq 'this_be_ye_token/use_it_wisely'
       assert_requested :post, "https://github.com/login/oauth/access_token"
       VCR.turn_on!
     end

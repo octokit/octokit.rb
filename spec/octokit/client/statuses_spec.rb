@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Statuses do
 
@@ -16,7 +16,7 @@ describe Octokit::Client::Statuses do
   describe ".statuses" do
     it "lists commit statuses" do
       statuses = Octokit.statuses('pengwynn/octokit', '7d069dedd4cb56bf57760688657abd0e6b5a28b8')
-      statuses.must_be_kind_of Array
+      expect(statuses).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/statuses/7d069dedd4cb56bf57760688657abd0e6b5a28b8")
     end
   end # .statuses

@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Organizations do
 
@@ -16,7 +16,7 @@ describe Octokit::Client::Organizations do
   describe ".organization" do
     it "returns an organization" do
       organization = Octokit.organization("codeforamerica")
-      organization.name.must_equal "Code For America"
+      expect(organization.name).to eq "Code For America"
       assert_requested :get, github_url("/orgs/codeforamerica")
     end
   end # .organization
@@ -24,7 +24,7 @@ describe Octokit::Client::Organizations do
   describe ".update_organization" do
     it "updates an organization" do
       organization = @client.update_organization("api-playground", {:name => "API Playground"})
-      organization.login.must_equal "api-playground"
+      expect(organization.login).to eq "api-playground"
       assert_requested :patch, basic_github_url("/orgs/api-playground")
     end
   end # .update_organization
@@ -32,12 +32,12 @@ describe Octokit::Client::Organizations do
   describe ".organizations" do
     it "returns all organizations for a user" do
       organizations = Octokit.organizations("sferik")
-      organizations.must_be_kind_of Array
+      expect(organizations).to be_kind_of Array
       assert_requested :get, github_url("/users/sferik/orgs")
     end
     it "returns all organizations for the authenticated user" do
       organizations = @client.organizations
-      organizations.must_be_kind_of Array
+      expect(organizations).to be_kind_of Array
       assert_requested :get, basic_github_url("/user/orgs")
     end
   end # .organizations
@@ -45,7 +45,7 @@ describe Octokit::Client::Organizations do
   describe ".organization_repositories" do
     it "returns all public repositories for an organization" do
       repositories = Octokit.organization_repositories("codeforamerica")
-      repositories.must_be_kind_of Array
+      expect(repositories).to be_kind_of Array
       assert_requested :get, github_url("/orgs/codeforamerica/repos")
     end
   end # .organization_repositories
@@ -53,7 +53,7 @@ describe Octokit::Client::Organizations do
   describe ".organization_members" do
     it "returns all public members of an organization" do
       users = Octokit.organization_members("codeforamerica")
-      users.must_be_kind_of Array
+      expect(users).to be_kind_of Array
       assert_requested :get, github_url("/orgs/codeforamerica/members")
     end
   end # .organization_members
@@ -62,14 +62,14 @@ describe Octokit::Client::Organizations do
     it "checks organization membership" do
       is_hubbernaut = Octokit.organization_member?('github', 'pengwynn')
       assert_requested :get, github_url("/orgs/github/members/pengwynn")
-      assert is_hubbernaut
+      expect(is_hubbernaut).to be_true
     end
   end # .organization_member?
 
   describe ".organization_public_member?" do
     it "checks publicized org membership" do
       is_hubbernaut = Octokit.organization_public_member?('github', 'pengwynn')
-      assert is_hubbernaut
+      expect(is_hubbernaut).to be_true
       assert_requested :get, github_url("/orgs/github/public_members/pengwynn")
     end
   end # .organization_public_member?
@@ -84,7 +84,7 @@ describe Octokit::Client::Organizations do
   describe ".organization_teams" do
     it "returns all teams for an organization" do
       teams = @client.organization_teams("api-playground")
-      teams.must_be_kind_of Array
+      expect(teams).to be_kind_of Array
       assert_requested :get, basic_github_url("/orgs/api-playground/teams")
     end
   end # .organization_teams
@@ -92,7 +92,7 @@ describe Octokit::Client::Organizations do
   describe ".create_team" do
     it "creates a team" do
       team = @client.create_team("api-playground", {:name => "Jedi"})
-      team.name.must_equal "Jedi"
+      expect(team.name).to eq "Jedi"
       assert_requested :post, basic_github_url("/orgs/api-playground/teams")
     end
   end # .create_team
@@ -100,7 +100,7 @@ describe Octokit::Client::Organizations do
   describe ".team" do
     it "returns a team" do
       team = @client.team(396670)
-      team.name.must_equal "Jedi"
+      expect(team.name).to eq "Jedi"
       assert_requested :get, basic_github_url("/teams/396670")
     end
   end # .team
@@ -116,7 +116,7 @@ describe Octokit::Client::Organizations do
   describe ".team_members" do
     it "returns team members" do
       users = @client.team_members(396670)
-      users.must_be_kind_of Array
+      expect(users).to be_kind_of Array
       assert_requested :get, basic_github_url("/teams/396670/members")
     end
   end # .team_members
@@ -145,7 +145,7 @@ describe Octokit::Client::Organizations do
   describe ".team_repositories" do
     it "returns team repositories" do
       repositories = @client.team_repositories(396670)
-      repositories.must_be_kind_of Array
+      expect(repositories).to be_kind_of Array
       assert_requested :get, basic_github_url("/teams/396670/repos")
     end
   end # .team_repositories

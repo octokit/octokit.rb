@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Milestones do
 
@@ -16,7 +16,7 @@ describe Octokit::Client::Milestones do
   describe ".list_milestones" do
     it "lists milestones belonging to repository" do
       milestones = @client.list_milestones("pengwynn/api-sandbox")
-      milestones.must_be_kind_of Array
+      expect(milestones).to be_kind_of Array
       assert_requested :get, basic_github_url("/repos/pengwynn/api-sandbox/milestones")
     end
   end # .list_milestones
@@ -31,7 +31,7 @@ describe Octokit::Client::Milestones do
   describe ".create_milestone" do
     it "creates a milestone" do
       milestone = @client.create_milestone("pengwynn/api-sandbox", "2.0.0")
-      milestone.title.must_equal "2.0.0"
+      expect(milestone.title).to eq "2.0.0"
       assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/milestones")
     end
   end # .create_milestone

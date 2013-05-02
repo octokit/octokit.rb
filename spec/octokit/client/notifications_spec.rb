@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Notifications do
 
@@ -16,7 +16,7 @@ describe Octokit::Client::Notifications do
   describe ".notifications" do
     it "lists the notifications for the current user" do
       notifications = @client.notifications
-      notifications.must_be_kind_of Array
+      expect(notifications).to be_kind_of Array
       assert_requested :get, basic_github_url("/notifications")
     end
   end # .notifications
@@ -24,7 +24,7 @@ describe Octokit::Client::Notifications do
   describe ".repository_notifications" do
     it "lists all notifications for a repository" do
       notifications = @client.repository_notifications("pengwynn/api-sandbox")
-      notifications.must_be_kind_of Array
+      expect(notifications).to be_kind_of Array
       assert_requested :get, basic_github_url("/repos/pengwynn/api-sandbox/notifications")
     end
   end # .repository_notifications
@@ -32,7 +32,7 @@ describe Octokit::Client::Notifications do
   describe ".mark_notifications_as_read" do
     it "returns true when notifications are marked as read" do
       result = @client.mark_notifications_as_read
-      assert result
+      expect(result).to be_true
       assert_requested :put, basic_github_url("/notifications")
     end
   end # .mark_notifications_as_read
@@ -40,7 +40,7 @@ describe Octokit::Client::Notifications do
   describe ".mark_repository_notifications_as_read" do
     it "returns true when notifications for a repo are marked as read" do
       result = @client.mark_repository_notifications_as_read("pengwynn/api-sandbox")
-      assert result
+      expect(result).to be_true
       assert_requested :put, basic_github_url("/repos/pengwynn/api-sandbox/notifications")
     end
   end # .mark_repository_notifications_as_read

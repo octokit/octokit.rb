@@ -1,8 +1,7 @@
-guard 'minitest' do
-
-  watch(%r|^spec/(.*)_spec\.rb|)
-  watch(%r|^lib/(.*)([^/]+)\.rb|)     { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
-  watch(%r|^spec/spec_helper\.rb|)    { "spec" }
+guard 'rspec' do
+  watch(%r{^spec/.+_spec\.rb$})
+  watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
+  watch('spec/helper.rb')  { "spec" }
 
   notification :tmux,
     :display_message => true,
@@ -11,3 +10,4 @@ guard 'minitest' do
     :line_separator => ' > ', # since we are single line we need a separator
     :color_location => 'status-left-fg' # to customize which tmux element will change color
 end
+

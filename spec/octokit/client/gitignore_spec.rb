@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Gitignore do
 
@@ -13,7 +13,7 @@ describe Octokit::Client::Gitignore do
   describe ".gitignore_templates" do
     it "returns all gitignore templates" do
       templates = Octokit.gitignore_templates
-      templates.must_be_kind_of Array
+      expect(templates).to be_kind_of Array
       assert_requested :get, github_url("/gitignore/templates")
     end
   end # .gitignore_templates
@@ -21,8 +21,8 @@ describe Octokit::Client::Gitignore do
   describe ".gitignore_template" do
     it "returns the ruby gitignore template" do
       template = Octokit.gitignore_template("Ruby")
-      template.name.must_equal "Ruby"
-      template.source.must_include "*.gem\n"
+      expect(template.name).to eq "Ruby"
+      expect(template.source).to include "*.gem\n"
       assert_requested :get, github_url("/gitignore/templates/Ruby")
     end
   end # .gitignore_template

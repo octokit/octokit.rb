@@ -1,6 +1,13 @@
 require 'helper'
 
 describe Octokit do
+  before do
+    Octokit.reset!
+  end
+
+  after do
+    Octokit.reset!
+  end
 
   it "sets defaults" do
     Octokit::Configurable.keys.each do |key|

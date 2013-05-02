@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::PullRequests do
 
@@ -16,7 +16,7 @@ describe Octokit::Client::PullRequests do
   describe ".create_pull_request" do
     it "creates a pull request" do
       pull = @client.create_pull_request("api-playground/api-sandbox", "master", "cool-branch", "The Title", "The Body")
-      pull.title.must_equal "The Title"
+      expect(pull.title).to eq "The Title"
       assert_requested :post, basic_github_url("/repos/api-playground/api-sandbox/pulls")
     end
   end # .create_pull_request
@@ -24,7 +24,7 @@ describe Octokit::Client::PullRequests do
   describe ".pull_request" do
     it "returns a pull request" do
       pull = @client.pull("api-playground/api-sandbox", 1)
-      pull.title.must_equal "The Title"
+      expect(pull.title).to eq "The Title"
       assert_requested :get, basic_github_url("/repos/api-playground/api-sandbox/pulls/1")
     end
   end # .pull_request
@@ -39,7 +39,7 @@ describe Octokit::Client::PullRequests do
   describe ".pull_merged?" do
     it "returns whether the pull request has been merged" do
       merged = @client.pull_merged?("api-playground/api-sandbox", 1)
-      refute merged
+      expect(merged).to_not be_true
       assert_requested :get, basic_github_url("/repos/api-playground/api-sandbox/pulls/1/merge")
     end
   end # .pull_merged?
@@ -54,7 +54,7 @@ describe Octokit::Client::PullRequests do
   describe ".pull_requests" do
     it "returns all pull requests" do
       pulls = Octokit.pulls("pengwynn/octokit")
-      pulls.must_be_kind_of Array
+      expect(pulls).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/pulls")
     end
   end # .pull_requests
@@ -62,7 +62,7 @@ describe Octokit::Client::PullRequests do
   describe ".pull_requests_comments" do
     it "returns all comments on all pull requests" do
       comments = Octokit.pull_requests_comments("pengwynn/octokit")
-      comments.must_be_kind_of Array
+      expect(comments).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/pulls/comments")
     end
   end # .pull_requests_comments
@@ -70,7 +70,7 @@ describe Octokit::Client::PullRequests do
   describe ".pull_request_commits" do
     it "returns the commits for a pull request" do
       commits = Octokit.pull_commits("pengwynn/octokit", 67)
-      commits.must_be_kind_of Array
+      expect(commits).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/pulls/67/commits")
     end
   end # .pull_request_commits
@@ -78,7 +78,7 @@ describe Octokit::Client::PullRequests do
   describe ".pull_request_comments" do
     it "returns the comments for a pull request" do
       comments = Octokit.pull_comments("pengwynn/octokit", 67)
-      comments.must_be_kind_of Array
+      expect(comments).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/pulls/67/comments")
     end
   end # .pull_request_comments
@@ -86,7 +86,7 @@ describe Octokit::Client::PullRequests do
   describe ".pull_request_comment" do
     it "returns a comment on a pull request" do
       comment = Octokit.pull_request_comment("pengwynn/octokit", 1903950)
-      assert comment.body
+      expect(comment.body).to_not be_nil
       assert_requested :get, github_url("/repos/pengwynn/octokit/pulls/comments/1903950")
     end
   end # .pull_request_comment
@@ -105,8 +105,7 @@ describe Octokit::Client::PullRequests do
   end # .create_pull_request_comment
 
   describe ".create_pull_request_comment_reply" do
-    it "creates a new reply to a pull request comment" do
-      skip
+    xit "creates a new reply to a pull request comment" do
       new_comment = {
         :body => "done.",
         :in_reply_to => 1903950
@@ -121,8 +120,7 @@ describe Octokit::Client::PullRequests do
   end # .create_pull_request_comment_reply
 
   describe ".update_pull_request_comment" do
-    it "updates a pull request comment" do
-      skip
+    xit "updates a pull request comment" do
       stub_patch("https://api.github.com/repos/pengwynn/octokit/pulls/comments/1907270").
         with(:body => { :body => ":shipit:"}).
           to_return(json_response("pull_request_comment_update.json"))
@@ -132,8 +130,7 @@ describe Octokit::Client::PullRequests do
   end # .update_pull_request_comment
 
   describe ".delete_pull_request_comment" do
-    it "deletes a pull request comment" do
-      skip
+    xit "deletes a pull request comment" do
       stub_delete("https://api.github.com/repos/pengwynn/octokit/pulls/comments/1907270").
         to_return(:status => 204)
       result = @client.delete_pull_request_comment("pengwynn/octokit", 1907270)
@@ -142,8 +139,7 @@ describe Octokit::Client::PullRequests do
   end # .delete_pull_request_comment
 
   describe ".merge_pull_request" do
-    it "merges the pull request" do
-      skip
+    xit "merges the pull request" do
       stub_put("https://api.github.com/repos/pengwynn/octokit/pulls/67/merge").
         to_return(json_response("pull_request_merged.json"))
       response = @client.merge_pull_request("pengwynn/octokit", 67)
@@ -152,8 +148,7 @@ describe Octokit::Client::PullRequests do
   end # .merge_pull_request
 
   describe ".pull_request_files" do
-    it "lists files for a pull request" do
-      skip
+    xit "lists files for a pull request" do
       stub_get("https://api.github.com/repos/pengwynn/octokit/pulls/142/files").
         to_return(json_response("pull_request_files.json"))
 

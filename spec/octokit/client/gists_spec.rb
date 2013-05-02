@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Gists do
 
@@ -23,7 +23,7 @@ describe Octokit::Client::Gists do
     describe ".public_gists" do
       it "returns public gists" do
         gists = Octokit.client.public_gists
-        gists.wont_be_empty
+        expect(gists).to_not be_empty
         assert_requested :get, github_url('/gists/public')
       end
     end # .public_gists
@@ -32,7 +32,7 @@ describe Octokit::Client::Gists do
       describe "with username passed" do
         it "returns a list of gists" do
           gists = Octokit.client.gists('defunkt')
-          gists.wont_be_empty
+          expect(gists).to_not be_empty
           assert_requested :get, github_url("/users/defunkt/gists")
         end
       end
@@ -40,7 +40,7 @@ describe Octokit::Client::Gists do
       describe "without a username passed" do
         it "returns a list of gists" do
           gists = Octokit.client.gists
-          gists.wont_be_empty
+          expect(gists).to_not be_empty
           assert_requested :get, github_url("/gists")
         end
       end
@@ -50,7 +50,7 @@ describe Octokit::Client::Gists do
     describe ".gist" do
       it "returns the gist by ID" do
         gist = Octokit.client.gist(790381)
-        gist.user.login.must_equal 'jmccartie'
+        expect(gist.user.login).to eq 'jmccartie'
         assert_requested :get, github_url("/gists/790381")
       end
     end
@@ -73,7 +73,7 @@ describe Octokit::Client::Gists do
     describe ".gists" do
       it "returns a list of gists" do
         gists = @client.gists
-        gists.wont_be_empty
+        expect(gists).to_not be_empty
         assert_requested :get, basic_github_url("/gists")
       end
     end # .gists
@@ -82,7 +82,7 @@ describe Octokit::Client::Gists do
     describe ".starred_gists" do
       it "returns the user's starred gists" do
         gists = @client.starred_gists
-        gists.must_be_kind_of Array
+        expect(gists).to be_kind_of Array
         assert_requested :get, basic_github_url("/gists/starred")
       end
     end # .starred_gists
@@ -98,8 +98,8 @@ describe Octokit::Client::Gists do
         }
 
         gist = @client.create_gist(new_gist)
-        gist.user.login.must_equal 'api-padawan'
-        gist.files.fields.first.to_s.must_match /zen/
+        expect(gist.user.login).to eq 'api-padawan'
+        expect(gist.files.fields.first.to_s).to match /zen/
         assert_requested :post, basic_github_url("/gists")
       end
     end # .create_gist
@@ -115,7 +115,7 @@ describe Octokit::Client::Gists do
       it "stars an existing gist" do
         @client.star_gist(5421463)
         assert_requested :put, basic_github_url("/gists/5421463/star")
-        @client.last_response.status.must_equal 204
+        expect(@client.last_response.status).to eq 204
       end
     end # .star
 
@@ -123,7 +123,7 @@ describe Octokit::Client::Gists do
       it "unstars an existing gist" do
         @client.unstar_gist(5421463)
         assert_requested :delete, basic_github_url("/gists/5421463/star")
-        @client.last_response.status.must_equal 204
+        expect(@client.last_response.status).to eq 204
       end
     end # .unstar_gist
 
@@ -131,13 +131,13 @@ describe Octokit::Client::Gists do
       it "is starred" do
         starred = @client.gist_starred?(5421307)
         assert_requested :get, basic_github_url("/gists/5421307/star")
-        assert starred
+        expect(starred).to eq true
       end
 
       it "is not starred" do
         starred = @client.gist_starred?(5421308)
         assert_requested :get, basic_github_url("/gists/5421308/star")
-        refute starred
+        expect(starred).to eq false
       end
     end # .gist_starred?
 
@@ -145,7 +145,7 @@ describe Octokit::Client::Gists do
       it "forks an existing gist" do
         latest = Octokit.client.gists.first
         gist = @client.fork_gist(latest.id)
-        gist.description.must_equal latest.description
+        expect(gist.description).to eq latest.description
         assert_requested :post, basic_github_url("/gists/#{latest.id}/forks")
       end
     end # .fork_gist
@@ -168,7 +168,7 @@ describe Octokit::Client::Gists do
     describe ".gist_comments" do
       it "returns the list of gist comments" do
         comments = @client.gist_comments(5421307)
-        comments.must_be_kind_of Array
+        expect(comments).to be_kind_of Array
         assert_requested :get, basic_github_url("/gists/5421307/comments")
       end
     end # .gist_comments
@@ -176,7 +176,7 @@ describe Octokit::Client::Gists do
     describe ".gist_comment" do
       it "returns a gist comment" do
         comment = @client.gist_comment("5421307", 818334)
-        comment.body.must_match "sparkles"
+        expect(comment.body).to match "sparkles"
         assert_requested :get, basic_github_url("/gists/5421307/comments/818334")
       end
     end # .gist_comment

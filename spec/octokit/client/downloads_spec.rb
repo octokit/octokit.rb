@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Downloads do
 
@@ -15,7 +15,7 @@ describe Octokit::Client::Downloads do
   describe ".create_download" do
     it "creates a download resource" do
       resource = @client.send(:create_download_resource, "pengwynn/api-sandbox", File.expand_path("spec/fixtures/web_flow_token.json"), 95, {:description => "Stormtrooper", :content_type => "text/plain"})
-      assert_match resource.rels[:s3].href, /amazonaws/
+      expect(resource.rels[:s3].href).to match /amazonaws/
       assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/downloads")
     end
 
@@ -30,7 +30,7 @@ describe Octokit::Client::Downloads do
   describe ".downloads" do
     it "lists available downloads" do
       downloads = Octokit.downloads("github/hubot")
-      downloads.last.description.must_match "Campfire"
+      expect(downloads.last.description).to match "Campfire"
       assert_requested :get, github_url("/repos/github/hubot/downloads")
     end
   end # .downloads
@@ -38,7 +38,7 @@ describe Octokit::Client::Downloads do
   describe ".download" do
     it "gets a single download" do
       download = Octokit.download("github/hubot", 165347)
-      download.name.must_equal "hubot-2.1.0.tar.gz"
+      expect(download.name).to eq "hubot-2.1.0.tar.gz"
       assert_requested :get, github_url("/repos/github/hubot/downloads/165347")
     end
   end # .download

@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Labels do
 
@@ -15,7 +15,7 @@ describe Octokit::Client::Labels do
   describe ".labels" do
     it "returns labels" do
       labels = Octokit.labels("pengwynn/octokit")
-      labels.must_be_kind_of Array
+      expect(labels).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/labels")
     end
   end # .labels
@@ -23,7 +23,7 @@ describe Octokit::Client::Labels do
   describe ".label" do
     it "returns a single label" do
       label = Octokit.label("pengwynn/octokit", "V3 Addition")
-      label.name.must_equal "V3 Addition"
+      expect(label.name).to eq "V3 Addition"
       assert_requested :get, github_url("/repos/pengwynn/octokit/labels/V3+Addition")
     end
   end # .label
@@ -32,7 +32,7 @@ describe Octokit::Client::Labels do
     it "adds a label with a color" do
       client = basic_auth_client
       label = client.add_label("pengwynn/api-sandbox", "test-label", 'ededed')
-      label.color.must_equal "ededed"
+      expect(label.color).to eq "ededed"
       assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/labels")
     end
     it "adds a label with default color" do
@@ -91,7 +91,7 @@ describe Octokit::Client::Labels do
   describe ".lables_for_milestone" do
     it "returns all labels for a repository" do
       labels = Octokit.labels_for_milestone('pengwynn/octokit', 2)
-      labels.must_be_kind_of Array
+      expect(labels).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/milestones/2/labels")
     end
   end # .labels_for_milestone
@@ -99,7 +99,7 @@ describe Octokit::Client::Labels do
   describe ".labels_for_issue" do
     it "returns all labels for a given issue" do
       labels = Octokit.labels_for_issue('pengwynn/octokit', 37)
-      labels.must_be_kind_of Array
+      expect(labels).to be_kind_of Array
       assert_requested :get, github_url('/repos/pengwynn/octokit/issues/37/labels')
     end
   end # .labels_for_issue

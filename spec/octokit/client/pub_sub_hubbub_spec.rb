@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::PubSubHubbub do
 
@@ -15,8 +15,7 @@ describe Octokit::Client::PubSubHubbub do
 
 
   describe ".subscribe" do
-    it "subscribes to pull events" do
-      skip
+    xit "subscribes to pull events" do
       subscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
         :"hub.mode" => 'subscribe',
@@ -27,24 +26,22 @@ describe Octokit::Client::PubSubHubbub do
       assert_requested :post, "https://api.github.com/hub", :body => subscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
     end
-    it "raises an error when topic is not recognized" do
-      skip
+    xit "raises an error when topic is not recognized" do
       subscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
         :"hub.mode" => 'subscribe',
         :"hub.topic" => 'https://github.com/joshk/not_existing_project/events/push'
       }
-      assert_raises {
+      expect {
         @client.subscribe("https://github.com/joshk/not_existing_project/events/push", "github://Travis?token=travistoken")
-      }
+      }.to raise_error
       assert_requested :post, "https://api.github.com/hub", :body => subscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
     end
   end # .subscribe
 
   describe ".unsubscribe" do
-    it "unsubscribes from pull events" do
-      skip
+    xit "unsubscribes from pull events" do
       unsubscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
         :"hub.mode" => 'unsubscribe',

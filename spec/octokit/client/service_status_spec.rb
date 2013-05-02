@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::ServiceStatus do
 
@@ -15,7 +15,7 @@ describe Octokit::Client::ServiceStatus do
   describe ".github_status" do
     it "returns the current system status" do
       current_status = Octokit.github_status
-      assert current_status.status
+      expect(current_status.status).to_not be_nil
       assert_requested :get, "https://status.github.com/api.json"
       assert_requested :get, "https://status.github.com/api/status.json"
     end
@@ -24,8 +24,8 @@ describe Octokit::Client::ServiceStatus do
   describe ".github_status_last_message" do
     it "returns the last human message" do
       message = Octokit.github_status_last_message
-      assert message.status
-      assert message.body
+      expect(message.status).to_not be_nil
+      expect(message.body).to_not be_nil
       assert_requested :get, "https://status.github.com/api.json"
       assert_requested :get, "https://status.github.com/api/last-message.json"
     end
@@ -34,7 +34,7 @@ describe Octokit::Client::ServiceStatus do
   describe ".github_status" do
     it "returns the most recent status messages" do
       messages = Octokit.github_status_messages
-      assert messages.must_be_kind_of Array
+      expect(messages).to be_kind_of Array
       assert_requested :get, "https://status.github.com/api.json"
       assert_requested :get, "https://status.github.com/api/messages.json"
     end

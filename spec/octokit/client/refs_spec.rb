@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Refs do
 
@@ -16,12 +16,12 @@ describe Octokit::Client::Refs do
   describe ".refs" do
     it "returns all refs" do
       refs = Octokit.refs("sferik/rails_admin")
-      refs.must_be_kind_of Array
+      expect(refs).to be_kind_of Array
       assert_requested :get, github_url("/repos/sferik/rails_admin/git/refs")
     end
     it "returns all tag refs" do
       refs = Octokit.refs("sferik/rails_admin", "tags")
-      refs.must_be_kind_of Array
+      expect(refs).to be_kind_of Array
       assert_requested :get, github_url("/repos/sferik/rails_admin/git/refs/tags")
     end
   end # .refs
@@ -29,7 +29,7 @@ describe Octokit::Client::Refs do
   describe ".ref" do
     it "returns a tags ref" do
       ref = Octokit.ref("sferik/rails_admin", "tags/v0.0.3")
-      ref.object.type.must_equal "tag"
+      expect(ref.object.type).to eq "tag"
       assert_requested :get, github_url("/repos/sferik/rails_admin/git/refs/tags/v0.0.3")
     end
   end # .ref

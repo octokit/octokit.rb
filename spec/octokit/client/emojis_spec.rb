@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Emojis do
   before do
@@ -12,7 +12,7 @@ describe Octokit::Client::Emojis do
   describe ".emojis" do
     it "returns all github emojis" do
       emojis = Octokit.client.emojis
-      emojis[:metal].must_match /metal/
+      expect(emojis[:metal]).to match /metal/
     end
   end # .emojis
 end

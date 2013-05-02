@@ -1,4 +1,4 @@
-require File.expand_path('../../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client::Repositories do
 
@@ -16,7 +16,7 @@ describe Octokit::Client::Repositories do
   describe ".repository" do
     it "returns the matching repository" do
       repository = Octokit.repository("sferik/rails_admin")
-      repository.name.must_equal "rails_admin"
+      expect(repository.name).to eq "rails_admin"
       assert_requested :get, github_url("/repos/sferik/rails_admin")
     end
   end # .repository
@@ -25,7 +25,7 @@ describe Octokit::Client::Repositories do
     it "updates the matching repository" do
       description = "It's epic"
       repository = @client.edit_repository("api-playground/api-sandbox", :description => description)
-      repository.description.must_equal description
+      expect(repository.description).to eq description
       assert_requested :patch, basic_github_url("/repos/api-playground/api-sandbox")
     end
   end # .update_repository
@@ -33,12 +33,12 @@ describe Octokit::Client::Repositories do
   describe ".repositories" do
     it "returns a user's repositories" do
       repositories = Octokit.repositories("sferik")
-      repositories.must_be_kind_of Array
+      expect(repositories).to be_kind_of Array
       assert_requested :get, github_url("/users/sferik/repos")
     end
     it "returns authenticated user's repositories" do
       repositories = @client.repositories
-      repositories.must_be_kind_of Array
+      expect(repositories).to be_kind_of Array
       assert_requested :get, basic_github_url("/user/repos")
     end
   end # .repositories
@@ -46,7 +46,7 @@ describe Octokit::Client::Repositories do
   describe ".all_repositories" do
     it "returns all repositories on github" do
       repositories = Octokit.all_repositories
-      repositories.must_be_kind_of Array
+      expect(repositories).to be_kind_of Array
       assert_requested :get, github_url("/repositories")
     end
   end # .all_repositories
@@ -54,7 +54,7 @@ describe Octokit::Client::Repositories do
   describe ".star" do
     it "stars a repository" do
       result = @client.star("sferik/rails_admin")
-      assert result
+      expect(result).to be_true
       assert_requested :put, basic_github_url("/user/starred/sferik/rails_admin")
     end
   end # .star
@@ -62,7 +62,7 @@ describe Octokit::Client::Repositories do
   describe ".unstar" do
     it "unstars a repository" do
       result = @client.unstar("sferik/rails_admin")
-      assert result
+      expect(result).to be_true
       assert_requested :delete, basic_github_url("/user/starred/sferik/rails_admin")
     end
   end # .unstar
@@ -70,7 +70,7 @@ describe Octokit::Client::Repositories do
   describe ".watch" do
     it "watches a repository" do
       result = @client.watch("sferik/rails_admin")
-      assert result
+      expect(result).to be_true
       assert_requested :put, basic_github_url("/user/watched/sferik/rails_admin")
     end
   end # .watch
@@ -78,7 +78,7 @@ describe Octokit::Client::Repositories do
   describe ".unwatch" do
     it "unwatches a repository" do
       result = @client.unwatch("sferik/rails_admin")
-      assert result
+      expect(result).to be_true
       assert_requested :delete, basic_github_url("/user/watched/sferik/rails_admin")
     end
   end # .unwatch
@@ -93,12 +93,12 @@ describe Octokit::Client::Repositories do
   describe ".create_repository" do
     it "creates a repository" do
       repository = @client.create_repository("an-repo")
-      repository.name.must_equal "an-repo"
+      expect(repository.name).to eq "an-repo"
       assert_requested :post, basic_github_url("/user/repos")
     end
     it "creates a repository for an organization" do
       repository = @client.create_repository("an-org-repo", :organization => "api-playground")
-      repository.name.must_equal "an-org-repo"
+      expect(repository.name).to eq "an-org-repo"
       assert_requested :post, basic_github_url("/orgs/api-playground/repos")
     end
   end # .create_repository
@@ -120,7 +120,7 @@ describe Octokit::Client::Repositories do
   describe ".deploy_keys" do
     it "returns a repository's deploy keys" do
       public_keys = @client.deploy_keys("#{@client.login}/an-repo")
-      public_keys.must_be_kind_of Array
+      expect(public_keys).to be_kind_of Array
       assert_requested :get, basic_github_url("/repos/#{@client.login}/an-repo/keys")
     end
   end # .deploy_keys
@@ -143,7 +143,7 @@ describe Octokit::Client::Repositories do
   describe ".collaborators" do
     it "returns a repository's collaborators" do
       collaborators = Octokit.collaborators("sferik/rails_admin")
-      collaborators.must_be_kind_of Array
+      expect(collaborators).to be_kind_of Array
       assert_requested :get, github_url("/repos/sferik/rails_admin/collaborators")
     end
   end # .collaborators
@@ -166,19 +166,19 @@ describe Octokit::Client::Repositories do
     it "returns all repository teams" do
       teams = @client.repository_teams("#{@client.login}/an-repo")
       assert_requested :get, basic_github_url("/repos/#{@client.login}/an-repo/teams")
-      teams.must_be_kind_of Array
+      expect(teams).to be_kind_of Array
     end
   end # .repository_teams
 
   describe ".contributors" do
     it "returns repository contributors" do
       contributors = @client.contributors("#{@client.login}/rails_admin", true)
-      contributors.must_be_kind_of Array
+      expect(contributors).to be_kind_of Array
       assert_requested :get, basic_github_url("/repos/#{@client.login}/rails_admin/contributors?anon=1")
     end
     it "returns repository contributors excluding anonymous" do
       contributors = @client.contributors("#{@client.login}/rails_admin")
-      contributors.must_be_kind_of Array
+      expect(contributors).to be_kind_of Array
       assert_requested :get, basic_github_url("/repos/#{@client.login}/rails_admin/contributors")
     end
   end # .contributors
@@ -186,7 +186,7 @@ describe Octokit::Client::Repositories do
   describe ".stargazers" do
     it "returns all repository stargazers" do
       stargazers = Octokit.stargazers("sferik/rails_admin")
-      stargazers.must_be_kind_of Array
+      expect(stargazers).to be_kind_of Array
       assert_requested :get, github_url("/repos/sferik/rails_admin/stargazers")
     end
   end # .stargazers
@@ -194,7 +194,7 @@ describe Octokit::Client::Repositories do
   describe ".watchers" do
     it "returns all repository watchers" do
       watchers = Octokit.watchers("sferik/rails_admin")
-      watchers.must_be_kind_of Array
+      expect(watchers).to be_kind_of Array
       assert_requested :get, github_url("/repos/sferik/rails_admin/watchers")
     end
   end # .watchers
@@ -202,7 +202,7 @@ describe Octokit::Client::Repositories do
   describe ".network" do
     it "returns a repository's network" do
       network = Octokit.network("sferik/rails_admin")
-      network.must_be_kind_of Array
+      expect(network).to be_kind_of Array
       assert_requested :get, github_url("/repos/sferik/rails_admin/forks")
     end
   end # .network
@@ -210,7 +210,7 @@ describe Octokit::Client::Repositories do
   describe ".languages" do
     it "returns a repository's languages" do
       languages = Octokit.languages("sferik/rails_admin")
-      assert languages[:Ruby]
+      expect(languages[:Ruby]).to_not be_nil
       assert_requested :get, github_url("/repos/sferik/rails_admin/languages")
     end
   end # .languages
@@ -218,7 +218,7 @@ describe Octokit::Client::Repositories do
   describe ".tags" do
     it "returns a repository's tags" do
       tags = Octokit.tags("pengwynn/octokit")
-      tags.must_be_kind_of Array
+      expect(tags).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/tags")
     end
   end # .tags
@@ -226,12 +226,12 @@ describe Octokit::Client::Repositories do
   describe ".branches" do
     it "returns a repository's branches" do
       branches = Octokit.branches("pengwynn/octokit")
-      branches.must_be_kind_of Array
+      expect(branches).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/branches")
     end
     it "returns a single branch" do
       branch = Octokit.branch("pengwynn/octokit", "master")
-      assert branch.commit.sha
+      expect(branch.commit.sha).to_not be_nil
       assert_requested :get, github_url("/repos/pengwynn/octokit/branches/master")
     end
   end # .branches
@@ -239,7 +239,7 @@ describe Octokit::Client::Repositories do
   describe ".hooks" do
     it "returns a repository's hooks" do
       hooks = @client.hooks("#{@client.login}/rails_admin")
-      hooks.must_be_kind_of Array
+      expect(hooks).to be_kind_of Array
       assert_requested :get, basic_github_url("/repos/#{@client.login}/rails_admin/hooks")
     end
   end
@@ -287,7 +287,7 @@ describe Octokit::Client::Repositories do
   describe ".assignees" do
     it "lists all the available assignees (owner + collaborators)" do
       assignees = Octokit.repo_assignees("pengwynn/octokit")
-      assignees.must_be_kind_of Array
+      expect(assignees).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/assignees")
     end
   end # .assignees
@@ -302,7 +302,7 @@ describe Octokit::Client::Repositories do
   describe ".subscribers" do
     it "lists all the users watching the repository" do
       subscribers = Octokit.subscribers("pengwynn/octokit")
-      subscribers.must_be_kind_of Array
+      expect(subscribers).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/subscribers")
     end
   end # .subscribers
