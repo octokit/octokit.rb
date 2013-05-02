@@ -1442,4 +1442,53 @@ http_interactions:
       string: "[]"
     http_version: 
   recorded_at: Sat, 20 Apr 2013 21:34:04 GMT
+- request: 
+    method: get
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/user/keys/4647049
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 404
+      message: Not Found
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Thu, 02 May 2013 17:05:00 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 404 Not Found
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4994"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "{\"message\":\"Not Found\"}"
+    http_version: 
+  recorded_at: Thu, 02 May 2013 17:05:00 GMT
 recorded_with: VCR 2.4.0
