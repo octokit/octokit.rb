@@ -1,4 +1,4 @@
-require File.expand_path('../../spec_helper.rb', __FILE__)
+require 'helper'
 
 describe Octokit::Client do
 
@@ -19,7 +19,7 @@ describe Octokit::Client do
     it "inherits the module configuration" do
       client = Octokit::Client.new
       Octokit::Configurable.keys.each do |key|
-        client.instance_variable_get(:"@#{key}").must_equal "Some #{key}"
+        expect(client.instance_variable_get(:"@#{key}")).to eq "Some #{key}"
       end
     end
 
@@ -36,11 +36,11 @@ describe Octokit::Client do
 
       it "overrides module configuration" do
         client = Octokit::Client.new(@opts)
-        client.per_page.must_equal 40
-        client.login.must_equal "defunkt"
-        client.instance_variable_get(:"@password").must_equal "il0veruby"
-        client.auto_paginate.must_equal Octokit.auto_paginate
-        client.client_id.must_equal Octokit.client_id
+        expect(client.per_page).to eq 40
+        expect(client.login).to eq "defunkt"
+        expect(client.instance_variable_get(:"@password")).to eq "il0veruby"
+        expect(client.auto_paginate).to eq Octokit.auto_paginate
+        expect(client.client_id).to eq Octokit.client_id
       end
 
       it "can set configuration after initialization" do
@@ -50,29 +50,29 @@ describe Octokit::Client do
             config.send("#{key}=", value)
           end
         end
-        client.per_page.must_equal 40
-        client.login.must_equal "defunkt"
-        client.instance_variable_get(:"@password").must_equal "il0veruby"
-        client.auto_paginate.must_equal Octokit.auto_paginate
-        client.client_id.must_equal Octokit.client_id
+        expect(client.per_page).to eq 40
+        expect(client.login).to eq "defunkt"
+        expect(client.instance_variable_get(:"@password")).to eq "il0veruby"
+        expect(client.auto_paginate).to eq Octokit.auto_paginate
+        expect(client.client_id).to eq Octokit.client_id
       end
 
       it "masks passwords on inspect" do
         client = Octokit::Client.new(@opts)
         inspected = client.inspect
-        inspected.wont_match "il0veruby"
+        expect(inspected).to_not include "il0veruby"
       end
 
       it "masks tokens on inspect" do
         client = Octokit::Client.new(:access_token => '87614b09dd141c22800f96f11737ade5226d7ba8')
         inspected = client.inspect
-        inspected.wont_match "87614b09dd141c22800f96f11737ade5226d7ba8"
+        expect(inspected).to_not match "87614b09dd141c22800f96f11737ade5226d7ba8"
       end
 
       it "masks client secrets on inspect" do
         client = Octokit::Client.new(:client_secret => '87614b09dd141c22800f96f11737ade5226d7ba8')
         inspected = client.inspect
-        inspected.wont_match "87614b09dd141c22800f96f11737ade5226d7ba8"
+        expect(inspected).to_not match "87614b09dd141c22800f96f11737ade5226d7ba8"
       end
     end
   end
@@ -92,40 +92,40 @@ describe Octokit::Client do
           config.login = 'pengwynn'
           config.password = 'il0veruby'
         end
-        assert Octokit.client.basic_authenticated?
+        expect(Octokit.client).to be_basic_authenticated
       end
       it "sets basic auth creds with module methods" do
         Octokit.login = 'pengwynn'
         Octokit.password = 'il0veruby'
-        assert Octokit.client.basic_authenticated?
+        expect(Octokit.client).to be_basic_authenticated
       end
       it "sets oauth token with .configure" do
         Octokit.configure do |config|
           config.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
         end
-        refute Octokit.client.basic_authenticated?
-        assert Octokit.client.token_authenticated?
+        expect(Octokit.client).to_not be_basic_authenticated
+        expect(Octokit.client).to be_token_authenticated
       end
       it "sets oauth token with module methods" do
         Octokit.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-        refute Octokit.client.basic_authenticated?
-        assert Octokit.client.token_authenticated?
+        expect(Octokit.client).to_not be_basic_authenticated
+        expect(Octokit.client).to be_token_authenticated
       end
       it "sets oauth application creds with .configure" do
         Octokit.configure do |config|
           config.client_id     = '97b4937b385eb63d1f46'
           config.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
         end
-        refute Octokit.client.basic_authenticated?
-        refute Octokit.client.token_authenticated?
-        assert Octokit.client.application_authenticated?
+        expect(Octokit.client).to_not be_basic_authenticated
+        expect(Octokit.client).to_not be_token_authenticated
+        expect(Octokit.client).to be_application_authenticated
       end
       it "sets oauth token with module methods" do
         Octokit.client_id     = '97b4937b385eb63d1f46'
         Octokit.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-        refute Octokit.client.basic_authenticated?
-        refute Octokit.client.token_authenticated?
-        assert Octokit.client.application_authenticated?
+        expect(Octokit.client).to_not be_basic_authenticated
+        expect(Octokit.client).to_not be_token_authenticated
+        expect(Octokit.client).to be_application_authenticated
       end
     end
 
@@ -135,38 +135,38 @@ describe Octokit::Client do
           config.login = 'pengwynn'
           config.password = 'il0veruby'
         end
-        assert @client.basic_authenticated?
+        expect(@client).to be_basic_authenticated
       end
       it "sets basic auth creds with instance methods" do
         @client.login = 'pengwynn'
         @client.password = 'il0veruby'
-        assert @client.basic_authenticated?
+        expect(@client).to be_basic_authenticated
       end
       it "sets oauth token with .configure" do
         @client.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-        refute @client.basic_authenticated?
-        assert @client.token_authenticated?
+        expect(@client).to_not be_basic_authenticated
+        expect(@client).to be_token_authenticated
       end
       it "sets oauth token with instance methods" do
         @client.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-        refute @client.basic_authenticated?
-        assert @client.token_authenticated?
+        expect(@client).to_not be_basic_authenticated
+        expect(@client).to be_token_authenticated
       end
       it "sets oauth application creds with .configure" do
         @client.configure do |config|
           config.client_id     = '97b4937b385eb63d1f46'
           config.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
         end
-        refute @client.basic_authenticated?
-        refute @client.token_authenticated?
-        assert @client.application_authenticated?
+        expect(@client).to_not be_basic_authenticated
+        expect(@client).to_not be_token_authenticated
+        expect(@client).to be_application_authenticated
       end
       it "sets oauth token with module methods" do
         @client.client_id     = '97b4937b385eb63d1f46'
         @client.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-        refute @client.basic_authenticated?
-        refute @client.token_authenticated?
-        assert @client.application_authenticated?
+        expect(@client).to_not be_basic_authenticated
+        expect(@client).to_not be_token_authenticated
+        expect(@client).to be_application_authenticated
       end
     end
 
@@ -218,12 +218,12 @@ describe Octokit::Client do
     end
 
     it "acts like a Sawyer agent" do
-      Octokit.client.send(:agent).must_respond_to :start
+      expect(Octokit.client.send(:agent)).to respond_to :start
     end
 
     it "caches the agent" do
       agent = Octokit.client.send(:agent)
-      agent.object_id.must_equal Octokit.client.send(:agent).object_id
+      expect(agent.object_id).to eq Octokit.client.send(:agent).object_id
     end
   end
 
@@ -232,9 +232,9 @@ describe Octokit::Client do
       Octokit.reset!
       VCR.use_cassette 'root' do
         client = Octokit.client
-        client.last_response.must_be_nil
+        expect(client.last_response).to be_nil
         client.get "/"
-        client.last_response.status.must_equal 200
+        expect(client.last_response.status).to eq 200
       end
     end
   end
@@ -284,7 +284,7 @@ describe Octokit::Client do
           with(:headers => {:accept => "application/vnd.github.beta+json"})
         @client.get "/"
         assert_requested root_request
-        @client.last_response.status.must_equal 200
+        expect(@client.last_response.status).to eq 200
       end
     end
     it "allows Accept'ing another media type" do
@@ -293,7 +293,7 @@ describe Octokit::Client do
           with(:headers => {:accept => "application/vnd.github.beta.diff+json"})
         @client.get "/", :accept => "application/vnd.github.beta.diff+json"
         assert_requested root_request
-        @client.last_response.status.must_equal 200
+        expect(@client.last_response.status).to eq 200
       end
     end
     it "sets a default user agent" do
@@ -302,7 +302,7 @@ describe Octokit::Client do
           with(:headers => {:user_agent => Octokit::Default.user_agent})
         @client.get "/"
         assert_requested root_request
-        @client.last_response.status.must_equal 200
+        expect(@client.last_response.status).to eq 200
       end
     end
     it "sets a custom user agent" do
@@ -313,7 +313,7 @@ describe Octokit::Client do
         client = Octokit::Client.new :user_agent => user_agent
         client.get "/"
         assert_requested root_request
-        client.last_response.status.must_equal 200
+        expect(client.last_response.status).to eq 200
       end
     end
     it "sets a proxy server" do
@@ -321,7 +321,7 @@ describe Octokit::Client do
         config.proxy = 'http://proxy.example.com:80'
       end
       conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
-      conn.proxy[:uri].to_s.must_equal 'http://proxy.example.com'
+      expect(conn.proxy[:uri].to_s).to eq 'http://proxy.example.com'
     end
   end
 

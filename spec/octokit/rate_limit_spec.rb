@@ -1,23 +1,25 @@
-require File.expand_path('../../spec_helper.rb', __FILE__)
+require 'helper'
 require 'octokit/rate_limit'
 
 describe Octokit::RateLimit do
 
   it "parses rate limit info from response headers" do
-    response = MiniTest::Mock.new
-    response.expect :headers, {
-      "X-RateLimit-Limit" => 60,
-      "X-RateLimit-Remaining" => 42
-    }
+    response = double()
+    response.should_receive(:headers).
+      at_least(:once).
+      and_return({
+        "X-RateLimit-Limit" => 60,
+        "X-RateLimit-Remaining" => 42
+      })
     info = Octokit::RateLimit.from_response(response)
-    info.limit.must_equal 60
-    info.remaining.must_equal 42
+    expect(info.limit).to eq 60
+    expect(info.remaining).to eq 42
   end
 
   it "handles nil responses" do
     info = Octokit::RateLimit.from_response(nil)
-    info.limit.must_be_nil
-    info.remaining.must_be_nil
+    expect(info.limit).to be_nil
+    expect(info.remaining).to be_nil
   end
 
 end
