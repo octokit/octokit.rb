@@ -56,4 +56,29 @@ describe Octokit::Client::PubSubHubbub do
     end
   end # .unsubscribe
 
+  describe ".subscribe_service_hook" do
+    it "subscribes to pull events on specified topic" do
+      subscribe_request_body = {
+        :"hub.callback" => 'github://Travis?token=travistoken',
+        :"hub.mode" => 'subscribe',
+        :"hub.topic" => 'https://github.com/api-playground/api-sandbox/events/push'
+      }
+      expect(@client.subscribe_service_hook("api-playground/api-sandbox", "Travis", { :token => 'travistoken' })).to eq(true)
+      assert_requested :post, basic_github_url("/hub"), :body => subscribe_request_body, :times => 1,
+        :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
+    end
+  end # .subscribe_service_hook
+
+  describe "unsubscribe_service_hook" do
+    it "unsubscribes to stop receiving events on specified topic" do
+      unsubscribe_request_body = {
+        :"hub.callback" => 'github://Travis',
+        :"hub.mode" => 'unsubscribe',
+        :"hub.topic" => 'https://github.com/api-playground/api-sandbox/events/push'
+      }
+      expect(@client.unsubscribe_service_hook("api-playground/api-sandbox", "Travis")).to eq(true)
+      assert_requested :post, basic_github_url("/hub"), :body => unsubscribe_request_body, :times => 1,
+        :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
+    end
+  end
 end
