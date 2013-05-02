@@ -126,4 +126,13 @@ describe Octokit::Client::Commits do
       assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/merges")
     end
   end # .merge
+
+  describe ".compare" do
+    it "returns a comparison" do
+      comparison = Octokit.compare("gvaughn/octokit", '0e0d7ae299514da692eb1cab741562c253d44188', 'b7b37f75a80b8e84061cd45b246232ad958158f5')
+      expect(comparison.base_commit.sha).to eq('0e0d7ae299514da692eb1cab741562c253d44188')
+      expect(comparison.merge_base_commit.sha).to eq('b7b37f75a80b8e84061cd45b246232ad958158f5')
+      assert_requested :get, github_url("/repos/gvaughn/octokit/compare/0e0d7ae299514da692eb1cab741562c253d44188...b7b37f75a80b8e84061cd45b246232ad958158f5")
+    end
+  end # .compare
 end
