@@ -4,7 +4,7 @@ describe Octokit::Client::PubSubHubbub do
 
   before do
     Octokit.reset!
-    VCR.insert_cassette 'pubsubhubbub'
+    VCR.insert_cassette 'pubsubhubbub', :match_requests_on => [:method, :uri, :body]
     @client = basic_auth_client
   end
 
@@ -15,18 +15,19 @@ describe Octokit::Client::PubSubHubbub do
 
 
   describe ".subscribe" do
-    xit "subscribes to pull events" do
+    it "subscribes to pull events" do
       subscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
         :"hub.mode" => 'subscribe',
-        :"hub.topic" => 'https://github.com/joshk/completeness-fu/events/push'
+        :"hub.topic" => 'https://github.com/api-playground/api-sandbox/events/push'
       }
 
-      @client.subscribe("https://github.com/joshk/completeness-fu/events/push", "github://Travis?token=travistoken")
-      assert_requested :post, "https://api.github.com/hub", :body => subscribe_request_body, :times => 1,
+      result = @client.subscribe("https://github.com/api-playground/api-sandbox/events/push", "github://Travis?token=travistoken")
+      assert_requested :post, basic_github_url("/hub"), :body => subscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
+      expect(result).to be_true
     end
-    xit "raises an error when topic is not recognized" do
+    it "raises an error when topic is not recognized" do
       subscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
         :"hub.mode" => 'subscribe',
@@ -34,23 +35,24 @@ describe Octokit::Client::PubSubHubbub do
       }
       expect {
         @client.subscribe("https://github.com/joshk/not_existing_project/events/push", "github://Travis?token=travistoken")
-      }.to raise_error
-      assert_requested :post, "https://api.github.com/hub", :body => subscribe_request_body, :times => 1,
+      }.to raise_error Octokit::UnprocessableEntity
+      assert_requested :post, basic_github_url("/hub"), :body => subscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
     end
   end # .subscribe
 
   describe ".unsubscribe" do
-    xit "unsubscribes from pull events" do
+    it "unsubscribes from pull events" do
       unsubscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
         :"hub.mode" => 'unsubscribe',
-        :"hub.topic" => 'https://github.com/joshk/completeness-fu/events/push'
+        :"hub.topic" => 'https://github.com/api-playground/api-sandbox/events/push'
       }
 
-      client.unsubscribe("https://github.com/joshk/completeness-fu/events/push", "github://Travis?token=travistoken")
-      assert_requested :post, "https://api.github.com/hub", :body => unsubscribe_request_body, :times => 1,
+      result = @client.unsubscribe("https://github.com/api-playground/api-sandbox/events/push", "github://Travis?token=travistoken")
+      assert_requested :post, basic_github_url("/hub"), :body => unsubscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
+      expect(result).to be_true
     end
   end # .unsubscribe
 

@@ -13,10 +13,11 @@ module Octokit
         options = {
           :"hub.mode" => "subscribe",
           :"hub.topic" => topic,
-          :"hub.callback" => callback,
-          :force_urlencoded => true
+          :"hub.callback" => callback
         }
-        boolean_from_response(:post, "hub", options)
+        response = pub_sub_hubbub_request(options)
+
+        response.status == 204
       end
 
       # Unsubscribe from a pubsub topic
@@ -31,10 +32,35 @@ module Octokit
         options = {
           :"hub.mode" => "unsubscribe",
           :"hub.topic" => topic,
-          :"hub.callback" => callback,
-          :force_urlencoded => true
+          :"hub.callback" => callback
         }
-        boolean_from_response(:post, "hub", options)
+        response = pub_sub_hubbub_request(options)
+
+        response.status == 204
+      end
+
+      private
+
+      def pub_sub_hubbub_request(options = {})
+        # This method is janky, bypass normal stack so we don'tl 
+        # serialize request as JSON
+        conn = Faraday.new(:url => @api_endpoint) do |http|
+          http.headers[:user_agent] = user_agent
+          if basic_authenticated?
+            http.basic_auth(@login, @password)
+          elsif token_authenticated?
+            http.authorization 'token', @access_token
+          end
+          http.request  :url_encoded
+          http.use Faraday::Response::RaiseOctokitError
+          http.adapter  Faraday.default_adapter
+        end
+
+        response = conn.post do |req|
+          req.url "hub"
+          req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+          req.body = options
+        end
       end
     end
   end

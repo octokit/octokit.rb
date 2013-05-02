@@ -240,6 +240,10 @@ describe Octokit::Client do
   end
 
   describe ".get" do
+    before(:each) do
+      Octokit.reset!
+    end
+
     it "handles query params" do
       VCR.use_cassette 'root' do
         Octokit.get "/", :foo => "bar"

@@ -33,7 +33,8 @@ require 'octokit/client/say'
 require 'octokit/client/service_status'
 require 'octokit/client/statuses'
 require 'octokit/client/users'
-
+require 'octokit/error'
+require 'faraday/response/raise_octokit_error'
 
 module Octokit
   class Client

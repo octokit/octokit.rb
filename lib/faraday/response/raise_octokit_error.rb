@@ -1,5 +1,4 @@
 require 'faraday'
-require 'multi_json'
 
 # @api private
 module Faraday
