@@ -2,18 +2,6 @@ module Octokit
   class Client
     module Issues
 
-      # Search issues within a repository
-      #
-      # @param repo [String, Repository, Hash] A GitHub repository
-      # @param search_term [String] The term to search for
-      # @param state [String] :state (open) <tt>open</tt> or <tt>closed</tt>.
-      # @return [Array] A list of issues matching the search term and state
-      # @example Search for 'test' in the open issues for sferik/rails_admin
-      #   Octokit.search_issues("sferik/rails_admin", 'test', 'open')
-      def search_issues(repo, search_term, state='open', options={})
-        get("legacy/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options)['issues']
-      end
-
       # List issues for a the authenticated user or repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.

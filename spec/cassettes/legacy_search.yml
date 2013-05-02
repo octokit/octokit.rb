@@ -1,0 +1,168 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: https://api.github.com/legacy/issues/search/sferik/rails_admin/open/activerecord
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Thu, 02 May 2013 13:20:42 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "59"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"e478c26a55a7c57a0e153bed9ca0069e\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: ASCII-8BIT
+      string: "{\"issues\":[{\"labels\":[],\"votes\":0,\"number\":1467,\"position\":1.0,\"title\":\"ActiveRecord::HasManyThroughNestedAssociationsAreReadonly Error in Rails 3.2.10\",\"body\":\"I just upgraded to `Rails 3.2.10` and am getting an error message that I never used to get when updating a record via RailsAdmin.\\r\\n\\r\\n    ActiveRecord::HasManyThroughNestedAssociationsAreReadonly at /admin/vendor/12/edit\\r\\n    \\r\\n    Message\\tCannot modify association 'Vendor#categories' because it goes through more than one other association.\\r\\n\\r\\nThis is my `Vendor` model:\\r\\n\\r\\n    class Vendor < ActiveRecord::Base\\r\\n      attr_accessible :name, :description, :banner_image, :logo_image, :intro_text, :thumb_image, :category_ids, :product_ids, :user_id, :remove_banner_image, :banner_image_cache, :remove_logo_image, :logo_image_cache\\r\\n    \\tmount_uploader :banner_image, ImageUploader\\r\\n    \\tmount_uploader :logo_image, ImageUploader\\r\\n    \\tmount_uploader :thumb_image, ImageUploader\\r\\n    \\t\\r\\n    \\thas_many :products, :dependent => :destroy\\r\\n    \\thas_many :categories, :through => :products\\r\\n    \\tbelongs_to :owner, :class_name => \\\"User\\\",\\r\\n    \\t\\t:foreign_key => \\\"user_id\\\"\\t\\r\\n    end\\r\\n\\r\\nThis is my `Category` model:\\r\\n\\r\\n\\r\\n    class Category < ActiveRecord::Base\\r\\n      attr_accessible :name, :product_ids, :category_ids\\r\\n    \\thas_many :category_products do\\r\\n    \\t     def with_products\\r\\n    \\t       includes(:product)\\r\\n    \\t     end\\r\\n    \\t   end\\r\\n    \\r\\n      has_many :products, :through => :category_products\\r\\n        \\r\\n    end\\r\\n\\r\\nThis is my `Product` model:\\r\\n\\r\\n    class Product < ActiveRecord::Base\\r\\n      attr_accessible :name, :description, :price, :vendor_id, :image, :category_ids, :sku, :remove_image, :image_cache\\r\\n    \\tmount_uploader :image, ImageUploader\\r\\n    \\t\\t\\r\\n    \\tbelongs_to :vendor\\r\\n    \\thas_many :category_products do\\r\\n    \\t       def with_categories\\r\\n    \\t         includes(:category)\\r\\n    \\t       end\\r\\n    \\tend\\r\\n    \\t\\r\\n    \\thas_many :categories, :through => :category_products\\r\\n    \\r\\n    end\\r\\n\\r\\nThis is my `CategoryProduct` model:\\r\\n\\r\\n    class CategoryProduct < ActiveRecord::Base\\r\\n      attr_accessible :product_id, :category_id, :purchases_count\\r\\n    \\r\\n    \\tbelongs_to :product\\r\\n      belongs_to :category\\r\\n    \\r\\n      validates_uniqueness_of :product_id, :scope => :category_id\\r\\n    end\\r\\n\",\"user\":\"marcamillion\",\"gravatar_id\":\"64aa7d1e0eb006175565adb0a47a4452\",\"state\":\"open\",\"comments\":3,\"html_url\":\"https://github.com/sferik/rails_admin/issues/1467\",\"updated_at\":\"2013-01-21T09:43:38Z\",\"created_at\":\"2013-01-10T00:34:41Z\"},{\"labels\":[],\"votes\":0,\"number\":1527,\"position\":1.0,\"title\":\"serialize ActiveRecord::Coders::Hstore crashes RailsAdmin\",\"body\":\"As suggested in http://railscasts.com/episodes/345-hstore, I added:\\r\\n\\r\\nserialize :properties, ActiveRecord::Coders::Hstore\\r\\n\\r\\nto my model. This allows me to iterate over key / value pairs in the view (without it, I get a undefined method `each' for String error).\\r\\n\\r\\nI managed to get the hstore field in RailsAdmin working (as a text field: \\\"key1\\\" => \\\"value1\\\", \\\"key2\\\" => \\\"value2\\\") but unless the serialize call is commented out, it crashes when saving:\\r\\n\\r\\nundefined method `map' for String\\r\\n\\r\\nHere's the Gist: https://gist.github.com/michaelimstepf/4965283\\r\\n\\r\\nWhat to do? Thanks for your help and for creating RailsAdmin in the first place\",\"user\":\"michaelimstepf\",\"gravatar_id\":\"7a298a44a65c1db14df696851d470c66\",\"state\":\"open\",\"comments\":1,\"html_url\":\"https://github.com/sferik/rails_admin/issues/1527\",\"updated_at\":\"2013-03-29T23:45:24Z\",\"created_at\":\"2013-02-16T02:52:35Z\"},{\"labels\":[\"extension\"],\"votes\":0,\"number\":1289,\"position\":1.0,\"title\":\"Any plans on support globalized (i18n) models?\",\"body\":\"ActiveRecord models are i18n'ed with Globalize3. Mongid supports this feature out of the box. Any plans on supporting this awesome feature? :))\",\"user\":\"ixti\",\"gravatar_id\":\"aae6d4accf06084efc742f85d3806b33\",\"state\":\"open\",\"comments\":5,\"html_url\":\"https://github.com/sferik/rails_admin/issues/1289\",\"updated_at\":\"2013-02-23T10:21:46Z\",\"created_at\":\"2012-08-22T18:26:19Z\"},{\"labels\":[],\"votes\":0,\"number\":1456,\"position\":1.0,\"title\":\"Problem with has_and_belongs_to_many\",\"body\":\"In rails admin i see only uneditable fields (Bikes, Testdrives).\\r\\n\\r\\nCODE:\\r\\n\\r\\nclass Testdrive < ActiveRecord::Base\\r\\n\\r\\n  attr_accessible :title, :image, :bike_id\\r\\n\\r\\n  has_and_belongs_to_many :bike\\r\\n\\r\\nend\\r\\n\\r\\n\\r\\nclass Bike < ActiveRecord::Base\\r\\n\\r\\n\\thas_and_belongs_to_many :testdrive\\r\\n\\r\\nend\\r\\n\\r\\nclass BikesTestdrives < ActiveRecord::Migration\\r\\n  def change\\r\\n  \\tcreate_table :bikes_testdrives do |t|\\r\\n  \\t\\tt.integer :bike_id\\r\\n  \\t\\tt.integer :testdrive_id\\r\\n  \\tend\\r\\n  end\\r\\nend\",\"user\":\"tier777\",\"gravatar_id\":\"df48bad46456080afbd40082fdf3225b\",\"state\":\"open\",\"comments\":0,\"html_url\":\"https://github.com/sferik/rails_admin/issues/1456\",\"updated_at\":\"2012-12-27T15:06:24Z\",\"created_at\":\"2012-12-27T15:06:24Z\"},{\"labels\":[],\"votes\":0,\"number\":1273,\"position\":1.0,\"title\":\"Rake db:migrate and ...\\\"doesn't exist: SHOW FULL FIELDS FROM\\\"...\",\"body\":\"Hi,\\nI have added ```rails_admin do`` block to couple models. When I try to deploy my app, and rake db:migrate runs I get following error:\\n\\n```ruby\\n ** [out :: zobacz.re] rake aborted!\\n ** [out :: zobacz.re] Mysql2::Error: Table 'homecard_staging.profit_cards' doesn't exist: SHOW FULL FIELDS FROM `profit_cards`\\n ** [out :: zobacz.re] \\n ** [out :: zobacz.re] Tasks: TOP => db:migrate => environment\\n ** [out :: zobacz.re] (See full trace by running task with --trace)\\n    command finished in 6480ms\\n*** [deploy:update_code] rolling back\\n```\\n\\nThanks in advantage for any help or suggestions.\\n\\nStack trace:\\n\\n```ruby\\n** Invoke db:migrate (first_time)\\n** Invoke environment (first_time)\\n** Invoke disable_rails_admin_initializer (first_time)\\n** Execute disable_rails_admin_initializer\\n** Execute environment\\nrake aborted!\\nMysql2::Error: Table 'homecard_staging.profit_cards' doesn't exist: SHOW FULL FIELDS FROM `profit_cards`\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:243:in `query'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:243:in `block in execute'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_adapter.rb:280:in `block in log'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activesupport-3.2.6/lib/active_support/notifications/instrumenter.rb:20:in `instrument'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_adapter.rb:275:in `log'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:243:in `execute'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/mysql2_adapter.rb:211:in `execute'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:257:in `execute_and_free'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:424:in `columns'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/connection_adapters/schema_cache.rb:12:in `block in initialize'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/model_schema.rb:228:in `yield'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/model_schema.rb:228:in `default'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/activerecord-3.2.6/lib/active_record/model_schema.rb:228:in `columns'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/rails_admin-0.0.5/lib/rails_admin/adapters/active_record.rb:83:in `properties'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/rails_admin-0.0.5/lib/rails_admin/config/fields.rb:50:in `factory'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/rails_admin-0.0.5/lib/rails_admin/config/has_fields.rb:129:in `_fields'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/rails_admin-0.0.5/lib/rails_admin/config/has_fields.rb:127:in `_fields'\\n/home/homecard/app/staging/shared/bundle/ruby/1.9.1/gems/rails_admin-0.0.5/lib/rails_admin/config/has_fields.rb:7:in `field'\\n```\",\"user\":\"swistaczek\",\"gravatar_id\":\"72f1efaaa29970bf63ea46987b0dab9e\",\"state\":\"open\",\"comments\":6,\"html_url\":\"https://github.com/sferik/rails_admin/issues/1273\",\"updated_at\":\"2013-01-29T04:56:02Z\",\"created_at\":\"2012-08-08T07:04:17Z\"},{\"labels\":[],\"votes\":0,\"number\":1458,\"position\":1.0,\"title\":\"has_many through - How to add/edit in admin?\",\"body\":\"I have the following models/associations:\\r\\n\\r\\nclass User < ActiveRecord::Base\\r\\n  has_many :proficiencies\\r\\n  has_many :languages, :through => :proficiencies\\r\\nend\\r\\n\\r\\nclass Language < ActiveRecord::Base\\r\\n  has_many :proficiencies\\r\\n  has_many :users, :through => :proficiencies\\r\\nend\\r\\n\\r\\nclass Proficiency < ActiveRecord::Base\\r\\n  belongs_to :user\\r\\n  belongs_to :language\\r\\nend\\r\\n\\r\\n\\r\\n-----\\r\\n\\r\\nOn the admin side, I am able to create Users and Languages. But I don't see the way to add a new language to a particular user.  If I try to go to edit a particular User, in the Language I just see \\\"Optional\\\" and I don't see anyway I can add new languages.  If I go to add a new proficiency, same thing, in User and Language I see \\\"Optional\\\" but I can create the association.\\r\\n\\r\\nWhat am I missing here?\\r\\n\\r\\n\",\"user\":\"novito\",\"gravatar_id\":\"3a732ef6a0e59b55a2395d644a31eed4\",\"state\":\"open\",\"comments\":0,\"html_url\":\"https://github.com/sferik/rails_admin/issues/1458\",\"updated_at\":\"2012-12-30T09:23:58Z\",\"created_at\":\"2012-12-30T09:23:58Z\"},{\"labels\":[\"enhancement\"],\"votes\":0,\"number\":897,\"position\":1.0,\"title\":\"Custom search for belongs_to\",\"body\":\"Suppose I have the following models:\\r\\n\\r\\n    class User < ActiveRecord::Base\\r\\n      has_many :friendships\\r\\n      has_many :friends, :through => :friendships\\r\\n    end\\r\\n\\r\\n    class Friendship < ActiveRecord::Base\\r\\n      belongs_to :user\\r\\n      belongs_to :friend, :class_name => \\\"User\\\"\\r\\n    end\\r\\n\\r\\nThe user_id and friend_id fields in the #create and #update actions of the admin panel use a searchable drop down. I'd like to customize the search function to, for example, only use `User.where(:username => query)` or `User.where(:email => query)`. The default seems to search every column on the table and is very time consuming for tables with tens-of-thousands of rows. The documentation on scoping the association and configuring the model in the initializer is unclear to me.\",\"user\":\"SegFaultAX\",\"gravatar_id\":\"48eaaf2562dafb2691c8987c75c0ee63\",\"state\":\"open\",\"comments\":3,\"html_url\":\"https://github.com/sferik/rails_admin/issues/897\",\"updated_at\":\"2012-01-10T10:33:47Z\",\"created_at\":\"2011-12-28T23:19:02Z\"},{\"labels\":[\"confirmed bug\"],\"votes\":0,\"number\":1196,\"position\":1.0,\"title\":\"generator rails_admin:install tries to access table \\\"users\\\" before migration\",\"body\":\"After generating a devise model for users, the rails_admin generator tries to access the new users table before running the migration. Maybe the solution is to run the 'db:migrate' task from inside the rails_admin generator after calling the devise generator.\\n\\nHere is the full trace:\\n\\n    rails g rails_admin:install\\n               -  Hello, RailsAdmin installer will help you sets things up!\\n               -  I need to work with Devise, let's look at a few things first:\\n               -  Checking for a current installation of devise...\\n               -  Found it!\\n               -  Looks like you've already installed it, good!\\n               ?  What would you like the user model to be called? Press <enter> for [user] > \\n               -  Now setting up devise with user model name 'user':\\n        generate  devise\\n          invoke  active_record\\n          create    db/migrate/20120608130434_devise_create_users.rb\\n          create    app/models/user.rb\\n          insert    app/models/user.rb\\n           route  devise_for :users\\n               -  Now you'll need an initializer...\\n          create  config/initializers/rails_admin.rb\\n    [...]/gems/activerecord-3.2.2/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:243:in `query': Mysql2::Error: Table 'project_development.users' doesn't exist: SHOW FULL FIELDS FROM `users` (ActiveRecord::StatementInvalid)\\n        from [...]/gems/activerecord-3.2.2/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:243:in `block in execute'\\n        from [...]/gems/activerecord-3.2.2/lib/active_record/connection_adapters/abstract_adapter.rb:280:in `block in log'\\n        from [...]/gems/activesupport-3.2.2/lib/active_support/notifications/instrumenter.rb:20:in `instrument'\\n        from [...]/gems/activerecord-3.2.2/lib/active_record/connection_adapters/abstract_adapter.rb:275:in `log'\\n        from [...]/gems/activerecord-3.2.2/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:243:in `execute'\\n        from [...]/gems/activerecord-3.2.2/lib/active_record/connection_adapters/mysql2_adapter.rb:211:in `execute'\\n        from [...]/gems/activerecord-3.2.2/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:257:in `execute_and_free'\\n        from [...]/gems/activerecord-3.2.2/lib/active_record/connection_adapters/abstract_mysql_adapter.rb:424:in `columns'\\n        from [...]/gems/activerecord-3.2.2/lib/active_record/connection_adapters/schema_cache.rb:12:in `block in initialize'\\n        from [...]/gems/activerecord-3.2.2/lib/active_record/model_schema.rb:228:in `yield'\\n        from [...]/gems/activerecord-3.2.2/lib/active_record/model_schema.rb:228:in `default'\\n        from [...]/gems/activerecord-3.2.2/lib/active_record/model_schema.rb:228:in `columns'\\n        from [...]/gems/rails_admin-0.0.4/lib/rails_admin/adapters/active_record.rb:83:in `properties'\\n        from [...]/gems/rails_admin-0.0.4/lib/rails_admin/config/fields.rb:50:in `factory'\\n        from [...]/gems/rails_admin-0.0.4/lib/rails_admin/config/has_fields.rb:129:in `_fields'\\n        from [...]/gems/rails_admin-0.0.4/lib/rails_admin/config/has_fields.rb:127:in `_fields'\\n        from [...]/gems/rails_admin-0.0.4/lib/rails_admin/config/has_fields.rb:107:in `all_fields'\\n        from [...]/gems/rails_admin-0.0.4/lib/rails_admin/config/has_fields.rb:82:in `fields'\\n        from (erb):85:in `block in template'\\n        from (erb):82:in `map'\\n        from (erb):82:in `template'\\n        from [...]/ruby-1.9.3-p194/lib/ruby/1.9.1/erb.rb:838:in `eval'\\n        from [...]/ruby-1.9.3-p194/lib/ruby/1.9.1/erb.rb:838:in `result'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions/file_manipulation.rb:111:in `block in template'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions/create_file.rb:54:in `call'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions/create_file.rb:54:in `render'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions/create_file.rb:63:in `block (2 levels) in invoke!'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions/create_file.rb:63:in `open'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions/create_file.rb:63:in `block in invoke!'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions/empty_directory.rb:114:in `call'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions/empty_directory.rb:114:in `invoke_with_conflict_check'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions/create_file.rb:61:in `invoke!'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions.rb:95:in `action'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions/create_file.rb:26:in `create_file'\\n        from [...]/gems/thor-0.14.6/lib/thor/actions/file_manipulation.rb:110:in `template'\\n        from [...]/gems/rails_admin-0.0.4/lib/generators/rails_admin/install_generator.rb:59:in `install'\\n        from [...]/gems/thor-0.14.6/lib/thor/task.rb:22:in `run'\\n        from [...]/gems/thor-0.14.6/lib/thor/invocation.rb:118:in `invoke_task'\\n        from [...]/gems/thor-0.14.6/lib/thor/invocation.rb:124:in `block in invoke_all'\\n        from [...]/gems/thor-0.14.6/lib/thor/invocation.rb:124:in `each'\\n        from [...]/gems/thor-0.14.6/lib/thor/invocation.rb:124:in `map'\\n        from [...]/gems/thor-0.14.6/lib/thor/invocation.rb:124:in `invoke_all'\\n        from [...]/gems/thor-0.14.6/lib/thor/group.rb:226:in `dispatch'\\n        from [...]/gems/thor-0.14.6/lib/thor/base.rb:389:in `start'\\n        from [...]/gems/railties-3.2.2/lib/rails/generators.rb:170:in `invoke'\\n        from [...]/gems/railties-3.2.2/lib/rails/commands/generate.rb:12:in `<top (required)>'\\n        from [...]/gems/activesupport-3.2.2/lib/active_support/dependencies.rb:251:in `require'\\n        from [...]/gems/activesupport-3.2.2/lib/active_support/dependencies.rb:251:in `block in require'\\n        from [...]/gems/activesupport-3.2.2/lib/active_support/dependencies.rb:236:in `load_dependency'\\n        from [...]/gems/activesupport-3.2.2/lib/active_support/dependencies.rb:251:in `require'\\n        from [...]/gems/railties-3.2.2/lib/rails/commands.rb:29:in `<top (required)>'\\n        from script/rails:6:in `require'\\n        from script/rails:6:in `<main>'\\n\",\"user\":\"Knack\",\"gravatar_id\":\"3d889804514d950384b9ab4cd4a73a23\",\"state\":\"open\",\"comments\":3,\"html_url\":\"https://github.com/sferik/rails_admin/issues/1196\",\"updated_at\":\"2012-07-16T16:10:07Z\",\"created_at\":\"2012-06-08T13:21:49Z\"},{\"labels\":[],\"votes\":0,\"number\":1543,\"position\":1.0,\"title\":\"Sortable doesn't automatically join required models\",\"body\":\"From the guides:\\r\\n\\r\\n        # if you need to specify the join association name:\\r\\n        # (See #526 and http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html => table_aliasing)\\r\\n        sortable {Team => :win_percentage}\\r\\n\\r\\nYet this doesn't automatically join the required models, and so only works with a default_scope which joins those models being sorted. \\r\\n\\r\\nIs there another solution to this? Or, could you point me in the right direction on where to implement this and I'll send a pull request.\",\"user\":\"damien-roche\",\"gravatar_id\":\"ebea2b67572b61c62dc0e8bc33693009\",\"state\":\"open\",\"comments\":1,\"html_url\":\"https://github.com/sferik/rails_admin/issues/1543\",\"updated_at\":\"2013-03-08T08:41:21Z\",\"created_at\":\"2013-02-26T13:14:09Z\"},{\"labels\":[],\"votes\":0,\"number\":1279,\"position\":1.0,\"title\":\"Dropdown for association doesn't appear when form is nested\",\"body\":\"I have a site with Courses, which have many CourseSessions, each of which belongs to a Location, i.e.\\n\\n```ruby\\nclass Course < ActiveRecord::Base\\nhas_many :course_sessions, :dependent => :destroy, :inverse_of => :course\\n  has_many :locations, :through => :course_sessions\\n  accepts_nested_attributes_for :course_sessions, :allow_destroy => true\\nend\\n\\nclass CourseSession < ActiveRecord::Base\\n  attr_accessible :course_session_start, :course_session_end, :course_id, :location_id,  :description\\n  belongs_to :course, :inverse_of => :course_sessions\\n  belongs_to :location, :inverse_of => :course_sessions\\nend\\n\\nclass Location < Active:Record::Base\\n  has_many :course_sessions, :inverse_of => :location\\nend\\n\\n```\\n\\nWhen I edit a CourseSession by itself, everything is fine: I get a drop down which lets me select the location.\\n\\nBut when I am editing a course, the nested forms for each CourseSession don't include the dropdown.\\n\\nWhat gives?  And how do I fix it?\\n\",\"user\":\"johm\",\"gravatar_id\":\"386be2a6e11ec6eca8b93a8432695740\",\"state\":\"open\",\"comments\":0,\"html_url\":\"https://github.com/sferik/rails_admin/issues/1279\",\"updated_at\":\"2012-08-12T15:47:21Z\",\"created_at\":\"2012-08-12T15:47:21Z\"}]}"
+    http_version: 
+  recorded_at: Thu, 02 May 2013 13:20:44 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/legacy/repos/search/One40Proof
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Thu, 02 May 2013 13:35:19 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "58"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"237ab7fb6727a59841f918dd59f1ed6d\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: ASCII-8BIT
+      string: "{\"repositories\":[{\"type\":\"repo\",\"username\":\"reddavis\",\"name\":\"One40Proof\",\"owner\":\"reddavis\",\"homepage\":\"http://developers.140proof.com/docs/\",\"description\":\"http://developers.140proof.com/docs/\",\"language\":\"Ruby\",\"watchers\":4,\"followers\":4,\"forks\":0,\"size\":116,\"open_issues\":0,\"score\":12.331568,\"has_downloads\":true,\"has_issues\":true,\"has_wiki\":true,\"fork\":false,\"private\":false,\"url\":\"https://github.com/reddavis/One40Proof\",\"created\":\"2010-02-17T14:33:05Z\",\"created_at\":\"2010-02-17T14:33:05Z\",\"pushed_at\":\"2010-06-30T00:55:20Z\",\"pushed\":\"2010-06-30T00:55:20Z\"}]}"
+    http_version: 
+  recorded_at: Thu, 02 May 2013 13:35:21 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/legacy/user/search/sferik
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Thu, 02 May 2013 14:22:35 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "59"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"2653ca8824c803d6562e888326503685\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: ASCII-8BIT
+      string: "{\"users\":[{\"id\":\"user-10308\",\"gravatar_id\":\"1f74b13f1e5c6c69cb5d7fbaabb1e2cb\",\"username\":\"sferik\",\"login\":\"sferik\",\"name\":\"sferik\",\"location\":\"San Francisco, CA\",\"language\":\"Ruby\",\"fullname\":\"sferik\",\"type\":\"user\",\"public_repo_count\":70,\"repos\":70,\"followers\":642,\"followers_count\":642,\"score\":105.90034,\"created_at\":\"2008-05-14T20:36:12Z\",\"created\":\"2008-05-14T20:36:12Z\"}]}"
+    http_version: 
+  recorded_at: Thu, 02 May 2013 14:22:36 GMT
+recorded_with: VCR 2.4.0

@@ -2,15 +2,6 @@ module Octokit
   class Client
     module Repositories
 
-      # Legacy repository search
-      #
-      # @see http://developer.github.com/v3/search/#search-repositories
-      # @param q [String] Search keyword
-      # @return [Array<Hashie::Mash>] List of repositories found
-      def search_repositories(q, options={})
-        get("legacy/repos/search/#{q}", options)['repositories']
-      end
-      alias :search_repos :search_repositories
 
       # Get a single repository
       #

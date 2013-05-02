@@ -2,17 +2,6 @@ module Octokit
   class Client
     module Users
 
-      # Search for user.
-      #
-      # @param search [String] User to search for.
-      # @return [Array<Hashie::Mash>] Array of hashes representing users.
-      # @see http://developer.github.com/v3/search/#search-users
-      # @example
-      #   Octokit.search_users('pengwynn')
-      def search_users(search, options={})
-        get("legacy/user/search/#{search}", options)['users']
-      end
-
       # List all GitHub users
       #
       # This provides a dump of every user, in the order that they signed up

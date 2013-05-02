@@ -1,31 +1,39 @@
 require 'helper'
 
-describe "Legacy search" do
+describe Octokit::Client::LegacySearch do
+
+  before do
+    Octokit.reset!
+    VCR.insert_cassette 'legacy_search'
+  end
+
+  after do
+    Octokit.reset!
+    VCR.eject_cassette
+  end
 
   describe ".legacy_search_issues" do
-    xit "returns matching issues" do
-      stub_get("https://api.github.com/legacy/issues/search/sferik/rails_admin/open/activerecord").
-      to_return(json_response("legacy/issues.json"))
-      issues = @client.search_issues("sferik/rails_admin", "activerecord")
-      expect(issues.first.number).to eq(105)
+    it "returns matching issues" do
+      issues = Octokit.search_issues("sferik/rails_admin", "activerecord")
+      expect(issues).to_not be_empty
+      assert_requested :get, github_url("/legacy/issues/search/sferik/rails_admin/open/activerecord")
     end
   end # .search_issues
 
+  describe ".legacy_search_repos" do
+    it "returns matching repositories" do
+      repositories = Octokit.search_repositories("One40Proof")
+      expect(repositories).to_not be_empty
+      assert_requested :get, github_url("/legacy/repos/search/One40Proof")
+    end
+  end # .legacy_search_repos
+
   describe ".legacy_search_users" do
-    xit "returns matching username" do
-      stub_get("https://api.github.com/legacy/user/search/sferik").
-        to_return(json_response("legacy/users.json"))
-      users = @client.search_users("sferik")
+    it "returns matching username" do
+      users = Octokit.search_users("sferik")
       expect(users.first.username).to eq("sferik")
+      assert_requested :get, github_url("/legacy/user/search/sferik")
     end
   end # .legacy_searcy_users
 
-  describe ".legacy_search_repos" do
-    xit "returns matching repositories" do
-      stub_get("https://api.github.com/legacy/repos/search/One40Proof").
-        to_return(json_response("legacy/repositories.json"))
-      repositories = @client.search_repositories("One40Proof")
-      expect(repositories.first.name).to eq("One40Proof")
-    end
-  end # .legacy_search_repos
 end
