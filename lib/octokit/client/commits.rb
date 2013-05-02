@@ -17,7 +17,7 @@ module Octokit
         arguments = Octokit::RepoArguments.new(args)
         sha_or_branch = arguments.pop
         if sha_or_branch
-          puts "sha_or_branch is deprecated: Please use options[:sha] instead"
+          warn "sha_or_branch is deprecated: Please use options[:sha] instead"
           arguments.options[:sha] = sha_or_branch
         end
         paginate("repos/#{Repository.new(arguments.repo)}/commits", arguments.options)
@@ -41,7 +41,7 @@ module Octokit
         params.merge!(:since => iso8601(date))
         sha_or_branch = arguments.pop
         if sha_or_branch
-          puts "sha_or_branch is deprecated: Please use options[:sha] instead"
+          warn "sha_or_branch is deprecated: Please use options[:sha] instead"
           params[:sha] = sha_or_branch
         end
         commits(arguments.repo, params)
@@ -64,7 +64,7 @@ module Octokit
         params.merge!(:until => iso8601(date))
         sha_or_branch = arguments.pop
         if sha_or_branch
-          puts "sha_or_branch is deprecated: Please use options[:sha] instead"
+          warn "sha_or_branch is deprecated: Please use options[:sha] instead"
           params[:sha] = sha_or_branch
         end
         commits(arguments.repo, params)
@@ -87,7 +87,7 @@ module Octokit
         params.merge!(:since => iso8601(date), :until => iso8601(end_date))
         sha_or_branch = arguments.pop
         if sha_or_branch
-          puts "sha_or_branch is deprecated: Please use options[:sha] instead"
+          warn "sha_or_branch is deprecated: Please use options[:sha] instead"
           params[:sha] = sha_or_branch
         end
         commits(arguments.repo, params)
@@ -113,7 +113,7 @@ module Octokit
         params.merge!(:since => iso8601(date), :until => iso8601(end_date))
         sha_or_branch = arguments.pop
         if sha_or_branch
-          puts "sha_or_branch is deprecated: Please use options[:sha] instead"
+          warn "sha_or_branch is deprecated: Please use options[:sha] instead"
           params[:sha] = sha_or_branch
         end
         commits(arguments.repo, params)
