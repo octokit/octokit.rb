@@ -10,6 +10,7 @@ describe Octokit::Client::Users do
 
   after do
     VCR.eject_cassette
+    Octokit.reset!
   end
 
   describe ".all_users" do

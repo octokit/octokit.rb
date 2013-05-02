@@ -1,6 +1,6 @@
 module Octokit
   module Configurable
-    attr_accessor :api_endpoint, :auto_paginate, :client_id, :default_media_type, :connection_options, 
+    attr_accessor :api_endpoint, :auto_paginate, :client_id, :default_media_type, :connection_options,
                   :login, :middleware, :per_page, :proxy, :user_agent, :web_endpoint
     attr_writer :access_token, :client_secret, :password
 
@@ -37,6 +37,14 @@ module Octokit
       self
     end
     alias setup reset!
+
+    def api_endpoint
+      File.join(@api_endpoint, "")
+    end
+
+    def web_endpoint
+      File.join(@web_endpoint, "")
+    end
 
     private
 

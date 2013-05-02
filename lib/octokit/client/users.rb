@@ -49,7 +49,7 @@ module Octokit
           :client_id => app_id,
           :client_secret => app_secret
         })
-        post("#{web_endpoint}/login/oauth/access_token", options)
+        post("#{web_endpoint}login/oauth/access_token", options)
       end
 
       # Validate user username and password
