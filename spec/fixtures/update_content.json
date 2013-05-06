@@ -1,0 +1,44 @@
+{
+  "content": {
+    "name": "foo/bar/baz.txt",
+    "path": "foo/bar/baz.txt",
+    "sha": "46e50d3f73c39aeb86295d85e38b0364a0f0a1b6",
+    "size": 21,
+    "url": "https://api.github.com/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt?ref=some-fourth-branch",
+    "html_url": "https://github.com/pengwynn/api-sandbox/blob/some-fourth-branch/foo/bar/baz.txt",
+    "git_url": "https://api.github.com/repos/pengwynn/api-sandbox/git/blobs/46e50d3f73c39aeb86295d85e38b0364a0f0a1b6",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt?ref=some-fourth-branch",
+      "git": "https://api.github.com/repos/pengwynn/api-sandbox/git/blobs/46e50d3f73c39aeb86295d85e38b0364a0f0a1b6",
+      "html": "https://github.com/pengwynn/api-sandbox/blob/some-fourth-branch/foo/bar/baz.txt"
+    }
+  },
+  "commit": {
+    "sha": "15ab9bfe8985e69d64e3d06b2eaf252cfbf43a6e",
+    "url": "https://api.github.com/repos/pengwynn/api-sandbox/git/commits/15ab9bfe8985e69d64e3d06b2eaf252cfbf43a6e",
+    "html_url": "https://github.com/pengwynn/api-sandbox/commits/15ab9bfe8985e69d64e3d06b2eaf252cfbf43a6e",
+    "author": {
+      "name": "Wynn Netherland",
+      "email": "wynn.netherland@gmail.com",
+      "date": "2013-05-06T14:03:22Z"
+    },
+    "committer": {
+      "name": "Wynn Netherland",
+      "email": "wynn.netherland@gmail.com",
+      "date": "2013-05-06T14:03:22Z"
+    },
+    "tree": {
+      "sha": "4f7651e2a3cfc5fb7abfb8a38201d7c4a439d276",
+      "url": "https://api.github.com/repos/pengwynn/api-sandbox/git/trees/4f7651e2a3cfc5fb7abfb8a38201d7c4a439d276"
+    },
+    "message": "I am commit-ing",
+    "parents": [
+      {
+        "sha": "4810b8a0d076f20169bd2acca6501112f4d93e7d",
+        "url": "https://api.github.com/repos/pengwynn/api-sandbox/git/commits/4810b8a0d076f20169bd2acca6501112f4d93e7d",
+        "html_url": "https://github.com/pengwynn/api-sandbox/commits/4810b8a0d076f20169bd2acca6501112f4d93e7d"
+      }
+    ]
+  }
+}
