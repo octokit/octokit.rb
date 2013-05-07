@@ -5,6 +5,7 @@ describe Octokit::Client do
   describe "module configuration" do
 
     before do
+      Octokit.reset!
       Octokit.configure do |config|
         Octokit::Configurable.keys.each do |key|
           config.send("#{key}=", "Some #{key}")

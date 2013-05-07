@@ -2,6 +2,7 @@ require 'helper'
 
 describe Octokit::Client::Say do
   before do
+    Octokit.reset!
     @client = Octokit::Client.new
   end
 
