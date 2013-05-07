@@ -28,9 +28,9 @@ VCR.configure do |c|
       ENV['OCTOKIT_TEST_GITHUB_PASSWORD']
   end
   c.default_cassette_options = {
-    :serialize_with => :syck,
+    :serialize_with             => :syck,
     :decode_compressed_response => true,
-    :record => :new_episodes
+    :record                     => ENV['TRAVIS'] ? :none : :new_episodes
   }
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
