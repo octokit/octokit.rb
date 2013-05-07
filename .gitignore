@@ -21,3 +21,4 @@ test/tmp
 test/version_tmp
 tmp
 tmtags
+.test_queue_stats
