@@ -60,6 +60,29 @@ describe Octokit::Client::Contents do
                                          "Here be the content")
       expect(response.commit.sha).to eq '4810b8a0d076f20169bd2acca6501112f4d93e7d'
     end
+    it "creates contents from file path" do
+      stub_put("/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt").
+        with({:body => {:message => "I am commit-ing", :content => "SGVyZSBiZSB0aGUgY29udGVudAo=\n"}}).
+        to_return(json_response("create_content.json"))
+
+      response = @client.create_contents("pengwynn/api-sandbox",
+                                         "foo/bar/baz.txt",
+                                         "I am commit-ing",
+                                         :file => "spec/fixtures/new_file.txt")
+      expect(response.commit.sha).to eq '4810b8a0d076f20169bd2acca6501112f4d93e7d'
+    end
+    it "creates contents from File object" do
+      stub_put("/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt").
+        with({:body => {:message => "I am commit-ing", :content => "SGVyZSBiZSB0aGUgY29udGVudAo=\n"}}).
+        to_return(json_response("create_content.json"))
+
+      file = File.new "spec/fixtures/new_file.txt", "r"
+      response = @client.create_contents("pengwynn/api-sandbox",
+                                         "foo/bar/baz.txt",
+                                         "I am commit-ing",
+                                         :file => file)
+      expect(response.commit.sha).to eq '4810b8a0d076f20169bd2acca6501112f4d93e7d'
+    end
   end
 
   describe ".update_contents" do
@@ -75,8 +98,41 @@ describe Octokit::Client::Contents do
       response = @client.update_contents("pengwynn/api-sandbox",
                                          "foo/bar/baz.txt",
                                          "I am commit-ing",
-                                         "Here be moar content",
-                                         "4d149b826e7305659006eb64cfecd3be68d0f2f0")
+                                         "4d149b826e7305659006eb64cfecd3be68d0f2f0",
+                                         "Here be moar content")
+      expect(response.commit.sha).to eq '15ab9bfe8985e69d64e3d06b2eaf252cfbf43a6e'
+    end
+    it "updates repository contents with a file path" do
+      stub_put("/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt").
+        with({:body => {
+                :sha => "4d149b826e7305659006eb64cfecd3be68d0f2f0",
+                :message => "I am commit-ing",
+                :content => "SGVyZSBiZSBtb2FyIGNvbnRlbnQK\n"
+        }}).
+        to_return(json_response("update_content.json"))
+
+      response = @client.update_contents("pengwynn/api-sandbox",
+                                         "foo/bar/baz.txt",
+                                         "I am commit-ing",
+                                         "4d149b826e7305659006eb64cfecd3be68d0f2f0",
+                                         :file => "spec/fixtures/updated_file.txt")
+      expect(response.commit.sha).to eq '15ab9bfe8985e69d64e3d06b2eaf252cfbf43a6e'
+    end
+    it "updates repository contents with a File object" do
+      stub_put("/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt").
+        with({:body => {
+                :sha => "4d149b826e7305659006eb64cfecd3be68d0f2f0",
+                :message => "I am commit-ing",
+                :content => "SGVyZSBiZSBtb2FyIGNvbnRlbnQK\n"
+        }}).
+        to_return(json_response("update_content.json"))
+
+      file = File.new "spec/fixtures/updated_file.txt", "r"
+      response = @client.update_contents("pengwynn/api-sandbox",
+                                         "foo/bar/baz.txt",
+                                         "I am commit-ing",
+                                         "4d149b826e7305659006eb64cfecd3be68d0f2f0",
+                                         :file => file)
       expect(response.commit.sha).to eq '15ab9bfe8985e69d64e3d06b2eaf252cfbf43a6e'
     end
   end
