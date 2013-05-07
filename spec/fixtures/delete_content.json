@@ -1,0 +1,30 @@
+{
+  "content": null,
+  "commit": {
+    "sha": "960a747b2f5c3837184b84e1f8cae7ef1a765e2f",
+    "url": "https://api.github.com/repos/pengwynn/api-sandbox/git/commits/960a747b2f5c3837184b84e1f8cae7ef1a765e2f",
+    "html_url": "https://github.com/pengwynn/api-sandbox/commits/960a747b2f5c3837184b84e1f8cae7ef1a765e2f",
+    "author": {
+      "name": "Wynn Netherland",
+      "email": "wynn.netherland@gmail.com",
+      "date": "2013-05-06T14:06:14Z"
+    },
+    "committer": {
+      "name": "Wynn Netherland",
+      "email": "wynn.netherland@gmail.com",
+      "date": "2013-05-06T14:06:14Z"
+    },
+    "tree": {
+      "sha": "b5534a47a7532661b15e0d5067be91077eda47a2",
+      "url": "https://api.github.com/repos/pengwynn/api-sandbox/git/trees/b5534a47a7532661b15e0d5067be91077eda47a2"
+    },
+    "message": "I am rm-ing",
+    "parents": [
+      {
+        "sha": "15ab9bfe8985e69d64e3d06b2eaf252cfbf43a6e",
+        "url": "https://api.github.com/repos/pengwynn/api-sandbox/git/commits/15ab9bfe8985e69d64e3d06b2eaf252cfbf43a6e",
+        "html_url": "https://github.com/pengwynn/api-sandbox/commits/15ab9bfe8985e69d64e3d06b2eaf252cfbf43a6e"
+      }
+    ]
+  }
+}

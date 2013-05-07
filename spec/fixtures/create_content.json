@@ -1,0 +1,44 @@
+{
+  "content": {
+      "name": "foo/bar/baz.txt",
+      "path": "foo/bar/baz.txt",
+      "sha": "4d149b826e7305659006eb64cfecd3be68d0f2f0",
+      "size": 20,
+      "url": "https://api.github.com/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt?ref=some-fourth-branch",
+      "html_url": "https://github.com/pengwynn/api-sandbox/blob/some-fourth-branch/foo/bar/baz.txt",
+      "git_url": "https://api.github.com/repos/pengwynn/api-sandbox/git/blobs/4d149b826e7305659006eb64cfecd3be68d0f2f0",
+      "type": "file",
+      "_links": {
+            "self": "https://api.github.com/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt?ref=some-fourth-branch",
+            "git": "https://api.github.com/repos/pengwynn/api-sandbox/git/blobs/4d149b826e7305659006eb64cfecd3be68d0f2f0",
+            "html": "https://github.com/pengwynn/api-sandbox/blob/some-fourth-branch/foo/bar/baz.txt"
+          }
+    },
+  "commit": {
+      "sha": "4810b8a0d076f20169bd2acca6501112f4d93e7d",
+      "url": "https://api.github.com/repos/pengwynn/api-sandbox/git/commits/4810b8a0d076f20169bd2acca6501112f4d93e7d",
+      "html_url": "https://github.com/pengwynn/api-sandbox/commits/4810b8a0d076f20169bd2acca6501112f4d93e7d",
+      "author": {
+            "name": "Wynn Netherland",
+            "email": "wynn.netherland@gmail.com",
+            "date": "2013-05-06T14:00:14Z"
+          },
+      "committer": {
+            "name": "Wynn Netherland",
+            "email": "wynn.netherland@gmail.com",
+            "date": "2013-05-06T14:00:14Z"
+          },
+      "tree": {
+            "sha": "da20f92253992ef5c4a0e3f21674a8ba0fc82550",
+            "url": "https://api.github.com/repos/pengwynn/api-sandbox/git/trees/da20f92253992ef5c4a0e3f21674a8ba0fc82550"
+          },
+      "message": "I am commit-ing",
+      "parents": [
+              {
+                      "sha": "eb11b3141c9dec3ba88d15b499d597a65df15320",
+                      "url": "https://api.github.com/repos/pengwynn/api-sandbox/git/commits/eb11b3141c9dec3ba88d15b499d597a65df15320",
+                      "html_url": "https://github.com/pengwynn/api-sandbox/commits/eb11b3141c9dec3ba88d15b499d597a65df15320"
+                    }
+          ]
+    }
+}
