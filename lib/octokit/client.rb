@@ -139,8 +139,6 @@ module Octokit
       data
     end
 
-    private
-
     def agent
       @agent ||= Sawyer::Agent.new(api_endpoint, sawyer_options) do |http|
         http.headers[:accept] = default_media_type
@@ -152,6 +150,12 @@ module Octokit
         end
       end
     end
+
+    def root
+      agent.start.data
+    end
+
+    private
 
     def request(method, url, options)
       if application_authenticated?

@@ -670,4 +670,47 @@ http_interactions:
       string: "{\"message\":\"Bad credentials\"}"
     http_version: 
   recorded_at: Thu, 02 May 2013 00:21:15 GMT
+- request: 
+    method: get
+    uri: https://pengwynn:il0veruby@api.github.com/
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 401
+      message: Unauthorized
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Tue, 07 May 2013 20:33:11 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 401 Unauthorized
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      Content-Length: 
+      - "29"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: US-ASCII
+      string: "{\"message\":\"Bad credentials\"}"
+    http_version: 
+  recorded_at: Tue, 07 May 2013 20:33:12 GMT
 recorded_with: VCR 2.4.0

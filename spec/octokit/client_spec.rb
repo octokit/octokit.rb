@@ -217,14 +217,21 @@ describe Octokit::Client do
     before do
       Octokit.reset!
     end
-
     it "acts like a Sawyer agent" do
-      expect(Octokit.client.send(:agent)).to respond_to :start
+      expect(Octokit.client.agent).to respond_to :start
     end
-
     it "caches the agent" do
-      agent = Octokit.client.send(:agent)
-      expect(agent.object_id).to eq Octokit.client.send(:agent).object_id
+      agent = Octokit.client.agent
+      expect(agent.object_id).to eq Octokit.client.agent.object_id
+    end
+  end # .agent
+
+  describe ".root" do
+    it "fetches the API root" do
+      VCR.use_cassette 'root' do
+        root = Octokit.client.root
+        expect(root.rels[:issues].href).to eq "https://api.github.com/issues"
+      end
     end
   end
 
@@ -238,13 +245,12 @@ describe Octokit::Client do
         expect(client.last_response.status).to eq 200
       end
     end
-  end
+  end # .last_response
 
   describe ".get" do
     before(:each) do
       Octokit.reset!
     end
-
     it "handles query params" do
       VCR.use_cassette 'root' do
         Octokit.get "/", :foo => "bar"
@@ -259,7 +265,7 @@ describe Octokit::Client do
         assert_requested request
       end
     end
-  end
+  end # .get
 
   describe ".head" do
     it "handles query params" do
@@ -276,7 +282,7 @@ describe Octokit::Client do
         assert_requested request
       end
     end
-  end
+  end # .head
 
   describe "when making requests" do
     before do
