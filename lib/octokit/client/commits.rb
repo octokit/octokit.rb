@@ -18,7 +18,7 @@ module Octokit
       # @overload commits(repo, options = {})
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param options [String] :sha Commit SHA or branch name from which to start the list
-      # @return [Array] An array of hashes representing commits
+      # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       def commits(*args)
         arguments = Octokit::RepoArguments.new(args)
@@ -42,7 +42,7 @@ module Octokit
       #   @param date [String] Date on which we want to compare
       #   @param sha_or_branch [String] A commit SHA or branch name
       #   @param options [String] :sha Commit SHA or branch name from which to start the list
-      # @return [Array] An array of hashes representing commits
+      # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
       #   Octokit.commits_since('pengwynn/octokit', '2012-10-01')
@@ -69,7 +69,7 @@ module Octokit
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       #   @param sha_or_branch [String] Commit SHA or branch name from which to start the list
-      # @return [Array] An array of hashes representing commits
+      # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
       #   Octokit.commits_before('pengwynn/octokit', '2012-10-01')
@@ -96,7 +96,7 @@ module Octokit
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       #   @param sha_or_branch [String] Commit SHA or branch name from which to start the list
-      # @return [Array] An array of hashes representing commits
+      # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
       #   Octokit.commits_on('pengwynn/octokit', '2012-10-01')
@@ -125,7 +125,7 @@ module Octokit
       #   @param start_date [String] Start Date on which we want to compare
       #   @param end_date [String] End Date on which we want to compare
       #   @param sha_or_branch [String] Commit SHA or branch name from which to start the list
-      # @return [Array] An array of hashes representing commits
+      # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
       #   Octokit.commits_on('pengwynn/octokit', '2012-10-01', '2012-11-01')
