@@ -11,8 +11,10 @@ module Octokit
       # List commits
       #
       # @overload commits(repo, sha_or_branch, options = {})
+      #   @deprecated
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param sha_or_branch [String] A commit SHA or branch name
+      #   @param options [String] :sha Commit SHA or branch name from which to start the list
       # @overload commits(repo, options = {})
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param options [String] :sha Commit SHA or branch name from which to start the list
@@ -22,7 +24,6 @@ module Octokit
         arguments = Octokit::RepoArguments.new(args)
         sha_or_branch = arguments.pop
         if sha_or_branch
-          warn "DEPRECATED: sha_or_branch is deprecated: Please use options[:sha] instead"
           arguments.options[:sha] = sha_or_branch
         end
         paginate("repos/#{Repository.new(arguments.repo)}/commits", arguments.options)
@@ -36,6 +37,7 @@ module Octokit
       #   @param date [String] Date on which we want to compare
       #   @param options [String] :sha Commit SHA or branch name from which to start the list
       # @overload commits_since(repo, date, sha_or_branch, options = {})
+      #   @deprecated
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       #   @param sha_or_branch [String] A commit SHA or branch name
@@ -52,7 +54,6 @@ module Octokit
         params.merge!(:since => iso8601(date))
         sha_or_branch = arguments.pop
         if sha_or_branch
-          warn "DEPRECATED: sha_or_branch is deprecated: Please use options[:sha] instead"
           params[:sha] = sha_or_branch
         end
         commits(arguments.repo, params)
@@ -64,6 +65,7 @@ module Octokit
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       # @overload commits_before(repo, date, sha_or_branch, options = {})
+      #   @deprecated
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       #   @param sha_or_branch [String] Commit SHA or branch name from which to start the list
@@ -79,7 +81,6 @@ module Octokit
         params.merge!(:until => iso8601(date))
         sha_or_branch = arguments.pop
         if sha_or_branch
-          warn "DEPRECATED: sha_or_branch is deprecated: Please use options[:sha] instead"
           params[:sha] = sha_or_branch
         end
         commits(arguments.repo, params)
@@ -91,6 +92,7 @@ module Octokit
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       # @overload commits_on(repo, date, sha_or_branch, options = {})
+      #   @deprecated
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       #   @param sha_or_branch [String] Commit SHA or branch name from which to start the list
@@ -106,7 +108,6 @@ module Octokit
         params.merge!(:since => iso8601(date), :until => iso8601(end_date))
         sha_or_branch = arguments.pop
         if sha_or_branch
-          warn "DEPRECATED: sha_or_branch is deprecated: Please use options[:sha] instead"
           params[:sha] = sha_or_branch
         end
         commits(arguments.repo, params)
@@ -119,6 +120,7 @@ module Octokit
       #   @param start_date [String] Start Date on which we want to compare
       #   @param end_date [String] End Date on which we want to compare
       # @overload commits_between(repo, start_date, end_date, sha_or_branch, options = {})
+      #   @deprecated
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param start_date [String] Start Date on which we want to compare
       #   @param end_date [String] End Date on which we want to compare
@@ -137,7 +139,6 @@ module Octokit
         params.merge!(:since => iso8601(date), :until => iso8601(end_date))
         sha_or_branch = arguments.pop
         if sha_or_branch
-          warn "DEPRECATED: sha_or_branch is deprecated: Please use options[:sha] instead"
           params[:sha] = sha_or_branch
         end
         commits(arguments.repo, params)
