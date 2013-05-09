@@ -1,5 +1,9 @@
 module Octokit
   class Client
+
+    # Methods for the Git Data API
+    #
+    # @see http://developer.github.com/v3/git/
     module Objects
       # Get a single tree, fetching information about its root-level objects
       #
@@ -7,7 +11,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param tree_sha [String] The SHA of the tree to fetch
-      # @return [Hashie::Mash] A hash representing the fetched tree
+      # @return [Sawyer::Resource] A hash representing the fetched tree
       # @see http://developer.github.com/v3/git/trees/
       # @example Fetch a tree and inspect the path of one of its files
       #   tree = Octokit.tree("octocat/Hello-World", "9fb037999f264ba9a7fc6274d15fa3ae2ab98312")
@@ -25,7 +29,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param tree [Array] An array of hashes representing a tree structure
-      # @return [Hashie::Mash] A hash representing the new tree
+      # @return [Sawyer::Resource] A hash representing the new tree
       # @see http://developer.github.com/v3/git/trees/
       # @example Create a tree containing one file
       #   tree = Octokit.create_tree("octocat/Hello-World", [ { :path => "file.rb", :mode => "100644", :type => "blob", :sha => "44b4fc6d56897b048c772eb4087f854f46256132" } ])
@@ -40,7 +44,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param blob_sha [String] The SHA of the blob to fetch
-      # @return [Hashie::Mash] A hash representing the fetched blob
+      # @return [Sawyer::Resource] A hash representing the fetched blob
       # @see http://developer.github.com/v3/git/blobs/
       # @example Fetch a blob and inspect its contents
       #   blob = Octokit.blob("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132")
@@ -80,7 +84,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param tag_sha [String] The SHA of the tag to fetch.
-      # @return [Hashie::Mash] Hash representing the tag.
+      # @return [Sawyer::Resource] Hash representing the tag.
       # @see http://developer.github.com/v3/git/tags/#get-a-tag
       # @example Fetch a tag
       #   Octokit.tag('pengwynn/octokit', '23aad20633f4d2981b1c7209a800db3014774e96')
@@ -101,8 +105,7 @@ module Octokit
       # @param tagger_name [String] Name of the author of the tag.
       # @param tagger_email [String] Email of the author of the tag.
       # @param tagger_date [string] Timestamp of when this object was tagged.
-      # @return [Hashie::Mash] Hash representing new tag.
-      # @see Octokit::Client
+      # @return [Sawyer::Resource] Hash representing new tag.
       # @see http://developer.github.com/v3/git/tags/#create-a-tag-object
       # @example
       #   @client.create_tag(

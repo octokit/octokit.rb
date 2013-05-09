@@ -1,12 +1,16 @@
 module Octokit
   class Client
+
+    # Methods for the Repo Contents API
+    #
+    # @see http://developer.github.com/v3/repos/contents/
     module Contents
 
       # Receive the default Readme for a repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to “master”.
-      # @return [Hash] The detail of the readme
+      # @return [Sawyer::Resource] The detail of the readme
       # @see http://developer.github.com/v3/repos/contents/
       # @example Get the readme file for a repo
       #   Octokit.readme("pengwynn/octokit")
@@ -19,7 +23,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @option options [String] :path A folder or file path
       # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to “master”.
-      # @return [Hash] The contents of a file or list of the files in the folder
+      # @return [Sawyer::Resource] The contents of a file or list of the files in the folder
       # @see http://developer.github.com/v3/repos/contents/
       # @example List the contents of lib/octokit.rb
       #   Octokit.contents("pengwynn/octokit", :path => 'lib/octokit.rb')
@@ -31,13 +35,14 @@ module Octokit
 
       # Add content to a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
-      # @param path [String] A path for the new content
-      # @param message [String] A commit message for adding the content
-      # @param optional content [String] The Base64-encoded content for the file
-      # @option options [String] :branch The branch on which to add the content
-      # @option options [String] :file Path or Ruby File object for content
-      # @return [Hash] The contents and commit info for the addition
+      # @overload create_contents(repo, path, message, content = nil, options = {})
+      #   @param repo [String, Repository, Hash] A GitHub repository
+      #   @param path [String] A path for the new content
+      #   @param message [String] A commit message for adding the content
+      #   @param optional content [String] The Base64-encoded content for the file
+      #   @option options [String] :branch The branch on which to add the content
+      #   @option options [String] :file Path or Ruby File object for content
+      # @return [Sawyer::Resource] The contents and commit info for the addition
       # @see http://developer.github.com/v3/repos/contents/#create-a-file
       # @example Add content at lib/octokit.rb
       #   Octokit.create_contents("pengwynn/octokit",
@@ -76,14 +81,15 @@ module Octokit
 
       # Update content in a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
-      # @param path [String] A path for the content to update
-      # @param message [String] A commit message for updating the content
-      # @param sha [String] The _blob sha_ of the content to update
-      # @param content [String] The Base64-encoded content for the file
-      # @option options [String] :branch The branch on which to update the content
-      # @option options [String] :file Path or Ruby File object for content
-      # @return [Hash] The contents and commit info for the update
+      # @overload update_contents(repo, path, message, sha, content = nil, options = {})
+      #   @param repo [String, Repository, Hash] A GitHub repository
+      #   @param path [String] A path for the content to update
+      #   @param message [String] A commit message for updating the content
+      #   @param sha [String] The _blob sha_ of the content to update
+      #   @param content [String] The Base64-encoded content for the file
+      #   @option options [String] :branch The branch on which to update the content
+      #   @option options [String] :file Path or Ruby File object for content
+      # @return [Sawyer::Resource] The contents and commit info for the update
       # @see http://developer.github.com/v3/repos/contents/#update-a-file
       # @example Update content at lib/octokit.rb
       #   Octokit.update_contents("pengwynn/octokit",
@@ -111,7 +117,7 @@ module Octokit
       # @param message [String] A commit message for deleting the content
       # @param sha [String] The _blob sha_ of the content to delete
       # @option options [String] :branch The branch on which to delete the content
-      # @return [Hash] The commit info for the delete
+      # @return [Sawyer::Resource] The commit info for the delete
       # @see http://developer.github.com/v3/repos/contents/#delete-a-file
       # @example Delete content at lib/octokit.rb
       #   Octokit.delete_contents("pengwynn/octokit",

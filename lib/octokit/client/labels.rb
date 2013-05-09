@@ -2,12 +2,16 @@ require 'cgi'
 
 module Octokit
   class Client
+
+    # Methods for the Issue Labels API
+    #
+    # @see http://developer.github.com/v3/issues/labels/
     module Labels
 
       # List available labels for a repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
-      # @return [Array] A list of the labels across the repository
+      # @return [Array<Sawyer::Resource>] A list of the labels across the repository
       # @see http://developer.github.com/v3/issues/labels/
       # @example List labels for pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
@@ -19,7 +23,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param name [String] Name of the label
-      # @return [Label] A single label from the repository
+      # @return [Sawyer::Resource] A single label from the repository
       # @see http://developer.github.com/v3/issues/labels/#get-a-single-label
       # @example Get the "V3 Addition" label from pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
@@ -32,7 +36,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param label [String] A new label
       # @param color [String] A color, in hex, without the leading #
-      # @return [Label] A Hashie of the new label
+      # @return [Sawyer::Resource] The new label
       # @see http://developer.github.com/v3/issues/labels/
       # @example Add a new label "Version 1.0" with color "#cccccc"
       #   Octokit.add_label("pengwynn/octokit", "Version 1.0", "cccccc")
@@ -47,7 +51,7 @@ module Octokit
       # @param options [Hash] A customizable set of options.
       # @option options [String] :title An updated label name
       # @option options [String] :color An updated color value, in hex, without leading #
-      # @return [Label] A Hashie of the updated label
+      # @return [Sawyer::Resource] The updated label
       # @see http://developer.github.com/v3/issues/labels/#update-a-label
       # @example Update the label "Version 1.0" with new color "#cceeaa"
       #   Octokit.update_label("pengwynn/octokit", "Version 1.0", {:color => "cceeaa"})
@@ -77,7 +81,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
       # @param label [String] String name of the label
-      # @return [Array] A list of the labels currently on the issue
+      # @return [Array<Sawyer::Resource>] A list of the labels currently on the issue
       # @see http://rubydoc.info/gems/faraday/0.5.3/Faraday/Response
       # @see http://developer.github.com/v3/issues/labels/#remove-a-label-from-an-issue
       # @example Remove the label "Version 1.0" from the repository.
@@ -104,7 +108,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
-      # @return [Array] A list of the labels currently on the issue
+      # @return [Array<Sawyer::Resource>] A list of the labels currently on the issue
       # @see http://developer.github.com/v3/issues/labels/#list-labels-on-an-issue
       # @example List labels for pengwynn/octokit
       #   Octokit.labels("pengwynn/octokit")
@@ -117,7 +121,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A Github repository
       # @param number [String] Number ID of the issue
       # @param labels [Array] An array of labels to apply to this Issue
-      # @return [Array] A list of the labels currently on the issue
+      # @return [Array<Sawyer::Resource>] A list of the labels currently on the issue
       # @see http://developer.github.com/v3/issues/labels/#add-labels-to-an-issue
       # @example Add two labels for pengwynn/octokit
       #   Octokit.add_labels_to_an_issue("pengwynn/octokit", 10, ['V3 Transition', 'Improvement'])
@@ -130,7 +134,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A Github repository
       # @param number [String] Number ID of the issue
       # @param labels [Array] An array of labels to use as replacement
-      # @return [Array] A list of the labels currently on the issue
+      # @return [Array<Sawyer::Resource>] A list of the labels currently on the issue
       # @see http://developer.github.com/v3/issues/labels/#replace-all-labels-for-an-issue
       # @example Replace labels for pengwynn/octokit Issue #10
       #   Octokit.replace_all_labels("pengwynn/octokit", 10, ['V3 Transition', 'Improvement'])
@@ -142,7 +146,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the milestone
-      # @return [Array] A list of the labels across the milestone
+      # @return [Array<Sawyer::Resource>] A list of the labels across the milestone
       # @see  http://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
       # @example List all labels for milestone #2 on pengwynn/octokit
       #   Octokit.labels_for_milestone("pengwynn/octokit", 2)

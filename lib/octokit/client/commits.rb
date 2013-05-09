@@ -2,15 +2,20 @@ require 'date'
 
 module Octokit
   class Client
+
+    # Methods for the Commits API
+    #
+    # @see http://developer.github.com/v3/repos/commits/
     module Commits
 
       # List commits
       #
-      # Optionally pass <tt>path => "path/to/file.rb"</tt> in <tt>options</tt> to
-      # only return commits containing the given file path.
-      #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @param options [String] :sha Commit SHA or branch name from which to start the list
+      # @overload commits(repo, sha_or_branch, options = {})
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param sha_or_branch [String] A commit SHA or branch name
+      # @overload commits(repo, options = {})
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param options [String] :sha Commit SHA or branch name from which to start the list
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       def commits(*args)
@@ -25,10 +30,16 @@ module Octokit
       alias :list_commits :commits
 
       # Get commits after a specified date
-      #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @param date [String] Date on which we want to compare
-      # @param options [String] :sha Commit SHA or branch name from which to start the list
+
+      # @overload commits_since(repo, date, options = {})
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param date [String] Date on which we want to compare
+      #   @param options [String] :sha Commit SHA or branch name from which to start the list
+      # @overload commits_since(repo, date, sha_or_branch, options = {})
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param date [String] Date on which we want to compare
+      #   @param sha_or_branch [String] A commit SHA or branch name
+      #   @param options [String] :sha Commit SHA or branch name from which to start the list
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
@@ -49,9 +60,13 @@ module Octokit
 
       # Get commits before a specified date
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @param date [String] Date on which we want to compare
-      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @overload commits_before(repo, date, options = {})
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param date [String] Date on which we want to compare
+      # @overload commits_before(repo, date, sha_or_branch, options = {})
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param date [String] Date on which we want to compare
+      #   @param sha_or_branch [String] Commit SHA or branch name from which to start the list
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
@@ -72,9 +87,13 @@ module Octokit
 
       # Get commits on a specified date
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @param date [String] Date on which we want to compare
-      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @overload commits_on(repo, date, options = {})
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param date [String] Date on which we want to compare
+      # @overload commits_on(repo, date, sha_or_branch, options = {})
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param date [String] Date on which we want to compare
+      #   @param sha_or_branch [String] Commit SHA or branch name from which to start the list
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
@@ -95,10 +114,15 @@ module Octokit
 
       # Get commits made between two nominated dates
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @param start_date [String] Start Date on which we want to compare
-      # @param end_date [String] End Date on which we want to compare
-      # @param sha_or_branch [String] Commit SHA or branch name from which to start the list
+      # @overload commits_between(repo, start_date, end_date, options = {})
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param start_date [String] Start Date on which we want to compare
+      #   @param end_date [String] End Date on which we want to compare
+      # @overload commits_between(repo, start_date, end_date, sha_or_branch, options = {})
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param start_date [String] Start Date on which we want to compare
+      #   @param end_date [String] End Date on which we want to compare
+      #   @param sha_or_branch [String] Commit SHA or branch name from which to start the list
       # @return [Array] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
@@ -123,7 +147,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param sha [String] The SHA of the commit to fetch
-      # @return [Hashie::Mash] A hash representing the commit
+      # @return [Sawyer::Resource] A hash representing the commit
       # @see http://developer.github.com/v3/repos/commits/
       def commit(repo, sha, options={})
         get("repos/#{Repository.new(repo)}/commits/#{sha}", options)
@@ -140,7 +164,7 @@ module Octokit
       # @param message [String] The commit message
       # @param tree [String] The SHA of the tree object the new commit will point to
       # @param parents [String, Array] One SHA (for a normal commit) or an array of SHAs (for a merge) of the new commit's parent commits. If ommitted or empty, a root commit will be created
-      # @return [Hashie::Mash] A hash representing the new commit
+      # @return [Sawyer::Resource] A hash representing the new commit
       # @see http://developer.github.com/v3/git/commits/
       # @example Create a commit
       #   commit = Octokit.create_commit("octocat/Hello-World", "My commit message", "827efc6d56897b048c772eb4087f854f46256132", "7d1b31e74ee336d15cbd21741bc88a537ed063a0")
@@ -177,7 +201,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param id [String] The ID of the comment to fetch
-      # @return [Hashie::Mash] A hash representing the comment
+      # @return [Sawyer::Resource] A hash representing the comment
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comment(repo, id, options={})
         get("repos/#{Repository.new(repo)}/comments/#{id}", options)
@@ -191,7 +215,7 @@ module Octokit
       # @param path [String] Relative path of file to comment on
       # @param line [Integer] Line number in the file to comment on
       # @param position [Integer] Line index in the diff to comment on
-      # @return [Hashie::Mash] A hash representing the new commit comment
+      # @return [Sawyer::Resource] A hash representing the new commit comment
       # @see http://developer.github.com/v3/repos/comments/
       # @example Create a commit comment
       #   commit = Octokit.create_commit_comment("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132", "My comment message", "README.md", 10, 1)
@@ -216,7 +240,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param id [String] The ID of the comment to update
       # @param body [String] Message
-      # @return [Hashie::Mash] A hash representing the updated commit comment
+      # @return [Sawyer::Resource] A hash representing the updated commit comment
       # @see http://developer.github.com/v3/repos/comments/
       # @example Update a commit comment
       #   commit = Octokit.update_commit_comment("octocat/Hello-World", "860296", "Updated commit comment")
@@ -244,7 +268,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param start [String] The sha of the starting commit
       # @param endd [String] The sha of the ending commit
-      # @return [Hashie::Mash] A hash representing the comparison
+      # @return [Sawyer::Resource] A hash representing the comparison
       # @see http://developer.github.com/v3/repos/commits/
       def compare(repo, start, endd, options={})
         get("repos/#{Repository.new(repo)}/compare/#{start}...#{endd}", options)
@@ -256,7 +280,7 @@ module Octokit
       # @param base [String] The name of the base branch to merge into
       # @param head [String] The branch or SHA1 to merge
       # @option options [String] :commit_message The commit message for the merge
-      # @return [Hashie::Mash] A hash representing the comparison
+      # @return [Sawyer::Resource] A hash representing the comparison
       # @see http://developer.github.com/v3/repos/merging/
       def merge(repo, base, head, options={})
         params = {

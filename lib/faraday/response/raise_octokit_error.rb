@@ -1,8 +1,15 @@
 require 'faraday'
 
-# @api private
+# Extensions for Faraday
+# @see https://github.com/lostisland/faraday
+# @private
 module Faraday
+  # Map HTTP status codes to Octokit errors
+  # @private
   class Response::RaiseOctokitError < Response::Middleware
+
+    # Status code to error mappings
+    # @private
     ERROR_MAP = {
       400 => Octokit::BadRequest,
       401 => Octokit::Unauthorized,
@@ -16,6 +23,7 @@ module Faraday
       503 => Octokit::ServiceUnavailable
     }
 
+    private
     def on_complete(response)
       key = response[:status].to_i
       raise ERROR_MAP[key].new(response) if ERROR_MAP.has_key? key

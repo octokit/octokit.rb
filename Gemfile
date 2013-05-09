@@ -8,7 +8,7 @@ group :development do
   gem 'awesome_print', :require => 'ap'
   gem 'guard-rspec', '~> 2.5.1'
   gem 'hirb-unicode'
-  gem 'kramdown'
+  gem 'redcarpet'
   gem 'pry'
   gem 'wirb'
   gem 'wirble'

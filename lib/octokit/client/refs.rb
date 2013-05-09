@@ -1,12 +1,16 @@
 module Octokit
   class Client
+
+    # Methods for References for Git Data API
+    #
+    # @see http://developer.github.com/v3/git/refs/
     module Refs
 
       # List all refs for a given user and repo
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param namespace [String] The ref namespace, e.g. <tt>tag</tt> or <tt>heads</tt>
-      # @return [Array] A list of references matching the repo and the namespace
+      # @return [Array<Sawyer::Resource>] A list of references matching the repo and the namespace
       # @see http://developer.github.com/v3/git/refs/
       # @example Fetch all refs for sferik/rails_admin
       #   Octokit.refs("sferik/rails_admin")
@@ -23,7 +27,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param ref [String] The ref, e.g. <tt>tags/v0.0.3</tt>
-      # @return [Reference] The reference matching the given repo and the ref id
+      # @return [Sawyer::Resource] The reference matching the given repo and the ref id
       # @see http://developer.github.com/v3/git/refs/
       # @example Fetch tags/v0.0.3 for sferik/rails_admin
       #   Octokit.ref("sferik/rails_admin","tags/v0.0.3")
@@ -37,7 +41,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param ref [String] The ref, e.g. <tt>tags/v0.0.3</tt>
       # @param sha [String] A SHA, e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
-      # @return [Array] The list of references, already containing the new one
+      # @return [Array<Sawyer::Resource>] The list of references, already containing the new one
       # @see http://developer.github.com/v3/git/refs/
       # @example Create refs/heads/master for octocat/Hello-World with sha 827efc6d56897b048c772eb4087f854f46256132
       #   Octokit.create_ref("octocat/Hello-World","heads/master", "827efc6d56897b048c772eb4087f854f46256132")
@@ -56,7 +60,7 @@ module Octokit
       # @param ref [String] The ref, e.g. <tt>tags/v0.0.3</tt>
       # @param sha [String] A SHA, e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
       # @param force [Boolean] A flag indicating one wants to force the update to make sure the update is a fast-forward update.
-      # @return [Array] The list of references updated
+      # @return [Array<Sawyer::Resource>] The list of references updated
       # @see http://developer.github.com/v3/git/refs/
       # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
       #   Octokit.update_ref("octocat/Hello-World","heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")

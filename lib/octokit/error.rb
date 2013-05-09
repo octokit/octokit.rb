@@ -6,11 +6,13 @@ module Octokit
       super(build_error_message)
     end
 
+    private
+
     def response_body
       @response_body ||=
         if (body = @response[:body]) && !body.empty?
           if body.is_a?(String)
-            MultiJson.load(body, :symbolize_keys => true)
+            JSON.parse(body, :symbolize_keys => true)
           else
             body
           end
@@ -18,8 +20,6 @@ module Octokit
           nil
         end
     end
-
-    private
 
     def build_error_message
       return nil  if @response.nil?

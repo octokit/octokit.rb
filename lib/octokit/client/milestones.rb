@@ -1,5 +1,9 @@
 module Octokit
   class Client
+
+    # Methods for the Issues Milestones API
+    #
+    # @see http://developer.github.com/v3/issues/milestones/
     module Milestones
 
       # List milestones for a repository
@@ -10,7 +14,7 @@ module Octokit
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
-      # @return [Array] A list of milestones for a repository.
+      # @return [Array<Sawyer::Resource>] A list of milestones for a repository.
       # @see http://developer.github.com/v3/issues/milestones/#List-Milestones-for-an-Issue
       # @example List milestones for a repository
       #   Octokit.list_milestones("pengwynn/octokit")
@@ -27,7 +31,7 @@ module Octokit
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
-      # @return [Milestone] A single milestone from a repository.
+      # @return [Sawyer::Resource] A single milestone from a repository.
       # @see http://developer.github.com/v3/issues/milestones/#get-a-single-milestone
       # @example Get a single milestone for a repository
       #   Octokit.milestone("pengwynn/octokit", 1)
@@ -43,7 +47,7 @@ module Octokit
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
       # @option options [String] :description A meaningful description
       # @option options [Time] :due_on Set if the milestone has a due date
-      # @return [Milestone] A single milestone object
+      # @return [Sawyer::Resource] A single milestone object
       # @see http://developer.github.com/v3/issues/milestones/#create-a-milestone
       # @example Create a milestone for a repository
       #   Octokit.create_milestone("pengwynn/octokit", "0.7.0", {:description => 'Add support for v3 of Github API'})
@@ -60,7 +64,7 @@ module Octokit
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
       # @option options [String] :description A meaningful description
       # @option options [Time] :due_on Set if the milestone has a due date
-      # @return [Milestone] A single milestone object
+      # @return [Sawyer::Resource] A single milestone object
       # @see http://developer.github.com/v3/issues/milestones/#update-a-milestone
       # @example Update a milestone for a repository
       #   Octokit.update_milestone("pengwynn/octokit", 1, {:description => 'Add support for v3 of Github API'})

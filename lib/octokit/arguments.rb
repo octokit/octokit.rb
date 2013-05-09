@@ -1,4 +1,7 @@
 module Octokit
+
+  # Extracts options from method arguments
+  # @private
   class Arguments < Array
     attr_reader :options
 

@@ -1,10 +1,14 @@
 module Octokit
   class Client
+
+    # Methods for the Organizations API
+    #
+    # @see http://developer.github.com/v3/orgs/
     module Organizations
       # Get an organization
       #
       # @param org [String] Organization GitHub username.
-      # @return [Hashie::Mash] Hash representing GitHub organization.
+      # @return [Sawyer::Resource] Hash representing GitHub organization.
       # @see http://developer.github.com/v3/orgs/#get-an-organization
       # @example
       #   Octokit.organization('github')
@@ -26,8 +30,7 @@ module Octokit
       # @option values [String] :email Publicly visible email address.
       # @option values [String] :location Location of organization.
       # @option values [String] :name GitHub username for organization.
-      # @return [Hashie::Mash] Hash representing GitHub organization.
-      # @see Octokit::Client
+      # @return [Sawyer::Resource] Hash representing GitHub organization.
       # @see http://developer.github.com/v3/orgs/#edit-an-organization
       # @example
       #   @client.update_organization('github', {
@@ -56,8 +59,7 @@ module Octokit
       # Private organizations are included only if the `@client` is authenticated.
       # 
       # @param user [String] Username of the user to get list of organizations.
-      # @return [Array<Hashie::Mash>] Array of hashes representing organizations.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing organizations.
       # @see http://developer.github.com/v3/orgs/#list-user-organizations
       # @example
       #   Octokit.organizations('pengwynn')
@@ -91,8 +93,7 @@ module Octokit
       # @option options [String] :type ('all') Filter by repository type.
       #   `all`, `public`, `member`, `sources`, `forks`, or `private`.
       #
-      # @return [Array<Hashie::Mash>] List of repositories
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] List of repositories
       # @see http://developer.github.com/v3/repos/#list-organization-repositories
       # @example
       #   Octokit.organization_repositories('github')
@@ -115,8 +116,7 @@ module Octokit
       # is required to get private members.
       #
       # @param org [String] Organization GitHub username.
-      # @return [Array<Hashie::Mash>] Array of hashes representing users.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see http://developer.github.com/v3/orgs/members/#list-members
       # @example
       #   Octokit.organization_members('github')
@@ -180,8 +180,7 @@ module Octokit
       # Requires authenticated organization member.
       #
       # @param org [String] Organization GitHub username.
-      # @return [Array<Hashie::Mash>] Array of hashes representing teams.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing teams.
       # @see http://developer.github.com/v3/orgs/teams/#list-teams
       # @example
       #   @client.organization_teams('github')
@@ -205,8 +204,7 @@ module Octokit
       #   `pull` - team members can pull, but not push to or administer these repositories.    
       #   `push` - team members can pull and push, but not administer these repositories.  
       #   `admin` - team members can pull, push and administer these repositories. 
-      # @return [Hashie::Mash] Hash representing new team.
-      # @see Octokit::Client
+      # @return [Sawyer::Resource] Hash representing new team.
       # @see http://developer.github.com/v3/orgs/teams/#create-team
       # @example
       #   @client.create_team('github', {
@@ -223,8 +221,7 @@ module Octokit
       # Requires authenticated organization member.
       #
       # @param team_id [Integer] Team id.
-      # @return [Hashie::Mash] Hash representing team.
-      # @see Octokit::Client
+      # @return [Sawyer::Resource] Hash representing team.
       # @see http://developer.github.com/v3/orgs/teams/#get-team
       # @example
       #   @client.team(100000)
@@ -243,8 +240,7 @@ module Octokit
       #   `pull` - team members can pull, but not push to or administer these repositories.    
       #   `push` - team members can pull and push, but not administer these repositories.  
       #   `admin` - team members can pull, push and administer these repositories.
-      # @return [Hashie::Mash] Hash representing updated team.
-      # @see Octokit::Client
+      # @return [Sawyer::Resource] Hash representing updated team.
       # @see http://developer.github.com/v3/orgs/teams/#edit-team
       # @example
       #   @client.update_team(100000, {
@@ -261,7 +257,6 @@ module Octokit
       #
       # @param team_id [Integer] Team id.
       # @return [Boolean] True if deletion successful, false otherwise.
-      # @see Octokit::Client
       # @see http://developer.github.com/v3/orgs/teams/#delete-team
       # @example
       #   @client.delete_team(100000)
@@ -274,8 +269,7 @@ module Octokit
       # Requires authenticated organization member.
       #
       # @param team_id [Integer] Team id.
-      # @return [Array<Hashie::Mash>] Array of hashes representing users.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see http://developer.github.com/v3/orgs/teams/#list-team-members
       # @example
       #   @client.team_members(100000)
@@ -291,7 +285,6 @@ module Octokit
       # @param team_id [Integer] Team id.
       # @param user [String] GitHub username of new team member.
       # @return [Boolean] True on successful addition, false otherwise.
-      # @see Octokit::Client
       # @see http://developer.github.com/v3/orgs/teams/#add-team-member
       # @example
       #   @client.add_team_member(100000, 'pengwynn')
@@ -310,7 +303,6 @@ module Octokit
       # @param team_id [Integer] Team id.
       # @param user [String] GitHub username of the user to boot.
       # @return [Boolean] True if user removed, false otherwise.
-      # @see Octokit::Client
       # @see http://developer.github.com/v3/orgs/teams/#remove-team-member
       # @example
       #   @client.remove_team_member(100000, 'pengwynn')
@@ -342,8 +334,7 @@ module Octokit
       # Requires authenticated organization member.
       #
       # @param team_id [Integer] Team id.
-      # @return [Array<Hashie::Mash>] Array of hashes representing repositories.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing repositories.
       # @see http://developer.github.com/v3/orgs/teams/#list-team-repos
       # @example
       #   @client.team_repositories(100000)
@@ -363,7 +354,6 @@ module Octokit
       # @param team_id [Integer] Team id.
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Boolean] True if successful, false otherwise.
-      # @see Octokit::Client
       # @see Octokit::Repository
       # @see http://developer.github.com/v3/orgs/teams/#add-team-repo
       # @example
@@ -384,7 +374,6 @@ module Octokit
       # @param team_id [Integer] Team id.
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Boolean] Return true if repo removed from team, false otherwise.
-      # @see Octokit::Client
       # @see Octokit::Repository
       # @see http://developer.github.com/v3/orgs/teams/#remove-team-repo
       # @example
@@ -403,7 +392,6 @@ module Octokit
       # @param org [String] Organization GitHub username.
       # @param user [String] GitHub username of user to remove.
       # @return [Boolean] True if removal is successful, false otherwise.
-      # @see Octokit::Client
       # @see http://developer.github.com/v3/orgs/teams/#remove-team-member
       # @example
       #   @client.remove_organization_member('github', 'pengwynn')
@@ -423,7 +411,6 @@ module Octokit
       # @param org [String] Organization GitHub username.
       # @param user [String] GitHub username of user to publicize.
       # @return [Boolean] True if publicization successful, false otherwise.
-      # @see Octokit::Client
       # @see http://developer.github.com/v3/orgs/members/#publicize-a-users-membership
       # @example
       #   @client.publicize_membership('github', 'pengwynn')
@@ -438,7 +425,6 @@ module Octokit
       # @param org [String] Organization GitHub username.
       # @param user [String] GitHub username of user to unpublicize.
       # @return [Boolean] True of unpublicization successful, false otherwise.
-      # @see Octokit::Client
       # @see http://developer.github.com/v3/orgs/members/#conceal-a-users-membership
       # @example
       #   @client.unpublicize_membership('github', 'pengwynn')

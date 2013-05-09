@@ -1,11 +1,15 @@
 module Octokit
   class Client
+
+    # Methods for the Issues API
+    #
+    # @see http://developer.github.com/v3/issues/
     module Issues
 
       # List issues for a the authenticated user or repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
-      # @param options [Hash] A customizable set of options.
+      # @param options [Sawyer::Resource] A customizable set of options.
       # @option options [Integer] :milestone Milestone number.
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
       # @option options [String] :assignee User login.
@@ -15,7 +19,7 @@ module Octokit
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
-      # @return [Array] A list of issues for a repository.
+      # @return [Array<Sawyer::Resource>] A list of issues for a repository.
       # @see http://developer.github.com/v3/issues/#list-issues-for-this-repository
       # @example List issues for a repository
       #   Octokit.list_issues("sferik/rails_admin")
@@ -32,7 +36,7 @@ module Octokit
 
       # List all issues across owned and member repositories for the authenticated user
       #
-      # @param options [Hash] A customizable set of options.
+      # @param options [Sawyer::Resource] A customizable set of options.
       # @option options [String] :filter (assigned) State: <tt>assigned</tt>, <tt>created</tt>, <tt>mentioned</tt>, <tt>subscribed</tt> or <tt>closed</tt>.
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>all</tt>.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
@@ -41,7 +45,7 @@ module Octokit
       # @option options [Integer] :page (1) Page number.
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
-      # @return [Array] A list of issues for a repository.
+      # @return [Array<Sawyer::Resource>] A list of issues for a repository.
       # @see http://developer.github.com/v3/issues/#list-issues
       # @example List issues for the authenticted user across owned and member repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
@@ -53,7 +57,7 @@ module Octokit
       # List all issues for a given organization for the authenticated user
       #
       # @param org [String] Organization GitHub username.
-      # @param options [Hash] A customizable set of options.
+      # @param options [Sawyer::Resource] A customizable set of options.
       # @option options [String] :filter (assigned) State: <tt>assigned</tt>, <tt>created</tt>, <tt>mentioned</tt>, <tt>subscribed</tt> or <tt>closed</tt>.
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>all</tt>.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
@@ -62,7 +66,7 @@ module Octokit
       # @option options [Integer] :page (1) Page number.
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
-      # @return [Array] A list of issues for a repository.
+      # @return [Array<Sawyer::Resource>] A list of issues for a repository.
       # @see http://developer.github.com/v3/issues/#list-issues
       # @example List issues for the authenticted user across owned and member repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
@@ -80,7 +84,7 @@ module Octokit
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
-      # @return [Issue] Your newly created issue
+      # @return [Sawyer::Resource] Your newly created issue
       # @see http://developer.github.com/v3/issues/#create-an-issue
       # @example Create a new Issues for a repository
       #   Octokit.create_issue("sferik/rails_admin", 'Updated Docs', 'Added some extra links')
@@ -93,7 +97,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
-      # @return [Issue] The issue you requested, if it exists
+      # @return [Sawyer::Resource] The issue you requested, if it exists
       # @see http://developer.github.com/v3/issues/#get-a-single-issue
       # @example Get issue #25 from pengwynn/octokit
       #   Octokit.issue("pengwynn/octokit", "25")
@@ -109,7 +113,7 @@ module Octokit
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
-      # @return [Issue] The updated Issue
+      # @return [Sawyer::Resource] The updated Issue
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Close Issue #25 from pengwynn/octokit
       #   Octokit.close_issue("pengwynn/octokit", "25")
@@ -125,7 +129,7 @@ module Octokit
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
-      # @return [Issue] The updated Issue
+      # @return [Sawyer::Resource] The updated Issue
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Reopen Issue #25 from pengwynn/octokit
       #   Octokit.reopen_issue("pengwynn/octokit", "25")
@@ -143,7 +147,7 @@ module Octokit
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
-      # @return [Issue] The updated Issue
+      # @return [Sawyer::Resource] The updated Issue
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Change the title of Issue #25
       #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
@@ -163,7 +167,7 @@ module Octokit
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
       #
-      # @return [Array] List of issues comments.
+      # @return [Array<Sawyer::Resource>] List of issues comments.
       #
       # @see http://developer.github.com/v3/issues/comments/#list-comments-in-a-repository
       #
@@ -184,7 +188,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the issue
-      # @return [Array] Array of comments that belong to an issue
+      # @return [Array<Sawyer::Resource>] Array of comments that belong to an issue
       # @see http://developer.github.com/v3/issues/comments
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
@@ -196,7 +200,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [String] Number ID of the comment
-      # @return [Comment] The specific comment in question
+      # @return [Sawyer::Resource] The specific comment in question
       # @see http://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comment #1194549 from an issue on pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", 1194549)
@@ -209,7 +213,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Issue number
       # @param comment [String] Comment to be added
-      # @return [Comment] A JSON encoded Comment
+      # @return [Sawyer::Resource] Comment
       # @see http://developer.github.com/v3/issues/comments/#create-a-comment
       # @example Add the comment "Almost to v1" to Issue #23 on pengwynn/octokit
       #   Octokit.add_comment("pengwynn/octokit", 23, "Almost to v1")
@@ -222,7 +226,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Comment number
       # @param comment [String] Body of the comment which will replace the existing body.
-      # @return [Comment] A JSON encoded Comment
+      # @return [Sawyer::Resource] Comment
       # @see http://developer.github.com/v3/issues/comments/#edit-a-comment
       # @example Update the comment #1194549 with body "I've started this on my 25-issue-comments-v3 fork" on an issue on pengwynn/octokit
       #   Octokit.update_comment("pengwynn/octokit", 1194549, "Almost to v1, added this on my fork")

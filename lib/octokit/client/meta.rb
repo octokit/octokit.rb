@@ -1,13 +1,14 @@
 module Octokit
   class Client
+
+    # Methods for the Meta API
+    #
+    # @see http://developer.github.com/v3/meta/
     module Meta
 
       # Get meta information about GitHub.com, the service.
-      #
       # @see http://developer.github.com/v3/meta/
-      #
-      # @return [Hash] Hash with meta information.
-      #
+      # @return [Sawyer::Resource] Hash with meta information.
       # @example Get GitHub meta information
       #   @client.github_meta
       def meta(options={})

@@ -1,5 +1,9 @@
 module Octokit
   class Client
+
+    # Methods for the Authorizations API
+    #
+    # @see http://developer.github.com/v3/oauth/#oauth-authorizations-api
     module Authorizations
 
       # List a users authorizations
@@ -97,7 +101,7 @@ module Octokit
       # @param token [String] GitHub OAuth token
       # @return [Array<String>] OAuth scopes
       # @see http://developer.github.com/v3/oauth/#scopes
-      def scopes(token = access_token)
+      def scopes(token = @access_token)
         raise ArgumentError.new("Access token required") if token.nil?
 
         agent.call(:get, "/user", :headers => {"Authorization" => "token #{token}" }).

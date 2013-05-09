@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.0'
   spec.add_dependency 'sawyer', '~> 0.0.9'
   spec.authors = ["Wynn Netherland", "Erik Michaels-Ober", "Clint Shryock"]
-  spec.description = %q{Simple wrapper for the GitHub v3 API}
+  spec.description = %q{Simple wrapper for the GitHub API}
   spec.email = ['wynn.netherland@gmail.com', 'sferik@gmail.com', 'clint@ctshryock.com']
   spec.files = %w(.document CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md Rakefile octokit.gemspec)
   spec.files += Dir.glob("lib/**/*.rb")
@@ -19,5 +19,5 @@ Gem::Specification.new do |spec|
   spec.required_rubygems_version = '>= 1.3.6'
   spec.summary = spec.description
   spec.test_files = Dir.glob("spec/**/*")
-  spec.version = Octokit::VERSION
+  spec.version = Octokit::VERSION.dup
 end

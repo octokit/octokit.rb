@@ -38,7 +38,12 @@ require 'octokit/error'
 require 'faraday/response/raise_octokit_error'
 
 module Octokit
+
+  # Client for the GitHub API
+  #
+  # @see http://developer.github.com
   class Client
+
     include Octokit::Authentication
     include Octokit::Configurable
     include Octokit::Client::Authorizations
@@ -70,8 +75,7 @@ module Octokit
     include Octokit::Client::Statuses
     include Octokit::Client::Users
 
-    attr_reader :last_response
-
+    # Header keys that can be passed in options hash to {#get},{#head}
     CONVENIENCE_HEADERS = Set.new [:accept]
 
     def initialize(options={})
@@ -81,10 +85,17 @@ module Octokit
       end
     end
 
-    def same_options?(requested_options)
-      requested_options.hash == options.hash
+    # Compares client options to a Hash of requested options
+    #
+    # @param opts [Hash] Options to compare with current client options
+    # @return [Boolean]
+    def same_options?(opts)
+      opts.hash == options.hash
     end
 
+    # Text representation of the client, masking tokens and passwords
+    #
+    # @return [String]
     def inspect
       inspected = super
 
@@ -96,30 +107,67 @@ module Octokit
       inspected
     end
 
+    # Make a HTTP GET request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Query and header params for request
+    # @return [Sawyer::Resource]
     def get(url, options = {})
       request :get, url, parse_query_and_convenience_headers(options)
     end
 
+    # Make a HTTP POST request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Body and header params for request
+    # @return [Sawyer::Resource]
     def post(url, options = {})
       request :post, url, options
     end
 
+    # Make a HTTP PUT request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Body and header params for request
+    # @return [Sawyer::Resource]
     def put(url, options = {})
       request :put, url, options
     end
 
+    # Make a HTTP PATCH request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Body and header params for request
+    # @return [Sawyer::Resource]
     def patch(url, options = {})
       request :patch, url, options
     end
 
+    # Make a HTTP DELETE request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Query and header params for request
+    # @return [Sawyer::Resource]
     def delete(url, options = {})
       request :delete, url, options
     end
 
+    # Make a HTTP HEAD request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Query and header params for request
+    # @return [Sawyer::Resource]
     def head(url, options = {})
       request :head, url, parse_query_and_convenience_headers(options)
     end
 
+    # Make one or more HTTP GET requests, optionally fetching
+    # the next page of results from URL in Link response header based
+    # on value in {#auto_paginate}.
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Query and header params for request
+    # @return [Sawyer::Resource]
     def paginate(url, options = {})
       opts = parse_query_and_convenience_headers(options.dup)
       if @auto_paginate || @per_page
@@ -139,6 +187,9 @@ module Octokit
       data
     end
 
+    # Hypermedia agent for the GitHub API
+    #
+    # @return [Sawyer::Agent]
     def agent
       @agent ||= Sawyer::Agent.new(api_endpoint, sawyer_options) do |http|
         http.headers[:accept] = default_media_type
@@ -151,8 +202,18 @@ module Octokit
       end
     end
 
+    # Fetch the root resource for the API
+    #
+    # @return [Sawyer::Resource]
     def root
       agent.start.data
+    end
+
+    # Response for last HTTP request
+    #
+    # @return [Sawyer::Response]
+    def last_response
+      @last_response
     end
 
     private
@@ -189,10 +250,6 @@ module Octokit
       opts[:faraday] = Faraday.new(conn_opts)
 
       opts
-    end
-
-    def access_token
-      @access_token
     end
 
     def parse_query_and_convenience_headers(options)
