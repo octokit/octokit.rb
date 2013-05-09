@@ -158,7 +158,7 @@ describe Octokit::Client::Users do
       it "returns true" do
         stub_get("https://api.github.com/user/following/puls").
           to_return(:status => 204, :body => "")
-        follows = @client.follows?("sferik", "puls")
+        follows = @client.follows?("puls")
         expect(follows).to eq(true)
       end
 
@@ -169,7 +169,7 @@ describe Octokit::Client::Users do
       it "returns false" do
         stub_get("https://api.github.com/user/following/dogbrainz").
           to_return(:status => 404, :body => "")
-        follows = @client.follows?("sferik", "dogbrainz")
+        follows = @client.follows?("dogbrainz")
         expect(follows).to be_false
       end
 
