@@ -23,22 +23,23 @@ describe Octokit::Client::Milestones do
 
   describe ".milestone" do
     it "gets a single milestone belonging to repository" do
-      milestone = @client.milestone("pengwynn/api-sandbox", 1)
-      assert_requested :get, basic_github_url("/repos/pengwynn/api-sandbox/milestones/1")
+      milestone = @client.create_milestone("pengwynn/api-sandbox", "2.0.0")
+      milestone = @client.milestone("pengwynn/api-sandbox", milestone.number)
+      assert_requested :get, basic_github_url("/repos/pengwynn/api-sandbox/milestones/#{milestone.number}")
     end
   end # .milestone
 
   describe ".create_milestone" do
     it "creates a milestone" do
       milestone = @client.create_milestone("pengwynn/api-sandbox", "2.0.0")
-      expect(milestone.title).to eq "2.0.0"
+      expect(milestone.title).to_not be_nil
       assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/milestones")
     end
   end # .create_milestone
 
   describe ".update_milestone" do
     it "updates a milestone" do
-      milestone = @client.create_milestone("pengwynn/api-sandbox", "Milestone-#{Time.now.to_i}")
+      milestone = @client.create_milestone("pengwynn/api-sandbox", "2.0.0")
       @client.update_milestone("pengwynn/api-sandbox", milestone.number, {:description => "Add support for API v3"})
       assert_requested :patch, basic_github_url("/repos/pengwynn/api-sandbox/milestones/#{milestone.number}")
     end
@@ -46,7 +47,7 @@ describe Octokit::Client::Milestones do
 
   describe ".delete_milestone" do
     it "deletes a milestone from a repository" do
-      milestone = @client.create_milestone("pengwynn/api-sandbox", "Milestone-#{Time.now.to_i}")
+      milestone = @client.create_milestone("pengwynn/api-sandbox", "2.0.0")
       @client.delete_milestone("pengwynn/api-sandbox", milestone.number)
       assert_requested :delete, basic_github_url("/repos/pengwynn/api-sandbox/milestones/#{milestone.number}")
     end
