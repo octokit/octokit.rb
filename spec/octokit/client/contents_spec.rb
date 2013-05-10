@@ -40,63 +40,66 @@ describe Octokit::Client::Contents do
 
   describe ".create_contents" do
     it "creates repository contents at a path" do
-      response = @client.create_contents("pengwynn/api-sandbox",
+      response = @client.create_contents("api-playground/api-sandbox",
                                          "foo/bar/baz.txt",
                                          "I am commit-ing",
-                                         "Here be the content")
+                                         "Here be the content\n")
       expect(response.commit.sha).to match /[a-z0-9]{40}/
-      assert_requested(:put, basic_github_url("/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt"))
+      assert_requested(:put, basic_github_url("/repos/api-playground/api-sandbox/contents/foo/bar/baz.txt"))
     end
     it "creates contents from file path" do
-      response = @client.create_contents("pengwynn/api-sandbox",
-                                         "from_file.txt",
+      response = @client.create_contents("api-playground/api-sandbox",
+                                         "foo/bar/baz.txt",
                                          "I am commit-ing",
                                          :file => "spec/fixtures/new_file.txt")
       expect(response.commit.sha).to match /[a-z0-9]{40}/
-      assert_requested(:put, basic_github_url("/repos/pengwynn/api-sandbox/contents/from_file.txt"))
+      assert_requested(:put, basic_github_url("/repos/api-playground/api-sandbox/contents/foo/bar/baz.txt"))
     end
     it "creates contents from File object" do
       file = File.new "spec/fixtures/new_file.txt", "r"
-      response = @client.create_contents("pengwynn/api-sandbox",
-                                         "from_file.txt",
+      response = @client.create_contents("api-playground/api-sandbox",
+                                         "foo/bar/baz.txt",
                                          "I am commit-ing",
                                          :file => file)
       expect(response.commit.sha).to match /[a-z0-9]{40}/
-      assert_requested(:put, basic_github_url("/repos/pengwynn/api-sandbox/contents/from_file.txt"))
+      assert_requested(:put, basic_github_url("/repos/api-playground/api-sandbox/contents/foo/bar/baz.txt"))
     end
   end # .create_contents
 
   describe ".update_contents" do
     it "updates repository contents at a path" do
-      info = @client.create_contents("pengwynn/api-sandbox",
-                              "foo/bar/baz.txt",
-                              "I am commit-ing",
-                              "Here be the content")
-      response = @client.update_contents("pengwynn/api-sandbox",
+      content = @client.contents("api-playground/api-sandbox", :path => "foo/bar/baz.txt")
+      response = @client.update_contents("api-playground/api-sandbox",
                                          "foo/bar/baz.txt",
                                          "I am commit-ing",
-                                         info.content.sha,
+                                         content.sha,
                                          "Here be moar content")
       expect(response.commit.sha).to match /[a-z0-9]{40}/
-      assert_requested \
-        :put,
-        basic_github_url("/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt"),
-        :times => 2
+      assert_requested :put,
+        basic_github_url("/repos/api-playground/api-sandbox/contents/foo/bar/baz.txt")
 
+      # cleanup so we can re-run these tests with blank cassettes
+      @client.delete_contents \
+        "api-playground/api-sandbox",
+        "foo/bar/baz.txt",
+        "I am rm-ing",
+        response.content.sha
     end
   end # .update_contents
 
   describe ".delete_contents" do
     it "deletes repository contents at a path" do
-      info = @client.create_contents("pengwynn/api-sandbox",
-                                     "to_delete.txt",
-                                     "I am commit-ing",
-                                     "Here be the content")
-      response = @client.delete_contents("pengwynn/api-sandbox",
-                                         "to_delete.txt",
+      content = @client.create_contents("api-playground/api-sandbox",
+                                         "to.delete.txt",
+                                         "I am commit-ing",
+                                         "You DELETE me")
+      response = @client.delete_contents("api-playground/api-sandbox",
+                                         "to.delete.txt",
                                          "I am rm-ing",
-                                         info.content.sha)
+                                         content.content.sha)
       expect(response.commit.sha).to match /[a-z0-9]{40}/
+      assert_requested :delete,
+        basic_github_url("/repos/api-playground/api-sandbox/contents/to.delete.txt")
     end
   end # .delete_contents
 
