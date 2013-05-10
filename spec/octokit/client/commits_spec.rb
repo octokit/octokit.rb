@@ -5,6 +5,8 @@ describe Octokit::Client::Commits do
   before do
     Octokit.reset!
     VCR.insert_cassette 'commits', :match_requests_on => [:method, :uri, :query]
+    @client = basic_auth_client
+    @last_commit = @client.commits('api-playground/api-sandbox').last
   end
 
   after do
@@ -113,17 +115,20 @@ describe Octokit::Client::Commits do
 
   describe ".create_commit" do
     it "creates a commit" do
-      client = basic_auth_client
-      commit = client.create_commit("pengwynn/api-sandbox", "My commit message", "827efc6d56897b048c772eb4087f854f46256132", "7d1b31e74ee336d15cbd21741bc88a537ed063a0")
-      assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/git/commits")
+      commit = @client.create_commit("api-playground/api-sandbox", "My commit message", @last_commit.commit.tree.sha, @last_commit.sha)
+      assert_requested :post, basic_github_url("/repos/api-playground/api-sandbox/git/commits")
     end
   end # .create_commit
 
   describe ".merge" do
     it "merges a branch into another" do
-      client = basic_auth_client
-      merge = client.merge("pengwynn/api-sandbox", "master", "new-branch", :commit_message => "Testing the merge API")
-      assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/merges")
+      begin
+        @client.delete_ref("api-playground/api-sandbox", "heads/branch-to-merge")
+      rescue Octokit::UnprocessableEntity
+      end
+      branch = @client.create_ref("api-playground/api-sandbox", "heads/branch-to-merge", @last_commit.sha)
+      merge = @client.merge("api-playground/api-sandbox", "master", "branch-to-merge", :commit_message => "Testing the merge API")
+      assert_requested :post, basic_github_url("/repos/api-playground/api-sandbox/merges")
     end
   end # .merge
 
