@@ -74,13 +74,6 @@ describe Octokit::Client::Organizations do
     end
   end # .organization_public_member?
 
-  describe ".remove_organization_member" do
-    it "removes a member from an organization" do
-      result = @client.remove_organization_member("api-playground", "api-padawan")
-      assert_requested :delete, basic_github_url("/orgs/api-playground/members/api-padawan")
-    end
-  end # .remove_organization_member
-
   describe ".organization_teams" do
     it "returns all teams for an organization" do
       teams = @client.organization_teams("api-playground")
@@ -97,92 +90,110 @@ describe Octokit::Client::Organizations do
     end
   end # .create_team
 
-  describe ".team" do
-    it "returns a team" do
-      team = @client.team(396670)
-      expect(team.name).to eq "Jedi"
-      assert_requested :get, basic_github_url("/teams/396670")
-    end
-  end # .team
+  context "methods that require a new team" do
 
-  describe ".update_team" do
-    it "updates a team" do
-      team = @client.update_team(396670, :name => "API Jedi")
-      assert_requested :patch, basic_github_url("/teams/396670")
+    before do
+      @team = @client.create_team("api-playground", {:name => "Jedi"})
     end
-  end # .update_team
 
+    describe ".team" do
+      it "returns a team" do
+        team = @client.team(@team.id)
+        expect(team.name).to eq "Jedi"
+        assert_requested :get, basic_github_url("/teams/#{@team.id}")
+      end
+    end # .team
 
-  describe ".team_members" do
-    it "returns team members" do
-      users = @client.team_members(396670)
-      expect(users).to be_kind_of Array
-      assert_requested :get, basic_github_url("/teams/396670/members")
+    describe ".update_team" do
+      it "updates a team" do
+        team = @client.update_team(@team.id, :name => "API Jedi")
+        assert_requested :patch, basic_github_url("/teams/#{@team.id}")
+      end
+    end # .update_team
+
+    describe ".team_members" do
+      it "returns team members" do
+        users = @client.team_members(@team.id)
+        expect(users).to be_kind_of Array
+        assert_requested :get, basic_github_url("/teams/#{@team.id}/members")
+      end
+    end # .team_members
+
+    describe ".add_team_member" do
+      it "adds a team member" do
+        result = @client.add_team_member(@team.id, "api-padawan")
+        assert_requested :put, basic_github_url("/teams/#{@team.id}/members/api-padawan")
+      end
+    end # .add_team_member
+
+    describe ".remove_team_member" do
+      it "removes a team member" do
+        result = @client.remove_team_member(@team.id, "api-padawan")
+        assert_requested :delete, basic_github_url("/teams/#{@team.id}/members/api-padawan")
+      end
+    end # .remove_team_member
+
+    describe ".team_member?" do
+      it "checks if a user is member of a team" do
+        is_team_member = @client.team_member?(@team.id, 'api-padawan')
+        assert_requested :get, basic_github_url("/teams/#{@team.id}/members/api-padawan")
+      end
+    end # .team_member?
+
+    describe ".team_repositories" do
+      it "returns team repositories" do
+        repositories = @client.team_repositories(@team.id)
+        expect(repositories).to be_kind_of Array
+        assert_requested :get, basic_github_url("/teams/#{@team.id}/repos")
+      end
+    end # .team_repositories
+
+    describe ".add_team_repository" do
+      it "adds a team repository" do
+        result = @client.add_team_repository(@team.id, "api-playground/api-sandbox")
+        assert_requested :put, basic_github_url("/teams/#{@team.id}/repos/api-playground/api-sandbox")
+      end
+    end # .add_team_repository
+
+    describe ".remove_team_repository" do
+      it "removes a team repository" do
+        result = @client.remove_team_repository(@team.id, "api-playground/api-sandbox")
+        assert_requested :delete, basic_github_url("/teams/#{@team.id}/repos/api-playground/api-sandbox")
+      end
+    end #.remove_team_repository
+
+    describe ".publicize_membership" do
+      it "publicizes membership" do
+        result = @client.publicize_membership("api-playground", "api-padawan")
+        assert_requested :put, basic_github_url("/orgs/api-playground/public_members/api-padawan")
+      end
+    end # .publicize_membership
+
+    describe ".unpublicize_membership" do
+      it "unpublicizes membership" do
+        result = @client.unpublicize_membership("api-playground", "api-padawan")
+        assert_requested :delete, basic_github_url("/orgs/api-playground/public_members/api-padawan")
+      end
+    end # .unpublicize_membership
+
+    describe ".delete_team" do
+      it "deletes a team" do
+        result = @client.delete_team(@team.id)
+        assert_requested :delete, basic_github_url("/teams/#{@team.id}")
+      end
+    end # .delete_team
+
+  end # new team methods
+
+  describe ".remove_organization_member" do
+    it "removes a member from an organization" do
+      VCR.eject_cassette
+      VCR.turn_off!
+      stub_delete basic_github_url("/orgs/api-playground/members/api-padawan")
+      result = @client.remove_organization_member("api-playground", "api-padawan")
+      assert_requested :delete, basic_github_url("/orgs/api-playground/members/api-padawan")
+      VCR.turn_on!
     end
-  end # .team_members
-
-  describe ".add_team_member" do
-    it "adds a team member" do
-      result = @client.add_team_member(396670, "api-padawan")
-      assert_requested :put, basic_github_url("/teams/396670/members/api-padawan")
-    end
-  end # .add_team_member
-
-  describe ".remove_team_member" do
-    it "removes a team member" do
-      result = @client.remove_team_member(396670, "api-padawan")
-      assert_requested :delete, basic_github_url("/teams/396670/members/api-padawan")
-    end
-  end # .remove_team_member
-
-  describe ".team_member?" do
-    it "checks if a user is member of a team" do
-      is_team_member = @client.team_member?(396670, 'api-padawan')
-      assert_requested :get, basic_github_url("/teams/396670/members/api-padawan")
-    end
-  end # .team_member?
-
-  describe ".team_repositories" do
-    it "returns team repositories" do
-      repositories = @client.team_repositories(396670)
-      expect(repositories).to be_kind_of Array
-      assert_requested :get, basic_github_url("/teams/396670/repos")
-    end
-  end # .team_repositories
-
-  describe ".add_team_repository" do
-    it "adds a team repository" do
-      result = @client.add_team_repository(396670, "api-playground/api-sandbox")
-      assert_requested :put, basic_github_url("/teams/396670/repos/api-playground/api-sandbox")
-    end
-  end # .add_team_repository
-
-  describe ".remove_team_repository" do
-    it "removes a team repository" do
-      result = @client.remove_team_repository(396670, "api-playground/api-sandbox")
-      assert_requested :delete, basic_github_url("/teams/396670/repos/api-playground/api-sandbox")
-    end
-  end #.remove_team_repository
-
-  describe ".publicize_membership" do
-    it "publicizes membership" do
-      result = @client.publicize_membership("api-playground", "api-padawan")
-      assert_requested :put, basic_github_url("/orgs/api-playground/public_members/api-padawan")
-    end
-  end # .publicize_membership
-
-  describe ".unpublicize_membership" do
-    it "unpublicizes membership" do
-      result = @client.unpublicize_membership("api-playground", "api-padawan")
-      assert_requested :delete, basic_github_url("/orgs/api-playground/public_members/api-padawan")
-    end
-  end # .unpublicize_membership
-
-  describe ".delete_team" do
-    it "deletes a team" do
-      result = @client.delete_team(396670)
-      assert_requested :delete, basic_github_url("/teams/396670")
-    end
-  end # .delete_team
+  end # .remove_organization_member
 
 end
