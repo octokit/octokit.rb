@@ -34,26 +34,34 @@ describe Octokit::Client::Refs do
     end
   end # .ref
 
-  describe ".create_ref" do
-    it "creates a ref" do
-      ref = @client.create_ref("api-playground/api-sandbox","heads/master", "827efc6d56897b048c772eb4087f854f46256132")
-      assert_requested :post, basic_github_url("/repos/api-playground/api-sandbox/git/refs")
+  context "methods that require a ref" do
+    before do
+      commits = @client.commits("api-playground/api-sandbox")
+      @first_sha = commits.first.sha
+      @last_sha = commits.last.sha
+      @ref = @client.create_ref("api-playground/api-sandbox","heads/testing/test-ref", @first_sha)
     end
-  end # .create_ref
+    describe ".create_ref" do
+      it "creates a ref" do
+        assert_requested :post, basic_github_url("/repos/api-playground/api-sandbox/git/refs")
+      end
+    end # .create_ref
 
-  describe ".update_ref" do
-    it "updates a ref" do
-      refs = @client.update_ref("api-playground/api-sandbox","heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd", true)
-      assert_requested :patch, basic_github_url("/repos/api-playground/api-sandbox/git/refs/heads/sc/featureA")
-    end
-  end # .update_ref
+    describe ".update_ref" do
+      it "updates a ref" do
+        refs = @client.update_ref("api-playground/api-sandbox","heads/testing/test-ref", @last_sha, true)
+        assert_requested :patch, basic_github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
+      end
+    end # .update_ref
 
-  describe ".delete_ref" do
-    it "deletes an existing ref" do
-      result = @client.delete_ref("api-playground/api-sandbox", "heads/sc/featureA")
-      assert_requested :delete, basic_github_url("/repos/api-playground/api-sandbox/git/refs/heads/sc/featureA")
-    end
-  end # .delete_ref
+    describe ".delete_ref" do
+      it "deletes an existing ref" do
+        result = @client.delete_ref("api-playground/api-sandbox", "heads/testing/test-ref")
+        assert_requested :delete, basic_github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
+      end
+    end # .delete_ref
+
+  end # @ref methods
 
 end
 
