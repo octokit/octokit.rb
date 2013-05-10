@@ -74,12 +74,19 @@ module Octokit
       end
 
       # Update a pull request
-      #
-      # @param repo [String, Hash, Repository] A GitHub repository.
-      # @param id [Integer] Id of pull request to update.
-      # @param title [String] Title for the pull request.
-      # @param body [String] Body content for pull request. Supports GFM.
-      # @param state [String] State of the pull request. `open` or `closed`.
+      # @overload update_pull_request(repo, id, title=nil, body=nil, state=nil, options={})
+      #   @deprecated
+      #   @param repo [String, Hash, Repository] A GitHub repository.
+      #   @param number [Integer] Number of pull request to update.
+      #   @param title [String] Title for the pull request.
+      #   @param body [String] Body content for pull request. Supports GFM.
+      #   @param state [String] State of the pull request. `open` or `closed`.
+      # @overload update_pull_request(repo, id,  options={})
+      #   @param repo [String, Hash, Repository] A GitHub repository.
+      #   @param number [Integer] Number of pull request to update.
+      #   @option options [String] :title Title for the pull request.
+      #   @option options [String] :body Body for the pull request.
+      #   @option options [String] :state State for the pull request.
       # @return [Sawyer::Resource] Hash representing updated pull request.
       # @see http://developer.github.com/v3/pulls/#update-a-pull-request
       # @example
@@ -88,16 +95,28 @@ module Octokit
       #   @client.update_pull_request('pengwynn/octokit', 67, nil, nil, 'open')
       # @example Empty body by passing empty string
       #   @client.update_pull_request('pengwynn/octokit', 67, nil, '')
-      def update_pull_request(repo, id, title=nil, body=nil, state=nil, options={})
-        options.merge!({
-          :title => title,
-          :body => body,
-          :state => state
-        })
-        options.reject! { |_, value| value.nil? }
-        patch("repos/#{Repository.new repo}/pulls/#{id}", options)
+      def update_pull_request(*args)
+        arguments = Octokit::Arguments.new(args)
+        repo   = arguments.shift
+        number = arguments.shift
+        title  = arguments.shift
+        body   = arguments.shift
+        state  = arguments.shift
+        patch("repos/#{Repository.new repo}/pulls/#{number}", arguments.options)
       end
 
+      # Close a pull request
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @param number [Integer] Number of pull request to update.
+      # @return [Sawyer::Resource] Hash representing updated pull request.
+      # @see http://developer.github.com/v3/pulls/#update-a-pull-request
+      # @example
+      #   @client.close_pull_request('pengwynn/octokit', 67)
+      def close_pull_request(repo, number, options={})
+        options.merge! :state => 'closed'
+        update_pull_request(repo, number, options)
+      end
 
       # List commits on a pull request
       #
