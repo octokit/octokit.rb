@@ -8,8 +8,8 @@ describe Octokit::Client do
       VCR.use_cassette 'rate_limit' do
         rate = client.rate_limit
 
-        expect(rate.limit).to eq 60
-        expect(rate.remaining).to eq 44
+        expect(rate.limit).to be_kind_of Fixnum
+        expect(rate.remaining).to be_kind_of Fixnum
       end
     end # .rate_limit
     it "checks the rate limit from the last response" do
@@ -18,8 +18,8 @@ describe Octokit::Client do
         client.get('/')
         VCR.use_cassette 'rate_limit' do
           rate = client.rate_limit
-          expect(rate.limit).to eq 60
-          expect(rate.remaining).to eq 59
+          expect(rate.limit).to be_kind_of Fixnum
+          expect(rate.remaining).to be_kind_of Fixnum
         end
       end
     end
@@ -31,8 +31,8 @@ describe Octokit::Client do
       VCR.use_cassette 'rate_limit' do
         rate = client.rate_limit!
 
-        expect(rate.limit).to eq 60
-        expect(rate.remaining).to eq 44
+        expect(rate.limit).to be_kind_of Fixnum
+        expect(rate.remaining).to be_kind_of Fixnum
       end
     end
   end # .rate_limit!
