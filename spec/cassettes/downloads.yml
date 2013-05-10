@@ -2,15 +2,15 @@
 http_interactions: 
 - request: 
     method: post
-    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/downloads
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/api-playground/api-sandbox/downloads
     body: 
       encoding: UTF-8
-      string: "{\"description\":\"Description of your download\",\"content_type\":\"text/plain\",\"name\":\"web_flow_token.json\",\"size\":95}"
+      string: "{\"description\":\"Stormtrooper\",\"content_type\":\"text/plain\",\"name\":\"/Users/wynn/.coral/repos/octokit@pengwynn/spec/fixtures/web_flow_token.json\",\"size\":95}"
     headers: 
       Accept: 
       - application/vnd.github.beta+json
       User-Agent: 
-      - Octokit Ruby Gem 2.0.0
+      - Octokit Ruby Gem 2.0.0.pre
   response: 
     status: 
       code: 201
@@ -19,7 +19,7 @@ http_interactions:
       Server: 
       - GitHub.com
       Date: 
-      - Tue, 30 Apr 2013 16:10:28 GMT
+      - Fri, 10 May 2013 15:11:47 GMT
       Content-Type: 
       - application/json; charset=utf-8
       Connection: 
@@ -29,15 +29,15 @@ http_interactions:
       X-Ratelimit-Limit: 
       - "5000"
       X-Ratelimit-Remaining: 
-      - "4992"
+      - "4966"
       Location: 
-      - https://api.github.com/repos/pengwynn/api-sandbox/downloads/397997
+      - https://api.github.com/repos/api-playground/api-sandbox/downloads/398517
       X-Github-Media-Type: 
       - github.beta; format=json
       X-Content-Type-Options: 
       - nosniff
       Content-Length: 
-      - "1215"
+      - "1529"
       Access-Control-Allow-Credentials: 
       - "true"
       Access-Control-Expose-Headers: 
@@ -45,14 +45,14 @@ http_interactions:
       Access-Control-Allow-Origin: 
       - "*"
       Etag: 
-      - "\"3e5c625f0bb83a8b2b232846b7635afa\""
+      - "\"8ea33a3acba4d9f8591ffcaa0ff914ab\""
       Cache-Control: 
       - max-age=0, private, must-revalidate
     body: 
       encoding: US-ASCII
-      string: "{\"url\":\"https://api.github.com/repos/pengwynn/api-sandbox/downloads/397997\",\"id\":397997,\"html_url\":\"https://github.com/downloads/pengwynn/api-sandbox/web_flow_token.json\",\"name\":\"web_flow_token.json\",\"description\":\"Description of your download\",\"created_at\":\"2013-04-30T16:10:28Z\",\"size\":0,\"download_count\":0,\"content_type\":\"text/plain\",\"policy\":\"ewogICAgJ2V4cGlyYXRpb24nOiAnMjExMy0wNC0zMFQxNjoxMDoyOC4wMDBaJywKICAgICdjb25kaXRpb25zJzogWwogICAgICAgIHsnYnVja2V0JzogJ2dpdGh1Yid9LAogICAgICAgIHsna2V5JzogJ2Rvd25sb2Fkcy9wZW5nd3lubi9hcGktc2FuZGJveC93ZWJfZmxvd190b2tlbi5qc29uJ30sCiAgICAgICAgeydhY2wnOiAncHJpdmF0ZSd9LAogICAgICAgIHsnc3VjY2Vzc19hY3Rpb25fc3RhdHVzJzogJzIwMSd9LAogICAgICAgIFsnc3RhcnRzLXdpdGgnLCAnJEZpbGVuYW1lJywgJyddLAogICAgICAgIFsnc3RhcnRzLXdpdGgnLCAnJENvbnRlbnQtVHlwZScsICcnXQogICAgXQp9\",\"signature\":\"DmAFmDTWJPLCFtn3XrxLTLOOPlI=\",\"bucket\":\"github\",\"accesskeyid\":\"AKIAISTNZFOVBIJMK3TQ\",\"path\":\"downloads/pengwynn/api-sandbox/web_flow_token.json\",\"acl\":\"private\",\"expirationdate\":\"2113-04-30T16:10:28.000Z\",\"prefix\":\"downloads/pengwynn/api-sandbox\",\"mime_type\":\"text/plain\",\"redirect\":false,\"x-amz-meta-content-disposition\":\"attachment; filename=web_flow_token.json\",\"s3_url\":\"https://github.s3.amazonaws.com/\"}"
+      string: "{\"url\":\"https://api.github.com/repos/api-playground/api-sandbox/downloads/398517\",\"id\":398517,\"html_url\":\"https://github.com/downloads/api-playground/api-sandbox/Users/wynn/.coral/repos/octokit@pengwynn/spec/fixtures/web_flow_token.json\",\"name\":\"/Users/wynn/.coral/repos/octokit@pengwynn/spec/fixtures/web_flow_token.json\",\"description\":\"Stormtrooper\",\"created_at\":\"2013-05-10T15:11:47Z\",\"size\":0,\"download_count\":0,\"content_type\":\"text/plain\",\"policy\":\"ewogICAgJ2V4cGlyYXRpb24nOiAnMjExMy0wNS0xMFQxNToxMTo0Ny4wMDBaJywKICAgICdjb25kaXRpb25zJzogWwogICAgICAgIHsnYnVja2V0JzogJ2dpdGh1Yid9LAogICAgICAgIHsna2V5JzogJ2Rvd25sb2Fkcy9hcGktcGxheWdyb3VuZC9hcGktc2FuZGJveC9Vc2Vycy93eW5uLy5jb3JhbC9yZXBvcy9vY3Rva2l0QHBlbmd3eW5uL3NwZWMvZml4dHVyZXMvd2ViX2Zsb3dfdG9rZW4uanNvbid9LAogICAgICAgIHsnYWNsJzogJ3ByaXZhdGUnfSwKICAgICAgICB7J3N1Y2Nlc3NfYWN0aW9uX3N0YXR1cyc6ICcyMDEnfSwKICAgICAgICBbJ3N0YXJ0cy13aXRoJywgJyRGaWxlbmFtZScsICcnXSwKICAgICAgICBbJ3N0YXJ0cy13aXRoJywgJyRDb250ZW50LVR5cGUnLCAnJ10KICAgIF0KfQ==\",\"signature\":\"ZdUu4vFpY/GfcBFAAfv1OEs0b4s=\",\"bucket\":\"github\",\"accesskeyid\":\"AKIAISTNZFOVBIJMK3TQ\",\"path\":\"downloads/api-playground/api-sandbox/Users/wynn/.coral/repos/octokit@pengwynn/spec/fixtures/web_flow_token.json\",\"acl\":\"private\",\"expirationdate\":\"2113-05-10T15:11:47.000Z\",\"prefix\":\"downloads/api-playground/api-sandbox\",\"mime_type\":\"text/plain\",\"redirect\":false,\"x-amz-meta-content-disposition\":\"attachment; filename=/Users/wynn/.coral/repos/octokit@pengwynn/spec/fixtures/web_flow_token.json\",\"s3_url\":\"https://github.s3.amazonaws.com/\"}"
     http_version: 
-  recorded_at: Tue, 30 Apr 2013 16:10:28 GMT
+  recorded_at: Fri, 10 May 2013 15:11:47 GMT
 - request: 
     method: post
     uri: https://github.s3.amazonaws.com/
@@ -62,7 +62,7 @@ http_interactions:
         -------------RubyMultipartPost
         Content-Disposition: form-data; name="key"
         
-        downloads/pengwynn/api-sandbox/web_flow_token.json
+        downloads/api-playground/api-sandbox/Users/wynn/.coral/repos/octokit@pengwynn/spec/fixtures/web_flow_token.json
         -------------RubyMultipartPost
         Content-Disposition: form-data; name="acl"
         
@@ -74,7 +74,7 @@ http_interactions:
         -------------RubyMultipartPost
         Content-Disposition: form-data; name="Filename"
         
-        web_flow_token.json
+        /Users/wynn/.coral/repos/octokit@pengwynn/spec/fixtures/web_flow_token.json
         -------------RubyMultipartPost
         Content-Disposition: form-data; name="AWSAccessKeyId"
         
@@ -82,11 +82,11 @@ http_interactions:
         -------------RubyMultipartPost
         Content-Disposition: form-data; name="Policy"
         
-        ewogICAgJ2V4cGlyYXRpb24nOiAnMjExMy0wNC0zMFQxNjoxMDoyOC4wMDBaJywKICAgICdjb25kaXRpb25zJzogWwogICAgICAgIHsnYnVja2V0JzogJ2dpdGh1Yid9LAogICAgICAgIHsna2V5JzogJ2Rvd25sb2Fkcy9wZW5nd3lubi9hcGktc2FuZGJveC93ZWJfZmxvd190b2tlbi5qc29uJ30sCiAgICAgICAgeydhY2wnOiAncHJpdmF0ZSd9LAogICAgICAgIHsnc3VjY2Vzc19hY3Rpb25fc3RhdHVzJzogJzIwMSd9LAogICAgICAgIFsnc3RhcnRzLXdpdGgnLCAnJEZpbGVuYW1lJywgJyddLAogICAgICAgIFsnc3RhcnRzLXdpdGgnLCAnJENvbnRlbnQtVHlwZScsICcnXQogICAgXQp9
+        ewogICAgJ2V4cGlyYXRpb24nOiAnMjExMy0wNS0xMFQxNToxMTo0Ny4wMDBaJywKICAgICdjb25kaXRpb25zJzogWwogICAgICAgIHsnYnVja2V0JzogJ2dpdGh1Yid9LAogICAgICAgIHsna2V5JzogJ2Rvd25sb2Fkcy9hcGktcGxheWdyb3VuZC9hcGktc2FuZGJveC9Vc2Vycy93eW5uLy5jb3JhbC9yZXBvcy9vY3Rva2l0QHBlbmd3eW5uL3NwZWMvZml4dHVyZXMvd2ViX2Zsb3dfdG9rZW4uanNvbid9LAogICAgICAgIHsnYWNsJzogJ3ByaXZhdGUnfSwKICAgICAgICB7J3N1Y2Nlc3NfYWN0aW9uX3N0YXR1cyc6ICcyMDEnfSwKICAgICAgICBbJ3N0YXJ0cy13aXRoJywgJyRGaWxlbmFtZScsICcnXSwKICAgICAgICBbJ3N0YXJ0cy13aXRoJywgJyRDb250ZW50LVR5cGUnLCAnJ10KICAgIF0KfQ==
         -------------RubyMultipartPost
         Content-Disposition: form-data; name="Signature"
         
-        DmAFmDTWJPLCFtn3XrxLTLOOPlI=
+        ZdUu4vFpY/GfcBFAAfv1OEs0b4s=
         -------------RubyMultipartPost
         Content-Disposition: form-data; name="Content-Type"
         
@@ -110,7 +110,7 @@ http_interactions:
       Content-Type: 
       - multipart/form-data;boundary=-----------RubyMultipartPost
       Content-Length: 
-      - "1598"
+      - "1799"
       Accept: 
       - "*/*"
   response: 
@@ -119,31 +119,147 @@ http_interactions:
       message: Created
     headers: 
       X-Amz-Id-2: 
-      - Jc3TnwteSoVX1zO2vkzeFDXKFu2H98Tf1DujprMSJG4Q2WffeNR9+xWi26CdMQLG
+      - HvRiZMf8NnId5hpiougzqHcbXHOKhKY4scFsaE+X4q1EpQmY021eJrKDQ54sZa7X
       X-Amz-Request-Id: 
-      - D6B85A0D05A51447
+      - 373A64EF90763E17
       Date: 
-      - Tue, 30 Apr 2013 16:10:30 GMT
+      - Fri, 10 May 2013 15:11:48 GMT
       Etag: 
       - "\"d4624082299c0e4e922838cab1cabf17\""
       Location: 
-      - https://github.s3.amazonaws.com/downloads%2Fpengwynn%2Fapi-sandbox%2Fweb_flow_token.json
+      - https://github.s3.amazonaws.com/downloads%2Fapi-playground%2Fapi-sandbox%2FUsers%2Fwynn%2F.coral%2Frepos%2Foctokit%40pengwynn%2Fspec%2Ffixtures%2Fweb_flow_token.json
       Content-Type: 
       - application/xml
       Content-Length: 
-      - "308"
+      - "446"
       Server: 
       - AmazonS3
     body: 
       encoding: US-ASCII
       string: |-
         <?xml version="1.0" encoding="UTF-8"?>
-        <PostResponse><Location>https://github.s3.amazonaws.com/downloads%2Fpengwynn%2Fapi-sandbox%2Fweb_flow_token.json</Location><Bucket>github</Bucket><Key>downloads/pengwynn/api-sandbox/web_flow_token.json</Key><ETag>"d4624082299c0e4e922838cab1cabf17"</ETag></PostResponse>
+        <PostResponse><Location>https://github.s3.amazonaws.com/downloads%2Fapi-playground%2Fapi-sandbox%2FUsers%2Fwynn%2F.coral%2Frepos%2Foctokit%40pengwynn%2Fspec%2Ffixtures%2Fweb_flow_token.json</Location><Bucket>github</Bucket><Key>downloads/api-playground/api-sandbox/Users/wynn/.coral/repos/octokit@pengwynn/spec/fixtures/web_flow_token.json</Key><ETag>"d4624082299c0e4e922838cab1cabf17"</ETag></PostResponse>
     http_version: 
-  recorded_at: Tue, 30 Apr 2013 16:10:29 GMT
+  recorded_at: Fri, 10 May 2013 15:11:47 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/repos/github/hubot/downloads
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0.pre
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 10 May 2013 15:11:47 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "32"
+      Vary: 
+      - Accept
+      - Accept-Encoding
+      Cache-Control: 
+      - public, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Fri, 10 May 2013 12:52:39 GMT
+      Etag: 
+      - "\"5b88ec6428df8d5fc270afb98c8450ca\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "[{\"url\":\"https://api.github.com/repos/github/hubot/downloads/281560\",\"id\":281560,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.3.2.tar.gz\",\"name\":\"hubot-2.3.2.tar.gz\",\"description\":\"\",\"created_at\":\"2012-07-26T21:13:09Z\",\"size\":8192,\"download_count\":2842,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/271686\",\"id\":271686,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.3.0.tar.gz\",\"name\":\"hubot-2.3.0.tar.gz\",\"description\":\"\",\"created_at\":\"2012-07-10T10:20:45Z\",\"size\":7168,\"download_count\":345,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/249607\",\"id\":249607,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.2.1.tar.gz\",\"name\":\"hubot-2.2.1.tar.gz\",\"description\":\"RadRobotRelease\",\"created_at\":\"2012-06-04T09:01:12Z\",\"size\":7168,\"download_count\":3539,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/238815\",\"id\":238815,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.2.0.tar.gz\",\"name\":\"hubot-2.2.0.tar.gz\",\"description\":\"Better late than never release\",\"created_at\":\"2012-05-15T21:05:16Z\",\"size\":7168,\"download_count\":17854,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/208666\",\"id\":208666,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.1.4.1.tar.gz\",\"name\":\"hubot-2.1.4.1.tar.gz\",\"description\":\"Robawt - Working as Intended(TM)\",\"created_at\":\"2012-03-23T21:59:22Z\",\"size\":7168,\"download_count\":645,\"content_type\":\".gz\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/185530\",\"id\":185530,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.1.3.tar.gz\",\"name\":\"hubot-2.1.3.tar.gz\",\"description\":\"\",\"created_at\":\"2012-02-05T21:39:32Z\",\"size\":7168,\"download_count\":6106,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/165347\",\"id\":165347,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.1.0.tar.gz\",\"name\":\"hubot-2.1.0.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-12-24T05:18:20Z\",\"size\":6144,\"download_count\":1392,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/155291\",\"id\":155291,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.0.5.tar.gz\",\"name\":\"hubot-2.0.5.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-12-01T08:48:32Z\",\"size\":6144,\"download_count\":5480,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/153174\",\"id\":153174,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.0.4.tar.gz\",\"name\":\"hubot-2.0.4.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-11-25T20:07:31Z\",\"size\":6144,\"download_count\":410,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/153161\",\"id\":153161,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.0.3.tar.gz\",\"name\":\"hubot-2.0.3.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-11-25T19:35:43Z\",\"size\":6144,\"download_count\":37,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/153154\",\"id\":153154,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.0.2.tar.gz\",\"name\":\"hubot-2.0.2.tar.gz\",\"description\":\"Robawt Rock\",\"created_at\":\"2011-11-25T19:04:34Z\",\"size\":6144,\"download_count\":40,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/146281\",\"id\":146281,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.11.tar.gz\",\"name\":\"hubot-1.1.11.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-11-07T22:19:33Z\",\"size\":6144,\"download_count\":1808,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/143826\",\"id\":143826,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.9.tar.gz\",\"name\":\"hubot-1.1.9.tar.gz\",\"description\":\"Robawt rock\",\"created_at\":\"2011-11-01T07:16:36Z\",\"size\":6144,\"download_count\":1084,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/143655\",\"id\":143655,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.7.tar.gz\",\"name\":\"hubot-1.1.7.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-10-31T19:28:40Z\",\"size\":6144,\"download_count\":127,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/143105\",\"id\":143105,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.6.tar.gz\",\"name\":\"hubot-1.1.6.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-10-29T23:01:19Z\",\"size\":6144,\"download_count\":327,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/142582\",\"id\":142582,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.3.tar.gz\",\"name\":\"hubot-1.1.3.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-10-28T07:04:19Z\",\"size\":6144,\"download_count\":249,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/142560\",\"id\":142560,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.2.tar.gz\",\"name\":\"hubot-1.1.2.tar.gz\",\"description\":\"Hubot\",\"created_at\":\"2011-10-28T04:38:13Z\",\"size\":6144,\"download_count\":58,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/142558\",\"id\":142558,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.1.tar.gz\",\"name\":\"hubot-1.1.1.tar.gz\",\"description\":\"Hubot 1.1.1\",\"created_at\":\"2011-10-28T04:11:02Z\",\"size\":6144,\"download_count\":33,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141895\",\"id\":141895,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.6.tar.gz\",\"name\":\"hubot-1.0.6.tar.gz\",\"description\":\"Version 1.0.5 of Hubot\",\"created_at\":\"2011-10-26T06:55:32Z\",\"size\":5120,\"download_count\":2913,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141885\",\"id\":141885,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.5.tar.gz\",\"name\":\"hubot-1.0.5.tar.gz\",\"description\":\"Version 1.0.5 of Hubot\",\"created_at\":\"2011-10-26T06:21:53Z\",\"size\":5120,\"download_count\":82,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141820\",\"id\":141820,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.3.tar.gz\",\"name\":\"hubot-1.0.3.tar.gz\",\"description\":\"Version 1.0.3 of the Hubot Chat Bot\",\"created_at\":\"2011-10-26T00:43:03Z\",\"size\":5120,\"download_count\":494,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141760\",\"id\":141760,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.2.tar.gz\",\"name\":\"hubot-1.0.2.tar.gz\",\"description\":\"Version 1.0.2 of the Hubot Chat Bot\",\"created_at\":\"2011-10-25T20:27:13Z\",\"size\":4096,\"download_count\":926,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141759\",\"id\":141759,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.1.tar.gz\",\"name\":\"hubot-1.0.1.tar.gz\",\"description\":\"Version 1.0.1 of the Hubot Campfire Bot\",\"created_at\":\"2011-10-25T20:23:18Z\",\"size\":4096,\"download_count\":33,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141700\",\"id\":141700,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.0.tar.gz\",\"name\":\"hubot-1.0.0.tar.gz\",\"description\":\"Version 1.0.0 of the Hubot Campfire Bot\",\"created_at\":\"2011-10-25T18:29:37Z\",\"size\":5120,\"download_count\":1139,\"content_type\":\"application/gzip\"}]"
+    http_version: 
+  recorded_at: Fri, 10 May 2013 15:11:48 GMT
+- request: 
+    method: get
+    uri: https://api.github.com/repos/github/hubot/downloads/165347
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0.pre
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Fri, 10 May 2013 15:11:48 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Transfer-Encoding: 
+      - chunked
+      Connection: 
+      - keep-alive
+      Status: 
+      - 200 OK
+      X-Ratelimit-Limit: 
+      - "60"
+      X-Ratelimit-Remaining: 
+      - "31"
+      Vary: 
+      - Accept
+      - Accept-Encoding
+      Cache-Control: 
+      - public, max-age=60, s-maxage=60
+      Last-Modified: 
+      - Fri, 10 May 2013 12:52:39 GMT
+      Etag: 
+      - "\"5b88ec6428df8d5fc270afb98c8450ca\""
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+    body: 
+      encoding: ASCII-8BIT
+      string: "{\"url\":\"https://api.github.com/repos/github/hubot/downloads/165347\",\"id\":165347,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.1.0.tar.gz\",\"name\":\"hubot-2.1.0.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-12-24T05:18:20Z\",\"size\":6144,\"download_count\":1392,\"content_type\":\"application/gzip\"}"
+    http_version: 
+  recorded_at: Fri, 10 May 2013 15:11:48 GMT
 - request: 
     method: delete
-    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/octocat/Hellow-World/downloads/397996
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/api-playground/api-sandbox/downloads/397996
     body: 
       encoding: UTF-8
       string: "{}"
@@ -151,7 +267,7 @@ http_interactions:
       Accept: 
       - application/vnd.github.beta+json
       User-Agent: 
-      - Octokit Ruby Gem 2.0.0
+      - Octokit Ruby Gem 2.0.0.pre
   response: 
     status: 
       code: 404
@@ -160,7 +276,7 @@ http_interactions:
       Server: 
       - GitHub.com
       Date: 
-      - Tue, 30 Apr 2013 16:15:42 GMT
+      - Fri, 10 May 2013 15:11:48 GMT
       Content-Type: 
       - application/json; charset=utf-8
       Connection: 
@@ -170,7 +286,7 @@ http_interactions:
       X-Ratelimit-Limit: 
       - "5000"
       X-Ratelimit-Remaining: 
-      - "4991"
+      - "4965"
       X-Github-Media-Type: 
       - github.beta; format=json
       X-Content-Type-Options: 
@@ -187,166 +303,5 @@ http_interactions:
       encoding: US-ASCII
       string: "{\"message\":\"Not Found\"}"
     http_version: 
-  recorded_at: Tue, 30 Apr 2013 16:15:43 GMT
-- request: 
-    method: get
-    uri: https://api.github.com/repos/github/hubot/downloads/165347
-    body: 
-      encoding: US-ASCII
-      string: ""
-    headers: 
-      Accept: 
-      - application/vnd.github.beta+json
-      User-Agent: 
-      - Octokit Ruby Gem 2.0.0
-      Accept-Encoding: 
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-  response: 
-    status: 
-      code: 200
-      message: OK
-    headers: 
-      Server: 
-      - GitHub.com
-      Date: 
-      - Tue, 30 Apr 2013 16:15:42 GMT
-      Content-Type: 
-      - application/json; charset=utf-8
-      Transfer-Encoding: 
-      - chunked
-      Connection: 
-      - keep-alive
-      Status: 
-      - 200 OK
-      X-Ratelimit-Limit: 
-      - "60"
-      X-Ratelimit-Remaining: 
-      - "56"
-      Vary: 
-      - Accept
-      - Accept-Encoding
-      Cache-Control: 
-      - public, max-age=60, s-maxage=60
-      Last-Modified: 
-      - Tue, 30 Apr 2013 14:59:36 GMT
-      Etag: 
-      - "\"f5672f8f70c7ca55df16a65cb261d7ef\""
-      X-Github-Media-Type: 
-      - github.beta; format=json
-      X-Content-Type-Options: 
-      - nosniff
-      Access-Control-Allow-Credentials: 
-      - "true"
-      Access-Control-Expose-Headers: 
-      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
-      Access-Control-Allow-Origin: 
-      - "*"
-    body: 
-      encoding: ASCII-8BIT
-      string: "{\"url\":\"https://api.github.com/repos/github/hubot/downloads/165347\",\"id\":165347,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.1.0.tar.gz\",\"name\":\"hubot-2.1.0.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-12-24T05:18:20Z\",\"size\":6144,\"download_count\":1392,\"content_type\":\"application/gzip\"}"
-    http_version: 
-  recorded_at: Tue, 30 Apr 2013 16:15:43 GMT
-- request: 
-    method: delete
-    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/repos/pengwynn/api-sandbox/downloads/397996
-    body: 
-      encoding: UTF-8
-      string: "{}"
-    headers: 
-      Accept: 
-      - application/vnd.github.beta+json
-      User-Agent: 
-      - Octokit Ruby Gem 2.0.0
-  response: 
-    status: 
-      code: 204
-      message: No Content
-    headers: 
-      Server: 
-      - GitHub.com
-      Date: 
-      - Tue, 30 Apr 2013 16:16:10 GMT
-      Connection: 
-      - keep-alive
-      Status: 
-      - 204 No Content
-      X-Ratelimit-Limit: 
-      - "5000"
-      X-Ratelimit-Remaining: 
-      - "4990"
-      X-Github-Media-Type: 
-      - github.beta; format=json
-      X-Content-Type-Options: 
-      - nosniff
-      Access-Control-Allow-Credentials: 
-      - "true"
-      Access-Control-Expose-Headers: 
-      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
-      Access-Control-Allow-Origin: 
-      - "*"
-      Vary: 
-      - Accept-Encoding
-    body: 
-      encoding: US-ASCII
-      string: ""
-    http_version: 
-  recorded_at: Tue, 30 Apr 2013 16:16:11 GMT
-- request: 
-    method: get
-    uri: https://api.github.com/repos/github/hubot/downloads
-    body: 
-      encoding: US-ASCII
-      string: ""
-    headers: 
-      Accept: 
-      - application/vnd.github.beta+json
-      User-Agent: 
-      - Octokit Ruby Gem 2.0.0
-      Accept-Encoding: 
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-  response: 
-    status: 
-      code: 200
-      message: OK
-    headers: 
-      Server: 
-      - GitHub.com
-      Date: 
-      - Tue, 30 Apr 2013 16:16:56 GMT
-      Content-Type: 
-      - application/json; charset=utf-8
-      Transfer-Encoding: 
-      - chunked
-      Connection: 
-      - keep-alive
-      Status: 
-      - 200 OK
-      X-Ratelimit-Limit: 
-      - "60"
-      X-Ratelimit-Remaining: 
-      - "55"
-      Vary: 
-      - Accept
-      - Accept-Encoding
-      Cache-Control: 
-      - public, max-age=60, s-maxage=60
-      Last-Modified: 
-      - Tue, 30 Apr 2013 14:59:36 GMT
-      Etag: 
-      - "\"f5672f8f70c7ca55df16a65cb261d7ef\""
-      X-Github-Media-Type: 
-      - github.beta; format=json
-      X-Content-Type-Options: 
-      - nosniff
-      Access-Control-Allow-Credentials: 
-      - "true"
-      Access-Control-Expose-Headers: 
-      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
-      Access-Control-Allow-Origin: 
-      - "*"
-    body: 
-      encoding: ASCII-8BIT
-      string: "[{\"url\":\"https://api.github.com/repos/github/hubot/downloads/281560\",\"id\":281560,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.3.2.tar.gz\",\"name\":\"hubot-2.3.2.tar.gz\",\"description\":\"\",\"created_at\":\"2012-07-26T21:13:09Z\",\"size\":8192,\"download_count\":2817,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/271686\",\"id\":271686,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.3.0.tar.gz\",\"name\":\"hubot-2.3.0.tar.gz\",\"description\":\"\",\"created_at\":\"2012-07-10T10:20:45Z\",\"size\":7168,\"download_count\":345,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/249607\",\"id\":249607,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.2.1.tar.gz\",\"name\":\"hubot-2.2.1.tar.gz\",\"description\":\"RadRobotRelease\",\"created_at\":\"2012-06-04T09:01:12Z\",\"size\":7168,\"download_count\":3538,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/238815\",\"id\":238815,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.2.0.tar.gz\",\"name\":\"hubot-2.2.0.tar.gz\",\"description\":\"Better late than never release\",\"created_at\":\"2012-05-15T21:05:16Z\",\"size\":7168,\"download_count\":17853,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/208666\",\"id\":208666,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.1.4.1.tar.gz\",\"name\":\"hubot-2.1.4.1.tar.gz\",\"description\":\"Robawt - Working as Intended(TM)\",\"created_at\":\"2012-03-23T21:59:22Z\",\"size\":7168,\"download_count\":645,\"content_type\":\".gz\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/185530\",\"id\":185530,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.1.3.tar.gz\",\"name\":\"hubot-2.1.3.tar.gz\",\"description\":\"\",\"created_at\":\"2012-02-05T21:39:32Z\",\"size\":7168,\"download_count\":6106,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/165347\",\"id\":165347,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.1.0.tar.gz\",\"name\":\"hubot-2.1.0.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-12-24T05:18:20Z\",\"size\":6144,\"download_count\":1392,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/155291\",\"id\":155291,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.0.5.tar.gz\",\"name\":\"hubot-2.0.5.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-12-01T08:48:32Z\",\"size\":6144,\"download_count\":5480,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/153174\",\"id\":153174,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.0.4.tar.gz\",\"name\":\"hubot-2.0.4.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-11-25T20:07:31Z\",\"size\":6144,\"download_count\":410,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/153161\",\"id\":153161,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.0.3.tar.gz\",\"name\":\"hubot-2.0.3.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-11-25T19:35:43Z\",\"size\":6144,\"download_count\":37,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/153154\",\"id\":153154,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-2.0.2.tar.gz\",\"name\":\"hubot-2.0.2.tar.gz\",\"description\":\"Robawt Rock\",\"created_at\":\"2011-11-25T19:04:34Z\",\"size\":6144,\"download_count\":40,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/146281\",\"id\":146281,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.11.tar.gz\",\"name\":\"hubot-1.1.11.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-11-07T22:19:33Z\",\"size\":6144,\"download_count\":1808,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/143826\",\"id\":143826,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.9.tar.gz\",\"name\":\"hubot-1.1.9.tar.gz\",\"description\":\"Robawt rock\",\"created_at\":\"2011-11-01T07:16:36Z\",\"size\":6144,\"download_count\":1084,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/143655\",\"id\":143655,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.7.tar.gz\",\"name\":\"hubot-1.1.7.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-10-31T19:28:40Z\",\"size\":6144,\"download_count\":127,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/143105\",\"id\":143105,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.6.tar.gz\",\"name\":\"hubot-1.1.6.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-10-29T23:01:19Z\",\"size\":6144,\"download_count\":327,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/142582\",\"id\":142582,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.3.tar.gz\",\"name\":\"hubot-1.1.3.tar.gz\",\"description\":\"Robawt\",\"created_at\":\"2011-10-28T07:04:19Z\",\"size\":6144,\"download_count\":249,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/142560\",\"id\":142560,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.2.tar.gz\",\"name\":\"hubot-1.1.2.tar.gz\",\"description\":\"Hubot\",\"created_at\":\"2011-10-28T04:38:13Z\",\"size\":6144,\"download_count\":58,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/142558\",\"id\":142558,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.1.1.tar.gz\",\"name\":\"hubot-1.1.1.tar.gz\",\"description\":\"Hubot 1.1.1\",\"created_at\":\"2011-10-28T04:11:02Z\",\"size\":6144,\"download_count\":33,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141895\",\"id\":141895,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.6.tar.gz\",\"name\":\"hubot-1.0.6.tar.gz\",\"description\":\"Version 1.0.5 of Hubot\",\"created_at\":\"2011-10-26T06:55:32Z\",\"size\":5120,\"download_count\":2913,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141885\",\"id\":141885,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.5.tar.gz\",\"name\":\"hubot-1.0.5.tar.gz\",\"description\":\"Version 1.0.5 of Hubot\",\"created_at\":\"2011-10-26T06:21:53Z\",\"size\":5120,\"download_count\":82,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141820\",\"id\":141820,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.3.tar.gz\",\"name\":\"hubot-1.0.3.tar.gz\",\"description\":\"Version 1.0.3 of the Hubot Chat Bot\",\"created_at\":\"2011-10-26T00:43:03Z\",\"size\":5120,\"download_count\":494,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141760\",\"id\":141760,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.2.tar.gz\",\"name\":\"hubot-1.0.2.tar.gz\",\"description\":\"Version 1.0.2 of the Hubot Chat Bot\",\"created_at\":\"2011-10-25T20:27:13Z\",\"size\":4096,\"download_count\":926,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141759\",\"id\":141759,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.1.tar.gz\",\"name\":\"hubot-1.0.1.tar.gz\",\"description\":\"Version 1.0.1 of the Hubot Campfire Bot\",\"created_at\":\"2011-10-25T20:23:18Z\",\"size\":4096,\"download_count\":33,\"content_type\":\"application/gzip\"},{\"url\":\"https://api.github.com/repos/github/hubot/downloads/141700\",\"id\":141700,\"html_url\":\"https://github.com/downloads/github/hubot/hubot-1.0.0.tar.gz\",\"name\":\"hubot-1.0.0.tar.gz\",\"description\":\"Version 1.0.0 of the Hubot Campfire Bot\",\"created_at\":\"2011-10-25T18:29:37Z\",\"size\":5120,\"download_count\":1139,\"content_type\":\"application/gzip\"}]"
-    http_version: 
-  recorded_at: Tue, 30 Apr 2013 16:16:56 GMT
+  recorded_at: Fri, 10 May 2013 15:11:48 GMT
 recorded_with: VCR 2.4.0

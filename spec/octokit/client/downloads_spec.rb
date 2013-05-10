@@ -14,16 +14,16 @@ describe Octokit::Client::Downloads do
 
   describe ".create_download" do
     it "creates a download resource" do
-      resource = @client.send(:create_download_resource, "pengwynn/api-sandbox", File.expand_path("spec/fixtures/web_flow_token.json"), 95, {:description => "Stormtrooper", :content_type => "text/plain"})
+      resource = @client.send(:create_download_resource, "api-playground/api-sandbox", File.expand_path("spec/fixtures/web_flow_token.json"), 95, {:description => "Stormtrooper", :content_type => "text/plain"})
       expect(resource.rels[:s3].href).to match /amazonaws/
-      assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/downloads")
+      assert_requested :post, basic_github_url("/repos/api-playground/api-sandbox/downloads")
     end
 
     it "posts to an S3 url" do
       file_path = File.expand_path 'spec/fixtures/web_flow_token.json'
-      @client.create_download("pengwynn/api-sandbox", file_path, {:description => "Description of your download", :content_type => "text/plain"})
+      @client.create_download("api-playground/api-sandbox", file_path, {:description => "Description of your download", :content_type => "text/plain"})
       assert_requested :post, "https://github.s3.amazonaws.com/"
-      assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/downloads")
+      assert_requested :post, basic_github_url("/repos/api-playground/api-sandbox/downloads")
     end
   end # .create_download
 
@@ -46,8 +46,8 @@ describe Octokit::Client::Downloads do
 
   describe ".delete_download" do
     it "deletes a download" do
-      @client.delete_download 'pengwynn/api-sandbox', 397996
-      assert_requested :delete, basic_github_url("/repos/pengwynn/api-sandbox/downloads/397996")
+      @client.delete_download 'api-playground/api-sandbox', 397996
+      assert_requested :delete, basic_github_url("/repos/api-playground/api-sandbox/downloads/397996")
     end
   end # .delete_download
 
