@@ -60,10 +60,18 @@ describe Octokit::Client::Gists do
   describe "when authenticated" do
 
     before do
-      @client = Octokit.client
-      @client.login = test_github_login
-      @client.password = test_github_password
       VCR.insert_cassette 'authenticated_gists'
+      @client = basic_auth_client
+      new_gist = {
+        :description => "A gist from Octokit",
+        :public      => true,
+        :files       => {
+          "zen.text" => { :content => "Keep it logically awesome." }
+        }
+      }
+
+      @gist = @client.create_gist(new_gist)
+      @gist_comment = @client.create_gist_comment(5421307, ":metal:")
     end
 
     after do
@@ -89,40 +97,31 @@ describe Octokit::Client::Gists do
 
     describe ".create_gist" do
       it "creates a new gist" do
-        new_gist = {
-          :description => "A gist from Octokit",
-          :public      => true,
-          :files       => {
-            "zen.text" => { :content => "Keep it logically awesome." }
-          }
-        }
-
-        gist = @client.create_gist(new_gist)
-        expect(gist.user.login).to eq 'api-padawan'
-        expect(gist.files.fields.first.to_s).to match /zen/
+        expect(@gist.user.login).to eq 'api-padawan'
+        expect(@gist.files.fields.first.to_s).to match /zen/
         assert_requested :post, basic_github_url("/gists")
       end
     end # .create_gist
 
     describe ".edit_gist" do
       it "edit an existing gist" do
-        gist = @client.edit_gist(5421307, :description => "GitHub Zen")
-        assert_requested :patch, basic_github_url("/gists/5421307")
+        gist = @client.edit_gist(@gist.id, :description => "GitHub Zen")
+        assert_requested :patch, basic_github_url("/gists/#{@gist.id}")
       end
     end # .edit_gist
 
     describe ".star_gist" do
       it "stars an existing gist" do
-        @client.star_gist(5421463)
-        assert_requested :put, basic_github_url("/gists/5421463/star")
+        @client.star_gist(@gist.id)
+        assert_requested :put, basic_github_url("/gists/#{@gist.id}/star")
         expect(@client.last_response.status).to eq 204
       end
     end # .star
 
     describe ".unstar_gist" do
       it "unstars an existing gist" do
-        @client.unstar_gist(5421463)
-        assert_requested :delete, basic_github_url("/gists/5421463/star")
+        @client.unstar_gist(@gist.id)
+        assert_requested :delete, basic_github_url("/gists/#{@gist.id}/star")
         expect(@client.last_response.status).to eq 204
       end
     end # .unstar_gist
@@ -143,27 +142,15 @@ describe Octokit::Client::Gists do
 
     describe ".fork_gist" do
       it "forks an existing gist" do
-        latest = Octokit.client.gists.first
+        latest = Octokit.gists('pengwynn').shuffle.first
         gist = @client.fork_gist(latest.id)
         expect(gist.description).to eq latest.description
         assert_requested :post, basic_github_url("/gists/#{latest.id}/forks")
+
+        # cleanup so we can re-run later
+        @client.delete_gist(gist.id)
       end
     end # .fork_gist
-
-    describe ".delete_gist" do
-      it "deletes an existing gist" do
-        new_gist = {
-          :description => "A gist from Octokit",
-          :public      => true,
-          :files       => {
-            "zen.text" => { :content => "Keep it logically awesome." }
-          }
-        }
-        gist = @client.create_gist(new_gist)
-        @client.delete_gist(gist.id)
-        assert_requested :delete, basic_github_url("/gists/#{gist.id}")
-      end
-    end # .delete_gist
 
     describe ".gist_comments" do
       it "returns the list of gist comments" do
@@ -183,26 +170,31 @@ describe Octokit::Client::Gists do
 
     describe ".create_gist_comment" do
       it "creates a gist comment" do
-        comment = @client.create_gist_comment(5421307, ":metal:")
         assert_requested :post, basic_github_url("/gists/5421307/comments")
       end
     end # .create_gist_comment
 
     describe ".update_gist_comment" do
       it "updates a gist comment" do
-        comment = @client.create_gist_comment(5421307, ":metal:")
-        update = @client.update_gist_comment(5421307, comment.id, ":heart:")
-        assert_requested :patch, basic_github_url("/gists/5421307/comments/#{comment.id}")
+        update = @client.update_gist_comment(5421307, @gist_comment.id, ":heart:")
+        assert_requested :patch, basic_github_url("/gists/5421307/comments/#{@gist_comment.id}")
       end
     end # .update_gist_comment
 
     describe ".delete_gist_comment" do
       it "deletes a gist comment" do
         comment = @client.create_gist_comment(5421307, ":metal:")
-        @client.delete_gist_comment(5421307, comment.id)
-        assert_requested :delete, basic_github_url("/gists/5421307/comments/#{comment.id}")
+        @client.delete_gist_comment(5421307, @gist_comment.id)
+        assert_requested :delete, basic_github_url("/gists/5421307/comments/#{@gist_comment.id}")
       end
     end # .delete_gist_comment
+
+    describe ".delete_gist" do
+      it "deletes an existing gist" do
+        @client.delete_gist(@gist.id)
+        assert_requested :delete, basic_github_url("/gists/#{@gist.id}")
+      end
+    end # .delete_gist
 
   end # authenticated
 
