@@ -30,8 +30,8 @@ describe Octokit::Client::Objects do
 
   describe ".create_tree" do
     it "creates a tree" do
-      tree = @client.create_tree("pengwynn/api-sandbox", [ { "path" => "wynning.rb", "mode" => "100644", "type" => "blob", :content => "require 'fun'"} ])
-      assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/git/trees")
+      tree = @client.create_tree("api-playground/api-sandbox", [ { "path" => "wynning.rb", "mode" => "100644", "type" => "blob", :content => "require 'fun'"} ])
+      assert_requested :post, basic_github_url("/repos/api-playground/api-sandbox/git/trees")
     end
   end # .create_tree
 
@@ -45,8 +45,8 @@ describe Octokit::Client::Objects do
 
   describe ".create_blob" do
     it "creates a blob" do
-      blob = @client.create_blob("pengwynn/api-sandbox", "content")
-      assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/git/blobs")
+      blob = @client.create_blob("api-playground/api-sandbox", "content")
+      assert_requested :post, basic_github_url("/repos/api-playground/api-sandbox/git/blobs")
     end
   end # .create_blob
 
@@ -60,7 +60,7 @@ describe Octokit::Client::Objects do
   describe ".create_tag" do
     it "creates a tag" do
       tag = @client.create_tag(
-        "pengwynn/api-sandbox",
+        "api-playground/api-sandbox",
         "v9000.0.0",
         "Version 9000\n",
         "eb11b3141c9dec3ba88d15b499d597a65df15320",
@@ -70,7 +70,7 @@ describe Octokit::Client::Objects do
         "2012-06-03T17:03:11-07:00"
       )
       expect(tag.tag).to eq "v9000.0.0"
-      assert_requested :post, basic_github_url("/repos/pengwynn/api-sandbox/git/tags")
+      assert_requested :post, basic_github_url("/repos/api-playground/api-sandbox/git/tags")
     end
   end # .create_tag
 
