@@ -21,14 +21,171 @@ describe Octokit::Client::Repositories do
     end
   end # .repository
 
-  describe ".update_repository" do
-    it "updates the matching repository" do
-      description = "It's epic"
-      repository = @client.edit_repository("api-playground/api-sandbox", :description => description)
-      expect(repository.description).to eq description
-      assert_requested :patch, basic_github_url("/repos/api-playground/api-sandbox")
+  context "methods that require a new @repo" do
+
+    before do
+      @repo = @client.create_repository("an-repo")
     end
-  end # .update_repository
+
+    describe ".create_repository" do
+      it "creates a repository" do
+        expect(@repo.name).to eq "an-repo"
+        assert_requested :post, basic_github_url("/user/repos")
+      end
+      it "creates a repository for an organization" do
+        repository = @client.create_repository("an-org-repo", :organization => "api-playground")
+        expect(repository.name).to eq "an-org-repo"
+        assert_requested :post, basic_github_url("/orgs/api-playground/repos")
+
+        # cleanup
+        begin
+          @client.delete_repository("api-playground/an-org-repo")
+        rescue Octokit::NotFound
+        end
+      end
+    end # .create_repository
+
+    describe ".update_repository" do
+      it "updates the matching repository" do
+        description = "It's epic"
+        repository = @client.edit_repository("api-playground/api-sandbox", :description => description)
+        expect(repository.description).to eq description
+        assert_requested :patch, basic_github_url("/repos/api-playground/api-sandbox")
+      end
+    end # .update_repository
+
+    describe ".set_private" do
+      it "sets a repository private" do
+        # Stub this because Padawan is on a free plan
+        VCR.eject_cassette
+        VCR.turn_off!
+        request = stub_patch(basic_github_url("/repos/#{@repo.full_name}")).
+          with(:body => {:private => true, :name => "an-repo"}.to_json)
+        repository = @client.set_private @repo.full_name
+        assert_requested request
+        VCR.turn_on!
+        VCR.insert_cassette 'repositories', :match_requests_on => [:uri, :method, :query, :body]
+      end
+    end # .set_private
+
+    describe ".set_public" do
+      it "sets a repository public" do
+        repository = @client.set_public @repo.full_name
+        assert_requested :patch, basic_github_url("/repos/#{@repo.full_name}")
+      end
+    end # .set_public
+
+    describe ".deploy_keys" do
+      it "returns a repository's deploy keys" do
+        public_keys = @client.deploy_keys @repo.full_name
+        expect(public_keys).to be_kind_of Array
+        assert_requested :get, basic_github_url("/repos/#{@repo.full_name}/keys")
+      end
+    end # .deploy_keys
+
+    context "methods requiring an existing deploy key" do
+
+      before do
+        @public_key = @client.add_deploy_key(@repo.full_name, "Padawan", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com" )
+      end
+
+      describe ".add_deploy_key" do
+        it "adds a repository deploy keys" do
+          assert_requested :post, basic_github_url("/repos/#{@repo.full_name}/keys")
+        end
+      end # .add_deploy_key
+
+      describe ".remove_deploy_key" do
+        it "removes a repository deploy keys" do
+          result = @client.remove_deploy_key(@repo.full_name, @public_key.id)
+          assert_requested :delete, basic_github_url("/repos/#{@repo.full_name}/keys/#{@public_key.id}")
+        end
+      end # .remove_deploy_key
+
+    end # deploy key methods
+
+    describe ".add_collaborator" do
+      it "adds a repository collaborators" do
+        result = @client.add_collaborator(@repo.full_name, "pengwynn")
+        assert_requested :put, basic_github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
+      end
+    end # .add_collaborator
+
+    describe ".remove_collaborator" do
+      it "removes a repository collaborators" do
+        result = @client.remove_collaborator(@repo.full_name, "pengwynn")
+        assert_requested :delete, basic_github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
+      end
+    end # .remove_collaborator
+
+    describe ".repository_teams" do
+      it "returns all repository teams" do
+        teams = @client.repository_teams(@repo.full_name)
+        assert_requested :get, basic_github_url("/repos/#{@repo.full_name}/teams")
+        expect(teams).to be_kind_of Array
+      end
+    end # .repository_teams
+
+    describe ".hooks" do
+      it "returns a repository's hooks" do
+        hooks = @client.hooks(@repo.full_name)
+        expect(hooks).to be_kind_of Array
+        assert_requested :get, basic_github_url("/repos/#{@repo.full_name}/hooks")
+      end
+    end
+
+    describe ".create_hook" do
+      it "creates a hook" do
+        hook = @client.create_hook(@repo.full_name, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+        assert_requested :post, basic_github_url("/repos/#{@repo.full_name}/hooks")
+      end
+    end # .create_hook
+
+    context "methods that need an existing hook" do
+
+      before do
+        @hook = @client.create_hook(@repo.full_name, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+      end
+
+      describe ".hook" do
+        it "returns a repository's single hook" do
+          @client.hook(@repo.full_name, @hook.id)
+          assert_requested :get, basic_github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}")
+        end
+      end # .hook
+
+      describe ".edit_hook" do
+        it "edits a hook" do
+          hook = @client.edit_hook(@repo.full_name, @hook.id, "railsbp", {:railsbp_url => "https://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+          assert_requested :patch, basic_github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}")
+        end
+      end # .edit_hook
+
+      describe ".test_hook" do
+        it "tests a hook" do
+          hook = @client.create_hook(@repo.full_name, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+          @client.test_hook(@repo.full_name, @hook.id)
+          assert_requested :post, basic_github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}/tests")
+        end
+      end # .test_hook
+
+      describe ".remove_hook" do
+        it "removes a hook" do
+          @client.remove_hook(@repo.full_name, @hook.id)
+          assert_requested :delete, basic_github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}")
+        end
+      end # .remove_hook
+
+    end # hook methods
+
+    describe ".delete_repository" do
+      it "deletes a repository" do
+        result = @client.delete_repository("#{@repo.full_name}")
+        assert_requested :delete, basic_github_url("/repos/#{@repo.full_name}")
+      end
+    end # .delete_repository
+
+  end # @repo methods
 
   describe ".repositories" do
     it "returns a user's repositories" do
@@ -87,58 +244,11 @@ describe Octokit::Client::Repositories do
     it "forks a repository" do
       repository = @client.fork("sferik/rails_admin")
       assert_requested :post, basic_github_url("/repos/sferik/rails_admin/forks")
+
+      # cleanup
+      @client.delete_repository(repository.full_name)
     end
   end # .fork
-
-  describe ".create_repository" do
-    it "creates a repository" do
-      repository = @client.create_repository("an-repo")
-      expect(repository.name).to eq "an-repo"
-      assert_requested :post, basic_github_url("/user/repos")
-    end
-    it "creates a repository for an organization" do
-      repository = @client.create_repository("an-org-repo", :organization => "api-playground")
-      expect(repository.name).to eq "an-org-repo"
-      assert_requested :post, basic_github_url("/orgs/api-playground/repos")
-    end
-  end # .create_repository
-
-  describe ".set_private" do
-    it "sets a repository private" do
-      repository = @client.set_private("#{@client.login}/an-repo")
-      assert_requested :patch, basic_github_url("/repos/#{@client.login}/an-repo")
-    end
-  end # .set_private
-
-  describe ".set_public" do
-    it "sets a repository public" do
-      repository = @client.set_public("#{@client.login}/an-repo")
-      assert_requested :patch, basic_github_url("/repos/#{@client.login}/an-repo")
-    end
-  end # .set_public
-
-  describe ".deploy_keys" do
-    it "returns a repository's deploy keys" do
-      public_keys = @client.deploy_keys("#{@client.login}/an-repo")
-      expect(public_keys).to be_kind_of Array
-      assert_requested :get, basic_github_url("/repos/#{@client.login}/an-repo/keys")
-    end
-  end # .deploy_keys
-
-  describe ".add_deploy_key" do
-    it "adds a repository deploy keys" do
-      public_key = @client.add_deploy_key("#{@client.login}/an-repo", "Padawan", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com" )
-      assert_requested :post, basic_github_url("/repos/#{@client.login}/an-repo/keys")
-    end
-  end # .add_deploy_key
-
-  describe ".remove_deploy_key" do
-    it "removes a repository deploy keys" do
-      public_key = @client.add_deploy_key("#{@client.login}/an-repo", "Padawan", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com" )
-      result = @client.remove_deploy_key("#{@client.login}/an-repo", public_key.id)
-      assert_requested :delete, basic_github_url("/repos/#{@client.login}/an-repo/keys/#{public_key.id}")
-    end
-  end # .remove_deploy_key
 
   describe ".collaborators" do
     it "returns a repository's collaborators" do
@@ -148,38 +258,16 @@ describe Octokit::Client::Repositories do
     end
   end # .collaborators
 
-  describe ".add_collaborator" do
-    it "adds a repository collaborators" do
-      result = @client.add_collaborator("#{@client.login}/an-repo", "pengwynn")
-      assert_requested :put, basic_github_url("/repos/#{@client.login}/an-repo/collaborators/pengwynn")
-    end
-  end # .add_collaborator
-
-  describe ".remove_collaborator" do
-    it "removes a repository collaborators" do
-      result = @client.remove_collaborator("#{@client.login}/an-repo", "pengwynn")
-      assert_requested :delete, basic_github_url("/repos/#{@client.login}/an-repo/collaborators/pengwynn")
-    end
-  end # .remove_collaborator
-
-  describe ".repository_teams" do
-    it "returns all repository teams" do
-      teams = @client.repository_teams("#{@client.login}/an-repo")
-      assert_requested :get, basic_github_url("/repos/#{@client.login}/an-repo/teams")
-      expect(teams).to be_kind_of Array
-    end
-  end # .repository_teams
-
   describe ".contributors" do
     it "returns repository contributors" do
-      contributors = @client.contributors("#{@client.login}/rails_admin", true)
+      contributors = Octokit.contributors("sferik/rails_admin", true)
       expect(contributors).to be_kind_of Array
-      assert_requested :get, basic_github_url("/repos/#{@client.login}/rails_admin/contributors?anon=1")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/contributors?anon=1")
     end
     it "returns repository contributors excluding anonymous" do
-      contributors = @client.contributors("#{@client.login}/rails_admin")
+      contributors = Octokit.contributors("sferik/rails_admin")
       expect(contributors).to be_kind_of Array
-      assert_requested :get, basic_github_url("/repos/#{@client.login}/rails_admin/contributors")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/contributors")
     end
   end # .contributors
 
@@ -236,54 +324,6 @@ describe Octokit::Client::Repositories do
     end
   end # .branches
 
-  describe ".hooks" do
-    it "returns a repository's hooks" do
-      hooks = @client.hooks("#{@client.login}/rails_admin")
-      expect(hooks).to be_kind_of Array
-      assert_requested :get, basic_github_url("/repos/#{@client.login}/rails_admin/hooks")
-    end
-  end
-
-  describe ".create_hook" do
-    it "creates a hook" do
-      hook = @client.create_hook("#{@client.login}/rails_admin", "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
-      assert_requested :post, basic_github_url("/repos/#{@client.login}/rails_admin/hooks")
-    end
-  end # .create_hook
-
-
-  describe ".hook" do
-    it "returns a repository's single hook" do
-      hook = @client.create_hook("#{@client.login}/rails_admin", "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
-      hook = @client.hook("#{@client.login}/rails_admin", hook.id)
-      assert_requested :get, basic_github_url("/repos/#{@client.login}/rails_admin/hooks/#{hook.id}")
-    end
-  end # .hook
-
-  describe ".edit_hook" do
-    it "edits a hook" do
-      hook = @client.create_hook("#{@client.login}/rails_admin", "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
-      hook = @client.edit_hook("#{@client.login}/rails_admin", hook.id, "railsbp", {:railsbp_url => "https://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
-      assert_requested :patch, basic_github_url("/repos/#{@client.login}/rails_admin/hooks/#{hook.id}")
-    end
-  end # .edit_hook
-
-  describe ".test_hook" do
-    it "tests a hook" do
-      hook = @client.create_hook("#{@client.login}/rails_admin", "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
-      @client.test_hook("#{@client.login}/rails_admin", hook.id)
-      assert_requested :post, basic_github_url("/repos/#{@client.login}/rails_admin/hooks/#{hook.id}/tests")
-    end
-  end # .test_hook
-
-  describe ".remove_hook" do
-    it "removes a hook" do
-      hook = @client.create_hook("#{@client.login}/rails_admin", "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
-      @client.remove_hook("#{@client.login}/rails_admin", hook.id)
-      assert_requested :delete, basic_github_url("/repos/#{@client.login}/rails_admin/hooks/#{hook.id}")
-    end
-  end # .remove_hook
-
   describe ".assignees" do
     it "lists all the available assignees (owner + collaborators)" do
       assignees = Octokit.repo_assignees("pengwynn/octokit")
@@ -307,19 +347,19 @@ describe Octokit::Client::Repositories do
     end
   end # .subscribers
 
-  describe ".subscription" do
-    it "returns a repository subscription" do
-      subscription = @client.subscription("pengwynn/octokit")
-      assert_requested :get, basic_github_url("/repos/pengwynn/octokit/subscription")
-    end
-  end # .subscription
-
   describe ".update_subscription" do
     it "updates a repository subscription" do
       subscription = @client.update_subscription("pengwynn/octokit", :subscribed => false)
       assert_requested :put, basic_github_url("/repos/pengwynn/octokit/subscription")
     end
   end # .update_subscription
+
+  describe ".subscription" do
+    it "returns a repository subscription" do
+      subscription = @client.subscription("pengwynn/octokit")
+      assert_requested :get, basic_github_url("/repos/pengwynn/octokit/subscription")
+    end
+  end # .subscription
 
   describe ".delete_subscription" do
     it "returns true when repo subscription deleted" do
@@ -328,11 +368,4 @@ describe Octokit::Client::Repositories do
     end
   end # .delete_subscription
 
-  describe ".delete_repository" do
-    it "deletes a repository" do
-      repo = @client.create_repository("imma-delete-this")
-      result = @client.delete_repository("#{@client.login}/imma-delete-this")
-      assert_requested :delete, basic_github_url("/repos/#{@client.login}/imma-delete-this")
-    end
-  end # .delete_repository
 end
