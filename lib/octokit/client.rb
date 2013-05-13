@@ -34,8 +34,6 @@ require 'octokit/client/service_status'
 require 'octokit/client/stats'
 require 'octokit/client/statuses'
 require 'octokit/client/users'
-require 'octokit/error'
-require 'faraday/response/raise_octokit_error'
 
 module Octokit
 
@@ -238,7 +236,10 @@ module Octokit
     def boolean_from_response(method, path, options={})
       request(method, path, options)
       @last_response.status == 204
+    rescue Octokit::NotFound
+      false
     end
+
 
     def sawyer_options
       opts = {

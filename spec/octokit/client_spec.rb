@@ -269,12 +269,14 @@ describe Octokit::Client do
 
   describe ".head" do
     it "handles query params" do
+      Octokit.reset!
       VCR.use_cassette 'root' do
         Octokit.head "/", :foo => "bar"
         assert_requested :head, "https://api.github.com?foo=bar"
       end
     end
     it "handles headers" do
+      Octokit.reset!
       VCR.use_cassette 'root' do
         request = stub_head("/zen").
           with(:query => {:foo => "bar"}, :headers => {:accept => "text/plain"})
@@ -356,6 +358,34 @@ describe Octokit::Client do
         (2..19).each do |i|
           assert_requested :get, github_url("/repositories/8514/issues?per_page=3&page=#{i}&state=closed")
         end
+      end
+    end
+  end
+
+  context "error handling" do
+    before do
+      Octokit.reset!
+    end
+
+    it "raises on 404" do
+      VCR.use_cassette('root') do
+        expect { Octokit.get('/user') }.to raise_error Octokit::Unauthorized
+      end
+    end
+
+    it "raises on 500" do
+      VCR.turn_off!
+      stub_get('/boom').to_return(:status => 500)
+      expect { Octokit.get('/boom') }.to raise_error Octokit::InternalServerError
+    end
+
+    it "includes an error message" do
+      stub_get('/boom').
+        to_return(:status => 422, :body => '{"message":"No repository found for hub.topic: https://github.com/joshk/not_existing_project/events/push"}')
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include ("GET https://api.github.com/boom: 422")
       end
     end
   end

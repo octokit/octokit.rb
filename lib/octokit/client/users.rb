@@ -299,7 +299,8 @@ module Octokit
       # @example
       #   @client.add_email('new_email@user.com')
       def add_email(email, options={})
-        post("user/emails", options.merge({:email => email}))
+        email = Array(email)
+        post "user/emails", email
       end
 
       # Remove email from user.
@@ -312,8 +313,8 @@ module Octokit
       # @example
       #   @client.remove_email('old_email@user.com')
       def remove_email(email)
-        emails = Array(emails)
-        boolean_from_response(:delete, "user/emails", emails)
+        email = Array(email)
+        boolean_from_response(:delete, "user/emails", email)
       end
 
       # List repositories being watched by a user.

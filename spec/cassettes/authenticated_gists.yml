@@ -1036,4 +1036,102 @@ http_interactions:
       string: ""
     http_version: 
   recorded_at: Fri, 10 May 2013 15:28:59 GMT
+- request: 
+    method: post
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5192056/forks
+    body: 
+      encoding: UTF-8
+      string: "{}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0.pre
+  response: 
+    status: 
+      code: 201
+      message: Created
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Mon, 13 May 2013 17:23:44 GMT
+      Content-Type: 
+      - application/json; charset=utf-8
+      Connection: 
+      - keep-alive
+      Status: 
+      - 201 Created
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4993"
+      Location: 
+      - https://api.github.com/gists/5569926
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Content-Length: 
+      - "1584"
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Etag: 
+      - "\"517550a5c83f02245a18336e687b7a9f\""
+      Cache-Control: 
+      - max-age=0, private, must-revalidate
+    body: 
+      encoding: US-ASCII
+      string: "{\"url\":\"https://api.github.com/gists/5569926\",\"forks_url\":\"https://api.github.com/gists/5569926/forks\",\"commits_url\":\"https://api.github.com/gists/5569926/commits\",\"id\":\"5569926\",\"git_pull_url\":\"https://gist.github.com/5569926.git\",\"git_push_url\":\"https://gist.github.com/5569926.git\",\"html_url\":\"https://gist.github.com/5569926\",\"files\":{},\"public\":true,\"created_at\":\"2013-05-13T17:23:44Z\",\"updated_at\":\"2013-05-13T17:23:44Z\",\"description\":\"Intro to CLI for 2nd grader.\",\"comments\":0,\"user\":{\"login\":\"<GITHUB_LOGIN>\",\"id\":3513548,\"avatar_url\":\"https://secure.gravatar.com/avatar/becfacf16d1c453662cc46abf5b6f0f9?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"gravatar_id\":\"becfacf16d1c453662cc46abf5b6f0f9\",\"url\":\"https://api.github.com/users/<GITHUB_LOGIN>\",\"html_url\":\"https://github.com/<GITHUB_LOGIN>\",\"followers_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/followers\",\"following_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/subscriptions\",\"organizations_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/orgs\",\"repos_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/repos\",\"events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/<GITHUB_LOGIN>/received_events\",\"type\":\"User\"},\"comments_url\":\"https://api.github.com/gists/5569926/comments\"}"
+    http_version: 
+  recorded_at: Mon, 13 May 2013 17:23:45 GMT
+- request: 
+    method: delete
+    uri: https://<GITHUB_LOGIN>:<GITHUB_PASSWORD>@api.github.com/gists/5569926
+    body: 
+      encoding: UTF-8
+      string: "{}"
+    headers: 
+      Accept: 
+      - application/vnd.github.beta+json
+      User-Agent: 
+      - Octokit Ruby Gem 2.0.0.pre
+  response: 
+    status: 
+      code: 204
+      message: No Content
+    headers: 
+      Server: 
+      - GitHub.com
+      Date: 
+      - Mon, 13 May 2013 17:23:45 GMT
+      Connection: 
+      - keep-alive
+      Status: 
+      - 204 No Content
+      X-Ratelimit-Limit: 
+      - "5000"
+      X-Ratelimit-Remaining: 
+      - "4992"
+      X-Github-Media-Type: 
+      - github.beta; format=json
+      X-Content-Type-Options: 
+      - nosniff
+      Access-Control-Allow-Credentials: 
+      - "true"
+      Access-Control-Expose-Headers: 
+      - Link, X-RateLimit-Limit, X-RateLimit-Remaining, X-OAuth-Scopes, X-Accepted-OAuth-Scopes
+      Access-Control-Allow-Origin: 
+      - "*"
+      Vary: 
+      - Accept-Encoding
+    body: 
+      encoding: US-ASCII
+      string: ""
+    http_version: 
+  recorded_at: Mon, 13 May 2013 17:23:45 GMT
 recorded_with: VCR 2.4.0

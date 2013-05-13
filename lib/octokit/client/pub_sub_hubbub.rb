@@ -86,7 +86,7 @@ module Octokit
             http.authorization 'token', @access_token
           end
           http.request  :url_encoded
-          http.use Faraday::Response::RaiseOctokitError
+          http.use Octokit::Response::RaiseError
           http.adapter  Faraday.default_adapter
         end
 

@@ -1,3 +1,5 @@
+require 'octokit/response/raise_error'
+
 module Octokit
 
   # Default configuration options for {Client}
@@ -17,6 +19,7 @@ module Octokit
 
     # Default Faraday middleware stack
     MIDDLEWARE = Faraday::Builder.new do |builder|
+      builder.use Octokit::Response::RaiseError
       builder.adapter Faraday.default_adapter
     end
 
