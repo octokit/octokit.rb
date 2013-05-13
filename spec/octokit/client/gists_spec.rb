@@ -60,7 +60,7 @@ describe Octokit::Client::Gists do
   describe "when authenticated" do
 
     before do
-      VCR.insert_cassette 'authenticated_gists'
+      VCR.insert_cassette 'authenticated_gists', :match_requests_on => [:method, :uri, :query]
       @client = basic_auth_client
       new_gist = {
         :description => "A gist from Octokit",
@@ -142,7 +142,7 @@ describe Octokit::Client::Gists do
 
     describe ".fork_gist" do
       it "forks an existing gist" do
-        latest = Octokit.gists('pengwynn').shuffle.first
+        latest = Octokit.gist(5506606)
         gist = @client.fork_gist(latest.id)
         expect(gist.description).to eq latest.description
         assert_requested :post, basic_github_url("/gists/#{latest.id}/forks")
