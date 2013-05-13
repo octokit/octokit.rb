@@ -7,7 +7,6 @@ module Octokit
     end
 
     # private
-
     def response_body
       @response_body ||=
         if (body = @response[:body]) && !body.empty?
@@ -22,6 +21,7 @@ module Octokit
         end
     end
 
+    # private
     def build_error_message
       return nil  if @response.nil?
 

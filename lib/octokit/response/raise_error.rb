@@ -4,6 +4,9 @@ require 'octokit/error'
 module Octokit
   # Faraday response middleware
   module Response
+
+    # This class raises an Octokit-flavored exception based 
+    # HTTP status codes returned by the API
     class RaiseError < Faraday::Response::Middleware
 
       # Status code to error mappings
