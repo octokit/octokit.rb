@@ -12,7 +12,7 @@ module Octokit
       # @example Get GitHub meta information
       #   @client.github_meta
       def meta(options={})
-        get "/meta", options
+        get "meta", options
       end
       alias :github_meta :meta
 

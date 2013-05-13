@@ -19,7 +19,7 @@ module Octokit
       # @example List milestones for a repository
       #   Octokit.list_milestones("pengwynn/octokit")
       def list_milestones(repository, options={})
-        paginate("repos/#{Repository.new(repository)}/milestones", options)
+        paginate "repos/#{Repository.new(repository)}/milestones", options
       end
       alias :milestones :list_milestones
 
@@ -36,7 +36,7 @@ module Octokit
       # @example Get a single milestone for a repository
       #   Octokit.milestone("pengwynn/octokit", 1)
       def milestone(repository, number, options={})
-        get("repos/#{Repository.new(repository)}/milestones/#{number}", options)
+        get "repos/#{Repository.new(repository)}/milestones/#{number}", options
       end
 
       # Create a milestone for a repository
@@ -52,7 +52,7 @@ module Octokit
       # @example Create a milestone for a repository
       #   Octokit.create_milestone("pengwynn/octokit", "0.7.0", {:description => 'Add support for v3 of Github API'})
       def create_milestone(repository, title, options={})
-        post("repos/#{Repository.new(repository)}/milestones", options.merge({:title => title}))
+        post "repos/#{Repository.new(repository)}/milestones", options.merge({:title => title})
       end
 
       # Update a milestone for a repository
@@ -69,7 +69,7 @@ module Octokit
       # @example Update a milestone for a repository
       #   Octokit.update_milestone("pengwynn/octokit", 1, {:description => 'Add support for v3 of Github API'})
       def update_milestone(repository, number, options={})
-        patch("repos/#{Repository.new(repository)}/milestones/#{number}", options)
+        patch "repos/#{Repository.new(repository)}/milestones/#{number}", options
       end
       alias :edit_milestone :update_milestone
 
@@ -83,7 +83,7 @@ module Octokit
       # @example Delete a single milestone from a repository
       #   Octokit.delete_milestone("pengwynn/octokit", 1)
       def delete_milestone(repository, number, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new(repository)}/milestones/#{number}", options)
+        boolean_from_response :delete, "repos/#{Repository.new(repository)}/milestones/#{number}", options
       end
 
     end

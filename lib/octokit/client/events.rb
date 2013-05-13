@@ -13,7 +13,7 @@ module Octokit
       # @example List all pubilc events
       #   Octokit.public_events
       def public_events(options={})
-        paginate("events", options)
+        paginate "events", options
       end
 
       # List all user events
@@ -23,7 +23,7 @@ module Octokit
       # @example List all user events
       #   Octokit.user_events("sferik")
       def user_events(user, options={})
-        paginate("users/#{user}/events", options)
+        paginate "users/#{user}/events", options
       end
 
       # List public user events
@@ -34,7 +34,7 @@ module Octokit
       # @example List public user events
       #   Octokit.user_events("sferik")
       def user_public_events(user, options={})
-        paginate("users/#{user}/events/public", options)
+        paginate "users/#{user}/events/public", options
       end
 
       # List events that a user has received
@@ -44,7 +44,7 @@ module Octokit
       # @example List all user received events
       #   Octokit.received_events("sferik")
       def received_events(user, options={})
-        paginate("users/#{user}/received_events", options)
+        paginate "users/#{user}/received_events", options
       end
 
       # List public events a user has received
@@ -54,7 +54,7 @@ module Octokit
       # @example List public user received events
       #   Octokit.received_public_events("sferik")
       def received_public_events(user, options={})
-        paginate("users/#{user}/received_events/public", options)
+        paginate "users/#{user}/received_events/public", options
       end
 
       # List events for a repository
@@ -65,7 +65,7 @@ module Octokit
       # @example List events for a repository
       #   Octokit.repository_events("sferik/rails_admin")
       def repository_events(repo, options={})
-        paginate("repos/#{Repository.new(repo)}/events", options)
+        paginate "repos/#{Repository.new(repo)}/events", options
       end
 
       # List public events for a repository's network
@@ -76,7 +76,7 @@ module Octokit
       # @example List events for a repository's network
       #   Octokit.repository_network_events("sferik/rails_admin")
       def repository_network_events(repo, options={})
-        paginate("networks/#{Repository.new repo}/events", options)
+        paginate "networks/#{Repository.new repo}/events", options
       end
 
       # List all events for an organization
@@ -89,7 +89,7 @@ module Octokit
       # @example List events for the lostisland organization
       #   @client.organization_events("lostisland")
       def organization_events(org, options={})
-        paginate("users/#{login}/events/orgs/#{org}", options)
+        paginate "users/#{login}/events/orgs/#{org}", options
       end
 
       # List an organization's public events
@@ -100,7 +100,7 @@ module Octokit
       # @example List public events for GitHub
       #   Octokit.organization_public_events("GitHub")
       def organization_public_events(org, options={})
-        paginate("orgs/#{org}/events", options)
+        paginate "orgs/#{org}/events", options
       end
 
       # Get all Issue Events for a given Repository
@@ -126,7 +126,7 @@ module Octokit
       # @example List all issues events for issue #38 on pengwynn/octokit
       #   Octokit.issue_events("pengwynn/octokit", 38)
       def issue_events(repo, number, options={})
-        paginate("repos/#{Repository.new(repo)}/issues/#{number}/events", options)
+        paginate "repos/#{Repository.new(repo)}/issues/#{number}/events", options
       end
 
       # Get information on a single Issue Event
@@ -139,7 +139,7 @@ module Octokit
       # @example Get Event information for ID 3094334 (a pull request was closed)
       #   Octokit.issue_event("pengwynn/octokit", 3094334)
       def issue_event(repo, number, options={})
-        paginate("repos/#{Repository.new(repo)}/issues/events/#{number}", options)
+        paginate "repos/#{Repository.new(repo)}/issues/events/#{number}", options
       end
 
     end

@@ -30,7 +30,8 @@ module Octokit
         path = ''
         path = "repos/#{Repository.new(repository)}" if repository
         path += "/issues"
-        paginate(path, options)
+
+        paginate path, options
       end
       alias :issues :list_issues
 
@@ -51,7 +52,7 @@ module Octokit
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.user_issues
       def user_issues(options={})
-        paginate('/user/issues', options)
+        paginate 'user/issues', options
       end
 
       # List all issues for a given organization for the authenticated user
@@ -72,7 +73,7 @@ module Octokit
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.user_issues
       def org_issues(org, options={})
-        paginate("/orgs/#{org}/issues", options)
+        paginate "orgs/#{org}/issues", options
       end
 
       # Create an issue for a repository
@@ -89,7 +90,7 @@ module Octokit
       # @example Create a new Issues for a repository
       #   Octokit.create_issue("sferik/rails_admin", 'Updated Docs', 'Added some extra links')
       def create_issue(repo, title, body, options={})
-        post("repos/#{Repository.new(repo)}/issues", options.merge({:title => title, :body => body}))
+        post "repos/#{Repository.new(repo)}/issues", options.merge({:title => title, :body => body})
       end
       alias :open_issue :create_issue
 
@@ -102,7 +103,7 @@ module Octokit
       # @example Get issue #25 from pengwynn/octokit
       #   Octokit.issue("pengwynn/octokit", "25")
       def issue(repo, number, options={})
-        get("repos/#{Repository.new(repo)}/issues/#{number}", options)
+        get "repos/#{Repository.new(repo)}/issues/#{number}", options
       end
 
       # Close an issue
@@ -118,7 +119,7 @@ module Octokit
       # @example Close Issue #25 from pengwynn/octokit
       #   Octokit.close_issue("pengwynn/octokit", "25")
       def close_issue(repo, number, options={})
-        patch("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"}))
+        patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"})
       end
 
       # Reopen an issue
@@ -134,7 +135,7 @@ module Octokit
       # @example Reopen Issue #25 from pengwynn/octokit
       #   Octokit.reopen_issue("pengwynn/octokit", "25")
       def reopen_issue(repo, number, options={})
-        patch("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"}))
+        patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"})
       end
 
       # Update an issue
@@ -152,7 +153,7 @@ module Octokit
       # @example Change the title of Issue #25
       #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
       def update_issue(repo, number, title, body, options={})
-        patch("repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body}))
+        patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body})
       end
 
       # Get all comments attached to issues for the repository
@@ -181,7 +182,7 @@ module Octokit
       #     :since => '2010-05-04T23:45:02Z'
       #   })
       def issues_comments(repo, options={})
-        paginate "/repos/#{Repository.new repo}/issues/comments", options
+        paginate "repos/#{Repository.new repo}/issues/comments", options
       end
 
       # Get all comments attached to an issue
@@ -193,7 +194,7 @@ module Octokit
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
       def issue_comments(repo, number, options={})
-        paginate("repos/#{Repository.new(repo)}/issues/#{number}/comments", options)
+        paginate "repos/#{Repository.new(repo)}/issues/#{number}/comments", options
       end
 
       # Get a single comment attached to an issue
@@ -205,7 +206,7 @@ module Octokit
       # @example Get comment #1194549 from an issue on pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", 1194549)
       def issue_comment(repo, number, options={})
-        paginate("repos/#{Repository.new(repo)}/issues/comments/#{number}", options)
+        paginate "repos/#{Repository.new(repo)}/issues/comments/#{number}", options
       end
 
       # Add a comment to an issue
@@ -218,7 +219,7 @@ module Octokit
       # @example Add the comment "Almost to v1" to Issue #23 on pengwynn/octokit
       #   Octokit.add_comment("pengwynn/octokit", 23, "Almost to v1")
       def add_comment(repo, number, comment, options={})
-        post("repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment}))
+        post "repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment})
       end
 
       # Update a single comment on an issue
@@ -231,7 +232,7 @@ module Octokit
       # @example Update the comment #1194549 with body "I've started this on my 25-issue-comments-v3 fork" on an issue on pengwynn/octokit
       #   Octokit.update_comment("pengwynn/octokit", 1194549, "Almost to v1, added this on my fork")
       def update_comment(repo, number, comment, options={})
-        patch("repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment}))
+        patch "repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment})
       end
 
       # Delete a single comment
@@ -243,7 +244,7 @@ module Octokit
       # @example Delete the comment #1194549 on an issue on pengwynn/octokit
       #   Octokit.delete_comment("pengwynn/octokit", 1194549)
       def delete_comment(repo, number, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options)
+        boolean_from_response :delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options
       end
     end
   end

@@ -12,7 +12,7 @@ module Octokit
       # @return [Array] List of commit comments
       # @see http://developer.github.com/v3/repos/comments/
       def list_commit_comments(repo, options={})
-        get("repos/#{Repository.new(repo)}/comments", options)
+        get "repos/#{Repository.new(repo)}/comments", options
       end
 
       # List comments for a single commit
@@ -22,7 +22,7 @@ module Octokit
       # @return [Array]  List of commit comments
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comments(repo, sha, options={})
-        get("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options)
+        get "repos/#{Repository.new(repo)}/commits/#{sha}/comments", options
       end
 
       # Get a single commit comment
@@ -32,7 +32,7 @@ module Octokit
       # @return [Sawyer::Resource] Commit comment
       # @see http://developer.github.com/v3/repos/comments/
       def commit_comment(repo, id, options={})
-        get("repos/#{Repository.new(repo)}/comments/#{id}", options)
+        get "repos/#{Repository.new(repo)}/comments/#{id}", options
       end
 
       # Create a commit comment
@@ -60,7 +60,7 @@ module Octokit
           :line => line,
           :position => position
         }
-        post("repos/#{Repository.new(repo)}/commits/#{sha}/comments", options.merge(params))
+        post "repos/#{Repository.new(repo)}/commits/#{sha}/comments", options.merge(params)
       end
 
       # Update a commit comment
@@ -78,7 +78,7 @@ module Octokit
         params = {
           :body => body
         }
-        patch("repos/#{Repository.new(repo)}/comments/#{id}", options.merge(params))
+        patch "repos/#{Repository.new(repo)}/comments/#{id}", options.merge(params)
       end
 
       # Delete a commit comment
@@ -88,7 +88,7 @@ module Octokit
       # @return [Boolean] Success
       # @see http://developer.github.com/v3/repos/comments/
       def delete_commit_comment(repo, id, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new(repo)}/comments/#{id}", options)
+        boolean_from_response :delete, "repos/#{Repository.new(repo)}/comments/#{id}", options
       end
 
     end

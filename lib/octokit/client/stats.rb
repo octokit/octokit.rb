@@ -77,7 +77,7 @@ module Octokit
     # @param metric [String] The metrics you are looking for
     # @return [Array<Sawyer::Resource>] Magical unicorn stats
     def get_stats(repo, metric)
-      get("/repos/#{Repository.new repo}/stats/#{metric}")
+      get "repos/#{Repository.new repo}/stats/#{metric}"
     end
 
     end

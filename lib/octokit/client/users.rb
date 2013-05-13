@@ -52,7 +52,7 @@ module Octokit
           :client_id => app_id,
           :client_secret => app_secret
         })
-        post("#{web_endpoint}login/oauth/access_token", options)
+        post "#{web_endpoint}login/oauth/access_token", options
       end
 
       # Validate user username and password
@@ -81,7 +81,7 @@ module Octokit
       # @example
       #   Octokit.user(:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false)
       def update_user(options)
-        patch("user", options)
+        patch "user", options
       end
 
       # Get a user's followers.
@@ -92,7 +92,7 @@ module Octokit
       # @example
       #   Octokit.followers('pengwynn')
       def followers(user=login, options={})
-        get("users/#{user}/followers", options)
+        get "users/#{user}/followers", options
       end
 
       # Get list of users a user is following.
@@ -103,7 +103,7 @@ module Octokit
       # @example
       #   Octokit.following('pengwynn')
       def following(user=login, options={})
-        get("users/#{user}/following", options)
+        get "users/#{user}/following", options
       end
 
       # Check if you are following a user.
@@ -124,7 +124,7 @@ module Octokit
         user = args.first
         user ||= login
         return if user.nil?
-        boolean_from_response(:get, "user/following/#{target}")
+        boolean_from_response :get, "user/following/#{target}"
       end
 
       # Follow a user.
@@ -137,7 +137,7 @@ module Octokit
       # @example
       #   @client.follow('holman')
       def follow(user, options={})
-        boolean_from_response(:put, "user/following/#{user}", options)
+        boolean_from_response :put, "user/following/#{user}", options
       end
 
       # Unfollow a user.
@@ -150,7 +150,7 @@ module Octokit
       # @example
       #   @client.unfollow('holman')
       def unfollow(user, options={})
-        boolean_from_response(:delete, "user/following/#{user}", options)
+        boolean_from_response :delete, "user/following/#{user}", options
       end
 
       # Get list of repos starred by a user.
@@ -164,8 +164,8 @@ module Octokit
       # @example
       #   Octokit.starred('pengwynn')
       def starred(user=login, options={})
-        path = user_authenticated? ? "/user/starred" : "/users/#{user}/starred"
-        paginate(path, options)
+        path = user_authenticated? ? "user/starred" : "users/#{user}/starred"
+        paginate path, options
       end
 
       # Check if you are starring a repo.
@@ -179,7 +179,7 @@ module Octokit
       # @example
       #   @client.starred?('pengwynn', 'octokit')
       def starred?(user, repo, options={})
-        boolean_from_response(:get, "user/starred/#{user}/#{repo}", options)
+        boolean_from_response :get, "user/starred/#{user}/#{repo}", options
       end
 
       # Get a public key.
@@ -206,7 +206,7 @@ module Octokit
       #   public_key['key']
       #   # => "ssh-rsa AAA..."
       def key(key_id, options={})
-        get("user/keys/#{key_id}", options)
+        get "user/keys/#{key_id}", options
       end
 
       # Get list of public keys for user.
@@ -218,7 +218,7 @@ module Octokit
       # @example
       #   @client.keys
       def keys(options={})
-        paginate("user/keys", options)
+        paginate "user/keys", options
       end
 
       # Get list of public keys for user.
@@ -231,7 +231,7 @@ module Octokit
       #   @client.user_keys('pengwynn'
       def user_keys(user, options={})
         # TODO: Roll this into .keys
-        paginate("users/#{user}/keys", options)
+        paginate "users/#{user}/keys", options
       end
 
       # Add public key to user account.
@@ -245,7 +245,7 @@ module Octokit
       # @example
       #   @client.add_key('Personal projects key', 'ssh-rsa AAA...')
       def add_key(title, key, options={})
-        post("user/keys", options.merge({:title => title, :key => key}))
+        post "user/keys", options.merge({:title => title, :key => key})
       end
 
       # Update a public key
@@ -261,7 +261,7 @@ module Octokit
       # @example
       #   @client.update_key(1, :title => 'new title', :key => "ssh-rsa BBB")
       def update_key(key_id, options={})
-        patch("/user/keys/#{key_id}", options)
+        patch "user/keys/#{key_id}", options
       end
 
       # Remove a public key from user account.
@@ -274,7 +274,7 @@ module Octokit
       # @example
       #   @client.remove_key(1)
       def remove_key(id, options={})
-        boolean_from_response(:delete, "user/keys/#{id}", options)
+        boolean_from_response :delete, "user/keys/#{id}", options
       end
 
       # List email addresses for a user.
@@ -286,7 +286,7 @@ module Octokit
       # @example
       #   @client.emails
       def emails(options={})
-        paginate("user/emails", options)
+        paginate "user/emails", options
       end
 
       # Add email address to user.
@@ -314,7 +314,7 @@ module Octokit
       #   @client.remove_email('old_email@user.com')
       def remove_email(email)
         email = Array(email)
-        boolean_from_response(:delete, "user/emails", email)
+        boolean_from_response :delete, "user/emails", email
       end
 
       # List repositories being watched by a user.
@@ -328,8 +328,8 @@ module Octokit
       # @example
       #   @client.subscriptions("pengwynn")
       def subscriptions(user=login, options={})
-        path = user_authenticated? ? "/user/subscriptions" : "/users/#{user}/subscriptions"
-        paginate(path, options)
+        path = user_authenticated? ? "user/subscriptions" : "users/#{user}/subscriptions"
+        paginate path, options
       end
       alias :watched :subscriptions
 

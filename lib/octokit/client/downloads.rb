@@ -15,7 +15,7 @@ module Octokit
       # @example List all downloads for Github/Hubot
       #   Octokit.downloads("github/hubot")
       def downloads(repo, options={})
-        get("repos/#{Repository.new(repo)}/downloads", options)
+        get "repos/#{Repository.new(repo)}/downloads", options
       end
       alias :list_downloads :downloads
 
@@ -29,7 +29,7 @@ module Octokit
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.download("github/hubot")
       def download(repo, id, options={})
-        get("repos/#{Repository.new(repo)}/downloads/#{id}", options)
+        get "repos/#{Repository.new(repo)}/downloads/#{id}", options
       end
 
       # Create a download in a repository
@@ -80,12 +80,12 @@ module Octokit
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.delete_download("github/hubot", 1234)
       def delete_download(repo, id)
-        boolean_from_response(:delete, "repos/#{Repository.new(repo)}/downloads/#{id}")
+        boolean_from_response :delete, "repos/#{Repository.new(repo)}/downloads/#{id}"
       end
 
       private
       def create_download_resource(repo, name, size, options={})
-        post("repos/#{Repository.new(repo)}/downloads", options.merge({:name => name, :size => size}))
+        post "repos/#{Repository.new(repo)}/downloads", options.merge({:name => name, :size => size})
       end
     end
   end

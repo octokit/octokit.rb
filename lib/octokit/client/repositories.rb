@@ -71,7 +71,7 @@ module Octokit
       #   that you’ve seen.
       # @return [Array<Sawyer::Resource>] List of repositories.
       def all_repositories(options={})
-        paginate '/repositories', options
+        paginate 'repositories', options
       end
 
       # Star a repository
@@ -79,7 +79,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully starred
       def star(repo, options={})
-        boolean_from_response(:put, "user/starred/#{Repository.new repo}", options)
+        boolean_from_response :put, "user/starred/#{Repository.new repo}", options
       end
 
       # Unstar a repository
@@ -87,7 +87,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unstarred
       def unstar(repo, options={})
-        boolean_from_response(:delete, "user/starred/#{Repository.new repo}", options)
+        boolean_from_response :delete, "user/starred/#{Repository.new repo}", options
       end
 
       # Watch a repository
@@ -96,7 +96,7 @@ module Octokit
       # @return [Boolean] `true` if successfully watched
       # @deprecated Use #star instead
       def watch(repo, options={})
-        boolean_from_response(:put, "user/watched/#{Repository.new repo}", options)
+        boolean_from_response :put, "user/watched/#{Repository.new repo}", options
       end
 
       # Unwatch a repository
@@ -105,7 +105,7 @@ module Octokit
       # @return [Boolean] `true` if successfully unwatched
       # @deprecated Use #unstar instead
       def unwatch(repo, options={})
-        boolean_from_response(:delete, "user/watched/#{Repository.new repo}", options)
+        boolean_from_response :delete, "user/watched/#{Repository.new repo}", options
       end
 
       # Fork a repository
@@ -152,7 +152,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if repository was deleted
       def delete_repository(repo, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new repo}", options)
+        boolean_from_response :delete, "repos/#{Repository.new repo}", options
       end
       alias :delete_repo :delete_repository
 
@@ -216,7 +216,7 @@ module Octokit
       # @example
       #   @client.remove_deploy_key('pengwynn/octokit', 100000)
       def remove_deploy_key(repo, id, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new repo}/keys/#{id}", options)
+        boolean_from_response :delete, "repos/#{Repository.new repo}/keys/#{id}", options
       end
 
       # List collaborators
@@ -250,7 +250,7 @@ module Octokit
       # @example
       #   @client.add_collab('pengwynn/octokit', 'holman')
       def add_collaborator(repo, collaborator, options={})
-        boolean_from_response(:put, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options)
+        boolean_from_response :put, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
       end
       alias :add_collab :add_collaborator
 
@@ -267,7 +267,7 @@ module Octokit
       # @example
       #   @client.remove_collab('pengwynn/octokit', 'holman')
       def remove_collaborator(repo, collaborator, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options)
+        boolean_from_response :delete, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
       end
       alias :remove_collab :remove_collaborator
 
@@ -532,7 +532,7 @@ module Octokit
       # @example
       #   @client.remove_hook('pengwynn/octokit', 1000000)
       def remove_hook(repo, id, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new repo}/hooks/#{id}", options)
+        boolean_from_response :delete, "repos/#{Repository.new repo}/hooks/#{id}", options
       end
 
       # Test hook
@@ -546,7 +546,7 @@ module Octokit
       # @example
       #   @client.test_hook('pengwynn/octokit', 1000000)
       def test_hook(repo, id, options={})
-        boolean_from_response(:post, "repos/#{Repository.new repo}/hooks/#{id}/tests", options)
+        boolean_from_response :post, "repos/#{Repository.new repo}/hooks/#{id}/tests", options
       end
 
       # List users available for assigning to issues.
@@ -576,7 +576,7 @@ module Octokit
       # @example
       #   Octokit.check_assignee('pengwynn/octokit', 'andrew')
       def check_assignee(repo, assignee, options={})
-        boolean_from_response(:get, "repos/#{Repository.new repo}/assignees/#{assignee}", options)
+        boolean_from_response :get, "repos/#{Repository.new repo}/assignees/#{assignee}", options
       end
 
       # List watchers subscribing to notifications for a repo
@@ -587,7 +587,7 @@ module Octokit
       # @example
       #   @client.subscribers("pengwynn/octokit")
       def subscribers(repo, options={})
-        paginate("repos/#{Repository.new repo}/subscribers", options)
+        paginate "repos/#{Repository.new repo}/subscribers", options
       end
 
       # Get a repository subscription
@@ -598,7 +598,7 @@ module Octokit
       # @example
       #   @client.subscription("pengwynn/octokit")
       def subscription(repo, options={})
-        get("repos/#{Repository.new repo}/subscription", options)
+        get "repos/#{Repository.new repo}/subscription", options
       end
 
       # Update repository subscription
@@ -615,7 +615,7 @@ module Octokit
       # @example Subscribe to notifications for a repository
       #   @client.update_subscription("pengwynn/octokit", {subscribed: true})
       def update_subscription(repo, options={})
-        put("repos/#{Repository.new repo}/subscription", options)
+        put "repos/#{Repository.new repo}/subscription", options
       end
 
       # Delete a repository subscription
@@ -627,7 +627,7 @@ module Octokit
       # @example
       #   @client.delete_subscription("pengwynn/octokit")
       def delete_subscription(repo, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new repo}/subscription", options)
+        boolean_from_response :delete, "repos/#{Repository.new repo}/subscription", options
       end
 
     end

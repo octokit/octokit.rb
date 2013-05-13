@@ -55,7 +55,7 @@ module Octokit
       def create_authorization(options={})
         # Techincally we can omit scopes as GitHub has a default, however the
         # API will reject us if we send a POST request with an empty body.
-        post('authorizations', options)
+        post 'authorizations', options
       end
 
       # Update an authorization for the authenticated user.
@@ -77,7 +77,7 @@ module Octokit
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.update_authorization(999999, {:add_scopes => ["gist", "repo"], :note => "Why not Zoidberg possibly?"})
       def update_authorization(number, options={})
-        patch("authorizations/#{number}", options)
+        patch "authorizations/#{number}", options
       end
 
       # Delete an authorization for the authenticated user.
@@ -93,7 +93,7 @@ module Octokit
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.delete_authorization(999999)
       def delete_authorization(number, option={})
-        boolean_from_response(:delete, "authorizations/#{number}")
+        boolean_from_response :delete, "authorizations/#{number}"
       end
 
       # Check scopes for a token
@@ -104,7 +104,7 @@ module Octokit
       def scopes(token = @access_token)
         raise ArgumentError.new("Access token required") if token.nil?
 
-        agent.call(:get, "/user", :headers => {"Authorization" => "token #{token}" }).
+        agent.call(:get, "user", :headers => {"Authorization" => "token #{token}" }).
           headers['X-OAuth-Scopes'].
           to_s.
           split(',').

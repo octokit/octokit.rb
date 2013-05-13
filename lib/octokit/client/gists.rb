@@ -94,7 +94,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is starred successfully
       # @see http://developer.github.com/v3/gists/#star-a-gist
       def star_gist(gist, options={})
-        boolean_from_response(:put, "gists/#{Gist.new gist}/star", options)
+        boolean_from_response :put, "gists/#{Gist.new gist}/star", options
       end
 
       # Unstar a gist
@@ -103,7 +103,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is unstarred successfully
       # @see http://developer.github.com/v3/gists/#unstar-a-gist
       def unstar_gist(gist, options={})
-        boolean_from_response(:delete, "gists/#{Gist.new gist}/star", options)
+        boolean_from_response :delete, "gists/#{Gist.new gist}/star", options
       end
 
       # Check if a gist is starred
@@ -112,7 +112,7 @@ module Octokit
       # @return [Boolean] Indicates if gist is starred
       # @see http://developer.github.com/v3/gists/#check-if-a-gist-is-starred
       def gist_starred?(gist, options={})
-        boolean_from_response(:get, "gists/#{Gist.new gist}/star", options)
+        boolean_from_response :get, "gists/#{Gist.new gist}/star", options
       end
 
       # Fork a gist
@@ -130,7 +130,7 @@ module Octokit
       # @return [Boolean] Indicating success of deletion
       # @see http://developer.github.com/v3/gists/#delete-a-gist
       def delete_gist(gist, options={})
-        boolean_from_response(:delete, "gists/#{Gist.new gist}", options)
+        boolean_from_response :delete, "gists/#{Gist.new gist}", options
       end
 
       # List gist comments

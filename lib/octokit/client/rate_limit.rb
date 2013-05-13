@@ -33,7 +33,7 @@ module Octokit
       # @see http://developer.github.com/v3/#rate-limiting
       # @return [Octokit::RateLimit] Rate limit info
       def rate_limit!(options={})
-        get("/rate_limit")
+        get "rate_limit"
         Octokit::RateLimit.from_response(last_response)
       end
       alias ratelimit! rate_limit!

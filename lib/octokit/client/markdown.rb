@@ -19,7 +19,8 @@ module Octokit
         options[:text] = text
         options[:repo] = Repository.new(options[:repo]) if options[:repo]
         options[:accept] = 'application/vnd.github.raw'
-        post("markdown", options)
+
+        post "markdown", options
       end
 
     end

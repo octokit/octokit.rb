@@ -15,7 +15,7 @@ module Octokit
       # @example Get the readme file for a repo
       #   Octokit.readme("pengwynn/octokit")
       def readme(repo, options={})
-        get("repos/#{Repository.new repo}/readme", options)
+        get "repos/#{Repository.new repo}/readme", options
       end
 
       # Receive a listing of a repository folder or the contents of a file
@@ -30,7 +30,7 @@ module Octokit
       def contents(repo, options={})
         repo_path = options.delete :path
         url = "repos/#{Repository.new repo}/contents/#{repo_path}"
-        get(url, options)
+        get url, options
       end
 
       # Add content to a repository
@@ -73,7 +73,7 @@ module Octokit
         options[:content] = Base64.encode64(content)
         options[:message] = message
         url = "repos/#{Repository.new repo}/contents/#{path}"
-        put(url, options)
+        put url, options
       end
       alias :create_content :create_contents
       alias :add_content :create_contents
@@ -129,7 +129,7 @@ module Octokit
         options[:message] = message
         options[:sha] = sha
         url = "repos/#{Repository.new repo}/contents/#{path}"
-        delete(url, options)
+        delete url, options
       end
       alias :delete_content :delete_contents
       alias :remove_content :delete_contents
@@ -148,7 +148,7 @@ module Octokit
         repo_ref = options.delete :ref
         format = (options.delete :format) || 'tarball'
         url = "repos/#{Repository.new repo}/#{format}/#{repo_ref}"
-        request(:head, url, options)
+        request :head, url, options
 
         last_response.headers['Location']
       end
