@@ -6,6 +6,7 @@ describe Octokit::Client::Users do
     Octokit.reset!
     VCR.turn_on!
     VCR.insert_cassette "users"
+    @client = basic_auth_client
   end
 
   after do
@@ -26,8 +27,7 @@ describe Octokit::Client::Users do
       expect(user.login).to eq 'sferik'
     end
     it "returns the authenticated user" do
-      client = basic_auth_client
-      user = client.user
+      user = @client.user
       expect(user.login).to eq test_github_login
     end
   end # .user
@@ -40,8 +40,7 @@ describe Octokit::Client::Users do
 
   describe ".update_user" do
     it "updates a user profile" do
-      client = basic_auth_client
-      user = client.update_user(:location => "San Francisco, CA", :hireable => false)
+      user = @client.update_user(:location => "San Francisco, CA", :hireable => false)
       expect(user.login).to eq test_github_login
       assert_requested :patch, basic_github_url("/user")
     end
@@ -54,8 +53,7 @@ describe Octokit::Client::Users do
       assert_requested :get, github_url("/users/sferik/followers")
     end
     it "returns the authenticated user's followers" do
-      client = basic_auth_client
-      users = client.followers
+      users = @client.followers
       expect(users).to be_kind_of Array
       assert_requested :get, basic_github_url("/users/#{test_github_login}/followers")
     end
@@ -68,8 +66,7 @@ describe Octokit::Client::Users do
       assert_requested :get, github_url("/users/sferik/following")
     end
     it "returns the authenticated user's following" do
-      client = basic_auth_client
-      users = client.following
+      users = @client.following
       expect(users).to be_kind_of Array
       assert_requested :get, basic_github_url("/users/#{test_github_login}/following")
     end
@@ -77,32 +74,28 @@ describe Octokit::Client::Users do
 
   describe ".follows?" do
     it "checks if the authenticated user follows another" do
-      client = basic_auth_client
-      follows = client.follows?("sferik")
+      follows = @client.follows?("sferik")
       assert_requested :get, basic_github_url("/user/following/sferik")
     end
   end # .follows?
 
   describe ".follow" do
     it "follows a user" do
-      client = basic_auth_client
-      following = client.follow("pengwynn")
+      following = @client.follow("pengwynn")
       assert_requested :put, basic_github_url("/user/following/pengwynn")
     end
   end # .follow
 
   describe ".unfollow" do
     it "unfollows a user" do
-      client = basic_auth_client
-      following = client.unfollow("pengwynn")
+      following = @client.unfollow("pengwynn")
       assert_requested :delete, basic_github_url("/user/following/pengwynn")
     end
   end # .unfollow
 
   describe ".starred?" do
     it "checks if the authenticated user has starred a repository" do
-      client = basic_auth_client
-      starred = client.starred?("sferik", "rails_admin")
+      starred = @client.starred?("sferik", "rails_admin")
       assert_requested :get, basic_github_url("/user/starred/sferik/rails_admin")
     end
   end # .starred?
@@ -113,27 +106,14 @@ describe Octokit::Client::Users do
       assert_requested :get, github_url("/users/sferik/starred")
     end
     it "returns starred repositories for the authenticated user" do
-      client = basic_auth_client
-      repositories = client.starred
+      repositories = @client.starred
       assert_requested :get, basic_github_url("/user/starred")
     end
   end # .starred
 
-  describe ".key" do
-    it "returns a public key" do
-      title, key = "wynning", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com"
-      client = basic_auth_client
-      public_key = client.add_key(title, key)
-
-      key = client.key(public_key.id)
-      assert_requested :get, basic_github_url("/user/keys/#{public_key.id}")
-    end
-  end
-
   describe ".keys" do
     it "returns public keys for the authenticated user" do
-      client = basic_auth_client
-      public_keys = client.keys
+      public_keys = @client.keys
       expect(public_keys).to be_kind_of Array
       assert_requested :get, basic_github_url("/user/keys")
     end
@@ -147,35 +127,45 @@ describe Octokit::Client::Users do
     end
   end # .user_keys
 
-  describe ".add_key" do
-    it "adds a public key" do
+  context "methods requiring an existing @public_key" do
+
+    before do
       title, key = "wynning", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com"
-      client = basic_auth_client
-      public_key = client.add_key(title, key)
-      assert_requested :post, basic_github_url("/user/keys")
+      @public_key = @client.add_key(title, key)
     end
-  end # .add_key
 
-  describe ".update_key" do
-    it "updates a public key" do
-      client = basic_auth_client
-      public_key = client.update_key(4647049, :title => 'Updated key')
-      assert_requested :patch, basic_github_url("/user/keys/4647049")
-    end
-  end # .update_key
+    describe ".add_key" do
+      it "adds a public key" do
+        assert_requested :post, basic_github_url("/user/keys")
+      end
+    end # .add_key
 
-  describe ".remove_key" do
-    it "removes a public key" do
-      client = basic_auth_client
-      response = client.remove_key(4647049)
-      assert_requested :delete, basic_github_url("/user/keys/4647049")
+    describe ".key" do
+      it "returns a public key" do
+        key = @client.key @public_key.id
+        assert_requested :get, basic_github_url("/user/keys/#{@public_key.id}")
+      end
     end
-  end # .remove_key
+
+    describe ".update_key" do
+      it "updates a public key" do
+        public_key = @client.update_key(@public_key.id, :title => 'Updated key')
+        assert_requested :patch, basic_github_url("/user/keys/#{@public_key.id}")
+      end
+    end # .update_key
+
+    describe ".remove_key" do
+      it "removes a public key" do
+        response = @client.remove_key(@public_key.id)
+        assert_requested :delete, basic_github_url("/user/keys/#{@public_key.id}")
+      end
+    end # .remove_key
+
+  end # @public_key methods
 
   describe ".emails" do
     it "returns email addresses" do
-      client = basic_auth_client
-      emails = client.emails
+      emails = @client.emails
       expect(emails).to be_kind_of Array
       assert_requested :get, basic_github_url("/user/emails")
     end
@@ -183,16 +173,14 @@ describe Octokit::Client::Users do
 
   describe ".add_email" do
     it "adds an email address" do
-      client = basic_auth_client
-      emails = client.add_email("wynn.netherland+api@gmail.com")
+      emails = @client.add_email("wynn.netherland+apitest@gmail.com")
       assert_requested :post, basic_github_url("/user/emails")
     end
   end # .add_email
 
   describe ".remove_email" do
     it "removes an email address" do
-      client = basic_auth_client
-      emails = client.remove_email("wynn.netherland+api@gmail.com")
+      emails = @client.remove_email("wynn.netherland+apitest@gmail.com")
       assert_requested :delete, basic_github_url("/user/emails")
     end
   end # .remove_email
@@ -203,8 +191,7 @@ describe Octokit::Client::Users do
       assert_requested :get, github_url("/users/pengwynn/subscriptions")
     end
     it "returns the repositories the authenticated user watches for notifications" do
-      client = basic_auth_client
-      subscriptions = client.subscriptions
+      subscriptions = @client.subscriptions
       assert_requested :get, basic_github_url("/user/subscriptions")
     end
   end # .subscriptions
