@@ -1,5 +1,3 @@
-before_script:
-  - chmod 600 spec/fixtures/.netrc
 bundler_args: --without development
 language: ruby
 rvm:
@@ -14,3 +12,5 @@ rvm:
 env:
   - OCTOKIT_TEST_GITHUB_LOGIN="api-padawan"
   - OCTOKIT_TEST_GITHUB_PASSWORD="MYSOCRATESNOTE"
+# before_script:
+#   - chmod 600 spec/fixtures/.netrc
