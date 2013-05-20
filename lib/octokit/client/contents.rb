@@ -68,7 +68,7 @@ module Octokit
           end
         end
         raise ArgumentError.new "content or :file option required" if content.nil?
-        options[:content] = Base64.encode64(content)
+        options[:content] = Base64.encode64(content).delete("\r\n")
         options[:message] = message
         url = "repos/#{Repository.new repo}/contents/#{path}"
         put(url, options)

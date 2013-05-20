@@ -51,7 +51,7 @@ describe Octokit::Client::Contents do
   describe ".create_contents" do
     it "creates repository contents at a path" do
       stub_put("/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt").
-        with({:body => {:message => "I am commit-ing", :content => "SGVyZSBiZSB0aGUgY29udGVudA==\n"}}).
+        with({:body => {:message => "I am commit-ing", :content => "SGVyZSBiZSB0aGUgY29udGVudA=="}}).
         to_return(json_response("create_content.json"))
 
       response = @client.create_contents("pengwynn/api-sandbox",
@@ -62,7 +62,7 @@ describe Octokit::Client::Contents do
     end
     it "creates contents from file path" do
       stub_put("/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt").
-        with({:body => {:message => "I am commit-ing", :content => "SGVyZSBiZSB0aGUgY29udGVudAo=\n"}}).
+        with({:body => {:message => "I am commit-ing", :content => "SGVyZSBiZSB0aGUgY29udGVudAo="}}).
         to_return(json_response("create_content.json"))
 
       response = @client.create_contents("pengwynn/api-sandbox",
@@ -73,7 +73,7 @@ describe Octokit::Client::Contents do
     end
     it "creates contents from File object" do
       stub_put("/repos/pengwynn/api-sandbox/contents/foo/bar/baz.txt").
-        with({:body => {:message => "I am commit-ing", :content => "SGVyZSBiZSB0aGUgY29udGVudAo=\n"}}).
+        with({:body => {:message => "I am commit-ing", :content => "SGVyZSBiZSB0aGUgY29udGVudAo="}}).
         to_return(json_response("create_content.json"))
 
       file = File.new "spec/fixtures/new_file.txt", "r"
@@ -91,7 +91,7 @@ describe Octokit::Client::Contents do
         with({:body => {
                 :sha => "4d149b826e7305659006eb64cfecd3be68d0f2f0",
                 :message => "I am commit-ing",
-                :content => "SGVyZSBiZSBtb2FyIGNvbnRlbnQ=\n"
+                :content => "SGVyZSBiZSBtb2FyIGNvbnRlbnQ="
         }}).
         to_return(json_response("update_content.json"))
 
@@ -107,7 +107,7 @@ describe Octokit::Client::Contents do
         with({:body => {
                 :sha => "4d149b826e7305659006eb64cfecd3be68d0f2f0",
                 :message => "I am commit-ing",
-                :content => "SGVyZSBiZSBtb2FyIGNvbnRlbnQK\n"
+                :content => "SGVyZSBiZSBtb2FyIGNvbnRlbnQK"
         }}).
         to_return(json_response("update_content.json"))
 
@@ -123,7 +123,7 @@ describe Octokit::Client::Contents do
         with({:body => {
                 :sha => "4d149b826e7305659006eb64cfecd3be68d0f2f0",
                 :message => "I am commit-ing",
-                :content => "SGVyZSBiZSBtb2FyIGNvbnRlbnQK\n"
+                :content => "SGVyZSBiZSBtb2FyIGNvbnRlbnQK"
         }}).
         to_return(json_response("update_content.json"))
 
