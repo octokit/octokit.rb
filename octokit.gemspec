@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.files = %w(.document CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md Rakefile octokit.gemspec)
   spec.files += Dir.glob("lib/**/*.rb")
   spec.files += Dir.glob("spec/**/*")
-  spec.homepage = 'https://github.com/pengwynn/octokit'
+  spec.homepage = 'https://github.com/octokit/octokit.rb'
   spec.licenses = ['MIT']
   spec.name = 'octokit'
   spec.require_paths = ['lib']
