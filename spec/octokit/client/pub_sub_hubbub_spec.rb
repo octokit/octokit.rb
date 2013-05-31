@@ -4,7 +4,7 @@ describe Octokit::Client::PubSubHubbub do
 
   before do
     Octokit.reset!
-    VCR.insert_cassette 'pubsubhubbub', :match_requests_on => [:method, :uri, :body]
+    VCR.insert_cassette 'pubsubhubbub', :match_requests_on => [:method, :path, :body]
     @client = basic_auth_client
   end
 

@@ -60,7 +60,7 @@ describe Octokit::Client::Gists do
   describe "when authenticated" do
 
     before do
-      VCR.insert_cassette 'authenticated_gists', :match_requests_on => [:method, :uri, :query]
+      VCR.insert_cassette 'authenticated_gists', :match_requests_on => [:method, :path, :query]
       @client = basic_auth_client
       new_gist = {
         :description => "A gist from Octokit",

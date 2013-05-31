@@ -4,7 +4,7 @@ describe Octokit::Client::Issues do
 
   before do
     Octokit.reset!
-    VCR.insert_cassette 'issues', :match_requests_on => [:method, :uri, :body, :headers]
+    VCR.insert_cassette 'issues', :match_requests_on => [:method, :path, :body, :headers]
     @client = basic_auth_client
   end
 

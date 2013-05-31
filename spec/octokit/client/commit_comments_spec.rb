@@ -4,7 +4,7 @@ describe Octokit::Client::CommitComments do
 
   before do
     Octokit.reset!
-    VCR.insert_cassette 'commit_comments', :match_requests_on => [:method, :uri, :query, :body]
+    VCR.insert_cassette 'commit_comments', :match_requests_on => [:method, :path, :query, :body]
     @client = basic_auth_client
     @commit = @client.commits('api-playground/api-sandbox').last.rels[:self].get.data
     @commit_comment = @client.create_commit_comment \

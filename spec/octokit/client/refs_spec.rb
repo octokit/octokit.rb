@@ -4,7 +4,7 @@ describe Octokit::Client::Refs do
 
   before do
     Octokit.reset!
-    VCR.insert_cassette 'refs', :match_requests_on => [:uri, :method, :query, :body]
+    VCR.insert_cassette 'refs', :match_requests_on => [:path, :method, :query, :body]
     @client = basic_auth_client
   end
 

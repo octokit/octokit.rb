@@ -4,7 +4,7 @@ describe Octokit::Client::Repositories do
 
   before do
     Octokit.reset!
-    VCR.insert_cassette 'repositories', :match_requests_on => [:uri, :method, :query, :body]
+    VCR.insert_cassette 'repositories', :match_requests_on => [:path, :method, :query, :body]
     @client = basic_auth_client
   end
 
@@ -64,7 +64,7 @@ describe Octokit::Client::Repositories do
         repository = @client.set_private @repo.full_name
         assert_requested request
         VCR.turn_on!
-        VCR.insert_cassette 'repositories', :match_requests_on => [:uri, :method, :query, :body]
+        VCR.insert_cassette 'repositories', :match_requests_on => [:path, :method, :query, :body]
       end
     end # .set_private
 

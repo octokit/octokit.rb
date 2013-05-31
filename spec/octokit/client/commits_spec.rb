@@ -4,7 +4,7 @@ describe Octokit::Client::Commits do
 
   before do
     Octokit.reset!
-    VCR.insert_cassette 'commits', :match_requests_on => [:method, :uri, :query]
+    VCR.insert_cassette 'commits', :match_requests_on => [:method, :path, :query]
     @client = basic_auth_client
     @last_commit = @client.commits('api-playground/api-sandbox').last
   end
