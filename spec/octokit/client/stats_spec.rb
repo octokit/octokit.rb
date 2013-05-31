@@ -14,7 +14,7 @@ describe Octokit::Client::Stats do
   end
 
   describe ".contributors_stats" do
-    it "returns contributors and their contribution stats" do
+    xit "returns contributors and their contribution stats" do
       stats = @client.contributors_stats("pengwynn/octokit")
       expect(stats).to be_kind_of Array
       expect(stats.first.author.login).to_not be_nil
@@ -23,7 +23,7 @@ describe Octokit::Client::Stats do
   end # .contributors_stats
 
   describe ".commit_activity_stats" do
-    it "returns the commit activity stats" do
+    xit "returns the commit activity stats" do
       stats = @client.commit_activity_stats("pengwynn/octokit")
       expect(stats).to be_kind_of Array
       expect(stats.first.week).to be_kind_of Fixnum
@@ -32,7 +32,7 @@ describe Octokit::Client::Stats do
   end # .commit_activity_stats
 
   describe ".code_frequency_stats" do
-    it "returns the code frequency stats" do
+    xit "returns the code frequency stats" do
       stats = @client.code_frequency_stats('pengwynn/octokit')
       expect(stats).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/stats/code_frequency")
@@ -40,7 +40,7 @@ describe Octokit::Client::Stats do
   end # .code_frequency_stats
 
   describe ".participation_stats" do
-    it "returns the owner and contributor participation stats" do
+    xit "returns the owner and contributor participation stats" do
       stats = @client.participation_stats('pengwynn/octokit')
       expect(stats.fields).to include :owner
       assert_requested :get, github_url("/repos/pengwynn/octokit/stats/participation")
@@ -48,7 +48,7 @@ describe Octokit::Client::Stats do
   end # .participation_stats
 
   describe ".punch_card_stats" do
-    it "returns commit count by hour punch card stats" do
+    xit "returns commit count by hour punch card stats" do
       stats = @client.punch_card_stats('pengwynn/octokit')
       expect(stats).to be_kind_of Array
       assert_requested :get, github_url("/repos/pengwynn/octokit/stats/punch_card")

@@ -60,21 +60,21 @@ describe Octokit::Client::Notifications do
   end # .mark_thread_as_read
 
   describe ".thread_subscription" do
-    it "returns a thread subscription" do
+    xit "returns a thread subscription" do
       subscription = @client.thread_subscription(509517)
       assert_requested :get, basic_github_url("/notifications/threads/509517/subscription")
     end
   end # .thread_subscription
 
   describe ".update_thread_subscription" do
-    it "updates a thread subscription" do
+    xit "updates a thread subscription" do
       subscription = @client.update_thread_subscription(509517, :subscribed => true)
       assert_requested :put, basic_github_url("/notifications/threads/509517/subscription")
     end
   end # .update_thread_subscription
 
   describe ".delete_thread_subscription" do
-    it "returns true with successful thread deletion" do
+    xit "returns true with successful thread deletion" do
       result = @client.delete_thread_subscription(509517)
       assert_requested :delete, basic_github_url("/notifications/threads/509517/subscription")
     end

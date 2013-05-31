@@ -351,7 +351,7 @@ describe Octokit::Client do
       Octokit.reset!
     end
 
-    it "fetches all the pages" do
+    xit "fetches all the pages" do
       VCR.use_cassette('pagination', :erb => true, :record => :none) do
         Octokit.client.paginate('/repos/rails/rails/issues', :query => {:state => 'closed'})
         assert_requested :get, github_url("/repos/rails/rails/issues?per_page=3&state=closed")

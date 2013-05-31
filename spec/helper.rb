@@ -28,7 +28,8 @@ VCR.configure do |c|
       ENV['OCTOKIT_TEST_GITHUB_PASSWORD']
   end
   c.default_cassette_options = {
-    :serialize_with             => :yaml,
+    :serialize_with             => :json,
+    :preserve_exact_body_bytes  => true,
     :decode_compressed_response => true,
     :record                     => ENV['TRAVIS'] ? :none : :new_episodes
   }

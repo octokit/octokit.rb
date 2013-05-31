@@ -10,7 +10,7 @@ describe Octokit::Client::Say do
     it "returns an ASCII octocat" do
       VCR.use_cassette('say', :match_requests_on => [:path, :query]) do
         text = @client.say
-        expect(text).to match /Half measures/
+        expect(text).to match /MMMMMMMMMMMMMMMMMMMMM/
         assert_requested :get, github_url("/octocat")
       end
     end
