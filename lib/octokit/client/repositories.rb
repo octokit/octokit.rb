@@ -75,7 +75,7 @@ module Octokit
       #
       # @return [Array] List of repositories.
       def all_repositories(options={})
-        get '/repositories', options
+        get 'repositories', options
       end
 
       # Star a repository
