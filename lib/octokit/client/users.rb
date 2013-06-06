@@ -329,7 +329,7 @@ module Octokit
       # Requires authenticated client.
       #
       # @param email [String] Email address to remove.
-      # @return [Array<String>] Array of all email addresses of the user.
+      # @return [Boolean] True if removal was successful, false otherwise.
       # @see Octokit::Client
       # @see http://developer.github.com/v3/users/emails/#delete-email-addresses
       # @example
