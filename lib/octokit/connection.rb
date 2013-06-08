@@ -38,7 +38,7 @@ module Octokit
 
         faraday_config_block.call(builder) if faraday_config_block
 
-        builder.adapter *adapter
+        builder.adapter(*adapter)
       end
 
       if options[:authenticate] and authenticated?
