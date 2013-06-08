@@ -22,6 +22,9 @@ module Octokit
       :auto_traversal,
       :per_page].freeze
 
+    CUSTOM_SETTERS = [:api_endpoint,
+                      :web_endopint].freeze
+
     DEFAULT_ADAPTER             = Faraday.default_adapter
     DEFAULT_API_VERSION         = 3
     DEFAULT_API_ENDPOINT        = ENV['OCTOKIT_API_ENDPOINT'] || 'https://api.github.com/'
@@ -30,7 +33,8 @@ module Octokit
     DEFAULT_USER_AGENT          = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
     DEFAULT_AUTO_TRAVERSAL      = false
 
-    attr_accessor(*VALID_OPTIONS_KEYS)
+    attr_accessor(*(VALID_OPTIONS_KEYS - CUSTOM_SETTERS))
+    attr_reader(*CUSTOM_SETTERS)
 
     def self.extended(base)
       base.reset
