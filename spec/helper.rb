@@ -81,6 +81,8 @@ def json_response(file)
 end
 
 def github_url(url)
+  @client ||= nil
+
   if url =~ /^http/
     url
   elsif @client && @client.authenticated?
