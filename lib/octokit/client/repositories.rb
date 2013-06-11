@@ -479,6 +479,7 @@ module Octokit
       #   events the hook is triggered for.
       # @option options [Boolean] :active Determines whether the hook is
       #   actually triggered on pushes.
+      # @return [Hashie::Mash] Hook info for the new hook
       # @see Octokit::Client
       # @see https://api.github.com/hooks
       # @see https://github.com/github/github-services
@@ -520,6 +521,7 @@ module Octokit
       #   to be removed from the list of events that the Hook triggers for.
       # @option options [Boolean] :active Determines whether the hook is
       #   actually triggered on pushes.
+      # @return [Hashie::Mash] Hook info for the updated hook
       # @see Octokit::Client
       # @see https://api.github.com/hooks
       # @see https://github.com/github/github-services
