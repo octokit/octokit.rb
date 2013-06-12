@@ -12,6 +12,17 @@ module Octokit
       end
       alias :search_repos :search_repositories
 
+      # Check if a repository exists
+      #
+      # @see http://developer.github.com/v3/repos/#get
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @return [Hashie::Mash] if a repository exists, false otherwise
+      def repository?(repo, options = {})
+        repository(repo, options)
+      rescue Octokit::NotFound
+        false
+      end
+
       # Get a single repository
       #
       # @see http://developer.github.com/v3/repos/#get
