@@ -22,9 +22,7 @@ module Octokit
       :auto_traversal,
       :per_page].freeze
 
-    CUSTOM_SETTERS = [:api_endpoint,
-                      :web_endopint].freeze
-
+    CUSTOM_SETTERS              = [:api_endpoint, :web_endopint].freeze
     DEFAULT_ADAPTER             = Faraday.default_adapter
     DEFAULT_API_VERSION         = 3
     DEFAULT_API_ENDPOINT        = ENV['OCTOKIT_API_ENDPOINT'] || 'https://api.github.com/'
