@@ -81,11 +81,9 @@ def json_response(file)
 end
 
 def github_url(url)
-  @client ||= nil
-
   if url =~ /^http/
     url
-  elsif @client && @client.authenticated?
+  elsif defined?(@client) && @client.authenticated?
     "https://#{@client.login}:#{@client.password}@api.github.com#{url}"
   else
     "https://api.github.com#{url}"
