@@ -242,5 +242,15 @@ describe Octokit::Client do
 
   end
 
+  describe "connection" do
+    it "reuses the same connection for multiple requests" do
+      Faraday.should_receive(:new).once.and_call_original
+      client = Octokit::Client.new
+      stub_request(:get, 'https://api.github.com').
+        to_return(:body => 'octocat')
+      3.times { client.get '/' }
+    end
+  end
+
 
 end

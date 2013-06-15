@@ -21,7 +21,10 @@ module Octokit
         options.merge!(:params => unauthed_rate_limit_params)
       end
 
-      # TODO: Don't build on every request
+      @connection ||= build_connection(options) 
+    end
+
+    def build_connection(options)
       connection = Faraday.new(options) do |builder|
 
         if options[:force_urlencoded]
