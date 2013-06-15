@@ -82,6 +82,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully starred
+      # @see http://developer.github.com/v3/activity/starring/#star-a-repository
       def star(repo, options={})
         boolean_from_response(:put, "user/starred/#{Repository.new repo}", options)
       end
@@ -90,6 +91,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unstarred
+      # @see http://developer.github.com/v3/activity/starring/#unstar-a-repository
       def unstar(repo, options={})
         boolean_from_response(:delete, "user/starred/#{Repository.new repo}", options)
       end
@@ -99,6 +101,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully watched
       # @deprecated Use #star instead
+      # @see http://developer.github.com/v3/activity/watching/#watch-a-repository-legacy
       def watch(repo, options={})
         boolean_from_response(:put, "user/watched/#{Repository.new repo}", options)
       end
@@ -108,6 +111,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unwatched
       # @deprecated Use #unstar instead
+      # @see http://developer.github.com/v3/activity/watching/#stop-watching-a-repository-legacy
       def unwatch(repo, options={})
         boolean_from_response(:delete, "user/watched/#{Repository.new repo}", options)
       end
@@ -116,6 +120,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Hashie::Mash] Repository info for the new fork
+      # @see http://developer.github.com/v3/repos/forks/#create-a-fork
       def fork(repo, options={})
         post "repos/#{Repository.new repo}/forks", options
       end
