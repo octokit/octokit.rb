@@ -13,9 +13,7 @@ module Octokit
         :raw              => false
       }.merge(options)
 
-      if !proxy.nil?
-        options.merge!(:proxy => proxy)
-      end
+      options.merge!(:proxy => proxy) unless proxy.nil?
 
       if !oauthed? && !authenticated? && unauthed_rate_limited?
         options.merge!(:params => unauthed_rate_limit_params)
