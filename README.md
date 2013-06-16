@@ -1,4 +1,4 @@
-# Octokit
+# Octokit [![Build Status](https://travis-ci.org/octokit/octokit.rb.png?branch=master)](https://travis-ci.org/octokit/octokit.rb)
 
 Simple Ruby wrapper for the GitHub API.
 
