@@ -47,6 +47,7 @@ Octokit.list_commits("octokit/octokit.rb")
 ```
 
 #### Authenticated Requests
+
 For methods that require authentication, you'll need to setup a client with
 your login and password.
 
@@ -62,6 +63,12 @@ Alternately, you can authenticate with a [GitHub OAuth2 token][oauth].
 ```ruby
 client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
 client.follow("sferik")
+```
+
+#### Authorize an application using OAuth2 flow
+
+```ruby
+Octokit.authorize_url("id_here", "secret_here")
 ```
 
 #### Requesting a specific media type
