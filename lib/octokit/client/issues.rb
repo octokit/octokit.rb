@@ -23,7 +23,7 @@ module Octokit
       # @option options [String] :assignee User login.
       # @option options [String] :creator User login.
       # @option options [String] :mentioned User login.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array] :labels List of Label names.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
@@ -47,7 +47,7 @@ module Octokit
       # @param options [Hash] A customizable set of options.
       # @option options [String] :filter (assigned) State: <tt>assigned</tt>, <tt>created</tt>, <tt>mentioned</tt>, <tt>subscribed</tt> or <tt>closed</tt>.
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>all</tt>.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array] :labels List of Label names.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
@@ -68,7 +68,7 @@ module Octokit
       # @param options [Hash] A customizable set of options.
       # @option options [String] :filter (assigned) State: <tt>assigned</tt>, <tt>created</tt>, <tt>mentioned</tt>, <tt>subscribed</tt> or <tt>closed</tt>.
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>all</tt>.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array] :labels List of Label names.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
@@ -91,7 +91,7 @@ module Octokit
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array] :labels List of Label names.
       # @return [Issue] Your newly created issue
       # @see http://developer.github.com/v3/issues/#create-an-issue
       # @example Create a new Issues for a repository
@@ -120,7 +120,7 @@ module Octokit
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array] :labels List of Label names.
       # @return [Issue] The updated Issue
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Close Issue #25 from pengwynn/octokit
@@ -136,7 +136,7 @@ module Octokit
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array] :labels List of Label names.
       # @return [Issue] The updated Issue
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Reopen Issue #25 from pengwynn/octokit
@@ -154,7 +154,7 @@ module Octokit
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array] :labels List of Label names.
       # @return [Issue] The updated Issue
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Change the title of Issue #25
