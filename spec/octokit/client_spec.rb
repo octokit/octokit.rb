@@ -171,18 +171,18 @@ describe Octokit::Client do
       end
     end
 
-    describe "when basic authenticated", :vcr do
+    describe "when basic authenticated"  do
       it "makes authenticated calls" do
         Octokit.configure do |config|
           config.login = 'pengwynn'
           config.password = 'il0veruby'
         end
 
-        VCR.use_cassette 'root' do
-          root_request = stub_get("https://pengwynn:il0veruby@api.github.com/")
-          Octokit.client.get("/")
-          assert_requested root_request
-        end
+        VCR.turn_off!
+        root_request = stub_get("https://pengwynn:il0veruby@api.github.com/")
+        Octokit.client.get("/")
+        assert_requested root_request
+        VCR.turn_on!
       end
     end
     describe "when token authenticated", :vcr do
@@ -323,7 +323,7 @@ describe Octokit::Client do
     end
   end
 
-  describe "auto pagination" do
+  describe "auto pagination", :vcr do
     before do
       Octokit.reset!
       Octokit.configure do |config|
@@ -336,13 +336,11 @@ describe Octokit::Client do
       Octokit.reset!
     end
 
-    xit "fetches all the pages" do
-      VCR.use_cassette('pagination', :erb => true, :record => :none) do
-        Octokit.client.paginate('/repos/rails/rails/issues', :query => {:state => 'closed'})
-        assert_requested :get, github_url("/repos/rails/rails/issues?per_page=3&state=closed")
-        (2..19).each do |i|
-          assert_requested :get, github_url("/repositories/8514/issues?per_page=3&page=#{i}&state=closed")
-        end
+    it "fetches all the pages" do
+      Octokit.client.paginate('/repos/octokit/octokit.rb/issues')
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/issues?per_page=3")
+      (2..7).each do |i|
+        assert_requested :get, github_url("/repositories/417862/issues?per_page=3&page=#{i}")
       end
     end
   end
