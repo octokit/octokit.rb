@@ -23,7 +23,7 @@ describe Octokit::Client::Labels do
     end
   end # .label
 
-  describe ".add_label", :vcr => {:match_requests_on => [:method, :path, :body]}  do
+  describe ".add_label", :vcr do
     it "adds a label with a color" do
       @client.delete_label!("api-playground/api-sandbox", 'test-label', {:color => 'ededed'})
       label = @client.add_label("api-playground/api-sandbox", "test-label", 'ededed')
