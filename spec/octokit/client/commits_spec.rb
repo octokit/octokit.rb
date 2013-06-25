@@ -5,7 +5,6 @@ describe Octokit::Client::Commits do
   before do
     Octokit.reset!
     @client = oauth_client
-    @last_commit = @client.commits('api-playground/api-sandbox').last
   end
 
   describe ".commits", :vcr do
@@ -28,18 +27,18 @@ describe Octokit::Client::Commits do
     it "returns all commits on the specified date" do
       commits = @client.commits_on("sferik/rails_admin", "2011-01-20")
       expect(commits).to be_kind_of Array
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?since=2011-01-20&until=2011-01-21")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?since=2011-01-20T00:00:00%2B00:00&until=2011-01-21T00:00:00%2B00:00")
     end
     it "errors if the date is invalid" do
       expect { @client.commits_on "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
     end
     it "handles branch or sha argument" do
       commits = @client.commits_on("sferik/rails_admin", "2011-01-15", "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15&until=2011-01-16")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00&until=2011-01-16T00:00:00%2B00:00")
     end
     it "handles the sha option" do
       commits = @client.commits_on("sferik/rails_admin", "2011-01-15", :sha => "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15&until=2011-01-16")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00&until=2011-01-16T00:00:00%2B00:00")
     end
   end # .commits_on
 
@@ -47,18 +46,18 @@ describe Octokit::Client::Commits do
     it "returns all commits since the specified date" do
       commits = @client.commits_since("sferik/rails_admin", "2011-01-20")
       expect(commits).to be_kind_of Array
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?since=2011-01-20")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?since=2011-01-20T00:00:00%2B00:00")
     end
     it "errors if the date is invalid" do
       expect { @client.commits_since "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
     end
     it "handles branch or sha argument" do
       commits = @client.commits_since("sferik/rails_admin", "2011-01-15", "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00")
     end
     it "handles the sha option" do
       commits = @client.commits_since("sferik/rails_admin", "2011-01-15", :sha => "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00")
     end
   end # .commits_since
 
@@ -66,18 +65,18 @@ describe Octokit::Client::Commits do
     it "returns all commits until the specified date" do
       commits = @client.commits_before("sferik/rails_admin", "2011-01-20")
       expect(commits).to be_kind_of Array
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?until=2011-01-20")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?until=2011-01-20T00:00:00%2B00:00")
     end
     it "errors if the date is invalid" do
       expect { @client.commits_before "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
     end
     it "handles branch or sha argument" do
       commits = @client.commits_before("sferik/rails_admin", "2011-01-15", "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&until=2011-01-15")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&until=2011-01-15T00:00:00%2B00:00")
     end
     it "handles the sha option" do
       commits = @client.commits_before("sferik/rails_admin", "2011-01-15", :sha => "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&until=2011-01-15")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&until=2011-01-15T00:00:00%2B00:00")
     end
   end # .commits_before
 
@@ -85,18 +84,18 @@ describe Octokit::Client::Commits do
     it "returns all commits until the specified date" do
       commits = @client.commits_between("sferik/rails_admin", "2011-01-20", "2013-01-20")
       expect(commits).to be_kind_of Array
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?since=2011-01-20&until=2013-01-20")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?since=2011-01-20T00:00:00%2B00:00&until=2013-01-20T00:00:00%2B00:00")
     end
     it "errors if the date is invalid" do
       expect { @client.commits_between "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
     end
     it "handles branch or sha argument" do
       commits = @client.commits_between("sferik/rails_admin", "2011-01-20", "2013-01-20", "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-20&until=2013-01-20")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-20T00:00:00%2B00:00&until=2013-01-20T00:00:00%2B00:00")
     end
     it "handles the sha option" do
       commits = @client.commits_between("sferik/rails_admin", "2011-01-20", "2013-01-20", :sha => "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-20&until=2013-01-20")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-20T00:00:00%2B00:00&until=2013-01-20T00:00:00%2B00:00")
     end
   end # .commits_between
 
@@ -110,7 +109,8 @@ describe Octokit::Client::Commits do
 
   describe ".create_commit", :vcr do
     it "creates a commit" do
-      commit = @client.create_commit("api-playground/api-sandbox", "My commit message", @last_commit.commit.tree.sha, @last_commit.sha)
+      last_commit = @client.commits('api-playground/api-sandbox').last
+      commit = @client.create_commit("api-playground/api-sandbox", "My commit message", last_commit.commit.tree.sha, last_commit.sha)
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/commits")
     end
   end # .create_commit
@@ -121,7 +121,8 @@ describe Octokit::Client::Commits do
         @client.delete_ref("api-playground/api-sandbox", "heads/branch-to-merge")
       rescue Octokit::UnprocessableEntity
       end
-      branch = @client.create_ref("api-playground/api-sandbox", "heads/branch-to-merge", @last_commit.sha)
+      last_commit = @client.commits('api-playground/api-sandbox').last
+      branch = @client.create_ref("api-playground/api-sandbox", "heads/branch-to-merge", last_commit.sha)
       merge = @client.merge("api-playground/api-sandbox", "master", "branch-to-merge", :commit_message => "Testing the merge API")
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/merges")
     end

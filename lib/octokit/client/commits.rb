@@ -307,7 +307,7 @@ module Octokit
       # @param date [String] String representation of a date
       # @return [DateTime]
       def parse_date(date)
-        date = Date.parse(date.to_s)
+        date = DateTime.parse(date.to_s)
       rescue ArgumentError
         raise ArgumentError, "#{date} is not a valid date"
       end
