@@ -4,15 +4,9 @@ describe Octokit::Client::ServiceStatus do
 
   before do
     Octokit.reset!
-    VCR.turn_on!
-    VCR.insert_cassette "github_status"
   end
 
-  after do
-    VCR.eject_cassette
-  end
-
-  describe ".github_status" do
+  describe ".github_status", :vcr do
     it "returns the current system status" do
       current_status = Octokit.github_status
       expect(current_status.status).to_not be_nil
@@ -21,7 +15,7 @@ describe Octokit::Client::ServiceStatus do
     end
   end # .github_status
 
-  describe ".github_status_last_message" do
+  describe ".github_status_last_message", :vcr do
     it "returns the last human message" do
       message = Octokit.github_status_last_message
       expect(message.status).to_not be_nil
@@ -31,7 +25,7 @@ describe Octokit::Client::ServiceStatus do
     end
   end # .github_status_last_message
 
-  describe ".github_status" do
+  describe ".github_status", :vcr do
     it "returns the most recent status messages" do
       messages = Octokit.github_status_messages
       expect(messages).to be_kind_of Array

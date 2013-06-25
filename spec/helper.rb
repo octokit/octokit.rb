@@ -15,23 +15,26 @@ WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
-  config.order = :default
 end
 
 require 'vcr'
 VCR.configure do |c|
-  # TODO: Strip authorization header to hide tokens
+  c.configure_rspec_metadata!
   c.filter_sensitive_data("<GITHUB_LOGIN>") do
       ENV['OCTOKIT_TEST_GITHUB_LOGIN']
   end
   c.filter_sensitive_data("<GITHUB_PASSWORD>") do
       ENV['OCTOKIT_TEST_GITHUB_PASSWORD']
   end
+  c.filter_sensitive_data("<<ACCESS_TOKEN>>") do
+      ENV['OCTOKIT_TEST_GITHUB_TOKEN']
+  end
   c.default_cassette_options = {
     :serialize_with             => :json,
+    # TODO: Track down UTF-8 issue and remove
     :preserve_exact_body_bytes  => true,
     :decode_compressed_response => true,
-    :record                     => ENV['TRAVIS'] ? :none : :new_episodes
+    :record                     => ENV['TRAVIS'] ? :none : :once
   }
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
@@ -43,6 +46,10 @@ end
 
 def test_github_password
   ENV.fetch 'OCTOKIT_TEST_GITHUB_PASSWORD'
+end
+
+def test_github_token
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN'
 end
 
 def stub_delete(url)
@@ -103,5 +110,9 @@ def basic_auth_client(login = test_github_login, password = test_github_password
   client.password = test_github_password
 
   client
+end
+
+def oauth_client
+  Octokit::Client.new(:access_token => ENV.fetch('OCTOKIT_TEST_GITHUB_TOKEN'))
 end
 

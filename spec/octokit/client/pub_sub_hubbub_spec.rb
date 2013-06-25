@@ -4,17 +4,10 @@ describe Octokit::Client::PubSubHubbub do
 
   before do
     Octokit.reset!
-    VCR.insert_cassette 'pubsubhubbub', :match_requests_on => [:method, :path, :body]
-    @client = basic_auth_client
+    @client = oauth_client
   end
 
-  after do
-    Octokit.reset!
-    VCR.eject_cassette
-  end
-
-
-  describe ".subscribe" do
+  describe ".subscribe", :vcr do
     it "subscribes to pull events" do
       subscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
@@ -23,7 +16,7 @@ describe Octokit::Client::PubSubHubbub do
       }
 
       result = @client.subscribe("https://github.com/api-playground/api-sandbox/events/push", "github://Travis?token=travistoken")
-      assert_requested :post, basic_github_url("/hub"), :body => subscribe_request_body, :times => 1,
+      assert_requested :post, github_url("/hub"), :body => subscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
       expect(result).to be_true
     end
@@ -36,12 +29,12 @@ describe Octokit::Client::PubSubHubbub do
       expect {
         @client.subscribe("https://github.com/joshk/not_existing_project/events/push", "github://Travis?token=travistoken")
       }.to raise_error Octokit::UnprocessableEntity
-      assert_requested :post, basic_github_url("/hub"), :body => subscribe_request_body, :times => 1,
+      assert_requested :post, github_url("/hub"), :body => subscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
     end
   end # .subscribe
 
-  describe ".unsubscribe" do
+  describe ".unsubscribe", :vcr do
     it "unsubscribes from pull events" do
       unsubscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
@@ -50,13 +43,13 @@ describe Octokit::Client::PubSubHubbub do
       }
 
       result = @client.unsubscribe("https://github.com/api-playground/api-sandbox/events/push", "github://Travis?token=travistoken")
-      assert_requested :post, basic_github_url("/hub"), :body => unsubscribe_request_body, :times => 1,
+      assert_requested :post, github_url("/hub"), :body => unsubscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
       expect(result).to be_true
     end
   end # .unsubscribe
 
-  describe ".subscribe_service_hook" do
+  describe ".subscribe_service_hook", :vcr do
     it "subscribes to pull events on specified topic" do
       subscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
@@ -64,12 +57,12 @@ describe Octokit::Client::PubSubHubbub do
         :"hub.topic" => 'https://github.com/api-playground/api-sandbox/events/push'
       }
       expect(@client.subscribe_service_hook("api-playground/api-sandbox", "Travis", { :token => 'travistoken' })).to eq(true)
-      assert_requested :post, basic_github_url("/hub"), :body => subscribe_request_body, :times => 1,
+      assert_requested :post, github_url("/hub"), :body => subscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
     end
   end # .subscribe_service_hook
 
-  describe "unsubscribe_service_hook" do
+  describe "unsubscribe_service_hook", :vcr do
     it "unsubscribes to stop receiving events on specified topic" do
       unsubscribe_request_body = {
         :"hub.callback" => 'github://Travis',
@@ -77,7 +70,7 @@ describe Octokit::Client::PubSubHubbub do
         :"hub.topic" => 'https://github.com/api-playground/api-sandbox/events/push'
       }
       expect(@client.unsubscribe_service_hook("api-playground/api-sandbox", "Travis")).to eq(true)
-      assert_requested :post, basic_github_url("/hub"), :body => unsubscribe_request_body, :times => 1,
+      assert_requested :post, github_url("/hub"), :body => unsubscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
     end
   end

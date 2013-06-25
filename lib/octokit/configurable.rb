@@ -92,6 +92,13 @@ module Octokit
       File.join(@web_endpoint, "")
     end
 
+    def login
+      @login ||= begin
+        user.login if token_authenticated?
+      end
+    end
+
+
     private
 
     def options

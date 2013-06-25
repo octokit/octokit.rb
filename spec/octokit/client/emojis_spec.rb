@@ -1,17 +1,11 @@
 require 'helper'
 
 describe Octokit::Client::Emojis do
-  before do
-    VCR.insert_cassette 'emojis'
-  end
 
-  after do
-    VCR.eject_cassette
-  end
-
-  describe ".emojis" do
+  describe ".emojis", :vcr do
     it "returns all github emojis" do
-      emojis = Octokit.client.emojis
+      client = oauth_client
+      emojis = client.emojis
       expect(emojis[:metal]).to match /metal/
     end
   end # .emojis

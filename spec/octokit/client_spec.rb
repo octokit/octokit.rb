@@ -171,7 +171,7 @@ describe Octokit::Client do
       end
     end
 
-    describe "when basic authenticated" do
+    describe "when basic authenticated", :vcr do
       it "makes authenticated calls" do
         Octokit.configure do |config|
           config.login = 'pengwynn'
@@ -185,30 +185,31 @@ describe Octokit::Client do
         end
       end
     end
-    describe "when token authenticated" do
+    describe "when token authenticated", :vcr do
       it "makes authenticated calls" do
-        client = Octokit.client
-        client.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+        client = oauth_client
 
-        VCR.use_cassette 'root' do
-          root_request = stub_get("/").
-            with(:headers => {:authorization => "token d255197b4937b385eb63d1f4677e3ffee61fbaea"})
-          client.get("/")
-          assert_requested root_request
-        end
+        root_request = stub_get("/").
+          with(:headers => {:authorization => "token #{test_github_token}"})
+        client.get("/")
+        assert_requested root_request
+      end
+      it "fetches and memoizes login" do
+        client = oauth_client
+
+        expect(client.login).to eq test_github_login
+        assert_requested :get, github_url('/user')
       end
     end
-    describe "when application authenticated" do
+    describe "when application authenticated", :vcr do
       it "makes authenticated calls" do
         client = Octokit.client
         client.client_id     = '97b4937b385eb63d1f46'
         client.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
 
-        VCR.use_cassette 'root' do
-          root_request = stub_get("/?client_id=97b4937b385eb63d1f46&client_secret=d255197b4937b385eb63d1f4677e3ffee61fbaea")
-          client.get("/")
-          assert_requested root_request
-        end
+        root_request = stub_get("/?client_id=97b4937b385eb63d1f46&client_secret=d255197b4937b385eb63d1f4677e3ffee61fbaea")
+        client.get("/")
+        assert_requested root_request
       end
     end
   end
@@ -235,54 +236,44 @@ describe Octokit::Client do
     end
   end
 
-  describe ".last_response" do
+  describe ".last_response", :vcr do
     it "caches the last agent response" do
       Octokit.reset!
-      VCR.use_cassette 'root' do
-        client = Octokit.client
-        expect(client.last_response).to be_nil
-        client.get "/"
-        expect(client.last_response.status).to eq 200
-      end
+      client = Octokit.client
+      expect(client.last_response).to be_nil
+      client.get "/"
+      expect(client.last_response.status).to eq 200
     end
   end # .last_response
 
-  describe ".get" do
+  describe ".get", :vcr do
     before(:each) do
       Octokit.reset!
     end
     it "handles query params" do
-      VCR.use_cassette 'root' do
-        Octokit.get "/", :foo => "bar"
-        assert_requested :get, "https://api.github.com?foo=bar"
-      end
+      Octokit.get "/", :foo => "bar"
+      assert_requested :get, "https://api.github.com?foo=bar"
     end
     it "handles headers" do
-      VCR.use_cassette 'root' do
-        request = stub_get("/zen").
-          with(:query => {:foo => "bar"}, :headers => {:accept => "text/plain"})
-        Octokit.get "/zen", :foo => "bar", :accept => "text/plain"
-        assert_requested request
-      end
+      request = stub_get("/zen").
+        with(:query => {:foo => "bar"}, :headers => {:accept => "text/plain"})
+      Octokit.get "/zen", :foo => "bar", :accept => "text/plain"
+      assert_requested request
     end
   end # .get
 
-  describe ".head" do
+  describe ".head", :vcr do
     it "handles query params" do
       Octokit.reset!
-      VCR.use_cassette 'root' do
-        Octokit.head "/", :foo => "bar"
-        assert_requested :head, "https://api.github.com?foo=bar"
-      end
+      Octokit.head "/", :foo => "bar"
+      assert_requested :head, "https://api.github.com?foo=bar"
     end
     it "handles headers" do
       Octokit.reset!
-      VCR.use_cassette 'root' do
-        request = stub_head("/zen").
-          with(:query => {:foo => "bar"}, :headers => {:accept => "text/plain"})
-        Octokit.head "/zen", :foo => "bar", :accept => "text/plain"
-        assert_requested request
-      end
+      request = stub_head("/zen").
+        with(:query => {:foo => "bar"}, :headers => {:accept => "text/plain"})
+      Octokit.head "/zen", :foo => "bar", :accept => "text/plain"
+      assert_requested request
     end
   end # .head
 
@@ -301,33 +292,27 @@ describe Octokit::Client do
       end
     end
     it "allows Accept'ing another media type" do
-      VCR.use_cassette 'root' do
-        root_request = stub_get("/").
-          with(:headers => {:accept => "application/vnd.github.beta.diff+json"})
-        @client.get "/", :accept => "application/vnd.github.beta.diff+json"
-        assert_requested root_request
-        expect(@client.last_response.status).to eq 200
-      end
+      root_request = stub_get("/").
+        with(:headers => {:accept => "application/vnd.github.beta.diff+json"})
+      @client.get "/", :accept => "application/vnd.github.beta.diff+json"
+      assert_requested root_request
+      expect(@client.last_response.status).to eq 200
     end
     it "sets a default user agent" do
-      VCR.use_cassette 'root' do
-        root_request = stub_get("/").
-          with(:headers => {:user_agent => Octokit::Default.user_agent})
-        @client.get "/"
-        assert_requested root_request
-        expect(@client.last_response.status).to eq 200
-      end
+      root_request = stub_get("/").
+        with(:headers => {:user_agent => Octokit::Default.user_agent})
+      @client.get "/"
+      assert_requested root_request
+      expect(@client.last_response.status).to eq 200
     end
     it "sets a custom user agent" do
       user_agent = "Mozilla/5.0 I am Spartacus!"
-      VCR.use_cassette 'root' do
-        root_request = stub_get("/").
-          with(:headers => {:user_agent => user_agent})
-        client = Octokit::Client.new :user_agent => user_agent
-        client.get "/"
-        assert_requested root_request
-        expect(client.last_response.status).to eq 200
-      end
+      root_request = stub_get("/").
+        with(:headers => {:user_agent => user_agent})
+      client = Octokit::Client.new :user_agent => user_agent
+      client.get "/"
+      assert_requested root_request
+      expect(client.last_response.status).to eq 200
     end
     it "sets a proxy server" do
       Octokit.configure do |config|
@@ -363,20 +348,19 @@ describe Octokit::Client do
   end
 
   context "error handling" do
-    before do
+    before(:each) do
       Octokit.reset!
     end
 
-    it "raises on 404" do
-      VCR.use_cassette('root') do
-        expect { Octokit.get('/user') }.to raise_error Octokit::Unauthorized
-      end
+    it "raises on 404", :vcr do
+      expect { Octokit.get('/user') }.to raise_error Octokit::Unauthorized
     end
 
     it "raises on 500" do
       VCR.turn_off!
       stub_get('/boom').to_return(:status => 500)
       expect { Octokit.get('/boom') }.to raise_error Octokit::InternalServerError
+      VCR.turn_on!
     end
 
     it "includes an error message" do
