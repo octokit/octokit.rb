@@ -12,11 +12,11 @@ Gem::Specification.new do |spec|
   spec.files = %w(.document CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md Rakefile octokit.gemspec)
   spec.files += Dir.glob("lib/**/*.rb")
   spec.files += Dir.glob("spec/**/*")
-  spec.homepage = 'https://github.com/pengwynn/octokit'
+  spec.homepage = 'https://github.com/octokit/octokit.rb'
   spec.licenses = ['MIT']
   spec.name = 'octokit'
   spec.require_paths = ['lib']
-  spec.required_rubygems_version = '>= 1.3.6'
+  spec.required_rubygems_version = '>= 1.3.5'
   spec.summary = spec.description
   spec.test_files = Dir.glob("spec/**/*")
   spec.version = Octokit::VERSION.dup

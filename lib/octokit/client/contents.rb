@@ -1,3 +1,5 @@
+require 'base64'
+
 module Octokit
   class Client
 
@@ -32,6 +34,7 @@ module Octokit
         url = "repos/#{Repository.new repo}/contents/#{repo_path}"
         get url, options
       end
+      alias :content :contents
 
       # Add content to a repository
       #

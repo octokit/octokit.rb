@@ -390,4 +390,23 @@ describe Octokit::Client::Repositories do
     end
   end # .delete_subscription
 
+  describe ".repository?" do
+
+    it "returns true if the repository exists" do
+      stub_get("/repos/sferik/rails_admin").
+        to_return(json_response("repository.json"))
+
+      result = @client.repository?("sferik/rails_admin")
+      expect(result).to be_true
+    end
+
+    it "returns false if the repository doesn't exist" do
+      stub_get("/repos/pengwynn/octokit").
+        to_return(:status => 404)
+
+      result = @client.repository?("pengwynn/octokit")
+      expect(result).to be_false
+    end
+
+  end
 end

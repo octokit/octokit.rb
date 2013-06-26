@@ -6,7 +6,7 @@ module Octokit
     # @see http://developer.github.com/v3/markdown/
     module Markdown
 
-      # Receive the default Readme for a repository
+      # Render an arbitrary Markdown document
       #
       # @param text [String] Markdown source
       # @option options [String] (optional) :mode (`markdown` or `gfm`)

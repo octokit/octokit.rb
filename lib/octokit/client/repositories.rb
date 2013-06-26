@@ -7,6 +7,17 @@ module Octokit
     module Repositories
 
 
+      # Check if a repository exists
+      #
+      # @see http://developer.github.com/v3/repos/#get
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @return [Hashie::Mash] if a repository exists, false otherwise
+      def repository?(repo, options = {})
+        repository(repo, options)
+      rescue Octokit::NotFound
+        false
+      end
+
       # Get a single repository
       #
       # @see http://developer.github.com/v3/repos/#get
@@ -78,6 +89,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully starred
+      # @see http://developer.github.com/v3/activity/starring/#star-a-repository
       def star(repo, options={})
         boolean_from_response :put, "user/starred/#{Repository.new repo}", options
       end
@@ -86,6 +98,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unstarred
+      # @see http://developer.github.com/v3/activity/starring/#unstar-a-repository
       def unstar(repo, options={})
         boolean_from_response :delete, "user/starred/#{Repository.new repo}", options
       end
@@ -95,6 +108,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully watched
       # @deprecated Use #star instead
+      # @see http://developer.github.com/v3/activity/watching/#watch-a-repository-legacy
       def watch(repo, options={})
         boolean_from_response :put, "user/watched/#{Repository.new repo}", options
       end
@@ -104,6 +118,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unwatched
       # @deprecated Use #unstar instead
+      # @see http://developer.github.com/v3/activity/watching/#stop-watching-a-repository-legacy
       def unwatch(repo, options={})
         boolean_from_response :delete, "user/watched/#{Repository.new repo}", options
       end
@@ -112,6 +127,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Repository info for the new fork
+      # @see http://developer.github.com/v3/repos/forks/#create-a-fork
       def fork(repo, options={})
         post "repos/#{Repository.new repo}/forks", options
       end
@@ -459,6 +475,7 @@ module Octokit
       #   events the hook is triggered for.
       # @option options [Boolean] :active Determines whether the hook is
       #   actually triggered on pushes.
+      # @return [Sawyer::Resource] Hook info for the new hook
       # @see https://api.github.com/hooks
       # @see https://github.com/github/github-services
       # @see http://developer.github.com/v3/repos/hooks/#create-a-hook
@@ -499,6 +516,7 @@ module Octokit
       #   to be removed from the list of events that the Hook triggers for.
       # @option options [Boolean] :active Determines whether the hook is
       #   actually triggered on pushes.
+      # @return [Sawyer::Resource] Hook info for the updated hook
       # @see https://api.github.com/hooks
       # @see https://github.com/github/github-services
       # @see http://developer.github.com/v3/repos/hooks/#edit-a-hook
