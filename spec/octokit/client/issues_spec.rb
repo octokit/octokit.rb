@@ -40,10 +40,33 @@ describe Octokit::Client::Issues do
     end
   end # .org_issues
 
-  describe ".create_issue", :vcr do
+  describe ".create_issue", :vcr, :match_requests_on => [:path, :body] do
     it "creates an issue" do
-      issue = @client.create_issue("api-playground/api-sandbox", "Migrate issues to v3", "Move all Issues calls to v3 of the API")
+      issue = @client.create_issue \
+        "api-playground/api-sandbox",
+        "Migrate issues to v3",
+        "Move all Issues calls to v3 of the API"
       expect(issue.title).to match /Migrate/
+      assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues")
+    end
+    it "creates an issue with delimited labels" do
+      issue = @client.create_issue \
+        "api-playground/api-sandbox",
+        "New issue with delimited labels",
+        "Testing",
+        :labels => "bug, feature"
+      expect(issue.title).to match /delimited/
+      expect(issue.labels.map(&:name)).to include("feature")
+      assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues")
+    end
+    it "creates an issue with labels array" do
+      issue = @client.create_issue \
+        "api-playground/api-sandbox",
+        "New issue with labels array",
+        "Testing",
+        :labels => %w(bug feature)
+      expect(issue.title).to match /array/
+      expect(issue.labels.map(&:name)).to include("feature")
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues")
     end
   end # .create_issue
