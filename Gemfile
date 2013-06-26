@@ -1,17 +1,17 @@
 source 'https://rubygems.org'
 
 gem 'jruby-openssl', :platforms => :jruby
-gem 'rake'
-gem 'yard'
 
 group :development do
   gem 'awesome_print', :require => 'ap'
   gem 'guard-rspec', '~> 2.5.1'
   gem 'hirb-unicode'
-  gem 'redcarpet'
   gem 'pry'
+  gem 'rake'
+  gem 'redcarpet'
   gem 'wirb'
   gem 'wirble'
+  gem 'yard'
 end
 
 group :test do
