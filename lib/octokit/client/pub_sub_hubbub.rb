@@ -47,7 +47,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param service_name [String] service name owner
-      # @param service_arguments [Hash] params that will be passed by subscibed hook.
+      # @param service_arguments [Hash] params that will be passed by subscribed hook.
       #    List of services is available @ https://github.com/github/github-services/tree/master/docs.
       #    Please refer Data node for complete list of arguments.
       # @example Subscribe to push events to one of your repositories to Travis-CI
