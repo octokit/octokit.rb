@@ -100,7 +100,7 @@ module Octokit
       # Mask passwords
       inspected = inspected.gsub(/(password)="(\w+)(",)/) { "#{$1}=\"*******#{$3}" }
       # Only show last 4 of tokens, secrets
-      inspected = inspected.gsub(/(access_token|client_secret)="(\w+)(",)/) { "#{$1}=\"#{"*"*36}#{$2[36..-1]}#{$3}" }
+      inspected = inspected.gsub(/\b([0-9a-f]{40})\b/) { "#{"*"*36}#{$1[36..-1]}" }
 
       inspected
     end
