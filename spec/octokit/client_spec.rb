@@ -367,7 +367,7 @@ describe Octokit::Client do
       begin
         Octokit.get('/boom')
       rescue Octokit::UnprocessableEntity => e
-        expect(e.message).to include ("GET https://api.github.com/boom: 422")
+        expect(e.message).to include "GET https://api.github.com/boom: 422"
       end
     end
   end
