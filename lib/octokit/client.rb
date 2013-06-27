@@ -27,6 +27,7 @@ require 'octokit/client/emojis'
 require 'octokit/client/statuses'
 require 'octokit/client/say'
 require 'octokit/client/stats'
+require 'octokit/client/enterprise_stats'
 require 'octokit/client/rate_limit'
 require 'octokit/client/gitignore'
 require 'octokit/client/github'
@@ -71,6 +72,7 @@ module Octokit
     include Octokit::Client::Statuses
     include Octokit::Client::Say
     include Octokit::Client::Stats
+    include Octokit::Client::EnterpriseStats
     include Octokit::Client::RateLimit
     include Octokit::Client::Gitignore
     include Octokit::Client::GitHub
