@@ -20,6 +20,18 @@ describe Octokit::Client::Users do
 
     end
 
+    context "with no encode url" do
+
+      it "should not raise URI::InvalidURIError and returns success" do
+        stub_get("https://api.github.com/legacy/user/search/follower:>0").
+          to_return(json_response("legacy/users.json"))
+        users = @client.search_users("follower:>0")
+        expect(users.first.login).to eq("sferik")
+      end
+
+    end
+
+
   end
 
   describe ".all_users" do
