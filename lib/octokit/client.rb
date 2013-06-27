@@ -97,10 +97,15 @@ module Octokit
     def inspect
       inspected = super
 
-      # Mask passwords
-      inspected = inspected.gsub(/(password)="(\w+)(",)/) { "#{$1}=\"*******#{$3}" }
-      # Only show last 4 of tokens, secrets
-      inspected = inspected.gsub(/\b([0-9a-f]{40})\b/) { "#{"*"*36}#{$1[36..-1]}" }
+      # mask password
+      inspected = inspected.gsub! @password, "*******" if @password
+      # Only show last 4 of token, secret
+      if @access_token
+        inspected = inspected.gsub! @access_token, "#{'*'*36}#{@access_token[36..-1]}"
+      end
+      if @client_secret
+        inspected = inspected.gsub! @client_secret, "#{'*'*36}#{@client_secret[36..-1]}"
+      end
 
       inspected
     end
