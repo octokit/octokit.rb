@@ -46,6 +46,7 @@ module Octokit
 
     def request(method, path, options={})
       path.sub(%r{^/}, '') #leading slash in path fails in github:enterprise
+      path = URI.encode path
 
       token = options.delete(:access_token) ||
               options.delete(:oauth_token)  ||
