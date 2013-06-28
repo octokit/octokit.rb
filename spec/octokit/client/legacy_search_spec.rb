@@ -29,6 +29,14 @@ describe Octokit::Client::LegacySearch do
       expect(users.first.username).to eq("sferik")
       assert_requested :get, github_url("/legacy/user/search/sferik")
     end
+    it "should not raise URI::InvalidURIError and returns success" do
+      VCR.eject_cassette
+      VCR.turn_off!
+      stub_get("https://api.github.com/legacy/user/search/follower:>0")
+      expect { @client.search_users("follower:>0") }.to_not raise_error
+      assert_requested :get, github_url("/legacy/user/search/follower:%3E0")
+      VCR.turn_on!
+    end
   end # .legacy_searcy_users
 
 end

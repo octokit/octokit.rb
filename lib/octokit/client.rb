@@ -221,7 +221,7 @@ module Octokit
 
     private
 
-    def request(method, url, options)
+    def request(method, path, options)
       if application_authenticated?
         options[:query] ||= {}
         options[:query].merge! application_authentication
@@ -231,7 +231,7 @@ module Octokit
         options[:headers][:accept] = accept
       end
 
-      @last_response = response = agent.call(method, url, options)
+      @last_response = response = agent.call(method, URI.encode(path), options)
       response.data
     end
 
