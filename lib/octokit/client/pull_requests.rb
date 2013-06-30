@@ -155,7 +155,7 @@ module Octokit
       #     :since => '2010-05-04T23:45:02Z'
       #   })
       def pull_requests_comments(repo, options={})
-        get "repos/#{Repository.new repo}/pulls/comments"
+        get("repos/#{Repository.new repo}/pulls/comments", options)
       end
       alias :pulls_comments   :pull_requests_comments
       alias :reviews_comments :pull_requests_comments
