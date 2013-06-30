@@ -155,6 +155,7 @@ module Octokit
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [String] :state State of the issue. <tt>open</tt> or <tt>closed</tt>
       # @return [Issue] The updated Issue
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Change the title of Issue #25
