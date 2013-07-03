@@ -40,7 +40,7 @@ module Octokit
     #   @return [String] Base URL for web URLs. default: https://github.com/
 
     attr_accessor :api_endpoint, :auto_paginate, :client_id, :default_media_type, :connection_options,
-                  :login, :middleware, :per_page, :proxy, :user_agent, :web_endpoint
+                  :login, :middleware, :netrc, :netrc_file, :per_page, :proxy, :user_agent, :web_endpoint
     attr_writer :access_token, :client_secret, :password
 
     class << self
@@ -58,6 +58,8 @@ module Octokit
           :default_media_type,
           :login,
           :middleware,
+          :netrc,
+          :netrc_file,
           :per_page,
           :password,
           :proxy,
@@ -98,6 +100,9 @@ module Octokit
       end
     end
 
+    def netrc?
+      !!@netrc
+    end
 
     private
 

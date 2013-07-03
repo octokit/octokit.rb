@@ -51,5 +51,18 @@ module Octokit
       end
     end
 
+    def login_from_netrc
+      return unless netrc?
+
+      require 'netrc'
+      info = Netrc.read netrc_file
+      netrc_host = URI.parse(api_endpoint).host
+      creds = info[netrc_host]
+      self.login = creds.shift
+      self.password = creds.shift
+    rescue LoadError
+      warn "Please install netrc gem for .netrc support"
+    end
+
   end
 end

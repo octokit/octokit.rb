@@ -123,6 +123,14 @@ module Octokit
         ENV['OCTOKIT_WEB_ENDPOINT'] || WEB_ENDPOINT
       end
 
+      def netrc
+        ENV['OCTOKIT_NETRC'] || false
+      end
+
+      def netrc_file
+        ENV['OCTOKIT_NETRC_FILE'] || File.join(ENV['HOME'], '.netrc')
+      end
+
     end
   end
 end

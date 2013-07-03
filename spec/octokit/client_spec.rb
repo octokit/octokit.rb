@@ -75,6 +75,27 @@ describe Octokit::Client do
         inspected = client.inspect
         expect(inspected).to_not match "87614b09dd141c22800f96f11737ade5226d7ba8"
       end
+
+      describe "with .netrc" do
+        it "can read .netrc files" do
+          Octokit.reset!
+          client = Octokit::Client.new \
+            :netrc => true,
+            :netrc_file => File.join(fixture_path, '.netrc')
+          expect(client.login).to eq "sferik"
+          expect(client.instance_variable_get(:"@password")).to eq "il0veruby"
+        end
+
+        it "can read non-standard API endpoint creds from .netrc" do
+          Octokit.reset!
+          client = Octokit::Client.new \
+            :netrc => true,
+            :netrc_file => File.join(fixture_path, '.netrc'),
+            :api_endpoint => 'http://api.github.dev'
+          expect(client.login).to eq "defunkt"
+          expect(client.instance_variable_get(:"@password")).to eq "il0veruby"
+        end
+      end
     end
   end
 
@@ -371,4 +392,5 @@ describe Octokit::Client do
       end
     end
   end
+
 end
