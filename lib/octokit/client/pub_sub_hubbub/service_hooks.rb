@@ -1,3 +1,5 @@
+require "uri"
+
 module Octokit
   class Client
     module PubSubHubbub
@@ -14,7 +16,7 @@ module Octokit
         #    client.subscribe_service_hook('joshk/device_imapable', 'Travis', { :token => "test", :domain => "domain", :user => "user" })
         def subscribe_service_hook(repo, service_name, service_arguments = {})
           topic = "#{Octokit.web_endpoint}#{Repository.new(repo)}/events/push"
-          callback = "github://#{service_name}?#{service_arguments.collect{ |k,v| [ k,v ].join("=") }.join("&") }"
+          callback = "github://#{service_name}?#{service_arguments.collect{ |k,v| [ k,v ].map{ |p| URI.encode_www_form_component(p) }.join("=") }.join("&") }"
           subscribe(topic, callback)
         end
 
