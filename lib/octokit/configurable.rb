@@ -26,7 +26,11 @@ module Octokit
     #   @return [String] GitHub username for Basic Authentication
     # @!attribute middleware
     #   @see https://github.com/lostisland/faraday
-    #   @return [Faraday::Builder] Configure middleware for Faraday
+    #   @return [Faraday::RackBuilder] Configure middleware for Faraday
+    # @!attribute netrc
+    #   @return [Boolean] Instruct Octokit to get credentials from .netrc file
+    # @!attribute netrc_file
+    #   @return [String] Path to .netrc file. default: ~/.netrc
     # @!attribute [w] password
     #   @return [String] GitHub password for Basic Authentication
     # @!attribute per_page
