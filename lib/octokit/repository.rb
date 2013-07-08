@@ -1,36 +1,34 @@
-require 'addressable/uri'
-
 module Octokit
-  
-  # Class to parse GitHub repository owner and name from 
+
+  # Class to parse GitHub repository owner and name from
   # URLs and to generate URLs
   class Repository
-    attr_accessor :username, :name
+    attr_accessor :owner, :name
 
     # Instantiate from a GitHub repository URL
     #
     # @return [Repository]
     def self.from_url(url)
-      Repository.new(Addressable::URI.parse(url).path[1..-1])
+      Repository.new(URI.parse(url).path[1..-1])
     end
 
     def initialize(repo)
       case repo
       when String
-        @username, @name = repo.split('/')
+        @owner, @name = repo.split('/')
       when Repository
-        @username = repo.username
+        @owner = repo.owner
         @name = repo.name
       when Hash
         @name = repo[:repo] ||= repo[:name]
-        @username = repo[:username] ||= repo[:user] ||= repo[:owner]
+        @owner = repo[:owner] ||= repo[:user] ||= repo[:username]
       end
     end
 
     # Repository owner/name
     # @return [String]
     def slug
-      "#{@username}/#{@name}"
+      "#{@owner}/#{@name}"
     end
     alias :to_s :slug
 
@@ -40,7 +38,8 @@ module Octokit
       "#{Octokit.web_endpoint}#{slug}"
     end
 
-    alias :user :username
+    alias :user :owner
+    alias :username :owner
     alias :repo :name
   end
 end
