@@ -56,11 +56,11 @@ module Octokit
 
       url = options.delete(:endpoint) || api_endpoint
 
-      conn_options = {
+      conn_options = faraday_options.merge({
         :authenticate => token.nil?,
         :force_urlencoded => force_urlencoded,
         :url => url
-      }
+      })
 
       response = connection(conn_options).send(method) do |request|
 

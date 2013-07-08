@@ -5,6 +5,7 @@ module Octokit
   module Configuration
     VALID_OPTIONS_KEYS = [
       :adapter,
+      :faraday_options,
       :faraday_config_block,
       :api_version,
       :api_endpoint,
@@ -62,6 +63,7 @@ module Octokit
       self.api_endpoint        = DEFAULT_API_ENDPOINT
       self.web_endpoint        = DEFAULT_WEB_ENDPOINT
       self.status_api_endpoint = DEFAULT_STATUS_API_ENDPOINT
+      self.faraday_options     = {}
       self.login               = nil
       self.password            = nil
       self.proxy               = nil
