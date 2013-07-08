@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'jruby-openssl', :platforms => :jruby
 gem 'rake'
+gem 'addressable', '~> 2.3.5'
 
 group :development do
   gem 'awesome_print', :require => 'ap'
