@@ -1,4 +1,5 @@
 require 'octokit/response/raise_error'
+require 'octokit/version'
 
 module Octokit
 
