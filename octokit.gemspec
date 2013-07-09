@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Wynn Netherland", "Erik Michaels-Ober", "Clint Shryock"]
   spec.description = %q{Simple wrapper for the GitHub API}
   spec.email = ['wynn.netherland@gmail.com', 'sferik@gmail.com', 'clint@ctshryock.com']
-  spec.files = %w(.document CHANGELOG.md CONTRIBUTING.md LICENSE.md README.md Rakefile octokit.gemspec)
+  spec.files = %w(.document CONTRIBUTING.md LICENSE.md README.md Rakefile octokit.gemspec)
   spec.files += Dir.glob("lib/**/*.rb")
   spec.files += Dir.glob("spec/**/*")
   spec.homepage = 'https://github.com/octokit/octokit.rb'
