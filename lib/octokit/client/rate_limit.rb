@@ -11,7 +11,7 @@ module Octokit
       #
       # @see http://developer.github.com/v3/#rate-limiting
       # @return [Octokit::RateLimit] Rate limit info
-      def rate_limit(options={})
+      def rate_limit(options = {})
         return rate_limit! if last_response.nil?
 
         Octokit::RateLimit.from_response(last_response)
@@ -22,7 +22,7 @@ module Octokit
       #
       # @see http://developer.github.com/v3/#rate-limiting
       # @return [Fixnum] Number of requests remaining in this period
-      def rate_limit_remaining(options={})
+      def rate_limit_remaining(options = {})
         puts "Deprecated: Please use .rate_limit.remaining"
         rate_limit.remaining
       end
@@ -32,7 +32,7 @@ module Octokit
       #
       # @see http://developer.github.com/v3/#rate-limiting
       # @return [Octokit::RateLimit] Rate limit info
-      def rate_limit!(options={})
+      def rate_limit!(options = {})
         get "rate_limit"
         Octokit::RateLimit.from_response(last_response)
       end
@@ -42,7 +42,7 @@ module Octokit
       #
       # @see http://developer.github.com/v3/#rate-limiting
       # @return [Fixnum] Number of requests remaining in this period
-      def rate_limit_remaining!(options={})
+      def rate_limit_remaining!(options = {})
         puts "Deprecated: Please use .rate_limit!.remaining"
         rate_limit!.remaining
       end

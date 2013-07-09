@@ -14,7 +14,7 @@ module Octokit
       # @see http://developer.github.com/v3/git/refs/
       # @example Fetch all refs for sferik/rails_admin
       #   Octokit.refs("sferik/rails_admin")
-      def refs(repo, namespace = nil, options={})
+      def refs(repo, namespace = nil, options = {})
         path = "repos/#{Repository.new(repo)}/git/refs"
         path += "/#{namespace}" unless namespace.nil?
         get path, options
@@ -31,7 +31,7 @@ module Octokit
       # @see http://developer.github.com/v3/git/refs/
       # @example Fetch tags/v0.0.3 for sferik/rails_admin
       #   Octokit.ref("sferik/rails_admin","tags/v0.0.3")
-      def ref(repo, ref, options={})
+      def ref(repo, ref, options = {})
         get "repos/#{Repository.new(repo)}/git/refs/#{ref}", options
       end
       alias :reference :ref
@@ -45,7 +45,7 @@ module Octokit
       # @see http://developer.github.com/v3/git/refs/
       # @example Create refs/heads/master for octocat/Hello-World with sha 827efc6d56897b048c772eb4087f854f46256132
       #   Octokit.create_ref("octocat/Hello-World","heads/master", "827efc6d56897b048c772eb4087f854f46256132")
-      def create_ref(repo, ref, sha, options={})
+      def create_ref(repo, ref, sha, options = {})
         parameters = {
           :ref  => "refs/#{ref}",
           :sha  => sha
@@ -64,7 +64,7 @@ module Octokit
       # @see http://developer.github.com/v3/git/refs/
       # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
       #   Octokit.update_ref("octocat/Hello-World","heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
-      def update_ref(repo, ref, sha, force=true, options={})
+      def update_ref(repo, ref, sha, force = true, options = {})
         parameters = {
           :sha  => sha,
           :force => force
@@ -81,7 +81,7 @@ module Octokit
       # @see http://developer.github.com/v3/git/refs/
       # @example Delete tags/v0.0.3 for sferik/rails_admin
       #   Octokit.delete_ref("sferik/rails_admin","tags/v0.0.3")
-      def delete_ref(repo, ref, options={})
+      def delete_ref(repo, ref, options = {})
         boolean_from_response :delete, "repos/#{Repository.new(repo)}/git/refs/#{ref}", options
       end
       alias :delete_reference :delete_ref

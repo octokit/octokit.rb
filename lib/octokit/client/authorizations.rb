@@ -17,7 +17,7 @@ module Octokit
       # @example List authorizations for user ctshryock
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorizations
-      def authorizations(options={})
+      def authorizations(options = {})
         get 'authorizations', options
       end
 
@@ -32,7 +32,7 @@ module Octokit
       # @example Show authorization for user ctshryock's Travis auth
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorization(999999)
-      def authorization(number, options={})
+      def authorization(number, options = {})
         get "authorizations/#{number}", options
       end
 
@@ -52,7 +52,7 @@ module Octokit
       # @example Create a new authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.create_authorization({:scopes => ["public_repo","gist"], :note => "Why not Zoidberg?", :note_url=> "https://en.wikipedia.org/wiki/Zoidberg"})
-      def create_authorization(options={})
+      def create_authorization(options = {})
         # Techincally we can omit scopes as GitHub has a default, however the
         # API will reject us if we send a POST request with an empty body.
         post 'authorizations', options
@@ -76,7 +76,7 @@ module Octokit
       # @example Update the authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.update_authorization(999999, {:add_scopes => ["gist", "repo"], :note => "Why not Zoidberg possibly?"})
-      def update_authorization(number, options={})
+      def update_authorization(number, options = {})
         patch "authorizations/#{number}", options
       end
 
@@ -92,8 +92,8 @@ module Octokit
       # @example Delete an authorization
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.delete_authorization(999999)
-      def delete_authorization(number, option={})
-        boolean_from_response :delete, "authorizations/#{number}"
+      def delete_authorization(number, options = {})
+        boolean_from_response :delete, "authorizations/#{number}", options
       end
 
       # Check scopes for a token

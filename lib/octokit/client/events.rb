@@ -12,7 +12,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/events/#list-public-events
       # @example List all pubilc events
       #   Octokit.public_events
-      def public_events(options={})
+      def public_events(options = {})
         paginate "events", options
       end
 
@@ -22,7 +22,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/events/#list-events-performed-by-a-user
       # @example List all user events
       #   Octokit.user_events("sferik")
-      def user_events(user, options={})
+      def user_events(user, options = {})
         paginate "users/#{user}/events", options
       end
 
@@ -33,7 +33,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/events/#list-public-events-performed-by-a-user
       # @example List public user events
       #   Octokit.user_events("sferik")
-      def user_public_events(user, options={})
+      def user_public_events(user, options = {})
         paginate "users/#{user}/events/public", options
       end
 
@@ -43,7 +43,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/events/#list-events-that-a-user-has-received
       # @example List all user received events
       #   Octokit.received_events("sferik")
-      def received_events(user, options={})
+      def received_events(user, options = {})
         paginate "users/#{user}/received_events", options
       end
 
@@ -53,7 +53,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/events/#list-public-events-that-a-user-has-received
       # @example List public user received events
       #   Octokit.received_public_events("sferik")
-      def received_public_events(user, options={})
+      def received_public_events(user, options = {})
         paginate "users/#{user}/received_events/public", options
       end
 
@@ -64,7 +64,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/events/#list-repository-events
       # @example List events for a repository
       #   Octokit.repository_events("sferik/rails_admin")
-      def repository_events(repo, options={})
+      def repository_events(repo, options = {})
         paginate "repos/#{Repository.new(repo)}/events", options
       end
 
@@ -75,7 +75,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/events/#list-public-events-for-a-network-of-repositories
       # @example List events for a repository's network
       #   Octokit.repository_network_events("sferik/rails_admin")
-      def repository_network_events(repo, options={})
+      def repository_network_events(repo, options = {})
         paginate "networks/#{Repository.new repo}/events", options
       end
 
@@ -88,7 +88,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/events/#list-events-for-an-organization
       # @example List events for the lostisland organization
       #   @client.organization_events("lostisland")
-      def organization_events(org, options={})
+      def organization_events(org, options = {})
         paginate "users/#{login}/events/orgs/#{org}", options
       end
 
@@ -99,7 +99,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/events/#list-public-events-for-an-organization
       # @example List public events for GitHub
       #   Octokit.organization_public_events("GitHub")
-      def organization_public_events(org, options={})
+      def organization_public_events(org, options = {})
         paginate "orgs/#{org}/events", options
       end
 
@@ -111,7 +111,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/events/#list-events-for-a-repository
       # @example Get all Issue Events for Octokit
       #   Octokit.repository_issue_events("pengwynn/octokit")
-      def repository_issue_events(repo, options={})
+      def repository_issue_events(repo, options = {})
         paginate "repos/#{Repository.new repo}/issues/events", options
       end
       alias :repo_issue_events :repository_issue_events
@@ -125,7 +125,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/events/#list-events-for-an-issue
       # @example List all issues events for issue #38 on pengwynn/octokit
       #   Octokit.issue_events("pengwynn/octokit", 38)
-      def issue_events(repo, number, options={})
+      def issue_events(repo, number, options = {})
         paginate "repos/#{Repository.new(repo)}/issues/#{number}/events", options
       end
 
@@ -138,7 +138,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/events/#get-a-single-event
       # @example Get Event information for ID 3094334 (a pull request was closed)
       #   Octokit.issue_event("pengwynn/octokit", 3094334)
-      def issue_event(repo, number, options={})
+      def issue_event(repo, number, options = {})
         paginate "repos/#{Repository.new(repo)}/issues/events/#{number}", options
       end
 

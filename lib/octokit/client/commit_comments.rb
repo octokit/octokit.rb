@@ -11,7 +11,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Array] List of commit comments
       # @see http://developer.github.com/v3/repos/comments/
-      def list_commit_comments(repo, options={})
+      def list_commit_comments(repo, options = {})
         get "repos/#{Repository.new(repo)}/comments", options
       end
 
@@ -21,7 +21,7 @@ module Octokit
       # @param sha [String] The SHA of the commit whose comments will be fetched
       # @return [Array]  List of commit comments
       # @see http://developer.github.com/v3/repos/comments/
-      def commit_comments(repo, sha, options={})
+      def commit_comments(repo, sha, options = {})
         get "repos/#{Repository.new(repo)}/commits/#{sha}/comments", options
       end
 
@@ -31,7 +31,7 @@ module Octokit
       # @param id [String] The ID of the comment to fetch
       # @return [Sawyer::Resource] Commit comment
       # @see http://developer.github.com/v3/repos/comments/
-      def commit_comment(repo, id, options={})
+      def commit_comment(repo, id, options = {})
         get "repos/#{Repository.new(repo)}/comments/#{id}", options
       end
 
@@ -52,7 +52,7 @@ module Octokit
       #   commit.path # => "README.md"
       #   commit.line # => 10
       #   commit.position # => 1
-      def create_commit_comment(repo, sha, body, path=nil, line=nil, position=nil, options={})
+      def create_commit_comment(repo, sha, body, path=nil, line=nil, position=nil, options = {})
         params = {
           :body => body,
           :commit_id => sha,
@@ -74,7 +74,7 @@ module Octokit
       #   commit = Octokit.update_commit_comment("octocat/Hello-World", "860296", "Updated commit comment")
       #   commit.id # => 860296
       #   commit.body # => "Updated commit comment"
-      def update_commit_comment(repo, id, body, options={})
+      def update_commit_comment(repo, id, body, options = {})
         params = {
           :body => body
         }
@@ -87,7 +87,7 @@ module Octokit
       # @param id [String] The ID of the comment to delete
       # @return [Boolean] Success
       # @see http://developer.github.com/v3/repos/comments/
-      def delete_commit_comment(repo, id, options={})
+      def delete_commit_comment(repo, id, options = {})
         boolean_from_response :delete, "repos/#{Repository.new(repo)}/comments/#{id}", options
       end
 

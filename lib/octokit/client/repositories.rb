@@ -23,7 +23,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/#get
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Repository information
-      def repository(repo, options={})
+      def repository(repo, options = {})
         get "repos/#{Repository.new repo}", options
       end
       alias :repo :repository
@@ -42,7 +42,7 @@ module Octokit
       # @option options [String] :has_downloads `true` enables downloads for this repo, `false` disables downloads.
       # @option options [String] :default_branch Update the default branch for this repository.
       # @return [Sawyer::Resource] Repository information
-      def edit_repository(repo, options={})
+      def edit_repository(repo, options = {})
         repo = Repository.new(repo)
         options[:name] ||= repo.name
         patch "repos/#{repo}", options
@@ -59,7 +59,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/#list-your-repositories
       # @param username [String] Optional username for which to list repos
       # @return [Array<Sawyer::Resource>] List of repositories
-      def repositories(username=nil, options={})
+      def repositories(username=nil, options = {})
         if username.nil?
           paginate 'user/repos', options
         else
@@ -81,7 +81,7 @@ module Octokit
       # @option options [Integer] :since The integer ID of the last Repository
       #   that you’ve seen.
       # @return [Array<Sawyer::Resource>] List of repositories.
-      def all_repositories(options={})
+      def all_repositories(options = {})
         paginate 'repositories', options
       end
 
@@ -90,7 +90,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully starred
       # @see http://developer.github.com/v3/activity/starring/#star-a-repository
-      def star(repo, options={})
+      def star(repo, options = {})
         boolean_from_response :put, "user/starred/#{Repository.new repo}", options
       end
 
@@ -99,7 +99,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unstarred
       # @see http://developer.github.com/v3/activity/starring/#unstar-a-repository
-      def unstar(repo, options={})
+      def unstar(repo, options = {})
         boolean_from_response :delete, "user/starred/#{Repository.new repo}", options
       end
 
@@ -109,7 +109,7 @@ module Octokit
       # @return [Boolean] `true` if successfully watched
       # @deprecated Use #star instead
       # @see http://developer.github.com/v3/activity/watching/#watch-a-repository-legacy
-      def watch(repo, options={})
+      def watch(repo, options = {})
         boolean_from_response :put, "user/watched/#{Repository.new repo}", options
       end
 
@@ -119,7 +119,7 @@ module Octokit
       # @return [Boolean] `true` if successfully unwatched
       # @deprecated Use #unstar instead
       # @see http://developer.github.com/v3/activity/watching/#stop-watching-a-repository-legacy
-      def unwatch(repo, options={})
+      def unwatch(repo, options = {})
         boolean_from_response :delete, "user/watched/#{Repository.new repo}", options
       end
 
@@ -128,7 +128,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Repository info for the new fork
       # @see http://developer.github.com/v3/repos/forks/#create-a-fork
-      def fork(repo, options={})
+      def fork(repo, options = {})
         post "repos/#{Repository.new repo}/forks", options
       end
 
@@ -147,7 +147,7 @@ module Octokit
       # @option options [String] :gitignore_template Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided.
       # @return [Sawyer::Resource] Repository info for the new repository
       # @see http://developer.github.com/v3/repos/#create
-      def create_repository(name, options={})
+      def create_repository(name, options = {})
         organization = options.delete :organization
         options.merge! :name => name
 
@@ -167,7 +167,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/#delete-a-repository
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if repository was deleted
-      def delete_repository(repo, options={})
+      def delete_repository(repo, options = {})
         boolean_from_response :delete, "repos/#{Repository.new repo}", options
       end
       alias :delete_repo :delete_repository
@@ -176,7 +176,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Updated repository info
-      def set_private(repo, options={})
+      def set_private(repo, options = {})
         # GitHub Api for setting private updated to use private attr, rather than public
         update_repository repo, options.merge({ :private => true })
       end
@@ -185,7 +185,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Updated repository info
-      def set_public(repo, options={})
+      def set_public(repo, options = {})
         # GitHub Api for setting private updated to use private attr, rather than public
         update_repository repo, options.merge({ :private => false })
       end
@@ -201,7 +201,7 @@ module Octokit
       #   @client.deploy_keys('pengwynn/octokit')
       # @example
       #   @client.list_deploy_keys('pengwynn/octokit')
-      def deploy_keys(repo, options={})
+      def deploy_keys(repo, options = {})
         paginate "repos/#{Repository.new repo}/keys", options
       end
       alias :list_deploy_keys :deploy_keys
@@ -217,7 +217,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/keys/#create
       # @example
       #    @client.add_deploy_key('pengwynn/octokit', 'Staging server', 'ssh-rsa AAA...')
-      def add_deploy_key(repo, title, key, options={})
+      def add_deploy_key(repo, title, key, options = {})
         post "repos/#{Repository.new repo}/keys", options.merge(:title => title, :key => key)
       end
 
@@ -231,7 +231,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/keys/#delete
       # @example
       #   @client.remove_deploy_key('pengwynn/octokit', 100000)
-      def remove_deploy_key(repo, id, options={})
+      def remove_deploy_key(repo, id, options = {})
         boolean_from_response :delete, "repos/#{Repository.new repo}/keys/#{id}", options
       end
 
@@ -248,7 +248,7 @@ module Octokit
       #   Octokit.collabs('pengwynn/octokit')
       # @example
       #   @client.collabs('pengwynn/octokit')
-      def collaborators(repo, options={})
+      def collaborators(repo, options = {})
         paginate "repos/#{Repository.new repo}/collaborators", options
       end
       alias :collabs :collaborators
@@ -265,7 +265,7 @@ module Octokit
       #   @client.add_collaborator('pengwynn/octokit', 'holman')
       # @example
       #   @client.add_collab('pengwynn/octokit', 'holman')
-      def add_collaborator(repo, collaborator, options={})
+      def add_collaborator(repo, collaborator, options = {})
         boolean_from_response :put, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
       end
       alias :add_collab :add_collaborator
@@ -282,7 +282,7 @@ module Octokit
       #   @client.remove_collaborator('pengwynn/octokit', 'holman')
       # @example
       #   @client.remove_collab('pengwynn/octokit', 'holman')
-      def remove_collaborator(repo, collaborator, options={})
+      def remove_collaborator(repo, collaborator, options = {})
         boolean_from_response :delete, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
       end
       alias :remove_collab :remove_collaborator
@@ -300,7 +300,7 @@ module Octokit
       #   @client.repo_teams('octokit/pengwynn')
       # @example
       #   @client.teams('octokit/pengwynn')
-      def repository_teams(repo, options={})
+      def repository_teams(repo, options = {})
         paginate "repos/#{Repository.new repo}/teams", options
       end
       alias :repo_teams :repository_teams
@@ -320,7 +320,7 @@ module Octokit
       #   Octokit.contribs('pengwynn/octokit')
       # @example
       #   @client.contribs('pengwynn/octokit')
-      def contributors(repo, anon = nil, options={})
+      def contributors(repo, anon = nil, options = {})
         options[:anon] = 1 if anon.to_s[/1|true/]
         paginate "repos/#{Repository.new repo}/contributors", options
       end
@@ -337,7 +337,7 @@ module Octokit
       #   Octokit.stargazers('pengwynn/octokit')
       # @example
       #   @client.stargazers('pengwynn/octokit')
-      def stargazers(repo, options={})
+      def stargazers(repo, options = {})
         paginate "repos/#{Repository.new repo}/stargazers", options
       end
 
@@ -354,7 +354,7 @@ module Octokit
       #   Octokit.watchers('pengwynn/octokit')
       # @example
       #   @client.watchers('pengwynn/octokit')
-      def watchers(repo, options={})
+      def watchers(repo, options = {})
         paginate "repos/#{Repository.new repo}/watchers", options
       end
 
@@ -371,7 +371,7 @@ module Octokit
       #   Octokit.network('pengwynn/octokit')
       # @example
       #   @client.forks('pengwynn/octokit')
-      def forks(repo, options={})
+      def forks(repo, options = {})
         paginate "repos/#{Repository.new repo}/forks", options
       end
       alias :network :forks
@@ -387,7 +387,7 @@ module Octokit
       #   Octokit.langauges('pengwynn/octokit')
       # @example
       #   @client.languages('pengwynn/octokit')
-      def languages(repo, options={})
+      def languages(repo, options = {})
         paginate "repos/#{Repository.new repo}/languages", options
       end
 
@@ -402,7 +402,7 @@ module Octokit
       #   Octokit.tags('pengwynn/octokit')
       # @example
       #   @client.tags('pengwynn/octokit')
-      def tags(repo, options={})
+      def tags(repo, options = {})
         paginate "repos/#{Repository.new repo}/tags", options
       end
 
@@ -417,7 +417,7 @@ module Octokit
       #   Octokit.branches('pengwynn/octokit')
       # @example
       #   @client.branches('pengwynn/octokit')
-      def branches(repo, options={})
+      def branches(repo, options = {})
         paginate "repos/#{Repository.new repo}/branches", options
       end
 
@@ -429,7 +429,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/#get-branch
       # @example Get branch 'master` from pengwynn/octokit
       #   Octokit.branch("pengwynn/octokit", "master")
-      def branch(repo, branch, options={})
+      def branch(repo, branch, options = {})
         get "repos/#{Repository.new repo}/branches/#{branch}", options
       end
       alias :get_branch :branch
@@ -443,7 +443,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/hooks/#list
       # @example
       #   @client.hooks('pengwynn/octokit')
-      def hooks(repo, options={})
+      def hooks(repo, options = {})
         paginate "repos/#{Repository.new repo}/hooks", options
       end
 
@@ -457,7 +457,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/hooks/#get-single-hook
       # @example
       #   @client.hook('pengwynn/octokit', 100000)
-      def hook(repo, id, options={})
+      def hook(repo, id, options = {})
         get "repos/#{Repository.new repo}/hooks/#{id}", options
       end
 
@@ -492,7 +492,7 @@ module Octokit
       #       :active => true
       #     }
       #   )
-      def create_hook(repo, name, config, options={})
+      def create_hook(repo, name, config, options = {})
         options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
         post "repos/#{Repository.new repo}/hooks", options
       end
@@ -534,7 +534,7 @@ module Octokit
       #       :active => true
       #     }
       #   )
-      def edit_hook(repo, id, name, config, options={})
+      def edit_hook(repo, id, name, config, options = {})
         options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
         patch "repos/#{Repository.new repo}/hooks/#{id}", options
       end
@@ -549,7 +549,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/hooks/#delete-a-hook
       # @example
       #   @client.remove_hook('pengwynn/octokit', 1000000)
-      def remove_hook(repo, id, options={})
+      def remove_hook(repo, id, options = {})
         boolean_from_response :delete, "repos/#{Repository.new repo}/hooks/#{id}", options
       end
 
@@ -563,7 +563,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/hooks/#test-a-hook
       # @example
       #   @client.test_hook('pengwynn/octokit', 1000000)
-      def test_hook(repo, id, options={})
+      def test_hook(repo, id, options = {})
         boolean_from_response :post, "repos/#{Repository.new repo}/hooks/#{id}/tests", options
       end
 
@@ -580,7 +580,7 @@ module Octokit
       #   Octokit.repo_assignees('pengwynn/octokit')
       # @example
       #   @client.repository_assignees('pengwynn/octokit')
-      def repository_assignees(repo, options={})
+      def repository_assignees(repo, options = {})
         paginate "repos/#{Repository.new repo}/assignees", options
       end
       alias :repo_assignees :repository_assignees
@@ -593,7 +593,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/assignees/#check-assignee
       # @example
       #   Octokit.check_assignee('pengwynn/octokit', 'andrew')
-      def check_assignee(repo, assignee, options={})
+      def check_assignee(repo, assignee, options = {})
         boolean_from_response :get, "repos/#{Repository.new repo}/assignees/#{assignee}", options
       end
 
@@ -604,7 +604,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/watching/#list-watchers
       # @example
       #   @client.subscribers("pengwynn/octokit")
-      def subscribers(repo, options={})
+      def subscribers(repo, options = {})
         paginate "repos/#{Repository.new repo}/subscribers", options
       end
 
@@ -615,7 +615,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/watching/#get-a-repository-subscription
       # @example
       #   @client.subscription("pengwynn/octokit")
-      def subscription(repo, options={})
+      def subscription(repo, options = {})
         get "repos/#{Repository.new repo}/subscription", options
       end
 
@@ -632,7 +632,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/watching/#set-a-repository-subscription
       # @example Subscribe to notifications for a repository
       #   @client.update_subscription("pengwynn/octokit", {subscribed: true})
-      def update_subscription(repo, options={})
+      def update_subscription(repo, options = {})
         put "repos/#{Repository.new repo}/subscription", options
       end
 
@@ -644,7 +644,7 @@ module Octokit
       #
       # @example
       #   @client.delete_subscription("pengwynn/octokit")
-      def delete_subscription(repo, options={})
+      def delete_subscription(repo, options = {})
         boolean_from_response :delete, "repos/#{Repository.new repo}/subscription", options
       end
 

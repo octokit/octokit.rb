@@ -17,7 +17,7 @@ module Octokit
       #
       # @example Git all the gitignore templates
       #   @client.gitignore_templates
-      def gitignore_templates(options={})
+      def gitignore_templates(options = {})
         get "gitignore/templates", options
       end
 
@@ -36,7 +36,7 @@ module Octokit
       #
       # @example Get the Ruby gitignore template
       #   @client.gitignore_template('Ruby')
-      def gitignore_template(template_name, options={})
+      def gitignore_template(template_name, options = {})
         get "gitignore/templates/#{template_name}", options
       end
 

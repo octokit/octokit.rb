@@ -79,8 +79,8 @@ module Octokit
       # @return [Boolean] Status
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.delete_download("github/hubot", 1234)
-      def delete_download(repo, id)
-        boolean_from_response :delete, "repos/#{Repository.new(repo)}/downloads/#{id}"
+      def delete_download(repo, id, options = {})
+        boolean_from_response :delete, "repos/#{Repository.new(repo)}/downloads/#{id}", options
       end
 
       private

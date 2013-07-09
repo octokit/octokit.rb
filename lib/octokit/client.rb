@@ -76,7 +76,7 @@ module Octokit
     # Header keys that can be passed in options hash to {#get},{#head}
     CONVENIENCE_HEADERS = Set.new [:accept]
 
-    def initialize(options={})
+    def initialize(options = {})
       # Use options passed in, but fall back to module defaults
       Octokit::Configurable.keys.each do |key|
         instance_variable_set(:"@#{key}", options[key] || Octokit.instance_variable_get(:"@#{key}"))
@@ -240,7 +240,7 @@ module Octokit
     # Executes the request, checking if it was successful
     #
     # @return [Boolean] True on success, false otherwise
-    def boolean_from_response(method, path, options={})
+    def boolean_from_response(method, path, options = {})
       request(method, path, options)
       @last_response.status == 204
     rescue Octokit::NotFound

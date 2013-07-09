@@ -12,7 +12,7 @@ module Octokit
       # @param sha [String] The SHA1 for the commit
       # @return [Array<Sawyer::Resource>] A list of statuses
       # @see http://developer.github.com/v3/repos/status
-      def statuses(repo, sha, options={})
+      def statuses(repo, sha, options = {})
         get "repos/#{Repository.new(repo)}/statuses/#{sha}", options
       end
       alias :list_statuses :statuses
@@ -24,7 +24,7 @@ module Octokit
       # @param state [String] The state: pending, success, failure, error
       # @return [Sawyer::Resource] A status
       # @see http://developer.github.com/v3/repos/status
-      def create_status(repo, sha, state, options={})
+      def create_status(repo, sha, state, options = {})
         options.merge!(:state => state)
         post "repos/#{Repository.new(repo)}/statuses/#{sha}", options
       end

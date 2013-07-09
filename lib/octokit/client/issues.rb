@@ -26,7 +26,7 @@ module Octokit
       # @example List issues for the authenticted user across repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.list_issues
-      def list_issues(repository = nil, options={})
+      def list_issues(repository = nil, options = {})
         path = ''
         path = "repos/#{Repository.new(repository)}" if repository
         path += "/issues"
@@ -51,7 +51,7 @@ module Octokit
       # @example List issues for the authenticted user across owned and member repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.user_issues
-      def user_issues(options={})
+      def user_issues(options = {})
         paginate 'user/issues', options
       end
 
@@ -72,7 +72,7 @@ module Octokit
       # @example List issues for the authenticted user across owned and member repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.user_issues
-      def org_issues(org, options={})
+      def org_issues(org, options = {})
         paginate "orgs/#{org}/issues", options
       end
 
@@ -89,7 +89,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/#create-an-issue
       # @example Create a new Issues for a repository
       #   Octokit.create_issue("sferik/rails_admin", 'Updated Docs', 'Added some extra links')
-      def create_issue(repo, title, body, options={})
+      def create_issue(repo, title, body, options = {})
         options[:labels] = case options[:labels]
                            when String
                              options[:labels].split(",").map(&:strip)
@@ -108,7 +108,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/#get-a-single-issue
       # @example Get issue #25 from pengwynn/octokit
       #   Octokit.issue("pengwynn/octokit", "25")
-      def issue(repo, number, options={})
+      def issue(repo, number, options = {})
         get "repos/#{Repository.new(repo)}/issues/#{number}", options
       end
 
@@ -124,7 +124,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Close Issue #25 from pengwynn/octokit
       #   Octokit.close_issue("pengwynn/octokit", "25")
-      def close_issue(repo, number, options={})
+      def close_issue(repo, number, options = {})
         patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"})
       end
 
@@ -140,7 +140,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Reopen Issue #25 from pengwynn/octokit
       #   Octokit.reopen_issue("pengwynn/octokit", "25")
-      def reopen_issue(repo, number, options={})
+      def reopen_issue(repo, number, options = {})
         patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"})
       end
 
@@ -159,7 +159,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Change the title of Issue #25
       #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
-      def update_issue(repo, number, title, body, options={})
+      def update_issue(repo, number, title, body, options = {})
         patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body})
       end
 
@@ -188,7 +188,7 @@ module Octokit
       #     :direction => 'asc',
       #     :since => '2010-05-04T23:45:02Z'
       #   })
-      def issues_comments(repo, options={})
+      def issues_comments(repo, options = {})
         paginate "repos/#{Repository.new repo}/issues/comments", options
       end
 
@@ -200,7 +200,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/comments
       # @example Get comments for issue #25 from pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", "25")
-      def issue_comments(repo, number, options={})
+      def issue_comments(repo, number, options = {})
         paginate "repos/#{Repository.new(repo)}/issues/#{number}/comments", options
       end
 
@@ -212,7 +212,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comment #1194549 from an issue on pengwynn/octokit
       #   Octokit.issue_comments("pengwynn/octokit", 1194549)
-      def issue_comment(repo, number, options={})
+      def issue_comment(repo, number, options = {})
         paginate "repos/#{Repository.new(repo)}/issues/comments/#{number}", options
       end
 
@@ -225,7 +225,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/comments/#create-a-comment
       # @example Add the comment "Almost to v1" to Issue #23 on pengwynn/octokit
       #   Octokit.add_comment("pengwynn/octokit", 23, "Almost to v1")
-      def add_comment(repo, number, comment, options={})
+      def add_comment(repo, number, comment, options = {})
         post "repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment})
       end
 
@@ -238,7 +238,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/comments/#edit-a-comment
       # @example Update the comment #1194549 with body "I've started this on my 25-issue-comments-v3 fork" on an issue on pengwynn/octokit
       #   Octokit.update_comment("pengwynn/octokit", 1194549, "Almost to v1, added this on my fork")
-      def update_comment(repo, number, comment, options={})
+      def update_comment(repo, number, comment, options = {})
         patch "repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment})
       end
 
@@ -250,7 +250,7 @@ module Octokit
       # @see http://developer.github.com/v3/issues/comments/#delete-a-comment
       # @example Delete the comment #1194549 on an issue on pengwynn/octokit
       #   Octokit.delete_comment("pengwynn/octokit", 1194549)
-      def delete_comment(repo, number, options={})
+      def delete_comment(repo, number, options = {})
         boolean_from_response :delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options
       end
     end

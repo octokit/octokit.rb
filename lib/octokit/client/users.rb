@@ -18,7 +18,7 @@ module Octokit
       # @see http://developer.github.com/v3/users/#get-all-users
       #
       # @return [Array<Sawyer::Resource>] List of GitHub users.
-      def all_users(options={})
+      def all_users(options = {})
         get "users", options
       end
 
@@ -91,7 +91,7 @@ module Octokit
       # @see http://developer.github.com/v3/users/followers/#list-followers-of-a-user
       # @example
       #   Octokit.followers('pengwynn')
-      def followers(user=login, options={})
+      def followers(user=login, options = {})
         get "users/#{user}/followers", options
       end
 
@@ -102,7 +102,7 @@ module Octokit
       # @see  http://developer.github.com/v3/users/followers/#list-users-following-another-user
       # @example
       #   Octokit.following('pengwynn')
-      def following(user=login, options={})
+      def following(user=login, options = {})
         get "users/#{user}/following", options
       end
 
@@ -136,7 +136,7 @@ module Octokit
       # @see http://developer.github.com/v3/users/followers/#follow-a-user
       # @example
       #   @client.follow('holman')
-      def follow(user, options={})
+      def follow(user, options = {})
         boolean_from_response :put, "user/following/#{user}", options
       end
 
@@ -149,7 +149,7 @@ module Octokit
       # @see http://developer.github.com/v3/users/followers/#unfollow-a-user
       # @example
       #   @client.unfollow('holman')
-      def unfollow(user, options={})
+      def unfollow(user, options = {})
         boolean_from_response :delete, "user/following/#{user}", options
       end
 
@@ -163,7 +163,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/starring/#list-repositories-being-starred
       # @example
       #   Octokit.starred('pengwynn')
-      def starred(user=login, options={})
+      def starred(user=login, options = {})
         path = user_authenticated? ? "user/starred" : "users/#{user}/starred"
         paginate path, options
       end
@@ -178,7 +178,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/starring/#check-if-you-are-starring-a-repository
       # @example
       #   @client.starred?('pengwynn', 'octokit')
-      def starred?(user, repo, options={})
+      def starred?(user, repo, options = {})
         boolean_from_response :get, "user/starred/#{user}/#{repo}", options
       end
 
@@ -205,7 +205,7 @@ module Octokit
       #
       #   public_key['key']
       #   # => "ssh-rsa AAA..."
-      def key(key_id, options={})
+      def key(key_id, options = {})
         get "user/keys/#{key_id}", options
       end
 
@@ -217,7 +217,7 @@ module Octokit
       # @see http://developer.github.com/v3/users/keys/#list-your-public-keys
       # @example
       #   @client.keys
-      def keys(options={})
+      def keys(options = {})
         paginate "user/keys", options
       end
 
@@ -229,7 +229,7 @@ module Octokit
       # @see http://developer.github.com/v3/users/keys/#list-public-keys-for-a-user
       # @example
       #   @client.user_keys('pengwynn'
-      def user_keys(user, options={})
+      def user_keys(user, options = {})
         # TODO: Roll this into .keys
         paginate "users/#{user}/keys", options
       end
@@ -244,7 +244,7 @@ module Octokit
       # @see http://developer.github.com/v3/users/keys/#create-a-public-key
       # @example
       #   @client.add_key('Personal projects key', 'ssh-rsa AAA...')
-      def add_key(title, key, options={})
+      def add_key(title, key, options = {})
         post "user/keys", options.merge({:title => title, :key => key})
       end
 
@@ -260,7 +260,7 @@ module Octokit
       # @see http://developer.github.com/v3/users/keys/#update-a-public-key
       # @example
       #   @client.update_key(1, :title => 'new title', :key => "ssh-rsa BBB")
-      def update_key(key_id, options={})
+      def update_key(key_id, options = {})
         patch "user/keys/#{key_id}", options
       end
 
@@ -273,7 +273,7 @@ module Octokit
       # @see http://developer.github.com/v3/users/keys/#delete-a-public-key
       # @example
       #   @client.remove_key(1)
-      def remove_key(id, options={})
+      def remove_key(id, options = {})
         boolean_from_response :delete, "user/keys/#{id}", options
       end
 
@@ -285,7 +285,7 @@ module Octokit
       # @see http://developer.github.com/v3/users/emails/#list-email-addresses-for-a-user
       # @example
       #   @client.emails
-      def emails(options={})
+      def emails(options = {})
         paginate "user/emails", options
       end
 
@@ -298,7 +298,7 @@ module Octokit
       # @see http://developer.github.com/v3/users/emails/#add-email-addresses
       # @example
       #   @client.add_email('new_email@user.com')
-      def add_email(email, options={})
+      def add_email(email, options = {})
         email = Array(email)
         post "user/emails", email
       end
@@ -327,7 +327,7 @@ module Octokit
       #
       # @example
       #   @client.subscriptions("pengwynn")
-      def subscriptions(user=login, options={})
+      def subscriptions(user=login, options = {})
         path = user_authenticated? ? "user/subscriptions" : "users/#{user}/subscriptions"
         paginate path, options
       end
