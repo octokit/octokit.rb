@@ -1,206 +1,174 @@
-# -*- encoding: utf-8 -*-
 require 'helper'
 
 describe Octokit::Client::Issues do
 
   before do
-    @client = Octokit::Client.new(:login => 'sferik')
+    Octokit.reset!
+    @client = oauth_client
   end
 
-  describe ".search_issues" do
-
-    it "returns matching issues" do
-      stub_get("https://api.github.com/legacy/issues/search/sferik/rails_admin/open/activerecord").
-      to_return(json_response("legacy/issues.json"))
-      issues = @client.search_issues("sferik/rails_admin", "activerecord")
-      expect(issues.first.number).to eq(105)
-    end
-
+  after do
+    Octokit.reset!
   end
 
-  describe ".list_issues" do
-
+  describe ".list_issues", :vcr do
     it "returns issues for a repository" do
-      stub_get("/repos/sferik/rails_admin/issues").
-        to_return(json_response("issues.json"))
       issues = @client.issues("sferik/rails_admin")
-      expect(issues.first.number).to eq(388)
+      expect(issues).to be_kind_of Array
+      assert_requested :get, github_url("/repos/sferik/rails_admin/issues")
     end
-
-    it "returns issues for the authenticated user" do
-      stub_get("/issues").
-        to_return(json_response("issues.json"))
+    it "returns dashboard issues for the authenticated user" do
       issues = @client.issues
-      expect(issues.first.number).to eq(388)
+      expect(issues).to be_kind_of Array
+      assert_requested :get, github_url("/issues")
     end
+  end # .list_issues
 
-  end
-  
-  describe ".user_issues" do
-
-    it "returns issues for the authenticated user" do
-      stub_get("/user/issues").
-        to_return(json_response("user_issues.json"))
+  describe ".user_issues", :vcr do
+    it "returns issues for the authenticated user for owned and member repos" do
       issues = @client.user_issues
-      expect(issues.first.number).to eq(43)
+      expect(issues).to be_kind_of Array
+      assert_requested :get, github_url("/user/issues")
     end
+  end # .user_issues
 
-  end
-  
-  describe ".org_issues" do
-
-    it "returns issues for the organization" do
-      stub_get("/orgs/github/issues").
-        to_return(json_response("org_issues.json"))
-      issues = @client.org_issues('github')
-      expect(issues.first.number).to eq(43)
+  describe ".org_issues", :vcr do
+    it "returns issues for the organization for the authenticated user" do
+      issues = @client.org_issues('dotfiles')
+      expect(issues).to be_kind_of Array
+      assert_requested :get, github_url("/orgs/dotfiles/issues")
     end
+  end # .org_issues
 
-  end
-
-  describe ".create_issue" do
-
+  describe ".create_issue", :vcr, :match_requests_on => [:path, :body] do
     it "creates an issue" do
-      stub_post("/repos/ctshryock/octokit/issues").
-        with(:body => {"title" => "Migrate issues to v3", "body" => "Move all Issues calls to v3 of the API"},
-             :headers => {'Content-Type'=>'application/json'}).
-        to_return(json_response("issue.json"))
-      issue = @client.create_issue("ctshryock/octokit", "Migrate issues to v3", "Move all Issues calls to v3 of the API")
-      expect(issue.number).to eq(12)
+      issue = @client.create_issue \
+        "api-playground/api-sandbox",
+        "Migrate issues to v3",
+        "Move all Issues calls to v3 of the API"
+      expect(issue.title).to match /Migrate/
+      assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues")
+    end
+    it "creates an issue with delimited labels" do
+      issue = @client.create_issue \
+        "api-playground/api-sandbox",
+        "New issue with delimited labels",
+        "Testing",
+        :labels => "bug, feature"
+      expect(issue.title).to match /delimited/
+      expect(issue.labels.map(&:name)).to include("feature")
+      assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues")
+    end
+    it "creates an issue with labels array" do
+      issue = @client.create_issue \
+        "api-playground/api-sandbox",
+        "New issue with labels array",
+        "Testing",
+        :labels => %w(bug feature)
+      expect(issue.title).to match /array/
+      expect(issue.labels.map(&:name)).to include("feature")
+      assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues")
+    end
+  end # .create_issue
+
+  context "methods requiring a new issue", :vcr do
+
+    before do
+      @issue = @client.create_issue("api-playground/api-sandbox", "Migrate issues to v3", "Move all Issues calls to v3 of the API")
     end
 
-  end
-
-  describe ".issue" do
-
-    it "returns an issue" do
-      stub_get("/repos/ctshryock/octokit/issues/12").
-        to_return(json_response("issue.json"))
-      issue = @client.issue("ctshryock/octokit", 12)
-      expect(issue.number).to eq(12)
-    end
-
-    context "with media_type param full" do
-
+    describe ".issue" do
       it "returns an issue" do
-        stub_get("/repos/pengwynn/octokit/issues/1").
-          to_return(json_response('issue_full.json'))
-        issue = @client.issue("pengwynn/octokit", 1, :accept => 'application/vnd.github.full+json')
-        expect(issue.body_html).to include('<p>Create, Edit, Delete missing')
-        expect(issue.body_text).to include('Create, Edit, Delete missing')
+        issue = @client.issue("api-playground/api-sandbox", @issue.number)
+        assert_requested :get, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
+        expect(issue.number).to eq @issue.number
       end
+      it "returns a full issue" do
+        issue = @client.issue("api-playground/api-sandbox", @issue.number, :accept => 'application/vnd.github.full+json')
+        assert_requested :get, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
+        expect(issue.body_html).to include '<p>Move all'
+        expect(issue.body_text).to include 'Move all'
+      end
+    end # .issue
+
+    describe ".close_issue" do
+      it "closes an issue" do
+        issue = @client.close_issue("api-playground/api-sandbox", @issue.number)
+        expect(issue.number).to eq @issue.number
+        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
+      end
+    end # .close_issue
+
+    describe ".reopen_issue" do
+      it "reopens an issue" do
+        issue = @client.close_issue("api-playground/api-sandbox", @issue.number)
+        expect(issue.number).to eq @issue.number
+        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
+      end
+    end # .reopen_issue
+
+    describe ".update_issue" do
+      it "updates an issue" do
+        issue = @client.update_issue("api-playground/api-sandbox", @issue.number, "Use all the v3 api!", "")
+        expect(issue.number).to eq @issue.number
+        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
+      end
+    end # .update_issue
+
+    describe ".add_comment" do
+      it "adds a comment" do
+        comment = @client.add_comment("api-playground/api-sandbox", @issue.number, "A test comment")
+        expect(comment.user.login).to eq test_github_login
+        assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}/comments")
+      end
+    end # .add_comment
+
+    context "methods requiring a new issue comment" do
+
+      before do
+        @issue_comment = @client.add_comment("api-playground/api-sandbox", @issue.number, "Another test comment")
+      end
+
+      describe ".update_comment" do
+        it "updates an existing comment" do
+          @client.update_comment("api-playground/api-sandbox", @issue_comment.id, "A test comment update")
+          assert_requested :patch, github_url("/repos/api-playground/api-sandbox/issues/comments/#{@issue_comment.id}")
+        end
+      end # .update_comment
+
+      describe ".delete_comment" do
+        it "deletes an existing comment" do
+          @client.delete_comment("api-playground/api-sandbox", @issue_comment.id)
+          assert_requested :delete, github_url("/repos/api-playground/api-sandbox/issues/comments/#{@issue_comment.id}")
+        end # .delete_comment
+      end
+
     end
 
   end
 
-  describe ".close_issue" do
-
-    it "closes an issue" do
-      stub_patch("/repos/ctshryock/octokit/issues/12").
-        with(:body => {"state" => "closed"},
-             :headers => {'Content-Type'=>'application/json'}).
-        to_return(json_response("issue_closed.json"))
-      issue = @client.close_issue("ctshryock/octokit", 12)
-      expect(issue.number).to eq(12)
-      expect(issue).to include :closed_at
-      expect(issue.state).to eq("closed")
-    end
-
-  end
-
-  describe ".reopen_issue" do
-
-    it "reopens an issue" do
-      stub_patch("/repos/ctshryock/octokit/issues/12").
-        with(:body => {"state" => "open"},
-             :headers => {'Content-Type'=>'application/json'}).
-        to_return(json_response("issue.json"))
-      issue = @client.reopen_issue("ctshryock/octokit", 12)
-      expect(issue.number).to eq(12)
-      expect(issue.state).to eq("open")
-    end
-
-  end
-
-  describe ".update_issue" do
-
-    it "updates an issue" do
-      stub_patch("/repos/ctshryock/octokit/issues/12").
-        with(:body => {"title" => "Use all the v3 api!", "body" => ""},
-             :headers => {'Content-Type'=>'application/json'}).
-        to_return(json_response("issue.json"))
-      issue = @client.update_issue("ctshryock/octokit", 12, "Use all the v3 api!", "")
-      expect(issue.number).to eq(12)
-    end
-
-  end
-
-  describe ".repository_issues_comments" do
-
+  describe ".repository_issues_comments", :vcr do
     it "returns comments for all issues in a repository" do
-      stub_get("/repos/pengwynn/octokit/issues/comments").
-        to_return(json_response('repository_issues_comments.json'))
-      comments = @client.issues_comments("pengwynn/octokit")
-      expect(comments.first.user.login).to eq("pengwynn")
+      comments = @client.issues_comments("octokit/octokit.rb")
+      expect(comments).to be_kind_of Array
+      assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/comments')
     end
+  end # .repository_issues_comments
 
-  end
-
-  describe ".issue_comments" do
-
+  describe ".issue_comments", :vcr do
     it "returns comments for an issue" do
-      stub_get("/repos/pengwynn/octokit/issues/25/comments").
-        to_return(json_response('comments.json'))
-      comments = @client.issue_comments("pengwynn/octokit", 25)
-      expect(comments.first.user.login).to eq("ctshryock")
+      comments = @client.issue_comments("octokit/octokit.rb", 25)
+      expect(comments).to be_kind_of Array
+      assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/25/comments')
     end
+  end # .issue_comments
 
-  end
-
-  describe ".issue_comment" do
-
+  describe ".issue_comment", :vcr do
     it "returns a single comment for an issue" do
-      stub_get("/repos/pengwynn/octokit/issues/comments/25").
-        to_return(json_response('comment.json'))
-      comments = @client.issue_comment("pengwynn/octokit", 25)
-      expect(comments.user.login).to eq("ctshryock")
-      expect(comments.url).to eq("https://api.github.com/repos/pengwynn/octokit/issues/comments/1194690")
+      comment = @client.issue_comment("octokit/octokit.rb", 1194690)
+      expect(comment.rels[:self].href).to eq "https://api.github.com/repos/octokit/octokit.rb/issues/comments/1194690"
+      assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/comments/1194690')
     end
+  end # .issue_comment
 
-  end
-
-  describe ".add_comment" do
-
-    it "adds a comment" do
-      stub_post("/repos/pengwynn/octokit/issues/25/comments").
-        with(:body => {"body" => "A test comment"}).
-        to_return(json_response('comment.json'))
-      comment = @client.add_comment("pengwynn/octokit", 25, "A test comment")
-      expect(comment.user.login).to eq("ctshryock")
-    end
-
-  end
-
-  describe ".update_comment" do
-
-    it "updates an existing comment" do
-      stub_patch("/repos/pengwynn/octokit/issues/comments/1194549").
-        with(:body => {"body" => "A test comment update"}).
-        to_return(json_response('comment.json'))
-      comment = @client.update_comment("pengwynn/octokit", 1194549, "A test comment update")
-      expect(comment.user.login).to eq("ctshryock")
-    end
-
-  end
-
-  describe ".delete_comment" do
-
-    it "deletes an existing comment" do
-      stub_delete("/repos/pengwynn/octokit/issues/comments/1194549").
-        to_return(:status => 204)
-      result = @client.delete_comment("pengwynn/octokit", 1194549)
-      expect(result).to eq(true)
-    end
-
-  end
 end

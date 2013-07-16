@@ -1,148 +1,115 @@
-# -*- encoding: utf-8 -*-
 require 'helper'
 
 describe Octokit::Client::Labels do
 
   before do
-    @client = Octokit::Client.new(:login => 'sferik')
+    Octokit.reset!
+    @client = oauth_client
   end
 
-  describe ".labels" do
-
+  describe ".labels", :vcr do
     it "returns labels" do
-      stub_get("/repos/pengwynn/octokit/labels").
-        to_return(json_response("labels.json"))
-      labels = @client.labels("pengwynn/octokit")
-      expect(labels.first.name).to eq("V3 Transition")
+      labels = @client.labels("octokit/octokit.rb")
+      expect(labels).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/labels")
     end
+  end # .labels
 
-  end
-
-  describe ".label" do
-
-    it "returns a single labels" do
-      stub_get("/repos/pengwynn/octokit/labels/V3+Addition").
-        to_return(json_response('label.json'))
-      label = @client.label("pengwynn/octokit", "V3 Addition")
-      expect(label.name).to eq("V3 Addition")
+  describe ".label", :vcr do
+    it "returns a single label" do
+      label = @client.label("octokit/octokit.rb", "V3 Addition")
+      expect(label.name).to eq "V3 Addition"
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/labels/V3+Addition")
     end
+  end # .label
 
-  end
-
-  describe ".add_label" do
-
+  describe ".add_label", :vcr do
     it "adds a label with a color" do
-      stub_post("/repos/pengwynn/octokit/labels").
-        with(:body => {"name" => "a significant bug", "color" => "ededed"}).
-        to_return(json_response('label.json'))
-      labels = @client.add_label("pengwynn/octokit", "a significant bug", 'ededed')
-      expect(labels.color).to eq("ededed")
-      expect(labels.name).to  eq("V3 Addition")
+      @client.delete_label!("api-playground/api-sandbox", 'test-label', {:color => 'ededed'})
+      label = @client.add_label("api-playground/api-sandbox", "test-label", 'ededed')
+      expect(label.color).to eq "ededed"
+      assert_requested :post, github_url("/repos/api-playground/api-sandbox/labels")
     end
-
     it "adds a label with default color" do
-      stub_post("/repos/pengwynn/octokit/labels").
-        with(:body => {"name" => "another significant bug", "color" => "ffffff"}).
-        to_return(json_response('label.json'))
-      labels = @client.add_label("pengwynn/octokit", "another significant bug")
-      expect(labels.color).to eq("ededed")
-      expect(labels.name).to  eq("V3 Addition")
+      @client.delete_label!("api-playground/api-sandbox", 'test-label', {:color => 'ededed'})
+      label = @client.add_label("api-playground/api-sandbox", "test-label")
+      assert_requested :post, github_url("/repos/api-playground/api-sandbox/labels")
+    end
+  end # .add_label
+
+  context "methods requiring a new label", :vcr do
+
+    before do
+      @client.delete_label!("api-playground/api-sandbox", 'test-label', {:color => 'ededed'})
+      @label = @client.add_label("api-playground/api-sandbox", "test-label", 'ededed')
     end
 
+    describe ".update_label", :vcr do
+      it "updates a label with a new color" do
+        @client.update_label("api-playground/api-sandbox", @label.name, {:color => 'ffdd33'})
+        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/labels/#{@label.name}")
+      end
+    end # .update_label
   end
 
-  describe ".update_label" do
-
-    it "updates a label with a new color" do
-      stub_patch("/repos/pengwynn/octokit/labels/V3+Addition").
-        with(:body => {"color" => "ededed"},
-            :headers => {'Content-Type'=>'application/json'}).
-        to_return(json_response('label.json'))
-
-      label = @client.update_label("pengwynn/octokit", "V3 Addition", {:color => 'ededed'})
-      expect(label.color).to eq('ededed')
+  context "methods requiring a new issue", :vcr do
+    before do
+      @issue = @client.create_issue("api-playground/api-sandbox", "Issue for label test", "The body")
     end
 
+    describe ".add_labels_to_an_issue", :vcr do
+      it "adds labels to a given issue" do
+        labels = @client.add_labels_to_an_issue('api-playground/api-sandbox', @issue.number, ['bug'])
+        assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}" + "/labels")
+      end
+    end # .add_labels_to_an_issue
+
+    describe ".labels_for_issue", :vcr do
+      it "returns all labels for a given issue" do
+        labels = @client.labels_for_issue('api-playground/api-sandbox', @issue.number)
+        expect(labels).to be_kind_of Array
+        assert_requested :get, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}/labels")
+      end
+    end # .labels_for_issue
+
+    describe ".remove_label", :vcr do
+      it "removes a label from the specified issue" do
+        labels = @client.remove_label('api-playground/api-sandbox', @issue.number, 'bug')
+        assert_requested :delete, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}" + "/labels/bug")
+      end
+    end # .remove_label
+
+    describe ".remove_all_labels", :vcr do
+      it "removes all labels from the specified issue" do
+        labels = @client.remove_all_labels('api-playground/api-sandbox', @issue.number)
+        assert_requested :delete, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}" + "/labels")
+      end
+    end # .remove_all_labels
+
+    describe ".replace_all_labels", :vcr do
+      it "replaces all labels for an issue" do
+        labels = @client.replace_all_labels('api-playground/api-sandbox', @issue.number, ['bug', 'pdi'])
+        assert_requested :put, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}" + "/labels")
+      end
+    end # .replace_all_labels
   end
 
-  describe ".delete_label!" do
 
-    it "deletes a label from the repository" do
-      stub_delete("/repos/pengwynn/octokit/labels/V3+Transition").
-       to_return(:status => 204)
-
-      result = @client.delete_label!("pengwynn/octokit", "V3 Transition")
-      expect(result).to eq(true)
-    end
-
-  end
-
-  describe ".remove_label" do
-
-    it "removes a label from the specified issue" do
-      stub_delete("/repos/pengwynn/octokit/issues/23/labels/V3+Transition").
-        to_return(json_response('labels.json'), :headers => {})
-
-      response = @client.remove_label("pengwynn/octokit", 23, "V3 Transition")
-      expect(response.last.name).to eq('Bug')
-    end
-
-  end
-
-  describe ".remove_all_labels" do
-
-    it "removes all labels from the specified issue" do
-     stub_delete("/repos/pengwynn/octokit/issues/23/labels").
-       to_return(:status => 204)
-
-     result = @client.remove_all_labels('pengwynn/octokit', 23)
-     expect(result).to eq(true)
-    end
-
-  end
-
-  describe ".add_labels_to_an_issue" do
-    it "adds labels to a given issue" do
-      stub_post("/repos/pengwynn/octokit/issues/42/labels").
-        with(:body => '["V3 Transition","Bug"]').
-        to_return(json_response('labels.json'), :headers => {})
-
-      labels = @client.add_labels_to_an_issue('pengwynn/octokit', 42, ['V3 Transition', 'Bug'])
-      expect(labels.first.name).to eq('V3 Transition')
-      expect(labels.last.name).to  eq('Bug')
-    end
-  end
-
-  describe ".replace_all_labels" do
-    it "replaces all labels for an issue" do
-       stub_put("/repos/pengwynn/octokit/issues/42/labels").
-         with(:body => '["V3 Transition","V3 Adding"]').
-         to_return(json_response('labels.json'), :headers => {})
-
-      labels = @client.replace_all_labels('pengwynn/octokit', 42, ['V3 Transition', 'V3 Adding'])
-      expect(labels.first.name).to eq('V3 Transition')
-    end
-  end
-
-  describe ".lables_for_milestone" do
+  describe ".lables_for_milestone", :vcr do
     it "returns all labels for a repository" do
-      stub_get('/repos/pengwynn/octokit/milestones/2/labels').
-        to_return(json_response('labels.json'), :headers => {})
-
-      labels = @client.labels_for_milestone('pengwynn/octokit', 2)
-      expect(labels.size).to eq(3)
+      labels = @client.labels_for_milestone('octokit/octokit.rb', 2)
+      expect(labels).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/milestones/2/labels")
     end
-  end
+  end # .labels_for_milestone
 
-  describe ".labels_for_issue" do
-    it "returns all labels for a given issue" do
-      stub_get("/repos/pengwynn/octokit/issues/37/labels").
-        to_return(json_response('labels.json'), :headers => {})
 
-      labels = @client.labels_for_issue('pengwynn/octokit', 37)
-      expect(labels.first.name).to eq('V3 Transition')
-      expect(labels.last.name).to  eq('Bug')
+  describe ".delete_label!", :vcr do
+    it "deletes a label from the repository" do
+      label = @client.add_label("api-playground/api-sandbox", "delete-me-label")
+      @client.delete_label!("api-playground/api-sandbox", label.name, {:color => 'ededed'})
+      assert_requested :delete, github_url("/repos/api-playground/api-sandbox/labels/#{label.name}")
     end
-  end
+  end # .delete_label!
 
 end

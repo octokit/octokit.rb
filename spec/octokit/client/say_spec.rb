@@ -1,36 +1,22 @@
-# -*- encoding: utf-8 -*-
 require 'helper'
 
 describe Octokit::Client::Say do
   before do
-    @client = Octokit::Client.new
+    Octokit.reset!
+    @client = oauth_client
   end
 
-  describe ".say" do
+  describe ".say", :vcr do
     it "returns an ASCII octocat" do
-      stub_get("/octocat").
-        to_return \
-          :status => 200,
-          :body => fixture("say.txt"),
-          :headers => {
-            :content_type => 'text/plain'
-          }
-
       text = @client.say
-      expect(text).to match(/Half measures/)
+      expect(text).to match /MMMMMMMMMMMMMMMMMMMMM/
+      assert_requested :get, github_url("/octocat")
     end
 
     it "returns an ASCII octocat with custom text" do
-      stub_get("/octocat").
-        to_return \
-          :status => 200,
-          :body => fixture("say_custom.txt"),
-          :headers => {
-            :content_type => 'text/plain'
-          }
-
-      text = @client.say
-      expect(text).to match(/upset/)
+      text = @client.say "There is no need to be upset"
+      expect(text).to match /upset/
+      assert_requested :get, github_url("/octocat?s=There+is+no+need+to+be+upset")
     end
   end
 

@@ -1,5 +1,9 @@
 module Octokit
   class Client
+
+    # Methods for the Git Data API
+    #
+    # @see http://developer.github.com/v3/git/
     module Objects
       # Get a single tree, fetching information about its root-level objects
       #
@@ -7,7 +11,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param tree_sha [String] The SHA of the tree to fetch
-      # @return [Hashie::Mash] A hash representing the fetched tree
+      # @return [Sawyer::Resource] A hash representing the fetched tree
       # @see http://developer.github.com/v3/git/trees/
       # @example Fetch a tree and inspect the path of one of its files
       #   tree = Octokit.tree("octocat/Hello-World", "9fb037999f264ba9a7fc6274d15fa3ae2ab98312")
@@ -15,8 +19,8 @@ module Octokit
       # @example Fetch a tree recursively
       #   tree = Octokit.tree("octocat/Hello-World", "fc6274d15fa3ae2ab983129fb037999f264ba9a7")
       #   tree.tree.first.path # => "subdir/file.txt"
-      def tree(repo, tree_sha, options={})
-        get("repos/#{Repository.new(repo)}/git/trees/#{tree_sha}", options)
+      def tree(repo, tree_sha, options = {})
+        get "repos/#{Repository.new(repo)}/git/trees/#{tree_sha}", options
       end
 
       # Create a tree
@@ -25,22 +29,22 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param tree [Array] An array of hashes representing a tree structure
-      # @return [Hashie::Mash] A hash representing the new tree
+      # @return [Sawyer::Resource] A hash representing the new tree
       # @see http://developer.github.com/v3/git/trees/
       # @example Create a tree containing one file
       #   tree = Octokit.create_tree("octocat/Hello-World", [ { :path => "file.rb", :mode => "100644", :type => "blob", :sha => "44b4fc6d56897b048c772eb4087f854f46256132" } ])
       #   tree.sha # => "cd8274d15fa3ae2ab983129fb037999f264ba9a7"
       #   tree.tree.first.path # => "file.rb"
-      def create_tree(repo, tree, options={})
+      def create_tree(repo, tree, options = {})
         parameters = { :tree => tree }
-        post("repos/#{Repository.new(repo)}/git/trees", options.merge(parameters))
+        post "repos/#{Repository.new(repo)}/git/trees", options.merge(parameters)
       end
 
       # Get a single blob, fetching its content and encoding
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param blob_sha [String] The SHA of the blob to fetch
-      # @return [Hashie::Mash] A hash representing the fetched blob
+      # @return [Sawyer::Resource] A hash representing the fetched blob
       # @see http://developer.github.com/v3/git/blobs/
       # @example Fetch a blob and inspect its contents
       #   blob = Octokit.blob("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132")
@@ -52,8 +56,8 @@ module Octokit
       #   blob.encoding # => "base64"
       #   blob.content # => "Rm9vIGJhciBiYXo="
       #   Base64.decode64(blob.content) # => "Foo bar baz"
-      def blob(repo, blob_sha, options={})
-        get("repos/#{Repository.new(repo)}/git/blobs/#{blob_sha}", options)
+      def blob(repo, blob_sha, options = {})
+        get "repos/#{Repository.new(repo)}/git/blobs/#{blob_sha}", options
       end
 
       # Create a blob
@@ -68,24 +72,26 @@ module Octokit
       # @example Create a blob containing <tt>foo bar baz</tt>, encoded using base64
       #   require "base64"
       #   Octokit.create_blob("octocat/Hello-World", Base64.encode64("foo bar baz"), "base64")
-      def create_blob(repo, content, encoding="utf-8", options={})
+      def create_blob(repo, content, encoding="utf-8", options = {})
         parameters = {
           :content => content,
           :encoding => encoding
         }
-        post("repos/#{Repository.new(repo)}/git/blobs", options.merge(parameters)).sha
+        blob = post "repos/#{Repository.new(repo)}/git/blobs", options.merge(parameters)
+
+        blob.sha
       end
 
       # Get a tag
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param tag_sha [String] The SHA of the tag to fetch.
-      # @return [Hashie::Mash] Hash representing the tag.
+      # @return [Sawyer::Resource] Hash representing the tag.
       # @see http://developer.github.com/v3/git/tags/#get-a-tag
       # @example Fetch a tag
       #   Octokit.tag('pengwynn/octokit', '23aad20633f4d2981b1c7209a800db3014774e96')
-      def tag(repo, tag_sha, options={})
-        get("repos/#{Repository.new repo}/git/tags/#{tag_sha}", options)
+      def tag(repo, tag_sha, options = {})
+        get "repos/#{Repository.new repo}/git/tags/#{tag_sha}", options
       end
 
       # Create a tag
@@ -101,8 +107,7 @@ module Octokit
       # @param tagger_name [String] Name of the author of the tag.
       # @param tagger_email [String] Email of the author of the tag.
       # @param tagger_date [string] Timestamp of when this object was tagged.
-      # @return [Hashie::Mash] Hash representing new tag.
-      # @see Octokit::Client
+      # @return [Sawyer::Resource] Hash representing new tag.
       # @see http://developer.github.com/v3/git/tags/#create-a-tag-object
       # @example
       #   @client.create_tag(
@@ -115,7 +120,7 @@ module Octokit
       #     "wynn.netherland@gmail.com",
       #     "2012-06-03T17:03:11-07:00"
       #   )
-      def create_tag(repo, tag, message, object_sha, type, tagger_name, tagger_email, tagger_date, options={})
+      def create_tag(repo, tag, message, object_sha, type, tagger_name, tagger_email, tagger_date, options = {})
         options.merge!(
           :tag => tag,
           :message => message,
@@ -127,7 +132,7 @@ module Octokit
             :date => tagger_date
           }
         )
-        post("repos/#{Repository.new repo}/git/tags", options)
+        post "repos/#{Repository.new repo}/git/tags", options
       end
     end
   end

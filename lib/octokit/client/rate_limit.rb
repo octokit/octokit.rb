@@ -1,18 +1,52 @@
 module Octokit
   class Client
+
+    # Methods for API rate limiting info
+    #
+    # @see http://developer.github.com/v3/#rate-limiting
     module RateLimit
 
-      def ratelimit(options={})
-        headers = request(:get, "rate_limit", options).headers
-        return headers["X-RateLimit-Limit"].to_i
-      end
-      alias rate_limit ratelimit
+      # Get rate limit info from last response if available
+      # or make a new request to fetch rate limit
+      #
+      # @see http://developer.github.com/v3/#rate-limiting
+      # @return [Octokit::RateLimit] Rate limit info
+      def rate_limit(options = {})
+        return rate_limit! if last_response.nil?
 
-      def ratelimit_remaining(options={})
-        headers = request(:get, "rate_limit", options).headers
-        return headers["X-RateLimit-Remaining"].to_i
+        Octokit::RateLimit.from_response(last_response)
       end
-      alias rate_limit_remaining ratelimit_remaining
+      alias ratelimit rate_limit
+
+      # Get number of rate limted requests remaining
+      #
+      # @see http://developer.github.com/v3/#rate-limiting
+      # @return [Fixnum] Number of requests remaining in this period
+      def rate_limit_remaining(options = {})
+        puts "Deprecated: Please use .rate_limit.remaining"
+        rate_limit.remaining
+      end
+      alias ratelimit_remaining rate_limit_remaining
+
+      # Refresh rate limit info by making a new request
+      #
+      # @see http://developer.github.com/v3/#rate-limiting
+      # @return [Octokit::RateLimit] Rate limit info
+      def rate_limit!(options = {})
+        get "rate_limit"
+        Octokit::RateLimit.from_response(last_response)
+      end
+      alias ratelimit! rate_limit!
+
+      # Refresh rate limit info and get number of rate limted requests remaining
+      #
+      # @see http://developer.github.com/v3/#rate-limiting
+      # @return [Fixnum] Number of requests remaining in this period
+      def rate_limit_remaining!(options = {})
+        puts "Deprecated: Please use .rate_limit!.remaining"
+        rate_limit!.remaining
+      end
+      alias ratelimit_remaining! rate_limit_remaining!
 
     end
   end

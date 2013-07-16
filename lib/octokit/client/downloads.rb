@@ -1,5 +1,9 @@
 module Octokit
   class Client
+
+    # Methods for the Repo Downloads API
+    #
+    # @see http://developer.github.com/v3/repos/downloads/
     module Downloads
 
       # List available downloads for a repository
@@ -11,7 +15,7 @@ module Octokit
       # @example List all downloads for Github/Hubot
       #   Octokit.downloads("github/hubot")
       def downloads(repo, options={})
-        get("repos/#{Repository.new(repo)}/downloads", options)
+        get "repos/#{Repository.new(repo)}/downloads", options
       end
       alias :list_downloads :downloads
 
@@ -19,13 +23,13 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param id [Integer] ID of the download
-      # @return [Download] A single download from the repository
+      # @return [Sawyer::Resource] A single download from the repository
       # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
       # @see http://developer.github.com/v3/repos/downloads/#get-a-single-download
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.download("github/hubot")
       def download(repo, id, options={})
-        get("repos/#{Repository.new(repo)}/downloads/#{id}", options)
+        get "repos/#{Repository.new(repo)}/downloads/#{id}", options
       end
 
       # Create a download in a repository
@@ -34,7 +38,7 @@ module Octokit
       # @param name [String, Repository, Hash] A display name for the download
       # @option options [String] :description The download description
       # @option options [String] :content_type The content type. Defaults to 'text/plain'
-      # @return [Download] A single download from the repository
+      # @return [Sawyer::Resource] A single download from the repository
       # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
       # @see http://developer.github.com/v3/repos/downloads/#create-a-new-download-part-1-create-the-resource
       # @example Create the "Robawt" download on Github/Hubot
@@ -56,7 +60,7 @@ module Octokit
           'file' => file
         }
 
-        conn = Faraday.new(resource.s3_url) do |builder|
+        conn = Faraday.new(resource.rels[:s3].href) do |builder|
           builder.request :multipart
           builder.request :url_encoded
           builder.adapter :net_http
@@ -75,13 +79,13 @@ module Octokit
       # @return [Boolean] Status
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.delete_download("github/hubot", 1234)
-      def delete_download(repo, id)
-        boolean_from_response(:delete, "repos/#{Repository.new(repo)}/downloads/#{id}")
+      def delete_download(repo, id, options = {})
+        boolean_from_response :delete, "repos/#{Repository.new(repo)}/downloads/#{id}", options
       end
 
       private
       def create_download_resource(repo, name, size, options={})
-        post("repos/#{Repository.new(repo)}/downloads", options.merge({:name => name, :size => size}))
+        post "repos/#{Repository.new(repo)}/downloads", options.merge({:name => name, :size => size})
       end
     end
   end

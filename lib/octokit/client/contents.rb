@@ -2,18 +2,22 @@ require 'base64'
 
 module Octokit
   class Client
+
+    # Methods for the Repo Contents API
+    #
+    # @see http://developer.github.com/v3/repos/contents/
     module Contents
 
       # Receive the default Readme for a repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to “master”.
-      # @return [Hash] The detail of the readme
+      # @return [Sawyer::Resource] The detail of the readme
       # @see http://developer.github.com/v3/repos/contents/
       # @example Get the readme file for a repo
       #   Octokit.readme("pengwynn/octokit")
       def readme(repo, options={})
-        get("repos/#{Repository.new repo}/readme", options)
+        get "repos/#{Repository.new repo}/readme", options
       end
 
       # Receive a listing of a repository folder or the contents of a file
@@ -21,26 +25,27 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @option options [String] :path A folder or file path
       # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to “master”.
-      # @return [Hash] The contents of a file or list of the files in the folder
+      # @return [Sawyer::Resource] The contents of a file or list of the files in the folder
       # @see http://developer.github.com/v3/repos/contents/
       # @example List the contents of lib/octokit.rb
       #   Octokit.contents("pengwynn/octokit", :path => 'lib/octokit.rb')
       def contents(repo, options={})
         repo_path = options.delete :path
         url = "repos/#{Repository.new repo}/contents/#{repo_path}"
-        get(url, options)
+        get url, options
       end
       alias :content :contents
 
       # Add content to a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
-      # @param path [String] A path for the new content
-      # @param message [String] A commit message for adding the content
-      # @param optional content [String] The Base64-encoded content for the file
-      # @option options [String] :branch The branch on which to add the content
-      # @option options [String] :file Path or Ruby File object for content
-      # @return [Hash] The contents and commit info for the addition
+      # @overload create_contents(repo, path, message, content = nil, options = {})
+      #   @param repo [String, Repository, Hash] A GitHub repository
+      #   @param path [String] A path for the new content
+      #   @param message [String] A commit message for adding the content
+      #   @param optional content [String] The Base64-encoded content for the file
+      #   @option options [String] :branch The branch on which to add the content
+      #   @option options [String] :file Path or Ruby File object for content
+      # @return [Sawyer::Resource] The contents and commit info for the addition
       # @see http://developer.github.com/v3/repos/contents/#create-a-file
       # @example Add content at lib/octokit.rb
       #   Octokit.create_contents("pengwynn/octokit",
@@ -68,10 +73,10 @@ module Octokit
           end
         end
         raise ArgumentError.new "content or :file option required" if content.nil?
-        options[:content] = Base64.encode64(content).delete("\r\n")
+        options[:content] = Base64.encode64(content)
         options[:message] = message
         url = "repos/#{Repository.new repo}/contents/#{path}"
-        put(url, options)
+        put url, options
       end
       alias :create_content :create_contents
       alias :add_content :create_contents
@@ -79,14 +84,15 @@ module Octokit
 
       # Update content in a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
-      # @param path [String] A path for the content to update
-      # @param message [String] A commit message for updating the content
-      # @param sha [String] The _blob sha_ of the content to update
-      # @param content [String] The Base64-encoded content for the file
-      # @option options [String] :branch The branch on which to update the content
-      # @option options [String] :file Path or Ruby File object for content
-      # @return [Hash] The contents and commit info for the update
+      # @overload update_contents(repo, path, message, sha, content = nil, options = {})
+      #   @param repo [String, Repository, Hash] A GitHub repository
+      #   @param path [String] A path for the content to update
+      #   @param message [String] A commit message for updating the content
+      #   @param sha [String] The _blob sha_ of the content to update
+      #   @param content [String] The Base64-encoded content for the file
+      #   @option options [String] :branch The branch on which to update the content
+      #   @option options [String] :file Path or Ruby File object for content
+      # @return [Sawyer::Resource] The contents and commit info for the update
       # @see http://developer.github.com/v3/repos/contents/#update-a-file
       # @example Update content at lib/octokit.rb
       #   Octokit.update_contents("pengwynn/octokit",
@@ -114,7 +120,7 @@ module Octokit
       # @param message [String] A commit message for deleting the content
       # @param sha [String] The _blob sha_ of the content to delete
       # @option options [String] :branch The branch on which to delete the content
-      # @return [Hash] The commit info for the delete
+      # @return [Sawyer::Resource] The commit info for the delete
       # @see http://developer.github.com/v3/repos/contents/#delete-a-file
       # @example Delete content at lib/octokit.rb
       #   Octokit.delete_contents("pengwynn/octokit",
@@ -126,7 +132,7 @@ module Octokit
         options[:message] = message
         options[:sha] = sha
         url = "repos/#{Repository.new repo}/contents/#{path}"
-        delete(url, options)
+        delete url, options
       end
       alias :delete_content :delete_contents
       alias :remove_content :delete_contents
@@ -145,7 +151,9 @@ module Octokit
         repo_ref = options.delete :ref
         format = (options.delete :format) || 'tarball'
         url = "repos/#{Repository.new repo}/#{format}/#{repo_ref}"
-        request(:head, url, options).env[:url].to_s
+        request :head, url, options
+
+        last_response.headers['Location']
       end
 
     end

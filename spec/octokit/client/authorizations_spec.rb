@@ -1,96 +1,85 @@
-# -*- encoding: utf-8 -*-
 require 'helper'
 
 describe Octokit::Client::Authorizations do
 
   before do
-    @client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
+    Octokit.reset!
+    @client = basic_auth_client
   end
 
-
-  it "lists existing authorizations" do
-    stub_get("/authorizations").
-      to_return(json_response("authorizations.json"))
-    authorizations = @client.authorizations
-    expect(authorizations.first.app.name).to eq("Calendar About Nothing" )
-  end
-
-  it "returns a single authorization" do
-    stub_get("/authorizations/999999").
-      to_return(json_response("authorization.json"))
-    authorization = @client.authorization(999999)
-    expect(authorization.app.name).to eq("Travis" )
-  end
-
-  it "creates a new default authorization" do
-    stub_post('/authorizations').
-      with(:body => {"scopes" => ""},
-           :headers => {'Content-Type'=>'application/json'}).
-      to_return(json_response("authorization.json"))
-    authorization = @client.create_authorization
-    expect(authorization.app.name).to eq("Travis" )
-  end
-
-  it "creates a new authorization with options" do
-    stub_post('/authorizations').
-      with(:body => {"scopes" => ["public_repo"],"note" => "admin script", "note_url" => "https://github.com/pengwynn/octokit"},
-           :headers => {'Content-Type'=>'application/json'}).
-      to_return(json_response("authorization.json"))
-    authorization = @client.create_authorization({:scopes => ["public_repo"], :note => "admin script", :note_url => "https://github.com/pengwynn/octokit"})
-    expect(authorization.scopes).to include("public_repo")
-  end
-
-  it "updates and existing authorization" do
-    stub_patch('/authorizations/999999').
-      with(:body => {"scopes"=>"", "add_scopes" => ["public_repo", "gist"]},
-           :headers => {'Content-Type'=>'application/json'}).
-      to_return(json_response("authorization.json"))
-    authorization = @client.update_authorization(999999, {:add_scopes => ['public_repo', 'gist']})
-    expect(authorization.scopes).to include("public_repo")
-  end
-
-  it "deletes an existing authorization" do
-    stub_delete('/authorizations/999999').
-      to_return(:status => 204)
-    result = @client.delete_authorization(999999)
-    expect(result).to eq(true)
-  end
-
-  context "when working with tokens" do
-    before(:each) do
-      Octokit.reset
+  describe ".create_authorization", :vcr do
+    it "creates an API authorization" do
+      authorization = @client.create_authorization
+      expect(authorization.app.name).to_not be_nil
+      assert_requested :post, basic_github_url("/authorizations")
     end
-
-    it "checks the scopes on a token" do
-      stub_get("https://api.github.com/user").
-        to_return \
-          :status => 200,
-          :body => fixture('user.json'),
-          :headers => {
-            :content_type => 'application/json; charset=utf-8',
-            :x_oauth_scopes => 'user, gist'
-          }
-
-      client = Octokit::Client.new :oauth_token => 'abcdabcdabcdabcdabcdabcdabcdabcdabcd'
-      scopes = Octokit.scopes
-      expect(scopes).to eq(['gist', 'user'])
+    it "creates a new authorization with options" do
+      info = {
+        :scopes => ["gist"],
+      }
+      authorization = @client.create_authorization info
+      expect(authorization.scopes).to be_kind_of Array
+      assert_requested :post, basic_github_url("/authorizations")
     end
+  end # .create_authorization
 
+  describe ".authorizations", :vcr do
+    it "lists existing authorizations" do
+      authorizations = @client.authorizations
+      expect(authorizations).to be_kind_of Array
+      assert_requested :get, basic_github_url("/authorizations")
+    end
+  end # .authorizations
+
+  describe ".authorization", :vcr do
+    it "returns a single authorization" do
+      authorization = @client.create_authorization
+      fetched = @client.authorization(authorization['id'])
+      assert_requested :get, basic_github_url("/authorizations/#{authorization.id}")
+    end
+  end # .authorization
+
+  describe ".update_authorization", :vcr do
+    it "updates and existing authorization" do
+      authorization = @client.create_authorization
+      updated = @client.update_authorization(authorization.id, :add_scopes => ['repo:status'])
+      expect(updated.scopes).to include 'repo:status'
+      assert_requested :patch, basic_github_url("/authorizations/#{authorization.id}")
+    end
+  end # .update_authorization
+
+  describe ".scopes", :vcr do
+    it "checks the scopes on the current token" do
+      authorization = @client.create_authorization
+      token_client = Octokit::Client.new(:access_token => authorization.token)
+      expect(token_client.scopes).to be_kind_of Array
+      assert_requested :get, github_url("/user")
+    end
     it "checks the scopes on a one-off token" do
-      stub_get("https://api.github.com/user").
-        to_return \
-          :status => 200,
-          :body => fixture('user.json'),
-          :headers => {
-            :content_type => 'application/json; charset=utf-8',
-            :x_oauth_scopes => 'user, gist, repo'
-          }
-
-      client = Octokit::Client.new
-      scopes = Octokit.scopes('abcdabcdabcdabcdabcdabcdabcdabcdabcd')
-      expect(scopes).to eq(['gist', 'repo', 'user'])
+      authorization = @client.create_authorization
+      Octokit.reset!
+      expect(Octokit.scopes(authorization.token)).to be_kind_of Array
+      assert_requested :get, github_url("/user")
     end
+  end # .scopes
 
-  end
+  describe ".delete_authorization", :vcr do
+    it "deletes an existing authorization" do
+      VCR.eject_cassette
+      VCR.use_cassette 'delete_authorization' do
+        authorization = @client.create_authorization
+        result = @client.delete_authorization(authorization.id)
+        expect(result).to eq true
+        assert_requested :delete, basic_github_url("/authorizations/#{authorization.id}")
+      end
+    end
+  end # .delete_authorization
+
+  describe '.authorize_url' do
+    it "returns the authorize_url" do
+      url = Octokit.authorize_url('id_here', 'secret_here')
+      expect(url).to eq('https://github.com/login/oauth/authorize?client_id=id_here&client_secret=secret_here')
+    end
+  end # .authorize_url
 
 end

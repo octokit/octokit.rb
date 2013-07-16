@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+dir=`pwd`
+
+echo "===> Bundling..."
+script/bootstrap --quiet
+
+echo "===> Launching..."
+bundle console

@@ -1,79 +1,70 @@
-# -*- encoding: utf-8 -*-
 require 'helper'
 
 describe Octokit::Client::Refs do
 
   before do
-    @client = Octokit::Client.new(:login => 'sferik')
+    Octokit.reset!
+    @client = oauth_client
   end
 
-  describe ".refs" do
-
+  describe ".refs", :vcr do
     it "returns all refs" do
-      stub_get("/repos/sferik/rails_admin/git/refs/").
-        to_return(json_response("refs.json"))
       refs = @client.refs("sferik/rails_admin")
-      expect(refs.first.ref).to eq("refs/heads/actions")
+      expect(refs).to be_kind_of Array
+      assert_requested :get, github_url("/repos/sferik/rails_admin/git/refs")
     end
-
     it "returns all tag refs" do
-      stub_get("/repos/sferik/rails_admin/git/refs/tags").
-        to_return(json_response("refs_tags.json"))
-      refs = @client.refs("sferik/rails_admin","tags")
-      expect(refs.first.ref).to eq("refs/tags/v0.0.1")
+      refs = @client.refs("sferik/rails_admin", "tags")
+      expect(refs).to be_kind_of Array
+      assert_requested :get, github_url("/repos/sferik/rails_admin/git/refs/tags")
+    end
+  end # .refs
+
+  describe ".ref", :vcr do
+    it "returns a tags ref" do
+      ref = @client.ref("sferik/rails_admin", "tags/v0.0.3")
+      expect(ref.object.type).to eq "tag"
+      assert_requested :get, github_url("/repos/sferik/rails_admin/git/refs/tags/v0.0.3")
+    end
+  end # .ref
+
+  context "methods that require a ref", :vcr do
+
+    before(:each) do
+      commits = @client.commits("api-playground/api-sandbox")
+      @first_sha = commits.first.sha
+      @last_sha = commits.last.sha
+      @ref = @client.create_ref("api-playground/api-sandbox","heads/testing/test-ref", @first_sha)
     end
 
-  end
-
-  describe ".ref" do
-
-    it "returns the tags/v0.0.3 ref" do
-      stub_get("/repos/sferik/rails_admin/git/refs/tags/v0.0.3").
-        to_return(json_response("ref.json"))
-      ref = @client.ref("sferik/rails_admin","tags/v0.0.3")
-      expect(ref.object.type).to eq("tag")
-      expect(ref.ref).to eq("refs/tags/v0.0.3")
-      expect(ref.url).to eq("https://api.github.com/repos/sferik/rails_admin/git/refs/tags/v0.0.3")
+    after(:each) do
+      begin
+        @client.delete_ref("api-playground/api-sandbox", "heads/testing/test-ref")
+      rescue Octokit::UnprocessableEntity
+      end
     end
 
-  end
+    describe ".create_ref" do
+      it "creates a ref" do
+        assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/refs")
+      end
+    end # .create_ref
 
-  describe ".create_ref" do
+    describe ".update_ref" do
+      it "updates a ref" do
+        refs = @client.update_ref("api-playground/api-sandbox", "heads/testing/test-ref", @last_sha, true)
+        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
+      end
+    end # .update_ref
 
-    it "creates a ref" do
-      stub_post("/repos/octocat/Hello-World/git/refs").
-        with(:body => { "ref" => "refs/heads/master", "sha" => "827efc6d56897b048c772eb4087f854f46256132" },
-             :headers => {'Content-Type'=>'application/json'}).
-        to_return(json_response("ref_create.json"))
-      ref = @client.create_ref("octocat/Hello-World","heads/master", "827efc6d56897b048c772eb4087f854f46256132")
-      expect(ref.first.ref).to eq("refs/heads/master")
-    end
+    describe ".delete_ref" do
+      it "deletes an existing ref" do
+        result = @client.delete_ref("api-playground/api-sandbox", "heads/testing/test-ref")
+        assert_requested :delete, github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
+      end
+    end # .delete_ref
 
-  end
-
-  describe ".update_ref" do
-
-    it "updates a ref" do
-      stub_patch("/repos/octocat/Hello-World/git/refs/heads/sc/featureA").
-        with(:body => { "sha" => "aa218f56b14c9653891f9e74264a383fa43fefbd", "force" => true },
-             :headers => {'Content-Type'=>'application/json'}).
-        to_return(json_response("ref_update.json"))
-      refs = @client.update_ref("octocat/Hello-World","heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd", true)
-      expect(refs.first.ref).to eq("refs/heads/sc/featureA")
-      expect(refs.first.object.sha).to eq("aa218f56b14c9653891f9e74264a383fa43fefbd")
-    end
-  end
-
-  describe ".delete_ref" do
-
-    it "deletes an existing ref" do
-      stub_delete("/repos/octocat/Hello-World/git/refs/heads/feature-a").
-        to_return(:status => 204)
-      result = @client.delete_ref("octocat/Hello-World", "heads/feature-a")
-      expect(result).to eq(true)
-    end
-
-  end
+  end # @ref methods
 
 end
 

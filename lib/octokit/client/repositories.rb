@@ -1,16 +1,11 @@
 module Octokit
   class Client
+
+    # Methods for the Repositories API
+    #
+    # @see http://developer.github.com/v3/repos/
     module Repositories
 
-      # Legacy repository search
-      #
-      # @see http://developer.github.com/v3/search/#search-repositories
-      # @param q [String] Search keyword
-      # @return [Array<Hashie::Mash>] List of repositories found
-      def search_repositories(q, options={})
-        get("legacy/repos/search/#{q}", options)['repositories']
-      end
-      alias :search_repos :search_repositories
 
       # Check if a repository exists
       #
@@ -27,8 +22,8 @@ module Octokit
       #
       # @see http://developer.github.com/v3/repos/#get
       # @param repo [String, Hash, Repository] A GitHub repository
-      # @return [Hashie::Mash] Repository information
-      def repository(repo, options={})
+      # @return [Sawyer::Resource] Repository information
+      def repository(repo, options = {})
         get "repos/#{Repository.new repo}", options
       end
       alias :repo :repository
@@ -46,9 +41,11 @@ module Octokit
       # @option options [String] :has_wiki `true` enables wiki for this repo, `false` disables wiki.
       # @option options [String] :has_downloads `true` enables downloads for this repo, `false` disables downloads.
       # @option options [String] :default_branch Update the default branch for this repository.
-      # @return [Hashie::Mash] Repository information
-      def edit_repository(repo, options={})
-        patch "repos/#{Repository.new repo}", options
+      # @return [Sawyer::Resource] Repository information
+      def edit_repository(repo, options = {})
+        repo = Repository.new(repo)
+        options[:name] ||= repo.name
+        patch "repos/#{repo}", options
       end
       alias :edit :edit_repository
       alias :update_repository :edit_repository
@@ -61,12 +58,12 @@ module Octokit
       #
       # @see http://developer.github.com/v3/repos/#list-your-repositories
       # @param username [String] Optional username for which to list repos
-      # @return [Array<Hashie::Mash>] List of repositories
-      def repositories(username=nil, options={})
+      # @return [Array<Sawyer::Resource>] List of repositories
+      def repositories(username=nil, options = {})
         if username.nil?
-          get 'user/repos', options
+          paginate 'user/repos', options
         else
-          get "users/#{username}/repos", options
+          paginate "users/#{username}/repos", options
         end
       end
       alias :list_repositories :repositories
@@ -83,10 +80,9 @@ module Octokit
       # @param options [Hash] Optional options
       # @option options [Integer] :since The integer ID of the last Repository
       #   that you’ve seen.
-      #
-      # @return [Array] List of repositories.
-      def all_repositories(options={})
-        get 'repositories', options
+      # @return [Array<Sawyer::Resource>] List of repositories.
+      def all_repositories(options = {})
+        paginate 'repositories', options
       end
 
       # Star a repository
@@ -94,8 +90,8 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully starred
       # @see http://developer.github.com/v3/activity/starring/#star-a-repository
-      def star(repo, options={})
-        boolean_from_response(:put, "user/starred/#{Repository.new repo}", options)
+      def star(repo, options = {})
+        boolean_from_response :put, "user/starred/#{Repository.new repo}", options
       end
 
       # Unstar a repository
@@ -103,8 +99,8 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unstarred
       # @see http://developer.github.com/v3/activity/starring/#unstar-a-repository
-      def unstar(repo, options={})
-        boolean_from_response(:delete, "user/starred/#{Repository.new repo}", options)
+      def unstar(repo, options = {})
+        boolean_from_response :delete, "user/starred/#{Repository.new repo}", options
       end
 
       # Watch a repository
@@ -113,8 +109,8 @@ module Octokit
       # @return [Boolean] `true` if successfully watched
       # @deprecated Use #star instead
       # @see http://developer.github.com/v3/activity/watching/#watch-a-repository-legacy
-      def watch(repo, options={})
-        boolean_from_response(:put, "user/watched/#{Repository.new repo}", options)
+      def watch(repo, options = {})
+        boolean_from_response :put, "user/watched/#{Repository.new repo}", options
       end
 
       # Unwatch a repository
@@ -123,16 +119,16 @@ module Octokit
       # @return [Boolean] `true` if successfully unwatched
       # @deprecated Use #unstar instead
       # @see http://developer.github.com/v3/activity/watching/#stop-watching-a-repository-legacy
-      def unwatch(repo, options={})
-        boolean_from_response(:delete, "user/watched/#{Repository.new repo}", options)
+      def unwatch(repo, options = {})
+        boolean_from_response :delete, "user/watched/#{Repository.new repo}", options
       end
 
       # Fork a repository
       #
       # @param repo [String, Hash, Repository] A GitHub repository
-      # @return [Hashie::Mash] Repository info for the new fork
+      # @return [Sawyer::Resource] Repository info for the new fork
       # @see http://developer.github.com/v3/repos/forks/#create-a-fork
-      def fork(repo, options={})
+      def fork(repo, options = {})
         post "repos/#{Repository.new repo}/forks", options
       end
 
@@ -149,9 +145,9 @@ module Octokit
       # @option options [Integer] :team_id The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization.
       # @option options [Boolean] :auto_init `true` to create an initial commit with empty README. Default is `false`.
       # @option options [String] :gitignore_template Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided.
-      # @return [Hashie::Mash] Repository info for the new repository
+      # @return [Sawyer::Resource] Repository info for the new repository
       # @see http://developer.github.com/v3/repos/#create
-      def create_repository(name, options={})
+      def create_repository(name, options = {})
         organization = options.delete :organization
         options.merge! :name => name
 
@@ -171,16 +167,16 @@ module Octokit
       # @see http://developer.github.com/v3/repos/#delete-a-repository
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if repository was deleted
-      def delete_repository(repo, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new repo}", options)
+      def delete_repository(repo, options = {})
+        boolean_from_response :delete, "repos/#{Repository.new repo}", options
       end
       alias :delete_repo :delete_repository
 
       # Hide a public repository
       #
       # @param repo [String, Hash, Repository] A GitHub repository
-      # @return [Hashie::Mash] Updated repository info
-      def set_private(repo, options={})
+      # @return [Sawyer::Resource] Updated repository info
+      def set_private(repo, options = {})
         # GitHub Api for setting private updated to use private attr, rather than public
         update_repository repo, options.merge({ :private => true })
       end
@@ -188,8 +184,8 @@ module Octokit
       # Unhide a private repository
       #
       # @param repo [String, Hash, Repository] A GitHub repository
-      # @return [Hashie::Mash] Updated repository info
-      def set_public(repo, options={})
+      # @return [Sawyer::Resource] Updated repository info
+      def set_public(repo, options = {})
         # GitHub Api for setting private updated to use private attr, rather than public
         update_repository repo, options.merge({ :private => false })
       end
@@ -197,17 +193,16 @@ module Octokit
       # Get deploy keys on a repo
       #
       # Requires authenticated client.
-      # 
+      #
       # @param repo [String, Hash, Repository] A GitHub repository
-      # @return [Array<Hashie::Mash>] Array of hashes representing deploy keys.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing deploy keys.
       # @see http://developer.github.com/v3/repos/keys/#get
       # @example
       #   @client.deploy_keys('pengwynn/octokit')
       # @example
       #   @client.list_deploy_keys('pengwynn/octokit')
-      def deploy_keys(repo, options={})
-        get "repos/#{Repository.new repo}/keys", options
+      def deploy_keys(repo, options = {})
+        paginate "repos/#{Repository.new repo}/keys", options
       end
       alias :list_deploy_keys :deploy_keys
 
@@ -218,12 +213,11 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param title [String] Title reference for the deploy key.
       # @param key [String] Public key.
-      # @return [Hashie::Mash] Hash representing newly added key.
-      # @see Octokit::Client
+      # @return [Sawyer::Resource] Hash representing newly added key.
       # @see http://developer.github.com/v3/repos/keys/#create
       # @example
       #    @client.add_deploy_key('pengwynn/octokit', 'Staging server', 'ssh-rsa AAA...')
-      def add_deploy_key(repo, title, key, options={})
+      def add_deploy_key(repo, title, key, options = {})
         post "repos/#{Repository.new repo}/keys", options.merge(:title => title, :key => key)
       end
 
@@ -234,12 +228,11 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Id of the deploy key to remove.
       # @return [Boolean] True if key removed, false otherwise.
-      # @see Octokit::Client
       # @see http://developer.github.com/v3/repos/keys/#delete
       # @example
       #   @client.remove_deploy_key('pengwynn/octokit', 100000)
-      def remove_deploy_key(repo, id, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new repo}/keys/#{id}", options)
+      def remove_deploy_key(repo, id, options = {})
+        boolean_from_response :delete, "repos/#{Repository.new repo}/keys/#{id}", options
       end
 
       # List collaborators
@@ -247,8 +240,7 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @return [Array<Hashie::Mash>] Array of hashes representing collaborating users.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing collaborating users.
       # @see http://developer.github.com/v3/repos/collaborators/#list
       # @example
       #   Octokit.collaborators('pengwynn/octokit')
@@ -256,8 +248,8 @@ module Octokit
       #   Octokit.collabs('pengwynn/octokit')
       # @example
       #   @client.collabs('pengwynn/octokit')
-      def collaborators(repo, options={})
-        get "repos/#{Repository.new repo}/collaborators", options
+      def collaborators(repo, options = {})
+        paginate "repos/#{Repository.new repo}/collaborators", options
       end
       alias :collabs :collaborators
 
@@ -268,14 +260,13 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param collaborator [String] Collaborator GitHub username to add.
       # @return [Boolean] True if collaborator added, false otherwise.
-      # @see Octokit::Client
       # @see http://developer.github.com/v3/repos/collaborators/#add-collaborator
       # @example
       #   @client.add_collaborator('pengwynn/octokit', 'holman')
       # @example
       #   @client.add_collab('pengwynn/octokit', 'holman')
-      def add_collaborator(repo, collaborator, options={})
-        boolean_from_response(:put, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options)
+      def add_collaborator(repo, collaborator, options = {})
+        boolean_from_response :put, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
       end
       alias :add_collab :add_collaborator
 
@@ -286,14 +277,13 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param collaborator [String] Collaborator GitHub username to remove.
       # @return [Boolean] True if collaborator removed, false otherwise.
-      # @see Octokit::Client
       # @see http://developer.github.com/v3/repos/collaborators/#remove-collaborator
       # @example
       #   @client.remove_collaborator('pengwynn/octokit', 'holman')
       # @example
       #   @client.remove_collab('pengwynn/octokit', 'holman')
-      def remove_collaborator(repo, collaborator, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options)
+      def remove_collaborator(repo, collaborator, options = {})
+        boolean_from_response :delete, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
       end
       alias :remove_collab :remove_collaborator
 
@@ -302,8 +292,7 @@ module Octokit
       # Requires authenticated client that is an owner or collaborator of the repo.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @return [Array<Hashie::Mash>] Array of hashes representing teams.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing teams.
       # @see http://developer.github.com/v3/repos/#list-teams
       # @example
       #   @client.repository_teams('octokit/pengwynn')
@@ -311,8 +300,8 @@ module Octokit
       #   @client.repo_teams('octokit/pengwynn')
       # @example
       #   @client.teams('octokit/pengwynn')
-      def repository_teams(repo, options={})
-        get "repos/#{Repository.new repo}/teams", options
+      def repository_teams(repo, options = {})
+        paginate "repos/#{Repository.new repo}/teams", options
       end
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
@@ -323,17 +312,17 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param anon [Boolean] Set true to include annonymous contributors.
-      # @return [Array<Hashie::Mash>] Array of hashes representing users.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see http://developer.github.com/v3/repos/#list-contributors
       # @example
       #   Octokit.contributors('pengwynn/octokit', true)
       # @example
       #   Octokit.contribs('pengwynn/octokit')
       # @example
-      #   @client.contribs('pengwynn/octokit') 
-      def contributors(repo, anon=false, options={})
-        get "repos/#{Repository.new repo}/contributors", options.merge(:anon => anon)
+      #   @client.contribs('pengwynn/octokit')
+      def contributors(repo, anon = nil, options = {})
+        options[:anon] = 1 if anon.to_s[/1|true/]
+        paginate "repos/#{Repository.new repo}/contributors", options
       end
       alias :contribs :contributors
 
@@ -342,34 +331,31 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @return [Array<Hashie::Mash>] Array of hashes representing users.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see http://developer.github.com/v3/repos/starring/#list-stargazers
       # @example
       #   Octokit.stargazers('pengwynn/octokit')
       # @example
       #   @client.stargazers('pengwynn/octokit')
-      def stargazers(repo, options={})
-        get "repos/#{Repository.new repo}/stargazers", options
+      def stargazers(repo, options = {})
+        paginate "repos/#{Repository.new repo}/stargazers", options
       end
 
-      # @deprecated Use #stargazers instead
+      # @deprecated Use {#stargazers} instead
       #
-      # List watchers of repo.  
+      # List watchers of repo.
       #
       # Requires authenticated client for private repos.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @return [Array<Hashie::Mash>] Array of hashes representing users.
-      # @see Octokit::Client::Repositories#stargazers
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see http://developer.github.com/v3/repos/watching/#list-watchers
       # @example
       #   Octokit.watchers('pengwynn/octokit')
       # @example
       #   @client.watchers('pengwynn/octokit')
-      def watchers(repo, options={})
-        get "repos/#{Repository.new repo}/watchers", options
+      def watchers(repo, options = {})
+        paginate "repos/#{Repository.new repo}/watchers", options
       end
 
       # List forks
@@ -377,8 +363,7 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @return [Array<Hashie::Mash>] Array of hashes representing repos.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing repos.
       # @see http://developer.github.com/v3/repos/forks/#list-forks
       # @example
       #   Octokit.forks('pengwynn/octokit')
@@ -386,8 +371,8 @@ module Octokit
       #   Octokit.network('pengwynn/octokit')
       # @example
       #   @client.forks('pengwynn/octokit')
-      def forks(repo, options={})
-        get "repos/#{Repository.new repo}/forks", options
+      def forks(repo, options = {})
+        paginate "repos/#{Repository.new repo}/forks", options
       end
       alias :network :forks
 
@@ -396,15 +381,14 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @return [Array<Hashie::Mash>] Array of Hashes representing languages.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of Hashes representing languages.
       # @see http://developer.github.com/v3/repos/#list-languages
       # @example
       #   Octokit.langauges('pengwynn/octokit')
       # @example
       #   @client.languages('pengwynn/octokit')
-      def languages(repo, options={})
-        get "repos/#{Repository.new repo}/languages", options
+      def languages(repo, options = {})
+        paginate "repos/#{Repository.new repo}/languages", options
       end
 
       # List tags
@@ -412,15 +396,14 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @return [Array<Hashie::Mash>] Array of hashes representing tags.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing tags.
       # @see http://developer.github.com/v3/repos/#list-tags
       # @example
       #   Octokit.tags('pengwynn/octokit')
       # @example
       #   @client.tags('pengwynn/octokit')
-      def tags(repo, options={})
-        get "repos/#{Repository.new repo}/tags", options
+      def tags(repo, options = {})
+        paginate "repos/#{Repository.new repo}/tags", options
       end
 
       # List branches
@@ -428,26 +411,25 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @return [Array<Hashie::Mash>] Array of hashes representing branches.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing branches.
       # @see http://developer.github.com/v3/repos/#list-branches
       # @example
       #   Octokit.branches('pengwynn/octokit')
       # @example
       #   @client.branches('pengwynn/octokit')
-      def branches(repo, options={})
-        get "repos/#{Repository.new repo}/branches", options
+      def branches(repo, options = {})
+        paginate "repos/#{Repository.new repo}/branches", options
       end
 
       # Get a single branch from a repository
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param branch [String] Branch name
-      # @return [Branch] The branch requested, if it exists
+      # @return [Sawyer::Resource] The branch requested, if it exists
       # @see http://developer.github.com/v3/repos/#get-branch
       # @example Get branch 'master` from pengwynn/octokit
       #   Octokit.branch("pengwynn/octokit", "master")
-      def branch(repo, branch, options={})
+      def branch(repo, branch, options = {})
         get "repos/#{Repository.new repo}/branches/#{branch}", options
       end
       alias :get_branch :branch
@@ -457,13 +439,12 @@ module Octokit
       # Requires authenticated client.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @return [Array<Hashie::Mash>] Array of hashes representing hooks.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing hooks.
       # @see http://developer.github.com/v3/repos/hooks/#list
       # @example
       #   @client.hooks('pengwynn/octokit')
-      def hooks(repo, options={})
-        get "repos/#{Repository.new repo}/hooks", options
+      def hooks(repo, options = {})
+        paginate "repos/#{Repository.new repo}/hooks", options
       end
 
       # Get single hook
@@ -472,12 +453,11 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Id of the hook to get.
-      # @return [Hashie::Mash] Hash representing hook.
-      # @see Octokit::Client
+      # @return [Sawyer::Resource] Hash representing hook.
       # @see http://developer.github.com/v3/repos/hooks/#get-single-hook
       # @example
       #   @client.hook('pengwynn/octokit', 100000)
-      def hook(repo, id, options={})
+      def hook(repo, id, options = {})
         get "repos/#{Repository.new repo}/hooks/#{id}", options
       end
 
@@ -495,8 +475,7 @@ module Octokit
       #   events the hook is triggered for.
       # @option options [Boolean] :active Determines whether the hook is
       #   actually triggered on pushes.
-      # @return [Hashie::Mash] Hook info for the new hook
-      # @see Octokit::Client
+      # @return [Sawyer::Resource] Hook info for the new hook
       # @see https://api.github.com/hooks
       # @see https://github.com/github/github-services
       # @see http://developer.github.com/v3/repos/hooks/#create-a-hook
@@ -513,7 +492,7 @@ module Octokit
       #       :active => true
       #     }
       #   )
-      def create_hook(repo, name, config, options={})
+      def create_hook(repo, name, config, options = {})
         options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
         post "repos/#{Repository.new repo}/hooks", options
       end
@@ -529,7 +508,7 @@ module Octokit
       # @param config [Hash] A Hash containing key/value pairs to provide
       #   settings for this hook. These settings vary between the services and
       #   are defined in the {https://github.com/github/github-services github-services} repo.
-      # @option options [Array<String>] :events ('["push"]') Determines what 
+      # @option options [Array<String>] :events ('["push"]') Determines what
       #   events the hook is triggered for.
       # @option options [Array<String>] :add_events Determines a list of events
       #   to be added to the list of events that the Hook triggers for.
@@ -537,8 +516,7 @@ module Octokit
       #   to be removed from the list of events that the Hook triggers for.
       # @option options [Boolean] :active Determines whether the hook is
       #   actually triggered on pushes.
-      # @return [Hashie::Mash] Hook info for the updated hook
-      # @see Octokit::Client
+      # @return [Sawyer::Resource] Hook info for the updated hook
       # @see https://api.github.com/hooks
       # @see https://github.com/github/github-services
       # @see http://developer.github.com/v3/repos/hooks/#edit-a-hook
@@ -556,7 +534,7 @@ module Octokit
       #       :active => true
       #     }
       #   )
-      def edit_hook(repo, id, name, config, options={})
+      def edit_hook(repo, id, name, config, options = {})
         options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
         patch "repos/#{Repository.new repo}/hooks/#{id}", options
       end
@@ -568,12 +546,11 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Id of the hook to remove.
       # @return [Boolean] True if hook removed, false otherwise.
-      # @see Octokit::Client
       # @see http://developer.github.com/v3/repos/hooks/#delete-a-hook
       # @example
       #   @client.remove_hook('pengwynn/octokit', 1000000)
-      def remove_hook(repo, id, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new repo}/hooks/#{id}", options)
+      def remove_hook(repo, id, options = {})
+        boolean_from_response :delete, "repos/#{Repository.new repo}/hooks/#{id}", options
       end
 
       # Test hook
@@ -582,35 +559,20 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Id of the hook to test.
-      # @return [nil]
-      # @see Octokit::Client
+      # @return [Boolean] Success
       # @see http://developer.github.com/v3/repos/hooks/#test-a-hook
       # @example
       #   @client.test_hook('pengwynn/octokit', 1000000)
-      def test_hook(repo, id, options={})
-        boolean_from_response(:post, "repos/#{Repository.new repo}/hooks/#{id}/tests", options)
+      def test_hook(repo, id, options = {})
+        boolean_from_response :post, "repos/#{Repository.new repo}/hooks/#{id}/tests", options
       end
-
-      # Get all Issue Events for a given Repository
-      #
-      # @param repo [String, Repository, Hash] A GitHub repository
-      #
-      # @return [Array] Array of all Issue Events for this Repository
-      # @see http://developer.github.com/v3/issues/events/#list-events-for-a-repository
-      # @example Get all Issue Events for Octokit
-      #   Octokit.repository_issue_events("pengwynn/octokit")
-      def repository_issue_events(repo, options={})
-        get "repos/#{Repository.new repo}/issues/events", options
-      end
-      alias :repo_issue_events :repository_issue_events
 
       # List users available for assigning to issues.
       #
       # Requires authenticated client for private repos.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @return [Array<Hashie::Mash>] Array of hashes representing users.
-      # @see Octokit::Client
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see http://developer.github.com/v3/issues/assignees/#list-assignees
       # @example
       #   Octokit.repository_assignees('pengwynn/octokit')
@@ -618,8 +580,8 @@ module Octokit
       #   Octokit.repo_assignees('pengwynn/octokit')
       # @example
       #   @client.repository_assignees('pengwynn/octokit')
-      def repository_assignees(repo, options={})
-        get "repos/#{Repository.new repo}/assignees", options
+      def repository_assignees(repo, options = {})
+        paginate "repos/#{Repository.new repo}/assignees", options
       end
       alias :repo_assignees :repository_assignees
 
@@ -628,40 +590,33 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param assignee [String] User login to check
       # @return [Boolean] True if assignable on project, false otherwise.
-      # @see Octokit::Client
       # @see http://developer.github.com/v3/issues/assignees/#check-assignee
       # @example
       #   Octokit.check_assignee('pengwynn/octokit', 'andrew')
-      def check_assignee(repo, assignee, options={})
-        boolean_from_response(:get, "repos/#{Repository.new repo}/assignees/#{assignee}", options)
+      def check_assignee(repo, assignee, options = {})
+        boolean_from_response :get, "repos/#{Repository.new repo}/assignees/#{assignee}", options
       end
 
       # List watchers subscribing to notifications for a repo
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      #
-      # @return [Array] Array of users watching.
-      #
+      # @return [Array<Sawyer::Resource>] Array of users watching.
       # @see http://developer.github.com/v3/activity/watching/#list-watchers
-      #
       # @example
       #   @client.subscribers("pengwynn/octokit")
-      def subscribers(repo, options={})
-        get("repos/#{Repository.new repo}/subscribers", options)
+      def subscribers(repo, options = {})
+        paginate "repos/#{Repository.new repo}/subscribers", options
       end
 
       # Get a repository subscription
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      #
-      # @return [Hashie::Mash] Repository subscription.
-      #
+      # @return [Sawyer::Resource] Repository subscription.
       # @see http://developer.github.com/v3/activity/watching/#get-a-repository-subscription
-      #
       # @example
       #   @client.subscription("pengwynn/octokit")
-      def subscription(repo, options={})
-        get("repos/#{Repository.new repo}/subscription", options)
+      def subscription(repo, options = {})
+        get "repos/#{Repository.new repo}/subscription", options
       end
 
       # Update repository subscription
@@ -671,32 +626,26 @@ module Octokit
       #
       # @option options [Boolean] :subscribed Determines if notifications
       #   should be received from this repository.
-      #
       # @option options [Boolean] :ignored Deterimines if all notifications
       #   should be blocked from this repository.
-      #
-      # @return [Hashie::Mash] Updated repository subscription.
-      #
+      # @return [Sawyer::Resource] Updated repository subscription.
       # @see http://developer.github.com/v3/activity/watching/#set-a-repository-subscription
-      #
       # @example Subscribe to notifications for a repository
       #   @client.update_subscription("pengwynn/octokit", {subscribed: true})
-      def update_subscription(repo, options={})
-        put("repos/#{Repository.new repo}/subscription", options)
+      def update_subscription(repo, options = {})
+        put "repos/#{Repository.new repo}/subscription", options
       end
 
       # Delete a repository subscription
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      #
       # @return [Boolean] True if subscription deleted, false otherwise.
-      #
       # @see http://developer.github.com/v3/activity/watching/#delete-a-repository-subscription
       #
       # @example
       #   @client.delete_subscription("pengwynn/octokit")
-      def delete_subscription(repo, options={})
-        boolean_from_response(:delete, "repos/#{Repository.new repo}/subscription", options)
+      def delete_subscription(repo, options = {})
+        boolean_from_response :delete, "repos/#{Repository.new repo}/subscription", options
       end
 
     end

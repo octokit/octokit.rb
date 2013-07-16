@@ -1,412 +1,208 @@
-# -*- encoding: utf-8 -*-
 require 'helper'
 
 describe Octokit::Client::Users do
 
-  before do
-    @client = Octokit::Client.new(:login => 'sferik')
+  before(:each) do
+    Octokit.reset!
+    @client = oauth_client
   end
 
-  describe ".search_users" do
-
-    context "with a username passed" do
-
-      it "returns matching username" do
-        stub_get("https://api.github.com/legacy/user/search/sferik").
-          to_return(json_response("legacy/users.json"))
-        users = @client.search_users("sferik")
-        expect(users.first.username).to eq("sferik")
-      end
-
-    end
-
-    context "with no encode url" do
-
-      it "should not raise URI::InvalidURIError and returns success" do
-        stub_get("https://api.github.com/legacy/user/search/follower:>0").
-          to_return(json_response("legacy/users.json"))
-        users = @client.search_users("follower:>0")
-        expect(users.first.login).to eq("sferik")
-      end
-
-    end
-
-
-  end
-
-  describe ".all_users" do
-
+  describe ".all_users", :vcr do
     it "returns all GitHub users" do
-      stub_get("/users").
-        to_return(json_response("all_users.json"))
-      users = @client.all_users
-      expect(users.first.login).to eq("mojombo")
+      users = Octokit.all_users
+      expect(users).to be_kind_of Array
+    end
+  end # .all_users
+
+  describe ".user", :vcr do
+    it "returns a user" do
+      user = Octokit.client.user("sferik")
+      expect(user.login).to eq 'sferik'
+    end
+    it "returns the authenticated user" do
+      user = @client.user
+      expect(user.login).to eq test_github_login
+    end
+  end # .user
+
+  describe ".validate_credentials", :vcr do
+    it "validates username and password" do
+      expect(Octokit.validate_credentials(:login => test_github_login, :password => test_github_password)).to be_true
+    end
+  end # .validate_credentials
+
+  describe ".update_user", :vcr do
+    it "updates a user profile" do
+      user = @client.update_user(:location => "San Francisco, CA", :hireable => false)
+      expect(user.login).to eq test_github_login
+      assert_requested :patch, github_url("/user")
+    end
+  end # .update_user
+
+  describe ".followers", :vcr do
+    it "returns followers for a user" do
+      users = Octokit.followers("sferik")
+      expect(users).to be_kind_of Array
+      assert_requested :get, github_url("/users/sferik/followers")
+    end
+    it "returns the authenticated user's followers" do
+      users = @client.followers
+      expect(users).to be_kind_of Array
+      assert_requested :get, github_url("/users/#{test_github_login}/followers")
+    end
+  end # .followers
+
+  describe ".following", :vcr do
+    it "returns following for a user" do
+      users = Octokit.following("sferik")
+      expect(users).to be_kind_of Array
+      assert_requested :get, github_url("/users/sferik/following")
+    end
+    it "returns the authenticated user's following" do
+      users = @client.following
+      expect(users).to be_kind_of Array
+      assert_requested :get, github_url("/users/#{test_github_login}/following")
+    end
+  end # .following
+
+  describe ".follows?", :vcr do
+    it "checks if the authenticated user follows another" do
+      follows = @client.follows?("sferik")
+      assert_requested :get, github_url("/user/following/sferik")
+    end
+  end # .follows?
+
+  describe ".follow", :vcr do
+    it "follows a user" do
+      following = @client.follow("pengwynn")
+      assert_requested :put, github_url("/user/following/pengwynn")
+    end
+  end # .follow
+
+  describe ".unfollow", :vcr do
+    it "unfollows a user" do
+      following = @client.unfollow("pengwynn")
+      assert_requested :delete, github_url("/user/following/pengwynn")
+    end
+  end # .unfollow
+
+  describe ".starred?", :vcr do
+    it "checks if the authenticated user has starred a repository" do
+      starred = @client.starred?("sferik", "rails_admin")
+      assert_requested :get, github_url("/user/starred/sferik/rails_admin")
+    end
+  end # .starred?
+
+  describe ".starred", :vcr do
+    it "returns starred repositories for a user" do
+      repositories = Octokit.starred("sferik")
+      assert_requested :get, github_url("/users/sferik/starred")
+    end
+    it "returns starred repositories for the authenticated user" do
+      repositories = @client.starred
+      assert_requested :get, github_url("/user/starred")
+    end
+  end # .starred
+
+  describe ".keys", :vcr do
+    it "returns public keys for the authenticated user" do
+      public_keys = @client.keys
+      expect(public_keys).to be_kind_of Array
+      assert_requested :get, github_url("/user/keys")
+    end
+  end # .keys
+
+  describe ".user_keys", :vcr do
+    it "returns public keys for another user" do
+      public_keys = Octokit.user_keys("pengwynn")
+      expect(public_keys).to be_kind_of Array
+      assert_requested :get, github_url("/users/pengwynn/keys")
+    end
+  end # .user_keys
+
+  context "methods requiring an existing @public_key", :vcr do
+
+    before(:each) do
+      title, key = "wynning", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com"
+      @public_key = @client.add_key(title, key)
     end
 
-  end
+    after(:each) do
+      @client.remove_key(@public_key.id)
+    end
 
-  describe ".user" do
-
-    context "with a username passed" do
-
-      it "returns the user" do
-        stub_get("/users/sferik").
-          to_return(json_response("user.json"))
-        user = @client.user("sferik")
-        expect(user.login).to eq("sferik")
+    describe ".add_key" do
+      it "adds a public key" do
+        assert_requested :post, github_url("/user/keys")
       end
+    end # .add_key
 
-    end
-
-    context "without a username passed" do
-
-      it "returns the authenticated user" do
-        stub_get("/user").
-          to_return(json_response("user.json"))
-        user = @client.user
-        expect(user.login).to eq("sferik")
+    describe ".key" do
+      it "returns a public key" do
+        key = @client.key @public_key.id
+        assert_requested :get, github_url("/user/keys/#{@public_key.id}")
       end
-
     end
 
-  end
+    describe ".update_key" do
+      it "updates a public key" do
+        public_key = @client.update_key(@public_key.id, :title => 'Updated key')
+        assert_requested :patch, github_url("/user/keys/#{@public_key.id}")
+      end
+    end # .update_key
+
+    describe ".remove_key" do
+      it "removes a public key" do
+        response = @client.remove_key(@public_key.id)
+        assert_requested :delete, github_url("/user/keys/#{@public_key.id}")
+      end
+    end # .remove_key
+
+  end # @public_key methods
+
+  describe ".emails", :vcr do
+    it "returns email addresses" do
+      emails = @client.emails
+      expect(emails).to be_kind_of Array
+      assert_requested :get, github_url("/user/emails")
+    end
+  end # .emails
+
+  describe ".add_email", :vcr do
+    it "adds an email address" do
+      emails = @client.add_email("wynn.netherland+apitest@gmail.com")
+      assert_requested :post, github_url("/user/emails")
+    end
+  end # .add_email
+
+  describe ".remove_email", :vcr do
+    it "removes an email address" do
+      emails = @client.remove_email("wynn.netherland+apitest@gmail.com")
+      assert_requested :delete, github_url("/user/emails")
+    end
+  end # .remove_email
+
+  describe ".subscriptions", :vcr do
+    it "returns the repositories a user watches for notifications" do
+      subscriptions = Octokit.subscriptions("pengwynn")
+      assert_requested :get, github_url("/users/pengwynn/subscriptions")
+    end
+    it "returns the repositories the authenticated user watches for notifications" do
+      subscriptions = @client.subscriptions
+      assert_requested :get, github_url("/user/subscriptions")
+    end
+  end # .subscriptions
 
   describe '.access_token' do
-
-    context 'with authorization code, client id, and client secret' do
-
-      it 'returns the access_token' do
-        stub_post("https://github.com/login/oauth/access_token").
-          to_return(json_response("user_token.json"))
-        resp = @client.access_token('code', 'id_here', 'secret_here')
-        expect(resp.access_token).to eq('this_be_ye_token/use_it_wisely')
-      end
-
+    it 'returns the access_token' do
+      VCR.turn_off!
+      stub_post("https://github.com/login/oauth/access_token").
+        to_return(json_response("web_flow_token.json"))
+      response = Octokit.exchange_code_for_token('code', 'id_here', 'secret_here')
+      expect(response.access_token).to eq 'this_be_ye_token/use_it_wisely'
+      assert_requested :post, "https://github.com/login/oauth/access_token"
+      VCR.turn_on!
     end
-
-  end
-
-  describe ".validate_credentials" do
-    it "validates username and password" do
-      stub_get("https://sferik:foobar@api.github.com/user").
-        to_return(json_response("user.json"))
-
-        expect(Octokit.validate_credentials(:login => 'sferik', :password => 'foobar')).to eq(true)
-    end
-  end
-
-  describe ".update_user" do
-
-    context "with a location passed" do
-
-      it "updates the user's location" do
-        stub_patch("/user").
-          with(:body => {:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false}).
-          to_return(json_response("user.json"))
-        user = @client.update_user(:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false)
-        expect(user.login).to eq("sferik")
-      end
-
-    end
-
-  end
-
-  describe ".followers" do
-
-    context "with a username passed" do
-
-      it "returns the user's followers" do
-        stub_get("https://api.github.com/users/sferik/followers").
-          to_return(json_response("followers.json"))
-        users = @client.followers("sferik")
-        expect(users.first.login).to eq("puls")
-      end
-
-    end
-
-    context "without a username passed" do
-
-      it "returns the user's followers" do
-        stub_get("https://api.github.com/users/sferik/followers").
-          to_return(json_response("followers.json"))
-        users = @client.followers
-        expect(users.first.login).to eq("puls")
-      end
-
-    end
-
-  end
-
-  describe ".following" do
-
-    context "with a username passed" do
-
-      it "returns the user's following" do
-        stub_get("https://api.github.com/users/sferik/following").
-          to_return(json_response("following.json"))
-        users = @client.following("sferik")
-        expect(users.first.login).to eq("rails")
-      end
-
-    end
-
-    context "without a username passed" do
-
-      it "returns the user's following" do
-        stub_get("https://api.github.com/users/sferik/following").
-          to_return(json_response("following.json"))
-        users = @client.following
-        expect(users.first.login).to eq("rails")
-      end
-
-    end
-
-  end
-
-  describe ".follows?" do
-
-    context "with one user following another" do
-
-      it "returns true" do
-        stub_get("https://api.github.com/user/following/puls").
-          to_return(:status => 204, :body => "")
-        follows = @client.follows?("sferik", "puls")
-        expect(follows).to eq(true)
-      end
-
-    end
-
-    context "with one user not following another" do
-
-      it "returns false" do
-        stub_get("https://api.github.com/user/following/dogbrainz").
-          to_return(:status => 404, :body => "")
-        follows = @client.follows?("sferik", "dogbrainz")
-        expect(follows).to be_false
-      end
-
-    end
-
-  end
-
-  describe ".follow" do
-
-    it "follows a user" do
-      stub_put("https://api.github.com/user/following/dianakimball").
-        to_return(:status => 204, :body => "")
-      following = @client.follow("dianakimball")
-      expect(following).to eq(true)
-    end
-
-  end
-
-  describe ".unfollow" do
-
-    it "unfollows a user" do
-      stub_delete("https://api.github.com/user/following/dogbrainz").
-        to_return(:status => 204, :body => "")
-      following = @client.unfollow("dogbrainz")
-      expect(following).to eq(true)
-    end
-
-  end
-
-  describe ".starred?" do
-
-    context "with on user starring a repo" do
-
-      it "returns true" do
-        stub_get("https://api.github.com/user/starred/sferik/rails_admin").
-          to_return(:status => 204, :body => "")
-        starred = @client.starred?("sferik", "rails_admin")
-        expect(starred).to eq(true)
-      end
-
-    end
-
-    context "with on user not starring a repo" do
-
-      it "returns false" do
-        stub_get("https://api.github.com/user/starred/sferik/dogbrainz").
-          to_return(:status => 404, :body => "")
-        starred = @client.starred?("sferik", "dogbrainz")
-        expect(starred).to be_false
-      end
-
-    end
-
-  end
-
-  describe ".starred" do
-
-    context "with a username passed" do
-
-      it "returns starred repositories" do
-        stub_get("https://api.github.com/users/sferik/starred").
-          to_return(json_response("starred.json"))
-        repositories = @client.starred("sferik")
-        expect(repositories.first.name).to eq("grit")
-      end
-
-    end
-
-    context "without a username passed" do
-
-      it "returns starred repositories" do
-        stub_get("https://api.github.com/users/sferik/starred").
-          to_return(json_response("starred.json"))
-        repositories = @client.starred
-        expect(repositories.first.name).to eq("grit")
-      end
-
-    end
-
-  end
-
-  describe ".watched" do
-
-    context "with a username passed" do
-
-      it "returns watched repositories" do
-        stub_get("https://api.github.com/users/sferik/watched").
-          to_return(json_response("watched.json"))
-        repositories = @client.watched("sferik")
-        expect(repositories.first.name).to eq("grit")
-      end
-
-    end
-
-    context "without a username passed" do
-
-      it "returns watched repositories" do
-        stub_get("https://api.github.com/users/sferik/watched").
-          to_return(json_response("watched.json"))
-        repositories = @client.watched
-        expect(repositories.first.name).to eq("grit")
-      end
-
-    end
-
-  end
-
-  describe ".key" do
-
-    it "returns a public key" do
-      stub_get("https://api.github.com/user/keys/103205").
-        to_return(json_response('public_key.json'))
-      public_key = @client.key(103205)
-      expect(public_key.id).to eq(103205)
-      expect(public_key[:key]).to include("ssh-dss AAAAB")
-    end
-
-  end
-
-  describe ".keys" do
-
-    it "returns public keys" do
-      stub_get("https://api.github.com/user/keys").
-        to_return(json_response("public_keys.json"))
-      public_keys = @client.keys
-      expect(public_keys.first.id).to eq(103205)
-    end
-
-  end
-  
-  describe ".user_keys" do
-
-    it "returns public keys for a user" do
-      stub_get("https://api.github.com/users/pengwynn/keys").
-        to_return(json_response("public_keys.json"))
-      public_keys = @client.user_keys 'pengwynn'
-      expect(public_keys.first.id).to eq(103205)
-    end
-
-  end
-
-  describe ".add_key" do
-
-    it "adds a public key" do
-      title, key = "Moss", "ssh-dss AAAAB3NzaC1kc3MAAACBAJz7HanBa18ad1YsdFzHO5Wy1/WgXd4BV+czbKq7q23jungbfjN3eo2a0SVdxux8GG+RZ9ia90VD/X+PE4s3LV60oXZ7PDAuyPO1CTF0TaDoKf9mPaHcPa6agMJVocMsgBgwviWT1Q9VgN1SccDsYVDtxkIAwuw25YeHZlG6myx1AAAAFQCgW+OvXWUdUJPBGkRJ8ML7uf0VHQAAAIAlP5G96tTss0SKYVSCJCyocn9cyGQdNjxah4/aYuYFTbLI1rxk7sr/AkZfJNIoF2UFyO5STbbratykIQGUPdUBg1a2t72bu31x+4ZYJMngNsG/AkZ2oqLiH6dJKHD7PFx2oSPalogwsUV7iSMIZIYaPa03A9763iFsN0qJjaed+gAAAIBxz3Prxdzt/os4XGXSMNoWcS03AFC/05NOkoDMrXxQnTTpp1wrOgyRqEnKz15qC5dWk1ynzK+LJXHDZGA8lXPfCjHpJO3zrlZ/ivvLhgPdDpt13MAhIJFH06hTal0woxbk/fIdY71P3kbgXC0Ppx/0S7BC+VxqRCA4/wcM+BoDbA== host"
-      stub_post("https://api.github.com/user/keys").
-        with(:title => title, :key => key).
-        to_return(json_response("public_key.json"))
-      public_key = @client.add_key(title, key)
-      expect(public_key.id).to eq(103205)
-    end
-
-  end
-
-  describe ".update_key" do
-
-    it "updates a public key" do
-      updated_key = {
-        :title => "updated title",
-        :key => "ssh-rsa BBBB..."
-      }
-      stub_patch("https://api.github.com/user/keys/1").
-        with(updated_key).
-          to_return(json_response("public_key_update.json"))
-      public_key = @client.update_key(1, updated_key)
-      expect(public_key[:title]).to eq(updated_key[:title])
-      expect(public_key[:key]).to eq(updated_key[:key])
-    end
-
-  end
-
-  describe ".remove_key" do
-
-    it "removes a public key" do
-      stub_delete("https://api.github.com/user/keys/103205").
-        to_return(:status => 204, :body => "")
-      response = @client.remove_key(103205)
-      expect(response).to eq(true)
-    end
-
-  end
-
-  describe ".emails" do
-
-    it "returns email addresses" do
-      stub_get("https://api.github.com/user/emails").
-        to_return(json_response("emails.json"))
-      emails = @client.emails
-      expect(emails.first).to eq("sferik@gmail.com")
-    end
-
-  end
-
-  describe ".add_email" do
-
-    it "adds an email address" do
-      stub_post("https://api.github.com/user/emails").
-        with(:email => "sferik@gmail.com").
-        to_return(json_response("emails.json"))
-      emails = @client.add_email("sferik@gmail.com")
-      expect(emails.first).to eq("sferik@gmail.com")
-    end
-
-  end
-
-  describe ".remove_email" do
-
-    it "removes an email address" do
-      stub_delete("https://api.github.com/user/emails?email=sferik@gmail.com").
-        to_return(:status => 204, :body => "")
-      response = @client.remove_email("sferik@gmail.com")
-      expect(response).to eq(true)
-    end
-
-  end
-
-  describe ".subscriptions" do
-
-    it "returns the repositories the user watches for notifications" do
-      stub_get("https://api.github.com/users/pengwynn/subscriptions").
-        to_return(json_response("subscriptions.json"))
-      subscriptions = @client.subscriptions("pengwynn")
-      expect(subscriptions.first.id).to eq(11560)
-      expect(subscriptions.first.name).to eq("ujs_sort_helper")
-    end
-  end
+  end # .access_token
 
 end

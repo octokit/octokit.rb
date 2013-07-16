@@ -1,5 +1,9 @@
 module Octokit
   class Client
+
+    # Methods for the Gitignore API
+    #
+    # @see http://developer.github.com/v3/gitignore/
     module Gitignore
 
       # Listing available gitignore templates.
@@ -13,8 +17,8 @@ module Octokit
       #
       # @example Git all the gitignore templates
       #   @client.gitignore_templates
-      def gitignore_templates(options={})
-        get "/gitignore/templates", options
+      def gitignore_templates(options = {})
+        get "gitignore/templates", options
       end
 
       # Get a gitignore template.
@@ -28,12 +32,12 @@ module Octokit
       #
       # @see http://developer.github.com/v3/gitignore/#get-a-single-template
       #
-      # @return [Hash] Gitignore template
+      # @return [Sawyer::Resource] Gitignore template
       #
       # @example Get the Ruby gitignore template
       #   @client.gitignore_template('Ruby')
-      def gitignore_template(template_name, options={})
-        get "/gitignore/templates/#{template_name}", options
+      def gitignore_template(template_name, options = {})
+        get "gitignore/templates/#{template_name}", options
       end
 
     end

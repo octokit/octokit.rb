@@ -1,66 +1,58 @@
-# -*- encoding: utf-8 -*-
 require 'helper'
 
 describe Octokit::Client::Milestones do
 
   before do
-    @client = Octokit::Client.new(:login => 'sferik')
+    Octokit.reset!
+    @client = oauth_client
   end
 
-  describe ".list_milestones" do
-
+  describe ".list_milestones", :vcr do
     it "lists milestones belonging to repository" do
-      stub_get("/repos/pengwynn/octokit/milestones").
-        to_return(json_response('milestones.json'))
-      milestones = @client.list_milestones("pengwynn/octokit")
-      expect(milestones.first.description).to eq("Add support for API v3")
+      milestones = @client.list_milestones("api-playground/api-sandbox")
+      expect(milestones).to be_kind_of Array
+      assert_requested :get, github_url("/repos/api-playground/api-sandbox/milestones")
+    end
+  end # .list_milestones
+
+  context "methods that need a milestone" do
+
+    before(:each) do
+      name = "Test Milestone #{Time.now.to_i}"
+      @milestone = @client.create_milestone("api-playground/api-sandbox", name)
     end
 
-  end
-
-  describe ".milestone" do
-
-    it "gets a single milestone belonging to repository" do
-      stub_get("/repos/pengwynn/octokit/milestones/1").
-        to_return(json_response('milestone.json'))
-      milestones = @client.milestone("pengwynn/octokit", 1)
-      expect(milestones.description).to eq("Add support for API v3")
+    after(:each) do
+      @client.delete_milestone("api-playground/api-sandbox", @milestone.number)
     end
 
-  end
+    describe ".milestone", :vcr do
+      it "gets a single milestone belonging to repository" do
+        milestone = @client.milestone("api-playground/api-sandbox", @milestone.number)
+        assert_requested :get, github_url("/repos/api-playground/api-sandbox/milestones/#{@milestone.number}")
+      end
+    end # .milestone
 
-  describe ".create_milestone" do
+    describe ".create_milestone", :vcr do
+      it "creates a milestone" do
+        expect(@milestone.title).to_not be_nil
+        assert_requested :post, github_url("/repos/api-playground/api-sandbox/milestones")
+      end
+    end # .create_milestone
 
-    it "creates a single milestone" do
-      stub_post("/repos/pengwynn/octokit/milestones").
-        with(:body => '{"title":"0.7.0"}').
-        to_return(json_response('milestone.json'))
-      milestone = @client.create_milestone("pengwynn/octokit", "0.7.0")
-      expect(milestone.title).to eq("0.7.0")
-    end
+    describe ".update_milestone", :vcr do
+      it "updates a milestone" do
+        @client.update_milestone("api-playground/api-sandbox", @milestone.number, {:description => "Add support for API v3"})
+        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/milestones/#{@milestone.number}")
+      end
+    end # .update_milestone
 
-  end
-
-  describe ".update_milestone" do
-
-    it "updates a milestone" do
-      stub_patch("/repos/pengwynn/octokit/milestones/1").
-        with(:body => {"description" => "Add support for API v3"}).
-        to_return(json_response('milestone.json'))
-      milestone = @client.update_milestone("pengwynn/octokit", 1, {:description => "Add support for API v3"})
-      expect(milestone.description).to eq("Add support for API v3")
-    end
-
-  end
-
-  describe ".delete_milestone" do
-
-    it "deletes a milestone from a repository" do
-      stub_delete("/repos/pengwynn/octokit/milestones/2").
-        to_return(:status => 204, :body => "", :headers => {})
-      result = @client.delete_milestone("pengwynn/octokit", 2)
-      expect(result).to eq(true)
-    end
+    describe ".delete_milestone", :vcr do
+      it "deletes a milestone from a repository" do
+        @client.delete_milestone("api-playground/api-sandbox", @milestone.number)
+        assert_requested :delete, github_url("/repos/api-playground/api-sandbox/milestones/#{@milestone.number}")
+      end
+    end # .delete_milestone
 
   end
 

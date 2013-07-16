@@ -1,63 +1,59 @@
-# -*- encoding: utf-8 -*-
 require 'helper'
 
 describe Octokit::Client::Downloads do
 
   before do
-    @client = Octokit::Client.new(:login => 'sferik')
+    Octokit.reset!
+    @client = oauth_client
   end
 
-  describe ".downloads" do
-
+  describe ".downloads", :vcr do
     it "lists available downloads" do
-      stub_get("/repos/github/hubot/downloads").
-        to_return(json_response("downloads.json"))
       downloads = @client.downloads("github/hubot")
-      expect(downloads.first.description).to eq("Robawt")
+      expect(downloads.last.description).to match "Campfire"
+      assert_requested :get, github_url("/repos/github/hubot/downloads")
     end
+  end # .downloads
 
-  end
-
-  describe ".download" do
-
+  describe ".download", :vcr do
     it "gets a single download" do
-      stub_get("/repos/github/hubot/downloads/165347").
-        to_return(json_response("download.json"))
       download = @client.download("github/hubot", 165347)
-      expect(download.id).to eq(165347)
-      expect(download.name).to eq('hubot-2.1.0.tar.gz')
+      expect(download.name).to eq "hubot-2.1.0.tar.gz"
+      assert_requested :get, github_url("/repos/github/hubot/downloads/165347")
     end
+  end # .download
 
-  end
+  context "methods that require a download" do
 
-  describe ".create_download" do
     before(:each) do
-      stub_post("/repos/octocat/Hello-World/downloads").
-        with(:body => {:name => "download_create.json", :size => 690,
-                       :description => "Description of your download",
-                       :content_type => "text/plain" }).
-        to_return(json_response("download_create.json"))
-    end
-    it "creates a download resource" do
-      resource = @client.send(:create_download_resource, "octocat/Hello-World", "download_create.json", 690, {:description => "Description of your download", :content_type => "text/plain"})
-      expect(resource.s3_url).to eq("https://github.s3.amazonaws.com/")
+      local_path = File.expand_path("spec/fixtures/web_flow_token.json")
+      options = { :description => Time.now.to_i.to_s, :content_type => "text/plain" }
+      @client.create_download "api-playground/api-sandbox", local_path, options
+
+      @download = @client.downloads("api-playground/api-sandbox").last
     end
 
-    it "posts to an S3 url" do
-      stub_post("https://github.s3.amazonaws.com/").
-        to_return(:status => 201)
-      file_path = File.expand_path 'spec/fixtures/download_create.json'
-      expect(@client.create_download("octocat/Hello-World", file_path, {:description => "Description of your download", :content_type => "text/plain"})).to eq(true)
+    after(:each) do
+      @client.delete_download 'api-playground/api-sandbox', @download.id
     end
-  end
 
-  describe ".delete_download" do
+    describe ".create_download", :vcr do
+      it "creates a download resource" do
+        assert_requested :post, github_url("/repos/api-playground/api-sandbox/downloads")
+      end
+      it "posts to an S3 url", :vcr do
+        assert_requested :post, "https://github.s3.amazonaws.com/"
+      end
+    end # .create_download
 
-    it "deletes a download" do
-      stub_request(:delete, "https://api.github.com/repos/octocat/Hellow-World/downloads/165347").
-        to_return(:status => 204, :body => "", :headers => {})
-      expect(@client.delete_download('octocat/Hellow-World', 165347)).to eq(true)
-    end
+
+    describe ".delete_download", :vcr do
+      it "deletes a download" do
+        @client.delete_download 'api-playground/api-sandbox', @download.id
+        assert_requested :delete, github_url("/repos/api-playground/api-sandbox/downloads/#{@download.id}")
+      end
+    end # .delete_download
+
   end
 
 end

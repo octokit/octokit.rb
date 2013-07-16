@@ -1,140 +1,84 @@
-# -*- encoding: utf-8 -*-
 require 'helper'
 
 describe Octokit::Client::Notifications do
 
   before do
-    @client = Octokit::Client.new(:login => "joeyw")
+    Octokit.reset!
+    @client = oauth_client
   end
 
-  describe ".notifications" do
-
+  describe ".notifications", :vcr do
     it "lists the notifications for the current user" do
-      stub_get("https://api.github.com/notifications").
-        to_return(json_response("notifications.json"))
       notifications = @client.notifications
-      expect(notifications.first.id).to eq(1)
-      expect(notifications.first.unread).to eq(true)
+      expect(notifications).to be_kind_of Array
+      assert_requested :get, github_url("/notifications")
     end
+  end # .notifications
 
-  end
-
-  describe ".repository_notifications" do
-
+  describe ".repository_notifications", :vcr do
     it "lists all notifications for a repository" do
-      stub_get("https://api.github.com/repos/pengwynn/octokit/notifications").
-        to_return(json_response("repository_notifications.json"))
-      notifications = @client.repository_notifications("pengwynn/octokit")
-      expect(notifications.first.id).to eq(1)
-      expect(notifications.first.unread).to eq(true)
+      notifications = @client.repository_notifications("api-playground/api-sandbox")
+      expect(notifications).to be_kind_of Array
+      assert_requested :get, github_url("/repos/api-playground/api-sandbox/notifications")
     end
+  end # .repository_notifications
 
-  end
-
-  describe ".mark_notifications_as_read" do
-
+  describe ".mark_notifications_as_read", :vcr do
     it "returns true when notifications are marked as read" do
-      stub_put("https://api.github.com/notifications").
-        to_return(:status => 205)
       result = @client.mark_notifications_as_read
-      expect(result).to eq(true)
+      expect(result).to be_true
+      assert_requested :put, github_url("/notifications")
     end
+  end # .mark_notifications_as_read
 
-    it "returns false when unsuccessful" do
-      stub_put("https://api.github.com/notifications").
-        to_return(:status => 500)
-      result = @client.mark_notifications_as_read
-      expect(result).to be_false
-    end
-
-  end
-
-  describe ".mark_repository_notifications_as_read" do
-
+  describe ".mark_repository_notifications_as_read", :vcr do
     it "returns true when notifications for a repo are marked as read" do
-      stub_put("https://api.github.com/repos/pengwynn/octokit/notifications").
-        to_return(:status => 205)
-      result = @client.mark_repository_notifications_as_read("pengwynn/octokit")
-      expect(result).to eq(true)
+      result = @client.mark_repository_notifications_as_read("api-playground/api-sandbox")
+      expect(result).to be_true
+      assert_requested :put, github_url("/repos/api-playground/api-sandbox/notifications")
+    end
+  end # .mark_repository_notifications_as_read
+
+  context "methods that need a thread context" do
+
+    before(:each) do
+      @thread_id = @client.repository_notifications("api-playground/api-sandbox", :all => true).last.id
     end
 
-    it "returns false when unsuccessful" do
-      stub_put("https://api.github.com/repos/pengwynn/octokit/notifications").
-        to_return(:status => 500)
-      result = @client.mark_repository_notifications_as_read("pengwynn/octokit")
-      expect(result).to be_false
-    end
+    describe ".thread_notifications", :vcr do
+      it "returns notifications for a specific thread" do
+        notifications = @client.thread_notifications(@thread_id)
+        assert_requested :get, github_url("/notifications/threads/#{@thread_id}")
+      end
+    end # .thread_notifications
 
-  end
+    describe ".mark_thread_as_read", :vcr do
+      it "marks a thread as read" do
+        result = @client.mark_thread_as_read(@thread_id)
+        assert_requested :patch, github_url("/notifications/threads/#{@thread_id}")
+      end
+    end # .mark_thread_as_read
 
-  describe ".thread_notifications" do
+    describe ".thread_subscription", :vcr do
+      it "returns a thread subscription" do
+        subscription = @client.thread_subscription(@thread_id)
+        assert_requested :get, github_url("/notifications/threads/#{@thread_id}/subscription")
+      end
+    end # .thread_subscription
 
-    it "returns notifications for a specific thread" do
-      stub_get("https://api.github.com/notifications/threads/1").
-        to_return(json_response('notification_thread.json'))
-      notifications = @client.thread_notifications(1)
-      expect(notifications.first.id).to eq(1)
-      expect(notifications.first.unread).to eq(true)
-    end
+    describe ".update_thread_subscription", :vcr do
+      it "updates a thread subscription" do
+        subscription = @client.update_thread_subscription(@thread_id, :subscribed => true)
+        assert_requested :put, github_url("/notifications/threads/#{@thread_id}/subscription")
+      end
+    end # .update_thread_subscription
 
-  end
-
-  describe ".mark_thread_as_read" do
-
-    it "marks a thread as read" do
-      stub_patch("https://api.github.com/notifications/threads/1").
-        to_return(:status => 205)
-      result = @client.mark_thread_as_read(1)
-      expect(result).to eq(true)
-    end
-
-    it "returns false when unsuccessful" do
-      stub_patch("https://api.github.com/notifications/threads/1").
-        to_return(:status => 500)
-      result = @client.mark_thread_as_read(1)
-      expect(result).to be_false
-    end
-
-  end
-
-  describe ".thread_subscription" do
-
-    it "returns a thread subscription" do
-      stub_get("https://api.github.com/notifications/threads/1/subscription").
-        to_return(json_response("thread_subscription.json"))
-      subscription = @client.thread_subscription(1)
-      expect(subscription.subscribed).to eq(true)
-    end
-
-  end
-
-  describe ".update_thread_subscription" do
-
-    it "updates a thread subscription" do
-      stub_put("https://api.github.com/notifications/threads/1/subscription").
-        to_return(json_response("thread_subscription_update.json"))
-      subscription = @client.update_thread_subscription(1, :subscribed => true)
-      expect(subscription.subscribed).to eq(true)
-    end
-
-  end
-
-  describe ".delete_thread_subscription" do
-
-    it "returns true with successful thread deletion" do
-      stub_delete("https://api.github.com/notifications/threads/1").
-        to_return(:status => 204)
-      result = @client.delete_thread_subscription(1)
-      expect(result).to eq(true)
-    end
-
-    it "returns false when subscription deletion fails" do
-      stub_delete("https://api.github.com/notifications/threads/1").
-        to_return(:status => 404)
-      result = @client.delete_thread_subscription(1)
-      expect(result).to be_false
-    end
-
+    describe ".delete_thread_subscription", :vcr do
+      it "returns true with successful thread deletion" do
+        result = @client.delete_thread_subscription(@thread_id)
+        assert_requested :delete, github_url("/notifications/threads/#{@thread_id}/subscription")
+      end
+    end # .delete_thread_subscription
 
   end
 

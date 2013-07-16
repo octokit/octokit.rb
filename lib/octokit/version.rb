@@ -1,3 +1,7 @@
 module Octokit
-  VERSION = "1.25.0" unless defined?(Octokit::VERSION)
+
+  # Current version
+  # @return [String]
+  VERSION = "2.0.0.rc1".freeze
+
 end

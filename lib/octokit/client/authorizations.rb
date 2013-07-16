@@ -1,5 +1,9 @@
 module Octokit
   class Client
+
+    # Methods for the Authorizations API
+    #
+    # @see http://developer.github.com/v3/oauth/#oauth-authorizations-api
     module Authorizations
 
       # List a users authorizations
@@ -13,7 +17,7 @@ module Octokit
       # @example List authorizations for user ctshryock
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorizations
-      def authorizations(options={})
+      def authorizations(options = {})
         get 'authorizations', options
       end
 
@@ -28,7 +32,7 @@ module Octokit
       # @example Show authorization for user ctshryock's Travis auth
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorization(999999)
-      def authorization(number, options={})
+      def authorization(number, options = {})
         get "authorizations/#{number}", options
       end
 
@@ -48,11 +52,10 @@ module Octokit
       # @example Create a new authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.create_authorization({:scopes => ["public_repo","gist"], :note => "Why not Zoidberg?", :note_url=> "https://en.wikipedia.org/wiki/Zoidberg"})
-      def create_authorization(options={})
+      def create_authorization(options = {})
         # Techincally we can omit scopes as GitHub has a default, however the
         # API will reject us if we send a POST request with an empty body.
-        options = {:scopes => ""}.merge(options)
-        post('authorizations', options)
+        post 'authorizations', options
       end
 
       # Update an authorization for the authenticated user.
@@ -73,11 +76,8 @@ module Octokit
       # @example Update the authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.update_authorization(999999, {:add_scopes => ["gist", "repo"], :note => "Why not Zoidberg possibly?"})
-      def update_authorization(number, options={})
-        # Techincally we can omit scopes as GitHub has a default, however the
-        # API will reject us if we send a POST request with an empty body.
-        options = {:scopes => ""}.merge(options)
-        patch("authorizations/#{number}", options)
+      def update_authorization(number, options = {})
+        patch "authorizations/#{number}", options
       end
 
       # Delete an authorization for the authenticated user.
@@ -92,8 +92,8 @@ module Octokit
       # @example Delete an authorization
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.delete_authorization(999999)
-      def delete_authorization(number, option={})
-        boolean_from_response(:delete, "authorizations/#{number}")
+      def delete_authorization(number, options = {})
+        boolean_from_response :delete, "authorizations/#{number}", options
       end
 
       # Check scopes for a token
@@ -101,14 +101,40 @@ module Octokit
       # @param token [String] GitHub OAuth token
       # @return [Array<String>] OAuth scopes
       # @see http://developer.github.com/v3/oauth/#scopes
-      def scopes(token=nil)
-        request(:get, "user", :access_token => token).
-          headers[:x_oauth_scopes].
+      def scopes(token = @access_token)
+        raise ArgumentError.new("Access token required") if token.nil?
+
+        agent.call(:get, "user", :headers => {"Authorization" => "token #{token}" }).
+          headers['X-OAuth-Scopes'].
+          to_s.
           split(',').
           map(&:strip).
           sort
       end
 
+    end
+
+    # Get the URL to authorize a user for an application via the web flow
+    #
+    # @param app_id [String] Client Id we received when our application was registered with GitHub.
+    # @param app_secret [String] Client Secret we received when our application was registered with GitHub.
+    # @option options [String] :redirect_uri The url to redirect to after authorizing.
+    # @option options [String] :scope The scopes to request from the user.
+    # @option options [String] :state A random string to protect against CSRF.
+    # @return [String] The url to redirect the user to authorize.
+    # @see Octokit::Client
+    # @see http://developer.github.com/v3/oauth/#web-application-flow
+    # @example
+    #   @client.authorize_url('xxxx', 'yyyy')
+    def authorize_url(app_id, app_secret, options = {})
+      authorize_url = options.delete(:endpoint) || Octokit.web_endpoint
+      authorize_url += "login/oauth/authorize?client_id=" + app_id + "&client_secret=" + app_secret
+
+      options.each do |key, value|
+        authorize_url += "&" + key.to_s + "=" + value
+      end
+
+      authorize_url
     end
   end
 end

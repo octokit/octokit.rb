@@ -6,11 +6,13 @@ module Octokit
       super(build_error_message)
     end
 
+    # private
     def response_body
       @response_body ||=
         if (body = @response[:body]) && !body.empty?
           if body.is_a?(String)
-            MultiJson.load(body, :symbolize_keys => true)
+            serializer = Sawyer::Serializer.new(Sawyer::Serializer.any_json)
+            serializer.decode(body)
           else
             body
           end
@@ -19,18 +21,17 @@ module Octokit
         end
     end
 
-    private
-
+    # private
     def build_error_message
       return nil  if @response.nil?
 
       message = if response_body
-        ": #{response_body[:error] || response_body[:message] || ''}"
+        ": #{response_body['error'] || response_body['message'] || ''}"
       else
         ''
       end
       errors = unless message.empty?
-        response_body[:errors] ?  ": #{response_body[:errors].map{|e|e[:message]}.join(', ')}" : ''
+        response_body['errors'] ?  ": #{response_body['errors'].map{|e|e['message']}.join(', ')}" : ''
       end
       "#{@response[:method].to_s.upcase} #{@response[:url].to_s}: #{@response[:status]}#{message}#{errors}"
     end

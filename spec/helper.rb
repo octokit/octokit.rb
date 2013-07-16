@@ -14,29 +14,42 @@ require 'webmock/rspec'
 WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
 RSpec.configure do |config|
-  config.expect_with :rspec do |c|
-    c.syntax = :expect
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+end
+
+require 'vcr'
+VCR.configure do |c|
+  c.configure_rspec_metadata!
+  c.filter_sensitive_data("<GITHUB_LOGIN>") do
+      ENV['OCTOKIT_TEST_GITHUB_LOGIN']
   end
+  c.filter_sensitive_data("<GITHUB_PASSWORD>") do
+      ENV['OCTOKIT_TEST_GITHUB_PASSWORD']
+  end
+  c.filter_sensitive_data("<<ACCESS_TOKEN>>") do
+      ENV['OCTOKIT_TEST_GITHUB_TOKEN']
+  end
+  c.default_cassette_options = {
+    :serialize_with             => :json,
+    # TODO: Track down UTF-8 issue and remove
+    :preserve_exact_body_bytes  => true,
+    :decode_compressed_response => true,
+    :record                     => ENV['TRAVIS'] ? :none : :once
+  }
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
 end
 
-def a_delete(url)
-  a_request(:delete, github_url(url))
+def test_github_login
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_LOGIN'
 end
 
-def a_get(url)
-  a_request(:get, github_url(url))
+def test_github_password
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_PASSWORD'
 end
 
-def a_patch(url)
-  a_request(:patch, github_url(url))
-end
-
-def a_post(url)
-  a_request(:post, github_url(url))
-end
-
-def a_put(url)
-  a_request(:put, github_url(url))
+def test_github_token
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN'
 end
 
 def stub_delete(url)
@@ -81,11 +94,25 @@ def json_response(file)
 end
 
 def github_url(url)
-  if url =~ /^http/
-    url
-  elsif @client && @client.authenticated?
-    "https://#{@client.login}:#{@client.password}@api.github.com#{url}"
-  else
-    "https://api.github.com#{url}"
-  end
+  url =~ /^http/ ? url : "https://api.github.com#{url}"
 end
+
+def basic_github_url(path, options = {})
+  login = options.fetch(:login, test_github_login)
+  password = options.fetch(:password, test_github_password)
+
+  "https://#{login}:#{password}@api.github.com#{path}"
+end
+
+def basic_auth_client(login = test_github_login, password = test_github_password )
+  client = Octokit.client
+  client.login = test_github_login
+  client.password = test_github_password
+
+  client
+end
+
+def oauth_client
+  Octokit::Client.new(:access_token => ENV.fetch('OCTOKIT_TEST_GITHUB_TOKEN'))
+end
+

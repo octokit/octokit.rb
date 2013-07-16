@@ -1,543 +1,406 @@
-# -*- encoding: utf-8 -*-
 require 'helper'
 
 describe Octokit::Client::Repositories do
 
   before do
-    @client = Octokit::Client.new(:login => 'sferik')
+    Octokit.reset!
+    @client = oauth_client
   end
 
-  describe ".search_user" do
-
-    it "returns matching repositories" do
-      stub_get("https://api.github.com/legacy/repos/search/One40Proof").
-        to_return(json_response("legacy/repositories.json"))
-      repositories = @client.search_repositories("One40Proof")
-      expect(repositories.first.name).to eq("One40Proof")
-    end
-
-  end
-
-  describe ".repository" do
-
+  describe ".repository", :vcr do
     it "returns the matching repository" do
-      stub_get("/repos/sferik/rails_admin").
-        to_return(json_response("repository.json"))
       repository = @client.repository("sferik/rails_admin")
-      expect(repository.name).to eq("rails_admin")
+      expect(repository.name).to eq "rails_admin"
+      assert_requested :get, github_url("/repos/sferik/rails_admin")
     end
-
-  end
-
-  describe ".update_repository" do
-
-    it "updates the matching repository" do
-      description = "RailsAdmin is a Rails 3 engine that provides an easy-to-use interface for managing your data"
-      stub_patch("/repos/sferik/rails_admin").
-        with(:body => {:description => description}).
-        to_return(json_response("repository.json"))
-      repository = @client.edit_repository("sferik/rails_admin", :description => description)
-      expect(repository.description).to eq(description)
-    end
-
-  end
-
-  describe ".repositories" do
-
-    context "with a username passed" do
-
-      it "returns user's repositories" do
-        stub_get("/users/sferik/repos").
-          to_return(json_response("repositories.json"))
-        repositories = @client.repositories("sferik")
-        expect(repositories.first.name).to eq("merb-admin")
-      end
-
-    end
-
-    context "without a username passed" do
-
-      it "returns authenticated user's repositories" do
-        stub_get("/user/repos").
-          to_return(json_response("repositories.json"))
-        repositories = @client.repositories
-        expect(repositories.first.name).to eq("merb-admin")
-      end
-
-    end
-
-  end
-
-  describe ".all_repositories" do
-
-    it "returns all repositories on github" do
-      stub_get("/repositories").
-        to_return(json_response("all_repositories.json"))
-      repositories = @client.all_repositories
-      expect(repositories.first.name).to eq("grit")
-    end
-
-  end
-
-  describe ".star" do
-
-    it "stars a repository" do
-      stub_put("/user/starred/sferik/rails_admin").
-        to_return(:status => 204)
-      expect(@client.star("sferik/rails_admin")).to eq(true)
-    end
-
-  end
-
-  describe ".unstar" do
-
-    it "unstars a repository" do
-      stub_delete("/user/starred/sferik/rails_admin").
-        to_return(:status => 204)
-      expect(@client.unstar("sferik/rails_admin")).to eq(true)
-    end
-
-  end
-
-  describe ".watch" do
-
-    it "watches a repository" do
-      stub_put("/user/watched/sferik/rails_admin").
-        to_return(:status => 204)
-      expect(@client.watch("sferik/rails_admin")).to eq(true)
-    end
-
-  end
-
-  describe ".unwatch" do
-
-    it "unwatches a repository" do
-      stub_delete("/user/watched/sferik/rails_admin").
-        to_return(:status => 204)
-      expect(@client.unwatch("sferik/rails_admin")).to eq(true)
-    end
-
-  end
-
-  describe ".fork" do
-
-    it "forks a repository" do
-      stub_post("/repos/sferik/rails_admin/forks").
-        to_return(json_response("repository.json"))
-      repository = @client.fork("sferik/rails_admin")
-      expect(repository.name).to eq("rails_admin")
-    end
-
-  end
-
-  describe ".create_repository" do
-
-    it "creates a repository" do
-      stub_post("/user/repos").
-        with(:name => "rails_admin").
-        to_return(json_response("repository.json"))
-      repository = @client.create_repository("rails_admin")
-      expect(repository.name).to eq("rails_admin")
-    end
-
-    it "creates a repository for an organization" do
-      stub_post("/orgs/comorichwebgroup/repos").
-        with(:name => "demo").
-        to_return(json_response("organization-repository.json"))
-      repository = @client.create_repository("demo", {:organization => 'comorichwebgroup'})
-      expect(repository.name).to eq("demo")
-      expect(repository.organization.login).to eq("CoMoRichWebGroup")
-    end
-
-  end
-
-  describe ".delete_repository" do
-
-    it "deletes a repository" do
-      stub_delete("/repos/sferik/rails_admin").
-        to_return(:status => 204, :body => "")
-      result = @client.delete_repository("sferik/rails_admin")
-      expect(result).to eq(true)
-    end
-
-  end
+  end # .repository
 
   describe ".set_private" do
-
     it "sets a repository private" do
-      stub_patch("/repos/sferik/rails_admin").
-        with({ :name => "rails_admin", :private => false }).
-        to_return(json_response("repository.json"))
-      repository = @client.set_private("sferik/rails_admin")
-      expect(repository.name).to eq("rails_admin")
+      VCR.turn_off!
+      repo_name = "api-playground/api-sandbox"
+      # Stub this because Padawan is on a free plan
+      request = stub_patch(github_url("/repos/#{repo_name}")).
+        with(:body => {:private => true, :name => "api-sandbox"}.to_json)
+      repository = @client.set_private repo_name
+      assert_requested request
+      VCR.turn_on!
     end
-
-  end
+  end # .set_private
 
   describe ".set_public" do
-
     it "sets a repository public" do
-      stub_patch("/repos/sferik/rails_admin").
-        with({ :name => "rails_admin", :private => true }).
-        to_return(json_response("repository.json"))
-      repository = @client.set_public("sferik/rails_admin")
-      expect(repository.name).to eq("rails_admin")
-      expect(repository.private).to eq(false)
+      VCR.turn_off!
+      repo_name = "api-playground/api-sandbox"
+      # Stub this because Padawan is on a free plan
+      request = stub_patch(github_url("/repos/#{repo_name}")).
+        with(:body => {:private => false, :name => "api-sandbox"}.to_json)
+      repository = @client.set_public repo_name
+      assert_requested request
+      VCR.turn_on!
     end
+  end # .set_public
 
-  end
+  describe ".create_repository", :vcr do
+    it "creates a repository for an organization" do
+      repository = @client.create_repository("an-org-repo", :organization => "api-playground")
+      expect(repository.name).to eq "an-org-repo"
+      assert_requested :post, github_url("/orgs/api-playground/repos")
 
-  describe ".deploy_keys" do
-
-    it "returns a repository's deploy keys" do
-      stub_get("/repos/sferik/rails_admin/keys").
-        to_return(json_response("public_keys.json"))
-      public_keys = @client.deploy_keys("sferik/rails_admin")
-      expect(public_keys.first.id).to eq(103205)
+      # cleanup
+      begin
+        @client.delete_repository("api-playground/an-org-repo")
+      rescue Octokit::NotFound
+      end
     end
-
   end
 
   describe ".add_deploy_key" do
-
     it "adds a repository deploy keys" do
-      stub_post("/repos/sferik/rails_admin/keys").
-        with(:body => { :title => "Moss", :key => "ssh-dss AAAAB3NzaC1kc3MAAACBAJz7HanBa18ad1YsdFzHO5Wy1/WgXd4BV+czbKq7q23jungbfjN3eo2a0SVdxux8GG+RZ9ia90VD/X+PE4s3LV60oXZ7PDAuyPO1CTF0TaDoKf9mPaHcPa6agMJVocMsgBgwviWT1Q9VgN1SccDsYVDtxkIAwuw25YeHZlG6myx1AAAAFQCgW+OvXWUdUJPBGkRJ8ML7uf0VHQAAAIAlP5G96tTss0SKYVSCJCyocn9cyGQdNjxah4/aYuYFTbLI1rxk7sr/AkZfJNIoF2UFyO5STbbratykIQGUPdUBg1a2t72bu31x+4ZYJMngNsG/AkZ2oqLiH6dJKHD7PFx2oSPalogwsUV7iSMIZIYaPa03A9763iFsN0qJjaed+gAAAIBxz3Prxdzt/os4XGXSMNoWcS03AFC/05NOkoDMrXxQnTTpp1wrOgyRqEnKz15qC5dWk1ynzK+LJXHDZGA8lXPfCjHpJO3zrlZ/ivvLhgPdDpt13MAhIJFH06hTal0woxbk/fIdY71P3kbgXC0Ppx/0S7BC+VxqRCA4/wcM+BoDbA== host" }).
-        to_return(json_response("public_key.json"))
-      public_key = @client.add_deploy_key("sferik/rails_admin", "Moss", "ssh-dss AAAAB3NzaC1kc3MAAACBAJz7HanBa18ad1YsdFzHO5Wy1/WgXd4BV+czbKq7q23jungbfjN3eo2a0SVdxux8GG+RZ9ia90VD/X+PE4s3LV60oXZ7PDAuyPO1CTF0TaDoKf9mPaHcPa6agMJVocMsgBgwviWT1Q9VgN1SccDsYVDtxkIAwuw25YeHZlG6myx1AAAAFQCgW+OvXWUdUJPBGkRJ8ML7uf0VHQAAAIAlP5G96tTss0SKYVSCJCyocn9cyGQdNjxah4/aYuYFTbLI1rxk7sr/AkZfJNIoF2UFyO5STbbratykIQGUPdUBg1a2t72bu31x+4ZYJMngNsG/AkZ2oqLiH6dJKHD7PFx2oSPalogwsUV7iSMIZIYaPa03A9763iFsN0qJjaed+gAAAIBxz3Prxdzt/os4XGXSMNoWcS03AFC/05NOkoDMrXxQnTTpp1wrOgyRqEnKz15qC5dWk1ynzK+LJXHDZGA8lXPfCjHpJO3zrlZ/ivvLhgPdDpt13MAhIJFH06hTal0woxbk/fIdY71P3kbgXC0Ppx/0S7BC+VxqRCA4/wcM+BoDbA== host")
-      expect(public_key.id).to eq(103205)
+      VCR.turn_off!
+      repo_name = "api-playground/api-sandbox"
+      request = stub_post(github_url("/repos/#{repo_name}/keys"))
+      public_key = @client.add_deploy_key(repo_name, "Padawan", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com" )
+      assert_requested request
+      VCR.turn_on!
     end
-
-  end
+  end # .add_deploy_key
 
   describe ".remove_deploy_key" do
-
     it "removes a repository deploy keys" do
-      stub_delete("/repos/sferik/rails_admin/keys/#{103205}").
-        to_return(:status => 204)
-      result = @client.remove_deploy_key("sferik/rails_admin", 103205)
-      expect(result).to eq(true)
+      VCR.turn_off!
+      repo_name = "api-playground/api-sandbox"
+      request = stub_delete(github_url("/repos/#{repo_name}/keys/1234"))
+      @client.remove_deploy_key(repo_name, 1234)
+      assert_requested request
+      VCR.turn_on!
+    end
+  end # .remove_deploy_key
+
+  context "methods that require a new @repo" do
+
+    before(:each) do
+      @repo = @client.create_repository("an-repo")
     end
 
-  end
+    after(:each) do
+      begin
+        @client.delete_repository(@repo.full_name)
+      rescue Octokit::NotFound
+      end
+    end
 
-  describe ".collaborators" do
+    describe ".create_repository", :vcr do
+      it "creates a repository" do
+        expect(@repo.name).to eq "an-repo"
+        assert_requested :post, github_url("/user/repos")
+      end
+    end # .create_repository
 
+    describe ".update_repository", :vcr do
+      it "updates the matching repository" do
+        description = "It's epic"
+        repository = @client.edit_repository(@repo.full_name, :description => description)
+        expect(repository.description).to eq description
+        assert_requested :patch, github_url("/repos/#{@repo.full_name}")
+      end
+    end # .update_repository
+
+    describe ".deploy_keys", :vcr do
+      it "returns a repository's deploy keys" do
+        public_keys = @client.deploy_keys @repo.full_name
+        expect(public_keys).to be_kind_of Array
+        assert_requested :get, github_url("/repos/#{@repo.full_name}/keys")
+      end
+    end # .deploy_keys
+
+    describe ".add_collaborator", :vcr do
+      it "adds a repository collaborators" do
+        begin
+          @client.remove_collaborator(@repo.full_name, "pengwynn")
+        rescue Octokit::NotFound
+        end
+        result = @client.add_collaborator(@repo.full_name, "pengwynn")
+        assert_requested :put, github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
+      end
+    end # .add_collaborator
+
+    describe ".remove_collaborator", :vcr do
+      it "removes a repository collaborators" do
+        begin
+          @client.add_collaborator(@repo.full_name, "pengwynn")
+        rescue Octokit::UnprocessableEntity
+        end
+
+        result = @client.remove_collaborator(@repo.full_name, "pengwynn")
+        assert_requested :delete, github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
+      end
+    end # .remove_collaborator
+
+    describe ".repository_teams", :vcr do
+      it "returns all repository teams" do
+        teams = @client.repository_teams(@repo.full_name)
+        assert_requested :get, github_url("/repos/#{@repo.full_name}/teams")
+        expect(teams).to be_kind_of Array
+      end
+    end # .repository_teams
+
+    describe ".hooks", :vcr do
+      it "returns a repository's hooks" do
+        hooks = @client.hooks(@repo.full_name)
+        expect(hooks).to be_kind_of Array
+        assert_requested :get, github_url("/repos/#{@repo.full_name}/hooks")
+      end
+    end
+
+    context "methods that need an existing hook" do
+
+      before(:each) do
+        @hook = @client.create_hook(@repo.full_name, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+      end
+
+      after(:each) do
+        @client.remove_hook(@repo.full_name, @hook.id)
+      end
+
+      describe ".create_hook", :vcr do
+        it "creates a hook" do
+          assert_requested :post, github_url("/repos/#{@repo.full_name}/hooks")
+        end
+      end # .create_hook
+
+      describe ".hook", :vcr do
+        it "returns a repository's single hook" do
+          @client.hook(@repo.full_name, @hook.id)
+          assert_requested :get, github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}")
+        end
+      end # .hook
+
+      describe ".edit_hook", :vcr do
+        it "edits a hook" do
+          hook = @client.edit_hook(@repo.full_name, @hook.id, "railsbp", {:railsbp_url => "https://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+          assert_requested :patch, github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}")
+        end
+      end # .edit_hook
+
+      describe ".test_hook", :vcr do
+        it "tests a hook" do
+          hook = @client.create_hook(@repo.full_name, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+          @client.test_hook(@repo.full_name, @hook.id)
+          assert_requested :post, github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}/tests")
+        end
+      end # .test_hook
+
+      describe ".remove_hook", :vcr do
+        it "removes a hook" do
+          @client.remove_hook(@repo.full_name, @hook.id)
+          assert_requested :delete, github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}")
+        end
+      end # .remove_hook
+
+    end # hook methods
+
+    describe ".delete_repository", :vcr do
+      it "deletes a repository" do
+        result = @client.delete_repository("#{@repo.full_name}")
+        assert_requested :delete, github_url("/repos/#{@repo.full_name}")
+      end
+    end # .delete_repository
+
+  end # @repo methods
+
+  describe ".repositories", :vcr do
+    it "returns a user's repositories" do
+      repositories = Octokit.repositories("sferik")
+      expect(repositories).to be_kind_of Array
+      assert_requested :get, github_url("/users/sferik/repos")
+    end
+    it "returns authenticated user's repositories" do
+      repositories = @client.repositories
+      expect(repositories).to be_kind_of Array
+      assert_requested :get, github_url("/user/repos")
+    end
+  end # .repositories
+
+  describe ".all_repositories", :vcr do
+    it "returns all repositories on github" do
+      repositories = Octokit.all_repositories
+      expect(repositories).to be_kind_of Array
+      assert_requested :get, github_url("/repositories")
+    end
+  end # .all_repositories
+
+  describe ".star", :vcr do
+    it "stars a repository" do
+      result = @client.star("sferik/rails_admin")
+      expect(result).to be_true
+      assert_requested :put, github_url("/user/starred/sferik/rails_admin")
+    end
+  end # .star
+
+  describe ".unstar", :vcr do
+    it "unstars a repository" do
+      result = @client.unstar("sferik/rails_admin")
+      expect(result).to be_true
+      assert_requested :delete, github_url("/user/starred/sferik/rails_admin")
+    end
+  end # .unstar
+
+  describe ".watch", :vcr do
+    it "watches a repository" do
+      result = @client.watch("sferik/rails_admin")
+      expect(result).to be_true
+      assert_requested :put, github_url("/user/watched/sferik/rails_admin")
+    end
+  end # .watch
+
+  describe ".unwatch", :vcr do
+    it "unwatches a repository" do
+      result = @client.unwatch("sferik/rails_admin")
+      expect(result).to be_true
+      assert_requested :delete, github_url("/user/watched/sferik/rails_admin")
+    end
+  end # .unwatch
+
+  describe ".fork", :vcr do
+    it "forks a repository" do
+      repository = @client.fork("sferik/rails_admin")
+      assert_requested :post, github_url("/repos/sferik/rails_admin/forks")
+
+      # cleanup
+      @client.delete_repository(repository.full_name)
+    end
+  end # .fork
+
+  describe ".collaborators", :vcr do
     it "returns a repository's collaborators" do
-      stub_get("/repos/sferik/rails_admin/collaborators").
-        to_return(json_response("collaborators.json"))
-      collaborators = @client.collaborators("sferik/rails_admin")
-      expect(collaborators.first.login).to eq("sferik")
+      collaborators = Octokit.collaborators("sferik/rails_admin")
+      expect(collaborators).to be_kind_of Array
+      assert_requested :get, github_url("/repos/sferik/rails_admin/collaborators")
     end
+  end # .collaborators
 
-  end
-
-  describe ".add_collaborator" do
-
-    it "adds a repository collaborators" do
-      stub_put("/repos/sferik/rails_admin/collaborators/sferik").
-        to_return(:status => 204)
-      result = @client.add_collaborator("sferik/rails_admin", "sferik")
-      expect(result).to eq(true)
+  describe ".contributors", :vcr do
+    it "returns repository contributors" do
+      contributors = Octokit.contributors("sferik/rails_admin", true)
+      expect(contributors).to be_kind_of Array
+      assert_requested :get, github_url("/repos/sferik/rails_admin/contributors?anon=1")
     end
-
-  end
-
-  describe ".remove_collaborator" do
-
-    it "removes a repository collaborators" do
-      stub_delete("/repos/sferik/rails_admin/collaborators/sferik").
-        to_return(:status => 204)
-      result = @client.remove_collaborator("sferik/rails_admin", "sferik")
-      expect(result).to eq(true)
+    it "returns repository contributors excluding anonymous" do
+      contributors = Octokit.contributors("sferik/rails_admin")
+      expect(contributors).to be_kind_of Array
+      assert_requested :get, github_url("/repos/sferik/rails_admin/contributors")
     end
+  end # .contributors
 
-  end
-
-  describe ".repository_teams" do
-
-    it "returns all repository teams" do
-      stub_get("/repos/codeforamerica/open311/teams").
-        to_return(json_response("teams.json"))
-      teams = @client.repository_teams("codeforamerica/open311")
-      expect(teams.first.name).to eq("Fellows")
-    end
-
-  end
-
-  describe ".contributors" do
-
-    context "with anonymous users" do
-
-      it "returns all repository contributors" do
-        stub_get("/repos/sferik/rails_admin/contributors?anon=true").
-          to_return(json_response("contributors.json"))
-        contributors = @client.contributors("sferik/rails_admin", true)
-        expect(contributors.first.login).to eq("sferik")
-      end
-
-    end
-
-    context "without anonymous users" do
-
-      it "returns all repository contributors" do
-        stub_get("/repos/sferik/rails_admin/contributors?anon=false").
-          to_return(json_response("contributors.json"))
-        contributors = @client.contributors("sferik/rails_admin")
-        expect(contributors.first.login).to eq("sferik")
-      end
-
-    end
-
-  end
-
-  describe ".stargazers" do
-
+  describe ".stargazers", :vcr do
     it "returns all repository stargazers" do
-      stub_get("/repos/sferik/rails_admin/stargazers").
-        to_return(json_response("stargazers.json"))
-      stargazers = @client.stargazers("sferik/rails_admin")
-      expect(stargazers.first.login).to eq("sferik")
+      stargazers = Octokit.stargazers("sferik/rails_admin")
+      expect(stargazers).to be_kind_of Array
+      assert_requested :get, github_url("/repos/sferik/rails_admin/stargazers")
     end
+  end # .stargazers
 
-  end
-
-  describe ".watchers" do
-
+  describe ".watchers", :vcr do
     it "returns all repository watchers" do
-      stub_get("/repos/sferik/rails_admin/watchers").
-        to_return(json_response("watchers.json"))
-      watchers = @client.watchers("sferik/rails_admin")
-      expect(watchers.first.login).to eq("sferik")
+      watchers = Octokit.watchers("sferik/rails_admin")
+      expect(watchers).to be_kind_of Array
+      assert_requested :get, github_url("/repos/sferik/rails_admin/watchers")
     end
+  end # .watchers
 
-  end
-
-  describe ".network" do
-
+  describe ".network", :vcr do
     it "returns a repository's network" do
-      stub_get("/repos/sferik/rails_admin/forks").
-        to_return(json_response("forks.json"))
-      network = @client.network("sferik/rails_admin")
-      expect(network.first.owner.login).to eq("digx")
+      network = Octokit.network("sferik/rails_admin")
+      expect(network).to be_kind_of Array
+      assert_requested :get, github_url("/repos/sferik/rails_admin/forks")
     end
+  end # .network
 
-  end
-
-  describe ".languages" do
-
+  describe ".languages", :vcr do
     it "returns a repository's languages" do
-      stub_get("/repos/sferik/rails_admin/languages").
-        to_return(json_response("languages.json"))
-      languages = @client.languages("sferik/rails_admin")
-      expect(languages["Ruby"]).to eq(345701)
+      languages = Octokit.languages("sferik/rails_admin")
+      expect(languages[:Ruby]).to_not be_nil
+      assert_requested :get, github_url("/repos/sferik/rails_admin/languages")
     end
+  end # .languages
 
-  end
-
-  describe ".tags" do
-
+  describe ".tags", :vcr do
     it "returns a repository's tags" do
-      stub_get("/repos/pengwynn/octokit/tags").
-        to_return(json_response("tags.json"))
-      tags = @client.tags("pengwynn/octokit")
-      v0_6_4 = tags.find { |tag| tag.name == "v0.6.4" }
-      expect(v0_6_4.commit.sha).to eq("09bcc30e7286eeb1bbde68d0ace7a6b90b1a84a2")
+      tags = Octokit.tags("octokit/octokit.rb")
+      expect(tags).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/tags")
     end
+  end # .tags
 
-  end
-
-  describe ".branches" do
-
+  describe ".branches", :vcr do
     it "returns a repository's branches" do
-      stub_get("/repos/pengwynn/octokit/branches").
-        to_return(json_response("branches.json"))
-      branches = @client.branches("pengwynn/octokit")
-      master = branches.find { |branch| branch.name == "master" }
-      expect(master.commit.sha).to eq("88553a397f7293b3ba176dc27cd1ab6bb93d5d14")
+      branches = Octokit.branches("octokit/octokit.rb")
+      expect(branches).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/branches")
     end
-
     it "returns a single branch" do
-      branch = JSON.parse(fixture("branches.json").read).last
-      stub_get("/repos/pengwynn/octokit/branches/master").
-        to_return(:body => branch)
-      branch = @client.branch("pengwynn/octokit", "master")
-      expect(branch.commit.sha).to eq("88553a397f7293b3ba176dc27cd1ab6bb93d5d14")
+      branch = Octokit.branch("octokit/octokit.rb", "master")
+      expect(branch.commit.sha).to_not be_nil
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/branches/master")
     end
+  end # .branches
 
-  end
-
-  describe ".hooks" do
-
-    it "returns a repository's hooks" do
-      stub_get("/repos/railsbp/railsbp.com/hooks").
-        to_return(json_response("hooks.json"))
-      hooks = @client.hooks("railsbp/railsbp.com")
-      hook = hooks.find { |hook| hook.name == "railsbp" }
-      expect(hook.config.token).to eq("xAAQZtJhYHGagsed1kYR")
-    end
-
-  end
-
-  describe ".hook" do
-
-    it "returns a repository's single hook" do
-      stub_get("/repos/railsbp/railsbp.com/hooks/154284").
-        to_return(json_response("hook.json"))
-      hook = @client.hook("railsbp/railsbp.com", 154284)
-      expect(hook.config.token).to eq("xAAQZtJhYHGagsed1kYR")
-    end
-
-  end
-
-  describe ".create_hook" do
-
-    it "creates a hook" do
-      stub_post("/repos/railsbp/railsbp.com/hooks").
-        with(:body => {:name => "railsbp", :config => {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"}, :events => ["push"], :active => true}).
-        to_return(json_response("hook.json"))
-      hook = @client.create_hook("railsbp/railsbp.com", "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
-      expect(hook.id).to eq(154284)
-    end
-
-  end
-
-  describe ".edit_hook" do
-
-    it "edits a hook" do
-      stub_patch("/repos/railsbp/railsbp.com/hooks/154284").
-        with(:body => {:name => "railsbp", :config => {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"}, :events => ["push"], :active => true}).
-        to_return(json_response("hook.json"))
-      hook = @client.edit_hook("railsbp/railsbp.com", 154284, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
-      expect(hook.id).to eq(154284)
-      expect(hook.config.token).to eq("xAAQZtJhYHGagsed1kYR")
-    end
-
-  end
-
-  describe ".remove_hook" do
-
-    it "removes a hook" do
-      stub_delete("/repos/railsbp/railsbp.com/hooks/154284").
-        to_return(:status => 204)
-      expect(@client.remove_hook("railsbp/railsbp.com", 154284)).to eq(true)
-    end
-
-  end
-
-  describe ".test_hook" do
-
-    it "tests a hook" do
-      stub_post("/repos/railsbp/railsbp.com/hooks/154284/tests").
-        to_return(:status => 204)
-      expect(@client.test_hook("railsbp/railsbp.com", 154284)).to eq(true)
-    end
-
-  end
-
-  describe ".events" do
-
-    it "lists events for all issues in a repository" do
-      stub_get("/repos/pengwynn/octokit/issues/events").
-      to_return(json_response("repo_issues_events.json"))
-      events = @client.repo_issue_events("pengwynn/octokit")
-      expect(events.first.actor.login).to eq("ctshryock")
-      expect(events.first.event).to eq("subscribed")
-    end
-
-  end
-
-  describe ".assignees" do
-
+  describe ".assignees", :vcr do
     it "lists all the available assignees (owner + collaborators)" do
-      stub_get("/repos/pengwynn/octokit/assignees").
-      to_return(json_response("repo_assignees.json"))
-      assignees = @client.repo_assignees("pengwynn/octokit")
-      expect(assignees.first.login).to eq("adamstac")
+      assignees = Octokit.repo_assignees("octokit/octokit.rb")
+      expect(assignees).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/assignees")
     end
+  end # .assignees
 
-  end
-
-  describe ".check_assignee" do
-
+  describe ".check_assignee", :vcr do
     it "checks to see if a particular user is an assignee for a repository" do
-      stub_get("/repos/pengwynn/octokit/assignees/andrew").
-      to_return(:status => 204)
-      is_assignee = @client.check_assignee("pengwynn/octokit", 'andrew')
-      expect(is_assignee).to eq(true)
+      is_assignee = Octokit.check_assignee("octokit/octokit.rb", 'andrew')
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/assignees/andrew")
     end
+  end # .check_assignee
 
-  end
-
-  describe ".subscribers" do
-
+  describe ".subscribers", :vcr do
     it "lists all the users watching the repository" do
-      stub_get("/repos/pengwynn/octokit/subscribers").
-        to_return(json_response("subscribers.json"))
-      subscribers = @client.subscribers("pengwynn/octokit")
-      expect(subscribers.first.id).to eq(865)
-      expect(subscribers.first.login).to eq("pengwynn")
+      subscribers = Octokit.subscribers("octokit/octokit.rb")
+      expect(subscribers).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/subscribers")
     end
+  end # .subscribers
 
-  end
-
-  describe ".subscription" do
-
-    it "returns a repository subscription" do
-      stub_get("/repos/pengwynn/octokit/subscription").
-        to_return(json_response("subscription.json"))
-      subscription = @client.subscription("pengwynn/octokit")
-      expect(subscription.subscribed).to eq(true)
-    end
-
-  end
-
-  describe ".update_subscription" do
-
+  describe ".update_subscription", :vcr do
     it "updates a repository subscription" do
-      stub_put("/repos/pengwynn/octokit/subscription").
-        to_return(json_response("subscription_update.json"))
-      subscription = @client.update_subscription("pengwynn/octokit", :subscribed => false)
-      expect(subscription.subscribed).to be_false
+      subscription = @client.update_subscription("octokit/octokit.rb", :subscribed => false)
+      assert_requested :put, github_url("/repos/octokit/octokit.rb/subscription")
     end
+  end # .update_subscription
 
-  end
+  describe ".subscription", :vcr do
+    it "returns a repository subscription" do
+      subscription = @client.subscription("octokit/octokit.rb")
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/subscription")
+    end
+  end # .subscription
 
-  describe ".delete_subscription" do
-
+  describe ".delete_subscription", :vcr do
     it "returns true when repo subscription deleted" do
-      stub_delete("/repos/pengwynn/octokit/subscription").
-        to_return(:status => 204)
-      result = @client.delete_subscription("pengwynn/octokit")
-      expect(result).to eq(true)
+      result = @client.delete_subscription("octokit/octokit.rb")
+      assert_requested :delete, github_url("/repos/octokit/octokit.rb/subscription")
     end
+  end # .delete_subscription
 
-    it "returns false when delete repo subscription fails" do
-      stub_delete("/repos/pengwynn/octokit/subscription").
-        to_return(:status => 404)
-      result = @client.delete_subscription("pengwynn/octokit")
-      expect(result).to be_false
-    end
-
-  end
-
-  describe ".repository?" do
-
+  describe ".repository?", :vcr do
     it "returns true if the repository exists" do
-      stub_get("/repos/sferik/rails_admin").
-        to_return(json_response("repository.json"))
-
       result = @client.repository?("sferik/rails_admin")
       expect(result).to be_true
+      assert_requested :get, github_url("/repos/sferik/rails_admin")
     end
-
     it "returns false if the repository doesn't exist" do
-      stub_get("/repos/pengwynn/octokit").
-        to_return(:status => 404)
-
       result = @client.repository?("pengwynn/octokit")
       expect(result).to be_false
+      assert_requested :get, github_url("/repos/pengwynn/octokit")
     end
+  end # .repository?
 
-  end
 end

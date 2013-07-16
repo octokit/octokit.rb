@@ -1,26 +1,33 @@
-require 'netrc'
-require 'octokit/configuration'
-require 'octokit/error'
 require 'octokit/client'
+require 'octokit/default'
 
+# Ruby toolkit for the GitHub API
 module Octokit
-  extend Configuration
+
   class << self
-    # Alias for Octokit::Client.new
+    include Octokit::Configurable
+
+    # API client based on configured options {Configurable}
     #
-    # @return [Octokit::Client]
-    def new(options={})
-      Octokit::Client.new(options)
+    # @return [Octokit::Client] API wrapper
+    def client
+      @client = Octokit::Client.new(options) unless defined?(@client) && @client.same_options?(options)
+      @client
     end
 
-    # Delegate to Octokit::Client.new
-    def method_missing(method, *args, &block)
-      return super unless new.respond_to?(method)
-      new.send(method, *args, &block)
+    # @private
+    def respond_to_missing?(method_name, include_private=false); client.respond_to?(method_name, include_private); end if RUBY_VERSION >= "1.9"
+    # @private
+    def respond_to?(method_name, include_private=false); client.respond_to?(method_name, include_private) || super; end if RUBY_VERSION < "1.9"
+
+  private
+
+    def method_missing(method_name, *args, &block)
+      return super unless client.respond_to?(method_name)
+      client.send(method_name, *args, &block)
     end
 
-    def respond_to?(method, include_private=false)
-      new.respond_to?(method, include_private) || super(method, include_private)
-    end
   end
 end
+
+Octokit.setup

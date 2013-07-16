@@ -1,78 +1,279 @@
+require 'sawyer'
+require 'octokit/arguments'
+require 'octokit/repo_arguments'
+require 'octokit/configurable'
 require 'octokit/authentication'
-require 'octokit/connection'
 require 'octokit/gist'
+require 'octokit/rate_limit'
 require 'octokit/repository'
-require 'octokit/request'
-
+require 'octokit/client/authorizations'
 require 'octokit/client/commits'
+require 'octokit/client/commit_comments'
+require 'octokit/client/contents'
 require 'octokit/client/downloads'
+require 'octokit/client/emojis'
+require 'octokit/client/events'
 require 'octokit/client/gists'
+require 'octokit/client/gitignore'
 require 'octokit/client/issues'
 require 'octokit/client/labels'
+require 'octokit/client/legacy_search'
+require 'octokit/client/meta'
+require 'octokit/client/markdown'
 require 'octokit/client/milestones'
+require 'octokit/client/notifications'
 require 'octokit/client/objects'
 require 'octokit/client/organizations'
 require 'octokit/client/pub_sub_hubbub'
-require 'octokit/client/pub_sub_hubbub/service_hooks'
-require 'octokit/client/pulls'
-require 'octokit/client/repositories'
-require 'octokit/client/users'
-require 'octokit/client/events'
-require 'octokit/client/notifications'
-require 'octokit/client/authorizations'
-require 'octokit/client/refs'
-require 'octokit/client/contents'
-require 'octokit/client/markdown'
-require 'octokit/client/emojis'
-require 'octokit/client/statuses'
-require 'octokit/client/say'
-require 'octokit/client/stats'
+require 'octokit/client/pull_requests'
 require 'octokit/client/rate_limit'
-require 'octokit/client/gitignore'
-require 'octokit/client/github'
+require 'octokit/client/refs'
+require 'octokit/client/repositories'
+require 'octokit/client/say'
+require 'octokit/client/service_status'
+require 'octokit/client/stats'
+require 'octokit/client/statuses'
+require 'octokit/client/users'
 
 module Octokit
+
+  # Client for the GitHub API
+  #
+  # @see http://developer.github.com
   class Client
-    attr_accessor(*Configuration::VALID_OPTIONS_KEYS)
-
-    def initialize(options={})
-      options = Octokit.options.merge(options)
-      Configuration::VALID_OPTIONS_KEYS.each do |key|
-        send("#{key}=", options[key])
-      end
-
-      login_and_password_from_netrc(options[:netrc])
-    end
 
     include Octokit::Authentication
-    include Octokit::Connection
-    include Octokit::Request
-
+    include Octokit::Configurable
+    include Octokit::Client::Authorizations
     include Octokit::Client::Commits
+    include Octokit::Client::CommitComments
+    include Octokit::Client::Contents
     include Octokit::Client::Downloads
+    include Octokit::Client::Emojis
+    include Octokit::Client::Events
     include Octokit::Client::Gists
+    include Octokit::Client::Gitignore
     include Octokit::Client::Issues
     include Octokit::Client::Labels
+    include Octokit::Client::LegacySearch
+    include Octokit::Client::Meta
+    include Octokit::Client::Markdown
     include Octokit::Client::Milestones
+    include Octokit::Client::Notifications
     include Octokit::Client::Objects
     include Octokit::Client::Organizations
-    include Octokit::Client::Pulls
     include Octokit::Client::PubSubHubbub
-    include Octokit::Client::PubSubHubbub::ServiceHooks
-    include Octokit::Client::Repositories
-    include Octokit::Client::Users
-    include Octokit::Client::Events
-    include Octokit::Client::Notifications
-    include Octokit::Client::Authorizations
-    include Octokit::Client::Refs
-    include Octokit::Client::Contents
-    include Octokit::Client::Markdown
-    include Octokit::Client::Emojis
-    include Octokit::Client::Statuses
-    include Octokit::Client::Say
-    include Octokit::Client::Stats
+    include Octokit::Client::PullRequests
     include Octokit::Client::RateLimit
-    include Octokit::Client::Gitignore
-    include Octokit::Client::GitHub
+    include Octokit::Client::Refs
+    include Octokit::Client::Repositories
+    include Octokit::Client::Say
+    include Octokit::Client::ServiceStatus
+    include Octokit::Client::Stats
+    include Octokit::Client::Statuses
+    include Octokit::Client::Users
+
+    # Header keys that can be passed in options hash to {#get},{#head}
+    CONVENIENCE_HEADERS = Set.new [:accept]
+
+    def initialize(options = {})
+      # Use options passed in, but fall back to module defaults
+      Octokit::Configurable.keys.each do |key|
+        instance_variable_set(:"@#{key}", options[key] || Octokit.instance_variable_get(:"@#{key}"))
+      end
+
+      login_from_netrc unless user_authenticated? || application_authenticated?
+    end
+
+    # Compares client options to a Hash of requested options
+    #
+    # @param opts [Hash] Options to compare with current client options
+    # @return [Boolean]
+    def same_options?(opts)
+      opts.hash == options.hash
+    end
+
+    # Text representation of the client, masking tokens and passwords
+    #
+    # @return [String]
+    def inspect
+      inspected = super
+
+      # mask password
+      inspected = inspected.gsub! @password, "*******" if @password
+      # Only show last 4 of token, secret
+      if @access_token
+        inspected = inspected.gsub! @access_token, "#{'*'*36}#{@access_token[36..-1]}"
+      end
+      if @client_secret
+        inspected = inspected.gsub! @client_secret, "#{'*'*36}#{@client_secret[36..-1]}"
+      end
+
+      inspected
+    end
+
+    # Make a HTTP GET request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Query and header params for request
+    # @return [Sawyer::Resource]
+    def get(url, options = {})
+      request :get, url, parse_query_and_convenience_headers(options)
+    end
+
+    # Make a HTTP POST request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Body and header params for request
+    # @return [Sawyer::Resource]
+    def post(url, options = {})
+      request :post, url, options
+    end
+
+    # Make a HTTP PUT request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Body and header params for request
+    # @return [Sawyer::Resource]
+    def put(url, options = {})
+      request :put, url, options
+    end
+
+    # Make a HTTP PATCH request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Body and header params for request
+    # @return [Sawyer::Resource]
+    def patch(url, options = {})
+      request :patch, url, options
+    end
+
+    # Make a HTTP DELETE request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Query and header params for request
+    # @return [Sawyer::Resource]
+    def delete(url, options = {})
+      request :delete, url, options
+    end
+
+    # Make a HTTP HEAD request
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Query and header params for request
+    # @return [Sawyer::Resource]
+    def head(url, options = {})
+      request :head, url, parse_query_and_convenience_headers(options)
+    end
+
+    # Make one or more HTTP GET requests, optionally fetching
+    # the next page of results from URL in Link response header based
+    # on value in {#auto_paginate}.
+    #
+    # @param url [String] The path, relative to {#api_endpoint}
+    # @param options [Hash] Query and header params for request
+    # @return [Sawyer::Resource]
+    def paginate(url, options = {})
+      opts = parse_query_and_convenience_headers(options.dup)
+      if @auto_paginate || @per_page
+        opts[:query][:per_page] ||=  @per_page || (@auto_paginate ? 100 : nil)
+      end
+
+      data = request(:get, url, opts)
+
+      if @auto_paginate && data.is_a?(Array)
+        while @last_response.rels[:next] && rate_limit.remaining > 0
+          @last_response = @last_response.rels[:next].get
+          data.concat(@last_response.data) if @last_response.data.is_a?(Array)
+        end
+
+      end
+
+      data
+    end
+
+    # Hypermedia agent for the GitHub API
+    #
+    # @return [Sawyer::Agent]
+    def agent
+      @agent ||= Sawyer::Agent.new(api_endpoint, sawyer_options) do |http|
+        http.headers[:accept] = default_media_type
+        http.headers[:user_agent] = user_agent
+        if basic_authenticated?
+          http.basic_auth(@login, @password)
+        elsif token_authenticated?
+          http.authorization 'token', @access_token
+        end
+      end
+    end
+
+    # Fetch the root resource for the API
+    #
+    # @return [Sawyer::Resource]
+    def root
+      agent.start.data
+    end
+
+    # Response for last HTTP request
+    #
+    # @return [Sawyer::Response]
+    def last_response
+      @last_response
+    end
+
+    private
+
+    def request(method, path, options)
+      if application_authenticated?
+        options[:query] ||= {}
+        options[:query].merge! application_authentication
+      end
+      if accept = options.delete(:accept)
+        options[:headers] ||= {}
+        options[:headers][:accept] = accept
+      end
+
+      @last_response = response = agent.call(method, URI.encode(path), options)
+      response.data
+    end
+
+    # Executes the request, checking if it was successful
+    #
+    # @return [Boolean] True on success, false otherwise
+    def boolean_from_response(method, path, options = {})
+      request(method, path, options)
+      @last_response.status == 204
+    rescue Octokit::NotFound
+      false
+    end
+
+
+    def sawyer_options
+      opts = {
+        :links_parser => Sawyer::LinkParsers::Simple.new
+      }
+      conn_opts = @connection_options
+      conn_opts[:builder] = @middleware if @middleware
+      conn_opts[:proxy] = @proxy if @proxy
+      opts[:faraday] = Faraday.new(conn_opts)
+
+      opts
+    end
+
+    def parse_query_and_convenience_headers(options)
+      headers = options.fetch(:headers, {})
+      CONVENIENCE_HEADERS.each do |h|
+        if header = options.delete(h)
+          headers[h] = header
+        end
+      end
+      query = options.delete(:query)
+      opts = {:query => options}
+      opts[:query].merge!(query) if query && query.is_a?(Hash)
+      opts[:headers] = headers unless headers.empty?
+
+      opts
+    end
+
   end
 end
