@@ -20,6 +20,8 @@ describe Octokit::Client do
           rate = client.rate_limit
           expect(rate.limit).to be_kind_of Fixnum
           expect(rate.remaining).to be_kind_of Fixnum
+          expect(rate.resets_at).to be_kind_of Time
+          expect(rate.resets_in).to be_kind_of Fixnum
         end
       end
     end
@@ -33,6 +35,8 @@ describe Octokit::Client do
 
         expect(rate.limit).to be_kind_of Fixnum
         expect(rate.remaining).to be_kind_of Fixnum
+        expect(rate.resets_at).to be_kind_of Time
+        expect(rate.resets_in).to be_kind_of Fixnum
       end
     end
   end # .rate_limit!
