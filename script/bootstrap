@@ -2,4 +2,5 @@
 
 set -e
 
-bundle install "$@"
+bundle install --quiet "$@"
+chmod 0600 spec/fixtures/.netrc
