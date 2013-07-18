@@ -13,7 +13,7 @@ describe Octokit::Client::LegacySearch do
       expect(issues).to_not be_empty
       assert_requested :get, github_url("/legacy/issues/search/sferik/rails_admin/open/activerecord")
     end
-  end # .search_issues
+  end # .legacy_search_issues
 
   describe ".legacy_search_repos", :vcr do
     it "returns matching repositories" do
