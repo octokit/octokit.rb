@@ -68,6 +68,10 @@ module Octokit
       def search(path, query, options = {})
         opts = options.merge(:q => query)
         opts[:accept] ||= "application/vnd.github.preview"
+        warn <<-EOS
+WARNING: The preview version of the Search API is not yet suitable for production use.
+See the blog post for details: http://git.io/_-FA3g
+EOS
         paginate path, opts
       end
     end
