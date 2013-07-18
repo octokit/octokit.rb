@@ -30,6 +30,7 @@ require 'octokit/client/rate_limit'
 require 'octokit/client/refs'
 require 'octokit/client/repositories'
 require 'octokit/client/say'
+require 'octokit/client/search'
 require 'octokit/client/service_status'
 require 'octokit/client/stats'
 require 'octokit/client/statuses'
@@ -68,6 +69,7 @@ module Octokit
     include Octokit::Client::Refs
     include Octokit::Client::Repositories
     include Octokit::Client::Say
+    include Octokit::Client::Search
     include Octokit::Client::ServiceStatus
     include Octokit::Client::Stats
     include Octokit::Client::Statuses
