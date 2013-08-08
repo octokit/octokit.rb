@@ -104,7 +104,7 @@ module Octokit
       # @example
       #   @client.org_repos('github', {:type => 'private'})
       def organization_repositories(org, options = {})
-        get "orgs/#{org}/repos", options
+        paginate "orgs/#{org}/repos", options
       end
       alias :org_repositories :organization_repositories
       alias :org_repos :organization_repositories
@@ -125,7 +125,7 @@ module Octokit
       # @example
       #   Octokit.org_members('github')
       def organization_members(org, options = {})
-        get "orgs/#{org}/members", options
+        paginate "orgs/#{org}/members", options
       end
       alias :org_members :organization_members
 
