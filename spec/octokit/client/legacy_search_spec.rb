@@ -32,9 +32,9 @@ describe Octokit::Client::LegacySearch do
     it "should not raise URI::InvalidURIError and returns success" do
       VCR.eject_cassette
       VCR.turn_off!
-      stub_get("https://api.github.com/legacy/user/search/follower:>0")
-      expect { @client.legacy_search_users("follower:>0") }.to_not raise_error
-      assert_requested :get, github_url("/legacy/user/search/follower:%3E0")
+      stub_get("https://api.github.com/legacy/user/search/followers:>0")
+      expect { @client.legacy_search_users("followers:>0") }.to_not raise_error(URI::InvalidURIError)
+      assert_requested :get, github_url("/legacy/user/search/followers:%3E0")
       VCR.turn_on!
     end
   end # .legacy_searcy_users
