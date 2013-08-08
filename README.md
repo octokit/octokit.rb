@@ -112,6 +112,8 @@ implementation, you will be responsible for providing patches in a timely
 fashion. If critical issues for a particular implementation exist at the time
 of a major release, support for that Ruby version may be dropped.
 
+[travis]: https://travis-ci.org/octokit/octokit.rb
+
 ## Versioning
 
 This library aims to adhere to [Semantic Versioning 2.0.0][semver]. Violations
