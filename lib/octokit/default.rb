@@ -1,3 +1,5 @@
+require 'octokit/error/client_error'
+require 'octokit/error/server_error'
 require 'octokit/response/raise_error'
 require 'octokit/version'
 
@@ -20,7 +22,10 @@ module Octokit
 
     # Default Faraday middleware stack
     MIDDLEWARE = Faraday::Builder.new do |builder|
-      builder.use Octokit::Response::RaiseError
+      # Handle 4xx server responses
+      builder.use Octokit::Response::RaiseError, Octokit::Error::ClientError
+      # Handle 5xx server responses
+      builder.use Octokit::Response::RaiseError, Octokit::Error::ServerError
       builder.adapter Faraday.default_adapter
     end
 

@@ -1,69 +1,74 @@
+require 'octokit/rate_limit'
+
 module Octokit
-  # Custom error class for rescuing from all GitHub errors
+  # Custom error class for rescuing from all Octokit errors
   class Error < StandardError
-    def initialize(response=nil)
-      @response = response
-      super(build_error_message)
+    attr_reader :rate_limit, :wrapped_exception
+
+    # Create a new error from an HTTP response
+    #
+    # @param response [Hash]
+    # @return [Octokit::Error]
+    def self.from_response(response = {})
+      error = parse_message(response)
+      new(error, response[:response_headers])
     end
 
-    # private
-    def response_body
-      @response_body ||=
-        if (body = @response[:body]) && !body.empty?
-          if body.is_a?(String)
-            serializer = Sawyer::Serializer.new(Sawyer::Serializer.any_json)
-            serializer.decode(body)
-          else
-            body
-          end
-        else
-          nil
-        end
+    # @return [Hash]
+    def self.errors
+      @errors ||= descendants.each_with_object({}) do |klass, hash|
+        hash[klass::HTTP_STATUS_CODE] = klass
+      end
     end
 
-    # private
-    def build_error_message
-      return nil  if @response.nil?
+    # @return [Array]
+    def self.descendants
+      @descendants ||= []
+    end
 
-      message = if response_body
-        ": #{response_body['error'] || response_body['message'] || ''}"
+    # @return [Array]
+    def self.inherited(descendant)
+      descendants << descendant
+    end
+
+    # Initializes a new Error object
+    #
+    # @param exception [Exception, String]
+    # @param response_headers [Hash]
+    # @return [Octokit::Error]
+    def initialize(exception=$!, response_headers={})
+      # @rate_limit = Octokit::RateLimit.new(response_headers)
+      @wrapped_exception = exception
+      exception.respond_to?(:backtrace) ? super(exception.message) : super(exception.to_s)
+    end
+
+    def backtrace
+      @wrapped_exception.respond_to?(:backtrace) ? @wrapped_exception.backtrace : super
+    end
+
+    private
+
+    def self.parse_body(body)
+      return nil if body.nil?
+
+      serializer = Sawyer::Serializer.new(Sawyer::Serializer.any_json)
+      data = serializer.decode(body)
+    end
+
+    def self.parse_message(response)
+      body = parse_body(response[:body])
+
+      message = if body
+        ": #{body[:error] || body[:message] || ''}"
       else
         ''
       end
       errors = unless message.empty?
-        response_body['errors'] ?  ": #{response_body['errors'].map{|e|e['message']}.join(', ')}" : ''
+        body[:errors] ?  ": #{body[:errors].map{|e|e[:message]}.join(', ')}" : ''
       end
-      "#{@response[:method].to_s.upcase} #{@response[:url].to_s}: #{@response[:status]}#{message}#{errors}"
+      "#{response[:method].to_s.upcase} #{response[:url].to_s}: #{response[:status]}#{message}#{errors}"
     end
+
   end
 
-  # Raised when GitHub returns a 400 HTTP status code
-  class BadRequest < Error; end
-
-  # Raised when GitHub returns a 401 HTTP status code
-  class Unauthorized < Error; end
-
-  # Raised when GitHub returns a 403 HTTP status code
-  class Forbidden < Error; end
-
-  # Raised when GitHub returns a 404 HTTP status code
-  class NotFound < Error; end
-
-  # Raised when GitHub returns a 406 HTTP status code
-  class NotAcceptable < Error; end
-
-  # Raised when GitHub returns a 422 HTTP status code
-  class UnprocessableEntity < Error; end
-
-  # Raised when GitHub returns a 500 HTTP status code
-  class InternalServerError < Error; end
-
-  # Raised when GitHub returns a 501 HTTP status code
-  class NotImplemented < Error; end
-
-  # Raised when GitHub returns a 502 HTTP status code
-  class BadGateway < Error; end
-
-  # Raised when GitHub returns a 503 HTTP status code
-  class ServiceUnavailable < Error; end
 end
