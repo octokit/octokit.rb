@@ -245,7 +245,7 @@ module Octokit
     def boolean_from_response(method, path, options = {})
       request(method, path, options)
       @last_response.status == 204
-    rescue Octokit::NotFound
+    rescue Octokit::Error::NotFound
       false
     end
 

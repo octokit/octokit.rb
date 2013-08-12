@@ -14,7 +14,7 @@ module Octokit
       # @return [Hashie::Mash] if a repository exists, false otherwise
       def repository?(repo, options = {})
         repository(repo, options)
-      rescue Octokit::NotFound
+      rescue Octokit::Error::NotFound
         false
       end
 

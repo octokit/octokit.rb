@@ -372,13 +372,13 @@ describe Octokit::Client do
     end
 
     it "raises on 404", :vcr do
-      expect { Octokit.get('/user') }.to raise_error Octokit::Unauthorized
+      expect { Octokit.get('/user') }.to raise_error Octokit::Error::Unauthorized
     end
 
     it "raises on 500" do
       VCR.turn_off!
       stub_get('/boom').to_return(:status => 500)
-      expect { Octokit.get('/boom') }.to raise_error Octokit::InternalServerError
+      expect { Octokit.get('/boom') }.to raise_error Octokit::Error::InternalServerError
       VCR.turn_on!
     end
 
@@ -387,7 +387,7 @@ describe Octokit::Client do
         to_return(:status => 422, :body => '{"message":"No repository found for hub.topic: https://github.com/joshk/not_existing_project/events/push"}')
       begin
         Octokit.get('/boom')
-      rescue Octokit::UnprocessableEntity => e
+      rescue Octokit::Error::UnprocessableEntity => e
         expect(e.message).to include "GET https://api.github.com/boom: 422"
       end
     end

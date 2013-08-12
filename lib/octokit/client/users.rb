@@ -63,7 +63,7 @@ module Octokit
       # @return [Boolean] True if credentials are valid
       def validate_credentials(options = {})
         !self.class.new(options).user.nil?
-      rescue Octokit::Unauthorized
+      rescue Octokit::Error::Unauthorized
         false
       end
 
