@@ -11,7 +11,7 @@ module Octokit
       # @param query [String] Search term and qualifiers
       # @param options [Hash] Sort and pagination options
       # @option options [String] :sort Sort field
-      # @option options [String] :direction Sort direction (asc or desc)
+      # @option options [String] :order Sort order (asc or desc)
       # @option options [Fixnum] :page Page of paginated results
       # @option options [Fixnum] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
@@ -25,7 +25,7 @@ module Octokit
       # @param query [String] Search term and qualifiers
       # @param options [Hash] Sort and pagination options
       # @option options [String] :sort Sort field
-      # @option options [String] :direction Sort direction (asc or desc)
+      # @option options [String] :order Sort order (asc or desc)
       # @option options [Fixnum] :page Page of paginated results
       # @option options [Fixnum] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
@@ -39,7 +39,7 @@ module Octokit
       # @param query [String] Search term and qualifiers
       # @param options [Hash] Sort and pagination options
       # @option options [String] :sort Sort field
-      # @option options [String] :direction Sort direction (asc or desc)
+      # @option options [String] :order Sort order (asc or desc)
       # @option options [Fixnum] :page Page of paginated results
       # @option options [Fixnum] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
@@ -54,7 +54,7 @@ module Octokit
       # @param query [String] Search term and qualifiers
       # @param options [Hash] Sort and pagination options
       # @option options [String] :sort Sort field
-      # @option options [String] :direction Sort direction (asc or desc)
+      # @option options [String] :order Sort order (asc or desc)
       # @option options [Fixnum] :page Page of paginated results
       # @option options [Fixnum] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
