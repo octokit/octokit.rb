@@ -119,7 +119,7 @@ describe Octokit::Client::Commits do
     it "merges a branch into another" do
       begin
         @client.delete_ref("api-playground/api-sandbox", "heads/branch-to-merge")
-      rescue Octokit::UnprocessableEntity
+      rescue Octokit::Error::UnprocessableEntity
       end
       last_commit = @client.commits('api-playground/api-sandbox').last
       branch = @client.create_ref("api-playground/api-sandbox", "heads/branch-to-merge", last_commit.sha)

@@ -28,7 +28,7 @@ describe Octokit::Client::PubSubHubbub do
       }
       expect {
         @client.subscribe("https://github.com/joshk/not_existing_project/events/push", "github://Travis?token=travistoken")
-      }.to raise_error Octokit::UnprocessableEntity
+      }.to raise_error Octokit::Error::UnprocessableEntity
       assert_requested :post, github_url("/hub"), :body => subscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
     end

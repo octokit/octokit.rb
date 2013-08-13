@@ -50,7 +50,7 @@ describe Octokit::Client::Repositories do
       # cleanup
       begin
         @client.delete_repository("api-playground/an-org-repo")
-      rescue Octokit::NotFound
+      rescue Octokit::Error::NotFound
       end
     end
   end
@@ -86,7 +86,7 @@ describe Octokit::Client::Repositories do
     after(:each) do
       begin
         @client.delete_repository(@repo.full_name)
-      rescue Octokit::NotFound
+      rescue Octokit::Error::NotFound
       end
     end
 
@@ -118,7 +118,7 @@ describe Octokit::Client::Repositories do
       it "adds a repository collaborators" do
         begin
           @client.remove_collaborator(@repo.full_name, "pengwynn")
-        rescue Octokit::NotFound
+        rescue Octokit::Error::NotFound
         end
         result = @client.add_collaborator(@repo.full_name, "pengwynn")
         assert_requested :put, github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
@@ -129,7 +129,7 @@ describe Octokit::Client::Repositories do
       it "removes a repository collaborators" do
         begin
           @client.add_collaborator(@repo.full_name, "pengwynn")
-        rescue Octokit::UnprocessableEntity
+        rescue Octokit::Error::UnprocessableEntity
         end
 
         result = @client.remove_collaborator(@repo.full_name, "pengwynn")

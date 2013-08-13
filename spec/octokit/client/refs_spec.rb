@@ -40,7 +40,7 @@ describe Octokit::Client::Refs do
     after(:each) do
       begin
         @client.delete_ref("api-playground/api-sandbox", "heads/testing/test-ref")
-      rescue Octokit::UnprocessableEntity
+      rescue Octokit::Error::UnprocessableEntity
       end
     end
 
