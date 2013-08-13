@@ -106,7 +106,8 @@ module Octokit
         get "users/#{user}/following", options
       end
 
-      # Check if you are following a user.
+      # Check if you are following a user. Alternatively, check if a given user 
+      # is following a target user.
       #
       # Requries an authenticated client.
       #
@@ -119,12 +120,17 @@ module Octokit
       # @see http://developer.github.com/v3/users/followers/#check-if-you-are-following-a-user
       # @example
       #   @client.follows?('pengwynn')
+      # @example
+      #   @client.follows?('catsby', 'pengwynn')
       def follows?(*args)
         target = args.pop
         user = args.first
-        user ||= login
-        return if user.nil?
-        boolean_from_response :get, "user/following/#{target}"
+        if user.nil?
+          url = "user/following/#{target}"
+        else
+          url = "users/#{user}/following/#{target}"
+        end
+        boolean_from_response :get, url
       end
 
       # Follow a user.
