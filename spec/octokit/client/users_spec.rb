@@ -65,12 +65,12 @@ describe Octokit::Client::Users do
     end
   end # .following
 
-  describe ".follows?", :vcr do
+  describe ".follows?", :vcr, :match_requests_on => [:uri] do
     it "checks if the authenticated user follows another" do
       follows = @client.follows?("sferik")
       assert_requested :get, github_url("/user/following/sferik")
     end
-    
+
     it "checks if given user is following target user" do
       follows = @client.follows?("sferik", "pengwynn")
       assert_requested :get, github_url("/users/sferik/following/pengwynn")
