@@ -250,6 +250,7 @@ describe Octokit::Client do
 
   describe ".root" do
     it "fetches the API root" do
+      Octokit.reset!
       VCR.use_cassette 'root' do
         root = Octokit.client.root
         expect(root.rels[:issues].href).to eq "https://api.github.com/issues"
