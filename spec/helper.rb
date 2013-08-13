@@ -7,6 +7,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 ]
 SimpleCov.start
 
+require 'json'
 require 'octokit'
 require 'rspec'
 require 'webmock/rspec'
