@@ -9,12 +9,19 @@ module Octokit
     # @returns [Octokit::Error]
     def self.from_response(response)
       status = response[:status].to_i
-      body  = response[:body]
+      body  = response[:body].to_s
 
       if klass =  case status
                   when 400 then Octokit::BadRequest
                   when 401 then Octokit::Unauthorized
-                  when 403 then Octokit::Forbidden
+                  when 403
+                    if body =~ /rate limit exceeded/i
+                      Octokit::TooManyRequests
+                    elsif body =~ /login attempts exceeded/i
+                      Octokit::TooManyLoginAttempts
+                    else
+                      Octokit::Forbidden
+                    end
                   when 404 then Octokit::NotFound
                   when 406 then Octokit::NotAcceptable
                   when 422 then Octokit::UnprocessableEntity
@@ -95,6 +102,14 @@ module Octokit
 
   # Raised when GitHub returns a 403 HTTP status code
   class Forbidden < Error; end
+
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'rate limit exceeded'
+  class TooManyRequests < Forbidden; end
+
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'login attempts exceeded'
+  class TooManyLoginAttempts < Forbidden; end
 
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < Error; end

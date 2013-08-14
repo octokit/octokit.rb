@@ -445,6 +445,27 @@ describe Octokit::Client do
         expect(e.message).to include "  code: missing_field"
       end
     end
+
+    it "knows the difference between Forbidden and rate limiting" do
+      stub_get('/some/admin/stuffs').to_return(:status => 403)
+      expect { Octokit.get('/some/admin/stuffs') }.to raise_error Octokit::Forbidden
+
+      stub_get('/users/mojomobo').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "API rate limit exceeded"}.to_json
+      expect { Octokit.get('/users/mojomobo') }.to raise_error Octokit::TooManyRequests
+
+      stub_get('/user').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "Maximum number of login attempts exceeded"}.to_json
+      expect { Octokit.get('/user') }.to raise_error Octokit::TooManyLoginAttempts
+    end
   end
 
 end
