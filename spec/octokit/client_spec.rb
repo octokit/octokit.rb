@@ -369,34 +369,80 @@ describe Octokit::Client do
   end
 
   context "error handling" do
-    before(:each) do
+    before do
       Octokit.reset!
-    end
-
-    it "raises on 404", :vcr do
-      expect { Octokit.get('/user') }.to raise_error Octokit::Unauthorized
-    end
-
-    it "raises on 500" do
       VCR.turn_off!
-      stub_get('/boom').to_return(:status => 500)
-      expect { Octokit.get('/boom') }.to raise_error Octokit::InternalServerError
+    end
+
+    after do
       VCR.turn_on!
     end
 
-    it "includes an error message" do
+    it "raises on 404" do
+      stub_get('/booya').to_return(:status => 404)
+      expect { Octokit.get('/booya') }.to raise_error Octokit::NotFound
+    end
+
+    it "raises on 500" do
+      stub_get('/boom').to_return(:status => 500)
+      expect { Octokit.get('/boom') }.to raise_error Octokit::InternalServerError
+    end
+
+    it "includes a message" do
       stub_get('/boom').
         to_return \
         :status => 422,
         :headers => {
           :content_type => "application/json",
         },
-        :body => {:message => "No repository found for hub.topic: https://github.com/joshk/not_existing_project/events/push"}.to_json
+        :body => {:message => "No repository found for hubtopic"}.to_json
       begin
         Octokit.get('/boom')
       rescue Octokit::UnprocessableEntity => e
         expect(e.message).to include \
           "GET https://api.github.com/boom: 422 - No repository found"
+      end
+    end
+
+    it "includes an error" do
+      stub_get('/boom').
+        to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:error => "No repository found for hubtopic"}.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include \
+          "GET https://api.github.com/boom: 422 - Error: No repository found"
+      end
+    end
+
+    it "includes an error summary" do
+      stub_get('/boom').
+        to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {
+          :message => "Validation Failed",
+          :errors => [
+            :resource => "Issue",
+            :field    => "title",
+            :code     => "missing_field"
+          ]
+        }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include \
+          "GET https://api.github.com/boom: 422 - Validation Failed"
+        expect(e.message).to include "  resource: Issue"
+        expect(e.message).to include "  field: title"
+        expect(e.message).to include "  code: missing_field"
       end
     end
   end

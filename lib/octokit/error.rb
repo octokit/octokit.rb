@@ -60,14 +60,16 @@ module Octokit
     end
 
     def response_error
-      data[:error] if data.is_a?(Hash)
+      "Error: #{data[:error]}" if data.is_a?(Hash) && data[:error]
     end
 
     def response_error_summary
       return nil unless data.is_a?(Hash) && !Array(data[:errors]).empty?
 
       summary = "\nError summary:\n"
-      summary << data[:errors].map { |k,v| "#{k}:#{v}" }.join("\n")
+      summary << data[:errors].map do |hash|
+        hash.map { |k,v| "  #{k}: #{v}" }
+      end.join("\n")
 
       summary
     end
