@@ -1,4 +1,5 @@
 require 'helper'
+require 'json'
 
 describe Octokit::Client do
 
@@ -385,11 +386,17 @@ describe Octokit::Client do
 
     it "includes an error message" do
       stub_get('/boom').
-        to_return(:status => 422, :body => '{"message":"No repository found for hub.topic: https://github.com/joshk/not_existing_project/events/push"}')
+        to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "No repository found for hub.topic: https://github.com/joshk/not_existing_project/events/push"}.to_json
       begin
         Octokit.get('/boom')
       rescue Octokit::UnprocessableEntity => e
-        expect(e.message).to include "GET https://api.github.com/boom: 422"
+        expect(e.message).to include \
+          "GET https://api.github.com/boom: 422 - No repository found"
       end
     end
   end

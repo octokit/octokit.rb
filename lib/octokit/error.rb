@@ -1,18 +1,47 @@
 module Octokit
   # Custom error class for rescuing from all GitHub errors
   class Error < StandardError
+
+    # Returns the appropriate Octokit::Error sublcass based
+    # on status and response message
+    #
+    # @param [Hash]
+    # @returns [Octokit::Error]
+    def self.from_response(response)
+      status = response[:status].to_i
+      body  = response[:body]
+
+      if klass =  case status
+                  when 400 then Octokit::BadRequest
+                  when 401 then Octokit::Unauthorized
+                  when 403 then Octokit::Forbidden
+                  when 404 then Octokit::NotFound
+                  when 406 then Octokit::NotAcceptable
+                  when 422 then Octokit::UnprocessableEntity
+                  when 500 then Octokit::InternalServerError
+                  when 501 then Octokit::NotImplemented
+                  when 502 then Octokit::BadGateway
+                  when 503 then Octokit::ServiceUnavailable
+                  end
+        klass.new(response)
+      end
+    end
+
     def initialize(response=nil)
       @response = response
       super(build_error_message)
     end
 
-    # private
-    def response_body
-      @response_body ||=
+    private
+
+    def data
+      @data ||=
         if (body = @response[:body]) && !body.empty?
-          if body.is_a?(String)
-            serializer = Sawyer::Serializer.new(Sawyer::Serializer.any_json)
-            serializer.decode(body)
+          if body.is_a?(String) &&
+            @response[:response_headers] &&
+            @response[:response_headers][:content_type] =~ /json/
+
+            Sawyer::Agent.serializer.decode(body)
           else
             body
           end
@@ -21,19 +50,38 @@ module Octokit
         end
     end
 
-    # private
-    def build_error_message
-      return nil  if @response.nil?
+    def response_message
+      case data
+      when Hash
+        data[:message]
+      when String
+        data
+      end
+    end
 
-      message = if response_body
-        ": #{response_body['error'] || response_body['message'] || ''}"
-      else
-        ''
-      end
-      errors = unless message.empty?
-        response_body['errors'] ?  ": #{response_body['errors'].map{|e|e['message']}.join(', ')}" : ''
-      end
-      "#{@response[:method].to_s.upcase} #{@response[:url].to_s}: #{@response[:status]}#{message}#{errors}"
+    def response_error
+      data[:error] if data.is_a?(Hash)
+    end
+
+    def response_error_summary
+      return nil unless data.is_a?(Hash) && !Array(data[:errors]).empty?
+
+      summary = "\nError summary:\n"
+      summary << data[:errors].map { |k,v| "#{k}:#{v}" }.join("\n")
+
+      summary
+    end
+
+    def build_error_message
+      return nil if @response.nil?
+
+      message =  "#{@response[:method].to_s.upcase} "
+      message << "#{@response[:url].to_s}: "
+      message << "#{@response[:status]} - "
+      message << "#{response_message}" unless response_message.nil?
+      message << "#{response_error}" unless response_error.nil?
+      message << "#{response_error_summary}" unless response_error_summary.nil?
+      message
     end
   end
 
