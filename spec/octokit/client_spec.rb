@@ -344,6 +344,18 @@ describe Octokit::Client do
       conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
       expect(conn.proxy[:uri].to_s).to eq 'http://proxy.example.com'
     end
+    it "passes along request headers for POST" do
+      VCR.turn_off!
+      headers = {"X-GitHub-Foo" => "bar"}
+      root_request = stub_post("/").
+        with(:headers => headers).
+        to_return(:status => 201)
+      client = Octokit::Client.new
+      client.post "/", :headers => headers
+      assert_requested root_request
+      expect(client.last_response.status).to eq 201
+      VCR.turn_on!
+    end
   end
 
   describe "auto pagination", :vcr do

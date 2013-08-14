@@ -225,17 +225,19 @@ module Octokit
 
     private
 
-    def request(method, path, options)
+    def request(method, path, data)
+      options = {}
+      options[:query]   = data.delete(:query) || {}
+      options[:headers] = data.delete(:headers) || {}
+
       if application_authenticated?
-        options[:query] ||= {}
         options[:query].merge! application_authentication
       end
-      if accept = options.delete(:accept)
-        options[:headers] ||= {}
+      if accept = data.delete(:accept)
         options[:headers][:accept] = accept
       end
 
-      @last_response = response = agent.call(method, URI.encode(path), options)
+      @last_response = response = agent.call(method, URI.encode(path), data, options)
       response.data
     end
 
