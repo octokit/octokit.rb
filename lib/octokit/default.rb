@@ -133,7 +133,7 @@ module Octokit
       # Default path for .netrc file
       # @return [String]
       def netrc_file
-        ENV['OCTOKIT_NETRC_FILE'] || File.join(ENV['HOME'], '.netrc')
+        ENV['OCTOKIT_NETRC_FILE'] || File.join(ENV['HOME'].to_s, '.netrc')
       end
 
     end
