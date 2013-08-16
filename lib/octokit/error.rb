@@ -5,8 +5,8 @@ module Octokit
     # Returns the appropriate Octokit::Error sublcass based
     # on status and response message
     #
-    # @param [Hash]
-    # @returns [Octokit::Error]
+    # @param [Hash] response HTTP response
+    # @return [Octokit::Error]
     def self.from_response(response)
       status = response[:status].to_i
       body  = response[:body].to_s
