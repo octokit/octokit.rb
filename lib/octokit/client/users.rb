@@ -99,7 +99,7 @@ module Octokit
       #
       # @param user [String] Username of the user who you are getting the list of the people they follow.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users a user is following.
-      # @see  http://developer.github.com/v3/users/followers/#list-users-following-another-user
+      # @see http://developer.github.com/v3/users/followers/#list-users-followed-by-another-user
       # @example
       #   Octokit.following('pengwynn')
       def following(user=login, options = {})
