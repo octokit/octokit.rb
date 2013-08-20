@@ -18,7 +18,8 @@ Simple Ruby wrapper for the GitHub API.
 
 ```ruby
 Octokit.user "sferik"
-=> #<Hashie::Mash avatar_url="https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" bio="" blog="http://twitter.com/sferik" company="" created_at="2008-05-14T20:36:12Z" email="sferik@gmail.com" events_url="https://api.github.com/users/sferik/events{/privacy}" followers=662 followers_url="https://api.github.com/users/sferik/followers" following=102 following_url="https://api.github.com/users/sferik/following{/other_user}" gists_url="https://api.github.com/users/sferik/gists{/gist_id}" gravatar_id="1f74b13f1e5c6c69cb5d7fbaabb1e2cb" hireable=false html_url="https://github.com/sferik" id=10308 location="San Francisco, CA" login="sferik" name="Erik Michaels-Ober" organizations_url="https://api.github.com/users/sferik/orgs" public_gists=59 public_repos=83 received_events_url="https://api.github.com/users/sferik/received_events" repos_url="https://api.github.com/users/sferik/repos" starred_url="https://api.github.com/users/sferik/starred{/owner}{/repo}" subscriptions_url="https://api.github.com/users/sferik/subscriptions" type="User" updated_at="2013-05-31T16:01:08Z" url="https://api.github.com/users/sferik">
+=> # Sawyer::Resource with User Information
+=> #<Sawyer::Resource>
 ```
 
 #### Repositories
@@ -43,7 +44,8 @@ Octokit.commits("octokit/octokit.rb")
 
 Octokit.list_commits("octokit/octokit.rb")
 
-=> [#<Hashie::Mash author=#<Hashie::Mash avatar_url="https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" gravatar_id="7e19cd5486b5d6dc1ef90e671ba52ae0" id=865 login="pengwynn" url="https://api.github.com/users/pengwynn"> commit=#<Hashie::Mash author=#<Hashie::Mash date="2012-10-31T15:17:51Z" email="wynn@github.com" name="Wynn Netherland"> comment_count=0 committer=#<Hashie::Mash date="2012-10-31T15:17:51Z" email="wynn@github.com" name="Wynn Netherland"> message="Fix bug with archive_link for private repo" tree=#<Hashie::Mash sha="49bf2a476aa819f29b0fc1a8805f7567f010006d" url="https://api.github.com/repos/octokit/octokit.rb/git/trees/49bf2a476aa819f29b0fc1a8805f7567f010006d"> url="https://api.github.com/repos/octokit/octokit.rb/git/commits/8db3df37fad3a021eb8036b007c718149836cb32"> committer=#<Hashie::Mash avatar_url="https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png" gravatar_id="7e19cd5486b5d6dc1ef90e671ba52ae0" id=865 login="pengwynn" url="https://api.github.com/users/pengwynn"> parents=[#<Hashie::Mash sha="7a67f4b47791cb77de33e491df87cef06012c79f" url="https://api.github.com/repos/octokit/octokit.rb/commits/7a67f4b47791cb77de33e491df87cef06012c79f">] sha="8db3df37fad3a021eb8036b007c718149836cb32" url="https://api.github.com/repos/octokit/octokit.rb/commits/8db3df37fad3a021eb8036b007c718149836cb32">, ... , ...]
+=> # Array of Sawyer::Resources with Commit Information
+=> [#<Sawyer::Resource>, #<Sawyer::Resource>]
 ```
 
 #### Authenticated Requests
