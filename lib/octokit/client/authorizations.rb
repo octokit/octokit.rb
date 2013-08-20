@@ -18,7 +18,7 @@ module Octokit
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorizations
       def authorizations(options = {})
-        get 'authorizations', options
+        paginate 'authorizations', options
       end
 
 
