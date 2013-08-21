@@ -11,7 +11,7 @@ module Octokit
       #
       # @see http://developer.github.com/v3/repos/#get
       # @param repo [String, Hash, Repository] A GitHub repository
-      # @return [Hashie::Mash] if a repository exists, false otherwise
+      # @return [Sawyer::Resource] if a repository exists, false otherwise
       def repository?(repo, options = {})
         repository(repo, options)
       rescue Octokit::NotFound
