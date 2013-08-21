@@ -106,8 +106,8 @@ module Octokit
       # @param number [String] Number ID of the issue
       # @return [Sawyer::Resource] The issue you requested, if it exists
       # @see http://developer.github.com/v3/issues/#get-a-single-issue
-      # @example Get issue #25 from pengwynn/octokit
-      #   Octokit.issue("pengwynn/octokit", "25")
+      # @example Get issue #25 from octokit/octokit.rb
+      #   Octokit.issue("octokit/octokit.rb", "25")
       def issue(repo, number, options = {})
         get "repos/#{Repository.new(repo)}/issues/#{number}", options
       end
@@ -122,8 +122,8 @@ module Octokit
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @return [Sawyer::Resource] The updated Issue
       # @see http://developer.github.com/v3/issues/#edit-an-issue
-      # @example Close Issue #25 from pengwynn/octokit
-      #   Octokit.close_issue("pengwynn/octokit", "25")
+      # @example Close Issue #25 from octokit/octokit.rb
+      #   Octokit.close_issue("octokit/octokit.rb", "25")
       def close_issue(repo, number, options = {})
         patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"})
       end
@@ -138,8 +138,8 @@ module Octokit
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @return [Sawyer::Resource] The updated Issue
       # @see http://developer.github.com/v3/issues/#edit-an-issue
-      # @example Reopen Issue #25 from pengwynn/octokit
-      #   Octokit.reopen_issue("pengwynn/octokit", "25")
+      # @example Reopen Issue #25 from octokit/octokit.rb
+      #   Octokit.reopen_issue("octokit/octokit.rb", "25")
       def reopen_issue(repo, number, options = {})
         patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"})
       end
@@ -158,7 +158,7 @@ module Octokit
       # @return [Sawyer::Resource] The updated Issue
       # @see http://developer.github.com/v3/issues/#edit-an-issue
       # @example Change the title of Issue #25
-      #   Octokit.update_issue("pengwynn/octokit", "25", "A new title", "the same body"")
+      #   Octokit.update_issue("octokit/octokit.rb", "25", "A new title", "the same body"")
       def update_issue(repo, number, title, body, options = {})
         patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body})
       end
@@ -180,10 +180,10 @@ module Octokit
       # @see http://developer.github.com/v3/issues/comments/#list-comments-in-a-repository
       #
       # @example Get the comments for issues in the octokit repository
-      #   @client.issues_comments("pengwynn/octokit")
+      #   @client.issues_comments("octokit/octokit.rb")
       #
       # @example Get issues comments, sort by updated descending since a time
-      #   @client.issues_comments("pengwynn/octokit", {
+      #   @client.issues_comments("octokit/octokit.rb", {
       #     :sort => 'desc',
       #     :direction => 'asc',
       #     :since => '2010-05-04T23:45:02Z'
@@ -198,8 +198,8 @@ module Octokit
       # @param number [String] Number ID of the issue
       # @return [Array<Sawyer::Resource>] Array of comments that belong to an issue
       # @see http://developer.github.com/v3/issues/comments
-      # @example Get comments for issue #25 from pengwynn/octokit
-      #   Octokit.issue_comments("pengwynn/octokit", "25")
+      # @example Get comments for issue #25 from octokit/octokit.rb
+      #   Octokit.issue_comments("octokit/octokit.rb", "25")
       def issue_comments(repo, number, options = {})
         paginate "repos/#{Repository.new(repo)}/issues/#{number}/comments", options
       end
@@ -210,8 +210,8 @@ module Octokit
       # @param number [String] Number ID of the comment
       # @return [Sawyer::Resource] The specific comment in question
       # @see http://developer.github.com/v3/issues/comments/#get-a-single-comment
-      # @example Get comment #1194549 from an issue on pengwynn/octokit
-      #   Octokit.issue_comments("pengwynn/octokit", 1194549)
+      # @example Get comment #1194549 from an issue on octokit/octokit.rb
+      #   Octokit.issue_comments("octokit/octokit.rb", 1194549)
       def issue_comment(repo, number, options = {})
         paginate "repos/#{Repository.new(repo)}/issues/comments/#{number}", options
       end
@@ -223,8 +223,8 @@ module Octokit
       # @param comment [String] Comment to be added
       # @return [Sawyer::Resource] Comment
       # @see http://developer.github.com/v3/issues/comments/#create-a-comment
-      # @example Add the comment "Almost to v1" to Issue #23 on pengwynn/octokit
-      #   Octokit.add_comment("pengwynn/octokit", 23, "Almost to v1")
+      # @example Add the comment "Almost to v1" to Issue #23 on octokit/octokit.rb
+      #   Octokit.add_comment("octokit/octokit.rb", 23, "Almost to v1")
       def add_comment(repo, number, comment, options = {})
         post "repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment})
       end
@@ -236,8 +236,8 @@ module Octokit
       # @param comment [String] Body of the comment which will replace the existing body.
       # @return [Sawyer::Resource] Comment
       # @see http://developer.github.com/v3/issues/comments/#edit-a-comment
-      # @example Update the comment #1194549 with body "I've started this on my 25-issue-comments-v3 fork" on an issue on pengwynn/octokit
-      #   Octokit.update_comment("pengwynn/octokit", 1194549, "Almost to v1, added this on my fork")
+      # @example Update the comment #1194549 with body "I've started this on my 25-issue-comments-v3 fork" on an issue on octokit/octokit.rb
+      #   Octokit.update_comment("octokit/octokit.rb", 1194549, "Almost to v1, added this on my fork")
       def update_comment(repo, number, comment, options = {})
         patch "repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment})
       end
@@ -248,8 +248,8 @@ module Octokit
       # @param number [Integer] Comment number
       # @return [Boolean] Success
       # @see http://developer.github.com/v3/issues/comments/#delete-a-comment
-      # @example Delete the comment #1194549 on an issue on pengwynn/octokit
-      #   Octokit.delete_comment("pengwynn/octokit", 1194549)
+      # @example Delete the comment #1194549 on an issue on octokit/octokit.rb
+      #   Octokit.delete_comment("octokit/octokit.rb", 1194549)
       def delete_comment(repo, number, options = {})
         boolean_from_response :delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options
       end

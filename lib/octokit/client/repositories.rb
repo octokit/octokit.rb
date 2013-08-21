@@ -198,9 +198,9 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of hashes representing deploy keys.
       # @see http://developer.github.com/v3/repos/keys/#get
       # @example
-      #   @client.deploy_keys('pengwynn/octokit')
+      #   @client.deploy_keys('octokit/octokit.rb')
       # @example
-      #   @client.list_deploy_keys('pengwynn/octokit')
+      #   @client.list_deploy_keys('octokit/octokit.rb')
       def deploy_keys(repo, options = {})
         paginate "repos/#{Repository.new repo}/keys", options
       end
@@ -216,7 +216,7 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing newly added key.
       # @see http://developer.github.com/v3/repos/keys/#create
       # @example
-      #    @client.add_deploy_key('pengwynn/octokit', 'Staging server', 'ssh-rsa AAA...')
+      #    @client.add_deploy_key('octokit/octokit.rb', 'Staging server', 'ssh-rsa AAA...')
       def add_deploy_key(repo, title, key, options = {})
         post "repos/#{Repository.new repo}/keys", options.merge(:title => title, :key => key)
       end
@@ -230,7 +230,7 @@ module Octokit
       # @return [Boolean] True if key removed, false otherwise.
       # @see http://developer.github.com/v3/repos/keys/#delete
       # @example
-      #   @client.remove_deploy_key('pengwynn/octokit', 100000)
+      #   @client.remove_deploy_key('octokit/octokit.rb', 100000)
       def remove_deploy_key(repo, id, options = {})
         boolean_from_response :delete, "repos/#{Repository.new repo}/keys/#{id}", options
       end
@@ -243,11 +243,11 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of hashes representing collaborating users.
       # @see http://developer.github.com/v3/repos/collaborators/#list
       # @example
-      #   Octokit.collaborators('pengwynn/octokit')
+      #   Octokit.collaborators('octokit/octokit.rb')
       # @example
-      #   Octokit.collabs('pengwynn/octokit')
+      #   Octokit.collabs('octokit/octokit.rb')
       # @example
-      #   @client.collabs('pengwynn/octokit')
+      #   @client.collabs('octokit/octokit.rb')
       def collaborators(repo, options = {})
         paginate "repos/#{Repository.new repo}/collaborators", options
       end
@@ -262,9 +262,9 @@ module Octokit
       # @return [Boolean] True if collaborator added, false otherwise.
       # @see http://developer.github.com/v3/repos/collaborators/#add-collaborator
       # @example
-      #   @client.add_collaborator('pengwynn/octokit', 'holman')
+      #   @client.add_collaborator('octokit/octokit.rb', 'holman')
       # @example
-      #   @client.add_collab('pengwynn/octokit', 'holman')
+      #   @client.add_collab('octokit/octokit.rb', 'holman')
       def add_collaborator(repo, collaborator, options = {})
         boolean_from_response :put, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
       end
@@ -279,9 +279,9 @@ module Octokit
       # @return [Boolean] True if collaborator removed, false otherwise.
       # @see http://developer.github.com/v3/repos/collaborators/#remove-collaborator
       # @example
-      #   @client.remove_collaborator('pengwynn/octokit', 'holman')
+      #   @client.remove_collaborator('octokit/octokit.rb', 'holman')
       # @example
-      #   @client.remove_collab('pengwynn/octokit', 'holman')
+      #   @client.remove_collab('octokit/octokit.rb', 'holman')
       def remove_collaborator(repo, collaborator, options = {})
         boolean_from_response :delete, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
       end
@@ -315,11 +315,11 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see http://developer.github.com/v3/repos/#list-contributors
       # @example
-      #   Octokit.contributors('pengwynn/octokit', true)
+      #   Octokit.contributors('octokit/octokit.rb', true)
       # @example
-      #   Octokit.contribs('pengwynn/octokit')
+      #   Octokit.contribs('octokit/octokit.rb')
       # @example
-      #   @client.contribs('pengwynn/octokit')
+      #   @client.contribs('octokit/octokit.rb')
       def contributors(repo, anon = nil, options = {})
         options[:anon] = 1 if anon.to_s[/1|true/]
         paginate "repos/#{Repository.new repo}/contributors", options
@@ -334,9 +334,9 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see http://developer.github.com/v3/repos/starring/#list-stargazers
       # @example
-      #   Octokit.stargazers('pengwynn/octokit')
+      #   Octokit.stargazers('octokit/octokit.rb')
       # @example
-      #   @client.stargazers('pengwynn/octokit')
+      #   @client.stargazers('octokit/octokit.rb')
       def stargazers(repo, options = {})
         paginate "repos/#{Repository.new repo}/stargazers", options
       end
@@ -351,9 +351,9 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see http://developer.github.com/v3/repos/watching/#list-watchers
       # @example
-      #   Octokit.watchers('pengwynn/octokit')
+      #   Octokit.watchers('octokit/octokit.rb')
       # @example
-      #   @client.watchers('pengwynn/octokit')
+      #   @client.watchers('octokit/octokit.rb')
       def watchers(repo, options = {})
         paginate "repos/#{Repository.new repo}/watchers", options
       end
@@ -366,11 +366,11 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of hashes representing repos.
       # @see http://developer.github.com/v3/repos/forks/#list-forks
       # @example
-      #   Octokit.forks('pengwynn/octokit')
+      #   Octokit.forks('octokit/octokit.rb')
       # @example
-      #   Octokit.network('pengwynn/octokit')
+      #   Octokit.network('octokit/octokit.rb')
       # @example
-      #   @client.forks('pengwynn/octokit')
+      #   @client.forks('octokit/octokit.rb')
       def forks(repo, options = {})
         paginate "repos/#{Repository.new repo}/forks", options
       end
@@ -384,9 +384,9 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of Hashes representing languages.
       # @see http://developer.github.com/v3/repos/#list-languages
       # @example
-      #   Octokit.langauges('pengwynn/octokit')
+      #   Octokit.langauges('octokit/octokit.rb')
       # @example
-      #   @client.languages('pengwynn/octokit')
+      #   @client.languages('octokit/octokit.rb')
       def languages(repo, options = {})
         paginate "repos/#{Repository.new repo}/languages", options
       end
@@ -399,9 +399,9 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of hashes representing tags.
       # @see http://developer.github.com/v3/repos/#list-tags
       # @example
-      #   Octokit.tags('pengwynn/octokit')
+      #   Octokit.tags('octokit/octokit.rb')
       # @example
-      #   @client.tags('pengwynn/octokit')
+      #   @client.tags('octokit/octokit.rb')
       def tags(repo, options = {})
         paginate "repos/#{Repository.new repo}/tags", options
       end
@@ -414,9 +414,9 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of hashes representing branches.
       # @see http://developer.github.com/v3/repos/#list-branches
       # @example
-      #   Octokit.branches('pengwynn/octokit')
+      #   Octokit.branches('octokit/octokit.rb')
       # @example
-      #   @client.branches('pengwynn/octokit')
+      #   @client.branches('octokit/octokit.rb')
       def branches(repo, options = {})
         paginate "repos/#{Repository.new repo}/branches", options
       end
@@ -427,8 +427,8 @@ module Octokit
       # @param branch [String] Branch name
       # @return [Sawyer::Resource] The branch requested, if it exists
       # @see http://developer.github.com/v3/repos/#get-branch
-      # @example Get branch 'master` from pengwynn/octokit
-      #   Octokit.branch("pengwynn/octokit", "master")
+      # @example Get branch 'master` from octokit/octokit.rb
+      #   Octokit.branch("octokit/octokit.rb", "master")
       def branch(repo, branch, options = {})
         get "repos/#{Repository.new repo}/branches/#{branch}", options
       end
@@ -442,7 +442,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of hashes representing hooks.
       # @see http://developer.github.com/v3/repos/hooks/#list
       # @example
-      #   @client.hooks('pengwynn/octokit')
+      #   @client.hooks('octokit/octokit.rb')
       def hooks(repo, options = {})
         paginate "repos/#{Repository.new repo}/hooks", options
       end
@@ -456,7 +456,7 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing hook.
       # @see http://developer.github.com/v3/repos/hooks/#get-single-hook
       # @example
-      #   @client.hook('pengwynn/octokit', 100000)
+      #   @client.hook('octokit/octokit.rb', 100000)
       def hook(repo, id, options = {})
         get "repos/#{Repository.new repo}/hooks/#{id}", options
       end
@@ -481,7 +481,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/hooks/#create-a-hook
       # @example
       #   @client.create_hook(
-      #     'pengwynn/octokit',
+      #     'octokit/octokit.rb',
       #     'web',
       #     {
       #       :url => 'http://something.com/webhook',
@@ -522,7 +522,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/hooks/#edit-a-hook
       # @example
       #   @client.edit_hook(
-      #     'pengwynn/octokit',
+      #     'octokit/octokit.rb',
       #     'web',
       #     {
       #       :url => 'http://something.com/webhook',
@@ -548,7 +548,7 @@ module Octokit
       # @return [Boolean] True if hook removed, false otherwise.
       # @see http://developer.github.com/v3/repos/hooks/#delete-a-hook
       # @example
-      #   @client.remove_hook('pengwynn/octokit', 1000000)
+      #   @client.remove_hook('octokit/octokit.rb', 1000000)
       def remove_hook(repo, id, options = {})
         boolean_from_response :delete, "repos/#{Repository.new repo}/hooks/#{id}", options
       end
@@ -562,7 +562,7 @@ module Octokit
       # @return [Boolean] Success
       # @see http://developer.github.com/v3/repos/hooks/#test-a-hook
       # @example
-      #   @client.test_hook('pengwynn/octokit', 1000000)
+      #   @client.test_hook('octokit/octokit.rb', 1000000)
       def test_hook(repo, id, options = {})
         boolean_from_response :post, "repos/#{Repository.new repo}/hooks/#{id}/tests", options
       end
@@ -575,11 +575,11 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see http://developer.github.com/v3/issues/assignees/#list-assignees
       # @example
-      #   Octokit.repository_assignees('pengwynn/octokit')
+      #   Octokit.repository_assignees('octokit/octokit.rb')
       # @example
-      #   Octokit.repo_assignees('pengwynn/octokit')
+      #   Octokit.repo_assignees('octokit/octokit.rb')
       # @example
-      #   @client.repository_assignees('pengwynn/octokit')
+      #   @client.repository_assignees('octokit/octokit.rb')
       def repository_assignees(repo, options = {})
         paginate "repos/#{Repository.new repo}/assignees", options
       end
@@ -592,7 +592,7 @@ module Octokit
       # @return [Boolean] True if assignable on project, false otherwise.
       # @see http://developer.github.com/v3/issues/assignees/#check-assignee
       # @example
-      #   Octokit.check_assignee('pengwynn/octokit', 'andrew')
+      #   Octokit.check_assignee('octokit/octokit.rb', 'andrew')
       def check_assignee(repo, assignee, options = {})
         boolean_from_response :get, "repos/#{Repository.new repo}/assignees/#{assignee}", options
       end
@@ -603,7 +603,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of users watching.
       # @see http://developer.github.com/v3/activity/watching/#list-watchers
       # @example
-      #   @client.subscribers("pengwynn/octokit")
+      #   @client.subscribers("octokit/octokit.rb")
       def subscribers(repo, options = {})
         paginate "repos/#{Repository.new repo}/subscribers", options
       end
@@ -614,7 +614,7 @@ module Octokit
       # @return [Sawyer::Resource] Repository subscription.
       # @see http://developer.github.com/v3/activity/watching/#get-a-repository-subscription
       # @example
-      #   @client.subscription("pengwynn/octokit")
+      #   @client.subscription("octokit/octokit.rb")
       def subscription(repo, options = {})
         get "repos/#{Repository.new repo}/subscription", options
       end
@@ -631,7 +631,7 @@ module Octokit
       # @return [Sawyer::Resource] Updated repository subscription.
       # @see http://developer.github.com/v3/activity/watching/#set-a-repository-subscription
       # @example Subscribe to notifications for a repository
-      #   @client.update_subscription("pengwynn/octokit", {subscribed: true})
+      #   @client.update_subscription("octokit/octokit.rb", {subscribed: true})
       def update_subscription(repo, options = {})
         put "repos/#{Repository.new repo}/subscription", options
       end
@@ -643,7 +643,7 @@ module Octokit
       # @see http://developer.github.com/v3/activity/watching/#delete-a-repository-subscription
       #
       # @example
-      #   @client.delete_subscription("pengwynn/octokit")
+      #   @client.delete_subscription("octokit/octokit.rb")
       def delete_subscription(repo, options = {})
         boolean_from_response :delete, "repos/#{Repository.new repo}/subscription", options
       end

@@ -110,7 +110,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of all Issue Events for this Repository
       # @see http://developer.github.com/v3/issues/events/#list-events-for-a-repository
       # @example Get all Issue Events for Octokit
-      #   Octokit.repository_issue_events("pengwynn/octokit")
+      #   Octokit.repository_issue_events("octokit/octokit.rb")
       def repository_issue_events(repo, options = {})
         paginate "repos/#{Repository.new repo}/issues/events", options
       end
@@ -123,8 +123,8 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] Array of events for that issue
       # @see http://developer.github.com/v3/issues/events/#list-events-for-an-issue
-      # @example List all issues events for issue #38 on pengwynn/octokit
-      #   Octokit.issue_events("pengwynn/octokit", 38)
+      # @example List all issues events for issue #38 on octokit/octokit.rb
+      #   Octokit.issue_events("octokit/octokit.rb", 38)
       def issue_events(repo, number, options = {})
         paginate "repos/#{Repository.new(repo)}/issues/#{number}/events", options
       end
@@ -137,7 +137,7 @@ module Octokit
       # @return [Sawyer::Resource] A single Event for an Issue
       # @see http://developer.github.com/v3/issues/events/#get-a-single-event
       # @example Get Event information for ID 3094334 (a pull request was closed)
-      #   Octokit.issue_event("pengwynn/octokit", 3094334)
+      #   Octokit.issue_event("octokit/octokit.rb", 3094334)
       def issue_event(repo, number, options = {})
         paginate "repos/#{Repository.new(repo)}/issues/events/#{number}", options
       end

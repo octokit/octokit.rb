@@ -15,7 +15,7 @@ module Octokit
       # @return [Sawyer::Resource] The detail of the readme
       # @see http://developer.github.com/v3/repos/contents/
       # @example Get the readme file for a repo
-      #   Octokit.readme("pengwynn/octokit")
+      #   Octokit.readme("octokit/octokit.rb")
       def readme(repo, options={})
         get "repos/#{Repository.new repo}/readme", options
       end
@@ -28,7 +28,7 @@ module Octokit
       # @return [Sawyer::Resource] The contents of a file or list of the files in the folder
       # @see http://developer.github.com/v3/repos/contents/
       # @example List the contents of lib/octokit.rb
-      #   Octokit.contents("pengwynn/octokit", :path => 'lib/octokit.rb')
+      #   Octokit.contents("octokit/octokit.rb", :path => 'lib/octokit.rb')
       def contents(repo, options={})
         repo_path = options.delete :path
         url = "repos/#{Repository.new repo}/contents/#{repo_path}"
@@ -48,7 +48,7 @@ module Octokit
       # @return [Sawyer::Resource] The contents and commit info for the addition
       # @see http://developer.github.com/v3/repos/contents/#create-a-file
       # @example Add content at lib/octokit.rb
-      #   Octokit.create_contents("pengwynn/octokit",
+      #   Octokit.create_contents("octokit/octokit.rb",
       #                    "lib/octokit.rb",
       #                    "Adding content",
       #                    "asdf9as0df9asdf8as0d9f8==...",
@@ -95,7 +95,7 @@ module Octokit
       # @return [Sawyer::Resource] The contents and commit info for the update
       # @see http://developer.github.com/v3/repos/contents/#update-a-file
       # @example Update content at lib/octokit.rb
-      #   Octokit.update_contents("pengwynn/octokit",
+      #   Octokit.update_contents("octokit/octokit.rb",
       #                    "lib/octokit.rb",
       #                    "Updating content",
       #                    "7eb95f97e1a0636015df3837478d3f15184a5f49",
@@ -123,7 +123,7 @@ module Octokit
       # @return [Sawyer::Resource] The commit info for the delete
       # @see http://developer.github.com/v3/repos/contents/#delete-a-file
       # @example Delete content at lib/octokit.rb
-      #   Octokit.delete_contents("pengwynn/octokit",
+      #   Octokit.delete_contents("octokit/octokit.rb",
       #                    "lib/octokit.rb",
       #                    "Deleting content",
       #                    "7eb95f97e1a0636015df3837478d3f15184a5f49",
@@ -145,8 +145,8 @@ module Octokit
       # @option options [String] :ref Optional valid Git reference, defaults to master.
       # @return [String] Location of the download
       # @see http://developer.github.com/v3/repos/contents/
-      # @example Get archive link for pengwynn/octokit
-      #   Octokit.archive_link("pengwynn/octokit")
+      # @example Get archive link for octokit/octokit.rb
+      #   Octokit.archive_link("octokit/octokit.rb")
       def archive_link(repo, options={})
         repo_ref = options.delete :ref
         format = (options.delete :format) || 'tarball'

@@ -45,7 +45,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
-      #   Octokit.commits_since('pengwynn/octokit', '2012-10-01')
+      #   Octokit.commits_since('octokit/octokit.rb', '2012-10-01')
       def commits_since(*args)
         arguments = Octokit::RepoArguments.new(args)
         date   = parse_date(arguments.shift)
@@ -72,7 +72,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
-      #   Octokit.commits_before('pengwynn/octokit', '2012-10-01')
+      #   Octokit.commits_before('octokit/octokit.rb', '2012-10-01')
       def commits_before(*args)
         arguments = Octokit::RepoArguments.new(args)
         date   = parse_date(arguments.shift)
@@ -99,7 +99,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
-      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01')
+      #   Octokit.commits_on('octokit/octokit.rb', '2012-10-01')
       def commits_on(*args)
         arguments = Octokit::RepoArguments.new(args)
         date   = parse_date(arguments.shift)
@@ -128,7 +128,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see http://developer.github.com/v3/repos/commits/
       # @example
-      #   Octokit.commits_on('pengwynn/octokit', '2012-10-01', '2012-11-01')
+      #   Octokit.commits_on('octokit/octokit.rb', '2012-10-01', '2012-11-01')
       def commits_between(*args)
         arguments = Octokit::RepoArguments.new(args)
         date       = parse_date(arguments.shift)

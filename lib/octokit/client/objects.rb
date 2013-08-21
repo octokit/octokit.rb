@@ -89,7 +89,7 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing the tag.
       # @see http://developer.github.com/v3/git/tags/#get-a-tag
       # @example Fetch a tag
-      #   Octokit.tag('pengwynn/octokit', '23aad20633f4d2981b1c7209a800db3014774e96')
+      #   Octokit.tag('octokit/octokit.rb', '23aad20633f4d2981b1c7209a800db3014774e96')
       def tag(repo, tag_sha, options = {})
         get "repos/#{Repository.new repo}/git/tags/#{tag_sha}", options
       end
@@ -111,7 +111,7 @@ module Octokit
       # @see http://developer.github.com/v3/git/tags/#create-a-tag-object
       # @example
       #   @client.create_tag(
-      #     "pengwynn/octokit",
+      #     "octokit/octokit.rb",
       #     "v9000.0.0",
       #     "Version 9000\n",
       #     "f4cdf6eb734f32343ce3f27670c17b35f54fd82e",

@@ -12,7 +12,7 @@ module Octokit
     # @return [Array<Sawyer::Resource>] Array of contributor stats
     # @see http://developer.github.com/v3/repos/statistics/#get-contributors-list-with-additions-deletions-and-commit-counts
     # @example Get contributor stats for octokit
-    #   @client.contributors_stats('pengwynn/octokit')
+    #   @client.contributors_stats('octokit/octokit.rb')
     def contributors_stats(repo, options = {})
       get_stats(repo, "contributors", options)
     end
@@ -25,7 +25,7 @@ module Octokit
     #   week. The days array is a group of commits per day, starting on Sunday.
     # @see http://developer.github.com/v3/repos/statistics/#get-the-last-year-of-commit-activity-data
     # @example Get commit activity for octokit
-    #   @client.commit_activity_stats('pengwynn/octokit')
+    #   @client.commit_activity_stats('octokit/octokit.rb')
     def commit_activity_stats(repo, options = {})
       get_stats(repo, "commit_activity", options)
     end
@@ -37,7 +37,7 @@ module Octokit
     #   and deletions pushed to a repository.
     # @see http://developer.github.com/v3/repos/statistics/#get-the-number-of-additions-and-deletions-per-week
     # @example Get code frequency stats for octokit
-    #   @client.code_frequency_stats('pengwynn/octokit')
+    #   @client.code_frequency_stats('octokit/octokit.rb')
     def code_frequency_stats(repo, options = {})
       get_stats(repo, "code_frequency", options)
     end
@@ -51,7 +51,7 @@ module Octokit
     #   subtract all from owner.
     # @see http://developer.github.com/v3/repos/statistics/#get-the-weekly-commit-count-for-the-repo-owner-and-everyone-else
     # @example Get weekly commit counts for octokit
-    #   @client.participation_stats("pengwynn/octokit")
+    #   @client.participation_stats("octokit/octokit.rb")
     def participation_stats(repo, options = {})
       get_stats(repo, "participation", options)
     end

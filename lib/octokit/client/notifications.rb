@@ -41,9 +41,9 @@ module Octokit
       #   the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. '2012-10-09T23:39:01Z'
       # @return [Array<Sawyer::Resource>] Array of notifications.
       # @see http://developer.github.com/v3/activity/notifications/#list-your-notifications-in-a-repository
-      # @example Get your notifications for pengwynn/octokit
-      #   @client.repository_notifications('pengwynn/octokit')
-      # @example Get your notifications for pengwynn/octokit since a time.
+      # @example Get your notifications for octokit/octokit.rb
+      #   @client.repository_notifications('octokit/octokit.rb')
+      # @example Get your notifications for octokit/octokit.rb since a time.
       #   @client.repository_notifications({since: '2012-10-09T23:39:01Z'})
       def repository_notifications(repo, options = {})
         paginate "repos/#{Repository.new repo}/notifications", options
@@ -85,7 +85,7 @@ module Octokit
       # @return [Boolean] True if marked as read, false otherwise
       # @see http://developer.github.com/v3/activity/notifications/#mark-notifications-as-read-in-a-repository
       # @example
-      #   @client.mark_notifications_as_read("pengwynn/octokit")
+      #   @client.mark_notifications_as_read("octokit/octokit.rb")
       def mark_repository_notifications_as_read(repo, options = {})
         request :put, "repos/#{Repository.new repo}/notifications", options
 

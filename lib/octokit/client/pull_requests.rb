@@ -90,11 +90,11 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing updated pull request.
       # @see http://developer.github.com/v3/pulls/#update-a-pull-request
       # @example
-      #   @client.update_pull_request('pengwynn/octokit', 67, 'new title', 'updated body', 'closed')
+      #   @client.update_pull_request('octokit/octokit.rb', 67, 'new title', 'updated body', 'closed')
       # @example Passing nil for optional attributes to update specific attributes.
-      #   @client.update_pull_request('pengwynn/octokit', 67, nil, nil, 'open')
+      #   @client.update_pull_request('octokit/octokit.rb', 67, nil, nil, 'open')
       # @example Empty body by passing empty string
-      #   @client.update_pull_request('pengwynn/octokit', 67, nil, '')
+      #   @client.update_pull_request('octokit/octokit.rb', 67, nil, '')
       def update_pull_request(*args)
         arguments = Octokit::Arguments.new(args)
         repo   = arguments.shift
@@ -112,7 +112,7 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing updated pull request.
       # @see http://developer.github.com/v3/pulls/#update-a-pull-request
       # @example
-      #   @client.close_pull_request('pengwynn/octokit', 67)
+      #   @client.close_pull_request('octokit/octokit.rb', 67)
       def close_pull_request(repo, number, options = {})
         options.merge! :state => 'closed'
         update_pull_request(repo, number, options)
@@ -146,10 +146,10 @@ module Octokit
       # @see http://developer.github.com/v3/pulls/comments/#list-comments-in-a-repository
       #
       # @example Get the pull request review comments in the octokit repository
-      #   @client.issues_comments("pengwynn/octokit")
+      #   @client.issues_comments("octokit/octokit.rb")
       #
       # @example Get review comments, sort by updated asc since a time
-      #   @client.pull_requests_comments("pengwynn/octokit", {
+      #   @client.pull_requests_comments("octokit/octokit.rb", {
       #     :sort => 'asc',
       #     :direction => 'down',
       #     :since => '2010-05-04T23:45:02Z'
@@ -198,7 +198,7 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing the new comment
       # @see http://developer.github.com/v3/pulls/comments/#create-a-comment
       # @example
-      #   @client.create_pull_request_comment("pengwynn/octokit", 163, ":shipit:",
+      #   @client.create_pull_request_comment("octokit/octokit.rb", 163, ":shipit:",
       #     "2d3201e4440903d8b04a5487842053ca4883e5f0", "lib/octokit/request.rb", 47)
       def create_pull_request_comment(repo, pull_id, body, commit_id, path, position, options = {})
         options.merge!({
@@ -221,7 +221,7 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing new comment
       # @see http://developer.github.com/v3/pulls/comments/#create-a-comment
       # @example
-      #   @client.create_pull_request_comment_reply("pengwynn/octokit", 1903950, "done.")
+      #   @client.create_pull_request_comment_reply("octokit/octokit.rb", 1903950, "done.")
       def create_pull_request_comment_reply(repo, pull_id, body, comment_id, options = {})
         options.merge!({
           :body => body,
@@ -240,7 +240,7 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing the updated comment
       # @see http://developer.github.com/v3/pulls/comments/#edit-a-comment
       # @example
-      #   @client.update_pull_request_comment("pengwynn/octokit", 1903950, ":shipit:")
+      #   @client.update_pull_request_comment("octokit/octokit.rb", 1903950, ":shipit:")
       def update_pull_request_comment(repo, comment_id, body, options = {})
         options.merge! :body => body
         patch("repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options)
@@ -254,7 +254,7 @@ module Octokit
       # @param comment_id [Integer] Id of the comment to delete
       # @return [Boolean] True if deleted, false otherwise
       # @example
-      #   @client.delete_pull_request_comment("pengwynn/octokit", 1902707)
+      #   @client.delete_pull_request_comment("octokit/octokit.rb", 1902707)
       def delete_pull_request_comment(repo, comment_id, options = {})
         boolean_from_response(:delete, "repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options)
       end
