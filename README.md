@@ -1,102 +1,96 @@
 # Octokit
 
-Simple Ruby wrapper for the GitHub API.
+Ruby toolkit for the GitHub API.
 
-## Installation
+![Logo][logo]
+[logo]: http://git.io/L4hkdg
+
+## Philosophy
+
+API wrappers [should reflect the idioms of the language in which they were
+written][wrappers]. Octokit.rb wraps the [GitHub API][github-api] in a flat API
+client that requires little knowledge of REST. Most methods have positional
+arguments for required input and an options hash for optional parameters,
+headers, or other options:
+
+```ruby
+# Fetch a README with Accept header for HTML format
+Octokit.readme 'al3x/sovereign', :accept => 'application/vnd.github.html'
+```
+
+API methods are available as module methods, consuming module-level
+configuration or as client instance methods.
+
+```ruby
+# Provide authentication credentials
+Octokit.configure do |c|
+  c.login 'defunkt'
+  c.password 'c0d3b4ssssss!'
+end
+
+# Fetch the current user
+Octokit.user
+```
+or
+
+```ruby
+# Provide authentication credentials
+client = Octokit::Client.new :login => 'defunkt', :password => 'c0d3b4ssssss!'
+# Fetch the current user
+client.user
+```
+
+[wrappers]: http://wynnnetherland.com/journal/what-makes-a-good-api-wrapper
+[github-api]: http://developer.github.com
+
+## Quick start
+
+Install via Rubygems
 
     gem install octokit
 
+... or add to your Gemfile
+
+    gem "octokit"
+
+### Making requests and consuming resources:
+
+Most methods return a `Resource` object which provides dot notation and `[]`
+access for fields returned in the API response. 
+
+**Note:** URL fields are treated
+differently, however, and culled into a separate `.rels` collection for easier
+[Hypermedia](docs/hypermedia.md) support.
+
+```ruby
+# Fetch a user
+user = Octokit.user 'jbarnette'
+puts user.name
+# => "John Barnette"
+puts user.fields
+# => <Set: {:login, :id, :gravatar_id, :type, :name, :company, :blog, :location, :email, :hireable, :bio, :public_repos, :followers, :following, :created_at, :updated_at, :public_gists}>
+user.rels[:gists].href
+# => "https://api.github.com/users/jbarnette/gists"
+```
+
+Check out the [Getting Started guide](docs/getting-started.md) for more.
+
+
 ## Documentation
 
-[http://rdoc.info/gems/octokit][documentation]
-
-[documentation]: http://rdoc.info/gems/octokit
-
-### Examples
-
-#### Show a user
-
-```ruby
-Octokit.user "sferik"
-=> # Sawyer::Resource with User Information
-=> #<Sawyer::Resource>
-```
-
-#### Repositories
-
-For convenience, methods that require a repository argument may be passed in
-any of the following forms:
-
-```ruby
-Octokit.repo "octokit/octokit.rb"
-
-Octokit.repo {:username => "octokit", :name => "octokit.rb"}
-
-Octokit.repo {:username => "octokit", :repo => "octokit.rb"}
-
-Octokit.repo Repository.new('octokit/octokit.rb')
-```
-
-#### List the commits for a repository
-
-```ruby
-Octokit.commits("octokit/octokit.rb")
-
-Octokit.list_commits("octokit/octokit.rb")
-
-=> # Array of Sawyer::Resources with Commit Information
-=> [#<Sawyer::Resource>, #<Sawyer::Resource>]
-```
-
-#### Authenticated Requests
-For methods that require authentication, you'll need to setup a client with
-your login and password.
-
-```ruby
-client = Octokit::Client.new(:login => "me", :password => "sekret")
-client.follow("sferik")
-```
-
-Alternately, you can authenticate with a [GitHub OAuth2 token][oauth].
-
-[oauth]: http://developer.github.com/v3/oauth
-
-```ruby
-client = Octokit::Client.new(:login => "me", :oauth_token => "oauth2token")
-client.follow("sferik")
-```
-
-#### Requesting a specific media type
-
-You can pass an `:accept` option value to request a particular [media
-type][media-types].
-
-[media-types]: http://developer.github.com/v3/media/
-
-```ruby
-Octokit.contents 'octokit/octokit.rb', :path => 'README.md', :accept => 'application/vnd.github.html'
-```
-
-### Using with GitHub Enterprise
-
-To use with [GitHub Enterprise](https://enterprise.github.com/), you'll need to
-set the API and web endpoints before instantiating a client.
-
-```ruby
-Octokit.configure do |c|
-  c.api_endpoint = 'https://github.company.com/api/v3'
-  c.web_endpoint = 'https://github.company.com/'
-end
-
-@client = Octokit::Client.new(:login => 'USERNAME', :password => 'PASSWORD')
-```
+* [Getting Started guide](docs/getting-started.md)
+* [Configuration and defaults](docs/configuration.md)
+* [Authentication](docs/authentication.md)
+* [Pagination](docs/pagination.md)
+* [Hypermedia agent](docs/hypermedia.md)
+* [Advanced usage](docs/advanced-usage.md)
+* [Hacking on Octokit](docs/hacking-on-octokit.rb)
 
 ## Supported Ruby Versions
 
 This library aims to support and is [tested against][travis] the following Ruby
 implementations:
 
-* Ruby 1.8.7
 * Ruby 1.9.2
 * Ruby 1.9.3
 * Ruby 2.0.0
@@ -127,7 +121,7 @@ introduced with new major versions. As a result of this policy, you can (and
 should) specify a dependency on this gem using the [Pessimistic Version
 Constraint][pvc] with two digits of precision. For example:
 
-    spec.add_dependency 'octokit', '~> 1.0'
+    spec.add_dependency 'octokit', '~> 2.0'
 
 [semver]: http://semver.org/
 [pvc]: http://docs.rubygems.org/read/chapter/16#page74
@@ -138,25 +132,6 @@ Since JSON is included in 1.9 now, we no longer include it as a hard
 dependency. Please require it explicitly if you're running Ruby 1.8
 
     gem 'json', '~> 1.7'
-
-## Contributors
-
-Octokit was initially created by Wynn Netherland and [Adam
-Stacoviak](http://twitter.com/adamstac) but has
-turned into a true community effort. Special thanks to the following
-contributors:
-
-* [Erik Michaels-Ober](http://github.com/sferik)
-* [Clint Shryock](http://github.com/ctshryock)
-* [Joey Wendt](http://github.com/joeyw)
-
-
-## Inspiration
-
-Octokit was inspired by [Octopi][] and aims to be a lightweight,
-less-ActiveResourcey alternative.
-
-[octopi]: https://github.com/fcoury/octopi
 
 ## Copyright
 
