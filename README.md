@@ -126,13 +126,6 @@ Constraint][pvc] with two digits of precision. For example:
 [semver]: http://semver.org/
 [pvc]: http://docs.rubygems.org/read/chapter/16#page74
 
-### JSON dependency
-
-Since JSON is included in 1.9 now, we no longer include it as a hard
-dependency. Please require it explicitly if you're running Ruby 1.8
-
-    gem 'json', '~> 1.7'
-
 ## Copyright
 
 Copyright (c) 2011-2013 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober.
