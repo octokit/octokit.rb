@@ -2,4 +2,4 @@
 
 set -e
 script/bootstrap
-guard --no-bundler-warning
+bundle exec guard "$@"
