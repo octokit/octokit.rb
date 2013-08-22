@@ -78,16 +78,319 @@ user.rels[:gists].href
 differently, however, and culled into a separate `.rels` collection for easier
 [Hypermedia](docs/hypermedia.md) support. Check out the [Getting Started guide](docs/getting-started.md) for more.
 
+### Accessing HTTP responses
 
-## Documentation and Guides
+While most methods return a `Resource` object or a Boolean, sometimes you may
+need access to the raw HTTP response headers. You can access the last HTTP
+response with `Client#last_response`:
 
-* [Getting Started guide](docs/getting-started.md)
-* [Authentication](docs/authentication.md)
-* [Configuration and defaults](docs/configuration.md)
-* [Pagination](docs/pagination.md)
-* [Hypermedia agent](docs/hypermedia.md)
-* [Advanced usage](docs/advanced-usage.md)
-* [Hacking on Octokit](docs/hacking-on-octokit.rb)
+```ruby
+user      = Octokit.user 'andrewpthorp'
+response  = Octokit.last_response
+etag      = response.headers[:etag]
+```
+
+## Authentication
+
+Octokit supports the various [authentication methods supported by the GitHub
+API][auth]:
+
+### Basic Authentication
+
+Using your GitHub username and password is the easiest way to get started
+making authenticated requests:
+
+```ruby
+client = Octokit::Client.new \
+  :login    => 'defunkt',
+  :password => 'c0d3b4ssssss!'
+
+user = client.user
+user.login
+# => "defunkt"
+```
+While Basic Authentication makes it easy to get started quickly, OAuth access
+tokens are the preferred way to authenticate on behalf of users.
+
+### OAuth access tokens
+
+[OAuth access tokens][oauth] provide two main benefits over using your username
+and password:
+
+* **Revokable access**. Access tokens can be revoked, removing access for just
+  that token without having to change your password everywhere.
+* **Limited access**. Access tokens have [access scopes][] which allow for more
+  granular access to API resources. For instance, you can grant a third party
+  access to your gists but not your private repositories.
+
+To use an access token with the Octokit client, just pass it in lieu of your
+username and password:
+
+```ruby
+client = Octokit::Client.new :access_token => "<your 40 char token>"
+
+user = client.user
+user.login
+# => "defunkt"
+```
+
+You can use `.create_authorization` to create a token using Basic Authorization
+that you can use for subsequent calls.
+
+## Using a .netrc file
+
+Octokit supports reading credentials from a netrc file (defaulting to
+`~/.netrc`).  Given these lines in your netrc:
+
+```
+machine api.github.com
+  login defunkt
+  password c0d3b4ssssss!
+```
+You can now create a client with those credentials:
+
+```ruby
+client = Octokit::Client.new :netrc => true
+client.login
+# => "defunkt"
+```
+But _I want to use OAuth_ you say. Since the GitHub API supports using an OAuth
+token as a Basic password, you totally can:
+
+```
+machine api.github.com
+  login defunkt
+  password <your 40 char token>
+```
+
+### Application authentication
+
+Octokit also supports application-only authentication [using OAuth application client
+credentials][app-creds]. Using application credentials will result in making
+anonymous API calls on behalf of an application in order to take advantage of
+the higher rate limit.
+
+```ruby
+client = Octokit::Client.new \
+  :client_id     => "<your 20 char id>",
+  :client_secret => "<your 40 char secret>"
+
+user = client.users 'defunkt'
+```
+
+
+
+[auth]: http://developer.github.com/v3/#authentication
+[oauth]: http://developer.github.com/v3/oauth/
+[access scopes]: http://developer.github.com/v3/oauth/#scopes
+[app-creds]: http://developer.github.com/v3/#unauthenticated-rate-limited-requests
+
+
+## Configuration and defaults
+
+While `Octokit::Client` accepts a range of options when creating a new client
+instance, Octokit's configuration API allows you to set your configuration
+options at the module level. This is particularly handy if you're creating a
+number of client instances based on some shared defaults.
+
+### Configuring module defaults
+
+Every writable attribute in {Octokit::Configurable} can be set one at a time:
+
+```ruby
+Octokit.api_endpoint = 'http://api.github.dev'
+Octokit.web_endpoint = 'http://github.dev'
+```
+
+or in batch:
+
+```ruby
+Octokit.configure do |c|
+  c.api_endpoint = 'http://api.github.dev'
+  c.web_endpoint = 'http://github.dev'
+end
+```
+
+### Using ENV variables
+
+Default configuration values are specified in {Octokit::Default}. Many
+attributes will look for a default value from the ENV before returning
+Octokit's default.
+
+```ruby
+# Given $OCTOKIT_API_ENDPOINT is "http://api.github.dev"
+Octokit.api_endpoint
+
+# => "http://api.github.dev"
+```
+
+## Hypermedia agent
+
+Starting in version 2.0, Octokit is [hypermedia][]-enabled. Under the hood,
+{Octokit::Client} uses [Sawyer][], a hypermedia client built on [Faraday][].
+
+### Hypermedia in Octokit
+
+Resources returned by Octokit methods contain not only data but hypermedia
+link relations:
+
+```ruby
+user = Octokit.user 'technoweenie'
+
+# Get the repos rel, returned from the API
+# as repos_url in the resource
+user.rels[:repos].href
+# => "https://api.github.com/users/technoweenie/repos"
+
+repos = user.rels[:repos].get.data
+repos.last.name
+# => "faraday-zeromq"
+```
+
+When processing API responses, all `*_url` attributes are culled in to the link
+relations collection. Any `url` attribute becomes `.rels[:self]`.
+
+### URI templates
+
+You might notice many link relations have variable placeholders. Octokit
+supports [URI Templates][uri-templates] for parameterized URI expansion:
+
+```ruby
+repo = Octokit.repo 'pengwynn/pingwynn'
+rel = repo.rels[:issues]
+# => #<Sawyer::Relation: issues: get https://api.github.com/repos/pengwynn/pingwynn/issues{/number}>
+
+# Get a page of issues
+repo.rels[:issues].get.data
+
+# Get issue #2
+repo.rels[:issues].get(:uri => {:number => 2}).data
+```
+
+### The Full Hypermedia Experience™
+
+If you want to use Octokit as a pure hypermedia API client, you can start at
+the API root and and follow link relations from there:
+
+```ruby
+root = Octokit.root
+root.rels[:repository].get :uri => {:owner => "octokit", :repo => "octokit.rb" }
+```
+
+Octokit 3.0 aims to be hypermedia-driven, removing the internal URL
+construction currently used throughout the client.
+
+[hypermedia]: http://en.wikipedia.org/wiki/Hypermedia
+[Sawyer]: https://github.com/lostisland/sawyer
+[Faraday]: https://github.com/lostisland/faraday
+[uri-templates]: http://tools.ietf.org/html/rfc6570
+
+## Advanced usage
+
+Since Octokit employs [Faraday][faraday] under the hood, some behavior can be
+extended via middleware.
+
+### Debugging
+
+Often, it helps to know what Octokit is doing under the hood. Faraday makes it
+easy to peek into the underlying HTTP traffic:
+
+```ruby
+stack = Faraday::Builder.new do |builder|
+  builder.response :logger
+  builder.use Octokit::Response::RaiseError
+  builder.adapter Faraday.default_adapter
+end
+Octokit.middleware = stack
+Octokit.user 'pengwynn'
+```
+```
+I, [2013-08-22T15:54:38.583300 #88227]  INFO -- : get https://api.github.com/users/pengwynn
+D, [2013-08-22T15:54:38.583401 #88227] DEBUG -- request: Accept: "application/vnd.github.beta+json"
+User-Agent: "Octokit Ruby Gem 2.0.0.rc4"
+I, [2013-08-22T15:54:38.843313 #88227]  INFO -- Status: 200
+D, [2013-08-22T15:54:38.843459 #88227] DEBUG -- response: server: "GitHub.com"
+date: "Thu, 22 Aug 2013 20:54:40 GMT"
+content-type: "application/json; charset=utf-8"
+transfer-encoding: "chunked"
+connection: "close"
+status: "200 OK"
+x-ratelimit-limit: "60"
+x-ratelimit-remaining: "39"
+x-ratelimit-reset: "1377205443"
+...
+```
+
+See the [Faraday README][faraday] for more middleware magic.
+
+### Caching
+
+If you want to boost performance, stretch your API rate limit, or avoid paying
+the hypermedia tax, you can use [Faraday Http Cache][cache].
+
+Add the gem to your Gemfile
+
+    gem 'faraday-http-cache'
+
+Next, construct your own Faraday middleware:
+
+```ruby
+stack = Faraday::Builder.new do |builder|
+  builder.use Faraday::HttpCache
+  builder.use Octokit::Response::RaiseError
+  builder.adapter Faraday.default_adapter
+end
+Octokit.middleware = stack
+```
+
+Once configured, the middleware will store responses in cache based on ETag
+fingerprint and serve those back up for future `304` responses for the same
+resource. See the [project README][cache] for advanced usage.
+
+
+[cache]: https://github.com/plataformatec/faraday-http-cache
+[faraday]: https://github.com/lostisland/faraday
+
+## Hacking on Octokit.rb
+
+If you want to hack on Octokit locally, we try to make [bootstrapping the
+project][bootstrapping] as painless as possible. Just clone and run:
+
+    script/bootstrap
+
+This will install project dependencies and get you up and running. If you want
+to run a Ruby console to poke on Octokit, you can crank one up with:
+
+    script/console
+
+Using the scripts in `./scripts` instead of `bundle exec rspec`, `bundle
+console`, etc.  ensures your dependencies are up-to-date.
+
+### Running and writing new tests
+
+Octokit uses [VCR][] for recording and playing back API fixtures during test
+runs. These fixtures are part of the Git project in the `spec/cassettes`
+folder. For the most part, tests use an authenticated client, using a token
+stored in `ENV['OCTOKIT_TEST_GITHUB_TOKEN']`. If you're not recording new
+cassettes, you don't need to have this set. If you do need to record new
+cassettes, this token can be any GitHub API token because the test suite strips
+the actual token from the cassette output before storing to disk.
+
+Since we periodically refresh our cassettes, please keep some points in mind
+when writing new specs.
+
+* **Specs should be idempotent**. The HTTP calls made during a spec should be
+  able to be run over and over. This means deleting a known resource prior to
+  creating it if the name has to be unique.
+* **Specs should be able to be run in random order.** If a spec depends on
+  another resource as a fixture, make sure that's created in the scope of the
+  spec and not depend on a previous spec to create the data needed.
+* **Try to avoid assert on authenticated user info.** Instead of asserting
+  actual values in resources, try to assert the existence of a key or that a
+  response is an Array. We're testing the client, not the API.
+
+[bootstrapping]: http://wynnnetherland.com/linked/2013012801/bootstrapping-consistency
+[VCR]: https://github.com/vcr/vcr
 
 ## Supported Ruby Versions
 
