@@ -1,3 +1,12 @@
 --no-private
 --markup=markdown
 --template-path=./yard
+-
+docs/advanced-usage.md
+docs/authentication.md
+docs/configuration.md
+docs/getting-started.md
+docs/hacking-on-octokit.rb.md
+docs/hypermedia.md
+docs/pagination.md
+docs/upgrading.md

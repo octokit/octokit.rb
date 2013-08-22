@@ -9,17 +9,33 @@ Ruby toolkit for the GitHub API.
 
 API wrappers [should reflect the idioms of the language in which they were
 written][wrappers]. Octokit.rb wraps the [GitHub API][github-api] in a flat API
-client that requires little knowledge of REST. Most methods have positional
-arguments for required input and an options hash for optional parameters,
-headers, or other options:
+client that follows Ruby conventions and requires little knowledge of REST.
+Most methods have positional arguments for required input and an options hash
+for optional parameters, headers, or other options:
 
 ```ruby
 # Fetch a README with Accept header for HTML format
 Octokit.readme 'al3x/sovereign', :accept => 'application/vnd.github.html'
 ```
 
-API methods are available as module methods, consuming module-level
-configuration or as client instance methods.
+
+[wrappers]: http://wynnnetherland.com/journal/what-makes-a-good-api-wrapper
+[github-api]: http://developer.github.com
+
+## Quick start
+
+Install via Rubygems
+
+    gem install octokit
+
+... or add to your Gemfile
+
+    gem "octokit", "~> 2.0"
+
+### Making requests
+
+API methods are available as module methods (consuming module-level
+configuration) or as client instance methods.
 
 ```ruby
 # Provide authentication credentials
@@ -40,27 +56,10 @@ client = Octokit::Client.new :login => 'defunkt', :password => 'c0d3b4ssssss!'
 client.user
 ```
 
-[wrappers]: http://wynnnetherland.com/journal/what-makes-a-good-api-wrapper
-[github-api]: http://developer.github.com
-
-## Quick start
-
-Install via Rubygems
-
-    gem install octokit
-
-... or add to your Gemfile
-
-    gem "octokit"
-
-### Making requests and consuming resources:
+### Consuming resources
 
 Most methods return a `Resource` object which provides dot notation and `[]`
-access for fields returned in the API response. 
-
-**Note:** URL fields are treated
-differently, however, and culled into a separate `.rels` collection for easier
-[Hypermedia](docs/hypermedia.md) support.
+access for fields returned in the API response.
 
 ```ruby
 # Fetch a user
@@ -69,18 +68,22 @@ puts user.name
 # => "John Barnette"
 puts user.fields
 # => <Set: {:login, :id, :gravatar_id, :type, :name, :company, :blog, :location, :email, :hireable, :bio, :public_repos, :followers, :following, :created_at, :updated_at, :public_gists}>
+puts user[:company]
+# => "GitHub"
 user.rels[:gists].href
 # => "https://api.github.com/users/jbarnette/gists"
 ```
 
-Check out the [Getting Started guide](docs/getting-started.md) for more.
+**Note:** URL fields are treated
+differently, however, and culled into a separate `.rels` collection for easier
+[Hypermedia](docs/hypermedia.md) support. Check out the [Getting Started guide](docs/getting-started.md) for more.
 
 
-## Documentation
+## Documentation and Guides
 
 * [Getting Started guide](docs/getting-started.md)
-* [Configuration and defaults](docs/configuration.md)
 * [Authentication](docs/authentication.md)
+* [Configuration and defaults](docs/configuration.md)
 * [Pagination](docs/pagination.md)
 * [Hypermedia agent](docs/hypermedia.md)
 * [Advanced usage](docs/advanced-usage.md)

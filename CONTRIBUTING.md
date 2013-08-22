@@ -1,4 +1,7 @@
 ## Submitting a Pull Request
+
+0. Check out the [Hacking on Octokit](docs/hacking-on-octokit.rb) guide for
+   bootstrapping the project for local development.
 1. [Fork the repository.][fork]
 2. [Create a topic branch.][branch]
 3. Add specs for your unimplemented feature or bug fix.
