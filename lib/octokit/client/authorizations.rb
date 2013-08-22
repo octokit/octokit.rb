@@ -6,13 +6,13 @@ module Octokit
     # @see http://developer.github.com/v3/oauth/#oauth-authorizations-api
     module Authorizations
 
-      # List a users authorizations
+      # List the authenticated user's authorizations
       #
       # API for users to manage their own tokens.
       # You can only access your own tokens, and only through
       # Basic Authentication.
       #
-      # @return [Array] A list of authorizations for the authenticated user
+      # @return [Array<Sawyer::Resource>] A list of authorizations for the authenticated user
       # @see http://developer.github.com/v3/oauth/#list-your-authorizations
       # @example List authorizations for user ctshryock
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
@@ -27,7 +27,7 @@ module Octokit
       # You can only access your own tokens, and only through
       # Basic Authentication.
       #
-      # @return [Authorization] A single authorization for the authenticated user
+      # @return [Sawyer::Resource] A single authorization for the authenticated user
       # @see http://developer.github.com/v3/oauth/#get-a-single-authorization
       # @example Show authorization for user ctshryock's Travis auth
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
@@ -47,7 +47,7 @@ module Octokit
       # @option options [String] :note A note to remind you what the OAuth token is for.
       # @option options [String] :note_url A URL to remind you what app the OAuth token is for.
       #
-      # @return [Authorization] A single authorization for the authenticated user
+      # @return [Sawyer::Resource] A single authorization for the authenticated user
       # @see http://developer.github.com/v3/oauth/#create-a-new-authorization
       # @example Create a new authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
@@ -70,7 +70,7 @@ module Octokit
       # @option options [String] :note A note to remind you what the OAuth token is for.
       # @option options [String] :note_url A URL to remind you what app the OAuth token is for.
       #
-      # @return [Authorization] A single (updated) authorization for the authenticated user
+      # @return [Sawyer::Resource] A single (updated) authorization for the authenticated user
       # @see http://developer.github.com/v3/oauth/#update-a-new-authorization
       # @see http://developer.github.com/v3/oauth/#scopes for available scopes
       # @example Update the authorization for user ctshryock's project Zoidberg
