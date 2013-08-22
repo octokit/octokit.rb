@@ -43,11 +43,11 @@ module Octokit
       #
       # @param options [Hash] A customizable set of options.
       # @option options [Array] :scopes A list of scopes that this authorization is in.
-      #   See http://developer.github.com/v3/oauth/#scopes for available scopes
       # @option options [String] :note A note to remind you what the OAuth token is for.
       # @option options [String] :note_url A URL to remind you what app the OAuth token is for.
       #
       # @return [Sawyer::Resource] A single authorization for the authenticated user
+      # @see http://developer.github.com/v3/oauth/#scopes Available scopes
       # @see http://developer.github.com/v3/oauth/#create-a-new-authorization
       # @example Create a new authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
