@@ -384,7 +384,7 @@ when writing new specs.
 * **Specs should be able to be run in random order.** If a spec depends on
   another resource as a fixture, make sure that's created in the scope of the
   spec and not depend on a previous spec to create the data needed.
-* **Try to avoid assert on authenticated user info.** Instead of asserting
+* **Do not depend on authenticated user info.** Instead of asserting
   actual values in resources, try to assert the existence of a key or that a
   response is an Array. We're testing the client, not the API.
 
