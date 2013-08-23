@@ -6,6 +6,9 @@ rvm:
   - 1.9.2
   - 1.9.3
   - 2.0.0
+matrix:
+  allow_failures:
+    - rvm: rbx-19mode
 env:
   - OCTOKIT_TEST_GITHUB_LOGIN="api-padawan" OCTOKIT_TEST_GITHUB_PASSWORD="MYSOCRATESNOTE" OCTOKIT_TEST_GITHUB_TOKEN="6a21f190e3422bf89afa8b360d923b0c30e8fbfa"
 before_script:
