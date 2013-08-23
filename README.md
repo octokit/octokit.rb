@@ -431,9 +431,6 @@ Constraint][pvc] with two digits of precision. For example:
 [semver]: http://semver.org/
 [pvc]: http://docs.rubygems.org/read/chapter/16#page74
 
-## Copyright
+## License
 
-Copyright (c) 2011-2013 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober.
-See [LICENSE][] for details.
-
-[license]: LICENSE.md
+{include:file:LICENSE.md}
