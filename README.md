@@ -5,6 +5,9 @@ Ruby toolkit for the GitHub API.
 ![Logo][logo]
 [logo]: http://cl.ly/image/3Y013H0A2z3z/gundam-ruby.png
 
+Octokit 2.0 is out, check the [Upgrade Guide](#upgrading-guide) before
+upgrading from 1.x.
+
 ## Philosophy
 
 API wrappers [should reflect the idioms of the language in which they were
@@ -162,6 +165,9 @@ machine api.github.com
   password <your 40 char token>
 ```
 
+**Note:** Support for netrc requires adding the [netrc gem][] to your Gemfile
+or `.gemspec`.
+
 ### Application authentication
 
 Octokit also supports application-only authentication [using OAuth application client
@@ -283,6 +289,25 @@ construction currently used throughout the client.
 [Sawyer]: https://github.com/lostisland/sawyer
 [Faraday]: https://github.com/lostisland/faraday
 [uri-templates]: http://tools.ietf.org/html/rfc6570
+
+## Upgrading guide
+
+Version 2.0 includes a completely rewritten `Client` factory that now memoizes
+client instances based on unique configuration options. Breaking changes also
+include:
+
+* `:oauth_token` is now `:access_token`
+* `Hashie::Mash` has been removed. Responses now return a `Sawyer::Resource`
+  object. This new type behaves mostly like a Ruby `Hash`, but does not fully
+  support the `Hashie::Mash` API.
+* Two new client error types are raised where appropriate:
+  `Octokit::TooManyRequests` and `Octokit::TooManyLoginAttempts`
+* The `search_*` methods from v1.x are now found at `legacy_search_*`
+* Support for netrc requires including the [netrc gem][] in your Gemfile or
+  gemspec.
+
+[netrc gem]: https://rubygems.org/gems/netrc
+
 
 ## Advanced usage
 

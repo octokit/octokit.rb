@@ -1,6 +1,6 @@
 ## Submitting a Pull Request
 
-0. Check out the [Hacking on Octokit](docs/hacking-on-octokit.rb) guide for
+0. Check out Hacking on Octokit in the README guide for
    bootstrapping the project for local development.
 1. [Fork the repository.][fork]
 2. [Create a topic branch.][branch]
