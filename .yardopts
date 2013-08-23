@@ -1,12 +1,7 @@
 --no-private
+--title=""
 --markup=markdown
 --template-path=./yard
--
-docs/advanced-usage.md
-docs/authentication.md
-docs/configuration.md
-docs/getting-started.md
-docs/hacking-on-octokit.rb.md
-docs/hypermedia.md
-docs/pagination.md
-docs/upgrading.md
+--exclude lib/octokit/arguments.rb
+--exclude lib/octokit/repo_arguments.rb
+--exclude lib/octokit/response
