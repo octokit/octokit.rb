@@ -1,0 +1,2083 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Octokit::Client
+  
+    &mdash; 
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (C)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span></span>
+     &raquo; 
+    <span class="title">Client</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Octokit::Client
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Octokit::Client</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><span class='object_link'><a href="Authentication.html" title="Octokit::Authentication (module)">Authentication</a></span>, <span class='object_link'><a href="Client/Authorizations.html" title="Octokit::Client::Authorizations (module)">Authorizations</a></span>, <span class='object_link'><a href="Client/CommitComments.html" title="Octokit::Client::CommitComments (module)">CommitComments</a></span>, <span class='object_link'><a href="Client/Commits.html" title="Octokit::Client::Commits (module)">Commits</a></span>, <span class='object_link'><a href="Client/Contents.html" title="Octokit::Client::Contents (module)">Contents</a></span>, <span class='object_link'><a href="Client/Downloads.html" title="Octokit::Client::Downloads (module)">Downloads</a></span>, <span class='object_link'><a href="Client/Emojis.html" title="Octokit::Client::Emojis (module)">Emojis</a></span>, <span class='object_link'><a href="Client/Events.html" title="Octokit::Client::Events (module)">Events</a></span>, <span class='object_link'><a href="Client/Gists.html" title="Octokit::Client::Gists (module)">Gists</a></span>, <span class='object_link'><a href="Client/Gitignore.html" title="Octokit::Client::Gitignore (module)">Gitignore</a></span>, <span class='object_link'><a href="Client/Issues.html" title="Octokit::Client::Issues (module)">Issues</a></span>, <span class='object_link'><a href="Client/Labels.html" title="Octokit::Client::Labels (module)">Labels</a></span>, <span class='object_link'><a href="Client/LegacySearch.html" title="Octokit::Client::LegacySearch (module)">LegacySearch</a></span>, <span class='object_link'><a href="Client/Markdown.html" title="Octokit::Client::Markdown (module)">Markdown</a></span>, <span class='object_link'><a href="Client/Meta.html" title="Octokit::Client::Meta (module)">Meta</a></span>, <span class='object_link'><a href="Client/Milestones.html" title="Octokit::Client::Milestones (module)">Milestones</a></span>, <span class='object_link'><a href="Client/Notifications.html" title="Octokit::Client::Notifications (module)">Notifications</a></span>, <span class='object_link'><a href="Client/Objects.html" title="Octokit::Client::Objects (module)">Objects</a></span>, <span class='object_link'><a href="Client/Organizations.html" title="Octokit::Client::Organizations (module)">Organizations</a></span>, <span class='object_link'><a href="Client/PubSubHubbub.html" title="Octokit::Client::PubSubHubbub (module)">PubSubHubbub</a></span>, <span class='object_link'><a href="Client/PullRequests.html" title="Octokit::Client::PullRequests (module)">PullRequests</a></span>, <span class='object_link'><a href="Client/RateLimit.html" title="Octokit::Client::RateLimit (module)">RateLimit</a></span>, <span class='object_link'><a href="Client/Refs.html" title="Octokit::Client::Refs (module)">Refs</a></span>, <span class='object_link'><a href="Client/Repositories.html" title="Octokit::Client::Repositories (module)">Repositories</a></span>, <span class='object_link'><a href="Client/Say.html" title="Octokit::Client::Say (module)">Say</a></span>, <span class='object_link'><a href="Client/Search.html" title="Octokit::Client::Search (module)">Search</a></span>, <span class='object_link'><a href="Client/ServiceStatus.html" title="Octokit::Client::ServiceStatus (module)">ServiceStatus</a></span>, <span class='object_link'><a href="Client/Stats.html" title="Octokit::Client::Stats (module)">Stats</a></span>, <span class='object_link'><a href="Client/Statuses.html" title="Octokit::Client::Statuses (module)">Statuses</a></span>, <span class='object_link'><a href="Client/Users.html" title="Octokit::Client::Users (module)">Users</a></span>, <span class='object_link'><a href="Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/octokit/client.rb<span class="defines">,<br />
+  lib/octokit/client/say.rb,<br /> lib/octokit/client/refs.rb,<br /> lib/octokit/client/meta.rb,<br /> lib/octokit/client/gists.rb,<br /> lib/octokit/client/stats.rb,<br /> lib/octokit/client/users.rb,<br /> lib/octokit/client/search.rb,<br /> lib/octokit/client/issues.rb,<br /> lib/octokit/client/events.rb,<br /> lib/octokit/client/labels.rb,<br /> lib/octokit/client/emojis.rb,<br /> lib/octokit/client/commits.rb,<br /> lib/octokit/client/objects.rb,<br /> lib/octokit/client/contents.rb,<br /> lib/octokit/client/statuses.rb,<br /> lib/octokit/client/markdown.rb,<br /> lib/octokit/client/gitignore.rb,<br /> lib/octokit/client/downloads.rb,<br /> lib/octokit/client/milestones.rb,<br /> lib/octokit/client/rate_limit.rb,<br /> lib/octokit/client/repositories.rb,<br /> lib/octokit/client/pull_requests.rb,<br /> lib/octokit/client/legacy_search.rb,<br /> lib/octokit/client/notifications.rb,<br /> lib/octokit/client/organizations.rb,<br /> lib/octokit/client/pub_sub_hubbub.rb,<br /> lib/octokit/client/authorizations.rb,<br /> lib/octokit/client/service_status.rb,<br /> lib/octokit/client/commit_comments.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Client for the GitHub API</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://developer.github.com" target="_parent" title="http://developer.github.com">http://developer.github.com</a></li>
+    
+  </ul>
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Client/Authorizations.html" title="Octokit::Client::Authorizations (module)">Authorizations</a></span>, <span class='object_link'><a href="Client/CommitComments.html" title="Octokit::Client::CommitComments (module)">CommitComments</a></span>, <span class='object_link'><a href="Client/Commits.html" title="Octokit::Client::Commits (module)">Commits</a></span>, <span class='object_link'><a href="Client/Contents.html" title="Octokit::Client::Contents (module)">Contents</a></span>, <span class='object_link'><a href="Client/Downloads.html" title="Octokit::Client::Downloads (module)">Downloads</a></span>, <span class='object_link'><a href="Client/Emojis.html" title="Octokit::Client::Emojis (module)">Emojis</a></span>, <span class='object_link'><a href="Client/Events.html" title="Octokit::Client::Events (module)">Events</a></span>, <span class='object_link'><a href="Client/Gists.html" title="Octokit::Client::Gists (module)">Gists</a></span>, <span class='object_link'><a href="Client/Gitignore.html" title="Octokit::Client::Gitignore (module)">Gitignore</a></span>, <span class='object_link'><a href="Client/Issues.html" title="Octokit::Client::Issues (module)">Issues</a></span>, <span class='object_link'><a href="Client/Labels.html" title="Octokit::Client::Labels (module)">Labels</a></span>, <span class='object_link'><a href="Client/LegacySearch.html" title="Octokit::Client::LegacySearch (module)">LegacySearch</a></span>, <span class='object_link'><a href="Client/Markdown.html" title="Octokit::Client::Markdown (module)">Markdown</a></span>, <span class='object_link'><a href="Client/Meta.html" title="Octokit::Client::Meta (module)">Meta</a></span>, <span class='object_link'><a href="Client/Milestones.html" title="Octokit::Client::Milestones (module)">Milestones</a></span>, <span class='object_link'><a href="Client/Notifications.html" title="Octokit::Client::Notifications (module)">Notifications</a></span>, <span class='object_link'><a href="Client/Objects.html" title="Octokit::Client::Objects (module)">Objects</a></span>, <span class='object_link'><a href="Client/Organizations.html" title="Octokit::Client::Organizations (module)">Organizations</a></span>, <span class='object_link'><a href="Client/PubSubHubbub.html" title="Octokit::Client::PubSubHubbub (module)">PubSubHubbub</a></span>, <span class='object_link'><a href="Client/PullRequests.html" title="Octokit::Client::PullRequests (module)">PullRequests</a></span>, <span class='object_link'><a href="Client/RateLimit.html" title="Octokit::Client::RateLimit (module)">RateLimit</a></span>, <span class='object_link'><a href="Client/Refs.html" title="Octokit::Client::Refs (module)">Refs</a></span>, <span class='object_link'><a href="Client/Repositories.html" title="Octokit::Client::Repositories (module)">Repositories</a></span>, <span class='object_link'><a href="Client/Say.html" title="Octokit::Client::Say (module)">Say</a></span>, <span class='object_link'><a href="Client/Search.html" title="Octokit::Client::Search (module)">Search</a></span>, <span class='object_link'><a href="Client/ServiceStatus.html" title="Octokit::Client::ServiceStatus (module)">ServiceStatus</a></span>, <span class='object_link'><a href="Client/Stats.html" title="Octokit::Client::Stats (module)">Stats</a></span>, <span class='object_link'><a href="Client/Statuses.html" title="Octokit::Client::Statuses (module)">Statuses</a></span>, <span class='object_link'><a href="Client/Users.html" title="Octokit::Client::Users (module)">Users</a></span>
+    
+  
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="CONVENIENCE_HEADERS-constant" class="">CONVENIENCE_HEADERS =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Header keys that can be passed in options hash to <span class='object_link'><a href="#get-instance_method" title="Octokit::Client#get (method)">#get</a></span>,<span class='object_link'><a href="#head-instance_method" title="Octokit::Client#head (method)">#head</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+  <h2>Instance Attribute Summary</h2>
+  
+  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Configurable.html#access_token-instance_method" title="Octokit::Configurable#access_token (method)">#access_token</a></span>, <span class='object_link'><a href="Configurable.html#api_endpoint-instance_method" title="Octokit::Configurable#api_endpoint (method)">#api_endpoint</a></span>, <span class='object_link'><a href="Configurable.html#auto_paginate-instance_method" title="Octokit::Configurable#auto_paginate (method)">#auto_paginate</a></span>, <span class='object_link'><a href="Configurable.html#client_id-instance_method" title="Octokit::Configurable#client_id (method)">#client_id</a></span>, <span class='object_link'><a href="Configurable.html#client_secret%3D-instance_method" title="Octokit::Configurable#client_secret= (method)">#client_secret</a></span>, <span class='object_link'><a href="Configurable.html#connection_options-instance_method" title="Octokit::Configurable#connection_options (method)">#connection_options</a></span>, <span class='object_link'><a href="Configurable.html#default_media_type-instance_method" title="Octokit::Configurable#default_media_type (method)">#default_media_type</a></span>, <span class='object_link'><a href="Configurable.html#login-instance_method" title="Octokit::Configurable#login (method)">#login</a></span>, <span class='object_link'><a href="Configurable.html#middleware-instance_method" title="Octokit::Configurable#middleware (method)">#middleware</a></span>, <span class='object_link'><a href="Configurable.html#netrc-instance_method" title="Octokit::Configurable#netrc (method)">#netrc</a></span>, <span class='object_link'><a href="Configurable.html#netrc_file-instance_method" title="Octokit::Configurable#netrc_file (method)">#netrc_file</a></span>, <span class='object_link'><a href="Configurable.html#password%3D-instance_method" title="Octokit::Configurable#password= (method)">#password</a></span>, <span class='object_link'><a href="Configurable.html#per_page-instance_method" title="Octokit::Configurable#per_page (method)">#per_page</a></span>, <span class='object_link'><a href="Configurable.html#proxy-instance_method" title="Octokit::Configurable#proxy (method)">#proxy</a></span>, <span class='object_link'><a href="Configurable.html#user_agent-instance_method" title="Octokit::Configurable#user_agent (method)">#user_agent</a></span>, <span class='object_link'><a href="Configurable.html#web_endpoint-instance_method" title="Octokit::Configurable#web_endpoint (method)">#web_endpoint</a></span></p>
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#agent-instance_method" title="#agent (instance method)">- (Sawyer::Agent) <strong>agent</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Hypermedia agent for the GitHub API.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#authorize_url-instance_method" title="#authorize_url (instance method)">- (String) <strong>authorize_url</strong>(app_id, app_secret, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Get the URL to authorize a user for an application via the web flow.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete-instance_method" title="#delete (instance method)">- (Sawyer::Resource) <strong>delete</strong>(url, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Make a HTTP DELETE request.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get-instance_method" title="#get (instance method)">- (Sawyer::Resource) <strong>get</strong>(url, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Make a HTTP GET request.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#head-instance_method" title="#head (instance method)">- (Sawyer::Resource) <strong>head</strong>(url, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Make a HTTP HEAD request.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Client) <strong>initialize</strong>(options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>A new instance of Client.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inspect-instance_method" title="#inspect (instance method)">- (String) <strong>inspect</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Text representation of the client, masking tokens and passwords.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#last_response-instance_method" title="#last_response (instance method)">- (Sawyer::Response) <strong>last_response</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Response for last HTTP request.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#paginate-instance_method" title="#paginate (instance method)">- (Sawyer::Resource) <strong>paginate</strong>(url, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Make one or more HTTP GET requests, optionally fetching the next page of results from URL in Link response header based on value in <span class='object_link'><a href="Configurable.html#auto_paginate-instance_method" title="Octokit::Configurable#auto_paginate (method)">Octokit::Configurable#auto_paginate</a></span>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#patch-instance_method" title="#patch (instance method)">- (Sawyer::Resource) <strong>patch</strong>(url, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Make a HTTP PATCH request.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#post-instance_method" title="#post (instance method)">- (Sawyer::Resource) <strong>post</strong>(url, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Make a HTTP POST request.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#put-instance_method" title="#put (instance method)">- (Sawyer::Resource) <strong>put</strong>(url, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Make a HTTP PUT request.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#root-instance_method" title="#root (instance method)">- (Sawyer::Resource) <strong>root</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Fetch the root resource for the API.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#same_options%3F-instance_method" title="#same_options? (instance method)">- (Boolean) <strong>same_options?</strong>(opts) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Compares client options to a Hash of requested options.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Users.html" title="Octokit::Client::Users (module)">Users</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Users.html#add_email-instance_method" title="Octokit::Client::Users#add_email (method)">#add_email</a></span>, <span class='object_link'><a href="Client/Users.html#add_key-instance_method" title="Octokit::Client::Users#add_key (method)">#add_key</a></span>, <span class='object_link'><a href="Client/Users.html#all_users-instance_method" title="Octokit::Client::Users#all_users (method)">#all_users</a></span>, <span class='object_link'><a href="Client/Users.html#emails-instance_method" title="Octokit::Client::Users#emails (method)">#emails</a></span>, <span class='object_link'><a href="Client/Users.html#exchange_code_for_token-instance_method" title="Octokit::Client::Users#exchange_code_for_token (method)">#exchange_code_for_token</a></span>, <span class='object_link'><a href="Client/Users.html#follow-instance_method" title="Octokit::Client::Users#follow (method)">#follow</a></span>, <span class='object_link'><a href="Client/Users.html#followers-instance_method" title="Octokit::Client::Users#followers (method)">#followers</a></span>, <span class='object_link'><a href="Client/Users.html#following-instance_method" title="Octokit::Client::Users#following (method)">#following</a></span>, <span class='object_link'><a href="Client/Users.html#follows%3F-instance_method" title="Octokit::Client::Users#follows? (method)">#follows?</a></span>, <span class='object_link'><a href="Client/Users.html#key-instance_method" title="Octokit::Client::Users#key (method)">#key</a></span>, <span class='object_link'><a href="Client/Users.html#keys-instance_method" title="Octokit::Client::Users#keys (method)">#keys</a></span>, <span class='object_link'><a href="Client/Users.html#remove_email-instance_method" title="Octokit::Client::Users#remove_email (method)">#remove_email</a></span>, <span class='object_link'><a href="Client/Users.html#remove_key-instance_method" title="Octokit::Client::Users#remove_key (method)">#remove_key</a></span>, <span class='object_link'><a href="Client/Users.html#starred-instance_method" title="Octokit::Client::Users#starred (method)">#starred</a></span>, <span class='object_link'><a href="Client/Users.html#starred%3F-instance_method" title="Octokit::Client::Users#starred? (method)">#starred?</a></span>, <span class='object_link'><a href="Client/Users.html#subscriptions-instance_method" title="Octokit::Client::Users#subscriptions (method)">#subscriptions</a></span>, <span class='object_link'><a href="Client/Users.html#unfollow-instance_method" title="Octokit::Client::Users#unfollow (method)">#unfollow</a></span>, <span class='object_link'><a href="Client/Users.html#update_key-instance_method" title="Octokit::Client::Users#update_key (method)">#update_key</a></span>, <span class='object_link'><a href="Client/Users.html#update_user-instance_method" title="Octokit::Client::Users#update_user (method)">#update_user</a></span>, <span class='object_link'><a href="Client/Users.html#user-instance_method" title="Octokit::Client::Users#user (method)">#user</a></span>, <span class='object_link'><a href="Client/Users.html#user_keys-instance_method" title="Octokit::Client::Users#user_keys (method)">#user_keys</a></span>, <span class='object_link'><a href="Client/Users.html#validate_credentials-instance_method" title="Octokit::Client::Users#validate_credentials (method)">#validate_credentials</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Statuses.html" title="Octokit::Client::Statuses (module)">Statuses</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Statuses.html#create_status-instance_method" title="Octokit::Client::Statuses#create_status (method)">#create_status</a></span>, <span class='object_link'><a href="Client/Statuses.html#statuses-instance_method" title="Octokit::Client::Statuses#statuses (method)">#statuses</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Stats.html" title="Octokit::Client::Stats (module)">Stats</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Stats.html#code_frequency_stats-instance_method" title="Octokit::Client::Stats#code_frequency_stats (method)">#code_frequency_stats</a></span>, <span class='object_link'><a href="Client/Stats.html#commit_activity_stats-instance_method" title="Octokit::Client::Stats#commit_activity_stats (method)">#commit_activity_stats</a></span>, <span class='object_link'><a href="Client/Stats.html#contributors_stats-instance_method" title="Octokit::Client::Stats#contributors_stats (method)">#contributors_stats</a></span>, <span class='object_link'><a href="Client/Stats.html#participation_stats-instance_method" title="Octokit::Client::Stats#participation_stats (method)">#participation_stats</a></span>, <span class='object_link'><a href="Client/Stats.html#punch_card_stats-instance_method" title="Octokit::Client::Stats#punch_card_stats (method)">#punch_card_stats</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/ServiceStatus.html" title="Octokit::Client::ServiceStatus (module)">ServiceStatus</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/ServiceStatus.html#github_status-instance_method" title="Octokit::Client::ServiceStatus#github_status (method)">#github_status</a></span>, <span class='object_link'><a href="Client/ServiceStatus.html#github_status_last_message-instance_method" title="Octokit::Client::ServiceStatus#github_status_last_message (method)">#github_status_last_message</a></span>, <span class='object_link'><a href="Client/ServiceStatus.html#github_status_messages-instance_method" title="Octokit::Client::ServiceStatus#github_status_messages (method)">#github_status_messages</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Search.html" title="Octokit::Client::Search (module)">Search</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Search.html#search_code-instance_method" title="Octokit::Client::Search#search_code (method)">#search_code</a></span>, <span class='object_link'><a href="Client/Search.html#search_issues-instance_method" title="Octokit::Client::Search#search_issues (method)">#search_issues</a></span>, <span class='object_link'><a href="Client/Search.html#search_repositories-instance_method" title="Octokit::Client::Search#search_repositories (method)">#search_repositories</a></span>, <span class='object_link'><a href="Client/Search.html#search_users-instance_method" title="Octokit::Client::Search#search_users (method)">#search_users</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Say.html" title="Octokit::Client::Say (module)">Say</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Say.html#say-instance_method" title="Octokit::Client::Say#say (method)">#say</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Repositories.html" title="Octokit::Client::Repositories (module)">Repositories</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Repositories.html#add_collaborator-instance_method" title="Octokit::Client::Repositories#add_collaborator (method)">#add_collaborator</a></span>, <span class='object_link'><a href="Client/Repositories.html#add_deploy_key-instance_method" title="Octokit::Client::Repositories#add_deploy_key (method)">#add_deploy_key</a></span>, <span class='object_link'><a href="Client/Repositories.html#all_repositories-instance_method" title="Octokit::Client::Repositories#all_repositories (method)">#all_repositories</a></span>, <span class='object_link'><a href="Client/Repositories.html#branch-instance_method" title="Octokit::Client::Repositories#branch (method)">#branch</a></span>, <span class='object_link'><a href="Client/Repositories.html#branches-instance_method" title="Octokit::Client::Repositories#branches (method)">#branches</a></span>, <span class='object_link'><a href="Client/Repositories.html#check_assignee-instance_method" title="Octokit::Client::Repositories#check_assignee (method)">#check_assignee</a></span>, <span class='object_link'><a href="Client/Repositories.html#collaborators-instance_method" title="Octokit::Client::Repositories#collaborators (method)">#collaborators</a></span>, <span class='object_link'><a href="Client/Repositories.html#contributors-instance_method" title="Octokit::Client::Repositories#contributors (method)">#contributors</a></span>, <span class='object_link'><a href="Client/Repositories.html#create_hook-instance_method" title="Octokit::Client::Repositories#create_hook (method)">#create_hook</a></span>, <span class='object_link'><a href="Client/Repositories.html#create_repository-instance_method" title="Octokit::Client::Repositories#create_repository (method)">#create_repository</a></span>, <span class='object_link'><a href="Client/Repositories.html#delete_repository-instance_method" title="Octokit::Client::Repositories#delete_repository (method)">#delete_repository</a></span>, <span class='object_link'><a href="Client/Repositories.html#delete_subscription-instance_method" title="Octokit::Client::Repositories#delete_subscription (method)">#delete_subscription</a></span>, <span class='object_link'><a href="Client/Repositories.html#deploy_keys-instance_method" title="Octokit::Client::Repositories#deploy_keys (method)">#deploy_keys</a></span>, <span class='object_link'><a href="Client/Repositories.html#edit_hook-instance_method" title="Octokit::Client::Repositories#edit_hook (method)">#edit_hook</a></span>, <span class='object_link'><a href="Client/Repositories.html#edit_repository-instance_method" title="Octokit::Client::Repositories#edit_repository (method)">#edit_repository</a></span>, <span class='object_link'><a href="Client/Repositories.html#fork-instance_method" title="Octokit::Client::Repositories#fork (method)">#fork</a></span>, <span class='object_link'><a href="Client/Repositories.html#forks-instance_method" title="Octokit::Client::Repositories#forks (method)">#forks</a></span>, <span class='object_link'><a href="Client/Repositories.html#hook-instance_method" title="Octokit::Client::Repositories#hook (method)">#hook</a></span>, <span class='object_link'><a href="Client/Repositories.html#hooks-instance_method" title="Octokit::Client::Repositories#hooks (method)">#hooks</a></span>, <span class='object_link'><a href="Client/Repositories.html#languages-instance_method" title="Octokit::Client::Repositories#languages (method)">#languages</a></span>, <span class='object_link'><a href="Client/Repositories.html#remove_collaborator-instance_method" title="Octokit::Client::Repositories#remove_collaborator (method)">#remove_collaborator</a></span>, <span class='object_link'><a href="Client/Repositories.html#remove_deploy_key-instance_method" title="Octokit::Client::Repositories#remove_deploy_key (method)">#remove_deploy_key</a></span>, <span class='object_link'><a href="Client/Repositories.html#remove_hook-instance_method" title="Octokit::Client::Repositories#remove_hook (method)">#remove_hook</a></span>, <span class='object_link'><a href="Client/Repositories.html#repositories-instance_method" title="Octokit::Client::Repositories#repositories (method)">#repositories</a></span>, <span class='object_link'><a href="Client/Repositories.html#repository-instance_method" title="Octokit::Client::Repositories#repository (method)">#repository</a></span>, <span class='object_link'><a href="Client/Repositories.html#repository%3F-instance_method" title="Octokit::Client::Repositories#repository? (method)">#repository?</a></span>, <span class='object_link'><a href="Client/Repositories.html#repository_assignees-instance_method" title="Octokit::Client::Repositories#repository_assignees (method)">#repository_assignees</a></span>, <span class='object_link'><a href="Client/Repositories.html#repository_teams-instance_method" title="Octokit::Client::Repositories#repository_teams (method)">#repository_teams</a></span>, <span class='object_link'><a href="Client/Repositories.html#set_private-instance_method" title="Octokit::Client::Repositories#set_private (method)">#set_private</a></span>, <span class='object_link'><a href="Client/Repositories.html#set_public-instance_method" title="Octokit::Client::Repositories#set_public (method)">#set_public</a></span>, <span class='object_link'><a href="Client/Repositories.html#star-instance_method" title="Octokit::Client::Repositories#star (method)">#star</a></span>, <span class='object_link'><a href="Client/Repositories.html#stargazers-instance_method" title="Octokit::Client::Repositories#stargazers (method)">#stargazers</a></span>, <span class='object_link'><a href="Client/Repositories.html#subscribers-instance_method" title="Octokit::Client::Repositories#subscribers (method)">#subscribers</a></span>, <span class='object_link'><a href="Client/Repositories.html#subscription-instance_method" title="Octokit::Client::Repositories#subscription (method)">#subscription</a></span>, <span class='object_link'><a href="Client/Repositories.html#tags-instance_method" title="Octokit::Client::Repositories#tags (method)">#tags</a></span>, <span class='object_link'><a href="Client/Repositories.html#test_hook-instance_method" title="Octokit::Client::Repositories#test_hook (method)">#test_hook</a></span>, <span class='object_link'><a href="Client/Repositories.html#unstar-instance_method" title="Octokit::Client::Repositories#unstar (method)">#unstar</a></span>, <span class='object_link'><a href="Client/Repositories.html#unwatch-instance_method" title="Octokit::Client::Repositories#unwatch (method)">#unwatch</a></span>, <span class='object_link'><a href="Client/Repositories.html#update_subscription-instance_method" title="Octokit::Client::Repositories#update_subscription (method)">#update_subscription</a></span>, <span class='object_link'><a href="Client/Repositories.html#watch-instance_method" title="Octokit::Client::Repositories#watch (method)">#watch</a></span>, <span class='object_link'><a href="Client/Repositories.html#watchers-instance_method" title="Octokit::Client::Repositories#watchers (method)">#watchers</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Refs.html" title="Octokit::Client::Refs (module)">Refs</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Refs.html#create_ref-instance_method" title="Octokit::Client::Refs#create_ref (method)">#create_ref</a></span>, <span class='object_link'><a href="Client/Refs.html#delete_ref-instance_method" title="Octokit::Client::Refs#delete_ref (method)">#delete_ref</a></span>, <span class='object_link'><a href="Client/Refs.html#ref-instance_method" title="Octokit::Client::Refs#ref (method)">#ref</a></span>, <span class='object_link'><a href="Client/Refs.html#refs-instance_method" title="Octokit::Client::Refs#refs (method)">#refs</a></span>, <span class='object_link'><a href="Client/Refs.html#update_ref-instance_method" title="Octokit::Client::Refs#update_ref (method)">#update_ref</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/RateLimit.html" title="Octokit::Client::RateLimit (module)">RateLimit</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/RateLimit.html#rate_limit-instance_method" title="Octokit::Client::RateLimit#rate_limit (method)">#rate_limit</a></span>, <span class='object_link'><a href="Client/RateLimit.html#rate_limit%21-instance_method" title="Octokit::Client::RateLimit#rate_limit! (method)">#rate_limit!</a></span>, <span class='object_link'><a href="Client/RateLimit.html#rate_limit_remaining-instance_method" title="Octokit::Client::RateLimit#rate_limit_remaining (method)">#rate_limit_remaining</a></span>, <span class='object_link'><a href="Client/RateLimit.html#rate_limit_remaining%21-instance_method" title="Octokit::Client::RateLimit#rate_limit_remaining! (method)">#rate_limit_remaining!</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/PullRequests.html" title="Octokit::Client::PullRequests (module)">PullRequests</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/PullRequests.html#close_pull_request-instance_method" title="Octokit::Client::PullRequests#close_pull_request (method)">#close_pull_request</a></span>, <span class='object_link'><a href="Client/PullRequests.html#create_pull_request-instance_method" title="Octokit::Client::PullRequests#create_pull_request (method)">#create_pull_request</a></span>, <span class='object_link'><a href="Client/PullRequests.html#create_pull_request_comment-instance_method" title="Octokit::Client::PullRequests#create_pull_request_comment (method)">#create_pull_request_comment</a></span>, <span class='object_link'><a href="Client/PullRequests.html#create_pull_request_comment_reply-instance_method" title="Octokit::Client::PullRequests#create_pull_request_comment_reply (method)">#create_pull_request_comment_reply</a></span>, <span class='object_link'><a href="Client/PullRequests.html#create_pull_request_for_issue-instance_method" title="Octokit::Client::PullRequests#create_pull_request_for_issue (method)">#create_pull_request_for_issue</a></span>, <span class='object_link'><a href="Client/PullRequests.html#delete_pull_request_comment-instance_method" title="Octokit::Client::PullRequests#delete_pull_request_comment (method)">#delete_pull_request_comment</a></span>, <span class='object_link'><a href="Client/PullRequests.html#merge_pull_request-instance_method" title="Octokit::Client::PullRequests#merge_pull_request (method)">#merge_pull_request</a></span>, <span class='object_link'><a href="Client/PullRequests.html#pull_merged%3F-instance_method" title="Octokit::Client::PullRequests#pull_merged? (method)">#pull_merged?</a></span>, <span class='object_link'><a href="Client/PullRequests.html#pull_request-instance_method" title="Octokit::Client::PullRequests#pull_request (method)">#pull_request</a></span>, <span class='object_link'><a href="Client/PullRequests.html#pull_request_comment-instance_method" title="Octokit::Client::PullRequests#pull_request_comment (method)">#pull_request_comment</a></span>, <span class='object_link'><a href="Client/PullRequests.html#pull_request_comments-instance_method" title="Octokit::Client::PullRequests#pull_request_comments (method)">#pull_request_comments</a></span>, <span class='object_link'><a href="Client/PullRequests.html#pull_request_commits-instance_method" title="Octokit::Client::PullRequests#pull_request_commits (method)">#pull_request_commits</a></span>, <span class='object_link'><a href="Client/PullRequests.html#pull_request_files-instance_method" title="Octokit::Client::PullRequests#pull_request_files (method)">#pull_request_files</a></span>, <span class='object_link'><a href="Client/PullRequests.html#pull_requests-instance_method" title="Octokit::Client::PullRequests#pull_requests (method)">#pull_requests</a></span>, <span class='object_link'><a href="Client/PullRequests.html#pull_requests_comments-instance_method" title="Octokit::Client::PullRequests#pull_requests_comments (method)">#pull_requests_comments</a></span>, <span class='object_link'><a href="Client/PullRequests.html#update_pull_request-instance_method" title="Octokit::Client::PullRequests#update_pull_request (method)">#update_pull_request</a></span>, <span class='object_link'><a href="Client/PullRequests.html#update_pull_request_comment-instance_method" title="Octokit::Client::PullRequests#update_pull_request_comment (method)">#update_pull_request_comment</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/PubSubHubbub.html" title="Octokit::Client::PubSubHubbub (module)">PubSubHubbub</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/PubSubHubbub.html#subscribe-instance_method" title="Octokit::Client::PubSubHubbub#subscribe (method)">#subscribe</a></span>, <span class='object_link'><a href="Client/PubSubHubbub.html#subscribe_service_hook-instance_method" title="Octokit::Client::PubSubHubbub#subscribe_service_hook (method)">#subscribe_service_hook</a></span>, <span class='object_link'><a href="Client/PubSubHubbub.html#unsubscribe-instance_method" title="Octokit::Client::PubSubHubbub#unsubscribe (method)">#unsubscribe</a></span>, <span class='object_link'><a href="Client/PubSubHubbub.html#unsubscribe_service_hook-instance_method" title="Octokit::Client::PubSubHubbub#unsubscribe_service_hook (method)">#unsubscribe_service_hook</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Organizations.html" title="Octokit::Client::Organizations (module)">Organizations</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Organizations.html#add_team_member-instance_method" title="Octokit::Client::Organizations#add_team_member (method)">#add_team_member</a></span>, <span class='object_link'><a href="Client/Organizations.html#add_team_repository-instance_method" title="Octokit::Client::Organizations#add_team_repository (method)">#add_team_repository</a></span>, <span class='object_link'><a href="Client/Organizations.html#create_team-instance_method" title="Octokit::Client::Organizations#create_team (method)">#create_team</a></span>, <span class='object_link'><a href="Client/Organizations.html#delete_team-instance_method" title="Octokit::Client::Organizations#delete_team (method)">#delete_team</a></span>, <span class='object_link'><a href="Client/Organizations.html#organization-instance_method" title="Octokit::Client::Organizations#organization (method)">#organization</a></span>, <span class='object_link'><a href="Client/Organizations.html#organization_member%3F-instance_method" title="Octokit::Client::Organizations#organization_member? (method)">#organization_member?</a></span>, <span class='object_link'><a href="Client/Organizations.html#organization_members-instance_method" title="Octokit::Client::Organizations#organization_members (method)">#organization_members</a></span>, <span class='object_link'><a href="Client/Organizations.html#organization_public_member%3F-instance_method" title="Octokit::Client::Organizations#organization_public_member? (method)">#organization_public_member?</a></span>, <span class='object_link'><a href="Client/Organizations.html#organization_repositories-instance_method" title="Octokit::Client::Organizations#organization_repositories (method)">#organization_repositories</a></span>, <span class='object_link'><a href="Client/Organizations.html#organization_teams-instance_method" title="Octokit::Client::Organizations#organization_teams (method)">#organization_teams</a></span>, <span class='object_link'><a href="Client/Organizations.html#organizations-instance_method" title="Octokit::Client::Organizations#organizations (method)">#organizations</a></span>, <span class='object_link'><a href="Client/Organizations.html#publicize_membership-instance_method" title="Octokit::Client::Organizations#publicize_membership (method)">#publicize_membership</a></span>, <span class='object_link'><a href="Client/Organizations.html#remove_organization_member-instance_method" title="Octokit::Client::Organizations#remove_organization_member (method)">#remove_organization_member</a></span>, <span class='object_link'><a href="Client/Organizations.html#remove_team_member-instance_method" title="Octokit::Client::Organizations#remove_team_member (method)">#remove_team_member</a></span>, <span class='object_link'><a href="Client/Organizations.html#remove_team_repository-instance_method" title="Octokit::Client::Organizations#remove_team_repository (method)">#remove_team_repository</a></span>, <span class='object_link'><a href="Client/Organizations.html#team-instance_method" title="Octokit::Client::Organizations#team (method)">#team</a></span>, <span class='object_link'><a href="Client/Organizations.html#team_member%3F-instance_method" title="Octokit::Client::Organizations#team_member? (method)">#team_member?</a></span>, <span class='object_link'><a href="Client/Organizations.html#team_members-instance_method" title="Octokit::Client::Organizations#team_members (method)">#team_members</a></span>, <span class='object_link'><a href="Client/Organizations.html#team_repositories-instance_method" title="Octokit::Client::Organizations#team_repositories (method)">#team_repositories</a></span>, <span class='object_link'><a href="Client/Organizations.html#unpublicize_membership-instance_method" title="Octokit::Client::Organizations#unpublicize_membership (method)">#unpublicize_membership</a></span>, <span class='object_link'><a href="Client/Organizations.html#update_organization-instance_method" title="Octokit::Client::Organizations#update_organization (method)">#update_organization</a></span>, <span class='object_link'><a href="Client/Organizations.html#update_team-instance_method" title="Octokit::Client::Organizations#update_team (method)">#update_team</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Objects.html" title="Octokit::Client::Objects (module)">Objects</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Objects.html#blob-instance_method" title="Octokit::Client::Objects#blob (method)">#blob</a></span>, <span class='object_link'><a href="Client/Objects.html#create_blob-instance_method" title="Octokit::Client::Objects#create_blob (method)">#create_blob</a></span>, <span class='object_link'><a href="Client/Objects.html#create_tag-instance_method" title="Octokit::Client::Objects#create_tag (method)">#create_tag</a></span>, <span class='object_link'><a href="Client/Objects.html#create_tree-instance_method" title="Octokit::Client::Objects#create_tree (method)">#create_tree</a></span>, <span class='object_link'><a href="Client/Objects.html#tag-instance_method" title="Octokit::Client::Objects#tag (method)">#tag</a></span>, <span class='object_link'><a href="Client/Objects.html#tree-instance_method" title="Octokit::Client::Objects#tree (method)">#tree</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Notifications.html" title="Octokit::Client::Notifications (module)">Notifications</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Notifications.html#delete_thread_subscription-instance_method" title="Octokit::Client::Notifications#delete_thread_subscription (method)">#delete_thread_subscription</a></span>, <span class='object_link'><a href="Client/Notifications.html#mark_notifications_as_read-instance_method" title="Octokit::Client::Notifications#mark_notifications_as_read (method)">#mark_notifications_as_read</a></span>, <span class='object_link'><a href="Client/Notifications.html#mark_repository_notifications_as_read-instance_method" title="Octokit::Client::Notifications#mark_repository_notifications_as_read (method)">#mark_repository_notifications_as_read</a></span>, <span class='object_link'><a href="Client/Notifications.html#mark_thread_as_read-instance_method" title="Octokit::Client::Notifications#mark_thread_as_read (method)">#mark_thread_as_read</a></span>, <span class='object_link'><a href="Client/Notifications.html#notifications-instance_method" title="Octokit::Client::Notifications#notifications (method)">#notifications</a></span>, <span class='object_link'><a href="Client/Notifications.html#repository_notifications-instance_method" title="Octokit::Client::Notifications#repository_notifications (method)">#repository_notifications</a></span>, <span class='object_link'><a href="Client/Notifications.html#thread_notifications-instance_method" title="Octokit::Client::Notifications#thread_notifications (method)">#thread_notifications</a></span>, <span class='object_link'><a href="Client/Notifications.html#thread_subscription-instance_method" title="Octokit::Client::Notifications#thread_subscription (method)">#thread_subscription</a></span>, <span class='object_link'><a href="Client/Notifications.html#update_thread_subscription-instance_method" title="Octokit::Client::Notifications#update_thread_subscription (method)">#update_thread_subscription</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Milestones.html" title="Octokit::Client::Milestones (module)">Milestones</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Milestones.html#create_milestone-instance_method" title="Octokit::Client::Milestones#create_milestone (method)">#create_milestone</a></span>, <span class='object_link'><a href="Client/Milestones.html#delete_milestone-instance_method" title="Octokit::Client::Milestones#delete_milestone (method)">#delete_milestone</a></span>, <span class='object_link'><a href="Client/Milestones.html#list_milestones-instance_method" title="Octokit::Client::Milestones#list_milestones (method)">#list_milestones</a></span>, <span class='object_link'><a href="Client/Milestones.html#milestone-instance_method" title="Octokit::Client::Milestones#milestone (method)">#milestone</a></span>, <span class='object_link'><a href="Client/Milestones.html#update_milestone-instance_method" title="Octokit::Client::Milestones#update_milestone (method)">#update_milestone</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Markdown.html" title="Octokit::Client::Markdown (module)">Markdown</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Markdown.html#markdown-instance_method" title="Octokit::Client::Markdown#markdown (method)">#markdown</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Meta.html" title="Octokit::Client::Meta (module)">Meta</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Meta.html#meta-instance_method" title="Octokit::Client::Meta#meta (method)">#meta</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/LegacySearch.html" title="Octokit::Client::LegacySearch (module)">LegacySearch</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/LegacySearch.html#legacy_search_issues-instance_method" title="Octokit::Client::LegacySearch#legacy_search_issues (method)">#legacy_search_issues</a></span>, <span class='object_link'><a href="Client/LegacySearch.html#legacy_search_repositories-instance_method" title="Octokit::Client::LegacySearch#legacy_search_repositories (method)">#legacy_search_repositories</a></span>, <span class='object_link'><a href="Client/LegacySearch.html#legacy_search_users-instance_method" title="Octokit::Client::LegacySearch#legacy_search_users (method)">#legacy_search_users</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Labels.html" title="Octokit::Client::Labels (module)">Labels</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Labels.html#add_label-instance_method" title="Octokit::Client::Labels#add_label (method)">#add_label</a></span>, <span class='object_link'><a href="Client/Labels.html#add_labels_to_an_issue-instance_method" title="Octokit::Client::Labels#add_labels_to_an_issue (method)">#add_labels_to_an_issue</a></span>, <span class='object_link'><a href="Client/Labels.html#delete_label%21-instance_method" title="Octokit::Client::Labels#delete_label! (method)">#delete_label!</a></span>, <span class='object_link'><a href="Client/Labels.html#label-instance_method" title="Octokit::Client::Labels#label (method)">#label</a></span>, <span class='object_link'><a href="Client/Labels.html#labels-instance_method" title="Octokit::Client::Labels#labels (method)">#labels</a></span>, <span class='object_link'><a href="Client/Labels.html#labels_for_issue-instance_method" title="Octokit::Client::Labels#labels_for_issue (method)">#labels_for_issue</a></span>, <span class='object_link'><a href="Client/Labels.html#labels_for_milestone-instance_method" title="Octokit::Client::Labels#labels_for_milestone (method)">#labels_for_milestone</a></span>, <span class='object_link'><a href="Client/Labels.html#remove_all_labels-instance_method" title="Octokit::Client::Labels#remove_all_labels (method)">#remove_all_labels</a></span>, <span class='object_link'><a href="Client/Labels.html#remove_label-instance_method" title="Octokit::Client::Labels#remove_label (method)">#remove_label</a></span>, <span class='object_link'><a href="Client/Labels.html#replace_all_labels-instance_method" title="Octokit::Client::Labels#replace_all_labels (method)">#replace_all_labels</a></span>, <span class='object_link'><a href="Client/Labels.html#update_label-instance_method" title="Octokit::Client::Labels#update_label (method)">#update_label</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Issues.html" title="Octokit::Client::Issues (module)">Issues</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Issues.html#add_comment-instance_method" title="Octokit::Client::Issues#add_comment (method)">#add_comment</a></span>, <span class='object_link'><a href="Client/Issues.html#close_issue-instance_method" title="Octokit::Client::Issues#close_issue (method)">#close_issue</a></span>, <span class='object_link'><a href="Client/Issues.html#create_issue-instance_method" title="Octokit::Client::Issues#create_issue (method)">#create_issue</a></span>, <span class='object_link'><a href="Client/Issues.html#delete_comment-instance_method" title="Octokit::Client::Issues#delete_comment (method)">#delete_comment</a></span>, <span class='object_link'><a href="Client/Issues.html#issue-instance_method" title="Octokit::Client::Issues#issue (method)">#issue</a></span>, <span class='object_link'><a href="Client/Issues.html#issue_comment-instance_method" title="Octokit::Client::Issues#issue_comment (method)">#issue_comment</a></span>, <span class='object_link'><a href="Client/Issues.html#issue_comments-instance_method" title="Octokit::Client::Issues#issue_comments (method)">#issue_comments</a></span>, <span class='object_link'><a href="Client/Issues.html#issues_comments-instance_method" title="Octokit::Client::Issues#issues_comments (method)">#issues_comments</a></span>, <span class='object_link'><a href="Client/Issues.html#list_issues-instance_method" title="Octokit::Client::Issues#list_issues (method)">#list_issues</a></span>, <span class='object_link'><a href="Client/Issues.html#org_issues-instance_method" title="Octokit::Client::Issues#org_issues (method)">#org_issues</a></span>, <span class='object_link'><a href="Client/Issues.html#reopen_issue-instance_method" title="Octokit::Client::Issues#reopen_issue (method)">#reopen_issue</a></span>, <span class='object_link'><a href="Client/Issues.html#update_comment-instance_method" title="Octokit::Client::Issues#update_comment (method)">#update_comment</a></span>, <span class='object_link'><a href="Client/Issues.html#update_issue-instance_method" title="Octokit::Client::Issues#update_issue (method)">#update_issue</a></span>, <span class='object_link'><a href="Client/Issues.html#user_issues-instance_method" title="Octokit::Client::Issues#user_issues (method)">#user_issues</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Gitignore.html" title="Octokit::Client::Gitignore (module)">Gitignore</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Gitignore.html#gitignore_template-instance_method" title="Octokit::Client::Gitignore#gitignore_template (method)">#gitignore_template</a></span>, <span class='object_link'><a href="Client/Gitignore.html#gitignore_templates-instance_method" title="Octokit::Client::Gitignore#gitignore_templates (method)">#gitignore_templates</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Gists.html" title="Octokit::Client::Gists (module)">Gists</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Gists.html#create_gist-instance_method" title="Octokit::Client::Gists#create_gist (method)">#create_gist</a></span>, <span class='object_link'><a href="Client/Gists.html#create_gist_comment-instance_method" title="Octokit::Client::Gists#create_gist_comment (method)">#create_gist_comment</a></span>, <span class='object_link'><a href="Client/Gists.html#delete_gist-instance_method" title="Octokit::Client::Gists#delete_gist (method)">#delete_gist</a></span>, <span class='object_link'><a href="Client/Gists.html#delete_gist_comment-instance_method" title="Octokit::Client::Gists#delete_gist_comment (method)">#delete_gist_comment</a></span>, <span class='object_link'><a href="Client/Gists.html#edit_gist-instance_method" title="Octokit::Client::Gists#edit_gist (method)">#edit_gist</a></span>, <span class='object_link'><a href="Client/Gists.html#fork_gist-instance_method" title="Octokit::Client::Gists#fork_gist (method)">#fork_gist</a></span>, <span class='object_link'><a href="Client/Gists.html#gist-instance_method" title="Octokit::Client::Gists#gist (method)">#gist</a></span>, <span class='object_link'><a href="Client/Gists.html#gist_comment-instance_method" title="Octokit::Client::Gists#gist_comment (method)">#gist_comment</a></span>, <span class='object_link'><a href="Client/Gists.html#gist_comments-instance_method" title="Octokit::Client::Gists#gist_comments (method)">#gist_comments</a></span>, <span class='object_link'><a href="Client/Gists.html#gist_starred%3F-instance_method" title="Octokit::Client::Gists#gist_starred? (method)">#gist_starred?</a></span>, <span class='object_link'><a href="Client/Gists.html#gists-instance_method" title="Octokit::Client::Gists#gists (method)">#gists</a></span>, <span class='object_link'><a href="Client/Gists.html#public_gists-instance_method" title="Octokit::Client::Gists#public_gists (method)">#public_gists</a></span>, <span class='object_link'><a href="Client/Gists.html#star_gist-instance_method" title="Octokit::Client::Gists#star_gist (method)">#star_gist</a></span>, <span class='object_link'><a href="Client/Gists.html#starred_gists-instance_method" title="Octokit::Client::Gists#starred_gists (method)">#starred_gists</a></span>, <span class='object_link'><a href="Client/Gists.html#unstar_gist-instance_method" title="Octokit::Client::Gists#unstar_gist (method)">#unstar_gist</a></span>, <span class='object_link'><a href="Client/Gists.html#update_gist_comment-instance_method" title="Octokit::Client::Gists#update_gist_comment (method)">#update_gist_comment</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Events.html" title="Octokit::Client::Events (module)">Events</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Events.html#issue_event-instance_method" title="Octokit::Client::Events#issue_event (method)">#issue_event</a></span>, <span class='object_link'><a href="Client/Events.html#issue_events-instance_method" title="Octokit::Client::Events#issue_events (method)">#issue_events</a></span>, <span class='object_link'><a href="Client/Events.html#organization_events-instance_method" title="Octokit::Client::Events#organization_events (method)">#organization_events</a></span>, <span class='object_link'><a href="Client/Events.html#organization_public_events-instance_method" title="Octokit::Client::Events#organization_public_events (method)">#organization_public_events</a></span>, <span class='object_link'><a href="Client/Events.html#public_events-instance_method" title="Octokit::Client::Events#public_events (method)">#public_events</a></span>, <span class='object_link'><a href="Client/Events.html#received_events-instance_method" title="Octokit::Client::Events#received_events (method)">#received_events</a></span>, <span class='object_link'><a href="Client/Events.html#received_public_events-instance_method" title="Octokit::Client::Events#received_public_events (method)">#received_public_events</a></span>, <span class='object_link'><a href="Client/Events.html#repository_events-instance_method" title="Octokit::Client::Events#repository_events (method)">#repository_events</a></span>, <span class='object_link'><a href="Client/Events.html#repository_issue_events-instance_method" title="Octokit::Client::Events#repository_issue_events (method)">#repository_issue_events</a></span>, <span class='object_link'><a href="Client/Events.html#repository_network_events-instance_method" title="Octokit::Client::Events#repository_network_events (method)">#repository_network_events</a></span>, <span class='object_link'><a href="Client/Events.html#user_events-instance_method" title="Octokit::Client::Events#user_events (method)">#user_events</a></span>, <span class='object_link'><a href="Client/Events.html#user_public_events-instance_method" title="Octokit::Client::Events#user_public_events (method)">#user_public_events</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Emojis.html" title="Octokit::Client::Emojis (module)">Emojis</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Emojis.html#emojis-instance_method" title="Octokit::Client::Emojis#emojis (method)">#emojis</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Downloads.html" title="Octokit::Client::Downloads (module)">Downloads</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Downloads.html#create_download-instance_method" title="Octokit::Client::Downloads#create_download (method)">#create_download</a></span>, <span class='object_link'><a href="Client/Downloads.html#delete_download-instance_method" title="Octokit::Client::Downloads#delete_download (method)">#delete_download</a></span>, <span class='object_link'><a href="Client/Downloads.html#download-instance_method" title="Octokit::Client::Downloads#download (method)">#download</a></span>, <span class='object_link'><a href="Client/Downloads.html#downloads-instance_method" title="Octokit::Client::Downloads#downloads (method)">#downloads</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Contents.html" title="Octokit::Client::Contents (module)">Contents</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Contents.html#archive_link-instance_method" title="Octokit::Client::Contents#archive_link (method)">#archive_link</a></span>, <span class='object_link'><a href="Client/Contents.html#contents-instance_method" title="Octokit::Client::Contents#contents (method)">#contents</a></span>, <span class='object_link'><a href="Client/Contents.html#create_contents-instance_method" title="Octokit::Client::Contents#create_contents (method)">#create_contents</a></span>, <span class='object_link'><a href="Client/Contents.html#delete_contents-instance_method" title="Octokit::Client::Contents#delete_contents (method)">#delete_contents</a></span>, <span class='object_link'><a href="Client/Contents.html#readme-instance_method" title="Octokit::Client::Contents#readme (method)">#readme</a></span>, <span class='object_link'><a href="Client/Contents.html#update_contents-instance_method" title="Octokit::Client::Contents#update_contents (method)">#update_contents</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/CommitComments.html" title="Octokit::Client::CommitComments (module)">CommitComments</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/CommitComments.html#commit_comment-instance_method" title="Octokit::Client::CommitComments#commit_comment (method)">#commit_comment</a></span>, <span class='object_link'><a href="Client/CommitComments.html#commit_comments-instance_method" title="Octokit::Client::CommitComments#commit_comments (method)">#commit_comments</a></span>, <span class='object_link'><a href="Client/CommitComments.html#create_commit_comment-instance_method" title="Octokit::Client::CommitComments#create_commit_comment (method)">#create_commit_comment</a></span>, <span class='object_link'><a href="Client/CommitComments.html#delete_commit_comment-instance_method" title="Octokit::Client::CommitComments#delete_commit_comment (method)">#delete_commit_comment</a></span>, <span class='object_link'><a href="Client/CommitComments.html#list_commit_comments-instance_method" title="Octokit::Client::CommitComments#list_commit_comments (method)">#list_commit_comments</a></span>, <span class='object_link'><a href="Client/CommitComments.html#update_commit_comment-instance_method" title="Octokit::Client::CommitComments#update_commit_comment (method)">#update_commit_comment</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Commits.html" title="Octokit::Client::Commits (module)">Commits</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Commits.html#commit-instance_method" title="Octokit::Client::Commits#commit (method)">#commit</a></span>, <span class='object_link'><a href="Client/Commits.html#commit_comment-instance_method" title="Octokit::Client::Commits#commit_comment (method)">#commit_comment</a></span>, <span class='object_link'><a href="Client/Commits.html#commit_comments-instance_method" title="Octokit::Client::Commits#commit_comments (method)">#commit_comments</a></span>, <span class='object_link'><a href="Client/Commits.html#commits-instance_method" title="Octokit::Client::Commits#commits (method)">#commits</a></span>, <span class='object_link'><a href="Client/Commits.html#commits_before-instance_method" title="Octokit::Client::Commits#commits_before (method)">#commits_before</a></span>, <span class='object_link'><a href="Client/Commits.html#commits_between-instance_method" title="Octokit::Client::Commits#commits_between (method)">#commits_between</a></span>, <span class='object_link'><a href="Client/Commits.html#commits_on-instance_method" title="Octokit::Client::Commits#commits_on (method)">#commits_on</a></span>, <span class='object_link'><a href="Client/Commits.html#commits_since-instance_method" title="Octokit::Client::Commits#commits_since (method)">#commits_since</a></span>, <span class='object_link'><a href="Client/Commits.html#compare-instance_method" title="Octokit::Client::Commits#compare (method)">#compare</a></span>, <span class='object_link'><a href="Client/Commits.html#create_commit-instance_method" title="Octokit::Client::Commits#create_commit (method)">#create_commit</a></span>, <span class='object_link'><a href="Client/Commits.html#create_commit_comment-instance_method" title="Octokit::Client::Commits#create_commit_comment (method)">#create_commit_comment</a></span>, <span class='object_link'><a href="Client/Commits.html#delete_commit_comment-instance_method" title="Octokit::Client::Commits#delete_commit_comment (method)">#delete_commit_comment</a></span>, <span class='object_link'><a href="Client/Commits.html#list_commit_comments-instance_method" title="Octokit::Client::Commits#list_commit_comments (method)">#list_commit_comments</a></span>, <span class='object_link'><a href="Client/Commits.html#merge-instance_method" title="Octokit::Client::Commits#merge (method)">#merge</a></span>, <span class='object_link'><a href="Client/Commits.html#update_commit_comment-instance_method" title="Octokit::Client::Commits#update_commit_comment (method)">#update_commit_comment</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Client/Authorizations.html" title="Octokit::Client::Authorizations (module)">Authorizations</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Client/Authorizations.html#authorization-instance_method" title="Octokit::Client::Authorizations#authorization (method)">#authorization</a></span>, <span class='object_link'><a href="Client/Authorizations.html#authorizations-instance_method" title="Octokit::Client::Authorizations#authorizations (method)">#authorizations</a></span>, <span class='object_link'><a href="Client/Authorizations.html#create_authorization-instance_method" title="Octokit::Client::Authorizations#create_authorization (method)">#create_authorization</a></span>, <span class='object_link'><a href="Client/Authorizations.html#delete_authorization-instance_method" title="Octokit::Client::Authorizations#delete_authorization (method)">#delete_authorization</a></span>, <span class='object_link'><a href="Client/Authorizations.html#scopes-instance_method" title="Octokit::Client::Authorizations#scopes (method)">#scopes</a></span>, <span class='object_link'><a href="Client/Authorizations.html#update_authorization-instance_method" title="Octokit::Client::Authorizations#update_authorization (method)">#update_authorization</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Configurable.html#configure-instance_method" title="Octokit::Configurable#configure (method)">#configure</a></span>, <span class='object_link'><a href="Configurable.html#keys-class_method" title="Octokit::Configurable.keys (method)">keys</a></span>, <span class='object_link'><a href="Configurable.html#netrc%3F-instance_method" title="Octokit::Configurable#netrc? (method)">#netrc?</a></span>, <span class='object_link'><a href="Configurable.html#reset%21-instance_method" title="Octokit::Configurable#reset! (method)">#reset!</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Authentication.html" title="Octokit::Authentication (module)">Authentication</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Authentication.html#application_authenticated%3F-instance_method" title="Octokit::Authentication#application_authenticated? (method)">#application_authenticated?</a></span>, <span class='object_link'><a href="Authentication.html#basic_authenticated%3F-instance_method" title="Octokit::Authentication#basic_authenticated? (method)">#basic_authenticated?</a></span>, <span class='object_link'><a href="Authentication.html#token_authenticated%3F-instance_method" title="Octokit::Authentication#token_authenticated? (method)">#token_authenticated?</a></span>, <span class='object_link'><a href="Authentication.html#user_authenticated%3F-instance_method" title="Octokit::Authentication#user_authenticated? (method)">#user_authenticated?</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Octokit::Client (class)">Client</a></span></tt>) <strong>initialize</strong>(options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a new instance of Client</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83
+84
+85
+86
+87
+88</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 81</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='comment'># Use options passed in, but fall back to module defaults
+</span>  <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Configurable</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
+    <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='symbol'>:@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_instance_variable_get'>instance_variable_get</span><span class='lparen'>(</span><span class='symbol'>:@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_login_from_netrc'>login_from_netrc</span> <span class='kw'>unless</span> <span class='id identifier rubyid_user_authenticated?'>user_authenticated?</span> <span class='op'>||</span> <span class='id identifier rubyid_application_authenticated?'>application_authenticated?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="agent-instance_method">
+  
+    - (<tt>Sawyer::Agent</tt>) <strong>agent</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Hypermedia agent for the GitHub API</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Agent</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 200</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_agent'>agent</span>
+  <span class='ivar'>@agent</span> <span class='op'>||=</span> <span class='const'>Sawyer</span><span class='op'>::</span><span class='const'>Agent</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span><span class='comma'>,</span> <span class='id identifier rubyid_sawyer_options'>sawyer_options</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_http'>http</span><span class='op'>|</span>
+    <span class='id identifier rubyid_http'>http</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_default_media_type'>default_media_type</span>
+    <span class='id identifier rubyid_http'>http</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='symbol'>:user_agent</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_user_agent'>user_agent</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_basic_authenticated?'>basic_authenticated?</span>
+      <span class='id identifier rubyid_http'>http</span><span class='period'>.</span><span class='id identifier rubyid_basic_auth'>basic_auth</span><span class='lparen'>(</span><span class='ivar'>@login</span><span class='comma'>,</span> <span class='ivar'>@password</span><span class='rparen'>)</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_token_authenticated?'>token_authenticated?</span>
+      <span class='id identifier rubyid_http'>http</span><span class='period'>.</span><span class='id identifier rubyid_authorization'>authorization</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>token</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='ivar'>@access_token</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="authorize_url-instance_method">
+  
+    - (<tt>String</tt>) <strong>authorize_url</strong>(app_id, app_secret, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Get the URL to authorize a user for an application via the web flow</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_authorize_url'>authorize_url</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>xxxx</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>yyyy</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>app_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Client Id we received when our application was registered with GitHub.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>app_secret</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Client Secret we received when our application was registered with GitHub.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:redirect_uri</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The url to redirect to after authorizing.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:scope</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The scopes to request from the user.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:state</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>A random string to protect against CSRF.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The url to redirect the user to authorize.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="" title="Octokit::Client (class)">Octokit::Client</a></span></li>
+    
+      <li><a href="http://developer.github.com/v3/oauth/#web-application-flow" target="_parent" title="http://developer.github.com/v3/oauth/#web-application-flow">http://developer.github.com/v3/oauth/#web-application-flow</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 129</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_authorize_url'>authorize_url</span><span class='lparen'>(</span><span class='id identifier rubyid_app_id'>app_id</span><span class='comma'>,</span> <span class='id identifier rubyid_app_secret'>app_secret</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_authorize_url'>authorize_url</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:endpoint</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span>
+  <span class='id identifier rubyid_authorize_url'>authorize_url</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>login/oauth/authorize?client_id=</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_app_id'>app_id</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;client_secret=</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_app_secret'>app_secret</span>
+
+  <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='id identifier rubyid_authorize_url'>authorize_url</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_authorize_url'>authorize_url</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>delete</strong>(url, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Make a HTTP DELETE request</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The path, relative to <span class='object_link'><a href="Configurable.html#api_endpoint-instance_method" title="Octokit::Configurable#api_endpoint (method)">Octokit::Configurable#api_endpoint</a></span></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Query and header params for request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+158
+159
+160</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 158</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_request'>request</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>get</strong>(url, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Make a HTTP GET request</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The path, relative to <span class='object_link'><a href="Configurable.html#api_endpoint-instance_method" title="Octokit::Configurable#api_endpoint (method)">Octokit::Configurable#api_endpoint</a></span></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Query and header params for request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+122
+123
+124</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 122</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_request'>request</span> <span class='symbol'>:get</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_parse_query_and_convenience_headers'>parse_query_and_convenience_headers</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="head-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>head</strong>(url, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Make a HTTP HEAD request</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The path, relative to <span class='object_link'><a href="Configurable.html#api_endpoint-instance_method" title="Octokit::Configurable#api_endpoint (method)">Octokit::Configurable#api_endpoint</a></span></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Query and header params for request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+167
+168
+169</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 167</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_head'>head</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_request'>request</span> <span class='symbol'>:head</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_parse_query_and_convenience_headers'>parse_query_and_convenience_headers</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="inspect-instance_method">
+  
+    - (<tt>String</tt>) <strong>inspect</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Text representation of the client, masking tokens and passwords</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 101</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
+  <span class='id identifier rubyid_inspected'>inspected</span> <span class='op'>=</span> <span class='kw'>super</span>
+
+  <span class='comment'># mask password
+</span>  <span class='id identifier rubyid_inspected'>inspected</span> <span class='op'>=</span> <span class='id identifier rubyid_inspected'>inspected</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span> <span class='ivar'>@password</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*******</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@password</span>
+  <span class='comment'># Only show last 4 of token, secret
+</span>  <span class='kw'>if</span> <span class='ivar'>@access_token</span>
+    <span class='id identifier rubyid_inspected'>inspected</span> <span class='op'>=</span> <span class='id identifier rubyid_inspected'>inspected</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span> <span class='ivar'>@access_token</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>*</span><span class='tstring_end'>'</span></span><span class='op'>*</span><span class='int'>36</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='ivar'>@access_token</span><span class='lbracket'>[</span><span class='int'>36</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='ivar'>@client_secret</span>
+    <span class='id identifier rubyid_inspected'>inspected</span> <span class='op'>=</span> <span class='id identifier rubyid_inspected'>inspected</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span> <span class='ivar'>@client_secret</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>*</span><span class='tstring_end'>'</span></span><span class='op'>*</span><span class='int'>36</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='ivar'>@client_secret</span><span class='lbracket'>[</span><span class='int'>36</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_inspected'>inspected</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="last_response-instance_method">
+  
+    - (<tt>Sawyer::Response</tt>) <strong>last_response</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Response for last HTTP request</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Response</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+222
+223
+224</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 222</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_last_response'>last_response</span>
+  <span class='ivar'>@last_response</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="paginate-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>paginate</strong>(url, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Make one or more HTTP GET requests, optionally fetching
+the next page of results from URL in Link response header based
+on value in <span class='object_link'><a href="Configurable.html#auto_paginate-instance_method" title="Octokit::Configurable#auto_paginate (method)">Octokit::Configurable#auto_paginate</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The path, relative to <span class='object_link'><a href="Configurable.html#api_endpoint-instance_method" title="Octokit::Configurable#api_endpoint (method)">Octokit::Configurable#api_endpoint</a></span></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Query and header params for request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 178</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_paginate'>paginate</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_query_and_convenience_headers'>parse_query_and_convenience_headers</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='ivar'>@auto_paginate</span> <span class='op'>||</span> <span class='ivar'>@per_page</span>
+    <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:query</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:per_page</span><span class='rbracket'>]</span> <span class='op'>||=</span>  <span class='ivar'>@per_page</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='ivar'>@auto_paginate</span> <span class='op'>?</span> <span class='int'>100</span> <span class='op'>:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='lparen'>(</span><span class='symbol'>:get</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='ivar'>@auto_paginate</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='kw'>while</span> <span class='ivar'>@last_response</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:next</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_rate_limit'>rate_limit</span><span class='period'>.</span><span class='id identifier rubyid_remaining'>remaining</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+      <span class='ivar'>@last_response</span> <span class='op'>=</span> <span class='ivar'>@last_response</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:next</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span>
+      <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span><span class='lparen'>(</span><span class='ivar'>@last_response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@last_response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_data'>data</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="patch-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>patch</strong>(url, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Make a HTTP PATCH request</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The path, relative to <span class='object_link'><a href="Configurable.html#api_endpoint-instance_method" title="Octokit::Configurable#api_endpoint (method)">Octokit::Configurable#api_endpoint</a></span></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Body and header params for request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+149
+150
+151</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 149</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_patch'>patch</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_request'>request</span> <span class='symbol'>:patch</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="post-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>post</strong>(url, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Make a HTTP POST request</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The path, relative to <span class='object_link'><a href="Configurable.html#api_endpoint-instance_method" title="Octokit::Configurable#api_endpoint (method)">Octokit::Configurable#api_endpoint</a></span></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Body and header params for request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+131
+132
+133</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 131</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_request'>request</span> <span class='symbol'>:post</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="put-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>put</strong>(url, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Make a HTTP PUT request</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The path, relative to <span class='object_link'><a href="Configurable.html#api_endpoint-instance_method" title="Octokit::Configurable#api_endpoint (method)">Octokit::Configurable#api_endpoint</a></span></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Body and header params for request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+140
+141
+142</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 140</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_put'>put</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_request'>request</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="root-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>root</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Fetch the root resource for the API</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+215
+216
+217</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 215</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_root'>root</span>
+  <span class='id identifier rubyid_agent'>agent</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="same_options?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>same_options?</strong>(opts) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Compares client options to a Hash of requested options</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Options to compare with current client options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94
+95
+96</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client.rb', line 94</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_same_options?'>same_options?</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>==</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_hash'>hash</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Fri Aug 23 11:04:59 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
