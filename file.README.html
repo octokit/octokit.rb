@@ -67,6 +67,9 @@
 
 <p><img src="http://cl.ly/image/3Y013H0A2z3z/gundam-ruby.png" alt="Logo"></p>
 
+<p>Octokit 2.0 is out, check the <a href="#upgrading-guide">Upgrade Guide</a> before
+upgrading from 1.x.</p>
+
 <h2>Philosophy</h2>
 
 <p>API wrappers <a href="http://wynnnetherland.com/journal/what-makes-a-good-api-wrapper">should reflect the idioms of the language in which they were
@@ -218,6 +221,9 @@ token as a Basic password, you totally can:</p>
   password &lt;your 40 char token&gt;
 </code></pre>
 
+<p><strong>Note:</strong> Support for netrc requires adding the <a href="https://rubygems.org/gems/netrc">netrc gem</a> to your Gemfile
+or <code>.gemspec</code>.</p>
+
 <h3>Application authentication</h3>
 
 <p>Octokit also supports application-only authentication <a href="http://developer.github.com/v3/#unauthenticated-rate-limited-requests">using OAuth application client
@@ -319,6 +325,24 @@ the API root and and follow link relations from there:</p>
 
 <p>Octokit 3.0 aims to be hypermedia-driven, removing the internal URL
 construction currently used throughout the client.</p>
+
+<h2>Upgrading guide</h2>
+
+<p>Version 2.0 includes a completely rewritten <code>Client</code> factory that now memoizes
+client instances based on unique configuration options. Breaking changes also
+include:</p>
+
+<ul>
+<li><code>:oauth_token</code> is now <code>:access_token</code></li>
+<li><code>Hashie::Mash</code> has been removed. Responses now return a <code>Sawyer::Resource</code>
+object. This new type behaves mostly like a Ruby <code>Hash</code>, but does not fully
+support the <code>Hashie::Mash</code> API.</li>
+<li>Two new client error types are raised where appropriate:
+<code>Octokit::TooManyRequests</code> and <code>Octokit::TooManyLoginAttempts</code></li>
+<li>The <code>search_*</code> methods from v1.x are now found at <code>legacy_search_*</code></li>
+<li>Support for netrc requires including the <a href="https://rubygems.org/gems/netrc">netrc gem</a> in your Gemfile or
+gemspec.</li>
+</ul>
 
 <h2>Advanced usage</h2>
 
@@ -487,7 +511,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Fri Aug 23 11:04:51 2013 by
+  Generated on Fri Aug 23 12:01:02 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.9.3).
 </div>
