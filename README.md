@@ -74,9 +74,8 @@ user.rels[:gists].href
 # => "https://api.github.com/users/jbarnette/gists"
 ```
 
-**Note:** URL fields are treated
-differently, however, and culled into a separate `.rels` collection for easier
-[Hypermedia](docs/hypermedia.md) support. Check out the [Getting Started guide](docs/getting-started.md) for more.
+**Note:** URL fields are culled into a separate `.rels` collection for easier
+[Hypermedia](#hypermedia-agent) support.
 
 ### Accessing HTTP responses
 
@@ -137,7 +136,7 @@ user.login
 You can use `.create_authorization` to create a token using Basic Authorization
 that you can use for subsequent calls.
 
-## Using a .netrc file
+### Using a .netrc file
 
 Octokit supports reading credentials from a netrc file (defaulting to
 `~/.netrc`).  Given these lines in your netrc:
