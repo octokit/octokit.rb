@@ -67,7 +67,6 @@ module Octokit
       # @param label [String] String name of the label
       # @return [Boolean] Success
       # @see http://developer.github.com/v3/issues/labels/#delete-a-label
-      # @see http://rubydoc.info/gems/faraday/0.5.3/Faraday/Response
       # @example Delete the label "Version 1.0" from the repository.
       #   Octokit.delete_label!("octokit/octokit.rb", "Version 1.0")
       def delete_label!(repo, label, options = {})
@@ -82,7 +81,6 @@ module Octokit
       # @param number [String] Number ID of the issue
       # @param label [String] String name of the label
       # @return [Array<Sawyer::Resource>] A list of the labels currently on the issue
-      # @see http://rubydoc.info/gems/faraday/0.5.3/Faraday/Response
       # @see http://developer.github.com/v3/issues/labels/#remove-a-label-from-an-issue
       # @example Remove the label "Version 1.0" from the repository.
       #   Octokit.remove_label("octokit/octokit.rb", 23, "Version 1.0")
