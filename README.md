@@ -297,6 +297,7 @@ client instances based on unique configuration options. Breaking changes also
 include:
 
 * `:oauth_token` is now `:access_token`
+* `:auto_traversal` is now `:auto_paginate`
 * `Hashie::Mash` has been removed. Responses now return a `Sawyer::Resource`
   object. This new type behaves mostly like a Ruby `Hash`, but does not fully
   support the `Hashie::Mash` API.
