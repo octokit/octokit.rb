@@ -43,8 +43,8 @@ configuration) or as client instance methods.
 ```ruby
 # Provide authentication credentials
 Octokit.configure do |c|
-  c.login 'defunkt'
-  c.password 'c0d3b4ssssss!'
+  c.login = 'defunkt'
+  c.password = 'c0d3b4ssssss!'
 end
 
 # Fetch the current user
