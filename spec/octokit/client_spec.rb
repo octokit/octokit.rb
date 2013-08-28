@@ -480,4 +480,18 @@ describe Octokit::Client do
     end
   end
 
+  it "knows the difference between unauthorized and needs OTP" do
+      stub_get('/authorizations').to_return(:status => 401)
+      expect { Octokit.get('/authorizations') }.to raise_error Octokit::Unauthorized
+
+      stub_get('/authorizations/1').to_return \
+        :status => 401,
+        :headers => {
+          :content_type => "application/json",
+          "X-GitHub-OTP" => "required; sms"
+        },
+        :body => {:message => "Must specify two-factor authentication OTP code."}.to_json
+      expect { Octokit.get('/authorizations/1') }.to raise_error Octokit::OneTimePasswordRequired
+  end
+
 end
