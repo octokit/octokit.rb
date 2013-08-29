@@ -66,7 +66,7 @@ module Octokit
           client_id, client_secret = fetch_client_id_and_secret(options)
           raise ArgumentError.new("Client ID and Secret required for idempotent authorizations") unless client_id && client_secret
 
-          put "authorizations/#{client_id}", options.merge(:client_secret => client_secret)
+          put "authorizations/clients/#{client_id}", options.merge(:client_secret => client_secret)
         else
           post 'authorizations', options
         end

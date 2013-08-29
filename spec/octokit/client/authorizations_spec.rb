@@ -8,18 +8,54 @@ describe Octokit::Client::Authorizations do
   end
 
   describe ".create_authorization", :vcr do
-    it "creates an API authorization" do
-      authorization = @client.create_authorization
-      expect(authorization.app.name).to_not be_nil
-      assert_requested :post, basic_github_url("/authorizations")
+    context 'without :idempotent => true' do
+      it "creates an API authorization" do
+        authorization = @client.create_authorization
+        expect(authorization.app.name).to_not be_nil
+        assert_requested :post, basic_github_url("/authorizations")
+      end
+
+      it "creates a new API authorization each time" do
+        first_authorization = @client.create_authorization
+        second_authorization = @client.create_authorization
+        expect(first_authorization.id).to_not eq second_authorization.id
+      end
+
+      it "creates a new authorization with options" do
+        info = {
+          :scopes => ["gist"],
+        }
+        authorization = @client.create_authorization info
+        expect(authorization.scopes).to be_kind_of Array
+        assert_requested :post, basic_github_url("/authorizations")
+      end
     end
-    it "creates a new authorization with options" do
-      info = {
-        :scopes => ["gist"],
-      }
-      authorization = @client.create_authorization info
-      expect(authorization.scopes).to be_kind_of Array
-      assert_requested :post, basic_github_url("/authorizations")
+
+    context 'with :idempotent => true' do
+      subject do
+        lambda do |info = {}|
+          @client.create_authorization({
+            :idempotent    => true,
+            :client_id     => test_github_client_id,
+            :client_secret => test_github_client_secret
+          }.merge(info))
+        end
+      end
+
+      it "creates a new authorization with options" do
+        info = {
+          :scopes => ["gist"],
+        }
+        authorization = subject.call info
+        expect(authorization.scopes).to be_kind_of Array
+        assert_requested :put, basic_github_url("/authorizations/clients/#{test_github_client_id}")
+      end
+
+      it 'returns an existing API authorization if one already exists' do
+        first_authorization = subject.call
+        second_authorization = subject.call
+        expect(first_authorization.id).to eql second_authorization.id
+      end
     end
   end # .create_authorization
 
