@@ -129,7 +129,7 @@ To use an access token with the Octokit client, just pass it in lieu of your
 username and password:
 
 ```ruby
-client = Octokit::Client.new :access_token => "<your 40 char token>"
+client = Octokit::Client.new :oauth_token => "<your 40 char token>"
 
 user = client.user
 user.login
