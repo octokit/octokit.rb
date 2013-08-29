@@ -5,20 +5,14 @@ set -e
 echo "===> Bundling..."
 script/bootstrap --quiet
 
-if [[ -z "$OCTOKIT_TEST_GITHUB_LOGIN" ]]; then
-    echo "Please export OCTOKIT_TEST_GITHUB_LOGIN";
-    exit 1;
-fi
-
-if [[ -z "$OCTOKIT_TEST_GITHUB_PASSWORD" ]]; then
-    echo "Please export OCTOKIT_TEST_GITHUB_PASSWORD";
-    exit 1;
-fi
-
-if [[ -z "$OCTOKIT_TEST_GITHUB_TOKEN" ]]; then
-    echo "Please export OCTOKIT_TEST_GITHUB_TOKEN"
-    exit 1;
-fi
+for testvar in LOGIN PASSWORD TOKEN CLIENT_ID CLIENT_SECRET
+do
+	octokitvar="OCTOKIT_TEST_GITHUB_${testvar}"
+	if [[ -z "${!octokitvar}" ]]; then
+			echo "Please export ${octokitvar}";
+			exit 1;
+	fi
+done
 
 echo "===> Running specs..."
 bundle exec rspec-queue spec

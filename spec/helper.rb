@@ -53,6 +53,14 @@ def test_github_token
   ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN'
 end
 
+def test_github_client_id
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_ID'
+end
+
+def test_github_client_secret
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_SECRET'
+end
+
 def stub_delete(url)
   stub_request(:delete, github_url(url))
 end
