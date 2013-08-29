@@ -8,12 +8,18 @@ module Octokit
     # @param [Hash] response HTTP response
     # @return [Octokit::Error]
     def self.from_response(response)
-      status = response[:status].to_i
-      body  = response[:body].to_s
+      status  = response[:status].to_i
+      body    = response[:body].to_s
+      headers = response[:response_headers]
 
       if klass =  case status
                   when 400 then Octokit::BadRequest
-                  when 401 then Octokit::Unauthorized
+                  when 401
+                    if Octokit::OneTimePasswordRequired.required_header(headers)
+                      Octokit::OneTimePasswordRequired
+                    else
+                      Octokit::Unauthorized
+                    end
                   when 403
                     if body =~ /rate limit exceeded/i
                       Octokit::TooManyRequests
@@ -99,6 +105,20 @@ module Octokit
 
   # Raised when GitHub returns a 401 HTTP status code
   class Unauthorized < Error; end
+
+  # Raised when GitHub returns a 401 HTTP status code
+  # and headers include "X-GitHub-OTP"
+  class OneTimePasswordRequired < Error
+    HEADER = /required; (?<delivery>\w+)/i
+
+    def self.required_header(headers)
+      HEADER.match headers['X-GitHub-OTP'].to_s
+    end
+
+    def password_delivery
+      @password_delivery ||= self.class.required_header(@response[:response_headers])[:delivery]
+    end
+  end
 
   # Raised when GitHub returns a 403 HTTP status code
   class Forbidden < Error; end
