@@ -206,7 +206,7 @@ describe Octokit::Client::Users do
       it "returns true" do
         stub_get("https://api.github.com/user/starred/sferik/rails_admin").
           to_return(:status => 204, :body => "")
-        starred = @client.starred?("sferik", "rails_admin")
+        starred = @client.starred?("sferik/rails_admin")
         expect(starred).to eq(true)
       end
 
@@ -217,7 +217,7 @@ describe Octokit::Client::Users do
       it "returns false" do
         stub_get("https://api.github.com/user/starred/sferik/dogbrainz").
           to_return(:status => 404, :body => "")
-        starred = @client.starred?("sferik", "dogbrainz")
+        starred = @client.starred?("sferik/dogbrainz")
         expect(starred).to be_false
       end
 
