@@ -174,15 +174,14 @@ module Octokit
       #
       # Requires authenticated client.
       #
-      # @param user [String] Username of repository owner.
-      # @param repo [String] Name of the repository.
+      # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] True if you are following the repo, false otherwise.
       # @see Octokit::Client
       # @see http://developer.github.com/v3/repos/starring/#check-if-you-are-starring-a-repository
       # @example
-      #   @client.starred?('pengwynn', 'octokit')
-      def starred?(user, repo, options={})
-        boolean_from_response(:get, "user/starred/#{user}/#{repo}", options)
+      #   @client.starred?('pengwynn/octokit')
+      def starred?(repo, options={})
+        boolean_from_response(:get, "user/starred/#{Repository.new repo}", options)
       end
 
       # Get list of repos watched by a user.
