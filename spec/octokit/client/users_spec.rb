@@ -198,14 +198,17 @@ describe Octokit::Client::Users do
     end
   end # .subscriptions
 
-  describe '.access_token' do
+  describe '.exchange_code_for_token' do
     it 'returns the access_token' do
       VCR.turn_off!
-      stub_post("https://github.com/login/oauth/access_token").
-        to_return(json_response("web_flow_token.json"))
+      post = stub_post("https://github.com/login/oauth/access_token").
+        with(:headers => {
+          :accept       => "application/json",
+          :content_type => "application/json"
+      }).to_return(json_response("web_flow_token.json"))
       response = Octokit.exchange_code_for_token('code', 'id_here', 'secret_here')
       expect(response.access_token).to eq 'this_be_ye_token/use_it_wisely'
-      assert_requested :post, "https://github.com/login/oauth/access_token"
+      assert_requested post
       VCR.turn_on!
     end
   end # .access_token

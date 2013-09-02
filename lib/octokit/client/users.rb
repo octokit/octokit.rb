@@ -50,7 +50,11 @@ module Octokit
         options.merge!({
           :code => code,
           :client_id => app_id,
-          :client_secret => app_secret
+          :client_secret => app_secret,
+          :headers => {
+            :content_type => 'application/json',
+            :accept       => 'application/json'
+          }
         })
         post "#{web_endpoint}login/oauth/access_token", options
       end
