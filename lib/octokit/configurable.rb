@@ -115,5 +115,10 @@ module Octokit
     def options
       Hash[Octokit::Configurable.keys.map{|key| [key, instance_variable_get(:"@#{key}")]}]
     end
+
+    def fetch_client_id_and_secret(overrides = {})
+      opts = options.merge(overrides)
+      opts.values_at :client_id, :client_secret
+    end
   end
 end

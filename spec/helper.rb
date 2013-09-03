@@ -30,6 +30,12 @@ VCR.configure do |c|
   c.filter_sensitive_data("<<ACCESS_TOKEN>>") do
       ENV['OCTOKIT_TEST_GITHUB_TOKEN']
   end
+  c.filter_sensitive_data("<GITHUB_CLIENT_ID>") do
+      ENV['OCTOKIT_TEST_GITHUB_CLIENT_ID']
+  end
+  c.filter_sensitive_data("<GITHUB_CLIENT_SECRET>") do
+      ENV['OCTOKIT_TEST_GITHUB_CLIENT_SECRET']
+  end
   c.default_cassette_options = {
     :serialize_with             => :json,
     # TODO: Track down UTF-8 issue and remove
@@ -51,6 +57,14 @@ end
 
 def test_github_token
   ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN'
+end
+
+def test_github_client_id
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_ID'
+end
+
+def test_github_client_secret
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_SECRET'
 end
 
 def stub_delete(url)
