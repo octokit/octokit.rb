@@ -60,6 +60,18 @@ describe Octokit::Client::PubSubHubbub do
       assert_requested :post, github_url("/hub"), :body => subscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
     end
+    it "encodes URL parameters" do
+      irc_request_body = {
+        :"hub.callback" => 'github://irc?server=chat.freenode.org&room=%23myproject',
+        :"hub.mode" => 'subscribe',
+        :"hub.topic" => 'https://github.com/joshk/completeness-fu/events/push'
+      }
+      stub_post("/hub").
+        with(irc_request_body).
+        to_return(:status => 204)
+      expect(@client.subscribe_service_hook("joshk/completeness-fu", "irc", { :server => "chat.freenode.org", :room => "#myproject"})).to eql(true)
+      assert_requested :post, "https://api.github.com/hub", :body => irc_request_body, :times => 1
+    end
   end # .subscribe_service_hook
 
   describe "unsubscribe_service_hook", :vcr do
