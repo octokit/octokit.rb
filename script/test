@@ -7,11 +7,11 @@ script/bootstrap --quiet
 
 for testvar in LOGIN PASSWORD TOKEN CLIENT_ID CLIENT_SECRET
 do
-	octokitvar="OCTOKIT_TEST_GITHUB_${testvar}"
-	if [[ -z "${!octokitvar}" ]]; then
-			echo "Please export ${octokitvar}";
-			exit 1;
-	fi
+  octokitvar="OCTOKIT_TEST_GITHUB_${testvar}"
+  if [[ -z "${!octokitvar}" ]]; then
+      echo "Please export ${octokitvar}";
+      exit 1;
+  fi
 done
 
 echo "===> Running specs..."
