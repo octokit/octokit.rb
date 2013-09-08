@@ -1,17 +1,17 @@
 require "helper"
 
 describe Octokit::Client::EnterpriseStats do
-  
+
   before do
     Octokit.reset!
     @client = oauth_client
   end
-  
+
   describe ".enterprise_stats" do
     it "returns all available enterprise stats" do
       stub_get("/enterprise/stats/all").to_return json_response("enterprise_stats.json")
       enterprise_stats = @client.enterprise_stats
-      
+
       expect(enterprise_stats.issues.total_issues).to eq 610
       expect(enterprise_stats.hooks.total_hooks).to eq 0
       expect(enterprise_stats.milestones.closed_milestones).to eq 7
@@ -24,12 +24,12 @@ describe Octokit::Client::EnterpriseStats do
       expect(enterprise_stats.repos.fork_repos).to eq 7
     end
   end # .enterprise_stats
-  
+
   describe ".enterprise_repository_stats" do
     it "returns only repository-related stats" do
       stub_get("/enterprise/stats/repos").to_return json_response("enterprise_repository_stats.json")
       enterprise_repository_stats = @client.enterprise_repository_stats
-      
+
       expect(enterprise_repository_stats.repos.fork_repos).to eq 7
       expect(enterprise_repository_stats.repos.root_repos).to eq 153
       expect(enterprise_repository_stats.repos.total_repos).to eq 153
@@ -38,7 +38,7 @@ describe Octokit::Client::EnterpriseStats do
       expect(enterprise_repository_stats.repos.total_wikis).to eq 0
     end
   end # .enterprise_repository_stats
-  
+
   describe ".enterprise_hooks_stats" do
     it "returns only hooks-related stats" do
       stub_get("/enterprise/stats/hooks").to_return json_response("enterprise_hooks_stats.json")
@@ -138,5 +138,5 @@ describe Octokit::Client::EnterpriseStats do
       expect(enterprise_comments_stats.comments.total_issue_comments).to eq 1166
     end
   end # .enterprise_comments_stats
-  
+
 end

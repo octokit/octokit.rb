@@ -14,7 +14,7 @@ module Octokit
       def enterprise_stats
         get_enterprise_stats("all")
       end
-      
+
       # Get only repository-related stats
       #
       # @return [Sawyer::Resource] Only repository-related stats
@@ -23,7 +23,7 @@ module Octokit
       def enterprise_repository_stats
         get_enterprise_stats("repos")
       end
-      
+
       # Get only hooks-related stats
       #
       # @return [Sawyer::Resource] Only hooks-related stats
@@ -32,7 +32,7 @@ module Octokit
       def enterprise_hooks_stats
         get_enterprise_stats("hooks")
       end
-      
+
       # Get only pages-related stats
       #
       # @return [Sawyer::Resource] Only pages-related stats
@@ -41,7 +41,7 @@ module Octokit
       def enterprise_pages_stats
         get_enterprise_stats("pages")
       end
-      
+
       # Get only organization-related stats
       #
       # @return [Sawyer::Resource] Only organization-related stats
@@ -50,7 +50,7 @@ module Octokit
       def enterprise_organization_stats
         get_enterprise_stats("orgs")
       end
-      
+
       # Get only user-related stats
       #
       # @return [Sawyer::Resource] Only user-related stats
@@ -59,7 +59,7 @@ module Octokit
       def enterprise_users_stats
         get_enterprise_stats("users")
       end
-      
+
       # Get only pull request-related stats
       #
       # @return [Sawyer::Resource] Only pull request-related stats
@@ -68,7 +68,7 @@ module Octokit
       def enterprise_pull_requests_stats
         get_enterprise_stats("pulls")
       end
-      
+
       # Get only issue-related stats
       #
       # @return [Sawyer::Resource] Only issue-related stats
@@ -77,7 +77,7 @@ module Octokit
       def enterprise_issues_stats
         get_enterprise_stats("issues")
       end
-      
+
       # Get only milestone-related stats
       #
       # @return [Sawyer::Resource] Only milestone-related stats
@@ -86,7 +86,7 @@ module Octokit
       def enterprise_milestones_stats
         get_enterprise_stats("milestones")
       end
-      
+
       # Get only gist-related stats
       #
       # @return [Sawyer::Resource] Only only gist-related stats
@@ -95,7 +95,7 @@ module Octokit
       def enterprise_gists_stats
         get_enterprise_stats("gists")
       end
-      
+
       # Get only comment-related stats
       #
       # @return [Sawyer::Resource] Only comment-related stats
@@ -106,17 +106,16 @@ module Octokit
       end
 
       private
-      
+
       # @private Get enterprise stats
       #
       # @param metric [String] The metrics you are looking for
       # @return [Sawyer::Resource] Magical unicorn stats
       def get_enterprise_stats(metric)
         data = get("enterprise/stats/#{metric}")
-        
-        last_response.status == 202 ? nil : data
-      end 
 
+        last_response.status == 202 ? nil : data
+      end
     end
   end
 end
