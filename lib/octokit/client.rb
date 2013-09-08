@@ -12,6 +12,7 @@ require 'octokit/client/commit_comments'
 require 'octokit/client/contents'
 require 'octokit/client/downloads'
 require 'octokit/client/emojis'
+require 'octokit/client/enterprise_stats'
 require 'octokit/client/events'
 require 'octokit/client/gists'
 require 'octokit/client/gitignore'
@@ -51,6 +52,7 @@ module Octokit
     include Octokit::Client::Contents
     include Octokit::Client::Downloads
     include Octokit::Client::Emojis
+    include Octokit::Client::EnterpriseStats
     include Octokit::Client::Events
     include Octokit::Client::Gists
     include Octokit::Client::Gitignore
