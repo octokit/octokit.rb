@@ -6,7 +6,6 @@ module Octokit
     # @see http://developer.github.com/v3/repos/
     module Repositories
 
-
       # Check if a repository exists
       #
       # @see http://developer.github.com/v3/repos/#get
@@ -647,7 +646,6 @@ module Octokit
       def delete_subscription(repo, options = {})
         boolean_from_response :delete, "repos/#{Repository.new repo}/subscription", options
       end
-
     end
   end
 end

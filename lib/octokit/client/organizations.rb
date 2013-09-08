@@ -5,6 +5,7 @@ module Octokit
     #
     # @see http://developer.github.com/v3/orgs/
     module Organizations
+
       # Get an organization
       #
       # @param org [String] Organization GitHub username.
@@ -57,7 +58,7 @@ module Octokit
       #
       # Calling this method on a `@client` will return that users organizations.
       # Private organizations are included only if the `@client` is authenticated.
-      # 
+      #
       # @param user [String] Username of the user to get list of organizations.
       # @return [Array<Sawyer::Resource>] Array of hashes representing organizations.
       # @see http://developer.github.com/v3/orgs/#list-user-organizations
@@ -193,17 +194,17 @@ module Octokit
 
       # Create team
       #
-      # Requires authenticated organization owner. 
+      # Requires authenticated organization owner.
       #
       # @param org [String] Organization GitHub username.
       # @option options [String] :name Team name.
       # @option options [Array<String>] :repo_names Repositories for the team.
       # @option options [String, optional] :permission ('pull') Permissions the
-      #   team has for team repositories.  
+      #   team has for team repositories.
       #
-      #   `pull` - team members can pull, but not push to or administer these repositories.    
-      #   `push` - team members can pull and push, but not administer these repositories.  
-      #   `admin` - team members can pull, push and administer these repositories. 
+      #   `pull` - team members can pull, but not push to or administer these repositories.
+      #   `push` - team members can pull and push, but not administer these repositories.
+      #   `admin` - team members can pull, push and administer these repositories.
       # @return [Sawyer::Resource] Hash representing new team.
       # @see http://developer.github.com/v3/orgs/teams/#create-team
       # @example
@@ -235,10 +236,10 @@ module Octokit
       #
       # @param team_id [Integer] Team id.
       # @option options [String] :name Team name.
-      # @option options [String] :permission Permissions the team has for team repositories.  
+      # @option options [String] :permission Permissions the team has for team repositories.
       #
-      #   `pull` - team members can pull, but not push to or administer these repositories.    
-      #   `push` - team members can pull and push, but not administer these repositories.  
+      #   `pull` - team members can pull, but not push to or administer these repositories.
+      #   `push` - team members can pull and push, but not administer these repositories.
       #   `admin` - team members can pull, push and administer these repositories.
       # @return [Sawyer::Resource] Hash representing updated team.
       # @see http://developer.github.com/v3/orgs/teams/#edit-team
@@ -279,7 +280,7 @@ module Octokit
 
       # Add team member
       #
-      # Requires authenticated organization owner or member with team 
+      # Requires authenticated organization owner or member with team
       # `admin` permission.
       #
       # @param team_id [Integer] Team id.
@@ -297,7 +298,7 @@ module Octokit
 
       # Remove team member
       #
-      # Requires authenticated organization owner or member with team 
+      # Requires authenticated organization owner or member with team
       # `admin` permission.
       #
       # @param team_id [Integer] Team id.

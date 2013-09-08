@@ -22,7 +22,6 @@ module Octokit
 
         post "markdown", options
       end
-
     end
   end
 end

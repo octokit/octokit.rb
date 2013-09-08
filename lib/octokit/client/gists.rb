@@ -200,7 +200,6 @@ module Octokit
       def delete_gist_comment(gist_id, gist_comment_id, options = {})
         boolean_from_response(:delete, "gists/#{gist_id}/comments/#{gist_comment_id}", options)
       end
-
     end
   end
 end

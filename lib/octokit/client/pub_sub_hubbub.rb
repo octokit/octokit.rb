@@ -5,6 +5,7 @@ module Octokit
     #
     # @see http://developer.github.com/v3/repos/hooks/#pubsubhubbub
     module PubSubHubbub
+
       # Subscribe to a pubsub topic
       #
       # @param topic [String] A recoginized and supported pubsub topic
@@ -76,7 +77,7 @@ module Octokit
       private
 
       def pub_sub_hubbub_request(options = {})
-        # This method is janky, bypass normal stack so we don'tl 
+        # This method is janky, bypass normal stack so we don'tl
         # serialize request as JSON
         conn = Faraday.new(:url => @api_endpoint) do |http|
           http.headers[:user_agent] = user_agent

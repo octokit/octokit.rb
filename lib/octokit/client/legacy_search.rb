@@ -37,7 +37,6 @@ module Octokit
       def legacy_search_users(search, options = {})
         get("legacy/user/search/#{search}", options)['users']
       end
-
     end
   end
 end

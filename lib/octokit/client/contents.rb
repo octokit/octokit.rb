@@ -155,7 +155,6 @@ module Octokit
 
         last_response.headers['Location']
       end
-
     end
   end
 end

@@ -5,6 +5,7 @@ module Octokit
     #
     # @see http://developer.github.com/v3/pulls/
     module PullRequests
+
       # List pull requests for a repository
       #
       # @see http://developer.github.com/v3/pulls/#list-pull-requests

@@ -6,6 +6,7 @@ module Octokit
     # @see http://developer.github.com/v3/activity/events/
     # @see http://developer.github.com/v3/issues/events/
     module Events
+
       # List all public events for GitHub
       #
       # @return [Array<Sawyer::Resource>] A list of all public events from GitHub
@@ -141,7 +142,6 @@ module Octokit
       def issue_event(repo, number, options = {})
         paginate "repos/#{Repository.new(repo)}/issues/events/#{number}", options
       end
-
     end
   end
 end
