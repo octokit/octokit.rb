@@ -3,6 +3,7 @@ module Octokit
 
     # Methods for the the unpublished Emojis API
     module Emojis
+
       # List all emojis used on GitHub
       #
       # @return [Sawyer::Resource] A list of all emojis on GitHub

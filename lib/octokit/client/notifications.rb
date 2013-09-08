@@ -166,7 +166,6 @@ module Octokit
       def delete_thread_subscription(thread_id, options = {})
         boolean_from_response :delete, "notifications/threads/#{thread_id}/subscription", options
       end
-
     end
   end
 end

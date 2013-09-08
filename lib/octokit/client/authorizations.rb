@@ -21,7 +21,6 @@ module Octokit
         paginate 'authorizations', options
       end
 
-
       # Get a single authorization for the authenticated user.
       #
       # You can only access your own tokens, and only through

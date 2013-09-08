@@ -27,7 +27,7 @@ module Octokit
       # the raw contents.
       #
       # @param template_name [String] Name of the template. Template names are
-      #   case sensitive, make sure to use a valid name from the 
+      #   case sensitive, make sure to use a valid name from the
       #   .gitignore_templates list.
       #
       # @see http://developer.github.com/v3/gitignore/#get-a-single-template
@@ -39,7 +39,6 @@ module Octokit
       def gitignore_template(template_name, options = {})
         get "gitignore/templates/#{template_name}", options
       end
-
     end
   end
 end

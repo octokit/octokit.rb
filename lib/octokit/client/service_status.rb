@@ -33,7 +33,6 @@ module Octokit
       def github_status_messages
         get(STATUS_ROOT).rels[:messages].get.data
       end
-
     end
   end
 end
