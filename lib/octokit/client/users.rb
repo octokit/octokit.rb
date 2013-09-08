@@ -110,7 +110,7 @@ module Octokit
         get "users/#{user}/following", options
       end
 
-      # Check if you are following a user. Alternatively, check if a given user 
+      # Check if you are following a user. Alternatively, check if a given user
       # is following a target user.
       #
       # Requries an authenticated client.
@@ -182,14 +182,21 @@ module Octokit
       #
       # Requires authenticated client.
       #
-      # @param user [String] Username of repository owner.
-      # @param repo [String] Name of the repository.
+      # @param args [String, Hash, Repository] A GitHub repository
       # @return [Boolean] True if you are following the repo, false otherwise.
       # @see http://developer.github.com/v3/repos/starring/#check-if-you-are-starring-a-repository
       # @example
-      #   @client.starred?('pengwynn', 'octokit')
-      def starred?(user, repo, options = {})
-        boolean_from_response :get, "user/starred/#{user}/#{repo}", options
+      #   @client.starred?('pengwynn/octokit')
+      #   @client.starred?('pengwynn', 'octokit') # deprecated
+      def starred?(*args)
+        arguments = Octokit::Arguments.new(args)
+        options = arguments.options
+        name = name_with_owner = arguments.shift
+        if repo = arguments.shift
+          name_with_owner = "#{name}/#{repo}"
+          warn "`.starred?('#{name}', '#{repo}')` is deprecated. Please use `.starred?('#{name_with_owner}')` instead."
+        end
+        boolean_from_response :get, "user/starred/#{Repository.new name_with_owner}", options
       end
 
       # Get a public key.

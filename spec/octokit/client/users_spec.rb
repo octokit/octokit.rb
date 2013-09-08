@@ -93,6 +93,10 @@ describe Octokit::Client::Users do
 
   describe ".starred?", :vcr do
     it "checks if the authenticated user has starred a repository" do
+      starred = @client.starred?("sferik/rails_admin")
+      assert_requested :get, github_url("/user/starred/sferik/rails_admin")
+    end
+    it "checks if the authenticated user has starred a repository (deprecated)" do
       starred = @client.starred?("sferik", "rails_admin")
       assert_requested :get, github_url("/user/starred/sferik/rails_admin")
     end
