@@ -110,7 +110,7 @@ module Octokit
         get "users/#{user}/following", options
       end
 
-      # Check if you are following a user. Alternatively, check if a given user 
+      # Check if you are following a user. Alternatively, check if a given user
       # is following a target user.
       #
       # Requries an authenticated client.
@@ -191,13 +191,12 @@ module Octokit
       def starred?(*args)
         arguments = Octokit::Arguments.new(args)
         options = arguments.options
-        
-        if arguments.count == 2
-          warn "`.starred?('pengwynn', 'octokit')` is deprecated. Please use `.starred?('pengwynn/octokit')` instead."
-          boolean_from_response :get, "user/starred/#{arguments[0]}/#{arguments[1]}", options
-        elsif arguments.count == 1
-          boolean_from_response :get, "user/starred/#{Repository.new arguments[0]}", options
+        name = name_with_owner = arguments.shift
+        if repo = arguments.shift
+          name_with_owner = "#{name}/#{repo}"
+          warn "`.starred?('#{name}', '#{repo}')` is deprecated. Please use `.starred?('#{name_with_owner}')` instead."
         end
+        boolean_from_response :get, "user/starred/#{Repository.new name_with_owner}", options
       end
 
       # Get a public key.
