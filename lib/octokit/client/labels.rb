@@ -151,7 +151,6 @@ module Octokit
       def labels_for_milestone(repo, number, options = {})
         get "repos/#{Repository.new(repo)}/milestones/#{number}/labels", options
       end
-
     end
   end
 end

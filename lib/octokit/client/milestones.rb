@@ -85,7 +85,6 @@ module Octokit
       def delete_milestone(repository, number, options = {})
         boolean_from_response :delete, "repos/#{Repository.new(repository)}/milestones/#{number}", options
       end
-
     end
   end
 end

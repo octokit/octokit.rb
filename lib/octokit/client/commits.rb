@@ -31,7 +31,7 @@ module Octokit
       alias :list_commits :commits
 
       # Get commits after a specified date
-
+      #
       # @overload commits_since(repo, date, options = {})
       #   @param repo [String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
@@ -311,7 +311,6 @@ module Octokit
       rescue ArgumentError
         raise ArgumentError, "#{date} is not a valid date"
       end
-
     end
   end
 end

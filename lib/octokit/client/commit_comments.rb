@@ -90,7 +90,6 @@ module Octokit
       def delete_commit_comment(repo, id, options = {})
         boolean_from_response :delete, "repos/#{Repository.new(repo)}/comments/#{id}", options
       end
-
     end
   end
 end
