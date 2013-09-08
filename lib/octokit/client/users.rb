@@ -182,14 +182,22 @@ module Octokit
       #
       # Requires authenticated client.
       #
-      # @param user [String] Username of repository owner.
-      # @param repo [String] Name of the repository.
+      # @param args [String, Hash, Repository] A GitHub repository
       # @return [Boolean] True if you are following the repo, false otherwise.
       # @see http://developer.github.com/v3/repos/starring/#check-if-you-are-starring-a-repository
       # @example
-      #   @client.starred?('pengwynn', 'octokit')
-      def starred?(user, repo, options = {})
-        boolean_from_response :get, "user/starred/#{user}/#{repo}", options
+      #   @client.starred?('pengwynn/octokit')
+      #   @client.starred?('pengwynn', 'octokit') # deprecated
+      def starred?(*args)
+        arguments = Octokit::Arguments.new(args)
+        options = arguments.options
+        
+        if arguments.count == 2
+          warn "`.starred?('pengwynn', 'octokit')` is deprecated. Please use `.starred?('pengwynn/octokit')` instead."
+          boolean_from_response :get, "user/starred/#{arguments[0]}/#{arguments[1]}", options
+        elsif arguments.count == 1
+          boolean_from_response :get, "user/starred/#{Repository.new arguments[0]}", options
+        end
       end
 
       # Get a public key.
