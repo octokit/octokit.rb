@@ -184,15 +184,13 @@ module Octokit
       data = request(:get, url, opts)
 
       if @auto_paginate && data.is_a?(Array)
-        while @last_response.rels[:next] && rate_limit.remaining > 0
-          @last_response = @last_response.rels[:next].get
-          data.concat(@last_response.data) if @last_response.data.is_a?(Array)
-        end
+        build_paginate_last_response(rate_limit, data)
 
       end
 
       data
     end
+
 
     # Hypermedia agent for the GitHub API
     #
@@ -277,6 +275,17 @@ module Octokit
       opts[:headers] = headers unless headers.empty?
 
       opts
+    end
+
+    def build_last_response(data)
+      @last_response = @last_response.rels[:next].get
+      data.concat(@last_response.data) if @last_response.data.is_a?(Array)
+    end
+
+    def build_paginate_last_response(rate_limit, data)
+      while @last_response.rels[:next] && rate_limit.remaining > 0
+        build_last_response(data)
+      end
     end
 
   end
