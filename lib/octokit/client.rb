@@ -28,6 +28,7 @@ require 'octokit/client/pub_sub_hubbub'
 require 'octokit/client/pull_requests'
 require 'octokit/client/rate_limit'
 require 'octokit/client/refs'
+require 'octokit/client/releases'
 require 'octokit/client/repositories'
 require 'octokit/client/say'
 require 'octokit/client/search'
@@ -67,6 +68,7 @@ module Octokit
     include Octokit::Client::PullRequests
     include Octokit::Client::RateLimit
     include Octokit::Client::Refs
+    include Octokit::Client::Releases
     include Octokit::Client::Repositories
     include Octokit::Client::Say
     include Octokit::Client::Search
