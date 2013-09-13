@@ -13,30 +13,18 @@ module Octokit
       headers = response[:response_headers]
 
       if klass =  case status
-                  when 400 then Octokit::BadRequest
-                  when 401
-                    if Octokit::OneTimePasswordRequired.required_header(headers)
-                      Octokit::OneTimePasswordRequired
-                    else
-                      Octokit::Unauthorized
-                    end
-                  when 403
-                    if body =~ /rate limit exceeded/i
-                      Octokit::TooManyRequests
-                    elsif body =~ /login attempts exceeded/i
-                      Octokit::TooManyLoginAttempts
-                    else
-                      Octokit::Forbidden
-                    end
-                  when 404 then Octokit::NotFound
-                  when 406 then Octokit::NotAcceptable
-                  when 415 then Octokit::UnsupportedMediaType
-                  when 422 then Octokit::UnprocessableEntity
+                  when 400      then Octokit::BadRequest
+                  when 401      then error_for_401(headers)
+                  when 403      then error_for_403(body)
+                  when 404      then Octokit::NotFound
+                  when 406      then Octokit::NotAcceptable
+                  when 415      then Octokit::UnsupportedMediaType
+                  when 422      then Octokit::UnprocessableEntity
                   when 400..499 then Octokit::ClientError
-                  when 500 then Octokit::InternalServerError
-                  when 501 then Octokit::NotImplemented
-                  when 502 then Octokit::BadGateway
-                  when 503 then Octokit::ServiceUnavailable
+                  when 500      then Octokit::InternalServerError
+                  when 501      then Octokit::NotImplemented
+                  when 502      then Octokit::BadGateway
+                  when 503      then Octokit::ServiceUnavailable
                   when 500..599 then Octokit::ServerError
                   end
         klass.new(response)
@@ -53,6 +41,28 @@ module Octokit
     # @return [String]
     def documentation_url
       data[:documentation_url] if data
+    end
+
+    # Returns most appropriate error for 401 HTTP status code
+    # @private
+    def self.error_for_401(headers)
+      if Octokit::OneTimePasswordRequired.required_header(headers)
+        Octokit::OneTimePasswordRequired
+      else
+        Octokit::Unauthorized
+      end
+    end
+
+    # Returns most appropriate error for 403 HTTP status code
+    # @private
+    def self.error_for_403(body)
+      if body =~ /rate limit exceeded/i
+        Octokit::TooManyRequests
+      elsif body =~ /login attempts exceeded/i
+        Octokit::TooManyLoginAttempts
+      else
+        Octokit::Forbidden
+      end
     end
 
     private
