@@ -30,11 +30,14 @@ module Octokit
                     end
                   when 404 then Octokit::NotFound
                   when 406 then Octokit::NotAcceptable
+                  when 415 then Octokit::UnsupportedMediaType
                   when 422 then Octokit::UnprocessableEntity
+                  when 400..499 then Octokit::ClientError
                   when 500 then Octokit::InternalServerError
                   when 501 then Octokit::NotImplemented
                   when 502 then Octokit::BadGateway
                   when 503 then Octokit::ServiceUnavailable
+                  when 500..599 then Octokit::ServerError
                   end
         klass.new(response)
       end
@@ -43,6 +46,10 @@ module Octokit
     def initialize(response=nil)
       @response = response
       super(build_error_message)
+    end
+
+    def documentation_url
+      data[:documentation_url] if data
     end
 
     private
@@ -96,19 +103,23 @@ module Octokit
       message << "#{response_message}" unless response_message.nil?
       message << "#{response_error}" unless response_error.nil?
       message << "#{response_error_summary}" unless response_error_summary.nil?
+      message << " // See: #{documentation_url}" unless documentation_url.nil?
       message
     end
   end
 
+  # Raised on unknown errors in the 400-499 range
+  class ClientError < Error; end
+
   # Raised when GitHub returns a 400 HTTP status code
-  class BadRequest < Error; end
+  class BadRequest < ClientError; end
 
   # Raised when GitHub returns a 401 HTTP status code
-  class Unauthorized < Error; end
+  class Unauthorized < ClientError; end
 
   # Raised when GitHub returns a 401 HTTP status code
   # and headers include "X-GitHub-OTP"
-  class OneTimePasswordRequired < Error
+  class OneTimePasswordRequired < ClientError
     HEADER = /required; (?<delivery>\w+)/i
 
     def self.required_header(headers)
@@ -121,7 +132,7 @@ module Octokit
   end
 
   # Raised when GitHub returns a 403 HTTP status code
-  class Forbidden < Error; end
+  class Forbidden < ClientError; end
 
   # Raised when GitHub returns a 403 HTTP status code
   # and body matches 'rate limit exceeded'
@@ -132,23 +143,29 @@ module Octokit
   class TooManyLoginAttempts < Forbidden; end
 
   # Raised when GitHub returns a 404 HTTP status code
-  class NotFound < Error; end
+  class NotFound < ClientError; end
 
   # Raised when GitHub returns a 406 HTTP status code
-  class NotAcceptable < Error; end
+  class NotAcceptable < ClientError; end
+
+  # Raised when GitHub returns a 414 HTTP status code
+  class UnsupportedMediaType < ClientError; end
 
   # Raised when GitHub returns a 422 HTTP status code
-  class UnprocessableEntity < Error; end
+  class UnprocessableEntity < ClientError; end
+
+  # Raised on unknown errors in the 500-599 range
+  class ServerError < Error; end
 
   # Raised when GitHub returns a 500 HTTP status code
-  class InternalServerError < Error; end
+  class InternalServerError < ServerError; end
 
   # Raised when GitHub returns a 501 HTTP status code
-  class NotImplemented < Error; end
+  class NotImplemented < ServerError; end
 
   # Raised when GitHub returns a 502 HTTP status code
-  class BadGateway < Error; end
+  class BadGateway < ServerError; end
 
   # Raised when GitHub returns a 503 HTTP status code
-  class ServiceUnavailable < Error; end
+  class ServiceUnavailable < ServerError; end
 end
