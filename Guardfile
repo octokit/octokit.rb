@@ -11,8 +11,8 @@ guard 'rspec' do
     :color_location => 'status-left-fg' # to customize which tmux element will change color
 end
 
-guard 'yard', :cli => File.read('.yardopts') do
-  watch(%r{lib/.+\.rb})
-  watch(%r{docs/.+\.md})
-  watch(%r{README\.md})
-end
+# guard 'yard', :cli => File.read('.yardopts') do
+#   watch(%r{lib/.+\.rb})
+#   watch(%r{docs/.+\.md})
+#   watch(%r{README\.md})
+# end
