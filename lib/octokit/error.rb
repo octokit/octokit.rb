@@ -48,6 +48,9 @@ module Octokit
       super(build_error_message)
     end
 
+    # Documentation URL returned by the API for some errors
+    #
+    # @return [String]
     def documentation_url
       data[:documentation_url] if data
     end
@@ -120,12 +123,17 @@ module Octokit
   # Raised when GitHub returns a 401 HTTP status code
   # and headers include "X-GitHub-OTP"
   class OneTimePasswordRequired < ClientError
+    #@private
     HEADER = /required; (?<delivery>\w+)/i
 
+    #@private
     def self.required_header(headers)
       HEADER.match headers['X-GitHub-OTP'].to_s
     end
 
+    # Delivery method for the user's OTP
+    #
+    # @return [String]
     def password_delivery
       @password_delivery ||= self.class.required_header(@response[:response_headers])[:delivery]
     end
