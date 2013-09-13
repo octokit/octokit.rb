@@ -486,7 +486,7 @@ describe Octokit::Client do
           :content_type => "application/json",
         },
         :body => {:message => "I'm a teapot"}.to_json
-       expect { Octokit.get('/user') }.to raise_error Octokit::ClientError
+      expect { Octokit.get('/user') }.to raise_error Octokit::ClientError
     end
 
     it "raises on unknown server errors" do
@@ -496,7 +496,7 @@ describe Octokit::Client do
           :content_type => "application/json",
         },
         :body => {:message => "Bandwidth exceeded"}.to_json
-       expect { Octokit.get('/user') }.to raise_error Octokit::ServerError
+      expect { Octokit.get('/user') }.to raise_error Octokit::ServerError
     end
 
     it "handles documentation URLs in error messages" do
@@ -509,13 +509,13 @@ describe Octokit::Client do
           :message => "Unsupported Media Type",
           :documentation_url => "http://developer.github.com/v3"
         }.to_json
-        begin
-          Octokit.get('/user')
-        rescue Octokit::UnsupportedMediaType => e
-          msg = "415 - Unsupported Media Type"
-          expect(e.message).to include(msg)
-          expect(e.documentation_url).to eq("http://developer.github.com/v3")
-        end
+      begin
+        Octokit.get('/user')
+      rescue Octokit::UnsupportedMediaType => e
+        msg = "415 - Unsupported Media Type"
+        expect(e.message).to include(msg)
+        expect(e.documentation_url).to eq("http://developer.github.com/v3")
+      end
     end
   end
 
