@@ -121,7 +121,7 @@ module Octokit
     end
   end
 
-  # Raised on unknown errors in the 400-499 range
+  # Raised on errors in the 400-499 range
   class ClientError < Error; end
 
   # Raised when GitHub returns a 400 HTTP status code
@@ -172,7 +172,7 @@ module Octokit
   # Raised when GitHub returns a 422 HTTP status code
   class UnprocessableEntity < ClientError; end
 
-  # Raised on unknown errors in the 500-599 range
+  # Raised on errors in the 500-599 range
   class ServerError < Error; end
 
   # Raised when GitHub returns a 500 HTTP status code
