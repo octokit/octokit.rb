@@ -478,6 +478,45 @@ describe Octokit::Client do
         :body => {:message => "Maximum number of login attempts exceeded"}.to_json
       expect { Octokit.get('/user') }.to raise_error Octokit::TooManyLoginAttempts
     end
+
+    it "raises on unknown client errors" do
+      stub_get('/user').to_return \
+        :status => 418,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "I'm a teapot"}.to_json
+      expect { Octokit.get('/user') }.to raise_error Octokit::ClientError
+    end
+
+    it "raises on unknown server errors" do
+      stub_get('/user').to_return \
+        :status => 509,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "Bandwidth exceeded"}.to_json
+      expect { Octokit.get('/user') }.to raise_error Octokit::ServerError
+    end
+
+    it "handles documentation URLs in error messages" do
+      stub_get('/user').to_return \
+        :status => 415,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {
+          :message => "Unsupported Media Type",
+          :documentation_url => "http://developer.github.com/v3"
+        }.to_json
+      begin
+        Octokit.get('/user')
+      rescue Octokit::UnsupportedMediaType => e
+        msg = "415 - Unsupported Media Type"
+        expect(e.message).to include(msg)
+        expect(e.documentation_url).to eq("http://developer.github.com/v3")
+      end
+    end
   end
 
   it "knows the difference between unauthorized and needs OTP" do
