@@ -79,7 +79,7 @@ Most methods have positional arguments for required input and an options hash
 for optional parameters, headers, or other options:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># Fetch a README with Accept header for HTML format
-</span><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_readme'>readme</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>al3x/sovereign</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:accept</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>application/vnd.github.html</span><span class='tstring_end'>'</span></span>
+</span><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_readme'>readme</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>al3x/sovereign</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:accept</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/vnd.github.html</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
 <h2>Quick start</h2>
@@ -101,8 +101,8 @@ configuration) or as client instance methods.</p>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># Provide authentication credentials
 </span><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
-  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_login'>login</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>'</span></span>
-  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_password'>password</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_login'>login</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_password'>password</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span>
 
 <span class='comment'># Fetch the current user
@@ -112,7 +112,7 @@ configuration) or as client instance methods.</p>
 <p>or</p>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># Provide authentication credentials
-</span><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>'</span></span>
+</span><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
 <span class='comment'># Fetch the current user
 </span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span>
 </code></pre>
@@ -123,7 +123,7 @@ configuration) or as client instance methods.</p>
 access for fields returned in the API response.</p>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># Fetch a user
-</span><span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>jbarnette</span><span class='tstring_end'>'</span></span>
+</span><span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>jbarnette</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
 <span class='comment'># =&gt; &quot;John Barnette&quot;
 </span><span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_fields'>fields</span>
@@ -143,7 +143,7 @@ access for fields returned in the API response.</p>
 need access to the raw HTTP response headers. You can access the last HTTP
 response with <code>Client#last_response</code>:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_user'>user</span>      <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>andrewpthorp</span><span class='tstring_end'>'</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_user'>user</span>      <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>andrewpthorp</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_response'>response</span>  <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_last_response'>last_response</span>
 <span class='id identifier rubyid_etag'>etag</span>      <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='symbol'>:etag</span><span class='rbracket'>]</span>
 </code></pre>
@@ -159,8 +159,8 @@ API</a>:</p>
 making authenticated requests:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> \
-  <span class='symbol'>:login</span>    <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
-  <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>'</span></span>
+  <span class='symbol'>:login</span>    <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span>
 <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_login'>login</span>
@@ -235,8 +235,36 @@ the higher rate limit.</p>
   <span class='symbol'>:client_id</span>     <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 20 char id&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='symbol'>:client_secret</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char secret&gt;</span><span class='tstring_end'>&quot;</span></span>
 
-<span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_users'>users</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>'</span></span>
+<span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_users'>users</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
+
+<h2>Pagination</h2>
+
+<p>Many GitHub API resources are <a href="http://developer.github.com/v3/#pagination">paginated</a>. While you may be tempted to start
+adding <code>:page</code> parameters to your calls, the API returns links to the next,
+previous, and last pages for you in the <code>Link</code> response header as <a href="docs/hypermedia.md">Hypermedia
+link relations</a>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_issues'>issues</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_issues'>issues</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rails/rails</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:per_page</span> <span class='op'>=&gt;</span> <span class='int'>100</span>
+<span class='id identifier rubyid_issues'>issues</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:next</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
+</code></pre>
+
+<h3>Auto pagination</h3>
+
+<p>For smallish resource lists, Octokit provides auto pagination. When this is
+enabled, calls for paginated resources will fetch and concatenate the results
+from every page into a single array:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_auto_paginate'>auto_paginate</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='id identifier rubyid_issues'>issues</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_issues'>issues</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rails/rails</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_issues'>issues</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
+
+<span class='comment'># =&gt; 702
+</span></code></pre>
+
+<p><strong>Note:</strong> While Octokit auto pagination will set the page size to the maximum
+<code>100</code>, and seek to not overstep your rate limit, you probably want to use a
+custom pattern for traversing large lists.</p>
 
 <h2>Configuration and defaults</h2>
 
@@ -249,15 +277,15 @@ number of client instances based on some shared defaults.</p>
 
 <p>Every writable attribute in <span class='object_link'><a href="Octokit/Configurable.html" title="Octokit::Configurable (module)">Octokit::Configurable</a></span> can be set one at a time:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>http://api.github.dev</span><span class='tstring_end'>'</span></span>
-<span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>http://github.dev</span><span class='tstring_end'>'</span></span>
+<pre class="code ruby"><code class="ruby"><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>http://api.github.dev</span><span class='tstring_end'>&#39;</span></span>
+<span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>http://github.dev</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
 <p>or in batch:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
-  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>http://api.github.dev</span><span class='tstring_end'>'</span></span>
-  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>http://github.dev</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>http://api.github.dev</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>http://github.dev</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span>
 </code></pre>
 
@@ -283,7 +311,7 @@ Octokit&#39;s default.</p>
 <p>Resources returned by Octokit methods contain not only data but hypermedia
 link relations:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>technoweenie</span><span class='tstring_end'>'</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>technoweenie</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='comment'># Get the repos rel, returned from the API
 </span><span class='comment'># as repos_url in the resource
@@ -303,7 +331,7 @@ relations collection. Any <code>url</code> attribute becomes <code>.rels[:self]<
 <p>You might notice many link relations have variable placeholders. Octokit
 supports <a href="http://tools.ietf.org/html/rfc6570">URI Templates</a> for parameterized URI expansion:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_repo'>repo</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_repo'>repo</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>pengwynn/pingwynn</span><span class='tstring_end'>'</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_repo'>repo</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_repo'>repo</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pengwynn/pingwynn</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_rel'>rel</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:issues</span><span class='rbracket'>]</span>
 <span class='comment'># =&gt; #&lt;Sawyer::Relation: issues: get https://api.github.com/repos/pengwynn/pingwynn/issues{/number}&gt;
 </span>
@@ -361,7 +389,7 @@ easy to peek into the underlying HTTP traffic:</p>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_adapter'>adapter</span> <span class='const'>Faraday</span><span class='period'>.</span><span class='id identifier rubyid_default_adapter'>default_adapter</span>
 <span class='kw'>end</span>
 <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_middleware'>middleware</span> <span class='op'>=</span> <span class='id identifier rubyid_stack'>stack</span>
-<span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>pengwynn</span><span class='tstring_end'>'</span></span>
+<span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pengwynn</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
 <pre class="code ruby"><code class="ruby">I, [2013-08-22T15:54:38.583300 #88227]  INFO -- : get https://api.github.com/users/pengwynn
@@ -389,7 +417,7 @@ the hypermedia tax, you can use <a href="https://github.com/plataformatec/farada
 
 <p>Add the gem to your Gemfile</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>faraday-http-cache</span><span class='tstring_end'>'</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>faraday-http-cache</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
 <p>Next, construct your own Faraday middleware:</p>
@@ -483,7 +511,7 @@ introduced with new major versions. As a result of this policy, you can (and
 should) specify a dependency on this gem using the <a href="http://docs.rubygems.org/read/chapter/16#page74">Pessimistic Version
 Constraint</a> with two digits of precision. For example:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_spec'>spec</span><span class='period'>.</span><span class='id identifier rubyid_add_dependency'>add_dependency</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>octokit</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>~&gt; 2.0</span><span class='tstring_end'>'</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_spec'>spec</span><span class='period'>.</span><span class='id identifier rubyid_add_dependency'>add_dependency</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>~&gt; 2.0</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
 <h2>License</h2>
@@ -512,9 +540,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Mon Aug 26 16:37:53 2013 by
+  Generated on Tue Sep 17 12:39:07 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7 (ruby-1.9.3).
+  0.8.6.2 (ruby-2.0.0).
 </div>
 
   </body>

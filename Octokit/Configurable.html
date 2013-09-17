@@ -703,7 +703,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns Base URL for API requests. default: <a href="https://api.github.com/">https://api.github.com/</a></p>
+    <p>Base URL for API requests. default: <a href="https://api.github.com/">https://api.github.com/</a></p>
 
 
   </div>
@@ -764,7 +764,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns Auto fetch next page of results until rate limit reached</p>
+    <p>Auto fetch next page of results until rate limit reached</p>
 
 
   </div>
@@ -825,7 +825,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns Configure OAuth app key</p>
+    <p>Configure OAuth app key</p>
 
 
   </div>
@@ -893,7 +893,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns Configure OAuth app secret</p>
+    <p>Configure OAuth app secret</p>
 
 
   </div>
@@ -961,7 +961,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns Configure connection options for Faraday</p>
+    <p>Configure connection options for Faraday</p>
 
 
   </div>
@@ -1029,7 +1029,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns Configure preferred media type (for API versioning, for example)</p>
+    <p>Configure preferred media type (for API versioning, for example)</p>
 
 
   </div>
@@ -1097,7 +1097,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns GitHub username for Basic Authentication</p>
+    <p>GitHub username for Basic Authentication</p>
 
 
   </div>
@@ -1158,7 +1158,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns Configure middleware for Faraday</p>
+    <p>Configure middleware for Faraday</p>
 
 
   </div>
@@ -1226,7 +1226,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns Instruct Octokit to get credentials from .netrc file</p>
+    <p>Instruct Octokit to get credentials from .netrc file</p>
 
 
   </div>
@@ -1287,7 +1287,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns Path to .netrc file. default: ~/.netrc</p>
+    <p>Path to .netrc file. default: ~/.netrc</p>
 
 
   </div>
@@ -1348,7 +1348,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns GitHub password for Basic Authentication</p>
+    <p>GitHub password for Basic Authentication</p>
 
 
   </div>
@@ -1409,7 +1409,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns Configure page size for paginated results. API default: 30</p>
+    <p>Configure page size for paginated results. API default: 30</p>
 
 
   </div>
@@ -1470,7 +1470,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns URI for proxy server</p>
+    <p>URI for proxy server</p>
 
 
   </div>
@@ -1538,7 +1538,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns Configure User-Agent header for requests.</p>
+    <p>Configure User-Agent header for requests.</p>
 
 
   </div>
@@ -1916,7 +1916,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset!'>reset!</span>
   <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Configurable</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
-    <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='symbol'>:@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Default</span><span class='period'>.</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='symbol'>:@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Default</span><span class='period'>.</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
@@ -1930,9 +1930,9 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
 </div>
 
     <div id="footer">
-  Generated on Mon Aug 26 16:37:53 2013 by
+  Generated on Tue Sep 17 12:39:07 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7 (ruby-1.9.3).
+  0.8.6.2 (ruby-2.0.0).
 </div>
 
   </body>

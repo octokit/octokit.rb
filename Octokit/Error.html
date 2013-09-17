@@ -113,7 +113,7 @@
 
 </div><div id="subclasses">
   <h2>Direct Known Subclasses</h2>
-  <p class="children"><span class='object_link'><a href="BadGateway.html" title="Octokit::BadGateway (class)">BadGateway</a></span>, <span class='object_link'><a href="BadRequest.html" title="Octokit::BadRequest (class)">BadRequest</a></span>, <span class='object_link'><a href="Forbidden.html" title="Octokit::Forbidden (class)">Forbidden</a></span>, <span class='object_link'><a href="InternalServerError.html" title="Octokit::InternalServerError (class)">InternalServerError</a></span>, <span class='object_link'><a href="NotAcceptable.html" title="Octokit::NotAcceptable (class)">NotAcceptable</a></span>, <span class='object_link'><a href="NotFound.html" title="Octokit::NotFound (class)">NotFound</a></span>, <span class='object_link'><a href="NotImplemented.html" title="Octokit::NotImplemented (class)">NotImplemented</a></span>, <span class='object_link'><a href="ServiceUnavailable.html" title="Octokit::ServiceUnavailable (class)">ServiceUnavailable</a></span>, <span class='object_link'><a href="Unauthorized.html" title="Octokit::Unauthorized (class)">Unauthorized</a></span>, <span class='object_link'><a href="UnprocessableEntity.html" title="Octokit::UnprocessableEntity (class)">UnprocessableEntity</a></span></p>
+  <p class="children"><span class='object_link'><a href="BadGateway.html" title="Octokit::BadGateway (class)">BadGateway</a></span>, <span class='object_link'><a href="BadRequest.html" title="Octokit::BadRequest (class)">BadRequest</a></span>, <span class='object_link'><a href="Forbidden.html" title="Octokit::Forbidden (class)">Forbidden</a></span>, <span class='object_link'><a href="InternalServerError.html" title="Octokit::InternalServerError (class)">InternalServerError</a></span>, <span class='object_link'><a href="NotAcceptable.html" title="Octokit::NotAcceptable (class)">NotAcceptable</a></span>, <span class='object_link'><a href="NotFound.html" title="Octokit::NotFound (class)">NotFound</a></span>, <span class='object_link'><a href="NotImplemented.html" title="Octokit::NotImplemented (class)">NotImplemented</a></span>, <span class='object_link'><a href="OneTimePasswordRequired.html" title="Octokit::OneTimePasswordRequired (class)">OneTimePasswordRequired</a></span>, <span class='object_link'><a href="ServiceUnavailable.html" title="Octokit::ServiceUnavailable (class)">ServiceUnavailable</a></span>, <span class='object_link'><a href="Unauthorized.html" title="Octokit::Unauthorized (class)">Unauthorized</a></span>, <span class='object_link'><a href="UnprocessableEntity.html" title="Octokit::UnprocessableEntity (class)">UnprocessableEntity</a></span></p>
 </div>
 
 
@@ -147,7 +147,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the appropriate Octokit::Error sublcass based on status and response message.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the appropriate Octokit::Error sublcass based
+on status and response message.</p>
 </div></span>
   
 </li>
@@ -205,7 +206,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns a new instance of Error</p>
+    <p>A new instance of Error</p>
 
 
   </div>
@@ -219,13 +220,13 @@
       <pre class="lines">
 
 
-37
-38
-39
-40</pre>
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@response</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span>
@@ -326,18 +327,30 @@ on status and response message</p>
 32
 33
 34
-35</pre>
+35
+36
+37
+38
+39
+40
+41</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_response'>from_response</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
-  <span class='id identifier rubyid_body'>body</span>  <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_status'>status</span>  <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+  <span class='id identifier rubyid_body'>body</span>    <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:response_headers</span><span class='rbracket'>]</span>
 
   <span class='kw'>if</span> <span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span>  <span class='kw'>case</span> <span class='id identifier rubyid_status'>status</span>
               <span class='kw'>when</span> <span class='int'>400</span> <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>BadRequest</span>
-              <span class='kw'>when</span> <span class='int'>401</span> <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Unauthorized</span>
+              <span class='kw'>when</span> <span class='int'>401</span>
+                <span class='kw'>if</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>OneTimePasswordRequired</span><span class='period'>.</span><span class='id identifier rubyid_required_header'>required_header</span><span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='rparen'>)</span>
+                  <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>OneTimePasswordRequired</span>
+                <span class='kw'>else</span>
+                  <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Unauthorized</span>
+                <span class='kw'>end</span>
               <span class='kw'>when</span> <span class='int'>403</span>
                 <span class='kw'>if</span> <span class='id identifier rubyid_body'>body</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>rate limit exceeded</span><span class='regexp_end'>/i</span></span>
                   <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>TooManyRequests</span>
@@ -367,9 +380,9 @@ on status and response message</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Aug 26 16:38:00 2013 by
+  Generated on Tue Sep 17 12:39:13 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7 (ruby-1.9.3).
+  0.8.6.2 (ruby-2.0.0).
 </div>
 
   </body>

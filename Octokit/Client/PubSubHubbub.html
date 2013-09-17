@@ -309,7 +309,6 @@ client.subscribe(&quot;https://github.com/joshk/devise_imapable/events/push&quot
       <pre class="lines">
 
 
-16
 17
 18
 19
@@ -318,10 +317,11 @@ client.subscribe(&quot;https://github.com/joshk/devise_imapable/events/push&quot
 22
 23
 24
-25</pre>
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pub_sub_hubbub.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pub_sub_hubbub.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='id identifier rubyid_topic'>topic</span><span class='comma'>,</span> <span class='id identifier rubyid_callback'>callback</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
@@ -364,7 +364,7 @@ client.subscribe(&quot;https://github.com/joshk/devise_imapable/events/push&quot
 </div></p>
       
       <pre class="example code"><code>client = Octokit::Client.new(:oauth_token = &quot;token&quot;)
-client.subscribe_service_hook('joshk/device_imapable', 'Travis', { :token =&gt; &quot;test&quot;, :domain =&gt; &quot;domain&quot;, :user =&gt; &quot;user&quot; })</code></pre>
+client.subscribe_service_hook(&#39;joshk/device_imapable&#39;, &#39;Travis&#39;, { :token =&gt; &quot;test&quot;, :domain =&gt; &quot;domain&quot;, :user =&gt; &quot;user&quot; })</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -428,18 +428,18 @@ Please refer Data node for complete list of arguments.</p>
       <pre class="lines">
 
 
-56
 57
 58
 59
-60</pre>
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pub_sub_hubbub.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pub_sub_hubbub.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subscribe_service_hook'>subscribe_service_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_service_name'>service_name</span><span class='comma'>,</span> <span class='id identifier rubyid_service_arguments'>service_arguments</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_topic'>topic</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_content'>/events/push</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_callback'>callback</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>github://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_service_name'>service_name</span><span class='rbrace'>}</span><span class='tstring_content'>?</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_service_arguments'>service_arguments</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span> <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_topic'>topic</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/events/push</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_callback'>callback</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>github://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_service_name'>service_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_service_arguments'>service_arguments</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span> <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_encode_www_form_component'>encode_www_form_component</span><span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='id identifier rubyid_topic'>topic</span><span class='comma'>,</span> <span class='id identifier rubyid_callback'>callback</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -535,7 +535,6 @@ client.unsubscribe(&quot;https://github.com/joshk/devise_imapable/events/push&qu
       <pre class="lines">
 
 
-35
 36
 37
 38
@@ -544,10 +543,11 @@ client.unsubscribe(&quot;https://github.com/joshk/devise_imapable/events/push&qu
 41
 42
 43
-44</pre>
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pub_sub_hubbub.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pub_sub_hubbub.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unsubscribe'>unsubscribe</span><span class='lparen'>(</span><span class='id identifier rubyid_topic'>topic</span><span class='comma'>,</span> <span class='id identifier rubyid_callback'>callback</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
@@ -590,7 +590,7 @@ client.unsubscribe(&quot;https://github.com/joshk/devise_imapable/events/push&qu
 </div></p>
       
       <pre class="example code"><code>client = Octokit::Client.new(:oauth_token = &quot;token&quot;)
-client.unsubscribe_service_hook('joshk/device_imapable', 'Travis')</code></pre>
+client.unsubscribe_service_hook(&#39;joshk/device_imapable&#39;, &#39;Travis&#39;)</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -636,18 +636,18 @@ List of services is available @ <a href="https://github.com/github/github-servic
       <pre class="lines">
 
 
-70
 71
 72
 73
-74</pre>
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pub_sub_hubbub.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pub_sub_hubbub.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unsubscribe_service_hook'>unsubscribe_service_hook</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_service_name'>service_name</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_topic'>topic</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_content'>/events/push</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_callback'>callback</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>github://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_service_name'>service_name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_topic'>topic</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/events/push</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_callback'>callback</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>github://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_service_name'>service_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_unsubscribe'>unsubscribe</span><span class='lparen'>(</span><span class='id identifier rubyid_topic'>topic</span><span class='comma'>,</span> <span class='id identifier rubyid_callback'>callback</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -660,9 +660,9 @@ List of services is available @ <a href="https://github.com/github/github-servic
 </div>
 
     <div id="footer">
-  Generated on Mon Aug 26 16:37:59 2013 by
+  Generated on Tue Sep 17 12:39:13 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7 (ruby-1.9.3).
+  0.8.6.2 (ruby-2.0.0).
 </div>
 
   </body>

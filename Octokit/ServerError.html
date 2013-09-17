@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-  Exception: Octokit::Forbidden
+  Exception: Octokit::ServerError
   
     &mdash; 
   
@@ -31,10 +31,10 @@
     <div id="header">
       <div id="menu">
   
-    <a href="../_index.html">Index (F)</a> &raquo;
+    <a href="../_index.html">Index (S)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span></span>
      &raquo; 
-    <span class="title">Forbidden</span>
+    <span class="title">ServerError</span>
   
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
@@ -63,7 +63,7 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><h1>Exception: Octokit::Forbidden
+    <div id="content"><h1>Exception: Octokit::ServerError
   
   
   
@@ -82,7 +82,7 @@
           
             <li class="next"><span class='object_link'><a href="Error.html" title="Octokit::Error (class)">Error</a></span></li>
           
-            <li class="next">Octokit::Forbidden</li>
+            <li class="next">Octokit::ServerError</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -105,7 +105,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Raised when GitHub returns a 403 HTTP status code</p>
+    <p>Raised on unknown errors in the 500-599 range</p>
 
 
   </div>
@@ -115,7 +115,7 @@
 
 </div><div id="subclasses">
   <h2>Direct Known Subclasses</h2>
-  <p class="children"><span class='object_link'><a href="TooManyLoginAttempts.html" title="Octokit::TooManyLoginAttempts (class)">TooManyLoginAttempts</a></span>, <span class='object_link'><a href="TooManyRequests.html" title="Octokit::TooManyRequests (class)">TooManyRequests</a></span></p>
+  <p class="children"><span class='object_link'><a href="BadGateway.html" title="Octokit::BadGateway (class)">BadGateway</a></span>, <span class='object_link'><a href="InternalServerError.html" title="Octokit::InternalServerError (class)">InternalServerError</a></span>, <span class='object_link'><a href="NotImplemented.html" title="Octokit::NotImplemented (class)">NotImplemented</a></span>, <span class='object_link'><a href="ServiceUnavailable.html" title="Octokit::ServiceUnavailable (class)">ServiceUnavailable</a></span></p>
 </div>
 
 
@@ -147,7 +147,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Sep 17 12:39:13 2013 by
+  Generated on Fri Sep 13 14:14:44 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-2.0.0).
 </div>

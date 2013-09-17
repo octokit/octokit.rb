@@ -424,7 +424,7 @@
       <pre class="code"><span class="info file"># File 'lib/octokit/client/notifications.rb', line 166</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_thread_subscription'>delete_thread_subscription</span><span class='lparen'>(</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>notifications/threads/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='rbrace'>}</span><span class='tstring_content'>/subscription</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>notifications/threads/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/subscription</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -515,7 +515,7 @@ threads.</p>
           <span class="default">
             
               &mdash; default:
-              <tt>'Now'</tt>
+              <tt>&#39;Now&#39;</tt>
             
           </span>
           
@@ -685,7 +685,7 @@ threads.</p>
           <span class="default">
             
               &mdash; default:
-              <tt>'Now'</tt>
+              <tt>&#39;Now&#39;</tt>
             
           </span>
           
@@ -741,7 +741,7 @@ ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. &#39;2012-10-09T23:39:01Z&#39;</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/notifications.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mark_repository_notifications_as_read'>mark_repository_notifications_as_read</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_request'>request</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_repo'>repo</span><span class='rbrace'>}</span><span class='tstring_content'>/notifications</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_request'>request</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/notifications</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 
   <span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>==</span> <span class='int'>205</span>
 <span class='kw'>end</span></pre>
@@ -889,7 +889,7 @@ threads.</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/notifications.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mark_thread_as_read'>mark_thread_as_read</span><span class='lparen'>(</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_request'>request</span> <span class='symbol'>:patch</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>notifications/threads/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_request'>request</span> <span class='symbol'>:patch</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>notifications/threads/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 
   <span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>==</span> <span class='int'>205</span>
 <span class='kw'>end</span></pre>
@@ -929,7 +929,7 @@ threads.</p>
         <p class="example_title"><div class='inline'><p>Get all notifications since a certain time.</p>
 </div></p>
       
-      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_notifications'>notifications</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>all:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>since:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>2012-10-09T23:39:01Z</span><span class='tstring_end'>'</span></span><span class='rbrace'>}</span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_notifications'>notifications</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>all:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>since:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>2012-10-09T23:39:01Z</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1079,13 +1079,13 @@ the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. &#39;2012-10-09T23:39:01Z&#39;</p
         <p class="example_title"><div class='inline'><p>Get your notifications for octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_repository_notifications'>repository_notifications</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_repository_notifications'>repository_notifications</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
     
       
         <p class="example_title"><div class='inline'><p>Get your notifications for octokit/octokit.rb since a time.</p>
 </div></p>
       
-      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_repository_notifications'>repository_notifications</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>since:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>2012-10-09T23:39:01Z</span><span class='tstring_end'>'</span></span><span class='rbrace'>}</span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_repository_notifications'>repository_notifications</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>since:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>2012-10-09T23:39:01Z</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1216,7 +1216,7 @@ the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. &#39;2012-10-09T23:39:01Z&#39;</p
       <pre class="code"><span class="info file"># File 'lib/octokit/client/notifications.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_repository_notifications'>repository_notifications</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_repo'>repo</span><span class='rbrace'>}</span><span class='tstring_content'>/notifications</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/notifications</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1307,7 +1307,7 @@ the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. &#39;2012-10-09T23:39:01Z&#39;</p
       <pre class="code"><span class="info file"># File 'lib/octokit/client/notifications.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_thread_notifications'>thread_notifications</span><span class='lparen'>(</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>notifications/threads/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>notifications/threads/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1398,7 +1398,7 @@ the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. &#39;2012-10-09T23:39:01Z&#39;</p
       <pre class="code"><span class="info file"># File 'lib/octokit/client/notifications.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_thread_subscription'>thread_subscription</span><span class='lparen'>(</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>notifications/threads/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='rbrace'>}</span><span class='tstring_content'>/subscription</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>notifications/threads/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/subscription</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1553,7 +1553,7 @@ should be blocked from this repository.</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/notifications.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_thread_subscription'>update_thread_subscription</span><span class='lparen'>(</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_put'>put</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>notifications/threads/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='rbrace'>}</span><span class='tstring_content'>/subscription</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_put'>put</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>notifications/threads/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_thread_id'>thread_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/subscription</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1565,9 +1565,9 @@ should be blocked from this repository.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Aug 26 16:37:59 2013 by
+  Generated on Tue Sep 17 12:39:12 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7 (ruby-1.9.3).
+  0.8.6.2 (ruby-2.0.0).
 </div>
 
   </body>
