@@ -33,7 +33,7 @@ module Octokit
 
       def delete_release(url, options = {})
         options[:accept] ||= PREVEIW_MEDIA_TYPE
-        delete url, options
+        boolean_from_response(:delete, url, options)
       end
 
       def assets(release_url, options = {})

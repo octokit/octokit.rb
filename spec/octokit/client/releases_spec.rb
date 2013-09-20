@@ -46,7 +46,7 @@ describe Octokit::Client::Releases do
     end
   end
 
-  describe ".delete_release" do
+  describe ".delete_release", :vcr do
     it "deletes a release" do
       created = @client.create_release \
         "api-playground/api-sandbox", "test-delete-release-tag", :name => "Test Delete Release"
