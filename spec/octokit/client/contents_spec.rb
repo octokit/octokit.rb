@@ -61,6 +61,17 @@ describe Octokit::Client::Contents do
       expect(response.commit.sha).to match /[a-z0-9]{40}/
       assert_requested(:put, github_url("/repos/api-playground/api-sandbox/contents/test_create_file.txt"))
     end
+    it "does not add new lines", :vcr do
+      file = File.new "spec/fixtures/large_file.txt", "r"
+      response = @client.create_contents("api-playground/api-sandbox",
+                                         "test_create_without_newlines.txt",
+                                         "I am commit-ing",
+                                         :file => file)
+      assert_requested(:put, github_url("/repos/api-playground/api-sandbox/contents/test_create_without_newlines.txt"))
+      content = response.content.rels[:self].get \
+        :headers => {:accept => "application/vnd.github.raw" }
+      expect(content.data).to eq(File.read("spec/fixtures/large_file.txt"))
+    end
   end # .create_contents
 
   describe ".update_contents", :vcr do
@@ -79,6 +90,25 @@ describe Octokit::Client::Contents do
         github_url("/repos/api-playground/api-sandbox/contents/test_update.txt"),
         :times => 2
 
+    end
+    it "does not add new lines", :vcr do
+      content = @client.create_contents("api-playground/api-sandbox",
+                                         "test_update_without_newlines.txt",
+                                         "I am commit-ing",
+                                         :file => "spec/fixtures/new_file.txt")
+      response = @client.update_contents("api-playground/api-sandbox",
+                                         "test_update_without_newlines.txt",
+                                         "I am commit-ing",
+                                         content.content.sha,
+                                         :file => "spec/fixtures/large_file.txt")
+
+      assert_requested :put,
+        github_url("/repos/api-playground/api-sandbox/contents/test_update_without_newlines.txt"),
+        :times => 2
+
+      content = response.content.rels[:self].get \
+        :headers => {:accept => "application/vnd.github.raw" }
+      expect(content.data).to eq(File.read("spec/fixtures/large_file.txt"))
     end
   end # .update_contents
 
