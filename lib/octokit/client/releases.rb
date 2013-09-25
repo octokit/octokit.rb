@@ -58,6 +58,22 @@ module Octokit
       ensure
         file.close
       end
+
+      def release_asset(asset_url, options = {})
+        options[:accept] ||= PREVIEW_MEDIA_TYPE
+        get(asset_url, options)
+      end
+
+      def update_release_asset(asset_url, options = {})
+        options[:accept] ||= PREVIEW_MEDIA_TYPE
+        patch(asset_url, options)
+      end
+      alias :edit_release_asset :update_release_asset
+
+      def delete_release_asset(asset_url, options = {})
+        options[:accept] ||= PREVIEW_MEDIA_TYPE
+        boolean_from_response(:delete, asset_url, options)
+      end
     end
   end
 end
