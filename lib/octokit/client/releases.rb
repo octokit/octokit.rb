@@ -41,19 +41,22 @@ module Octokit
         paginate release(release_url).rels[:assets].href, options
       end
 
-      def upload_asset(release_url, path_or_file, mime_type, options = {})
-        options[:headers] ||= {}
-        file = File.new(path_or_file, "r+b")
+      def upload_asset(release_url, path_or_file, options = {})
+        options[:accept] ||= PREVIEW_MEDIA_TYPE
+        file = File.new(path_or_file, "r+b") unless file.respond_to?(:read)
+        if options[:content_type].nil?
+          raise ArgumentError.new("content_type option is required")
+        end
 
         unless name = options[:name]
           require 'pathname'
-          name = Pathname.new(file).basename
+          name = Pathname.new(file).basename.to_s
         end
         upload_url = release(release_url).rels[:upload].href_template.expand(:name => name)
 
-        options[:headers][:accept] = PREVIEW_MEDIA_TYPE
-        options[:headers][:content_type] = mime_type
-        request :post, upload_url, file.read, options
+        request :post, upload_url, file.read, parse_query_and_convenience_headers(options)
+      ensure
+        file.close
       end
     end
   end

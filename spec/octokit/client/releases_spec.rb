@@ -71,12 +71,26 @@ describe Octokit::Client::Releases do
     end
 
     describe ".upload_release_asset", :vcr do
-      it "uploads a release asset" do
-        local_file = "spec/fixtures/upload.gif"
-        name = "the_upload.gif"
-        asset = @client.upload_asset(@release_url, local_file, "image/gif", :name => name)
+      it "uploads a release asset by path" do
+        local_path = "spec/fixtures/upload.png"
+        name = "upload_by_path.png"
+        asset = @client.upload_asset(@release_url, local_path, :content_type => "image/png", :name => name)
         expect(asset.name).to eq(name)
       end
+      it "uploads a release asset as file object" do
+        file = File.new("spec/fixtures/upload.png", "r+b")
+        name = "upload_by_file.png"
+        asset = @client.upload_asset(@release_url, file, :content_type => "image/png", :name => name)
+        expect(asset.name).to eq(name)
+        expect(asset.size).to eq(file.size)
+      end
+      it "uploads a release asset with a default name" do
+        path = "spec/fixtures/upload.png"
+        name = "upload.png"
+        asset = @client.upload_asset(@release_url, path, :content_type => "image/png")
+        expect(asset.name).to eq(name)
+      end
+      it "guesses the content type for an asset"
     end
 
     describe ".release_asset" do
