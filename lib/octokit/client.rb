@@ -227,19 +227,20 @@ module Octokit
 
     private
 
-    def request(method, path, data)
-      options = {}
-      options[:query]   = data.delete(:query) || {}
-      options[:headers] = data.delete(:headers) || {}
+    def request(method, path, data, options = {})
+      if data.is_a?(Hash)
+        options[:query]   = data.delete(:query) || {}
+        options[:headers] = data.delete(:headers) || {}
+        if accept = data.delete(:accept)
+          options[:headers][:accept] = accept
+        end
+      end
 
       if application_authenticated?
         options[:query].merge! application_authentication
       end
-      if accept = data.delete(:accept)
-        options[:headers][:accept] = accept
-      end
 
-      @last_response = response = agent.call(method, URI.encode(path), data, options)
+      @last_response = response = agent.call(method, URI.encode(path.to_s), data, options)
       response.data
     end
 

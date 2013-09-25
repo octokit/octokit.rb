@@ -57,25 +57,38 @@ describe Octokit::Client::Releases do
     end
   end
 
-  describe ".assets" do
-    it "lists assets for a release" do
-      release = @client.release "https://api.github.com/repos/api-playground/api-sandbox/releases/43567"
+  context "handling release assets" do
+
+    before do
+      @release_url = "https://api.github.com/repos/api-playground/api-sandbox/releases/43567"
     end
-  end
 
-  describe ".upload_release_asset" do
-    it "uploads a release asset"
-  end
+    describe ".release_assets", :vcr do
+      it "lists assets for a release" do
+        assets = @client.release_assets(@release_url)
+        expect(assets).to be_kind_of(Array)
+      end
+    end
 
-  describe ".release_asset" do
-    it "gets a single release asset"
-  end
+    describe ".upload_release_asset", :vcr do
+      it "uploads a release asset" do
+        local_file = "spec/fixtures/upload.gif"
+        name = "the_upload.gif"
+        asset = @client.upload_asset(@release_url, local_file, "image/gif", :name => name)
+        expect(asset.name).to eq(name)
+      end
+    end
 
-  describe ".update_release_asset" do
-    it "edits a release asset"
-  end
+    describe ".release_asset" do
+      it "gets a single release asset"
+    end
 
-  describe ".delete_release_asset" do
-    it "deletes a release asset"
+    describe ".update_release_asset" do
+      it "edits a release asset"
+    end
+
+    describe ".delete_release_asset" do
+      it "deletes a release asset"
+    end
   end
 end

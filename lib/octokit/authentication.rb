@@ -9,7 +9,7 @@ module Octokit
     # @see http://developer.github.com/v3/#authentication
     # @return [Boolean]
     def basic_authenticated?
-      @login && @password
+      !!(@login && @password)
     end
 
     # Indicates if the client was supplied an OAuth
