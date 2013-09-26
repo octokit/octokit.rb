@@ -458,6 +458,30 @@ describe Octokit::Client do
       end
     end
 
+    it "exposes errors array" do
+      stub_get('/boom').
+        to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {
+          :message => "Validation Failed",
+          :errors => [
+            :resource => "Issue",
+            :field    => "title",
+            :code     => "missing_field"
+          ]
+        }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.errors.first[:resource]).to eq("Issue")
+        expect(e.errors.first[:field]).to eq("title")
+        expect(e.errors.first[:code]).to eq("missing_field")
+      end
+    end
+
     it "knows the difference between Forbidden and rate limiting" do
       stub_get('/some/admin/stuffs').to_return(:status => 403)
       expect { Octokit.get('/some/admin/stuffs') }.to raise_error Octokit::Forbidden
