@@ -522,6 +522,7 @@ module Octokit
       # @example
       #   @client.edit_hook(
       #     'octokit/octokit.rb',
+      #     100000,
       #     'web',
       #     {
       #       :url => 'http://something.com/webhook',
