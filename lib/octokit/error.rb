@@ -186,4 +186,7 @@ module Octokit
 
   # Raised when GitHub returns a 503 HTTP status code
   class ServiceUnavailable < ServerError; end
+
+  # Raised when client fails to provide valid Content-Type
+  class MissingContentType < ArgumentError; end
 end

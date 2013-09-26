@@ -28,6 +28,7 @@ require 'octokit/client/pub_sub_hubbub'
 require 'octokit/client/pull_requests'
 require 'octokit/client/rate_limit'
 require 'octokit/client/refs'
+require 'octokit/client/releases'
 require 'octokit/client/repositories'
 require 'octokit/client/say'
 require 'octokit/client/search'
@@ -67,6 +68,7 @@ module Octokit
     include Octokit::Client::PullRequests
     include Octokit::Client::RateLimit
     include Octokit::Client::Refs
+    include Octokit::Client::Releases
     include Octokit::Client::Repositories
     include Octokit::Client::Say
     include Octokit::Client::Search
@@ -76,7 +78,7 @@ module Octokit
     include Octokit::Client::Users
 
     # Header keys that can be passed in options hash to {#get},{#head}
-    CONVENIENCE_HEADERS = Set.new [:accept]
+    CONVENIENCE_HEADERS = Set.new [:accept, :content_type]
 
     def initialize(options = {})
       # Use options passed in, but fall back to module defaults
@@ -225,19 +227,20 @@ module Octokit
 
     private
 
-    def request(method, path, data)
-      options = {}
-      options[:query]   = data.delete(:query) || {}
-      options[:headers] = data.delete(:headers) || {}
+    def request(method, path, data, options = {})
+      if data.is_a?(Hash)
+        options[:query]   = data.delete(:query) || {}
+        options[:headers] = data.delete(:headers) || {}
+        if accept = data.delete(:accept)
+          options[:headers][:accept] = accept
+        end
+      end
 
       if application_authenticated?
         options[:query].merge! application_authentication
       end
-      if accept = data.delete(:accept)
-        options[:headers][:accept] = accept
-      end
 
-      @last_response = response = agent.call(method, URI.encode(path), data, options)
+      @last_response = response = agent.call(method, URI.encode(path.to_s), data, options)
       response.data
     end
 
