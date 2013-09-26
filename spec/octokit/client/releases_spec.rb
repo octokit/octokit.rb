@@ -90,7 +90,13 @@ describe Octokit::Client::Releases do
         asset = @client.upload_asset(@release_url, path, :content_type => "image/png")
         expect(asset.name).to eq(name)
       end
-      it "guesses the content type for an asset"
+      it "guesses the content type for an asset" do
+        path = "spec/fixtures/upload.png"
+        name = "upload_guess_content_type.png"
+        asset = @client.upload_asset(@release_url, path, :name => name)
+        expect(asset.name).to eq(name)
+        expect(asset.content_type).to eq("image/png")
+      end
     end
 
     describe ".release_asset" do
