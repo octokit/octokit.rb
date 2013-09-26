@@ -65,6 +65,14 @@ module Octokit
       end
     end
 
+    def errors
+      if data && data.is_a?(Hash)
+        data[:errors] || []
+      else
+        []
+      end
+    end
+
     private
 
     def data
