@@ -11,7 +11,6 @@ Gem::Specification.new do |spec|
   spec.email = ['wynn.netherland@gmail.com', 'sferik@gmail.com', 'clint@ctshryock.com']
   spec.files = %w(.document CONTRIBUTING.md LICENSE.md README.md Rakefile octokit.gemspec)
   spec.files += Dir.glob("lib/**/*.rb")
-  spec.files += Dir.glob("spec/**/*")
   spec.homepage = 'https://github.com/octokit/octokit.rb'
   spec.licenses = ['MIT']
   spec.name = 'octokit'
