@@ -93,18 +93,17 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#upload-a-release-asset
       def upload_asset(release_url, path_or_file, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
-        file = File.new(path_or_file, "r+b") unless file.respond_to?(:read)
+        file = path_or_file.respond_to?(:read) ? path_or_file : File.new(path_or_file, "r+b")
         options[:content_type] ||= content_type_from_file(file)
         raise Octokit::MissingContentType.new if options[:content_type].nil?
         unless name = options[:name]
-          require 'pathname'
-          name = Pathname.new(file).basename.to_s
+          name = File.basename(file.path)
         end
         upload_url = release(release_url).rels[:upload].href_template.expand(:name => name)
 
         request :post, upload_url, file.read, parse_query_and_convenience_headers(options)
       ensure
-        file.close
+        file.close if file
       end
 
       # Get a single release asset

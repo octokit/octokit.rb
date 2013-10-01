@@ -6,7 +6,6 @@ gem 'rake'
 group :development do
   gem 'awesome_print', :require => 'ap'
   gem 'guard-rspec', '~> 2.5.1'
-  gem 'guard-yard', '~> 2.1.0'
   gem 'hirb-unicode'
   gem 'pry'
   gem 'redcarpet'

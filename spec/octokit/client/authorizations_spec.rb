@@ -32,28 +32,25 @@ describe Octokit::Client::Authorizations do
     end
 
     context 'with :idempotent => true' do
-      subject do
-        lambda do |info = {}|
-          @client.create_authorization({
-            :idempotent    => true,
-            :client_id     => test_github_client_id,
-            :client_secret => test_github_client_secret
-          }.merge(info))
-        end
-      end
-
       it "creates a new authorization with options" do
-        info = {
-          :scopes => ["gist"],
-        }
-        authorization = subject.call info
+        authorization = @client.create_authorization \
+          :idempotent    => true,
+          :client_id     => test_github_client_id,
+          :client_secret => test_github_client_secret,
+          :scopes => %w(gist)
         expect(authorization.scopes).to be_kind_of Array
         assert_requested :put, basic_github_url("/authorizations/clients/#{test_github_client_id}")
       end
 
       it 'returns an existing API authorization if one already exists' do
-        first_authorization = subject.call
-        second_authorization = subject.call
+        first_authorization = @client.create_authorization \
+          :idempotent    => true,
+          :client_id     => test_github_client_id,
+          :client_secret => test_github_client_secret
+        second_authorization = @client.create_authorization \
+          :idempotent    => true,
+          :client_id     => test_github_client_id,
+          :client_secret => test_github_client_secret
         expect(first_authorization.id).to eql second_authorization.id
       end
     end

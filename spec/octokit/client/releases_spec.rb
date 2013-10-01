@@ -79,10 +79,11 @@ describe Octokit::Client::Releases do
       end
       it "uploads a release asset as file object" do
         file = File.new("spec/fixtures/upload.png", "r+b")
+        size = File.size(file)
         name = "upload_by_file.png"
         asset = @client.upload_asset(@release_url, file, :content_type => "image/png", :name => name)
         expect(asset.name).to eq(name)
-        expect(asset.size).to eq(file.size)
+        expect(asset.size).to eq(size)
       end
       it "uploads a release asset with a default name" do
         path = "spec/fixtures/upload.png"

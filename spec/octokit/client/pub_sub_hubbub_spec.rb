@@ -70,7 +70,11 @@ describe Octokit::Client::PubSubHubbub do
         with(irc_request_body).
         to_return(:status => 204)
       expect(@client.subscribe_service_hook("joshk/completeness-fu", "irc", { :server => "chat.freenode.org", :room => "#myproject"})).to eql(true)
-      assert_requested :post, "https://api.github.com/hub", :body => irc_request_body, :times => 1
+      # Since we can't depend upon hash ordering across the Rubies
+      assert_requested :post, "https://api.github.com/hub", :times => 1 do |req|
+        req.body[%r{hub.callback=github%3A%2F%2Firc%3Froom%3D%2523myproject}]
+        req.body[%r{server%3Dchat.freenode.org}]
+      end
     end
   end # .subscribe_service_hook
 
