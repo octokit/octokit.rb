@@ -144,18 +144,26 @@ module Octokit
   # and headers include "X-GitHub-OTP"
   class OneTimePasswordRequired < ClientError
     #@private
-    HEADER = /required; (?<delivery>\w+)/i
+    OTP_DELIVERY_PATTERN = /required; (\w+)/i
 
     #@private
     def self.required_header(headers)
-      HEADER.match headers['X-GitHub-OTP'].to_s
+      OTP_DELIVERY_PATTERN.match headers['X-GitHub-OTP'].to_s
     end
 
     # Delivery method for the user's OTP
     #
     # @return [String]
     def password_delivery
-      @password_delivery ||= self.class.required_header(@response[:response_headers])[:delivery]
+      @password_delivery ||= delivery_method_from_header
+    end
+
+    private
+
+    def delivery_method_from_header
+      if match = self.class.required_header(@response[:response_headers])
+        match[1]
+      end
     end
   end
 
