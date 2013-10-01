@@ -1,3 +1,10 @@
+major, minor, patch = RUBY_VERSION.split('.').map(&:to_i)
+
+if (major == 1 && minor < 9) || (major == 1 && minor == 9 && patch < 2)
+  # pull in backports
+  require 'octokit/backports/uri'
+end
+
 module Octokit
   class Client
 
@@ -16,9 +23,9 @@ module Octokit
       #   client.subscribe("https://github.com/joshk/devise_imapable/events/push", "github://Email?address=josh.kalderimis@gmail.com")
       def subscribe(topic, callback)
         options = {
+          :"hub.callback" => callback,
           :"hub.mode" => "subscribe",
-          :"hub.topic" => topic,
-          :"hub.callback" => callback
+          :"hub.topic" => topic
         }
         response = pub_sub_hubbub_request(options)
 
@@ -35,9 +42,9 @@ module Octokit
       #   client.unsubscribe("https://github.com/joshk/devise_imapable/events/push", "github://Email?address=josh.kalderimis@gmail.com")
       def unsubscribe(topic, callback)
         options = {
+          :"hub.callback" => callback,
           :"hub.mode" => "unsubscribe",
-          :"hub.topic" => topic,
-          :"hub.callback" => callback
+          :"hub.topic" => topic
         }
         response = pub_sub_hubbub_request(options)
 
