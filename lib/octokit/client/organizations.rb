@@ -438,6 +438,8 @@ module Octokit
 
       # List all teams for the authenticated user across all their orgs
       #
+      # @return [Array<Sawyer::Resource>] Array of team resources.
+      # @see http://developer.github.com/v3/orgs/teams/#list-user-teams
       def user_teams(options = {})
         paginate "/user/teams", options
       end
