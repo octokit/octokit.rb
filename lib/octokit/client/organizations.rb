@@ -436,6 +436,11 @@ module Octokit
       end
       alias :conceal_membership :unpublicize_membership
 
+      # List all teams for the authenticated user across all their orgs
+      #
+      def user_teams(options = {})
+        paginate "/user/teams", options
+      end
     end
   end
 end

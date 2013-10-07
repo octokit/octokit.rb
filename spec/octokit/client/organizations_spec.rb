@@ -194,4 +194,12 @@ describe Octokit::Client::Organizations do
     end
   end # .remove_organization_member
 
+  describe ".user_teams", :vcr do
+    it "lists all teams for the authenticated user" do
+      teams = @client.user_teams
+      assert_requested :get, github_url("/user/teams")
+      expect(teams).to be_kind_of(Array)
+    end
+  end
+
 end
