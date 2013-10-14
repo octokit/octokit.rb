@@ -45,6 +45,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#get-a-single-release
       def release(url, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         get url, options
       end
 
@@ -73,6 +74,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#delete-a-release
       def delete_release(url, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         boolean_from_response(:delete, url, options)
       end
 
@@ -144,6 +146,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#delete-a-release-asset
       def delete_release_asset(asset_url, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         boolean_from_response(:delete, asset_url, options)
       end
 
