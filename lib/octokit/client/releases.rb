@@ -15,6 +15,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#list-releases-for-a-repository
       def releases(repo, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         paginate "repos/#{Repository.new(repo)}/releases", options
       end
       alias :list_releases :releases
@@ -32,6 +33,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#create-a-release
       def create_release(repo, tag_name, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         opts = options.merge(:tag_name => tag_name)
         post "repos/#{Repository.new(repo)}/releases", opts
       end
@@ -43,6 +45,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#get-a-single-release
       def release(url, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         get url, options
       end
 
@@ -59,6 +62,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#edit-a-release
       def update_release(url, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         patch url, options
       end
       alias :edit_release :update_release
@@ -70,6 +74,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#delete-a-release
       def delete_release(url, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         boolean_from_response(:delete, url, options)
       end
 
@@ -80,6 +85,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#list-assets-for-a-release
       def release_assets(release_url, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         paginate release(release_url).rels[:assets].href, options
       end
 
@@ -93,6 +99,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#upload-a-release-asset
       def upload_asset(release_url, path_or_file, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         file = path_or_file.respond_to?(:read) ? path_or_file : File.new(path_or_file, "r+b")
         options[:content_type] ||= content_type_from_file(file)
         raise Octokit::MissingContentType.new if options[:content_type].nil?
@@ -114,6 +121,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#get-a-single-release-asset
       def release_asset(asset_url, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         get(asset_url, options)
       end
 
@@ -126,6 +134,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#get-a-single-release-asset
       def update_release_asset(asset_url, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         patch(asset_url, options)
       end
       alias :edit_release_asset :update_release_asset
@@ -137,6 +146,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/releases/#delete-a-release-asset
       def delete_release_asset(asset_url, options = {})
         options[:accept] ||= PREVIEW_MEDIA_TYPE
+        warn_releases_preview
         boolean_from_response(:delete, asset_url, options)
       end
 
@@ -150,6 +160,13 @@ module Octokit
       rescue LoadError
         msg = "Please pass content_type or install mime-types gem to guess content type from file"
         raise Octokit::MissingContentType.new msg
+      end
+
+      def warn_releases_preview
+        warn <<-EOS
+WARNING: The preview version of the Releases API is not yet suitable for production use.
+See the blog post for details: http://git.io/gMY9sA
+EOS
       end
     end
   end
