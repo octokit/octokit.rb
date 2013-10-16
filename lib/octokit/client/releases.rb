@@ -6,6 +6,7 @@ module Octokit
     # @see http://developer.github.com/v3/repos/releases/
     module Releases
 
+      # @private
       PREVIEW_MEDIA_TYPE = "application/vnd.github.manifold-preview".freeze
 
       # List releases for a repository
@@ -52,7 +53,6 @@ module Octokit
       # Update a release
       #
       # @param url [String] URL for the release as returned from .releases
-      # @param tag_name [String] Git tag from which to create release
       # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from.
       # @option options [String] :name Name for the release
       # @option options [String] :body Content for release notes
@@ -92,7 +92,7 @@ module Octokit
       # Upload a release asset
       #
       # @param release_url [String] URL for the release as returned from .releases
-      # @param file [String] Path to file to upload
+      # @param path_or_file [String] Path to file to upload
       # @option options [String] :content_type The MIME type for the file to upload
       # @option options [String] :name The name for the file
       # @return [Sawyer::Resource] The release asset
