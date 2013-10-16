@@ -195,7 +195,7 @@ user = client.users 'defunkt'
 Many GitHub API resources are [paginated][]. While you may be tempted to start
 adding `:page` parameters to your calls, the API returns links to the next,
 previous, and last pages for you in the `Link` response header as [Hypermedia
-link relations](docs/hypermedia.md).
+link relations](#hypermedia-agent).
 
 ```ruby
 issues = Octokit.issues 'rails/rails', :per_page => 100
