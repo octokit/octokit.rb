@@ -339,7 +339,7 @@ username and password</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/authentication.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_basic_authenticated?'>basic_authenticated?</span>
-  <span class='ivar'>@login</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@password</span>
+  <span class='op'>!</span><span class='op'>!</span><span class='lparen'>(</span><span class='ivar'>@login</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@password</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -473,7 +473,7 @@ access token or Basic Auth username and password</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Sep 17 12:39:10 2013 by
+  Generated on Wed Oct 16 10:30:04 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-2.0.0).
 </div>

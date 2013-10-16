@@ -110,7 +110,7 @@
   
     <dl class="constants">
       
-        <dt id="PREVEIW_MEDIA_TYPE-constant" class="">PREVEIW_MEDIA_TYPE =
+        <dt id="PREVIEW_MEDIA_TYPE-constant" class="">PREVIEW_MEDIA_TYPE =
           
         </dt>
         <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.manifold-preview</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
@@ -135,7 +135,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_release-instance_method" title="#create_release (instance method)">- (Object) <strong>create_release</strong>(repo, tag_name, options = {}) </a>
+      <a href="#create_release-instance_method" title="#create_release (instance method)">- (Sawyer::Resource) <strong>create_release</strong>(repo, tag_name, options = {}) </a>
     
 
     
@@ -149,7 +149,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Create a release.</p>
+</div></span>
   
 </li>
 
@@ -157,7 +158,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#release-instance_method" title="#release (instance method)">- (Object) <strong>release</strong>(url, options = {}) </a>
+      <a href="#delete_release-instance_method" title="#delete_release (instance method)">- (Boolean) <strong>delete_release</strong>(url, options = {}) </a>
     
 
     
@@ -171,7 +172,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Delete a release.</p>
+</div></span>
   
 </li>
 
@@ -179,7 +181,99 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#releases-instance_method" title="#releases (instance method)">- (Object) <strong>releases</strong>(repo, options = {}) </a>
+      <a href="#delete_release_asset-instance_method" title="#delete_release_asset (instance method)">- (Boolean) <strong>delete_release_asset</strong>(asset_url, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Delete a release asset.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#release-instance_method" title="#release (instance method)">- (Sawyer::Resource) <strong>release</strong>(url, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Get a release.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#release_asset-instance_method" title="#release_asset (instance method)">- (Sawyer::Resource) <strong>release_asset</strong>(asset_url, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Get a single release asset.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#release_assets-instance_method" title="#release_assets (instance method)">- (Array&lt;Sawyer::Resource&gt;) <strong>release_assets</strong>(release_url, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>List release assets.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#releases-instance_method" title="#releases (instance method)">- (Array&lt;Sawyer::Resource&gt;) <strong>releases</strong>(repo, options = {}) </a>
     
 
     
@@ -195,7 +289,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>List releases for a repository.</p>
+</div></span>
   
 </li>
 
@@ -203,7 +298,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#update_release-instance_method" title="#update_release (instance method)">- (Object) <strong>update_release</strong>(url, options = {}) </a>
+      <a href="#update_release-instance_method" title="#update_release (instance method)">- (Sawyer::Resource) <strong>update_release</strong>(url, options = {}) </a>
     
 
     
@@ -219,7 +314,56 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>Update a release.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_release_asset-instance_method" title="#update_release_asset (instance method)">- (Sawyer::Resource) <strong>update_release_asset</strong>(asset_url, options = {}) </a>
+    
+
+    
+      (also: #edit_release_asset)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Update a release asset.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#upload_asset-instance_method" title="#upload_asset (instance method)">- (Sawyer::Resource) <strong>upload_asset</strong>(release_url, path_or_file, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Upload a release asset.</p>
+</div></span>
   
 </li>
 
@@ -236,31 +380,365 @@
       <div class="method_details first">
   <h3 class="signature first" id="create_release-instance_method">
   
-    - (<tt>Object</tt>) <strong>create_release</strong>(repo, tag_name, options = {}) 
+    - (<tt>Sawyer::Resource</tt>) <strong>create_release</strong>(repo, tag_name, options = {}) 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Create a release</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>repo</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>, <tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A GitHub repository</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tag_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Git tag from which to create release</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:target_commitish</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Specifies the commitish value that determines where the Git tag is created from.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:name</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Name for the release</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:body</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Content for release notes</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:draft</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Mark this release as a draft</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:prerelease</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Mark this release as a pre-release</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The release</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://developer.github.com/v3/repos/releases/#create-a-release" target="_parent" title="http://developer.github.com/v3/repos/releases/#create-a-release">http://developer.github.com/v3/repos/releases/#create-a-release</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-15
-16
-17
-18
-19</pre>
+34
+35
+36
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_release'>create_release</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_tag_name'>tag_name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.manifold-preview</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='const'>PREVIEW_MEDIA_TYPE</span>
+  <span class='id identifier rubyid_warn_releases_preview'>warn_releases_preview</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='symbol'>:tag_name</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_tag_name'>tag_name</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/releases</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/releases</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_release-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>delete_release</strong>(url, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Delete a release</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>URL for the release as returned from .releases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Success or failure</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://developer.github.com/v3/repos/releases/#delete-a-release" target="_parent" title="http://developer.github.com/v3/repos/releases/#delete-a-release">http://developer.github.com/v3/repos/releases/#delete-a-release</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+74
+75
+76
+77
+78</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 74</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_release'>delete_release</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='const'>PREVIEW_MEDIA_TYPE</span>
+  <span class='id identifier rubyid_warn_releases_preview'>warn_releases_preview</span>
+  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span><span class='lparen'>(</span><span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_release_asset-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>delete_release_asset</strong>(asset_url, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Delete a release asset</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>asset_url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>URL for the asset as returned from .release_assets</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Success or failure</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://developer.github.com/v3/repos/releases/#delete-a-release-asset" target="_parent" title="http://developer.github.com/v3/repos/releases/#delete-a-release-asset">http://developer.github.com/v3/repos/releases/#delete-a-release-asset</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+146
+147
+148
+149
+150</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 146</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_release_asset'>delete_release_asset</span><span class='lparen'>(</span><span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='const'>PREVIEW_MEDIA_TYPE</span>
+  <span class='id identifier rubyid_warn_releases_preview'>warn_releases_preview</span>
+  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span><span class='lparen'>(</span><span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -270,27 +748,258 @@
       <div class="method_details ">
   <h3 class="signature " id="release-instance_method">
   
-    - (<tt>Object</tt>) <strong>release</strong>(url, options = {}) 
+    - (<tt>Sawyer::Resource</tt>) <strong>release</strong>(url, options = {}) 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Get a release</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>URL for the release as returned from .releases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The release</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://developer.github.com/v3/repos/releases/#get-a-single-release" target="_parent" title="http://developer.github.com/v3/repos/releases/#get-a-single-release">http://developer.github.com/v3/repos/releases/#get-a-single-release</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-21
-22
-23</pre>
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 46</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_release'>release</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/releases/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_release'>release</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='const'>PREVIEW_MEDIA_TYPE</span>
+  <span class='id identifier rubyid_warn_releases_preview'>warn_releases_preview</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="release_asset-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>release_asset</strong>(asset_url, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Get a single release asset</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>asset_url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>URL for the asset as returned from .release_assets</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The release asset</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://developer.github.com/v3/repos/releases/#get-a-single-release-asset" target="_parent" title="http://developer.github.com/v3/repos/releases/#get-a-single-release-asset">http://developer.github.com/v3/repos/releases/#get-a-single-release-asset</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+121
+122
+123
+124
+125</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 121</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_release_asset'>release_asset</span><span class='lparen'>(</span><span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='const'>PREVIEW_MEDIA_TYPE</span>
+  <span class='id identifier rubyid_warn_releases_preview'>warn_releases_preview</span>
+  <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="release_assets-instance_method">
+  
+    - (<tt>Array&lt;Sawyer::Resource&gt;</tt>) <strong>release_assets</strong>(release_url, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>List release assets</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>release_url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>URL for the release as returned from .releases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Sawyer::Resource&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A list of release assets</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://developer.github.com/v3/repos/releases/#list-assets-for-a-release" target="_parent" title="http://developer.github.com/v3/repos/releases/#list-assets-for-a-release">http://developer.github.com/v3/repos/releases/#list-assets-for-a-release</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+85
+86
+87
+88
+89</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 85</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_release_assets'>release_assets</span><span class='lparen'>(</span><span class='id identifier rubyid_release_url'>release_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='const'>PREVIEW_MEDIA_TYPE</span>
+  <span class='id identifier rubyid_warn_releases_preview'>warn_releases_preview</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='id identifier rubyid_release'>release</span><span class='lparen'>(</span><span class='id identifier rubyid_release_url'>release_url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:assets</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_href'>href</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -300,7 +1009,7 @@
       <div class="method_details ">
   <h3 class="signature " id="releases-instance_method">
   
-    - (<tt>Object</tt>) <strong>releases</strong>(repo, options = {}) 
+    - (<tt>Array&lt;Sawyer::Resource&gt;</tt>) <strong>releases</strong>(repo, options = {}) 
   
 
   
@@ -310,22 +1019,77 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>List releases for a repository</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>repo</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>, <tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A GitHub repository</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Sawyer::Resource&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A list of releases</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://developer.github.com/v3/repos/releases/#list-releases-for-a-repository" target="_parent" title="http://developer.github.com/v3/repos/releases/#list-releases-for-a-repository">http://developer.github.com/v3/repos/releases/#list-releases-for-a-repository</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-9
-10
-11
-12</pre>
+16
+17
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_releases'>releases</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.manifold-preview</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='const'>PREVIEW_MEDIA_TYPE</span>
+  <span class='id identifier rubyid_warn_releases_preview'>warn_releases_preview</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/releases</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -336,7 +1100,7 @@
       <div class="method_details ">
   <h3 class="signature " id="update_release-instance_method">
   
-    - (<tt>Object</tt>) <strong>update_release</strong>(url, options = {}) 
+    - (<tt>Sawyer::Resource</tt>) <strong>update_release</strong>(url, options = {}) 
   
 
   
@@ -346,23 +1110,485 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Update a release</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>URL for the release as returned from .releases</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:target_commitish</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Specifies the commitish value that determines where the Git tag is created from.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:name</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Name for the release</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:body</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Content for release notes</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:draft</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Mark this release as a draft</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:prerelease</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Mark this release as a pre-release</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The release</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://developer.github.com/v3/repos/releases/#edit-a-release" target="_parent" title="http://developer.github.com/v3/repos/releases/#edit-a-release">http://developer.github.com/v3/repos/releases/#edit-a-release</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-28
-29
-30
-31</pre>
+62
+63
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_release'>update_release</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='const'>PREVEIW_MEDIA_TYPE</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='const'>PREVIEW_MEDIA_TYPE</span>
+  <span class='id identifier rubyid_warn_releases_preview'>warn_releases_preview</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_release_asset-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>update_release_asset</strong>(asset_url, options = {}) 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='edit_release_asset-instance_method'>edit_release_asset</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Update a release asset</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>asset_url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>URL for the asset as returned from .release_assets</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:name</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The name for the file</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:label</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The download text for the file</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The release asset</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://developer.github.com/v3/repos/releases/#get-a-single-release-asset" target="_parent" title="http://developer.github.com/v3/repos/releases/#get-a-single-release-asset">http://developer.github.com/v3/repos/releases/#get-a-single-release-asset</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+134
+135
+136
+137
+138</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 134</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update_release_asset'>update_release_asset</span><span class='lparen'>(</span><span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='const'>PREVIEW_MEDIA_TYPE</span>
+  <span class='id identifier rubyid_warn_releases_preview'>warn_releases_preview</span>
+  <span class='id identifier rubyid_patch'>patch</span><span class='lparen'>(</span><span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="upload_asset-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>upload_asset</strong>(release_url, path_or_file, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Upload a release asset</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>release_url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>URL for the release as returned from .releases</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>path_or_file</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Path to file to upload</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:content_type</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The MIME type for the file to upload</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:name</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The name for the file</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The release asset</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="http://developer.github.com/v3/repos/releases/#upload-a-release-asset" target="_parent" title="http://developer.github.com/v3/repos/releases/#upload-a-release-asset">http://developer.github.com/v3/repos/releases/#upload-a-release-asset</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 99</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_upload_asset'>upload_asset</span><span class='lparen'>(</span><span class='id identifier rubyid_release_url'>release_url</span><span class='comma'>,</span> <span class='id identifier rubyid_path_or_file'>path_or_file</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='const'>PREVIEW_MEDIA_TYPE</span>
+  <span class='id identifier rubyid_warn_releases_preview'>warn_releases_preview</span>
+  <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='id identifier rubyid_path_or_file'>path_or_file</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:read</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_path_or_file'>path_or_file</span> <span class='op'>:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_path_or_file'>path_or_file</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>r+b</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:content_type</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_content_type_from_file'>content_type_from_file</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>MissingContentType</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:content_type</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_basename'>basename</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_upload_url'>upload_url</span> <span class='op'>=</span> <span class='id identifier rubyid_release'>release</span><span class='lparen'>(</span><span class='id identifier rubyid_release_url'>release_url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:upload</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_href_template'>href_template</span><span class='period'>.</span><span class='id identifier rubyid_expand'>expand</span><span class='lparen'>(</span><span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_request'>request</span> <span class='symbol'>:post</span><span class='comma'>,</span> <span class='id identifier rubyid_upload_url'>upload_url</span><span class='comma'>,</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='comma'>,</span> <span class='id identifier rubyid_parse_query_and_convenience_headers'>parse_query_and_convenience_headers</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>ensure</span>
+  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span> <span class='kw'>if</span> <span class='id identifier rubyid_file'>file</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -374,7 +1600,7 @@
 </div>
 
     <div id="footer">
-  Generated on Fri Sep 13 09:57:17 2013 by
+  Generated on Wed Oct 16 10:30:05 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-2.0.0).
 </div>
