@@ -46,7 +46,7 @@ module Octokit
       # @option options [String] :note_url A URL to remind you what app the OAuth token is for.
       # @option options [Boolean] :idempotent If true, will return an existing authorization if one has already been created.
       # @option options [String] :client_id  Client Id we received when our application was registered with GitHub.
-      # @option options [String] :client_id  Client Secret we received when our application was registered with GitHub.
+      # @option options [String] :client_secret  Client Secret we received when our application was registered with GitHub.
       #
       # @return [Sawyer::Resource] A single authorization for the authenticated user
       # @see http://developer.github.com/v3/oauth/#scopes Available scopes
