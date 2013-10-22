@@ -18,6 +18,7 @@ module Octokit
                   when 403      then error_for_403(body)
                   when 404      then Octokit::NotFound
                   when 406      then Octokit::NotAcceptable
+                  when 409      then Octokit::Conflict
                   when 415      then Octokit::UnsupportedMediaType
                   when 422      then Octokit::UnprocessableEntity
                   when 400..499 then Octokit::ClientError
@@ -183,6 +184,9 @@ module Octokit
 
   # Raised when GitHub returns a 406 HTTP status code
   class NotAcceptable < ClientError; end
+
+  # Raised when GitHub returns a 409 HTTP status code
+  class Conflict < ClientError; end
 
   # Raised when GitHub returns a 414 HTTP status code
   class UnsupportedMediaType < ClientError; end
