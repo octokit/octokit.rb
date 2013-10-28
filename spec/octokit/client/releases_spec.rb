@@ -104,10 +104,7 @@ describe Octokit::Client::Releases do
       it "gets a single release asset" do
         location  = "http://example.com/myfile.gif"
         asset_url = "https://api.github.com/repos/api-playground/api-sandbox/releases/assets/21313"
-        request = stub_get(asset_url).with({
-          :headers => {"Accept" => "application/vnd.github.manifold-preview"}
-        })
-
+        request = stub_get(asset_url)
         @client.release_asset(asset_url)
         assert_requested request
       end
@@ -124,9 +121,7 @@ describe Octokit::Client::Releases do
     describe ".delete_release_asset" do
       it "deletes a release asset" do
         asset_url = "https://api.github.com/repos/api-playground/api-sandbox/releases/assets/21313"
-        request = stub_delete(asset_url).with({
-          :headers => {"Accept" => "application/vnd.github.manifold-preview"}
-        }).to_return(:status => 204)
+        request = stub_delete(asset_url).to_return(:status => 204)
 
         expect(@client.delete_release_asset(asset_url)).to be_true
         assert_requested request
