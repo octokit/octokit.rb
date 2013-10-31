@@ -226,7 +226,7 @@ describe Octokit::Client::Users do
             :accept       => "application/json",
             :content_type => "application/json"
         }).to_return(json_response("web_flow_token.json"))
-        response = Octokit.exchange_code_for_token('code', nil, nil)
+        response = Octokit.exchange_code_for_token('code')
         expect(response.access_token).to eq 'this_be_ye_token/use_it_wisely'
         assert_requested post
         VCR.turn_on!
