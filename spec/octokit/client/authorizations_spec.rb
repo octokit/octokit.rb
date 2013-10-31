@@ -108,10 +108,24 @@ describe Octokit::Client::Authorizations do
     end
   end # .delete_authorization
 
-  describe '.authorize_url' do
-    it "returns the authorize_url" do
-      url = Octokit.authorize_url('id_here', 'secret_here')
-      expect(url).to eq('https://github.com/login/oauth/authorize?client_id=id_here&client_secret=secret_here')
+  describe ".authorize_url" do
+    context "with preconfigured client credentials" do
+      it "returns the authorize_url" do
+        Octokit.configure do |c|
+          c.client_id = 'id_here'
+          c.client_secret = 'secret_here'
+        end
+
+        url = Octokit.authorize_url
+        expect(url).to eq('https://github.com/login/oauth/authorize?client_id=id_here&client_secret=secret_here')
+      end
+    end
+
+    context "with passed client credentials" do
+      it "returns the authorize_url" do
+        url = Octokit.authorize_url('id_here', 'secret_here')
+        expect(url).to eq('https://github.com/login/oauth/authorize?client_id=id_here&client_secret=secret_here')
+      end
     end
   end # .authorize_url
 
