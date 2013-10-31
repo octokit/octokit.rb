@@ -218,15 +218,34 @@ describe Octokit::Client::Users do
   end # .subscriptions
 
   describe '.exchange_code_for_token' do
-    it 'returns the access_token' do
-      post = stub_post("https://github.com/login/oauth/access_token").
-        with(:headers => {
-          :accept       => "application/json",
-          :content_type => "application/json"
-      }).to_return(json_response("web_flow_token.json"))
-      response = Octokit.exchange_code_for_token('code', 'id_here', 'secret_here')
-      expect(response.access_token).to eq('this_be_ye_token/use_it_wisely')
-      assert_requested post
+    context 'with preconfigured client credentials' do
+      it 'returns the access_token (w/o client)' do
+        VCR.turn_off!
+        post = stub_post("https://github.com/login/oauth/access_token").
+          with(:headers => {
+            :accept       => "application/json",
+            :content_type => "application/json"
+        }).to_return(json_response("web_flow_token.json"))
+        response = Octokit.exchange_code_for_token('code', nil, nil)
+        expect(response.access_token).to eq 'this_be_ye_token/use_it_wisely'
+        assert_requested post
+        VCR.turn_on!
+      end
+    end
+
+    context 'with passed client credentials' do
+      it 'returns the access_token' do
+        VCR.turn_off!
+        post = stub_post("https://github.com/login/oauth/access_token").
+          with(:headers => {
+            :accept       => "application/json",
+            :content_type => "application/json"
+        }).to_return(json_response("web_flow_token.json"))
+        response = Octokit.exchange_code_for_token('code', 'id_here', 'secret_here')
+        expect(response.access_token).to eq 'this_be_ye_token/use_it_wisely'
+        assert_requested post
+        VCR.turn_on!
+      end
     end
   end # .access_token
 
