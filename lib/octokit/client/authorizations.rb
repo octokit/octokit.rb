@@ -130,7 +130,6 @@ module Octokit
     # Get the URL to authorize a user for an application via the web flow
     #
     # @param app_id [String] Client Id we received when our application was registered with GitHub.
-    # @param app_secret [String] Client Secret we received when our application was registered with GitHub.
     # @option options [String] :redirect_uri The url to redirect to after authorizing.
     # @option options [String] :scope The scopes to request from the user.
     # @option options [String] :state A random string to protect against CSRF.
@@ -138,10 +137,16 @@ module Octokit
     # @see Octokit::Client
     # @see http://developer.github.com/v3/oauth/#web-application-flow
     # @example
-    #   @client.authorize_url('xxxx', 'yyyy')
-    def authorize_url(app_id, app_secret, options = {})
+    #   @client.authorize_url('xxxx')
+    def authorize_url(*args)
+      arguments = Arguments.new(args)
+      options   = arguments.options
+      app_id = arguments.shift
+      if app_secret = arguments.shift
+        warn "client_secret is not required for this method"
+      end
       authorize_url = options.delete(:endpoint) || Octokit.web_endpoint
-      authorize_url += "login/oauth/authorize?client_id=" + app_id + "&client_secret=" + app_secret
+      authorize_url += "login/oauth/authorize?client_id=" + app_id
 
       options.each do |key, value|
         authorize_url += "&" + key.to_s + "=" + value
