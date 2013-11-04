@@ -141,7 +141,7 @@ module Octokit
     def authorize_url(*args)
       arguments = Arguments.new(args)
       options   = arguments.options
-      app_id = arguments.shift
+      app_id = arguments.shift || client_id
       if app_secret = arguments.shift
         warn "client_secret is not required for this method"
       end
