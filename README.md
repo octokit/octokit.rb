@@ -180,7 +180,7 @@ client = Octokit::Client.new \
   :client_id     => "<your 20 char id>",
   :client_secret => "<your 40 char secret>"
 
-user = client.users 'defunkt'
+user = client.user 'defunkt'
 ```
 
 
