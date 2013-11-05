@@ -147,8 +147,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the appropriate Octokit::Error sublcass based
-on status and response message.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the appropriate Octokit::Error sublcass based on status and response message.</p>
 </div></span>
   
 </li>
@@ -252,7 +251,7 @@ on status and response message.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>A new instance of Error</p>
+    <p>Returns a new instance of Error</p>
 
 
   </div>
@@ -266,13 +265,13 @@ on status and response message.</p>
       <pre class="lines">
 
 
-34
 35
 36
-37</pre>
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@response</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span>
@@ -370,7 +369,8 @@ on status and response message</p>
 29
 30
 31
-32</pre>
+32
+33</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 10</span>
@@ -386,6 +386,7 @@ on status and response message</p>
               <span class='kw'>when</span> <span class='int'>403</span>      <span class='kw'>then</span> <span class='id identifier rubyid_error_for_403'>error_for_403</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
               <span class='kw'>when</span> <span class='int'>404</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>NotFound</span>
               <span class='kw'>when</span> <span class='int'>406</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>NotAcceptable</span>
+              <span class='kw'>when</span> <span class='int'>409</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Conflict</span>
               <span class='kw'>when</span> <span class='int'>415</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>UnsupportedMediaType</span>
               <span class='kw'>when</span> <span class='int'>422</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>UnprocessableEntity</span>
               <span class='kw'>when</span> <span class='int'>400</span><span class='op'>..</span><span class='int'>499</span> <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>ClientError</span>
@@ -447,12 +448,12 @@ on status and response message</p>
       <pre class="lines">
 
 
-42
 43
-44</pre>
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_documentation_url'>documentation_url</span>
   <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:documentation_url</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span>
@@ -504,16 +505,16 @@ on status and response message</p>
       <pre class="lines">
 
 
-70
 71
 72
 73
 74
 75
-76</pre>
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_errors'>errors</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
@@ -532,9 +533,9 @@ on status and response message</p>
 </div>
 
     <div id="footer">
-  Generated on Wed Oct 16 10:30:08 2013 by
+  Generated on Tue Nov  5 13:35:52 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.6.2 (ruby-2.0.0).
+  0.8.7.3 (ruby-2.0.0).
 </div>
 
   </body>
