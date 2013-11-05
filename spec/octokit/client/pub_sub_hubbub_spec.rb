@@ -12,10 +12,11 @@ describe Octokit::Client::PubSubHubbub do
       subscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
         :"hub.mode" => 'subscribe',
-        :"hub.topic" => 'https://github.com/api-playground/api-sandbox/events/push'
+        :"hub.topic" => 'https://github.com/elskwid/github-services/events/push',
+        :"hub.secret" => '12345'
       }
 
-      result = @client.subscribe("https://github.com/api-playground/api-sandbox/events/push", "github://Travis?token=travistoken")
+      result = @client.subscribe("https://github.com/elskwid/github-services/events/push", "github://Travis?token=travistoken", "12345")
       assert_requested :post, github_url("/hub"), :body => subscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
       expect(result).to be_true
@@ -54,9 +55,10 @@ describe Octokit::Client::PubSubHubbub do
       subscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
         :"hub.mode" => 'subscribe',
-        :"hub.topic" => 'https://github.com/api-playground/api-sandbox/events/push'
+        :"hub.topic" => 'https://github.com/elskwid/github-services/events/push',
+        :"hub.secret" => '12345'
       }
-      expect(@client.subscribe_service_hook("api-playground/api-sandbox", "Travis", { :token => 'travistoken' })).to eq(true)
+      expect(@client.subscribe_service_hook("elskwid/github-services", "Travis", { :token => 'travistoken' }, "12345")).to eq(true)
       assert_requested :post, github_url("/hub"), :body => subscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
     end
