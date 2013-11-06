@@ -17,7 +17,7 @@ module Octokit
       #   Octokit.pull_requests('rails/rails')
       def pull_requests(repo, state = nil, options = {})
         options[:state] = state if state
-        get "repos/#{Repository.new(repo)}/pulls", options
+        paginate "repos/#{Repository.new(repo)}/pulls", options
       end
       alias :pulls :pull_requests
 
