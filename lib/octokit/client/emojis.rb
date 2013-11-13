@@ -1,7 +1,7 @@
 module Octokit
   class Client
 
-    # Methods for the the unpublished Emojis API
+    # Methods for the Emojis API
     module Emojis
 
       # List all emojis used on GitHub
