@@ -217,7 +217,7 @@ module Octokit
     #
     # @return [Sawyer::Resource]
     def root
-      agent.start.data
+      get "/"
     end
 
     # Response for last HTTP request
