@@ -122,7 +122,7 @@ module Octokit
       return nil if @response.nil?
 
       message =  "#{@response[:method].to_s.upcase} "
-      message << redact_url(@response[:url].to_s)
+      message << redact_url(@response[:url].to_s) + ": "
       message << "#{@response[:status]} - "
       message << "#{response_message}" unless response_message.nil?
       message << "#{response_error}" unless response_error.nil?
@@ -135,7 +135,7 @@ module Octokit
       %w[client_secret access_token].each do |token| 
         url_string.gsub!(/#{token}=\S+/, "#{token}=(redacted)") if url_string.include? token
       end
-      url_string+": "
+      url_string
     end
   end
 
