@@ -203,17 +203,36 @@ describe Octokit::Client::Users do
   end # .subscriptions
 
   describe '.exchange_code_for_token' do
-    it 'returns the access_token' do
-      VCR.turn_off!
-      post = stub_post("https://github.com/login/oauth/access_token").
-        with(:headers => {
-          :accept       => "application/json",
-          :content_type => "application/json"
-      }).to_return(json_response("web_flow_token.json"))
-      response = Octokit.exchange_code_for_token('code', 'id_here', 'secret_here')
-      expect(response.access_token).to eq 'this_be_ye_token/use_it_wisely'
-      assert_requested post
-      VCR.turn_on!
+    context 'with preconfigured client credentials' do
+      it 'returns the access_token (w/o client)' do
+        VCR.turn_off!
+        post = stub_request(:post, "https://github.com/login/oauth/access_token").
+          with(:headers => {
+            :accept       => "application/json",
+            :content_type => "application/json"
+          }, :body => "{\"code\":\"code\",\"client_id\":null,\"client_secret\":null}").
+          to_return(json_response("web_flow_token.json"))
+        response = Octokit.exchange_code_for_token('code')
+        expect(response.access_token).to eq 'this_be_ye_token/use_it_wisely'
+        assert_requested post
+        VCR.turn_on!
+      end
+    end
+
+    context 'with passed client credentials' do
+      it 'returns the access_token' do
+        VCR.turn_off!
+        post = stub_request(:post, "https://github.com/login/oauth/access_token").
+          with(:headers => {
+            :accept       => "application/json",
+            :content_type => "application/json"
+          }, :body => "{\"code\":\"code\",\"client_id\":\"id_here\",\"client_secret\":\"secret_here\"}").
+          to_return(json_response("web_flow_token.json"))
+        response = Octokit.exchange_code_for_token('code', 'id_here', 'secret_here')
+        expect(response.access_token).to eq 'this_be_ye_token/use_it_wisely'
+        assert_requested post
+        VCR.turn_on!
+      end
     end
   end # .access_token
 
