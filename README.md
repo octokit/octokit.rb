@@ -337,6 +337,7 @@ include:
 * The `search_*` methods from v1.x are now found at `legacy_search_*`
 * Support for netrc requires including the [netrc gem][] in your Gemfile or
   gemspec.
+* DateTime fields are now proper `DateTime` objects. Previous versions outputted DateTime fields as 'String' objects.
 
 [netrc gem]: https://rubygems.org/gems/netrc
 
