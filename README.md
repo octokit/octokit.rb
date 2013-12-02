@@ -139,6 +139,31 @@ user.login
 You can use `.create_authorization` to create a token using Basic Authorization
 that you can use for subsequent calls.
 
+### Two-Factor Authentication
+
+[Two-Factor Authentication](https://help.github.com/articles/about-two-factor-authentication) brings added security to the account by requiring more information to login. 
+
+Using two-factor authentication for API calls is as simple as adding the [required header](http://developer.github.com/v3/auth/#working-with-two-factor-authentication) as an option:
+
+```ruby
+client = Octokit::Client.new \
+  :login    => 'defunkt',
+  :password => 'c0d3b4ssssss!'
+
+user = client.user("defunkt", :headers => { "X-Github-OTP" => "<your 2FA token>" })
+```
+
+As you can imagine, this gets annoying quick since two-factor auth tokens are very short lived. So it is recommended to create an oauth token for the user to communicate with the API:
+
+```ruby
+client = Octokit::Client.new \
+  :login    => 'defunkt',
+  :password => 'c0d3b4ssssss!'
+
+client.create_authorization(:scopes => ["user"], :headers => { "X-Github-OTP" => "<your 2FA token>" })
+# => <your new oauth token>
+```
+
 ### Using a .netrc file
 
 Octokit supports reading credentials from a netrc file (defaulting to
