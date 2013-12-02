@@ -150,7 +150,7 @@ client = Octokit::Client.new \
   :login    => 'defunkt',
   :password => 'c0d3b4ssssss!'
 
-user = client.user("defunkt", :headers => { "X-Github-OTP" => "<your 2FA token>" })
+user = client.user("defunkt", :headers => { "X-GitHub-OTP" => "<your 2FA token>" })
 ```
 
 As you can imagine, this gets annoying quick since two-factor auth tokens are very short lived. So it is recommended to create an oauth token for the user to communicate with the API:
@@ -160,7 +160,7 @@ client = Octokit::Client.new \
   :login    => 'defunkt',
   :password => 'c0d3b4ssssss!'
 
-client.create_authorization(:scopes => ["user"], :headers => { "X-Github-OTP" => "<your 2FA token>" })
+client.create_authorization(:scopes => ["user"], :headers => { "X-GitHub-OTP" => "<your 2FA token>" })
 # => <your new oauth token>
 ```
 
