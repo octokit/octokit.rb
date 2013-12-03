@@ -331,7 +331,7 @@ repo.rels[:issues].get(:uri => {:number => 2}).data
 ### The Full Hypermedia Experience™
 
 If you want to use Octokit as a pure hypermedia API client, you can start at
-the API root and and follow link relations from there:
+the API root and follow link relations from there:
 
 ```ruby
 root = Octokit.root
