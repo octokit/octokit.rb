@@ -58,8 +58,13 @@ module Octokit
       info = Netrc.read netrc_file
       netrc_host = URI.parse(api_endpoint).host
       creds = info[netrc_host]
-      self.login = creds.shift
-      self.password = creds.shift
+      if creds.nil?
+        # creds will be nil if there is no netrc for this end point
+        warn "Error loading credentials from netrc file for #{api_endpoint}"
+      else
+        self.login = creds.shift
+        self.password = creds.shift
+      end
     rescue LoadError
       warn "Please install netrc gem for .netrc support"
     end
