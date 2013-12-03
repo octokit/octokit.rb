@@ -45,7 +45,7 @@ module Octokit
       # @return [Sawyer::Resource] Hash holding the access token.
       # @see http://developer.github.com/v3/oauth/#web-application-flow
       # @example
-      #   @client.access_token('aaaa', 'xxxx', 'yyyy', {:accept => 'application/json'})
+      #   Octokit.exchange_code_for_token('aaaa', 'xxxx', 'yyyy', {:accept => 'application/json'})
       def exchange_code_for_token(code, app_id = client_id, app_secret = client_secret, options = {})
         options.merge!({
           :code => code,
