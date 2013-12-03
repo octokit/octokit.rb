@@ -17,7 +17,7 @@ module Octokit
       # @return [Sawyer::Resource] Search results object
       # @see http://developer.github.com/v3/search/#search-code
       def search_code(query, options = {})
-        search "/search/code", query, options
+        search "search/code", query, options
       end
 
       # Search issues
@@ -31,7 +31,7 @@ module Octokit
       # @return [Sawyer::Resource] Search results object
       # @see http://developer.github.com/v3/search/#search-issues
       def search_issues(query, options = {})
-        search "/search/issues", query, options
+        search "search/issues", query, options
       end
 
       # Search repositories
@@ -45,7 +45,7 @@ module Octokit
       # @return [Sawyer::Resource] Search results object
       # @see http://developer.github.com/v3/search/#search-repositories
       def search_repositories(query, options = {})
-        search "/search/repositories", query, options
+        search "search/repositories", query, options
       end
       alias :search_repos :search_repositories
 
@@ -60,7 +60,7 @@ module Octokit
       # @return [Sawyer::Resource] Search results object
       # @see http://developer.github.com/v3/search/#search-users
       def search_users(query, options = {})
-        search "/search/users", query, options
+        search "search/users", query, options
       end
 
       private
