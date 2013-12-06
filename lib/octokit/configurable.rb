@@ -43,11 +43,11 @@ module Octokit
     # @!attribute web_endpoint
     #   @return [String] Base URL for web URLs. default: https://github.com/
 
-    attr_accessor :access_token, :api_endpoint, :auto_paginate, :client_id,
+    attr_accessor :access_token, :auto_paginate, :client_id,
                   :client_secret, :default_media_type, :connection_options,
-                  :login, :middleware, :netrc, :netrc_file,
-                  :per_page, :proxy, :user_agent, :web_endpoint
-    attr_writer :password
+                  :middleware, :netrc, :netrc_file,
+                  :per_page, :proxy, :user_agent
+    attr_writer :password, :web_endpoint, :api_endpoint, :login
 
     class << self
 
