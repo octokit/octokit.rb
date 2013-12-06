@@ -26,7 +26,7 @@ module Octokit
       # @return [Sawyer::Resource] A single label from the repository
       # @see http://developer.github.com/v3/issues/labels/#get-a-single-label
       # @example Get the "V3 Addition" label from octokit/octokit.rb
-      #   Octokit.labels("octokit/octokit.rb")
+      #   Octokit.labels("octokit/octokit.rb", "V3 Addition")
       def label(repo, name, options = {})
         get "repos/#{Repository.new(repo)}/labels/#{CGI.escape(name)}", options
       end
