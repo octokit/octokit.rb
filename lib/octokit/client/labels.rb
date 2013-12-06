@@ -108,8 +108,8 @@ module Octokit
       # @param number [String] Number ID of the issue
       # @return [Array<Sawyer::Resource>] A list of the labels currently on the issue
       # @see http://developer.github.com/v3/issues/labels/#list-labels-on-an-issue
-      # @example List labels for octokit/octokit.rb
-      #   Octokit.labels("octokit/octokit.rb")
+      # @example List labels for octokit/octokit.rb, issue # 1
+      #   Octokit.labels_for_issue("octokit/octokit.rb", 1)
       def labels_for_issue(repo, number, options = {})
         get "repos/#{Repository.new(repo)}/issues/#{number}/labels", options
       end
