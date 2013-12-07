@@ -19,7 +19,7 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] List of GitHub users.
       def all_users(options = {})
-        get "users", options
+        paginate "users", options
       end
 
       # Get a single user
@@ -96,7 +96,7 @@ module Octokit
       # @example
       #   Octokit.followers('pengwynn')
       def followers(user=login, options = {})
-        get "users/#{user}/followers", options
+        paginate "users/#{user}/followers", options
       end
 
       # Get list of users a user is following.
@@ -107,7 +107,7 @@ module Octokit
       # @example
       #   Octokit.following('pengwynn')
       def following(user=login, options = {})
-        get "users/#{user}/following", options
+        paginate "users/#{user}/following", options
       end
 
       # Check if you are following a user. Alternatively, check if a given user
