@@ -103,7 +103,7 @@ module Octokit
       # Get a single issue from a repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
-      # @param number [String] Number ID of the issue
+      # @param number [Integer] Number ID of the issue
       # @return [Sawyer::Resource] The issue you requested, if it exists
       # @see http://developer.github.com/v3/issues/#get-a-single-issue
       # @example Get issue #25 from octokit/octokit.rb
@@ -115,7 +115,7 @@ module Octokit
       # Close an issue
       #
       # @param repo [String, Repository, Hash] A GitHub repository
-      # @param number [String] Number ID of the issue
+      # @param number [Integer] Number ID of the issue
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
@@ -131,7 +131,7 @@ module Octokit
       # Reopen an issue
       #
       # @param repo [String, Repository, Hash] A GitHub repository
-      # @param number [String] Number ID of the issue
+      # @param number [Integer] Number ID of the issue
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
@@ -147,7 +147,7 @@ module Octokit
       # Update an issue
       #
       # @param repo [String, Repository, Hash] A GitHub repository
-      # @param number [String] Number ID of the issue
+      # @param number [Integer] Number ID of the issue
       # @param title [String] Updated title for the issue
       # @param body [String] Updated body of the issue
       # @param options [Hash] A customizable set of options.
@@ -195,7 +195,7 @@ module Octokit
       # Get all comments attached to an issue
       #
       # @param repo [String, Repository, Hash] A GitHub repository
-      # @param number [String] Number ID of the issue
+      # @param number [Integer] Number ID of the issue
       # @return [Array<Sawyer::Resource>] Array of comments that belong to an issue
       # @see http://developer.github.com/v3/issues/comments
       # @example Get comments for issue #25 from octokit/octokit.rb
@@ -207,7 +207,7 @@ module Octokit
       # Get a single comment attached to an issue
       #
       # @param repo [String, Repository, Hash] A GitHub repository
-      # @param number [String] Number ID of the comment
+      # @param number [Integer] Number ID of the comment
       # @return [Sawyer::Resource] The specific comment in question
       # @see http://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comment #1194549 from an issue on octokit/octokit.rb
