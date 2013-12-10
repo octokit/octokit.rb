@@ -37,6 +37,7 @@ module Octokit
       # List the authenticated user’s starred gists
       #
       # @return [Array<Sawyer::Resource>] A list of gists
+      # @see http://developer.github.com/v3/gists/#list-gists
       def starred_gists(options = {})
         paginate 'gists/starred', options
       end

@@ -12,7 +12,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of the labels across the repository
-      # @see http://developer.github.com/v3/issues/labels/
+      # @see http://developer.github.com/v3/issues/labels/#list-all-labels-for-this-repository
       # @example List labels for octokit/octokit.rb
       #   Octokit.labels("octokit/octokit.rb")
       def labels(repo, options = {})
@@ -37,7 +37,7 @@ module Octokit
       # @param label [String] A new label
       # @param color [String] A color, in hex, without the leading #
       # @return [Sawyer::Resource] The new label
-      # @see http://developer.github.com/v3/issues/labels/
+      # @see http://developer.github.com/v3/issues/labels/#create-a-label
       # @example Add a new label "Version 1.0" with color "#cccccc"
       #   Octokit.add_label("octokit/octokit.rb", "Version 1.0", "cccccc")
       def add_label(repo, label, color="ffffff", options = {})

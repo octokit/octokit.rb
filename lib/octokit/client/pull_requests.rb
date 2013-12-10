@@ -254,6 +254,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param comment_id [Integer] Id of the comment to delete
       # @return [Boolean] True if deleted, false otherwise
+      # @see http://developer.github.com/v3/pulls/comments/#delete-a-comment
       # @example
       #   @client.delete_pull_request_comment("octokit/octokit.rb", 1902707)
       def delete_pull_request_comment(repo, comment_id, options = {})

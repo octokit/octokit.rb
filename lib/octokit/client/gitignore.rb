@@ -11,7 +11,6 @@ module Octokit
       # These templates can be passed option when creating a repository.
       #
       # @see http://developer.github.com/v3/gitignore/#listing-available-templates
-      # @see http://developer.github.com/v3/repos/#create
       #
       # @return [Array<String>] List of templates.
       #

@@ -197,7 +197,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the issue
       # @return [Array<Sawyer::Resource>] Array of comments that belong to an issue
-      # @see http://developer.github.com/v3/issues/comments
+      # @see http://developer.github.com/v3/issues/comments/#list-comments-on-an-issue
       # @example Get comments for issue #25 from octokit/octokit.rb
       #   Octokit.issue_comments("octokit/octokit.rb", "25")
       def issue_comments(repo, number, options = {})
