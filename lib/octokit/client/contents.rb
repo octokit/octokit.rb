@@ -13,7 +13,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to “master”.
       # @return [Sawyer::Resource] The detail of the readme
-      # @see http://developer.github.com/v3/repos/contents/
+      # @see http://developer.github.com/v3/repos/contents/#get-the-readme
       # @example Get the readme file for a repo
       #   Octokit.readme("octokit/octokit.rb")
       def readme(repo, options={})
@@ -26,7 +26,7 @@ module Octokit
       # @option options [String] :path A folder or file path
       # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to “master”.
       # @return [Sawyer::Resource] The contents of a file or list of the files in the folder
-      # @see http://developer.github.com/v3/repos/contents/
+      # @see http://developer.github.com/v3/repos/contents/#get-contents
       # @example List the contents of lib/octokit.rb
       #   Octokit.contents("octokit/octokit.rb", :path => 'lib/octokit.rb')
       def contents(repo, options={})
@@ -146,7 +146,7 @@ module Octokit
       # @option options format [String] Either tarball (default) or zipball.
       # @option options [String] :ref Optional valid Git reference, defaults to master.
       # @return [String] Location of the download
-      # @see http://developer.github.com/v3/repos/contents/
+      # @see http://developer.github.com/v3/repos/contents/#get-archive-link
       # @example Get archive link for octokit/octokit.rb
       #   Octokit.archive_link("octokit/octokit.rb")
       def archive_link(repo, options={})
