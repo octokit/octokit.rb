@@ -82,6 +82,7 @@ module Octokit
       # @option options [Boolean] :hireable
       # @option options [String] :bio
       # @return [Sawyer::Resource]
+      # @see http://developer.github.com/v3/users/#update-the-authenticated-user
       # @example
       #   Octokit.user(:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false)
       def update_user(options)
