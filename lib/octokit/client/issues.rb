@@ -20,7 +20,7 @@ module Octokit
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
       # @return [Array<Sawyer::Resource>] A list of issues for a repository.
-      # @see http://developer.github.com/v3/issues/#list-issues-for-this-repository
+      # @see http://developer.github.com/v3/issues/#list-issues-for-a-repository
       # @example List issues for a repository
       #   Octokit.list_issues("sferik/rails_admin")
       # @example List issues for the authenticted user across repositories
