@@ -80,9 +80,9 @@ module Octokit
       # @return [Boolean] Success
       # @see http://developer.github.com/v3/git/refs/#delete-a-reference
       # @example Delete uritemplate for sigmavirus24/github3.py
-      #   Octokit.delete_ref("sigmavirus24/github3.py", "uritemplate")
+      #   Octokit.delete_branch("sigmavirus24/github3.py", "uritemplate")
       def delete_branch(repo, branch, options = {})
-        boolean_from_response :delete, "repos/#{Repository.new(repo)}/git/refs/heads/#{branch}", options
+        delete_ref repo, "heads/#{branch}", options
       end
 
       # Delete a single reference
