@@ -15,4 +15,4 @@ do
 done
 
 echo "===> Running specs..."
-bundle exec rspec-queue spec
+(unset OCTOKIT_LOGIN; unset OCTOKIT_ACCESS_TOKEN; bundle exec rspec-queue spec)
