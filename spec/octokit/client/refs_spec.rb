@@ -59,8 +59,8 @@ describe Octokit::Client::Refs do
 
     describe ".delete_branch" do
       it "deletes an existing branch" do
-        result = @client.delete_branch("sigmavirus24/github3.py", "uritemplate")
-        assert_requested :delete, github_url("/repos/sigmavirus24/github3.py/git/refs/heads/uritemplate")
+        result = @client.delete_branch("api-playground/api-sandbox", "testing/test-ref")
+        assert_requested :delete, github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
       end
     end
 
