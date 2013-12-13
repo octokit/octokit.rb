@@ -75,7 +75,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param id [Integer] ID of the download
       # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
-      # @see http://developer.github.com/v3/repos/downloads/#delete-a-single-download
+      # @see http://developer.github.com/v3/repos/downloads/#delete-a-download
       # @return [Boolean] Status
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.delete_download("github/hubot", 1234)
