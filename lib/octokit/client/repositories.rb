@@ -74,7 +74,7 @@ module Octokit
       # This provides a dump of every repository, in the order that they were
       # created.
       #
-      # @see http://developer.github.com/v3/repos/#list-all-repositories
+      # @see http://developer.github.com/v3/repos/#list-all-public-repositories
       #
       # @param options [Hash] Optional options
       # @option options [Integer] :since The integer ID of the last Repository
@@ -195,7 +195,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Array<Sawyer::Resource>] Array of hashes representing deploy keys.
-      # @see http://developer.github.com/v3/repos/keys/#get
+      # @see http://developer.github.com/v3/repos/keys/#list
       # @example
       #   @client.deploy_keys('octokit/octokit.rb')
       # @example
