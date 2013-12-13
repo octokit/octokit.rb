@@ -265,7 +265,7 @@ module Octokit
 
       # List files on a pull request
       #
-      # @see http://developer.github.com/v3/pulls/#list-files-on-a-pull-request
+      # @see http://developer.github.com/v3/pulls/#list-pull-requests-files
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @return [Array<Sawyer::Resource>] List of files
