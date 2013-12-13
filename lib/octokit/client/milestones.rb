@@ -15,7 +15,7 @@ module Octokit
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @return [Array<Sawyer::Resource>] A list of milestones for a repository.
-      # @see http://developer.github.com/v3/issues/milestones/#List-Milestones-for-an-Issue
+      # @see http://developer.github.com/v3/issues/milestones/#list-milestones-for-a-repository
       # @example List milestones for a repository
       #   Octokit.list_milestones("octokit/octokit.rb")
       def list_milestones(repository, options = {})
