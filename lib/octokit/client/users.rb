@@ -27,6 +27,7 @@ module Octokit
       # @param user [String] A GitHub user name.
       # @return [Sawyer::Resource]
       # @see http://developer.github.com/v3/users/#get-a-single-user
+      # @see http://developer.github.com/v3/users/#get-the-authenticated-user
       # @example
       #   Octokit.user("sferik")
       def user(user=nil, options = {})
@@ -123,6 +124,7 @@ module Octokit
       #   @param target [String] Username of the target user
       # @return [Boolean] True following target user, false otherwise.
       # @see http://developer.github.com/v3/users/followers/#check-if-you-are-following-a-user
+      # @see http://developer.github.com/v3/users/followers/#check-if-one-user-follows-another
       # @example
       #   @client.follows?('pengwynn')
       # @example
