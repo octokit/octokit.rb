@@ -13,6 +13,7 @@ require 'octokit/client/contents'
 require 'octokit/client/downloads'
 require 'octokit/client/emojis'
 require 'octokit/client/events'
+require 'octokit/client/feeds'
 require 'octokit/client/gists'
 require 'octokit/client/gitignore'
 require 'octokit/client/hooks'
@@ -54,6 +55,7 @@ module Octokit
     include Octokit::Client::Downloads
     include Octokit::Client::Emojis
     include Octokit::Client::Events
+    include Octokit::Client::Feeds
     include Octokit::Client::Gists
     include Octokit::Client::Gitignore
     include Octokit::Client::Hooks
