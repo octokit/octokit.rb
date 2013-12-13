@@ -560,7 +560,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Id of the hook to test.
       # @return [Boolean] Success
-      # @see http://developer.github.com/v3/repos/hooks/#test-a-hook
+      # @see http://developer.github.com/v3/repos/hooks/#test-a-push-hook
       # @example
       #   @client.test_hook('octokit/octokit.rb', 1000000)
       def test_hook(repo, id, options = {})
