@@ -173,7 +173,7 @@ module Octokit
       # @option options [String] :sort (created) Sort: <tt>created</tt> or <tt>updated</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @return [Array<Sawyer::Resource>] Array of hashes representing repositories starred by user.
-      # @see http://developer.github.com/v3/repos/starring/#list-repositories-being-starred
+      # @see http://developer.github.com/v3/activity/starring/#list-repositories-being-starred
       # @example
       #   Octokit.starred('pengwynn')
       def starred(user=login, options = {})
@@ -187,7 +187,7 @@ module Octokit
       #
       # @param args [String, Hash, Repository] A GitHub repository
       # @return [Boolean] True if you are following the repo, false otherwise.
-      # @see http://developer.github.com/v3/repos/starring/#check-if-you-are-starring-a-repository
+      # @see http://developer.github.com/v3/activity/starring/#check-if-you-are-starring-a-repository
       # @example
       #   @client.starred?('pengwynn/octokit')
       #   @client.starred?('pengwynn', 'octokit') # deprecated
