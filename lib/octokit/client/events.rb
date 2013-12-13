@@ -110,6 +110,7 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] Array of all Issue Events for this Repository
       # @see http://developer.github.com/v3/issues/events/#list-events-for-a-repository
+      # @see http://developer.github.com/v3/activity/events/#list-issue-events-for-a-repository
       # @example Get all Issue Events for Octokit
       #   Octokit.repository_issue_events("octokit/octokit.rb")
       def repository_issue_events(repo, options = {})
