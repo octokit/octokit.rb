@@ -118,7 +118,7 @@ module Octokit
       #
       # @param org [String] Organization GitHub username.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see http://developer.github.com/v3/orgs/members/#list-members
+      # @see http://developer.github.com/v3/orgs/members/#members-list
       # @example
       #   Octokit.organization_members('github')
       # @example
@@ -393,7 +393,7 @@ module Octokit
       # @param org [String] Organization GitHub username.
       # @param user [String] GitHub username of user to remove.
       # @return [Boolean] True if removal is successful, false otherwise.
-      # @see http://developer.github.com/v3/orgs/teams/#remove-team-member
+      # @see http://developer.github.com/v3/orgs/members/#remove-a-member
       # @example
       #   @client.remove_organization_member('github', 'pengwynn')
       # @example
