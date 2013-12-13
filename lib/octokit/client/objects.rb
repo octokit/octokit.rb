@@ -19,7 +19,7 @@ module Octokit
       #   tree = Octokit.tree("octocat/Hello-World", "9fb037999f264ba9a7fc6274d15fa3ae2ab98312")
       #   tree.tree.first.path # => "file.rb"
       # @example Fetch a tree recursively
-      #   tree = Octokit.tree("octocat/Hello-World", "fc6274d15fa3ae2ab983129fb037999f264ba9a7")
+      #   tree = Octokit.tree("octocat/Hello-World", "fc6274d15fa3ae2ab983129fb037999f264ba9a7", :recursive => true)
       #   tree.tree.first.path # => "subdir/file.txt"
       def tree(repo, tree_sha, options = {})
         get "repos/#{Repository.new(repo)}/git/trees/#{tree_sha}", options
