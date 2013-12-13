@@ -331,7 +331,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see http://developer.github.com/v3/repos/starring/#list-stargazers
+      # @see http://developer.github.com/v3/activity/starring/#list-stargazers
       # @example
       #   Octokit.stargazers('octokit/octokit.rb')
       # @example
