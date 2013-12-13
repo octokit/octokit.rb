@@ -112,7 +112,7 @@ module Octokit
       # @option options [String] :name The name for the file
       # @option options [String] :label The download text for the file
       # @return [Sawyer::Resource] The release asset
-      # @see http://developer.github.com/v3/repos/releases/#get-a-single-release-asset
+      # @see http://developer.github.com/v3/repos/releases/#edit-a-release-asset
       def update_release_asset(asset_url, options = {})
         patch(asset_url, options)
       end
