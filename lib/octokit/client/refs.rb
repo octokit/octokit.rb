@@ -73,6 +73,18 @@ module Octokit
       end
       alias :update_reference :update_ref
 
+      # Delete a single branch
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param branch [String] The branch, e.g. <tt>fix-refs</tt>
+      # @return [Boolean] Success
+      # @see http://developer.github.com/v3/git/refs/#delete-a-reference
+      # @example Delete uritemplate for sigmavirus24/github3.py
+      #   Octokit.delete_branch("sigmavirus24/github3.py", "uritemplate")
+      def delete_branch(repo, branch, options = {})
+        delete_ref repo, "heads/#{branch}", options
+      end
+
       # Delete a single reference
       #
       # @param repo [String, Repository, Hash] A GitHub repository
