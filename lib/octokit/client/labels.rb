@@ -49,7 +49,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param label [String] The name of the label which will be updated
       # @param options [Hash] A customizable set of options.
-      # @option options [String] :title An updated label name
+      # @option options [String] :name An updated label name
       # @option options [String] :color An updated color value, in hex, without leading #
       # @return [Sawyer::Resource] The updated label
       # @see http://developer.github.com/v3/issues/labels/#update-a-label
