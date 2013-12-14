@@ -80,7 +80,7 @@ describe Octokit::Client::Gists do
 
     describe ".create_gist" do
       it "creates a new gist" do
-        expect(@gist.user.login).to eq 'api-padawan'
+        expect(@gist.user.login).to eq test_github_login
         expect(@gist.files.fields.first.to_s).to match /zen/
         assert_requested :post, github_url("/gists")
       end
