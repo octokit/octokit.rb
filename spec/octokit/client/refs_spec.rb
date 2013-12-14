@@ -50,12 +50,26 @@ describe Octokit::Client::Refs do
       end
     end # .create_ref
 
+    describe ".update_branch" do
+      it "updates a branch" do
+        refs = @client.update_branch("api-playground/api-sandbox", "testing/test-ref", @last_sha, true)
+        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
+      end
+    end # .update_branch
+
     describe ".update_ref" do
       it "updates a ref" do
         refs = @client.update_ref("api-playground/api-sandbox", "heads/testing/test-ref", @last_sha, true)
         assert_requested :patch, github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
       end
     end # .update_ref
+
+    describe ".delete_branch" do
+      it "deletes an existing branch" do
+        result = @client.delete_branch("api-playground/api-sandbox", "testing/test-ref")
+        assert_requested :delete, github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
+      end
+    end # .delete_branch
 
     describe ".delete_ref" do
       it "deletes an existing ref" do

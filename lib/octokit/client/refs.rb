@@ -73,6 +73,32 @@ module Octokit
       end
       alias :update_reference :update_ref
 
+      # Update a branch
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param branch [String] The ref, e.g. <tt>feature/new-shiny</tt>
+      # @param sha [String] A SHA, e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
+      # @param force [Boolean] A flag indicating one wants to force the update to make sure the update is a fast-forward update.
+      # @return [Array<Sawyer::Resource>] The list of references updated
+      # @see http://developer.github.com/v3/git/refs/#update-a-reference
+      # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
+      #   Octokit.update_ref("octocat/Hello-World","sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
+      def update_branch(repo, branch, sha, force = true, options = {})
+        update_ref repo, "heads/#{branch}", sha, force, options
+      end
+
+      # Delete a single branch
+      #
+      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param branch [String] The branch, e.g. <tt>fix-refs</tt>
+      # @return [Boolean] Success
+      # @see http://developer.github.com/v3/git/refs/#delete-a-reference
+      # @example Delete uritemplate for sigmavirus24/github3.py
+      #   Octokit.delete_branch("sigmavirus24/github3.py", "uritemplate")
+      def delete_branch(repo, branch, options = {})
+        delete_ref repo, "heads/#{branch}", options
+      end
+
       # Delete a single reference
       #
       # @param repo [String, Repository, Hash] A GitHub repository
