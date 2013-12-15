@@ -68,7 +68,7 @@ describe Octokit::Client::Events do
       client = oauth_client
       org_events = client.organization_events("github")
       expect(org_events).to be_kind_of Array
-      assert_requested :get, github_url("/users/api-padawan/events/orgs/github")
+      assert_requested :get, github_url("/users/#{test_github_login}/events/orgs/github")
     end
   end # .organization_events
 
