@@ -22,19 +22,19 @@ require 'vcr'
 VCR.configure do |c|
   c.configure_rspec_metadata!
   c.filter_sensitive_data("<GITHUB_LOGIN>") do
-      ENV['OCTOKIT_TEST_GITHUB_LOGIN']
+    test_github_login
   end
   c.filter_sensitive_data("<GITHUB_PASSWORD>") do
-      ENV['OCTOKIT_TEST_GITHUB_PASSWORD']
+    test_github_password
   end
   c.filter_sensitive_data("<<ACCESS_TOKEN>>") do
-      ENV['OCTOKIT_TEST_GITHUB_TOKEN']
+    test_github_token
   end
   c.filter_sensitive_data("<GITHUB_CLIENT_ID>") do
-      ENV['OCTOKIT_TEST_GITHUB_CLIENT_ID']
+    test_github_client_id
   end
   c.filter_sensitive_data("<GITHUB_CLIENT_SECRET>") do
-      ENV['OCTOKIT_TEST_GITHUB_CLIENT_SECRET']
+    test_github_client_id
   end
   c.default_cassette_options = {
     :serialize_with             => :json,
@@ -48,23 +48,23 @@ VCR.configure do |c|
 end
 
 def test_github_login
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_LOGIN'
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_LOGIN', 'api-padawan'
 end
 
 def test_github_password
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_PASSWORD'
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_PASSWORD', 'wow such password'
 end
 
 def test_github_token
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN'
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN', 'x' * 40
 end
 
 def test_github_client_id
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_ID'
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_ID', 'x' * 21
 end
 
 def test_github_client_secret
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_SECRET'
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_SECRET', 'x' * 40
 end
 
 def stub_delete(url)
