@@ -52,7 +52,7 @@ def test_github_login
 end
 
 def test_github_password
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_PASSWORD', 'wow such password'
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_PASSWORD', 'wow_such_password'
 end
 
 def test_github_token
@@ -128,6 +128,6 @@ def basic_auth_client(login = test_github_login, password = test_github_password
 end
 
 def oauth_client
-  Octokit::Client.new(:access_token => ENV.fetch('OCTOKIT_TEST_GITHUB_TOKEN'))
+  Octokit::Client.new(:access_token => test_github_token)
 end
 
