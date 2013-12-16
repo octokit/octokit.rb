@@ -137,6 +137,18 @@ describe Octokit::Client::Repositories do
       end
     end # .remove_collaborator
 
+    describe ".collaborator?", :vcr do
+      it "checks if a user is a repository collaborator" do
+        begin
+          @client.add_collaborator(@repo.full_name, "pengwynn")
+        rescue Octokit::UnprocessableEntity
+        end
+
+        result = @client.collaborator?(@repo.full_name, "pengwynn")
+        assert_requested :get, github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
+      end
+    end # .collaborator?
+
     describe ".repository_teams", :vcr do
       it "returns all repository teams" do
         teams = @client.repository_teams(@repo.full_name)

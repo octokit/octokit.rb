@@ -286,6 +286,20 @@ module Octokit
       end
       alias :remove_collab :remove_collaborator
 
+      # Checks if a user is a collaborator for a repo.
+      #
+      # Requires authenticated client.
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @param collaborator [String] Collaborator GitHub username to check.
+      # @return [Boolean] True if user is a collaborator, false otherwise.
+      # @see http://developer.github.com/v3/repos/collaborators/#get
+      # @example
+      #   @client.collaborator?('octokit/octokit.rb', 'holman')
+      def collaborator?(repo, collaborator, options={})
+        boolean_from_response :get, "repos/#{Repository.new repo}/collaborators/#{collaborator}", options
+      end
+
       # List teams for a repo
       #
       # Requires authenticated client that is an owner or collaborator of the repo.
