@@ -17,6 +17,17 @@ module Octokit
         get "feeds"
       end
 
+      # Get a Feed by name
+      #
+      # @param [Symbol, String] Name of feed to retrieve.
+      # @return [Feed] Parsed feed in the format returned by the configured
+      #   parser.
+      def feed(name, options = {})
+        if rel = feeds._links[name]
+          get rel.href, :accept => rel.type, :options => options
+        end
+      end
+
     end
   end
 end
