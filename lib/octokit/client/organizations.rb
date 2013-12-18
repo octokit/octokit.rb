@@ -139,7 +139,7 @@ module Octokit
       # @example
       #   Octokit.organization_public_members('github')
       # @example
-      #   Octokit.org_members('github')
+      #   Octokit.org_public_members('github')
       def organization_public_members(org, options = {})
         organization_members org, options.merge(:public => true)
       end
