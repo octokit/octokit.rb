@@ -387,6 +387,16 @@ describe Octokit::Client do
         assert_requested :get, github_url("/repositories/417862/issues?per_page=3&page=#{i}")
       end
     end
+
+    it "accepts a block for custom result concatination" do
+      results = Octokit.client.paginate("/search/users?per_page=1&q=user:pengwynn+user:defunkt",
+        :per_page => 1) { |data, last_response|
+        data.items.concat last_response.data.items
+      }
+
+      expect(results.total_count).to eq 2
+      expect(results.items.length).to eq 2
+    end
   end
 
   context "error handling" do
