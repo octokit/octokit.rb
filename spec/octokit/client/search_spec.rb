@@ -53,6 +53,14 @@ describe Octokit::Client::Search do
       expect(results.total_count).to be_kind_of Fixnum
       expect(results.items).to be_kind_of Array
     end
+
+    it "utilizes auto_pagination", :vcr do
+      @client.auto_paginate = true
+      results = @client.search_users 'user:pengwynn user:defunkt', :per_page => 1
+
+      expect(results.total_count).to eq 2
+      expect(results.items.length).to eq 2
+    end
   end # .search_users
 
 end

@@ -67,7 +67,9 @@ module Octokit
 
       def search(path, query, options = {})
         opts = options.merge(:q => query)
-        paginate path, opts
+        paginate(path, opts) do |data, last_response|
+          data.items.concat last_response.data.items
+        end
       end
     end
   end
