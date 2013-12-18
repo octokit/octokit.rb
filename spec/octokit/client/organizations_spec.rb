@@ -60,7 +60,7 @@ describe Octokit::Client::Organizations do
     end
   end # .organization_member?
 
-  describe ".public_members", :vcr do
+  describe ".organization_public_members", :vcr do
     it "lists public members" do
       users = @client.organization_public_members("codeforamerica")
       expect(users).to be_kind_of Array
