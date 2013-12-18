@@ -60,6 +60,14 @@ describe Octokit::Client::Organizations do
     end
   end # .organization_member?
 
+  describe ".public_members", :vcr do
+    it "lists public members" do
+      users = @client.organization_public_members("codeforamerica")
+      expect(users).to be_kind_of Array
+      assert_requested :get, github_url("/orgs/codeforamerica/public_members")
+    end
+  end
+
   describe ".organization_public_member?", :vcr do
     it "checks publicized org membership" do
       is_hubbernaut = @client.organization_public_member?('github', 'pengwynn')

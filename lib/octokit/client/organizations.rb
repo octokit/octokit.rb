@@ -122,13 +122,28 @@ module Octokit
       # @example
       #   Octokit.organization_members('github')
       # @example
-      #   @client.organization_members('github')
-      # @example
       #   Octokit.org_members('github')
       def organization_members(org, options = {})
-        paginate "orgs/#{org}/members", options
+        path = "public_" if options.delete(:public)
+        paginate "orgs/#{org}/#{path}members", options
       end
       alias :org_members :organization_members
+
+      # Get organization public members
+      #
+      # Lists the public members of an organization
+      #
+      # @param org [String] Organization GitHub username.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users.
+      # @see http://developer.github.com/v3/orgs/members/#public-members-list
+      # @example
+      #   Octokit.organization_public_members('github')
+      # @example
+      #   Octokit.org_members('github')
+      def organization_public_members(org, options = {})
+        organization_members org, options.merge(:public => true)
+      end
+      alias :org_public_members :organization_public_members
 
       # Check if a user is a member of an organization.
       #
