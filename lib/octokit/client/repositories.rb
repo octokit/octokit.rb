@@ -205,6 +205,18 @@ module Octokit
       end
       alias :list_deploy_keys :deploy_keys
 
+      # Get a single deploy key for a repo
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @param id [Integer] Deploy key ID.
+      # @return [Sawyer::Resource] Deploy key.
+      # @see http://developer.github.com/v3/repos/keys/#get
+      # @example
+      #   @client.deploy_key('octokit/octokit.rb', 8675309)
+      def deploy_key(repo, id, options={})
+        get "repos/#{Repository.new repo}/keys/#{id}", options
+      end
+
       # Add deploy key to a repo
       #
       # Requires authenticated client.

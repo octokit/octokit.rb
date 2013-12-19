@@ -66,6 +66,18 @@ describe Octokit::Client::Repositories do
     end
   end # .add_deploy_key
 
+  describe ".deploy_key" do
+    it "returns a specific deploy key for a repo" do
+      VCR.turn_off!
+      repo = "api-playground/api-sandbox"
+      key_id = 8675309
+      request = stub_get github_url "/repos/#{repo}/keys/#{key_id}"
+      deploy_key = @client.deploy_key repo, key_id
+      assert_requested request
+      VCR.turn_on!
+    end
+  end # .deploy_key
+
   describe ".remove_deploy_key" do
     it "removes a repository deploy keys" do
       VCR.turned_off do
