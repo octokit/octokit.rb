@@ -36,6 +36,12 @@ VCR.configure do |c|
   c.filter_sensitive_data("<GITHUB_CLIENT_SECRET>") do
     test_github_client_id
   end
+  c.filter_sensitive_data("<<ENTERPRISE_ACCESS_TOKEN>>") do
+      ENV['OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN']
+  end
+  c.filter_sensitive_data("https://enterprise.github.dev/") do
+      ENV['OCTOKIT_TEST_GITHUB_ENTERPRISE_API_ENDPOINT']
+  end
   c.default_cassette_options = {
     :serialize_with             => :json,
     # TODO: Track down UTF-8 issue and remove
@@ -65,6 +71,14 @@ end
 
 def test_github_client_secret
   ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_SECRET', 'x' * 40
+end
+
+def test_github_enterprise_token
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN'
+end
+
+def test_github_enterprise_api_endpoint
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_API_ENDPOINT'
 end
 
 def stub_delete(url)
@@ -112,6 +126,10 @@ def github_url(url)
   url =~ /^http/ ? url : "https://api.github.com#{url}"
 end
 
+def github_enterprise_url(url)
+  test_github_enterprise_api_endpoint + url
+end
+
 def basic_github_url(path, options = {})
   login = options.fetch(:login, test_github_login)
   password = options.fetch(:password, test_github_password)
@@ -129,5 +147,14 @@ end
 
 def oauth_client
   Octokit::Client.new(:access_token => test_github_token)
+end
+
+def enterprise_oauth_client
+  client = Octokit::EnterpriseAdminClient.new \
+    :access_token => test_github_enterprise_token
+  client.configure do |c|
+    c.api_endpoint = test_github_enterprise_api_endpoint
+  end
+  client
 end
 
