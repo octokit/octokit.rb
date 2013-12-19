@@ -122,13 +122,28 @@ module Octokit
       # @example
       #   Octokit.organization_members('github')
       # @example
-      #   @client.organization_members('github')
-      # @example
       #   Octokit.org_members('github')
       def organization_members(org, options = {})
-        paginate "orgs/#{org}/members", options
+        path = "public_" if options.delete(:public)
+        paginate "orgs/#{org}/#{path}members", options
       end
       alias :org_members :organization_members
+
+      # Get organization public members
+      #
+      # Lists the public members of an organization
+      #
+      # @param org [String] Organization GitHub username.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users.
+      # @see http://developer.github.com/v3/orgs/members/#public-members-list
+      # @example
+      #   Octokit.organization_public_members('github')
+      # @example
+      #   Octokit.org_public_members('github')
+      def organization_public_members(org, options = {})
+        organization_members org, options.merge(:public => true)
+      end
+      alias :org_public_members :organization_public_members
 
       # Check if a user is a member of an organization.
       #
@@ -345,6 +360,23 @@ module Octokit
         get "teams/#{team_id}/repos", options
       end
       alias :team_repos :team_repositories
+
+      # Check if a repo is managed by a specific team
+      #
+      # @param team_id [Integer] Team ID.
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @return [Boolean] True if managed by a team. False if not managed by
+      #   the team OR the requesting user does not have authorization to access
+      #   the team information.
+      # @see http://developer.github.com/v3/orgs/teams/#get-team-repo
+      # @example
+      #   @client.team_repository?(8675309, 'octokit/octokit.rb')
+      # @example
+      #   @client.team_repo?(8675309, 'octokit/octokit.rb')
+      def team_repository?(team_id, repo, options = {})
+        boolean_from_response :get, "teams/#{team_id}/repos/#{Repository.new repo}"
+      end
+      alias :team_repo? :team_repository?
 
       # Add team repository
       #

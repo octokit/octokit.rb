@@ -60,6 +60,14 @@ describe Octokit::Client::Organizations do
     end
   end # .organization_member?
 
+  describe ".organization_public_members", :vcr do
+    it "lists public members" do
+      users = @client.organization_public_members("codeforamerica")
+      expect(users).to be_kind_of Array
+      assert_requested :get, github_url("/orgs/codeforamerica/public_members")
+    end
+  end
+
   describe ".organization_public_member?", :vcr do
     it "checks publicized org membership" do
       is_hubbernaut = @client.organization_public_member?('github', 'pengwynn')
@@ -153,6 +161,14 @@ describe Octokit::Client::Organizations do
       end
     end # .add_team_repository
 
+    describe ".team_repository?", :vcr do
+      it "checks if a repo is managed by a specific team" do
+        is_team_repo = @client.team_repository?(@team.id, 'api-playground/api-sandbox')
+        expect(is_team_repo).to be_false
+        assert_requested :get, github_url("/teams/#{@team.id}/repos/api-playground/api-sandbox")
+      end
+    end
+
     describe ".remove_team_repository", :vcr do
       it "removes a team repository" do
         result = @client.remove_team_repository(@team.id, "api-playground/api-sandbox")
@@ -186,11 +202,11 @@ describe Octokit::Client::Organizations do
   describe ".remove_organization_member", :vcr do
     it "removes a member from an organization" do
       VCR.eject_cassette
-      VCR.turn_off!
-      stub_delete github_url("/orgs/api-playground/members/api-padawan")
-      result = @client.remove_organization_member("api-playground", "api-padawan")
-      assert_requested :delete, github_url("/orgs/api-playground/members/api-padawan")
-      VCR.turn_on!
+      VCR.turned_off do
+        stub_delete github_url("/orgs/api-playground/members/api-padawan")
+        result = @client.remove_organization_member("api-playground", "api-padawan")
+        assert_requested :delete, github_url("/orgs/api-playground/members/api-padawan")
+      end
     end
   end # .remove_organization_member
 
