@@ -1,4 +1,5 @@
 require 'octokit/client'
+require 'octokit/enterprise_admin_client'
 require 'octokit/default'
 
 # Ruby toolkit for the GitHub API
