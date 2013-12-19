@@ -232,6 +232,24 @@ module Octokit
         post "repos/#{Repository.new repo}/keys", options.merge(:title => title, :key => key)
       end
 
+      # Edit a deploy key
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @param id [Integer] Deploy key ID.
+      # @param options [Hash] Attributes to edit.
+      # @option title [String] Key title.
+      # @option key [String] Public key.
+      # @return [Sawyer::Resource] Updated deploy key.
+      # @see http://developer.github.com/v3/repos/keys/#edit
+      # @example Update the key for a deploy key.
+      #   @client.edit_deploy_key('octokit/octokit.rb', 8675309, :key => 'ssh-rsa BBB...')
+      # @example
+      #   @client.update_deploy_key('octokit/octokit.rb', 8675309, :title => 'Uber', :key => 'ssh-rsa BBB...'))
+      def edit_deploy_key(repo, id, options)
+        patch "repos/#{Repository.new repo}/keys/#{id}", options
+      end
+      alias :update_deploy_key :edit_deploy_key
+
       # Remove deploy key from a repo
       #
       # Requires authenticated client.
