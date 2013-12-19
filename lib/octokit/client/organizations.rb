@@ -361,6 +361,23 @@ module Octokit
       end
       alias :team_repos :team_repositories
 
+      # Check if a repo is managed by a specific team
+      #
+      # @param team_id [Integer] Team ID.
+      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @return [Boolean] True if managed by a team. False if not managed by
+      #   the team OR the requesting user does not have authorization to access
+      #   the team information.
+      # @see http://developer.github.com/v3/orgs/teams/#get-team-repo
+      # @example
+      #   @client.team_repository?(8675309, 'octokit/octokit.rb')
+      # @example
+      #   @client.team_repo?(8675309, 'octokit/octokit.rb')
+      def team_repository?(team_id, repo, options = {})
+        boolean_from_response :get, "teams/#{team_id}/repos/#{Repository.new repo}"
+      end
+      alias :team_repo? :team_repository?
+
       # Add team repository
       #
       # Requires authenticated user to be an owner of the organization that the
