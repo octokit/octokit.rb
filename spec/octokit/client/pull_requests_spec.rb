@@ -122,11 +122,11 @@ describe Octokit::Client::PullRequests do
   # stub this so we don't have to set up new fixture data
   describe ".merge_pull_request" do
     it "merges the pull request" do
-      VCR.turn_off!
-      request = stub_put(github_url("/repos/api-playground/api-sandbox/pulls/123/merge"))
-      response = @client.merge_pull_request("api-playground/api-sandbox", 123)
-      assert_requested request
-      VCR.turn_on!
+      VCR.turned_off do
+        request = stub_put(github_url("/repos/api-playground/api-sandbox/pulls/123/merge"))
+        response = @client.merge_pull_request("api-playground/api-sandbox", 123)
+        assert_requested request
+      end
     end
   end # .merge_pull_request
 

@@ -194,11 +194,11 @@ describe Octokit::Client::Organizations do
   describe ".remove_organization_member", :vcr do
     it "removes a member from an organization" do
       VCR.eject_cassette
-      VCR.turn_off!
-      stub_delete github_url("/orgs/api-playground/members/api-padawan")
-      result = @client.remove_organization_member("api-playground", "api-padawan")
-      assert_requested :delete, github_url("/orgs/api-playground/members/api-padawan")
-      VCR.turn_on!
+      VCR.turned_off do
+        stub_delete github_url("/orgs/api-playground/members/api-padawan")
+        result = @client.remove_organization_member("api-playground", "api-padawan")
+        assert_requested :delete, github_url("/orgs/api-playground/members/api-padawan")
+      end
     end
   end # .remove_organization_member
 
