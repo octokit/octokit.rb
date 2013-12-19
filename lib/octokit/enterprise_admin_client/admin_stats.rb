@@ -1,108 +1,108 @@
 module Octokit
-  class Client
+  class EnterpriseAdminClient < Octokit::Client
 
     # Methods for the (Enterprise) Admin Stats API
     #
     # @see https://enterprise.github.com/help/articles/admin-stats-api
-    module EnterpriseStats
+    module AdminStats
 
       # Get all available stats
       #
       # @return [Sawyer::Resource] All available stats
       # @example Get all available stats
-      #   @client.enterprise_stats
-      def enterprise_stats
-        get_enterprise_stats("all")
+      #   @client.admin_stats
+      def admin_stats
+        get_admin_stats "all"
       end
       
       # Get only repository-related stats
       #
       # @return [Sawyer::Resource] Only repository-related stats
       # @example Get only repository-related stats
-      #   @client.enterprise_repository_stats
-      def enterprise_repository_stats
-        get_enterprise_stats("repos")
+      #   @client.admin_repository_stats
+      def admin_repository_stats
+        get_admin_stats "repos"
       end
       
       # Get only hooks-related stats
       #
       # @return [Sawyer::Resource] Only hooks-related stats
       # @example Get only hooks-related stats
-      #   @client.enterprise_hooks_stats
-      def enterprise_hooks_stats
-        get_enterprise_stats("hooks")
+      #   @client.admin_hooks_stats
+      def admin_hooks_stats
+        get_admin_stats "hooks"
       end
       
       # Get only pages-related stats
       #
       # @return [Sawyer::Resource] Only pages-related stats
       # @example Get only pages-related stats
-      #   @client.enterprise_pages_stats
-      def enterprise_pages_stats
-        get_enterprise_stats("pages")
+      #   @client.admin_pages_stats
+      def admin_pages_stats
+        get_admin_stats "pages"
       end
       
       # Get only organization-related stats
       #
       # @return [Sawyer::Resource] Only organization-related stats
       # @example Get only organization-related stats
-      #   @client.enterprise_organization_stats
-      def enterprise_organization_stats
-        get_enterprise_stats("orgs")
+      #   @client.admin_organization_stats
+      def admin_organization_stats
+        get_admin_stats "orgs"
       end
       
       # Get only user-related stats
       #
       # @return [Sawyer::Resource] Only user-related stats
       # @example Get only user-related stats
-      #   @client.enterprise_users_stats
-      def enterprise_users_stats
-        get_enterprise_stats("users")
+      #   @client.admin_users_stats
+      def admin_users_stats
+        get_admin_stats "users"
       end
       
       # Get only pull request-related stats
       #
       # @return [Sawyer::Resource] Only pull request-related stats
       # @example Get only pull request-related stats
-      #   @client.enterprise_pull_requests_stats
-      def enterprise_pull_requests_stats
-        get_enterprise_stats("pulls")
+      #   @client.admin_pull_requests_stats
+      def admin_pull_requests_stats
+        get_admin_stats "pulls"
       end
       
       # Get only issue-related stats
       #
       # @return [Sawyer::Resource] Only issue-related stats
       # @example Get only issue-related stats
-      #   @client.enterprise_issues_stats
-      def enterprise_issues_stats
-        get_enterprise_stats("issues")
+      #   @client.admin_issues_stats
+      def admin_issues_stats
+        get_admin_stats "issues"
       end
       
       # Get only milestone-related stats
       #
       # @return [Sawyer::Resource] Only milestone-related stats
       # @example Get only milestone-related stats
-      #   @client.enterprise_milestones_stats
-      def enterprise_milestones_stats
-        get_enterprise_stats("milestones")
+      #   @client.admin_milestones_stats
+      def admin_milestones_stats
+        get_admin_stats "milestones"
       end
       
       # Get only gist-related stats
       #
       # @return [Sawyer::Resource] Only only gist-related stats
       # @example Get only gist-related stats
-      #   @client.enterprise_gits_stats
-      def enterprise_gists_stats
-        get_enterprise_stats("gists")
+      #   @client.admin_gits_stats
+      def admin_gists_stats
+        get_admin_stats "gists"
       end
       
       # Get only comment-related stats
       #
       # @return [Sawyer::Resource] Only comment-related stats
       # @example Get only comment-related stats
-      #   @client.enterprise_comments_stats
-      def enterprise_comments_stats
-        get_enterprise_stats("comments")
+      #   @client.admin_comments_stats
+      def admin_comments_stats
+        get_admin_stats "comments"
       end
 
       private
@@ -111,11 +111,9 @@ module Octokit
       #
       # @param metric [String] The metrics you are looking for
       # @return [Sawyer::Resource] Magical unicorn stats
-      def get_enterprise_stats(metric)
-        data = get("enterprise/stats/#{metric}")
-        
-        last_response.status == 202 ? nil : data
-      end 
+      def get_admin_stats(metric)
+        get "enterprise/stats/#{metric}"
+      end
 
     end
   end

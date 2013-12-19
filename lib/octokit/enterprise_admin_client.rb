@@ -1,4 +1,5 @@
 require 'octokit/client'
+require 'octokit/enterprise_admin_client/admin_stats'
 
 module Octokit
 
@@ -10,5 +11,9 @@ module Octokit
   #   and GitHub Enterprise.
   # @see https://enterprise.github.com/help/categories/5/articles
   class EnterpriseAdminClient < Octokit::Client
+
+    include Octokit::EnterpriseAdminClient::AdminStats
+
   end
+
 end
