@@ -161,6 +161,14 @@ describe Octokit::Client::Organizations do
       end
     end # .add_team_repository
 
+    describe ".team_repository?", :vcr do
+      it "checks if a repo is managed by a specific team" do
+        is_team_repo = @client.team_repository?(@team.id, 'api-playground/api-sandbox')
+        expect(is_team_repo).to be_false
+        assert_requested :get, github_url("/teams/#{@team.id}/repos/api-playground/api-sandbox")
+      end
+    end
+
     describe ".remove_team_repository", :vcr do
       it "removes a team repository" do
         result = @client.remove_team_repository(@team.id, "api-playground/api-sandbox")
