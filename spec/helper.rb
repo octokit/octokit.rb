@@ -42,11 +42,14 @@ VCR.configure do |c|
   c.filter_sensitive_data("<GITHUB_CLIENT_SECRET>") do
     test_github_client_secret
   end
+  c.filter_sensitive_data("<<ENTERPRISE_GITHUB_LOGIN>>") do
+    test_github_enterprise_login
+  end
   c.filter_sensitive_data("<<ENTERPRISE_ACCESS_TOKEN>>") do
-      ENV['OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN']
+      test_github_enterprise_token
   end
   c.filter_sensitive_data("https://enterprise.github.dev/") do
-      ENV['OCTOKIT_TEST_GITHUB_ENTERPRISE_API_ENDPOINT']
+      test_github_enterprise_api_endpoint
   end
   c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY>") do
     test_github_repository
@@ -116,12 +119,16 @@ def test_github_client_secret
   ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_SECRET', 'x' * 40
 end
 
+def test_github_enterprise_login
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_LOGIN', 'crashoverride'
+end
+
 def test_github_enterprise_token
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN'
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN', 'x' * 40
 end
 
 def test_github_enterprise_api_endpoint
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_API_ENDPOINT'
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_API_ENDPOINT', 'https://enterprise.github.dev/'
 end
 
 def test_github_repository
