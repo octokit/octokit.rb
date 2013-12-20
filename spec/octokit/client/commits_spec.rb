@@ -107,6 +107,14 @@ describe Octokit::Client::Commits do
     end
   end # .commit
 
+  describe ".git_commit", :vcr do
+    it "returns a detailed git commit" do
+      commit = @client.git_commit("octokit/octokit.rb", "2bfca14ed8ebc3dad75082ff175e6703aed7ccc0")
+      expect(commit.author.name).to eq 'Joey Wendt'
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/git/commits/2bfca14ed8ebc3dad75082ff175e6703aed7ccc0")
+    end
+  end # .git_commit
+
   describe ".create_commit", :vcr do
     it "creates a commit" do
       last_commit = @client.commits('api-playground/api-sandbox').last
