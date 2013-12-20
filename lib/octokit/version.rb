@@ -2,6 +2,6 @@ module Octokit
 
   # Current version
   # @return [String]
-  VERSION = "2.6.3".freeze
+  VERSION = "2.7.0".freeze
 
 end
