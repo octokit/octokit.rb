@@ -154,6 +154,16 @@ module Octokit
         get "repos/#{Repository.new(repo)}/commits/#{sha}", options
       end
 
+      # Get a detailed git commit
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param sha [String] The SHA of the commit to fetch
+      # @return [Sawyer::Resource] A hash representing the commit
+      # @see http://developer.github.com/v3/git/commits/#get-a-commit
+      def git_commit(repo, sha, options = {})
+        get "repos/#{Repository.new(repo)}/git/commits/#{sha}", options
+      end
+
       # Create a commit
       #
       # Optionally pass <tt>author</tt> and <tt>committer</tt> hashes in <tt>options</tt>
