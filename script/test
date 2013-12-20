@@ -13,13 +13,5 @@ do
   fi
 done
 
-if [[ -z "$OCTOKIT_TEST_ENTERPRISE_TOKEN" ]]; then
-  export OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN='api-padawan-filler-token'
-fi
-
-if [[ -z "$OCTOKIT_TEST_GITHUB_ENTERPRISE_API_ENDPOINT" ]]; then
-  export OCTOKIT_TEST_GITHUB_ENTERPRISE_API_ENDPOINT='https://enterprise.github.dev/'
-fi
-
 echo "===> Running specs..."
 (unset OCTOKIT_LOGIN; unset OCTOKIT_ACCESS_TOKEN; bundle exec rspec-queue spec)

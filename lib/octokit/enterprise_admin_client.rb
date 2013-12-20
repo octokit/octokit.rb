@@ -1,5 +1,6 @@
 require 'octokit/client'
 require 'octokit/enterprise_admin_client/admin_stats'
+require 'octokit/enterprise_admin_client/search_indexing'
 
 module Octokit
 
@@ -13,6 +14,7 @@ module Octokit
   class EnterpriseAdminClient < Octokit::Client
 
     include Octokit::EnterpriseAdminClient::AdminStats
+    include Octokit::EnterpriseAdminClient::SearchIndexing
 
   end
 
