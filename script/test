@@ -10,7 +10,6 @@ do
   octokitvar="OCTOKIT_TEST_GITHUB_${testvar}"
   if [[ -z "${!octokitvar}" ]]; then
       echo "Please export ${octokitvar}";
-      exit 1;
   fi
 done
 
