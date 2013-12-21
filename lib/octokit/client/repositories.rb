@@ -56,6 +56,7 @@ module Octokit
       # authenticated user are returned
       #
       # @see http://developer.github.com/v3/repos/#list-your-repositories
+			# @see http://developer.github.com/v3/repos/#list-user-repositories
       # @param username [String] Optional username for which to list repos
       # @return [Array<Sawyer::Resource>] List of repositories
       def repositories(username=nil, options = {})

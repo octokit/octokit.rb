@@ -19,7 +19,7 @@ module Octokit
 
       # Get a Feed by name
       #
-      # @param [Symbol, String] Name of feed to retrieve.
+      # @param name [Symbol, String] Name of feed to retrieve.
       # @return [Feed] Parsed feed in the format returned by the configured
       #   parser.
       def feed(name, options = {})
