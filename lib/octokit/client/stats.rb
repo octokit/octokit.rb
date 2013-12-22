@@ -10,7 +10,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Array<Sawyer::Resource>] Array of contributor stats
-      # @see http://developer.github.com/v3/repos/statistics/#get-contributors-list-with-additions-deletions-and-commit-counts
+      # @see http://developer.github.com/v3/repos/statistics/#contributors
       # @example Get contributor stats for octokit
       #   @client.contributors_stats('octokit/octokit.rb')
       def contributors_stats(repo, options = {})
@@ -35,7 +35,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Array<Sawyer::Resource>] Weekly aggregate of the number of additions
       #   and deletions pushed to a repository.
-      # @see http://developer.github.com/v3/repos/statistics/#get-the-number-of-additions-and-deletions-per-week
+      # @see http://developer.github.com/v3/repos/statistics/#code-frequency
       # @example Get code frequency stats for octokit
       #   @client.code_frequency_stats('octokit/octokit.rb')
       def code_frequency_stats(repo, options = {})
@@ -49,7 +49,7 @@ module Octokit
       #   counts in all. all is everyone combined, including the owner in the last
       #   52 weeks. If you’d like to get the commit counts for non-owners, you can
       #   subtract all from owner.
-      # @see http://developer.github.com/v3/repos/statistics/#get-the-weekly-commit-count-for-the-repo-owner-and-everyone-else
+      # @see http://developer.github.com/v3/repos/statistics/#participation
       # @example Get weekly commit counts for octokit
       #   @client.participation_stats("octokit/octokit.rb")
       def participation_stats(repo, options = {})
@@ -61,7 +61,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Array<Array>] Arrays containing the day number, hour number, and
       #   number of commits
-      # @see http://developer.github.com/v3/repos/statistics/#get-the-number-of-commits-per-hour-in-each-day
+      # @see http://developer.github.com/v3/repos/statistics/#punch-card
       # @example Get octokit punch card
       #   @octokit.punch_card_stats
       def punch_card_stats(repo, options = {})
