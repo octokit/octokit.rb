@@ -64,6 +64,7 @@ module Octokit
       #    List of services is available @ https://github.com/github/github-services/tree/master/docs.
       #    Please refer Data node for complete list of arguments.
       # @param secret [String] An optional shared secret used to generate a SHA1 HMAC of the outgoing body content
+      # @return [Boolean] True if subscription successful, false otherwise
       # @see http://developer.github.com/v3/repos/hooks/#subscribing
       # @example Subscribe to push events to one of your repositories to Travis-CI
       #    client = Octokit::Client.new(:oauth_token = "token")
