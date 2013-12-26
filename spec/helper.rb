@@ -36,10 +36,12 @@ VCR.configure do |c|
   c.filter_sensitive_data("<GITHUB_CLIENT_SECRET>") do
     test_github_client_secret
   end
+  c.before_record do |interaction|
+    interaction.request.body.force_encoding('utf-8')
+    interaction.response.body.force_encoding('utf-8')
+  end
   c.default_cassette_options = {
     :serialize_with             => :json,
-    # TODO: Track down UTF-8 issue and remove
-    :preserve_exact_body_bytes  => true,
     :decode_compressed_response => true,
     :record                     => ENV['TRAVIS'] ? :none : :once
   }
