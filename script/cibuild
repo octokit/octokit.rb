@@ -1,5 +1,4 @@
 #!/bin/sh
 
 set -e
-
-script/test
+bundle exec rspec-queue spec
