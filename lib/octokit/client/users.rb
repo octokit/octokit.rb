@@ -348,7 +348,11 @@ module Octokit
       # @example
       #   @client.subscriptions("pengwynn")
       def subscriptions(user=login, options = {})
-        path = user_authenticated? ? "user/subscriptions" : "users/#{user}/subscriptions"
+        if user == login && user_authenticated? 
+          path = "user/subscriptions"
+        else
+          path = "users/#{user}/subscriptions"
+        end
         paginate path, options
       end
       alias :watched :subscriptions
