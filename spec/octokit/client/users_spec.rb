@@ -201,13 +201,23 @@ describe Octokit::Client::Users do
   end # .remove_email
 
   describe ".subscriptions", :vcr do
-    it "returns the repositories a user watches for notifications" do
-      subscriptions = Octokit.subscriptions("pengwynn")
-      assert_requested :get, github_url("/users/pengwynn/subscriptions")
+    context "not authenticated" do
+      it "returns the repositories a user watches for notifications" do
+        subscriptions = Octokit.subscriptions("pengwynn")
+        assert_requested :get, github_url("/users/pengwynn/subscriptions")
+      end
     end
-    it "returns the repositories the authenticated user watches for notifications" do
-      subscriptions = @client.subscriptions
-      assert_requested :get, github_url("/user/subscriptions")
+
+    context "authenticated" do
+      it "returns the repositories the authenticated user watches for notifications" do
+        subscriptions = @client.subscriptions
+        assert_requested :get, github_url("/user/subscriptions")
+      end
+
+      it "returns the repositories a user watches for notifications" do
+        subscriptions = @client.subscriptions("pengwynn")
+        assert_requested :get, github_url("/users/pengwynn/subscriptions")
+      end
     end
   end # .subscriptions
 
