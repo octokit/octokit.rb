@@ -103,13 +103,22 @@ describe Octokit::Client::Users do
   end # .starred?
 
   describe ".starred", :vcr do
-    it "returns starred repositories for a user" do
-      repositories = Octokit.starred("sferik")
-      assert_requested :get, github_url("/users/sferik/starred")
+    context "not authenticated" do
+      it "gets a user's starred repositories" do
+        repositories = Octokit.starred("sferik")
+        assert_requested :get, github_url("/users/sferik/starred")
+      end
     end
-    it "returns starred repositories for the authenticated user" do
-      repositories = @client.starred
-      assert_requested :get, github_url("/user/starred")
+    context "authenticated" do
+      it "gets the authenticated user's starred repositories" do
+        repositories = @client.starred
+        assert_requested :get, github_url("/user/starred")
+      end
+
+      it "gets a user's starred repositories" do
+        repositories = @client.starred("sferik")
+        assert_requested :get, github_url("/users/sferik/starred")
+      end
     end
   end # .starred
 
