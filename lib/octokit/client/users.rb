@@ -177,7 +177,11 @@ module Octokit
       # @example
       #   Octokit.starred('pengwynn')
       def starred(user=login, options = {})
-        path = user_authenticated? ? "user/starred" : "users/#{user}/starred"
+        if user == login && user_authenticated?
+          path = "user/starred"
+        else
+          path = "users/#{user}/starred"
+        end
         paginate path, options
       end
 
