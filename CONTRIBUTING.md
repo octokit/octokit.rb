@@ -13,7 +13,8 @@
 8. Add documentation for your feature or bug fix.
 9. Run `bundle exec rake doc:yard`. If your changes are not 100% documented, go
    back to step 8.
-10. Add, commit, and push your changes.
+10. Add, commit, and push your changes. For documentation-only fixes, please
+    add "[ci skip]" to your commit message to avoid needless CI builds.
 11. [Submit a pull request.][pr]
 
 [fork]: https://help.github.com/articles/fork-a-repo
