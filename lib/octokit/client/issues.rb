@@ -6,7 +6,7 @@ module Octokit
     # @see http://developer.github.com/v3/issues/
     module Issues
 
-      # List issues for a the authenticated user or repository
+      # List issues for the authenticated user or repository
       #
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param options [Sawyer::Resource] A customizable set of options.
