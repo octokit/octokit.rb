@@ -34,7 +34,7 @@ VCR.configure do |c|
     test_github_client_id
   end
   c.filter_sensitive_data("<GITHUB_CLIENT_SECRET>") do
-    test_github_client_id
+    test_github_client_secret
   end
   c.default_cassette_options = {
     :serialize_with             => :json,
