@@ -188,4 +188,39 @@ describe Octokit::Client::Authorizations do
     end
   end # .authorize_url
 
+  describe ".revoke_authorizations", :vcr do
+    context "with valid authentication" do
+      context "with a valid application client id" do
+        it "returns true after successful revocation" do
+          result = basic_oauth_app_client.revoke_authorizations(test_github_client_id)
+          expect(result).to be_true
+          assert_requested :delete,
+            basic_github_url(
+              "/applications/#{test_github_client_id}/tokens",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+
+      context "with invalid application client id" do
+        it "returns false" do
+          result = basic_oauth_app_client.revoke_authorizations('some_invalid_client_id')
+          expect(result).to be_false
+          assert_requested :delete,
+             basic_github_url(
+              "/applications/some_invalid_client_id/tokens",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+    end
+
+    context "with invalid authentication" do
+      it "returns false" do
+        result = Octokit.revoke_authorizations(test_github_client_id)
+        expect(result).to be_false
+        assert_requested :delete, github_url("/applications/#{test_github_client_id}/tokens")
+      end
+    end
+  end # .revoke_authorizations
 end
