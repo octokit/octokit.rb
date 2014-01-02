@@ -84,7 +84,7 @@ module Octokit
       # @option options [String] :note_url A URL to remind you what app the OAuth token is for.
       #
       # @return [Sawyer::Resource] A single (updated) authorization for the authenticated user
-      # @see http://developer.github.com/v3/oauth/#update-a-new-authorization
+      # @see http://developer.github.com/v3/oauth/#update-an-existing-authorization
       # @see http://developer.github.com/v3/oauth/#scopes for available scopes
       # @example Update the authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
