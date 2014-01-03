@@ -68,11 +68,11 @@ module Octokit
       # @option options [Integer] :page (1) Page number.
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
-      # @return [Array<Sawyer::Resource>] A list of issues for a repository.
+      # @return [Array<Sawyer::Resource>] A list of issues.
       # @see http://developer.github.com/v3/issues/#list-issues
-      # @example List issues for the authenticted user across owned and member repositories
+      # @example List all issues for a given organization for the authenticated user
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
-      #   @client.user_issues
+      #   @client.org_issues("octokit")
       def org_issues(org, options = {})
         paginate "orgs/#{org}/issues", options
       end
