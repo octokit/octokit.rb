@@ -138,13 +138,7 @@ module Octokit
     # @see http://developer.github.com/v3/oauth/#web-application-flow
     # @example
     #   @client.authorize_url('xxxx')
-    def authorize_url(*args)
-      arguments = Arguments.new(args)
-      options   = arguments.options
-      app_id = arguments.shift || client_id
-      if app_secret = arguments.shift
-        warn "client_secret is not required for this method"
-      end
+    def authorize_url(app_id = client_id, options = {})
       authorize_url = options.delete(:endpoint) || Octokit.web_endpoint
       authorize_url += "login/oauth/authorize?client_id=" + app_id
 

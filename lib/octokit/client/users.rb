@@ -194,16 +194,8 @@ module Octokit
       # @see http://developer.github.com/v3/activity/starring/#check-if-you-are-starring-a-repository
       # @example
       #   @client.starred?('pengwynn/octokit')
-      #   @client.starred?('pengwynn', 'octokit') # deprecated
-      def starred?(*args)
-        arguments = Octokit::Arguments.new(args)
-        options = arguments.options
-        name = name_with_owner = arguments.shift
-        if repo = arguments.shift
-          name_with_owner = "#{name}/#{repo}"
-          warn "`.starred?('#{name}', '#{repo}')` is deprecated. Please use `.starred?('#{name_with_owner}')` instead."
-        end
-        boolean_from_response :get, "user/starred/#{Repository.new name_with_owner}", options
+      def starred?(repo, options = {})
+        boolean_from_response :get, "user/starred/#{Repository.new repo}", options
       end
 
       # Get a public key.
