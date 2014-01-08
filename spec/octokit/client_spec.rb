@@ -314,10 +314,10 @@ describe Octokit::Client do
       Octokit.reset!
       @client = Octokit.client
     end
-    it "Accepts application/vnd.github.beta+json by default" do
+    it "Accepts application/vnd.github.v3+json by default" do
       VCR.use_cassette 'root' do
         root_request = stub_get("/").
-          with(:headers => {:accept => "application/vnd.github.beta+json"})
+          with(:headers => {:accept => "application/vnd.github.v3+json"})
         @client.get "/"
         assert_requested root_request
         expect(@client.last_response.status).to eq 200
