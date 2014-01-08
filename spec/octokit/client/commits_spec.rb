@@ -115,27 +115,6 @@ describe Octokit::Client::Commits do
     end
   end # .git_commit
 
-  describe ".create_commit", :vcr do
-    it "creates a commit" do
-      last_commit = @client.commits('api-playground/api-sandbox').last
-      commit = @client.create_commit("api-playground/api-sandbox", "My commit message", last_commit.commit.tree.sha, last_commit.sha)
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/commits")
-    end
-  end # .create_commit
-
-  describe ".merge", :vcr do
-    it "merges a branch into another" do
-      begin
-        @client.delete_ref("api-playground/api-sandbox", "heads/branch-to-merge")
-      rescue Octokit::UnprocessableEntity
-      end
-      last_commit = @client.commits('api-playground/api-sandbox').last
-      branch = @client.create_ref("api-playground/api-sandbox", "heads/branch-to-merge", last_commit.sha)
-      merge = @client.merge("api-playground/api-sandbox", "master", "branch-to-merge", :commit_message => "Testing the merge API")
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/merges")
-    end
-  end # .merge
-
   describe ".compare", :vcr do
     it "returns a comparison" do
       comparison = @client.compare("gvaughn/octokit", '0e0d7ae299514da692eb1cab741562c253d44188', 'b7b37f75a80b8e84061cd45b246232ad958158f5')
@@ -144,4 +123,32 @@ describe Octokit::Client::Commits do
       assert_requested :get, github_url("/repos/gvaughn/octokit/compare/0e0d7ae299514da692eb1cab741562c253d44188...b7b37f75a80b8e84061cd45b246232ad958158f5")
     end
   end # .compare
+
+  context "with test repository" do
+    before do
+      @test_repo = setup_test_repo(:auto_init => true).full_name
+    end
+
+    after do
+      teardown_test_repo @test_repo
+    end
+
+    describe ".create_commit", :vcr do
+      it "creates a commit" do
+        last_commit = @client.commits(@test_repo).last
+        commit = @client.create_commit(@test_repo, "My commit message", last_commit.commit.tree.sha, last_commit.sha)
+        assert_requested :post, github_url("/repos/#{@test_repo}/git/commits")
+      end
+    end # .create_commit
+
+    describe ".merge", :vcr do
+      it "merges a branch into another" do
+        last_commit = @client.commits(@test_repo).last
+        branch = @client.create_ref(@test_repo, "heads/branch-to-merge", last_commit.sha)
+        merge = @client.merge(@test_repo, "master", "branch-to-merge", :commit_message => "Testing the merge API")
+        assert_requested :post, github_url("/repos/#{@test_repo}/merges")
+      end
+    end # .merge
+  end # with test repository
+
 end
