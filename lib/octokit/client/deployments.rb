@@ -26,7 +26,7 @@ module Octokit
       # @param ref [String] The ref to deploy
       # @option options [String] :payload Meta info about the deployment
       # @option options [String] :force Optional parameter to bypass any ahead/behind checks or commit status checks. Default: false
-      # @option options [String] :auto_merge Optional parameter Optional parameter to merge the default branch into the requested deployment branch if necessary. Default: false
+      # @option options [String] :auto_merge Optional parameter to merge the default branch into the requested deployment branch if necessary. Default: false
       # @option options [String] :description Optional short description.
       # @return [Sawyer::Resource] A deployment
       # @see http://developer.github.com/v3/repos/deployments/#create-a-deployment
