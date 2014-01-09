@@ -14,7 +14,7 @@ module Octokit
     USER_AGENT   = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
 
     # Default media type
-    MEDIA_TYPE   = "application/vnd.github.beta+json"
+    MEDIA_TYPE   = "application/vnd.github.v3+json"
 
     # Default WEB endpoint
     WEB_ENDPOINT = "https://github.com".freeze

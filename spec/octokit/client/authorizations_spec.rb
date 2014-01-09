@@ -126,11 +126,6 @@ describe Octokit::Client::Authorizations do
         url = Octokit.authorize_url('id_here')
         expect(url).to eq('https://github.com/login/oauth/authorize?client_id=id_here')
       end
-
-      it "does not choke on deprecated app_secret argument" do
-        url = Octokit.authorize_url('id_here', 'secret_here')
-        expect(url).to eq('https://github.com/login/oauth/authorize?client_id=id_here')
-      end
     end
   end # .authorize_url
 
