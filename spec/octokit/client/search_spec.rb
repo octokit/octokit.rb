@@ -9,11 +9,11 @@ describe Octokit::Client::Search do
 
   describe ".search_code" do
     it "searches code", :vcr do
-      results = @client.search_code 'code in:file extension:gemspec -repo:octokit/octokit.rb', \
+      results = @client.search_code 'code user:github in:file extension:gemspec -repo:octokit/octokit.rb', \
         :sort  => 'indexed',
         :order => 'asc'
 
-      assert_requested :get, github_url('/search/code?q=code%20in:file%20extension:gemspec%20-repo:octokit/octokit.rb&sort=indexed&order=asc')
+      assert_requested :get, github_url('/search/code?q=code%20user:github%20in:file%20extension:gemspec%20-repo:octokit/octokit.rb&sort=indexed&order=asc')
       expect(results.total_count).to be_kind_of Fixnum
       expect(results.items).to be_kind_of Array
     end
