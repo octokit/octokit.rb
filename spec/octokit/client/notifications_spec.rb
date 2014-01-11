@@ -42,41 +42,46 @@ describe Octokit::Client::Notifications do
   context "methods that need a thread context" do
 
     before(:each) do
-      @thread_id = @client.repository_notifications("api-playground/api-sandbox", :all => true).last.id
+      @thread_id = '263534'
     end
 
-    describe ".thread_notifications", :vcr do
+    describe ".thread_notifications" do
       it "returns notifications for a specific thread" do
+        request = stub_get(github_url("/notifications/threads/#{@thread_id}"))
         notifications = @client.thread_notifications(@thread_id)
-        assert_requested :get, github_url("/notifications/threads/#{@thread_id}")
+        assert_requested request
       end
     end # .thread_notifications
 
-    describe ".mark_thread_as_read", :vcr do
+    describe ".mark_thread_as_read" do
       it "marks a thread as read" do
+        request = stub_patch(github_url("/notifications/threads/#{@thread_id}"))
         result = @client.mark_thread_as_read(@thread_id)
-        assert_requested :patch, github_url("/notifications/threads/#{@thread_id}")
+        assert_requested request
       end
     end # .mark_thread_as_read
 
-    describe ".thread_subscription", :vcr do
+    describe ".thread_subscription" do
       it "returns a thread subscription" do
+        request = stub_get(github_url("/notifications/threads/#{@thread_id}/subscription"))
         subscription = @client.thread_subscription(@thread_id)
-        assert_requested :get, github_url("/notifications/threads/#{@thread_id}/subscription")
+        assert_requested request
       end
     end # .thread_subscription
 
-    describe ".update_thread_subscription", :vcr do
+    describe ".update_thread_subscription" do
       it "updates a thread subscription" do
+        request = stub_put(github_url("/notifications/threads/#{@thread_id}/subscription"))
         subscription = @client.update_thread_subscription(@thread_id, :subscribed => true)
-        assert_requested :put, github_url("/notifications/threads/#{@thread_id}/subscription")
+        assert_requested request
       end
     end # .update_thread_subscription
 
-    describe ".delete_thread_subscription", :vcr do
+    describe ".delete_thread_subscription" do
       it "returns true with successful thread deletion" do
+        request = stub_delete(github_url("/notifications/threads/#{@thread_id}/subscription"))
         result = @client.delete_thread_subscription(@thread_id)
-        assert_requested :delete, github_url("/notifications/threads/#{@thread_id}/subscription")
+        assert_requested request
       end
     end # .delete_thread_subscription
 
