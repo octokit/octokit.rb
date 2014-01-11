@@ -16,7 +16,9 @@ module Octokit
       def deployments(repo, options = {})
         options[:accept] ||= DEPLOYMENTS_PREVIEW_MEDIA_TYPE
         warn_deployments_preview
-        get "repos/#{Repository.new(repo)}/deployments", options
+        deployments = get("repos/#{Repository.new(repo)}/deployments", options)
+
+        deployments.map { |d| decode_payload_field(d) }
       end
       alias :list_deployments :deployments
 
@@ -34,7 +36,9 @@ module Octokit
         options[:ref] = ref
         options[:accept] ||= DEPLOYMENTS_PREVIEW_MEDIA_TYPE
         warn_deployments_preview
-        post "repos/#{Repository.new(repo)}/deployments", options
+        deployment = post("repos/#{Repository.new(repo)}/deployments", options)
+
+        decode_payload_field(deployment)
       end
 
       # List all statuses for a Deployment
@@ -46,7 +50,9 @@ module Octokit
         warn_deployments_preview
         deployment = get(deployment_url, :accept => DEPLOYMENTS_PREVIEW_MEDIA_TYPE)
         options[:accept] ||= DEPLOYMENTS_PREVIEW_MEDIA_TYPE
-        get(deployment.rels[:statuses].href, options)
+        statuses = get(deployment.rels[:statuses].href, options)
+
+        statuses.map { |s| decode_payload_field(s) }
       end
       alias :list_deployment_statuses :deployment_statuses
 
@@ -61,7 +67,9 @@ module Octokit
         deployment = get(deployment_url, :accept => DEPLOYMENTS_PREVIEW_MEDIA_TYPE)
         options[:state] = state.to_s.downcase
         options[:accept] ||= DEPLOYMENTS_PREVIEW_MEDIA_TYPE
-        post deployment.rels[:statuses].href, options
+        status = post(deployment.rels[:statuses].href, options)
+
+        decode_payload_field(status)
       end
 
       private
@@ -73,6 +81,17 @@ See the blog post for details: http://git.io/o2XZRA
 EOS
       end
 
+      def decode_payload_field(resource)
+        if resource && payload = resource[:payload]
+          begin
+            resource[:payload] = Sawyer::Agent.serializer.decode(payload)
+          rescue StandardError => e
+            warn e.message
+          end
+        end
+
+        resource
+      end
     end
   end
 end

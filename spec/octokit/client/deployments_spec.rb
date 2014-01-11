@@ -37,7 +37,7 @@ describe Octokit::Client::Deployments do
       deployment = @client.create_deployment("api-playground/api-sandbox", "branch-to-deploy", opts)
       expect(deployment.sha).to eq(@sha)
       expect(deployment.creator.login).to eq(test_github_login)
-      expect(deployment.payload).to eq(Sawyer::Agent.serializer.encode(opts[:payload]))
+      expect(deployment.payload).to eq(opts[:payload])
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/deployments")
     end
   end # .create_deployment
