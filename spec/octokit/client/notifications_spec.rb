@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Octokit::Client::Notifications do
-
   before do
     Octokit.reset!
     @client = oauth_client
@@ -15,14 +14,6 @@ describe Octokit::Client::Notifications do
     end
   end # .notifications
 
-  describe ".repository_notifications", :vcr do
-    it "lists all notifications for a repository" do
-      notifications = @client.repository_notifications("api-playground/api-sandbox")
-      expect(notifications).to be_kind_of Array
-      assert_requested :get, github_url("/repos/api-playground/api-sandbox/notifications")
-    end
-  end # .repository_notifications
-
   describe ".mark_notifications_as_read", :vcr do
     it "returns true when notifications are marked as read" do
       result = @client.mark_notifications_as_read
@@ -31,16 +22,33 @@ describe Octokit::Client::Notifications do
     end
   end # .mark_notifications_as_read
 
-  describe ".mark_repository_notifications_as_read", :vcr do
-    it "returns true when notifications for a repo are marked as read" do
-      result = @client.mark_repository_notifications_as_read("api-playground/api-sandbox")
-      expect(result).to be_true
-      assert_requested :put, github_url("/repos/api-playground/api-sandbox/notifications")
+  context "with repository" do
+    before do
+      @test_repo = setup_test_repo.full_name
     end
-  end # .mark_repository_notifications_as_read
 
-  context "methods that need a thread context" do
+    after do
+      teardown_test_repo @test_repo
+    end
 
+    describe ".repository_notifications", :vcr do
+      it "lists all notifications for a repository" do
+        notifications = @client.repository_notifications(@test_repo)
+        expect(notifications).to be_kind_of Array
+        assert_requested :get, github_url("/repos/#{@test_repo}/notifications")
+      end
+    end # .repository_notifications
+
+    describe ".mark_repository_notifications_as_read", :vcr do
+      it "returns true when notifications for a repo are marked as read" do
+        result = @client.mark_repository_notifications_as_read(@test_repo)
+        expect(result).to be_true
+        assert_requested :put, github_url("/repos/#{@test_repo}/notifications")
+      end
+    end # .mark_repository_notifications_as_read
+  end # with repository
+
+  context "with thread" do
     before(:each) do
       @thread_id = @client.repository_notifications("api-playground/api-sandbox", :all => true).last.id
     end
@@ -79,7 +87,5 @@ describe Octokit::Client::Notifications do
         assert_requested :delete, github_url("/notifications/threads/#{@thread_id}/subscription")
       end
     end # .delete_thread_subscription
-
-  end
-
-end
+  end # with thread
+end # Octokit::Client::Notifications
