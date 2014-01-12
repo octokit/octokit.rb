@@ -14,8 +14,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of deployments
       # @see http://developer.github.com/v3/repos/deployments/#list-deployments
       def deployments(repo, options = {})
-        options[:accept] ||= DEPLOYMENTS_PREVIEW_MEDIA_TYPE
-        warn_deployments_preview
+        options = ensure_deployments_api_media_type(options)
         deployments = get("repos/#{Repository.new(repo)}/deployments", options)
 
         deployments.map { |d| decode_payload_field(d) }
@@ -33,9 +32,8 @@ module Octokit
       # @return [Sawyer::Resource] A deployment
       # @see http://developer.github.com/v3/repos/deployments/#create-a-deployment
       def create_deployment(repo, ref, options = {})
+        options = ensure_deployments_api_media_type(options)
         options[:ref] = ref
-        options[:accept] ||= DEPLOYMENTS_PREVIEW_MEDIA_TYPE
-        warn_deployments_preview
         deployment = post("repos/#{Repository.new(repo)}/deployments", options)
 
         decode_payload_field(deployment)
@@ -47,9 +45,8 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of deployment statuses
       # @see http://developer.github.com/v3/repos/deployments/#list-deployment-statuses
       def deployment_statuses(deployment_url, options = {})
-        warn_deployments_preview
-        deployment = get(deployment_url, :accept => DEPLOYMENTS_PREVIEW_MEDIA_TYPE)
-        options[:accept] ||= DEPLOYMENTS_PREVIEW_MEDIA_TYPE
+        options = ensure_deployments_api_media_type(options)
+        deployment = get(deployment_url, :accept => options[:accept])
         statuses = get(deployment.rels[:statuses].href, options)
 
         statuses.map { |s| decode_payload_field(s) }
@@ -63,10 +60,9 @@ module Octokit
       # @return [Sawyer::Resource] A deployment status
       # @see http://developer.github.com/v3/repos/deployments/#create-a-deployment-status
       def create_deployment_status(deployment_url, state, options = {})
-        warn_deployments_preview
-        deployment = get(deployment_url, :accept => DEPLOYMENTS_PREVIEW_MEDIA_TYPE)
+        options = ensure_deployments_api_media_type(options)
+        deployment = get(deployment_url, :accept => options[:accept])
         options[:state] = state.to_s.downcase
-        options[:accept] ||= DEPLOYMENTS_PREVIEW_MEDIA_TYPE
         status = post(deployment.rels[:statuses].href, options)
 
         decode_payload_field(status)
@@ -74,10 +70,20 @@ module Octokit
 
       private
 
+      def ensure_deployments_api_media_type(options = {})
+        if options[:accept].nil?
+          options[:accept] = DEPLOYMENTS_PREVIEW_MEDIA_TYPE
+          warn_deployments_preview
+        end
+
+        options
+      end
+
       def warn_deployments_preview
         warn <<-EOS
 WARNING: The preview version of the Deployments API is not yet suitable for production use.
-See the blog post for details: http://git.io/o2XZRA
+You can avoid this message by supplying an appropriate media type in the 'Accept' request
+header. See the blog post for details: http://git.io/o2XZRA
 EOS
       end
 
