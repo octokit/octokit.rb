@@ -24,14 +24,15 @@ describe Octokit::Client::Feeds do
       end
     end
 
-    # Warning: if you are creating a new cassette for this method, make sure
-    # to scrub the private feed token as it is not automatically filtered.
     context "when authenticated with basic auth" do
       it "returns private feeds" do
         feeds = basic_auth_client.feeds
         expect(basic_auth_client.user_authenticated?).to be true
         expect(feeds.rels[:current_user].href).to be
         expect(feeds.rels[:current_user_actor].href).to be
+
+        token = feeds.rels[:current_user].href.match(/token\=(\w+)/)
+        use_vcr_placeholder_for(token, '<<ACCESS_TOKEN>>')
       end
     end
   end # .feeds
