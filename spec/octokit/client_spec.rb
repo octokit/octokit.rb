@@ -3,6 +3,14 @@ require 'json'
 
 describe Octokit::Client do
 
+  before do
+    Octokit.reset!
+  end
+
+  after do
+    Octokit.reset!
+  end
+
   describe "module configuration" do
 
     before do
