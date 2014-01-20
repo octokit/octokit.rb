@@ -167,3 +167,11 @@ def teardown_test_repo(repo)
   rescue Octokit::NotFound
   end
 end
+
+def use_vcr_placeholder_for(text, replacement)
+  VCR.configure do |c|
+    c.define_cassette_placeholder(replacement) do
+      text
+    end
+  end
+end
