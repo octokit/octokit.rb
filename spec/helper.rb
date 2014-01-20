@@ -39,6 +39,12 @@ VCR.configure do |c|
   c.define_cassette_placeholder("<GITHUB_TEST_ORGANIZATION>") do
     test_github_org
   end
+  c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY>") do
+    'api-sandbox'
+  end
+  c.define_cassette_placeholder("<ORGANIZATION_TEAM_ID>") do
+    "100000050505000000000"
+  end
   c.before_record do |interaction|
     interaction.request.body.force_encoding('utf-8')
     interaction.response.body.force_encoding('utf-8')
