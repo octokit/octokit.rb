@@ -136,3 +136,28 @@ def oauth_client
   Octokit::Client.new(:access_token => test_github_token)
 end
 
+# Generate test repo name and filter it from VCR
+def test_repo
+ repo = "octokit-test-repo-#{Time.now.to_f.to_s}"
+ VCR.configure do |c|
+   c.define_cassette_placeholder('<GITHUB_TEST_REPOSITORY>') { repo }
+ end
+ repo
+end
+
+# Create test repository with unique name to test against
+#
+# @return [Sawyer::Resource] Repository
+def setup_test_repo(options={})
+  basic_auth_client.create_repo(test_repo, options)
+end
+
+# Delete test repo
+#
+# @param repo [String] Full repository name
+def teardown_test_repo(repo)
+  begin
+    basic_auth_client.delete_repo repo
+  rescue Octokit::NotFound
+  end
+end
