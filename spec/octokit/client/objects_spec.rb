@@ -36,7 +36,7 @@ describe Octokit::Client::Objects do
     end
   end # .tag
 
-  context "with test repository" do
+  context "with repository" do
     before do
       @test_repo = setup_test_repo(:auto_init => true).full_name
     end
@@ -76,5 +76,5 @@ describe Octokit::Client::Objects do
         assert_requested :post, github_url("/repos/#{@test_repo}/git/tags")
       end
     end # .create_tag
-  end # with test repository
+  end # with repository
 end # Octokit::Client::Objects
