@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Octokit::Client::Repositories do
-
   before do
     Octokit.reset!
     @client = oauth_client
@@ -42,16 +41,17 @@ describe Octokit::Client::Repositories do
   end # .set_public
 
   describe ".create_repository", :vcr do
-    it "creates a repository for an organization" do
-      repository = @client.create_repository("an-org-repo", :organization => "api-playground")
-      expect(repository.name).to eq "an-org-repo"
-      assert_requested :post, github_url("/orgs/api-playground/repos")
+    before do
+      @repo = basic_auth_client.create_repository(test_repo, :organization => test_github_org)
+    end
 
-      # cleanup
-      begin
-        @client.delete_repository("api-playground/an-org-repo")
-      rescue Octokit::NotFound
-      end
+    after do
+      teardown_test_repo @repo.full_name
+    end
+
+    it "creates a repository for an organization", :vcr do
+      expect(@repo.name).to be
+      assert_requested :post, basic_github_url("/orgs/#{test_github_org}/repos")
     end
   end
 
@@ -101,23 +101,19 @@ describe Octokit::Client::Repositories do
     end
   end # .remove_deploy_key
 
-  context "methods that require a new @repo" do
-
+  context "with repository" do
     before(:each) do
-      @repo = @client.create_repository("an-repo")
+      @repo = setup_test_repo(:auto_init => true)
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name)
-      rescue Octokit::NotFound
-      end
+      teardown_test_repo @repo.full_name
     end
 
     describe ".create_repository", :vcr do
       it "creates a repository" do
-        expect(@repo.name).to eq "an-repo"
-        assert_requested :post, github_url("/user/repos")
+        expect(@repo.name).to be
+        assert_requested :post, basic_github_url("/user/repos")
       end
     end # .create_repository
 
@@ -141,35 +137,35 @@ describe Octokit::Client::Repositories do
     describe ".add_collaborator", :vcr do
       it "adds a repository collaborators" do
         begin
-          @client.remove_collaborator(@repo.full_name, "pengwynn")
+          @client.remove_collaborator(@repo.full_name, "api-padawan")
         rescue Octokit::NotFound
         end
-        result = @client.add_collaborator(@repo.full_name, "pengwynn")
-        assert_requested :put, github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
+        result = @client.add_collaborator(@repo.full_name, "api-padawan")
+        assert_requested :put, github_url("/repos/#{@repo.full_name}/collaborators/api-padawan")
       end
     end # .add_collaborator
 
     describe ".remove_collaborator", :vcr do
       it "removes a repository collaborators" do
         begin
-          @client.add_collaborator(@repo.full_name, "pengwynn")
+          @client.add_collaborator(@repo.full_name, "api-padawan")
         rescue Octokit::UnprocessableEntity
         end
 
-        result = @client.remove_collaborator(@repo.full_name, "pengwynn")
-        assert_requested :delete, github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
+        result = @client.remove_collaborator(@repo.full_name, "api-padawan")
+        assert_requested :delete, github_url("/repos/#{@repo.full_name}/collaborators/api-padawan")
       end
     end # .remove_collaborator
 
     describe ".collaborator?", :vcr do
       it "checks if a user is a repository collaborator" do
         begin
-          @client.add_collaborator(@repo.full_name, "pengwynn")
+          @client.add_collaborator(@repo.full_name, "api-padawan")
         rescue Octokit::UnprocessableEntity
         end
 
-        result = @client.collaborator?(@repo.full_name, "pengwynn")
-        assert_requested :get, github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
+        result = @client.collaborator?(@repo.full_name, "api-padawan")
+        assert_requested :get, github_url("/repos/#{@repo.full_name}/collaborators/api-padawan")
       end
     end # .collaborator?
 
@@ -189,8 +185,7 @@ describe Octokit::Client::Repositories do
       end
     end
 
-    context "methods that need an existing hook" do
-
+    context "with hook" do
       before(:each) do
         @hook = @client.create_hook(@repo.full_name, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
       end
@@ -233,17 +228,15 @@ describe Octokit::Client::Repositories do
           assert_requested :delete, github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}")
         end
       end # .remove_hook
-
-    end # hook methods
+    end # with hook
 
     describe ".delete_repository", :vcr do
       it "deletes a repository" do
-        result = @client.delete_repository("#{@repo.full_name}")
-        assert_requested :delete, github_url("/repos/#{@repo.full_name}")
+        result = basic_auth_client.delete_repository(@repo.full_name)
+        assert_requested :delete, basic_github_url("/repos/#{@repo.full_name}")
       end
     end # .delete_repository
-
-  end # @repo methods
+  end # with repository
 
   describe ".repositories", :vcr do
     it "returns a user's repositories" do
@@ -304,7 +297,7 @@ describe Octokit::Client::Repositories do
       assert_requested :post, github_url("/repos/sferik/rails_admin/forks")
 
       # cleanup
-      @client.delete_repository(repository.full_name)
+      basic_auth_client.delete_repository(repository.full_name)
     end
   end # .fork
 
@@ -413,9 +406,30 @@ describe Octokit::Client::Repositories do
   end # .update_subscription
 
   describe ".subscription", :vcr do
-    it "returns a repository subscription" do
-      subscription = @client.subscription("octokit/octokit.rb")
-      assert_requested :get, github_url("/repos/octokit/octokit.rb/subscription")
+    context "with a subscription" do
+      before do
+        @client.update_subscription("octokit/octokit.rb", :subscribed => true)
+      end
+
+      it "returns a repository subscription" do
+        subscription = @client.subscription("octokit/octokit.rb")
+        assert_requested :get, github_url("/repos/octokit/octokit.rb/subscription")
+      end
+    end
+
+    context "without a subscription" do
+      before do
+        begin
+          @client.delete_subscription("octokit/octokit.rb")
+        rescue Octokit::NotFound
+        end
+      end
+
+      it "raises Octokit::NotFound" do
+        expect {
+          @client.subscription("octokit/octokit.rb")
+        }.to raise_error(Octokit::NotFound)
+      end
     end
   end # .subscription
 
@@ -438,5 +452,4 @@ describe Octokit::Client::Repositories do
       assert_requested :get, github_url("/repos/pengwynn/octokit")
     end
   end # .repository?
-
-end
+end # Octokit::Client::Repositories
