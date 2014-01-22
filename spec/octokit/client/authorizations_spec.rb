@@ -100,6 +100,61 @@ describe Octokit::Client::Authorizations do
     end
   end # .scopes
 
+  describe ".check_authorization", :vcr do
+    context "with valid authentication" do
+      context "when checking valid authorization" do
+        before do
+          @authorization = basic_auth_client.create_authorization \
+            :client_id => test_github_client_id,
+            :client_secret => test_github_client_secret
+        end
+
+        after do
+          basic_auth_client.delete_authorization @authorization.id
+        end
+
+        it "returns a valid authorization" do
+          result = basic_oauth_app_client.check_authorization \
+            test_github_client_id,
+            @authorization.token
+          expect(result.token).to be
+          assert_requested :get,
+            basic_github_url(
+              "/applications/#{test_github_client_id}/tokens/#{@authorization.token}",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+
+      context "when checking invalid authorization" do
+        it "raises Octokit::NotFound" do
+         expect {
+            basic_oauth_app_client.check_authorization \
+              test_github_client_id,
+              'token123'
+          }.to raise_error Octokit::NotFound
+          assert_requested :get,
+            basic_github_url(
+              "/applications/#{test_github_client_id}/tokens/token123",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+    end
+
+    context "with invalid authentication" do
+      it "raises Octokit::NotFound" do
+        expect {
+          Octokit.check_authorization \
+            test_github_client_id,
+            'brokentoken'
+        }.to raise_error Octokit::NotFound
+        assert_requested :get,
+          github_url("/applications/#{test_github_client_id}/tokens/brokentoken")
+      end
+    end
+  end # .check_authorization
+
   describe ".delete_authorization", :vcr do
     it "deletes an existing authorization" do
       VCR.eject_cassette

@@ -94,6 +94,21 @@ module Octokit
         patch "authorizations/#{number}", options
       end
 
+      # Check an authorization for an OAuth application
+      #
+      # Requires client utilizing basic auth with the client_id and
+      # client_secret for the credentials.
+      #
+      # @param app_id [String] Client Id we received when our
+      #   application was registered with GitHub.
+      # @param token [String] Authorization token to check
+      # @return [Sawyer::Resource] The authorization if valid, otherwise
+      #   Octokit::NotFound is raised.
+      # @see http://developer.github.com/v3/oauth/#check-an-authorization
+      def check_authorization(client_id, token, options={})
+        get "applications/#{client_id}/tokens/#{token}", options
+      end
+
       # Delete an authorization for the authenticated user.
       #
       # You can delete your own tokens, and only through
