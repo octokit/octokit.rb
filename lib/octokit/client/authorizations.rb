@@ -51,6 +51,7 @@ module Octokit
       # @return [Sawyer::Resource] A single authorization for the authenticated user
       # @see http://developer.github.com/v3/oauth/#scopes Available scopes
       # @see http://developer.github.com/v3/oauth/#create-a-new-authorization
+      # @see http://developer.github.com/v3/oauth/#get-or-create-an-authorization-for-a-specific-app
       # @example Create a new authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.create_authorization({:scopes => ["public_repo","gist"], :note => "Why not Zoidberg?", :note_url=> "https://en.wikipedia.org/wiki/Zoidberg"})
