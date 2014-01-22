@@ -123,6 +123,10 @@ def basic_auth_client(username = test_github_login, password = test_github_passw
   Octokit::Client.new(:login => username, :password => password)
 end
 
+def basic_oauth_app_client(username = test_github_client_id, password = test_github_client_secret)
+  basic_auth_client(username, password)
+end
+
 def oauth_client
   Octokit::Client.new(:access_token => test_github_token)
 end
