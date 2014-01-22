@@ -165,6 +165,20 @@ module Octokit
       authorize_url
     end
 
+    # Revoke an application authorization
+    #
+    # Requires basic authenticated client with client id as the
+    #  username and client secret as the password.
+    #
+    # @param client_id [String] Client ID of the application we want to
+    #   revoke all the tokens for.
+    # @param token [String] Authorization token to revoke.
+    # @return [Boolean] True if token revoked, false if not.
+    # @see http://developer.github.com/v3/oauth/#revoke-an-authorization-for-an-application
+    def revoke_authorization(client_id, token, options={})
+      boolean_from_response :delete, "applications/#{client_id}/tokens/#{token}", options
+    end
+
     # Revoke all authorizations for an application
     #
     # Requires basic authenticated client with client id as the

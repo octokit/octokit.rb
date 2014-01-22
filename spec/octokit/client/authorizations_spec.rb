@@ -188,6 +188,59 @@ describe Octokit::Client::Authorizations do
     end
   end # .authorize_url
 
+  describe ".revoke_authorization", :vcr do
+    context "with valid authentication" do
+      context "with valid token" do
+        before do
+          @authorization = basic_auth_client.create_authorization \
+            :client_id => test_github_client_id,
+            :client_secret => test_github_client_secret
+        end
+
+        after do
+          basic_auth_client.delete_authorization @authorization.id
+        end
+
+        it "revokes the authorization token" do
+          result = basic_oauth_app_client.revoke_authorization \
+            test_github_client_id,
+            @authorization.token
+          expect(result).to be_true
+          assert_requested :delete,
+            basic_github_url(
+              "/applications/#{test_github_client_id}/tokens/#{@authorization.token}",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+
+      context "with invalid token" do
+        it "returns false" do
+          result = basic_oauth_app_client.revoke_authorization \
+            test_github_client_id,
+            'brokentoken'
+          expect(result).to be_false
+          assert_requested :delete,
+            basic_github_url(
+              "/applications/#{test_github_client_id}/tokens/brokentoken",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+    end
+
+    context "with invalid authentication" do
+      it "returns false" do
+        result = Octokit.revoke_authorization \
+          test_github_client_id,
+          'brokentoken'
+        expect(result).to be_false
+        assert_requested :delete,
+          github_url("/applications/#{test_github_client_id}/tokens/brokentoken")
+      end
+    end
+  end # .revoke_authorization
+
   describe ".revoke_authorizations", :vcr do
     context "with valid authentication" do
       context "with a valid application client id" do
