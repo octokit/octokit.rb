@@ -8,10 +8,21 @@ describe Octokit::Client::PullRequests do
   end
 
   describe ".pull_requests", :vcr do
-    it "returns all pull requests" do
+    it "lists all pull requests" do
       pulls = @client.pulls("octokit/octokit.rb")
       expect(pulls).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls")
+    end
+    it "lists all pull requests with state option" do
+      pulls = @client.pulls("octokit/octokit.rb", :state => 'open')
+      expect(pulls).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls?state=open")
+    end
+    # Deprecated
+    it "lists all pull requests with state argument" do
+      pulls = @client.pulls("octokit/octokit.rb", 'closed')
+      expect(pulls).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls?state=closed")
     end
   end # .pull_requests
 
