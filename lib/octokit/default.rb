@@ -20,7 +20,7 @@ module Octokit
     WEB_ENDPOINT = "https://github.com".freeze
 
     # Default Faraday middleware stack
-    MIDDLEWARE = Faraday::Builder.new do |builder|
+    MIDDLEWARE = Faraday::RackBuilder.new do |builder|
       builder.use Octokit::Response::RaiseError
       builder.use Octokit::Response::FeedParser
       builder.adapter Faraday.default_adapter
