@@ -378,7 +378,7 @@ Often, it helps to know what Octokit is doing under the hood. Faraday makes it
 easy to peek into the underlying HTTP traffic:
 
 ```ruby
-stack = Faraday::Builder.new do |builder|
+stack = Faraday::RackBuilder.new do |builder|
   builder.response :logger
   builder.use Octokit::Response::RaiseError
   builder.adapter Faraday.default_adapter
@@ -417,7 +417,7 @@ Add the gem to your Gemfile
 Next, construct your own Faraday middleware:
 
 ```ruby
-stack = Faraday::Builder.new do |builder|
+stack = Faraday::RackBuilder.new do |builder|
   builder.use Faraday::HttpCache
   builder.use Octokit::Response::RaiseError
   builder.adapter Faraday.default_adapter
