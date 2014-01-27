@@ -19,8 +19,11 @@ module Octokit
     # Default WEB endpoint
     WEB_ENDPOINT = "https://github.com".freeze
 
-    # Default Faraday middleware stack
-    MIDDLEWARE = Faraday::Builder.new do |builder|
+    # In Faraday 0.9, Faraday::Builder was renamed to Faraday::RackBuilder
+    RACK_BUILDER_CLASS = defined?(Faraday::RackBuilder) ? Faraday::RackBuilder : Faraday::Builder
+
+    # Default Faraday middleware stack    
+    MIDDLEWARE = RACK_BUILDER_CLASS.new do |builder|
       builder.use Octokit::Response::RaiseError
       builder.use Octokit::Response::FeedParser
       builder.adapter Faraday.default_adapter
