@@ -38,7 +38,7 @@ describe Octokit::Client::Gists do
     describe ".gist" do
       it "returns the gist by ID" do
         gist = Octokit.client.gist(790381)
-        expect(gist.user.login).to eq 'jmccartie'
+        expect(gist.owner.login).to eq 'jmccartie'
         assert_requested :get, github_url("/gists/790381")
       end
     end
@@ -80,7 +80,7 @@ describe Octokit::Client::Gists do
 
     describe ".create_gist" do
       it "creates a new gist" do
-        expect(@gist.user.login).to eq test_github_login
+        expect(@gist.owner.login).to eq test_github_login
         expect(@gist.files.fields.first.to_s).to match /zen/
         assert_requested :post, github_url("/gists")
       end
@@ -110,17 +110,25 @@ describe Octokit::Client::Gists do
     end # .unstar_gist
 
     describe ".gist_starred?" do
-      it "is starred" do
-        starred = @client.gist_starred?(5421307)
-        assert_requested :get, github_url("/gists/5421307/star")
-        expect(starred).to eq true
-      end
 
       it "is not starred" do
         starred = @client.gist_starred?(5421308)
         assert_requested :get, github_url("/gists/5421308/star")
         expect(starred).to eq false
       end
+
+      context "with starred gist" do
+        before do
+          @client.star_gist(5421307)
+        end
+
+        it "is starred" do
+          starred = @client.gist_starred?(5421307)
+          assert_requested :get, github_url("/gists/5421307/star")
+          expect(starred).to eq true
+        end
+      end
+
     end # .gist_starred?
 
     describe ".fork_gist" do
