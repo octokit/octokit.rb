@@ -517,4 +517,4 @@ Constraint][pvc] with two digits of precision. For example:
 
 ## License
 
-{include:file:LICENSE.md}
+You can find the license for Octokit [here](https://raw.github.com/shiftkey/octokit.rb/master/LICENSE.md)
