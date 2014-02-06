@@ -26,6 +26,7 @@ require 'octokit/client/milestones'
 require 'octokit/client/notifications'
 require 'octokit/client/objects'
 require 'octokit/client/organizations'
+require 'octokit/client/pages'
 require 'octokit/client/pub_sub_hubbub'
 require 'octokit/client/pull_requests'
 require 'octokit/client/rate_limit'
@@ -68,6 +69,7 @@ module Octokit
     include Octokit::Client::Notifications
     include Octokit::Client::Objects
     include Octokit::Client::Organizations
+    include Octokit::Client::Pages
     include Octokit::Client::PubSubHubbub
     include Octokit::Client::PullRequests
     include Octokit::Client::RateLimit
@@ -183,7 +185,7 @@ module Octokit
     # @param block [Block] Block to perform the data concatination of the
     #   multiple requests. The block is called with two parameters, the first
     #   contains the contents of the requests so far and the second parameter
-    #   contains the latest response. 
+    #   contains the latest response.
     # @return [Sawyer::Resource]
     def paginate(url, options = {}, &block)
       opts = parse_query_and_convenience_headers(options.dup)
