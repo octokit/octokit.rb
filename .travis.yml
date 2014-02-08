@@ -1,8 +1,9 @@
 bundler_args: --without development
 language: ruby
+cache: bundler
 rvm:
   - jruby-19mode
-  - rbx-19mode
+  - rbx
   - 1.8.7
   - 1.9.2
   - 1.9.3
@@ -10,7 +11,9 @@ rvm:
   - 2.1.0
 matrix:
   allow_failures:
-    - rvm: rbx-19mode
+    - rvm:
+      - rbx
+      - jruby-19mode
 env:
   - OCTOKIT_TEST_GITHUB_LOGIN="api-padawan" OCTOKIT_TEST_GITHUB_PASSWORD="MYSOCRATESNOTE" OCTOKIT_TEST_GITHUB_TOKEN="6a21f190e3422bf89afa8b360d923b0c30e8fbfa" OCTOKIT_TEST_GITHUB_CLIENT_ID='abcdefabcdefabcdefab' OCTOKIT_TEST_GITHUB_CLIENT_SECRET='abcdefabcdefabcdefababcdefabcdefabcdefab'
 before_install:
