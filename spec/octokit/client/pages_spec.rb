@@ -11,7 +11,7 @@ describe Octokit::Client::Pages do
     it "lists page information" do
       pages = @client.pages("github/developer.github.com")
       expect(pages.cname).to match "developer.github.com"
-      assert_requested :get, github_url("/repos/github/developer.github.com/page")
+      assert_requested :get, github_url("/repos/github/developer.github.com/pages")
     end
   end # .pages
 
@@ -21,7 +21,7 @@ describe Octokit::Client::Pages do
       expect(builds).to be_kind_of Array
       latest_build = builds.first
       expect(latest_build.status).to match "built"
-      assert_requested :get, github_url("/repos/github/developer.github.com/page/builds")
+      assert_requested :get, github_url("/repos/github/developer.github.com/pages/builds")
     end
   end # .list_pages_builds
 
@@ -29,7 +29,7 @@ describe Octokit::Client::Pages do
     it "lists information about the latest page build" do
       latest_build = @client.latest_pages_build("github/developer.github.com")
       expect(latest_build.status).to match "built"
-      assert_requested :get, github_url("/repos/github/developer.github.com/page/builds/latest")
+      assert_requested :get, github_url("/repos/github/developer.github.com/pages/builds/latest")
     end
   end # .latest_pages_build
 end

@@ -12,7 +12,7 @@ module Octokit
       # @return Sawyer::Resource A GitHub Pages resource
       # @see http://developer.github.com/v3/repos/pages/#pages
       def pages(repo, options = {})
-        get "repos/#{Repository.new(repo)}/page", options
+        get "repos/#{Repository.new(repo)}/pages", options
       end
 
       # List Pages builds for a repository
@@ -21,7 +21,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of build history for a repository.
       # @see http://developer.github.com/v3/repos/pages/#pages-builds
       def pages_builds(repo, options = {})
-        get "repos/#{Repository.new(repo)}/page/builds", options
+        get "repos/#{Repository.new(repo)}/pages/builds", options
       end
       alias :list_page_builds :pages_builds
 
@@ -31,7 +31,7 @@ module Octokit
       # @return Sawyer::Resource A GitHub Pages resource about a build
       # @see http://developer.github.com/v3/repos/pages/#latest-pages-build
       def latest_pages_build(repo, options = {})
-        get "repos/#{Repository.new(repo)}/page/builds/latest", options
+        get "repos/#{Repository.new(repo)}/pages/builds/latest", options
       end
     end
   end
