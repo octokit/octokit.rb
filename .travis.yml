@@ -19,7 +19,5 @@ env:
 before_install:
   - gem update bundler
   - bundle --version
-  - gem update --system 2.1.11
-  - gem --version
 before_script:
   - chmod 600 spec/fixtures/.netrc
