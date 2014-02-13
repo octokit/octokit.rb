@@ -8,16 +8,28 @@ module Octokit
 
       # List pull requests for a repository
       #
-      # @see http://developer.github.com/v3/pulls/#list-pull-requests
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @param options [Hash] Method options
-      # @option options [String] :state `open` or `closed`. Default is `open`.
+      # @overload pull_requests(repo, options)
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param options [Hash] Method options
+      #   @option options [String] :state `open` or `closed`.
+      # @overload pull_requests(repo, state, options)
+      #   @deprecated
+      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param state [String] `open` or `closed`.
+      #   @param options [Hash] Method options
       # @return [Array<Sawyer::Resource>] Array of pulls
+      # @see http://developer.github.com/v3/pulls/#list-pull-requests
       # @example
-      #   Octokit.pull_requests('rails/rails')
-      def pull_requests(repo, state = nil, options = {})
-        options[:state] = state if state
-        paginate "repos/#{Repository.new(repo)}/pulls", options
+      #   Octokit.pull_requests('rails/rails', :state => 'closed')
+      def pull_requests(*args)
+        arguments = Arguments.new(args)
+        opts = arguments.options
+        repo = arguments.shift
+        if state = arguments.shift
+          warn "DEPRECATED: Client#pull_requests: Passing state as positional argument is deprecated. Please use :state => '#{state}'"
+          opts[:state] = state if state
+        end
+        paginate "repos/#{Repository.new(repo)}/pulls", opts
       end
       alias :pulls :pull_requests
 

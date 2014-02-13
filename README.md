@@ -378,7 +378,7 @@ Often, it helps to know what Octokit is doing under the hood. Faraday makes it
 easy to peek into the underlying HTTP traffic:
 
 ```ruby
-stack = Faraday::Builder.new do |builder|
+stack = Faraday::RackBuilder.new do |builder|
   builder.response :logger
   builder.use Octokit::Response::RaiseError
   builder.adapter Faraday.default_adapter
@@ -417,7 +417,7 @@ Add the gem to your Gemfile
 Next, construct your own Faraday middleware:
 
 ```ruby
-stack = Faraday::Builder.new do |builder|
+stack = Faraday::RackBuilder.new do |builder|
   builder.use Faraday::HttpCache
   builder.use Octokit::Response::RaiseError
   builder.adapter Faraday.default_adapter
@@ -517,4 +517,24 @@ Constraint][pvc] with two digits of precision. For example:
 
 ## License
 
-{include:file:LICENSE.md}
+Copyright (c) 2009-2014 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+

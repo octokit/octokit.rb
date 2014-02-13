@@ -3,6 +3,14 @@ require 'json'
 
 describe Octokit::Client do
 
+  before do
+    Octokit.reset!
+  end
+
+  after do
+    Octokit.reset!
+  end
+
   describe "module configuration" do
 
     before do
@@ -372,7 +380,7 @@ describe Octokit::Client do
       Octokit.reset!
       Octokit.configure do |config|
         config.auto_paginate = true
-        config.per_page = 3
+        config.per_page = 1
       end
     end
 
@@ -381,10 +389,11 @@ describe Octokit::Client do
     end
 
     it "fetches all the pages" do
-      Octokit.client.paginate('/repos/octokit/octokit.rb/issues')
-      assert_requested :get, github_url("/repos/octokit/octokit.rb/issues?per_page=3")
-      (2..7).each do |i|
-        assert_requested :get, github_url("/repositories/417862/issues?per_page=3&page=#{i}")
+      url = '/search/users?q=user:joeyw user:pengwynn user:sferik'
+      Octokit.client.paginate url
+      assert_requested :get, github_url("#{url}&per_page=1")
+      (2..3).each do |i|
+        assert_requested :get, github_url("#{url}&per_page=1&page=#{i}")
       end
     end
 

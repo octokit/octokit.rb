@@ -7,6 +7,10 @@ describe Octokit::Client::Authorizations do
     @client = basic_auth_client
   end
 
+  after do
+    Octokit.reset!
+  end
+
   describe ".create_authorization", :vcr do
     context 'without :idempotent => true' do
       it "creates an API authorization" do
