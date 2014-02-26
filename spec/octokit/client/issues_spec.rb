@@ -46,7 +46,7 @@ describe Octokit::Client::Issues do
         "api-playground/api-sandbox",
         "Migrate issues to v3",
         "Move all Issues calls to v3 of the API"
-      expect(issue.title).to match /Migrate/
+      expect(issue.title).to match(/Migrate/)
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues")
     end
     it "creates an issue with delimited labels" do
@@ -55,7 +55,7 @@ describe Octokit::Client::Issues do
         "New issue with delimited labels",
         "Testing",
         :labels => "bug, feature"
-      expect(issue.title).to match /delimited/
+      expect(issue.title).to match(/delimited/)
       expect(issue.labels.map(&:name)).to include("feature")
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues")
     end
@@ -65,7 +65,7 @@ describe Octokit::Client::Issues do
         "New issue with labels array",
         "Testing",
         :labels => %w(bug feature)
-      expect(issue.title).to match /array/
+      expect(issue.title).to match(/array/)
       expect(issue.labels.map(&:name)).to include("feature")
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues")
     end
@@ -81,20 +81,20 @@ describe Octokit::Client::Issues do
       it "returns an issue" do
         issue = @client.issue("api-playground/api-sandbox", @issue.number)
         assert_requested :get, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
-        expect(issue.number).to eq @issue.number
+        expect(issue.number).to eq(@issue.number)
       end
       it "returns a full issue" do
         issue = @client.issue("api-playground/api-sandbox", @issue.number, :accept => 'application/vnd.github.full+json')
         assert_requested :get, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
-        expect(issue.body_html).to include '<p>Move all'
-        expect(issue.body_text).to include 'Move all'
+        expect(issue.body_html).to include('<p>Move all')
+        expect(issue.body_text).to include('Move all')
       end
     end # .issue
 
     describe ".close_issue" do
       it "closes an issue" do
         issue = @client.close_issue("api-playground/api-sandbox", @issue.number)
-        expect(issue.number).to eq @issue.number
+        expect(issue.number).to eq(@issue.number)
         assert_requested :patch, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
       end
     end # .close_issue
@@ -102,7 +102,7 @@ describe Octokit::Client::Issues do
     describe ".reopen_issue" do
       it "reopens an issue" do
         issue = @client.close_issue("api-playground/api-sandbox", @issue.number)
-        expect(issue.number).to eq @issue.number
+        expect(issue.number).to eq(@issue.number)
         assert_requested :patch, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
       end
     end # .reopen_issue
@@ -110,7 +110,7 @@ describe Octokit::Client::Issues do
     describe ".update_issue" do
       it "updates an issue" do
         issue = @client.update_issue("api-playground/api-sandbox", @issue.number, "Use all the v3 api!", "")
-        expect(issue.number).to eq @issue.number
+        expect(issue.number).to eq(@issue.number)
         assert_requested :patch, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
       end
     end # .update_issue
@@ -118,7 +118,7 @@ describe Octokit::Client::Issues do
     describe ".add_comment" do
       it "adds a comment" do
         comment = @client.add_comment("api-playground/api-sandbox", @issue.number, "A test comment")
-        expect(comment.user.login).to eq test_github_login
+        expect(comment.user.login).to eq(test_github_login)
         assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}/comments")
       end
     end # .add_comment
@@ -166,7 +166,7 @@ describe Octokit::Client::Issues do
   describe ".issue_comment", :vcr do
     it "returns a single comment for an issue" do
       comment = @client.issue_comment("octokit/octokit.rb", 1194690)
-      expect(comment.rels[:self].href).to eq "https://api.github.com/repos/octokit/octokit.rb/issues/comments/1194690"
+      expect(comment.rels[:self].href).to eq("https://api.github.com/repos/octokit/octokit.rb/issues/comments/1194690")
       assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/comments/1194690')
     end
   end # .issue_comment

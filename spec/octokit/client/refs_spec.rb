@@ -23,7 +23,7 @@ describe Octokit::Client::Refs do
   describe ".ref", :vcr do
     it "returns a tags ref" do
       ref = @client.ref("sferik/rails_admin", "tags/v0.0.3")
-      expect(ref.object.type).to eq "tag"
+      expect(ref.object.type).to eq("tag")
       assert_requested :get, github_url("/repos/sferik/rails_admin/git/refs/tags/v0.0.3")
     end
   end # .ref

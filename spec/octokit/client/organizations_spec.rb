@@ -10,7 +10,7 @@ describe Octokit::Client::Organizations do
   describe ".organization", :vcr do
     it "returns an organization" do
       organization = @client.organization("codeforamerica")
-      expect(organization.name).to eq "Code For America"
+      expect(organization.name).to eq("Code For America")
       assert_requested :get, github_url("/orgs/codeforamerica")
     end
   end # .organization
@@ -18,7 +18,7 @@ describe Octokit::Client::Organizations do
   describe ".update_organization", :vcr do
     it "updates an organization" do
       organization = @client.update_organization("api-playground", {:name => "API Playground"})
-      expect(organization.login).to eq "api-playground"
+      expect(organization.login).to eq("api-playground")
       assert_requested :patch, github_url("/orgs/api-playground")
     end
   end # .update_organization
@@ -105,7 +105,7 @@ describe Octokit::Client::Organizations do
     describe ".team", :vcr do
       it "returns a team" do
         team = @client.team(@team.id)
-        expect(team.id).to eq @team.id
+        expect(team.id).to eq(@team.id)
         assert_requested :get, github_url("/teams/#{@team.id}")
       end
     end # .team

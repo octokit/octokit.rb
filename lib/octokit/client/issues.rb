@@ -190,7 +190,7 @@ module Octokit
       #     :since => '2010-05-04T23:45:02Z'
       #   })
       def issues_comments(repo, options = {})
-        paginate "repos/#{Repository.new repo}/issues/comments", options
+        paginate "repos/#{Repository.new(repo)}/issues/comments", options
       end
 
       # Get all comments attached to an issue

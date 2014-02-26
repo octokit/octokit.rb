@@ -84,7 +84,7 @@ module Octokit
     include Octokit::Client::Users
 
     # Header keys that can be passed in options hash to {#get},{#head}
-    CONVENIENCE_HEADERS = Set.new [:accept, :content_type]
+    CONVENIENCE_HEADERS = Set.new([:accept, :content_type])
 
     def initialize(options = {})
       # Use options passed in, but fall back to module defaults

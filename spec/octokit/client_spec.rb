@@ -29,7 +29,7 @@ describe Octokit::Client do
     it "inherits the module configuration" do
       client = Octokit::Client.new
       Octokit::Configurable.keys.each do |key|
-        expect(client.instance_variable_get(:"@#{key}")).to eq "Some #{key}"
+        expect(client.instance_variable_get(:"@#{key}")).to eq("Some #{key}")
       end
     end
 
@@ -46,11 +46,11 @@ describe Octokit::Client do
 
       it "overrides module configuration" do
         client = Octokit::Client.new(@opts)
-        expect(client.per_page).to eq 40
-        expect(client.login).to eq "defunkt"
-        expect(client.instance_variable_get(:"@password")).to eq "il0veruby"
-        expect(client.auto_paginate).to eq Octokit.auto_paginate
-        expect(client.client_id).to eq Octokit.client_id
+        expect(client.per_page).to eq(40)
+        expect(client.login).to eq("defunkt")
+        expect(client.instance_variable_get(:"@password")).to eq("il0veruby")
+        expect(client.auto_paginate).to eq(Octokit.auto_paginate)
+        expect(client.client_id).to eq(Octokit.client_id)
       end
 
       it "can set configuration after initialization" do
@@ -60,49 +60,44 @@ describe Octokit::Client do
             config.send("#{key}=", value)
           end
         end
-        expect(client.per_page).to eq 40
-        expect(client.login).to eq "defunkt"
-        expect(client.instance_variable_get(:"@password")).to eq "il0veruby"
-        expect(client.auto_paginate).to eq Octokit.auto_paginate
-        expect(client.client_id).to eq Octokit.client_id
+        expect(client.per_page).to eq(40)
+        expect(client.login).to eq("defunkt")
+        expect(client.instance_variable_get(:"@password")).to eq("il0veruby")
+        expect(client.auto_paginate).to eq(Octokit.auto_paginate)
+        expect(client.client_id).to eq(Octokit.client_id)
       end
 
       it "masks passwords on inspect" do
         client = Octokit::Client.new(@opts)
         inspected = client.inspect
-        expect(inspected).not_to include "il0veruby"
+        expect(inspected).not_to include("il0veruby")
       end
 
       it "masks tokens on inspect" do
         client = Octokit::Client.new(:access_token => '87614b09dd141c22800f96f11737ade5226d7ba8')
         inspected = client.inspect
-        expect(inspected).not_to match "87614b09dd141c22800f96f11737ade5226d7ba8"
+        expect(inspected).not_to eq("87614b09dd141c22800f96f11737ade5226d7ba8")
       end
 
       it "masks client secrets on inspect" do
         client = Octokit::Client.new(:client_secret => '87614b09dd141c22800f96f11737ade5226d7ba8')
         inspected = client.inspect
-        expect(inspected).not_to match "87614b09dd141c22800f96f11737ade5226d7ba8"
+        expect(inspected).not_to eq("87614b09dd141c22800f96f11737ade5226d7ba8")
       end
 
       describe "with .netrc" do
         it "can read .netrc files" do
           Octokit.reset!
-          client = Octokit::Client.new \
-            :netrc => true,
-            :netrc_file => File.join(fixture_path, '.netrc')
-          expect(client.login).to eq "sferik"
-          expect(client.instance_variable_get(:"@password")).to eq "il0veruby"
+          client = Octokit::Client.new(:netrc => true, :netrc_file => File.join(fixture_path, '.netrc'))
+          expect(client.login).to eq("sferik")
+          expect(client.instance_variable_get(:"@password")).to eq("il0veruby")
         end
 
         it "can read non-standard API endpoint creds from .netrc" do
           Octokit.reset!
-          client = Octokit::Client.new \
-            :netrc => true,
-            :netrc_file => File.join(fixture_path, '.netrc'),
-            :api_endpoint => 'http://api.github.dev'
-          expect(client.login).to eq "defunkt"
-          expect(client.instance_variable_get(:"@password")).to eq "il0veruby"
+          client = Octokit::Client.new(:netrc => true, :netrc_file => File.join(fixture_path, '.netrc'), :api_endpoint => 'http://api.github.dev')
+          expect(client.login).to eq("defunkt")
+          expect(client.instance_variable_get(:"@password")).to eq("il0veruby")
         end
       end
     end
@@ -227,7 +222,7 @@ describe Octokit::Client do
       it "fetches and memoizes login" do
         client = oauth_client
 
-        expect(client.login).to eq test_github_login
+        expect(client.login).to eq(test_github_login)
         assert_requested :get, github_url('/user')
       end
     end
@@ -253,7 +248,7 @@ describe Octokit::Client do
     end
     it "caches the agent" do
       agent = Octokit.client.agent
-      expect(agent.object_id).to eq Octokit.client.agent.object_id
+      expect(agent.object_id).to eq(Octokit.client.agent.object_id)
     end
   end # .agent
 
@@ -262,7 +257,7 @@ describe Octokit::Client do
       Octokit.reset!
       VCR.use_cassette 'root' do
         root = Octokit.client.root
-        expect(root.rels[:issues].href).to eq "https://api.github.com/issues"
+        expect(root.rels[:issues].href).to eq("https://api.github.com/issues")
       end
     end
 
@@ -282,7 +277,7 @@ describe Octokit::Client do
       client = Octokit.client
       expect(client.last_response).to be_nil
       client.get "/"
-      expect(client.last_response.status).to eq 200
+      expect(client.last_response.status).to eq(200)
     end
   end # .last_response
 
@@ -328,7 +323,7 @@ describe Octokit::Client do
           with(:headers => {:accept => "application/vnd.github.v3+json"})
         @client.get "/"
         assert_requested root_request
-        expect(@client.last_response.status).to eq 200
+        expect(@client.last_response.status).to eq(200)
       end
     end
     it "allows Accept'ing another media type" do
@@ -336,30 +331,30 @@ describe Octokit::Client do
         with(:headers => {:accept => "application/vnd.github.beta.diff+json"})
       @client.get "/", :accept => "application/vnd.github.beta.diff+json"
       assert_requested root_request
-      expect(@client.last_response.status).to eq 200
+      expect(@client.last_response.status).to eq(200)
     end
     it "sets a default user agent" do
       root_request = stub_get("/").
         with(:headers => {:user_agent => Octokit::Default.user_agent})
       @client.get "/"
       assert_requested root_request
-      expect(@client.last_response.status).to eq 200
+      expect(@client.last_response.status).to eq(200)
     end
     it "sets a custom user agent" do
       user_agent = "Mozilla/5.0 I am Spartacus!"
       root_request = stub_get("/").
         with(:headers => {:user_agent => user_agent})
-      client = Octokit::Client.new :user_agent => user_agent
+      client = Octokit::Client.new(:user_agent => user_agent)
       client.get "/"
       assert_requested root_request
-      expect(client.last_response.status).to eq 200
+      expect(client.last_response.status).to eq(200)
     end
     it "sets a proxy server" do
       Octokit.configure do |config|
         config.proxy = 'http://proxy.example.com:80'
       end
       conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
-      expect(conn.proxy[:uri].to_s).to eq 'http://proxy.example.com'
+      expect(conn.proxy[:uri].to_s).to eq('http://proxy.example.com')
     end
     it "passes along request headers for POST" do
       VCR.turned_off do
@@ -370,7 +365,7 @@ describe Octokit::Client do
         client = Octokit::Client.new
         client.post "/", :headers => headers
         assert_requested root_request
-        expect(client.last_response.status).to eq 201
+        expect(client.last_response.status).to eq(201)
       end
     end
   end
@@ -403,8 +398,8 @@ describe Octokit::Client do
         data.items.concat last_response.data.items
       }
 
-      expect(results.total_count).to eq 2
-      expect(results.items.length).to eq 2
+      expect(results.total_count).to eq(2)
+      expect(results.items.length).to eq(2)
     end
   end
 
@@ -439,8 +434,7 @@ describe Octokit::Client do
       begin
         Octokit.get('/boom')
       rescue Octokit::UnprocessableEntity => e
-        expect(e.message).to include \
-          "GET https://api.github.com/boom: 422 - No repository found"
+        expect(e.message).to include("GET https://api.github.com/boom: 422 - No repository found")
       end
     end
 
@@ -455,8 +449,7 @@ describe Octokit::Client do
       begin
         Octokit.get('/boom')
       rescue Octokit::UnprocessableEntity => e
-        expect(e.message).to include \
-          "GET https://api.github.com/boom: 422 - Error: No repository found"
+        expect(e.message).to include("GET https://api.github.com/boom: 422 - Error: No repository found")
       end
     end
 
@@ -478,11 +471,10 @@ describe Octokit::Client do
       begin
         Octokit.get('/boom')
       rescue Octokit::UnprocessableEntity => e
-        expect(e.message).to include \
-          "GET https://api.github.com/boom: 422 - Validation Failed"
-        expect(e.message).to include "  resource: Issue"
-        expect(e.message).to include "  field: title"
-        expect(e.message).to include "  code: missing_field"
+        expect(e.message).to include("GET https://api.github.com/boom: 422 - Validation Failed")
+        expect(e.message).to include("  resource: Issue")
+        expect(e.message).to include("  field: title")
+        expect(e.message).to include("  code: missing_field")
       end
     end
 

@@ -46,7 +46,7 @@ module Octokit
       # @example Get your notifications for octokit/octokit.rb since a time.
       #   @client.repository_notifications({since: '2012-10-09T23:39:01Z'})
       def repository_notifications(repo, options = {})
-        paginate "repos/#{Repository.new repo}/notifications", options
+        paginate "repos/#{Repository.new(repo)}/notifications", options
       end
       alias :repo_notifications :repository_notifications
 
@@ -87,7 +87,7 @@ module Octokit
       # @example
       #   @client.mark_notifications_as_read("octokit/octokit.rb")
       def mark_repository_notifications_as_read(repo, options = {})
-        request :put, "repos/#{Repository.new repo}/notifications", options
+        request :put, "repos/#{Repository.new(repo)}/notifications", options
 
         last_response.status == 205
       end

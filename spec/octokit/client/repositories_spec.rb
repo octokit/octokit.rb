@@ -10,7 +10,7 @@ describe Octokit::Client::Repositories do
   describe ".repository", :vcr do
     it "returns the matching repository" do
       repository = @client.repository("sferik/rails_admin")
-      expect(repository.name).to eq "rails_admin"
+      expect(repository.name).to eq("rails_admin")
       assert_requested :get, github_url("/repos/sferik/rails_admin")
     end
   end # .repository
@@ -44,7 +44,7 @@ describe Octokit::Client::Repositories do
   describe ".create_repository", :vcr do
     it "creates a repository for an organization" do
       repository = @client.create_repository("an-org-repo", :organization => "api-playground")
-      expect(repository.name).to eq "an-org-repo"
+      expect(repository.name).to eq("an-org-repo")
       assert_requested :post, github_url("/orgs/api-playground/repos")
 
       # cleanup
@@ -116,7 +116,7 @@ describe Octokit::Client::Repositories do
 
     describe ".create_repository", :vcr do
       it "creates a repository" do
-        expect(@repo.name).to eq "an-repo"
+        expect(@repo.name).to eq("an-repo")
         assert_requested :post, github_url("/user/repos")
       end
     end # .create_repository
@@ -125,7 +125,7 @@ describe Octokit::Client::Repositories do
       it "updates the matching repository" do
         description = "It's epic"
         repository = @client.edit_repository(@repo.full_name, :description => description)
-        expect(repository.description).to eq description
+        expect(repository.description).to eq(description)
         assert_requested :patch, github_url("/repos/#{@repo.full_name}")
       end
     end # .update_repository

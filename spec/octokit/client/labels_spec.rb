@@ -18,7 +18,7 @@ describe Octokit::Client::Labels do
   describe ".label", :vcr do
     it "returns a single label" do
       label = @client.label("octokit/octokit.rb", "V3 Addition")
-      expect(label.name).to eq "V3 Addition"
+      expect(label.name).to eq("V3 Addition")
       assert_requested :get, github_url("/repos/octokit/octokit.rb/labels/V3+Addition")
     end
   end # .label
@@ -27,7 +27,7 @@ describe Octokit::Client::Labels do
     it "adds a label with a color" do
       @client.delete_label!("api-playground/api-sandbox", 'test-label', {:color => 'ededed'})
       label = @client.add_label("api-playground/api-sandbox", "test-label", 'ededed')
-      expect(label.color).to eq "ededed"
+      expect(label.color).to eq("ededed")
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/labels")
     end
     it "adds a label with default color" do

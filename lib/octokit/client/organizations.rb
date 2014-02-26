@@ -374,7 +374,7 @@ module Octokit
       # @example
       #   @client.team_repo?(8675309, 'octokit/octokit.rb')
       def team_repository?(team_id, repo, options = {})
-        boolean_from_response :get, "teams/#{team_id}/repos/#{Repository.new repo}"
+        boolean_from_response :get, "teams/#{team_id}/repos/#{Repository.new(repo)}"
       end
       alias :team_repo? :team_repository?
 

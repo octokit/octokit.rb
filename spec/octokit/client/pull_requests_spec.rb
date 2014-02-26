@@ -38,7 +38,7 @@ describe Octokit::Client::PullRequests do
 
     describe ".create_pull_request", :vcr do
       it "creates a pull request" do
-        expect(@pull.title).to eq "A new PR"
+        expect(@pull.title).to eq("A new PR")
         assert_requested :post, github_url("/repos/api-playground/api-sandbox/pulls")
       end
     end # .create_pull_request
@@ -46,7 +46,7 @@ describe Octokit::Client::PullRequests do
     describe ".pull_request", :vcr do
       it "returns a pull request" do
         pull = @client.pull("api-playground/api-sandbox", @pull.number)
-        expect(pull.title).to eq "A new PR"
+        expect(pull.title).to eq("A new PR")
         assert_requested :get, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}")
       end
     end # .pull_request
@@ -123,7 +123,7 @@ describe Octokit::Client::PullRequests do
     describe ".close_pull_request", :vcr do
       it "closes a pull request" do
         response = @client.close_pull_request("api-playground/api-sandbox", @pull.number)
-        expect(response.state).to eq 'closed'
+        expect(response.state).to eq('closed')
         assert_requested :patch, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}")
       end
     end

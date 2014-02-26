@@ -102,7 +102,7 @@ describe Octokit::Client::Commits do
   describe ".commit", :vcr do
     it "returns a commit" do
       commit = @client.commit("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-      expect(commit.author.login).to eq 'caboteria'
+      expect(commit.author.login).to eq('caboteria')
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
     end
   end # .commit
@@ -110,7 +110,7 @@ describe Octokit::Client::Commits do
   describe ".git_commit", :vcr do
     it "returns a detailed git commit" do
       commit = @client.git_commit("octokit/octokit.rb", "2bfca14ed8ebc3dad75082ff175e6703aed7ccc0")
-      expect(commit.author.name).to eq 'Joey Wendt'
+      expect(commit.author.name).to eq('Joey Wendt')
       assert_requested :get, github_url("/repos/octokit/octokit.rb/git/commits/2bfca14ed8ebc3dad75082ff175e6703aed7ccc0")
     end
   end # .git_commit

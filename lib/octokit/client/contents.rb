@@ -17,7 +17,7 @@ module Octokit
       # @example Get the readme file for a repo
       #   Octokit.readme("octokit/octokit.rb")
       def readme(repo, options={})
-        get "repos/#{Repository.new repo}/readme", options
+        get "repos/#{Repository.new(repo)}/readme", options
       end
 
       # Receive a listing of a repository folder or the contents of a file
@@ -31,7 +31,7 @@ module Octokit
       #   Octokit.contents("octokit/octokit.rb", :path => 'lib/octokit.rb')
       def contents(repo, options={})
         repo_path = options.delete :path
-        url = "repos/#{Repository.new repo}/contents/#{repo_path}"
+        url = "repos/#{Repository.new(repo)}/contents/#{repo_path}"
         get url, options
       end
       alias :content :contents
@@ -72,12 +72,12 @@ module Octokit
             file.close
           end
         end
-        raise ArgumentError.new "content or :file option required" if content.nil?
+        raise ArgumentError.new("content or :file option required") if content.nil?
         options[:content] = Base64.respond_to?(:strict_encode64) ?
           Base64.strict_encode64(content) :
           Base64.encode64(content).delete("\n") # Ruby 1.9.2
         options[:message] = message
-        url = "repos/#{Repository.new repo}/contents/#{path}"
+        url = "repos/#{Repository.new(repo)}/contents/#{path}"
         put url, options
       end
       alias :create_content :create_contents
@@ -133,7 +133,7 @@ module Octokit
       def delete_contents(repo, path, message, sha, options = {})
         options[:message] = message
         options[:sha] = sha
-        url = "repos/#{Repository.new repo}/contents/#{path}"
+        url = "repos/#{Repository.new(repo)}/contents/#{path}"
         delete url, options
       end
       alias :delete_content :delete_contents
@@ -152,7 +152,7 @@ module Octokit
       def archive_link(repo, options={})
         repo_ref = options.delete :ref
         format = (options.delete :format) || 'tarball'
-        url = "repos/#{Repository.new repo}/#{format}/#{repo_ref}"
+        url = "repos/#{Repository.new(repo)}/#{format}/#{repo_ref}"
         request :head, url, options
 
         last_response.headers['Location']

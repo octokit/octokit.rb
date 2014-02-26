@@ -17,11 +17,11 @@ describe Octokit::Client::Users do
   describe ".user", :vcr do
     it "returns a user" do
       user = Octokit.client.user("sferik")
-      expect(user.login).to eq 'sferik'
+      expect(user.login).to eq('sferik')
     end
     it "returns the authenticated user" do
       user = @client.user
-      expect(user.login).to eq test_github_login
+      expect(user.login).to eq(test_github_login)
     end
   end # .user
 
@@ -34,7 +34,7 @@ describe Octokit::Client::Users do
   describe ".update_user", :vcr do
     it "updates a user profile" do
       user = @client.update_user(:location => "San Francisco, CA", :hireable => false)
-      expect(user.login).to eq test_github_login
+      expect(user.login).to eq(test_github_login)
       assert_requested :patch, github_url("/user")
     end
   end # .update_user
@@ -226,7 +226,7 @@ describe Octokit::Client::Users do
             :content_type => "application/json"
         }).to_return(json_response("web_flow_token.json"))
         response = Octokit.exchange_code_for_token('code', 'id_here', 'secret_here')
-        expect(response.access_token).to eq 'this_be_ye_token/use_it_wisely'
+        expect(response.access_token).to eq('this_be_ye_token/use_it_wisely')
         assert_requested post
       end
     end

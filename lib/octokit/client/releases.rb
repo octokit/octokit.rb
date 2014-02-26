@@ -136,7 +136,7 @@ module Octokit
         end
       rescue LoadError
         msg = "Please pass content_type or install mime-types gem to guess content type from file"
-        raise Octokit::MissingContentType.new msg
+        raise Octokit::MissingContentType.new(msg)
       end
 
     end

@@ -10,7 +10,7 @@ describe Octokit::Client::Downloads do
   describe ".downloads", :vcr do
     it "lists available downloads" do
       downloads = @client.downloads("github/hubot")
-      expect(downloads.last.description).to match "Campfire"
+      expect(downloads.last.description).to eq("Version 1.0.0 of the Hubot Campfire Bot")
       assert_requested :get, github_url("/repos/github/hubot/downloads")
     end
   end # .downloads
@@ -18,7 +18,7 @@ describe Octokit::Client::Downloads do
   describe ".download", :vcr do
     it "gets a single download" do
       download = @client.download("github/hubot", 165347)
-      expect(download.name).to eq "hubot-2.1.0.tar.gz"
+      expect(download.name).to eq("hubot-2.1.0.tar.gz")
       assert_requested :get, github_url("/repos/github/hubot/downloads/165347")
     end
   end # .download

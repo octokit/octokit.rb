@@ -89,7 +89,7 @@ describe Octokit::Client::Stats do
   describe ".participation_stats", :vcr do
     it "returns the owner and contributor participation stats" do
       stats = @client.participation_stats("pengwynn/pingwynn")
-      expect(stats.fields).to include :owner
+      expect(stats.fields).to include(:owner)
       assert_requested :get, github_url("/repos/pengwynn/pingwynn/stats/participation")
     end
   end # .participation_stats

@@ -195,7 +195,7 @@ module Octokit
       # @example
       #   @client.starred?('pengwynn/octokit')
       def starred?(repo, options = {})
-        boolean_from_response :get, "user/starred/#{Repository.new repo}", options
+        boolean_from_response :get, "user/starred/#{Repository.new(repo)}", options
       end
 
       # Get a public key.

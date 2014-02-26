@@ -10,14 +10,14 @@ describe Octokit::Client::Objects do
   describe ".tree", :vcr do
     it "gets a tree" do
       result = @client.tree("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-      expect(result.sha).to eq "3cdfabd973bc3caac209cba903cfdb3bf6636bcd"
-      expect(result.tree.first.path).to eq ".gitignore"
+      expect(result.sha).to eq("3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
+      expect(result.tree.first.path).to eq(".gitignore")
       assert_requested :get, github_url("/repos/sferik/rails_admin/git/trees/3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
     end
     it "gets a tree recursively" do
       result = @client.tree("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd", :recursive => true)
-      expect(result.sha).to eq "3cdfabd973bc3caac209cba903cfdb3bf6636bcd"
-      expect(result.tree.first.path).to eq ".gitignore"
+      expect(result.sha).to eq("3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
+      expect(result.tree.first.path).to eq(".gitignore")
       assert_requested :get, github_url("/repos/sferik/rails_admin/git/trees/3cdfabd973bc3caac209cba903cfdb3bf6636bcd?recursive=true")
     end
   end # .tree
@@ -32,7 +32,7 @@ describe Octokit::Client::Objects do
   describe ".blob", :vcr do
     it "returns a blob" do
       blob = @client.blob("sferik/rails_admin", "94616fa57520ac8147522c7cf9f03d555595c5ea")
-      expect(blob.sha).to eq "94616fa57520ac8147522c7cf9f03d555595c5ea"
+      expect(blob.sha).to eq("94616fa57520ac8147522c7cf9f03d555595c5ea")
       assert_requested :get, github_url("/repos/sferik/rails_admin/git/blobs/94616fa57520ac8147522c7cf9f03d555595c5ea")
     end
   end # .blob
@@ -63,7 +63,7 @@ describe Octokit::Client::Objects do
         "wynn.netherland@gmail.com",
         "2012-06-03T17:03:11-07:00"
       )
-      expect(tag.tag).to eq "v9000.0.0"
+      expect(tag.tag).to eq("v9000.0.0")
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/tags")
     end
   end # .create_tag

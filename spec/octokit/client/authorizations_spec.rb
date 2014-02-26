@@ -22,7 +22,7 @@ describe Octokit::Client::Authorizations do
       it "creates a new API authorization each time" do
         first_authorization = @client.create_authorization
         second_authorization = @client.create_authorization
-        expect(first_authorization.id).not_to eq second_authorization.id
+        expect(first_authorization.id).not_to eq(second_authorization.id)
       end
 
       it "creates a new authorization with options" do
@@ -80,7 +80,7 @@ describe Octokit::Client::Authorizations do
     it "updates and existing authorization" do
       authorization = @client.create_authorization
       updated = @client.update_authorization(authorization.id, :add_scopes => ['repo:status'])
-      expect(updated.scopes).to include 'repo:status'
+      expect(updated.scopes).to include('repo:status')
       assert_requested :patch, basic_github_url("/authorizations/#{authorization.id}")
     end
   end # .update_authorization
@@ -106,7 +106,7 @@ describe Octokit::Client::Authorizations do
       VCR.use_cassette 'delete_authorization' do
         authorization = @client.create_authorization
         result = @client.delete_authorization(authorization.id)
-        expect(result).to eq true
+        expect(result).to be true
         assert_requested :delete, basic_github_url("/authorizations/#{authorization.id}")
       end
     end

@@ -77,7 +77,7 @@ module Octokit
       # @example List events for a repository's network
       #   Octokit.repository_network_events("sferik/rails_admin")
       def repository_network_events(repo, options = {})
-        paginate "networks/#{Repository.new repo}/events", options
+        paginate "networks/#{Repository.new(repo)}/events", options
       end
 
       # List all events for an organization
@@ -114,7 +114,7 @@ module Octokit
       # @example Get all Issue Events for Octokit
       #   Octokit.repository_issue_events("octokit/octokit.rb")
       def repository_issue_events(repo, options = {})
-        paginate "repos/#{Repository.new repo}/issues/events", options
+        paginate "repos/#{Repository.new(repo)}/issues/events", options
       end
       alias :repo_issue_events :repository_issue_events
 
