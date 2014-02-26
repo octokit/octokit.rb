@@ -52,7 +52,7 @@ describe Octokit::Client::Releases do
         "api-playground/api-sandbox", "test-delete-release-tag", :name => "Test Delete Release"
       url = created.rels[:self].href
       result = @client.delete_release url
-      expect(result).to be_true
+      expect(result).to be true
       expect { @client.release(url) }.to raise_error(Octokit::NotFound)
     end
   end
@@ -123,7 +123,7 @@ describe Octokit::Client::Releases do
         asset_url = "https://api.github.com/repos/api-playground/api-sandbox/releases/assets/21313"
         request = stub_delete(asset_url).to_return(:status => 204)
 
-        expect(@client.delete_release_asset(asset_url)).to be_true
+        expect(@client.delete_release_asset(asset_url)).to be true
         assert_requested request
       end
     end

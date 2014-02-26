@@ -27,7 +27,7 @@ describe Octokit::Client::Users do
 
   describe ".validate_credentials", :vcr do
     it "validates username and password" do
-      expect(Octokit.validate_credentials(:login => test_github_login, :password => test_github_password)).to be_true
+      expect(Octokit.validate_credentials(:login => test_github_login, :password => test_github_password)).to be true
     end
   end # .validate_credentials
 

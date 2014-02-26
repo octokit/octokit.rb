@@ -61,7 +61,7 @@ describe Octokit::Client::PullRequests do
     describe ".pull_merged?", :vcr do
       it "returns whether the pull request has been merged" do
         merged = @client.pull_merged?("api-playground/api-sandbox", @pull.number)
-        expect(merged).not_to be_true
+        expect(merged).not_to be true
         assert_requested :get, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}/merge")
       end
     end # .pull_merged?

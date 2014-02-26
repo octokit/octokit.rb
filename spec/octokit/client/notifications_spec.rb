@@ -26,7 +26,7 @@ describe Octokit::Client::Notifications do
   describe ".mark_notifications_as_read", :vcr do
     it "returns true when notifications are marked as read" do
       result = @client.mark_notifications_as_read
-      expect(result).to be_true
+      expect(result).to be true
       assert_requested :put, github_url("/notifications")
     end
   end # .mark_notifications_as_read
@@ -34,7 +34,7 @@ describe Octokit::Client::Notifications do
   describe ".mark_repository_notifications_as_read", :vcr do
     it "returns true when notifications for a repo are marked as read" do
       result = @client.mark_repository_notifications_as_read("api-playground/api-sandbox")
-      expect(result).to be_true
+      expect(result).to be true
       assert_requested :put, github_url("/repos/api-playground/api-sandbox/notifications")
     end
   end # .mark_repository_notifications_as_read

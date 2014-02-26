@@ -269,7 +269,7 @@ describe Octokit::Client::Repositories do
   describe ".star", :vcr do
     it "stars a repository" do
       result = @client.star("sferik/rails_admin")
-      expect(result).to be_true
+      expect(result).to be true
       assert_requested :put, github_url("/user/starred/sferik/rails_admin")
     end
   end # .star
@@ -277,7 +277,7 @@ describe Octokit::Client::Repositories do
   describe ".unstar", :vcr do
     it "unstars a repository" do
       result = @client.unstar("sferik/rails_admin")
-      expect(result).to be_true
+      expect(result).to be true
       assert_requested :delete, github_url("/user/starred/sferik/rails_admin")
     end
   end # .unstar
@@ -285,7 +285,7 @@ describe Octokit::Client::Repositories do
   describe ".watch", :vcr do
     it "watches a repository" do
       result = @client.watch("sferik/rails_admin")
-      expect(result).to be_true
+      expect(result).to be true
       assert_requested :put, github_url("/user/watched/sferik/rails_admin")
     end
   end # .watch
@@ -293,7 +293,7 @@ describe Octokit::Client::Repositories do
   describe ".unwatch", :vcr do
     it "unwatches a repository" do
       result = @client.unwatch("sferik/rails_admin")
-      expect(result).to be_true
+      expect(result).to be true
       assert_requested :delete, github_url("/user/watched/sferik/rails_admin")
     end
   end # .unwatch
@@ -429,7 +429,7 @@ describe Octokit::Client::Repositories do
   describe ".repository?", :vcr do
     it "returns true if the repository exists" do
       result = @client.repository?("sferik/rails_admin")
-      expect(result).to be_true
+      expect(result).to be true
       assert_requested :get, github_url("/repos/sferik/rails_admin")
     end
     it "returns false if the repository doesn't exist" do

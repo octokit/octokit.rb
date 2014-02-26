@@ -19,7 +19,7 @@ describe Octokit::Client::Feeds do
     context "when authenticated with oauth token" do
       it "returns the authenticated users feeds" do
         feeds = oauth_client.feeds
-        expect(oauth_client.user_authenticated?).to be_true
+        expect(oauth_client.user_authenticated?).to be true
         expect(feeds.rels[:current_user_public].href).to be
       end
     end
@@ -29,7 +29,7 @@ describe Octokit::Client::Feeds do
     context "when authenticated with basic auth" do
       it "returns private feeds" do
         feeds = basic_auth_client.feeds
-        expect(basic_auth_client.user_authenticated?).to be_true
+        expect(basic_auth_client.user_authenticated?).to be true
         expect(feeds.rels[:current_user].href).to be
         expect(feeds.rels[:current_user_actor].href).to be
       end

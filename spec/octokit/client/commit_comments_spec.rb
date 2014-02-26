@@ -54,7 +54,7 @@ describe Octokit::Client::CommitComments do
   describe ".delete_commit_comment", :vcr do
     it "deletes a commit comment" do
       result = @client.delete_commit_comment("api-playground/api-sandbox", @commit_comment.id)
-      expect(result).to be_true
+      expect(result).to be true
       assert_requested :delete, github_url("/repos/api-playground/api-sandbox/comments/#{@commit_comment.id}")
     end
   end # .delete_commit_comment
