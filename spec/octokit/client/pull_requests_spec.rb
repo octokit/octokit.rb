@@ -38,7 +38,7 @@ describe Octokit::Client::PullRequests do
 
     describe ".create_pull_request", :vcr do
       it "creates a pull request" do
-        expect(@pull.title).to eq "A new PR"
+        expect(@pull.title).to eq("A new PR")
         assert_requested :post, github_url("/repos/api-playground/api-sandbox/pulls")
       end
     end # .create_pull_request
@@ -46,14 +46,14 @@ describe Octokit::Client::PullRequests do
     describe ".pull_request", :vcr do
       it "returns a pull request" do
         pull = @client.pull("api-playground/api-sandbox", @pull.number)
-        expect(pull.title).to eq "A new PR"
+        expect(pull.title).to eq("A new PR")
         assert_requested :get, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}")
       end
     end # .pull_request
 
     describe ".update_pull_request", :vcr do
       it "updates a pull request" do
-        pull = @client.update_pull_request('api-playground/api-sandbox', @pull.number, 'New title', 'Updated body')
+        @client.update_pull_request('api-playground/api-sandbox', @pull.number, 'New title', 'Updated body')
         assert_requested :patch, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}")
       end
     end # .update_pull_request
@@ -61,7 +61,7 @@ describe Octokit::Client::PullRequests do
     describe ".pull_merged?", :vcr do
       it "returns whether the pull request has been merged" do
         merged = @client.pull_merged?("api-playground/api-sandbox", @pull.number)
-        expect(merged).to_not be_true
+        expect(merged).not_to be true
         assert_requested :get, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}/merge")
       end
     end # .pull_merged?
@@ -123,7 +123,7 @@ describe Octokit::Client::PullRequests do
     describe ".close_pull_request", :vcr do
       it "closes a pull request" do
         response = @client.close_pull_request("api-playground/api-sandbox", @pull.number)
-        expect(response.state).to eq 'closed'
+        expect(response.state).to eq('closed')
         assert_requested :patch, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}")
       end
     end
@@ -135,7 +135,7 @@ describe Octokit::Client::PullRequests do
     it "merges the pull request" do
       VCR.turned_off do
         request = stub_put(github_url("/repos/api-playground/api-sandbox/pulls/123/merge"))
-        response = @client.merge_pull_request("api-playground/api-sandbox", 123)
+        @client.merge_pull_request("api-playground/api-sandbox", 123)
         assert_requested request
       end
     end
@@ -189,7 +189,7 @@ describe Octokit::Client::PullRequests do
   describe ".pull_request_comment", :vcr do
     it "returns a comment on a pull request" do
       comment = @client.pull_request_comment("octokit/octokit.rb", 1903950)
-      expect(comment.body).to_not be_nil
+      expect(comment.body).not_to be_nil
       assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls/comments/1903950")
     end
   end # .pull_request_comment

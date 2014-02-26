@@ -107,7 +107,7 @@ module Octokit
           http.adapter  Faraday.default_adapter
         end
 
-        response = conn.post do |req|
+        conn.post do |req|
           req.url "hub"
           req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
           req.body = options

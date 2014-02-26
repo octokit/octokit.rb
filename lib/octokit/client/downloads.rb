@@ -45,6 +45,6 @@ module Octokit
         boolean_from_response :delete, "repos/#{Repository.new(repo)}/downloads/#{id}", options
       end
 
-   end
+    end
   end
 end

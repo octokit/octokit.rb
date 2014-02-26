@@ -93,7 +93,7 @@ module Octokit
       # @example Fetch a tag
       #   Octokit.tag('octokit/octokit.rb', '23aad20633f4d2981b1c7209a800db3014774e96')
       def tag(repo, tag_sha, options = {})
-        get "repos/#{Repository.new repo}/git/tags/#{tag_sha}", options
+        get "repos/#{Repository.new(repo)}/git/tags/#{tag_sha}", options
       end
 
       # Create a tag
@@ -134,7 +134,7 @@ module Octokit
             :date => tagger_date
           }
         )
-        post "repos/#{Repository.new repo}/git/tags", options
+        post "repos/#{Repository.new(repo)}/git/tags", options
       end
     end
   end

@@ -112,10 +112,7 @@ module Octokit
         arguments = Octokit::Arguments.new(args)
         repo   = arguments.shift
         number = arguments.shift
-        title  = arguments.shift
-        body   = arguments.shift
-        state  = arguments.shift
-        patch "repos/#{Repository.new repo}/pulls/#{number}", arguments.options
+        patch "repos/#{Repository.new(repo)}/pulls/#{number}", arguments.options
       end
 
       # Close a pull request
@@ -168,7 +165,7 @@ module Octokit
       #     :since => '2010-05-04T23:45:02Z'
       #   })
       def pull_requests_comments(repo, options = {})
-        get("repos/#{Repository.new repo}/pulls/comments", options)
+        get("repos/#{Repository.new(repo)}/pulls/comments", options)
       end
       alias :pulls_comments   :pull_requests_comments
       alias :reviews_comments :pull_requests_comments
@@ -195,7 +192,7 @@ module Octokit
       # @example
       #   @client.pull_request_comment("pengwynn/octkit", 1903950)
       def pull_request_comment(repo, comment_id, options = {})
-        get "repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options
+        get "repos/#{Repository.new(repo)}/pulls/comments/#{comment_id}", options
       end
       alias :pull_comment   :pull_request_comment
       alias :review_comment :pull_request_comment
@@ -220,7 +217,7 @@ module Octokit
           :path => path,
           :position => position
         })
-        post "repos/#{Repository.new repo}/pulls/#{pull_id}/comments", options
+        post "repos/#{Repository.new(repo)}/pulls/#{pull_id}/comments", options
       end
       alias :create_pull_comment :create_pull_request_comment
       alias :create_view_comment :create_pull_request_comment
@@ -240,7 +237,7 @@ module Octokit
           :body => body,
           :in_reply_to => comment_id
         })
-        post "repos/#{Repository.new repo}/pulls/#{pull_id}/comments", options
+        post "repos/#{Repository.new(repo)}/pulls/#{pull_id}/comments", options
       end
       alias :create_pull_reply   :create_pull_request_comment_reply
       alias :create_review_reply :create_pull_request_comment_reply
@@ -256,7 +253,7 @@ module Octokit
       #   @client.update_pull_request_comment("octokit/octokit.rb", 1903950, ":shipit:")
       def update_pull_request_comment(repo, comment_id, body, options = {})
         options.merge! :body => body
-        patch("repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options)
+        patch("repos/#{Repository.new(repo)}/pulls/comments/#{comment_id}", options)
       end
       alias :update_pull_comment   :update_pull_request_comment
       alias :update_review_comment :update_pull_request_comment
@@ -270,7 +267,7 @@ module Octokit
       # @example
       #   @client.delete_pull_request_comment("octokit/octokit.rb", 1902707)
       def delete_pull_request_comment(repo, comment_id, options = {})
-        boolean_from_response(:delete, "repos/#{Repository.new repo}/pulls/comments/#{comment_id}", options)
+        boolean_from_response(:delete, "repos/#{Repository.new(repo)}/pulls/comments/#{comment_id}", options)
       end
       alias :delete_pull_comment   :delete_pull_request_comment
       alias :delete_review_comment :delete_pull_request_comment

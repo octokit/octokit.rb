@@ -6,7 +6,7 @@ describe Octokit::Client::Emojis do
     it "returns all github emojis" do
       client = oauth_client
       emojis = client.emojis
-      expect(emojis[:metal]).to match /metal/
+      expect(emojis[:metal]).to match(/metal/)
     end
   end # .emojis
 end

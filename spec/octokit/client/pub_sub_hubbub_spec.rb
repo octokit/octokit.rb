@@ -19,7 +19,7 @@ describe Octokit::Client::PubSubHubbub do
           }).
           to_return(:status => 204)
         result = @client.subscribe("https://github.com/elskwid/github-services/events/push", "github://Travis?token=travistoken", "12345")
-        expect(result).to be_true
+        expect(result).to be true
         assert_requested request
       end
     end
@@ -48,7 +48,7 @@ describe Octokit::Client::PubSubHubbub do
       result = @client.unsubscribe("https://github.com/api-playground/api-sandbox/events/push", "github://Travis?token=travistoken")
       assert_requested :post, github_url("/hub"), :body => unsubscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
-      expect(result).to be_true
+      expect(result).to be true
     end
   end # .unsubscribe
 
@@ -64,7 +64,7 @@ describe Octokit::Client::PubSubHubbub do
           }).
           to_return(:status => 204)
         result = @client.subscribe_service_hook("elskwid/github-services", "Travis", { :token => 'travistoken' }, "12345")
-        expect(result).to be_true
+        expect(result).to be true
         assert_requested request
       end
     end

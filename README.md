@@ -54,7 +54,7 @@ or
 
 ```ruby
 # Provide authentication credentials
-client = Octokit::Client.new :login => 'defunkt', :password => 'c0d3b4ssssss!'
+client = Octokit::Client.new(:login => 'defunkt', :password => 'c0d3b4ssssss!')
 # Fetch the current user
 client.user
 ```
@@ -129,7 +129,7 @@ To use an access token with the Octokit client, just pass it in lieu of your
 username and password:
 
 ```ruby
-client = Octokit::Client.new :access_token => "<your 40 char token>"
+client = Octokit::Client.new(:access_token => "<your 40 char token>")
 
 user = client.user
 user.login
@@ -141,7 +141,7 @@ that you can use for subsequent calls.
 
 ### Two-Factor Authentication
 
-[Two-Factor Authentication](https://help.github.com/articles/about-two-factor-authentication) brings added security to the account by requiring more information to login. 
+[Two-Factor Authentication](https://help.github.com/articles/about-two-factor-authentication) brings added security to the account by requiring more information to login.
 
 Using two-factor authentication for API calls is as simple as adding the [required header](http://developer.github.com/v3/auth/#working-with-two-factor-authentication) as an option:
 
@@ -177,7 +177,7 @@ machine api.github.com
 You can now create a client with those credentials:
 
 ```ruby
-client = Octokit::Client.new :netrc => true
+client = Octokit::Client.new(:netrc => true)
 client.login
 # => "defunkt"
 ```

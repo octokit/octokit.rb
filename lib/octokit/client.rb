@@ -84,7 +84,7 @@ module Octokit
     include Octokit::Client::Users
 
     # Header keys that can be passed in options hash to {#get},{#head}
-    CONVENIENCE_HEADERS = Set.new [:accept, :content_type]
+    CONVENIENCE_HEADERS = Set.new([:accept, :content_type])
 
     def initialize(options = {})
       # Use options passed in, but fall back to module defaults
@@ -238,7 +238,7 @@ module Octokit
     #
     # @return [Sawyer::Response]
     def last_response
-      @last_response
+      @last_response if defined? @last_response
     end
 
     private
@@ -256,7 +256,7 @@ module Octokit
         options[:query].merge! application_authentication
       end
 
-      @last_response = response = agent.call(method, URI.encode(path.to_s), data, options)
+      @last_response = response = agent.call(method, URI::Parser.new.escape(path.to_s), data, options)
       response.data
     end
 

@@ -28,14 +28,14 @@ describe Octokit::Client::Milestones do
 
     describe ".milestone", :vcr do
       it "gets a single milestone belonging to repository" do
-        milestone = @client.milestone("api-playground/api-sandbox", @milestone.number)
+        @client.milestone("api-playground/api-sandbox", @milestone.number)
         assert_requested :get, github_url("/repos/api-playground/api-sandbox/milestones/#{@milestone.number}")
       end
     end # .milestone
 
     describe ".create_milestone", :vcr do
       it "creates a milestone" do
-        expect(@milestone.title).to_not be_nil
+        expect(@milestone.title).not_to be_nil
         assert_requested :post, github_url("/repos/api-playground/api-sandbox/milestones")
       end
     end # .create_milestone

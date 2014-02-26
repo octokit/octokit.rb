@@ -10,8 +10,8 @@ describe Octokit::Client::Contents do
   describe ".readme", :vcr do
     it "returns the default readme" do
       readme = @client.readme('octokit/octokit.rb')
-      expect(readme.encoding).to eq "base64"
-      expect(readme.type).to eq "file"
+      expect(readme.encoding).to eq("base64")
+      expect(readme.type).to eq("file")
       assert_requested :get, github_url("/repos/octokit/octokit.rb/readme")
     end
   end # .readme
@@ -19,8 +19,8 @@ describe Octokit::Client::Contents do
   describe ".contents", :vcr do
     it "returns the contents of a file" do
       contents = @client.contents('octokit/octokit.rb', :path => "lib/octokit.rb")
-      expect(contents.encoding).to eq "base64"
-      expect(contents.type).to eq "file"
+      expect(contents.encoding).to eq("base64")
+      expect(contents.type).to eq("file")
       assert_requested :get, github_url("/repos/octokit/octokit.rb/contents/lib/octokit.rb")
     end
   end # .contents
@@ -28,7 +28,7 @@ describe Octokit::Client::Contents do
   describe ".archive_link", :vcr do
     it "returns the headers of the request" do
       archive_link = @client.archive_link('octokit/octokit.rb', :ref => "master")
-      expect(archive_link).to eq 'https://codeload.github.com/octokit/octokit.rb/legacy.tar.gz/master'
+      expect(archive_link).to eq('https://codeload.github.com/octokit/octokit.rb/legacy.tar.gz/master')
       assert_requested :head, github_url("/repos/octokit/octokit.rb/tarball/master")
     end
   end # .archive_link
@@ -41,7 +41,7 @@ describe Octokit::Client::Contents do
                                          "test_create.txt",
                                          "I am commit-ing",
                                          "Here be the content\n")
-      expect(response.commit.sha).to match /[a-z0-9]{40}/
+      expect(response.commit.sha).to match(/[a-z0-9]{40}/)
       assert_requested(:put, github_url("/repos/api-playground/api-sandbox/contents/test_create.txt"))
     end
     it "creates contents from file path", :vcr do
@@ -49,20 +49,20 @@ describe Octokit::Client::Contents do
                                          "test_create_path.txt",
                                          "I am commit-ing",
                                          :file => "spec/fixtures/new_file.txt")
-      expect(response.commit.sha).to match /[a-z0-9]{40}/
+      expect(response.commit.sha).to match(/[a-z0-9]{40}/)
       assert_requested(:put, github_url("/repos/api-playground/api-sandbox/contents/test_create_path.txt"))
     end
     it "creates contents from File object", :vcr do
-      file = File.new "spec/fixtures/new_file.txt", "r"
+      file = File.new("spec/fixtures/new_file.txt", "r")
       response = @client.create_contents("api-playground/api-sandbox",
                                          "test_create_file.txt",
                                          "I am commit-ing",
                                          :file => file)
-      expect(response.commit.sha).to match /[a-z0-9]{40}/
+      expect(response.commit.sha).to match(/[a-z0-9]{40}/)
       assert_requested(:put, github_url("/repos/api-playground/api-sandbox/contents/test_create_file.txt"))
     end
     it "does not add new lines", :vcr do
-      file = File.new "spec/fixtures/large_file.txt", "r"
+      file = File.new("spec/fixtures/large_file.txt", "r")
       response = @client.create_contents("api-playground/api-sandbox",
                                          "test_create_without_newlines.txt",
                                          "I am commit-ing",
@@ -85,7 +85,7 @@ describe Octokit::Client::Contents do
                                          "I am commit-ing",
                                          content.content.sha,
                                          "Here be moar content")
-      expect(response.commit.sha).to match /[a-z0-9]{40}/
+      expect(response.commit.sha).to match(/[a-z0-9]{40}/)
       assert_requested :put,
         github_url("/repos/api-playground/api-sandbox/contents/test_update.txt"),
         :times => 2
@@ -122,7 +122,7 @@ describe Octokit::Client::Contents do
                                          "test_delete.txt",
                                          "I am rm-ing",
                                          content.content.sha)
-      expect(response.commit.sha).to match /[a-z0-9]{40}/
+      expect(response.commit.sha).to match(/[a-z0-9]{40}/)
       assert_requested :delete,
         github_url("/repos/api-playground/api-sandbox/contents/test_delete.txt")
     end

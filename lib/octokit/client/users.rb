@@ -195,7 +195,7 @@ module Octokit
       # @example
       #   @client.starred?('pengwynn/octokit')
       def starred?(repo, options = {})
-        boolean_from_response :get, "user/starred/#{Repository.new repo}", options
+        boolean_from_response :get, "user/starred/#{Repository.new(repo)}", options
       end
 
       # Get a public key.
@@ -344,7 +344,7 @@ module Octokit
       # @example
       #   @client.subscriptions("pengwynn")
       def subscriptions(user=login, options = {})
-        if user == login && user_authenticated? 
+        if user == login && user_authenticated?
           path = "user/subscriptions"
         else
           path = "users/#{user}/subscriptions"

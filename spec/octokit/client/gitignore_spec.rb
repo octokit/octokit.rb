@@ -1,7 +1,7 @@
 require 'helper'
 
 describe Octokit::Client::Gitignore do
-  
+
   before do
     @client = oauth_client
   end
@@ -17,8 +17,8 @@ describe Octokit::Client::Gitignore do
   describe ".gitignore_template", :vcr do
     it "returns the ruby gitignore template" do
       template = @client.gitignore_template("Ruby")
-      expect(template.name).to eq "Ruby"
-      expect(template.source).to include "*.gem\n"
+      expect(template.name).to eq("Ruby")
+      expect(template.source).to include("*.gem\n")
       assert_requested :get, github_url("/gitignore/templates/Ruby")
     end
   end # .gitignore_template

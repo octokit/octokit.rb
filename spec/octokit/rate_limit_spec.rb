@@ -13,9 +13,9 @@ describe Octokit::RateLimit do
         "X-RateLimit-Reset" => (Time.now + 60).to_i
       })
     info = Octokit::RateLimit.from_response(response)
-    expect(info.limit).to eq 60
-    expect(info.remaining).to eq 42
-    expect(info.resets_in).to eq 59
+    expect(info.limit).to eq(60)
+    expect(info.remaining).to eq(42)
+    expect(info.resets_in).to eq(59)
     expect(info.resets_at).to be_kind_of(Time)
   end
 
