@@ -238,7 +238,7 @@ module Octokit
     #
     # @return [Sawyer::Response]
     def last_response
-      @last_response
+      @last_response if defined? @last_response
     end
 
     private
