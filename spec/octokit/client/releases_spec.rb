@@ -102,7 +102,6 @@ describe Octokit::Client::Releases do
 
     describe ".release_asset" do
       it "gets a single release asset" do
-        location  = "http://example.com/myfile.gif"
         asset_url = "https://api.github.com/repos/api-playground/api-sandbox/releases/assets/21313"
         request = stub_get(asset_url)
         @client.release_asset(asset_url)

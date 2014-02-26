@@ -22,7 +22,7 @@ describe Octokit::Client::Repositories do
         # Stub this because Padawan is on a free plan
         request = stub_patch(github_url("/repos/#{repo_name}")).
           with(:body => {:private => true, :name => "api-sandbox"}.to_json)
-        repository = @client.set_private repo_name
+        @client.set_private repo_name
         assert_requested request
       end
     end
@@ -35,7 +35,7 @@ describe Octokit::Client::Repositories do
         # Stub this because Padawan is on a free plan
         request = stub_patch(github_url("/repos/#{repo_name}")).
           with(:body => {:private => false, :name => "api-sandbox"}.to_json)
-        repository = @client.set_public repo_name
+        @client.set_public repo_name
         assert_requested request
       end
     end
@@ -60,7 +60,7 @@ describe Octokit::Client::Repositories do
       VCR.turned_off do
         repo_name = "api-playground/api-sandbox"
         request = stub_post(github_url("/repos/#{repo_name}/keys"))
-        public_key = @client.add_deploy_key(repo_name, "Padawan", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com" )
+        @client.add_deploy_key(repo_name, "Padawan", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com" )
         assert_requested request
       end
     end
@@ -72,7 +72,7 @@ describe Octokit::Client::Repositories do
         repo = "api-playground/api-sandbox"
         key_id = 8675309
         request = stub_get github_url "/repos/#{repo}/keys/#{key_id}"
-        deploy_key = @client.deploy_key repo, key_id
+        @client.deploy_key repo, key_id
         assert_requested request
       end
     end
@@ -84,7 +84,7 @@ describe Octokit::Client::Repositories do
         repo = "api-playground/api-sandbox"
         key_id = 8675309
         request = stub_patch github_url "/repos/#{repo}/keys/#{key_id}"
-        updated_deploy_key = @client.edit_deploy_key(repo, key_id, :title => 'Staging')
+        @client.edit_deploy_key(repo, key_id, :title => 'Staging')
         assert_requested request
       end
     end
@@ -144,7 +144,7 @@ describe Octokit::Client::Repositories do
           @client.remove_collaborator(@repo.full_name, "pengwynn")
         rescue Octokit::NotFound
         end
-        result = @client.add_collaborator(@repo.full_name, "pengwynn")
+        @client.add_collaborator(@repo.full_name, "pengwynn")
         assert_requested :put, github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
       end
     end # .add_collaborator
@@ -156,7 +156,7 @@ describe Octokit::Client::Repositories do
         rescue Octokit::UnprocessableEntity
         end
 
-        result = @client.remove_collaborator(@repo.full_name, "pengwynn")
+        @client.remove_collaborator(@repo.full_name, "pengwynn")
         assert_requested :delete, github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
       end
     end # .remove_collaborator
@@ -168,7 +168,7 @@ describe Octokit::Client::Repositories do
         rescue Octokit::UnprocessableEntity
         end
 
-        result = @client.collaborator?(@repo.full_name, "pengwynn")
+        @client.collaborator?(@repo.full_name, "pengwynn")
         assert_requested :get, github_url("/repos/#{@repo.full_name}/collaborators/pengwynn")
       end
     end # .collaborator?
@@ -214,14 +214,14 @@ describe Octokit::Client::Repositories do
 
       describe ".edit_hook", :vcr do
         it "edits a hook" do
-          hook = @client.edit_hook(@repo.full_name, @hook.id, "railsbp", {:railsbp_url => "https://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+          @client.edit_hook(@repo.full_name, @hook.id, "railsbp", {:railsbp_url => "https://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
           assert_requested :patch, github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}")
         end
       end # .edit_hook
 
       describe ".test_hook", :vcr do
         it "tests a hook" do
-          hook = @client.create_hook(@repo.full_name, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+          @client.create_hook(@repo.full_name, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
           @client.test_hook(@repo.full_name, @hook.id)
           assert_requested :post, github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}/tests")
         end
@@ -238,7 +238,7 @@ describe Octokit::Client::Repositories do
 
     describe ".delete_repository", :vcr do
       it "deletes a repository" do
-        result = @client.delete_repository("#{@repo.full_name}")
+        @client.delete_repository("#{@repo.full_name}")
         assert_requested :delete, github_url("/repos/#{@repo.full_name}")
       end
     end # .delete_repository
@@ -392,7 +392,7 @@ describe Octokit::Client::Repositories do
 
   describe ".check_assignee", :vcr do
     it "checks to see if a particular user is an assignee for a repository" do
-      is_assignee = Octokit.check_assignee("octokit/octokit.rb", 'andrew')
+      Octokit.check_assignee("octokit/octokit.rb", 'andrew')
       assert_requested :get, github_url("/repos/octokit/octokit.rb/assignees/andrew")
     end
   end # .check_assignee
@@ -407,21 +407,21 @@ describe Octokit::Client::Repositories do
 
   describe ".update_subscription", :vcr do
     it "updates a repository subscription" do
-      subscription = @client.update_subscription("octokit/octokit.rb", :subscribed => false)
+      @client.update_subscription("octokit/octokit.rb", :subscribed => false)
       assert_requested :put, github_url("/repos/octokit/octokit.rb/subscription")
     end
   end # .update_subscription
 
   describe ".subscription", :vcr do
     it "returns a repository subscription" do
-      subscription = @client.subscription("octokit/octokit.rb")
+      @client.subscription("octokit/octokit.rb")
       assert_requested :get, github_url("/repos/octokit/octokit.rb/subscription")
     end
   end # .subscription
 
   describe ".delete_subscription", :vcr do
     it "returns true when repo subscription deleted" do
-      result = @client.delete_subscription("octokit/octokit.rb")
+      @client.delete_subscription("octokit/octokit.rb")
       assert_requested :delete, github_url("/repos/octokit/octokit.rb/subscription")
     end
   end # .delete_subscription

@@ -24,7 +24,7 @@ describe Octokit::Client::Objects do
 
   describe ".create_tree", :vcr do
     it "creates a tree" do
-      tree = @client.create_tree("api-playground/api-sandbox", [ { "path" => "wynning.rb", "mode" => "100644", "type" => "blob", :content => "require 'fun'"} ])
+      @client.create_tree("api-playground/api-sandbox", [ { "path" => "wynning.rb", "mode" => "100644", "type" => "blob", :content => "require 'fun'"} ])
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/trees")
     end
   end # .create_tree
@@ -39,14 +39,14 @@ describe Octokit::Client::Objects do
 
   describe ".create_blob", :vcr do
     it "creates a blob" do
-      blob = @client.create_blob("api-playground/api-sandbox", "content")
+      @client.create_blob("api-playground/api-sandbox", "content")
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/blobs")
     end
   end # .create_blob
 
   describe ".tag", :vcr do
     it "returns a tag" do
-      tag = @client.tag("octokit/octokit.rb", "23aad20633f4d2981b1c7209a800db3014774e96")
+      @client.tag("octokit/octokit.rb", "23aad20633f4d2981b1c7209a800db3014774e96")
       assert_requested :get, github_url("/repos/octokit/octokit.rb/git/tags/23aad20633f4d2981b1c7209a800db3014774e96")
     end
   end # .tag

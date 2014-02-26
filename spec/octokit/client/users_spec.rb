@@ -67,33 +67,33 @@ describe Octokit::Client::Users do
 
   describe ".follows?", :vcr, :match_requests_on => [:uri] do
     it "checks if the authenticated user follows another" do
-      follows = @client.follows?("sferik")
+      @client.follows?("sferik")
       assert_requested :get, github_url("/user/following/sferik")
     end
 
     it "checks if given user is following target user" do
-      follows = @client.follows?("sferik", "pengwynn")
+      @client.follows?("sferik", "pengwynn")
       assert_requested :get, github_url("/users/sferik/following/pengwynn")
     end
   end # .follows?
 
   describe ".follow", :vcr do
     it "follows a user" do
-      following = @client.follow("pengwynn")
+      @client.follow("pengwynn")
       assert_requested :put, github_url("/user/following/pengwynn")
     end
   end # .follow
 
   describe ".unfollow", :vcr do
     it "unfollows a user" do
-      following = @client.unfollow("pengwynn")
+      @client.unfollow("pengwynn")
       assert_requested :delete, github_url("/user/following/pengwynn")
     end
   end # .unfollow
 
   describe ".starred?", :vcr do
     it "checks if the authenticated user has starred a repository" do
-      starred = @client.starred?("sferik/rails_admin")
+      @client.starred?("sferik/rails_admin")
       assert_requested :get, github_url("/user/starred/sferik/rails_admin")
     end
   end # .starred?
@@ -101,18 +101,18 @@ describe Octokit::Client::Users do
   describe ".starred", :vcr do
     context "not authenticated" do
       it "gets a user's starred repositories" do
-        repositories = Octokit.starred("sferik")
+        Octokit.starred("sferik")
         assert_requested :get, github_url("/users/sferik/starred")
       end
     end
     context "authenticated" do
       it "gets the authenticated user's starred repositories" do
-        repositories = @client.starred
+        @client.starred
         assert_requested :get, github_url("/user/starred")
       end
 
       it "gets a user's starred repositories" do
-        repositories = @client.starred("sferik")
+        @client.starred("sferik")
         assert_requested :get, github_url("/users/sferik/starred")
       end
     end
@@ -153,21 +153,21 @@ describe Octokit::Client::Users do
 
     describe ".key" do
       it "returns a public key" do
-        key = @client.key @public_key.id
+        @client.key @public_key.id
         assert_requested :get, github_url("/user/keys/#{@public_key.id}")
       end
     end
 
     describe ".update_key" do
       it "updates a public key" do
-        public_key = @client.update_key(@public_key.id, :title => 'Updated key')
+        @client.update_key(@public_key.id, :title => 'Updated key')
         assert_requested :patch, github_url("/user/keys/#{@public_key.id}")
       end
     end # .update_key
 
     describe ".remove_key" do
       it "removes a public key" do
-        response = @client.remove_key(@public_key.id)
+        @client.remove_key(@public_key.id)
         assert_requested :delete, github_url("/user/keys/#{@public_key.id}")
       end
     end # .remove_key
@@ -184,14 +184,14 @@ describe Octokit::Client::Users do
 
   describe ".add_email", :vcr do
     it "adds an email address" do
-      emails = @client.add_email("wynn.netherland+apitest@gmail.com")
+      @client.add_email("wynn.netherland+apitest@gmail.com")
       assert_requested :post, github_url("/user/emails")
     end
   end # .add_email
 
   describe ".remove_email", :vcr do
     it "removes an email address" do
-      emails = @client.remove_email("wynn.netherland+apitest@gmail.com")
+      @client.remove_email("wynn.netherland+apitest@gmail.com")
       assert_requested :delete, github_url("/user/emails")
     end
   end # .remove_email
@@ -199,19 +199,19 @@ describe Octokit::Client::Users do
   describe ".subscriptions", :vcr do
     context "not authenticated" do
       it "returns the repositories a user watches for notifications" do
-        subscriptions = Octokit.subscriptions("pengwynn")
+        Octokit.subscriptions("pengwynn")
         assert_requested :get, github_url("/users/pengwynn/subscriptions")
       end
     end
 
     context "authenticated" do
       it "returns the repositories the authenticated user watches for notifications" do
-        subscriptions = @client.subscriptions
+        @client.subscriptions
         assert_requested :get, github_url("/user/subscriptions")
       end
 
       it "returns the repositories a user watches for notifications" do
-        subscriptions = @client.subscriptions("pengwynn")
+        @client.subscriptions("pengwynn")
         assert_requested :get, github_url("/users/pengwynn/subscriptions")
       end
     end

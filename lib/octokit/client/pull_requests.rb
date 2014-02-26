@@ -112,9 +112,6 @@ module Octokit
         arguments = Octokit::Arguments.new(args)
         repo   = arguments.shift
         number = arguments.shift
-        title  = arguments.shift
-        body   = arguments.shift
-        state  = arguments.shift
         patch "repos/#{Repository.new repo}/pulls/#{number}", arguments.options
       end
 

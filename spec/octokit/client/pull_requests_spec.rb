@@ -53,7 +53,7 @@ describe Octokit::Client::PullRequests do
 
     describe ".update_pull_request", :vcr do
       it "updates a pull request" do
-        pull = @client.update_pull_request('api-playground/api-sandbox', @pull.number, 'New title', 'Updated body')
+        @client.update_pull_request('api-playground/api-sandbox', @pull.number, 'New title', 'Updated body')
         assert_requested :patch, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}")
       end
     end # .update_pull_request
@@ -135,7 +135,7 @@ describe Octokit::Client::PullRequests do
     it "merges the pull request" do
       VCR.turned_off do
         request = stub_put(github_url("/repos/api-playground/api-sandbox/pulls/123/merge"))
-        response = @client.merge_pull_request("api-playground/api-sandbox", 123)
+        @client.merge_pull_request("api-playground/api-sandbox", 123)
         assert_requested request
       end
     end

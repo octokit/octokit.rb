@@ -88,7 +88,7 @@ describe Octokit::Client::Gists do
 
     describe ".edit_gist" do
       it "edit an existing gist" do
-        gist = @client.edit_gist(@gist.id, :description => "GitHub Zen")
+        @client.edit_gist(@gist.id, :description => "GitHub Zen")
         assert_requested :patch, github_url("/gists/#{@gist.id}")
       end
     end # .edit_gist
@@ -167,14 +167,14 @@ describe Octokit::Client::Gists do
 
     describe ".update_gist_comment" do
       it "updates a gist comment" do
-        update = @client.update_gist_comment(5421307, @gist_comment.id, ":heart:")
+        @client.update_gist_comment(5421307, @gist_comment.id, ":heart:")
         assert_requested :patch, github_url("/gists/5421307/comments/#{@gist_comment.id}")
       end
     end # .update_gist_comment
 
     describe ".delete_gist_comment" do
       it "deletes a gist comment" do
-        comment = @client.create_gist_comment(5421307, ":metal:")
+        @client.create_gist_comment(5421307, ":metal:")
         @client.delete_gist_comment(5421307, @gist_comment.id)
         assert_requested :delete, github_url("/gists/5421307/comments/#{@gist_comment.id}")
       end

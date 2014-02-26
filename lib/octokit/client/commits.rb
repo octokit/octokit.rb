@@ -50,7 +50,6 @@ module Octokit
         arguments = Octokit::RepoArguments.new(args)
         date   = parse_date(arguments.shift)
         params = arguments.options
-        end_date = date + 1
         params.merge!(:since => iso8601(date))
         sha_or_branch = arguments.pop
         if sha_or_branch
@@ -77,7 +76,6 @@ module Octokit
         arguments = Octokit::RepoArguments.new(args)
         date   = parse_date(arguments.shift)
         params = arguments.options
-        end_date = date + 1
         params.merge!(:until => iso8601(date))
         sha_or_branch = arguments.pop
         if sha_or_branch

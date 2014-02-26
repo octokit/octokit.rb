@@ -71,7 +71,7 @@ describe Octokit::Client::Authorizations do
   describe ".authorization", :vcr do
     it "returns a single authorization" do
       authorization = @client.create_authorization
-      fetched = @client.authorization(authorization['id'])
+      @client.authorization(authorization['id'])
       assert_requested :get, basic_github_url("/authorizations/#{authorization.id}")
     end
   end # .authorization

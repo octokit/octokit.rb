@@ -32,7 +32,7 @@ describe Octokit::Client::Labels do
     end
     it "adds a label with default color" do
       @client.delete_label!("api-playground/api-sandbox", 'test-label', {:color => 'ededed'})
-      label = @client.add_label("api-playground/api-sandbox", "test-label")
+      @client.add_label("api-playground/api-sandbox", "test-label")
       assert_requested :post, github_url("/repos/api-playground/api-sandbox/labels")
     end
   end # .add_label
@@ -59,7 +59,7 @@ describe Octokit::Client::Labels do
 
     describe ".add_labels_to_an_issue", :vcr do
       it "adds labels to a given issue" do
-        labels = @client.add_labels_to_an_issue('api-playground/api-sandbox', @issue.number, ['bug'])
+        @client.add_labels_to_an_issue('api-playground/api-sandbox', @issue.number, ['bug'])
         assert_requested :post, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}" + "/labels")
       end
     end # .add_labels_to_an_issue
@@ -74,21 +74,21 @@ describe Octokit::Client::Labels do
 
     describe ".remove_label", :vcr do
       it "removes a label from the specified issue" do
-        labels = @client.remove_label('api-playground/api-sandbox', @issue.number, 'bug')
+        @client.remove_label('api-playground/api-sandbox', @issue.number, 'bug')
         assert_requested :delete, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}" + "/labels/bug")
       end
     end # .remove_label
 
     describe ".remove_all_labels", :vcr do
       it "removes all labels from the specified issue" do
-        labels = @client.remove_all_labels('api-playground/api-sandbox', @issue.number)
+        @client.remove_all_labels('api-playground/api-sandbox', @issue.number)
         assert_requested :delete, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}" + "/labels")
       end
     end # .remove_all_labels
 
     describe ".replace_all_labels", :vcr do
       it "replaces all labels for an issue" do
-        labels = @client.replace_all_labels('api-playground/api-sandbox', @issue.number, ['bug', 'pdi'])
+        @client.replace_all_labels('api-playground/api-sandbox', @issue.number, ['bug', 'pdi'])
         assert_requested :put, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}" + "/labels")
       end
     end # .replace_all_labels
