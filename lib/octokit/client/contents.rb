@@ -62,7 +62,7 @@ module Octokit
         if content.nil? && file = options.delete(:file)
           case file
           when String
-            if File.exists?(file)
+            if File.exist?(file)
               file = File.open(file, "r")
               content = file.read
               file.close
