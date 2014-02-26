@@ -9,7 +9,7 @@ describe Octokit::Client::ServiceStatus do
   describe ".github_status", :vcr do
     it "returns the current system status" do
       current_status = Octokit.github_status
-      expect(current_status.status).to_not be_nil
+      expect(current_status.status).not_to be_nil
       assert_requested :get, "https://status.github.com/api.json"
       assert_requested :get, "https://status.github.com/api/status.json"
     end
@@ -18,8 +18,8 @@ describe Octokit::Client::ServiceStatus do
   describe ".github_status_last_message", :vcr do
     it "returns the last human message" do
       message = Octokit.github_status_last_message
-      expect(message.status).to_not be_nil
-      expect(message.body).to_not be_nil
+      expect(message.status).not_to be_nil
+      expect(message.body).not_to be_nil
       assert_requested :get, "https://status.github.com/api.json"
       assert_requested :get, "https://status.github.com/api/last-message.json"
     end

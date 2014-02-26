@@ -15,14 +15,14 @@ describe Octokit::Client::Authorizations do
     context 'without :idempotent => true' do
       it "creates an API authorization" do
         authorization = @client.create_authorization
-        expect(authorization.app.name).to_not be_nil
+        expect(authorization.app.name).not_to be_nil
         assert_requested :post, basic_github_url("/authorizations")
       end
 
       it "creates a new API authorization each time" do
         first_authorization = @client.create_authorization
         second_authorization = @client.create_authorization
-        expect(first_authorization.id).to_not eq second_authorization.id
+        expect(first_authorization.id).not_to eq second_authorization.id
       end
 
       it "creates a new authorization with options" do

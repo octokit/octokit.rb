@@ -61,7 +61,7 @@ describe Octokit::Client::PullRequests do
     describe ".pull_merged?", :vcr do
       it "returns whether the pull request has been merged" do
         merged = @client.pull_merged?("api-playground/api-sandbox", @pull.number)
-        expect(merged).to_not be_true
+        expect(merged).not_to be_true
         assert_requested :get, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}/merge")
       end
     end # .pull_merged?
@@ -189,7 +189,7 @@ describe Octokit::Client::PullRequests do
   describe ".pull_request_comment", :vcr do
     it "returns a comment on a pull request" do
       comment = @client.pull_request_comment("octokit/octokit.rb", 1903950)
-      expect(comment.body).to_not be_nil
+      expect(comment.body).not_to be_nil
       assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls/comments/1903950")
     end
   end # .pull_request_comment

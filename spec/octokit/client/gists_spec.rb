@@ -11,7 +11,7 @@ describe Octokit::Client::Gists do
     describe ".public_gists" do
       it "returns public gists" do
         gists = Octokit.client.public_gists
-        expect(gists).to_not be_empty
+        expect(gists).not_to be_empty
         assert_requested :get, github_url('/gists/public')
       end
     end # .public_gists
@@ -20,7 +20,7 @@ describe Octokit::Client::Gists do
       describe "with username passed" do
         it "returns a list of gists" do
           gists = Octokit.client.gists('defunkt')
-          expect(gists).to_not be_empty
+          expect(gists).not_to be_empty
           assert_requested :get, github_url("/users/defunkt/gists")
         end
       end
@@ -28,7 +28,7 @@ describe Octokit::Client::Gists do
       describe "without a username passed" do
         it "returns a list of gists" do
           gists = Octokit.client.gists
-          expect(gists).to_not be_empty
+          expect(gists).not_to be_empty
           assert_requested :get, github_url("/gists")
         end
       end
@@ -64,7 +64,7 @@ describe Octokit::Client::Gists do
     describe ".gists" do
       it "returns a list of gists" do
         gists = @client.gists
-        expect(gists).to_not be_empty
+        expect(gists).not_to be_empty
         assert_requested :get, github_url("/gists")
       end
     end # .gists

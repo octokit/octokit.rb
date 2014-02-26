@@ -64,7 +64,7 @@ describe Octokit::Client::Stats do
     it "returns contributors and their contribution stats" do
       stats = @client.contributors_stats("pengwynn/pingwynn")
       expect(stats).to be_kind_of Array
-      expect(stats.first.author.login).to_not be_nil
+      expect(stats.first.author.login).not_to be_nil
       assert_requested :get, github_url("/repos/pengwynn/pingwynn/stats/contributors")
     end
   end # .contributors_stats

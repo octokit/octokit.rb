@@ -70,19 +70,19 @@ describe Octokit::Client do
       it "masks passwords on inspect" do
         client = Octokit::Client.new(@opts)
         inspected = client.inspect
-        expect(inspected).to_not include "il0veruby"
+        expect(inspected).not_to include "il0veruby"
       end
 
       it "masks tokens on inspect" do
         client = Octokit::Client.new(:access_token => '87614b09dd141c22800f96f11737ade5226d7ba8')
         inspected = client.inspect
-        expect(inspected).to_not match "87614b09dd141c22800f96f11737ade5226d7ba8"
+        expect(inspected).not_to match "87614b09dd141c22800f96f11737ade5226d7ba8"
       end
 
       it "masks client secrets on inspect" do
         client = Octokit::Client.new(:client_secret => '87614b09dd141c22800f96f11737ade5226d7ba8')
         inspected = client.inspect
-        expect(inspected).to_not match "87614b09dd141c22800f96f11737ade5226d7ba8"
+        expect(inspected).not_to match "87614b09dd141c22800f96f11737ade5226d7ba8"
       end
 
       describe "with .netrc" do
@@ -134,12 +134,12 @@ describe Octokit::Client do
         Octokit.configure do |config|
           config.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
         end
-        expect(Octokit.client).to_not be_basic_authenticated
+        expect(Octokit.client).not_to be_basic_authenticated
         expect(Octokit.client).to be_token_authenticated
       end
       it "sets oauth token with module methods" do
         Octokit.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-        expect(Octokit.client).to_not be_basic_authenticated
+        expect(Octokit.client).not_to be_basic_authenticated
         expect(Octokit.client).to be_token_authenticated
       end
       it "sets oauth application creds with .configure" do
@@ -147,15 +147,15 @@ describe Octokit::Client do
           config.client_id     = '97b4937b385eb63d1f46'
           config.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
         end
-        expect(Octokit.client).to_not be_basic_authenticated
-        expect(Octokit.client).to_not be_token_authenticated
+        expect(Octokit.client).not_to be_basic_authenticated
+        expect(Octokit.client).not_to be_token_authenticated
         expect(Octokit.client).to be_application_authenticated
       end
       it "sets oauth token with module methods" do
         Octokit.client_id     = '97b4937b385eb63d1f46'
         Octokit.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-        expect(Octokit.client).to_not be_basic_authenticated
-        expect(Octokit.client).to_not be_token_authenticated
+        expect(Octokit.client).not_to be_basic_authenticated
+        expect(Octokit.client).not_to be_token_authenticated
         expect(Octokit.client).to be_application_authenticated
       end
     end
@@ -175,12 +175,12 @@ describe Octokit::Client do
       end
       it "sets oauth token with .configure" do
         @client.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-        expect(@client).to_not be_basic_authenticated
+        expect(@client).not_to be_basic_authenticated
         expect(@client).to be_token_authenticated
       end
       it "sets oauth token with instance methods" do
         @client.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-        expect(@client).to_not be_basic_authenticated
+        expect(@client).not_to be_basic_authenticated
         expect(@client).to be_token_authenticated
       end
       it "sets oauth application creds with .configure" do
@@ -188,15 +188,15 @@ describe Octokit::Client do
           config.client_id     = '97b4937b385eb63d1f46'
           config.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
         end
-        expect(@client).to_not be_basic_authenticated
-        expect(@client).to_not be_token_authenticated
+        expect(@client).not_to be_basic_authenticated
+        expect(@client).not_to be_token_authenticated
         expect(@client).to be_application_authenticated
       end
       it "sets oauth token with module methods" do
         @client.client_id     = '97b4937b385eb63d1f46'
         @client.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-        expect(@client).to_not be_basic_authenticated
-        expect(@client).to_not be_token_authenticated
+        expect(@client).not_to be_basic_authenticated
+        expect(@client).not_to be_token_authenticated
         expect(@client).to be_application_authenticated
       end
     end

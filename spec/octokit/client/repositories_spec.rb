@@ -356,7 +356,7 @@ describe Octokit::Client::Repositories do
   describe ".languages", :vcr do
     it "returns a repository's languages" do
       languages = Octokit.languages("sferik/rails_admin")
-      expect(languages[:Ruby]).to_not be_nil
+      expect(languages[:Ruby]).not_to be_nil
       assert_requested :get, github_url("/repos/sferik/rails_admin/languages")
     end
   end # .languages
@@ -377,7 +377,7 @@ describe Octokit::Client::Repositories do
     end
     it "returns a single branch" do
       branch = Octokit.branch("octokit/octokit.rb", "master")
-      expect(branch.commit.sha).to_not be_nil
+      expect(branch.commit.sha).not_to be_nil
       assert_requested :get, github_url("/repos/octokit/octokit.rb/branches/master")
     end
   end # .branches

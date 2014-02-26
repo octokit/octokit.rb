@@ -27,7 +27,7 @@ describe Octokit do
       Octokit.access_token = "87614b09dd141c22800f96f11737ade5226d7ba8"
       client_two = Octokit.client
       client_three = Octokit.client
-      expect(client).to_not eq client_two
+      expect(client).not_to eq client_two
       expect(client_three).to eq client_two
     end
   end

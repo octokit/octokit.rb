@@ -10,7 +10,7 @@ describe Octokit::Client::Commits do
   describe ".commits", :vcr do
     it "returns all commits" do
       commits = @client.commits("sferik/rails_admin")
-      expect(commits.first.author).to_not be_nil
+      expect(commits.first.author).not_to be_nil
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits")
     end
     it "handles branch or sha argument" do

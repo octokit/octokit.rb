@@ -35,7 +35,7 @@ describe Octokit::Client::Milestones do
 
     describe ".create_milestone", :vcr do
       it "creates a milestone" do
-        expect(@milestone.title).to_not be_nil
+        expect(@milestone.title).not_to be_nil
         assert_requested :post, github_url("/repos/api-playground/api-sandbox/milestones")
       end
     end # .create_milestone
