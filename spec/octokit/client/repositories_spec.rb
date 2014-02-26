@@ -434,7 +434,7 @@ describe Octokit::Client::Repositories do
     end
     it "returns false if the repository doesn't exist" do
       result = @client.repository?("pengwynn/octokit")
-      expect(result).to be_false
+      expect(result).to be false
       assert_requested :get, github_url("/repos/pengwynn/octokit")
     end
   end # .repository?

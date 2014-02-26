@@ -164,7 +164,7 @@ describe Octokit::Client::Organizations do
     describe ".team_repository?", :vcr do
       it "checks if a repo is managed by a specific team" do
         is_team_repo = @client.team_repository?(@team.id, 'api-playground/api-sandbox')
-        expect(is_team_repo).to be_false
+        expect(is_team_repo).to be false
         assert_requested :get, github_url("/teams/#{@team.id}/repos/api-playground/api-sandbox")
       end
     end

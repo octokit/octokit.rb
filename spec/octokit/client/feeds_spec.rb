@@ -10,7 +10,7 @@ describe Octokit::Client::Feeds do
     context "when unauthenticated" do
       it "returns the public feeds list" do
         feeds = Octokit.feeds
-        expect(Octokit.user_authenticated?).to be_false
+        expect(Octokit.user_authenticated?).to be false
         expect(feeds.rels[:timeline].href).to be
         expect(feeds.rels[:current_user_public]).to be_nil
       end
