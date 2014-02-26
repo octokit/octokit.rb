@@ -12,7 +12,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] if a repository exists, false otherwise
       def repository?(repo, options = {})
-        repository(repo, options)
+        !!repository(repo, options)
       rescue Octokit::NotFound
         false
       end
