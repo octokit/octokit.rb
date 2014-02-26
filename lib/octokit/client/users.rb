@@ -344,7 +344,7 @@ module Octokit
       # @example
       #   @client.subscriptions("pengwynn")
       def subscriptions(user=login, options = {})
-        if user == login && user_authenticated? 
+        if user == login && user_authenticated?
           path = "user/subscriptions"
         else
           path = "users/#{user}/subscriptions"
