@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Octokit::Client::Statuses do
-
   before do
     Octokit.reset!
     @client = oauth_client
@@ -15,14 +14,24 @@ describe Octokit::Client::Statuses do
     end
   end # .statuses
 
-  describe ".create_status", :vcr do
-    it "creates status" do
-      info = {
-        :target_url => 'http://wynnnetherland.com'
-      }
-      @client.create_status("api-playground/api-sandbox", '78c9dcae41c7c5f81b012d15d06d843623a4988a', 'success', info)
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/statuses/78c9dcae41c7c5f81b012d15d06d843623a4988a")
+  context "with repository" do
+    before do
+      @test_repo = setup_test_repo(:auto_init => true).full_name
+      @commit_sha = @client.commits(@test_repo).first.sha
     end
-  end # .create_status
 
-end
+    after do
+      teardown_test_repo @test_repo
+    end
+
+    describe ".create_status", :vcr do
+      it "creates status" do
+        info = {
+          :target_url => 'http://wynnnetherland.com'
+        }
+        @client.create_status(@test_repo, @commit_sha, 'success', info)
+        assert_requested :post, github_url("/repos/#{@test_repo}/statuses/#{@commit_sha}")
+      end
+    end # .create_status
+  end # with repository
+end # Octokit::Client::Statuses

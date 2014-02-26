@@ -36,10 +36,21 @@ VCR.configure do |c|
   c.filter_sensitive_data("<GITHUB_CLIENT_SECRET>") do
     test_github_client_secret
   end
+  c.define_cassette_placeholder("<GITHUB_TEST_ORGANIZATION>") do
+    test_github_org
+  end
+  c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY>") do
+    'api-sandbox'
+  end
+  c.define_cassette_placeholder("<ORGANIZATION_TEAM_ID>") do
+    "100000050505000000000"
+  end
+  c.before_record do |interaction|
+    interaction.request.body.force_encoding('utf-8')
+    interaction.response.body.force_encoding('utf-8')
+  end
   c.default_cassette_options = {
     :serialize_with             => :json,
-    # TODO: Track down UTF-8 issue and remove
-    :preserve_exact_body_bytes  => true,
     :decode_compressed_response => true,
     :record                     => ENV['TRAVIS'] ? :none : :once
   }
@@ -65,6 +76,10 @@ end
 
 def test_github_client_secret
   ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_SECRET', 'x' * 40
+end
+
+def test_github_org
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ORGANIZATION', 'api-playground'
 end
 
 def stub_delete(url)
@@ -119,15 +134,44 @@ def basic_github_url(path, options = {})
   "https://#{login}:#{password}@api.github.com#{path}"
 end
 
-def basic_auth_client(login = test_github_login, password = test_github_password )
-  client = Octokit.client
-  client.login = test_github_login
-  client.password = test_github_password
-
-  client
+def basic_auth_client(username = test_github_login, password = test_github_password )
+  Octokit::Client.new(:login => username, :password => password)
 end
 
 def oauth_client
   Octokit::Client.new(:access_token => test_github_token)
 end
 
+# Generate test repo name and filter it from VCR
+def test_repo
+ repo = "octokit-test-repo-#{Time.now.to_f.to_s}"
+ VCR.configure do |c|
+   c.define_cassette_placeholder('<GITHUB_TEST_REPOSITORY>') { repo }
+ end
+ repo
+end
+
+# Create test repository with unique name to test against
+#
+# @return [Sawyer::Resource] Repository
+def setup_test_repo(options={})
+  basic_auth_client.create_repo(test_repo, options)
+end
+
+# Delete test repo
+#
+# @param repo [String] Full repository name
+def teardown_test_repo(repo)
+  begin
+    basic_auth_client.delete_repo repo
+  rescue Octokit::NotFound
+  end
+end
+
+def use_vcr_placeholder_for(text, replacement)
+  VCR.configure do |c|
+    c.define_cassette_placeholder(replacement) do
+      text
+    end
+  end
+end

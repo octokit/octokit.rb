@@ -17,12 +17,20 @@ describe Octokit::Client::Authorizations do
         authorization = @client.create_authorization
         expect(authorization.app.name).to_not be_nil
         assert_requested :post, basic_github_url("/authorizations")
+
+        use_vcr_placeholder_for(authorization.token, '<<ACCESS TOKEN>>')
+        @client.delete_authorization authorization.id
       end
 
       it "creates a new API authorization each time" do
         first_authorization = @client.create_authorization
         second_authorization = @client.create_authorization
         expect(first_authorization.id).to_not eq second_authorization.id
+
+        use_vcr_placeholder_for(first_authorization.token, '<<ACCESS TOKEN>>')
+        use_vcr_placeholder_for(second_authorization.token, '<<ACCESS TOKEN>>')
+        @client.delete_authorization first_authorization.id
+        @client.delete_authorization second_authorization.id
       end
 
       it "creates a new authorization with options" do
@@ -32,6 +40,9 @@ describe Octokit::Client::Authorizations do
         authorization = @client.create_authorization info
         expect(authorization.scopes).to be_kind_of Array
         assert_requested :post, basic_github_url("/authorizations")
+
+        use_vcr_placeholder_for(authorization.token, '<<ACCESS TOKEN>>')
+        @client.delete_authorization authorization.id
       end
     end
 
@@ -44,6 +55,9 @@ describe Octokit::Client::Authorizations do
           :scopes => %w(gist)
         expect(authorization.scopes).to be_kind_of Array
         assert_requested :put, basic_github_url("/authorizations/clients/#{test_github_client_id}")
+
+        use_vcr_placeholder_for(authorization.token, '<<ACCESS TOKEN>>')
+        @client.delete_authorization authorization.id
       end
 
       it 'returns an existing API authorization if one already exists' do
@@ -56,6 +70,11 @@ describe Octokit::Client::Authorizations do
           :client_id     => test_github_client_id,
           :client_secret => test_github_client_secret
         expect(first_authorization.id).to eql second_authorization.id
+
+        use_vcr_placeholder_for(first_authorization.token, '<<ACCESS TOKEN>>')
+        use_vcr_placeholder_for(second_authorization.token, '<<ACCESS TOKEN>>')
+        @client.delete_authorization first_authorization.id
+        @client.delete_authorization second_authorization.id
       end
     end
   end # .create_authorization
@@ -65,52 +84,61 @@ describe Octokit::Client::Authorizations do
       authorizations = @client.authorizations
       expect(authorizations).to be_kind_of Array
       assert_requested :get, basic_github_url("/authorizations")
+
+      authorizations.each do |authorization|
+        use_vcr_placeholder_for(authorization.token, '<<ACCESS TOKEN>>')
+      end
     end
   end # .authorizations
 
-  describe ".authorization", :vcr do
-    it "returns a single authorization" do
-      authorization = @client.create_authorization
-      fetched = @client.authorization(authorization['id'])
-      assert_requested :get, basic_github_url("/authorizations/#{authorization.id}")
+  context "with authorization" do
+    before do
+      @authorization = @client.create_authorization
+      use_vcr_placeholder_for(@authorization.token, '<<ACCESS TOKEN>>')
     end
-  end # .authorization
 
-  describe ".update_authorization", :vcr do
-    it "updates and existing authorization" do
-      authorization = @client.create_authorization
-      updated = @client.update_authorization(authorization.id, :add_scopes => ['repo:status'])
-      expect(updated.scopes).to include 'repo:status'
-      assert_requested :patch, basic_github_url("/authorizations/#{authorization.id}")
+    after do
+      @client.delete_authorization @authorization.id
     end
-  end # .update_authorization
 
-  describe ".scopes", :vcr do
-    it "checks the scopes on the current token" do
-      authorization = @client.create_authorization
-      token_client = Octokit::Client.new(:access_token => authorization.token)
-      expect(token_client.scopes).to be_kind_of Array
-      assert_requested :get, github_url("/user")
-    end
-    it "checks the scopes on a one-off token" do
-      authorization = @client.create_authorization
-      Octokit.reset!
-      expect(Octokit.scopes(authorization.token)).to be_kind_of Array
-      assert_requested :get, github_url("/user")
-    end
-  end # .scopes
-
-  describe ".delete_authorization", :vcr do
-    it "deletes an existing authorization" do
-      VCR.eject_cassette
-      VCR.use_cassette 'delete_authorization' do
-        authorization = @client.create_authorization
-        result = @client.delete_authorization(authorization.id)
-        expect(result).to eq true
-        assert_requested :delete, basic_github_url("/authorizations/#{authorization.id}")
+    describe ".authorization", :vcr do
+      it "returns a single authorization" do
+        fetched = @client.authorization(@authorization.id)
+        assert_requested :get, basic_github_url("/authorizations/#{@authorization.id}")
       end
-    end
-  end # .delete_authorization
+    end # .authorization
+
+    describe ".update_authorization", :vcr do
+      it "updates and existing authorization" do
+        updated = @client.update_authorization(@authorization.id, :add_scopes => ['repo:status'])
+        expect(updated.scopes).to include 'repo:status'
+        assert_requested :patch, basic_github_url("/authorizations/#{@authorization.id}")
+
+        use_vcr_placeholder_for(updated.token, '<<ACCESS TOKEN>>')
+      end
+    end # .update_authorization
+
+    describe ".scopes", :vcr do
+      it "checks the scopes on the current token" do
+        token_client = Octokit::Client.new(:access_token => @authorization.token)
+        expect(token_client.scopes).to be_kind_of Array
+        assert_requested :get, github_url("/user")
+      end
+      it "checks the scopes on a one-off token" do
+        Octokit.reset!
+        expect(Octokit.scopes(@authorization.token)).to be_kind_of Array
+        assert_requested :get, github_url("/user")
+      end
+    end # .scopes
+
+    describe ".delete_authorization", :vcr do
+      it "deletes an existing authorization" do
+        result = @client.delete_authorization(@authorization.id)
+        expect(result).to eq true
+        assert_requested :delete, basic_github_url("/authorizations/#{@authorization.id}")
+      end
+    end # .delete_authorization
+  end # with authorization
 
   describe ".authorize_url" do
     context "with preconfigured client credentials" do

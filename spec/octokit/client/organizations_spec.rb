@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Octokit::Client::Organizations do
-
   before do
     Octokit.reset!
     @client = oauth_client
@@ -17,9 +16,9 @@ describe Octokit::Client::Organizations do
 
   describe ".update_organization", :vcr do
     it "updates an organization" do
-      organization = @client.update_organization("api-playground", {:name => "API Playground"})
-      expect(organization.login).to eq "api-playground"
-      assert_requested :patch, github_url("/orgs/api-playground")
+      organization = @client.update_organization(test_github_org, {:name => "API Playground"})
+      expect(organization.login).to eq test_github_org
+      assert_requested :patch, github_url("/orgs/#{test_github_org}")
     end
   end # .update_organization
 
@@ -78,18 +77,36 @@ describe Octokit::Client::Organizations do
 
   describe ".organization_teams", :vcr do
     it "returns all teams for an organization" do
-      teams = @client.organization_teams("api-playground")
+      teams = @client.organization_teams(test_github_org)
       expect(teams).to be_kind_of Array
-      assert_requested :get, github_url("/orgs/api-playground/teams")
+      assert_requested :get, github_url("/orgs/#{test_github_org}/teams")
     end
   end # .organization_teams
 
+  describe ".remove_organization_member", :vcr do
+    it "removes a member from an organization" do
+      VCR.eject_cassette
+      VCR.turned_off do
+        stub_delete github_url("/orgs/api-playground/members/api-padawan")
+        result = @client.remove_organization_member("api-playground", "api-padawan")
+        assert_requested :delete, github_url("/orgs/api-playground/members/api-padawan")
+      end
+    end
+  end # .remove_organization_member
 
-  context "methods that require a new team", :order => :default do
+  describe ".user_teams", :vcr do
+    it "lists all teams for the authenticated user" do
+      teams = @client.user_teams
+      assert_requested :get, github_url("/user/teams")
+      expect(teams).to be_kind_of(Array)
+    end
+  end
 
+  context "with team", :vcr do
     before(:each) do
-      @team_name = "Test Team #{Time.now.to_i}"
-      @team = @client.create_team("api-playground", {:name => @team_name})
+      @team_name = "Test Team #{Time.now.to_f}"
+      @team = @client.create_team(test_github_org, {:name => @team_name})
+      use_vcr_placeholder_for(@team.id, '<ORGANIZATION_TEAM_ID>')
     end
 
     after(:each) do
@@ -98,7 +115,7 @@ describe Octokit::Client::Organizations do
 
     describe ".create_team", :vcr do
       it "creates a team" do
-        assert_requested :post, github_url("/orgs/api-playground/teams")
+        assert_requested :post, github_url("/orgs/#{test_github_org}/teams")
       end
     end # .create_team
 
@@ -125,24 +142,24 @@ describe Octokit::Client::Organizations do
       end
     end # .team_members
 
-    describe ".add_team_member", :vcr do
-      it "adds a team member" do
-        result = @client.add_team_member(@team.id, "api-padawan")
-        assert_requested :put, github_url("/teams/#{@team.id}/members/api-padawan")
-      end
-    end # .add_team_member
-
     describe ".remove_team_member", :vcr do
       it "removes a team member" do
-        result = @client.remove_team_member(@team.id, "api-padawan")
-        assert_requested :delete, github_url("/teams/#{@team.id}/members/api-padawan")
+        result = @client.remove_team_member(@team.id, test_github_login)
+        assert_requested :delete, github_url("/teams/#{@team.id}/members/#{test_github_login}")
       end
     end # .remove_team_member
 
+    describe ".add_team_member", :vcr do
+      it "adds a team member" do
+        result = @client.add_team_member(@team.id, test_github_login)
+        assert_requested :put, github_url("/teams/#{@team.id}/members/#{test_github_login}")
+      end
+    end # .add_team_member
+
     describe ".team_member?", :vcr do
       it "checks if a user is member of a team" do
-        is_team_member = @client.team_member?(@team.id, 'api-padawan')
-        assert_requested :get, github_url("/teams/#{@team.id}/members/api-padawan")
+        is_team_member = @client.team_member?(@team.id, test_github_login)
+        assert_requested :get, github_url("/teams/#{@team.id}/members/#{test_github_login}")
       end
     end # .team_member?
 
@@ -154,39 +171,17 @@ describe Octokit::Client::Organizations do
       end
     end # .team_repositories
 
-    describe ".add_team_repository", :vcr do
-      it "adds a team repository" do
-        result = @client.add_team_repository(@team.id, "api-playground/api-sandbox")
-        assert_requested :put, github_url("/teams/#{@team.id}/repos/api-playground/api-sandbox")
-      end
-    end # .add_team_repository
-
-    describe ".team_repository?", :vcr do
-      it "checks if a repo is managed by a specific team" do
-        is_team_repo = @client.team_repository?(@team.id, 'api-playground/api-sandbox')
-        expect(is_team_repo).to be_false
-        assert_requested :get, github_url("/teams/#{@team.id}/repos/api-playground/api-sandbox")
-      end
-    end
-
-    describe ".remove_team_repository", :vcr do
-      it "removes a team repository" do
-        result = @client.remove_team_repository(@team.id, "api-playground/api-sandbox")
-        assert_requested :delete, github_url("/teams/#{@team.id}/repos/api-playground/api-sandbox")
-      end
-    end #.remove_team_repository
-
     describe ".publicize_membership", :vcr do
       it "publicizes membership" do
-        result = @client.publicize_membership("api-playground", "api-padawan")
-        assert_requested :put, github_url("/orgs/api-playground/public_members/api-padawan")
+        result = @client.publicize_membership(test_github_org, test_github_login)
+        assert_requested :put, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
       end
     end # .publicize_membership
 
     describe ".unpublicize_membership", :vcr do
       it "unpublicizes membership" do
-        result = @client.unpublicize_membership("api-playground", "api-padawan")
-        assert_requested :delete, github_url("/orgs/api-playground/public_members/api-padawan")
+        result = @client.unpublicize_membership(test_github_org, test_github_login)
+        assert_requested :delete, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
       end
     end # .unpublicize_membership
 
@@ -197,25 +192,43 @@ describe Octokit::Client::Organizations do
       end
     end # .delete_team
 
-  end # new team methods
-
-  describe ".remove_organization_member", :vcr do
-    it "removes a member from an organization" do
-      VCR.eject_cassette
-      VCR.turned_off do
-        stub_delete github_url("/orgs/api-playground/members/api-padawan")
-        result = @client.remove_organization_member("api-playground", "api-padawan")
-        assert_requested :delete, github_url("/orgs/api-playground/members/api-padawan")
+    context "with organization repository" do
+      before do
+        options = {:organization => test_github_org}
+        @test_repo = setup_test_repo(options).full_name
       end
-    end
-  end # .remove_organization_member
 
-  describe ".user_teams", :vcr do
-    it "lists all teams for the authenticated user" do
-      teams = @client.user_teams
-      assert_requested :get, github_url("/user/teams")
-      expect(teams).to be_kind_of(Array)
-    end
-  end
+      after do
+        teardown_test_repo @test_repo
+      end
 
-end
+      describe ".add_team_repository", :vcr do
+        it "adds a team repository" do
+          result = @client.add_team_repository(@team.id, @test_repo)
+          assert_requested :put, github_url("/teams/#{@team.id}/repos/#{@test_repo}")
+        end
+      end # .add_team_repository
+
+      describe ".team_repository?", :vcr do
+        it "checks if a repo is managed by a specific team" do
+          is_team_repo = @client.team_repository?(@team.id, @test_repo)
+          expect(is_team_repo).to be_false
+          assert_requested :get, github_url("/teams/#{@team.id}/repos/#{@test_repo}")
+        end
+      end
+
+      context "with team repository" do
+        before do
+          @client.add_team_repository(@team.id, @test_repo)
+        end
+
+        describe ".remove_team_repository", :vcr do
+          it "removes a team repository" do
+            result = @client.remove_team_repository(@team.id, @test_repo)
+            assert_requested :delete, github_url("/teams/#{@team.id}/repos/#{@test_repo}")
+          end
+        end #.remove_team_repository
+      end # with team repository
+    end # with organization repository
+  end # with team
+end # Octokit::Client::Organizations
