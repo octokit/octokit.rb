@@ -100,6 +100,61 @@ describe Octokit::Client::Authorizations do
     end
   end # .scopes
 
+  describe ".check_authorization", :vcr do
+    context "with valid authentication" do
+      context "when checking valid authorization" do
+        before do
+          @authorization = basic_auth_client.create_authorization \
+            :client_id => test_github_client_id,
+            :client_secret => test_github_client_secret
+        end
+
+        after do
+          basic_auth_client.delete_authorization @authorization.id
+        end
+
+        it "returns a valid authorization" do
+          result = basic_oauth_app_client.check_authorization \
+            test_github_client_id,
+            @authorization.token
+          expect(result.token).to be
+          assert_requested :get,
+            basic_github_url(
+              "/applications/#{test_github_client_id}/tokens/#{@authorization.token}",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+
+      context "when checking invalid authorization" do
+        it "raises Octokit::NotFound" do
+         expect {
+            basic_oauth_app_client.check_authorization \
+              test_github_client_id,
+              'token123'
+          }.to raise_error Octokit::NotFound
+          assert_requested :get,
+            basic_github_url(
+              "/applications/#{test_github_client_id}/tokens/token123",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+    end
+
+    context "with invalid authentication" do
+      it "raises Octokit::NotFound" do
+        expect {
+          Octokit.check_authorization \
+            test_github_client_id,
+            'brokentoken'
+        }.to raise_error Octokit::NotFound
+        assert_requested :get,
+          github_url("/applications/#{test_github_client_id}/tokens/brokentoken")
+      end
+    end
+  end # .check_authorization
+
   describe ".delete_authorization", :vcr do
     it "deletes an existing authorization" do
       VCR.eject_cassette
@@ -133,4 +188,92 @@ describe Octokit::Client::Authorizations do
     end
   end # .authorize_url
 
+  describe ".revoke_authorization", :vcr do
+    context "with valid authentication" do
+      context "with valid token" do
+        before do
+          @authorization = basic_auth_client.create_authorization \
+            :client_id => test_github_client_id,
+            :client_secret => test_github_client_secret
+        end
+
+        after do
+          basic_auth_client.delete_authorization @authorization.id
+        end
+
+        it "revokes the authorization token" do
+          result = basic_oauth_app_client.revoke_authorization \
+            test_github_client_id,
+            @authorization.token
+          expect(result).to be_true
+          assert_requested :delete,
+            basic_github_url(
+              "/applications/#{test_github_client_id}/tokens/#{@authorization.token}",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+
+      context "with invalid token" do
+        it "returns false" do
+          result = basic_oauth_app_client.revoke_authorization \
+            test_github_client_id,
+            'brokentoken'
+          expect(result).to be_false
+          assert_requested :delete,
+            basic_github_url(
+              "/applications/#{test_github_client_id}/tokens/brokentoken",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+    end
+
+    context "with invalid authentication" do
+      it "returns false" do
+        result = Octokit.revoke_authorization \
+          test_github_client_id,
+          'brokentoken'
+        expect(result).to be_false
+        assert_requested :delete,
+          github_url("/applications/#{test_github_client_id}/tokens/brokentoken")
+      end
+    end
+  end # .revoke_authorization
+
+  describe ".revoke_authorizations", :vcr do
+    context "with valid authentication" do
+      context "with a valid application client id" do
+        it "returns true after successful revocation" do
+          result = basic_oauth_app_client.revoke_authorizations(test_github_client_id)
+          expect(result).to be_true
+          assert_requested :delete,
+            basic_github_url(
+              "/applications/#{test_github_client_id}/tokens",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+
+      context "with invalid application client id" do
+        it "returns false" do
+          result = basic_oauth_app_client.revoke_authorizations('some_invalid_client_id')
+          expect(result).to be_false
+          assert_requested :delete,
+             basic_github_url(
+              "/applications/some_invalid_client_id/tokens",
+              {:login => test_github_client_id, :password => test_github_client_secret}
+            )
+        end
+      end
+    end
+
+    context "with invalid authentication" do
+      it "returns false" do
+        result = Octokit.revoke_authorizations(test_github_client_id)
+        expect(result).to be_false
+        assert_requested :delete, github_url("/applications/#{test_github_client_id}/tokens")
+      end
+    end
+  end # .revoke_authorizations
 end

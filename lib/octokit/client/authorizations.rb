@@ -51,6 +51,7 @@ module Octokit
       # @return [Sawyer::Resource] A single authorization for the authenticated user
       # @see http://developer.github.com/v3/oauth/#scopes Available scopes
       # @see http://developer.github.com/v3/oauth/#create-a-new-authorization
+      # @see http://developer.github.com/v3/oauth/#get-or-create-an-authorization-for-a-specific-app
       # @example Create a new authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.create_authorization({:scopes => ["public_repo","gist"], :note => "Why not Zoidberg?", :note_url=> "https://en.wikipedia.org/wiki/Zoidberg"})
@@ -84,13 +85,28 @@ module Octokit
       # @option options [String] :note_url A URL to remind you what app the OAuth token is for.
       #
       # @return [Sawyer::Resource] A single (updated) authorization for the authenticated user
-      # @see http://developer.github.com/v3/oauth/#update-a-new-authorization
+      # @see http://developer.github.com/v3/oauth/#update-an-existing-authorization
       # @see http://developer.github.com/v3/oauth/#scopes for available scopes
       # @example Update the authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.update_authorization(999999, {:add_scopes => ["gist", "repo"], :note => "Why not Zoidberg possibly?"})
       def update_authorization(number, options = {})
         patch "authorizations/#{number}", options
+      end
+
+      # Check an authorization for an OAuth application
+      #
+      # Requires client utilizing basic auth with the client_id and
+      # client_secret for the credentials.
+      #
+      # @param app_id [String] Client Id we received when our
+      #   application was registered with GitHub.
+      # @param token [String] Authorization token to check
+      # @return [Sawyer::Resource] The authorization if valid, otherwise
+      #   Octokit::NotFound is raised.
+      # @see http://developer.github.com/v3/oauth/#check-an-authorization
+      def check_authorization(client_id, token, options={})
+        get "applications/#{client_id}/tokens/#{token}", options
       end
 
       # Delete an authorization for the authenticated user.
@@ -147,6 +163,33 @@ module Octokit
       end
 
       authorize_url
+    end
+
+    # Revoke an application authorization
+    #
+    # Requires basic authenticated client with client id as the
+    #  username and client secret as the password.
+    #
+    # @param client_id [String] Client ID of the application we want to
+    #   revoke all the tokens for.
+    # @param token [String] Authorization token to revoke.
+    # @return [Boolean] True if token revoked, false if not.
+    # @see http://developer.github.com/v3/oauth/#revoke-an-authorization-for-an-application
+    def revoke_authorization(client_id, token, options={})
+      boolean_from_response :delete, "applications/#{client_id}/tokens/#{token}", options
+    end
+
+    # Revoke all authorizations for an application
+    #
+    # Requires basic authenticated client with client id as the
+    #  username and client secret as the password.
+    #
+    # @param client_id [String] Client ID of the application we want to
+    #   revoke all the tokens for.
+    # @return [Boolean] True if successful, false if not.
+    # @see http://developer.github.com/v3/oauth/#revoke-all-authorizations-for-an-application
+    def revoke_authorizations(client_id, options={})
+      boolean_from_response :delete, "applications/#{client_id}/tokens", options
     end
   end
 end
