@@ -46,16 +46,16 @@ module Octokit
       # @return [Sawyer::Resource] Commit comment
       # @see http://developer.github.com/v3/repos/comments/#create-a-commit-comment
       # @example Create a commit comment
-      #   commit = Octokit.create_commit_comment("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132", "My comment message", "README.md", 10, 1)
-      #   commit.commit_id # => "827efc6d56897b048c772eb4087f854f46256132"
-      #   commit.body # => "My comment message"
-      #   commit.path # => "README.md"
-      #   commit.line # => 10
-      #   commit.position # => 1
+      #   comment = Octokit.create_commit_comment("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132", "My comment message", "README.md", 10, 1)
+      #   comment.commit_id # => "827efc6d56897b048c772eb4087f854f46256132"
+      #   comment.id # => 54321
+      #   comment.body # => "My comment message"
+      #   comment.path # => "README.md"
+      #   comment.line # => 10
+      #   comment.position # => 1
       def create_commit_comment(repo, sha, body, path=nil, line=nil, position=nil, options = {})
         params = {
           :body => body,
-          :commit_id => sha,
           :path => path,
           :line => line,
           :position => position
@@ -71,9 +71,9 @@ module Octokit
       # @return [Sawyer::Resource] Updated commit comment
       # @see http://developer.github.com/v3/repos/comments/#update-a-commit-comment
       # @example Update a commit comment
-      #   commit = Octokit.update_commit_comment("octocat/Hello-World", "860296", "Updated commit comment")
-      #   commit.id # => 860296
-      #   commit.body # => "Updated commit comment"
+      #   comment = Octokit.update_commit_comment("octocat/Hello-World", "860296", "Updated commit comment")
+      #   comment.id # => 860296
+      #   comment.body # => "Updated commit comment"
       def update_commit_comment(repo, id, body, options = {})
         params = {
           :body => body
