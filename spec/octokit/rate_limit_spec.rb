@@ -5,7 +5,7 @@ describe Octokit::RateLimit do
 
   it "parses rate limit info from response headers" do
     response = double()
-    response.should_receive(:headers).
+    expect(response).to receive(:headers).
       at_least(:once).
       and_return({
         "X-RateLimit-Limit" => 60,
