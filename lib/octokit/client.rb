@@ -196,7 +196,7 @@ module Octokit
       data = request(:get, url, opts)
 
       if @auto_paginate
-        while @last_response.rels[:next] && rate_limit.remaining > 0
+        while @last_response.rels[:next] && !rate_limit.remaining.zero?
           @last_response = @last_response.rels[:next].get
           if block_given?
             yield(data, @last_response)
@@ -204,7 +204,6 @@ module Octokit
             data.concat(@last_response.data) if @last_response.data.is_a?(Array)
           end
         end
-
       end
 
       data

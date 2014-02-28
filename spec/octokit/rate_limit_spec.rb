@@ -27,4 +27,15 @@ describe Octokit::RateLimit do
     expect(info.resets_at).to be_nil
   end
 
+  context "without rate limit headers" do
+    it "defaults remaining and limit to 5000" do
+      response = double
+      expect(response).to receive(:headers).
+        at_least(:once).
+        and_return({"X-RateLimit-Reset" => Time.now.to_i})
+      rate_limit = Octokit::RateLimit.from_response(response)
+      expect(rate_limit.remaining).to eq 5000
+      expect(rate_limit.limit).to eq 5000
+    end
+  end # without rate limit headers
 end
