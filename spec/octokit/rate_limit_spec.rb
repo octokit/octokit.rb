@@ -27,4 +27,36 @@ describe Octokit::RateLimit do
     expect(info.resets_at).to be_nil
   end
 
+  describe ".exceeded?" do
+    context "with exceeded rate limit" do
+      it "returns true" do
+        response = double()
+        expect(response).to receive(:headers).
+          at_least(:once).
+          and_return({"X-RateLimit-Remaining" => 0})
+        rate_limit = Octokit::RateLimit.from_response(response)
+        expect(rate_limit.exceeded?).to be true
+      end
+    end # with exceeded rate limit
+
+    context "without exceeded rate limit" do
+      it "returns false" do
+        response = double()
+        expect(response).to receive(:headers).
+          at_least(:once).
+          and_return({"X-RateLimit-Remaining" => 1})
+        rate_limit = Octokit::RateLimit.from_response(response)
+        expect(rate_limit.exceeded?).to be false
+      end
+    end # without exceeded rate limit
+
+    context "without rate limit headers" do
+      it "returns false" do
+        response = double()
+        expect(response).to receive(:headers).at_least(:once)
+        rate_limit = Octokit::RateLimit.from_response(response)
+        expect(rate_limit.exceeded?).to be false
+      end
+    end # without rate limit headers
+  end # .exceeded?
 end

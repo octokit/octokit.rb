@@ -29,5 +29,16 @@ module Octokit
 
       info
     end
+
+    # Check if rate limit exceeded
+    #
+    # @return [Boolean] Rate limit exceeded
+    def exceeded?
+      if remaining.is_a? Integer
+        remaining.zero?
+      else
+        false
+      end
+    end
   end
 end
