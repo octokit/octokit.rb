@@ -15,7 +15,7 @@ require 'webmock/rspec'
 WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
 RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.raise_errors_for_deprecations!
 end
 
 require 'vcr'
@@ -130,4 +130,3 @@ end
 def oauth_client
   Octokit::Client.new(:access_token => test_github_token)
 end
-
