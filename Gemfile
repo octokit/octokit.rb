@@ -22,7 +22,6 @@ group :test do
   gem 'rb-fsevent', '~> 0.9'
   gem 'rspec', '~> 3.0.0.beta2'
   gem 'simplecov', :require => false
-  gem 'test-queue', '>= 0.1.3'
   gem 'vcr', '~> 2.4'
   gem 'webmock', '>= 1.9'
 end
