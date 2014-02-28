@@ -19,6 +19,18 @@ describe Octokit::RateLimit do
     expect(info.resets_at).to be_kind_of(Time)
   end
 
+  it "returns a positive rate limit for Enterprise" do
+    response = double()
+    expect(response).to receive(:headers).
+      at_least(:once).
+      and_return({ })
+    info = Octokit::RateLimit.from_response(response)
+    expect(info.limit).to eq(1)
+    expect(info.remaining).to eq(1)
+    expect(info.resets_in).to eq(0)
+    expect(info.resets_at).to be_kind_of(Time)
+  end
+
   it "handles nil responses" do
     info = Octokit::RateLimit.from_response(nil)
     expect(info.limit).to be_nil
