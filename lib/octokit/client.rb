@@ -196,7 +196,7 @@ module Octokit
       data = request(:get, url, opts)
 
       if @auto_paginate
-        while @last_response.rels[:next] && !rate_limit.exceeded?
+        while @last_response.rels[:next] && !rate_limit.remaining.zero?
           @last_response = @last_response.rels[:next].get
           if block_given?
             yield(data, @last_response)
