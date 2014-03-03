@@ -61,6 +61,10 @@ describe Octokit::Client::Gists do
       @gist_comment = @client.create_gist_comment(5421307, ":metal:")
     end
 
+    after do
+      @client.delete_gist @gist.id
+    end
+
     describe ".gists" do
       it "returns a list of gists" do
         gists = @client.gists
