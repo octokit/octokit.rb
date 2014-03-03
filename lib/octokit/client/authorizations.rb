@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Authorizations API
     #
-    # @see http://developer.github.com/v3/oauth/#oauth-authorizations-api
+    # @see http://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api
     module Authorizations
 
       # List the authenticated user's authorizations
@@ -13,7 +13,7 @@ module Octokit
       # Basic Authentication.
       #
       # @return [Array<Sawyer::Resource>] A list of authorizations for the authenticated user
-      # @see http://developer.github.com/v3/oauth/#list-your-authorizations
+      # @see http://developer.github.com/v3/oauth_authorizations/#list-your-authorizations
       # @example List authorizations for user ctshryock
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorizations
@@ -27,7 +27,7 @@ module Octokit
       # Basic Authentication.
       #
       # @return [Sawyer::Resource] A single authorization for the authenticated user
-      # @see http://developer.github.com/v3/oauth/#get-a-single-authorization
+      # @see http://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization
       # @example Show authorization for user ctshryock's Travis auth
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorization(999999)
@@ -50,7 +50,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] A single authorization for the authenticated user
       # @see http://developer.github.com/v3/oauth/#scopes Available scopes
-      # @see http://developer.github.com/v3/oauth/#create-a-new-authorization
+      # @see http://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization
       # @example Create a new authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.create_authorization({:scopes => ["public_repo","gist"], :note => "Why not Zoidberg?", :note_url=> "https://en.wikipedia.org/wiki/Zoidberg"})
@@ -84,7 +84,7 @@ module Octokit
       # @option options [String] :note_url A URL to remind you what app the OAuth token is for.
       #
       # @return [Sawyer::Resource] A single (updated) authorization for the authenticated user
-      # @see http://developer.github.com/v3/oauth/#update-a-new-authorization
+      # @see http://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization
       # @see http://developer.github.com/v3/oauth/#scopes for available scopes
       # @example Update the authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
@@ -101,7 +101,7 @@ module Octokit
       # @param number [Number] An existing Authorization ID
       #
       # @return [Boolean] Success
-      # @see http://developer.github.com/v3/oauth/#delete-an-authorization
+      # @see http://developer.github.com/v3/oauth_authorizations/#delete-an-authorization
       # @example Delete an authorization
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.delete_authorization(999999)
