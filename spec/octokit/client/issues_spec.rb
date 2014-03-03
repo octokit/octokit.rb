@@ -94,6 +94,7 @@ describe Octokit::Client::Issues do
     describe ".close_issue" do
       it "closes an issue" do
         issue = @client.close_issue("api-playground/api-sandbox", @issue.number)
+        expect(issue.state).to eq "closed"
         expect(issue.number).to eq(@issue.number)
         assert_requested :patch, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
       end
@@ -101,7 +102,8 @@ describe Octokit::Client::Issues do
 
     describe ".reopen_issue" do
       it "reopens an issue" do
-        issue = @client.close_issue("api-playground/api-sandbox", @issue.number)
+        issue = @client.reopen_issue("api-playground/api-sandbox", @issue.number)
+        expect(issue.state).to eq "open"
         expect(issue.number).to eq(@issue.number)
         assert_requested :patch, github_url("/repos/api-playground/api-sandbox/issues/#{@issue.number}")
       end
