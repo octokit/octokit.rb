@@ -560,6 +560,16 @@ describe Octokit::Client do
         expect(e.documentation_url).to eq("http://developer.github.com/v3")
       end
     end
+
+    it "handles an error response with an array body" do
+      stub_get('/user').to_return \
+        :status => 500,
+        :headers => {
+          :content_type => "application/json"
+        },
+        :body => [].to_json
+      expect { Octokit.get('/user') }.to raise_error Octokit::ServerError
+    end
   end
 
   it "knows the difference between unauthorized and needs OTP" do

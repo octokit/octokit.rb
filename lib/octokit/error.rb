@@ -41,7 +41,7 @@ module Octokit
     #
     # @return [String]
     def documentation_url
-      data[:documentation_url] if data
+      data[:documentation_url] if data.is_a? Hash
     end
 
     # Returns most appropriate error for 401 HTTP status code
