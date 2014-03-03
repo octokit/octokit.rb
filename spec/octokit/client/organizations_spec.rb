@@ -85,7 +85,7 @@ describe Octokit::Client::Organizations do
   end # .organization_teams
 
 
-  context "methods that require a new team", :order => :default do
+  context "methods that require a new team", :order => :defined do
 
     before(:each) do
       @team_name = "Test Team #{Time.now.to_i}"
