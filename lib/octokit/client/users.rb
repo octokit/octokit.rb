@@ -189,7 +189,7 @@ module Octokit
       #
       # Requires authenticated client.
       #
-      # @param args [String, Hash, Repository] A GitHub repository
+      # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] True if you are following the repo, false otherwise.
       # @see http://developer.github.com/v3/activity/starring/#check-if-you-are-starring-a-repository
       # @example
