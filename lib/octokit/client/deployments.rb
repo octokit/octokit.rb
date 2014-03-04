@@ -15,7 +15,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/deployments/#list-deployments
       def deployments(repo, options = {})
         options = ensure_deployments_api_media_type(options)
-        deployments = get("repos/#{Repository.new(repo)}/deployments", options)
+        get("repos/#{Repository.new(repo)}/deployments", options)
       end
       alias :list_deployments :deployments
 
@@ -32,7 +32,7 @@ module Octokit
       def create_deployment(repo, ref, options = {})
         options = ensure_deployments_api_media_type(options)
         options[:ref] = ref
-        deployment = post("repos/#{Repository.new(repo)}/deployments", options)
+        post("repos/#{Repository.new(repo)}/deployments", options)
       end
 
       # List all statuses for a Deployment
@@ -43,7 +43,7 @@ module Octokit
       def deployment_statuses(deployment_url, options = {})
         options = ensure_deployments_api_media_type(options)
         deployment = get(deployment_url, :accept => options[:accept])
-        statuses = get(deployment.rels[:statuses].href, options)
+        get(deployment.rels[:statuses].href, options)
       end
       alias :list_deployment_statuses :deployment_statuses
 
@@ -57,7 +57,7 @@ module Octokit
         options = ensure_deployments_api_media_type(options)
         deployment = get(deployment_url, :accept => options[:accept])
         options[:state] = state.to_s.downcase
-        status = post(deployment.rels[:statuses].href, options)
+        post(deployment.rels[:statuses].href, options)
       end
 
       private
