@@ -15,9 +15,7 @@ module Octokit
       # @see http://developer.github.com/v3/repos/deployments/#list-deployments
       def deployments(repo, options = {})
         options = ensure_deployments_api_media_type(options)
-        deployments = get("repos/#{Repository.new(repo)}/deployments", options)
-
-        deployments.map { |d| decode_payload_field(d) }
+        get("repos/#{Repository.new(repo)}/deployments", options)
       end
       alias :list_deployments :deployments
 
@@ -34,9 +32,7 @@ module Octokit
       def create_deployment(repo, ref, options = {})
         options = ensure_deployments_api_media_type(options)
         options[:ref] = ref
-        deployment = post("repos/#{Repository.new(repo)}/deployments", options)
-
-        decode_payload_field(deployment)
+        post("repos/#{Repository.new(repo)}/deployments", options)
       end
 
       # List all statuses for a Deployment
@@ -47,9 +43,7 @@ module Octokit
       def deployment_statuses(deployment_url, options = {})
         options = ensure_deployments_api_media_type(options)
         deployment = get(deployment_url, :accept => options[:accept])
-        statuses = get(deployment.rels[:statuses].href, options)
-
-        statuses.map { |s| decode_payload_field(s) }
+        get(deployment.rels[:statuses].href, options)
       end
       alias :list_deployment_statuses :deployment_statuses
 
@@ -63,9 +57,7 @@ module Octokit
         options = ensure_deployments_api_media_type(options)
         deployment = get(deployment_url, :accept => options[:accept])
         options[:state] = state.to_s.downcase
-        status = post(deployment.rels[:statuses].href, options)
-
-        decode_payload_field(status)
+        post(deployment.rels[:statuses].href, options)
       end
 
       private
@@ -85,18 +77,6 @@ WARNING: The preview version of the Deployments API is not yet suitable for prod
 You can avoid this message by supplying an appropriate media type in the 'Accept' request
 header. See the blog post for details: http://git.io/o2XZRA
 EOS
-      end
-
-      def decode_payload_field(resource)
-        if resource && payload = resource[:payload]
-          begin
-            resource[:payload] = Sawyer::Agent.serializer.decode(payload)
-          rescue StandardError => e
-            warn e.message
-          end
-        end
-
-        resource
       end
     end
   end
