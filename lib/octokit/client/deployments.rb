@@ -16,8 +16,6 @@ module Octokit
       def deployments(repo, options = {})
         options = ensure_deployments_api_media_type(options)
         deployments = get("repos/#{Repository.new(repo)}/deployments", options)
-
-        deployments
       end
       alias :list_deployments :deployments
 
@@ -35,8 +33,6 @@ module Octokit
         options = ensure_deployments_api_media_type(options)
         options[:ref] = ref
         deployment = post("repos/#{Repository.new(repo)}/deployments", options)
-
-        deployment
       end
 
       # List all statuses for a Deployment
@@ -48,8 +44,6 @@ module Octokit
         options = ensure_deployments_api_media_type(options)
         deployment = get(deployment_url, :accept => options[:accept])
         statuses = get(deployment.rels[:statuses].href, options)
-
-        statuses
       end
       alias :list_deployment_statuses :deployment_statuses
 
@@ -64,8 +58,6 @@ module Octokit
         deployment = get(deployment_url, :accept => options[:accept])
         options[:state] = state.to_s.downcase
         status = post(deployment.rels[:statuses].href, options)
-
-        status
       end
 
       private
