@@ -48,6 +48,9 @@ VCR.configure do |c|
   }
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
+  c.after_http_request(:real?, lambda { |req| req.uri =~ /user\/repos/ }) do
+    sleep 5
+  end
 end
 
 def test_github_login
