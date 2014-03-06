@@ -23,7 +23,7 @@ module Octokit
       # @see http://developer.github.com/v3/rate_limit/#rate-limit
       # @return [Fixnum] Number of requests remaining in this period
       def rate_limit_remaining(options = {})
-        puts "Deprecated: Please use .rate_limit.remaining"
+        octokit_warn "Deprecated: Please use .rate_limit.remaining"
         rate_limit.remaining
       end
       alias ratelimit_remaining rate_limit_remaining
@@ -43,7 +43,7 @@ module Octokit
       # @see http://developer.github.com/v3/rate_limit/#rate-limit
       # @return [Fixnum] Number of requests remaining in this period
       def rate_limit_remaining!(options = {})
-        puts "Deprecated: Please use .rate_limit!.remaining"
+        octokit_warn "Deprecated: Please use .rate_limit!.remaining"
         rate_limit!.remaining
       end
       alias ratelimit_remaining! rate_limit_remaining!
