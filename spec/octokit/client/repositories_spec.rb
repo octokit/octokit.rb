@@ -17,27 +17,23 @@ describe Octokit::Client::Repositories do
 
   describe ".set_private" do
     it "sets a repository private" do
-      VCR.turned_off do
-        repo_name = "api-playground/api-sandbox"
-        # Stub this because Padawan is on a free plan
-        request = stub_patch(github_url("/repos/#{repo_name}")).
-          with(:body => {:private => true, :name => "api-sandbox"}.to_json)
-        @client.set_private repo_name
-        assert_requested request
-      end
+      repo_name = "api-playground/api-sandbox"
+      # Stub this because Padawan is on a free plan
+      request = stub_patch(github_url("/repos/#{repo_name}")).
+        with(:body => {:private => true, :name => "api-sandbox"}.to_json)
+      @client.set_private repo_name
+      assert_requested request
     end
   end # .set_private
 
   describe ".set_public" do
     it "sets a repository public" do
-      VCR.turned_off do
-        repo_name = "api-playground/api-sandbox"
-        # Stub this because Padawan is on a free plan
-        request = stub_patch(github_url("/repos/#{repo_name}")).
-          with(:body => {:private => false, :name => "api-sandbox"}.to_json)
-        @client.set_public repo_name
-        assert_requested request
-      end
+      repo_name = "api-playground/api-sandbox"
+      # Stub this because Padawan is on a free plan
+      request = stub_patch(github_url("/repos/#{repo_name}")).
+        with(:body => {:private => false, :name => "api-sandbox"}.to_json)
+      @client.set_public repo_name
+      assert_requested request
     end
   end # .set_public
 
@@ -57,47 +53,39 @@ describe Octokit::Client::Repositories do
 
   describe ".add_deploy_key" do
     it "adds a repository deploy keys" do
-      VCR.turned_off do
-        repo_name = "api-playground/api-sandbox"
-        request = stub_post(github_url("/repos/#{repo_name}/keys"))
-        @client.add_deploy_key(repo_name, "Padawan", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com" )
-        assert_requested request
-      end
+      repo_name = "api-playground/api-sandbox"
+      request = stub_post(github_url("/repos/#{repo_name}/keys"))
+      @client.add_deploy_key(repo_name, "Padawan", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com" )
+      assert_requested request
     end
   end # .add_deploy_key
 
   describe ".deploy_key" do
     it "returns a specific deploy key for a repo" do
-      VCR.turned_off do
-        repo = "api-playground/api-sandbox"
-        key_id = 8675309
-        request = stub_get github_url "/repos/#{repo}/keys/#{key_id}"
-        @client.deploy_key repo, key_id
-        assert_requested request
-      end
+      repo = "api-playground/api-sandbox"
+      key_id = 8675309
+      request = stub_get github_url "/repos/#{repo}/keys/#{key_id}"
+      @client.deploy_key repo, key_id
+      assert_requested request
     end
   end # .deploy_key
 
   describe ".edit_deploy_key" do
     it "modifies a deploy key" do
-      VCR.turned_off do
-        repo = "api-playground/api-sandbox"
-        key_id = 8675309
-        request = stub_patch github_url "/repos/#{repo}/keys/#{key_id}"
-        @client.edit_deploy_key(repo, key_id, :title => 'Staging')
-        assert_requested request
-      end
+      repo = "api-playground/api-sandbox"
+      key_id = 8675309
+      request = stub_patch github_url "/repos/#{repo}/keys/#{key_id}"
+      @client.edit_deploy_key(repo, key_id, :title => 'Staging')
+      assert_requested request
     end
   end # .edit_deploy_key
 
   describe ".remove_deploy_key" do
     it "removes a repository deploy keys" do
-      VCR.turned_off do
-        repo_name = "api-playground/api-sandbox"
-        request = stub_delete(github_url("/repos/#{repo_name}/keys/1234"))
-        @client.remove_deploy_key(repo_name, 1234)
-        assert_requested request
-      end
+      repo_name = "api-playground/api-sandbox"
+      request = stub_delete(github_url("/repos/#{repo_name}/keys/1234"))
+      @client.remove_deploy_key(repo_name, 1234)
+      assert_requested request
     end
   end # .remove_deploy_key
 
