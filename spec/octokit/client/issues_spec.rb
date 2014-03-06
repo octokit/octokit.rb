@@ -40,7 +40,7 @@ describe Octokit::Client::Issues do
     end
   end # .org_issues
 
-  describe ".create_issue", :vcr, :match_requests_on => [:path, :body] do
+  describe ".create_issue", :vcr do
     it "creates an issue" do
       issue = @client.create_issue \
         "api-playground/api-sandbox",
