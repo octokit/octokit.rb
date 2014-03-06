@@ -203,13 +203,12 @@ describe Octokit::Client do
           config.password = 'il0veruby'
         end
 
-        VCR.turned_off do
-          root_request = stub_get("https://pengwynn:il0veruby@api.github.com/")
-          Octokit.client.get("/")
-          assert_requested root_request
-        end
+        root_request = stub_get("https://pengwynn:il0veruby@api.github.com/")
+        Octokit.client.get("/")
+        assert_requested root_request
       end
     end
+
     describe "when token authenticated", :vcr do
       it "makes authenticated calls" do
         client = oauth_client
@@ -357,16 +356,14 @@ describe Octokit::Client do
       expect(conn.proxy[:uri].to_s).to eq('http://proxy.example.com')
     end
     it "passes along request headers for POST" do
-      VCR.turned_off do
-        headers = {"X-GitHub-Foo" => "bar"}
-        root_request = stub_post("/").
-          with(:headers => headers).
-          to_return(:status => 201)
-        client = Octokit::Client.new
-        client.post "/", :headers => headers
-        assert_requested root_request
-        expect(client.last_response.status).to eq(201)
-      end
+      headers = {"X-GitHub-Foo" => "bar"}
+      root_request = stub_post("/").
+        with(:headers => headers).
+        to_return(:status => 201)
+      client = Octokit::Client.new
+      client.post "/", :headers => headers
+      assert_requested root_request
+      expect(client.last_response.status).to eq(201)
     end
   end
 

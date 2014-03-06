@@ -9,20 +9,19 @@ describe Octokit::Client::PubSubHubbub do
 
   describe ".subscribe" do
     it "subscribes to pull events" do
-      VCR.turned_off do
-        request = stub_post(github_url("/hub")).
-          with(:body => {
-            :"hub.callback" => 'github://Travis?token=travistoken',
-            :"hub.mode" => 'subscribe',
-            :"hub.topic" => 'https://github.com/elskwid/github-services/events/push',
-            :"hub.secret" => '12345'
-          }).
-          to_return(:status => 204)
-        result = @client.subscribe("https://github.com/elskwid/github-services/events/push", "github://Travis?token=travistoken", "12345")
-        expect(result).to be true
-        assert_requested request
-      end
+      request = stub_post(github_url("/hub")).
+        with(:body => {
+          :"hub.callback" => 'github://Travis?token=travistoken',
+          :"hub.mode" => 'subscribe',
+          :"hub.topic" => 'https://github.com/elskwid/github-services/events/push',
+          :"hub.secret" => '12345'
+        }).
+        to_return(:status => 204)
+      result = @client.subscribe("https://github.com/elskwid/github-services/events/push", "github://Travis?token=travistoken", "12345")
+      expect(result).to be true
+      assert_requested request
     end
+
     it "raises an error when topic is not recognized", :vcr do
       subscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
@@ -54,20 +53,19 @@ describe Octokit::Client::PubSubHubbub do
 
   describe ".subscribe_service_hook" do
     it "subscribes to pull event on specified topic" do
-      VCR.turned_off do
-        request = stub_post(github_url("/hub")).
-          with(:body => {
-            :"hub.callback" => 'github://Travis?token=travistoken',
-            :"hub.mode" => 'subscribe',
-            :"hub.topic" => 'https://github.com/elskwid/github-services/events/push',
-            :"hub.secret" => '12345'
-          }).
-          to_return(:status => 204)
-        result = @client.subscribe_service_hook("elskwid/github-services", "Travis", { :token => 'travistoken' }, "12345")
-        expect(result).to be true
-        assert_requested request
-      end
+      request = stub_post(github_url("/hub")).
+        with(:body => {
+          :"hub.callback" => 'github://Travis?token=travistoken',
+          :"hub.mode" => 'subscribe',
+          :"hub.topic" => 'https://github.com/elskwid/github-services/events/push',
+          :"hub.secret" => '12345'
+        }).
+        to_return(:status => 204)
+      result = @client.subscribe_service_hook("elskwid/github-services", "Travis", { :token => 'travistoken' }, "12345")
+      expect(result).to be true
+      assert_requested request
     end
+
     it "encodes URL parameters", :vcr  do
       irc_request_body = {
         :"hub.callback" => 'github://irc?server=chat.freenode.org&room=%23myproject',
