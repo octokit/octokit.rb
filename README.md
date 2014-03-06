@@ -285,6 +285,10 @@ Octokit.api_endpoint
 # => "http://api.github.dev"
 ```
 
+Deprecation warnings and API endpoints in development preview warnings are
+printed to STDOUT by default, these can be disabled by setting the ENV
+`OCTOKIT_SILENT=true`.
+
 ## Hypermedia agent
 
 Starting in version 2.0, Octokit is [hypermedia][]-enabled. Under the hood,
