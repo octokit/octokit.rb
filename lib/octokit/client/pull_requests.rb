@@ -26,7 +26,7 @@ module Octokit
         opts = arguments.options
         repo = arguments.shift
         if state = arguments.shift
-          warn "DEPRECATED: Client#pull_requests: Passing state as positional argument is deprecated. Please use :state => '#{state}'"
+          octokit_warn "DEPRECATED: Client#pull_requests: Passing state as positional argument is deprecated. Please use :state => '#{state}'"
           opts[:state] = state if state
         end
         paginate "repos/#{Repository.new(repo)}/pulls", opts
