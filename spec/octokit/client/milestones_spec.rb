@@ -15,8 +15,7 @@ describe Octokit::Client::Milestones do
     end
   end # .list_milestones
 
-  context "methods that need a milestone" do
-
+  context "with milestone" do
     before(:each) do
       name = "Test Milestone #{Time.now.to_i}"
       @milestone = @client.create_milestone(@test_repo, name)
@@ -53,7 +52,5 @@ describe Octokit::Client::Milestones do
         assert_requested :delete, github_url("/repos/#{@test_repo}/milestones/#{@milestone.number}")
       end
     end # .delete_milestone
-
-  end
-
+  end # with milestone
 end
