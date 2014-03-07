@@ -124,8 +124,7 @@ describe Octokit::Client::Issues do
       end
     end # .add_comment
 
-    context "methods requiring a new issue comment" do
-
+    context "with issue comment" do
       before do
         @issue_comment = @client.add_comment(@test_repo, @issue.number, "Another test comment")
       end
@@ -141,9 +140,9 @@ describe Octokit::Client::Issues do
         it "deletes an existing comment" do
           @client.delete_comment(@test_repo, @issue_comment.id)
           assert_requested :delete, github_url("/repos/#{@test_repo}/issues/comments/#{@issue_comment.id}")
-        end # .delete_comment
-      end
-    end
+        end
+      end # .delete_comment
+    end # with issue comment
   end # with issue
 
   describe ".repository_issues_comments", :vcr do
