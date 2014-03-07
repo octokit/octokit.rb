@@ -23,7 +23,7 @@ describe Octokit::Client::Downloads do
     end
   end # .download
 
-  describe ".delete_download", :vcr do
+  describe ".delete_download" do
     it "deletes a download" do
       request = stub_delete(github_url("/repos/api-playground/api-sandbox/downloads/12345"))
       @client.delete_download 'api-playground/api-sandbox', '12345'
