@@ -37,8 +37,7 @@ describe Octokit::Client::Labels do
     end
   end # .add_label
 
-  context "methods requiring a new label" do
-
+  context "with label" do
     before do
       @client.delete_label!(@test_repo, 'test-label', {:color => 'ededed'})
       @label = @client.add_label(@test_repo, "test-label", 'ededed')
@@ -50,7 +49,7 @@ describe Octokit::Client::Labels do
         assert_requested :patch, github_url("/repos/#{@test_repo}/labels/#{@label.name}")
       end
     end # .update_label
-  end
+  end # with label
 
   context "methods requiring a new issue" do
     before do
@@ -94,7 +93,6 @@ describe Octokit::Client::Labels do
     end # .replace_all_labels
   end
 
-
   describe ".lables_for_milestone", :vcr do
     it "returns all labels for a repository" do
       labels = @client.labels_for_milestone('octokit/octokit.rb', 2)
@@ -103,7 +101,6 @@ describe Octokit::Client::Labels do
     end
   end # .labels_for_milestone
 
-
   describe ".delete_label!", :vcr do
     it "deletes a label from the repository" do
       label = @client.add_label(@test_repo, "delete-me-label")
@@ -111,5 +108,4 @@ describe Octokit::Client::Labels do
       assert_requested :delete, github_url("/repos/#{@test_repo}/labels/#{label.name}")
     end
   end # .delete_label!
-
 end
