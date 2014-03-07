@@ -18,6 +18,9 @@ WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
 RSpec.configure do |config|
   config.raise_errors_for_deprecations!
+  config.before(:all) do
+    @test_repo = "#{test_github_login}/#{test_github_repository}"
+  end
 end
 
 require 'vcr'
