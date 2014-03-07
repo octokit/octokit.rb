@@ -41,10 +41,10 @@ describe Octokit::Client::PubSubHubbub do
       unsubscribe_request_body = {
         :"hub.callback" => 'github://Travis?token=travistoken',
         :"hub.mode" => 'unsubscribe',
-        :"hub.topic" => 'https://github.com/api-playground/api-sandbox/events/push'
+        :"hub.topic" => "https://github.com/#{@test_repo}/events/push"
       }
 
-      result = @client.unsubscribe("https://github.com/api-playground/api-sandbox/events/push", "github://Travis?token=travistoken")
+      result = @client.unsubscribe("https://github.com/#{@test_repo}/events/push", "github://Travis?token=travistoken")
       assert_requested :post, github_url("/hub"), :body => unsubscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
       expect(result).to be true
@@ -89,9 +89,9 @@ describe Octokit::Client::PubSubHubbub do
       unsubscribe_request_body = {
         :"hub.callback" => 'github://Travis',
         :"hub.mode" => 'unsubscribe',
-        :"hub.topic" => 'https://github.com/api-playground/api-sandbox/events/push'
+        :"hub.topic" => "https://github.com/#{@test_repo}/events/push"
       }
-      expect(@client.unsubscribe_service_hook("api-playground/api-sandbox", "Travis")).to eq(true)
+      expect(@client.unsubscribe_service_hook(@test_repo, "Travis")).to eq(true)
       assert_requested :post, github_url("/hub"), :body => unsubscribe_request_body, :times => 1,
         :headers => {'Content-type' => 'application/x-www-form-urlencoded'}
     end
