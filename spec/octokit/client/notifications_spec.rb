@@ -17,9 +17,9 @@ describe Octokit::Client::Notifications do
 
   describe ".repository_notifications", :vcr do
     it "lists all notifications for a repository" do
-      notifications = @client.repository_notifications("api-playground/api-sandbox")
+      notifications = @client.repository_notifications(@test_repo)
       expect(notifications).to be_kind_of Array
-      assert_requested :get, github_url("/repos/api-playground/api-sandbox/notifications")
+      assert_requested :get, github_url("/repos/#{@test_repo}/notifications")
     end
   end # .repository_notifications
 
@@ -33,16 +33,16 @@ describe Octokit::Client::Notifications do
 
   describe ".mark_repository_notifications_as_read", :vcr do
     it "returns true when notifications for a repo are marked as read" do
-      result = @client.mark_repository_notifications_as_read("api-playground/api-sandbox")
+      result = @client.mark_repository_notifications_as_read(@test_repo)
       expect(result).to be true
-      assert_requested :put, github_url("/repos/api-playground/api-sandbox/notifications")
+      assert_requested :put, github_url("/repos/#{@test_repo}/notifications")
     end
   end # .mark_repository_notifications_as_read
 
   context "methods that need a thread context" do
 
     before(:each) do
-      @thread_id = @client.repository_notifications("api-playground/api-sandbox", :all => true).last.id
+      @thread_id = @client.repository_notifications(@test_repo, :all => true).last.id
     end
 
     describe ".thread_notifications", :vcr do
