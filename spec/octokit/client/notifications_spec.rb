@@ -58,25 +58,30 @@ describe Octokit::Client::Notifications do
       end
     end # .mark_thread_as_read
 
-    describe ".thread_subscription", :vcr do
-      it "returns a thread subscription" do
-        @client.thread_subscription(@thread_id)
-        assert_requested :get, github_url("/notifications/threads/#{@thread_id}/subscription")
-      end
-    end # .thread_subscription
-
-    describe ".update_thread_subscription", :vcr do
-      it "updates a thread subscription" do
+    context "with subscription", :vcr do
+      before do
         @client.update_thread_subscription(@thread_id, :subscribed => true)
-        assert_requested :put, github_url("/notifications/threads/#{@thread_id}/subscription")
       end
-    end # .update_thread_subscription
 
-    describe ".delete_thread_subscription", :vcr do
-      it "returns true with successful thread deletion" do
-        @client.delete_thread_subscription(@thread_id)
-        assert_requested :delete, github_url("/notifications/threads/#{@thread_id}/subscription")
-      end
-    end # .delete_thread_subscription
+      describe ".thread_subscription" do
+        it "returns a thread subscription" do
+          @client.thread_subscription(@thread_id)
+          assert_requested :get, github_url("/notifications/threads/#{@thread_id}/subscription")
+        end
+      end # .thread_subscription
+
+      describe ".update_thread_subscription" do
+        it "updates a thread subscription" do
+          assert_requested :put, github_url("/notifications/threads/#{@thread_id}/subscription")
+        end
+      end # .update_thread_subscription
+
+      describe ".delete_thread_subscription" do
+        it "returns true with successful thread deletion" do
+          @client.delete_thread_subscription(@thread_id)
+          assert_requested :delete, github_url("/notifications/threads/#{@thread_id}/subscription")
+        end
+      end # .delete_thread_subscription
+    end # with subscription
   end # with thread
 end
