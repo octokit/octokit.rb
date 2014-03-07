@@ -38,6 +38,10 @@ describe Octokit::Client::CommitComments do
         @commit.files.last.filename
     end
 
+    after do
+      @client.delete_commit_comment @test_repo, @commit_comment.id
+    end
+
     describe ".create_commit_comment" do
       it "creates a commit comment" do
         expect(@commit_comment.user.login).to eq(test_github_login)
