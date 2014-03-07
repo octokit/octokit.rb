@@ -34,9 +34,9 @@ describe Octokit::Client::Issues do
 
   describe ".org_issues", :vcr do
     it "returns issues for the organization for the authenticated user" do
-      issues = @client.org_issues('dotfiles')
+      issues = @client.org_issues(test_github_org)
       expect(issues).to be_kind_of Array
-      assert_requested :get, github_url("/orgs/dotfiles/issues")
+      assert_requested :get, github_url("/orgs/#{test_github_org}/issues")
     end
   end # .org_issues
 
