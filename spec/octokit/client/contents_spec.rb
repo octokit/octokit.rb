@@ -37,37 +37,37 @@ describe Octokit::Client::Contents do
 
   describe ".create_contents", :vcr do
     it "creates repository contents at a path", :vcr do
-      response = @client.create_contents("api-playground/api-sandbox",
+      response = @client.create_contents(@test_repo,
                                          "test_create.txt",
                                          "I am commit-ing",
                                          "Here be the content\n")
       expect(response.commit.sha).to match(/[a-z0-9]{40}/)
-      assert_requested(:put, github_url("/repos/api-playground/api-sandbox/contents/test_create.txt"))
+      assert_requested(:put, github_url("/repos/#{@test_repo}/contents/test_create.txt"))
     end
     it "creates contents from file path", :vcr do
-      response = @client.create_contents("api-playground/api-sandbox",
+      response = @client.create_contents(@test_repo,
                                          "test_create_path.txt",
                                          "I am commit-ing",
                                          :file => "spec/fixtures/new_file.txt")
       expect(response.commit.sha).to match(/[a-z0-9]{40}/)
-      assert_requested(:put, github_url("/repos/api-playground/api-sandbox/contents/test_create_path.txt"))
+      assert_requested(:put, github_url("/repos/#{@test_repo}/contents/test_create_path.txt"))
     end
     it "creates contents from File object", :vcr do
       file = File.new("spec/fixtures/new_file.txt", "r")
-      response = @client.create_contents("api-playground/api-sandbox",
+      response = @client.create_contents(@test_repo,
                                          "test_create_file.txt",
                                          "I am commit-ing",
                                          :file => file)
       expect(response.commit.sha).to match(/[a-z0-9]{40}/)
-      assert_requested(:put, github_url("/repos/api-playground/api-sandbox/contents/test_create_file.txt"))
+      assert_requested(:put, github_url("/repos/#{@test_repo}/contents/test_create_file.txt"))
     end
     it "does not add new lines", :vcr do
       file = File.new("spec/fixtures/large_file.txt", "r")
-      response = @client.create_contents("api-playground/api-sandbox",
+      response = @client.create_contents(@test_repo,
                                          "test_create_without_newlines.txt",
                                          "I am commit-ing",
                                          :file => file)
-      assert_requested(:put, github_url("/repos/api-playground/api-sandbox/contents/test_create_without_newlines.txt"))
+      assert_requested(:put, github_url("/repos/#{@test_repo}/contents/test_create_without_newlines.txt"))
       content = response.content.rels[:self].get \
         :headers => {:accept => "application/vnd.github.raw" }
       expect(content.data).to eq(File.read("spec/fixtures/large_file.txt"))
@@ -76,34 +76,34 @@ describe Octokit::Client::Contents do
 
   describe ".update_contents", :vcr do
     it "updates repository contents at a path" do
-      content = @client.create_contents("api-playground/api-sandbox",
+      content = @client.create_contents(@test_repo,
                                          "test_update.txt",
                                          "I am commit-ing",
                                          :file => "spec/fixtures/new_file.txt")
-      response = @client.update_contents("api-playground/api-sandbox",
+      response = @client.update_contents(@test_repo,
                                          "test_update.txt",
                                          "I am commit-ing",
                                          content.content.sha,
                                          "Here be moar content")
       expect(response.commit.sha).to match(/[a-z0-9]{40}/)
       assert_requested :put,
-        github_url("/repos/api-playground/api-sandbox/contents/test_update.txt"),
+        github_url("/repos/#{@test_repo}/contents/test_update.txt"),
         :times => 2
 
     end
     it "does not add new lines", :vcr do
-      content = @client.create_contents("api-playground/api-sandbox",
+      content = @client.create_contents(@test_repo,
                                          "test_update_without_newlines.txt",
                                          "I am commit-ing",
                                          :file => "spec/fixtures/new_file.txt")
-      response = @client.update_contents("api-playground/api-sandbox",
+      response = @client.update_contents(@test_repo,
                                          "test_update_without_newlines.txt",
                                          "I am commit-ing",
                                          content.content.sha,
                                          :file => "spec/fixtures/large_file.txt")
 
       assert_requested :put,
-        github_url("/repos/api-playground/api-sandbox/contents/test_update_without_newlines.txt"),
+        github_url("/repos/#{@test_repo}/contents/test_update_without_newlines.txt"),
         :times => 2
 
       content = response.content.rels[:self].get \
@@ -114,17 +114,17 @@ describe Octokit::Client::Contents do
 
   describe ".delete_contents", :vcr do
     it "deletes repository contents at a path" do
-      content = @client.create_contents("api-playground/api-sandbox",
+      content = @client.create_contents(@test_repo,
                                          "test_delete.txt",
                                          "I am commit-ing",
                                          "You DELETE me")
-      response = @client.delete_contents("api-playground/api-sandbox",
+      response = @client.delete_contents(@test_repo,
                                          "test_delete.txt",
                                          "I am rm-ing",
                                          content.content.sha)
       expect(response.commit.sha).to match(/[a-z0-9]{40}/)
       assert_requested :delete,
-        github_url("/repos/api-playground/api-sandbox/contents/test_delete.txt")
+        github_url("/repos/#{@test_repo}/contents/test_delete.txt")
     end
   end # .delete_contents
 
