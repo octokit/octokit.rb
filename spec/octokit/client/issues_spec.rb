@@ -71,8 +71,7 @@ describe Octokit::Client::Issues do
     end
   end # .create_issue
 
-  context "methods requiring a new issue", :vcr do
-
+  context "with issue", :vcr do
     before do
       @issue = @client.create_issue(@test_repo, "Migrate issues to v3", "Move all Issues calls to v3 of the API")
     end
@@ -144,10 +143,8 @@ describe Octokit::Client::Issues do
           assert_requested :delete, github_url("/repos/#{@test_repo}/issues/comments/#{@issue_comment.id}")
         end # .delete_comment
       end
-
     end
-
-  end
+  end # with issue
 
   describe ".repository_issues_comments", :vcr do
     it "returns comments for all issues in a repository" do
