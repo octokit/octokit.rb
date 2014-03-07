@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Octokit::Client::Refs do
-
   before do
     Octokit.reset!
     @client = oauth_client
@@ -28,8 +27,7 @@ describe Octokit::Client::Refs do
     end
   end # .ref
 
-  context "methods that require a ref", :vcr do
-
+  context "with ref", :vcr do
     before(:each) do
       commits = @client.commits(@test_repo)
       @first_sha = commits.first.sha
@@ -77,8 +75,6 @@ describe Octokit::Client::Refs do
         assert_requested :delete, github_url("/repos/#{@test_repo}/git/refs/heads/testing/test-ref")
       end
     end # .delete_ref
-
-  end # @ref methods
-
+  end # with ref
 end
 
