@@ -44,6 +44,9 @@ VCR.configure do |c|
   c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY>") do
     test_github_repository
   end
+  c.define_cassette_placeholder("<GITHUB_TEST_ORGANIZATION>") do
+    test_github_org
+  end
   c.default_cassette_options = {
     :serialize_with             => :json,
     # TODO: Track down UTF-8 issue and remove
@@ -77,6 +80,10 @@ end
 
 def test_github_repository
   ENV.fetch 'OCTOKIT_TEST_GITHUB_REPOSITORY', 'api-sandbox'
+end
+
+def test_github_org
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ORGANIZATION', 'api-playground'
 end
 
 def stub_delete(url)
