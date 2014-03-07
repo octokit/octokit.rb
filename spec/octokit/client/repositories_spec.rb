@@ -169,8 +169,7 @@ describe Octokit::Client::Repositories do
       end
     end
 
-    context "methods that need an existing hook" do
-
+    context "with hook" do
       before(:each) do
         @hook = @client.create_hook(@repo.full_name, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
       end
@@ -213,8 +212,7 @@ describe Octokit::Client::Repositories do
           assert_requested :delete, github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}")
         end
       end # .remove_hook
-
-    end # hook methods
+    end # with hook
 
     describe ".delete_repository", :vcr do
       it "deletes a repository" do
