@@ -39,8 +39,7 @@ describe Octokit::Client::Notifications do
     end
   end # .mark_repository_notifications_as_read
 
-  context "methods that need a thread context" do
-
+  context "with thread" do
     before(:each) do
       @thread_id = @client.repository_notifications(@test_repo, :all => true).last.id
     end
@@ -79,7 +78,5 @@ describe Octokit::Client::Notifications do
         assert_requested :delete, github_url("/notifications/threads/#{@thread_id}/subscription")
       end
     end # .delete_thread_subscription
-
-  end
-
+  end # with thread
 end
