@@ -31,9 +31,9 @@ describe Octokit::Client::CommitComments do
 
   context "with commit comment", :vcr do
     before do
-      @commit = @client.commits('api-playground/api-sandbox').last.rels[:self].get.data
+      @commit = @client.commits(@test_repo).last.rels[:self].get.data
       @commit_comment = @client.create_commit_comment \
-        "api-playground/api-sandbox",
+        @test_repo,
         @commit.sha, ":metal:\n:sparkles:\n:cake:",
         @commit.files.last.filename
     end
@@ -41,23 +41,23 @@ describe Octokit::Client::CommitComments do
     describe ".create_commit_comment" do
       it "creates a commit comment" do
         expect(@commit_comment.user.login).to eq(test_github_login)
-        assert_requested :post, github_url("/repos/api-playground/api-sandbox/commits/#{@commit.sha}/comments")
+        assert_requested :post, github_url("/repos/#{@test_repo}/commits/#{@commit.sha}/comments")
       end
     end # .create_commit_comment
 
     describe ".update_commit_comment" do
       it "updates a commit comment" do
-        updated_comment = @client.update_commit_comment("api-playground/api-sandbox", @commit_comment.id, ":penguin:")
+        updated_comment = @client.update_commit_comment(@test_repo, @commit_comment.id, ":penguin:")
         expect(updated_comment.body).to eq(":penguin:")
-        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/comments/#{@commit_comment.id}")
+        assert_requested :patch, github_url("/repos/#{@test_repo}/comments/#{@commit_comment.id}")
       end
     end # .update_commit_comment
 
     describe ".delete_commit_comment" do
       it "deletes a commit comment" do
-        result = @client.delete_commit_comment("api-playground/api-sandbox", @commit_comment.id)
+        result = @client.delete_commit_comment(@test_repo, @commit_comment.id)
         expect(result).to be true
-        assert_requested :delete, github_url("/repos/api-playground/api-sandbox/comments/#{@commit_comment.id}")
+        assert_requested :delete, github_url("/repos/#{@test_repo}/comments/#{@commit_comment.id}")
       end
     end # .delete_commit_comment
   end # with commit comment
