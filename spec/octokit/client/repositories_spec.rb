@@ -39,13 +39,13 @@ describe Octokit::Client::Repositories do
 
   describe ".create_repository", :vcr do
     it "creates a repository for an organization" do
-      repository = @client.create_repository("an-org-repo", :organization => "api-playground")
+      repository = @client.create_repository("an-org-repo", :organization => test_github_org)
       expect(repository.name).to eq("an-org-repo")
-      assert_requested :post, github_url("/orgs/api-playground/repos")
+      assert_requested :post, github_url("/orgs/#{test_github_org}/repos")
 
       # cleanup
       begin
-        @client.delete_repository("api-playground/an-org-repo")
+        @client.delete_repository("#{test_github_org}/an-org-repo")
       rescue Octokit::NotFound
       end
     end
