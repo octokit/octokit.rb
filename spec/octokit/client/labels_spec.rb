@@ -51,7 +51,7 @@ describe Octokit::Client::Labels do
     end # .update_label
   end # with label
 
-  context "methods requiring a new issue" do
+  context "with issue" do
     before do
       @issue = @client.create_issue(@test_repo, "Issue for label test", "The body")
     end
@@ -91,7 +91,7 @@ describe Octokit::Client::Labels do
         assert_requested :put, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
       end
     end # .replace_all_labels
-  end
+  end # with issue
 
   describe ".lables_for_milestone", :vcr do
     it "returns all labels for a repository" do
