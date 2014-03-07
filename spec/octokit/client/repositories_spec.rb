@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Octokit::Client::Repositories do
-
   before do
     Octokit.reset!
     @client = oauth_client
@@ -83,8 +82,7 @@ describe Octokit::Client::Repositories do
     end
   end # .remove_deploy_key
 
-  context "methods that require a new @repo" do
-
+  context "with repository" do
     before(:each) do
       @repo = @client.create_repository("an-repo")
     end
@@ -224,8 +222,7 @@ describe Octokit::Client::Repositories do
         assert_requested :delete, github_url("/repos/#{@repo.full_name}")
       end
     end # .delete_repository
-
-  end # @repo methods
+  end # with repository
 
   describe ".repositories", :vcr do
     it "returns a user's repositories" do
@@ -420,5 +417,4 @@ describe Octokit::Client::Repositories do
       assert_requested :get, github_url("/repos/pengwynn/octokit")
     end
   end # .repository?
-
 end
