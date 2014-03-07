@@ -84,9 +84,7 @@ describe Octokit::Client::Organizations do
     end
   end # .organization_teams
 
-
-  context "methods that require a new team", :order => :defined do
-
+  context "with team", :order => :defined do
     before(:each) do
       @team_name = "Test Team #{Time.now.to_i}"
       @team = @client.create_team(test_github_org, {:name => @team_name})
@@ -196,8 +194,7 @@ describe Octokit::Client::Organizations do
         assert_requested :delete, github_url("/teams/#{@team.id}")
       end
     end # .delete_team
-
-  end # new team methods
+  end # with team
 
   describe ".remove_organization_member" do
     it "removes a member from an organization" do
