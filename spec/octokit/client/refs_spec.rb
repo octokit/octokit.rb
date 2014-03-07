@@ -31,50 +31,50 @@ describe Octokit::Client::Refs do
   context "methods that require a ref", :vcr do
 
     before(:each) do
-      commits = @client.commits("api-playground/api-sandbox")
+      commits = @client.commits(@test_repo)
       @first_sha = commits.first.sha
       @last_sha = commits.last.sha
-      @ref = @client.create_ref("api-playground/api-sandbox","heads/testing/test-ref", @first_sha)
+      @ref = @client.create_ref(@test_repo,"heads/testing/test-ref", @first_sha)
     end
 
     after(:each) do
       begin
-        @client.delete_ref("api-playground/api-sandbox", "heads/testing/test-ref")
+        @client.delete_ref(@test_repo, "heads/testing/test-ref")
       rescue Octokit::UnprocessableEntity
       end
     end
 
     describe ".create_ref" do
       it "creates a ref" do
-        assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/refs")
+        assert_requested :post, github_url("/repos/#{@test_repo}/git/refs")
       end
     end # .create_ref
 
     describe ".update_branch" do
       it "updates a branch" do
-        @client.update_branch("api-playground/api-sandbox", "testing/test-ref", @last_sha, true)
-        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
+        @client.update_branch(@test_repo, "testing/test-ref", @last_sha, true)
+        assert_requested :patch, github_url("/repos/#{@test_repo}/git/refs/heads/testing/test-ref")
       end
     end # .update_branch
 
     describe ".update_ref" do
       it "updates a ref" do
-        @client.update_ref("api-playground/api-sandbox", "heads/testing/test-ref", @last_sha, true)
-        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
+        @client.update_ref(@test_repo, "heads/testing/test-ref", @last_sha, true)
+        assert_requested :patch, github_url("/repos/#{@test_repo}/git/refs/heads/testing/test-ref")
       end
     end # .update_ref
 
     describe ".delete_branch" do
       it "deletes an existing branch" do
-        @client.delete_branch("api-playground/api-sandbox", "testing/test-ref")
-        assert_requested :delete, github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
+        @client.delete_branch(@test_repo, "testing/test-ref")
+        assert_requested :delete, github_url("/repos/#{@test_repo}/git/refs/heads/testing/test-ref")
       end
     end # .delete_branch
 
     describe ".delete_ref" do
       it "deletes an existing ref" do
-        @client.delete_ref("api-playground/api-sandbox", "heads/testing/test-ref")
-        assert_requested :delete, github_url("/repos/api-playground/api-sandbox/git/refs/heads/testing/test-ref")
+        @client.delete_ref(@test_repo, "heads/testing/test-ref")
+        assert_requested :delete, github_url("/repos/#{@test_repo}/git/refs/heads/testing/test-ref")
       end
     end # .delete_ref
 
