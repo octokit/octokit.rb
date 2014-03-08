@@ -9,26 +9,26 @@ describe Octokit::Client::Releases do
 
   describe ".releases" do
     it "lists releases for a repo", :vcr do
-      releases = @client.releases "api-playground/api-sandbox"
+      releases = @client.releases @test_repo
       expect(releases).to be_kind_of Array
-      assert_requested :get, github_url("/repos/api-playground/api-sandbox/releases")
+      assert_requested :get, github_url("/repos/#{@test_repo}/releases")
     end
   end
 
   describe ".create_release", :vcr do
     it "creates a release" do
       release = @client.create_release \
-        "api-playground/api-sandbox", "test-create-release-tag", :name => "Test Create Release"
+        @test_repo, "test-create-release-tag", :name => "Test Create Release"
       expect(release.tag_name).to eq("test-create-release-tag")
       expect(release.name).to eq("Test Create Release")
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/releases")
+      assert_requested :post, github_url("/repos/#{@test_repo}/releases")
     end
   end
 
   describe ".release", :vcr do
     it "gets a single release" do
       created = @client.create_release \
-        "api-playground/api-sandbox", "test-get-release-tag", :name => "Test Get Release"
+        @test_repo, "test-get-release-tag", :name => "Test Get Release"
       release = @client.release created.rels[:self].href
       expect(release.tag_name).to eq("test-get-release-tag")
       expect(release.name).to eq("Test Get Release")
@@ -38,7 +38,7 @@ describe Octokit::Client::Releases do
   describe ".update_release", :vcr do
     it "updates a release" do
       created = @client.create_release \
-        "api-playground/api-sandbox", "test-update-release-tag", :name => "Test Update Release"
+        @test_repo, "test-update-release-tag", :name => "Test Update Release"
       release = @client.update_release \
         created.rels[:self].href, :name => "An updated release"
       expect(release.name).to eq("An updated release")
@@ -49,7 +49,7 @@ describe Octokit::Client::Releases do
   describe ".delete_release", :vcr do
     it "deletes a release" do
       created = @client.create_release \
-        "api-playground/api-sandbox", "test-delete-release-tag", :name => "Test Delete Release"
+        @test_repo, "test-delete-release-tag", :name => "Test Delete Release"
       url = created.rels[:self].href
       result = @client.delete_release url
       expect(result).to be true

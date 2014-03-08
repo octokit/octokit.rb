@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Octokit::Client::Repositories do
-
   before do
     Octokit.reset!
     @client = oauth_client
@@ -17,35 +16,33 @@ describe Octokit::Client::Repositories do
 
   describe ".set_private" do
     it "sets a repository private" do
-      repo_name = "api-playground/api-sandbox"
       # Stub this because Padawan is on a free plan
-      request = stub_patch(github_url("/repos/#{repo_name}")).
-        with(:body => {:private => true, :name => "api-sandbox"}.to_json)
-      @client.set_private repo_name
+      request = stub_patch(github_url("/repos/#{@test_repo}")).
+        with(:body => {:private => true, :name => test_github_repository}.to_json)
+      @client.set_private @test_repo
       assert_requested request
     end
   end # .set_private
 
   describe ".set_public" do
     it "sets a repository public" do
-      repo_name = "api-playground/api-sandbox"
       # Stub this because Padawan is on a free plan
-      request = stub_patch(github_url("/repos/#{repo_name}")).
-        with(:body => {:private => false, :name => "api-sandbox"}.to_json)
-      @client.set_public repo_name
+      request = stub_patch(github_url("/repos/#{@test_repo}")).
+        with(:body => {:private => false, :name => test_github_repository}.to_json)
+      @client.set_public @test_repo
       assert_requested request
     end
   end # .set_public
 
   describe ".create_repository", :vcr do
     it "creates a repository for an organization" do
-      repository = @client.create_repository("an-org-repo", :organization => "api-playground")
+      repository = @client.create_repository("an-org-repo", :organization => test_github_org)
       expect(repository.name).to eq("an-org-repo")
-      assert_requested :post, github_url("/orgs/api-playground/repos")
+      assert_requested :post, github_url("/orgs/#{test_github_org}/repos")
 
       # cleanup
       begin
-        @client.delete_repository("api-playground/an-org-repo")
+        @client.delete_repository("#{test_github_org}/an-org-repo")
       rescue Octokit::NotFound
       end
     end
@@ -53,44 +50,39 @@ describe Octokit::Client::Repositories do
 
   describe ".add_deploy_key" do
     it "adds a repository deploy keys" do
-      repo_name = "api-playground/api-sandbox"
-      request = stub_post(github_url("/repos/#{repo_name}/keys"))
-      @client.add_deploy_key(repo_name, "Padawan", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com" )
+      request = stub_post(github_url("/repos/#{@test_repo}/keys"))
+      @client.add_deploy_key(@test_repo, "Padawan", "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN/h7Hf5TA6G4p19deF8YS9COfuBd133GPs49tO6AU/DKIt7tlitbnUnttT0VbNZM4fplyinPu5vJl60eusn/Ngq2vDfSHP5SfgHfA9H8cnHGPYG7w6F0CujFB3tjBhHa3L6Je50E3NC4+BGGhZMpUoTClEI5yEzx3qosRfpfJu/2MUp/V2aARCAiHUlUoj5eiB15zC25uDsY7SYxkh1JO0ecKSMISc/OCdg0kwi7it4t7S/qm8Wh9pVGuA5FmVk8w0hvL+hHWB9GT02WPqiesMaS9Sj3t0yuRwgwzLDaudQPKKTKYXi+SjwXxTJ/lei2bZTMC4QxYbqfqYQt66pQB wynn.netherland+api-padawan@gmail.com" )
       assert_requested request
     end
   end # .add_deploy_key
 
   describe ".deploy_key" do
     it "returns a specific deploy key for a repo" do
-      repo = "api-playground/api-sandbox"
       key_id = 8675309
-      request = stub_get github_url "/repos/#{repo}/keys/#{key_id}"
-      @client.deploy_key repo, key_id
+      request = stub_get github_url "/repos/#{@test_repo}/keys/#{key_id}"
+      @client.deploy_key @test_repo, key_id
       assert_requested request
     end
   end # .deploy_key
 
   describe ".edit_deploy_key" do
     it "modifies a deploy key" do
-      repo = "api-playground/api-sandbox"
       key_id = 8675309
-      request = stub_patch github_url "/repos/#{repo}/keys/#{key_id}"
-      @client.edit_deploy_key(repo, key_id, :title => 'Staging')
+      request = stub_patch github_url "/repos/#{@test_repo}/keys/#{key_id}"
+      @client.edit_deploy_key(@test_repo, key_id, :title => 'Staging')
       assert_requested request
     end
   end # .edit_deploy_key
 
   describe ".remove_deploy_key" do
     it "removes a repository deploy keys" do
-      repo_name = "api-playground/api-sandbox"
-      request = stub_delete(github_url("/repos/#{repo_name}/keys/1234"))
-      @client.remove_deploy_key(repo_name, 1234)
+      request = stub_delete(github_url("/repos/#{@test_repo}/keys/1234"))
+      @client.remove_deploy_key(@test_repo, 1234)
       assert_requested request
     end
   end # .remove_deploy_key
 
-  context "methods that require a new @repo" do
-
+  context "with repository" do
     before(:each) do
       @repo = @client.create_repository("an-repo")
     end
@@ -177,8 +169,7 @@ describe Octokit::Client::Repositories do
       end
     end
 
-    context "methods that need an existing hook" do
-
+    context "with hook" do
       before(:each) do
         @hook = @client.create_hook(@repo.full_name, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
       end
@@ -221,8 +212,7 @@ describe Octokit::Client::Repositories do
           assert_requested :delete, github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}")
         end
       end # .remove_hook
-
-    end # hook methods
+    end # with hook
 
     describe ".delete_repository", :vcr do
       it "deletes a repository" do
@@ -230,8 +220,7 @@ describe Octokit::Client::Repositories do
         assert_requested :delete, github_url("/repos/#{@repo.full_name}")
       end
     end # .delete_repository
-
-  end # @repo methods
+  end # with repository
 
   describe ".repositories", :vcr do
     it "returns a user's repositories" do
@@ -426,5 +415,4 @@ describe Octokit::Client::Repositories do
       assert_requested :get, github_url("/repos/pengwynn/octokit")
     end
   end # .repository?
-
 end

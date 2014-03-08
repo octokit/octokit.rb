@@ -24,8 +24,8 @@ describe Octokit::Client::Objects do
 
   describe ".create_tree", :vcr do
     it "creates a tree" do
-      @client.create_tree("api-playground/api-sandbox", [ { "path" => "wynning.rb", "mode" => "100644", "type" => "blob", :content => "require 'fun'"} ])
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/trees")
+      @client.create_tree(@test_repo, [ { "path" => "wynning.rb", "mode" => "100644", "type" => "blob", :content => "require 'fun'"} ])
+      assert_requested :post, github_url("/repos/#{@test_repo}/git/trees")
     end
   end # .create_tree
 
@@ -39,8 +39,8 @@ describe Octokit::Client::Objects do
 
   describe ".create_blob", :vcr do
     it "creates a blob" do
-      @client.create_blob("api-playground/api-sandbox", "content")
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/blobs")
+      @client.create_blob(@test_repo, "content")
+      assert_requested :post, github_url("/repos/#{@test_repo}/git/blobs")
     end
   end # .create_blob
 
@@ -53,18 +53,19 @@ describe Octokit::Client::Objects do
 
   describe ".create_tag", :vcr do
     it "creates a tag" do
+      sha = @client.commits(@test_repo).last.sha
       tag = @client.create_tag(
-        "api-playground/api-sandbox",
+        @test_repo,
         "v9000.0.0",
         "Version 9000\n",
-        "eb11b3141c9dec3ba88d15b499d597a65df15320",
+        sha,
         "commit",
         "Wynn Netherland",
         "wynn.netherland@gmail.com",
         "2012-06-03T17:03:11-07:00"
       )
       expect(tag.tag).to eq("v9000.0.0")
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/tags")
+      assert_requested :post, github_url("/repos/#{@test_repo}/git/tags")
     end
   end # .create_tag
 

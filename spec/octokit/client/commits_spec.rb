@@ -117,22 +117,22 @@ describe Octokit::Client::Commits do
 
   describe ".create_commit", :vcr do
     it "creates a commit" do
-      last_commit = @client.commits('api-playground/api-sandbox').last
-      @client.create_commit("api-playground/api-sandbox", "My commit message", last_commit.commit.tree.sha, last_commit.sha)
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/commits")
+      last_commit = @client.commits(@test_repo).last
+      @client.create_commit(@test_repo, "My commit message", last_commit.commit.tree.sha, last_commit.sha)
+      assert_requested :post, github_url("/repos/#{@test_repo}/git/commits")
     end
   end # .create_commit
 
   describe ".merge", :vcr do
     it "merges a branch into another" do
       begin
-        @client.delete_ref("api-playground/api-sandbox", "heads/branch-to-merge")
+        @client.delete_ref(@test_repo, "heads/branch-to-merge")
       rescue Octokit::UnprocessableEntity
       end
-      last_commit = @client.commits('api-playground/api-sandbox').last
-      @client.create_ref("api-playground/api-sandbox", "heads/branch-to-merge", last_commit.sha)
-      @client.merge("api-playground/api-sandbox", "master", "branch-to-merge", :commit_message => "Testing the merge API")
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/merges")
+      last_commit = @client.commits(@test_repo).last
+      @client.create_ref(@test_repo, "heads/branch-to-merge", last_commit.sha)
+      @client.merge(@test_repo, "master", "branch-to-merge", :commit_message => "Testing the merge API")
+      assert_requested :post, github_url("/repos/#{@test_repo}/merges")
     end
   end # .merge
 

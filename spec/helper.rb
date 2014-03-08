@@ -18,6 +18,10 @@ WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
 RSpec.configure do |config|
   config.raise_errors_for_deprecations!
+  config.before(:all) do
+    @test_repo = "#{test_github_login}/#{test_github_repository}"
+    @test_org_repo = "#{test_github_org}/#{test_github_repository}"
+  end
 end
 
 require 'vcr'
@@ -37,6 +41,15 @@ VCR.configure do |c|
   end
   c.filter_sensitive_data("<GITHUB_CLIENT_SECRET>") do
     test_github_client_secret
+  end
+  c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY>") do
+    test_github_repository
+  end
+  c.define_cassette_placeholder("<GITHUB_TEST_ORGANIZATION>") do
+    test_github_org
+  end
+  c.define_cassette_placeholder("<GITHUB_TEST_ORG_TEAM_ID>") do
+    "10050505050000"
   end
   c.default_cassette_options = {
     :serialize_with             => :json,
@@ -67,6 +80,14 @@ end
 
 def test_github_client_secret
   ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_SECRET', 'x' * 40
+end
+
+def test_github_repository
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_REPOSITORY', 'api-sandbox'
+end
+
+def test_github_org
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ORGANIZATION', 'api-playground'
 end
 
 def stub_delete(url)

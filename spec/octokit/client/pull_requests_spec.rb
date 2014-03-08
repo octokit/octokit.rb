@@ -29,40 +29,40 @@ describe Octokit::Client::PullRequests do
   context "methods that require a new pull" do
 
     before(:each) do
-      @pull = @client.create_pull_request("api-playground/api-sandbox", "master", "branch-for-pr", "A new PR", "The Body")
+      @pull = @client.create_pull_request(@test_repo, "master", "branch-for-pr", "A new PR", "The Body")
     end
 
     after(:each) do
-      @client.close_pull_request("api-playground/api-sandbox", @pull.number)
+      @client.close_pull_request(@test_repo, @pull.number)
     end
 
     describe ".create_pull_request", :vcr do
       it "creates a pull request" do
         expect(@pull.title).to eq("A new PR")
-        assert_requested :post, github_url("/repos/api-playground/api-sandbox/pulls")
+        assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
       end
     end # .create_pull_request
 
     describe ".pull_request", :vcr do
       it "returns a pull request" do
-        pull = @client.pull("api-playground/api-sandbox", @pull.number)
+        pull = @client.pull(@test_repo, @pull.number)
         expect(pull.title).to eq("A new PR")
-        assert_requested :get, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}")
+        assert_requested :get, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}")
       end
     end # .pull_request
 
     describe ".update_pull_request", :vcr do
       it "updates a pull request" do
-        @client.update_pull_request('api-playground/api-sandbox', @pull.number, 'New title', 'Updated body')
-        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}")
+        @client.update_pull_request(@test_repo, @pull.number, 'New title', 'Updated body')
+        assert_requested :patch, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}")
       end
     end # .update_pull_request
 
     describe ".pull_merged?", :vcr do
       it "returns whether the pull request has been merged" do
-        merged = @client.pull_merged?("api-playground/api-sandbox", @pull.number)
+        merged = @client.pull_merged?(@test_repo, @pull.number)
         expect(merged).not_to be true
-        assert_requested :get, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}/merge")
+        assert_requested :get, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/merge")
       end
     end # .pull_merged?
 
@@ -71,12 +71,12 @@ describe Octokit::Client::PullRequests do
       before do
         new_comment = {
           :body => "Hawt",
-          :commit_id => "c5ea55b0dabb77dfdaffd2344ab1a40ebd51fe32",
-          :path => "new-file.txt",
+          :commit_id => "9bf22dff54fd6a7650230b70417b55e8cccfc4f2",
+          :path => "test.md",
           :position => 1
         }
         @comment = @client.create_pull_request_comment \
-          "api-playground/api-sandbox",
+          @test_repo,
           @pull.number,
           new_comment[:body],
           new_comment[:commit_id],
@@ -86,7 +86,7 @@ describe Octokit::Client::PullRequests do
 
       describe ".create_pull_request_comment", :vcr do
         it "creates a new comment on a pull request" do
-          assert_requested :post, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}/comments")
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments")
         end
       end # .create_pull_request_comment
 
@@ -96,25 +96,25 @@ describe Octokit::Client::PullRequests do
             :body => "done.",
             :in_reply_to => @comment.id
           }
-          reply = @client.create_pull_request_comment_reply("api-playground/api-sandbox", @pull.number, new_comment[:body], new_comment[:in_reply_to])
-          assert_requested :post, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}/comments"), :times => 2
+          reply = @client.create_pull_request_comment_reply(@test_repo, @pull.number, new_comment[:body], new_comment[:in_reply_to])
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments"), :times => 2
           expect(reply.body).to eq(new_comment[:body])
         end
       end # .create_pull_request_comment_reply
 
       describe ".update_pull_request_comment", :vcr do
         it "updates a pull request comment" do
-          comment = @client.update_pull_request_comment("api-playground/api-sandbox", @comment.id, ":shipit:")
+          comment = @client.update_pull_request_comment(@test_repo, @comment.id, ":shipit:")
           expect(comment.body).to eq(":shipit:")
-          assert_requested :patch, github_url("/repos/api-playground/api-sandbox/pulls/comments/#{@comment.id}")
+          assert_requested :patch, github_url("/repos/#{@test_repo}/pulls/comments/#{@comment.id}")
         end
       end # .update_pull_request_comment
 
       describe ".delete_pull_request_comment", :vcr do
         it "deletes a pull request comment" do
-          result = @client.delete_pull_request_comment("api-playground/api-sandbox", @comment.id)
+          result = @client.delete_pull_request_comment(@test_repo, @comment.id)
           expect(result).to eq(true)
-          assert_requested :delete, github_url("/repos/api-playground/api-sandbox/pulls/comments/#{@comment.id}")
+          assert_requested :delete, github_url("/repos/#{@test_repo}/pulls/comments/#{@comment.id}")
         end
       end # .delete_pull_request_comment
 
@@ -122,9 +122,9 @@ describe Octokit::Client::PullRequests do
 
     describe ".close_pull_request", :vcr do
       it "closes a pull request" do
-        response = @client.close_pull_request("api-playground/api-sandbox", @pull.number)
+        response = @client.close_pull_request(@test_repo, @pull.number)
         expect(response.state).to eq('closed')
-        assert_requested :patch, github_url("/repos/api-playground/api-sandbox/pulls/#{@pull.number}")
+        assert_requested :patch, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}")
       end
     end
 
@@ -141,12 +141,12 @@ describe Octokit::Client::PullRequests do
 
   describe ".create_pull_request_for_issue", :vcr do
     it "creates a pull request and attach it to an existing issue" do
-      issue = @client.create_issue("api-playground/api-sandbox", 'A new issue', "Gonna turn this into a PR")
-      pull = @client.create_pull_request_for_issue("api-playground/api-sandbox", "master", "some-fourth-branch", issue.number)
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/pulls")
+      issue = @client.create_issue(@test_repo, 'A new issue', "Gonna turn this into a PR")
+      pull = @client.create_pull_request_for_issue(@test_repo, "master", "some-fourth-branch", issue.number)
+      assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
 
       # cleanup so we can re-run test with blank cassette
-      @client.close_pull_request("api-playground/api-sandbox", pull.number)
+      @client.close_pull_request(@test_repo, pull.number)
     end
   end # .create_pull_request_for_issue
 
