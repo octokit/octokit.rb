@@ -88,6 +88,12 @@ describe Octokit::Client::Organizations do
     before(:each) do
       @team_name = "Test Team #{Time.now.to_i}"
       @team = @client.create_team(test_github_org, {:name => @team_name})
+      team_id = @team.id
+      VCR.configure do |c|
+        c.define_cassette_placeholder("<GITHUB_TEST_ORG_TEAM_ID>") do
+          team_id
+        end
+      end
     end
 
     after(:each) do
