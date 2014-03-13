@@ -42,7 +42,7 @@ module Octokit
       #   @param repo [String, Repository, Hash] A GitHub repository
       #   @param path [String] A path for the new content
       #   @param message [String] A commit message for adding the content
-      #   @param optional content [String] The Base64-encoded content for the file
+      #   @param optional content [String] The content for the file
       #   @option options [String] :branch The branch on which to add the content
       #   @option options [String] :file Path or Ruby File object for content
       # @return [Sawyer::Resource] The contents and commit info for the addition
@@ -51,7 +51,7 @@ module Octokit
       #   Octokit.create_contents("octokit/octokit.rb",
       #                    "lib/octokit.rb",
       #                    "Adding content",
-      #                    "asdf9as0df9asdf8as0d9f8==...",
+      #                    "File content",
       #                    :branch => "my-new-feature")
       def create_contents(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
@@ -91,7 +91,7 @@ module Octokit
       #   @param path [String] A path for the content to update
       #   @param message [String] A commit message for updating the content
       #   @param sha [String] The _blob sha_ of the content to update
-      #   @param content [String] The Base64-encoded content for the file
+      #   @param content [String] The content for the file
       #   @option options [String] :branch The branch on which to update the content
       #   @option options [String] :file Path or Ruby File object for content
       # @return [Sawyer::Resource] The contents and commit info for the update
@@ -101,7 +101,7 @@ module Octokit
       #                    "lib/octokit.rb",
       #                    "Updating content",
       #                    "7eb95f97e1a0636015df3837478d3f15184a5f49",
-      #                    "asdf9as0df9asdf8as0d9f8==...",
+      #                    "File content",
       #                    :branch => "my-new-feature")
       def update_contents(*args)
         options = args.last.is_a?(Hash) ? args.pop : {}
