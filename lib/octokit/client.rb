@@ -223,8 +223,6 @@ module Octokit
           http.basic_auth(@login, @password)
         elsif token_authenticated?
           http.authorization 'token', @access_token
-        elsif application_authenticated?
-          http.params = http.params.merge application_authentication
         end
       end
     end
@@ -252,17 +250,41 @@ module Octokit
         opts = options
       end
 
+      basic_oauth_app_auth = opts.delete(:basic_oauth_app_auth) || false
+
       if accept = opts.delete(:accept)
         opts[:headers] ||= {}
         opts[:headers][:accept] = accept
       end
 
-      if application_authenticated?
+      if application_authenticated? && !basic_oauth_app_auth
         opts[:query].merge! application_authentication
       end
 
-      @last_response = agent.call(method, URI::Parser.new.escape(path.to_s), data, opts)
+      response = Proc.new do
+        @last_response = agent.call(method, URI::Parser.new.escape(path.to_s), data, opts)
+      end
+
+      if basic_oauth_app_auth
+        basic_oauth_app_auth_agent { response.call }
+      else
+        response.call
+      end
+
       @last_response.data
+    end
+
+    # Modify the agent connection to use oauth application credentials as
+    # basic auth for a block without permanently modifying the instantiated
+    # agent's connection.
+    #
+    # @param block [Block] Block to execute with the modified agent.
+    def basic_oauth_app_auth_agent
+      raise Octokit::Unauthorized unless application_authenticated?
+      @conn = agent.instance_variable_get(:@conn).dup
+      agent.instance_variable_get(:@conn).basic_auth client_id, client_secret
+      yield
+      agent.instance_variable_set(:@conn, @conn)
     end
 
     # Executes the request, checking if it was successful
@@ -296,9 +318,11 @@ module Octokit
         end
       end
       query = options.delete(:query)
+      basic_oauth_app_auth = options.delete(:basic_oauth_app_auth)
       opts = {:query => options}
       opts[:query].merge!(query) if query && query.is_a?(Hash)
       opts[:headers] = headers unless headers.empty?
+      opts[:basic_oauth_app_auth] = basic_oauth_app_auth
 
       opts
     end

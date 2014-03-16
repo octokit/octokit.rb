@@ -367,6 +367,34 @@ describe Octokit::Client do
     end
   end
 
+  describe "basic auth with application auth", :vcr do
+    it "uses application auth for basic auth" do
+      client = Octokit::Client.new(:client_id => test_github_client_id, :client_secret => test_github_client_secret)
+      client.delete "/applications/#{test_github_client_id}/tokens", :basic_oauth_app_auth => true
+
+      assert_requested :delete,
+        basic_github_url(
+          "/applications/#{test_github_client_id}/tokens",
+          {:login => test_github_client_id, :password => test_github_client_secret}
+        )
+    end
+
+    it "doesn't persist auth changes to the client" do
+      client = Octokit::Client.new(:client_id => test_github_client_id, :client_secret => test_github_client_secret)
+      client.delete "/applications/#{test_github_client_id}/tokens", :basic_oauth_app_auth => true
+      client.get "/"
+
+      expect(client.basic_authenticated?).to be false
+      assert_requested :get, github_url("/?client_id=#{test_github_client_id}&client_secret=#{test_github_client_secret}")
+    end
+
+    it "raises error without application auth" do
+      expect {
+        Octokit.client.get "/", :basic_oauth_app_auth => true
+      }.to raise_error Octokit::Unauthorized
+    end
+  end
+
   describe "auto pagination", :vcr do
     before do
       Octokit.reset!
