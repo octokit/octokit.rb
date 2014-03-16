@@ -51,6 +51,20 @@ VCR.configure do |c|
   c.define_cassette_placeholder("<GITHUB_TEST_ORG_TEAM_ID>") do
     "10050505050000"
   end
+  c.before_http_request(:real?) do |request|
+    next if request.headers['X-Vcr-Test-Repo-Setup']
+    options = {
+      :headers => {'X-Vcr-Test-Repo-Setup' => 'true'},
+      :auto_init => true
+    }
+    if !oauth_client.repository?("#{test_github_login}/#{test_github_repository}", options)
+      oauth_client.create_repository(test_github_repository, options)
+    end
+    if !oauth_client.repository?("#{test_github_org}/#{test_github_repository}", options)
+      options[:organization] = test_github_org
+      oauth_client.create_repository(test_github_repository, options)
+    end
+  end
   c.default_cassette_options = {
     :serialize_with             => :json,
     # TODO: Track down UTF-8 issue and remove
