@@ -153,3 +153,11 @@ end
 def oauth_client
   Octokit::Client.new(:access_token => test_github_token)
 end
+
+def use_vcr_placeholder_for(text, replacement)
+  VCR.configure do |c|
+    c.define_cassette_placeholder(replacement) do
+      text
+    end
+  end
+end
