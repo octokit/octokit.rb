@@ -261,12 +261,14 @@ module Octokit
         opts[:query].merge! application_authentication
       end
 
-      if basic_oauth_app_auth
-        basic_oauth_app_auth_agent do
-          @last_response = agent.call(method, URI::Parser.new.escape(path.to_s), data, opts)
-        end
-      else
+      response = Proc.new do
         @last_response = agent.call(method, URI::Parser.new.escape(path.to_s), data, opts)
+      end
+
+      if basic_oauth_app_auth
+        basic_oauth_app_auth_agent { response.call }
+      else
+        response.call
       end
 
       @last_response.data
