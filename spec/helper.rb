@@ -65,6 +65,9 @@ VCR.configure do |c|
       oauth_client.create_repository(test_github_repository, options)
     end
   end
+  c.ignore_request do |request|
+    !!request.headers['X-Vcr-Test-Repo-Setup']
+  end
   c.default_cassette_options = {
     :serialize_with             => :json,
     # TODO: Track down UTF-8 issue and remove
