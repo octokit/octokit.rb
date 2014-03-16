@@ -258,6 +258,7 @@ module Octokit
       end
 
       if application_authenticated?
+        opts[:query] ||= {}
         opts[:query].merge! application_authentication
       end
 
