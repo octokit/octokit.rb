@@ -217,17 +217,29 @@ describe Octokit::Client::Users do
     end
   end # .subscriptions
 
-  describe '.exchange_code_for_token' do
-    it 'returns the access_token' do
-      post = stub_post("https://github.com/login/oauth/access_token").
-        with(:headers => {
-          :accept       => "application/json",
-          :content_type => "application/json"
-      }).to_return(json_response("web_flow_token.json"))
-      response = Octokit.exchange_code_for_token('code', 'id_here', 'secret_here')
-      expect(response.access_token).to eq('this_be_ye_token/use_it_wisely')
-      assert_requested post
-    end
-  end # .access_token
+  describe ".exchange_code_for_token" do
+    context "with application authenticated client" do
+      it "returns the access_token" do
+        client = Octokit::Client.new({client_id: '123', client_secret: '345'})
+        request = stub_post("https://github.com/login/oauth/access_token?client_id=123&client_secret=345").
+          with(:body => {:code=>"code", :client_id=>"123", :client_secret=>"345"}.to_json).
+          to_return(json_response("web_flow_token.json"))
+        response = client.exchange_code_for_token("code")
+        expect(response.access_token).to eq "this_be_ye_token/use_it_wisely"
+        assert_requested request
+      end
+    end # with application authenticated client
 
+    context 'with credentials passed as parameters by unauthed client' do
+      it 'returns the access_token' do
+        client = Octokit::Client.new
+        post = stub_request(:post, "https://github.com/login/oauth/access_token").
+          with(:body => {:code=>"code", :client_id=>"id", :client_secret=>"secret"}.to_json).
+          to_return(json_response("web_flow_token.json"))
+        response = client.exchange_code_for_token('code', 'id', 'secret')
+        expect(response.access_token).to eq 'this_be_ye_token/use_it_wisely'
+        assert_requested post
+      end
+    end # with credentials passed as parameters
+  end # .exchange_code_for_token
 end
