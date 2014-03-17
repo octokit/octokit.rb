@@ -246,23 +246,20 @@ module Octokit
     private
 
     def request(method, path, data, options = {})
-      if data.is_a? Hash
-        opts = data
-      else
-        opts = options
-      end
-
-      if accept = opts.delete(:accept)
-        opts[:headers] ||= {}
-        opts[:headers][:accept] = accept
+      if data.is_a?(Hash)
+        options[:query]   = data.delete(:query) || {}
+        options[:headers] = data.delete(:headers) || {}
+        if accept = data.delete(:accept)
+          options[:headers][:accept] = accept
+        end
       end
 
       if application_authenticated?
-        opts[:query].merge! application_authentication
+        options[:query].merge! application_authentication
       end
 
-      @last_response = agent.call(method, URI::Parser.new.escape(path.to_s), data, opts)
-      @last_response.data
+      @last_response = response = agent.call(method, URI::Parser.new.escape(path.to_s), data, options)
+      response.data
     end
 
     # Executes the request, checking if it was successful
