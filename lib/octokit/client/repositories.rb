@@ -488,7 +488,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing hooks.
-      # @see http://developer.github.com/v3/repos/hooks/#list
+      # @see http://developer.github.com/v3/repos/hooks/#list-hooks
       # @example
       #   @client.hooks('octokit/octokit.rb')
       def hooks(repo, options = {})
