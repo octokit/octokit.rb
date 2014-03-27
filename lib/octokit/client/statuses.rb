@@ -25,9 +25,10 @@ module Octokit
       # @return [Sawyer::Resource] The combined status for the commit
       # @see https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref
       def combined_status(repo, sha, options = {})
-        get "repos/#{Repository.new(repo)}/commits/#{sha}/status", options.merge(:accept => COMBINED_STATUS_MEDIA_TYPE)
+        ensure_combined_status_api_media_type(options)
+        get "repos/#{Repository.new(repo)}/commits/#{sha}/status", options
       end
-      alias :status, :combined_status
+      alias :status :combined_status
 
       # Create status for a commit
       #
@@ -41,6 +42,24 @@ module Octokit
       def create_status(repo, sha, state, options = {})
         options.merge!(:state => state)
         post "repos/#{Repository.new(repo)}/statuses/#{sha}", options
+      end
+
+      private
+
+      def ensure_combined_status_api_media_type(options = {})
+        unless options[:accept]
+          options[:accept] = COMBINED_STATUS_MEDIA_TYPE
+          warn_combined_status_preview
+        end
+        options
+      end
+
+      def warn_combined_status_preview
+        octokit_warn <<-EOS
+WARNING: The preview version of the combined status API is not yet suitable
+for production use. You can avoid this message by supplying an appropriate
+media type in the 'Accept' header. See the blog post for details http://git.io/wtsdaA
+EOS
       end
     end
   end
