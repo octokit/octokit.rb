@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../../';
-  framesUrl = "../../frames.html#!" + escape(window.location.href);
+  framesUrl = "../../frames.html#!Octokit/Client/Issues.html";
 </script>
 
 
@@ -325,7 +325,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>List issues for a the authenticated user or repository.</p>
+    <span class="summary_desc"><div class='inline'><p>List issues for the authenticated user or repository.</p>
 </div></span>
   
 </li>
@@ -564,12 +564,12 @@
       <pre class="lines">
 
 
-228
 229
-230</pre>
+230
+231</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 228</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 229</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_comment'>add_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_comment'>comment</span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -630,7 +630,7 @@
         <span class='name'>number</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -739,12 +739,12 @@
       <pre class="lines">
 
 
-127
 128
-129</pre>
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close_issue'>close_issue</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:state</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -935,7 +935,6 @@
       <pre class="lines">
 
 
-92
 93
 94
 95
@@ -943,10 +942,11 @@
 97
 98
 99
-100</pre>
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_issue'>create_issue</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:labels</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:labels</span><span class='rbracket'>]</span>
@@ -1056,12 +1056,12 @@
       <pre class="lines">
 
 
-253
 254
-255</pre>
+255
+256</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 253</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 254</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_comment'>delete_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1122,7 +1122,7 @@
         <span class='name'>number</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -1165,12 +1165,12 @@
       <pre class="lines">
 
 
-111
 112
-113</pre>
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_issue'>issue</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1231,7 +1231,7 @@
         <span class='name'>number</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -1274,12 +1274,12 @@
       <pre class="lines">
 
 
-215
 216
-217</pre>
+217
+218</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 215</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 216</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_issue_comment'>issue_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1340,7 +1340,7 @@
         <span class='name'>number</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -1373,7 +1373,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/issues/comments" target="_parent" title="http://developer.github.com/v3/issues/comments">http://developer.github.com/v3/issues/comments</a></li>
+      <li><a href="http://developer.github.com/v3/issues/comments/#list-comments-on-an-issue" target="_parent" title="http://developer.github.com/v3/issues/comments/#list-comments-on-an-issue">http://developer.github.com/v3/issues/comments/#list-comments-on-an-issue</a></li>
     
   </ul>
 
@@ -1383,12 +1383,12 @@
       <pre class="lines">
 
 
-203
 204
-205</pre>
+205
+206</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 203</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 204</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_issue_comments'>issue_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1555,15 +1555,15 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="lines">
 
 
-191
 192
-193</pre>
+193
+194</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 191</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 192</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_issues_comments'>issues_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1585,7 +1585,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>List issues for a the authenticated user or repository</p>
+    <p>List issues for the authenticated user or repository</p>
 
 
   </div>
@@ -1800,7 +1800,9 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/issues/#list-issues-for-this-repository" target="_parent" title="http://developer.github.com/v3/issues/#list-issues-for-this-repository">http://developer.github.com/v3/issues/#list-issues-for-this-repository</a></li>
+      <li><a href="http://developer.github.com/v3/issues/#list-issues-for-a-repository" target="_parent" title="http://developer.github.com/v3/issues/#list-issues-for-a-repository">http://developer.github.com/v3/issues/#list-issues-for-a-repository</a></li>
+    
+      <li><a href="http://developer.github.com/v3/issues/#list-issues" target="_parent" title="http://developer.github.com/v3/issues/#list-issues">http://developer.github.com/v3/issues/#list-issues</a></li>
     
   </ul>
 
@@ -1810,16 +1812,16 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="lines">
 
 
-29
 30
 31
 32
 33
 34
-35</pre>
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_issues'>list_issues</span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span>
@@ -1855,11 +1857,11 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
     <p class="tag_title">Examples:</p>
     
       
-        <p class="example_title"><div class='inline'><p>List issues for the authenticted user across owned and member repositories</p>
+        <p class="example_title"><div class='inline'><p>List all issues for a given organization for the authenticated user</p>
 </div></p>
       
       <pre class="example code"><code><span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bar</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-<span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_user_issues'>user_issues</span></code></pre>
+<span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_org_issues'>org_issues</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1932,7 +1934,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>State: <tt>open</tt> or <tt>all</tt>.</p>
+            &mdash; <div class='inline'><p>State: <tt>open</tt> or <tt>closed</tt>.</p>
 </div>
           
         </li>
@@ -2021,7 +2023,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       
       
         &mdash;
-        <div class='inline'><p>A list of issues for a repository.</p>
+        <div class='inline'><p>A list of issues.</p>
 </div>
       
     </li>
@@ -2041,12 +2043,12 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="lines">
 
 
-75
 76
-77</pre>
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_org_issues'>org_issues</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>orgs/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_org'>org</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2107,7 +2109,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
         <span class='name'>number</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -2216,12 +2218,12 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="lines">
 
 
-143
 144
-145</pre>
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reopen_issue'>reopen_issue</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:state</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>open</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -2340,12 +2342,12 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="lines">
 
 
-241
 242
-243</pre>
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 241</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 242</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_comment'>update_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_comment'>comment</span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -2406,7 +2408,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
         <span class='name'>number</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -2561,12 +2563,12 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="lines">
 
 
-162
 163
-164</pre>
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_issue'>update_issue</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:title</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_body'>body</span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -2658,7 +2660,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
             
           </span>
           
-            &mdash; <div class='inline'><p>State: <tt>open</tt> or <tt>all</tt>.</p>
+            &mdash; <div class='inline'><p>State: <tt>open</tt> or <tt>closed</tt>.</p>
 </div>
           
         </li>
@@ -2767,12 +2769,12 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="lines">
 
 
-54
 55
-56</pre>
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_issues'>user_issues</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>user/issues</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2787,9 +2789,9 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Nov  5 13:35:47 2013 by
+  Generated on Thu Mar 27 14:52:57 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.0.0).
+  0.8.7.4 (ruby-2.0.0).
 </div>
 
   </body>

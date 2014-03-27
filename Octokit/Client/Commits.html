@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../../';
-  framesUrl = "../../frames.html#!" + escape(window.location.href);
+  framesUrl = "../../frames.html#!Octokit/Client/Commits.html";
 </script>
 
 
@@ -138,52 +138,6 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Get a single commit.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#commit_comment-instance_method" title="#commit_comment (instance method)">- (Sawyer::Resource) <strong>commit_comment</strong>(repo, id, options = {}) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Get a single commit comment.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#commit_comments-instance_method" title="#commit_comments (instance method)">- (Array) <strong>commit_comments</strong>(repo, sha, options = {}) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>List comments for a single commit.</p>
 </div></span>
   
 </li>
@@ -355,7 +309,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_commit_comment-instance_method" title="#create_commit_comment (instance method)">- (Sawyer::Resource) <strong>create_commit_comment</strong>(repo, sha, body, path = nil, line = nil, position = nil, options = {}) </a>
+      <a href="#git_commit-instance_method" title="#git_commit (instance method)">- (Sawyer::Resource) <strong>git_commit</strong>(repo, sha, options = {}) </a>
     
 
     
@@ -369,53 +323,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Create a commit comment.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#delete_commit_comment-instance_method" title="#delete_commit_comment (instance method)">- (nil) <strong>delete_commit_comment</strong>(repo, id, options = {}) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Delete a commit comment.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#list_commit_comments-instance_method" title="#list_commit_comments (instance method)">- (Array) <strong>list_commit_comments</strong>(repo, options = {}) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>List all commit comments.</p>
+    <span class="summary_desc"><div class='inline'><p>Get a detailed git commit.</p>
 </div></span>
   
 </li>
@@ -439,29 +347,6 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Merge a branch or sha.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#update_commit_comment-instance_method" title="#update_commit_comment (instance method)">- (Sawyer::Resource) <strong>update_commit_comment</strong>(repo, id, body, options = {}) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Update a commit comment.</p>
 </div></span>
   
 </li>
@@ -549,7 +434,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/repos/commits/" target="_parent" title="http://developer.github.com/v3/repos/commits/">http://developer.github.com/v3/repos/commits/</a></li>
+      <li><a href="http://developer.github.com/v3/repos/commits/#get-a-single-commit" target="_parent" title="http://developer.github.com/v3/repos/commits/#get-a-single-commit">http://developer.github.com/v3/repos/commits/#get-a-single-commit</a></li>
     
   </ul>
 
@@ -559,211 +444,15 @@
       <pre class="lines">
 
 
-153
-154
-155</pre>
+151
+152
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 151</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_commit'>commit</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_sha'>sha</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/commits/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_sha'>sha</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="commit_comment-instance_method">
-  
-    - (<tt>Sawyer::Resource</tt>) <strong>commit_comment</strong>(repo, id, options = {}) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Get a single commit comment</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>repo</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Hash</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>A GitHub repository</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>id</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>The ID of the comment to fetch</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>A hash representing the comment</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><a href="http://developer.github.com/v3/repos/comments/" target="_parent" title="http://developer.github.com/v3/repos/comments/">http://developer.github.com/v3/repos/comments/</a></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-207
-208
-209</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 207</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_commit_comment'>commit_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="commit_comments-instance_method">
-  
-    - (<tt>Array</tt>) <strong>commit_comments</strong>(repo, sha, options = {}) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>List comments for a single commit</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>repo</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Hash</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>A GitHub repository</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>sha</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>The SHA of the commit whose comments will be fetched</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>An array of hashes representing comments</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><a href="http://developer.github.com/v3/repos/comments/" target="_parent" title="http://developer.github.com/v3/repos/comments/">http://developer.github.com/v3/repos/comments/</a></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-197
-198
-199</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 197</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_commit_comments'>commit_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_sha'>sha</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/commits/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_sha'>sha</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -940,7 +629,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/repos/commits/" target="_parent" title="http://developer.github.com/v3/repos/commits/">http://developer.github.com/v3/repos/commits/</a></li>
+      <li><a href="http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository" target="_parent" title="http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository">http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository</a></li>
     
   </ul>
 
@@ -1145,7 +834,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/repos/commits/" target="_parent" title="http://developer.github.com/v3/repos/commits/">http://developer.github.com/v3/repos/commits/</a></li>
+      <li><a href="http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository" target="_parent" title="http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository">http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository</a></li>
     
   </ul>
 
@@ -1155,6 +844,7 @@
       <pre class="lines">
 
 
+75
 76
 77
 78
@@ -1164,18 +854,15 @@
 82
 83
 84
-85
-86
-87</pre>
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_commits_before'>commits_before</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>RepoArguments</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_date'>date</span>   <span class='op'>=</span> <span class='id identifier rubyid_parse_date'>parse_date</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_options'>options</span>
-  <span class='id identifier rubyid_end_date'>end_date</span> <span class='op'>=</span> <span class='id identifier rubyid_date'>date</span> <span class='op'>+</span> <span class='int'>1</span>
   <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='symbol'>:until</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_iso8601'>iso8601</span><span class='lparen'>(</span><span class='id identifier rubyid_date'>date</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sha_or_branch'>sha_or_branch</span> <span class='op'>=</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_sha_or_branch'>sha_or_branch</span>
@@ -1401,7 +1088,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/repos/commits/" target="_parent" title="http://developer.github.com/v3/repos/commits/">http://developer.github.com/v3/repos/commits/</a></li>
+      <li><a href="http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository" target="_parent" title="http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository">http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository</a></li>
     
   </ul>
 
@@ -1411,6 +1098,8 @@
       <pre class="lines">
 
 
+130
+131
 132
 133
 134
@@ -1422,12 +1111,10 @@
 140
 141
 142
-143
-144
-145</pre>
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 130</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_commits_between'>commits_between</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>RepoArguments</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
@@ -1618,7 +1305,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/repos/commits/" target="_parent" title="http://developer.github.com/v3/repos/commits/">http://developer.github.com/v3/repos/commits/</a></li>
+      <li><a href="http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository" target="_parent" title="http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository">http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository</a></li>
     
   </ul>
 
@@ -1628,6 +1315,8 @@
       <pre class="lines">
 
 
+101
+102
 103
 104
 105
@@ -1637,12 +1326,10 @@
 109
 110
 111
-112
-113
-114</pre>
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_commits_on'>commits_on</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>RepoArguments</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
@@ -1865,7 +1552,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/repos/commits/" target="_parent" title="http://developer.github.com/v3/repos/commits/">http://developer.github.com/v3/repos/commits/</a></li>
+      <li><a href="http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository" target="_parent" title="http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository">http://developer.github.com/v3/repos/commits/#list-commits-on-a-repository</a></li>
     
   </ul>
 
@@ -1885,8 +1572,7 @@
 56
 57
 58
-59
-60</pre>
+59</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 49</span>
@@ -1895,7 +1581,6 @@
   <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>RepoArguments</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_date'>date</span>   <span class='op'>=</span> <span class='id identifier rubyid_parse_date'>parse_date</span><span class='lparen'>(</span><span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_options'>options</span>
-  <span class='id identifier rubyid_end_date'>end_date</span> <span class='op'>=</span> <span class='id identifier rubyid_date'>date</span> <span class='op'>+</span> <span class='int'>1</span>
   <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='symbol'>:since</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_iso8601'>iso8601</span><span class='lparen'>(</span><span class='id identifier rubyid_date'>date</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sha_or_branch'>sha_or_branch</span> <span class='op'>=</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_sha_or_branch'>sha_or_branch</span>
@@ -1996,7 +1681,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/repos/commits/" target="_parent" title="http://developer.github.com/v3/repos/commits/">http://developer.github.com/v3/repos/commits/</a></li>
+      <li><a href="http://developer.github.com/v3/repos/commits/#compare-two-commits" target="_parent" title="http://developer.github.com/v3/repos/commits/#compare-two-commits">http://developer.github.com/v3/repos/commits/#compare-two-commits</a></li>
     
   </ul>
 
@@ -2006,12 +1691,12 @@
       <pre class="lines">
 
 
-274
-275
-276</pre>
+197
+198
+199</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 274</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 197</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compare'>compare</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span><span class='comma'>,</span> <span class='id identifier rubyid_endd'>endd</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/compare/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_start'>start</span><span class='embexpr_end'>}</span><span class='tstring_content'>...</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_endd'>endd</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2146,7 +1831,7 @@ for details about how to format committer identities.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/git/commits/" target="_parent" title="http://developer.github.com/v3/git/commits/">http://developer.github.com/v3/git/commits/</a></li>
+      <li><a href="http://developer.github.com/v3/git/commits/#create-a-commit" target="_parent" title="http://developer.github.com/v3/git/commits/#create-a-commit">http://developer.github.com/v3/git/commits/#create-a-commit</a></li>
     
   </ul>
 
@@ -2156,14 +1841,14 @@ for details about how to format committer identities.</p>
       <pre class="lines">
 
 
-176
-177
-178
-179
-180</pre>
+184
+185
+186
+187
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 176</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 184</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_commit'>create_commit</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_tree'>tree</span><span class='comma'>,</span> <span class='id identifier rubyid_parents'>parents</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='symbol'>:message</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='symbol'>:tree</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_tree'>tree</span> <span class='rbrace'>}</span>
@@ -2176,9 +1861,9 @@ for details about how to format committer identities.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="create_commit_comment-instance_method">
+  <h3 class="signature " id="git_commit-instance_method">
   
-    - (<tt>Sawyer::Resource</tt>) <strong>create_commit_comment</strong>(repo, sha, body, path = nil, line = nil, position = nil, options = {}) 
+    - (<tt>Sawyer::Resource</tt>) <strong>git_commit</strong>(repo, sha, options = {}) 
   
 
   
@@ -2186,29 +1871,13 @@ for details about how to format committer identities.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Create a commit comment</p>
+    <p>Get a detailed git commit</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
-  <div class="examples">
-    <p class="tag_title">Examples:</p>
-    
-      
-        <p class="example_title"><div class='inline'><p>Create a commit comment</p>
-</div></p>
-      
-      <pre class="example code"><code><span class='id identifier rubyid_commit'>commit</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_create_commit_comment'>create_commit_comment</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octocat/Hello-World</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>827efc6d56897b048c772eb4087f854f46256132</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>My comment message</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>README.md</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>10</span><span class='comma'>,</span> <span class='int'>1</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_commit'>commit</span><span class='period'>.</span><span class='id identifier rubyid_commit_id'>commit_id</span> <span class='comment'># =&gt; &quot;827efc6d56897b048c772eb4087f854f46256132&quot;
-</span><span class='id identifier rubyid_commit'>commit</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span> <span class='comment'># =&gt; &quot;My comment message&quot;
-</span><span class='id identifier rubyid_commit'>commit</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='comment'># =&gt; &quot;README.md&quot;
-</span><span class='id identifier rubyid_commit'>commit</span><span class='period'>.</span><span class='id identifier rubyid_line'>line</span> <span class='comment'># =&gt; 10
-</span><span class='id identifier rubyid_commit'>commit</span><span class='period'>.</span><span class='id identifier rubyid_position'>position</span> <span class='comment'># =&gt; 1</span></code></pre>
-    
-  </div>
-<p class="tag_title">Parameters:</p>
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -2236,73 +1905,7 @@ for details about how to format committer identities.</p>
       
       
         &mdash;
-        <div class='inline'><p>Sha of the commit to comment on</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>body</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>Message</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>path</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Relative path of file to comment on</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>line</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Line number in the file to comment on</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>position</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>Line index in the diff to comment on</p>
+        <div class='inline'><p>The SHA of the commit to fetch</p>
 </div>
       
     </li>
@@ -2320,7 +1923,7 @@ for details about how to format committer identities.</p>
       
       
         &mdash;
-        <div class='inline'><p>A hash representing the new commit comment</p>
+        <div class='inline'><p>A hash representing the commit</p>
 </div>
       
     </li>
@@ -2330,7 +1933,7 @@ for details about how to format committer identities.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/repos/comments/" target="_parent" title="http://developer.github.com/v3/repos/comments/">http://developer.github.com/v3/repos/comments/</a></li>
+      <li><a href="http://developer.github.com/v3/git/commits/#get-a-commit" target="_parent" title="http://developer.github.com/v3/git/commits/#get-a-commit">http://developer.github.com/v3/git/commits/#get-a-commit</a></li>
     
   </ul>
 
@@ -2340,210 +1943,15 @@ for details about how to format committer identities.</p>
       <pre class="lines">
 
 
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237</pre>
+161
+162
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 228</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 161</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_create_commit_comment'>create_commit_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_sha'>sha</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_position'>position</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span>
-    <span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span>
-    <span class='symbol'>:commit_id</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_sha'>sha</span><span class='comma'>,</span>
-    <span class='symbol'>:path</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span>
-    <span class='symbol'>:line</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_line'>line</span><span class='comma'>,</span>
-    <span class='symbol'>:position</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_position'>position</span>
-  <span class='rbrace'>}</span>
-  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/commits/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_sha'>sha</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="delete_commit_comment-instance_method">
-  
-    - (<tt>nil</tt>) <strong>delete_commit_comment</strong>(repo, id, options = {}) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Delete a commit comment</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>repo</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Hash</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>A GitHub repository</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>id</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>The ID of the comment to delete</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>nil</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>nil</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><a href="http://developer.github.com/v3/repos/comments/" target="_parent" title="http://developer.github.com/v3/repos/comments/">http://developer.github.com/v3/repos/comments/</a></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-263
-264
-265</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 263</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_delete_commit_comment'>delete_commit_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="list_commit_comments-instance_method">
-  
-    - (<tt>Array</tt>) <strong>list_commit_comments</strong>(repo, options = {}) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>List all commit comments</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>repo</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Hash</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>A GitHub repository</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>An array of hashes representing comments</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><a href="http://developer.github.com/v3/repos/comments/" target="_parent" title="http://developer.github.com/v3/repos/comments/">http://developer.github.com/v3/repos/comments/</a></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-187
-188
-189</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 187</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_list_commit_comments'>list_commit_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_git_commit'>git_commit</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_sha'>sha</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/git/commits/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_sha'>sha</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2682,7 +2090,7 @@ for details about how to format committer identities.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/repos/merging/" target="_parent" title="http://developer.github.com/v3/repos/merging/">http://developer.github.com/v3/repos/merging/</a></li>
+      <li><a href="http://developer.github.com/v3/repos/merging/#perform-a-merge" target="_parent" title="http://developer.github.com/v3/repos/merging/#perform-a-merge">http://developer.github.com/v3/repos/merging/#perform-a-merge</a></li>
     
   </ul>
 
@@ -2692,16 +2100,16 @@ for details about how to format committer identities.</p>
       <pre class="lines">
 
 
-286
-287
-288
-289
-290
-291
-292</pre>
+209
+210
+211
+212
+213
+214
+215</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 286</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 209</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_base'>base</span><span class='comma'>,</span> <span class='id identifier rubyid_head'>head</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span>
@@ -2715,146 +2123,14 @@ for details about how to format committer identities.</p>
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="update_commit_comment-instance_method">
-  
-    - (<tt>Sawyer::Resource</tt>) <strong>update_commit_comment</strong>(repo, id, body, options = {}) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Update a commit comment</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  <div class="examples">
-    <p class="tag_title">Examples:</p>
-    
-      
-        <p class="example_title"><div class='inline'><p>Update a commit comment</p>
-</div></p>
-      
-      <pre class="example code"><code><span class='id identifier rubyid_commit'>commit</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_update_commit_comment'>update_commit_comment</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octocat/Hello-World</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>860296</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Updated commit comment</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_commit'>commit</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='comment'># =&gt; 860296
-</span><span class='id identifier rubyid_commit'>commit</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span> <span class='comment'># =&gt; &quot;Updated commit comment&quot;</span></code></pre>
-    
-  </div>
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>repo</span>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Hash</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>A GitHub repository</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>id</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>The ID of the comment to update</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>body</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>Message</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>A hash representing the updated commit comment</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><a href="http://developer.github.com/v3/repos/comments/" target="_parent" title="http://developer.github.com/v3/repos/comments/">http://developer.github.com/v3/repos/comments/</a></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-250
-251
-252
-253
-254
-255</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/commits.rb', line 250</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_update_commit_comment'>update_commit_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span>
-    <span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_body'>body</span>
-  <span class='rbrace'>}</span>
-  <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
 </div>
 
     <div id="footer">
-  Generated on Tue Nov  5 13:35:48 2013 by
+  Generated on Thu Mar 27 14:52:58 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.0.0).
+  0.8.7.4 (ruby-2.0.0).
 </div>
 
   </body>

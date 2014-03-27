@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../../';
-  framesUrl = "../../frames.html#!" + escape(window.location.href);
+  framesUrl = "../../frames.html#!Octokit/Client/Statuses.html";
 </script>
 
 
@@ -106,6 +106,18 @@
   </ul>
 
 </div>
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="COMBINED_STATUS_MEDIA_TYPE-constant" class="">COMBINED_STATUS_MEDIA_TYPE =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.she-hulk-preview+json</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+    </dl>
+  
+
 
 
 
@@ -119,6 +131,31 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#combined_status-instance_method" title="#combined_status (instance method)">- (Sawyer::Resource) <strong>combined_status</strong>(repo, ref, options = {}) </a>
+    
+
+    
+      (also: #status)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Get the combined status for a ref.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -178,7 +215,111 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="create_status-instance_method">
+  <h3 class="signature first" id="combined_status-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>combined_status</strong>(repo, ref, options = {}) 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='status-instance_method'>status</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Get the combined status for a ref</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>repo</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>, <tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>a GitHub repository</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ref</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A Sha or Ref to fetch the status of</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The combined status for the commit</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref" target="_parent" title="https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref">https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/statuses.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_combined_status'>combined_status</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_ref'>ref</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_ensure_combined_status_api_media_type'>ensure_combined_status_api_media_type</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/commits/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ref'>ref</span><span class='embexpr_end'>}</span><span class='tstring_content'>/status</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_status-instance_method">
   
     - (<tt>Sawyer::Resource</tt>) <strong>create_status</strong>(repo, sha, state, options = {}) 
   
@@ -242,7 +383,75 @@
       
     </li>
   
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
 </ul>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:context</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>A context to differentiate this status from others</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:target_url</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>A link to more details about this status</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:description</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>A short human-readable description of this status</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
@@ -265,7 +474,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/repos/statuses" target="_parent" title="http://developer.github.com/v3/repos/statuses">http://developer.github.com/v3/repos/statuses</a></li>
+      <li><a href="http://developer.github.com/v3/repos/statuses/#create-a-status" target="_parent" title="http://developer.github.com/v3/repos/statuses/#create-a-status">http://developer.github.com/v3/repos/statuses/#create-a-status</a></li>
     
   </ul>
 
@@ -275,13 +484,13 @@
       <pre class="lines">
 
 
-27
-28
-29
-30</pre>
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/statuses.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/statuses.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_status'>create_status</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_sha'>sha</span><span class='comma'>,</span> <span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='symbol'>:state</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_state'>state</span><span class='rparen'>)</span>
@@ -369,7 +578,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/repos/statuses" target="_parent" title="http://developer.github.com/v3/repos/statuses">http://developer.github.com/v3/repos/statuses</a></li>
+      <li><a href="http://developer.github.com/v3/repos/statuses/#list-statuses-for-a-specific-ref" target="_parent" title="http://developer.github.com/v3/repos/statuses/#list-statuses-for-a-specific-ref">http://developer.github.com/v3/repos/statuses/#list-statuses-for-a-specific-ref</a></li>
     
   </ul>
 
@@ -379,12 +588,12 @@
       <pre class="lines">
 
 
-15
 16
-17</pre>
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/statuses.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/statuses.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_statuses'>statuses</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_sha'>sha</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/statuses/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_sha'>sha</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -399,9 +608,9 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Nov  5 13:35:48 2013 by
+  Generated on Thu Mar 27 14:52:59 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.0.0).
+  0.8.7.4 (ruby-2.0.0).
 </div>
 
   </body>

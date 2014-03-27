@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../../';
-  framesUrl = "../../frames.html#!" + escape(window.location.href);
+  framesUrl = "../../frames.html#!Octokit/Client/Authorizations.html";
 </script>
 
 
@@ -101,7 +101,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth/#oauth-authorizations-api" target="_parent" title="http://developer.github.com/v3/oauth/#oauth-authorizations-api">http://developer.github.com/v3/oauth/#oauth-authorizations-api</a></li>
+      <li><a href="http://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api">http://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api</a></li>
     
   </ul>
 
@@ -321,7 +321,7 @@ Basic Authentication.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth/#get-a-single-authorization" target="_parent" title="http://developer.github.com/v3/oauth/#get-a-single-authorization">http://developer.github.com/v3/oauth/#get-a-single-authorization</a></li>
+      <li><a href="http://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization">http://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization</a></li>
     
   </ul>
 
@@ -401,7 +401,7 @@ Basic Authentication.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth/#list-your-authorizations" target="_parent" title="http://developer.github.com/v3/oauth/#list-your-authorizations">http://developer.github.com/v3/oauth/#list-your-authorizations</a></li>
+      <li><a href="http://developer.github.com/v3/oauth_authorizations/#list-your-authorizations" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#list-your-authorizations">http://developer.github.com/v3/oauth_authorizations/#list-your-authorizations</a></li>
     
   </ul>
 
@@ -591,7 +591,9 @@ Basic Authentication.</p>
     
       <li><a href="http://developer.github.com/v3/oauth/#scopes" target="_parent" title="Available scopes">Available scopes</a></li>
     
-      <li><a href="http://developer.github.com/v3/oauth/#create-a-new-authorization" target="_parent" title="http://developer.github.com/v3/oauth/#create-a-new-authorization">http://developer.github.com/v3/oauth/#create-a-new-authorization</a></li>
+      <li><a href="http://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">http://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization</a></li>
+    
+      <li><a href="http://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app">http://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app</a></li>
     
   </ul>
 
@@ -601,7 +603,6 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-60
 61
 62
 63
@@ -613,10 +614,11 @@ Basic Authentication.</p>
 69
 70
 71
-72</pre>
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_authorization'>create_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='comment'># Techincally we can omit scopes as GitHub has a default, however the
@@ -709,7 +711,7 @@ Basic Authentication.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth/#delete-an-authorization" target="_parent" title="http://developer.github.com/v3/oauth/#delete-an-authorization">http://developer.github.com/v3/oauth/#delete-an-authorization</a></li>
+      <li><a href="http://developer.github.com/v3/oauth_authorizations/#delete-an-authorization" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#delete-an-authorization">http://developer.github.com/v3/oauth_authorizations/#delete-an-authorization</a></li>
     
   </ul>
 
@@ -719,12 +721,12 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-108
 109
-110</pre>
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_authorization'>delete_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>authorizations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -817,7 +819,6 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-117
 118
 119
 120
@@ -826,10 +827,11 @@ Basic Authentication.</p>
 123
 124
 125
-126</pre>
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_scopes'>scopes</span><span class='lparen'>(</span><span class='id identifier rubyid_token'>token</span> <span class='op'>=</span> <span class='ivar'>@access_token</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Access token required</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_token'>token</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -992,7 +994,7 @@ Basic Authentication.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth/#update-a-new-authorization" target="_parent" title="http://developer.github.com/v3/oauth/#update-a-new-authorization">http://developer.github.com/v3/oauth/#update-a-new-authorization</a></li>
+      <li><a href="http://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization">http://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization</a></li>
     
       <li><a href="http://developer.github.com/v3/oauth/#scopes" target="_parent" title="for available scopes">for available scopes</a></li>
     
@@ -1004,12 +1006,12 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-92
 93
-94</pre>
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_authorization'>update_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>authorizations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1024,9 +1026,9 @@ Basic Authentication.</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Nov  5 13:35:51 2013 by
+  Generated on Thu Mar 27 14:53:02 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.0.0).
+  0.8.7.4 (ruby-2.0.0).
 </div>
 
   </body>

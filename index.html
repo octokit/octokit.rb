@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '';
-  framesUrl = "frames.html#!" + escape(window.location.href);
+  framesUrl = "frames.html#!file.README.html";
 </script>
 
 
@@ -112,7 +112,7 @@ configuration) or as client instance methods.</p>
 <p>or</p>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># Provide authentication credentials
-</span><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
+</span><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='comment'># Fetch the current user
 </span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span>
 </code></pre>
@@ -186,7 +186,7 @@ access to your gists but not your private repositories.</li>
 <p>To use an access token with the Octokit client, just pass it in lieu of your
 username and password:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='symbol'>:access_token</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:access_token</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 
 <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span>
 <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_login'>login</span>
@@ -195,6 +195,29 @@ username and password:</p>
 
 <p>You can use <code>.create_authorization</code> to create a token using Basic Authorization
 that you can use for subsequent calls.</p>
+
+<h3>Two-Factor Authentication</h3>
+
+<p><a href="https://help.github.com/articles/about-two-factor-authentication">Two-Factor Authentication</a> brings added security to the account by requiring more information to login.</p>
+
+<p>Using two-factor authentication for API calls is as simple as adding the <a href="http://developer.github.com/v3/auth/#working-with-two-factor-authentication">required header</a> as an option:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> \
+  <span class='symbol'>:login</span>    <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:headers</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>X-GitHub-OTP</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 2FA token&gt;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>As you can imagine, this gets annoying quick since two-factor auth tokens are very short lived. So it is recommended to create an oauth token for the user to communicate with the API:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> \
+  <span class='symbol'>:login</span>    <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_authorization'>create_authorization</span><span class='lparen'>(</span><span class='symbol'>:scopes</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:headers</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>X-GitHub-OTP</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 2FA token&gt;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='comment'># =&gt; &lt;your new oauth token&gt;
+</span></code></pre>
 
 <h3>Using a .netrc file</h3>
 
@@ -208,7 +231,7 @@ that you can use for subsequent calls.</p>
 
 <p>You can now create a client with those credentials:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='symbol'>:netrc</span> <span class='op'>=&gt;</span> <span class='kw'>true</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:netrc</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
 <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_login'>login</span>
 <span class='comment'># =&gt; &quot;defunkt&quot;
 </span></code></pre>
@@ -301,6 +324,10 @@ Octokit&#39;s default.</p>
 <span class='comment'># =&gt; &quot;http://api.github.dev&quot;
 </span></code></pre>
 
+<p>Deprecation warnings and API endpoints in development preview warnings are
+printed to STDOUT by default, these can be disabled by setting the ENV
+<code>OCTOKIT_SILENT=true</code>.</p>
+
 <h2>Hypermedia agent</h2>
 
 <p>Starting in version 2.0, Octokit is <a href="http://en.wikipedia.org/wiki/Hypermedia">hypermedia</a>-enabled. Under the hood,
@@ -345,7 +372,7 @@ supports <a href="http://tools.ietf.org/html/rfc6570">URI Templates</a> for para
 <h3>The Full Hypermedia Experience™</h3>
 
 <p>If you want to use Octokit as a pure hypermedia API client, you can start at
-the API root and and follow link relations from there:</p>
+the API root and follow link relations from there:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_root'>root</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_root'>root</span>
 <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:repository</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='symbol'>:uri</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='symbol'>:owner</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:repo</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit.rb</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
@@ -371,6 +398,7 @@ support the <code>Hashie::Mash</code> API.</li>
 <li>The <code>search_*</code> methods from v1.x are now found at <code>legacy_search_*</code></li>
 <li>Support for netrc requires including the <a href="https://rubygems.org/gems/netrc">netrc gem</a> in your Gemfile or
 gemspec.</li>
+<li>DateTime fields are now proper <code>DateTime</code> objects. Previous versions outputted DateTime fields as &#39;String&#39; objects.</li>
 </ul>
 
 <h2>Advanced usage</h2>
@@ -383,7 +411,7 @@ extended via middleware.</p>
 <p>Often, it helps to know what Octokit is doing under the hood. Faraday makes it
 easy to peek into the underlying HTTP traffic:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stack'>stack</span> <span class='op'>=</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>Builder</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_builder'>builder</span><span class='op'>|</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stack'>stack</span> <span class='op'>=</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>RackBuilder</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_builder'>builder</span><span class='op'>|</span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_response'>response</span> <span class='symbol'>:logger</span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Response</span><span class='op'>::</span><span class='const'>RaiseError</span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_adapter'>adapter</span> <span class='const'>Faraday</span><span class='period'>.</span><span class='id identifier rubyid_default_adapter'>default_adapter</span>
@@ -422,7 +450,7 @@ the hypermedia tax, you can use <a href="https://github.com/plataformatec/farada
 
 <p>Next, construct your own Faraday middleware:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stack'>stack</span> <span class='op'>=</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>Builder</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_builder'>builder</span><span class='op'>|</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stack'>stack</span> <span class='op'>=</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>RackBuilder</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_builder'>builder</span><span class='op'>|</span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>HttpCache</span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Response</span><span class='op'>::</span><span class='const'>RaiseError</span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_adapter'>adapter</span> <span class='const'>Faraday</span><span class='period'>.</span><span class='id identifier rubyid_default_adapter'>default_adapter</span>
@@ -485,6 +513,7 @@ implementations:</p>
 <li>Ruby 1.9.2</li>
 <li>Ruby 1.9.3</li>
 <li>Ruby 2.0.0</li>
+<li>Ruby 2.1.0</li>
 </ul>
 
 <p>If something doesn&#39;t work on one of these Ruby versions, it&#39;s a bug.</p>
@@ -516,7 +545,7 @@ Constraint</a> with two digits of precision. For example:</p>
 
 <h2>License</h2>
 
-<p><p>Copyright (c) 2009-2013 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober</p>
+<p>Copyright (c) 2009-2014 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober</p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -536,13 +565,12 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-</p>
 </div></div>
 
     <div id="footer">
-  Generated on Tue Nov  5 13:35:45 2013 by
+  Generated on Thu Mar 27 14:52:55 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.0.0).
+  0.8.7.4 (ruby-2.0.0).
 </div>
 
   </body>

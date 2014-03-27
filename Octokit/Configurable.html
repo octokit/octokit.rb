@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../';
-  framesUrl = "../frames.html#!" + escape(window.location.href);
+  framesUrl = "../frames.html#!Octokit/Configurable.html";
 </script>
 
 
@@ -317,7 +317,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#middleware-instance_method" title="#middleware (instance method)">- (Faraday::Builder) <strong>middleware</strong> </a>
+      <a href="#middleware-instance_method" title="#middleware (instance method)">- (Faraday::Builder or Faraday::RackBuilder) <strong>middleware</strong> </a>
     
 
     
@@ -740,10 +740,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -801,10 +801,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -869,10 +869,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -979,10 +979,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -1047,10 +1047,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -1108,10 +1108,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -1122,7 +1122,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <div class="method_details ">
   <h3 class="signature " id="middleware-instance_method">
   
-    - (<tt>Faraday::Builder</tt>) <strong>middleware</strong> 
+    - (<tt>Faraday::Builder or Faraday::RackBuilder</tt>) <strong>middleware</strong> 
   
 
   
@@ -1143,7 +1143,7 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <li>
       
       
-        <span class='type'>(<tt>Faraday::Builder</tt>)</span>
+        <span class='type'>(<tt>Faraday::Builder or Faraday::RackBuilder</tt>)</span>
       
       
       
@@ -1176,10 +1176,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -1237,10 +1237,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -1298,10 +1298,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -1359,10 +1359,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -1420,10 +1420,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -1488,10 +1488,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -1549,10 +1549,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -1610,10 +1610,10 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
 
-<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:api_endpoint</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
-<span class='symbol'>:login</span><span class='comma'>,</span> <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
-<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span><span class='comma'>,</span> <span class='symbol'>:web_endpoint</span></pre>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
   </tr>
 </table>
@@ -1902,9 +1902,9 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
 </div>
 
     <div id="footer">
-  Generated on Tue Nov  5 13:35:45 2013 by
+  Generated on Thu Mar 27 14:52:56 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.0.0).
+  0.8.7.4 (ruby-2.0.0).
 </div>
 
   </body>

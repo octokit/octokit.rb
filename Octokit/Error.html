@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../';
-  framesUrl = "../frames.html#!" + escape(window.location.href);
+  framesUrl = "../frames.html#!Octokit/Error.html";
 </script>
 
 
@@ -456,7 +456,7 @@ on status and response message</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_documentation_url'>documentation_url</span>
-  <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:documentation_url</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:documentation_url</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Hash</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -533,9 +533,9 @@ on status and response message</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Nov  5 13:35:52 2013 by
+  Generated on Thu Mar 27 14:53:03 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.3 (ruby-2.0.0).
+  0.8.7.4 (ruby-2.0.0).
 </div>
 
   </body>
