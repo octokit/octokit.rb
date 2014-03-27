@@ -35,7 +35,6 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param sha [String] The SHA1 for the commit
       # @param state [String] The state: pending, success, failure, error
-      # @param context [String] A context to differentiate this status from others
       #
       # @return [Sawyer::Resource] A status
       # @see http://developer.github.com/v3/repos/statuses/#create-a-status
