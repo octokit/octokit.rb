@@ -13,6 +13,15 @@ describe Octokit::Client::Statuses do
     end
   end # .statuses
 
+  describe ".combined_status", :vcr do
+    it "gets a combined status" do
+      status = Octokit.combined_status('octokit/octokit.rb', 'fd1a4e2c734f9ff8dd2c9ca940fccd4a678d5908')
+      expect(status.sha).to eq('fd1a4e2c734f9ff8dd2c9ca940fccd4a678d5908')
+      expect(status.statuses).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/commits/fd1a4e2c734f9ff8dd2c9ca940fccd4a678d5908/status")
+    end
+  end
+
   context "with repository" do
     before do
       @commit_sha = @client.commits(@test_repo).first.sha
