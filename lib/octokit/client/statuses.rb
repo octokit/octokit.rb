@@ -24,9 +24,9 @@ module Octokit
       # @param ref  [String] A Sha or Ref to fetch the status of
       # @return [Sawyer::Resource] The combined status for the commit
       # @see https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref
-      def combined_status(repo, sha, options = {})
+      def combined_status(repo, ref, options = {})
         ensure_combined_status_api_media_type(options)
-        get "repos/#{Repository.new(repo)}/commits/#{sha}/status", options
+        get "repos/#{Repository.new(repo)}/commits/#{ref}/status", options
       end
       alias :status :combined_status
 
