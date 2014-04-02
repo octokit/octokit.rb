@@ -225,7 +225,7 @@ module Octokit
       # @example
       #   @client.create_team('github', {
       #     :name => 'Designers',
-      #     :repo_names => ['dotcom', 'developer.github.com'],
+      #     :repo_names => ['github/dotfiles'],
       #     :permission => 'push'
       #   })
       def create_team(org, options = {})
