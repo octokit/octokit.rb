@@ -7,7 +7,7 @@ module Octokit
       # List all Service Hooks supported by GitHub
       #
       # @return [Sawyer::Resource] A list of all hooks on GitHub
-      # @see http://developer.github.com/v3/repos/hooks/#services
+      # @see https://developer.github.com/v3/repos/hooks/#services
       # @example List all hooks
       #   Octokit.available_hooks
       def available_hooks(options = {})

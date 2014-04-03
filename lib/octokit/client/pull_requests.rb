@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Pull Requests API
     #
-    # @see http://developer.github.com/v3/pulls/
+    # @see https://developer.github.com/v3/pulls/
     module PullRequests
 
       # List pull requests for a repository
@@ -18,7 +18,7 @@ module Octokit
       #   @param state [String] `open` or `closed`.
       #   @param options [Hash] Method options
       # @return [Array<Sawyer::Resource>] Array of pulls
-      # @see http://developer.github.com/v3/pulls/#list-pull-requests
+      # @see https://developer.github.com/v3/pulls/#list-pull-requests
       # @example
       #   Octokit.pull_requests('rails/rails', :state => 'closed')
       def pull_requests(*args)
@@ -35,7 +35,7 @@ module Octokit
 
       # Get a pull request
       #
-      # @see http://developer.github.com/v3/pulls/#get-a-single-pull-request
+      # @see https://developer.github.com/v3/pulls/#get-a-single-pull-request
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of the pull request to fetch
       # @return [Sawyer::Resource] Pull request info
@@ -46,7 +46,7 @@ module Octokit
 
       # Create a pull request
       #
-      # @see http://developer.github.com/v3/pulls/#create-a-pull-request
+      # @see https://developer.github.com/v3/pulls/#create-a-pull-request
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param base [String] The branch (or git ref) you want your changes
       #                      pulled into. This should be an existing branch on the current
@@ -68,7 +68,7 @@ module Octokit
 
       # Create a pull request from existing issue
       #
-      # @see http://developer.github.com/v3/pulls/#alternative-input
+      # @see https://developer.github.com/v3/pulls/#alternative-input
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param base [String] The branch (or git ref) you want your changes
       #                      pulled into. This should be an existing branch on the current
@@ -101,7 +101,7 @@ module Octokit
       #   @option options [String] :body Body for the pull request.
       #   @option options [String] :state State for the pull request.
       # @return [Sawyer::Resource] Hash representing updated pull request.
-      # @see http://developer.github.com/v3/pulls/#update-a-pull-request
+      # @see https://developer.github.com/v3/pulls/#update-a-pull-request
       # @example
       #   @client.update_pull_request('octokit/octokit.rb', 67, 'new title', 'updated body', 'closed')
       # @example Passing nil for optional attributes to update specific attributes.
@@ -120,7 +120,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param number [Integer] Number of pull request to update.
       # @return [Sawyer::Resource] Hash representing updated pull request.
-      # @see http://developer.github.com/v3/pulls/#update-a-pull-request
+      # @see https://developer.github.com/v3/pulls/#update-a-pull-request
       # @example
       #   @client.close_pull_request('octokit/octokit.rb', 67)
       def close_pull_request(repo, number, options = {})
@@ -130,7 +130,7 @@ module Octokit
 
       # List commits on a pull request
       #
-      # @see http://developer.github.com/v3/pulls/#list-commits-on-a-pull-request
+      # @see https://developer.github.com/v3/pulls/#list-commits-on-a-pull-request
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @return [Array<Sawyer::Resource>] List of commits
@@ -153,7 +153,7 @@ module Octokit
       #
       # @return [Array] List of pull request review comments.
       #
-      # @see http://developer.github.com/v3/pulls/comments/#list-comments-in-a-repository
+      # @see https://developer.github.com/v3/pulls/comments/#list-comments-in-a-repository
       #
       # @example Get the pull request review comments in the octokit repository
       #   @client.issues_comments("octokit/octokit.rb")
@@ -172,7 +172,7 @@ module Octokit
 
       # List comments on a pull request
       #
-      # @see http://developer.github.com/v3/pulls/#list-comments-on-a-pull-request
+      # @see https://developer.github.com/v3/pulls/#list-comments-on-a-pull-request
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @return [Array<Sawyer::Resource>] List of comments
@@ -188,7 +188,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param comment_id [Integer] Id of comment to get
       # @return [Sawyer::Resource] Hash representing the comment
-      # @see http://developer.github.com/v3/pulls/comments/#get-a-single-comment
+      # @see https://developer.github.com/v3/pulls/comments/#get-a-single-comment
       # @example
       #   @client.pull_request_comment("pengwynn/octkit", 1903950)
       def pull_request_comment(repo, comment_id, options = {})
@@ -206,7 +206,7 @@ module Octokit
       # @param path [String] Relative path of the file to comment on.
       # @param position [Integer] Line index in the diff to comment on.
       # @return [Sawyer::Resource] Hash representing the new comment
-      # @see http://developer.github.com/v3/pulls/comments/#create-a-comment
+      # @see https://developer.github.com/v3/pulls/comments/#create-a-comment
       # @example
       #   @client.create_pull_request_comment("octokit/octokit.rb", 163, ":shipit:",
       #     "2d3201e4440903d8b04a5487842053ca4883e5f0", "lib/octokit/request.rb", 47)
@@ -229,7 +229,7 @@ module Octokit
       # @param body [String] Comment contents
       # @param comment_id [Integer] Comment id to reply to
       # @return [Sawyer::Resource] Hash representing new comment
-      # @see http://developer.github.com/v3/pulls/comments/#create-a-comment
+      # @see https://developer.github.com/v3/pulls/comments/#create-a-comment
       # @example
       #   @client.create_pull_request_comment_reply("octokit/octokit.rb", 1903950, "done.")
       def create_pull_request_comment_reply(repo, pull_id, body, comment_id, options = {})
@@ -248,7 +248,7 @@ module Octokit
       # @param comment_id [Integer] Id of the comment to update
       # @param body [String] Updated comment content
       # @return [Sawyer::Resource] Hash representing the updated comment
-      # @see http://developer.github.com/v3/pulls/comments/#edit-a-comment
+      # @see https://developer.github.com/v3/pulls/comments/#edit-a-comment
       # @example
       #   @client.update_pull_request_comment("octokit/octokit.rb", 1903950, ":shipit:")
       def update_pull_request_comment(repo, comment_id, body, options = {})
@@ -263,7 +263,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param comment_id [Integer] Id of the comment to delete
       # @return [Boolean] True if deleted, false otherwise
-      # @see http://developer.github.com/v3/pulls/comments/#delete-a-comment
+      # @see https://developer.github.com/v3/pulls/comments/#delete-a-comment
       # @example
       #   @client.delete_pull_request_comment("octokit/octokit.rb", 1902707)
       def delete_pull_request_comment(repo, comment_id, options = {})
@@ -274,7 +274,7 @@ module Octokit
 
       # List files on a pull request
       #
-      # @see http://developer.github.com/v3/pulls/#list-pull-requests-files
+      # @see https://developer.github.com/v3/pulls/#list-pull-requests-files
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @return [Array<Sawyer::Resource>] List of files
@@ -285,7 +285,7 @@ module Octokit
 
       # Merge a pull request
       #
-      # @see http://developer.github.com/v3/pulls/#merge-a-pull-request-merge-buttontrade
+      # @see https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-buttontrade
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @param commit_message [String] Optional commit message for the merge commit
@@ -296,7 +296,7 @@ module Octokit
 
       # Check pull request merge status
       #
-      # @see http://developer.github.com/v3/pulls/#get-if-a-pull-request-has-been-merged
+      # @see https://developer.github.com/v3/pulls/#get-if-a-pull-request-has-been-merged
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @return [Boolean] True if the pull request has been merged

@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Search API
     #
-    # @see http://developer.github.com/v3/search/
+    # @see https://developer.github.com/v3/search/
     module Search
 
       # Search code
@@ -15,7 +15,7 @@ module Octokit
       # @option options [Fixnum] :page Page of paginated results
       # @option options [Fixnum] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
-      # @see http://developer.github.com/v3/search/#search-code
+      # @see https://developer.github.com/v3/search/#search-code
       def search_code(query, options = {})
         search "search/code", query, options
       end
@@ -29,7 +29,7 @@ module Octokit
       # @option options [Fixnum] :page Page of paginated results
       # @option options [Fixnum] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
-      # @see http://developer.github.com/v3/search/#search-issues
+      # @see https://developer.github.com/v3/search/#search-issues
       def search_issues(query, options = {})
         search "search/issues", query, options
       end
@@ -43,7 +43,7 @@ module Octokit
       # @option options [Fixnum] :page Page of paginated results
       # @option options [Fixnum] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
-      # @see http://developer.github.com/v3/search/#search-repositories
+      # @see https://developer.github.com/v3/search/#search-repositories
       def search_repositories(query, options = {})
         search "search/repositories", query, options
       end
@@ -58,7 +58,7 @@ module Octokit
       # @option options [Fixnum] :page Page of paginated results
       # @option options [Fixnum] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
-      # @see http://developer.github.com/v3/search/#search-users
+      # @see https://developer.github.com/v3/search/#search-users
       def search_users(query, options = {})
         search "search/users", query, options
       end

@@ -45,7 +45,7 @@ module Octokit
 
   # Client for the GitHub API
   #
-  # @see http://developer.github.com
+  # @see https://developer.github.com
   class Client
 
     include Octokit::Authentication

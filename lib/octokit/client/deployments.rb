@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Deployments API
     #
-    # @see http://developer.github.com/v3/repos/commits/deployments/
+    # @see https://developer.github.com/v3/repos/commits/deployments/
     module Deployments
 
       DEPLOYMENTS_PREVIEW_MEDIA_TYPE = "application/vnd.github.cannonball-preview+json".freeze
@@ -12,7 +12,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of deployments
-      # @see http://developer.github.com/v3/repos/deployments/#list-deployments
+      # @see https://developer.github.com/v3/repos/deployments/#list-deployments
       def deployments(repo, options = {})
         options = ensure_deployments_api_media_type(options)
         get("repos/#{Repository.new(repo)}/deployments", options)
@@ -28,7 +28,7 @@ module Octokit
       # @option options [String] :auto_merge Optional parameter to merge the default branch into the requested deployment branch if necessary. Default: false
       # @option options [String] :description Optional short description.
       # @return [Sawyer::Resource] A deployment
-      # @see http://developer.github.com/v3/repos/deployments/#create-a-deployment
+      # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment
       def create_deployment(repo, ref, options = {})
         options = ensure_deployments_api_media_type(options)
         options[:ref] = ref
@@ -39,7 +39,7 @@ module Octokit
       #
       # @param deployment_url [String] A URL for a deployment resource
       # @return [Array<Sawyer::Resource>] A list of deployment statuses
-      # @see http://developer.github.com/v3/repos/deployments/#list-deployment-statuses
+      # @see https://developer.github.com/v3/repos/deployments/#list-deployment-statuses
       def deployment_statuses(deployment_url, options = {})
         options = ensure_deployments_api_media_type(options)
         deployment = get(deployment_url, :accept => options[:accept])
@@ -52,7 +52,7 @@ module Octokit
       # @param deployment_url [String] A URL for a deployment resource
       # @param state [String] The state: pending, success, failure, error
       # @return [Sawyer::Resource] A deployment status
-      # @see http://developer.github.com/v3/repos/deployments/#create-a-deployment-status
+      # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment-status
       def create_deployment_status(deployment_url, state, options = {})
         options = ensure_deployments_api_media_type(options)
         deployment = get(deployment_url, :accept => options[:accept])

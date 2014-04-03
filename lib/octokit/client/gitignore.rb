@@ -3,14 +3,14 @@ module Octokit
 
     # Methods for the Gitignore API
     #
-    # @see http://developer.github.com/v3/gitignore/
+    # @see https://developer.github.com/v3/gitignore/
     module Gitignore
 
       # Listing available gitignore templates.
       #
       # These templates can be passed option when creating a repository.
       #
-      # @see http://developer.github.com/v3/gitignore/#listing-available-templates
+      # @see https://developer.github.com/v3/gitignore/#listing-available-templates
       #
       # @return [Array<String>] List of templates.
       #
@@ -29,7 +29,7 @@ module Octokit
       #   case sensitive, make sure to use a valid name from the
       #   .gitignore_templates list.
       #
-      # @see http://developer.github.com/v3/gitignore/#get-a-single-template
+      # @see https://developer.github.com/v3/gitignore/#get-a-single-template
       #
       # @return [Sawyer::Resource] Gitignore template
       #

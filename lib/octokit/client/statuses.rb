@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Commit Statuses API
     #
-    # @see http://developer.github.com/v3/repos/statuses/
+    # @see https://developer.github.com/v3/repos/statuses/
     module Statuses
       COMBINED_STATUS_MEDIA_TYPE = "application/vnd.github.she-hulk-preview+json"
 
@@ -12,7 +12,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param sha [String] The SHA1 for the commit
       # @return [Array<Sawyer::Resource>] A list of statuses
-      # @see http://developer.github.com/v3/repos/statuses/#list-statuses-for-a-specific-ref
+      # @see https://developer.github.com/v3/repos/statuses/#list-statuses-for-a-specific-ref
       def statuses(repo, sha, options = {})
         get "repos/#{Repository.new(repo)}/statuses/#{sha}", options
       end
@@ -39,7 +39,7 @@ module Octokit
       # @option options [String] :target_url A link to more details about this status
       # @option options [String] :description A short human-readable description of this status
       # @return [Sawyer::Resource] A status
-      # @see http://developer.github.com/v3/repos/statuses/#create-a-status
+      # @see https://developer.github.com/v3/repos/statuses/#create-a-status
       def create_status(repo, sha, state, options = {})
         options.merge!(:state => state)
         post "repos/#{Repository.new(repo)}/statuses/#{sha}", options

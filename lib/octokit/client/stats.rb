@@ -3,14 +3,14 @@ module Octokit
 
     # Methods for the Repository Statistics API
     #
-    # @see http://developer.github.com/v3/repos/statistics/
+    # @see https://developer.github.com/v3/repos/statistics/
     module Stats
 
       # Get contributors list with additions, deletions, and commit counts
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Array<Sawyer::Resource>] Array of contributor stats
-      # @see http://developer.github.com/v3/repos/statistics/#contributors
+      # @see https://developer.github.com/v3/repos/statistics/#contributors
       # @example Get contributor stats for octokit
       #   @client.contributors_stats('octokit/octokit.rb')
       def contributors_stats(repo, options = {})
@@ -23,7 +23,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Array<Sawyer::Resource>] The last year of commit activity grouped by
       #   week. The days array is a group of commits per day, starting on Sunday.
-      # @see http://developer.github.com/v3/repos/statistics/#get-the-last-year-of-commit-activity-data
+      # @see https://developer.github.com/v3/repos/statistics/#get-the-last-year-of-commit-activity-data
       # @example Get commit activity for octokit
       #   @client.commit_activity_stats('octokit/octokit.rb')
       def commit_activity_stats(repo, options = {})
@@ -35,7 +35,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Array<Sawyer::Resource>] Weekly aggregate of the number of additions
       #   and deletions pushed to a repository.
-      # @see http://developer.github.com/v3/repos/statistics/#code-frequency
+      # @see https://developer.github.com/v3/repos/statistics/#code-frequency
       # @example Get code frequency stats for octokit
       #   @client.code_frequency_stats('octokit/octokit.rb')
       def code_frequency_stats(repo, options = {})
@@ -49,7 +49,7 @@ module Octokit
       #   counts in all. all is everyone combined, including the owner in the last
       #   52 weeks. If you’d like to get the commit counts for non-owners, you can
       #   subtract all from owner.
-      # @see http://developer.github.com/v3/repos/statistics/#participation
+      # @see https://developer.github.com/v3/repos/statistics/#participation
       # @example Get weekly commit counts for octokit
       #   @client.participation_stats("octokit/octokit.rb")
       def participation_stats(repo, options = {})
@@ -61,7 +61,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Array<Array>] Arrays containing the day number, hour number, and
       #   number of commits
-      # @see http://developer.github.com/v3/repos/statistics/#punch-card
+      # @see https://developer.github.com/v3/repos/statistics/#punch-card
       # @example Get octokit punch card
       #   @octokit.punch_card_stats
       def punch_card_stats(repo, options = {})

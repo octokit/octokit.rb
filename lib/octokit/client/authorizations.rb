@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Authorizations API
     #
-    # @see http://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api
+    # @see https://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api
     module Authorizations
 
       # List the authenticated user's authorizations
@@ -13,7 +13,7 @@ module Octokit
       # Basic Authentication.
       #
       # @return [Array<Sawyer::Resource>] A list of authorizations for the authenticated user
-      # @see http://developer.github.com/v3/oauth_authorizations/#list-your-authorizations
+      # @see https://developer.github.com/v3/oauth_authorizations/#list-your-authorizations
       # @example List authorizations for user ctshryock
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorizations
@@ -27,7 +27,7 @@ module Octokit
       # Basic Authentication.
       #
       # @return [Sawyer::Resource] A single authorization for the authenticated user
-      # @see http://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization
+      # @see https://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization
       # @example Show authorization for user ctshryock's Travis auth
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorization(999999)
@@ -49,9 +49,9 @@ module Octokit
       # @option options [String] :client_secret  Client Secret we received when our application was registered with GitHub.
       #
       # @return [Sawyer::Resource] A single authorization for the authenticated user
-      # @see http://developer.github.com/v3/oauth/#scopes Available scopes
-      # @see http://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization
-      # @see http://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app
+      # @see https://developer.github.com/v3/oauth/#scopes Available scopes
+      # @see https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization
+      # @see https://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app
       # @example Create a new authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.create_authorization({:scopes => ["public_repo","gist"], :note => "Why not Zoidberg?", :note_url=> "https://en.wikipedia.org/wiki/Zoidberg"})
@@ -85,8 +85,8 @@ module Octokit
       # @option options [String] :note_url A URL to remind you what app the OAuth token is for.
       #
       # @return [Sawyer::Resource] A single (updated) authorization for the authenticated user
-      # @see http://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization
-      # @see http://developer.github.com/v3/oauth/#scopes for available scopes
+      # @see https://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization
+      # @see https://developer.github.com/v3/oauth/#scopes for available scopes
       # @example Update the authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.update_authorization(999999, {:add_scopes => ["gist", "repo"], :note => "Why not Zoidberg possibly?"})
@@ -102,7 +102,7 @@ module Octokit
       # @param number [Number] An existing Authorization ID
       #
       # @return [Boolean] Success
-      # @see http://developer.github.com/v3/oauth_authorizations/#delete-an-authorization
+      # @see https://developer.github.com/v3/oauth_authorizations/#delete-an-authorization
       # @example Delete an authorization
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.delete_authorization(999999)
@@ -114,7 +114,7 @@ module Octokit
       #
       # @param token [String] GitHub OAuth token
       # @return [Array<String>] OAuth scopes
-      # @see http://developer.github.com/v3/oauth/#scopes
+      # @see https://developer.github.com/v3/oauth/#scopes
       def scopes(token = @access_token)
         raise ArgumentError.new("Access token required") if token.nil?
 
@@ -136,7 +136,7 @@ module Octokit
     # @option options [String] :state A random string to protect against CSRF.
     # @return [String] The url to redirect the user to authorize.
     # @see Octokit::Client
-    # @see http://developer.github.com/v3/oauth/#web-application-flow
+    # @see https://developer.github.com/v3/oauth/#web-application-flow
     # @example
     #   @client.authorize_url('xxxx')
     def authorize_url(app_id = client_id, options = {})
