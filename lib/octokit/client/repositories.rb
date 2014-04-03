@@ -3,12 +3,12 @@ module Octokit
 
     # Methods for the Repositories API
     #
-    # @see http://developer.github.com/v3/repos/
+    # @see https://developer.github.com/v3/repos/
     module Repositories
 
       # Check if a repository exists
       #
-      # @see http://developer.github.com/v3/repos/#get
+      # @see https://developer.github.com/v3/repos/#get
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] if a repository exists, false otherwise
       def repository?(repo, options = {})
@@ -19,7 +19,7 @@ module Octokit
 
       # Get a single repository
       #
-      # @see http://developer.github.com/v3/repos/#get
+      # @see https://developer.github.com/v3/repos/#get
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Repository information
       def repository(repo, options = {})
@@ -29,7 +29,7 @@ module Octokit
 
       # Edit a repository
       #
-      # @see http://developer.github.com/v3/repos/#edit
+      # @see https://developer.github.com/v3/repos/#edit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param options [Hash] Repository information to update
       # @option options [String] :name Name of the repo
@@ -59,8 +59,8 @@ module Octokit
       #   organization's public repositories will be listed. For retrieving
       #   organization repositories the {Organizations#organization_repositories}
       #   method should be used instead.
-      # @see http://developer.github.com/v3/repos/#list-your-repositories
-      # @see http://developer.github.com/v3/repos/#list-user-repositories
+      # @see https://developer.github.com/v3/repos/#list-your-repositories
+      # @see https://developer.github.com/v3/repos/#list-user-repositories
       # @param username [String] Optional username for which to list repos
       # @return [Array<Sawyer::Resource>] List of repositories
       def repositories(username=nil, options = {})
@@ -79,7 +79,7 @@ module Octokit
       # This provides a dump of every repository, in the order that they were
       # created.
       #
-      # @see http://developer.github.com/v3/repos/#list-all-public-repositories
+      # @see https://developer.github.com/v3/repos/#list-all-public-repositories
       #
       # @param options [Hash] Optional options
       # @option options [Integer] :since The integer ID of the last Repository
@@ -93,7 +93,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully starred
-      # @see http://developer.github.com/v3/activity/starring/#star-a-repository
+      # @see https://developer.github.com/v3/activity/starring/#star-a-repository
       def star(repo, options = {})
         boolean_from_response :put, "user/starred/#{Repository.new(repo)}", options
       end
@@ -102,7 +102,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unstarred
-      # @see http://developer.github.com/v3/activity/starring/#unstar-a-repository
+      # @see https://developer.github.com/v3/activity/starring/#unstar-a-repository
       def unstar(repo, options = {})
         boolean_from_response :delete, "user/starred/#{Repository.new(repo)}", options
       end
@@ -112,7 +112,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully watched
       # @deprecated Use #star instead
-      # @see http://developer.github.com/v3/activity/watching/#watch-a-repository-legacy
+      # @see https://developer.github.com/v3/activity/watching/#watch-a-repository-legacy
       def watch(repo, options = {})
         boolean_from_response :put, "user/watched/#{Repository.new(repo)}", options
       end
@@ -122,7 +122,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if successfully unwatched
       # @deprecated Use #unstar instead
-      # @see http://developer.github.com/v3/activity/watching/#stop-watching-a-repository-legacy
+      # @see https://developer.github.com/v3/activity/watching/#stop-watching-a-repository-legacy
       def unwatch(repo, options = {})
         boolean_from_response :delete, "user/watched/#{Repository.new(repo)}", options
       end
@@ -131,7 +131,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Repository info for the new fork
-      # @see http://developer.github.com/v3/repos/forks/#create-a-fork
+      # @see https://developer.github.com/v3/repos/forks/#create-a-fork
       def fork(repo, options = {})
         post "repos/#{Repository.new(repo)}/forks", options
       end
@@ -150,7 +150,7 @@ module Octokit
       # @option options [Boolean] :auto_init `true` to create an initial commit with empty README. Default is `false`.
       # @option options [String] :gitignore_template Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided.
       # @return [Sawyer::Resource] Repository info for the new repository
-      # @see http://developer.github.com/v3/repos/#create
+      # @see https://developer.github.com/v3/repos/#create
       def create_repository(name, options = {})
         organization = options.delete :organization
         options.merge! :name => name
@@ -168,7 +168,7 @@ module Octokit
       #
       # Note: If OAuth is used, 'delete_repo' scope is required
       #
-      # @see http://developer.github.com/v3/repos/#delete-a-repository
+      # @see https://developer.github.com/v3/repos/#delete-a-repository
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if repository was deleted
       def delete_repository(repo, options = {})
@@ -200,7 +200,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @return [Array<Sawyer::Resource>] Array of hashes representing deploy keys.
-      # @see http://developer.github.com/v3/repos/keys/#list
+      # @see https://developer.github.com/v3/repos/keys/#list
       # @example
       #   @client.deploy_keys('octokit/octokit.rb')
       # @example
@@ -215,7 +215,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Deploy key ID.
       # @return [Sawyer::Resource] Deploy key.
-      # @see http://developer.github.com/v3/repos/keys/#get
+      # @see https://developer.github.com/v3/repos/keys/#get
       # @example
       #   @client.deploy_key('octokit/octokit.rb', 8675309)
       def deploy_key(repo, id, options={})
@@ -230,7 +230,7 @@ module Octokit
       # @param title [String] Title reference for the deploy key.
       # @param key [String] Public key.
       # @return [Sawyer::Resource] Hash representing newly added key.
-      # @see http://developer.github.com/v3/repos/keys/#create
+      # @see https://developer.github.com/v3/repos/keys/#create
       # @example
       #    @client.add_deploy_key('octokit/octokit.rb', 'Staging server', 'ssh-rsa AAA...')
       def add_deploy_key(repo, title, key, options = {})
@@ -245,7 +245,7 @@ module Octokit
       # @option title [String] Key title.
       # @option key [String] Public key.
       # @return [Sawyer::Resource] Updated deploy key.
-      # @see http://developer.github.com/v3/repos/keys/#edit
+      # @see https://developer.github.com/v3/repos/keys/#edit
       # @example Update the key for a deploy key.
       #   @client.edit_deploy_key('octokit/octokit.rb', 8675309, :key => 'ssh-rsa BBB...')
       # @example
@@ -262,7 +262,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Id of the deploy key to remove.
       # @return [Boolean] True if key removed, false otherwise.
-      # @see http://developer.github.com/v3/repos/keys/#delete
+      # @see https://developer.github.com/v3/repos/keys/#delete
       # @example
       #   @client.remove_deploy_key('octokit/octokit.rb', 100000)
       def remove_deploy_key(repo, id, options = {})
@@ -275,7 +275,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing collaborating users.
-      # @see http://developer.github.com/v3/repos/collaborators/#list
+      # @see https://developer.github.com/v3/repos/collaborators/#list
       # @example
       #   Octokit.collaborators('octokit/octokit.rb')
       # @example
@@ -294,7 +294,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param collaborator [String] Collaborator GitHub username to add.
       # @return [Boolean] True if collaborator added, false otherwise.
-      # @see http://developer.github.com/v3/repos/collaborators/#add-collaborator
+      # @see https://developer.github.com/v3/repos/collaborators/#add-collaborator
       # @example
       #   @client.add_collaborator('octokit/octokit.rb', 'holman')
       # @example
@@ -311,7 +311,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param collaborator [String] Collaborator GitHub username to remove.
       # @return [Boolean] True if collaborator removed, false otherwise.
-      # @see http://developer.github.com/v3/repos/collaborators/#remove-collaborator
+      # @see https://developer.github.com/v3/repos/collaborators/#remove-collaborator
       # @example
       #   @client.remove_collaborator('octokit/octokit.rb', 'holman')
       # @example
@@ -328,7 +328,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param collaborator [String] Collaborator GitHub username to check.
       # @return [Boolean] True if user is a collaborator, false otherwise.
-      # @see http://developer.github.com/v3/repos/collaborators/#get
+      # @see https://developer.github.com/v3/repos/collaborators/#get
       # @example
       #   @client.collaborator?('octokit/octokit.rb', 'holman')
       def collaborator?(repo, collaborator, options={})
@@ -341,7 +341,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing teams.
-      # @see http://developer.github.com/v3/repos/#list-teams
+      # @see https://developer.github.com/v3/repos/#list-teams
       # @example
       #   @client.repository_teams('octokit/pengwynn')
       # @example
@@ -361,7 +361,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param anon [Boolean] Set true to include annonymous contributors.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see http://developer.github.com/v3/repos/#list-contributors
+      # @see https://developer.github.com/v3/repos/#list-contributors
       # @example
       #   Octokit.contributors('octokit/octokit.rb', true)
       # @example
@@ -380,7 +380,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see http://developer.github.com/v3/activity/starring/#list-stargazers
+      # @see https://developer.github.com/v3/activity/starring/#list-stargazers
       # @example
       #   Octokit.stargazers('octokit/octokit.rb')
       # @example
@@ -397,7 +397,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see http://developer.github.com/v3/repos/watching/#list-watchers
+      # @see https://developer.github.com/v3/repos/watching/#list-watchers
       # @example
       #   Octokit.watchers('octokit/octokit.rb')
       # @example
@@ -412,7 +412,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing repos.
-      # @see http://developer.github.com/v3/repos/forks/#list-forks
+      # @see https://developer.github.com/v3/repos/forks/#list-forks
       # @example
       #   Octokit.forks('octokit/octokit.rb')
       # @example
@@ -430,7 +430,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of Hashes representing languages.
-      # @see http://developer.github.com/v3/repos/#list-languages
+      # @see https://developer.github.com/v3/repos/#list-languages
       # @example
       #   Octokit.langauges('octokit/octokit.rb')
       # @example
@@ -445,7 +445,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing tags.
-      # @see http://developer.github.com/v3/repos/#list-tags
+      # @see https://developer.github.com/v3/repos/#list-tags
       # @example
       #   Octokit.tags('octokit/octokit.rb')
       # @example
@@ -460,7 +460,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing branches.
-      # @see http://developer.github.com/v3/repos/#list-branches
+      # @see https://developer.github.com/v3/repos/#list-branches
       # @example
       #   Octokit.branches('octokit/octokit.rb')
       # @example
@@ -474,7 +474,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param branch [String] Branch name
       # @return [Sawyer::Resource] The branch requested, if it exists
-      # @see http://developer.github.com/v3/repos/#get-branch
+      # @see https://developer.github.com/v3/repos/#get-branch
       # @example Get branch 'master` from octokit/octokit.rb
       #   Octokit.branch("octokit/octokit.rb", "master")
       def branch(repo, branch, options = {})
@@ -488,7 +488,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing hooks.
-      # @see http://developer.github.com/v3/repos/hooks/#list-hooks
+      # @see https://developer.github.com/v3/repos/hooks/#list-hooks
       # @example
       #   @client.hooks('octokit/octokit.rb')
       def hooks(repo, options = {})
@@ -502,7 +502,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Id of the hook to get.
       # @return [Sawyer::Resource] Hash representing hook.
-      # @see http://developer.github.com/v3/repos/hooks/#get-single-hook
+      # @see https://developer.github.com/v3/repos/hooks/#get-single-hook
       # @example
       #   @client.hook('octokit/octokit.rb', 100000)
       def hook(repo, id, options = {})
@@ -526,7 +526,7 @@ module Octokit
       # @return [Sawyer::Resource] Hook info for the new hook
       # @see https://api.github.com/hooks
       # @see https://github.com/github/github-services
-      # @see http://developer.github.com/v3/repos/hooks/#create-a-hook
+      # @see https://developer.github.com/v3/repos/hooks/#create-a-hook
       # @example
       #   @client.create_hook(
       #     'octokit/octokit.rb',
@@ -567,7 +567,7 @@ module Octokit
       # @return [Sawyer::Resource] Hook info for the updated hook
       # @see https://api.github.com/hooks
       # @see https://github.com/github/github-services
-      # @see http://developer.github.com/v3/repos/hooks/#edit-a-hook
+      # @see https://developer.github.com/v3/repos/hooks/#edit-a-hook
       # @example
       #   @client.edit_hook(
       #     'octokit/octokit.rb',
@@ -595,7 +595,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Id of the hook to remove.
       # @return [Boolean] True if hook removed, false otherwise.
-      # @see http://developer.github.com/v3/repos/hooks/#delete-a-hook
+      # @see https://developer.github.com/v3/repos/hooks/#delete-a-hook
       # @example
       #   @client.remove_hook('octokit/octokit.rb', 1000000)
       def remove_hook(repo, id, options = {})
@@ -609,7 +609,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Id of the hook to test.
       # @return [Boolean] Success
-      # @see http://developer.github.com/v3/repos/hooks/#test-a-push-hook
+      # @see https://developer.github.com/v3/repos/hooks/#test-a-push-hook
       # @example
       #   @client.test_hook('octokit/octokit.rb', 1000000)
       def test_hook(repo, id, options = {})
@@ -622,7 +622,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see http://developer.github.com/v3/issues/assignees/#list-assignees
+      # @see https://developer.github.com/v3/issues/assignees/#list-assignees
       # @example
       #   Octokit.repository_assignees('octokit/octokit.rb')
       # @example
@@ -639,7 +639,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param assignee [String] User login to check
       # @return [Boolean] True if assignable on project, false otherwise.
-      # @see http://developer.github.com/v3/issues/assignees/#check-assignee
+      # @see https://developer.github.com/v3/issues/assignees/#check-assignee
       # @example
       #   Octokit.check_assignee('octokit/octokit.rb', 'andrew')
       def check_assignee(repo, assignee, options = {})
@@ -650,7 +650,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of users watching.
-      # @see http://developer.github.com/v3/activity/watching/#list-watchers
+      # @see https://developer.github.com/v3/activity/watching/#list-watchers
       # @example
       #   @client.subscribers("octokit/octokit.rb")
       def subscribers(repo, options = {})
@@ -661,7 +661,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Sawyer::Resource] Repository subscription.
-      # @see http://developer.github.com/v3/activity/watching/#get-a-repository-subscription
+      # @see https://developer.github.com/v3/activity/watching/#get-a-repository-subscription
       # @example
       #   @client.subscription("octokit/octokit.rb")
       def subscription(repo, options = {})
@@ -678,7 +678,7 @@ module Octokit
       # @option options [Boolean] :ignored Deterimines if all notifications
       #   should be blocked from this repository.
       # @return [Sawyer::Resource] Updated repository subscription.
-      # @see http://developer.github.com/v3/activity/watching/#set-a-repository-subscription
+      # @see https://developer.github.com/v3/activity/watching/#set-a-repository-subscription
       # @example Subscribe to notifications for a repository
       #   @client.update_subscription("octokit/octokit.rb", {subscribed: true})
       def update_subscription(repo, options = {})
@@ -689,7 +689,7 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Boolean] True if subscription deleted, false otherwise.
-      # @see http://developer.github.com/v3/activity/watching/#delete-a-repository-subscription
+      # @see https://developer.github.com/v3/activity/watching/#delete-a-repository-subscription
       #
       # @example
       #   @client.delete_subscription("octokit/octokit.rb")

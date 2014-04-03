@@ -10,7 +10,7 @@ module Octokit
 
     # Methods for the PubSubHubbub API
     #
-    # @see http://developer.github.com/v3/repos/hooks/#pubsubhubbub
+    # @see https://developer.github.com/v3/repos/hooks/#pubsubhubbub
     module PubSubHubbub
 
       # Subscribe to a pubsub topic
@@ -19,7 +19,7 @@ module Octokit
       # @param callback [String] A callback url to be posted to when the topic event is fired
       # @param secret [String] An optional shared secret used to generate a SHA1 HMAC of the outgoing body content
       # @return [Boolean] true if the subscribe was successful, otherwise an error is raised
-      # @see http://developer.github.com/v3/repos/hooks/#subscribing
+      # @see https://developer.github.com/v3/repos/hooks/#subscribing
       # @example Subscribe to push events from one of your repositories, having an email sent when fired
       #   client = Octokit::Client.new(:oauth_token = "token")
       #   client.subscribe("https://github.com/joshk/devise_imapable/events/push", "github://Email?address=josh.kalderimis@gmail.com")
@@ -41,7 +41,7 @@ module Octokit
       # @param topic [String] A recoginized pubsub topic
       # @param callback [String] A callback url to be unsubscribed from
       # @return [Boolean] true if the unsubscribe was successful, otherwise an error is raised
-      # @see http://developer.github.com/v3/repos/hooks/#subscribing
+      # @see https://developer.github.com/v3/repos/hooks/#subscribing
       # @example Unsubscribe to push events from one of your repositories, no longer having an email sent when fired
       #   client = Octokit::Client.new(:oauth_token = "token")
       #   client.unsubscribe("https://github.com/joshk/devise_imapable/events/push", "github://Email?address=josh.kalderimis@gmail.com")
@@ -65,7 +65,7 @@ module Octokit
       #    Please refer Data node for complete list of arguments.
       # @param secret [String] An optional shared secret used to generate a SHA1 HMAC of the outgoing body content
       # @return [Boolean] True if subscription successful, false otherwise
-      # @see http://developer.github.com/v3/repos/hooks/#subscribing
+      # @see https://developer.github.com/v3/repos/hooks/#subscribing
       # @example Subscribe to push events to one of your repositories to Travis-CI
       #    client = Octokit::Client.new(:oauth_token = "token")
       #    client.subscribe_service_hook('joshk/device_imapable', 'Travis', { :token => "test", :domain => "domain", :user => "user" })
@@ -80,7 +80,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param service_name [String] service name owner
       #    List of services is available @ https://github.com/github/github-services/tree/master/docs.
-      # @see http://developer.github.com/v3/repos/hooks/#subscribing
+      # @see https://developer.github.com/v3/repos/hooks/#subscribing
       # @example Subscribe to push events to one of your repositories to Travis-CI
       #    client = Octokit::Client.new(:oauth_token = "token")
       #    client.unsubscribe_service_hook('joshk/device_imapable', 'Travis')

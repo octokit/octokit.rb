@@ -7,7 +7,7 @@ module Octokit
       # List all emojis used on GitHub
       #
       # @return [Sawyer::Resource] A list of all emojis on GitHub
-      # @see http://developer.github.com/v3/emojis/#emojis
+      # @see https://developer.github.com/v3/emojis/#emojis
       # @example List all emojis
       #   Octokit.emojis
       def emojis(options = {})

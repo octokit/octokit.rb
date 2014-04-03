@@ -3,11 +3,11 @@ module Octokit
 
     # Methods for the Meta API
     #
-    # @see http://developer.github.com/v3/meta/
+    # @see https://developer.github.com/v3/meta/
     module Meta
 
       # Get meta information about GitHub.com, the service.
-      # @see http://developer.github.com/v3/meta/#meta
+      # @see https://developer.github.com/v3/meta/#meta
       # @return [Sawyer::Resource] Hash with meta information.
       # @example Get GitHub meta information
       #   @client.github_meta

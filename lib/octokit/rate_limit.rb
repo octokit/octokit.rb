@@ -11,7 +11,7 @@ module Octokit
   # @!attribute [w] resets_in
   #   @return [Fixnum] Number of seconds when rate limit resets
   #
-  # @see http://developer.github.com/v3/#rate-limiting
+  # @see https://developer.github.com/v3/#rate-limiting
   class RateLimit < Struct.new(:limit, :remaining, :resets_at, :resets_in)
 
     # Get rate limit info from HTTP response

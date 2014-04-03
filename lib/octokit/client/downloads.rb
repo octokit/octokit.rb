@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Repo Downloads API
     #
-    # @see http://developer.github.com/v3/repos/downloads/
+    # @see https://developer.github.com/v3/repos/downloads/
     module Downloads
 
       # List available downloads for a repository
@@ -11,7 +11,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A Github Repository
       # @return [Array] A list of available downloads
       # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
-      # @see http://developer.github.com/v3/repos/downloads/#list-downloads-for-a-repository
+      # @see https://developer.github.com/v3/repos/downloads/#list-downloads-for-a-repository
       # @example List all downloads for Github/Hubot
       #   Octokit.downloads("github/hubot")
       def downloads(repo, options={})
@@ -25,7 +25,7 @@ module Octokit
       # @param id [Integer] ID of the download
       # @return [Sawyer::Resource] A single download from the repository
       # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
-      # @see http://developer.github.com/v3/repos/downloads/#get-a-single-download
+      # @see https://developer.github.com/v3/repos/downloads/#get-a-single-download
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.download("github/hubot")
       def download(repo, id, options={})
@@ -37,7 +37,7 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param id [Integer] ID of the download
       # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
-      # @see http://developer.github.com/v3/repos/downloads/#delete-a-download
+      # @see https://developer.github.com/v3/repos/downloads/#delete-a-download
       # @return [Boolean] Status
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.delete_download("github/hubot", 1234)
