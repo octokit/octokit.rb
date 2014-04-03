@@ -177,12 +177,7 @@ module Octokit
       # @example
       #   Octokit.starred('pengwynn')
       def starred(user=login, options = {})
-        if user == login && user_authenticated?
-          path = "user/starred"
-        else
-          path = "users/#{user}/starred"
-        end
-        paginate path, options
+        paginate user_path(user, 'starred'), options
       end
 
       # Check if you are starring a repo.
@@ -344,15 +339,20 @@ module Octokit
       # @example
       #   @client.subscriptions("pengwynn")
       def subscriptions(user=login, options = {})
-        if user == login && user_authenticated?
-          path = "user/subscriptions"
-        else
-          path = "users/#{user}/subscriptions"
-        end
-        paginate path, options
+        paginate user_path(user, 'subscriptions'), options
       end
       alias :watched :subscriptions
 
+    end
+
+    private
+    # convenience method for constructing a user specific path, if the user is logged in
+    def user_path(user, path)
+      if user == login && user_authenticated?
+        "user/#{path}"
+      else
+        "users/#{user}/#{path}"
+      end
     end
   end
 end
