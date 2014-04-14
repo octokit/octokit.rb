@@ -365,6 +365,34 @@ describe Octokit::Client do
       assert_requested root_request
       expect(client.last_response.status).to eq(201)
     end
+    it "adds app creds in query params to anonymous requests" do
+      client = Octokit::Client.new
+      client.client_id     = key = '97b4937b385eb63d1f46'
+      client.client_secret = secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+      root_request = stub_get "/?client_id=#{key}&client_secret=#{secret}"
+
+      client.get("/")
+      assert_requested root_request
+    end
+    it "omits app creds in query params for basic requests" do
+      client = Octokit::Client.new :login => "login", :password => "passw0rd"
+      client.client_id     = key = '97b4937b385eb63d1f46'
+      client.client_secret = secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+      root_request = stub_get basic_github_url("/?foo=bar", :login => "login", :password => "passw0rd")
+
+      client.get("/", :foo => "bar")
+      assert_requested root_request
+    end
+    it "omits app creds in query params for token requests" do
+      client = Octokit::Client.new(:access_token => '87614b09dd141c22800f96f11737ade5226d7ba8')
+      client.client_id     = key = '97b4937b385eb63d1f46'
+      client.client_secret = secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+      root_request = stub_get(github_url("/?foo=bar")).with \
+        :headers => {"Authorization" => "token 87614b09dd141c22800f96f11737ade5226d7ba8"}
+
+      client.get("/", :foo => "bar")
+      assert_requested root_request
+    end
   end
 
   describe "auto pagination", :vcr do
