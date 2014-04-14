@@ -254,10 +254,6 @@ module Octokit
         end
       end
 
-      if application_authenticated?
-        options[:query].merge! application_authentication
-      end
-
       @last_response = response = agent.call(method, URI::Parser.new.escape(path.to_s), data, options)
       response.data
     end
