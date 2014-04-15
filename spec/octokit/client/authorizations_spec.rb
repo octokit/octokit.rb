@@ -135,6 +135,12 @@ describe Octokit::Client::Authorizations do
         expect(url).to eq('https://github.com/login/oauth/authorize?client_id=id_here')
       end
     end
+    it "requires client_id and client_secret" do
+      Octokit.reset!
+      expect {
+        Octokit.authorize_url
+      }.to raise_error Octokit::ApplicationCredentialsRequired
+    end
   end # .authorize_url
 
   describe ".check_application_authorization", :vcr do

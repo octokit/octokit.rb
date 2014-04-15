@@ -224,6 +224,9 @@ module Octokit
       # @example
       #   @client.authorize_url('xxxx')
       def authorize_url(app_id = client_id, options = {})
+        if app_id.to_s.empty?
+          raise Octokit::ApplicationCredentialsRequired.new "client_id required"
+        end
         authorize_url = options.delete(:endpoint) || Octokit.web_endpoint
         authorize_url += "login/oauth/authorize?client_id=" + app_id
 
