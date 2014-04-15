@@ -243,6 +243,19 @@ module Octokit
       @last_response if defined? @last_response
     end
 
+    # Duplicate client using client_id and client_secret as
+    # Basic Authentication credentials.
+    # @example
+    #   Octokit.client_id = "foo"
+    #   Octokit.client_secret = "bar"
+    #
+    #   # GET https://api.github.com/?client_id=foo&client_secret=bar
+    #   Octokit.get "/"
+    #
+    #   Octokit.client.as_app do |client|
+    #     # GET https://foo:bar@api.github.com/
+    #     client.get "/"
+    #   end
     def as_app(key = client_id, secret = client_secret, &block)
       if key.to_s.empty? || secret.to_s.empty?
         raise ApplicationCredentialsRequired, "client_id and client_secret required"
