@@ -5,6 +5,10 @@ describe Octokit::Client::Authorizations do
   before do
     Octokit.reset!
     @client = basic_auth_client
+
+    @app_client = Octokit::Client.new \
+      :client_id     => test_github_client_id,
+      :client_secret => test_github_client_secret
   end
 
   after do
@@ -133,4 +137,46 @@ describe Octokit::Client::Authorizations do
     end
   end # .authorize_url
 
+  describe ".check_application_authorization", :vcr do
+    it "checks an application authorization" do
+      authorization = create_app_token
+      @app_client.check_application_authorization(authorization.token)
+      path = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
+      url = basic_github_url path,
+        :login => test_github_client_id, :password => test_github_client_secret
+      assert_requested :get, url
+    end
+  end # .check_application_authorization
+
+  describe ".reset_application_authorization", :vcr do
+    xit "resets a token" do
+      authorization = @client.create_authorization \
+        :idempotent    => true,
+        :client_id     => test_github_client_id,
+        :client_secret => test_github_client_secret
+
+
+      new_authorization = @app_client.reset_application_authorization authorization.token
+      expect(new_authorization.token).not_to eq(authorization.token)
+      path = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
+      assert_requested :post, basic_github_url(path)
+    end
+  end # .reset_application_authorization
+
+  describe ".delete_application_authorization", :vcr do
+    it "deletes an application authorization"
+
+  end # .check_application_authorization
+
+  describe ".delete_all_application_authorization", :vcr do
+    it "deletes all authorizations for an application"
+
+  end # .check_application_authorization
+
+  def create_app_token
+    @client.create_authorization \
+        :idempotent    => true,
+        :client_id     => test_github_client_id,
+        :client_secret => test_github_client_secret
+  end
 end

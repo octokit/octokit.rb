@@ -126,6 +126,29 @@ module Octokit
           sort
       end
 
+
+      # Check if a token is valid.
+      #
+      # Applications can check if a token is valid without rate limits.
+      #
+      # @return [Sawyer::Resource] A single authorization for the authenticated user
+      # @see https://developer.github.com/v3/oauth_authorizations/#check-an-authorization
+      # @example
+      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
+      #  client.authorization('deadbeef1234567890deadbeef987654321')
+      def check_application_authorization(token, options = {})
+        opts = options.dup
+        key    = opts.delete(:client_id)     || client_id
+        secret = opts.delete(:client_secret) || client_secret
+
+        app_client = self.dup
+        app_client.client_id = app_client.client_secret = nil
+        app_client.login    = key
+        app_client.password = secret
+
+        app_client.get "/applications/#{client_id}/tokens/#{token}", opts
+      end
+
     end
 
     # Get the URL to authorize a user for an application via the web flow
