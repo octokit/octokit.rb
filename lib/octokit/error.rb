@@ -218,4 +218,8 @@ module Octokit
 
   # Raised when client fails to provide valid Content-Type
   class MissingContentType < ArgumentError; end
+
+  # Raised when a method requires an application client_id
+  # and secret but none is provided
+  class ApplicationCredentialsRequired < StandardError; end
 end

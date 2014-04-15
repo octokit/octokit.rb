@@ -428,6 +428,66 @@ describe Octokit::Client do
     end
   end
 
+  describe ".as_app" do
+    before do
+      @client_id = '97b4937b385eb63d1f46'
+      @client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+
+      Octokit.reset!
+      Octokit.configure do |config|
+        config.client_id     = @client_id
+        config.client_secret = @client_secret
+        config.per_page      = 50
+      end
+
+      @root_request = stub_get basic_github_url "/",
+        :login => @client_id, :password => @client_secret
+    end
+
+    it "uses preconfigured client and secret" do
+      client = Octokit.client
+      login = client.as_app do |c|
+        c.login
+      end
+      expect(login).to eq(@client_id)
+    end
+
+    it "requires a client and secret" do
+      Octokit.reset!
+      client = Octokit.client
+      expect {
+        client.as_app do |c|
+          c.get
+        end
+      }.to raise_error Octokit::ApplicationCredentialsRequired
+    end
+
+    it "duplicates the client" do
+      client = Octokit.client
+      page_size = client.as_app do |c|
+        c.per_page
+      end
+      expect(page_size).to eq(client.per_page)
+    end
+
+    it "uses client and secret as Basic auth" do
+      client = Octokit.client
+      app_client = client.as_app do |c|
+        c
+      end
+      expect(app_client).to be_basic_authenticated
+    end
+
+    it "makes authenticated requests" do
+      client = Octokit.client
+      app_client = client.as_app do |c|
+        c.get "/"
+      end
+
+      assert_requested @root_request
+    end
+  end
+
   context "error handling" do
     before do
       Octokit.reset!

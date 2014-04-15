@@ -243,6 +243,18 @@ module Octokit
       @last_response if defined? @last_response
     end
 
+    def as_app(key = client_id, secret = client_secret, &block)
+      if key.to_s.empty? || secret.to_s.empty?
+        raise ApplicationCredentialsRequired, "client_id and client_secret required"
+      end
+      app_client = self.dup
+      app_client.client_id = app_client.client_secret = nil
+      app_client.login    = key
+      app_client.password = secret
+
+      yield app_client if block_given?
+    end
+
     private
 
     def request(method, path, data, options = {})
