@@ -196,7 +196,7 @@ module Octokit
       # @see https://developer.github.com/v3/oauth_authorizations/#revoke-all-authorizations-for-an-application
       # @example
       #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
-      #  client.revoke_all_application_authorizations('deadbeef1234567890deadbeef987654321')
+      #  client.revoke_all_application_authorizations
       def revoke_all_application_authorizations(options = {})
         opts = options.dup
         key    = opts.delete(:client_id)     || client_id
