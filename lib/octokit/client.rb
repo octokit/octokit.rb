@@ -268,7 +268,51 @@ module Octokit
       yield app_client if block_given?
     end
 
+    # Set username for authentication
+    #
+    # @param value [String] GitHub username
+    def login=(value)
+      reset_agent
+      @login = value
+    end
+
+    # Set password for authentication
+    #
+    # @param value [String] GitHub password
+    def password=(value)
+      reset_agent
+      @password = value
+    end
+
+    # Set OAuth access token for authentication
+    #
+    # @param value [String] 40 character GitHub OAuth access token
+    def access_token=(value)
+      reset_agent
+      @access_token = value
+    end
+
+    # Set OAuth app client_id
+    #
+    # @param value [String] 20 character GitHub OAuth app client_id
+    def client_id=(value)
+      reset_agent
+      @client_id = value
+    end
+
+    # Set OAuth app client_secret
+    #
+    # @param value [String] 40 character GitHub OAuth app client_secret
+    def client_secret=(value)
+      reset_agent
+      @client_secret = value
+    end
+
     private
+
+    def reset_agent
+      @agent = nil
+    end
 
     def request(method, path, data, options = {})
       if data.is_a?(Hash)

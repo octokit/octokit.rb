@@ -435,6 +435,7 @@ describe Octokit::Client do
 
       Octokit.reset!
       Octokit.configure do |config|
+        config.access_token  = 'a' * 40
         config.client_id     = @client_id
         config.client_secret = @client_secret
         config.per_page      = 50
@@ -479,8 +480,11 @@ describe Octokit::Client do
     end
 
     it "makes authenticated requests" do
+      stub_get github_url("/user")
+
       client = Octokit.client
-      app_client = client.as_app do |c|
+      client.get "/user"
+      client.as_app do |c|
         c.get "/"
       end
 
