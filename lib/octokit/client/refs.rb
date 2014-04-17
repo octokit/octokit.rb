@@ -17,7 +17,7 @@ module Octokit
       def refs(repo, namespace = nil, options = {})
         path = "repos/#{Repository.new(repo)}/git/refs"
         path += "/#{namespace}" unless namespace.nil?
-        get path, options
+        paginate path, options
       end
       alias :list_refs :refs
       alias :references :refs
