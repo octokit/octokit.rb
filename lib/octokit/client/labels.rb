@@ -111,7 +111,7 @@ module Octokit
       # @example List labels for octokit/octokit.rb, issue # 1
       #   Octokit.labels_for_issue("octokit/octokit.rb", 1)
       def labels_for_issue(repo, number, options = {})
-        get "repos/#{Repository.new(repo)}/issues/#{number}/labels", options
+        paginate "repos/#{Repository.new(repo)}/issues/#{number}/labels", options
       end
 
       # Add label(s) to an Issue
