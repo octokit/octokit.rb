@@ -357,7 +357,7 @@ module Octokit
       # @example
       #   @client.team_repos(100000)
       def team_repositories(team_id, options = {})
-        get "teams/#{team_id}/repos", options
+        paginate "teams/#{team_id}/repos", options
       end
       alias :team_repos :team_repositories
 
