@@ -135,7 +135,7 @@ module Octokit
       # @param number [Integer] Number of pull request
       # @return [Array<Sawyer::Resource>] List of commits
       def pull_request_commits(repo, number, options = {})
-        get "repos/#{Repository.new(repo)}/pulls/#{number}/commits", options
+        paginate "repos/#{Repository.new(repo)}/pulls/#{number}/commits", options
       end
       alias :pull_commits :pull_request_commits
 
