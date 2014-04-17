@@ -16,7 +16,7 @@ module Octokit
       # @example List labels for octokit/octokit.rb
       #   Octokit.labels("octokit/octokit.rb")
       def labels(repo, options = {})
-        get "repos/#{Repository.new(repo)}/labels", options
+        paginate "repos/#{Repository.new(repo)}/labels", options
       end
 
       # Get single label for a repository
@@ -111,7 +111,7 @@ module Octokit
       # @example List labels for octokit/octokit.rb, issue # 1
       #   Octokit.labels_for_issue("octokit/octokit.rb", 1)
       def labels_for_issue(repo, number, options = {})
-        get "repos/#{Repository.new(repo)}/issues/#{number}/labels", options
+        paginate "repos/#{Repository.new(repo)}/issues/#{number}/labels", options
       end
 
       # Add label(s) to an Issue
@@ -149,7 +149,7 @@ module Octokit
       # @example List all labels for milestone #2 on octokit/octokit.rb
       #   Octokit.labels_for_milestone("octokit/octokit.rb", 2)
       def labels_for_milestone(repo, number, options = {})
-        get "repos/#{Repository.new(repo)}/milestones/#{number}/labels", options
+        paginate "repos/#{Repository.new(repo)}/milestones/#{number}/labels", options
       end
     end
   end

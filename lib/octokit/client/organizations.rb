@@ -203,7 +203,7 @@ module Octokit
       # @example
       #   @client.org_teams('github')
       def organization_teams(org, options = {})
-        get "orgs/#{org}/teams", options
+        paginate "orgs/#{org}/teams", options
       end
       alias :org_teams :organization_teams
 
@@ -290,7 +290,7 @@ module Octokit
       # @example
       #   @client.team_members(100000)
       def team_members(team_id, options = {})
-        get "teams/#{team_id}/members", options
+        paginate "teams/#{team_id}/members", options
       end
 
       # Add team member
@@ -357,7 +357,7 @@ module Octokit
       # @example
       #   @client.team_repos(100000)
       def team_repositories(team_id, options = {})
-        get "teams/#{team_id}/repos", options
+        paginate "teams/#{team_id}/repos", options
       end
       alias :team_repos :team_repositories
 
