@@ -279,7 +279,7 @@ module Octokit
       # @param number [Integer] Number of pull request
       # @return [Array<Sawyer::Resource>] List of files
       def pull_request_files(repo, number, options = {})
-        get "repos/#{Repository.new(repo)}/pulls/#{number}/files", options
+        paginate "repos/#{Repository.new(repo)}/pulls/#{number}/files", options
       end
       alias :pull_files :pull_request_files
 
