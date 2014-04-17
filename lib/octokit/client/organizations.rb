@@ -203,7 +203,7 @@ module Octokit
       # @example
       #   @client.org_teams('github')
       def organization_teams(org, options = {})
-        get "orgs/#{org}/teams", options
+        paginate "orgs/#{org}/teams", options
       end
       alias :org_teams :organization_teams
 
