@@ -16,7 +16,7 @@ module Octokit
       # @example List labels for octokit/octokit.rb
       #   Octokit.labels("octokit/octokit.rb")
       def labels(repo, options = {})
-        get "repos/#{Repository.new(repo)}/labels", options
+        paginate "repos/#{Repository.new(repo)}/labels", options
       end
 
       # Get single label for a repository
