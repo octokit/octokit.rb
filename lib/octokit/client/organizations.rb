@@ -290,7 +290,7 @@ module Octokit
       # @example
       #   @client.team_members(100000)
       def team_members(team_id, options = {})
-        get "teams/#{team_id}/members", options
+        paginate "teams/#{team_id}/members", options
       end
 
       # Add team member
