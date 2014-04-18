@@ -130,6 +130,8 @@ module Octokit
       #
       # Applications can check if a token is valid without rate limits.
       #
+      # @param token [String] 40 character GitHub OAuth access token
+      #
       # @return [Sawyer::Resource] A single authorization for the authenticated user
       # @see https://developer.github.com/v3/oauth_authorizations/#check-an-authorization
       # @example
@@ -149,6 +151,8 @@ module Octokit
       #
       # Applications can reset a token without requiring a user to re-authorize.
       #
+      # @param token [String] 40 character GitHub OAuth access token
+      #
       # @return [Sawyer::Resource] A single authorization for the authenticated user
       # @see https://developer.github.com/v3/oauth_authorizations/#reset-an-authorization
       # @example
@@ -167,6 +171,8 @@ module Octokit
       # Revoke a token
       #
       # Applications can revoke (delete) a token
+      #
+      # @param token [String] 40 character GitHub OAuth access token
       #
       # @return [Boolean] Result
       # @see https://developer.github.com/v3/oauth_authorizations/#revoke-an-authorization-for-an-application
