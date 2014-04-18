@@ -126,28 +126,122 @@ module Octokit
           sort
       end
 
-    end
+      # Check if a token is valid.
+      #
+      # Applications can check if a token is valid without rate limits.
+      #
+      # @param token [String] 40 character GitHub OAuth access token
+      #
+      # @return [Sawyer::Resource] A single authorization for the authenticated user
+      # @see https://developer.github.com/v3/oauth_authorizations/#check-an-authorization
+      # @example
+      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
+      #  client.check_application_authorization('deadbeef1234567890deadbeef987654321')
+      def check_application_authorization(token, options = {})
+        opts = options.dup
+        key    = opts.delete(:client_id)     || client_id
+        secret = opts.delete(:client_secret) || client_secret
 
-    # Get the URL to authorize a user for an application via the web flow
-    #
-    # @param app_id [String] Client Id we received when our application was registered with GitHub.
-    # @option options [String] :redirect_uri The url to redirect to after authorizing.
-    # @option options [String] :scope The scopes to request from the user.
-    # @option options [String] :state A random string to protect against CSRF.
-    # @return [String] The url to redirect the user to authorize.
-    # @see Octokit::Client
-    # @see https://developer.github.com/v3/oauth/#web-application-flow
-    # @example
-    #   @client.authorize_url('xxxx')
-    def authorize_url(app_id = client_id, options = {})
-      authorize_url = options.delete(:endpoint) || Octokit.web_endpoint
-      authorize_url += "login/oauth/authorize?client_id=" + app_id
-
-      options.each do |key, value|
-        authorize_url += "&" + key.to_s + "=" + value
+        as_app(key, secret) do |app_client|
+          app_client.get "/applications/#{client_id}/tokens/#{token}", opts
+        end
       end
 
-      authorize_url
+      # Reset a token
+      #
+      # Applications can reset a token without requiring a user to re-authorize.
+      #
+      # @param token [String] 40 character GitHub OAuth access token
+      #
+      # @return [Sawyer::Resource] A single authorization for the authenticated user
+      # @see https://developer.github.com/v3/oauth_authorizations/#reset-an-authorization
+      # @example
+      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
+      #  client.reset_application_authorization('deadbeef1234567890deadbeef987654321')
+      def reset_application_authorization(token, options = {})
+        opts = options.dup
+        key    = opts.delete(:client_id)     || client_id
+        secret = opts.delete(:client_secret) || client_secret
+
+        as_app(key, secret) do |app_client|
+          app_client.post "/applications/#{client_id}/tokens/#{token}", opts
+        end
+      end
+
+      # Revoke a token
+      #
+      # Applications can revoke (delete) a token
+      #
+      # @param token [String] 40 character GitHub OAuth access token
+      #
+      # @return [Boolean] Result
+      # @see https://developer.github.com/v3/oauth_authorizations/#revoke-an-authorization-for-an-application
+      # @example
+      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
+      #  client.revoke_application_authorization('deadbeef1234567890deadbeef987654321')
+      def revoke_application_authorization(token, options = {})
+        opts = options.dup
+        key    = opts.delete(:client_id)     || client_id
+        secret = opts.delete(:client_secret) || client_secret
+
+        as_app(key, secret) do |app_client|
+          app_client.delete "/applications/#{client_id}/tokens/#{token}", opts
+
+          app_client.last_response.status == 204
+        end
+      rescue Octokit::NotFound
+        false
+      end
+      alias :delete_application_authorization :revoke_application_authorization
+
+      # Revoke all tokens for an app
+      #
+      # Applications can revoke all of their tokens in a single request
+      #
+      # @return [Boolean] Result
+      # @see https://developer.github.com/v3/oauth_authorizations/#revoke-all-authorizations-for-an-application
+      # @example
+      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
+      #  client.revoke_all_application_authorizations
+      def revoke_all_application_authorizations(options = {})
+        opts = options.dup
+        key    = opts.delete(:client_id)     || client_id
+        secret = opts.delete(:client_secret) || client_secret
+
+        as_app(key, secret) do |app_client|
+          app_client.delete "/applications/#{client_id}/tokens", opts
+
+          app_client.last_response.status == 204
+        end
+      rescue Octokit::NotFound
+        false
+      end
+      alias :delete_application_authorization :revoke_application_authorization
+
+      # Get the URL to authorize a user for an application via the web flow
+      #
+      # @param app_id [String] Client Id we received when our application was registered with GitHub.
+      # @option options [String] :redirect_uri The url to redirect to after authorizing.
+      # @option options [String] :scope The scopes to request from the user.
+      # @option options [String] :state A random string to protect against CSRF.
+      # @return [String] The url to redirect the user to authorize.
+      # @see Octokit::Client
+      # @see https://developer.github.com/v3/oauth/#web-application-flow
+      # @example
+      #   @client.authorize_url('xxxx')
+      def authorize_url(app_id = client_id, options = {})
+        if app_id.to_s.empty?
+          raise Octokit::ApplicationCredentialsRequired.new "client_id required"
+        end
+        authorize_url = options.delete(:endpoint) || Octokit.web_endpoint
+        authorize_url += "login/oauth/authorize?client_id=" + app_id
+
+        options.each do |key, value|
+          authorize_url += "&" + key.to_s + "=" + value
+        end
+
+        authorize_url
+      end
     end
   end
 end

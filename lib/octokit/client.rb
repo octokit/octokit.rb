@@ -243,7 +243,76 @@ module Octokit
       @last_response if defined? @last_response
     end
 
+    # Duplicate client using client_id and client_secret as
+    # Basic Authentication credentials.
+    # @example
+    #   Octokit.client_id = "foo"
+    #   Octokit.client_secret = "bar"
+    #
+    #   # GET https://api.github.com/?client_id=foo&client_secret=bar
+    #   Octokit.get "/"
+    #
+    #   Octokit.client.as_app do |client|
+    #     # GET https://foo:bar@api.github.com/
+    #     client.get "/"
+    #   end
+    def as_app(key = client_id, secret = client_secret, &block)
+      if key.to_s.empty? || secret.to_s.empty?
+        raise ApplicationCredentialsRequired, "client_id and client_secret required"
+      end
+      app_client = self.dup
+      app_client.client_id = app_client.client_secret = nil
+      app_client.login    = key
+      app_client.password = secret
+
+      yield app_client if block_given?
+    end
+
+    # Set username for authentication
+    #
+    # @param value [String] GitHub username
+    def login=(value)
+      reset_agent
+      @login = value
+    end
+
+    # Set password for authentication
+    #
+    # @param value [String] GitHub password
+    def password=(value)
+      reset_agent
+      @password = value
+    end
+
+    # Set OAuth access token for authentication
+    #
+    # @param value [String] 40 character GitHub OAuth access token
+    def access_token=(value)
+      reset_agent
+      @access_token = value
+    end
+
+    # Set OAuth app client_id
+    #
+    # @param value [String] 20 character GitHub OAuth app client_id
+    def client_id=(value)
+      reset_agent
+      @client_id = value
+    end
+
+    # Set OAuth app client_secret
+    #
+    # @param value [String] 40 character GitHub OAuth app client_secret
+    def client_secret=(value)
+      reset_agent
+      @client_secret = value
+    end
+
     private
+
+    def reset_agent
+      @agent = nil
+    end
 
     def request(method, path, data, options = {})
       if data.is_a?(Hash)
