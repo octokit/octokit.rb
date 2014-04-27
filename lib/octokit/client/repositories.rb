@@ -62,12 +62,26 @@ module Octokit
       # @see https://developer.github.com/v3/repos/#list-your-repositories
       # @see https://developer.github.com/v3/repos/#list-user-repositories
       # @param username [String] Optional username for which to list repos
+      # @option options [Boolean] :with_parent `true` enables loading repo with parent repo if forked
       # @return [Array<Sawyer::Resource>] List of repositories
       def repositories(username=nil, options = {})
+        with_parent = options.delete(:with_parent)
         if username.nil?
-          paginate 'user/repos', options
+          repos = paginate 'user/repos', options
         else
-          paginate "users/#{username}/repos", options
+          repos = paginate "users/#{username}/repos", options
+        end
+
+        if with_parent
+          repos.map do |repo|
+            if repo.fork
+              repo = repository(repo.full_name, options)
+            else
+              repo
+            end
+          end
+        else
+          repos
         end
       end
       alias :list_repositories :repositories

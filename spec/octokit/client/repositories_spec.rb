@@ -233,6 +233,14 @@ describe Octokit::Client::Repositories do
       expect(repositories).to be_kind_of Array
       assert_requested :get, github_url("/user/repos")
     end
+
+    context "with with_parent option" do
+      it "returns a user's repositories with parent and source if forked" do
+        repositories = Octokit.repositories("sferik", with_parent: true)
+        expect(repositories.find(&:fork).parent).not_to be_nil
+        expect(repositories.find(&:fork).source).not_to be_nil
+      end
+    end # with with_parent option
   end # .repositories
 
   describe ".all_repositories", :vcr do
