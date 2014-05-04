@@ -234,12 +234,10 @@ module Octokit
 
       # Get list of public keys for user.
       #
-      # Requires authenticated client.
-      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing public keys.
       # @see https://developer.github.com/v3/users/keys/#list-public-keys-for-a-user
       # @example
-      #   @client.user_keys('pengwynn'
+      #   @client.user_keys('pengwynn')
       def user_keys(user, options = {})
         # TODO: Roll this into .keys
         paginate "users/#{user}/keys", options
