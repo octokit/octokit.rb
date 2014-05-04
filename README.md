@@ -160,7 +160,8 @@ client = Octokit::Client.new \
   :login    => 'defunkt',
   :password => 'c0d3b4ssssss!'
 
-client.create_authorization(:scopes => ["user"], :headers => { "X-GitHub-OTP" => "<your 2FA token>" })
+client.create_authorization(:scopes => ["user"], :note => "Name of token",
+                            :headers => { "X-GitHub-OTP" => "<your 2FA token>" })
 # => <your new oauth token>
 ```
 
