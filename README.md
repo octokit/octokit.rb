@@ -456,12 +456,29 @@ console`, etc.  ensures your dependencies are up-to-date.
 ### Running and writing new tests
 
 Octokit uses [VCR][] for recording and playing back API fixtures during test
-runs. These fixtures are part of the Git project in the `spec/cassettes`
-folder. For the most part, tests use an authenticated client, using a token
-stored in `ENV['OCTOKIT_TEST_GITHUB_TOKEN']`. If you're not recording new
-cassettes, you don't need to have this set. If you do need to record new
-cassettes, this token can be any GitHub API token because the test suite strips
-the actual token from the cassette output before storing to disk.
+runs. These cassettes (fixtures) are part of the Git project in the `spec/cassettes`
+folder. If you're not recording new cassettes you can run the specs with existing
+cassettes with:
+
+    script/test
+
+Octokit uses environmental variables for storing credentials used in testing.
+If you are testing an API endpoint that doesn't require authentication, you
+can get away without any additional configuration. For the most part, tests
+use an authenticated client, using a token stored in `ENV['OCTOKIT_TEST_GITHUB_TOKEN']`.
+There are several different authenticating method's used accross the api.
+Here is the full list of configurable environmental variables for testing
+Octokit:
+
+ENV Variable | Description |
+-------------------|-----------------|
+`OCTOKIT_TEST_GITHUB_LOGIN`| GitHub login name (preferably one created specifically for testing against).
+`OCTOKIT_TEST_GITHUB_PASSWORD`| Password for the test GitHub login.
+`OCTOKIT_TEST_GITHUB_TOKEN` | [Personal Access Token](https://github.com/blog/1509-personal-api-tokens) for the test GitHub login.
+`OCTOKIT_TEST_GITHUB_CLIENT_ID` | Test OAuth application client id.
+`OCTOKIT_TEST_GITHUB_CLIENT_SECRET` | Test OAuth application client secret.
+`OCTOKIT_TEST_GITHUB_REPOSITORY` | Test repository to perform destructive actions against, this should not be set to any repository of importance. **Automatically created by the test suite if nonexistent** Default: `api-sandbox`
+`OCTOKIT_TEST_GITHUB_ORGANIZATION` | Test organization.
 
 Since we periodically refresh our cassettes, please keep some points in mind
 when writing new specs.
