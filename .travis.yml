@@ -10,9 +10,8 @@ rvm:
   - 2.1.0
 matrix:
   allow_failures:
-    - rvm:
-      - rbx
-      - jruby
+    - rvm: rbx
+    - rvm: jruby
 env:
   - OCTOKIT_TEST_GITHUB_LOGIN="api-padawan" OCTOKIT_TEST_GITHUB_PASSWORD="MYSOCRATESNOTE" OCTOKIT_TEST_GITHUB_TOKEN="6a21f190e3422bf89afa8b360d923b0c30e8fbfa" OCTOKIT_TEST_GITHUB_CLIENT_ID='abcdefabcdefabcdefab' OCTOKIT_TEST_GITHUB_CLIENT_SECRET='abcdefabcdefabcdefababcdefabcdefabcdefab' OCTOKIT_SILENT=true
 before_install:
