@@ -51,8 +51,11 @@ VCR.configure do |c|
   c.define_cassette_placeholder("<GITHUB_TEST_ORG_TEAM_ID>") do
     "10050505050000"
   end
+
   c.before_http_request(:real?) do |request|
     next if request.headers['X-Vcr-Test-Repo-Setup']
+    next unless request.uri.include? test_github_repository
+
     options = {
       :headers => {'X-Vcr-Test-Repo-Setup' => 'true'},
       :auto_init => true
