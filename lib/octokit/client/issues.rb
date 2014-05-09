@@ -219,6 +219,7 @@ module Octokit
 
       # Add a comment to an issue
       #
+      # @param owner [String] The owner of the github repo
       # @param repo [String, Repository, Hash] A GitHub repository
       # @param number [Integer] Issue number
       # @param comment [String] Comment to be added
@@ -226,8 +227,8 @@ module Octokit
       # @see https://developer.github.com/v3/issues/comments/#create-a-comment
       # @example Add the comment "Almost to v1" to Issue #23 on octokit/octokit.rb
       #   Octokit.add_comment("octokit/octokit.rb", 23, "Almost to v1")
-      def add_comment(repo, number, comment, options = {})
-        post "repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment})
+      def add_comment(owner, repo, number, comment, options = {})
+        post "repos/#{owner}/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment})
       end
 
       # Update a single comment on an issue
