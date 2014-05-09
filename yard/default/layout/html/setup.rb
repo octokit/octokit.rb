@@ -8,8 +8,9 @@ def diskfile
   # changes to the generate docs so the links work both on
   # GitHub and in the documentation.
   if @file.name == "README"
-    bad_link = data.match(/href\=\"\#(.+)\"/)[1]
-    data.gsub!(bad_link, bad_link.capitalize.gsub!('-', '_'))
+    data.scan(/href\=\"\#(.+)\"/).each do |bad_link|
+      data.gsub!(bad_link.first, bad_link.first.capitalize.gsub('-', '_'))
+    end
   end
 
   "<div id='filecontents'>" + data + "</div>"
