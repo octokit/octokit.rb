@@ -60,17 +60,25 @@ VCR.configure do |c|
       :headers => {'X-Vcr-Test-Repo-Setup' => 'true'},
       :auto_init => true
     }
-    if !oauth_client.repository?("#{test_github_login}/#{test_github_repository}", options)
+
+    test_repo = "#{test_github_login}/#{test_github_repository}"
+    if !oauth_client.repository?(test_repo, options)
+      Octokit.octokit_warn "NOTICE: Creating #{test_repo} test repository."
       oauth_client.create_repository(test_github_repository, options)
     end
-    if !oauth_client.repository?("#{test_github_org}/#{test_github_repository}", options)
+
+    test_org_repo = "#{test_github_org}/#{test_github_repository}"
+    if !oauth_client.repository?(test_org_repo, options)
+      Octokit.octokit_warn "NOTICE: Creating #{test_org_repo} test repository."
       options[:organization] = test_github_org
       oauth_client.create_repository(test_github_repository, options)
     end
   end
+
   c.ignore_request do |request|
     !!request.headers['X-Vcr-Test-Repo-Setup']
   end
+
   c.default_cassette_options = {
     :serialize_with             => :json,
     # TODO: Track down UTF-8 issue and remove
