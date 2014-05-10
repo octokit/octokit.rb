@@ -136,8 +136,17 @@ user.login
 # => "defunkt"
 ```
 
-You can use `.create_authorization` to create a token using Basic Authorization
-that you can use for subsequent calls.
+You can [create access tokens through your GitHub Account Settings](https://help.github.com/articles/creating-an-access-token-for-command-line-use)
+or with a basic authenticated Octokit client:
+
+```ruby
+client = Octokit::Client.new \
+  :login    => 'defunkt',
+  :password => 'c0d3b4ssssss!'
+
+client.create_authorization(:scopes => ["user"], :note => "Name of token")
+# => <your new oauth token>
+```
 
 ### Two-Factor Authentication
 
