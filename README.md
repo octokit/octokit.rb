@@ -125,8 +125,6 @@ and password:
   granular access to API resources. For instance, you can grant a third party
   access to your gists but not your private repositories.
 
-To generate a new access token, please read [Creating an access token for command-line use](https://help.github.com/articles/creating-an-access-token-for-command-line-use).
-
 To use an access token with the Octokit client, just pass it in lieu of your
 username and password:
 
@@ -138,11 +136,16 @@ user.login
 # => "defunkt"
 ```
 
-You can use `.create_authorization` to create a token using Basic Authorization
-that you can use for subsequent calls:
+You can [create access tokens through your GitHub Account Settings](https://help.github.com/articles/creating-an-access-token-for-command-line-use)
+or with a basic authenticated Octokit client:
 
 ```ruby
-client.create_authorization(:scopes => ["user"], :note => "Sample Access Token")
+client = Octokit::Client.new \
+  :login    => 'defunkt',
+  :password => 'c0d3b4ssssss!'
+
+client.create_authorization(:scopes => ["user"], :note => "Name of token")
+# => <your new oauth token>
 ```
 
 ### Two-Factor Authentication
