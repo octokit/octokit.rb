@@ -67,7 +67,7 @@
 
 <p><img src="http://cl.ly/image/3Y013H0A2z3z/gundam-ruby.png" alt="Logo"></p>
 
-<p>Octokit 2.0 is out, check the <a href="#upgrading-guide">Upgrade Guide</a> before
+<p>Octokit 2.0 is out, check the <a href="#Upgrading_guide">Upgrade Guide</a> before
 upgrading from 1.x.</p>
 
 <h2>Philosophy</h2>
@@ -91,7 +91,7 @@ for optional parameters, headers, or other options:</p>
 
 <p>... or add to your Gemfile</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~&gt; 2.0</span><span class='tstring_end'>&quot;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~&gt; 3.0</span><span class='tstring_end'>&quot;</span></span>
 </code></pre>
 
 <h3>Making requests</h3>
@@ -135,7 +135,7 @@ access for fields returned in the API response.</p>
 </span></code></pre>
 
 <p><strong>Note:</strong> URL fields are culled into a separate <code>.rels</code> collection for easier
-<a href="#hypermedia-agent">Hypermedia</a> support.</p>
+<a href="#Hypermedia_agent">Hypermedia</a> support.</p>
 
 <h3>Accessing HTTP responses</h3>
 
@@ -167,7 +167,7 @@ making authenticated requests:</p>
 <span class='comment'># =&gt; &quot;defunkt&quot;
 </span></code></pre>
 
-<p>While Basic Authentication makes it easy to get started quickly, OAuth access
+<p>While Basic Authentication allows you to get started quickly, OAuth access
 tokens are the preferred way to authenticate on behalf of users.</p>
 
 <h3>OAuth access tokens</h3>
@@ -176,15 +176,15 @@ tokens are the preferred way to authenticate on behalf of users.</p>
 and password:</p>
 
 <ul>
-<li><strong>Revokable access</strong>. Access tokens can be revoked, removing access for just
+<li><strong>Revokable access</strong>. Access tokens can be revoked, removing access for only
 that token without having to change your password everywhere.</li>
 <li><strong>Limited access</strong>. Access tokens have <a href="http://developer.github.com/v3/oauth/#scopes">access scopes</a> which allow for more
 granular access to API resources. For instance, you can grant a third party
 access to your gists but not your private repositories.</li>
 </ul>
 
-<p>To use an access token with the Octokit client, just pass it in lieu of your
-username and password:</p>
+<p>To use an access token with the Octokit client, pass your token in the
+<code>:access_token</code> options parameter in lieu of your username and password:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:access_token</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 
@@ -193,8 +193,16 @@ username and password:</p>
 <span class='comment'># =&gt; &quot;defunkt&quot;
 </span></code></pre>
 
-<p>You can use <code>.create_authorization</code> to create a token using Basic Authorization
-that you can use for subsequent calls.</p>
+<p>You can <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use">create access tokens through your GitHub Account Settings</a>
+or with a basic authenticated Octokit client:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> \
+  <span class='symbol'>:login</span>    <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_authorization'>create_authorization</span><span class='lparen'>(</span><span class='symbol'>:scopes</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:note</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Name of token</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; &lt;your new oauth token&gt;
+</span></code></pre>
 
 <h3>Two-Factor Authentication</h3>
 
@@ -215,7 +223,8 @@ that you can use for subsequent calls.</p>
   <span class='symbol'>:login</span>    <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
 
-<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_authorization'>create_authorization</span><span class='lparen'>(</span><span class='symbol'>:scopes</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:headers</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>X-GitHub-OTP</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 2FA token&gt;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_authorization'>create_authorization</span><span class='lparen'>(</span><span class='symbol'>:scopes</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:note</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Name of token</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                            <span class='symbol'>:headers</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>X-GitHub-OTP</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 2FA token&gt;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='comment'># =&gt; &lt;your new oauth token&gt;
 </span></code></pre>
 
@@ -265,7 +274,7 @@ the higher rate limit.</p>
 
 <p>Many GitHub API resources are <a href="http://developer.github.com/v3/#pagination">paginated</a>. While you may be tempted to start
 adding <code>:page</code> parameters to your calls, the API returns links to the next,
-previous, and last pages for you in the <code>Link</code> response header as <a href="#hypermedia-agent">Hypermedia
+previous, and last pages for you in the <code>Link</code> response header as <a href="#Hypermedia_agent">Hypermedia
 link relations</a>.</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_issues'>issues</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_issues'>issues</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rails/rails</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:per_page</span> <span class='op'>=&gt;</span> <span class='int'>100</span>
@@ -408,8 +417,9 @@ extended via middleware.</p>
 
 <h3>Debugging</h3>
 
-<p>Often, it helps to know what Octokit is doing under the hood. Faraday makes it
-easy to peek into the underlying HTTP traffic:</p>
+<p>Often, it helps to know what Octokit is doing under the hood. You can add a
+logger to the middleware that enables you to peek into the underlying HTTP
+traffic:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stack'>stack</span> <span class='op'>=</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>RackBuilder</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_builder'>builder</span><span class='op'>|</span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_response'>response</span> <span class='symbol'>:logger</span>
@@ -465,7 +475,7 @@ resource. See the <a href="https://github.com/plataformatec/faraday-http-cache">
 <h2>Hacking on Octokit.rb</h2>
 
 <p>If you want to hack on Octokit locally, we try to make <a href="http://wynnnetherland.com/linked/2013012801/bootstrapping-consistency">bootstrapping the
-project</a> as painless as possible. Just clone and run:</p>
+project</a> as painless as possible. To start hacking, clone and run:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_script'>script</span><span class='op'>/</span><span class='id identifier rubyid_bootstrap'>bootstrap</span>
 </code></pre>
@@ -482,12 +492,56 @@ console</code>, etc.  ensures your dependencies are up-to-date.</p>
 <h3>Running and writing new tests</h3>
 
 <p>Octokit uses <a href="https://github.com/vcr/vcr">VCR</a> for recording and playing back API fixtures during test
-runs. These fixtures are part of the Git project in the <code>spec/cassettes</code>
-folder. For the most part, tests use an authenticated client, using a token
-stored in <code>ENV[&#39;OCTOKIT_TEST_GITHUB_TOKEN&#39;]</code>. If you&#39;re not recording new
-cassettes, you don&#39;t need to have this set. If you do need to record new
-cassettes, this token can be any GitHub API token because the test suite strips
-the actual token from the cassette output before storing to disk.</p>
+runs. These cassettes (fixtures) are part of the Git project in the <code>spec/cassettes</code>
+folder. If you&#39;re not recording new cassettes you can run the specs with existing
+cassettes with:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_script'>script</span><span class='op'>/</span><span class='id identifier rubyid_test'>test</span>
+</code></pre>
+
+<p>Octokit uses environmental variables for storing credentials used in testing.
+If you are testing an API endpoint that doesn&#39;t require authentication, you
+can get away without any additional configuration. For the most part, tests
+use an authenticated client, using a token stored in <code>ENV[&#39;OCTOKIT_TEST_GITHUB_TOKEN&#39;]</code>.
+There are several different authenticating method&#39;s used accross the api.
+Here is the full list of configurable environmental variables for testing
+Octokit:</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">ENV Variable</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_LOGIN</code></td>
+<td style="text-align: left">GitHub login name (preferably one created specifically for testing against).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_PASSWORD</code></td>
+<td style="text-align: left">Password for the test GitHub login.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_TOKEN</code></td>
+<td style="text-align: left"><a href="https://github.com/blog/1509-personal-api-tokens">Personal Access Token</a> for the test GitHub login.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_CLIENT_ID</code></td>
+<td style="text-align: left">Test OAuth application client id.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_CLIENT_SECRET</code></td>
+<td style="text-align: left">Test OAuth application client secret.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_REPOSITORY</code></td>
+<td style="text-align: left">Test repository to perform destructive actions against, this should not be set to any repository of importance. <strong>Automatically created by the test suite if nonexistent</strong> Default: <code>api-sandbox</code></td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_ORGANIZATION</code></td>
+<td style="text-align: left">Test organization.</td>
+</tr>
+</tbody></table>
 
 <p>Since we periodically refresh our cassettes, please keep some points in mind
 when writing new specs.</p>
@@ -519,7 +573,7 @@ implementations:</p>
 <p>If something doesn&#39;t work on one of these Ruby versions, it&#39;s a bug.</p>
 
 <p>This library may inadvertently work (or seem to work) on other Ruby
-implementations, however support will only be provided for the versions listed
+implementations, but support will only be provided for the versions listed
 above.</p>
 
 <p>If you would like this library to support another Ruby version, you may
@@ -540,7 +594,7 @@ introduced with new major versions. As a result of this policy, you can (and
 should) specify a dependency on this gem using the <a href="http://docs.rubygems.org/read/chapter/16#page74">Pessimistic Version
 Constraint</a> with two digits of precision. For example:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_spec'>spec</span><span class='period'>.</span><span class='id identifier rubyid_add_dependency'>add_dependency</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>~&gt; 2.0</span><span class='tstring_end'>&#39;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_spec'>spec</span><span class='period'>.</span><span class='id identifier rubyid_add_dependency'>add_dependency</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>~&gt; 3.0</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
 <h2>License</h2>
@@ -568,9 +622,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Thu Mar 27 14:52:55 2014 by
+  Generated on Sat May 10 23:01:01 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.0.0).
+  0.8.7.4 (ruby-2.1.0).
 </div>
 
   </body>

@@ -101,7 +101,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api">http://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api</a></li>
+      <li><a href="https://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api">https://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api</a></li>
     
   </ul>
 
@@ -169,6 +169,52 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#authorize_url-instance_method" title="#authorize_url (instance method)">- (String) <strong>authorize_url</strong>(app_id = client_id, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Get the URL to authorize a user for an application via the web flow.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#check_application_authorization-instance_method" title="#check_application_authorization (instance method)">- (Sawyer::Resource) <strong>check_application_authorization</strong>(token, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Check if a token is valid.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#create_authorization-instance_method" title="#create_authorization (instance method)">- (Sawyer::Resource) <strong>create_authorization</strong>(options = {}) </a>
     
 
@@ -207,6 +253,77 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Delete an authorization for the authenticated user.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reset_application_authorization-instance_method" title="#reset_application_authorization (instance method)">- (Sawyer::Resource) <strong>reset_application_authorization</strong>(token, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Reset a token.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#revoke_all_application_authorizations-instance_method" title="#revoke_all_application_authorizations (instance method)">- (Boolean) <strong>revoke_all_application_authorizations</strong>(options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Revoke all tokens for an app.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#revoke_application_authorization-instance_method" title="#revoke_application_authorization (instance method)">- (Boolean) <strong>revoke_application_authorization</strong>(token, options = {}) </a>
+    
+
+    
+      (also: #delete_application_authorization)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Revoke a token.</p>
 </div></span>
   
 </li>
@@ -321,7 +438,7 @@ Basic Authentication.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization">http://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization</a></li>
+      <li><a href="https://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization">https://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization</a></li>
     
   </ul>
 
@@ -401,7 +518,7 @@ Basic Authentication.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth_authorizations/#list-your-authorizations" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#list-your-authorizations">http://developer.github.com/v3/oauth_authorizations/#list-your-authorizations</a></li>
+      <li><a href="https://developer.github.com/v3/oauth_authorizations/#list-your-authorizations" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#list-your-authorizations">https://developer.github.com/v3/oauth_authorizations/#list-your-authorizations</a></li>
     
   </ul>
 
@@ -420,6 +537,291 @@ Basic Authentication.</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_authorizations'>authorizations</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>authorizations</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="authorize_url-instance_method">
+  
+    - (<tt>String</tt>) <strong>authorize_url</strong>(app_id = client_id, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Get the URL to authorize a user for an application via the web flow</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_authorize_url'>authorize_url</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>xxxx</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>app_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>client_id</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Client Id we received when our application was registered with GitHub.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:redirect_uri</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The url to redirect to after authorizing.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:scope</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The scopes to request from the user.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:state</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>A random string to protect against CSRF.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The url to redirect the user to authorize.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="../Client.html" title="Octokit::Client (class)">Octokit::Client</a></span></li>
+    
+      <li><a href="https://developer.github.com/v3/oauth/#web-application-flow" target="_parent" title="https://developer.github.com/v3/oauth/#web-application-flow">https://developer.github.com/v3/oauth/#web-application-flow</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 232</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_authorize_url'>authorize_url</span><span class='lparen'>(</span><span class='id identifier rubyid_app_id'>app_id</span> <span class='op'>=</span> <span class='id identifier rubyid_client_id'>client_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_app_id'>app_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>ApplicationCredentialsRequired</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>client_id required</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_authorize_url'>authorize_url</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:endpoint</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span>
+  <span class='id identifier rubyid_authorize_url'>authorize_url</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>login/oauth/authorize?client_id=</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_app_id'>app_id</span>
+
+  <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='id identifier rubyid_authorize_url'>authorize_url</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_authorize_url'>authorize_url</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="check_application_authorization-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>check_application_authorization</strong>(token, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Check if a token is valid.</p>
+
+<p>Applications can check if a token is valid without rate limits.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:client_id</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>abcdefg12345</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:client_secret</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>secret</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_check_application_authorization'>check_application_authorization</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>deadbeef1234567890deadbeef987654321</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>token</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>40 character GitHub OAuth access token</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A single authorization for the authenticated user</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/oauth_authorizations/#check-an-authorization" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#check-an-authorization">https://developer.github.com/v3/oauth_authorizations/#check-an-authorization</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+140
+141
+142
+143
+144
+145
+146
+147
+148</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 140</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_check_application_authorization'>check_application_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_token'>token</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+  <span class='id identifier rubyid_key'>key</span>    <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:client_id</span><span class='rparen'>)</span>     <span class='op'>||</span> <span class='id identifier rubyid_client_id'>client_id</span>
+  <span class='id identifier rubyid_secret'>secret</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:client_secret</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_client_secret'>client_secret</span>
+
+  <span class='id identifier rubyid_as_app'>as_app</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_secret'>secret</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_client'>app_client</span><span class='op'>|</span>
+    <span class='id identifier rubyid_app_client'>app_client</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/applications/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_client_id'>client_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/tokens/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_token'>token</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -589,11 +991,11 @@ Basic Authentication.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth/#scopes" target="_parent" title="Available scopes">Available scopes</a></li>
+      <li><a href="https://developer.github.com/v3/oauth/#scopes" target="_parent" title="Available scopes">Available scopes</a></li>
     
-      <li><a href="http://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">http://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization</a></li>
+      <li><a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization</a></li>
     
-      <li><a href="http://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app">http://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app</a></li>
+      <li><a href="https://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app">https://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app</a></li>
     
   </ul>
 
@@ -711,7 +1113,7 @@ Basic Authentication.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth_authorizations/#delete-an-authorization" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#delete-an-authorization">http://developer.github.com/v3/oauth_authorizations/#delete-an-authorization</a></li>
+      <li><a href="https://developer.github.com/v3/oauth_authorizations/#delete-an-authorization" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#delete-an-authorization">https://developer.github.com/v3/oauth_authorizations/#delete-an-authorization</a></li>
     
   </ul>
 
@@ -730,6 +1132,325 @@ Basic Authentication.</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_authorization'>delete_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>authorizations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reset_application_authorization-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>reset_application_authorization</strong>(token, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Reset a token</p>
+
+<p>Applications can reset a token without requiring a user to re-authorize.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:client_id</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>abcdefg12345</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:client_secret</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>secret</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_reset_application_authorization'>reset_application_authorization</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>deadbeef1234567890deadbeef987654321</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>token</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>40 character GitHub OAuth access token</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A single authorization for the authenticated user</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/oauth_authorizations/#reset-an-authorization" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#reset-an-authorization">https://developer.github.com/v3/oauth_authorizations/#reset-an-authorization</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+161
+162
+163
+164
+165
+166
+167
+168
+169</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 161</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reset_application_authorization'>reset_application_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_token'>token</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+  <span class='id identifier rubyid_key'>key</span>    <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:client_id</span><span class='rparen'>)</span>     <span class='op'>||</span> <span class='id identifier rubyid_client_id'>client_id</span>
+  <span class='id identifier rubyid_secret'>secret</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:client_secret</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_client_secret'>client_secret</span>
+
+  <span class='id identifier rubyid_as_app'>as_app</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_secret'>secret</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_client'>app_client</span><span class='op'>|</span>
+    <span class='id identifier rubyid_app_client'>app_client</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/applications/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_client_id'>client_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/tokens/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_token'>token</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="revoke_all_application_authorizations-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>revoke_all_application_authorizations</strong>(options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Revoke all tokens for an app</p>
+
+<p>Applications can revoke all of their tokens in a single request</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:client_id</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>abcdefg12345</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:client_secret</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>secret</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_revoke_all_application_authorizations'>revoke_all_application_authorizations</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Result</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/oauth_authorizations/#revoke-all-authorizations-for-an-application" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#revoke-all-authorizations-for-an-application">https://developer.github.com/v3/oauth_authorizations/#revoke-all-authorizations-for-an-application</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 206</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_revoke_all_application_authorizations'>revoke_all_application_authorizations</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+  <span class='id identifier rubyid_key'>key</span>    <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:client_id</span><span class='rparen'>)</span>     <span class='op'>||</span> <span class='id identifier rubyid_client_id'>client_id</span>
+  <span class='id identifier rubyid_secret'>secret</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:client_secret</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_client_secret'>client_secret</span>
+
+  <span class='id identifier rubyid_as_app'>as_app</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_secret'>secret</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_client'>app_client</span><span class='op'>|</span>
+    <span class='id identifier rubyid_app_client'>app_client</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/applications/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_client_id'>client_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/tokens</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+
+    <span class='id identifier rubyid_app_client'>app_client</span><span class='period'>.</span><span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>==</span> <span class='int'>204</span>
+  <span class='kw'>end</span>
+<span class='kw'>rescue</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>NotFound</span>
+  <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="revoke_application_authorization-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>revoke_application_authorization</strong>(token, options = {}) 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='delete_application_authorization-instance_method'>delete_application_authorization</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Revoke a token</p>
+
+<p>Applications can revoke (delete) a token</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:client_id</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>abcdefg12345</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:client_secret</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>secret</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_revoke_application_authorization'>revoke_application_authorization</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>deadbeef1234567890deadbeef987654321</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>token</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>40 character GitHub OAuth access token</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Result</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/oauth_authorizations/#revoke-an-authorization-for-an-application" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#revoke-an-authorization-for-an-application">https://developer.github.com/v3/oauth_authorizations/#revoke-an-authorization-for-an-application</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 182</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_revoke_application_authorization'>revoke_application_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_token'>token</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+  <span class='id identifier rubyid_key'>key</span>    <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:client_id</span><span class='rparen'>)</span>     <span class='op'>||</span> <span class='id identifier rubyid_client_id'>client_id</span>
+  <span class='id identifier rubyid_secret'>secret</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:client_secret</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_client_secret'>client_secret</span>
+
+  <span class='id identifier rubyid_as_app'>as_app</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_secret'>secret</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_client'>app_client</span><span class='op'>|</span>
+    <span class='id identifier rubyid_app_client'>app_client</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/applications/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_client_id'>client_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/tokens/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_token'>token</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+
+    <span class='id identifier rubyid_app_client'>app_client</span><span class='period'>.</span><span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>==</span> <span class='int'>204</span>
+  <span class='kw'>end</span>
+<span class='kw'>rescue</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>NotFound</span>
+  <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -809,7 +1530,7 @@ Basic Authentication.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth/#scopes" target="_parent" title="http://developer.github.com/v3/oauth/#scopes">http://developer.github.com/v3/oauth/#scopes</a></li>
+      <li><a href="https://developer.github.com/v3/oauth/#scopes" target="_parent" title="https://developer.github.com/v3/oauth/#scopes">https://developer.github.com/v3/oauth/#scopes</a></li>
     
   </ul>
 
@@ -994,9 +1715,9 @@ Basic Authentication.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="http://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization" target="_parent" title="http://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization">http://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization</a></li>
+      <li><a href="https://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization">https://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization</a></li>
     
-      <li><a href="http://developer.github.com/v3/oauth/#scopes" target="_parent" title="for available scopes">for available scopes</a></li>
+      <li><a href="https://developer.github.com/v3/oauth/#scopes" target="_parent" title="for available scopes">for available scopes</a></li>
     
   </ul>
 
@@ -1026,9 +1747,9 @@ Basic Authentication.</p>
 </div>
 
     <div id="footer">
-  Generated on Thu Mar 27 14:53:02 2014 by
+  Generated on Sat May 10 23:01:11 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.0.0).
+  0.8.7.4 (ruby-2.1.0).
 </div>
 
   </body>
