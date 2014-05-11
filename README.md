@@ -479,7 +479,7 @@ Here is the full list of configurable environmental variables for testing
 Octokit:
 
 ENV Variable | Description |
--------------------|-----------------|
+:-------------------|:-----------------|
 `OCTOKIT_TEST_GITHUB_LOGIN`| GitHub login name (preferably one created specifically for testing against).
 `OCTOKIT_TEST_GITHUB_PASSWORD`| Password for the test GitHub login.
 `OCTOKIT_TEST_GITHUB_TOKEN` | [Personal Access Token](https://github.com/blog/1509-personal-api-tokens) for the test GitHub login.
