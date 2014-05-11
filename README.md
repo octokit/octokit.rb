@@ -111,7 +111,7 @@ user = client.user
 user.login
 # => "defunkt"
 ```
-While Basic Authentication makes it easy to get started quickly, OAuth access
+While Basic Authentication allows you to get started quickly, OAuth access
 tokens are the preferred way to authenticate on behalf of users.
 
 ### OAuth access tokens
@@ -119,14 +119,14 @@ tokens are the preferred way to authenticate on behalf of users.
 [OAuth access tokens][oauth] provide two main benefits over using your username
 and password:
 
-* **Revokable access**. Access tokens can be revoked, removing access for just
+* **Revokable access**. Access tokens can be revoked, removing access for only
   that token without having to change your password everywhere.
 * **Limited access**. Access tokens have [access scopes][] which allow for more
   granular access to API resources. For instance, you can grant a third party
   access to your gists but not your private repositories.
 
-To use an access token with the Octokit client, just pass it in lieu of your
-username and password:
+To use an access token with the Octokit client, pass your token in the
+`:access_token` options parameter in lieu of your username and password:
 
 ```ruby
 client = Octokit::Client.new(:access_token => "<your 40 char token>")
@@ -217,8 +217,6 @@ client = Octokit::Client.new \
 
 user = client.user 'defunkt'
 ```
-
-
 
 [auth]: http://developer.github.com/v3/#authentication
 [oauth]: http://developer.github.com/v3/oauth/
@@ -388,8 +386,9 @@ extended via middleware.
 
 ### Debugging
 
-Often, it helps to know what Octokit is doing under the hood. Faraday makes it
-easy to peek into the underlying HTTP traffic:
+Often, it helps to know what Octokit is doing under the hood. You can add a
+logger to the middleware that enables you to peek into the underlying HTTP
+traffic:
 
 ```ruby
 stack = Faraday::RackBuilder.new do |builder|
@@ -450,7 +449,7 @@ resource. See the [project README][cache] for advanced usage.
 ## Hacking on Octokit.rb
 
 If you want to hack on Octokit locally, we try to make [bootstrapping the
-project][bootstrapping] as painless as possible. Just clone and run:
+project][bootstrapping] as painless as possible. To start hacking, clone and run:
 
     script/bootstrap
 
@@ -518,7 +517,7 @@ implementations:
 If something doesn't work on one of these Ruby versions, it's a bug.
 
 This library may inadvertently work (or seem to work) on other Ruby
-implementations, however support will only be provided for the versions listed
+implementations, but support will only be provided for the versions listed
 above.
 
 If you would like this library to support another Ruby version, you may
