@@ -86,6 +86,10 @@ describe Octokit::Client do
       end
 
       describe "with .netrc" do
+        before do
+          File.chmod(0600, File.join(fixture_path, '.netrc'))
+        end
+        
         it "can read .netrc files" do
           Octokit.reset!
           client = Octokit::Client.new(:netrc => true, :netrc_file => File.join(fixture_path, '.netrc'))
