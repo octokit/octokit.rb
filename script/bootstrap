@@ -3,4 +3,3 @@
 set -e
 
 bundle install --quiet "$@"
-chmod 0600 spec/fixtures/.netrc
