@@ -334,10 +334,10 @@ rel = repo.rels[:issues]
 # => #<Sawyer::Relation: issues: get https://api.github.com/repos/pengwynn/pingwynn/issues{/number}>
 
 # Get a page of issues
-repo.rels[:issues].get.data
+rel.get.data
 
 # Get issue #2
-repo.rels[:issues].get(:uri => {:number => 2}).data
+rel.get(:uri => {:number => 2}).data
 ```
 
 ### The Full Hypermedia Experience™
