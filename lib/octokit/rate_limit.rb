@@ -11,8 +11,8 @@ module Octokit
   # @!attribute [w] resets_in
   #   @return [Fixnum] Number of seconds when rate limit resets
   #
-  # @see http://developer.github.com/v3/#rate-limiting
-  class RateLimit < Struct.new :limit, :remaining, :resets_at, :resets_in
+  # @see https://developer.github.com/v3/#rate-limiting
+  class RateLimit < Struct.new(:limit, :remaining, :resets_at, :resets_in)
 
     # Get rate limit info from HTTP response
     #
@@ -21,9 +21,9 @@ module Octokit
     def self.from_response(response)
       info = new
       if response && !response.headers.nil?
-        info.limit = response.headers['X-RateLimit-Limit'].to_i
-        info.remaining = response.headers['X-RateLimit-Remaining'].to_i
-        info.resets_at = Time.at(response.headers['X-RateLimit-Reset'].to_i)
+        info.limit = (response.headers['X-RateLimit-Limit'] || 1).to_i
+        info.remaining = (response.headers['X-RateLimit-Remaining'] || 1).to_i
+        info.resets_at = Time.at((response.headers['X-RateLimit-Reset'] || Time.now).to_i)
         info.resets_in = (info.resets_at - Time.now).to_i
       end
 

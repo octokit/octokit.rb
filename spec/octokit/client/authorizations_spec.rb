@@ -5,20 +5,28 @@ describe Octokit::Client::Authorizations do
   before do
     Octokit.reset!
     @client = basic_auth_client
+
+    @app_client = Octokit::Client.new \
+      :client_id     => test_github_client_id,
+      :client_secret => test_github_client_secret
+  end
+
+  after do
+    Octokit.reset!
   end
 
   describe ".create_authorization", :vcr do
     context 'without :idempotent => true' do
       it "creates an API authorization" do
         authorization = @client.create_authorization
-        expect(authorization.app.name).to_not be_nil
+        expect(authorization.app.name).not_to be_nil
         assert_requested :post, basic_github_url("/authorizations")
       end
 
       it "creates a new API authorization each time" do
         first_authorization = @client.create_authorization
         second_authorization = @client.create_authorization
-        expect(first_authorization.id).to_not eq second_authorization.id
+        expect(first_authorization.id).not_to eq(second_authorization.id)
       end
 
       it "creates a new authorization with options" do
@@ -67,7 +75,7 @@ describe Octokit::Client::Authorizations do
   describe ".authorization", :vcr do
     it "returns a single authorization" do
       authorization = @client.create_authorization
-      fetched = @client.authorization(authorization['id'])
+      @client.authorization(authorization['id'])
       assert_requested :get, basic_github_url("/authorizations/#{authorization.id}")
     end
   end # .authorization
@@ -76,7 +84,7 @@ describe Octokit::Client::Authorizations do
     it "updates and existing authorization" do
       authorization = @client.create_authorization
       updated = @client.update_authorization(authorization.id, :add_scopes => ['repo:status'])
-      expect(updated.scopes).to include 'repo:status'
+      expect(updated.scopes).to include('repo:status')
       assert_requested :patch, basic_github_url("/authorizations/#{authorization.id}")
     end
   end # .update_authorization
@@ -102,7 +110,7 @@ describe Octokit::Client::Authorizations do
       VCR.use_cassette 'delete_authorization' do
         authorization = @client.create_authorization
         result = @client.delete_authorization(authorization.id)
-        expect(result).to eq true
+        expect(result).to be true
         assert_requested :delete, basic_github_url("/authorizations/#{authorization.id}")
       end
     end
@@ -127,6 +135,75 @@ describe Octokit::Client::Authorizations do
         expect(url).to eq('https://github.com/login/oauth/authorize?client_id=id_here')
       end
     end
+    it "requires client_id and client_secret" do
+      Octokit.reset!
+      expect {
+        Octokit.authorize_url
+      }.to raise_error Octokit::ApplicationCredentialsRequired
+    end
   end # .authorize_url
 
+  describe ".check_application_authorization", :vcr do
+    it "checks an application authorization" do
+      authorization = create_app_token
+
+      token = @app_client.check_application_authorization(authorization.token)
+
+      path = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
+      url = basic_github_url path,
+        :login => test_github_client_id, :password => test_github_client_secret
+      assert_requested :get, url
+      expect(token.user.login).to eq(test_github_login)
+    end
+  end # .check_application_authorization
+
+  describe ".reset_application_authorization", :vcr do
+    it "resets a token" do
+      authorization = create_app_token
+
+      new_authorization = @app_client.reset_application_authorization authorization.token
+
+      expect(new_authorization.rels[:self].href).to eq(authorization.rels[:self].href)
+      expect(new_authorization.token).to_not eq(authorization.token)
+      path = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
+
+      reset_url = basic_github_url path,
+        :login => test_github_client_id, :password => test_github_client_secret
+      assert_requested :post, reset_url
+    end
+  end # .reset_application_authorization
+
+  describe ".revoke_application_authorization", :vcr do
+    it "deletes an application authorization" do
+      authorization = create_app_token
+
+      result = @app_client.revoke_application_authorization authorization.token
+      expect(result).to be
+
+      path = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
+      revoke_url = basic_github_url path,
+        :login => test_github_client_id, :password => test_github_client_secret
+      assert_requested :delete, revoke_url
+    end
+  end # .revoke_application_authorization
+
+  describe ".revoke_all_application_authorizations" do
+    it "deletes all authorizations for an application" do
+      path = "/applications/#{test_github_client_id}/tokens"
+      revoke_url = basic_github_url path,
+        :login => test_github_client_id, :password => test_github_client_secret
+      stub_delete(revoke_url).to_return(:status => 204)
+
+      result = @app_client.revoke_all_application_authorizations
+      expect(result).to be
+      assert_requested :delete, revoke_url
+    end
+  end # .revoke_all_application_authorizations
+
+  def create_app_token
+    @client.create_authorization \
+        :idempotent    => true,
+        :client_id     => test_github_client_id,
+        :client_secret => test_github_client_secret
+  end
 end

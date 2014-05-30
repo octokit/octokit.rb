@@ -5,7 +5,7 @@ gem 'rake'
 
 group :development do
   gem 'awesome_print', :require => 'ap'
-  gem 'guard-rspec', '~> 2.5.1'
+  gem 'guard-rspec'
   gem 'hirb-unicode'
   gem 'pry'
   gem 'redcarpet'
@@ -20,11 +20,15 @@ group :test do
   gem 'mime-types', '< 2.0.0'
   gem 'netrc', '~> 0.7.7'
   gem 'rb-fsevent', '~> 0.9'
-  gem 'rspec', '~> 2.13.0'
+  gem 'rspec', '~> 3.0.0.beta2'
   gem 'simplecov', :require => false
-  gem 'test-queue', '~> 0.1.3'
-  gem 'vcr', '~> 2.4.0'
-  gem 'webmock', '~> 1.9.0'
+  gem 'vcr', '~> 2.4'
+  gem 'webmock', '>= 1.9'
+end
+
+platforms :rbx do
+  gem 'psych'
+  gem 'rubysl', '~> 2.0'
 end
 
 gemspec

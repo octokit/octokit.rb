@@ -99,7 +99,7 @@ describe Octokit::Client::Events do
   describe ".issue_event", :vcr do
     it "lists issue events for a repository" do
       # TODO: Remove and use hypermedia
-      issue_events = @client.issue_event("octokit/octokit.rb", 37786228)
+      @client.issue_event("octokit/octokit.rb", 37786228)
       assert_requested :get, github_url("/repos/octokit/octokit.rb/issues/events/37786228")
     end
   end # .issue_events

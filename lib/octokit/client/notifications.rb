@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Notifications API
     #
-    # @see http://developer.github.com/v3/activity/notifications/
+    # @see https://developer.github.com/v3/activity/notifications/
     module Notifications
 
       # List your notifications
@@ -18,7 +18,7 @@ module Octokit
       #   updated before the given time. The time should be passed in as UTC in
       #   the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. '2012-10-09T23:39:01Z'
       # @return [Array<Sawyer::Resource>] Array of notifications.
-      # @see http://developer.github.com/v3/activity/notifications/#list-your-notifications
+      # @see https://developer.github.com/v3/activity/notifications/#list-your-notifications
       # @example Get users notifications
       #   @client.notifications
       # @example Get all notifications since a certain time.
@@ -40,13 +40,13 @@ module Octokit
       #   updated before the given time. The time should be passed in as UTC in
       #   the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. '2012-10-09T23:39:01Z'
       # @return [Array<Sawyer::Resource>] Array of notifications.
-      # @see http://developer.github.com/v3/activity/notifications/#list-your-notifications-in-a-repository
+      # @see https://developer.github.com/v3/activity/notifications/#list-your-notifications-in-a-repository
       # @example Get your notifications for octokit/octokit.rb
       #   @client.repository_notifications('octokit/octokit.rb')
       # @example Get your notifications for octokit/octokit.rb since a time.
       #   @client.repository_notifications({since: '2012-10-09T23:39:01Z'})
       def repository_notifications(repo, options = {})
-        paginate "repos/#{Repository.new repo}/notifications", options
+        paginate "repos/#{Repository.new(repo)}/notifications", options
       end
       alias :repo_notifications :repository_notifications
 
@@ -61,7 +61,7 @@ module Octokit
       #   will not be updated. The time should be passed in as UTC in the
       #   ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. '2012-10-09T23:39:01Z'
       # @return [Boolean] True if marked as read, false otherwise
-      # @see http://developer.github.com/v3/activity/notifications/#mark-as-read
+      # @see https://developer.github.com/v3/activity/notifications/#mark-as-read
       #
       # @example
       #   @client.mark_notifications_as_read
@@ -83,11 +83,11 @@ module Octokit
       #   will not be updated. The time should be passed in as UTC in the
       #   ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. '2012-10-09T23:39:01Z'
       # @return [Boolean] True if marked as read, false otherwise
-      # @see http://developer.github.com/v3/activity/notifications/#mark-notifications-as-read-in-a-repository
+      # @see https://developer.github.com/v3/activity/notifications/#mark-notifications-as-read-in-a-repository
       # @example
       #   @client.mark_notifications_as_read("octokit/octokit.rb")
       def mark_repository_notifications_as_read(repo, options = {})
-        request :put, "repos/#{Repository.new repo}/notifications", options
+        request :put, "repos/#{Repository.new(repo)}/notifications", options
 
         last_response.status == 205
       end
@@ -97,7 +97,7 @@ module Octokit
       #
       # @param thread_id [Integer] Id of the thread.
       # @return [Array<Sawyer::Resource>] Array of notifications.
-      # @see http://developer.github.com/v3/activity/notifications/#view-a-single-thread
+      # @see https://developer.github.com/v3/activity/notifications/#view-a-single-thread
       #
       # @example
       #   @client.notification_thread(1000)
@@ -113,7 +113,7 @@ module Octokit
       #   threads.
       # @option options [Boolean] :read Inverse of 'unread'.
       # @return [Boolean] True if updated, false otherwise.
-      # @see http://developer.github.com/v3/activity/notifications/#mark-a-thread-as-read
+      # @see https://developer.github.com/v3/activity/notifications/#mark-a-thread-as-read
       # @example
       #   @client.mark_thread_as_ready(1, :read => false)
       def mark_thread_as_read(thread_id, options = {})
@@ -126,7 +126,7 @@ module Octokit
       #
       # @param thread_id [Integer] Id of the thread.
       # @return [Sawyer::Resource] Subscription.
-      # @see http://developer.github.com/v3/activity/notifications/#get-a-thread-subscription
+      # @see https://developer.github.com/v3/activity/notifications/#get-a-thread-subscription
       # @example
       #   @client.thread_subscription(1)
       def thread_subscription(thread_id, options = {})
@@ -147,7 +147,7 @@ module Octokit
       # @option options [Boolean] :ignored Deterimines if all notifications
       #   should be blocked from this repository.
       # @return [Sawyer::Resource] Updated subscription.
-      # @see http://developer.github.com/v3/activity/notifications/#set-a-thread-subscription
+      # @see https://developer.github.com/v3/activity/notifications/#set-a-thread-subscription
       # @example Subscribe to notifications
       #   @client.update_thread_subscription(1, :subscribed => true)
       # @example Ignore notifications from a repo
@@ -160,7 +160,7 @@ module Octokit
       #
       # @param thread_id [Integer] Id of the thread.
       # @return [Boolean] True if delete successful, false otherwise.
-      # @see http://developer.github.com/v3/activity/notifications/#delete-a-thread-subscription
+      # @see https://developer.github.com/v3/activity/notifications/#delete-a-thread-subscription
       # @example
       #   @client.delete_thread_subscription(1)
       def delete_thread_subscription(thread_id, options = {})

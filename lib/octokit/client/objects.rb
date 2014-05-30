@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Git Data API
     #
-    # @see http://developer.github.com/v3/git/
+    # @see https://developer.github.com/v3/git/
     module Objects
 
       # Get a single tree, fetching information about its root-level objects
@@ -13,8 +13,8 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param tree_sha [String] The SHA of the tree to fetch
       # @return [Sawyer::Resource] A hash representing the fetched tree
-      # @see http://developer.github.com/v3/git/trees/#get-a-tree
-      # @see http://developer.github.com/v3/git/trees/#get-a-tree-recursively
+      # @see https://developer.github.com/v3/git/trees/#get-a-tree
+      # @see https://developer.github.com/v3/git/trees/#get-a-tree-recursively
       # @example Fetch a tree and inspect the path of one of its files
       #   tree = Octokit.tree("octocat/Hello-World", "9fb037999f264ba9a7fc6274d15fa3ae2ab98312")
       #   tree.tree.first.path # => "file.rb"
@@ -32,7 +32,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param tree [Array] An array of hashes representing a tree structure
       # @return [Sawyer::Resource] A hash representing the new tree
-      # @see http://developer.github.com/v3/git/trees/#create-a-tree
+      # @see https://developer.github.com/v3/git/trees/#create-a-tree
       # @example Create a tree containing one file
       #   tree = Octokit.create_tree("octocat/Hello-World", [ { :path => "file.rb", :mode => "100644", :type => "blob", :sha => "44b4fc6d56897b048c772eb4087f854f46256132" } ])
       #   tree.sha # => "cd8274d15fa3ae2ab983129fb037999f264ba9a7"
@@ -47,7 +47,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param blob_sha [String] The SHA of the blob to fetch
       # @return [Sawyer::Resource] A hash representing the fetched blob
-      # @see http://developer.github.com/v3/git/blobs/#get-a-blob
+      # @see https://developer.github.com/v3/git/blobs/#get-a-blob
       # @example Fetch a blob and inspect its contents
       #   blob = Octokit.blob("octocat/Hello-World", "827efc6d56897b048c772eb4087f854f46256132")
       #   blob.encoding # => "utf-8"
@@ -68,7 +68,7 @@ module Octokit
       # @param content [String] Content of the blob
       # @param encoding [String] The content's encoding. <tt>utf-8</tt> and <tt>base64</tt> are accepted. If your data cannot be losslessly sent as a UTF-8 string, you can base64 encode it
       # @return [String] The new blob's SHA, e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
-      # @see http://developer.github.com/v3/git/blobs/#create-a-blob
+      # @see https://developer.github.com/v3/git/blobs/#create-a-blob
       # @example Create a blob containing <tt>foo bar baz</tt>
       #   Octokit.create_blob("octocat/Hello-World", "foo bar baz")
       # @example Create a blob containing <tt>foo bar baz</tt>, encoded using base64
@@ -89,11 +89,11 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @param tag_sha [String] The SHA of the tag to fetch.
       # @return [Sawyer::Resource] Hash representing the tag.
-      # @see http://developer.github.com/v3/git/tags/#get-a-tag
+      # @see https://developer.github.com/v3/git/tags/#get-a-tag
       # @example Fetch a tag
       #   Octokit.tag('octokit/octokit.rb', '23aad20633f4d2981b1c7209a800db3014774e96')
       def tag(repo, tag_sha, options = {})
-        get "repos/#{Repository.new repo}/git/tags/#{tag_sha}", options
+        get "repos/#{Repository.new(repo)}/git/tags/#{tag_sha}", options
       end
 
       # Create a tag
@@ -110,7 +110,7 @@ module Octokit
       # @param tagger_email [String] Email of the author of the tag.
       # @param tagger_date [string] Timestamp of when this object was tagged.
       # @return [Sawyer::Resource] Hash representing new tag.
-      # @see http://developer.github.com/v3/git/tags/#create-a-tag-object
+      # @see https://developer.github.com/v3/git/tags/#create-a-tag-object
       # @example
       #   @client.create_tag(
       #     "octokit/octokit.rb",
@@ -134,7 +134,7 @@ module Octokit
             :date => tagger_date
           }
         )
-        post "repos/#{Repository.new repo}/git/tags", options
+        post "repos/#{Repository.new(repo)}/git/tags", options
       end
     end
   end

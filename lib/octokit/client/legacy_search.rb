@@ -3,12 +3,12 @@ module Octokit
 
     # Methods for the Legacy Search API
     #
-    # @see http://developer.github.com/v3/search/
+    # @see https://developer.github.com/v3/search/
     module LegacySearch
 
       # Legacy repository search
       #
-      # @see http://developer.github.com/v3/search/#search-repositories
+      # @see https://developer.github.com/v3/search/#search-repositories
       # @param q [String] Search keyword
       # @return [Array<Sawyer::Resource>] List of repositories found
       def legacy_search_repositories(q, options = {})
@@ -31,7 +31,7 @@ module Octokit
       #
       # @param search [String] User to search for.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see http://developer.github.com/v3/search/#search-users
+      # @see https://developer.github.com/v3/search/#search-users
       # @example
       #   Octokit.search_users('pengwynn')
       def legacy_search_users(search, options = {})

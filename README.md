@@ -33,7 +33,7 @@ Install via Rubygems
 
 ... or add to your Gemfile
 
-    gem "octokit", "~> 2.0"
+    gem "octokit", "~> 3.0"
 
 ### Making requests
 
@@ -54,7 +54,7 @@ or
 
 ```ruby
 # Provide authentication credentials
-client = Octokit::Client.new :login => 'defunkt', :password => 'c0d3b4ssssss!'
+client = Octokit::Client.new(:login => 'defunkt', :password => 'c0d3b4ssssss!')
 # Fetch the current user
 client.user
 ```
@@ -111,7 +111,7 @@ user = client.user
 user.login
 # => "defunkt"
 ```
-While Basic Authentication makes it easy to get started quickly, OAuth access
+While Basic Authentication allows you to get started quickly, OAuth access
 tokens are the preferred way to authenticate on behalf of users.
 
 ### OAuth access tokens
@@ -119,29 +119,38 @@ tokens are the preferred way to authenticate on behalf of users.
 [OAuth access tokens][oauth] provide two main benefits over using your username
 and password:
 
-* **Revokable access**. Access tokens can be revoked, removing access for just
+* **Revokable access**. Access tokens can be revoked, removing access for only
   that token without having to change your password everywhere.
 * **Limited access**. Access tokens have [access scopes][] which allow for more
   granular access to API resources. For instance, you can grant a third party
   access to your gists but not your private repositories.
 
-To use an access token with the Octokit client, just pass it in lieu of your
-username and password:
+To use an access token with the Octokit client, pass your token in the
+`:access_token` options parameter in lieu of your username and password:
 
 ```ruby
-client = Octokit::Client.new :access_token => "<your 40 char token>"
+client = Octokit::Client.new(:access_token => "<your 40 char token>")
 
 user = client.user
 user.login
 # => "defunkt"
 ```
 
-You can use `.create_authorization` to create a token using Basic Authorization
-that you can use for subsequent calls.
+You can [create access tokens through your GitHub Account Settings](https://help.github.com/articles/creating-an-access-token-for-command-line-use)
+or with a basic authenticated Octokit client:
+
+```ruby
+client = Octokit::Client.new \
+  :login    => 'defunkt',
+  :password => 'c0d3b4ssssss!'
+
+client.create_authorization(:scopes => ["user"], :note => "Name of token")
+# => <your new oauth token>
+```
 
 ### Two-Factor Authentication
 
-[Two-Factor Authentication](https://help.github.com/articles/about-two-factor-authentication) brings added security to the account by requiring more information to login. 
+[Two-Factor Authentication](https://help.github.com/articles/about-two-factor-authentication) brings added security to the account by requiring more information to login.
 
 Using two-factor authentication for API calls is as simple as adding the [required header](http://developer.github.com/v3/auth/#working-with-two-factor-authentication) as an option:
 
@@ -160,7 +169,8 @@ client = Octokit::Client.new \
   :login    => 'defunkt',
   :password => 'c0d3b4ssssss!'
 
-client.create_authorization(:scopes => ["user"], :headers => { "X-GitHub-OTP" => "<your 2FA token>" })
+client.create_authorization(:scopes => ["user"], :note => "Name of token",
+                            :headers => { "X-GitHub-OTP" => "<your 2FA token>" })
 # => <your new oauth token>
 ```
 
@@ -177,7 +187,7 @@ machine api.github.com
 You can now create a client with those credentials:
 
 ```ruby
-client = Octokit::Client.new :netrc => true
+client = Octokit::Client.new(:netrc => true)
 client.login
 # => "defunkt"
 ```
@@ -207,8 +217,6 @@ client = Octokit::Client.new \
 
 user = client.user 'defunkt'
 ```
-
-
 
 [auth]: http://developer.github.com/v3/#authentication
 [oauth]: http://developer.github.com/v3/oauth/
@@ -284,6 +292,10 @@ Octokit.api_endpoint
 
 # => "http://api.github.dev"
 ```
+
+Deprecation warnings and API endpoints in development preview warnings are
+printed to STDOUT by default, these can be disabled by setting the ENV
+`OCTOKIT_SILENT=true`.
 
 ## Hypermedia agent
 
@@ -374,11 +386,12 @@ extended via middleware.
 
 ### Debugging
 
-Often, it helps to know what Octokit is doing under the hood. Faraday makes it
-easy to peek into the underlying HTTP traffic:
+Often, it helps to know what Octokit is doing under the hood. You can add a
+logger to the middleware that enables you to peek into the underlying HTTP
+traffic:
 
 ```ruby
-stack = Faraday::Builder.new do |builder|
+stack = Faraday::RackBuilder.new do |builder|
   builder.response :logger
   builder.use Octokit::Response::RaiseError
   builder.adapter Faraday.default_adapter
@@ -417,7 +430,7 @@ Add the gem to your Gemfile
 Next, construct your own Faraday middleware:
 
 ```ruby
-stack = Faraday::Builder.new do |builder|
+stack = Faraday::RackBuilder.new do |builder|
   builder.use Faraday::HttpCache
   builder.use Octokit::Response::RaiseError
   builder.adapter Faraday.default_adapter
@@ -436,7 +449,7 @@ resource. See the [project README][cache] for advanced usage.
 ## Hacking on Octokit.rb
 
 If you want to hack on Octokit locally, we try to make [bootstrapping the
-project][bootstrapping] as painless as possible. Just clone and run:
+project][bootstrapping] as painless as possible. To start hacking, clone and run:
 
     script/bootstrap
 
@@ -451,12 +464,29 @@ console`, etc.  ensures your dependencies are up-to-date.
 ### Running and writing new tests
 
 Octokit uses [VCR][] for recording and playing back API fixtures during test
-runs. These fixtures are part of the Git project in the `spec/cassettes`
-folder. For the most part, tests use an authenticated client, using a token
-stored in `ENV['OCTOKIT_TEST_GITHUB_TOKEN']`. If you're not recording new
-cassettes, you don't need to have this set. If you do need to record new
-cassettes, this token can be any GitHub API token because the test suite strips
-the actual token from the cassette output before storing to disk.
+runs. These cassettes (fixtures) are part of the Git project in the `spec/cassettes`
+folder. If you're not recording new cassettes you can run the specs with existing
+cassettes with:
+
+    script/test
+
+Octokit uses environmental variables for storing credentials used in testing.
+If you are testing an API endpoint that doesn't require authentication, you
+can get away without any additional configuration. For the most part, tests
+use an authenticated client, using a token stored in `ENV['OCTOKIT_TEST_GITHUB_TOKEN']`.
+There are several different authenticating method's used accross the api.
+Here is the full list of configurable environmental variables for testing
+Octokit:
+
+ENV Variable | Description |
+:-------------------|:-----------------|
+`OCTOKIT_TEST_GITHUB_LOGIN`| GitHub login name (preferably one created specifically for testing against).
+`OCTOKIT_TEST_GITHUB_PASSWORD`| Password for the test GitHub login.
+`OCTOKIT_TEST_GITHUB_TOKEN` | [Personal Access Token](https://github.com/blog/1509-personal-api-tokens) for the test GitHub login.
+`OCTOKIT_TEST_GITHUB_CLIENT_ID` | Test OAuth application client id.
+`OCTOKIT_TEST_GITHUB_CLIENT_SECRET` | Test OAuth application client secret.
+`OCTOKIT_TEST_GITHUB_REPOSITORY` | Test repository to perform destructive actions against, this should not be set to any repository of importance. **Automatically created by the test suite if nonexistent** Default: `api-sandbox`
+`OCTOKIT_TEST_GITHUB_ORGANIZATION` | Test organization.
 
 Since we periodically refresh our cassettes, please keep some points in mind
 when writing new specs.
@@ -487,7 +517,7 @@ implementations:
 If something doesn't work on one of these Ruby versions, it's a bug.
 
 This library may inadvertently work (or seem to work) on other Ruby
-implementations, however support will only be provided for the versions listed
+implementations, but support will only be provided for the versions listed
 above.
 
 If you would like this library to support another Ruby version, you may
@@ -510,11 +540,31 @@ introduced with new major versions. As a result of this policy, you can (and
 should) specify a dependency on this gem using the [Pessimistic Version
 Constraint][pvc] with two digits of precision. For example:
 
-    spec.add_dependency 'octokit', '~> 2.0'
+    spec.add_dependency 'octokit', '~> 3.0'
 
 [semver]: http://semver.org/
 [pvc]: http://docs.rubygems.org/read/chapter/16#page74
 
 ## License
 
-{include:file:LICENSE.md}
+Copyright (c) 2009-2014 Wynn Netherland, Adam Stacoviak, Erik Michaels-Ober
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+

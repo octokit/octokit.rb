@@ -10,7 +10,7 @@ describe Octokit::Client::Feeds do
     context "when unauthenticated" do
       it "returns the public feeds list" do
         feeds = Octokit.feeds
-        expect(Octokit.user_authenticated?).to be_false
+        expect(Octokit.user_authenticated?).to be false
         expect(feeds.rels[:timeline].href).to be
         expect(feeds.rels[:current_user_public]).to be_nil
       end
@@ -19,19 +19,20 @@ describe Octokit::Client::Feeds do
     context "when authenticated with oauth token" do
       it "returns the authenticated users feeds" do
         feeds = oauth_client.feeds
-        expect(oauth_client.user_authenticated?).to be_true
+        expect(oauth_client.user_authenticated?).to be true
         expect(feeds.rels[:current_user_public].href).to be
       end
     end
 
-    # Warning: if you are creating a new cassette for this method, make sure
-    # to scrub the private feed token as it is not automatically filtered.
     context "when authenticated with basic auth" do
       it "returns private feeds" do
         feeds = basic_auth_client.feeds
-        expect(basic_auth_client.user_authenticated?).to be_true
+        expect(basic_auth_client.user_authenticated?).to be true
         expect(feeds.rels[:current_user].href).to be
         expect(feeds.rels[:current_user_actor].href).to be
+
+        token = feeds.rels[:current_user].href.match(/token\=(\w+)/)
+        use_vcr_placeholder_for(token, '<<ACCESS_TOKEN>>')
       end
     end
   end # .feeds
@@ -39,7 +40,7 @@ describe Octokit::Client::Feeds do
   describe ".feed", :vcr do
     it "returns parsed feed data" do
       feed = Octokit.feed(:timeline)
-      expect(feed.title.content).to eq "GitHub Public Timeline Feed"
+      expect(feed.title.content).to eq("GitHub Public Timeline Feed")
     end
   end # .feed
 

@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Markdown API
     #
-    # @see http://developer.github.com/v3/markdown/
+    # @see https://developer.github.com/v3/markdown/
     module Markdown
 
       # Render an arbitrary Markdown document
@@ -12,7 +12,7 @@ module Octokit
       # @option options [String] (optional) :mode (`markdown` or `gfm`)
       # @option options [String] (optional) :context Repo context
       # @return [String] HTML renderization
-      # @see http://developer.github.com/v3/markdown/#render-an-arbitrary-markdown-document
+      # @see https://developer.github.com/v3/markdown/#render-an-arbitrary-markdown-document
       # @example Render some GFM
       #   Octokit.markdown('Fixed in #111', :mode => "gfm", :context => "octokit/octokit.rb")
       def markdown(text, options = {})

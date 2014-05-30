@@ -3,14 +3,14 @@ module Octokit
 
     # Method for the Events API
     #
-    # @see http://developer.github.com/v3/activity/events/
-    # @see http://developer.github.com/v3/issues/events/
+    # @see https://developer.github.com/v3/activity/events/
+    # @see https://developer.github.com/v3/issues/events/
     module Events
 
       # List all public events for GitHub
       #
       # @return [Array<Sawyer::Resource>] A list of all public events from GitHub
-      # @see http://developer.github.com/v3/activity/events/#list-public-events
+      # @see https://developer.github.com/v3/activity/events/#list-public-events
       # @example List all pubilc events
       #   Octokit.public_events
       def public_events(options = {})
@@ -20,7 +20,7 @@ module Octokit
       # List all user events
       #
       # @return [Array<Sawyer::Resource>] A list of all user events
-      # @see http://developer.github.com/v3/activity/events/#list-events-performed-by-a-user
+      # @see https://developer.github.com/v3/activity/events/#list-events-performed-by-a-user
       # @example List all user events
       #   Octokit.user_events("sferik")
       def user_events(user, options = {})
@@ -31,7 +31,7 @@ module Octokit
       #
       # @param user [String] GitHub username
       # @return [Array<Sawyer::Resource>] A list of public user events
-      # @see http://developer.github.com/v3/activity/events/#list-public-events-performed-by-a-user
+      # @see https://developer.github.com/v3/activity/events/#list-public-events-performed-by-a-user
       # @example List public user events
       #   Octokit.user_events("sferik")
       def user_public_events(user, options = {})
@@ -41,7 +41,7 @@ module Octokit
       # List events that a user has received
       #
       # @return [Array<Sawyer::Resource>] A list of all user received events
-      # @see http://developer.github.com/v3/activity/events/#list-events-that-a-user-has-received
+      # @see https://developer.github.com/v3/activity/events/#list-events-that-a-user-has-received
       # @example List all user received events
       #   Octokit.received_events("sferik")
       def received_events(user, options = {})
@@ -51,7 +51,7 @@ module Octokit
       # List public events a user has received
       #
       # @return [Array<Sawyer::Resource>] A list of public user received events
-      # @see http://developer.github.com/v3/activity/events/#list-public-events-that-a-user-has-received
+      # @see https://developer.github.com/v3/activity/events/#list-public-events-that-a-user-has-received
       # @example List public user received events
       #   Octokit.received_public_events("sferik")
       def received_public_events(user, options = {})
@@ -62,7 +62,7 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of events for a repository
-      # @see http://developer.github.com/v3/activity/events/#list-repository-events
+      # @see https://developer.github.com/v3/activity/events/#list-repository-events
       # @example List events for a repository
       #   Octokit.repository_events("sferik/rails_admin")
       def repository_events(repo, options = {})
@@ -73,11 +73,11 @@ module Octokit
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of events for a repository's network
-      # @see http://developer.github.com/v3/activity/events/#list-public-events-for-a-network-of-repositories
+      # @see https://developer.github.com/v3/activity/events/#list-public-events-for-a-network-of-repositories
       # @example List events for a repository's network
       #   Octokit.repository_network_events("sferik/rails_admin")
       def repository_network_events(repo, options = {})
-        paginate "networks/#{Repository.new repo}/events", options
+        paginate "networks/#{Repository.new(repo)}/events", options
       end
 
       # List all events for an organization
@@ -86,7 +86,7 @@ module Octokit
       #
       # @param org [String] Organization GitHub handle
       # @return [Array<Sawyer::Resource>] List of all events from a GitHub organization
-      # @see http://developer.github.com/v3/activity/events/#list-events-for-an-organization
+      # @see https://developer.github.com/v3/activity/events/#list-events-for-an-organization
       # @example List events for the lostisland organization
       #   @client.organization_events("lostisland")
       def organization_events(org, options = {})
@@ -97,7 +97,7 @@ module Octokit
       #
       # @param org [String] Organization GitHub username
       # @return [Array<Sawyer::Resource>] List of public events from a GitHub organization
-      # @see http://developer.github.com/v3/activity/events/#list-public-events-for-an-organization
+      # @see https://developer.github.com/v3/activity/events/#list-public-events-for-an-organization
       # @example List public events for GitHub
       #   Octokit.organization_public_events("GitHub")
       def organization_public_events(org, options = {})
@@ -109,12 +109,12 @@ module Octokit
       # @param repo [String, Repository, Hash] A GitHub repository
       #
       # @return [Array<Sawyer::Resource>] Array of all Issue Events for this Repository
-      # @see http://developer.github.com/v3/issues/events/#list-events-for-a-repository
-      # @see http://developer.github.com/v3/activity/events/#list-issue-events-for-a-repository
+      # @see https://developer.github.com/v3/issues/events/#list-events-for-a-repository
+      # @see https://developer.github.com/v3/activity/events/#list-issue-events-for-a-repository
       # @example Get all Issue Events for Octokit
       #   Octokit.repository_issue_events("octokit/octokit.rb")
       def repository_issue_events(repo, options = {})
-        paginate "repos/#{Repository.new repo}/issues/events", options
+        paginate "repos/#{Repository.new(repo)}/issues/events", options
       end
       alias :repo_issue_events :repository_issue_events
 
@@ -124,7 +124,7 @@ module Octokit
       # @param number [Integer] Issue number
       #
       # @return [Array<Sawyer::Resource>] Array of events for that issue
-      # @see http://developer.github.com/v3/issues/events/#list-events-for-an-issue
+      # @see https://developer.github.com/v3/issues/events/#list-events-for-an-issue
       # @example List all issues events for issue #38 on octokit/octokit.rb
       #   Octokit.issue_events("octokit/octokit.rb", 38)
       def issue_events(repo, number, options = {})
@@ -137,7 +137,7 @@ module Octokit
       # @param number [Integer] Event number
       #
       # @return [Sawyer::Resource] A single Event for an Issue
-      # @see http://developer.github.com/v3/issues/events/#get-a-single-event
+      # @see https://developer.github.com/v3/issues/events/#get-a-single-event
       # @example Get Event information for ID 3094334 (a pull request was closed)
       #   Octokit.issue_event("octokit/octokit.rb", 3094334)
       def issue_event(repo, number, options = {})

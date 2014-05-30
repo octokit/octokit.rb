@@ -5,7 +5,7 @@ require 'octokit/version'
 
 Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.0'
-  spec.add_dependency 'sawyer', '~> 0.5.2'
+  spec.add_dependency 'sawyer', '~> 0.5.3'
   spec.authors = ["Wynn Netherland", "Erik Michaels-Ober", "Clint Shryock"]
   spec.description = %q{Simple wrapper for the GitHub API}
   spec.email = ['wynn.netherland@gmail.com', 'sferik@gmail.com', 'clint@ctshryock.com']
@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
   spec.licenses = ['MIT']
   spec.name = 'octokit'
   spec.require_paths = ['lib']
+  spec.required_ruby_version = '>= 1.9.2'
   spec.required_rubygems_version = '>= 1.3.5'
   spec.summary = "Ruby toolkit for working with the GitHub API"
   spec.version = Octokit::VERSION.dup

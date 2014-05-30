@@ -4,20 +4,20 @@ module Octokit
   # in {Default}
   module Configurable
     # @!attribute [w] access_token
-    #   @see http://developer.github.com/v3/oauth/
+    #   @see https://developer.github.com/v3/oauth/
     #   @return [String] OAuth2 access token for authentication
     # @!attribute api_endpoint
     #   @return [String] Base URL for API requests. default: https://api.github.com/
     # @!attribute auto_paginate
     #   @return [Boolean] Auto fetch next page of results until rate limit reached
     # @!attribute client_id
-    #   @see http://developer.github.com/v3/oauth/
+    #   @see https://developer.github.com/v3/oauth/
     #   @return [String] Configure OAuth app key
     # @!attribute [w] client_secret
-    #   @see http://developer.github.com/v3/oauth/
+    #   @see https://developer.github.com/v3/oauth/
     #   @return [String] Configure OAuth app secret
     # @!attribute default_media_type
-    #   @see http://developer.github.com/v3/media/
+    #   @see https://developer.github.com/v3/media/
     #   @return [String] Configure preferred media type (for API versioning, for example)
     # @!attribute connection_options
     #   @see https://github.com/lostisland/faraday
@@ -26,7 +26,7 @@ module Octokit
     #   @return [String] GitHub username for Basic Authentication
     # @!attribute middleware
     #   @see https://github.com/lostisland/faraday
-    #   @return [Faraday::Builder] Configure middleware for Faraday
+    #   @return [Faraday::Builder or Faraday::RackBuilder] Configure middleware for Faraday
     # @!attribute netrc
     #   @return [Boolean] Instruct Octokit to get credentials from .netrc file
     # @!attribute netrc_file

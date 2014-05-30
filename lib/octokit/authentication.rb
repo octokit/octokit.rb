@@ -6,7 +6,7 @@ module Octokit
     # Indicates if the client was supplied  Basic Auth
     # username and password
     #
-    # @see http://developer.github.com/v3/#authentication
+    # @see https://developer.github.com/v3/#authentication
     # @return [Boolean]
     def basic_authenticated?
       !!(@login && @password)
@@ -15,7 +15,7 @@ module Octokit
     # Indicates if the client was supplied an OAuth
     # access token
     #
-    # @see http://developer.github.com/v3/#authentication
+    # @see https://developer.github.com/v3/#authentication
     # @return [Boolean]
     def token_authenticated?
       !!@access_token
@@ -24,7 +24,7 @@ module Octokit
     # Indicates if the client was supplied an OAuth
     # access token or Basic Auth username and password
     #
-    # @see http://developer.github.com/v3/#authentication
+    # @see https://developer.github.com/v3/#authentication
     # @return [Boolean]
     def user_authenticated?
       basic_authenticated? || token_authenticated?
@@ -34,7 +34,7 @@ module Octokit
     # client_id and secret credentials to make anonymous
     # requests at a higher rate limit
     #
-    # @see http://developer.github.com/v3/#unauthenticated-rate-limited-requests
+    # @see https://developer.github.com/v3/#unauthenticated-rate-limited-requests
     # @return Boolean
     def application_authenticated?
       !!application_authentication
@@ -60,13 +60,13 @@ module Octokit
       creds = info[netrc_host]
       if creds.nil?
         # creds will be nil if there is no netrc for this end point
-        warn "Error loading credentials from netrc file for #{api_endpoint}"
+        octokit_warn "Error loading credentials from netrc file for #{api_endpoint}"
       else
         self.login = creds.shift
         self.password = creds.shift
       end
     rescue LoadError
-      warn "Please install netrc gem for .netrc support"
+      octokit_warn "Please install netrc gem for .netrc support"
     end
 
   end

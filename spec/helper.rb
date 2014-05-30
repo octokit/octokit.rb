@@ -1,11 +1,13 @@
-require 'simplecov'
-require 'coveralls'
+if RUBY_ENGINE == 'ruby'
+  require 'simplecov'
+  require 'coveralls'
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-  SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter
-]
-SimpleCov.start
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter,
+    Coveralls::SimpleCov::Formatter
+  ]
+  SimpleCov.start
+end
 
 require 'json'
 require 'octokit'
@@ -15,7 +17,11 @@ require 'webmock/rspec'
 WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
 RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.raise_errors_for_deprecations!
+  config.before(:all) do
+    @test_repo = "#{test_github_login}/#{test_github_repository}"
+    @test_org_repo = "#{test_github_org}/#{test_github_repository}"
+  end
 end
 
 require 'vcr'
@@ -34,8 +40,45 @@ VCR.configure do |c|
     test_github_client_id
   end
   c.filter_sensitive_data("<GITHUB_CLIENT_SECRET>") do
-    test_github_client_id
+    test_github_client_secret
   end
+  c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY>") do
+    test_github_repository
+  end
+  c.define_cassette_placeholder("<GITHUB_TEST_ORGANIZATION>") do
+    test_github_org
+  end
+  c.define_cassette_placeholder("<GITHUB_TEST_ORG_TEAM_ID>") do
+    "10050505050000"
+  end
+
+  c.before_http_request(:real?) do |request|
+    next if request.headers['X-Vcr-Test-Repo-Setup']
+    next unless request.uri.include? test_github_repository
+
+    options = {
+      :headers => {'X-Vcr-Test-Repo-Setup' => 'true'},
+      :auto_init => true
+    }
+
+    test_repo = "#{test_github_login}/#{test_github_repository}"
+    if !oauth_client.repository?(test_repo, options)
+      Octokit.octokit_warn "NOTICE: Creating #{test_repo} test repository."
+      oauth_client.create_repository(test_github_repository, options)
+    end
+
+    test_org_repo = "#{test_github_org}/#{test_github_repository}"
+    if !oauth_client.repository?(test_org_repo, options)
+      Octokit.octokit_warn "NOTICE: Creating #{test_org_repo} test repository."
+      options[:organization] = test_github_org
+      oauth_client.create_repository(test_github_repository, options)
+    end
+  end
+
+  c.ignore_request do |request|
+    !!request.headers['X-Vcr-Test-Repo-Setup']
+  end
+
   c.default_cassette_options = {
     :serialize_with             => :json,
     # TODO: Track down UTF-8 issue and remove
@@ -65,6 +108,14 @@ end
 
 def test_github_client_secret
   ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_SECRET', 'x' * 40
+end
+
+def test_github_repository
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_REPOSITORY', 'api-sandbox'
+end
+
+def test_github_org
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ORGANIZATION', 'api-playground'
 end
 
 def stub_delete(url)
@@ -131,3 +182,10 @@ def oauth_client
   Octokit::Client.new(:access_token => test_github_token)
 end
 
+def use_vcr_placeholder_for(text, replacement)
+  VCR.configure do |c|
+    c.define_cassette_placeholder(replacement) do
+      text
+    end
+  end
+end

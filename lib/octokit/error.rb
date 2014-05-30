@@ -41,7 +41,7 @@ module Octokit
     #
     # @return [String]
     def documentation_url
-      data[:documentation_url] if data
+      data[:documentation_url] if data.is_a? Hash
     end
 
     # Returns most appropriate error for 401 HTTP status code
@@ -132,7 +132,7 @@ module Octokit
     end
 
     def redact_url(url_string)
-      %w[client_secret access_token].each do |token| 
+      %w[client_secret access_token].each do |token|
         url_string.gsub!(/#{token}=\S+/, "#{token}=(redacted)") if url_string.include? token
       end
       url_string
@@ -218,4 +218,8 @@ module Octokit
 
   # Raised when client fails to provide valid Content-Type
   class MissingContentType < ArgumentError; end
+
+  # Raised when a method requires an application client_id
+  # and secret but none is provided
+  class ApplicationCredentialsRequired < StandardError; end
 end

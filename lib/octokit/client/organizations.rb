@@ -3,14 +3,14 @@ module Octokit
 
     # Methods for the Organizations API
     #
-    # @see http://developer.github.com/v3/orgs/
+    # @see https://developer.github.com/v3/orgs/
     module Organizations
 
       # Get an organization
       #
       # @param org [String] Organization GitHub username.
       # @return [Sawyer::Resource] Hash representing GitHub organization.
-      # @see http://developer.github.com/v3/orgs/#get-an-organization
+      # @see https://developer.github.com/v3/orgs/#get-an-organization
       # @example
       #   Octokit.organization('github')
       # @example
@@ -32,7 +32,7 @@ module Octokit
       # @option values [String] :location Location of organization.
       # @option values [String] :name GitHub username for organization.
       # @return [Sawyer::Resource] Hash representing GitHub organization.
-      # @see http://developer.github.com/v3/orgs/#edit-an-organization
+      # @see https://developer.github.com/v3/orgs/#edit-an-organization
       # @example
       #   @client.update_organization('github', {
       #     :billing_email => 'support@github.com',
@@ -61,7 +61,7 @@ module Octokit
       #
       # @param user [String] Username of the user to get list of organizations.
       # @return [Array<Sawyer::Resource>] Array of hashes representing organizations.
-      # @see http://developer.github.com/v3/orgs/#list-user-organizations
+      # @see https://developer.github.com/v3/orgs/#list-user-organizations
       # @example
       #   Octokit.organizations('pengwynn')
       # @example
@@ -95,7 +95,7 @@ module Octokit
       #   `all`, `public`, `member`, `sources`, `forks`, or `private`.
       #
       # @return [Array<Sawyer::Resource>] List of repositories
-      # @see http://developer.github.com/v3/repos/#list-organization-repositories
+      # @see https://developer.github.com/v3/repos/#list-organization-repositories
       # @example
       #   Octokit.organization_repositories('github')
       # @example
@@ -118,7 +118,7 @@ module Octokit
       #
       # @param org [String] Organization GitHub username.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see http://developer.github.com/v3/orgs/members/#members-list
+      # @see https://developer.github.com/v3/orgs/members/#members-list
       # @example
       #   Octokit.organization_members('github')
       # @example
@@ -135,7 +135,7 @@ module Octokit
       #
       # @param org [String] Organization GitHub username.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see http://developer.github.com/v3/orgs/members/#public-members-list
+      # @see https://developer.github.com/v3/orgs/members/#public-members-list
       # @example
       #   Octokit.organization_public_members('github')
       # @example
@@ -156,7 +156,7 @@ module Octokit
       #
       # @return [Boolean] Is a member?
       #
-      # @see http://developer.github.com/v3/orgs/members/#check-membership
+      # @see https://developer.github.com/v3/orgs/members/#check-membership
       #
       # @example Check if a user is in your organization
       #   @client.organization_member?('your_organization', 'pengwynn')
@@ -181,7 +181,7 @@ module Octokit
       #
       # @return [Boolean] Is a public member?
       #
-      # @see http://developer.github.com/v3/orgs/members/#check-public-membership
+      # @see https://developer.github.com/v3/orgs/members/#check-public-membership
       #
       # @example Check if a user is a hubbernaut
       #   @client.organization_public_member?('github', 'pengwynn')
@@ -197,13 +197,13 @@ module Octokit
       #
       # @param org [String] Organization GitHub username.
       # @return [Array<Sawyer::Resource>] Array of hashes representing teams.
-      # @see http://developer.github.com/v3/orgs/teams/#list-teams
+      # @see https://developer.github.com/v3/orgs/teams/#list-teams
       # @example
       #   @client.organization_teams('github')
       # @example
       #   @client.org_teams('github')
       def organization_teams(org, options = {})
-        get "orgs/#{org}/teams", options
+        paginate "orgs/#{org}/teams", options
       end
       alias :org_teams :organization_teams
 
@@ -221,11 +221,11 @@ module Octokit
       #   `push` - team members can pull and push, but not administer these repositories.
       #   `admin` - team members can pull, push and administer these repositories.
       # @return [Sawyer::Resource] Hash representing new team.
-      # @see http://developer.github.com/v3/orgs/teams/#create-team
+      # @see https://developer.github.com/v3/orgs/teams/#create-team
       # @example
       #   @client.create_team('github', {
       #     :name => 'Designers',
-      #     :repo_names => ['dotcom', 'developer.github.com'],
+      #     :repo_names => ['github/dotfiles'],
       #     :permission => 'push'
       #   })
       def create_team(org, options = {})
@@ -238,7 +238,7 @@ module Octokit
       #
       # @param team_id [Integer] Team id.
       # @return [Sawyer::Resource] Hash representing team.
-      # @see http://developer.github.com/v3/orgs/teams/#get-team
+      # @see https://developer.github.com/v3/orgs/teams/#get-team
       # @example
       #   @client.team(100000)
       def team(team_id, options = {})
@@ -257,7 +257,7 @@ module Octokit
       #   `push` - team members can pull and push, but not administer these repositories.
       #   `admin` - team members can pull, push and administer these repositories.
       # @return [Sawyer::Resource] Hash representing updated team.
-      # @see http://developer.github.com/v3/orgs/teams/#edit-team
+      # @see https://developer.github.com/v3/orgs/teams/#edit-team
       # @example
       #   @client.update_team(100000, {
       #     :name => 'Front-end Designers',
@@ -273,7 +273,7 @@ module Octokit
       #
       # @param team_id [Integer] Team id.
       # @return [Boolean] True if deletion successful, false otherwise.
-      # @see http://developer.github.com/v3/orgs/teams/#delete-team
+      # @see https://developer.github.com/v3/orgs/teams/#delete-team
       # @example
       #   @client.delete_team(100000)
       def delete_team(team_id, options = {})
@@ -286,11 +286,11 @@ module Octokit
       #
       # @param team_id [Integer] Team id.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see http://developer.github.com/v3/orgs/teams/#list-team-members
+      # @see https://developer.github.com/v3/orgs/teams/#list-team-members
       # @example
       #   @client.team_members(100000)
       def team_members(team_id, options = {})
-        get "teams/#{team_id}/members", options
+        paginate "teams/#{team_id}/members", options
       end
 
       # Add team member
@@ -301,7 +301,7 @@ module Octokit
       # @param team_id [Integer] Team id.
       # @param user [String] GitHub username of new team member.
       # @return [Boolean] True on successful addition, false otherwise.
-      # @see http://developer.github.com/v3/orgs/teams/#add-team-member
+      # @see https://developer.github.com/v3/orgs/teams/#add-team-member
       # @example
       #   @client.add_team_member(100000, 'pengwynn')
       def add_team_member(team_id, user, options = {})
@@ -319,7 +319,7 @@ module Octokit
       # @param team_id [Integer] Team id.
       # @param user [String] GitHub username of the user to boot.
       # @return [Boolean] True if user removed, false otherwise.
-      # @see http://developer.github.com/v3/orgs/teams/#remove-team-member
+      # @see https://developer.github.com/v3/orgs/teams/#remove-team-member
       # @example
       #   @client.remove_team_member(100000, 'pengwynn')
       def remove_team_member(team_id, user, options = {})
@@ -336,7 +336,7 @@ module Octokit
       #
       # @return [Boolean] Is a member?
       #
-      # @see http://developer.github.com/v3/orgs/teams/#get-team-member
+      # @see https://developer.github.com/v3/orgs/teams/#get-team-member
       #
       # @example Check if a user is in your team
       #   @client.team_member?('your_team', 'pengwynn')
@@ -351,13 +351,13 @@ module Octokit
       #
       # @param team_id [Integer] Team id.
       # @return [Array<Sawyer::Resource>] Array of hashes representing repositories.
-      # @see http://developer.github.com/v3/orgs/teams/#list-team-repos
+      # @see https://developer.github.com/v3/orgs/teams/#list-team-repos
       # @example
       #   @client.team_repositories(100000)
       # @example
       #   @client.team_repos(100000)
       def team_repositories(team_id, options = {})
-        get "teams/#{team_id}/repos", options
+        paginate "teams/#{team_id}/repos", options
       end
       alias :team_repos :team_repositories
 
@@ -368,13 +368,13 @@ module Octokit
       # @return [Boolean] True if managed by a team. False if not managed by
       #   the team OR the requesting user does not have authorization to access
       #   the team information.
-      # @see http://developer.github.com/v3/orgs/teams/#get-team-repo
+      # @see https://developer.github.com/v3/orgs/teams/#get-team-repo
       # @example
       #   @client.team_repository?(8675309, 'octokit/octokit.rb')
       # @example
       #   @client.team_repo?(8675309, 'octokit/octokit.rb')
       def team_repository?(team_id, repo, options = {})
-        boolean_from_response :get, "teams/#{team_id}/repos/#{Repository.new repo}"
+        boolean_from_response :get, "teams/#{team_id}/repos/#{Repository.new(repo)}"
       end
       alias :team_repo? :team_repository?
 
@@ -388,7 +388,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Boolean] True if successful, false otherwise.
       # @see Octokit::Repository
-      # @see http://developer.github.com/v3/orgs/teams/#add-team-repo
+      # @see https://developer.github.com/v3/orgs/teams/#add-team-repo
       # @example
       #   @client.add_team_repository(100000, 'github/developer.github.com')
       # @example
@@ -408,7 +408,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Boolean] Return true if repo removed from team, false otherwise.
       # @see Octokit::Repository
-      # @see http://developer.github.com/v3/orgs/teams/#remove-team-repo
+      # @see https://developer.github.com/v3/orgs/teams/#remove-team-repo
       # @example
       #   @client.remove_team_repository(100000, 'github/developer.github.com')
       # @example
@@ -425,7 +425,7 @@ module Octokit
       # @param org [String] Organization GitHub username.
       # @param user [String] GitHub username of user to remove.
       # @return [Boolean] True if removal is successful, false otherwise.
-      # @see http://developer.github.com/v3/orgs/members/#remove-a-member
+      # @see https://developer.github.com/v3/orgs/members/#remove-a-member
       # @example
       #   @client.remove_organization_member('github', 'pengwynn')
       # @example
@@ -444,7 +444,7 @@ module Octokit
       # @param org [String] Organization GitHub username.
       # @param user [String] GitHub username of user to publicize.
       # @return [Boolean] True if publicization successful, false otherwise.
-      # @see http://developer.github.com/v3/orgs/members/#publicize-a-users-membership
+      # @see https://developer.github.com/v3/orgs/members/#publicize-a-users-membership
       # @example
       #   @client.publicize_membership('github', 'pengwynn')
       def publicize_membership(org, user, options = {})
@@ -458,7 +458,7 @@ module Octokit
       # @param org [String] Organization GitHub username.
       # @param user [String] GitHub username of user to unpublicize.
       # @return [Boolean] True of unpublicization successful, false otherwise.
-      # @see http://developer.github.com/v3/orgs/members/#conceal-a-users-membership
+      # @see https://developer.github.com/v3/orgs/members/#conceal-a-users-membership
       # @example
       #   @client.unpublicize_membership('github', 'pengwynn')
       # @example
@@ -471,7 +471,7 @@ module Octokit
       # List all teams for the authenticated user across all their orgs
       #
       # @return [Array<Sawyer::Resource>] Array of team resources.
-      # @see http://developer.github.com/v3/orgs/teams/#list-user-teams
+      # @see https://developer.github.com/v3/orgs/teams/#list-user-teams
       def user_teams(options = {})
         paginate "/user/teams", options
       end

@@ -6,7 +6,7 @@ describe Octokit::Client::Hooks do
     it "returns all the hooks supported by GitHub with their parameters" do
       client = oauth_client
       hooks = client.available_hooks
-      expect(hooks.first.name).to eq "activecollab"
+      expect(hooks.first.name).to eq("activecollab")
     end
   end
 end

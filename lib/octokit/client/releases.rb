@@ -3,14 +3,14 @@ module Octokit
 
     # Methods for the Releases API
     #
-    # @see http://developer.github.com/v3/repos/releases/
+    # @see https://developer.github.com/v3/repos/releases/
     module Releases
 
       # List releases for a repository
       #
       # @param repo [String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of releases
-      # @see http://developer.github.com/v3/repos/releases/#list-releases-for-a-repository
+      # @see https://developer.github.com/v3/repos/releases/#list-releases-for-a-repository
       def releases(repo, options = {})
         paginate "repos/#{Repository.new(repo)}/releases", options
       end
@@ -26,7 +26,7 @@ module Octokit
       # @option options [String] :draft Mark this release as a draft
       # @option options [String] :prerelease Mark this release as a pre-release
       # @return [Sawyer::Resource] The release
-      # @see http://developer.github.com/v3/repos/releases/#create-a-release
+      # @see https://developer.github.com/v3/repos/releases/#create-a-release
       def create_release(repo, tag_name, options = {})
         opts = options.merge(:tag_name => tag_name)
         post "repos/#{Repository.new(repo)}/releases", opts
@@ -36,7 +36,7 @@ module Octokit
       #
       # @param url [String] URL for the release as returned from .releases
       # @return [Sawyer::Resource] The release
-      # @see http://developer.github.com/v3/repos/releases/#get-a-single-release
+      # @see https://developer.github.com/v3/repos/releases/#get-a-single-release
       def release(url, options = {})
         get url, options
       end
@@ -50,7 +50,7 @@ module Octokit
       # @option options [String] :draft Mark this release as a draft
       # @option options [String] :prerelease Mark this release as a pre-release
       # @return [Sawyer::Resource] The release
-      # @see http://developer.github.com/v3/repos/releases/#edit-a-release
+      # @see https://developer.github.com/v3/repos/releases/#edit-a-release
       def update_release(url, options = {})
         patch url, options
       end
@@ -60,7 +60,7 @@ module Octokit
       #
       # @param url [String] URL for the release as returned from .releases
       # @return [Boolean] Success or failure
-      # @see http://developer.github.com/v3/repos/releases/#delete-a-release
+      # @see https://developer.github.com/v3/repos/releases/#delete-a-release
       def delete_release(url, options = {})
         boolean_from_response(:delete, url, options)
       end
@@ -69,7 +69,7 @@ module Octokit
       #
       # @param release_url [String] URL for the release as returned from .releases
       # @return [Array<Sawyer::Resource>] A list of release assets
-      # @see http://developer.github.com/v3/repos/releases/#list-assets-for-a-release
+      # @see https://developer.github.com/v3/repos/releases/#list-assets-for-a-release
       def release_assets(release_url, options = {})
         paginate release(release_url).rels[:assets].href, options
       end
@@ -81,7 +81,7 @@ module Octokit
       # @option options [String] :content_type The MIME type for the file to upload
       # @option options [String] :name The name for the file
       # @return [Sawyer::Resource] The release asset
-      # @see http://developer.github.com/v3/repos/releases/#upload-a-release-asset
+      # @see https://developer.github.com/v3/repos/releases/#upload-a-release-asset
       def upload_asset(release_url, path_or_file, options = {})
         file = path_or_file.respond_to?(:read) ? path_or_file : File.new(path_or_file, "r+b")
         options[:content_type] ||= content_type_from_file(file)
@@ -101,7 +101,7 @@ module Octokit
       #
       # @param asset_url [String] URL for the asset as returned from .release_assets
       # @return [Sawyer::Resource] The release asset
-      # @see http://developer.github.com/v3/repos/releases/#get-a-single-release-asset
+      # @see https://developer.github.com/v3/repos/releases/#get-a-single-release-asset
       def release_asset(asset_url, options = {})
         get(asset_url, options)
       end
@@ -112,7 +112,7 @@ module Octokit
       # @option options [String] :name The name for the file
       # @option options [String] :label The download text for the file
       # @return [Sawyer::Resource] The release asset
-      # @see http://developer.github.com/v3/repos/releases/#edit-a-release-asset
+      # @see https://developer.github.com/v3/repos/releases/#edit-a-release-asset
       def update_release_asset(asset_url, options = {})
         patch(asset_url, options)
       end
@@ -122,7 +122,7 @@ module Octokit
       #
       # @param asset_url [String] URL for the asset as returned from .release_assets
       # @return [Boolean] Success or failure
-      # @see http://developer.github.com/v3/repos/releases/#delete-a-release-asset
+      # @see https://developer.github.com/v3/repos/releases/#delete-a-release-asset
       def delete_release_asset(asset_url, options = {})
         boolean_from_response(:delete, asset_url, options)
       end
@@ -136,7 +136,7 @@ module Octokit
         end
       rescue LoadError
         msg = "Please pass content_type or install mime-types gem to guess content type from file"
-        raise Octokit::MissingContentType.new msg
+        raise Octokit::MissingContentType.new(msg)
       end
 
     end

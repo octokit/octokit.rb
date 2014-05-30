@@ -10,15 +10,15 @@ describe Octokit::Client::Commits do
   describe ".commits", :vcr do
     it "returns all commits" do
       commits = @client.commits("sferik/rails_admin")
-      expect(commits.first.author).to_not be_nil
+      expect(commits.first.author).not_to be_nil
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits")
     end
     it "handles branch or sha argument" do
-      commits = @client.commits("sferik/rails_admin", "master")
+      @client.commits("sferik/rails_admin", "master")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master")
     end
     it "handles the sha option" do
-      commits = @client.commits("sferik/rails_admin", :sha => "master")
+      @client.commits("sferik/rails_admin", :sha => "master")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master")
     end
   end # .commits
@@ -33,11 +33,11 @@ describe Octokit::Client::Commits do
       expect { @client.commits_on "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
     end
     it "handles branch or sha argument" do
-      commits = @client.commits_on("sferik/rails_admin", "2011-01-15", "master")
+      @client.commits_on("sferik/rails_admin", "2011-01-15", "master")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00&until=2011-01-16T00:00:00%2B00:00")
     end
     it "handles the sha option" do
-      commits = @client.commits_on("sferik/rails_admin", "2011-01-15", :sha => "master")
+      @client.commits_on("sferik/rails_admin", "2011-01-15", :sha => "master")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00&until=2011-01-16T00:00:00%2B00:00")
     end
   end # .commits_on
@@ -52,11 +52,11 @@ describe Octokit::Client::Commits do
       expect { @client.commits_since "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
     end
     it "handles branch or sha argument" do
-      commits = @client.commits_since("sferik/rails_admin", "2011-01-15", "master")
+      @client.commits_since("sferik/rails_admin", "2011-01-15", "master")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00")
     end
     it "handles the sha option" do
-      commits = @client.commits_since("sferik/rails_admin", "2011-01-15", :sha => "master")
+      @client.commits_since("sferik/rails_admin", "2011-01-15", :sha => "master")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00")
     end
   end # .commits_since
@@ -71,11 +71,11 @@ describe Octokit::Client::Commits do
       expect { @client.commits_before "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
     end
     it "handles branch or sha argument" do
-      commits = @client.commits_before("sferik/rails_admin", "2011-01-15", "master")
+      @client.commits_before("sferik/rails_admin", "2011-01-15", "master")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&until=2011-01-15T00:00:00%2B00:00")
     end
     it "handles the sha option" do
-      commits = @client.commits_before("sferik/rails_admin", "2011-01-15", :sha => "master")
+      @client.commits_before("sferik/rails_admin", "2011-01-15", :sha => "master")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&until=2011-01-15T00:00:00%2B00:00")
     end
   end # .commits_before
@@ -90,11 +90,11 @@ describe Octokit::Client::Commits do
       expect { @client.commits_between "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
     end
     it "handles branch or sha argument" do
-      commits = @client.commits_between("sferik/rails_admin", "2011-01-20", "2013-01-20", "master")
+      @client.commits_between("sferik/rails_admin", "2011-01-20", "2013-01-20", "master")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-20T00:00:00%2B00:00&until=2013-01-20T00:00:00%2B00:00")
     end
     it "handles the sha option" do
-      commits = @client.commits_between("sferik/rails_admin", "2011-01-20", "2013-01-20", :sha => "master")
+      @client.commits_between("sferik/rails_admin", "2011-01-20", "2013-01-20", :sha => "master")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-20T00:00:00%2B00:00&until=2013-01-20T00:00:00%2B00:00")
     end
   end # .commits_between
@@ -102,7 +102,7 @@ describe Octokit::Client::Commits do
   describe ".commit", :vcr do
     it "returns a commit" do
       commit = @client.commit("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-      expect(commit.author.login).to eq 'caboteria'
+      expect(commit.author.login).to eq('caboteria')
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
     end
   end # .commit
@@ -110,29 +110,29 @@ describe Octokit::Client::Commits do
   describe ".git_commit", :vcr do
     it "returns a detailed git commit" do
       commit = @client.git_commit("octokit/octokit.rb", "2bfca14ed8ebc3dad75082ff175e6703aed7ccc0")
-      expect(commit.author.name).to eq 'Joey Wendt'
+      expect(commit.author.name).to eq('Joey Wendt')
       assert_requested :get, github_url("/repos/octokit/octokit.rb/git/commits/2bfca14ed8ebc3dad75082ff175e6703aed7ccc0")
     end
   end # .git_commit
 
   describe ".create_commit", :vcr do
     it "creates a commit" do
-      last_commit = @client.commits('api-playground/api-sandbox').last
-      commit = @client.create_commit("api-playground/api-sandbox", "My commit message", last_commit.commit.tree.sha, last_commit.sha)
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/git/commits")
+      last_commit = @client.commits(@test_repo).last
+      @client.create_commit(@test_repo, "My commit message", last_commit.commit.tree.sha, last_commit.sha)
+      assert_requested :post, github_url("/repos/#{@test_repo}/git/commits")
     end
   end # .create_commit
 
   describe ".merge", :vcr do
     it "merges a branch into another" do
       begin
-        @client.delete_ref("api-playground/api-sandbox", "heads/branch-to-merge")
+        @client.delete_ref(@test_repo, "heads/branch-to-merge")
       rescue Octokit::UnprocessableEntity
       end
-      last_commit = @client.commits('api-playground/api-sandbox').last
-      branch = @client.create_ref("api-playground/api-sandbox", "heads/branch-to-merge", last_commit.sha)
-      merge = @client.merge("api-playground/api-sandbox", "master", "branch-to-merge", :commit_message => "Testing the merge API")
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/merges")
+      last_commit = @client.commits(@test_repo).last
+      @client.create_ref(@test_repo, "heads/branch-to-merge", last_commit.sha)
+      @client.merge(@test_repo, "master", "branch-to-merge", :commit_message => "Testing the merge API")
+      assert_requested :post, github_url("/repos/#{@test_repo}/merges")
     end
   end # .merge
 

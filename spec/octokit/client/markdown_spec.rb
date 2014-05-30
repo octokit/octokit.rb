@@ -12,7 +12,7 @@ describe Octokit::Client::Markdown do
       text = "This is for #111"
       markdown = @client.markdown(text, :context => 'octokit/octokit.rb', :mode => 'gfm')
 
-      expect(markdown).to include 'https://github.com/octokit/octokit.rb/issues/111'
+      expect(markdown).to include('https://github.com/octokit/octokit.rb/issues/111')
       assert_requested :post, github_url('/markdown')
     end
   end # .markdown

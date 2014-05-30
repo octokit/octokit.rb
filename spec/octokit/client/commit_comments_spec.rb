@@ -1,15 +1,8 @@
 require 'helper'
 
 describe Octokit::Client::CommitComments do
-
   before do
-    Octokit.reset!
     @client = oauth_client
-    @commit = @client.commits('api-playground/api-sandbox').last.rels[:self].get.data
-    @commit_comment = @client.create_commit_comment \
-      "api-playground/api-sandbox",
-      @commit.sha, ":metal:\n:sparkles:\n:cake:",
-      @commit.files.last.filename
   end
 
   describe ".list_commit_comments", :vcr do
@@ -36,27 +29,40 @@ describe Octokit::Client::CommitComments do
     end
   end # .commit_comment
 
-  describe ".create_commit_comment", :vcr do
-    it "creates a commit comment" do
-      expect(@commit_comment.user.login).to eq test_github_login
-      assert_requested :post, github_url("/repos/api-playground/api-sandbox/commits/#{@commit.sha}/comments")
+  context "with commit comment", :vcr do
+    before do
+      @commit = @client.commits(@test_repo).last.rels[:self].get.data
+      @commit_comment = @client.create_commit_comment \
+        @test_repo,
+        @commit.sha, ":metal:\n:sparkles:\n:cake:",
+        @commit.files.last.filename
     end
-  end # .create_commit_comment
 
-  describe ".update_commit_comment", :vcr do
-    it "updates a commit comment" do
-      updated_comment = @client.update_commit_comment("api-playground/api-sandbox", @commit_comment.id, ":penguin:")
-      expect(updated_comment.body).to eq ":penguin:"
-      assert_requested :patch, github_url("/repos/api-playground/api-sandbox/comments/#{@commit_comment.id}")
+    after do
+      @client.delete_commit_comment @test_repo, @commit_comment.id
     end
-  end # .update_commit_comment
 
-  describe ".delete_commit_comment", :vcr do
-    it "deletes a commit comment" do
-      result = @client.delete_commit_comment("api-playground/api-sandbox", @commit_comment.id)
-      expect(result).to be_true
-      assert_requested :delete, github_url("/repos/api-playground/api-sandbox/comments/#{@commit_comment.id}")
-    end
-  end # .delete_commit_comment
+    describe ".create_commit_comment" do
+      it "creates a commit comment" do
+        expect(@commit_comment.user.login).to eq(test_github_login)
+        assert_requested :post, github_url("/repos/#{@test_repo}/commits/#{@commit.sha}/comments")
+      end
+    end # .create_commit_comment
 
+    describe ".update_commit_comment" do
+      it "updates a commit comment" do
+        updated_comment = @client.update_commit_comment(@test_repo, @commit_comment.id, ":penguin:")
+        expect(updated_comment.body).to eq(":penguin:")
+        assert_requested :patch, github_url("/repos/#{@test_repo}/comments/#{@commit_comment.id}")
+      end
+    end # .update_commit_comment
+
+    describe ".delete_commit_comment" do
+      it "deletes a commit comment" do
+        result = @client.delete_commit_comment(@test_repo, @commit_comment.id)
+        expect(result).to be true
+        assert_requested :delete, github_url("/repos/#{@test_repo}/comments/#{@commit_comment.id}")
+      end
+    end # .delete_commit_comment
+  end # with commit comment
 end
