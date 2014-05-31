@@ -510,6 +510,9 @@ ENV Variable | Description |
 `OCTOKIT_TEST_GITHUB_CLIENT_SECRET` | Test OAuth application client secret.
 `OCTOKIT_TEST_GITHUB_REPOSITORY` | Test repository to perform destructive actions against, this should not be set to any repository of importance. **Automatically created by the test suite if nonexistent** Default: `api-sandbox`
 `OCTOKIT_TEST_GITHUB_ORGANIZATION` | Test organization.
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_LOGIN` | GitHub Enterprise login name
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN` | GitHub Enterprise token (which is an MD5 hash of your license file)
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_API_ENDPOINT` | GitHub Enterprise hostname
 
 Since we periodically refresh our cassettes, please keep some points in mind
 when writing new specs.
@@ -590,4 +593,3 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
