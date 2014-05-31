@@ -67,6 +67,12 @@ module Octokit
         ENV['OCTOKIT_SECRET']
       end
 
+      # Default license md5 hash from ENV
+      # @return [String]
+      def license_md5
+        ENV['OCTOKIT_LICENSE_MD5']
+      end
+
       # Default options for Faraday::Connection
       # @return [Hash]
       def connection_options

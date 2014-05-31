@@ -313,6 +313,14 @@ module Octokit
       @client_secret = value
     end
 
+    # Set Enterprise license md5 hash
+    #
+    # @param value [String] 32 character GitHub OAuth access token
+    def license_md5=(value)
+      reset_agent
+      @license_md5 = value
+    end
+
     # Wrapper around Kernel#warn to print warnings unless
     # OCTOKIT_SILENT is set to true.
     #

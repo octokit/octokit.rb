@@ -48,6 +48,9 @@ VCR.configure do |c|
   c.filter_sensitive_data("<<ENTERPRISE_ACCESS_TOKEN>>") do
       test_github_enterprise_token
   end
+  c.filter_sensitive_data("<<ENTERPRISE_LICENSE_MD5>>") do
+      test_github_enterprise_license_md5
+  end
   c.filter_sensitive_data("https://enterprise.github.dev/") do
       test_github_enterprise_api_endpoint
   end
@@ -125,6 +128,10 @@ end
 
 def test_github_enterprise_token
   ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN', 'x' * 40
+end
+
+def test_github_enterprise_license_md5
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_LICENSE_MD5', 'x' * 32
 end
 
 def test_github_enterprise_api_endpoint
@@ -219,7 +226,8 @@ end
 
 def enterprise_oauth_client
   client = Octokit::EnterpriseAdminClient.new \
-    :access_token => test_github_enterprise_token
+    :access_token => test_github_enterprise_token,
+    :license_md5 => test_github_enterprise_license_md5
   client.configure do |c|
     c.api_endpoint = test_github_enterprise_api_endpoint
   end
