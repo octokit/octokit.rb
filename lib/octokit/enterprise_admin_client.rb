@@ -15,7 +15,7 @@ module Octokit
   class EnterpriseAdminClient < Octokit::Client
 
     include Octokit::EnterpriseAdminClient::AdminStats
-    include Octokit::EnterpriseAdminClient::Licensing
+    include Octokit::EnterpriseAdminClient::License
     include Octokit::EnterpriseAdminClient::SearchIndexing
 
   end

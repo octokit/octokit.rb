@@ -1,6 +1,6 @@
 require "helper"
 
-describe Octokit::EnterpriseAdminClient::Licensing do
+describe Octokit::EnterpriseAdminClient::License do
 
   before do
     Octokit.reset!
