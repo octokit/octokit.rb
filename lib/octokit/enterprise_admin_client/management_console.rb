@@ -14,6 +14,14 @@ module Octokit
       end
       alias :config_check :config_status
 
+      # Get information about the Enterprise installation
+      #
+      # @return [Sawyer::Resource] The installation information
+      def settings
+        get "/setup/api/settings", license_hash
+      end
+      alias :get_settings :settings
+
       def license_hash
         { :query => { :license_md5 => @license_md5 } }
       end

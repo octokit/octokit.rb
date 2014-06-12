@@ -18,5 +18,16 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
 
       assert_requested :get, github_enterprise_url("setup/api/configcheck?license_md5=#{test_github_enterprise_license_md5}")
     end
-  end # .license
+  end # .config_status
+
+  describe ".settings", :vcr do
+    it "returns information about the Enterprise settings" do
+      settings = JSON.parse @client.settings
+      expect(settings["enterprise"]).to be_kind_of Hash
+      expect(settings["enterprise"]["customer"]["name"]).to be_kind_of String
+      expect(settings["run_list"].first).to be_kind_of String
+
+      assert_requested :get, github_enterprise_url("setup/api/settings?license_md5=#{test_github_enterprise_license_md5}")
+    end
+  end # .settings
 end
