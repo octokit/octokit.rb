@@ -16,11 +16,19 @@ module Octokit
 
       # Get information about the Enterprise installation
       #
-      # @return [Sawyer::Resource] The installation information
+      # @return [Sawyer::Resource] The settings
       def settings
         get "/setup/api/settings", license_hash
       end
       alias :get_settings :settings
+
+      # Get information about the Enterprise maintenance status
+      #
+      # @return [Sawyer::Resource] The maintenance status
+      def maintenance_status
+        get "/setup/api/maintenance", license_hash
+      end
+      alias :get_maintenance_status :maintenance_status
 
 private
 

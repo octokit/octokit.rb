@@ -30,4 +30,15 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
       assert_requested :get, github_enterprise_url("setup/api/settings?license_md5=#{test_github_enterprise_license_md5}")
     end
   end # .settings
+
+  describe ".maintenance_status", :vcr do
+    it "returns information about the Enterprise maintenance status" do
+      maintenance_status = @client.maintenance_status
+
+      expect(maintenance_status[:status]).to be_kind_of String
+      expect(maintenance_status[:connection_services]).to be_kind_of Array
+
+      assert_requested :get, github_enterprise_url("setup/api/maintenance?license_md5=#{test_github_enterprise_license_md5}")
+    end
+  end # .maintenance_status
 end
