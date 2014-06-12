@@ -22,6 +22,8 @@ module Octokit
       end
       alias :get_settings :settings
 
+private
+
       def license_hash
         { :query => { :license_md5 => @license_md5 } }
       end
