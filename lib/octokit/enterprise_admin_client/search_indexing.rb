@@ -1,7 +1,7 @@
 module Octokit
   class EnterpriseAdminClient < Octokit::Client
 
-    # Methods for the (Enterprise) Search Indexing API
+    # Methods for the Enterprise Search Indexing API
     #
     # @see https://enterprise.github.com/help/articles/search-indexing-api
     module SearchIndexing

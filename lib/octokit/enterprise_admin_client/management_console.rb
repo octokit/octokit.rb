@@ -1,7 +1,7 @@
 module Octokit
   class EnterpriseAdminClient < Octokit::Client
 
-    # Methods for the (Enterprise) Management Console API
+    # Methods for the Enterprise Management Console API
     #
     # @see https://enterprise.github.com/help/articles/license-api
     module ManagementConsole

@@ -1,7 +1,7 @@
 module Octokit
   class EnterpriseAdminClient < Octokit::Client
 
-    # Methods for the (Enterprise) Admin Stats API
+    # Methods for the Enterprise Admin Stats API
     #
     # @see https://enterprise.github.com/help/articles/admin-stats-api
     module AdminStats
