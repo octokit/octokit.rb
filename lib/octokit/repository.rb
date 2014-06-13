@@ -3,7 +3,7 @@ module Octokit
   # Class to parse GitHub repository owner and name from
   # URLs and to generate URLs
   class Repository
-    attr_accessor :owner, :name
+    attr_accessor :owner, :name, :id
 
     # Instantiate from a GitHub repository URL
     #
@@ -14,6 +14,8 @@ module Octokit
 
     def initialize(repo)
       case repo
+      when Integer
+        @id = repo
       when String
         @owner, @name = repo.split('/')
       when Repository
@@ -31,6 +33,22 @@ module Octokit
       "#{@owner}/#{@name}"
     end
     alias :to_s :slug
+
+    # @return [String] Repository API path
+    def path
+      return named_api_path if @owner && @name
+      return id_api_path if @id
+    end
+
+    # @return [String] Api path for owner/name identified repos
+    def named_api_path
+      "repos/#{slug}"
+    end
+
+    # @return [String] Api path for id identified repos
+    def id_api_path
+      "repositories/#{@id}"
+    end
 
     # Repository URL based on {Octokit::Client#web_endpoint}
     # @return [String]
