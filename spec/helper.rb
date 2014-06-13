@@ -225,11 +225,17 @@ def oauth_client
 end
 
 def enterprise_oauth_client
+  stack = Faraday::RackBuilder.new do |builder|
+    builder.request :url_encoded
+    builder.adapter Faraday.default_adapter
+  end
+
   client = Octokit::EnterpriseAdminClient.new \
     :access_token => test_github_enterprise_token,
     :license_md5 => test_github_enterprise_license_md5
   client.configure do |c|
     c.api_endpoint = test_github_enterprise_api_endpoint
+    c.middleware = stack
   end
   client
 end
