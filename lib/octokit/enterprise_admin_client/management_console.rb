@@ -30,6 +30,16 @@ module Octokit
       end
       alias :get_maintenance_status :maintenance_status
 
+      # Start (or turn off) the Enterprise maintenance mode
+      #
+      # @return [nil]
+      def set_maintenance_status(maintenance)
+        queries = license_hash.dup
+        queries[:query][:maintenance] = "#{maintenance.to_json}"
+        post "/setup/api/maintenance", queries
+      end
+      alias :edit_maintenance_status :set_maintenance_status
+
 private
 
       def license_hash
