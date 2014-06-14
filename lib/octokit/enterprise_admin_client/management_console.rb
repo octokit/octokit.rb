@@ -22,6 +22,18 @@ module Octokit
       end
       alias :get_settings :settings
 
+      # Modify the Enterprise settings
+      #
+      # @param settings [Hash] A hash configuration of the new settings
+      #
+      # @return [nil]
+      def edit_settings(settings)
+        queries = license_hash
+        queries[:query][:settings] = "#{settings.to_json}"
+        put "/setup/api/settings", queries
+      end
+
+
       # Get information about the Enterprise maintenance status
       #
       # @return [Sawyer::Resource] The maintenance status
