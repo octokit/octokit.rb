@@ -52,4 +52,92 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
       assert_requested :post, github_enterprise_url("setup/api/maintenance?license_md5=#{test_github_enterprise_license_md5}&maintenance=%7B%22enabled%22:true,%22when%22:%22now%22%7D")
     end
   end # .set_maintenance_status
+
+  describe ".authorized_keys", :vcr do
+    it "gets the authorized SSH keys " do
+      authorized_keys = JSON.parse @client.authorized_keys
+
+      expect(authorized_keys).to be_kind_of Array
+      expect(authorized_keys.first["key"]).to be_kind_of String
+      expect(authorized_keys.first["pretty-print"]).to be_kind_of String
+
+      assert_requested :get, github_enterprise_url("setup/api/settings/authorized-keys?license_md5=#{test_github_enterprise_license_md5}")
+    end
+  end # .authorized_keys
+
+  describe ".add_authorized_key", :vcr do
+    it "adds a new authorized SSH keys (via a file path)" do
+      key = "spec/fixtures/fake_key.pub"
+      authorized_keys = @client.add_authorized_key(key)
+
+      expect(authorized_keys).to be_kind_of Array
+      expect(authorized_keys.length).to match(2)
+      expect(authorized_keys.first["key"]).to be_kind_of String
+      expect(authorized_keys.first["pretty-print"]).to be_kind_of String
+
+      assert_requested :post, github_enterprise_url("setup/api/settings/authorized-keys?authorized_key=ssh-rsa%20AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&license_md5=#{test_github_enterprise_license_md5}")
+    end
+
+    it "adds a new authorized SSH keys (via a File handler)" do
+      key = File.new("spec/fixtures/fake_key.pub", "r")
+      authorized_keys = @client.add_authorized_key(key)
+
+      expect(authorized_keys).to be_kind_of Array
+      expect(authorized_keys.length).to match(2)
+      expect(authorized_keys.first["key"]).to be_kind_of String
+      expect(authorized_keys.first["pretty-print"]).to be_kind_of String
+
+      assert_requested :post, github_enterprise_url("setup/api/settings/authorized-keys?authorized_key=ssh-rsa%20AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&license_md5=#{test_github_enterprise_license_md5}")
+    end
+
+    it "adds a new authorized SSH keys (via a string contents)" do
+      key = "ssh-rsa AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      authorized_keys = @client.add_authorized_key(key)
+
+      expect(authorized_keys).to be_kind_of Array
+      expect(authorized_keys.length).to match(2)
+      expect(authorized_keys.first["key"]).to be_kind_of String
+      expect(authorized_keys.first["pretty-print"]).to be_kind_of String
+
+      assert_requested :post, github_enterprise_url("setup/api/settings/authorized-keys?authorized_key=ssh-rsa%20AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&license_md5=#{test_github_enterprise_license_md5}")
+    end
+  end # .add_authorized_key
+
+  describe ".remove_authorized_key", :vcr do
+    it "removes a new authorized SSH keys (via a file path)" do
+      key = "spec/fixtures/fake_key.pub"
+      authorized_keys = @client.remove_authorized_key(key)
+
+      expect(authorized_keys).to be_kind_of Array
+      expect(authorized_keys.length).to match(1)
+      expect(authorized_keys.first["key"]).to be_kind_of String
+      expect(authorized_keys.first["pretty-print"]).to be_kind_of String
+
+      assert_requested :delete, github_enterprise_url("setup/api/settings/authorized-keys?authorized_key=ssh-rsa%20AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&license_md5=#{test_github_enterprise_license_md5}")
+    end
+
+    it "removes a new authorized SSH keys (via a File handler)" do
+      key = File.new("spec/fixtures/fake_key.pub", "r")
+      authorized_keys = @client.remove_authorized_key(key)
+
+      expect(authorized_keys).to be_kind_of Array
+      expect(authorized_keys.length).to match(1)
+      expect(authorized_keys.first["key"]).to be_kind_of String
+      expect(authorized_keys.first["pretty-print"]).to be_kind_of String
+
+      assert_requested :delete, github_enterprise_url("setup/api/settings/authorized-keys?authorized_key=ssh-rsa%20AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&license_md5=#{test_github_enterprise_license_md5}")
+    end
+
+    it "adds a new authorized SSH keys (via a string contents)" do
+      key = "ssh-rsa AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      authorized_keys = @client.remove_authorized_key(key)
+
+      expect(authorized_keys).to be_kind_of Array
+      expect(authorized_keys.length).to match(1)
+      expect(authorized_keys.first["key"]).to be_kind_of String
+      expect(authorized_keys.first["pretty-print"]).to be_kind_of String
+
+      assert_requested :delete, github_enterprise_url("setup/api/settings/authorized-keys?authorized_key=ssh-rsa%20AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&license_md5=#{test_github_enterprise_license_md5}")
+    end
+  end # .remove_authorized_key
 end

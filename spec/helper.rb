@@ -226,6 +226,7 @@ end
 
 def enterprise_oauth_client
   stack = Faraday::RackBuilder.new do |builder|
+    builder.request :multipart
     builder.request :url_encoded
     builder.adapter Faraday.default_adapter
   end
