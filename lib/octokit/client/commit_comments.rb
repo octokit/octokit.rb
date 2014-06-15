@@ -8,36 +8,36 @@ module Octokit
 
       # List all commit comments
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @return [Array] List of commit comments
       # @see https://developer.github.com/v3/repos/comments/#list-commit-comments-for-a-repository
       def list_commit_comments(repo, options = {})
-        get "repos/#{Repository.new(repo)}/comments", options
+        get "#{Repository.new(repo).path}/comments", options
       end
 
       # List comments for a single commit
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param sha [String] The SHA of the commit whose comments will be fetched
       # @return [Array]  List of commit comments
       # @see https://developer.github.com/v3/repos/comments/#list-comments-for-a-single-commit
       def commit_comments(repo, sha, options = {})
-        get "repos/#{Repository.new(repo)}/commits/#{sha}/comments", options
+        get "#{Repository.new(repo).path}/commits/#{sha}/comments", options
       end
 
       # Get a single commit comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param id [String] The ID of the comment to fetch
       # @return [Sawyer::Resource] Commit comment
       # @see https://developer.github.com/v3/repos/comments/#get-a-single-commit-comment
       def commit_comment(repo, id, options = {})
-        get "repos/#{Repository.new(repo)}/comments/#{id}", options
+        get "#{Repository.new(repo).path}/comments/#{id}", options
       end
 
       # Create a commit comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param sha [String] Sha of the commit to comment on
       # @param body [String] Message
       # @param path [String] Relative path of file to comment on
@@ -60,12 +60,12 @@ module Octokit
           :line => line,
           :position => position
         }
-        post "repos/#{Repository.new(repo)}/commits/#{sha}/comments", options.merge(params)
+        post "#{Repository.new(repo).path}/commits/#{sha}/comments", options.merge(params)
       end
 
       # Update a commit comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param id [String] The ID of the comment to update
       # @param body [String] Message
       # @return [Sawyer::Resource] Updated commit comment
@@ -78,17 +78,17 @@ module Octokit
         params = {
           :body => body
         }
-        patch "repos/#{Repository.new(repo)}/comments/#{id}", options.merge(params)
+        patch "#{Repository.new(repo).path}/comments/#{id}", options.merge(params)
       end
 
       # Delete a commit comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param id [String] The ID of the comment to delete
       # @return [Boolean] Success
       # @see https://developer.github.com/v3/repos/comments/#delete-a-commit-comment
       def delete_commit_comment(repo, id, options = {})
-        boolean_from_response :delete, "repos/#{Repository.new(repo)}/comments/#{id}", options
+        boolean_from_response :delete, "#{Repository.new(repo).path}/comments/#{id}", options
       end
     end
   end

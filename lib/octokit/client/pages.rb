@@ -8,30 +8,30 @@ module Octokit
 
       # List Pages information for a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return Sawyer::Resource A GitHub Pages resource
       # @see https://developer.github.com/v3/repos/pages/#get-information-about-a-pages-site
       def pages(repo, options = {})
-        get "repos/#{Repository.new(repo)}/pages", options
+        get "#{Repository.new(repo).path}/pages", options
       end
 
       # List Pages builds for a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of build history for a repository.
       # @see https://developer.github.com/v3/repos/pages/#list-pages-builds
       def pages_builds(repo, options = {})
-        get "repos/#{Repository.new(repo)}/pages/builds", options
+        get "#{Repository.new(repo).path}/pages/builds", options
       end
       alias :list_pages_builds :pages_builds
 
       # List the latest Pages build information for a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return Sawyer::Resource A GitHub Pages resource about a build
       # @see https://developer.github.com/v3/repos/pages/#list-latest-pages-build
       def latest_pages_build(repo, options = {})
-        get "repos/#{Repository.new(repo)}/pages/builds/latest", options
+        get "#{Repository.new(repo).path}/pages/builds/latest", options
       end
     end
   end

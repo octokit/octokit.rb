@@ -8,7 +8,7 @@ module Octokit
 
       # List issues for the authenticated user or repository
       #
-      # @param repository [String, Repository, Hash] A GitHub repository.
+      # @param repository [Integer, String, Repository, Hash] A GitHub repository.
       # @param options [Sawyer::Resource] A customizable set of options.
       # @option options [Integer] :milestone Milestone number.
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
@@ -28,11 +28,7 @@ module Octokit
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.list_issues
       def list_issues(repository = nil, options = {})
-        path = ''
-        path = "repos/#{Repository.new(repository)}" if repository
-        path += "/issues"
-
-        paginate path, options
+        paginate "#{Repository.new(repository).path}/issues", options
       end
       alias :issues :list_issues
 
@@ -79,7 +75,7 @@ module Octokit
 
       # Create an issue for a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param title [String] A descriptive title
       # @param body [String] A concise description
       # @param options [Hash] A customizable set of options.
@@ -97,25 +93,25 @@ module Octokit
                            when Array
                              options[:labels]
                            end
-        post "repos/#{Repository.new(repo)}/issues", options.merge({:title => title, :body => body})
+        post "#{Repository.new(repo).path}/issues", options.merge({:title => title, :body => body})
       end
       alias :open_issue :create_issue
 
       # Get a single issue from a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the issue
       # @return [Sawyer::Resource] The issue you requested, if it exists
       # @see https://developer.github.com/v3/issues/#get-a-single-issue
       # @example Get issue #25 from octokit/octokit.rb
       #   Octokit.issue("octokit/octokit.rb", "25")
       def issue(repo, number, options = {})
-        get "repos/#{Repository.new(repo)}/issues/#{number}", options
+        get "#{Repository.new(repo).path}/issues/#{number}", options
       end
 
       # Close an issue
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the issue
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
@@ -126,12 +122,12 @@ module Octokit
       # @example Close Issue #25 from octokit/octokit.rb
       #   Octokit.close_issue("octokit/octokit.rb", "25")
       def close_issue(repo, number, options = {})
-        patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "closed"})
+        patch "#{Repository.new(repo).path}/issues/#{number}", options.merge({:state => "closed"})
       end
 
       # Reopen an issue
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the issue
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
@@ -142,12 +138,12 @@ module Octokit
       # @example Reopen Issue #25 from octokit/octokit.rb
       #   Octokit.reopen_issue("octokit/octokit.rb", "25")
       def reopen_issue(repo, number, options = {})
-        patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:state => "open"})
+        patch "#{Repository.new(repo).path}/issues/#{number}", options.merge({:state => "open"})
       end
 
       # Update an issue
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the issue
       # @param title [String] Updated title for the issue
       # @param body [String] Updated body of the issue
@@ -161,14 +157,14 @@ module Octokit
       # @example Change the title of Issue #25
       #   Octokit.update_issue("octokit/octokit.rb", "25", "A new title", "the same body"")
       def update_issue(repo, number, title, body, options = {})
-        patch "repos/#{Repository.new(repo)}/issues/#{number}", options.merge({:title => title, :body => body})
+        patch "#{Repository.new(repo).path}/issues/#{number}", options.merge({:title => title, :body => body})
       end
 
       # Get all comments attached to issues for the repository
       #
       # By default, Issue Comments are ordered by ascending ID.
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param options [Hash] Optional parameters
       # @option options [String] :sort created or updated
       # @option options [String] :direction asc or desc. Ignored without sort
@@ -190,36 +186,36 @@ module Octokit
       #     :since => '2010-05-04T23:45:02Z'
       #   })
       def issues_comments(repo, options = {})
-        paginate "repos/#{Repository.new(repo)}/issues/comments", options
+        paginate "#{Repository.new(repo).path}/issues/comments", options
       end
 
       # Get all comments attached to an issue
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the issue
       # @return [Array<Sawyer::Resource>] Array of comments that belong to an issue
       # @see https://developer.github.com/v3/issues/comments/#list-comments-on-an-issue
       # @example Get comments for issue #25 from octokit/octokit.rb
       #   Octokit.issue_comments("octokit/octokit.rb", "25")
       def issue_comments(repo, number, options = {})
-        paginate "repos/#{Repository.new(repo)}/issues/#{number}/comments", options
+        paginate "#{Repository.new(repo).path}/issues/#{number}/comments", options
       end
 
       # Get a single comment attached to an issue
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the comment
       # @return [Sawyer::Resource] The specific comment in question
       # @see https://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comment #1194549 from an issue on octokit/octokit.rb
       #   Octokit.issue_comments("octokit/octokit.rb", 1194549)
       def issue_comment(repo, number, options = {})
-        paginate "repos/#{Repository.new(repo)}/issues/comments/#{number}", options
+        paginate "#{Repository.new(repo).path}/issues/comments/#{number}", options
       end
 
       # Add a comment to an issue
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Issue number
       # @param comment [String] Comment to be added
       # @return [Sawyer::Resource] Comment
@@ -227,12 +223,12 @@ module Octokit
       # @example Add the comment "Almost to v1" to Issue #23 on octokit/octokit.rb
       #   Octokit.add_comment("octokit/octokit.rb", 23, "Almost to v1")
       def add_comment(repo, number, comment, options = {})
-        post "repos/#{Repository.new(repo)}/issues/#{number}/comments", options.merge({:body => comment})
+        post "#{Repository.new(repo).path}/issues/#{number}/comments", options.merge({:body => comment})
       end
 
       # Update a single comment on an issue
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Comment number
       # @param comment [String] Body of the comment which will replace the existing body.
       # @return [Sawyer::Resource] Comment
@@ -240,19 +236,19 @@ module Octokit
       # @example Update the comment #1194549 with body "I've started this on my 25-issue-comments-v3 fork" on an issue on octokit/octokit.rb
       #   Octokit.update_comment("octokit/octokit.rb", 1194549, "Almost to v1, added this on my fork")
       def update_comment(repo, number, comment, options = {})
-        patch "repos/#{Repository.new(repo)}/issues/comments/#{number}", options.merge({:body => comment})
+        patch "#{Repository.new(repo).path}/issues/comments/#{number}", options.merge({:body => comment})
       end
 
       # Delete a single comment
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Comment number
       # @return [Boolean] Success
       # @see https://developer.github.com/v3/issues/comments/#delete-a-comment
       # @example Delete the comment #1194549 on an issue on octokit/octokit.rb
       #   Octokit.delete_comment("octokit/octokit.rb", 1194549)
       def delete_comment(repo, number, options = {})
-        boolean_from_response :delete, "repos/#{Repository.new(repo)}/issues/comments/#{number}", options
+        boolean_from_response :delete, "#{Repository.new(repo).path}/issues/comments/#{number}", options
       end
     end
   end

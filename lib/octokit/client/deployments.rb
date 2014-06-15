@@ -10,18 +10,18 @@ module Octokit
 
       # List all deployments for a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of deployments
       # @see https://developer.github.com/v3/repos/deployments/#list-deployments
       def deployments(repo, options = {})
         options = ensure_deployments_api_media_type(options)
-        get("repos/#{Repository.new(repo)}/deployments", options)
+        get("#{Repository.new(repo).path}/deployments", options)
       end
       alias :list_deployments :deployments
 
       # Create a deployment for a ref
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param ref [String] The ref to deploy
       # @option options [String] :payload Meta info about the deployment
       # @option options [String] :force Optional parameter to bypass any ahead/behind checks or commit status checks. Default: false
@@ -32,7 +32,7 @@ module Octokit
       def create_deployment(repo, ref, options = {})
         options = ensure_deployments_api_media_type(options)
         options[:ref] = ref
-        post("repos/#{Repository.new(repo)}/deployments", options)
+        post("#{Repository.new(repo).path}/deployments", options)
       end
 
       # List all statuses for a Deployment
