@@ -6,6 +6,20 @@ module Octokit
     # @see https://enterprise.github.com/help/articles/license-api
     module ManagementConsole
 
+      # Upgrade an Enterprise installation
+      #
+      # @param license [String] The file path to your GHL file.
+      # @param license [String] The file path to your GHP file.
+      #
+      # @return [Sawyer::Resource] The installation information
+      def upgrade(license=nil, package=nil)
+        raise ArgumentError("You must include a license or a package file.") if license.nil? && package.nil?
+        queries = license_hash
+        queries[:package] = Faraday::UploadIO.new(package, "binary") unless package.nil?
+        queries[:license] = Faraday::UploadIO.new(license, "binary") unless license.nil?
+        post "/setup/api/upgrade", queries
+      end
+
       # Get information about the Enterprise installation
       #
       # @return [Sawyer::Resource] The installation information
