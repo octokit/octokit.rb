@@ -6,12 +6,23 @@ module Octokit
     # @see https://enterprise.github.com/help/articles/license-api
     module ManagementConsole
 
+      # Start a configuration process.
+      #
+      # @param complete [Boolean] If true, ensures the process is finished unto completion
+      #
+      # @return nil
+      def start_configuration(complete = false)
+        queries = license_hash
+        queries[:query][:complete] = "1" if complete
+        post "/setup/api/configure", queries
+      end
+
       # Upgrade an Enterprise installation
       #
       # @param license [String] The file path to your GHL file.
       # @param license [String] The file path to your GHP file.
       #
-      # @return [Sawyer::Resource] The installation information
+      # @return nil
       def upgrade(license=nil, package=nil)
         raise ArgumentError("You must include a license or a package file.") if license.nil? && package.nil?
         queries = license_hash

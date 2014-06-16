@@ -7,6 +7,15 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
     @client = enterprise_oauth_client
   end
 
+  describe ".start_configuration", :vcr do
+    it "starts a configuration process for the Enterprise installation" do
+      @client.start_configuration(true)
+
+      expect(@client.last_response.status).to eq(202)
+      assert_requested :post, github_enterprise_url("setup/api/configure?complete=1&license_md5=#{test_github_enterprise_license_md5}")
+    end
+  end # .start_configuration
+
   describe ".upgrade", :vcr do
     it "upgrades the Enterprise installation" do
       package = "spec/fixtures/github-enterprise.ghp"
