@@ -54,7 +54,7 @@ module Octokit
 
       # List all issues for a given organization for the authenticated user
       #
-      # @param org [String] Organization GitHub username.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @param options [Sawyer::Resource] A customizable set of options.
       # @option options [String] :filter (assigned) State: <tt>assigned</tt>, <tt>created</tt>, <tt>mentioned</tt>, <tt>subscribed</tt> or <tt>closed</tt>.
       # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
@@ -70,7 +70,7 @@ module Octokit
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.org_issues("octokit")
       def org_issues(org, options = {})
-        paginate "orgs/#{org}/issues", options
+        paginate "#{Organization.path org}/issues", options
       end
 
       # Create an issue for a repository

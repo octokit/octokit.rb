@@ -8,7 +8,7 @@ module Octokit
 
       # Get an organization
       #
-      # @param org [String] Organization GitHub username.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @return [Sawyer::Resource] Hash representing GitHub organization.
       # @see https://developer.github.com/v3/orgs/#get-an-organization
       # @example
@@ -16,7 +16,7 @@ module Octokit
       # @example
       #   Octokit.org('github')
       def organization(org, options = {})
-        get "orgs/#{org}", options
+        get Organization.path(org), options
       end
       alias :org :organization
 
@@ -24,7 +24,7 @@ module Octokit
       #
       # Requires authenticated client with proper organization permissions.
       #
-      # @param org [String] Organization GitHub username.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @param values [Hash] The updated organization attributes.
       # @option values [String] :billing_email Billing email address. This address is not publicized.
       # @option values [String] :company Company name.
@@ -44,7 +44,7 @@ module Octokit
       # @example
       #   @client.update_org('github', {:company => 'Unicorns, Inc.'})
       def update_organization(org, values, options = {})
-        patch "orgs/#{org}", options.merge({:organization => values})
+        patch Organization.path(org), options.merge({:organization => values})
       end
       alias :update_org :update_organization
 
@@ -87,7 +87,8 @@ module Octokit
       # Public repositories are available without authentication. Private repos
       # require authenticated organization member.
       #
-      # @param org [String] Organization handle for which to list repos
+      # @param org [String, Integer] Organization GitHub login or id for which
+      #   to list repos.
       # @option options [String] :type ('all') Filter by repository type.
       #   `all`, `public`, `member`, `sources`, `forks`, or `private`.
       #
@@ -102,7 +103,7 @@ module Octokit
       # @example
       #   @client.org_repos('github', {:type => 'private'})
       def organization_repositories(org, options = {})
-        paginate "orgs/#{org}/repos", options
+        paginate "#{Organization.path org}/repos", options
       end
       alias :org_repositories :organization_repositories
       alias :org_repos :organization_repositories
@@ -113,7 +114,7 @@ module Octokit
       # authenticated client that is a member of the GitHub organization
       # is required to get private members.
       #
-      # @param org [String] Organization GitHub username.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/orgs/members/#members-list
       # @example
@@ -122,7 +123,7 @@ module Octokit
       #   Octokit.org_members('github')
       def organization_members(org, options = {})
         path = "public_" if options.delete(:public)
-        paginate "orgs/#{org}/#{path}members", options
+        paginate "#{Organization.path org}/#{path}members", options
       end
       alias :org_members :organization_members
 
@@ -148,7 +149,7 @@ module Octokit
       # you are a member. If you are not in the organization you are checking,
       # use .organization_public_member? instead.
       #
-      # @param org [String] Organization GitHub username.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @param user [String] GitHub username of the user to check.
       #
       # @return [Boolean] Is a member?
@@ -159,7 +160,7 @@ module Octokit
       #   @client.organization_member?('your_organization', 'pengwynn')
       #   => false
       def organization_member?(org, user, options = {})
-        result = boolean_from_response(:get, "orgs/#{org}/members/#{user}", options)
+        result = boolean_from_response(:get, "#{Organization.path org}/members/#{user}", options)
         if !result && last_response && last_response.status == 302
           boolean_from_response :get, last_response.headers['Location']
         else
@@ -173,7 +174,7 @@ module Octokit
       # If you are checking for membership of a user of an organization that
       # you are in, use .organization_member? instead.
       #
-      # @param org [String] Organization GitHub username.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @param user [String] GitHub username of the user to check.
       #
       # @return [Boolean] Is a public member?
@@ -184,7 +185,7 @@ module Octokit
       #   @client.organization_public_member?('github', 'pengwynn')
       #   => true
       def organization_public_member?(org, user, options = {})
-        boolean_from_response :get, "orgs/#{org}/public_members/#{user}", options
+        boolean_from_response :get, "#{Organization.path org}/public_members/#{user}", options
       end
       alias :org_public_member? :organization_public_member?
 
@@ -192,7 +193,7 @@ module Octokit
       #
       # Requires authenticated organization member.
       #
-      # @param org [String] Organization GitHub username.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @return [Array<Sawyer::Resource>] Array of hashes representing teams.
       # @see https://developer.github.com/v3/orgs/teams/#list-teams
       # @example
@@ -200,7 +201,7 @@ module Octokit
       # @example
       #   @client.org_teams('github')
       def organization_teams(org, options = {})
-        paginate "orgs/#{org}/teams", options
+        paginate "#{Organization.path org}/teams", options
       end
       alias :org_teams :organization_teams
 
@@ -208,7 +209,7 @@ module Octokit
       #
       # Requires authenticated organization owner.
       #
-      # @param org [String] Organization GitHub username.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @option options [String] :name Team name.
       # @option options [Array<String>] :repo_names Repositories for the team.
       # @option options [String, optional] :permission ('pull') Permissions the
@@ -226,7 +227,7 @@ module Octokit
       #     :permission => 'push'
       #   })
       def create_team(org, options = {})
-        post "orgs/#{org}/teams", options
+        post "#{Organization.path org}/teams", options
       end
 
       # Get team
@@ -419,7 +420,7 @@ module Octokit
       #
       # Requires authenticated organization owner or member with team `admin` access.
       #
-      # @param org [String] Organization GitHub username.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @param user [String] GitHub username of user to remove.
       # @return [Boolean] True if removal is successful, false otherwise.
       # @see https://developer.github.com/v3/orgs/members/#remove-a-member
@@ -430,7 +431,7 @@ module Octokit
       def remove_organization_member(org, user, options = {})
         # this is a synonym for: for team in org.teams: remove_team_member(team.id, user)
         # provided in the GH API v3
-        boolean_from_response :delete, "orgs/#{org}/members/#{user}", options
+        boolean_from_response :delete, "#{Organization.path org}/members/#{user}", options
       end
       alias :remove_org_member :remove_organization_member
 
@@ -438,21 +439,21 @@ module Octokit
       #
       # Requires authenticated organization owner.
       #
-      # @param org [String] Organization GitHub username.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @param user [String] GitHub username of user to publicize.
       # @return [Boolean] True if publicization successful, false otherwise.
       # @see https://developer.github.com/v3/orgs/members/#publicize-a-users-membership
       # @example
       #   @client.publicize_membership('github', 'pengwynn')
       def publicize_membership(org, user, options = {})
-        boolean_from_response :put, "orgs/#{org}/public_members/#{user}", options
+        boolean_from_response :put, "#{Organization.path org}/public_members/#{user}", options
       end
 
       # Conceal a user's membership of an organization.
       #
       # Requires authenticated organization owner.
       #
-      # @param org [String] Organization GitHub username.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @param user [String] GitHub username of user to unpublicize.
       # @return [Boolean] True of unpublicization successful, false otherwise.
       # @see https://developer.github.com/v3/orgs/members/#conceal-a-users-membership
@@ -461,7 +462,7 @@ module Octokit
       # @example
       #   @client.conceal_membership('github', 'pengwynn')
       def unpublicize_membership(org, user, options = {})
-        boolean_from_response :delete, "orgs/#{org}/public_members/#{user}", options
+        boolean_from_response :delete, "#{Organization.path org}/public_members/#{user}", options
       end
       alias :conceal_membership :unpublicize_membership
 

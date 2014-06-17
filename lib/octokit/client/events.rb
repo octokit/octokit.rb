@@ -98,13 +98,13 @@ module Octokit
 
       # List an organization's public events
       #
-      # @param org [String] Organization GitHub username
+      # @param org [String, Integer] Organization GitHub login or id.
       # @return [Array<Sawyer::Resource>] List of public events from a GitHub organization
       # @see https://developer.github.com/v3/activity/events/#list-public-events-for-an-organization
       # @example List public events for GitHub
       #   Octokit.organization_public_events("GitHub")
       def organization_public_events(org, options = {})
-        paginate "orgs/#{org}/events", options
+        paginate "#{Organization.path org}/events", options
       end
 
       # Get all Issue Events for a given Repository
