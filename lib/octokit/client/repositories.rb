@@ -432,7 +432,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of Hashes representing languages.
       # @see https://developer.github.com/v3/repos/#list-languages
       # @example
-      #   Octokit.langauges('octokit/octokit.rb')
+      #   Octokit.languages('octokit/octokit.rb')
       # @example
       #   @client.languages('octokit/octokit.rb')
       def languages(repo, options = {})
