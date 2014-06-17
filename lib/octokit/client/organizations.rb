@@ -59,7 +59,8 @@ module Octokit
       # Calling this method on a `@client` will return that users organizations.
       # Private organizations are included only if the `@client` is authenticated.
       #
-      # @param user [String] Username of the user to get list of organizations.
+      # @param user [Integer, String] GitHub user login or id of the user to get
+      #   list of organizations.
       # @return [Array<Sawyer::Resource>] Array of hashes representing organizations.
       # @see https://developer.github.com/v3/orgs/#list-user-organizations
       # @example
@@ -75,11 +76,7 @@ module Octokit
       # @example
       #   @client.organizations
       def organizations(user=nil, options = {})
-        if user
-          get "users/#{user}/orgs", options
-        else
-          get "user/orgs", options
-        end
+        get "#{User.path user}/orgs", options
       end
       alias :list_organizations :organizations
       alias :list_orgs :organizations

@@ -24,18 +24,14 @@ module Octokit
 
       # Get a single user
       #
-      # @param user [String] A GitHub user name.
+      # @param user [Integer, String] GitHub user login or id.
       # @return [Sawyer::Resource]
       # @see https://developer.github.com/v3/users/#get-a-single-user
       # @see https://developer.github.com/v3/users/#get-the-authenticated-user
       # @example
       #   Octokit.user("sferik")
       def user(user=nil, options = {})
-        if user
-          get "users/#{user}", options
-        else
-          get 'user', options
-        end
+        get User.path(user), options
       end
 
       # Retrieve the access_token.
@@ -92,24 +88,28 @@ module Octokit
 
       # Get a user's followers.
       #
-      # @param user [String] Username of the user whose list of followers you are getting.
-      # @return [Array<Sawyer::Resource>] Array of hashes representing users followers.
+      # @param user [Integer, String] GitHub user login or id of the user whose
+      #   list of followers you are getting.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users
+      #   followers.
       # @see https://developer.github.com/v3/users/followers/#list-followers-of-a-user
       # @example
       #   Octokit.followers('pengwynn')
       def followers(user=login, options = {})
-        paginate "users/#{user}/followers", options
+        paginate "#{User.path user}/followers", options
       end
 
       # Get list of users a user is following.
       #
-      # @param user [String] Username of the user who you are getting the list of the people they follow.
-      # @return [Array<Sawyer::Resource>] Array of hashes representing users a user is following.
+      # @param user [Intger, String] GitHub user login or id of the user who you
+      #   are getting the list of the people they follow.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users a
+      #   user is following.
       # @see https://developer.github.com/v3/users/followers/#list-users-followed-by-another-user
       # @example
       #   Octokit.following('pengwynn')
       def following(user=login, options = {})
-        paginate "users/#{user}/following", options
+        paginate "#{User.path user}/following", options
       end
 
       # Check if you are following a user. Alternatively, check if a given user
@@ -118,10 +118,11 @@ module Octokit
       # Requries an authenticated client.
       #
       # @overload follows?(target)
-      #   @param target [String] Username of the user that you want to check if you are following.
+      #   @param target [String] GitHub login of the user that you want to
+      #   check if you are following.
       # @overload follows?(user, target)
-      #   @param user [String] Username of first user
-      #   @param target [String] Username of the target user
+      #   @param user [Integer, String] GitHub user login or id of first user
+      #   @param target [String] GitHub login of the target user
       # @return [Boolean] True following target user, false otherwise.
       # @see https://developer.github.com/v3/users/followers/#check-if-you-are-following-a-user
       # @see https://developer.github.com/v3/users/followers/#check-if-one-user-follows-another
@@ -132,12 +133,7 @@ module Octokit
       def follows?(*args)
         target = args.pop
         user = args.first
-        if user.nil?
-          url = "user/following/#{target}"
-        else
-          url = "users/#{user}/following/#{target}"
-        end
-        boolean_from_response :get, url
+        boolean_from_response :get, "#{User.path user}/following/#{target}"
       end
 
       # Follow a user.
@@ -168,7 +164,8 @@ module Octokit
 
       # Get list of repos starred by a user.
       #
-      # @param user [String] Username of the user to get the list of their starred repositories.
+      # @param user [Integer, String] GitHub user login of the user to get the
+      #   list of their starred repositories.
       # @param options [Hash] Optional options
       # @option options [String] :sort (created) Sort: <tt>created</tt> or <tt>updated</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
@@ -234,13 +231,14 @@ module Octokit
 
       # Get list of public keys for user.
       #
+      # @param user [Integer, String] GitHub user login or id.
       # @return [Array<Sawyer::Resource>] Array of hashes representing public keys.
       # @see https://developer.github.com/v3/users/keys/#list-public-keys-for-a-user
       # @example
       #   @client.user_keys('pengwynn')
       def user_keys(user, options = {})
         # TODO: Roll this into .keys
-        paginate "users/#{user}/keys", options
+        paginate "#{User.path user}/keys", options
       end
 
       # Add public key to user account.
@@ -328,12 +326,9 @@ module Octokit
 
       # List repositories being watched by a user.
       #
-      # @param user [String] User's GitHub username.
-      #
+      # @param user [Integer, String] GitHub user login or id.
       # @return [Array<Sawyer::Resource>] Array of repositories.
-      #
       # @see https://developer.github.com/v3/activity/watching/#list-repositories-being-watched
-      #
       # @example
       #   @client.subscriptions("pengwynn")
       def subscriptions(user=login, options = {})
@@ -349,7 +344,7 @@ module Octokit
       if user == login && user_authenticated?
         "user/#{path}"
       else
-        "users/#{user}/#{path}"
+        "#{User.path user}/#{path}"
       end
     end
   end

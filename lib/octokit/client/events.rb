@@ -19,43 +19,46 @@ module Octokit
 
       # List all user events
       #
+      # @param user [Integer, String] GitHub user login or id.
       # @return [Array<Sawyer::Resource>] A list of all user events
       # @see https://developer.github.com/v3/activity/events/#list-events-performed-by-a-user
       # @example List all user events
       #   Octokit.user_events("sferik")
       def user_events(user, options = {})
-        paginate "users/#{user}/events", options
+        paginate "#{User.path user}/events", options
       end
 
       # List public user events
       #
-      # @param user [String] GitHub username
+      # @param user [Integer, String] GitHub user login or id
       # @return [Array<Sawyer::Resource>] A list of public user events
       # @see https://developer.github.com/v3/activity/events/#list-public-events-performed-by-a-user
       # @example List public user events
       #   Octokit.user_events("sferik")
       def user_public_events(user, options = {})
-        paginate "users/#{user}/events/public", options
+        paginate "#{User.path user}/events/public", options
       end
 
       # List events that a user has received
       #
+      # @param user [Integer, String] GitHub user login or id
       # @return [Array<Sawyer::Resource>] A list of all user received events
       # @see https://developer.github.com/v3/activity/events/#list-events-that-a-user-has-received
       # @example List all user received events
       #   Octokit.received_events("sferik")
       def received_events(user, options = {})
-        paginate "users/#{user}/received_events", options
+        paginate "#{User.path user}/received_events", options
       end
 
       # List public events a user has received
       #
+      # @param user [Integer, String] GitHub user login or id
       # @return [Array<Sawyer::Resource>] A list of public user received events
       # @see https://developer.github.com/v3/activity/events/#list-public-events-that-a-user-has-received
       # @example List public user received events
       #   Octokit.received_public_events("sferik")
       def received_public_events(user, options = {})
-        paginate "users/#{user}/received_events/public", options
+        paginate "#{User.path user}/received_events/public", options
       end
 
       # List events for a repository

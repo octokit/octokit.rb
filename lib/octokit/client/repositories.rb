@@ -52,23 +52,20 @@ module Octokit
 
       # List user repositories
       #
-      # If username is not supplied, repositories for the current
+      # If user is not supplied, repositories for the current
       #   authenticated user are returned.
       #
-      # @note If the username provided is a GitHub organization, only the
+      # @note If the user provided is a GitHub organization, only the
       #   organization's public repositories will be listed. For retrieving
       #   organization repositories the {Organizations#organization_repositories}
       #   method should be used instead.
       # @see https://developer.github.com/v3/repos/#list-your-repositories
       # @see https://developer.github.com/v3/repos/#list-user-repositories
-      # @param username [String] Optional username for which to list repos
+      # @param user [Integer, String] Optional GitHub user login or id for which
+      #   to list repos.
       # @return [Array<Sawyer::Resource>] List of repositories
-      def repositories(username=nil, options = {})
-        if username.nil?
-          paginate 'user/repos', options
-        else
-          paginate "users/#{username}/repos", options
-        end
+      def repositories(user=nil, options = {})
+        paginate "#{User.path user}/repos", options
       end
       alias :list_repositories :repositories
       alias :list_repos :repositories
