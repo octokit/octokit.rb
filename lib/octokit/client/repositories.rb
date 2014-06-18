@@ -359,7 +359,7 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [String, Hash, Repository] A GitHub repository.
-      # @param anon [Boolean] Set true to include annonymous contributors.
+      # @param anon [Boolean] Set true to include anonymous contributors.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/repos/#list-contributors
       # @example
