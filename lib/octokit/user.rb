@@ -6,9 +6,14 @@ module Octokit
     # @param user [String, Integer] GitHub user login or id
     # @return [String] User Api path
     def self.path user
-      return "users/#{user}" if user.is_a? String
-      return "user/#{user}" if user.is_a? Integer
-      "user"
+      case user
+      when String
+        "users/#{user}"
+      when Integer
+        "user/#{user}"
+      else
+        "user"
+      end
     end
   end
 end
