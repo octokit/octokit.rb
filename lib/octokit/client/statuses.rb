@@ -14,7 +14,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of statuses
       # @see https://developer.github.com/v3/repos/statuses/#list-statuses-for-a-specific-ref
       def statuses(repo, sha, options = {})
-        get "#{Repository.new(repo).path}/statuses/#{sha}", options
+        get "#{Repository.path repo}/statuses/#{sha}", options
       end
       alias :list_statuses :statuses
 
@@ -26,7 +26,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref
       def combined_status(repo, ref, options = {})
         ensure_combined_status_api_media_type(options)
-        get "#{Repository.new(repo).path}/commits/#{ref}/status", options
+        get "#{Repository.path repo}/commits/#{ref}/status", options
       end
       alias :status :combined_status
 
@@ -42,7 +42,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/statuses/#create-a-status
       def create_status(repo, sha, state, options = {})
         options.merge!(:state => state)
-        post "#{Repository.new(repo).path}/statuses/#{sha}", options
+        post "#{Repository.path repo}/statuses/#{sha}", options
       end
 
       private

@@ -93,7 +93,7 @@ module Octokit
                            when Array
                              options[:labels]
                            end
-        post "#{Repository.new(repo).path}/issues", options.merge({:title => title, :body => body})
+        post "#{Repository.path repo}/issues", options.merge({:title => title, :body => body})
       end
       alias :open_issue :create_issue
 
@@ -106,7 +106,7 @@ module Octokit
       # @example Get issue #25 from octokit/octokit.rb
       #   Octokit.issue("octokit/octokit.rb", "25")
       def issue(repo, number, options = {})
-        get "#{Repository.new(repo).path}/issues/#{number}", options
+        get "#{Repository.path repo}/issues/#{number}", options
       end
 
       # Close an issue
@@ -122,7 +122,7 @@ module Octokit
       # @example Close Issue #25 from octokit/octokit.rb
       #   Octokit.close_issue("octokit/octokit.rb", "25")
       def close_issue(repo, number, options = {})
-        patch "#{Repository.new(repo).path}/issues/#{number}", options.merge({:state => "closed"})
+        patch "#{Repository.path repo}/issues/#{number}", options.merge({:state => "closed"})
       end
 
       # Reopen an issue
@@ -138,7 +138,7 @@ module Octokit
       # @example Reopen Issue #25 from octokit/octokit.rb
       #   Octokit.reopen_issue("octokit/octokit.rb", "25")
       def reopen_issue(repo, number, options = {})
-        patch "#{Repository.new(repo).path}/issues/#{number}", options.merge({:state => "open"})
+        patch "#{Repository.path repo}/issues/#{number}", options.merge({:state => "open"})
       end
 
       # Update an issue
@@ -157,7 +157,7 @@ module Octokit
       # @example Change the title of Issue #25
       #   Octokit.update_issue("octokit/octokit.rb", "25", "A new title", "the same body"")
       def update_issue(repo, number, title, body, options = {})
-        patch "#{Repository.new(repo).path}/issues/#{number}", options.merge({:title => title, :body => body})
+        patch "#{Repository.path repo}/issues/#{number}", options.merge({:title => title, :body => body})
       end
 
       # Get all comments attached to issues for the repository
@@ -186,7 +186,7 @@ module Octokit
       #     :since => '2010-05-04T23:45:02Z'
       #   })
       def issues_comments(repo, options = {})
-        paginate "#{Repository.new(repo).path}/issues/comments", options
+        paginate "#{Repository.path repo}/issues/comments", options
       end
 
       # Get all comments attached to an issue
@@ -198,7 +198,7 @@ module Octokit
       # @example Get comments for issue #25 from octokit/octokit.rb
       #   Octokit.issue_comments("octokit/octokit.rb", "25")
       def issue_comments(repo, number, options = {})
-        paginate "#{Repository.new(repo).path}/issues/#{number}/comments", options
+        paginate "#{Repository.path repo}/issues/#{number}/comments", options
       end
 
       # Get a single comment attached to an issue
@@ -210,7 +210,7 @@ module Octokit
       # @example Get comment #1194549 from an issue on octokit/octokit.rb
       #   Octokit.issue_comments("octokit/octokit.rb", 1194549)
       def issue_comment(repo, number, options = {})
-        paginate "#{Repository.new(repo).path}/issues/comments/#{number}", options
+        paginate "#{Repository.path repo}/issues/comments/#{number}", options
       end
 
       # Add a comment to an issue
@@ -223,7 +223,7 @@ module Octokit
       # @example Add the comment "Almost to v1" to Issue #23 on octokit/octokit.rb
       #   Octokit.add_comment("octokit/octokit.rb", 23, "Almost to v1")
       def add_comment(repo, number, comment, options = {})
-        post "#{Repository.new(repo).path}/issues/#{number}/comments", options.merge({:body => comment})
+        post "#{Repository.path repo}/issues/#{number}/comments", options.merge({:body => comment})
       end
 
       # Update a single comment on an issue
@@ -236,7 +236,7 @@ module Octokit
       # @example Update the comment #1194549 with body "I've started this on my 25-issue-comments-v3 fork" on an issue on octokit/octokit.rb
       #   Octokit.update_comment("octokit/octokit.rb", 1194549, "Almost to v1, added this on my fork")
       def update_comment(repo, number, comment, options = {})
-        patch "#{Repository.new(repo).path}/issues/comments/#{number}", options.merge({:body => comment})
+        patch "#{Repository.path repo}/issues/comments/#{number}", options.merge({:body => comment})
       end
 
       # Delete a single comment
@@ -248,7 +248,7 @@ module Octokit
       # @example Delete the comment #1194549 on an issue on octokit/octokit.rb
       #   Octokit.delete_comment("octokit/octokit.rb", 1194549)
       def delete_comment(repo, number, options = {})
-        boolean_from_response :delete, "#{Repository.new(repo).path}/issues/comments/#{number}", options
+        boolean_from_response :delete, "#{Repository.path repo}/issues/comments/#{number}", options
       end
     end
   end

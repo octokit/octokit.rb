@@ -69,7 +69,7 @@ module Octokit
       # @example List events for a repository
       #   Octokit.repository_events("sferik/rails_admin")
       def repository_events(repo, options = {})
-        paginate "#{Repository.new(repo).path}/events", options
+        paginate "#{Repository.path repo}/events", options
       end
 
       # List public events for a repository's network
@@ -117,7 +117,7 @@ module Octokit
       # @example Get all Issue Events for Octokit
       #   Octokit.repository_issue_events("octokit/octokit.rb")
       def repository_issue_events(repo, options = {})
-        paginate "#{Repository.new(repo).path}/issues/events", options
+        paginate "#{Repository.path repo}/issues/events", options
       end
       alias :repo_issue_events :repository_issue_events
 
@@ -131,7 +131,7 @@ module Octokit
       # @example List all issues events for issue #38 on octokit/octokit.rb
       #   Octokit.issue_events("octokit/octokit.rb", 38)
       def issue_events(repo, number, options = {})
-        paginate "#{Repository.new(repo).path}/issues/#{number}/events", options
+        paginate "#{Repository.path repo}/issues/#{number}/events", options
       end
 
       # Get information on a single Issue Event
@@ -144,7 +144,7 @@ module Octokit
       # @example Get Event information for ID 3094334 (a pull request was closed)
       #   Octokit.issue_event("octokit/octokit.rb", 3094334)
       def issue_event(repo, number, options = {})
-        paginate "#{Repository.new(repo).path}/issues/events/#{number}", options
+        paginate "#{Repository.path repo}/issues/events/#{number}", options
       end
     end
   end

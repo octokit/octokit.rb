@@ -15,7 +15,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/deployments/#list-deployments
       def deployments(repo, options = {})
         options = ensure_deployments_api_media_type(options)
-        get("#{Repository.new(repo).path}/deployments", options)
+        get("#{Repository.path repo}/deployments", options)
       end
       alias :list_deployments :deployments
 
@@ -32,7 +32,7 @@ module Octokit
       def create_deployment(repo, ref, options = {})
         options = ensure_deployments_api_media_type(options)
         options[:ref] = ref
-        post("#{Repository.new(repo).path}/deployments", options)
+        post("#{Repository.path repo}/deployments", options)
       end
 
       # List all statuses for a Deployment
