@@ -266,7 +266,10 @@ module Octokit
       # @option options [String] :title
       # @option options [String] :key
       # @return [Sawyer::Resource] Hash representing the updated public key.
+      #
+      # @deprecated This method is no longer supported in the API
       # @see https://developer.github.com/v3/users/keys/#update-a-public-key
+      # @see https://developer.github.com/changes/2014-02-24-finer-grained-scopes-for-ssh-keys/
       # @example
       #   @client.update_key(1, :title => 'new title', :key => "ssh-rsa BBB")
       def update_key(key_id, options = {})
