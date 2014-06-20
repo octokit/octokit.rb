@@ -68,8 +68,9 @@ describe Octokit::Client::Repositories do
   describe ".edit_deploy_key" do
     it "modifies a deploy key" do
       key_id = 8675309
-      request = stub_patch github_url "/repos/#{@test_repo}/keys/#{key_id}"
-      @client.edit_deploy_key(@test_repo, key_id, :title => 'Staging')
+      request = stub_patch(github_url "/repos/#{@test_repo}/keys/#{key_id}").to_return(:status => 405)
+      expect { @client.edit_deploy_key(@test_repo, key_id, :title => 'Staging') }.
+        to raise_error(Octokit::MethodNotAllowed)
       assert_requested request
     end
   end # .edit_deploy_key
