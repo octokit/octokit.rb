@@ -172,7 +172,7 @@ module Octokit
 
       # List comments on a pull request
       #
-      # @see https://developer.github.com/v3/pulls/#list-comments-on-a-pull-request
+      # @see https://developer.github.com/v3/pulls/comments/#list-comments-on-a-pull-request
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @return [Array<Sawyer::Resource>] List of comments
