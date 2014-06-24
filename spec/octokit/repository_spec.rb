@@ -25,7 +25,29 @@ describe Octokit::Repository do
     it "renders url as string" do
       expect(@repository.url).to eq('https://github.com/sferik/octokit')
     end
+  end
 
+  describe ".path" do
+    context "with named repository" do
+      it "returns the url path" do
+        repository = Octokit::Repository.new('sferik/octokit')
+        expect(repository.path).to eq 'repos/sferik/octokit'
+      end
+    end
+
+    context "with repository id" do
+      it "returns theu url path" do
+        repository = Octokit::Repository.new(12345)
+        expect(repository.path).to eq 'repositories/12345'
+      end
+    end
+  end # .path
+
+  context "when passed an integer" do
+    it "sets the repository id" do
+      repository = Octokit::Repository.new(12345)
+      expect(repository.id).to eq 12345
+    end
   end
 
   context "when passed a hash" do

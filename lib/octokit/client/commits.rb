@@ -12,11 +12,11 @@ module Octokit
       #
       # @overload commits(repo, sha_or_branch, options = {})
       #   @deprecated
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param sha_or_branch [String] A commit SHA or branch name
       #   @param options [String] :sha Commit SHA or branch name from which to start the list
       # @overload commits(repo, options = {})
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param options [String] :sha Commit SHA or branch name from which to start the list
       # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see https://developer.github.com/v3/repos/commits/#list-commits-on-a-repository
@@ -26,19 +26,19 @@ module Octokit
         if sha_or_branch
           arguments.options[:sha] = sha_or_branch
         end
-        paginate "repos/#{Repository.new(arguments.repo)}/commits", arguments.options
+        paginate "#{Repository.new(arguments.repo).path}/commits", arguments.options
       end
       alias :list_commits :commits
 
       # Get commits after a specified date
       #
       # @overload commits_since(repo, date, options = {})
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       #   @param options [String] :sha Commit SHA or branch name from which to start the list
       # @overload commits_since(repo, date, sha_or_branch, options = {})
       #   @deprecated
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       #   @param sha_or_branch [String] A commit SHA or branch name
       #   @param options [String] :sha Commit SHA or branch name from which to start the list
@@ -61,11 +61,11 @@ module Octokit
       # Get commits before a specified date
       #
       # @overload commits_before(repo, date, options = {})
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       # @overload commits_before(repo, date, sha_or_branch, options = {})
       #   @deprecated
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       #   @param sha_or_branch [String] Commit SHA or branch name from which to start the list
       # @return [Array<Sawyer::Resource>] An array of hashes representing commits
@@ -87,11 +87,11 @@ module Octokit
       # Get commits on a specified date
       #
       # @overload commits_on(repo, date, options = {})
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       # @overload commits_on(repo, date, sha_or_branch, options = {})
       #   @deprecated
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param date [String] Date on which we want to compare
       #   @param sha_or_branch [String] Commit SHA or branch name from which to start the list
       # @return [Array<Sawyer::Resource>] An array of hashes representing commits
@@ -114,12 +114,12 @@ module Octokit
       # Get commits made between two nominated dates
       #
       # @overload commits_between(repo, start_date, end_date, options = {})
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param start_date [String] Start Date on which we want to compare
       #   @param end_date [String] End Date on which we want to compare
       # @overload commits_between(repo, start_date, end_date, sha_or_branch, options = {})
       #   @deprecated
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param start_date [String] Start Date on which we want to compare
       #   @param end_date [String] End Date on which we want to compare
       #   @param sha_or_branch [String] Commit SHA or branch name from which to start the list
@@ -144,22 +144,22 @@ module Octokit
 
       # Get a single commit
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param sha [String] The SHA of the commit to fetch
       # @return [Sawyer::Resource] A hash representing the commit
       # @see https://developer.github.com/v3/repos/commits/#get-a-single-commit
       def commit(repo, sha, options = {})
-        get "repos/#{Repository.new(repo)}/commits/#{sha}", options
+        get "#{Repository.new(repo).path}/commits/#{sha}", options
       end
 
       # Get a detailed git commit
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param sha [String] The SHA of the commit to fetch
       # @return [Sawyer::Resource] A hash representing the commit
       # @see https://developer.github.com/v3/git/commits/#get-a-commit
       def git_commit(repo, sha, options = {})
-        get "repos/#{Repository.new(repo)}/git/commits/#{sha}", options
+        get "#{Repository.new(repo).path}/git/commits/#{sha}", options
       end
 
       # Create a commit
@@ -169,7 +169,7 @@ module Octokit
       # inferred from the authenticated user. See <a href="http://developer.github.com/v3/git/commits/">GitHub's documentation</a>
       # for details about how to format committer identities.
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param message [String] The commit message
       # @param tree [String] The SHA of the tree object the new commit will point to
       # @param parents [String, Array] One SHA (for a normal commit) or an array of SHAs (for a merge) of the new commit's parent commits. If ommitted or empty, a root commit will be created
@@ -184,23 +184,23 @@ module Octokit
       def create_commit(repo, message, tree, parents=nil, options = {})
         params = { :message => message, :tree => tree }
         params[:parents] = [parents].flatten if parents
-        post "repos/#{Repository.new(repo)}/git/commits", options.merge(params)
+        post "#{Repository.new(repo).path}/git/commits", options.merge(params)
       end
 
       # Compare two commits
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param start [String] The sha of the starting commit
       # @param endd [String] The sha of the ending commit
       # @return [Sawyer::Resource] A hash representing the comparison
       # @see https://developer.github.com/v3/repos/commits/#compare-two-commits
       def compare(repo, start, endd, options = {})
-        get "repos/#{Repository.new(repo)}/compare/#{start}...#{endd}", options
+        get "#{Repository.new(repo).path}/compare/#{start}...#{endd}", options
       end
 
       # Merge a branch or sha
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param base [String] The name of the base branch to merge into
       # @param head [String] The branch or SHA1 to merge
       # @option options [String] :commit_message The commit message for the merge
@@ -211,7 +211,7 @@ module Octokit
           :base => base,
           :head => head
         }.merge(options)
-        post "repos/#{Repository.new(repo)}/merges", params
+        post "#{Repository.new(repo).path}/merges", params
       end
 
       protected

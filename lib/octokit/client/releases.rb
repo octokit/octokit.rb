@@ -8,17 +8,17 @@ module Octokit
 
       # List releases for a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of releases
       # @see https://developer.github.com/v3/repos/releases/#list-releases-for-a-repository
       def releases(repo, options = {})
-        paginate "repos/#{Repository.new(repo)}/releases", options
+        paginate "#{Repository.new(repo).path}/releases", options
       end
       alias :list_releases :releases
 
       # Create a release
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param tag_name [String] Git tag from which to create release
       # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from.
       # @option options [String] :name Name for the release
@@ -29,7 +29,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/releases/#create-a-release
       def create_release(repo, tag_name, options = {})
         opts = options.merge(:tag_name => tag_name)
-        post "repos/#{Repository.new(repo)}/releases", opts
+        post "#{Repository.new(repo).path}/releases", opts
       end
 
       # Get a release
