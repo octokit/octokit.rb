@@ -76,13 +76,13 @@ describe Octokit::Client do
       it "masks tokens on inspect" do
         client = Octokit::Client.new(:access_token => '87614b09dd141c22800f96f11737ade5226d7ba8')
         inspected = client.inspect
-        expect(inspected).not_to eq("87614b09dd141c22800f96f11737ade5226d7ba8")
+        expect(inspected).not_to include("87614b09dd141c22800f96f11737ade5226d7ba8")
       end
 
       it "masks client secrets on inspect" do
         client = Octokit::Client.new(:client_secret => '87614b09dd141c22800f96f11737ade5226d7ba8')
         inspected = client.inspect
-        expect(inspected).not_to eq("87614b09dd141c22800f96f11737ade5226d7ba8")
+        expect(inspected).not_to include("87614b09dd141c22800f96f11737ade5226d7ba8")
       end
 
       describe "with .netrc" do
