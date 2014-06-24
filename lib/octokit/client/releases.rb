@@ -12,7 +12,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of releases
       # @see https://developer.github.com/v3/repos/releases/#list-releases-for-a-repository
       def releases(repo, options = {})
-        paginate "#{Repository.new(repo).path}/releases", options
+        paginate "#{Repository.path repo}/releases", options
       end
       alias :list_releases :releases
 
@@ -29,7 +29,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/releases/#create-a-release
       def create_release(repo, tag_name, options = {})
         opts = options.merge(:tag_name => tag_name)
-        post "#{Repository.new(repo).path}/releases", opts
+        post "#{Repository.path repo}/releases", opts
       end
 
       # Get a release

@@ -23,7 +23,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Repository information
       def repository(repo, options = {})
-        get Repository.new(repo).path, options
+        get Repository.path(repo), options
       end
       alias :repo :repository
 
@@ -52,23 +52,20 @@ module Octokit
 
       # List user repositories
       #
-      # If username is not supplied, repositories for the current
+      # If user is not supplied, repositories for the current
       #   authenticated user are returned.
       #
-      # @note If the username provided is a GitHub organization, only the
+      # @note If the user provided is a GitHub organization, only the
       #   organization's public repositories will be listed. For retrieving
       #   organization repositories the {Organizations#organization_repositories}
       #   method should be used instead.
       # @see https://developer.github.com/v3/repos/#list-your-repositories
       # @see https://developer.github.com/v3/repos/#list-user-repositories
-      # @param username [String] Optional username for which to list repos
+      # @param user [Integer, String] Optional GitHub user login or id for which
+      #   to list repos.
       # @return [Array<Sawyer::Resource>] List of repositories
-      def repositories(username=nil, options = {})
-        if username.nil?
-          paginate 'user/repos', options
-        else
-          paginate "users/#{username}/repos", options
-        end
+      def repositories(user=nil, options = {})
+        paginate "#{User.path user}/repos", options
       end
       alias :list_repositories :repositories
       alias :list_repos :repositories
@@ -133,7 +130,7 @@ module Octokit
       # @return [Sawyer::Resource] Repository info for the new fork
       # @see https://developer.github.com/v3/repos/forks/#create-a-fork
       def fork(repo, options = {})
-        post "#{Repository.new(repo).path}/forks", options
+        post "#{Repository.path repo}/forks", options
       end
 
       # Create a repository for a user or organization
@@ -172,7 +169,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @return [Boolean] `true` if repository was deleted
       def delete_repository(repo, options = {})
-        boolean_from_response :delete, Repository.new(repo).path, options
+        boolean_from_response :delete, Repository.path(repo), options
       end
       alias :delete_repo :delete_repository
 
@@ -206,7 +203,7 @@ module Octokit
       # @example
       #   @client.list_deploy_keys('octokit/octokit.rb')
       def deploy_keys(repo, options = {})
-        paginate "#{Repository.new(repo).path}/keys", options
+        paginate "#{Repository.path repo}/keys", options
       end
       alias :list_deploy_keys :deploy_keys
 
@@ -219,7 +216,7 @@ module Octokit
       # @example
       #   @client.deploy_key('octokit/octokit.rb', 8675309)
       def deploy_key(repo, id, options={})
-        get "#{Repository.new(repo).path}/keys/#{id}", options
+        get "#{Repository.path repo}/keys/#{id}", options
       end
 
       # Add deploy key to a repo
@@ -234,7 +231,7 @@ module Octokit
       # @example
       #    @client.add_deploy_key('octokit/octokit.rb', 'Staging server', 'ssh-rsa AAA...')
       def add_deploy_key(repo, title, key, options = {})
-        post "#{Repository.new(repo).path}/keys", options.merge(:title => title, :key => key)
+        post "#{Repository.path repo}/keys", options.merge(:title => title, :key => key)
       end
 
       # Edit a deploy key
@@ -251,7 +248,7 @@ module Octokit
       # @example
       #   @client.update_deploy_key('octokit/octokit.rb', 8675309, :title => 'Uber', :key => 'ssh-rsa BBB...'))
       def edit_deploy_key(repo, id, options)
-        patch "#{Repository.new(repo).path}/keys/#{id}", options
+        patch "#{Repository.path repo}/keys/#{id}", options
       end
       alias :update_deploy_key :edit_deploy_key
 
@@ -266,7 +263,7 @@ module Octokit
       # @example
       #   @client.remove_deploy_key('octokit/octokit.rb', 100000)
       def remove_deploy_key(repo, id, options = {})
-        boolean_from_response :delete, "#{Repository.new(repo).path}/keys/#{id}", options
+        boolean_from_response :delete, "#{Repository.path repo}/keys/#{id}", options
       end
 
       # List collaborators
@@ -283,7 +280,7 @@ module Octokit
       # @example
       #   @client.collabs('octokit/octokit.rb')
       def collaborators(repo, options = {})
-        paginate "#{Repository.new(repo).path}/collaborators", options
+        paginate "#{Repository.path repo}/collaborators", options
       end
       alias :collabs :collaborators
 
@@ -300,7 +297,7 @@ module Octokit
       # @example
       #   @client.add_collab('octokit/octokit.rb', 'holman')
       def add_collaborator(repo, collaborator, options = {})
-        boolean_from_response :put, "#{Repository.new(repo).path}/collaborators/#{collaborator}", options
+        boolean_from_response :put, "#{Repository.path repo}/collaborators/#{collaborator}", options
       end
       alias :add_collab :add_collaborator
 
@@ -317,7 +314,7 @@ module Octokit
       # @example
       #   @client.remove_collab('octokit/octokit.rb', 'holman')
       def remove_collaborator(repo, collaborator, options = {})
-        boolean_from_response :delete, "#{Repository.new(repo).path}/collaborators/#{collaborator}", options
+        boolean_from_response :delete, "#{Repository.path repo}/collaborators/#{collaborator}", options
       end
       alias :remove_collab :remove_collaborator
 
@@ -332,7 +329,7 @@ module Octokit
       # @example
       #   @client.collaborator?('octokit/octokit.rb', 'holman')
       def collaborator?(repo, collaborator, options={})
-        boolean_from_response :get, "#{Repository.new(repo).path}/collaborators/#{collaborator}", options
+        boolean_from_response :get, "#{Repository.path repo}/collaborators/#{collaborator}", options
       end
 
       # List teams for a repo
@@ -349,7 +346,7 @@ module Octokit
       # @example
       #   @client.teams('octokit/pengwynn')
       def repository_teams(repo, options = {})
-        paginate "#{Repository.new(repo).path}/teams", options
+        paginate "#{Repository.path repo}/teams", options
       end
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
@@ -370,7 +367,7 @@ module Octokit
       #   @client.contribs('octokit/octokit.rb')
       def contributors(repo, anon = nil, options = {})
         options[:anon] = 1 if anon.to_s[/1|true/]
-        paginate "#{Repository.new(repo).path}/contributors", options
+        paginate "#{Repository.path repo}/contributors", options
       end
       alias :contribs :contributors
 
@@ -386,7 +383,7 @@ module Octokit
       # @example
       #   @client.stargazers('octokit/octokit.rb')
       def stargazers(repo, options = {})
-        paginate "#{Repository.new(repo).path}/stargazers", options
+        paginate "#{Repository.path repo}/stargazers", options
       end
 
       # @deprecated Use {#stargazers} instead
@@ -403,7 +400,7 @@ module Octokit
       # @example
       #   @client.watchers('octokit/octokit.rb')
       def watchers(repo, options = {})
-        paginate "#{Repository.new(repo).path}/watchers", options
+        paginate "#{Repository.path repo}/watchers", options
       end
 
       # List forks
@@ -420,7 +417,7 @@ module Octokit
       # @example
       #   @client.forks('octokit/octokit.rb')
       def forks(repo, options = {})
-        paginate "#{Repository.new(repo).path}/forks", options
+        paginate "#{Repository.path repo}/forks", options
       end
       alias :network :forks
 
@@ -436,7 +433,7 @@ module Octokit
       # @example
       #   @client.languages('octokit/octokit.rb')
       def languages(repo, options = {})
-        paginate "#{Repository.new(repo).path}/languages", options
+        paginate "#{Repository.path repo}/languages", options
       end
 
       # List tags
@@ -451,7 +448,7 @@ module Octokit
       # @example
       #   @client.tags('octokit/octokit.rb')
       def tags(repo, options = {})
-        paginate "#{Repository.new(repo).path}/tags", options
+        paginate "#{Repository.path repo}/tags", options
       end
 
       # List branches
@@ -466,7 +463,7 @@ module Octokit
       # @example
       #   @client.branches('octokit/octokit.rb')
       def branches(repo, options = {})
-        paginate "#{Repository.new(repo).path}/branches", options
+        paginate "#{Repository.path repo}/branches", options
       end
 
       # Get a single branch from a repository
@@ -478,7 +475,7 @@ module Octokit
       # @example Get branch 'master` from octokit/octokit.rb
       #   Octokit.branch("octokit/octokit.rb", "master")
       def branch(repo, branch, options = {})
-        get "#{Repository.new(repo).path}/branches/#{branch}", options
+        get "#{Repository.path repo}/branches/#{branch}", options
       end
       alias :get_branch :branch
 
@@ -492,7 +489,7 @@ module Octokit
       # @example
       #   @client.hooks('octokit/octokit.rb')
       def hooks(repo, options = {})
-        paginate "#{Repository.new(repo).path}/hooks", options
+        paginate "#{Repository.path repo}/hooks", options
       end
 
       # Get single hook
@@ -506,7 +503,7 @@ module Octokit
       # @example
       #   @client.hook('octokit/octokit.rb', 100000)
       def hook(repo, id, options = {})
-        get "#{Repository.new(repo).path}/hooks/#{id}", options
+        get "#{Repository.path repo}/hooks/#{id}", options
       end
 
       # Create a hook
@@ -542,7 +539,7 @@ module Octokit
       #   )
       def create_hook(repo, name, config, options = {})
         options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
-        post "#{Repository.new(repo).path}/hooks", options
+        post "#{Repository.path repo}/hooks", options
       end
 
       # Edit a hook
@@ -585,7 +582,7 @@ module Octokit
       #   )
       def edit_hook(repo, id, name, config, options = {})
         options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
-        patch "#{Repository.new(repo).path}/hooks/#{id}", options
+        patch "#{Repository.path repo}/hooks/#{id}", options
       end
 
       # Delete hook
@@ -599,7 +596,7 @@ module Octokit
       # @example
       #   @client.remove_hook('octokit/octokit.rb', 1000000)
       def remove_hook(repo, id, options = {})
-        boolean_from_response :delete, "#{Repository.new(repo).path}/hooks/#{id}", options
+        boolean_from_response :delete, "#{Repository.path repo}/hooks/#{id}", options
       end
 
       # Test hook
@@ -613,7 +610,7 @@ module Octokit
       # @example
       #   @client.test_hook('octokit/octokit.rb', 1000000)
       def test_hook(repo, id, options = {})
-        boolean_from_response :post, "#{Repository.new(repo).path}/hooks/#{id}/tests", options
+        boolean_from_response :post, "#{Repository.path repo}/hooks/#{id}/tests", options
       end
 
       # List users available for assigning to issues.
@@ -630,7 +627,7 @@ module Octokit
       # @example
       #   @client.repository_assignees('octokit/octokit.rb')
       def repository_assignees(repo, options = {})
-        paginate "#{Repository.new(repo).path}/assignees", options
+        paginate "#{Repository.path repo}/assignees", options
       end
       alias :repo_assignees :repository_assignees
 
@@ -643,7 +640,7 @@ module Octokit
       # @example
       #   Octokit.check_assignee('octokit/octokit.rb', 'andrew')
       def check_assignee(repo, assignee, options = {})
-        boolean_from_response :get, "#{Repository.new(repo).path}/assignees/#{assignee}", options
+        boolean_from_response :get, "#{Repository.path repo}/assignees/#{assignee}", options
       end
 
       # List watchers subscribing to notifications for a repo
@@ -654,7 +651,7 @@ module Octokit
       # @example
       #   @client.subscribers("octokit/octokit.rb")
       def subscribers(repo, options = {})
-        paginate "#{Repository.new(repo).path}/subscribers", options
+        paginate "#{Repository.path repo}/subscribers", options
       end
 
       # Get a repository subscription
@@ -665,7 +662,7 @@ module Octokit
       # @example
       #   @client.subscription("octokit/octokit.rb")
       def subscription(repo, options = {})
-        get "#{Repository.new(repo).path}/subscription", options
+        get "#{Repository.path repo}/subscription", options
       end
 
       # Update repository subscription
@@ -682,7 +679,7 @@ module Octokit
       # @example Subscribe to notifications for a repository
       #   @client.update_subscription("octokit/octokit.rb", {subscribed: true})
       def update_subscription(repo, options = {})
-        put "#{Repository.new(repo).path}/subscription", options
+        put "#{Repository.path repo}/subscription", options
       end
 
       # Delete a repository subscription
@@ -694,7 +691,7 @@ module Octokit
       # @example
       #   @client.delete_subscription("octokit/octokit.rb")
       def delete_subscription(repo, options = {})
-        boolean_from_response :delete, "#{Repository.new(repo).path}/subscription", options
+        boolean_from_response :delete, "#{Repository.path repo}/subscription", options
       end
     end
   end

@@ -43,6 +43,13 @@ describe Octokit::Repository do
     end
   end # .path
 
+  describe "self.path" do
+    it "returns the api path" do
+      expect(Octokit::Repository.path('sferik/octokit')).to eq 'repos/sferik/octokit'
+      expect(Octokit::Repository.path(12345)).to eq 'repositories/12345'
+    end
+  end
+
   context "when passed an integer" do
     it "sets the repository id" do
       repository = Octokit::Repository.new(12345)

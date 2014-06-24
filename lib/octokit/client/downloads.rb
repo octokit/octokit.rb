@@ -15,7 +15,7 @@ module Octokit
       # @example List all downloads for Github/Hubot
       #   Octokit.downloads("github/hubot")
       def downloads(repo, options={})
-        paginate "#{Repository.new(repo).path}/downloads", options
+        paginate "#{Repository.path repo}/downloads", options
       end
       alias :list_downloads :downloads
 
@@ -29,7 +29,7 @@ module Octokit
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.download("github/hubot")
       def download(repo, id, options={})
-        get "#{Repository.new(repo).path}/downloads/#{id}", options
+        get "#{Repository.path repo}/downloads/#{id}", options
       end
 
       # Delete a single download for a repository
@@ -42,7 +42,7 @@ module Octokit
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.delete_download("github/hubot", 1234)
       def delete_download(repo, id, options = {})
-        boolean_from_response :delete, "#{Repository.new(repo).path}/downloads/#{id}", options
+        boolean_from_response :delete, "#{Repository.path repo}/downloads/#{id}", options
       end
 
     end

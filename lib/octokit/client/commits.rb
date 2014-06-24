@@ -149,7 +149,7 @@ module Octokit
       # @return [Sawyer::Resource] A hash representing the commit
       # @see https://developer.github.com/v3/repos/commits/#get-a-single-commit
       def commit(repo, sha, options = {})
-        get "#{Repository.new(repo).path}/commits/#{sha}", options
+        get "#{Repository.path repo}/commits/#{sha}", options
       end
 
       # Get a detailed git commit
@@ -159,7 +159,7 @@ module Octokit
       # @return [Sawyer::Resource] A hash representing the commit
       # @see https://developer.github.com/v3/git/commits/#get-a-commit
       def git_commit(repo, sha, options = {})
-        get "#{Repository.new(repo).path}/git/commits/#{sha}", options
+        get "#{Repository.path repo}/git/commits/#{sha}", options
       end
 
       # Create a commit
@@ -184,7 +184,7 @@ module Octokit
       def create_commit(repo, message, tree, parents=nil, options = {})
         params = { :message => message, :tree => tree }
         params[:parents] = [parents].flatten if parents
-        post "#{Repository.new(repo).path}/git/commits", options.merge(params)
+        post "#{Repository.path repo}/git/commits", options.merge(params)
       end
 
       # Compare two commits
@@ -195,7 +195,7 @@ module Octokit
       # @return [Sawyer::Resource] A hash representing the comparison
       # @see https://developer.github.com/v3/repos/commits/#compare-two-commits
       def compare(repo, start, endd, options = {})
-        get "#{Repository.new(repo).path}/compare/#{start}...#{endd}", options
+        get "#{Repository.path repo}/compare/#{start}...#{endd}", options
       end
 
       # Merge a branch or sha
@@ -211,7 +211,7 @@ module Octokit
           :base => base,
           :head => head
         }.merge(options)
-        post "#{Repository.new(repo).path}/merges", params
+        post "#{Repository.path repo}/merges", params
       end
 
       protected

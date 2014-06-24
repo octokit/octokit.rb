@@ -40,6 +40,13 @@ module Octokit
       return id_api_path if @id
     end
 
+    # Get the api path for a repo
+    # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+    # @return [String] Api path.
+    def self.path repo
+      new(repo).path
+    end
+
     # @return [String] Api path for owner/name identified repos
     def named_api_path
       "repos/#{slug}"
