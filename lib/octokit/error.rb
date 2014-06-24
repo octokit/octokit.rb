@@ -17,6 +17,7 @@ module Octokit
                   when 401      then error_for_401(headers)
                   when 403      then error_for_403(body)
                   when 404      then Octokit::NotFound
+                  when 405      then Octokit::MethodNotAllowed
                   when 406      then Octokit::NotAcceptable
                   when 409      then Octokit::Conflict
                   when 415      then Octokit::UnsupportedMediaType
@@ -188,6 +189,9 @@ module Octokit
 
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end
+
+  # Raised when GitHub returns a 405 HTTP status code
+  class MethodNotAllowed < ClientError; end
 
   # Raised when GitHub returns a 406 HTTP status code
   class NotAcceptable < ClientError; end

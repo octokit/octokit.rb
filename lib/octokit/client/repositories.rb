@@ -242,6 +242,8 @@ module Octokit
       # @option title [String] Key title.
       # @option key [String] Public key.
       # @return [Sawyer::Resource] Updated deploy key.
+      # @deprecated This method is no longer supported in the API
+      # @see https://developer.github.com/changes/2014-02-24-finer-grained-scopes-for-ssh-keys/
       # @see https://developer.github.com/v3/repos/keys/#edit
       # @example Update the key for a deploy key.
       #   @client.edit_deploy_key('octokit/octokit.rb', 8675309, :key => 'ssh-rsa BBB...')
