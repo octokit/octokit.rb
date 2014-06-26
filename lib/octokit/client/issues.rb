@@ -24,7 +24,7 @@ module Octokit
       # @see https://developer.github.com/v3/issues/#list-issues
       # @example List issues for a repository
       #   Octokit.list_issues("sferik/rails_admin")
-      # @example List issues for the authenticted user across repositories
+      # @example List issues for the authenticated user across repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.list_issues
       def list_issues(repository = nil, options = {})
@@ -45,7 +45,7 @@ module Octokit
       #   format: YYYY-MM-DDTHH:MM:SSZ
       # @return [Array<Sawyer::Resource>] A list of issues for a repository.
       # @see https://developer.github.com/v3/issues/#list-issues
-      # @example List issues for the authenticted user across owned and member repositories
+      # @example List issues for the authenticated user across owned and member repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.user_issues
       def user_issues(options = {})
