@@ -181,7 +181,19 @@ module Octokit
 
   # Raised when GitHub returns a 403 HTTP status code
   # and body matches 'rate limit exceeded'
-  class TooManyRequests < Forbidden; end
+  class TooManyRequests < Forbidden
+    def limit_resets_at
+      Time.at(@response.response_headers["x-ratelimit-reset"].to_i)
+    end
+
+    def current_limit
+      @response.response_headers["x-ratelimit-limit"].to_i
+    end
+
+    def remaining_queries
+      @response.response_headers["x-ratelimit-remaining"].to_i
+    end
+  end
 
   # Raised when GitHub returns a 403 HTTP status code
   # and body matches 'login attempts exceeded'
