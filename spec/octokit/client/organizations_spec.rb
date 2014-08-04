@@ -211,6 +211,29 @@ describe Octokit::Client::Organizations do
       assert_requested :get, github_url("/user/teams")
       expect(teams).to be_kind_of(Array)
     end
-  end
+  end # .user_teams
 
+  describe ".team_membership", :vcr do
+    it "gets a user's team membership" do
+      membership = @client.team_membership(946194, "pengwynn")
+      assert_requested :get, github_url("teams/946194/memberships/pengwynn")
+      expect(membership.status).to eq("active")
+    end
+  end # .team_membership
+
+  describe ".add_team_membership", :vcr do
+    it "invites a user to a team" do
+      membership = @client.add_team_membership(946194, "api-padawan")
+      assert_requested :put, github_url("teams/946194/memberships/api-padawan")
+      expect(membership.status).to eq("active")
+    end
+  end # .add_team_membership
+
+  describe ".remove_team_membership", :vcr do
+    it "removes a user's membership for a team" do
+      result = @client.remove_team_membership(946194, "api-padawan")
+      assert_requested :delete, github_url("teams/946194/memberships/api-padawan")
+      expect(result).to be true
+    end
+  end # .remove_team_membership
 end

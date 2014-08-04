@@ -6,6 +6,8 @@ module Octokit
     # @see https://developer.github.com/v3/orgs/
     module Organizations
 
+      ORG_INVITATIONS_PREVIEW_MEDIA_TYPE = "application/vnd.github.the-wasp-preview+json".freeze
+
       # Get an organization
       #
       # @param org [String, Integer] Organization GitHub login or id.
@@ -472,6 +474,73 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/teams/#list-user-teams
       def user_teams(options = {})
         paginate "/user/teams", options
+      end
+
+      # Check if a user has a team membership.
+      #
+      # @param team_id [Integer] Team id.
+      # @param user [String] GitHub username of the user to check.
+      #
+      # @return [Sawyer::Resource] Hash of team membership info
+      #
+      # @see https://developer.github.com/v3/orgs/teams/#get-team-membership
+      #
+      # @example Check if a user has a membership for a team
+      #   @client.team_membership?(1234, 'pengwynn')
+      #   => false
+      def team_membership(team_id, user, options = {})
+        options = ensure_org_invitations_api_media_type(options)
+        get "teams/#{team_id}/memberships/#{user}", options
+      end
+
+      # Invite a user to a team
+      #
+      # @param team_id [Integer] Team id.
+      # @param user [String] GitHub username of the user to invite.
+      #
+      # @return [Sawyer::Resource] Hash of team membership info
+      #
+      # @see https://developer.github.com/v3/orgs/teams/#add-team-membership
+      #
+      # @example Check if a user has a membership for a team
+      #   @client.add_team_membership?(1234, 'pengwynn')
+      #   => false
+      def add_team_membership(team_id, user, options = {})
+        options = ensure_org_invitations_api_media_type(options)
+        put "teams/#{team_id}/memberships/#{user}", options
+      end
+
+      # Remove team membership
+      #
+      # @param team_id [Integer] Team id.
+      # @param user [String] GitHub username of the user to boot.
+      # @return [Boolean] True if user removed, false otherwise.
+      # @see https://developer.github.com/v3/orgs/teams/#remove-team-membership
+      # @example
+      #   @client.remove_team_member(100000, 'pengwynn')
+      def remove_team_membership(team_id, user, options = {})
+        options = ensure_org_invitations_api_media_type(options)
+        boolean_from_response :delete, "teams/#{team_id}/memberships/#{user}", options
+      end
+
+      private
+
+      def ensure_org_invitations_api_media_type(options = {})
+        if options[:accept].nil?
+          options[:accept] = ORG_INVITATIONS_PREVIEW_MEDIA_TYPE
+          warn_org_invitations_preview
+        end
+
+        options
+      end
+
+      # TODO: Correct URL for blog post
+      def warn_org_invitations_preview
+        octokit_warn \
+          "WARNING: The preview version of the Organization Team Memberships API " \
+          "is not yet suitable for production use. You can avoid this message by " \
+          "supplying an appropriate media type in the 'Accept' request header. " \
+          "See the blog post for details: http://git.io/o2XZRA"
       end
     end
   end
