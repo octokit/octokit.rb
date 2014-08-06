@@ -304,6 +304,15 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/teams/#add-team-member
       # @example
       #   @client.add_team_member(100000, 'pengwynn')
+      #
+      # @example
+      #   # Invite a member to a team. The user won't be added to the 
+      #   # team until he/she accepts the invite via email.
+      #   @client.add_team_member \
+      #     100000,
+      #     'pengwynn',
+      #     :accept => "application/vnd.github.the-wasp-preview+json"
+      # @see https://developer.github.com/changes/2014-08-05-team-memberships-api/
       def add_team_member(team_id, user, options = {})
         # There's a bug in this API call. The docs say to leave the body blank,
         # but it fails if the body is both blank and the content-length header
