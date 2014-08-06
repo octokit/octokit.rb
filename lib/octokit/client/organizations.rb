@@ -486,7 +486,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/teams/#get-team-membership
       #
       # @example Check if a user has a membership for a team
-      #   @client.team_membership?(1234, 'pengwynn')
+      #   @client.team_membership(1234, 'pengwynn')
       #   => false
       def team_membership(team_id, user, options = {})
         options = ensure_org_invitations_api_media_type(options)
@@ -503,7 +503,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/teams/#add-team-membership
       #
       # @example Check if a user has a membership for a team
-      #   @client.add_team_membership?(1234, 'pengwynn')
+      #   @client.add_team_membership(1234, 'pengwynn')
       #   => false
       def add_team_membership(team_id, user, options = {})
         options = ensure_org_invitations_api_media_type(options)
@@ -517,7 +517,7 @@ module Octokit
       # @return [Boolean] True if user removed, false otherwise.
       # @see https://developer.github.com/v3/orgs/teams/#remove-team-membership
       # @example
-      #   @client.remove_team_member(100000, 'pengwynn')
+      #   @client.remove_team_membership(100000, 'pengwynn')
       def remove_team_membership(team_id, user, options = {})
         options = ensure_org_invitations_api_media_type(options)
         boolean_from_response :delete, "teams/#{team_id}/memberships/#{user}", options
