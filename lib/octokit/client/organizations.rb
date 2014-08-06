@@ -540,7 +540,7 @@ module Octokit
           "WARNING: The preview version of the Organization Team Memberships API " \
           "is not yet suitable for production use. You can avoid this message by " \
           "supplying an appropriate media type in the 'Accept' request header. " \
-          "See the blog post for details: http://git.io/o2XZRA"
+          "See the blog post for details: http://git.io/a9jglQ"
       end
     end
   end
