@@ -534,7 +534,6 @@ module Octokit
         options
       end
 
-      # TODO: Correct URL for blog post
       def warn_org_invitations_preview
         octokit_warn \
           "WARNING: The preview version of the Organization Team Memberships API " \
