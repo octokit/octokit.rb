@@ -306,8 +306,9 @@ module Octokit
       #   @client.add_team_member(100000, 'pengwynn')
       #
       # @example
-      #   # Invite a member to a team. The user won't be added to the 
-      #   # team until he/she accepts the invite via email.
+      #   # Opt-in to future behavior for this endpoint. Adds the member to the
+      #   # team if they're already an org member. If not, the method will return
+      #   # 422 and indicate the user should call the new Team Membership endpoint.
       #   @client.add_team_member \
       #     100000,
       #     'pengwynn',
@@ -496,13 +497,12 @@ module Octokit
       #
       # @example Check if a user has a membership for a team
       #   @client.team_membership(1234, 'pengwynn')
-      #   => false
       def team_membership(team_id, user, options = {})
         options = ensure_org_invitations_api_media_type(options)
         get "teams/#{team_id}/memberships/#{user}", options
       end
 
-      # Invite a user to a team
+      # Add or invite a user to a team
       #
       # @param team_id [Integer] Team id.
       # @param user [String] GitHub username of the user to invite.
@@ -513,7 +513,6 @@ module Octokit
       #
       # @example Check if a user has a membership for a team
       #   @client.add_team_membership(1234, 'pengwynn')
-      #   => false
       def add_team_membership(team_id, user, options = {})
         options = ensure_org_invitations_api_media_type(options)
         put "teams/#{team_id}/memberships/#{user}", options
