@@ -89,7 +89,7 @@ describe Octokit::Client do
         before do
           File.chmod(0600, File.join(fixture_path, '.netrc'))
         end
-        
+
         it "can read .netrc files" do
           Octokit.reset!
           client = Octokit::Client.new(:netrc => true, :netrc_file => File.join(fixture_path, '.netrc'))
@@ -104,6 +104,29 @@ describe Octokit::Client do
           expect(client.instance_variable_get(:"@password")).to eq("il0veruby")
         end
       end
+    end
+  end
+
+  describe "content type" do
+    it "sets a default Content-Type header" do
+      gist_request = stub_post("/gists").
+        with({
+          :headers => {"Content-Type" => "application/json"}})
+
+      Octokit.client.post "/gists", {}
+      assert_requested gist_request
+    end
+    it "fixes % bug", :vcr do
+      new_gist = {
+        :description => "%A gist from Octokit",
+        :public      => true,
+        :files       => {
+          "zen.text" => { :content => "Keep it logically awesome." }
+        }
+      }
+
+      Octokit.client.post "/gists", new_gist
+      expect(Octokit.client.last_response.status).to eq(201)
     end
   end
 
