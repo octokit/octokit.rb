@@ -360,6 +360,27 @@ construction currently used throughout the client.
 
 ## Upgrading guide
 
+Version 3.0 includes a couple breaking changes when upgrading from v2.x.x:
+
+The [default media type][default-media-type] is now `v3` instead of `beta`. If
+you need to request the older media type, you can set the default media type
+for the client:
+
+```ruby
+Octokit.default_media_type = "application/vnd.github.beta+json"
+```
+or per-request
+
+```ruby
+Octokit.emails(:accept => "application/vnd.github.beta+json")
+```
+
+The long-deprecated `Octokit::Client#create_download` method has been removed.
+
+[default-media-type]: https://developer.github.com/changes/2014-01-07-upcoming-change-to-default-media-type/
+
+### Upgrading from 1.x.x
+
 Version 2.0 includes a completely rewritten `Client` factory that now memoizes
 client instances based on unique configuration options. Breaking changes also
 include:
