@@ -5,8 +5,8 @@ Ruby toolkit for the GitHub API.
 ![Logo][logo]
 [logo]: http://cl.ly/image/3Y013H0A2z3z/gundam-ruby.png
 
-If you have an older version of Octokit, check the [Upgrade Guide](#upgrading-guide) before
-upgrading.
+Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
+[major version][semver].
 
 ## Philosophy
 
