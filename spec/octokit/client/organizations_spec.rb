@@ -236,4 +236,29 @@ describe Octokit::Client::Organizations do
       expect(result).to be true
     end
   end # .remove_team_membership
+
+=begin
+  describe ".organization_memberships", :vcr do
+    it "returns all organization memberships for the user" do
+      memberships = @client.organization_memberships
+      expect(memberships).to be_kind_of Array
+      assert_requested :get, github_url("/user/memberships/orgs")
+    end
+  end # .organization_memberships
+
+  describe ".organization_membership", :vcr do
+    it "returns an organization membership" do
+      membership = @client.organization_membership(test_github_org)
+      assert_requested :get, github_url("/user/membership/orgs/#{test_github_org}")
+    end
+  end # .organization_membership
+
+  describe ".update_organization_membership", :vcr do
+    it "updates an organization membership" do
+      membership = @client.update_organization_membership(test_github_org, {:state => 'active'})
+      expect(membership.state).to eq 'active'
+      assert_requested :patch, github_url("/users/memberships/orgs/#{test_github_org}")
+    end
+  end # .update_organization_membership
+=end
 end

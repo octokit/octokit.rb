@@ -531,6 +531,39 @@ module Octokit
         boolean_from_response :delete, "teams/#{team_id}/memberships/#{user}", options
       end
 
+      # List all organizations memberships for the authenticated user
+      #
+      # @return [Array<Sawyer::Resource>] Array of organizations memberships.
+      # @see https://developer.github.com/v3/orgs/members/#list-your-organization-memberships
+      def organization_memberships(options = {})
+        options = ensure_org_invitations_api_media_type(options)
+        paginate "user/memberships/orgs", options
+      end
+      alias :org_memberships :organization_memberships
+
+      # Get an organization membership for the authenticated user
+      #
+      # @param org [String] Organization GitHub login.
+      # @return [Sawyer::Resource] Hash representing the organization membership.
+      # @see https://developer.github.com/v3/orgs/members/#get-your-organization-membership
+      def organization_membership(org, options = {})
+        options = ensure_org_invitations_api_media_type(options)
+        get "user/memberships/orgs/#{org}", options
+      end
+      alias :org_membership :organization_membership
+
+      # Edit an organization membership for the authenticated user
+      #
+      # @param org [String] Organization GitHub login.
+      # @option options [String] :state The state that the membership should be in.
+      # @return [Sawyer::Resource] Hash representing the updated organization membership.
+      # @see https://developer.github.com/v3/orgs/members/#edit-your-organization-membership
+      def update_organization_membership(org, options = {})
+        options = ensure_org_invitations_api_media_type(options)
+        patch "user/memberships/orgs/#{org}", options
+      end
+      alias :update_org_membership :update_organization_membership
+
       private
 
       def ensure_org_invitations_api_media_type(options = {})
