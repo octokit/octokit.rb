@@ -120,6 +120,32 @@ URLs and to generate URLs</p>
       <li class="public ">
   <span class="summary_signature">
     
+      <a href="#id-instance_method" title="#id (instance method)">- (Object) <strong>id</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute id.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#name-instance_method" title="#name (instance method)">- (Object) <strong>name</strong> </a>
     
 
@@ -209,6 +235,29 @@ URLs and to generate URLs</p>
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#path-class_method" title="path (class method)">+ (String) <strong>path</strong>(repo) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Get the api path for a repo.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
     <h2>
@@ -217,6 +266,29 @@ URLs and to generate URLs</p>
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#id_api_path-instance_method" title="#id_api_path (instance method)">- (String) <strong>id_api_path</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Api path for id identified repos.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -238,6 +310,52 @@ URLs and to generate URLs</p>
 
   
     <span class="summary_desc"><div class='inline'><p>A new instance of Repository.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#named_api_path-instance_method" title="#named_api_path (instance method)">- (String) <strong>named_api_path</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Api path for owner/name identified repos.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#path-instance_method" title="#path (instance method)">- (String) <strong>path</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Repository API path.</p>
 </div></span>
   
 </li>
@@ -333,13 +451,17 @@ URLs and to generate URLs</p>
 23
 24
 25
-26</pre>
+26
+27
+28</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_repo'>repo</span>
+  <span class='kw'>when</span> <span class='const'>Integer</span>
+    <span class='ivar'>@id</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span>
   <span class='kw'>when</span> <span class='const'>String</span>
     <span class='ivar'>@owner</span><span class='comma'>,</span> <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>when</span> <span class='const'>Repository</span>
@@ -361,9 +483,51 @@ URLs and to generate URLs</p>
     <h2>Instance Attribute Details</h2>
     
       
-      <span id="name=-instance_method"></span>
+      <span id="id=-instance_method"></span>
       <div class="method_details first">
-  <h3 class="signature first" id="name-instance_method">
+  <h3 class="signature first" id="id-instance_method">
+  
+    - (<tt>Object</tt>) <strong>id</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute id</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 6</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span>
+  <span class='ivar'>@id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="name=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="name-instance_method">
   
     - (<tt>Object</tt>) <strong>name</strong> 
   
@@ -512,6 +676,82 @@ URLs and to generate URLs</p>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="path-class_method">
+  
+    + (<tt>String</tt>) <strong>path</strong>(repo) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Get the api path for a repo</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>repo</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>String</tt>, <tt>Hash</tt>, <tt><span class='object_link'><a href="" title="Octokit::Repository (class)">Repository</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A GitHub repository.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Api path.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 46</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span>
+  <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
   <div id="instance_method_details" class="method_details_list">
@@ -519,7 +759,180 @@ URLs and to generate URLs</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="slug-instance_method">
+  <h3 class="signature first" id="id_api_path-instance_method">
+  
+    - (<tt>String</tt>) <strong>id_api_path</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns Api path for id identified repos</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Api path for id identified repos</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 56</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_id_api_path'>id_api_path</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repositories/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="named_api_path-instance_method">
+  
+    - (<tt>String</tt>) <strong>named_api_path</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns Api path for owner/name identified repos</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Api path for owner/name identified repos</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 51</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_named_api_path'>named_api_path</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_slug'>slug</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="path-instance_method">
+  
+    - (<tt>String</tt>) <strong>path</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns Repository API path</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Repository API path</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40
+41</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 38</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_path'>path</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_named_api_path'>named_api_path</span> <span class='kw'>if</span> <span class='ivar'>@owner</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@name</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_id_api_path'>id_api_path</span> <span class='kw'>if</span> <span class='ivar'>@id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="slug-instance_method">
   
     - (<tt>String</tt>) <strong>slug</strong> 
   
@@ -560,12 +973,12 @@ URLs and to generate URLs</p>
       <pre class="lines">
 
 
-30
-31
-32</pre>
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_slug'>slug</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@owner</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -613,12 +1026,12 @@ URLs and to generate URLs</p>
       <pre class="lines">
 
 
-37
-38
-39</pre>
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_slug'>slug</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -633,9 +1046,9 @@ URLs and to generate URLs</p>
 </div>
 
     <div id="footer">
-  Generated on Sat May 10 23:01:13 2014 by
+  Generated on Thu Oct  2 08:33:00 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.0).
+  0.8.7.4 (ruby-2.1.2).
 </div>
 
   </body>

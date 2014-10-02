@@ -265,13 +265,13 @@
       <pre class="lines">
 
 
-35
 36
 37
-38</pre>
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@response</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span>
@@ -370,7 +370,8 @@ on status and response message</p>
 30
 31
 32
-33</pre>
+33
+34</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 10</span>
@@ -385,6 +386,7 @@ on status and response message</p>
               <span class='kw'>when</span> <span class='int'>401</span>      <span class='kw'>then</span> <span class='id identifier rubyid_error_for_401'>error_for_401</span><span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='rparen'>)</span>
               <span class='kw'>when</span> <span class='int'>403</span>      <span class='kw'>then</span> <span class='id identifier rubyid_error_for_403'>error_for_403</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
               <span class='kw'>when</span> <span class='int'>404</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>NotFound</span>
+              <span class='kw'>when</span> <span class='int'>405</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>MethodNotAllowed</span>
               <span class='kw'>when</span> <span class='int'>406</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>NotAcceptable</span>
               <span class='kw'>when</span> <span class='int'>409</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Conflict</span>
               <span class='kw'>when</span> <span class='int'>415</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>UnsupportedMediaType</span>
@@ -448,12 +450,12 @@ on status and response message</p>
       <pre class="lines">
 
 
-43
 44
-45</pre>
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_documentation_url'>documentation_url</span>
   <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:documentation_url</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Hash</span>
@@ -505,16 +507,16 @@ on status and response message</p>
       <pre class="lines">
 
 
-71
 72
 73
 74
 75
 76
-77</pre>
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_errors'>errors</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
@@ -533,9 +535,9 @@ on status and response message</p>
 </div>
 
     <div id="footer">
-  Generated on Sat May 10 23:01:11 2014 by
+  Generated on Thu Oct  2 08:33:00 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.0).
+  0.8.7.4 (ruby-2.1.2).
 </div>
 
   </body>

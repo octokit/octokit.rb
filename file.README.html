@@ -67,8 +67,8 @@
 
 <p><img src="http://cl.ly/image/3Y013H0A2z3z/gundam-ruby.png" alt="Logo"></p>
 
-<p>Octokit 2.0 is out, check the <a href="#Upgrading_guide">Upgrade Guide</a> before
-upgrading from 1.x.</p>
+<p>Upgrading? Check the <a href="#Upgrading_guide">Upgrade Guide</a> before bumping to a new
+<a href="http://semver.org/">major version</a>.</p>
 
 <h2>Philosophy</h2>
 
@@ -372,10 +372,10 @@ supports <a href="http://tools.ietf.org/html/rfc6570">URI Templates</a> for para
 <span class='comment'># =&gt; #&lt;Sawyer::Relation: issues: get https://api.github.com/repos/pengwynn/pingwynn/issues{/number}&gt;
 </span>
 <span class='comment'># Get a page of issues
-</span><span class='id identifier rubyid_repo'>repo</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:issues</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
+</span><span class='id identifier rubyid_rel'>rel</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
 
 <span class='comment'># Get issue #2
-</span><span class='id identifier rubyid_repo'>repo</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:issues</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='symbol'>:uri</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='symbol'>:number</span> <span class='op'>=&gt;</span> <span class='int'>2</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
+</span><span class='id identifier rubyid_rel'>rel</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='symbol'>:uri</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='symbol'>:number</span> <span class='op'>=&gt;</span> <span class='int'>2</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
 </code></pre>
 
 <h3>The Full Hypermedia Experience™</h3>
@@ -391,6 +391,24 @@ the API root and follow link relations from there:</p>
 construction currently used throughout the client.</p>
 
 <h2>Upgrading guide</h2>
+
+<p>Version 3.0 includes a couple breaking changes when upgrading from v2.x.x:</p>
+
+<p>The <a href="https://developer.github.com/changes/2014-01-07-upcoming-change-to-default-media-type/">default media type</a> is now <code>v3</code> instead of <code>beta</code>. If
+you need to request the older media type, you can set the default media type
+for the client:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_default_media_type'>default_media_type</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.beta+json</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>or per-request</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_emails'>emails</span><span class='lparen'>(</span><span class='symbol'>:accept</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.beta+json</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</code></pre>
+
+<p>The long-deprecated <code>Octokit::Client#create_download</code> method has been removed.</p>
+
+<h3>Upgrading from 1.x.x</h3>
 
 <p>Version 2.0 includes a completely rewritten <code>Client</code> factory that now memoizes
 client instances based on unique configuration options. Breaking changes also
@@ -507,41 +525,15 @@ There are several different authenticating method&#39;s used accross the api.
 Here is the full list of configurable environmental variables for testing
 Octokit:</p>
 
-<table><thead>
-<tr>
-<th style="text-align: left">ENV Variable</th>
-<th style="text-align: left">Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_LOGIN</code></td>
-<td style="text-align: left">GitHub login name (preferably one created specifically for testing against).</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_PASSWORD</code></td>
-<td style="text-align: left">Password for the test GitHub login.</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_TOKEN</code></td>
-<td style="text-align: left"><a href="https://github.com/blog/1509-personal-api-tokens">Personal Access Token</a> for the test GitHub login.</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_CLIENT_ID</code></td>
-<td style="text-align: left">Test OAuth application client id.</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_CLIENT_SECRET</code></td>
-<td style="text-align: left">Test OAuth application client secret.</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_REPOSITORY</code></td>
-<td style="text-align: left">Test repository to perform destructive actions against, this should not be set to any repository of importance. <strong>Automatically created by the test suite if nonexistent</strong> Default: <code>api-sandbox</code></td>
-</tr>
-<tr>
-<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_ORGANIZATION</code></td>
-<td style="text-align: left">Test organization.</td>
-</tr>
-</tbody></table>
+<p>ENV Variable | Description |
+:-------------------|:-----------------|
+<code>OCTOKIT_TEST_GITHUB_LOGIN</code>| GitHub login name (preferably one created specifically for testing against).
+<code>OCTOKIT_TEST_GITHUB_PASSWORD</code>| Password for the test GitHub login.
+<code>OCTOKIT_TEST_GITHUB_TOKEN</code> | <a href="https://github.com/blog/1509-personal-api-tokens">Personal Access Token</a> for the test GitHub login.
+<code>OCTOKIT_TEST_GITHUB_CLIENT_ID</code> | Test OAuth application client id.
+<code>OCTOKIT_TEST_GITHUB_CLIENT_SECRET</code> | Test OAuth application client secret.
+<code>OCTOKIT_TEST_GITHUB_REPOSITORY</code> | Test repository to perform destructive actions against, this should not be set to any repository of importance. <strong>Automatically created by the test suite if nonexistent</strong> Default: <code>api-sandbox</code>
+<code>OCTOKIT_TEST_GITHUB_ORGANIZATION</code> | Test organization.</p>
 
 <p>Since we periodically refresh our cassettes, please keep some points in mind
 when writing new specs.</p>
@@ -622,9 +614,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Sat May 10 23:01:01 2014 by
+  Generated on Thu Oct  2 08:32:56 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.0).
+  0.8.7.4 (ruby-2.1.2).
 </div>
 
   </body>
