@@ -67,7 +67,7 @@ module Octokit
               content = file.read
               file.close
             end
-          when File
+          when File, Tempfile
             content = file.read
             file.close
           end

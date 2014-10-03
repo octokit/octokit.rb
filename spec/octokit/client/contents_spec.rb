@@ -61,6 +61,18 @@ describe Octokit::Client::Contents do
       expect(response.commit.sha).to match(/[a-z0-9]{40}/)
       assert_requested(:put, github_url("/repos/#{@test_repo}/contents/test_create_file.txt"))
     end
+    it "creates contents from Tempfile object", :vcr do
+      tempfile = Tempfile.new("uploaded_file")
+      file = File.new("spec/fixtures/new_file.txt", "r")
+      tempfile.write(file.read)
+      response = @client.create_contents(@test_repo,
+                                         "test_create_file.txt",
+                                         "I am commit-ing",
+                                         :file => tempfile)
+      expect(response.commit.sha).to match(/[a-z0-9]{40}/)
+      assert_requested(:put, github_url("/repos/#{@test_repo}/contents/test_create_file.txt"))
+      tempfile.unlink
+    end
     it "does not add new lines", :vcr do
       file = File.new("spec/fixtures/large_file.txt", "r")
       response = @client.create_contents(@test_repo,
