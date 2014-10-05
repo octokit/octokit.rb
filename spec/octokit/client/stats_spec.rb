@@ -73,7 +73,7 @@ describe Octokit::Client::Stats do
     it "returns the commit activity stats" do
       stats = @client.commit_activity_stats("pengwynn/pingwynn")
       expect(stats).to be_kind_of Array
-      expect(stats.first.week).to be_kind_of Fixnum
+      expect(stats.first.week).to be_kind_of Integer
       assert_requested :get, github_url("/repos/pengwynn/pingwynn/stats/commit_activity")
     end
   end # .commit_activity_stats
