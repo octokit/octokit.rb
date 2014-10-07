@@ -221,7 +221,7 @@ user = client.user 'defunkt'
 [auth]: http://developer.github.com/v3/#authentication
 [oauth]: http://developer.github.com/v3/oauth/
 [access scopes]: http://developer.github.com/v3/oauth/#scopes
-[app-creds]: http://developer.github.com/v3/#unauthenticated-rate-limited-requests
+[app-creds]: http://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications
 
 ## Pagination
 
