@@ -498,7 +498,6 @@ module Octokit
       # @example Check if a user has a membership for a team
       #   @client.team_membership(1234, 'pengwynn')
       def team_membership(team_id, user, options = {})
-        options = ensure_org_invitations_api_media_type(options)
         get "teams/#{team_id}/memberships/#{user}", options
       end
 
@@ -514,7 +513,6 @@ module Octokit
       # @example Check if a user has a membership for a team
       #   @client.add_team_membership(1234, 'pengwynn')
       def add_team_membership(team_id, user, options = {})
-        options = ensure_org_invitations_api_media_type(options)
         put "teams/#{team_id}/memberships/#{user}", options
       end
 
@@ -527,7 +525,6 @@ module Octokit
       # @example
       #   @client.remove_team_membership(100000, 'pengwynn')
       def remove_team_membership(team_id, user, options = {})
-        options = ensure_org_invitations_api_media_type(options)
         boolean_from_response :delete, "teams/#{team_id}/memberships/#{user}", options
       end
 
@@ -536,7 +533,6 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of organizations memberships.
       # @see https://developer.github.com/v3/orgs/members/#list-your-organization-memberships
       def organization_memberships(options = {})
-        options = ensure_org_invitations_api_media_type(options)
         paginate "user/memberships/orgs", options
       end
       alias :org_memberships :organization_memberships
@@ -547,7 +543,6 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing the organization membership.
       # @see https://developer.github.com/v3/orgs/members/#get-your-organization-membership
       def organization_membership(org, options = {})
-        options = ensure_org_invitations_api_media_type(options)
         get "user/memberships/orgs/#{org}", options
       end
       alias :org_membership :organization_membership
@@ -559,29 +554,9 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing the updated organization membership.
       # @see https://developer.github.com/v3/orgs/members/#edit-your-organization-membership
       def update_organization_membership(org, options = {})
-        options = ensure_org_invitations_api_media_type(options)
         patch "user/memberships/orgs/#{org}", options
       end
       alias :update_org_membership :update_organization_membership
-
-      private
-
-      def ensure_org_invitations_api_media_type(options = {})
-        if options[:accept].nil?
-          options[:accept] = ORG_INVITATIONS_PREVIEW_MEDIA_TYPE
-          warn_org_invitations_preview
-        end
-
-        options
-      end
-
-      def warn_org_invitations_preview
-        octokit_warn \
-          "WARNING: The preview version of the Organization Team Memberships API " \
-          "is not yet suitable for production use. You can avoid this message by " \
-          "supplying an appropriate media type in the 'Accept' request header. " \
-          "See the blog post for details: http://git.io/a9jglQ"
-      end
     end
   end
 end
