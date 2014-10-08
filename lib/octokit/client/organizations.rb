@@ -6,8 +6,6 @@ module Octokit
     # @see https://developer.github.com/v3/orgs/
     module Organizations
 
-      ORG_INVITATIONS_PREVIEW_MEDIA_TYPE = "application/vnd.github.the-wasp-preview+json".freeze
-
       # Get an organization
       #
       # @param org [String, Integer] Organization GitHub login or id.
