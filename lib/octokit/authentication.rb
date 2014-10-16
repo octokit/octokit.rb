@@ -62,8 +62,8 @@ module Octokit
         # creds will be nil if there is no netrc for this end point
         octokit_warn "Error loading credentials from netrc file for #{api_endpoint}"
       else
-        self.login = creds.shift
-        self.password = creds.shift
+        self.login = creds.login
+        self.password = creds.password
       end
     rescue LoadError
       octokit_warn "Please install netrc gem for .netrc support"
