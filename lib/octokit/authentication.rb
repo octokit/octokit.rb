@@ -62,6 +62,7 @@ module Octokit
         # creds will be nil if there is no netrc for this end point
         octokit_warn "Error loading credentials from netrc file for #{api_endpoint}"
       else
+        creds = creds.to_a
         self.login = creds.shift
         self.password = creds.shift
       end
