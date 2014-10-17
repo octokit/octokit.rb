@@ -37,7 +37,7 @@ Install via Rubygems
 
 ### Making requests
 
-API methods are available as module methods (consuming module-level
+[API methods][] are available as module methods (consuming module-level
 configuration) or as client instance methods.
 
 ```ruby
@@ -58,6 +58,8 @@ client = Octokit::Client.new(:login => 'defunkt', :password => 'c0d3b4ssssss!')
 # Fetch the current user
 client.user
 ```
+
+[API methods]: http://octokit.github.io/octokit.rb/method_list.html
 
 ### Consuming resources
 
