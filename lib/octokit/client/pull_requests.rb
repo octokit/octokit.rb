@@ -56,6 +56,9 @@ module Octokit
       # @param title [String] Title for the pull request
       # @param body [String] The body for the pull request. Supports GFM.
       # @return [Sawyer::Resource] The newly created pull request
+      # @example
+      #   @client.create_pull_request("octokit/octokit.rb", "master", "feature-branch",
+      #     "Pull Request title", "Pull Request body")
       def create_pull_request(repo, base, head, title, body, options = {})
         pull = {
           :base  => base,
