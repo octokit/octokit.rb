@@ -73,7 +73,7 @@ describe Octokit::Client::PubSubHubbub do
         :"hub.topic" => 'https://github.com/joshk/completeness-fu/events/push'
       }
       stub_post("/hub").
-        with(irc_request_body).
+        with(:body => irc_request_body).
         to_return(:status => 204)
       expect(@client.subscribe_service_hook("joshk/completeness-fu", "irc", { :server => "chat.freenode.org", :room => "#myproject"})).to eql(true)
       # Since we can't depend upon hash ordering across the Rubies
