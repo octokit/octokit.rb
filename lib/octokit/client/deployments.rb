@@ -23,9 +23,10 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param ref [String] The ref to deploy
+      # @option options [String] :task Used by the deployment system to allow different execution paths. Defaults to "deploy".
       # @option options [String] :payload Meta info about the deployment
-      # @option options [String] :force Optional parameter to bypass any ahead/behind checks or commit status checks. Default: false
-      # @option options [String] :auto_merge Optional parameter to merge the default branch into the requested deployment branch if necessary. Default: false
+      # @option options [Boolean] :auto_merge Optional parameter to merge the default branch into the requested deployment branch if necessary. Default: true
+      # @option options [String] :environment Optional name for the target deployment environment (e.g., production, staging, qa). Default: "production"
       # @option options [String] :description Optional short description.
       # @return [Sawyer::Resource] A deployment
       # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment
