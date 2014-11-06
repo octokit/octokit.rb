@@ -24,7 +24,7 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param ref [String] The ref to deploy
       # @option options [String] :payload Meta info about the deployment
-      # @option options [String] :auto_merge Optional parameter to merge the default branch into the requested deployment branch if necessary. Default: true
+      # @option options [Boolean] :auto_merge Optional parameter to merge the default branch into the requested deployment branch if necessary. Default: true
       # @option options [String] :description Optional short description.
       # @return [Sawyer::Resource] A deployment
       # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment
