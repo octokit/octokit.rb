@@ -155,7 +155,7 @@ module Octokit
       # @return [Sawyer::Resource] The updated Issue
       # @see https://developer.github.com/v3/issues/#edit-an-issue
       # @example Change the title of Issue #25
-      #   Octokit.update_issue("octokit/octokit.rb", "25", "A new title", "the same body"")
+      #   Octokit.update_issue("octokit/octokit.rb", "25", "A new title", "the same body")
       def update_issue(repo, number, title, body, options = {})
         patch "#{Repository.path repo}/issues/#{number}", options.merge({:title => title, :body => body})
       end
