@@ -114,6 +114,12 @@ describe Octokit::Client::Issues do
         expect(issue.number).to eq(@issue.number)
         assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
       end
+
+      it "updates an issue without positional args" do
+        issue = @client.update_issue(@test_repo, @issue.number, :title => "Use all the v3 api!", :body => "")
+        expect(issue.number).to eq(@issue.number)
+        assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
+      end
     end # .update_issue
 
     describe ".add_comment" do

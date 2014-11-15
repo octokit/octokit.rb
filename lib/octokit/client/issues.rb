@@ -143,21 +143,45 @@ module Octokit
 
       # Update an issue
       #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param number [Integer] Number ID of the issue
-      # @param title [String] Updated title for the issue
-      # @param body [String] Updated body of the issue
-      # @param options [Hash] A customizable set of options.
-      # @option options [String] :assignee User login.
-      # @option options [Integer] :milestone Milestone number.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
-      # @option options [String] :state State of the issue. <tt>open</tt> or <tt>closed</tt>
+      # @overload update_issue(repo, number, title, body, options)
+      #   @param repo [Integer, String, Repository, Hash] A GitHub repository
+      #   @param number [Integer] Number ID of the issue
+      #   @param title [String] Updated title for the issue
+      #   @param body [String] Updated body of the issue
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :assignee User login.
+      #   @option options [Integer] :milestone Milestone number.
+      #   @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      #   @option options [String] :state State of the issue. <tt>open</tt> or <tt>closed</tt>
+      #
+      # @overload update_issue(repo, number, options)
+      #   @param repo [Integer, String, Repository, Hash] A GitHub repository
+      #   @param number [Integer] Number ID of the issue
+      #   @param options [Hash] A customizable set of options.
+      #   @option options [String] :title Updated title for the issue
+      #   @option options [String] :body Updated body of the issue
+      #   @option options [String] :assignee User login.
+      #   @option options [Integer] :milestone Milestone number.
+      #   @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      #   @option options [String] :state State of the issue. <tt>open</tt> or <tt>closed</tt>
       # @return [Sawyer::Resource] The updated Issue
       # @see https://developer.github.com/v3/issues/#edit-an-issue
+      #
       # @example Change the title of Issue #25
       #   Octokit.update_issue("octokit/octokit.rb", "25", "A new title", "the same body")
-      def update_issue(repo, number, title, body, options = {})
-        patch "#{Repository.path repo}/issues/#{number}", options.merge({:title => title, :body => body})
+      #
+      # @example Change only the assignee of Issue #25
+      #   Octokit.update_issue("octokit/octokit.rb", "25", :assignee => "pengwynn")
+      def update_issue(repo, number, *args)
+        arguments = Arguments.new(args)
+        opts = arguments.options
+
+        if arguments.length > 0
+          opts[:title] = arguments.shift
+          opts[:body] = arguments.shift
+        end
+
+        patch "#{Repository.path repo}/issues/#{number}", opts
       end
 
       # Get all comments attached to issues for the repository
