@@ -2,7 +2,7 @@ module Octokit
   # Custom error class for rescuing from all GitHub errors
   class Error < StandardError
 
-    # Returns the appropriate Octokit::Error sublcass based
+    # Returns the appropriate Octokit::Error subclass based
     # on status and response message
     #
     # @param [Hash] response HTTP response
