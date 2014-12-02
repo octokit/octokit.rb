@@ -106,18 +106,6 @@
   </ul>
 
 </div>
-  <h2>Constant Summary</h2>
-  
-    <dl class="constants">
-      
-        <dt id="DEPLOYMENTS_PREVIEW_MEDIA_TYPE-constant" class="">DEPLOYMENTS_PREVIEW_MEDIA_TYPE =
-          
-        </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.cannonball-preview+json</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-      
-    </dl>
-  
-
 
 
 
@@ -317,6 +305,18 @@
     <ul class="option">
       
         <li>
+          <span class="name">:task</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Used by the deployment system to allow different execution paths. Defaults to &quot;deploy&quot;.</p>
+</div>
+          
+        </li>
+      
+        <li>
           <span class="name">:payload</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
@@ -329,25 +329,37 @@
         </li>
       
         <li>
-          <span class="name">:force</span>
-          <span class="type">(<tt>String</tt>)</span>
+          <span class="name">:auto_merge</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
             
           </span>
           
-            &mdash; <div class='inline'><p>Optional parameter to bypass any ahead/behind checks or commit status checks. Default: false</p>
+            &mdash; <div class='inline'><p>Optional parameter to merge the default branch into the requested deployment branch if necessary. Default: true</p>
 </div>
           
         </li>
       
         <li>
-          <span class="name">:auto_merge</span>
+          <span class="name">:required_contexts</span>
+          <span class="type">(<tt>Array&lt;String&gt;</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Optional array of status contexts verified against commit status checks.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:environment</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
             
           </span>
           
-            &mdash; <div class='inline'><p>Optional parameter to merge the default branch into the requested deployment branch if necessary. Default: false</p>
+            &mdash; <div class='inline'><p>Optional name for the target deployment environment (e.g., production, staging, qa). Default: &quot;production&quot;</p>
 </div>
           
         </li>
@@ -398,17 +410,15 @@
       <pre class="lines">
 
 
+31
 32
 33
-34
-35
-36</pre>
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/deployments.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/deployments.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_deployment'>create_deployment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_ref'>ref</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_deployments_api_media_type'>ensure_deployments_api_media_type</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:ref</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_ref'>ref</span>
   <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/deployments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -500,18 +510,16 @@
       <pre class="lines">
 
 
+53
+54
+55
 56
-57
-58
-59
-60
-61</pre>
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/deployments.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/deployments.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_deployment_status'>create_deployment_status</span><span class='lparen'>(</span><span class='id identifier rubyid_deployment_url'>deployment_url</span><span class='comma'>,</span> <span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_deployments_api_media_type'>ensure_deployments_api_media_type</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_deployment'>deployment</span> <span class='op'>=</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_deployment_url'>deployment_url</span><span class='comma'>,</span> <span class='symbol'>:accept</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:state</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_state'>state</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span>
   <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='id identifier rubyid_deployment'>deployment</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:statuses</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_href'>href</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -593,17 +601,15 @@
       <pre class="lines">
 
 
+41
+42
 43
-44
-45
-46
-47</pre>
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/deployments.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/deployments.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deployment_statuses'>deployment_statuses</span><span class='lparen'>(</span><span class='id identifier rubyid_deployment_url'>deployment_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_deployments_api_media_type'>ensure_deployments_api_media_type</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_deployment'>deployment</span> <span class='op'>=</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_deployment_url'>deployment_url</span><span class='comma'>,</span> <span class='symbol'>:accept</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_deployment'>deployment</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:statuses</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_href'>href</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -684,16 +690,14 @@
       <pre class="lines">
 
 
-16
-17
-18
-19</pre>
+14
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/deployments.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/deployments.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deployments'>deployments</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_deployments_api_media_type'>ensure_deployments_api_media_type</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/deployments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -706,7 +710,7 @@
 </div>
 
     <div id="footer">
-  Generated on Wed Oct 15 14:15:24 2014 by
+  Generated on Tue Dec  2 11:06:42 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.1.2).
 </div>
