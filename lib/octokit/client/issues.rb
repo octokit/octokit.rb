@@ -92,6 +92,8 @@ module Octokit
                              options[:labels].split(",").map(&:strip)
                            when Array
                              options[:labels]
+                           else
+                             []
                            end
         post "#{Repository.path repo}/issues", options.merge({:title => title, :body => body})
       end
