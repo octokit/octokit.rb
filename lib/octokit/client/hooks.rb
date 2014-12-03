@@ -4,6 +4,8 @@ module Octokit
     # Methods for the Hooks API
     module Hooks
 
+      ORG_HOOKS_PREVIEW_MEDIA_TYPE = "application/vnd.github.sersi-preview+json".freeze
+
       # List all Service Hooks supported by GitHub
       #
       # @return [Sawyer::Resource] A list of all hooks on GitHub
@@ -148,6 +150,151 @@ module Octokit
         boolean_from_response :post, "#{Repository.path repo}/hooks/#{id}/tests", options
       end
 
+      # List org hooks
+      #
+      # Requires client authenticated as admin for the org.
+      #
+      # @param org [String] A GitHub organization login.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing hooks.
+      # @see https://developer.github.com/v3/orgs/hooks/#list-hooks
+      # @example
+      #   @client.org_hooks('octokit')
+      def org_hooks(org, options = {})
+        options = ensure_org_hooks_api_media_type(options)
+        paginate "orgs/#{org}/hooks", options
+      end
+      alias :list_org_hooks :org_hooks
+
+      # Get an org hook
+      #
+      # Requires client authenticated as admin for the org.
+      #
+      # @param org [String] A GitHub organization login.
+      # @param id [Integer] Id of the hook to get.
+      # @return [Sawyer::Resource] Hash representing hook.
+      # @see https://developer.github.com/v3/orgs/hooks/#get-single-hook
+      # @example
+      #   @client.org_hook('octokit', 123)
+      def org_hook(org, id, options = {})
+        options = ensure_org_hooks_api_media_type(options)
+        get "orgs/#{org}/hooks/#{id}", options
+      end
+
+      # Create an org hook
+      #
+      # Requires client authenticated as admin for the org.
+      #
+      # @param org [String] A GitHub organization login.
+      # @param config [Hash] A Hash containing key/value pairs to provide
+      #   settings for this hook.
+      # @option options [Array<String>] :events ('["push"]') Determines what
+      #   events the hook is triggered for.
+      # @option options [Boolean] :active Determines whether the hook is
+      #   actually triggered on pushes.
+      # @return [Sawyer::Resource] Hook info for the new hook
+      # @see https://api.github.com/hooks
+      # @see https://developer.github.com/v3/orgs/hooks/#create-a-hook
+      # @example
+      #   @client.create_org_hook(
+      #     'octokit',
+      #     {
+      #       :url => 'http://something.com/webhook',
+      #       :content_type => 'json'
+      #     },
+      #     {
+      #       :events => ['push', 'pull_request'],
+      #       :active => true
+      #     }
+      #   )
+      def create_org_hook(org, config, options = {})
+        options = ensure_org_hooks_api_media_type(options)
+        options = { :name => "web", :config => config }.merge(options)
+        post "orgs/#{org}/hooks", options
+      end
+
+      # Update an org hook
+      #
+      # Requires client authenticated as admin for the org.
+      #
+      # @param org [String] A GitHub organization login.
+      # @param id [Integer] Id of the hook to update.
+      # @param config [Hash] A Hash containing key/value pairs to provide
+      #   settings for this hook.
+      # @option options [Array<String>] :events ('["push"]') Determines what
+      #   events the hook is triggered for.
+      # @option options [Boolean] :active Determines whether the hook is
+      #   actually triggered on pushes.
+      # @return [Sawyer::Resource] Hook info for the new hook
+      # @see https://api.github.com/hooks
+      # @see https://developer.github.com/v3/orgs/hooks/#edit-a-hook
+      # @example
+      #   @client.edit_org_hook(
+      #     'octokit',
+      #     123,
+      #     {
+      #       :url => 'http://something.com/webhook',
+      #       :content_type => 'json'
+      #     },
+      #     {
+      #       :events => ['push', 'pull_request'],
+      #       :active => true
+      #     }
+      #   )
+      def edit_org_hook(org, id, config, options = {})
+        options = ensure_org_hooks_api_media_type(options)
+        options = { :config => config }.merge(options)
+        patch "orgs/#{org}/hooks/#{id}", options
+      end
+      alias :update_org_hook :edit_org_hook
+
+      # Ping org hook
+      #
+      # Requires client authenticated as admin for the org.
+      #
+      # @param org [String] A GitHub organization login.
+      # @param id [Integer] Id of the hook to update.
+      # @return [Boolean] Success
+      # @see https://developer.github.com/v3/orgs/hooks/#ping-a-hook
+      # @example
+      #   @client.ping_org_hook('octokit', 1000000)
+      def ping_org_hook(org, id, options = {})
+        options = ensure_org_hooks_api_media_type(options)
+        boolean_from_response :post, "orgs/#{org}/hooks/#{id}/pings", options
+      end
+
+      # Remove org hook
+      #
+      # Requires client authenticated as admin for the org.
+      #
+      # @param org [String] A GitHub organization login.
+      # @param id [Integer] Id of the hook to update.
+      # @return [Boolean] True if hook removed, false otherwise.
+      # @see https://developer.github.com/v3/orgs/hooks/#delete-a-hook
+      # @example
+      #   @client.remove_org_hook('octokit', 1000000)
+      def remove_org_hook(org, id, options = {})
+        options = ensure_org_hooks_api_media_type(options)
+        boolean_from_response :delete, "orgs/#{org}/hooks/#{id}", options
+      end
+
+      private
+
+      def ensure_org_hooks_api_media_type(options = {})
+        if options[:accept].nil?
+          options[:accept] = ORG_HOOKS_PREVIEW_MEDIA_TYPE
+          warn_org_hooks_preview
+        end
+
+        options
+      end
+
+      def warn_org_hooks_preview
+        octokit_warn <<-EOS
+WARNING: The preview version of the Org Hooks API is not yet suitable for production use.
+You can avoid this message by supplying an appropriate media type in the 'Accept' request
+header. See the blog post for details: http://git.io/<LINK>
+EOS
+      end
     end
   end
 end
