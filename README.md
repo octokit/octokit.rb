@@ -497,7 +497,7 @@ Octokit uses environmental variables for storing credentials used in testing.
 If you are testing an API endpoint that doesn't require authentication, you
 can get away without any additional configuration. For the most part, tests
 use an authenticated client, using a token stored in `ENV['OCTOKIT_TEST_GITHUB_TOKEN']`.
-There are several different authenticating method's used accross the api.
+There are several different authenticating method's used across the api.
 Here is the full list of configurable environmental variables for testing
 Octokit:
 
