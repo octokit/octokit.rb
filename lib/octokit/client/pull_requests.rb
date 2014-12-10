@@ -181,7 +181,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] List of comments
       def pull_request_comments(repo, number, options = {})
         # return the comments for a pull request
-        get "#{Repository.path repo}/pulls/#{number}/comments", options
+        paginate("#{Repository.path repo}/pulls/#{number}/comments", options)
       end
       alias :pull_comments   :pull_request_comments
       alias :review_comments :pull_request_comments
