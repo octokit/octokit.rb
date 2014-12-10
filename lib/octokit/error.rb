@@ -62,6 +62,8 @@ module Octokit
         Octokit::TooManyRequests
       elsif body =~ /login attempts exceeded/i
         Octokit::TooManyLoginAttempts
+      elsif body =~ /abuse/i
+        Octokit::AbuseDetected
       else
         Octokit::Forbidden
       end
@@ -186,6 +188,10 @@ module Octokit
   # Raised when GitHub returns a 403 HTTP status code
   # and body matches 'login attempts exceeded'
   class TooManyLoginAttempts < Forbidden; end
+
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'abuse'
+  class AbuseDetected < Forbidden; end
 
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end

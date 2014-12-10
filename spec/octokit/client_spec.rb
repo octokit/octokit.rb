@@ -618,7 +618,7 @@ describe Octokit::Client do
       end
     end
 
-    it "knows the difference between Forbidden and rate limiting" do
+    it "knows the difference between different kinds of forbidden" do
       stub_get('/some/admin/stuffs').to_return(:status => 403)
       expect { Octokit.get('/some/admin/stuffs') }.to raise_error Octokit::Forbidden
 
@@ -637,6 +637,14 @@ describe Octokit::Client do
         },
         :body => {:message => "Maximum number of login attempts exceeded"}.to_json
       expect { Octokit.get('/user') }.to raise_error Octokit::TooManyLoginAttempts
+
+      stub_get('/user').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "You have triggered an abuse detection mechanism and have been temporarily blocked from content creation. Please retry your request again later."}.to_json
+      expect { Octokit.get('/user') }.to raise_error Octokit::AbuseDetected
     end
 
     it "raises on unknown client errors" do
