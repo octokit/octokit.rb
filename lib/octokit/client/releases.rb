@@ -23,8 +23,8 @@ module Octokit
       # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from.
       # @option options [String] :name Name for the release
       # @option options [String] :body Content for release notes
-      # @option options [String] :draft Mark this release as a draft
-      # @option options [String] :prerelease Mark this release as a pre-release
+      # @option options [Boolean] :draft Mark this release as a draft
+      # @option options [Boolean] :prerelease Mark this release as a pre-release
       # @return [Sawyer::Resource] The release
       # @see https://developer.github.com/v3/repos/releases/#create-a-release
       def create_release(repo, tag_name, options = {})
@@ -47,8 +47,8 @@ module Octokit
       # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from.
       # @option options [String] :name Name for the release
       # @option options [String] :body Content for release notes
-      # @option options [String] :draft Mark this release as a draft
-      # @option options [String] :prerelease Mark this release as a pre-release
+      # @option options [Boolean] :draft Mark this release as a draft
+      # @option options [Boolean] :prerelease Mark this release as a pre-release
       # @return [Sawyer::Resource] The release
       # @see https://developer.github.com/v3/repos/releases/#edit-a-release
       def update_release(url, options = {})
