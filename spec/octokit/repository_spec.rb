@@ -27,6 +27,13 @@ describe Octokit::Repository do
     end
   end
 
+  context "when passed a string without a slash" do
+    it "raises ArgumentError" do
+      expect { Octokit::Repository.new('raise-error') }.
+        to raise_error ArgumentError, "Invalid Repository. Use user/repo format."
+    end
+  end
+
   describe ".path" do
     context "with named repository" do
       it "returns the url path" do
