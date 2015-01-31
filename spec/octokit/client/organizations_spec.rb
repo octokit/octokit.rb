@@ -223,16 +223,16 @@ describe Octokit::Client::Organizations do
 
   describe ".add_team_membership", :vcr do
     it "invites a user to a team" do
-      membership = @client.add_team_membership(946194, "api-padawan")
-      assert_requested :put, github_url("teams/946194/memberships/api-padawan")
+      membership = @client.add_team_membership(946194, test_github_login) 
+      assert_requested :put, github_url("teams/946194/memberships/#{test_github_login}")
       expect(membership.status).to eq("active")
     end
   end # .add_team_membership
 
   describe ".remove_team_membership", :vcr do
     it "removes a user's membership for a team" do
-      result = @client.remove_team_membership(946194, "api-padawan")
-      assert_requested :delete, github_url("teams/946194/memberships/api-padawan")
+      result = @client.remove_team_membership(946194, test_github_login)
+      assert_requested :delete, github_url("teams/946194/memberships/#{test_github_login}")
       expect(result).to be true
     end
   end # .remove_team_membership
