@@ -19,7 +19,7 @@ describe Octokit::Client::Labels do
     it "returns a single label" do
       label = @client.label("octokit/octokit.rb", "V3 Addition")
       expect(label.name).to eq("V3 Addition")
-      assert_requested :get, github_url("/repos/octokit/octokit.rb/labels/V3+Addition")
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/labels/V3%20Addition")
     end
   end # .label
 
@@ -103,9 +103,9 @@ describe Octokit::Client::Labels do
 
   describe ".delete_label!", :vcr do
     it "deletes a label from the repository" do
-      label = @client.add_label(@test_repo, "delete-me-label")
+      label = @client.add_label(@test_repo, "add label with space")
       @client.delete_label!(@test_repo, label.name, {:color => 'ededed'})
-      assert_requested :delete, github_url("/repos/#{@test_repo}/labels/#{label.name}")
+      assert_requested :delete, github_url("/repos/#{@test_repo}/labels/add%20label%20with%20space")
     end
   end # .delete_label!
 end
