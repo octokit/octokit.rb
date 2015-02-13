@@ -54,18 +54,18 @@ module Octokit
       #                      a merge to a base of another repo.
       # @param head [String] The branch (or git ref) where your changes are implemented.
       # @param title [String] Title for the pull request
-      # @param body [String] The body for the pull request. Supports GFM.
+      # @param body [String] The body for the pull request (optional). Supports GFM.
       # @return [Sawyer::Resource] The newly created pull request
       # @example
       #   @client.create_pull_request("octokit/octokit.rb", "master", "feature-branch",
       #     "Pull Request title", "Pull Request body")
-      def create_pull_request(repo, base, head, title, body, options = {})
+      def create_pull_request(repo, base, head, title, body = nil, options = {})
         pull = {
           :base  => base,
           :head  => head,
           :title => title,
-          :body  => body,
         }
+        pull[:body] = body unless body.nil?
         post "#{Repository.path repo}/pulls", options.merge(pull)
       end
 

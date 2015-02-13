@@ -77,7 +77,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param title [String] A descriptive title
-      # @param body [String] A concise description
+      # @param body [String] An optional concise description
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
@@ -86,7 +86,7 @@ module Octokit
       # @see https://developer.github.com/v3/issues/#create-an-issue
       # @example Create a new Issues for a repository
       #   Octokit.create_issue("sferik/rails_admin", 'Updated Docs', 'Added some extra links')
-      def create_issue(repo, title, body, options = {})
+      def create_issue(repo, title, body = nil, options = {})
         options[:labels] = case options[:labels]
                            when String
                              options[:labels].split(",").map(&:strip)
@@ -95,7 +95,9 @@ module Octokit
                            else
                              []
                            end
-        post "#{Repository.path repo}/issues", options.merge({:title => title, :body => body})
+        parameters = { :title => title }
+        parameters[:body] = body unless body.nil?
+        post "#{Repository.path repo}/issues", options.merge(parameters)
       end
       alias :open_issue :create_issue
 

@@ -69,6 +69,11 @@ describe Octokit::Client::Issues do
       expect(issue.labels.map(&:name)).to include("feature")
       assert_requested :post, github_url("/repos/#{@test_repo}/issues")
     end
+    it "creates an issue without body argument" do
+      issue = @client.create_issue(@test_repo, "New issue without body argument")
+      expect(issue.body).to be_nil
+      assert_requested :post, github_url("/repos/#{@test_repo}/issues")
+    end
   end # .create_issue
 
   context "with issue", :vcr do
