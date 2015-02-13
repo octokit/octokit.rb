@@ -18,6 +18,9 @@ module Octokit
         @id = repo
       when String
         @owner, @name = repo.split('/')
+        unless @owner && @name
+          raise ArgumentError, "Invalid Repository. Use user/repo format."
+        end
       when Repository
         @owner = repo.owner
         @name = repo.name
