@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-  Exception: Octokit::Forbidden
+  Exception: Octokit::AbuseDetected
   
     &mdash; 
   
@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../';
-  framesUrl = "../frames.html#!Octokit/Forbidden.html";
+  framesUrl = "../frames.html#!Octokit/AbuseDetected.html";
 </script>
 
 
@@ -31,10 +31,10 @@
     <div id="header">
       <div id="menu">
   
-    <a href="../_index.html">Index (F)</a> &raquo;
+    <a href="../_index.html">Index (A)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span></span>
      &raquo; 
-    <span class="title">Forbidden</span>
+    <span class="title">AbuseDetected</span>
   
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
@@ -63,7 +63,7 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><h1>Exception: Octokit::Forbidden
+    <div id="content"><h1>Exception: Octokit::AbuseDetected
   
   
   
@@ -73,7 +73,7 @@
   
     <dt class="r1">Inherits:</dt>
     <dd class="r1">
-      <span class="inheritName"><span class='object_link'><a href="ClientError.html" title="Octokit::ClientError (class)">ClientError</a></span></span>
+      <span class="inheritName"><span class='object_link'><a href="Forbidden.html" title="Octokit::Forbidden (class)">Forbidden</a></span></span>
       
         <ul class="fullTree">
           <li>Object</li>
@@ -84,7 +84,9 @@
           
             <li class="next"><span class='object_link'><a href="ClientError.html" title="Octokit::ClientError (class)">ClientError</a></span></li>
           
-            <li class="next">Octokit::Forbidden</li>
+            <li class="next"><span class='object_link'><a href="Forbidden.html" title="Octokit::Forbidden (class)">Forbidden</a></span></li>
+          
+            <li class="next">Octokit::AbuseDetected</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -107,7 +109,8 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Raised when GitHub returns a 403 HTTP status code</p>
+    <p>Raised when GitHub returns a 403 HTTP status code
+and body matches &#39;abuse&#39;</p>
 
 
   </div>
@@ -115,9 +118,6 @@
 <div class="tags">
   
 
-</div><div id="subclasses">
-  <h2>Direct Known Subclasses</h2>
-  <p class="children"><span class='object_link'><a href="AbuseDetected.html" title="Octokit::AbuseDetected (class)">AbuseDetected</a></span>, <span class='object_link'><a href="TooManyLoginAttempts.html" title="Octokit::TooManyLoginAttempts (class)">TooManyLoginAttempts</a></span>, <span class='object_link'><a href="TooManyRequests.html" title="Octokit::TooManyRequests (class)">TooManyRequests</a></span></p>
 </div>
 
 
@@ -126,7 +126,12 @@
 
 
 
-
+  
+  
+  
+  
+  
+  
   
   
   
