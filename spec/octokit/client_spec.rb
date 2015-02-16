@@ -645,6 +645,14 @@ describe Octokit::Client do
         },
         :body => {:message => "You have triggered an abuse detection mechanism and have been temporarily blocked from content creation. Please retry your request again later."}.to_json
       expect { Octokit.get('/user') }.to raise_error Octokit::AbuseDetected
+
+      stub_get('/blocked/repository').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "Repository access blocked"}.to_json
+      expect { Octokit.get("/blocked/repository") }.to raise_error Octokit::RepositoryUnavailable
     end
 
     it "raises on unknown client errors" do

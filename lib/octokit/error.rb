@@ -64,6 +64,8 @@ module Octokit
         Octokit::TooManyLoginAttempts
       elsif body =~ /abuse/i
         Octokit::AbuseDetected
+      elsif body =~ /repository access blocked/i
+        Octokit::RepositoryUnavailable
       else
         Octokit::Forbidden
       end
@@ -192,6 +194,10 @@ module Octokit
   # Raised when GitHub returns a 403 HTTP status code
   # and body matches 'abuse'
   class AbuseDetected < Forbidden; end
+
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'repository access blocked'
+  class RepositoryUnavailable < Forbidden; end
 
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end
