@@ -129,7 +129,6 @@ module Octokit
 
       # Get the release for a given tag
       #
-      #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param tag_name [String] the name for a tag
       # @return [Sawyer::Resource] The release
@@ -139,13 +138,11 @@ module Octokit
 
       # Get the latest release
       #
-      #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Sawyer::Resource] The release
       def latest_release(repo, options = {})
         get "#{Repository.path repo}/releases/latest", options
       end
-
 
       private
 
