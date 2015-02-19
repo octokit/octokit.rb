@@ -292,7 +292,7 @@ module Octokit
         octokit_warn <<-EOS
 WARNING: The preview version of the Org Hooks API is not yet suitable for production use.
 You can avoid this message by supplying an appropriate media type in the 'Accept' request
-header. See the blog post for details: http://git.io/<LINK>
+header. See the blog post for details: http://git.io/uucWqg
 EOS
       end
     end
