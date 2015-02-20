@@ -131,4 +131,12 @@ describe Octokit::Client::Hooks do
       end
     end # .remove_org_hook
   end # with org hook
+
+  describe ".parse_payload", :vcr do
+    it "parses payload string" do
+      result = @client.parse_payload '{"action": "added", "scope": "team", "sender": {"site_admin": false}}'
+      expect(result[:action]).to eq("added")
+      expect(result[:sender][:site_admin]).to eq(false)
+    end
+  end # .parse_payload
 end
