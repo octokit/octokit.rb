@@ -277,6 +277,17 @@ module Octokit
         boolean_from_response :delete, "orgs/#{org}/hooks/#{id}", options
       end
 
+      # Parse payload string
+      #
+      # @param payload_string [String] The payload
+      # @return [Sawyer::Resource] The payload object
+      # @see https://github.com/octokit/octokit.rb/issues/453
+      def parse_payload(payload_string)
+        agent = Octokit.agent
+        payload_hash = agent.class.decode payload_string
+        Sawyer::Resource.new agent, payload_hash
+      end
+
       private
 
       def ensure_org_hooks_api_media_type(options = {})
