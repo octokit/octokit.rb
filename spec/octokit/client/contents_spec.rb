@@ -1,4 +1,5 @@
 require 'helper'
+require 'tempfile'
 
 describe Octokit::Client::Contents do
 
