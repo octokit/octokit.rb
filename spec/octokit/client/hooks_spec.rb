@@ -135,9 +135,10 @@ describe Octokit::Client::Hooks do
   describe ".parse_payload", :vcr do
     it "parses payload string" do
       test_json = fixture('create_payload.json').read
-      test_answer = fixture('create_payload_hash.txt').read
       result = @client.parse_payload test_json
-      expect(result.inspect).to eq(test_answer)
+      expect(result[:ref]).to eq("0.0.1")
+      expect(result[:repository][:name]).to eq("public-repo")
+      expect(result[:repository][:owner][:site_admin]).to eq(false)
     end
   end # .parse_payload
 end
