@@ -281,7 +281,7 @@ module Octokit
       #
       # @param payload_string [String] The payload
       # @return [Sawyer::Resource] The payload object
-      # @see https://github.com/octokit/octokit.rb/issues/453
+      # @see https://developer.github.com/v3/activity/events/types/
       def parse_payload(payload_string)
         payload_hash = agent.class.decode payload_string
         Sawyer::Resource.new agent, payload_hash
