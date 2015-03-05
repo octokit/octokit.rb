@@ -8,18 +8,18 @@ module Octokit
 
       # List gists for a user or all public gists
       #
-      # @param username [String] An optional user to filter listing
+      # @param user [String] An optional user to filter listing
       # @return [Array<Sawyer::Resource>] A list of gists
       # @example Fetch all gists for defunkt
       #   Octokit.gists('defunkt')
       # @example Fetch all public gists
       #   Octokit.gists
       # @see https://developer.github.com/v3/gists/#list-gists
-      def gists(username=nil, options = {})
-        if username.nil?
+      def gists(user=nil, options = {})
+        if user.nil?
           paginate 'gists', options
         else
-          paginate "users/#{username}/gists", options
+          paginate "#{User.path user}/gists", options
         end
       end
       alias :list_gists :gists

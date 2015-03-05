@@ -6,6 +6,8 @@ require 'octokit/authentication'
 require 'octokit/gist'
 require 'octokit/rate_limit'
 require 'octokit/repository'
+require 'octokit/user'
+require 'octokit/organization'
 require 'octokit/client/authorizations'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
@@ -218,6 +220,7 @@ module Octokit
     def agent
       @agent ||= Sawyer::Agent.new(api_endpoint, sawyer_options) do |http|
         http.headers[:accept] = default_media_type
+        http.headers[:content_type] = "application/json"
         http.headers[:user_agent] = user_agent
         if basic_authenticated?
           http.basic_auth(@login, @password)

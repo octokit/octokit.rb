@@ -76,20 +76,20 @@ describe Octokit::Client do
       it "masks tokens on inspect" do
         client = Octokit::Client.new(:access_token => '87614b09dd141c22800f96f11737ade5226d7ba8')
         inspected = client.inspect
-        expect(inspected).not_to eq("87614b09dd141c22800f96f11737ade5226d7ba8")
+        expect(inspected).not_to include("87614b09dd141c22800f96f11737ade5226d7ba8")
       end
 
       it "masks client secrets on inspect" do
         client = Octokit::Client.new(:client_secret => '87614b09dd141c22800f96f11737ade5226d7ba8')
         inspected = client.inspect
-        expect(inspected).not_to eq("87614b09dd141c22800f96f11737ade5226d7ba8")
+        expect(inspected).not_to include("87614b09dd141c22800f96f11737ade5226d7ba8")
       end
 
       describe "with .netrc" do
         before do
           File.chmod(0600, File.join(fixture_path, '.netrc'))
         end
-        
+
         it "can read .netrc files" do
           Octokit.reset!
           client = Octokit::Client.new(:netrc => true, :netrc_file => File.join(fixture_path, '.netrc'))
@@ -104,6 +104,29 @@ describe Octokit::Client do
           expect(client.instance_variable_get(:"@password")).to eq("il0veruby")
         end
       end
+    end
+  end
+
+  describe "content type" do
+    it "sets a default Content-Type header" do
+      gist_request = stub_post("/gists").
+        with({
+          :headers => {"Content-Type" => "application/json"}})
+
+      Octokit.client.post "/gists", {}
+      assert_requested gist_request
+    end
+    it "fixes % bug", :vcr do
+      new_gist = {
+        :description => "%A gist from Octokit",
+        :public      => true,
+        :files       => {
+          "zen.text" => { :content => "Keep it logically awesome." }
+        }
+      }
+
+      Octokit.client.post "/gists", new_gist
+      expect(Octokit.client.last_response.status).to eq(201)
     end
   end
 
@@ -595,7 +618,7 @@ describe Octokit::Client do
       end
     end
 
-    it "knows the difference between Forbidden and rate limiting" do
+    it "knows the difference between different kinds of forbidden" do
       stub_get('/some/admin/stuffs').to_return(:status => 403)
       expect { Octokit.get('/some/admin/stuffs') }.to raise_error Octokit::Forbidden
 
@@ -614,6 +637,22 @@ describe Octokit::Client do
         },
         :body => {:message => "Maximum number of login attempts exceeded"}.to_json
       expect { Octokit.get('/user') }.to raise_error Octokit::TooManyLoginAttempts
+
+      stub_get('/user').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "You have triggered an abuse detection mechanism and have been temporarily blocked from content creation. Please retry your request again later."}.to_json
+      expect { Octokit.get('/user') }.to raise_error Octokit::AbuseDetected
+
+      stub_get('/blocked/repository').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "Repository access blocked"}.to_json
+      expect { Octokit.get("/blocked/repository") }.to raise_error Octokit::RepositoryUnavailable
     end
 
     it "raises on unknown client errors" do

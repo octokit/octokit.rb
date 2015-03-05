@@ -29,17 +29,32 @@ describe Octokit::Client::PullRequests do
   context "methods that require a new pull" do
 
     before(:each) do
-      @pull = @client.create_pull_request(@test_repo, "master", "branch-for-pr", "A new PR", "The Body")
+      @pull = @client.create_pull_request(*arguments_to_create_pull_request)
     end
 
     after(:each) do
       @client.close_pull_request(@test_repo, @pull.number)
     end
 
+    let(:arguments_to_create_pull_request) do
+      [@test_repo, "master", "branch-for-pr", "A new PR", "The Body"]
+    end
+
     describe ".create_pull_request", :vcr do
       it "creates a pull request" do
         expect(@pull.title).to eq("A new PR")
         assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
+      end
+
+      context "without body argument" do
+        let(:arguments_to_create_pull_request) do
+          super()[0..-2]
+        end
+
+        it "creates a pull request without body argument" do
+          expect(@pull.body).to be_nil
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
+        end
       end
     end # .create_pull_request
 

@@ -2,7 +2,7 @@ module Octokit
   # Custom error class for rescuing from all GitHub errors
   class Error < StandardError
 
-    # Returns the appropriate Octokit::Error sublcass based
+    # Returns the appropriate Octokit::Error subclass based
     # on status and response message
     #
     # @param [Hash] response HTTP response
@@ -17,6 +17,7 @@ module Octokit
                   when 401      then error_for_401(headers)
                   when 403      then error_for_403(body)
                   when 404      then Octokit::NotFound
+                  when 405      then Octokit::MethodNotAllowed
                   when 406      then Octokit::NotAcceptable
                   when 409      then Octokit::Conflict
                   when 415      then Octokit::UnsupportedMediaType
@@ -61,6 +62,10 @@ module Octokit
         Octokit::TooManyRequests
       elsif body =~ /login attempts exceeded/i
         Octokit::TooManyLoginAttempts
+      elsif body =~ /abuse/i
+        Octokit::AbuseDetected
+      elsif body =~ /repository access blocked/i
+        Octokit::RepositoryUnavailable
       else
         Octokit::Forbidden
       end
@@ -186,8 +191,19 @@ module Octokit
   # and body matches 'login attempts exceeded'
   class TooManyLoginAttempts < Forbidden; end
 
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'abuse'
+  class AbuseDetected < Forbidden; end
+
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'repository access blocked'
+  class RepositoryUnavailable < Forbidden; end
+
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end
+
+  # Raised when GitHub returns a 405 HTTP status code
+  class MethodNotAllowed < ClientError; end
 
   # Raised when GitHub returns a 406 HTTP status code
   class NotAcceptable < ClientError; end

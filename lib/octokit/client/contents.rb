@@ -10,19 +10,19 @@ module Octokit
 
       # Receive the default Readme for a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to “master”.
       # @return [Sawyer::Resource] The detail of the readme
       # @see https://developer.github.com/v3/repos/contents/#get-the-readme
       # @example Get the readme file for a repo
       #   Octokit.readme("octokit/octokit.rb")
       def readme(repo, options={})
-        get "repos/#{Repository.new(repo)}/readme", options
+        get "#{Repository.path repo}/readme", options
       end
 
       # Receive a listing of a repository folder or the contents of a file
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @option options [String] :path A folder or file path
       # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to “master”.
       # @return [Sawyer::Resource] The contents of a file or list of the files in the folder
@@ -31,7 +31,7 @@ module Octokit
       #   Octokit.contents("octokit/octokit.rb", :path => 'lib/octokit.rb')
       def contents(repo, options={})
         repo_path = options.delete :path
-        url = "repos/#{Repository.new(repo)}/contents/#{repo_path}"
+        url = "#{Repository.path repo}/contents/#{repo_path}"
         get url, options
       end
       alias :content :contents
@@ -39,7 +39,7 @@ module Octokit
       # Add content to a repository
       #
       # @overload create_contents(repo, path, message, content = nil, options = {})
-      #   @param repo [String, Repository, Hash] A GitHub repository
+      #   @param repo [Integer, String, Repository, Hash] A GitHub repository
       #   @param path [String] A path for the new content
       #   @param message [String] A commit message for adding the content
       #   @param optional content [String] The content for the file
@@ -67,7 +67,7 @@ module Octokit
               content = file.read
               file.close
             end
-          when File
+          when File, Tempfile
             content = file.read
             file.close
           end
@@ -77,7 +77,7 @@ module Octokit
           Base64.strict_encode64(content) :
           Base64.encode64(content).delete("\n") # Ruby 1.9.2
         options[:message] = message
-        url = "repos/#{Repository.new(repo)}/contents/#{path}"
+        url = "#{Repository.path repo}/contents/#{path}"
         put url, options
       end
       alias :create_content :create_contents
@@ -87,7 +87,7 @@ module Octokit
       # Update content in a repository
       #
       # @overload update_contents(repo, path, message, sha, content = nil, options = {})
-      #   @param repo [String, Repository, Hash] A GitHub repository
+      #   @param repo [Integer, String, Repository, Hash] A GitHub repository
       #   @param path [String] A path for the content to update
       #   @param message [String] A commit message for updating the content
       #   @param sha [String] The _blob sha_ of the content to update
@@ -117,7 +117,7 @@ module Octokit
 
       # Delete content in a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param path [String] A path for the content to delete
       # @param message [String] A commit message for deleting the content
       # @param sha [String] The _blob sha_ of the content to delete
@@ -133,7 +133,7 @@ module Octokit
       def delete_contents(repo, path, message, sha, options = {})
         options[:message] = message
         options[:sha] = sha
-        url = "repos/#{Repository.new(repo)}/contents/#{path}"
+        url = "#{Repository.path repo}/contents/#{path}"
         delete url, options
       end
       alias :delete_content :delete_contents
@@ -142,7 +142,7 @@ module Octokit
 
       # This method will provide a URL to download a tarball or zipball archive for a repository.
       #
-      # @param repo [String, Repository, Hash] A GitHub repository.
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository.
       # @option options format [String] Either tarball (default) or zipball.
       # @option options [String] :ref Optional valid Git reference, defaults to master.
       # @return [String] Location of the download
@@ -152,7 +152,7 @@ module Octokit
       def archive_link(repo, options={})
         repo_ref = options.delete :ref
         format = (options.delete :format) || 'tarball'
-        url = "repos/#{Repository.new(repo)}/#{format}/#{repo_ref}"
+        url = "#{Repository.path repo}/#{format}/#{repo_ref}"
         request :head, url, options
 
         last_response.headers['Location']

@@ -211,6 +211,53 @@ describe Octokit::Client::Organizations do
       assert_requested :get, github_url("/user/teams")
       expect(teams).to be_kind_of(Array)
     end
-  end
+  end # .user_teams
 
+  describe ".team_membership", :vcr do
+    it "gets a user's team membership" do
+      membership = @client.team_membership(946194, "pengwynn")
+      assert_requested :get, github_url("teams/946194/memberships/pengwynn")
+      expect(membership.status).to eq("active")
+    end
+  end # .team_membership
+
+  describe ".add_team_membership", :vcr do
+    it "invites a user to a team" do
+      membership = @client.add_team_membership(946194, test_github_login) 
+      assert_requested :put, github_url("teams/946194/memberships/#{test_github_login}")
+      expect(membership.status).to eq("active")
+    end
+  end # .add_team_membership
+
+  describe ".remove_team_membership", :vcr do
+    it "removes a user's membership for a team" do
+      result = @client.remove_team_membership(946194, test_github_login)
+      assert_requested :delete, github_url("teams/946194/memberships/#{test_github_login}")
+      expect(result).to be true
+    end
+  end # .remove_team_membership
+
+  describe ".organization_memberships", :vcr do
+    it "returns all organization memberships for the user" do
+      memberships = @client.organization_memberships
+      expect(memberships).to be_kind_of Array
+      assert_requested :get, github_url("/user/memberships/orgs")
+    end
+  end # .organization_memberships
+
+  describe ".organization_membership", :vcr do
+    it "returns an organization membership" do
+      stub_get github_url("/user/memberships/orgs/#{test_github_org}")
+      membership = @client.organization_membership(test_github_org)
+      assert_requested :get, github_url("/user/memberships/orgs/#{test_github_org}")
+    end
+  end # .organization_membership
+
+  describe ".update_organization_membership", :vcr do
+    it "updates an organization membership" do
+      stub_patch github_url("/user/memberships/orgs/#{test_github_org}")
+      membership = @client.update_organization_membership(test_github_org, {:state => 'active'})
+      assert_requested :patch, github_url("/user/memberships/orgs/#{test_github_org}")
+    end
+  end # .update_organization_membership
 end

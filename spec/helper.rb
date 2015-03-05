@@ -160,14 +160,24 @@ def json_response(file)
 end
 
 def github_url(url)
-  url =~ /^http/ ? url : "https://api.github.com#{url}"
+  return url if url =~ /^http/
+
+  url = File.join(Octokit.api_endpoint, url)
+  uri = Addressable::URI.parse(url)
+  uri.path.gsub!("v3//", "v3/")
+
+  uri.to_s
 end
 
 def basic_github_url(path, options = {})
-  login = options.fetch(:login, test_github_login)
-  password = options.fetch(:password, test_github_password)
+  url = File.join(Octokit.api_endpoint, path)
+  uri = Addressable::URI.parse(url)
+  uri.path.gsub!("v3//", "v3/")
 
-  "https://#{login}:#{password}@api.github.com#{path}"
+  uri.user = options.fetch(:login, test_github_login)
+  uri.password = options.fetch(:password, test_github_password)
+
+  uri.to_s
 end
 
 def basic_auth_client(login = test_github_login, password = test_github_password )

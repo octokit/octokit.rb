@@ -1,7 +1,17 @@
 module Octokit
+  # Current major release.
+  # @return [Integer]
+  MAJOR = 3
 
-  # Current version
+  # Current minor release.
+  # @return [Integer]
+  MINOR = 8
+
+  # Current patch level.
+  # @return [Integer]
+  PATCH = 0
+
+  # Full release version.
   # @return [String]
-  VERSION = "3.1.0".freeze
-
+  VERSION = [MAJOR, MINOR, PATCH].join('.').freeze
 end
