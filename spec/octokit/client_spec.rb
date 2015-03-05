@@ -422,6 +422,39 @@ describe Octokit::Client do
     end
   end
 
+  describe "redirect handling", :vcr do
+    before do
+      Octokit.reset!
+      @client = oauth_client
+
+      # Create a repository and then rename it. We'll make API requests using
+      # the original repository name to test our ability to follow redirects.
+      @repo_before_renaming = @client.create_repository("a-repo-before-renaming", :private => true)
+      @repo_after_renaming = @client.edit_repository(@repo_before_renaming.full_name, :name => "a-repo-after-renaming")
+    end
+
+    after do
+      begin
+        @client.delete_repository(@repo_after_renaming.full_name)
+      rescue Octokit::NotFound
+      end
+    end
+
+    it "follows redirect for 301 response" do
+      repository = @client.repository("#{@client.login}/a-repo-before-renaming")
+      expect(repository.name).to eq("a-repo-after-renaming")
+      assert_requested :get, github_url("/repos/#{@client.login}/a-repo-before-renaming")
+    end
+
+    it "follows redirect for 307 response" do
+      issue = @client.create_issue \
+        "#{@client.login}/a-repo-before-renaming",
+        "Example issue posted to old repo name"
+      expect(issue.title).to eq("Example issue posted to old repo name")
+      assert_requested :post, github_url("/repos/#{@client.login}/a-repo-before-renaming/issues")
+    end
+  end
+
   describe "auto pagination", :vcr do
     before do
       Octokit.reset!
