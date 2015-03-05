@@ -5,8 +5,8 @@ Ruby toolkit for the GitHub API.
 ![Logo][logo]
 [logo]: http://cl.ly/image/3Y013H0A2z3z/gundam-ruby.png
 
-Octokit 2.0 is out, check the [Upgrade Guide](#upgrading-guide) before
-upgrading from 1.x.
+Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
+[major version][semver].
 
 ## Philosophy
 
@@ -37,7 +37,7 @@ Install via Rubygems
 
 ### Making requests
 
-API methods are available as module methods (consuming module-level
+[API methods][] are available as module methods (consuming module-level
 configuration) or as client instance methods.
 
 ```ruby
@@ -58,6 +58,8 @@ client = Octokit::Client.new(:login => 'defunkt', :password => 'c0d3b4ssssss!')
 # Fetch the current user
 client.user
 ```
+
+[API methods]: http://octokit.github.io/octokit.rb/method_list.html
 
 ### Consuming resources
 
@@ -221,7 +223,7 @@ user = client.user 'defunkt'
 [auth]: http://developer.github.com/v3/#authentication
 [oauth]: http://developer.github.com/v3/oauth/
 [access scopes]: http://developer.github.com/v3/oauth/#scopes
-[app-creds]: http://developer.github.com/v3/#unauthenticated-rate-limited-requests
+[app-creds]: http://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications
 
 ## Pagination
 
@@ -334,10 +336,10 @@ rel = repo.rels[:issues]
 # => #<Sawyer::Relation: issues: get https://api.github.com/repos/pengwynn/pingwynn/issues{/number}>
 
 # Get a page of issues
-repo.rels[:issues].get.data
+rel.get.data
 
 # Get issue #2
-repo.rels[:issues].get(:uri => {:number => 2}).data
+rel.get(:uri => {:number => 2}).data
 ```
 
 ### The Full Hypermedia Experience™
@@ -359,6 +361,27 @@ construction currently used throughout the client.
 [uri-templates]: http://tools.ietf.org/html/rfc6570
 
 ## Upgrading guide
+
+Version 3.0 includes a couple breaking changes when upgrading from v2.x.x:
+
+The [default media type][default-media-type] is now `v3` instead of `beta`. If
+you need to request the older media type, you can set the default media type
+for the client:
+
+```ruby
+Octokit.default_media_type = "application/vnd.github.beta+json"
+```
+or per-request
+
+```ruby
+Octokit.emails(:accept => "application/vnd.github.beta+json")
+```
+
+The long-deprecated `Octokit::Client#create_download` method has been removed.
+
+[default-media-type]: https://developer.github.com/changes/2014-01-07-upcoming-change-to-default-media-type/
+
+### Upgrading from 1.x.x
 
 Version 2.0 includes a completely rewritten `Client` factory that now memoizes
 client instances based on unique configuration options. Breaking changes also
@@ -474,7 +497,7 @@ Octokit uses environmental variables for storing credentials used in testing.
 If you are testing an API endpoint that doesn't require authentication, you
 can get away without any additional configuration. For the most part, tests
 use an authenticated client, using a token stored in `ENV['OCTOKIT_TEST_GITHUB_TOKEN']`.
-There are several different authenticating method's used accross the api.
+There are several different authenticating method's used across the api.
 Here is the full list of configurable environmental variables for testing
 Octokit:
 
@@ -543,7 +566,7 @@ Constraint][pvc] with two digits of precision. For example:
     spec.add_dependency 'octokit', '~> 3.0'
 
 [semver]: http://semver.org/
-[pvc]: http://docs.rubygems.org/read/chapter/16#page74
+[pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
 
 ## License
 

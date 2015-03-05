@@ -128,4 +128,19 @@ describe Octokit::Client::Releases do
     end
 
   end
+
+  describe '.release_for_tag', :vcr do
+    it "returns the release for a tag" do
+      release = @client.release_for_tag("octokit/octokit.rb", "v3.7.0")
+      expect(release.tag_name).to eq("v3.7.0")
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/releases/tags/v3.7.0")
+    end
+  end # .release_for_tag
+
+  describe '.latest_release', :vcr do
+    it "returns the latest release" do
+      result = Octokit.latest_release("octokit/octokit.rb")
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/releases/latest")
+    end
+  end # .latest_release
 end

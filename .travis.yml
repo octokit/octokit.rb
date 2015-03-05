@@ -1,6 +1,5 @@
-bundler_args: --without development
 language: ruby
-cache: bundler
+
 rvm:
   - jruby
   - rbx
@@ -8,14 +7,24 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.0
+
+bundler_args: --without development
+
+sudo: false
+
+env:
+  global:
+    - OCTOKIT_TEST_GITHUB_LOGIN="api-padawan"
+    - OCTOKIT_TEST_GITHUB_PASSWORD="MYSOCRATESNOTE"
+    - OCTOKIT_TEST_GITHUB_TOKEN="6a21f190e3422bf89afa8b360d923b0c30e8fbfa"
+    - OCTOKIT_TEST_GITHUB_CLIENT_ID='abcdefabcdefabcdefab'
+    - OCTOKIT_TEST_GITHUB_CLIENT_SECRET='abcdefabcdefabcdefababcdefabcdefabcdefab'
+    - OCTOKIT_SILENT=true
+
+before_script:
+  - chmod 600 spec/fixtures/.netrc
+
 matrix:
   allow_failures:
     - rvm: rbx
     - rvm: jruby
-env:
-  - OCTOKIT_TEST_GITHUB_LOGIN="api-padawan" OCTOKIT_TEST_GITHUB_PASSWORD="MYSOCRATESNOTE" OCTOKIT_TEST_GITHUB_TOKEN="6a21f190e3422bf89afa8b360d923b0c30e8fbfa" OCTOKIT_TEST_GITHUB_CLIENT_ID='abcdefabcdefabcdefab' OCTOKIT_TEST_GITHUB_CLIENT_SECRET='abcdefabcdefabcdefababcdefabcdefabcdefab' OCTOKIT_SILENT=true
-before_install:
-  - gem update bundler
-  - bundle --version
-before_script:
-  - chmod 600 spec/fixtures/.netrc

@@ -8,28 +8,28 @@ module Octokit
 
       # List releases for a repository
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of releases
       # @see https://developer.github.com/v3/repos/releases/#list-releases-for-a-repository
       def releases(repo, options = {})
-        paginate "repos/#{Repository.new(repo)}/releases", options
+        paginate "#{Repository.path repo}/releases", options
       end
       alias :list_releases :releases
 
       # Create a release
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param tag_name [String] Git tag from which to create release
       # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from.
       # @option options [String] :name Name for the release
       # @option options [String] :body Content for release notes
-      # @option options [String] :draft Mark this release as a draft
-      # @option options [String] :prerelease Mark this release as a pre-release
+      # @option options [Boolean] :draft Mark this release as a draft
+      # @option options [Boolean] :prerelease Mark this release as a pre-release
       # @return [Sawyer::Resource] The release
       # @see https://developer.github.com/v3/repos/releases/#create-a-release
       def create_release(repo, tag_name, options = {})
         opts = options.merge(:tag_name => tag_name)
-        post "repos/#{Repository.new(repo)}/releases", opts
+        post "#{Repository.path repo}/releases", opts
       end
 
       # Get a release
@@ -47,8 +47,8 @@ module Octokit
       # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from.
       # @option options [String] :name Name for the release
       # @option options [String] :body Content for release notes
-      # @option options [String] :draft Mark this release as a draft
-      # @option options [String] :prerelease Mark this release as a pre-release
+      # @option options [Boolean] :draft Mark this release as a draft
+      # @option options [Boolean] :prerelease Mark this release as a pre-release
       # @return [Sawyer::Resource] The release
       # @see https://developer.github.com/v3/repos/releases/#edit-a-release
       def update_release(url, options = {})
@@ -125,6 +125,23 @@ module Octokit
       # @see https://developer.github.com/v3/repos/releases/#delete-a-release-asset
       def delete_release_asset(asset_url, options = {})
         boolean_from_response(:delete, asset_url, options)
+      end
+
+      # Get the release for a given tag
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param tag_name [String] the name for a tag
+      # @return [Sawyer::Resource] The release
+      def release_for_tag(repo, tag_name, options = {})
+        get "#{Repository.path repo}/releases/tags/#{tag_name}", options
+      end
+
+      # Get the latest release
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @return [Sawyer::Resource] The release
+      def latest_release(repo, options = {})
+        get "#{Repository.path repo}/releases/latest", options
       end
 
       private

@@ -9,12 +9,12 @@ module Octokit
       # List pull requests for a repository
       #
       # @overload pull_requests(repo, options)
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param options [Hash] Method options
       #   @option options [String] :state `open` or `closed`.
       # @overload pull_requests(repo, state, options)
       #   @deprecated
-      #   @param repo [String, Hash, Repository] A GitHub repository
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param state [String] `open` or `closed`.
       #   @param options [Hash] Method options
       # @return [Array<Sawyer::Resource>] Array of pulls
@@ -29,47 +29,50 @@ module Octokit
           octokit_warn "DEPRECATED: Client#pull_requests: Passing state as positional argument is deprecated. Please use :state => '#{state}'"
           opts[:state] = state if state
         end
-        paginate "repos/#{Repository.new(repo)}/pulls", opts
+        paginate "#{Repository.path repo}/pulls", opts
       end
       alias :pulls :pull_requests
 
       # Get a pull request
       #
       # @see https://developer.github.com/v3/pulls/#get-a-single-pull-request
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of the pull request to fetch
       # @return [Sawyer::Resource] Pull request info
       def pull_request(repo, number, options = {})
-        get "repos/#{Repository.new(repo)}/pulls/#{number}", options
+        get "#{Repository.path repo}/pulls/#{number}", options
       end
       alias :pull :pull_request
 
       # Create a pull request
       #
       # @see https://developer.github.com/v3/pulls/#create-a-pull-request
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param base [String] The branch (or git ref) you want your changes
       #                      pulled into. This should be an existing branch on the current
       #                      repository. You cannot submit a pull request to one repo that requests
       #                      a merge to a base of another repo.
       # @param head [String] The branch (or git ref) where your changes are implemented.
       # @param title [String] Title for the pull request
-      # @param body [String] The body for the pull request. Supports GFM.
+      # @param body [String] The body for the pull request (optional). Supports GFM.
       # @return [Sawyer::Resource] The newly created pull request
-      def create_pull_request(repo, base, head, title, body, options = {})
+      # @example
+      #   @client.create_pull_request("octokit/octokit.rb", "master", "feature-branch",
+      #     "Pull Request title", "Pull Request body")
+      def create_pull_request(repo, base, head, title, body = nil, options = {})
         pull = {
           :base  => base,
           :head  => head,
           :title => title,
-          :body  => body,
         }
-        post "repos/#{Repository.new(repo)}/pulls", options.merge(pull)
+        pull[:body] = body unless body.nil?
+        post "#{Repository.path repo}/pulls", options.merge(pull)
       end
 
       # Create a pull request from existing issue
       #
       # @see https://developer.github.com/v3/pulls/#alternative-input
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param base [String] The branch (or git ref) you want your changes
       #                      pulled into. This should be an existing branch on the current
       #                      repository. You cannot submit a pull request to one repo that requests
@@ -83,19 +86,19 @@ module Octokit
           :head  => head,
           :issue => issue
         }
-        post "repos/#{Repository.new(repo)}/pulls", options.merge(pull)
+        post "#{Repository.path repo}/pulls", options.merge(pull)
       end
 
       # Update a pull request
       # @overload update_pull_request(repo, id, title=nil, body=nil, state=nil, options = {})
       #   @deprecated
-      #   @param repo [String, Hash, Repository] A GitHub repository.
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository.
       #   @param number [Integer] Number of pull request to update.
       #   @param title [String] Title for the pull request.
       #   @param body [String] Body content for pull request. Supports GFM.
       #   @param state [String] State of the pull request. `open` or `closed`.
       # @overload update_pull_request(repo, id,  options = {})
-      #   @param repo [String, Hash, Repository] A GitHub repository.
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository.
       #   @param number [Integer] Number of pull request to update.
       #   @option options [String] :title Title for the pull request.
       #   @option options [String] :body Body for the pull request.
@@ -112,12 +115,12 @@ module Octokit
         arguments = Octokit::Arguments.new(args)
         repo   = arguments.shift
         number = arguments.shift
-        patch "repos/#{Repository.new(repo)}/pulls/#{number}", arguments.options
+        patch "#{Repository.path repo}/pulls/#{number}", arguments.options
       end
 
       # Close a pull request
       #
-      # @param repo [String, Hash, Repository] A GitHub repository.
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param number [Integer] Number of pull request to update.
       # @return [Sawyer::Resource] Hash representing updated pull request.
       # @see https://developer.github.com/v3/pulls/#update-a-pull-request
@@ -131,11 +134,11 @@ module Octokit
       # List commits on a pull request
       #
       # @see https://developer.github.com/v3/pulls/#list-commits-on-a-pull-request
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @return [Array<Sawyer::Resource>] List of commits
       def pull_request_commits(repo, number, options = {})
-        paginate "repos/#{Repository.new(repo)}/pulls/#{number}/commits", options
+        paginate "#{Repository.path repo}/pulls/#{number}/commits", options
       end
       alias :pull_commits :pull_request_commits
 
@@ -143,7 +146,7 @@ module Octokit
       #
       # By default, Review Comments are ordered by ascending ID.
       #
-      # @param repo [String, Repository, Hash] A GitHub repository
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param options [Hash] Optional parameters
       # @option options [String] :sort created or updated
       # @option options [String] :direction asc or desc. Ignored without sort
@@ -165,41 +168,41 @@ module Octokit
       #     :since => '2010-05-04T23:45:02Z'
       #   })
       def pull_requests_comments(repo, options = {})
-        get("repos/#{Repository.new(repo)}/pulls/comments", options)
+        paginate("#{Repository.path repo}/pulls/comments", options)
       end
       alias :pulls_comments   :pull_requests_comments
       alias :reviews_comments :pull_requests_comments
 
       # List comments on a pull request
       #
-      # @see https://developer.github.com/v3/pulls/#list-comments-on-a-pull-request
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @see https://developer.github.com/v3/pulls/comments/#list-comments-on-a-pull-request
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @return [Array<Sawyer::Resource>] List of comments
       def pull_request_comments(repo, number, options = {})
         # return the comments for a pull request
-        get "repos/#{Repository.new(repo)}/pulls/#{number}/comments", options
+        paginate("#{Repository.path repo}/pulls/#{number}/comments", options)
       end
       alias :pull_comments   :pull_request_comments
       alias :review_comments :pull_request_comments
 
       # Get a pull request comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param comment_id [Integer] Id of comment to get
       # @return [Sawyer::Resource] Hash representing the comment
       # @see https://developer.github.com/v3/pulls/comments/#get-a-single-comment
       # @example
       #   @client.pull_request_comment("pengwynn/octkit", 1903950)
       def pull_request_comment(repo, comment_id, options = {})
-        get "repos/#{Repository.new(repo)}/pulls/comments/#{comment_id}", options
+        get "#{Repository.path repo}/pulls/comments/#{comment_id}", options
       end
       alias :pull_comment   :pull_request_comment
       alias :review_comment :pull_request_comment
 
       # Create a pull request comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param pull_id [Integer] Pull request id
       # @param body [String] Comment content
       # @param commit_id [String] Sha of the commit to comment on.
@@ -217,14 +220,14 @@ module Octokit
           :path => path,
           :position => position
         })
-        post "repos/#{Repository.new(repo)}/pulls/#{pull_id}/comments", options
+        post "#{Repository.path repo}/pulls/#{pull_id}/comments", options
       end
       alias :create_pull_comment :create_pull_request_comment
       alias :create_view_comment :create_pull_request_comment
 
       # Create reply to a pull request comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param pull_id [Integer] Pull request id
       # @param body [String] Comment contents
       # @param comment_id [Integer] Comment id to reply to
@@ -237,14 +240,14 @@ module Octokit
           :body => body,
           :in_reply_to => comment_id
         })
-        post "repos/#{Repository.new(repo)}/pulls/#{pull_id}/comments", options
+        post "#{Repository.path repo}/pulls/#{pull_id}/comments", options
       end
       alias :create_pull_reply   :create_pull_request_comment_reply
       alias :create_review_reply :create_pull_request_comment_reply
 
       # Update pull request comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param comment_id [Integer] Id of the comment to update
       # @param body [String] Updated comment content
       # @return [Sawyer::Resource] Hash representing the updated comment
@@ -253,21 +256,21 @@ module Octokit
       #   @client.update_pull_request_comment("octokit/octokit.rb", 1903950, ":shipit:")
       def update_pull_request_comment(repo, comment_id, body, options = {})
         options.merge! :body => body
-        patch("repos/#{Repository.new(repo)}/pulls/comments/#{comment_id}", options)
+        patch("#{Repository.path repo}/pulls/comments/#{comment_id}", options)
       end
       alias :update_pull_comment   :update_pull_request_comment
       alias :update_review_comment :update_pull_request_comment
 
       # Delete pull request comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param comment_id [Integer] Id of the comment to delete
       # @return [Boolean] True if deleted, false otherwise
       # @see https://developer.github.com/v3/pulls/comments/#delete-a-comment
       # @example
       #   @client.delete_pull_request_comment("octokit/octokit.rb", 1902707)
       def delete_pull_request_comment(repo, comment_id, options = {})
-        boolean_from_response(:delete, "repos/#{Repository.new(repo)}/pulls/comments/#{comment_id}", options)
+        boolean_from_response(:delete, "#{Repository.path repo}/pulls/comments/#{comment_id}", options)
       end
       alias :delete_pull_comment   :delete_pull_request_comment
       alias :delete_review_comment :delete_pull_request_comment
@@ -275,33 +278,33 @@ module Octokit
       # List files on a pull request
       #
       # @see https://developer.github.com/v3/pulls/#list-pull-requests-files
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @return [Array<Sawyer::Resource>] List of files
       def pull_request_files(repo, number, options = {})
-        paginate "repos/#{Repository.new(repo)}/pulls/#{number}/files", options
+        paginate "#{Repository.path repo}/pulls/#{number}/files", options
       end
       alias :pull_files :pull_request_files
 
       # Merge a pull request
       #
       # @see https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-buttontrade
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @param commit_message [String] Optional commit message for the merge commit
       # @return [Array<Sawyer::Resource>] Merge commit info if successful
       def merge_pull_request(repo, number, commit_message='', options = {})
-        put "repos/#{Repository.new(repo)}/pulls/#{number}/merge", options.merge({:commit_message => commit_message})
+        put "#{Repository.path repo}/pulls/#{number}/merge", options.merge({:commit_message => commit_message})
       end
 
       # Check pull request merge status
       #
       # @see https://developer.github.com/v3/pulls/#get-if-a-pull-request-has-been-merged
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @return [Boolean] True if the pull request has been merged
       def pull_merged?(repo, number, options = {})
-        boolean_from_response :get, "repos/#{Repository.new(repo)}/pulls/#{number}/merge", options
+        boolean_from_response :get, "#{Repository.path repo}/pulls/#{number}/merge", options
       end
       alias :pull_request_merged? :pull_merged?
 

@@ -69,6 +69,11 @@ describe Octokit::Client::Issues do
       expect(issue.labels.map(&:name)).to include("feature")
       assert_requested :post, github_url("/repos/#{@test_repo}/issues")
     end
+    it "creates an issue without body argument" do
+      issue = @client.create_issue(@test_repo, "New issue without body argument")
+      expect(issue.body).to be_nil
+      assert_requested :post, github_url("/repos/#{@test_repo}/issues")
+    end
   end # .create_issue
 
   context "with issue", :vcr do
@@ -111,6 +116,12 @@ describe Octokit::Client::Issues do
     describe ".update_issue" do
       it "updates an issue" do
         issue = @client.update_issue(@test_repo, @issue.number, "Use all the v3 api!", "")
+        expect(issue.number).to eq(@issue.number)
+        assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
+      end
+
+      it "updates an issue without positional args" do
+        issue = @client.update_issue(@test_repo, @issue.number, :title => "Use all the v3 api!", :body => "")
         expect(issue.number).to eq(@issue.number)
         assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
       end

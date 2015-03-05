@@ -160,7 +160,8 @@ describe Octokit::Client::Users do
 
     describe ".update_key" do
       it "updates a public key" do
-        @client.update_key(@public_key.id, :title => 'Updated key')
+        expect { @client.update_key(@public_key.id, :title => 'Updated key') }.
+          to raise_error(Octokit::MethodNotAllowed)
         assert_requested :patch, github_url("/user/keys/#{@public_key.id}")
       end
     end # .update_key
