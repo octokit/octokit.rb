@@ -2,7 +2,6 @@ require 'faraday'
 require 'set'
 
 # TODO Give attribution to https://github.com/lostisland/faraday_middleware/blob/138766e/lib/faraday_middleware/response/follow_redirects.rb.
-# TODO Trim down the the bare essentials.
 
 module Octokit
 
@@ -20,22 +19,12 @@ module Octokit
 
     # Public: Follow HTTP 301, 302, 303, and 307 redirects.
     #
-    # For HTTP 301, 302, and 303, the original GET, POST, PUT, DELETE, or PATCH
-    # request gets converted into a GET. With `:standards_compliant => true`,
-    # however, the HTTP method after 301/302 remains unchanged. This allows you
-    # to opt into HTTP/1.1 compliance and act unlike the major web browsers.
+    # For HTTP 303, the original GET, POST, PUT, DELETE, or PATCH request gets
+    # converted into a GET. For HTTP 301, 302, and 307, the HTTP method remains
+    # unchanged.
     #
     # This middleware currently only works with synchronous requests; i.e. it
     # doesn't support parallelism.
-    #
-    # If you wish to persist cookies across redirects, you could use
-    # the faraday-cookie_jar gem:
-    #
-    #   Faraday.new(:url => url) do |faraday|
-    #     faraday.use FaradayMiddleware::FollowRedirects
-    #     faraday.use :cookie_jar
-    #     faraday.adapter Faraday.default_adapter
-    #   end
     class FollowRedirects < Faraday::Middleware
       # HTTP methods for which 30x redirects can be followed
       ALLOWED_METHODS = Set.new [:head, :options, :get, :post, :put, :patch, :delete]
@@ -58,15 +47,11 @@ module Octokit
       #
       # options - An options Hash (default: {}):
       #           :limit               - A Fixnum redirect limit (default: 3).
-      #           :standards_compliant - A Boolean indicating whether to respect
-      #                                  the HTTP spec when following 301/302
-      #                                  (default: false).
       def initialize(app, options = {})
         super(app)
         @options = options
 
         @convert_to_get = Set.new [303]
-        @convert_to_get << 301 << 302 unless standards_compliant?
       end
 
       def call(env)
@@ -86,7 +71,7 @@ module Octokit
 
         response.on_complete do |response_env|
           if follow_redirect?(response_env, response)
-            raise RedirectLimitReached, response if follows.zero?
+            raise(RedirectLimitReached, response) if follows.zero?
             new_request_env = update_env(response_env, request_body, response)
             response = perform_with_redirection(new_request_env, follows - 1)
           end
@@ -95,7 +80,7 @@ module Octokit
       end
 
       def update_env(env, request_body, response)
-        env[:url] += safe_escape(response['location'])
+        env[:url] += safe_escape(response["location"])
 
         if convert_to_get?(response)
           env[:method] = :get
@@ -104,31 +89,27 @@ module Octokit
           env[:body] = request_body
         end
 
-        ENV_TO_CLEAR.each {|key| env.delete key }
+        ENV_TO_CLEAR.each { |key| env.delete(key) }
 
         env
       end
 
       def follow_redirect?(env, response)
-        ALLOWED_METHODS.include? env[:method] and
-          REDIRECT_CODES.include? response.status
+        ALLOWED_METHODS.include?(env[:method]) &&
+          REDIRECT_CODES.include?(response.status)
       end
 
       def follow_limit
         @options.fetch(:limit, FOLLOW_LIMIT)
       end
 
-      def standards_compliant?
-        @options.fetch(:standards_compliant, false)
-      end
-
-      # Internal: escapes unsafe characters from an URL which might be a path
-      # component only or a fully qualified URI so that it can be joined onto an
+      # Internal: Escapes unsafe characters from a URL which might be a path
+      # component only or a fully-qualified URI so that it can be joined onto a
       # URI:HTTP using the `+` operator. Doesn't escape "%" characters so to not
       # risk double-escaping.
       def safe_escape(uri)
         uri.to_s.gsub(URI_UNSAFE) { |match|
-          '%' + match.unpack('H2' * match.bytesize).join('%').upcase
+          "%" + match.unpack("H2" * match.bytesize).join("%").upcase
         }
       end
     end
