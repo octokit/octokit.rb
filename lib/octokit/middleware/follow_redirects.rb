@@ -1,7 +1,10 @@
 require 'faraday'
 require 'set'
 
-# TODO Give attribution to https://github.com/lostisland/faraday_middleware/blob/138766e/lib/faraday_middleware/response/follow_redirects.rb.
+# Adapted from lostisland/faraday_middleware. Trimmed down to just the logic
+# that we need for octokit.rb.
+#
+# https://github.com/lostisland/faraday_middleware/blob/138766e/lib/faraday_middleware/response/follow_redirects.rb
 
 module Octokit
 
