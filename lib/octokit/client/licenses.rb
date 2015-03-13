@@ -7,23 +7,27 @@ module Octokit
 
       LICENSES_PREVIEW_MEDIA_TYPE = "application/vnd.github.drax-preview+json".freeze
 
-      # List all licenses, or an individual license if a license name is supplied.
+      # List all licenses
       #
       # @see https://developer.github.com/v3/licenses/#list-all-licenses
-      # @see https://developer.github.com/v3/licenses/#get-an-individual-license
-      # @param license_name [String] Supply a license name to get a particular license
-      # @return [Array<Sawyer::Resource>] A list of licenses or an individual license
+      # @return [Array<Sawyer::Resource>] A list of licenses
       # @example
       #   Octokit.licenses
-      # @example
-      #   Octokit.licenses 'mit'
       def licenses(license_name = '', options = {})
         options = ensure_deployments_api_media_type(options)
-        if license_name == '' 
-          get "licenses", options
-        else
-          get "licenses/#{license_name}", options
-        end
+        get "licenses", options
+      end
+
+      # List an individual license
+      #
+      # @see https://developer.github.com/v3/licenses/#get-an-individual-license
+      # @param license_name [String] The license name
+      # @return <Sawyer::Resource> An individual license
+      # @example
+      #   Octokit.license 'mit'
+      def license(license_name, options = {})
+        options = ensure_deployments_api_media_type(options)
+        get "licenses/#{license_name}", options
       end
 
       # Get a repository’s license
