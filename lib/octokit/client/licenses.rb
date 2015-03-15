@@ -30,18 +30,6 @@ module Octokit
         get "licenses/#{license_name}", options
       end
 
-      # Get a repository’s license
-      #
-      # @see https://developer.github.com/v3/licenses/#get-a-repositorys-license
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @return [Sawyer::Resource] Repository information including its license
-      # @example
-      #   Octokit.license_for_repository 'octokit/octokit.rb'
-      def license_for_repository(repo, options = {})
-        options = ensure_deployments_api_media_type(options)
-        get Repository.path(repo), options
-      end
-
       def ensure_deployments_api_media_type(options = {})
         if options[:accept].nil?
           options[:accept] = LICENSES_PREVIEW_MEDIA_TYPE

@@ -15,11 +15,4 @@ describe Octokit::Client::Licenses do
       expect(license.name).to eq("MIT License")
     end
   end
-
-  describe ".license_for_repository", :vcr do
-    it "returns the license for the repository" do
-      repo = Octokit.license_for_repository 'benbalter/licensee', :accept => "application/vnd.github.drax-preview+json"
-      expect(repo.license.key).to eq("mit")
-    end
-  end
 end # Octokit::Licenses
