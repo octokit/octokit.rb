@@ -14,8 +14,8 @@ module Octokit
       # @example
       #   Octokit.licenses
       def licenses(options = {})
-        options = ensure_deployments_api_media_type(options)
-        get "licenses", options
+        options = ensure_license_api_media_type(options)
+        paginate "licenses", options
       end
 
       # List an individual license
@@ -26,21 +26,21 @@ module Octokit
       # @example
       #   Octokit.license 'mit'
       def license(license_name, options = {})
-        options = ensure_deployments_api_media_type(options)
+        options = ensure_license_api_media_type(options)
         get "licenses/#{license_name}", options
       end
 
-      def ensure_deployments_api_media_type(options = {})
+      def ensure_license_api_media_type(options = {})
         if options[:accept].nil?
           options[:accept] = LICENSES_PREVIEW_MEDIA_TYPE
-          warn_deployments_preview
+          warn_license_preview
         end
         options
       end
 
-      def warn_deployments_preview
+      def warn_license_preview
         warn <<-EOS
-WARNING: The preview version of the Deployments API is not yet suitable for production use.
+WARNING: The preview version of the License API is not yet suitable for production use.
 You can avoid this message by supplying an appropriate media type in the 'Accept' request
 header. 
 EOS
