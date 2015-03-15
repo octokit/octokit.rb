@@ -13,7 +13,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of licenses
       # @example
       #   Octokit.licenses
-      def licenses(license_name = '', options = {})
+      def licenses(options = {})
         options = ensure_deployments_api_media_type(options)
         get "licenses", options
       end
