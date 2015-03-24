@@ -339,6 +339,31 @@ module Octokit
       end
       alias :watched :subscriptions
 
+      # Suspend a user.
+      #
+      # Requires authenticatied client.
+      #
+      # @param user [String] Username of the user to suspend.
+      # @return [Boolean] True if suspend was successful, false otherwise.
+      # @see https://developer.github.com/v3/users/administration/#suspend-a-user
+      # @example
+      #   @client.suspend('holman')
+      def suspend(user, options = {})
+        boolean_from_response :put, "users/#{user}/suspended", options
+      end
+
+      # Unsuspend a user.
+      #
+      # Requires authenticated client.
+      #
+      # @param user [String] Username of the user to unsuspend.
+      # @return [Boolean] True if unsuspend was successful, false otherwise.
+      # @see https://developer.github.com/v3/users/administration/#unsuspend-a-user
+      # @example
+      #   @client.unsuspend('holman')
+      def unsuspend(user, options = {})
+        boolean_from_response :delete, "users/#{user}/suspended", options
+      end
     end
 
     private
