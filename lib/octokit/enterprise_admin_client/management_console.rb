@@ -37,13 +37,9 @@ module Octokit
 
       # Start a configuration process.
       #
-      # @param complete [Boolean] If true, ensures the process is finished unto completion
-      #
       # @return nil
-      def start_configuration(complete = false)
-        queries = license_hash
-        queries[:query][:complete] = "1" if complete
-        post "/setup/api/configure", queries
+      def start_configuration
+        post "/setup/api/configure", password_hash
       end
 
       # Upgrade an Enterprise installation

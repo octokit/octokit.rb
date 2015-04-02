@@ -19,10 +19,10 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
 
   describe ".start_configuration", :vcr do
     it "starts a configuration process for the Enterprise installation" do
-      @client.start_configuration(true)
+      @client.start_configuration
 
       expect(@client.last_response.status).to eq(202)
-      assert_requested :post, github_enterprise_url("setup/api/configure?complete=1&license_md5=#{test_github_enterprise_license_md5}")
+      assert_requested :post, github_enterprise_url("setup/api/configure?api_key=#{@api_key}")
     end
   end # .start_configuration
 
