@@ -97,13 +97,13 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
 
   describe ".authorized_keys", :vcr do
     it "gets the authorized SSH keys " do
-      authorized_keys = JSON.parse @client.authorized_keys
+      authorized_keys = @client.authorized_keys
 
       expect(authorized_keys).to be_kind_of Array
       expect(authorized_keys.first["key"]).to be_kind_of String
       expect(authorized_keys.first["pretty-print"]).to be_kind_of String
 
-      assert_requested :get, github_enterprise_url("setup/api/settings/authorized-keys?license_md5=#{test_github_enterprise_license_md5}")
+      assert_requested :get, github_enterprise_url("setup/api/settings/authorized-keys?api_key=#{@api_key}")
     end
   end # .authorized_keys
 

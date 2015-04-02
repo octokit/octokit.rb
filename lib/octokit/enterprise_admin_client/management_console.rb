@@ -106,7 +106,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] An array of authorized SSH keys
       def authorized_keys
-        get "/setup/api/settings/authorized-keys", license_hash
+        get "/setup/api/settings/authorized-keys", password_hash
       end
       alias :get_authorized_keys :authorized_keys
 
