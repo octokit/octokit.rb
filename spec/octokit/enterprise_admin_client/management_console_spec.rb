@@ -80,7 +80,7 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
       expect(maintenance_status[:status]).to be_kind_of String
       expect(maintenance_status[:connection_services]).to be_kind_of Array
 
-      assert_requested :get, github_enterprise_url("setup/api/maintenance?license_md5=#{test_github_enterprise_license_md5}")
+      assert_requested :get, github_enterprise_url("setup/api/maintenance?api_key=#{@api_key}")
     end
   end # .maintenance_status
 

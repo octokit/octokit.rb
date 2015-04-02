@@ -87,7 +87,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] The maintenance status
       def maintenance_status
-        get "/setup/api/maintenance", license_hash
+        get "/setup/api/maintenance", password_hash
       end
       alias :get_maintenance_status :maintenance_status
 
