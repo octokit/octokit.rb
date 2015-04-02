@@ -91,7 +91,7 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
 
       expect(maintenance_status[:status]).to match("on")
 
-      assert_requested :post, github_enterprise_url("setup/api/maintenance?license_md5=#{test_github_enterprise_license_md5}&maintenance=%7B%22enabled%22:true,%22when%22:%22now%22%7D")
+      assert_requested :post, github_enterprise_url("setup/api/maintenance?api_key=#{@api_key}&maintenance=%7B%22enabled%22:true,%22when%22:%22now%22%7D")
     end
   end # .set_maintenance_status
 

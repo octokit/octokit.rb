@@ -96,7 +96,7 @@ module Octokit
       # @param maintenance [Hash] A hash configuration of the maintenance settings
       # @return [nil]
       def set_maintenance_status(maintenance)
-        queries = license_hash
+        queries = password_hash
         queries[:query][:maintenance] = "#{maintenance.to_json}"
         post "/setup/api/maintenance", queries
       end
