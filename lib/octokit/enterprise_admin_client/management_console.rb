@@ -115,7 +115,7 @@ module Octokit
       # @param key Either the file path to a key, a File handler to the key, or the contents of the key itself
       # @return [Sawyer::Resource] An array of authorized SSH keys
       def add_authorized_key(key)
-        queries = license_hash
+        queries = password_hash
         case key
         when String
           if File.exist?(key)
