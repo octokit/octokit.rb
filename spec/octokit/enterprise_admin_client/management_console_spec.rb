@@ -5,7 +5,17 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
   before do
     Octokit.reset!
     @client = enterprise_oauth_client
+    @license = "spec/fixtures/github-enterprise.ghl"
+    @password = 'Secretpa55'
   end
+
+  describe ".upload_license", :vcr do
+    it "uploads a license for the Enterprise installation" do
+      @client.upload_license(@license, @password)
+      expect(@client.last_response.status).to eq(202)
+      assert_requested :post, github_enterprise_url("setup/api/start")
+    end
+  end # .upload_license
 
   describe ".start_configuration", :vcr do
     it "starts a configuration process for the Enterprise installation" do

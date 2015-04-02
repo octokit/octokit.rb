@@ -3,8 +3,38 @@ module Octokit
 
     # Methods for the Enterprise Management Console API
     #
-    # @see https://enterprise.github.com/help/articles/license-api
+    # @see https://developer.github.com/v3/enterprise/management_console
     module ManagementConsole
+
+      # Uploads a license for the first time
+      #
+      # @param license [String] The path to your .ghl license file.
+      # @param password [String] Your management console password
+      # @param settings [Hash] A hash configuration of the initial settings
+      #
+      # @see http: //git.io/j5NT
+      # @return nil
+      def upload_license(license, password = nil, settings = nil)
+        # we fall back to raw Faraday for this because I'm suspicious
+        # that Sawyer isn't handling binary POSTs correctly: http://git.io/jMir
+        conn = Faraday.new(:url => @api_endpoint) do |http|
+          http.headers[:user_agent] = user_agent
+          http.request :multipart
+          http.request :url_encoded
+
+          http.ssl[:verify] = false
+
+          http.use Octokit::Response::RaiseError
+          http.adapter Faraday.default_adapter
+        end
+
+        params = { }
+        params[:license] = Faraday::UploadIO.new(license, 'binary')
+        params[:password] = password unless password.nil?
+        params[:settings] = "#{settings.to_json}" unless settings.nil?
+
+        @last_response = conn.post("/setup/api/start", params)
+      end
 
       # Start a configuration process.
       #
