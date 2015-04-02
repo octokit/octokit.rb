@@ -60,7 +60,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] The installation information
       def config_status
-        get "/setup/api/configcheck", license_hash
+        get "/setup/api/configcheck", password_hash
       end
       alias :config_check :config_status
 

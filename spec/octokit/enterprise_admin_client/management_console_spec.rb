@@ -46,7 +46,7 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
       expect(config.progress.first[:key]).to be_kind_of String
       expect(config.progress.first[:status]).to be_kind_of String
 
-      assert_requested :get, github_enterprise_url("setup/api/configcheck?license_md5=#{test_github_enterprise_license_md5}")
+      assert_requested :get, github_enterprise_url("setup/api/configcheck?api_key=#{@api_key}")
     end
   end # .config_status
 
