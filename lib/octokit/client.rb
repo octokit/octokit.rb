@@ -313,12 +313,12 @@ module Octokit
       @client_secret = value
     end
 
-    # Set Enterprise license md5 hash
+    # Set Enterprise Management Console password
     #
-    # @param value [String] 32 character GitHub OAuth access token
-    def license_md5=(value)
+    # @param value [String] Management console admin password
+    def management_console_password=(value)
       reset_agent
-      @license_md5 = value
+      @management_console_password = value
     end
 
     # Wrapper around Kernel#warn to print warnings unless

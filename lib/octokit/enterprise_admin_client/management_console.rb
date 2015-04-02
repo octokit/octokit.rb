@@ -9,12 +9,11 @@ module Octokit
       # Uploads a license for the first time
       #
       # @param license [String] The path to your .ghl license file.
-      # @param password [String] Your management console password
-      # @param settings [Hash] A hash configuration of the initial settings
+      # @param settings [Hash] A hash configuration of the initial settings.
       #
       # @see http: //git.io/j5NT
       # @return nil
-      def upload_license(license, password = nil, settings = nil)
+      def upload_license(license, settings = nil)
         # we fall back to raw Faraday for this because I'm suspicious
         # that Sawyer isn't handling binary POSTs correctly: http://git.io/jMir
         conn = Faraday.new(:url => @api_endpoint) do |http|
@@ -30,7 +29,7 @@ module Octokit
 
         params = { }
         params[:license] = Faraday::UploadIO.new(license, 'binary')
-        params[:password] = password unless password.nil?
+        params[:password] = @management_console_password
         params[:settings] = "#{settings.to_json}" unless settings.nil?
 
         @last_response = conn.post("/setup/api/start", params)
@@ -165,12 +164,11 @@ module Octokit
       end
       alias :delete_authorized_key :remove_authorized_key
 
-private
-
-      def license_hash
-        { :query => { :license_md5 => @license_md5 } }
-      end
     end
+    private
 
+    def password_hash
+      { :query => { :api_key => @management_console_password } }
+    end
   end
 end

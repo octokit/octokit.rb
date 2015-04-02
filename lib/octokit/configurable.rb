@@ -24,8 +24,8 @@ module Octokit
     #   @return [Hash] Configure connection options for Faraday
     # @!attribute login
     #   @return [String] GitHub username for Basic Authentication
-    # @!attribute license_md5
-    #   @return [String] An MD5 hash of your GitHub Enterprise license (.ghl)
+    # @!attribute management_console_password
+    #   @return [String] An admin password set up for your GitHub Enterprise management console
     # @!attribute middleware
     #   @see https://github.com/lostisland/faraday
     #   @return [Faraday::Builder or Faraday::RackBuilder] Configure middleware for Faraday
@@ -47,7 +47,7 @@ module Octokit
 
     attr_accessor :access_token, :auto_paginate, :client_id,
                   :client_secret, :default_media_type, :connection_options,
-                  :license_md5, :middleware, :netrc, :netrc_file,
+                  :management_console_password, :middleware, :netrc, :netrc_file,
                   :per_page, :proxy, :user_agent
     attr_writer :password, :web_endpoint, :api_endpoint, :login
 
@@ -65,7 +65,7 @@ module Octokit
           :connection_options,
           :default_media_type,
           :login,
-          :license_md5,
+          :management_console_password,
           :middleware,
           :netrc,
           :netrc_file,

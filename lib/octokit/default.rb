@@ -67,10 +67,10 @@ module Octokit
         ENV['OCTOKIT_SECRET']
       end
 
-      # Default license md5 hash from ENV
+      # Default management console password from ENV
       # @return [String]
-      def license_md5
-        ENV['OCTOKIT_LICENSE_MD5']
+      def management_console_password
+        ENV['OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD']
       end
 
       # Default options for Faraday::Connection

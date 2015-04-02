@@ -511,7 +511,8 @@ ENV Variable | Description |
 `OCTOKIT_TEST_GITHUB_REPOSITORY` | Test repository to perform destructive actions against, this should not be set to any repository of importance. **Automatically created by the test suite if nonexistent** Default: `api-sandbox`
 `OCTOKIT_TEST_GITHUB_ORGANIZATION` | Test organization.
 `OCTOKIT_TEST_GITHUB_ENTERPRISE_LOGIN` | GitHub Enterprise login name
-`OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN` | GitHub Enterprise token (which is an MD5 hash of your license file)
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN` | GitHub Enterprise token
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD` | GitHub Enterprise management console password
 `OCTOKIT_TEST_GITHUB_ENTERPRISE_API_ENDPOINT` | GitHub Enterprise hostname
 
 Since we periodically refresh our cassettes, please keep some points in mind
