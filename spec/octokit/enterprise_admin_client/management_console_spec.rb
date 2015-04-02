@@ -28,12 +28,10 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
 
   describe ".upgrade", :vcr do
     it "upgrades the Enterprise installation" do
-      package = "spec/fixtures/github-enterprise.ghp"
-
-      resp = @client.upgrade nil, package
+      resp = @client.upgrade(@license)
 
       expect(@client.last_response.status).to eq(202)
-      assert_requested :post, github_enterprise_url("setup/api/upgrade?license_md5=#{test_github_enterprise_license_md5}")
+      assert_requested :post, github_enterprise_url("setup/api/upgrade?api_key=#{@api_key}")
     end
   end # .upgrade
 

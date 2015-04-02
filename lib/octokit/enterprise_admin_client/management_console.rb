@@ -14,18 +14,7 @@ module Octokit
       # @see http: //git.io/j5NT
       # @return nil
       def upload_license(license, settings = nil)
-        # we fall back to raw Faraday for this because I'm suspicious
-        # that Sawyer isn't handling binary POSTs correctly: http://git.io/jMir
-        conn = Faraday.new(:url => @api_endpoint) do |http|
-          http.headers[:user_agent] = user_agent
-          http.request :multipart
-          http.request :url_encoded
-
-          http.ssl[:verify] = false
-
-          http.use Octokit::Response::RaiseError
-          http.adapter Faraday.default_adapter
-        end
+        conn = faraday_configuration
 
         params = { }
         params[:license] = Faraday::UploadIO.new(license, 'binary')
@@ -44,16 +33,16 @@ module Octokit
 
       # Upgrade an Enterprise installation
       #
-      # @param license [String] The file path to your GHL file.
-      # @param license [String] The file path to your GHP file.
+      # @param license [String] The path to your .ghl license file.
       #
       # @return nil
-      def upgrade(license=nil, package=nil)
-        raise ArgumentError("You must include a license or a package file.") if license.nil? && package.nil?
-        queries = license_hash
-        queries[:package] = Faraday::UploadIO.new(package, "binary") unless package.nil?
-        queries[:license] = Faraday::UploadIO.new(license, "binary") unless license.nil?
-        post "/setup/api/upgrade", queries
+      def upgrade(license)
+        conn = faraday_configuration
+
+        params = { }
+        params[:license] = Faraday::UploadIO.new(license, 'binary')
+
+        @last_response = conn.post("/setup/api/upgrade?api_key=#{@management_console_password}", params)
       end
 
       # Get information about the Enterprise installation
@@ -164,6 +153,21 @@ module Octokit
 
     def password_hash
       { :query => { :api_key => @management_console_password } }
+    end
+
+    # we fall back to raw Faraday for this because I'm suspicious
+    # that Sawyer isn't handling binary POSTs correctly: http://git.io/jMir
+    def faraday_configuration
+      @faraday_configuration ||= Faraday.new(:url => @api_endpoint) do |http|
+        http.headers[:user_agent] = user_agent
+        http.request :multipart
+        http.request :url_encoded
+
+        http.ssl[:verify] = false
+
+        http.use Octokit::Response::RaiseError
+        http.adapter Faraday.default_adapter
+      end
     end
   end
 end
