@@ -112,7 +112,7 @@ module Octokit
       # @param metric [String] The metrics you are looking for
       # @return [Sawyer::Resource] Magical unicorn stats
       def get_admin_stats(metric)
-        get "enterprise/stats/#{metric}"
+        get "/api/v3/enterprise/stats/#{metric}"
       end
     end
 

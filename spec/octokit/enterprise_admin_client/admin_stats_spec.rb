@@ -1,12 +1,12 @@
 require "helper"
 
 describe Octokit::EnterpriseAdminClient::AdminStats do
-  
+
   before do
     Octokit.reset!
     @client = enterprise_oauth_client(test_github_enterprise_endpoint)
   end
-  
+
   describe ".admin_stats", :vcr do
     it "returns all available enterprise stats" do
       admin_stats = @client.admin_stats
@@ -22,14 +22,14 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
       expect(admin_stats.pulls.mergeable_pulls).to be_kind_of Fixnum
       expect(admin_stats.repos.fork_repos).to be_kind_of Fixnum
 
-      assert_requested :get, github_enterprise_url("enterprise/stats/all")
+      assert_requested :get, github_enterprise_url("api/v3/enterprise/stats/all")
     end
   end # .admin_stats
-  
+
   describe ".admin_repository_stats", :vcr do
     it "returns only repository-related stats" do
       admin_repository_stats = @client.admin_repository_stats
-      
+
       expect(admin_repository_stats.fork_repos).to be_kind_of Fixnum
       expect(admin_repository_stats.root_repos).to be_kind_of Fixnum
       expect(admin_repository_stats.total_repos).to be_kind_of Fixnum
@@ -37,10 +37,10 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
       expect(admin_repository_stats.org_repos).to be_kind_of Fixnum
       expect(admin_repository_stats.total_wikis).to be_kind_of Fixnum
 
-      assert_requested :get, github_enterprise_url("enterprise/stats/repos")
+      assert_requested :get, github_enterprise_url("api/v3/enterprise/stats/repos")
     end
   end # .admin_repository_stats
-  
+
   describe ".admin_hooks_stats", :vcr do
     it "returns only hooks-related stats" do
       admin_hooks_stats = @client.admin_hooks_stats
@@ -49,7 +49,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
       expect(admin_hooks_stats.active_hooks).to be_kind_of Fixnum
       expect(admin_hooks_stats.inactive_hooks).to be_kind_of Fixnum
 
-      assert_requested :get, github_enterprise_url("enterprise/stats/hooks")
+      assert_requested :get, github_enterprise_url("api/v3/enterprise/stats/hooks")
     end
   end # .admin_hooks_stats
 
@@ -59,7 +59,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
       expect(admin_pages_stats.total_pages).to be_kind_of Fixnum
 
-      assert_requested :get, github_enterprise_url("enterprise/stats/pages")
+      assert_requested :get, github_enterprise_url("api/v3/enterprise/stats/pages")
     end
   end # .admin_pages_stats
 
@@ -72,7 +72,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
       expect(admin_organization_stats.total_orgs).to be_kind_of Fixnum
       expect(admin_organization_stats.total_teams).to be_kind_of Fixnum
 
-      assert_requested :get, github_enterprise_url("enterprise/stats/orgs")
+      assert_requested :get, github_enterprise_url("api/v3/enterprise/stats/orgs")
     end
   end # .admin_organization_stats
 
@@ -84,7 +84,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
       expect(admin_users_stats.admin_users).to be_kind_of Fixnum
       expect(admin_users_stats.total_users).to be_kind_of Fixnum
 
-      assert_requested :get, github_enterprise_url("enterprise/stats/users")
+      assert_requested :get, github_enterprise_url("api/v3/enterprise/stats/users")
     end
   end # .admin_users_stats
 
@@ -97,7 +97,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
       expect(admin_pull_requests_stats.unmergeable_pulls).to be_kind_of Fixnum
       expect(admin_pull_requests_stats.total_pulls).to be_kind_of Fixnum
 
-      assert_requested :get, github_enterprise_url("enterprise/stats/pulls")
+      assert_requested :get, github_enterprise_url("api/v3/enterprise/stats/pulls")
     end
   end # .admin_pull_requests_stats
 
@@ -109,7 +109,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
       expect(admin_issues_stats.closed_issues).to be_kind_of Fixnum
       expect(admin_issues_stats.open_issues).to be_kind_of Fixnum
 
-      assert_requested :get, github_enterprise_url("enterprise/stats/issues")
+      assert_requested :get, github_enterprise_url("api/v3/enterprise/stats/issues")
     end
   end # .admin_issues_stats
 
@@ -121,7 +121,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
       expect(admin_milestones_stats.open_milestones).to be_kind_of Fixnum
       expect(admin_milestones_stats.total_milestones).to be_kind_of Fixnum
 
-      assert_requested :get, github_enterprise_url("enterprise/stats/milestones")
+      assert_requested :get, github_enterprise_url("api/v3/enterprise/stats/milestones")
     end
   end # .admin_milestones_stats
 
@@ -133,7 +133,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
       expect(admin_gists_stats.public_gists).to be_kind_of Fixnum
       expect(admin_gists_stats.total_gists).to be_kind_of Fixnum
 
-      assert_requested :get, github_enterprise_url("enterprise/stats/gists")
+      assert_requested :get, github_enterprise_url("api/v3/enterprise/stats/gists")
     end
   end # .admin_gists_stats
 
@@ -146,8 +146,8 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
       expect(admin_comments_stats.total_pull_request_comments).to be_kind_of Fixnum
       expect(admin_comments_stats.total_issue_comments).to be_kind_of Fixnum
 
-      assert_requested :get, github_enterprise_url("enterprise/stats/comments")
+      assert_requested :get, github_enterprise_url("api/v3/enterprise/stats/comments")
     end
   end # .admin_comments_stats
-  
+
 end
