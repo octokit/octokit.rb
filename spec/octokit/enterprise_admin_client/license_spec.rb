@@ -4,17 +4,15 @@ describe Octokit::EnterpriseAdminClient::License do
 
   before do
     Octokit.reset!
-    @client = enterprise_oauth_client
+    @client = enterprise_oauth_client(test_github_enterprise_endpoint)
   end
 
   describe ".license", :vcr do
     it "returns information about the license" do
       license = @client.license
 
-      expect(license.seats).to be_kind_of Fixnum
       expect(license.seats_used).to be_kind_of Fixnum
-      expect(license.seats_available).to be_kind_of Fixnum
-      # expect(license.kind).to be_kind_of String
+      expect(license.kind).to be_kind_of String
       expect(license.days_until_expiration).to be_kind_of Fixnum
       expect(license.expire_at).to be_kind_of Time
 
