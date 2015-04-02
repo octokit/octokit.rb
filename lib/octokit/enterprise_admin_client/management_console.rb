@@ -78,11 +78,10 @@ module Octokit
       #
       # @return [nil]
       def edit_settings(settings)
-        queries = license_hash
+        queries = password_hash
         queries[:query][:settings] = "#{settings.to_json}"
         put "/setup/api/settings", queries
       end
-
 
       # Get information about the Enterprise maintenance status
       #

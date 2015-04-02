@@ -69,7 +69,7 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
       @client.edit_settings settings
 
       expect(@client.last_response.status).to eq(204)
-      assert_requested :put, github_enterprise_url("setup/api/settings?license_md5=#{test_github_enterprise_license_md5}&settings=%7B%22enterprise%22:%7B%22customer%22:%7B%22name%22:%22Jean-Luc%20Picard%22%7D%7D%7D")
+      assert_requested :put, github_enterprise_url("setup/api/settings?api_key=#{@api_key}&settings=%7B%22enterprise%22:%7B%22customer%22:%7B%22name%22:%22Jean-Luc%20Picard%22%7D%7D%7D")
     end
   end # .edit_settings
 
