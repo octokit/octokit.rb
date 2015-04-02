@@ -68,7 +68,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] The settings
       def settings
-        get "/setup/api/settings", license_hash
+        get "/setup/api/settings", password_hash
       end
       alias :get_settings :settings
 
