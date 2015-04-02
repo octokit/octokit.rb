@@ -513,7 +513,8 @@ ENV Variable | Description |
 `OCTOKIT_TEST_GITHUB_ENTERPRISE_LOGIN` | GitHub Enterprise login name
 `OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN` | GitHub Enterprise token
 `OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD` | GitHub Enterprise management console password
-`OCTOKIT_TEST_GITHUB_ENTERPRISE_API_ENDPOINT` | GitHub Enterprise hostname
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT` | GitHub Enterprise hostname
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT` | GitHub Enterprise Management Console endpoint
 
 Since we periodically refresh our cassettes, please keep some points in mind
 when writing new specs.

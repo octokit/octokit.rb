@@ -51,8 +51,11 @@ VCR.configure do |c|
   c.filter_sensitive_data("<<ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD>>") do
       test_github_enterprise_management_console_password
   end
-  c.filter_sensitive_data("https://enterprise.github.dev/") do
-      test_github_enterprise_api_endpoint
+  c.filter_sensitive_data("<<ENTERPRISE_MANAGEMENT_CONSOLE_HOSTNAME>>") do
+    test_github_enterprise_management_console_endpoint
+  end
+  c.filter_sensitive_data("<<ENTERPRISE_HOSTNAME>>") do
+    test_github_enterprise_endpoint
   end
   c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY>") do
     test_github_repository
@@ -134,8 +137,12 @@ def test_github_enterprise_management_console_password
   ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD', 'Secretpa55'
 end
 
-def test_github_enterprise_api_endpoint
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_API_ENDPOINT', 'https://enterprise.github.dev/'
+def test_github_enterprise_management_console_endpoint
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT', 'https://enterprise.github.dev:8443/'
+end
+
+def test_github_enterprise_endpoint
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT', 'http://enterprise.github.dev/'
 end
 
 def test_github_repository
@@ -198,7 +205,7 @@ def github_url(url)
 end
 
 def github_enterprise_url(url)
-  test_github_enterprise_api_endpoint + url
+  @enterprise_endpoint + url
 end
 
 def basic_github_url(path, options = {})
@@ -224,18 +231,20 @@ def oauth_client
   Octokit::Client.new(:access_token => test_github_token)
 end
 
-def enterprise_oauth_client
+def enterprise_oauth_client(enterprise_endpoint)
   stack = Faraday::RackBuilder.new do |builder|
     builder.request :multipart
     builder.request :url_encoded
     builder.adapter Faraday.default_adapter
   end
 
+  @enterprise_endpoint = enterprise_endpoint
+
   client = Octokit::EnterpriseAdminClient.new \
     :access_token => test_github_enterprise_token,
     :management_console_password => test_github_enterprise_management_console_password
   client.configure do |c|
-    c.api_endpoint = test_github_enterprise_api_endpoint
+    c.api_endpoint = @enterprise_endpoint
     c.middleware = stack
   end
   client

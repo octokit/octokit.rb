@@ -4,7 +4,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
   
   before do
     Octokit.reset!
-    @client = enterprise_oauth_client
+    @client = enterprise_oauth_client(test_github_enterprise_endpoint)
   end
   
   describe ".admin_stats", :vcr do
