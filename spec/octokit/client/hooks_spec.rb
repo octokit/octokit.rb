@@ -131,4 +131,14 @@ describe Octokit::Client::Hooks do
       end
     end # .remove_org_hook
   end # with org hook
+
+  describe ".parse_payload", :vcr do
+    it "parses payload string" do
+      test_json = fixture('create_payload.json').read
+      result = @client.parse_payload test_json
+      expect(result[:ref]).to eq("0.0.1")
+      expect(result[:repository][:name]).to eq("public-repo")
+      expect(result[:repository][:owner][:site_admin]).to eq(false)
+    end
+  end # .parse_payload
 end
