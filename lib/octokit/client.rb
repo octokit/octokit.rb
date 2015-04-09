@@ -203,7 +203,7 @@ module Octokit
 
       if @auto_paginate
         while @last_response.rels[:next] && rate_limit.remaining > 0
-          @last_response = @last_response.rels[:next].get
+          @last_response = request(:get, @last_response.rels[:next], opts)
           if block_given?
             yield(data, @last_response)
           else
