@@ -51,7 +51,7 @@ VCR.configure do |c|
   c.filter_sensitive_data("<<ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD>>") do
       test_github_enterprise_management_console_password
   end
-  c.filter_sensitive_data("<<ENTERPRISE_MANAGEMENT_CONSOLE_HOSTNAME>>") do
+  c.filter_sensitive_data("<<ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT>>") do
     test_github_enterprise_management_console_endpoint
   end
   c.filter_sensitive_data("<<ENTERPRISE_HOSTNAME>>") do
