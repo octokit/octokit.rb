@@ -257,6 +257,44 @@ custom pattern for traversing large lists.
 
 [paginated]: http://developer.github.com/v3/#pagination
 
+## Working with GitHub Enterprise
+
+You can also use Octokit with your Github Enterprise install, though it does take a bit of setup.
+
+First, the client is under a different module called `EnterpriseAdminClient`. You instantiate a new client the same way you'd do so with Octokit:
+
+``` ruby
+client = Octokit::EnterpriseAdminClient.new
+```
+
+If you're accessing the management console, you must provide a separate password, and configure your endpoint for the console. For example:
+
+``` ruby
+Octokit.api_endpoint = 'https://enterprise.github.dev:8443/'
+
+client = Octokit::EnterpriseAdminClient.new \
+  :management_console_password => 'superSecere7'
+```
+
+To access the other admin APIs, you'll need to provide your auth token, and set the API endpoint to your Enterprise instance. For example:
+
+``` ruby
+Octokit.api_endpoint = 'https://enterprise.github.dev'
+
+client = Octokit::EnterpriseAdminClient.new \
+  :access_token => '12345'
+```
+
+### SSL Connection Errors
+
+You *may* need to disable SSL temporarily while first setting up your install. You can do that with the following configuration:
+
+``` ruby
+client.connection_options[:ssl] = { :verify => false }
+```
+
+Do remember to turn `:verify` back to `true`, as it's important for secure communication.
+
 ## Configuration and defaults
 
 While `Octokit::Client` accepts a range of options when creating a new client
