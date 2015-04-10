@@ -41,8 +41,9 @@ module Octokit
 
         params = { }
         params[:license] = Faraday::UploadIO.new(license, 'binary')
+        params[:password] = @management_console_password
 
-        @last_response = conn.post("/setup/api/upgrade?api_key=#{@management_console_password}", params)
+        @last_response = conn.post("/setup/api/upgrade", params)
       end
 
       # Get information about the Enterprise installation
@@ -163,7 +164,9 @@ module Octokit
         http.request :multipart
         http.request :url_encoded
 
-        http.ssl[:verify] = false
+        if self.connection_options[:ssl] && !self.connection_options[:ssl][:verify]
+          http.ssl[:verify] = false
+        end
 
         http.use Octokit::Response::RaiseError
         http.adapter Faraday.default_adapter

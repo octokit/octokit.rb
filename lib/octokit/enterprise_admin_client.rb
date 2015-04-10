@@ -20,9 +20,5 @@ module Octokit
     include Octokit::EnterpriseAdminClient::SearchIndexing
     include Octokit::EnterpriseAdminClient::ManagementConsole
 
-    def initialize(options = {})
-      super
-      @connection_options.merge!(:ssl => { :verify => false })
-    end
   end
 end

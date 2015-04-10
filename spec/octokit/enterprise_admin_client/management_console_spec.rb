@@ -5,6 +5,7 @@ describe Octokit::EnterpriseAdminClient::ManagementConsole do
   before do
     Octokit.reset!
     @client = enterprise_oauth_client(test_github_enterprise_management_console_endpoint)
+    @client.connection_options[:ssl] = { :verify => false }
     @license = "spec/fixtures/github-enterprise.ghl"
     @api_key = test_github_enterprise_management_console_password
   end
