@@ -32,7 +32,7 @@ module Octokit
       # @return [Sawyer::Resource] Commit comment
       # @see https://developer.github.com/v3/repos/comments/#get-a-single-commit-comment
       def commit_comment(repo, id, options = {})
-        paginate "#{Repository.path repo}/comments/#{id}", options
+        get "#{Repository.path repo}/comments/#{id}", options
       end
 
       # Create a commit comment
