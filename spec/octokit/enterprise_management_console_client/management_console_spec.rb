@@ -5,7 +5,6 @@ describe Octokit::EnterpriseManagementConsoleClient::ManagementConsole do
   before do
     Octokit.reset!
     @enterprise_management_console_client = enterprise_management_console_client
-    @enterprise_management_console_client.connection_options[:ssl] = { :verify => false }
     @license = "spec/fixtures/github-enterprise.ghl"
     @api_key = test_github_enterprise_management_console_password
   end

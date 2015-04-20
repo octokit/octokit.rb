@@ -244,7 +244,8 @@ def enterprise_admin_client
 
   client = Octokit::EnterpriseAdminClient.new \
     :access_token => test_github_enterprise_token,
-    :management_console_password => test_github_enterprise_management_console_password
+    :connection_options => { :ssl => { :verify => false } }
+
   client.configure do |c|
     c.api_endpoint = test_github_enterprise_endpoint
     c.middleware = stack
@@ -262,10 +263,9 @@ def enterprise_management_console_client
   client = Octokit::EnterpriseManagementConsoleClient.new \
     :management_console_endpoint => test_github_enterprise_management_console_endpoint,
     :management_console_password => test_github_enterprise_management_console_password,
-    :ssl => { :verify => false }
+    :connection_options => { :ssl => { :verify => false } }
 
   client.configure do |c|
-    c.api_endpoint = test_github_enterprise_endpoint
     c.middleware = stack
   end
   client
