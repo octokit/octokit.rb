@@ -16,7 +16,7 @@ describe Octokit::EnterpriseAdminClient::License do
       expect(license.days_until_expiration).to be_kind_of Fixnum
       expect(license.expire_at).to be_kind_of Time
 
-      assert_requested :get, github_enterprise_url("api/v3/enterprise/settings/license")
+      assert_requested :get, github_enterprise_url("enterprise/settings/license")
     end
   end # .license
 end

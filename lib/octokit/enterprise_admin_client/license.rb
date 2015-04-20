@@ -10,7 +10,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] The license information
       def license
-        get "api/v3/enterprise/settings/license"
+        get "enterprise/settings/license"
       end
 
     end

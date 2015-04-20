@@ -142,7 +142,7 @@ def test_github_enterprise_management_console_endpoint
 end
 
 def test_github_enterprise_endpoint
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT', 'http://enterprise.github.dev/'
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT', 'http://enterprise.github.dev/api/v3'
 end
 
 def test_github_repository
