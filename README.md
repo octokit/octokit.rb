@@ -259,35 +259,55 @@ custom pattern for traversing large lists.
 
 ## Working with GitHub Enterprise
 
-You can also use Octokit with your Github Enterprise install, though it does take a bit of setup.
+With a bit of setup, you can also use Octokit with your Github Enterprise instance.
 
-First, the client is under a different module called `EnterpriseAdminClient`. You instantiate a new client the same way you'd do so with Octokit:
+### Interacting with the GitHub.com APIs in GitHub Enterprise
+
+To interact with the "regular" GitHub.com APIs in GitHub Enterprise, simply configure the `api_endpoint` to match your hostname. For example:
 
 ``` ruby
-client = Octokit::EnterpriseAdminClient.new
+Octokit.configure do |c|
+  c.api_endpoint = "<hostname>/api/v3/"
+end
+client = Octokit::Client.new(:access_token => "<your 40 char token>")
 ```
 
-If you're accessing the management console, you must provide a separate password, and configure your endpoint for the console. For example:
+### Interacting with the GitHub Enterprise Admin APIs
+
+The GitHub Enterprise Admin APIs are under a different client: `EnterpriseAdminClient`. You'll need to have an administrator account in order to use these APIs.
 
 ``` ruby
-Octokit.api_endpoint = 'https://enterprise.github.dev:8443/'
+admin_client = Octokit::EnterpriseAdminClient.new \
+                          :access_token => "<your 40 char token>",
+                          :api_endpoint = "https://<hostname>/api/v3/"
 
-client = Octokit::EnterpriseAdminClient.new \
-  :management_console_password => 'superSecere7'
+# or
+Octokit.configure do |c|
+  c.api_endpoint = "https://hostname/api/v3/"
+  c.access_token = "<your 40 char token>"
+end
+admin_client = Octokit.enterprise_admin_client
 ```
 
-To access the other admin APIs, you'll need to provide your auth token, and set the API endpoint to your Enterprise instance. For example:
+### Interacting with the GitHub Enterprise Management Console APIs
+
+The GitHub Enterprise Management Console APIs are also under a separate client: `EnterpriseManagementConsoleClient`. In order to use it, you'll need to provide both your management console password as well as the endpoint to your management console. This is different than the API endpoint provided above.
 
 ``` ruby
-Octokit.api_endpoint = 'https://enterprise.github.dev'
-
-client = Octokit::EnterpriseAdminClient.new \
-  :access_token => '12345'
+management_console_client = Octokit::EnterpriseManagementConsoleClient.new \
+                          :management_console_password => "secret",
+                          :management_console_endpoint = "https://hostname:8633"
+# or
+Octokit.configure do |c|
+  c.management_console_endpoint = "https://hostname:8633"
+  c.management_console_password = "secret"
+end
+management_console_client = Octokit.enterprise_management_console_client
 ```
 
 ### SSL Connection Errors
 
-You *may* need to disable SSL temporarily while first setting up your install. You can do that with the following configuration:
+You *may* need to disable SSL temporarily while first setting up your GitHub Enterprise install. You can do that with the following configuration:
 
 ``` ruby
 client.connection_options[:ssl] = { :verify => false }
