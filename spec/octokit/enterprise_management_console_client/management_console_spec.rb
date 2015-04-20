@@ -30,7 +30,7 @@ describe Octokit::EnterpriseManagementConsoleClient::ManagementConsole do
       resp = @enterprise_management_console_client.upgrade(@license)
 
       expect(@enterprise_management_console_client.last_response.status).to eq(202)
-      assert_requested :post, github_management_console_url("setup/api/upgrade?api_key=#{@api_key}")
+      assert_requested :post, github_management_console_url("setup/api/upgrade")
     end
   end # .upgrade
 

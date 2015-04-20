@@ -41,8 +41,7 @@ module Octokit
 
         params = { }
         params[:license] = Faraday::UploadIO.new(license, 'binary')
-        params[:password] = @management_console_password
-
+        params[:api_key] = @management_console_password
         @last_response = conn.post("/setup/api/upgrade", params)
       end
 
