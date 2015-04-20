@@ -1,5 +1,5 @@
 module Octokit
-  class EnterpriseAdminClient < Octokit::Client
+  class EnterpriseManagementConsoleClient < Octokit::Client
 
     # Methods for the Enterprise Management Console API
     #
@@ -156,7 +156,7 @@ module Octokit
       { :query => { :api_key => @management_console_password } }
     end
 
-    # we fall back to raw Faraday for this because I'm suspicious
+    # We fall back to raw Faraday for handling the licenses because I'm suspicious
     # that Sawyer isn't handling binary POSTs correctly: http://git.io/jMir
     def faraday_configuration
       @faraday_configuration ||= Faraday.new(:url => @api_endpoint) do |http|
@@ -164,6 +164,7 @@ module Octokit
         http.request :multipart
         http.request :url_encoded
 
+        # Disabling SSL is essential for certain self-hosted Enterprise instances
         if self.connection_options[:ssl] && !self.connection_options[:ssl][:verify]
           http.ssl[:verify] = false
         end

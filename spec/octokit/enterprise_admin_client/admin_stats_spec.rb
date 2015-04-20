@@ -4,12 +4,12 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
   before do
     Octokit.reset!
-    @client = enterprise_oauth_client(test_github_enterprise_endpoint)
+    @admin_client = enterprise_admin_client
   end
 
   describe ".admin_stats", :vcr do
     it "returns all available enterprise stats" do
-      admin_stats = @client.admin_stats
+      admin_stats = @admin_client.admin_stats
 
       expect(admin_stats.issues.total_issues).to be_kind_of Fixnum
       expect(admin_stats.hooks.total_hooks).to be_kind_of Fixnum
@@ -28,7 +28,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
   describe ".admin_repository_stats", :vcr do
     it "returns only repository-related stats" do
-      admin_repository_stats = @client.admin_repository_stats
+      admin_repository_stats = @admin_client.admin_repository_stats
 
       expect(admin_repository_stats.fork_repos).to be_kind_of Fixnum
       expect(admin_repository_stats.root_repos).to be_kind_of Fixnum
@@ -43,7 +43,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
   describe ".admin_hooks_stats", :vcr do
     it "returns only hooks-related stats" do
-      admin_hooks_stats = @client.admin_hooks_stats
+      admin_hooks_stats = @admin_client.admin_hooks_stats
 
       expect(admin_hooks_stats.total_hooks).to be_kind_of Fixnum
       expect(admin_hooks_stats.active_hooks).to be_kind_of Fixnum
@@ -55,7 +55,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
   describe ".admin_pages_stats", :vcr do
     it "returns only pages-related stats" do
-      admin_pages_stats = @client.admin_pages_stats
+      admin_pages_stats = @admin_client.admin_pages_stats
 
       expect(admin_pages_stats.total_pages).to be_kind_of Fixnum
 
@@ -65,7 +65,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
   describe ".admin_organization_stats", :vcr do
     it "returns only organization-related stats" do
-      admin_organization_stats = @client.admin_organization_stats
+      admin_organization_stats = @admin_client.admin_organization_stats
 
       expect(admin_organization_stats.total_team_members).to be_kind_of Fixnum
       expect(admin_organization_stats.disabled_orgs).to be_kind_of Fixnum
@@ -78,7 +78,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
   describe ".admin_users_stats", :vcr do
     it "returns only user-related stats" do
-      admin_users_stats = @client.admin_users_stats
+      admin_users_stats = @admin_client.admin_users_stats
 
       expect(admin_users_stats.suspended_users).to be_kind_of Fixnum
       expect(admin_users_stats.admin_users).to be_kind_of Fixnum
@@ -90,7 +90,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
   describe ".admin_pull_requests_stats", :vcr do
     it "returns only pull request-related stats" do
-      admin_pull_requests_stats = @client.admin_pull_requests_stats
+      admin_pull_requests_stats = @admin_client.admin_pull_requests_stats
 
       expect(admin_pull_requests_stats.mergeable_pulls).to be_kind_of Fixnum
       expect(admin_pull_requests_stats.merged_pulls).to be_kind_of Fixnum
@@ -103,7 +103,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
   describe ".admin_issues_stats", :vcr do
     it "returns only issue-related stats" do
-      admin_issues_stats = @client.admin_issues_stats
+      admin_issues_stats = @admin_client.admin_issues_stats
 
       expect(admin_issues_stats.total_issues).to be_kind_of Fixnum
       expect(admin_issues_stats.closed_issues).to be_kind_of Fixnum
@@ -115,7 +115,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
   describe ".admin_milestones_stats", :vcr do
     it "returns only milestone-related stats" do
-      admin_milestones_stats = @client.admin_milestones_stats
+      admin_milestones_stats = @admin_client.admin_milestones_stats
 
       expect(admin_milestones_stats.closed_milestones).to be_kind_of Fixnum
       expect(admin_milestones_stats.open_milestones).to be_kind_of Fixnum
@@ -127,7 +127,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
   describe ".admin_gists_stats", :vcr do
     it "returns only gist-related stats" do
-      admin_gists_stats = @client.admin_gists_stats
+      admin_gists_stats = @admin_client.admin_gists_stats
 
       expect(admin_gists_stats.private_gists).to be_kind_of Fixnum
       expect(admin_gists_stats.public_gists).to be_kind_of Fixnum
@@ -139,7 +139,7 @@ describe Octokit::EnterpriseAdminClient::AdminStats do
 
   describe ".admin_comments_stats", :vcr do
     it "returns only comment-related stats" do
-      admin_comments_stats = @client.admin_comments_stats
+      admin_comments_stats = @admin_client.admin_comments_stats
 
       expect(admin_comments_stats.total_gist_comments).to be_kind_of Fixnum
       expect(admin_comments_stats.total_commit_comments).to be_kind_of Fixnum

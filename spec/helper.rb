@@ -205,7 +205,7 @@ def github_url(url)
 end
 
 def github_enterprise_url(url)
-  @enterprise_endpoint + url
+  test_github_enterprise_endpoint + url
 end
 
 def basic_github_url(path, options = {})
@@ -231,20 +231,35 @@ def oauth_client
   Octokit::Client.new(:access_token => test_github_token)
 end
 
-def enterprise_oauth_client(enterprise_endpoint)
+def enterprise_admin_client
   stack = Faraday::RackBuilder.new do |builder|
     builder.request :multipart
     builder.request :url_encoded
     builder.adapter Faraday.default_adapter
   end
 
-  @enterprise_endpoint = enterprise_endpoint
-
   client = Octokit::EnterpriseAdminClient.new \
     :access_token => test_github_enterprise_token,
     :management_console_password => test_github_enterprise_management_console_password
   client.configure do |c|
-    c.api_endpoint = @enterprise_endpoint
+    c.api_endpoint = test_github_enterprise_endpoint
+    c.middleware = stack
+  end
+  client
+end
+
+def enterprise_management_console_client
+  stack = Faraday::RackBuilder.new do |builder|
+    builder.request :multipart
+    builder.request :url_encoded
+    builder.adapter Faraday.default_adapter
+  end
+
+  client = Octokit::EnterpriseManagementConsoleClient.new \
+    :management_console_endpoint => test_github_enterprise_management_console_endpoint,
+    :management_console_password => test_github_enterprise_management_console_password
+  client.configure do |c|
+    c.api_endpoint = test_github_enterprise_endpoint
     c.middleware = stack
   end
   client

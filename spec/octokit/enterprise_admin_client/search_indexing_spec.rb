@@ -1,16 +1,16 @@
 require "helper"
 
 describe Octokit::EnterpriseAdminClient::SearchIndexing do
-  
+
   before do
     Octokit.reset!
-    @client = enterprise_oauth_client
+    @admin_client = enterprise_admin_client
   end
 
   shared_examples "search index queuer" do |expected_target|
     context "with a valid target" do
       it "queues #{expected_target} to be indexed" do
-        queue_result = @client.method(subject).call target
+        queue_result = @admin_client.method(subject).call target
         assert_requested :post,
           github_enterprise_url("staff/indexing_jobs"),
           :body => { :target => expected_target }.to_json
@@ -19,14 +19,14 @@ describe Octokit::EnterpriseAdminClient::SearchIndexing do
 
     context "with invalid target" do
       it "raises Octokit::NotFound" do
-        expect { @client.method(subject).call "not-a-real-target" }.to raise_error Octokit::NotFound
+        expect { @admin_client.method(subject).call "not-a-real-target" }.to raise_error Octokit::NotFound
       end
     end
   end
 
   shared_examples "single target queue" do
     it "identifies the target being indexed in the return message" do
-      queue_result = @client.method(subject).call target
+      queue_result = @admin_client.method(subject).call target
       expect(queue_result.message).to be_kind_of String
       expect(queue_result.message).to include target
     end
@@ -34,7 +34,7 @@ describe Octokit::EnterpriseAdminClient::SearchIndexing do
 
   shared_examples "multiple target queue" do
     it "identifies targets that were queued for index in the return message" do
-      queue_result = @client.method(subject).call target
+      queue_result = @admin_client.method(subject).call target
       expect(queue_result.message).to be_kind_of Array
       expect(queue_result.message.first).to include target
     end

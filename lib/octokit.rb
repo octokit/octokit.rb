@@ -1,5 +1,6 @@
 require 'octokit/client'
 require 'octokit/enterprise_admin_client'
+require 'octokit/enterprise_management_console_client'
 require 'octokit/default'
 
 # Ruby toolkit for the GitHub API
@@ -12,8 +13,24 @@ module Octokit
     #
     # @return [Octokit::Client] API wrapper
     def client
-      @client = Octokit::Client.new(options) unless defined?(@client) && @client.same_options?(options)
+      @client = Octokit::Client.new(options) unless client_exists?(@client, options)
       @client
+    end
+
+    # API client based on configured options {Configurable}
+    #
+    # @return [Octokit::Client] API wrapper
+    def enterprise_admin_client
+      @enterprise_admin_client = Octokit::EnterpriseAdminClient.new(options) unless client_exists?(@enterprise_admin_client, options)
+      @enterprise_admin_client
+    end
+
+    # API client based on configured options {Configurable}
+    #
+    # @return [Octokit::Client] API wrapper
+    def enterprise_management_console_client
+      @enterprise_management_console_client = Octokit::EnterpriseManagementConsoleClient.new(options) unless client_exists?(@enterprise_management_console_client, options)
+      @enterprise_management_console_client
     end
 
     # @private
@@ -26,6 +43,10 @@ module Octokit
     def method_missing(method_name, *args, &block)
       return super unless client.respond_to?(method_name)
       client.send(method_name, *args, &block)
+    end
+
+    def client_exists?(c, options)
+      c && defined?(c) && c.same_options?(options)
     end
 
   end

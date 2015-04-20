@@ -2,7 +2,6 @@ require 'octokit/client'
 require 'octokit/enterprise_admin_client/admin_stats'
 require 'octokit/enterprise_admin_client/license'
 require 'octokit/enterprise_admin_client/search_indexing'
-require 'octokit/enterprise_admin_client/management_console'
 
 module Octokit
 
@@ -18,7 +17,6 @@ module Octokit
     include Octokit::EnterpriseAdminClient::AdminStats
     include Octokit::EnterpriseAdminClient::License
     include Octokit::EnterpriseAdminClient::SearchIndexing
-    include Octokit::EnterpriseAdminClient::ManagementConsole
 
   end
 end

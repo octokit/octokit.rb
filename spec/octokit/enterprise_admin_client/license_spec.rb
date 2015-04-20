@@ -4,12 +4,12 @@ describe Octokit::EnterpriseAdminClient::License do
 
   before do
     Octokit.reset!
-    @client = enterprise_oauth_client(test_github_enterprise_endpoint)
+    @admin_client = enterprise_admin_client
   end
 
   describe ".license", :vcr do
     it "returns information about the license" do
-      license = @client.license
+      license = @admin_client.license
 
       expect(license.seats_used).to be_kind_of Fixnum
       expect(license.kind).to be_kind_of String
