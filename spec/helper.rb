@@ -208,6 +208,10 @@ def github_enterprise_url(url)
   test_github_enterprise_endpoint + url
 end
 
+def github_management_console_url(url)
+  test_github_enterprise_management_console_endpoint + url
+end
+
 def basic_github_url(path, options = {})
   url = File.join(Octokit.api_endpoint, path)
   uri = Addressable::URI.parse(url)
@@ -257,7 +261,9 @@ def enterprise_management_console_client
 
   client = Octokit::EnterpriseManagementConsoleClient.new \
     :management_console_endpoint => test_github_enterprise_management_console_endpoint,
-    :management_console_password => test_github_enterprise_management_console_password
+    :management_console_password => test_github_enterprise_management_console_password,
+    :ssl => { :verify => false }
+
   client.configure do |c|
     c.api_endpoint = test_github_enterprise_endpoint
     c.middleware = stack

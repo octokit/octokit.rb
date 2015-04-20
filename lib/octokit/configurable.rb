@@ -26,6 +26,8 @@ module Octokit
     #   @return [String] GitHub username for Basic Authentication
     # @!attribute management_console_password
     #   @return [String] An admin password set up for your GitHub Enterprise management console
+    # @!attribute management_console_endpoint
+    #   @return [String] Base URL for API requests to the GitHub Enterprise management console
     # @!attribute middleware
     #   @see https://github.com/lostisland/faraday
     #   @return [Faraday::Builder or Faraday::RackBuilder] Configure middleware for Faraday
@@ -47,7 +49,8 @@ module Octokit
 
     attr_accessor :access_token, :auto_paginate, :client_id,
                   :client_secret, :default_media_type, :connection_options,
-                  :management_console_password, :middleware, :netrc, :netrc_file,
+                  :management_console_endpoint, :management_console_password,
+                  :middleware, :netrc, :netrc_file,
                   :per_page, :proxy, :user_agent
     attr_writer :password, :web_endpoint, :api_endpoint, :login
 
@@ -65,6 +68,7 @@ module Octokit
           :connection_options,
           :default_media_type,
           :login,
+          :management_console_endpoint,
           :management_console_password,
           :middleware,
           :netrc,
@@ -94,6 +98,10 @@ module Octokit
 
     def api_endpoint
       File.join(@api_endpoint, "")
+    end
+
+    def management_console_endpoint
+      File.join(@management_console_endpoint, "")
     end
 
     # Base URL for generated web URLs

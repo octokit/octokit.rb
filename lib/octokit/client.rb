@@ -221,7 +221,7 @@ module Octokit
     #
     # @return [Sawyer::Agent]
     def agent
-      @agent ||= Sawyer::Agent.new(api_endpoint, sawyer_options) do |http|
+      @agent ||= Sawyer::Agent.new(endpoint, sawyer_options) do |http|
         http.headers[:accept] = default_media_type
         http.headers[:content_type] = "application/json"
         http.headers[:user_agent] = user_agent
@@ -322,6 +322,14 @@ module Octokit
       @management_console_password = value
     end
 
+    # Set Enterprise Management Console endpoint
+    #
+    # @param value [String] Management console endpoint
+    def management_console_endpoint=(value)
+      reset_agent
+      @management_console_endpoint = value
+    end
+
     # Wrapper around Kernel#warn to print warnings unless
     # OCTOKIT_SILENT is set to true.
     #
@@ -333,6 +341,14 @@ module Octokit
     end
 
     private
+
+    def endpoint
+      if self.class.to_s =~ /EnterpriseManagementConsoleClient/
+        management_console_endpoint
+      else
+        api_endpoint
+      end
+    end
 
     def reset_agent
       @agent = nil

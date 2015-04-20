@@ -159,7 +159,7 @@ module Octokit
     # We fall back to raw Faraday for handling the licenses because I'm suspicious
     # that Sawyer isn't handling binary POSTs correctly: http://git.io/jMir
     def faraday_configuration
-      @faraday_configuration ||= Faraday.new(:url => @api_endpoint) do |http|
+      @faraday_configuration ||= Faraday.new(:url => @management_console_endpoint) do |http|
         http.headers[:user_agent] = user_agent
         http.request :multipart
         http.request :url_encoded

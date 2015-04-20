@@ -73,6 +73,12 @@ module Octokit
         ENV['OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD']
       end
 
+      # Default management console endpoint from ENV
+      # @return [String]
+      def management_console_endpoint
+        ENV['OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT']
+      end
+
       # Default options for Faraday::Connection
       # @return [Hash]
       def connection_options
