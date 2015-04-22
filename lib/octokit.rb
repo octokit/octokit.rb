@@ -13,40 +13,44 @@ module Octokit
     #
     # @return [Octokit::Client] API wrapper
     def client
-      @client = Octokit::Client.new(options) unless client_exists?(@client, options)
-      @client
+      return @client if defined?(@client) && @client.same_options?(options)
+      @client = Octokit::Client.new(options)
     end
 
-    # API client based on configured options {Configurable}
+    # EnterpriseAdminClient client based on configured options {Configurable}
     #
-    # @return [Octokit::Client] API wrapper
+    # @return [Octokit::EnterpriseAdminClient] API wrapper
     def enterprise_admin_client
-      @enterprise_admin_client = Octokit::EnterpriseAdminClient.new(options) unless client_exists?(@enterprise_admin_client, options)
-      @enterprise_admin_client
+      return @enterprise_admin_client if defined?(@enterprise_admin_client) && @enterprise_admin_client.same_options?(options)
+      @enterprise_admin_client = Octokit::EnterpriseAdminClient.new(options)
     end
 
-    # API client based on configured options {Configurable}
+    # EnterpriseManagementConsoleClient client based on configured options {Configurable}
     #
-    # @return [Octokit::Client] API wrapper
+    # @return [Octokit::EnterpriseManagementConsoleClient] API wrapper
     def enterprise_management_console_client
-      @enterprise_management_console_client = Octokit::EnterpriseManagementConsoleClient.new(options) unless client_exists?(@enterprise_management_console_client, options)
-      @enterprise_management_console_client
+      return @enterprise_management_console_client if defined?(@enterprise_management_console_client) && @enterprise_management_console_client.same_options?(options)
+      @enterprise_management_console_client = Octokit::EnterpriseManagementConsoleClient.new(options)
     end
 
-    # @private
-    def respond_to_missing?(method_name, include_private=false); client.respond_to?(method_name, include_private); end if RUBY_VERSION >= "1.9"
-    # @private
-    def respond_to?(method_name, include_private=false); client.respond_to?(method_name, include_private) || super; end if RUBY_VERSION < "1.9"
+    private
 
-  private
+    def respond_to_missing?(method_name, include_private=false)
+      client.respond_to?(method_name, include_private) || \
+      enterprise_admin_client.respond_to?(method_name, include_private) || \
+      enterprise_management_console_client.respond_to?(method_name, include_private)
+    end
 
     def method_missing(method_name, *args, &block)
-      return super unless client.respond_to?(method_name)
-      client.send(method_name, *args, &block)
-    end
+      if client.respond_to?(method_name)
+        return client.send(method_name, *args, &block)
+      elsif enterprise_admin_client.respond_to?(method_name)
+        return enterprise_admin_client.send(method_name, *args, &block)
+      elsif enterprise_management_console_client.respond_to?(method_name)
+        return enterprise_management_console_client.send(method_name, *args, &block)
+      end
 
-    def client_exists?(c, options)
-      c && defined?(c) && c.same_options?(options)
+      super
     end
 
   end
