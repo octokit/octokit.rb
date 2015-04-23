@@ -44,7 +44,7 @@ module Octokit
       # @example
       #   @client.update_org('github', {:company => 'Unicorns, Inc.'})
       def update_organization(org, values, options = {})
-        patch Organization.path(org), options.merge({:organization => values})
+        patch Organization.path(org), options.merge(values)
       end
       alias :update_org :update_organization
 
