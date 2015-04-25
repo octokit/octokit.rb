@@ -735,4 +735,20 @@ describe Octokit::Client do
     end
   end
 
+  describe "module call shortcut" do
+    it "has no collisions" do
+      client_methods = collect_methods(Octokit::Client)
+      admin_client = collect_methods(Octokit::EnterpriseAdminClient)
+      console_client = collect_methods(Octokit::EnterpriseManagementConsoleClient)
+
+      expect(client_methods & admin_client).to eql []
+      expect(client_methods & console_client).to eql []
+      expect(admin_client & console_client).to eql []
+    end
+
+    def collect_methods(clazz)
+      clazz.included_modules.select { |m| m.to_s =~ Regexp.new(clazz.to_s) } \
+                            .collect { |m| m.public_instance_methods }.flatten
+    end
+  end
 end
