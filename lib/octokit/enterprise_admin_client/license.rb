@@ -9,7 +9,7 @@ module Octokit
       # Get information about the Enterprise license
       #
       # @return [Sawyer::Resource] The license information
-      def license
+      def license_info
         get "enterprise/settings/license"
       end
 
