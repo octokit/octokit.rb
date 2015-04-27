@@ -22,5 +22,3 @@ test/version_tmp
 tmp
 tmtags
 .test_queue_stats
-bin/
-vendor/
