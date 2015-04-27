@@ -19,7 +19,7 @@ describe Octokit::EnterpriseAdminClient::SearchIndexing do
 
     context "with invalid target" do
       it "raises Octokit::NotFound" do
-        result = @admin_client.method(subject).call("not-a-real-target")
+        result = @admin_client.method(subject).call("not-a/real-target")
         expect(result.message).to be_kind_of String
         expect(result.message).to include "Unknown user"
       end
