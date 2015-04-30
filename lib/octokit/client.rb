@@ -199,11 +199,11 @@ module Octokit
         opts[:query][:per_page] ||=  @per_page || (@auto_paginate ? 100 : nil)
       end
 
-      data = request(:get, url, opts)
+      data = request(:get, url, opts.clone)
 
       if @auto_paginate
         while @last_response.rels[:next] && rate_limit.remaining > 0
-          @last_response = @last_response.rels[:next].get
+          @last_response = @last_response.rels[:next].get(opts)
           if block_given?
             yield(data, @last_response)
           else
