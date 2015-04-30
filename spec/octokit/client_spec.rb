@@ -453,6 +453,14 @@ describe Octokit::Client do
       expect(results.total_count).to eq(2)
       expect(results.items.length).to eq(2)
     end
+
+    it "sets headers for all pages" do
+      url = "/search/repositories?q=octokit+language:Python"
+      accept_text_match = "application/vnd.github.v3.text-match+json"
+      github_media_type_header = "github.v3; param=text-match; format=json"
+      Octokit.client.paginate url, :accept => accept_text_match
+      expect(Octokit.client.last_response.headers["x-github-media-type"]).to eq(github_media_type_header)
+    end
   end
 
   describe ".as_app" do
