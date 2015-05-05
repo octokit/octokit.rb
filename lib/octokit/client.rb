@@ -340,15 +340,13 @@ module Octokit
       end
     end
 
-    private
+    protected
 
     def endpoint
-      if self.class.to_s =~ /EnterpriseManagementConsoleClient/
-        management_console_endpoint
-      else
-        api_endpoint
-      end
+      api_endpoint
     end
+
+    private
 
     def reset_agent
       @agent = nil

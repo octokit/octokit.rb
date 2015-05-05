@@ -13,5 +13,11 @@ module Octokit
 
     include Octokit::EnterpriseManagementConsoleClient::ManagementConsole
 
+    protected
+
+    def endpoint
+      management_console_endpoint
+    end
+
   end
 end
