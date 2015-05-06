@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Enterprise License API
     #
-    # @see https://enterprise.github.com/help/articles/license-api
+    # @see https://developer.github.com/v3/enterprise/license/
     module License
 
       # Get information about the Enterprise license
