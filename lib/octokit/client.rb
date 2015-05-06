@@ -53,41 +53,6 @@ module Octokit
 
     include Octokit::Authentication
     include Octokit::Configurable
-    include Octokit::Client::Authorizations
-    include Octokit::Client::Commits
-    include Octokit::Client::CommitComments
-    include Octokit::Client::Contents
-    include Octokit::Client::Deployments
-    include Octokit::Client::Downloads
-    include Octokit::Client::Emojis
-    include Octokit::Client::Events
-    include Octokit::Client::Feeds
-    include Octokit::Client::Gists
-    include Octokit::Client::Gitignore
-    include Octokit::Client::Hooks
-    include Octokit::Client::Issues
-    include Octokit::Client::Labels
-    include Octokit::Client::LegacySearch
-    include Octokit::Client::Licenses
-    include Octokit::Client::Meta
-    include Octokit::Client::Markdown
-    include Octokit::Client::Milestones
-    include Octokit::Client::Notifications
-    include Octokit::Client::Objects
-    include Octokit::Client::Organizations
-    include Octokit::Client::Pages
-    include Octokit::Client::PubSubHubbub
-    include Octokit::Client::PullRequests
-    include Octokit::Client::RateLimit
-    include Octokit::Client::Refs
-    include Octokit::Client::Releases
-    include Octokit::Client::Repositories
-    include Octokit::Client::Say
-    include Octokit::Client::Search
-    include Octokit::Client::ServiceStatus
-    include Octokit::Client::Stats
-    include Octokit::Client::Statuses
-    include Octokit::Client::Users
 
     # Header keys that can be passed in options hash to {#get},{#head}
     CONVENIENCE_HEADERS = Set.new([:accept, :content_type])
@@ -99,6 +64,43 @@ module Octokit
       end
 
       login_from_netrc unless user_authenticated? || application_authenticated?
+      if !self.is_a?(EnterpriseManagementConsoleClient) && !self.is_a?(EnterpriseAdminClient)
+        extend Octokit::Client::Authorizations
+        extend Octokit::Client::Commits
+        extend Octokit::Client::CommitComments
+        extend Octokit::Client::Contents
+        extend Octokit::Client::Deployments
+        extend Octokit::Client::Downloads
+        extend Octokit::Client::Emojis
+        extend Octokit::Client::Events
+        extend Octokit::Client::Feeds
+        extend Octokit::Client::Gists
+        extend Octokit::Client::Gitignore
+        extend Octokit::Client::Hooks
+        extend Octokit::Client::Issues
+        extend Octokit::Client::Labels
+        extend Octokit::Client::LegacySearch
+        extend Octokit::Client::Licenses
+        extend Octokit::Client::Meta
+        extend Octokit::Client::Markdown
+        extend Octokit::Client::Milestones
+        extend Octokit::Client::Notifications
+        extend Octokit::Client::Objects
+        extend Octokit::Client::Organizations
+        extend Octokit::Client::Pages
+        extend Octokit::Client::PubSubHubbub
+        extend Octokit::Client::PullRequests
+        extend Octokit::Client::RateLimit
+        extend Octokit::Client::Refs
+        extend Octokit::Client::Releases
+        extend Octokit::Client::Repositories
+        extend Octokit::Client::Say
+        extend Octokit::Client::Search
+        extend Octokit::Client::ServiceStatus
+        extend Octokit::Client::Stats
+        extend Octokit::Client::Statuses
+        extend Octokit::Client::Users
+      end
     end
 
     # Compares client options to a Hash of requested options
