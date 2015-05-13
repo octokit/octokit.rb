@@ -116,7 +116,7 @@ module Octokit
       #     }
       #   )
       def edit_hook(repo, id, name, config, options = {})
-        options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
+        options = {:name => name, :config => config}.merge(options)
         patch "#{Repository.path repo}/hooks/#{id}", options
       end
 
