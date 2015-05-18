@@ -21,7 +21,7 @@ module Octokit
     # @return [RateLimit]
     def self.from_response(response, resource = :core)
       info = new
-      if response && rate = response.resources[resource]
+      if response && rate = response.resources.public_send(resource)
         info.limit = (rate.limit || 1).to_i
         info.remaining = (rate.remaining || 1).to_i
         info.resets_at = Time.at((rate.reset || Time.now).to_i)
@@ -29,6 +29,14 @@ module Octokit
       end
 
       info
+    end
+
+    def as_hash
+      return to_h if respond_to? :to_h
+      each_pair.inject({}) do |hash, pair|
+        hash[pair.first] = pair.last
+        hash
+      end
     end
   end
 end

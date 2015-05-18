@@ -34,7 +34,7 @@ module Octokit
         response = get "rate_limit"
         core_limit = Octokit::RateLimit.from_response(response, :core)
         search_limit = Octokit::RateLimit.from_response(response, :search)
-        @rate_limit = OpenStruct.new({:core => core_limit, :search => search_limit}.merge!(core_limit.to_h))
+        @rate_limit = OpenStruct.new({:core => core_limit, :search => search_limit}.merge!(core_limit.as_hash))
       end
       alias ratelimit! rate_limit!
 
