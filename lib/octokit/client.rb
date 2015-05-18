@@ -338,7 +338,8 @@ module Octokit
         end
       end
 
-      @last_response = response = agent.call(method, URI::Parser.new.escape(path.to_s), data, options)
+      response = agent.call(method, URI::Parser.new.escape(path.to_s), data, options)
+      @last_response = response if !path.include?('rate_limit')
       response.data
     end
 

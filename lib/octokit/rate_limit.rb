@@ -16,14 +16,15 @@ module Octokit
 
     # Get rate limit info from HTTP response
     #
-    # @param response [#headers] HTTP response
+    # @param response [Sawyer::Resource] HTTP response
+    # @param resource [Symbol] The resource in question; i.e., core or search
     # @return [RateLimit]
-    def self.from_response(response)
+    def self.from_response(response, resource = :core)
       info = new
-      if response && !response.headers.nil?
-        info.limit = (response.headers['X-RateLimit-Limit'] || 1).to_i
-        info.remaining = (response.headers['X-RateLimit-Remaining'] || 1).to_i
-        info.resets_at = Time.at((response.headers['X-RateLimit-Reset'] || Time.now).to_i)
+      if response && rate = response.resources[resource]
+        info.limit = (rate.limit || 1).to_i
+        info.remaining = (rate.remaining || 1).to_i
+        info.resets_at = Time.at((rate.reset || Time.now).to_i)
         info.resets_in = [(info.resets_at - Time.now).to_i, 0].max
       end
 

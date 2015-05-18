@@ -6,15 +6,13 @@ module Octokit
     # @see https://developer.github.com/v3/#rate-limiting
     module RateLimit
 
-      # Get rate limit info from last response if available
+      # Get rate limit info from previous rate limit request
       # or make a new request to fetch rate limit
       #
       # @see https://developer.github.com/v3/rate_limit/#rate-limit
       # @return [Octokit::RateLimit] Rate limit info
       def rate_limit(options = {})
-        return rate_limit! if last_response.nil?
-
-        Octokit::RateLimit.from_response(last_response)
+        @rate_limit || rate_limit!
       end
       alias ratelimit rate_limit
 
@@ -31,10 +29,12 @@ module Octokit
       # Refresh rate limit info by making a new request
       #
       # @see https://developer.github.com/v3/rate_limit/#rate-limit
-      # @return [Octokit::RateLimit] Rate limit info
+      # @return [OpenStruct] Rate limit info
       def rate_limit!(options = {})
-        get "rate_limit"
-        Octokit::RateLimit.from_response(last_response)
+        response = get "rate_limit"
+        core_limit = Octokit::RateLimit.from_response(response, :core)
+        search_limit = Octokit::RateLimit.from_response(response, :search)
+        @rate_limit = OpenStruct.new({:core => core_limit, :search => search_limit}.merge!(core_limit.to_h))
       end
       alias ratelimit! rate_limit!
 
