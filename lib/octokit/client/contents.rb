@@ -154,16 +154,18 @@ module Octokit
         format = (options.delete :format) || 'tarball'
         url = "#{Repository.path repo}/#{format}/#{repo_ref}"
 
-        conn = Faraday.new(:url => @api_endpoint) do |http|
-          http.headers[:user_agent] = user_agent
+        conn_opts = @connection_options
+        conn_opts[:url] = @api_endpoint
+        conn_opts[:builder] = @middleware.dup if @middleware
+        conn_opts[:proxy] = @proxy if @proxy
+        conn = Faraday.new(conn_opts) do |http|
           if basic_authenticated?
             http.basic_auth(@login, @password)
           elsif token_authenticated?
             http.authorization 'token', @access_token
           end
-          http.use Octokit::Response::RaiseError
-          http.adapter  Faraday.default_adapter
         end
+        conn.builder.delete(Octokit::Middleware::FollowRedirects)
         response = conn.head(url, options)
 
         response.headers['Location']
