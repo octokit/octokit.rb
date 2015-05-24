@@ -366,7 +366,7 @@ module Octokit
     end
 
     def parse_query_and_convenience_headers(options)
-      headers = options.fetch(:headers, {})
+      headers = options.delete(:headers) { Hash.new }
       CONVENIENCE_HEADERS.each do |h|
         if header = options.delete(h)
           headers[h] = header
