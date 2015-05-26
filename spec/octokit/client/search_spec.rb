@@ -54,7 +54,7 @@ describe Octokit::Client::Search do
       expect(results.items).to be_kind_of Array
     end
 
-    it "utilizes auto_pagination", :vcr do
+    it "utilizes auto_pagination", :vcr, :record => :new_episodes do
       @client.auto_paginate = true
       results = @client.search_users 'user:pengwynn user:defunkt', :per_page => 1
 
