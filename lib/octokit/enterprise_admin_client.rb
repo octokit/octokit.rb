@@ -4,6 +4,7 @@ require 'octokit/warnable'
 require 'octokit/enterprise_admin_client/admin_stats'
 require 'octokit/enterprise_admin_client/license'
 require 'octokit/enterprise_admin_client/search_indexing'
+require 'octokit/enterprise_admin_client/users'
 
 module Octokit
 
@@ -22,6 +23,7 @@ module Octokit
     include Octokit::EnterpriseAdminClient::AdminStats
     include Octokit::EnterpriseAdminClient::License
     include Octokit::EnterpriseAdminClient::SearchIndexing
+    include Octokit::EnterpriseAdminClient::Users
 
     def initialize(options = {})
       # Use options passed in, but fall back to module defaults
