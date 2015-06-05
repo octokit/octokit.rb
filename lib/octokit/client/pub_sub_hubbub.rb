@@ -93,7 +93,7 @@ module Octokit
       private
 
       def pub_sub_hubbub_request(options = {})
-        # This method is janky, bypass normal stack so we don'tl
+        # This method is janky, bypass normal stack so we don't
         # serialize request as JSON
         conn = Faraday.new(:url => @api_endpoint) do |http|
           http.headers[:user_agent] = user_agent

@@ -42,6 +42,21 @@ VCR.configure do |c|
   c.filter_sensitive_data("<GITHUB_CLIENT_SECRET>") do
     test_github_client_secret
   end
+  c.filter_sensitive_data("<<ENTERPRISE_GITHUB_LOGIN>>") do
+    test_github_enterprise_login
+  end
+  c.filter_sensitive_data("<<ENTERPRISE_ACCESS_TOKEN>>") do
+      test_github_enterprise_token
+  end
+  c.filter_sensitive_data("<<ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD>>") do
+      test_github_enterprise_management_console_password
+  end
+  c.filter_sensitive_data("<<ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT>>") do
+    test_github_enterprise_management_console_endpoint
+  end
+  c.filter_sensitive_data("<<ENTERPRISE_HOSTNAME>>") do
+    test_github_enterprise_endpoint
+  end
   c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY>") do
     test_github_repository
   end
@@ -110,6 +125,26 @@ def test_github_client_secret
   ENV.fetch 'OCTOKIT_TEST_GITHUB_CLIENT_SECRET', 'x' * 40
 end
 
+def test_github_enterprise_login
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_LOGIN', 'crashoverride'
+end
+
+def test_github_enterprise_token
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN', 'x' * 40
+end
+
+def test_github_enterprise_management_console_password
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD', 'Secretpa55'
+end
+
+def test_github_enterprise_management_console_endpoint
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT', 'https://enterprise.github.dev:8443/'
+end
+
+def test_github_enterprise_endpoint
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT', 'http://enterprise.github.dev/api/v3/'
+end
+
 def test_github_repository
   ENV.fetch 'OCTOKIT_TEST_GITHUB_REPOSITORY', 'api-sandbox'
 end
@@ -169,6 +204,14 @@ def github_url(url)
   uri.to_s
 end
 
+def github_enterprise_url(url)
+  test_github_enterprise_endpoint + url
+end
+
+def github_management_console_url(url)
+  test_github_enterprise_management_console_endpoint + url
+end
+
 def basic_github_url(path, options = {})
   url = File.join(Octokit.api_endpoint, path)
   uri = Addressable::URI.parse(url)
@@ -190,6 +233,42 @@ end
 
 def oauth_client
   Octokit::Client.new(:access_token => test_github_token)
+end
+
+def enterprise_admin_client
+  stack = Faraday::RackBuilder.new do |builder|
+    builder.request :multipart
+    builder.request :url_encoded
+    builder.adapter Faraday.default_adapter
+  end
+
+  client = Octokit::EnterpriseAdminClient.new \
+    :access_token => test_github_enterprise_token,
+    :connection_options => { :ssl => { :verify => false } }
+
+  client.configure do |c|
+    c.api_endpoint = test_github_enterprise_endpoint
+    c.middleware = stack
+  end
+  client
+end
+
+def enterprise_management_console_client
+  stack = Faraday::RackBuilder.new do |builder|
+    builder.request :multipart
+    builder.request :url_encoded
+    builder.adapter Faraday.default_adapter
+  end
+
+  client = Octokit::EnterpriseManagementConsoleClient.new \
+    :management_console_endpoint => test_github_enterprise_management_console_endpoint,
+    :management_console_password => test_github_enterprise_management_console_password,
+    :connection_options => { :ssl => { :verify => false } }
+
+  client.configure do |c|
+    c.middleware = stack
+  end
+  client
 end
 
 def use_vcr_placeholder_for(text, replacement)

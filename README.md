@@ -257,6 +257,64 @@ custom pattern for traversing large lists.
 
 [paginated]: http://developer.github.com/v3/#pagination
 
+## Working with GitHub Enterprise
+
+With a bit of setup, you can also use Octokit with your Github Enterprise instance.
+
+### Interacting with the GitHub.com APIs in GitHub Enterprise
+
+To interact with the "regular" GitHub.com APIs in GitHub Enterprise, simply configure the `api_endpoint` to match your hostname. For example:
+
+``` ruby
+Octokit.configure do |c|
+  c.api_endpoint = "<hostname>/api/v3/"
+end
+client = Octokit::Client.new(:access_token => "<your 40 char token>")
+```
+
+### Interacting with the GitHub Enterprise Admin APIs
+
+The GitHub Enterprise Admin APIs are under a different client: `EnterpriseAdminClient`. You'll need to have an administrator account in order to use these APIs.
+
+``` ruby
+admin_client = Octokit::EnterpriseAdminClient.new \
+                          :access_token => "<your 40 char token>",
+                          :api_endpoint = "https://<hostname>/api/v3/"
+
+# or
+Octokit.configure do |c|
+  c.api_endpoint = "https://hostname/api/v3/"
+  c.access_token = "<your 40 char token>"
+end
+admin_client = Octokit.enterprise_admin_client
+```
+
+### Interacting with the GitHub Enterprise Management Console APIs
+
+The GitHub Enterprise Management Console APIs are also under a separate client: `EnterpriseManagementConsoleClient`. In order to use it, you'll need to provide both your management console password as well as the endpoint to your management console. This is different than the API endpoint provided above.
+
+``` ruby
+management_console_client = Octokit::EnterpriseManagementConsoleClient.new \
+                          :management_console_password => "secret",
+                          :management_console_endpoint = "https://hostname:8633"
+# or
+Octokit.configure do |c|
+  c.management_console_endpoint = "https://hostname:8633"
+  c.management_console_password = "secret"
+end
+management_console_client = Octokit.enterprise_management_console_client
+```
+
+### SSL Connection Errors
+
+You *may* need to disable SSL temporarily while first setting up your GitHub Enterprise install. You can do that with the following configuration:
+
+``` ruby
+client.connection_options[:ssl] = { :verify => false }
+```
+
+Do remember to turn `:verify` back to `true`, as it's important for secure communication.
+
 ## Configuration and defaults
 
 While `Octokit::Client` accepts a range of options when creating a new client
@@ -510,6 +568,11 @@ ENV Variable | Description |
 `OCTOKIT_TEST_GITHUB_CLIENT_SECRET` | Test OAuth application client secret.
 `OCTOKIT_TEST_GITHUB_REPOSITORY` | Test repository to perform destructive actions against, this should not be set to any repository of importance. **Automatically created by the test suite if nonexistent** Default: `api-sandbox`
 `OCTOKIT_TEST_GITHUB_ORGANIZATION` | Test organization.
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_LOGIN` | GitHub Enterprise login name
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN` | GitHub Enterprise token
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD` | GitHub Enterprise management console password
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT` | GitHub Enterprise hostname
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT` | GitHub Enterprise Management Console endpoint
 
 Since we periodically refresh our cassettes, please keep some points in mind
 when writing new specs.
@@ -590,4 +653,3 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
 LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
