@@ -1,4 +1,3 @@
-require 'sawyer'
 require 'octokit/connection'
 require 'octokit/warnable'
 require 'octokit/arguments'
