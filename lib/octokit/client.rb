@@ -333,11 +333,10 @@ module Octokit
     # Wrapper around Kernel#warn to print warnings unless
     # OCTOKIT_SILENT is set to true.
     #
+    # @deprecated Use Octokit.warn
     # @return [nil]
     def octokit_warn(*message)
-      unless ENV['OCTOKIT_SILENT']
-        warn message
-      end
+      Octokit.warn message
     end
 
     protected
