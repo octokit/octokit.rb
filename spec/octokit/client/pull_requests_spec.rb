@@ -18,12 +18,6 @@ describe Octokit::Client::PullRequests do
       expect(pulls).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls?state=open")
     end
-    # Deprecated
-    it "lists all pull requests with state argument" do
-      pulls = @client.pulls("octokit/octokit.rb", 'closed')
-      expect(pulls).to be_kind_of Array
-      assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls?state=closed")
-    end
   end # .pull_requests
 
   context "methods that require a new pull" do
