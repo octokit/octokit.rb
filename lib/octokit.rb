@@ -33,16 +33,6 @@ module Octokit
       @enterprise_management_console_client = Octokit::EnterpriseManagementConsoleClient.new(options)
     end
 
-    # Wrapper around Kernel#warn to print warnings unless
-    # OCTOKIT_SILENT is set to true.
-    #
-    # @return [nil]
-    def self.warn(*message)
-      unless ENV['OCTOKIT_SILENT']
-        warn message
-      end
-    end
-
     private
 
     def respond_to_missing?(method_name, include_private=false)

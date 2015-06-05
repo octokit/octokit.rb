@@ -1,5 +1,5 @@
 module Octokit
-  class EnterpriseManagementConsoleClient < Octokit::Client
+  class EnterpriseManagementConsoleClient
 
     # Methods for the Enterprise Management Console API
     #
