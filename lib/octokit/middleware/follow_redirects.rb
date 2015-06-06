@@ -83,7 +83,11 @@ module Octokit
       end
 
       def update_env(env, request_body, response)
+        original_url = env[:url]
         env[:url] += safe_escape(response["location"])
+        unless same_host?(original_url, env[:url])
+          env[:request_headers].delete("Authorization")
+        end
 
         if convert_to_get?(response)
           env[:method] = :get
@@ -104,6 +108,13 @@ module Octokit
 
       def follow_limit
         @options.fetch(:limit, FOLLOW_LIMIT)
+      end
+
+      def same_host?(original_url, redirect_url)
+        original_uri = Addressable::URI.parse(original_url)
+        redirect_uri = Addressable::URI.parse(redirect_url)
+
+        redirect_uri.host.nil? || original_uri.host == redirect_uri.host
       end
 
       # Internal: Escapes unsafe characters from a URL which might be a path
