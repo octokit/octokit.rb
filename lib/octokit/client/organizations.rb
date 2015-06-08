@@ -76,7 +76,7 @@ module Octokit
       # @example
       #   @client.organizations
       def organizations(user=nil, options = {})
-        get "#{User.path user}/orgs", options
+        paginate "#{User.path user}/orgs", options
       end
       alias :list_organizations :organizations
       alias :list_orgs :organizations
