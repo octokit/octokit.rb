@@ -482,15 +482,15 @@ describe Octokit::Client do
     it "does not change HTTP method when following a redirect" do
       client = oauth_client
 
-      original_request = stub_get("/foo").
+      original_request = stub_delete("/foo").
         to_return(:status => 301, :headers => { "Location" => "/bar" })
-      redirect_request = stub_get("/bar").to_return(:status => 200)
+      redirect_request = stub_delete("/bar").to_return(:status => 200)
 
-      client.get("/foo")
+      client.delete("/foo")
       assert_requested original_request
       assert_requested redirect_request
 
-      other_methods = [:head, :post, :put, :patch, :delete]
+      other_methods = [:head, :get, :post, :put, :patch]
       other_methods.each do |http|
         assert_not_requested http, github_url("/bar")
       end
