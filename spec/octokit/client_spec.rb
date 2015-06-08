@@ -422,6 +422,134 @@ describe Octokit::Client do
     end
   end
 
+  describe "redirect handling" do
+    it "follows redirect for 301 response" do
+      client = oauth_client
+
+      original_request = stub_get("/foo").
+        to_return(:status => 301, :headers => { "Location" => "/bar" })
+      redirect_request = stub_get("/bar").to_return(:status => 200)
+
+      client.get("/foo")
+      assert_requested original_request
+      assert_requested redirect_request
+    end
+
+    it "follows redirect for 302 response" do
+      client = oauth_client
+
+      original_request = stub_get("/foo").
+        to_return(:status => 302, :headers => { "Location" => "/bar" })
+      redirect_request = stub_get("/bar").to_return(:status => 200)
+
+      client.get("/foo")
+      assert_requested original_request
+      assert_requested redirect_request
+    end
+
+    it "follows redirect for 307 response" do
+      client = oauth_client
+
+      original_request = stub_post(github_url("/foo")).
+        with(:body => { :some_property => "some_value" }.to_json).
+        to_return(:status => 307, :headers => { "Location" => "/bar" })
+      redirect_request = stub_post(github_url("/bar")).
+        with(:body => { :some_property => "some_value" }.to_json).
+        to_return(:status => 201, :headers => { "Location" => "/bar" })
+
+      client.post("/foo", { :some_property => "some_value" })
+      assert_requested original_request
+      assert_requested redirect_request
+    end
+
+    it "follows redirects for supported HTTP methods" do
+      client = oauth_client
+
+      http_methods = [:head, :get, :post, :put, :patch, :delete]
+
+      http_methods.each do |http|
+        original_request = stub_request(http, github_url("/foo")).
+          to_return(:status => 301, :headers => { "Location" => "/bar" })
+        redirect_request = stub_request(http, github_url("/bar")).
+          to_return(:status => 200)
+
+        client.send(http, "/foo")
+        assert_requested original_request
+        assert_requested redirect_request
+      end
+    end
+
+    it "does not change HTTP method when following a redirect" do
+      client = oauth_client
+
+      original_request = stub_delete("/foo").
+        to_return(:status => 301, :headers => { "Location" => "/bar" })
+      redirect_request = stub_delete("/bar").to_return(:status => 200)
+
+      client.delete("/foo")
+      assert_requested original_request
+      assert_requested redirect_request
+
+      other_methods = [:head, :get, :post, :put, :patch]
+      other_methods.each do |http|
+        assert_not_requested http, github_url("/bar")
+      end
+    end
+
+    it "keeps authentication info when redirecting to the same host" do
+      client = oauth_client
+
+      original_request = stub_get("/foo").
+        with(:headers => {"Authorization" => "token #{test_github_token}"}).
+        to_return(:status => 301, :headers => { "Location" => "/bar" })
+      redirect_request = stub_get("/bar").
+        with(:headers => {"Authorization" => "token #{test_github_token}"}).
+        to_return(:status => 200)
+
+      client.get("/foo")
+      assert_requested original_request
+      assert_requested redirect_request
+    end
+
+    it "drops authentication info when redirecting to a different host" do
+      client = oauth_client
+
+      original_request = stub_request(:get, github_url("/foo")).
+        with(:headers => {"Authorization" => "token #{test_github_token}"}).
+        to_return(:status => 301, :headers => { "Location" => "https://example.com/bar" })
+      redirect_request = stub_request(:get, "https://example.com/bar").
+        to_return(:status => 200)
+
+      client.get("/foo")
+
+      assert_requested original_request
+      assert_requested(:get, "https://example.com/bar") { |req|
+        req.headers["Authorization"].nil?
+      }
+    end
+
+    it "follows at most 3 consecutive redirects" do
+      client = oauth_client
+
+      original_request = stub_get("/a").
+        to_return(:status => 302, :headers => { "Location" => "/b" })
+      first_redirect = stub_get("/b").
+        to_return(:status => 302, :headers => { "Location" => "/c" })
+      second_redirect = stub_get("/c").
+        to_return(:status => 302, :headers => { "Location" => "/d" })
+      third_redirect = stub_get("/d").
+        to_return(:status => 302, :headers => { "Location" => "/e" })
+      fourth_redirect = stub_get("/e").to_return(:status => 200)
+
+      expect { client.get("/a") }.to raise_error(Octokit::Middleware::RedirectLimitReached)
+      assert_requested original_request
+      assert_requested first_redirect
+      assert_requested second_redirect
+      assert_requested third_redirect
+      assert_not_requested fourth_redirect
+    end
+  end
+
   describe "auto pagination", :vcr do
     before do
       Octokit.reset!
