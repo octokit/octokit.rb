@@ -1,10 +1,3 @@
-major, minor, patch = RUBY_VERSION.split('.').map(&:to_i)
-
-if (major == 1 && minor < 9) || (major == 1 && minor == 9 && patch < 2)
-  # pull in backports
-  require 'octokit/backports/uri'
-end
-
 module Octokit
   class Client
 
