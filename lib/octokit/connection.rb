@@ -81,11 +81,11 @@ module Octokit
         opts[:query][:per_page] ||=  @per_page || (@auto_paginate ? 100 : nil)
       end
 
-      data = request(:get, url, opts)
+      data = request(:get, url, opts.dup)
 
       if @auto_paginate
         while @last_response.rels[:next] && rate_limit.remaining > 0
-          @last_response = @last_response.rels[:next].get
+          @last_response = @last_response.rels[:next].get(:headers => opts[:headers])
           if block_given?
             yield(data, @last_response)
           else
@@ -179,7 +179,7 @@ module Octokit
     end
 
     def parse_query_and_convenience_headers(options)
-      headers = options.fetch(:headers, {})
+      headers = options.delete(:headers) { Hash.new }
       CONVENIENCE_HEADERS.each do |h|
         if header = options.delete(h)
           headers[h] = header
