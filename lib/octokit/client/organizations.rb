@@ -541,7 +541,11 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing the organization membership.
       # @see https://developer.github.com/v3/orgs/members/#get-your-organization-membership
       def organization_membership(org, options = {})
-        get "user/memberships/orgs/#{org}", options
+        if user = options.delete(:user)
+          get "orgs/#{org}/memberships/#{user}", options
+        else
+          get "user/memberships/orgs/#{org}", options
+        end
       end
       alias :org_membership :organization_membership
 
@@ -552,9 +556,23 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing the updated organization membership.
       # @see https://developer.github.com/v3/orgs/members/#edit-your-organization-membership
       def update_organization_membership(org, options = {})
-        patch "user/memberships/orgs/#{org}", options
+        if user = options.delete(:user)
+          put "orgs/#{org}/memberships/#{user}", options
+        else
+          patch "user/memberships/orgs/#{org}", options
+        end
       end
       alias :update_org_membership :update_organization_membership
+
+      # Remove an organization membership
+      #
+      # @param org [String] Organization GitHub login.
+      # @return [Boolean] Success
+      # @see https://developer.github.com/v3/orgs/members/#remove-organization-membership
+      def remove_organization_membership(org, options = {})
+        user = options.delete(:user)
+        user && boolean_from_response(:delete, "orgs/#{org}/memberships/#{user}", options)
+      end
     end
   end
 end
