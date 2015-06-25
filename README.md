@@ -422,7 +422,7 @@ construction currently used throughout the client.
 
 Version 4.0
 
-- **removes support for a [long deprecated overload][list-pulls] for
+- **removes support for a [long-deprecated overload][list-pulls] for
 passing state as a positional argument** when listing pull requests. Instead,
 pass `state` in the method options.
 - **drops support for Ruby < 2.0**.
