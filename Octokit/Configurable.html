@@ -78,7 +78,7 @@
   
   
     <dt class="r1">Included in:</dt>
-    <dd class="r1"><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span>, <span class='object_link'><a href="Client.html" title="Octokit::Client (class)">Client</a></span></dd>
+    <dd class="r1"><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span>, <span class='object_link'><a href="Client.html" title="Octokit::Client (class)">Client</a></span>, <span class='object_link'><a href="EnterpriseAdminClient.html" title="Octokit::EnterpriseAdminClient (class)">EnterpriseAdminClient</a></span>, <span class='object_link'><a href="EnterpriseManagementConsoleClient.html" title="Octokit::EnterpriseManagementConsoleClient (class)">EnterpriseManagementConsoleClient</a></span></dd>
     
   
   
@@ -309,6 +309,58 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
 
   
     <span class="summary_desc"><div class='inline'><p>GitHub username for Basic Authentication.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#management_console_endpoint-instance_method" title="#management_console_endpoint (instance method)">- (String) <strong>management_console_endpoint</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Base URL for API requests to the GitHub Enterprise management console.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#management_console_password-instance_method" title="#management_console_password (instance method)">- (String) <strong>management_console_password</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>An admin password set up for your GitHub Enterprise management console.</p>
 </div></span>
   
 </li>
@@ -639,6 +691,29 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#same_options%3F-instance_method" title="#same_options? (instance method)">- (Boolean) <strong>same_options?</strong>(opts) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Compares client options to a Hash of requested options.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -673,12 +748,12 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48</pre>
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_access_token'>access_token</span>
   <span class='ivar'>@access_token</span>
@@ -732,16 +807,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -793,16 +870,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -861,16 +940,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -905,12 +986,12 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48</pre>
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_client_secret'>client_secret</span>
   <span class='ivar'>@client_secret</span>
@@ -971,16 +1052,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -1039,16 +1122,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -1100,16 +1185,144 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="management_console_endpoint=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="management_console_endpoint-instance_method">
+  
+    - (<tt>String</tt>) <strong>management_console_endpoint</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns Base URL for API requests to the GitHub Enterprise management console</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Base URL for API requests to the GitHub Enterprise management console</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
+
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
+<span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
+<span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="management_console_password=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="management_console_password-instance_method">
+  
+    - (<tt>String</tt>) <strong>management_console_password</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns An admin password set up for your GitHub Enterprise management console</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An admin password set up for your GitHub Enterprise management console</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
+
+<span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
+<span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -1168,16 +1381,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -1229,16 +1444,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -1290,16 +1507,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -1351,16 +1570,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -1412,16 +1633,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -1480,16 +1703,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -1541,16 +1766,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -1602,16 +1829,18 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 50</span>
 
 <span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='symbol'>:access_token</span><span class='comma'>,</span> <span class='symbol'>:auto_paginate</span><span class='comma'>,</span> <span class='symbol'>:client_id</span><span class='comma'>,</span>
 <span class='symbol'>:client_secret</span><span class='comma'>,</span> <span class='symbol'>:default_media_type</span><span class='comma'>,</span> <span class='symbol'>:connection_options</span><span class='comma'>,</span>
+<span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span> <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
 <span class='symbol'>:middleware</span><span class='comma'>,</span> <span class='symbol'>:netrc</span><span class='comma'>,</span> <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
 <span class='symbol'>:per_page</span><span class='comma'>,</span> <span class='symbol'>:proxy</span><span class='comma'>,</span> <span class='symbol'>:user_agent</span></pre>
     </td>
@@ -1668,11 +1897,6 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-56
-57
-58
-59
-60
 61
 62
 63
@@ -1687,10 +1911,17 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
 72
 73
 74
-75</pre>
+75
+76
+77
+78
+79
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_keys'>keys</span>
   <span class='ivar'>@keys</span> <span class='op'>||=</span> <span class='lbracket'>[</span>
@@ -1702,6 +1933,8 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
     <span class='symbol'>:connection_options</span><span class='comma'>,</span>
     <span class='symbol'>:default_media_type</span><span class='comma'>,</span>
     <span class='symbol'>:login</span><span class='comma'>,</span>
+    <span class='symbol'>:management_console_endpoint</span><span class='comma'>,</span>
+    <span class='symbol'>:management_console_password</span><span class='comma'>,</span>
     <span class='symbol'>:middleware</span><span class='comma'>,</span>
     <span class='symbol'>:netrc</span><span class='comma'>,</span>
     <span class='symbol'>:netrc_file</span><span class='comma'>,</span>
@@ -1780,12 +2013,12 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-79
-80
-81</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_configure'>configure</span>
   <span class='kw'>yield</span> <span class='kw'>self</span>
@@ -1832,12 +2065,12 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-109
-110
-111</pre>
+128
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_netrc?'>netrc?</span>
   <span class='op'>!</span><span class='op'>!</span><span class='ivar'>@netrc</span>
@@ -1876,15 +2109,15 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
       <pre class="lines">
 
 
-84
-85
-86
-87
-88
-89</pre>
+91
+92
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset!'>reset!</span>
   <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Configurable</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
@@ -1897,14 +2130,86 @@ in <span class='object_link'><a href="Default.html" title="Octokit::Default (mod
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="same_options?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>same_options?</strong>(opts) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Compares client options to a Hash of requested options</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Options to compare with current client options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+103
+104
+105</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/configurable.rb', line 103</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_same_options?'>same_options?</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>==</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_hash'>hash</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
     <div id="footer">
-  Generated on Sat Feb 14 08:50:11 2015 by
+  Generated on Thu Jun 25 14:25:59 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.4).
+  0.8.7.6 (ruby-2.1.6).
 </div>
 
   </body>

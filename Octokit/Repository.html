@@ -456,7 +456,9 @@ URLs and to generate URLs</p>
 28
 29
 30
-31</pre>
+31
+32
+33</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 15</span>
@@ -476,6 +478,8 @@ URLs and to generate URLs</p>
   <span class='kw'>when</span> <span class='const'>Hash</span>
     <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:repo</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
     <span class='ivar'>@owner</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:owner</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:user</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid Repository. Use user/repo format.</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -743,12 +747,12 @@ URLs and to generate URLs</p>
       <pre class="lines">
 
 
-49
-50
-51</pre>
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span>
   <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span>
@@ -806,12 +810,12 @@ URLs and to generate URLs</p>
       <pre class="lines">
 
 
-59
-60
-61</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id_api_path'>id_api_path</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repositories/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -863,12 +867,12 @@ URLs and to generate URLs</p>
       <pre class="lines">
 
 
-54
-55
-56</pre>
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_named_api_path'>named_api_path</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_slug'>slug</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -920,13 +924,13 @@ URLs and to generate URLs</p>
       <pre class="lines">
 
 
-41
-42
 43
-44</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_path'>path</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_named_api_path'>named_api_path</span> <span class='kw'>if</span> <span class='ivar'>@owner</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@name</span>
@@ -979,12 +983,12 @@ URLs and to generate URLs</p>
       <pre class="lines">
 
 
-35
-36
-37</pre>
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_slug'>slug</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@owner</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -1032,12 +1036,12 @@ URLs and to generate URLs</p>
       <pre class="lines">
 
 
-65
-66
-67</pre>
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/repository.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_slug'>slug</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -1052,9 +1056,9 @@ URLs and to generate URLs</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Feb 14 08:50:15 2015 by
+  Generated on Thu Jun 25 14:26:03 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.4).
+  0.8.7.6 (ruby-2.1.6).
 </div>
 
   </body>

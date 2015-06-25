@@ -20,7 +20,11 @@
   </head>
   <body>
     <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) {
+      var hasFrames = false;
+      try {
+        hasFrames = window.top.frames.main ? true : false;
+      } catch (e) { }
+      if (hasFrames) {
         document.getElementById('base_target').target = 'main';
         document.body.className = 'frames';
       }
@@ -48,14 +52,14 @@
         
 
   <li class="r1 ">
-    <span class='object_link'><a href="Octokit/Default.html#access_token-class_method" title="Octokit::Default.access_token (method)">access_token</a></span>
-    <small>Octokit::Default</small>
+    <span class='object_link'><a href="Octokit/Configurable.html#access_token-instance_method" title="Octokit::Configurable#access_token (method)">#access_token</a></span>
+    <small>Octokit::Configurable</small>
   </li>
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Configurable.html#access_token-instance_method" title="Octokit::Configurable#access_token (method)">#access_token</a></span>
-    <small>Octokit::Configurable</small>
+    <span class='object_link'><a href="Octokit/Default.html#access_token-class_method" title="Octokit::Default.access_token (method)">access_token</a></span>
+    <small>Octokit::Default</small>
   </li>
   
 
@@ -66,86 +70,158 @@
   
 
   <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient/ManagementConsole.html#add_authorized_key-instance_method" title="Octokit::EnterpriseManagementConsoleClient::ManagementConsole#add_authorized_key (method)">#add_authorized_key</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient::ManagementConsole</small>
+  </li>
+  
+
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#add_collaborator-instance_method" title="Octokit::Client::Repositories#add_collaborator (method)">#add_collaborator</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Issues.html#add_comment-instance_method" title="Octokit::Client::Issues#add_comment (method)">#add_comment</a></span>
     <small>Octokit::Client::Issues</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#add_deploy_key-instance_method" title="Octokit::Client::Repositories#add_deploy_key (method)">#add_deploy_key</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#add_email-instance_method" title="Octokit::Client::Users#add_email (method)">#add_email</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#add_key-instance_method" title="Octokit::Client::Users#add_key (method)">#add_key</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Labels.html#add_label-instance_method" title="Octokit::Client::Labels#add_label (method)">#add_label</a></span>
     <small>Octokit::Client::Labels</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Labels.html#add_labels_to_an_issue-instance_method" title="Octokit::Client::Labels#add_labels_to_an_issue (method)">#add_labels_to_an_issue</a></span>
     <small>Octokit::Client::Labels</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#add_team_member-instance_method" title="Octokit::Client::Organizations#add_team_member (method)">#add_team_member</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#add_team_membership-instance_method" title="Octokit::Client::Organizations#add_team_membership (method)">#add_team_membership</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#add_team_repository-instance_method" title="Octokit::Client::Organizations#add_team_repository (method)">#add_team_repository</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/AdminStats.html#admin_comments_stats-instance_method" title="Octokit::EnterpriseAdminClient::AdminStats#admin_comments_stats (method)">#admin_comments_stats</a></span>
+    <small>Octokit::EnterpriseAdminClient::AdminStats</small>
+  </li>
+  
+
   <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Client.html#agent-instance_method" title="Octokit::Client#agent (method)">#agent</a></span>
-    <small>Octokit::Client</small>
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/AdminStats.html#admin_gists_stats-instance_method" title="Octokit::EnterpriseAdminClient::AdminStats#admin_gists_stats (method)">#admin_gists_stats</a></span>
+    <small>Octokit::EnterpriseAdminClient::AdminStats</small>
   </li>
   
 
   <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/AdminStats.html#admin_hooks_stats-instance_method" title="Octokit::EnterpriseAdminClient::AdminStats#admin_hooks_stats (method)">#admin_hooks_stats</a></span>
+    <small>Octokit::EnterpriseAdminClient::AdminStats</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/AdminStats.html#admin_issues_stats-instance_method" title="Octokit::EnterpriseAdminClient::AdminStats#admin_issues_stats (method)">#admin_issues_stats</a></span>
+    <small>Octokit::EnterpriseAdminClient::AdminStats</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/AdminStats.html#admin_milestones_stats-instance_method" title="Octokit::EnterpriseAdminClient::AdminStats#admin_milestones_stats (method)">#admin_milestones_stats</a></span>
+    <small>Octokit::EnterpriseAdminClient::AdminStats</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/AdminStats.html#admin_organization_stats-instance_method" title="Octokit::EnterpriseAdminClient::AdminStats#admin_organization_stats (method)">#admin_organization_stats</a></span>
+    <small>Octokit::EnterpriseAdminClient::AdminStats</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/AdminStats.html#admin_pages_stats-instance_method" title="Octokit::EnterpriseAdminClient::AdminStats#admin_pages_stats (method)">#admin_pages_stats</a></span>
+    <small>Octokit::EnterpriseAdminClient::AdminStats</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/AdminStats.html#admin_pull_requests_stats-instance_method" title="Octokit::EnterpriseAdminClient::AdminStats#admin_pull_requests_stats (method)">#admin_pull_requests_stats</a></span>
+    <small>Octokit::EnterpriseAdminClient::AdminStats</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/AdminStats.html#admin_repository_stats-instance_method" title="Octokit::EnterpriseAdminClient::AdminStats#admin_repository_stats (method)">#admin_repository_stats</a></span>
+    <small>Octokit::EnterpriseAdminClient::AdminStats</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/AdminStats.html#admin_stats-instance_method" title="Octokit::EnterpriseAdminClient::AdminStats#admin_stats (method)">#admin_stats</a></span>
+    <small>Octokit::EnterpriseAdminClient::AdminStats</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/AdminStats.html#admin_users_stats-instance_method" title="Octokit::EnterpriseAdminClient::AdminStats#admin_users_stats (method)">#admin_users_stats</a></span>
+    <small>Octokit::EnterpriseAdminClient::AdminStats</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Connection.html#agent-instance_method" title="Octokit::Connection#agent (method)">#agent</a></span>
+    <small>Octokit::Connection</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/Client/Organizations.html#all_organizations-instance_method" title="Octokit::Client::Organizations#all_organizations (method)">#all_organizations</a></span>
+    <small>Octokit::Client::Organizations</small>
+  </li>
+  
+
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#all_repositories-instance_method" title="Octokit::Client::Repositories#all_repositories (method)">#all_repositories</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#all_users-instance_method" title="Octokit::Client::Users#all_users (method)">#all_users</a></span>
     <small>Octokit::Client::Users</small>
-  </li>
-  
-
-  <li class="r1 ">
-    <span class='object_link'><a href="Octokit/Default.html#api_endpoint-class_method" title="Octokit::Default.api_endpoint (method)">api_endpoint</a></span>
-    <small>Octokit::Default</small>
   </li>
   
 
@@ -156,38 +232,50 @@
   
 
   <li class="r1 ">
+    <span class='object_link'><a href="Octokit/Default.html#api_endpoint-class_method" title="Octokit::Default.api_endpoint (method)">api_endpoint</a></span>
+    <small>Octokit::Default</small>
+  </li>
+  
+
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Authentication.html#application_authenticated%3F-instance_method" title="Octokit::Authentication#application_authenticated? (method)">#application_authenticated?</a></span>
     <small>Octokit::Authentication</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Contents.html#archive_link-instance_method" title="Octokit::Client::Contents#archive_link (method)">#archive_link</a></span>
     <small>Octokit::Client::Contents</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client.html#as_app-instance_method" title="Octokit::Client#as_app (method)">#as_app</a></span>
     <small>Octokit::Client</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Authorizations.html#authorization-instance_method" title="Octokit::Client::Authorizations#authorization (method)">#authorization</a></span>
     <small>Octokit::Client::Authorizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Authorizations.html#authorizations-instance_method" title="Octokit::Client::Authorizations#authorizations (method)">#authorizations</a></span>
     <small>Octokit::Client::Authorizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Authorizations.html#authorize_url-instance_method" title="Octokit::Client::Authorizations#authorize_url (method)">#authorize_url</a></span>
     <small>Octokit::Client::Authorizations</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient/ManagementConsole.html#authorized_keys-instance_method" title="Octokit::EnterpriseManagementConsoleClient::ManagementConsole#authorized_keys (method)">#authorized_keys</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient::ManagementConsole</small>
   </li>
   
 
@@ -234,152 +322,164 @@
   
 
   <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Middleware/FollowRedirects.html#call-instance_method" title="Octokit::Middleware::FollowRedirects#call (method)">#call</a></span>
+    <small>Octokit::Middleware::FollowRedirects</small>
+  </li>
+  
+
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Authorizations.html#check_application_authorization-instance_method" title="Octokit::Client::Authorizations#check_application_authorization (method)">#check_application_authorization</a></span>
     <small>Octokit::Client::Authorizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#check_assignee-instance_method" title="Octokit::Client::Repositories#check_assignee (method)">#check_assignee</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit.html#client-class_method" title="Octokit.client (method)">client</a></span>
     <small>Octokit</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Default.html#client_id-class_method" title="Octokit::Default.client_id (method)">client_id</a></span>
     <small>Octokit::Default</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Configurable.html#client_id-instance_method" title="Octokit::Configurable#client_id (method)">#client_id</a></span>
     <small>Octokit::Configurable</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client.html#client_id%3D-instance_method" title="Octokit::Client#client_id= (method)">#client_id=</a></span>
     <small>Octokit::Client</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Configurable.html#client_secret-instance_method" title="Octokit::Configurable#client_secret (method)">#client_secret</a></span>
     <small>Octokit::Configurable</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Default.html#client_secret-class_method" title="Octokit::Default.client_secret (method)">client_secret</a></span>
     <small>Octokit::Default</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client.html#client_secret%3D-instance_method" title="Octokit::Client#client_secret= (method)">#client_secret=</a></span>
     <small>Octokit::Client</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Issues.html#close_issue-instance_method" title="Octokit::Client::Issues#close_issue (method)">#close_issue</a></span>
     <small>Octokit::Client::Issues</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/PullRequests.html#close_pull_request-instance_method" title="Octokit::Client::PullRequests#close_pull_request (method)">#close_pull_request</a></span>
     <small>Octokit::Client::PullRequests</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Stats.html#code_frequency_stats-instance_method" title="Octokit::Client::Stats#code_frequency_stats (method)">#code_frequency_stats</a></span>
     <small>Octokit::Client::Stats</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#collaborator%3F-instance_method" title="Octokit::Client::Repositories#collaborator? (method)">#collaborator?</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#collaborators-instance_method" title="Octokit::Client::Repositories#collaborators (method)">#collaborators</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Statuses.html#combined_status-instance_method" title="Octokit::Client::Statuses#combined_status (method)">#combined_status</a></span>
     <small>Octokit::Client::Statuses</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Commits.html#commit-instance_method" title="Octokit::Client::Commits#commit (method)">#commit</a></span>
     <small>Octokit::Client::Commits</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Stats.html#commit_activity_stats-instance_method" title="Octokit::Client::Stats#commit_activity_stats (method)">#commit_activity_stats</a></span>
     <small>Octokit::Client::Stats</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/CommitComments.html#commit_comment-instance_method" title="Octokit::Client::CommitComments#commit_comment (method)">#commit_comment</a></span>
     <small>Octokit::Client::CommitComments</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/CommitComments.html#commit_comments-instance_method" title="Octokit::Client::CommitComments#commit_comments (method)">#commit_comments</a></span>
     <small>Octokit::Client::CommitComments</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Commits.html#commits-instance_method" title="Octokit::Client::Commits#commits (method)">#commits</a></span>
     <small>Octokit::Client::Commits</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Commits.html#commits_before-instance_method" title="Octokit::Client::Commits#commits_before (method)">#commits_before</a></span>
     <small>Octokit::Client::Commits</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Commits.html#commits_between-instance_method" title="Octokit::Client::Commits#commits_between (method)">#commits_between</a></span>
     <small>Octokit::Client::Commits</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Commits.html#commits_on-instance_method" title="Octokit::Client::Commits#commits_on (method)">#commits_on</a></span>
     <small>Octokit::Client::Commits</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Commits.html#commits_since-instance_method" title="Octokit::Client::Commits#commits_since (method)">#commits_since</a></span>
     <small>Octokit::Client::Commits</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Commits.html#compare-instance_method" title="Octokit::Client::Commits#compare (method)">#compare</a></span>
     <small>Octokit::Client::Commits</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient/ManagementConsole.html#config_status-instance_method" title="Octokit::EnterpriseManagementConsoleClient::ManagementConsole#config_status (method)">#config_status</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient::ManagementConsole</small>
   </li>
   
 
@@ -564,134 +664,134 @@
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="URI.html#decode_www_form_component-class_method" title="URI.decode_www_form_component (method)">decode_www_form_component</a></span>
-    <small>URI</small>
-  </li>
-  
-
-  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Default.html#default_media_type-class_method" title="Octokit::Default.default_media_type (method)">default_media_type</a></span>
     <small>Octokit::Default</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Configurable.html#default_media_type-instance_method" title="Octokit::Configurable#default_media_type (method)">#default_media_type</a></span>
     <small>Octokit::Configurable</small>
   </li>
   
 
-  <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Client.html#delete-instance_method" title="Octokit::Client#delete (method)">#delete</a></span>
-    <small>Octokit::Client</small>
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/Connection.html#delete-instance_method" title="Octokit::Connection#delete (method)">#delete</a></span>
+    <small>Octokit::Connection</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Authorizations.html#delete_authorization-instance_method" title="Octokit::Client::Authorizations#delete_authorization (method)">#delete_authorization</a></span>
     <small>Octokit::Client::Authorizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Refs.html#delete_branch-instance_method" title="Octokit::Client::Refs#delete_branch (method)">#delete_branch</a></span>
     <small>Octokit::Client::Refs</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Issues.html#delete_comment-instance_method" title="Octokit::Client::Issues#delete_comment (method)">#delete_comment</a></span>
     <small>Octokit::Client::Issues</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/CommitComments.html#delete_commit_comment-instance_method" title="Octokit::Client::CommitComments#delete_commit_comment (method)">#delete_commit_comment</a></span>
     <small>Octokit::Client::CommitComments</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Contents.html#delete_contents-instance_method" title="Octokit::Client::Contents#delete_contents (method)">#delete_contents</a></span>
     <small>Octokit::Client::Contents</small>
   </li>
   
 
-  <li class="r2 deprecated">
+  <li class="r1 deprecated">
     <span class='object_link'><a href="Octokit/Client/Downloads.html#delete_download-instance_method" title="Octokit::Client::Downloads#delete_download (method)">#delete_download</a></span>
     <small>Octokit::Client::Downloads</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#delete_gist-instance_method" title="Octokit::Client::Gists#delete_gist (method)">#delete_gist</a></span>
     <small>Octokit::Client::Gists</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#delete_gist_comment-instance_method" title="Octokit::Client::Gists#delete_gist_comment (method)">#delete_gist_comment</a></span>
     <small>Octokit::Client::Gists</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Labels.html#delete_label%21-instance_method" title="Octokit::Client::Labels#delete_label! (method)">#delete_label!</a></span>
     <small>Octokit::Client::Labels</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Milestones.html#delete_milestone-instance_method" title="Octokit::Client::Milestones#delete_milestone (method)">#delete_milestone</a></span>
     <small>Octokit::Client::Milestones</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/PullRequests.html#delete_pull_request_comment-instance_method" title="Octokit::Client::PullRequests#delete_pull_request_comment (method)">#delete_pull_request_comment</a></span>
     <small>Octokit::Client::PullRequests</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Refs.html#delete_ref-instance_method" title="Octokit::Client::Refs#delete_ref (method)">#delete_ref</a></span>
     <small>Octokit::Client::Refs</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Releases.html#delete_release-instance_method" title="Octokit::Client::Releases#delete_release (method)">#delete_release</a></span>
     <small>Octokit::Client::Releases</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Releases.html#delete_release_asset-instance_method" title="Octokit::Client::Releases#delete_release_asset (method)">#delete_release_asset</a></span>
     <small>Octokit::Client::Releases</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#delete_repository-instance_method" title="Octokit::Client::Repositories#delete_repository (method)">#delete_repository</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#delete_subscription-instance_method" title="Octokit::Client::Repositories#delete_subscription (method)">#delete_subscription</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#delete_team-instance_method" title="Octokit::Client::Organizations#delete_team (method)">#delete_team</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Notifications.html#delete_thread_subscription-instance_method" title="Octokit::Client::Notifications#delete_thread_subscription (method)">#delete_thread_subscription</a></span>
     <small>Octokit::Client::Notifications</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/Users.html#demote-instance_method" title="Octokit::EnterpriseAdminClient::Users#demote (method)">#demote</a></span>
+    <small>Octokit::EnterpriseAdminClient::Users</small>
   </li>
   
 
@@ -768,218 +868,278 @@
   
 
   <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient/ManagementConsole.html#edit_settings-instance_method" title="Octokit::EnterpriseManagementConsoleClient::ManagementConsole#edit_settings (method)">#edit_settings</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient::ManagementConsole</small>
+  </li>
+  
+
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#emails-instance_method" title="Octokit::Client::Users#emails (method)">#emails</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Emojis.html#emojis-instance_method" title="Octokit::Client::Emojis#emojis (method)">#emojis</a></span>
     <small>Octokit::Client::Emojis</small>
   </li>
   
 
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Client/Licenses.html#ensure_license_api_media_type-instance_method" title="Octokit::Client::Licenses#ensure_license_api_media_type (method)">#ensure_license_api_media_type</a></span>
+    <small>Octokit::Client::Licenses</small>
+  </li>
+  
+
   <li class="r1 ">
-    <span class='object_link'><a href="URI.html#encode_www_form_component-class_method" title="URI.encode_www_form_component (method)">encode_www_form_component</a></span>
-    <small>URI</small>
+    <span class='object_link'><a href="Octokit.html#enterprise_admin_client-class_method" title="Octokit.enterprise_admin_client (method)">enterprise_admin_client</a></span>
+    <small>Octokit</small>
   </li>
   
 
   <li class="r2 ">
+    <span class='object_link'><a href="Octokit.html#enterprise_management_console_client-class_method" title="Octokit.enterprise_management_console_client (method)">enterprise_management_console_client</a></span>
+    <small>Octokit</small>
+  </li>
+  
+
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Error.html#errors-instance_method" title="Octokit::Error#errors (method)">#errors</a></span>
     <small>Octokit::Error</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#exchange_code_for_token-instance_method" title="Octokit::Client::Users#exchange_code_for_token (method)">#exchange_code_for_token</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Feeds.html#feed-instance_method" title="Octokit::Client::Feeds#feed (method)">#feed</a></span>
     <small>Octokit::Client::Feeds</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Feeds.html#feeds-instance_method" title="Octokit::Client::Feeds#feeds (method)">#feeds</a></span>
     <small>Octokit::Client::Feeds</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#follow-instance_method" title="Octokit::Client::Users#follow (method)">#follow</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#followers-instance_method" title="Octokit::Client::Users#followers (method)">#followers</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#following-instance_method" title="Octokit::Client::Users#following (method)">#following</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#follows%3F-instance_method" title="Octokit::Client::Users#follows? (method)">#follows?</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#fork-instance_method" title="Octokit::Client::Repositories#fork (method)">#fork</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#fork_gist-instance_method" title="Octokit::Client::Gists#fork_gist (method)">#fork_gist</a></span>
     <small>Octokit::Client::Gists</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#forks-instance_method" title="Octokit::Client::Repositories#forks (method)">#forks</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/RateLimit.html#from_response-class_method" title="Octokit::RateLimit.from_response (method)">from_response</a></span>
     <small>Octokit::RateLimit</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Error.html#from_response-class_method" title="Octokit::Error.from_response (method)">from_response</a></span>
     <small>Octokit::Error</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Gist.html#from_url-class_method" title="Octokit::Gist.from_url (method)">from_url</a></span>
     <small>Octokit::Gist</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Repository.html#from_url-class_method" title="Octokit::Repository.from_url (method)">from_url</a></span>
     <small>Octokit::Repository</small>
   </li>
   
 
-  <li class="r1 ">
-    <span class='object_link'><a href="Octokit/Client.html#get-instance_method" title="Octokit::Client#get (method)">#get</a></span>
-    <small>Octokit::Client</small>
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Connection.html#get-instance_method" title="Octokit::Connection#get (method)">#get</a></span>
+    <small>Octokit::Connection</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#gist-instance_method" title="Octokit::Client::Gists#gist (method)">#gist</a></span>
     <small>Octokit::Client::Gists</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#gist_comment-instance_method" title="Octokit::Client::Gists#gist_comment (method)">#gist_comment</a></span>
     <small>Octokit::Client::Gists</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#gist_comments-instance_method" title="Octokit::Client::Gists#gist_comments (method)">#gist_comments</a></span>
     <small>Octokit::Client::Gists</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#gist_starred%3F-instance_method" title="Octokit::Client::Gists#gist_starred? (method)">#gist_starred?</a></span>
     <small>Octokit::Client::Gists</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#gists-instance_method" title="Octokit::Client::Gists#gists (method)">#gists</a></span>
     <small>Octokit::Client::Gists</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Commits.html#git_commit-instance_method" title="Octokit::Client::Commits#git_commit (method)">#git_commit</a></span>
     <small>Octokit::Client::Commits</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/ServiceStatus.html#github_status-instance_method" title="Octokit::Client::ServiceStatus#github_status (method)">#github_status</a></span>
     <small>Octokit::Client::ServiceStatus</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/ServiceStatus.html#github_status_last_message-instance_method" title="Octokit::Client::ServiceStatus#github_status_last_message (method)">#github_status_last_message</a></span>
     <small>Octokit::Client::ServiceStatus</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/ServiceStatus.html#github_status_messages-instance_method" title="Octokit::Client::ServiceStatus#github_status_messages (method)">#github_status_messages</a></span>
     <small>Octokit::Client::ServiceStatus</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Gitignore.html#gitignore_template-instance_method" title="Octokit::Client::Gitignore#gitignore_template (method)">#gitignore_template</a></span>
     <small>Octokit::Client::Gitignore</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Gitignore.html#gitignore_templates-instance_method" title="Octokit::Client::Gitignore#gitignore_templates (method)">#gitignore_templates</a></span>
     <small>Octokit::Client::Gitignore</small>
   </li>
   
 
-  <li class="r1 ">
-    <span class='object_link'><a href="Octokit/Client.html#head-instance_method" title="Octokit::Client#head (method)">#head</a></span>
-    <small>Octokit::Client</small>
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Connection.html#head-instance_method" title="Octokit::Connection#head (method)">#head</a></span>
+    <small>Octokit::Connection</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Hooks.html#hook-instance_method" title="Octokit::Client::Hooks#hook (method)">#hook</a></span>
     <small>Octokit::Client::Hooks</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Hooks.html#hooks-instance_method" title="Octokit::Client::Hooks#hooks (method)">#hooks</a></span>
     <small>Octokit::Client::Hooks</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Repository.html#id-instance_method" title="Octokit::Repository#id (method)">#id</a></span>
     <small>Octokit::Repository</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Gist.html#id-instance_method" title="Octokit::Gist#id (method)">#id</a></span>
     <small>Octokit::Gist</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Repository.html#id_api_path-instance_method" title="Octokit::Repository#id_api_path (method)">#id_api_path</a></span>
     <small>Octokit::Repository</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/SearchIndexing.html#index_repository-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_repository (method)">#index_repository</a></span>
+    <small>Octokit::EnterpriseAdminClient::SearchIndexing</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/SearchIndexing.html#index_repository_code-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_repository_code (method)">#index_repository_code</a></span>
+    <small>Octokit::EnterpriseAdminClient::SearchIndexing</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/SearchIndexing.html#index_repository_issues-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_repository_issues (method)">#index_repository_issues</a></span>
+    <small>Octokit::EnterpriseAdminClient::SearchIndexing</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/SearchIndexing.html#index_user-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_user (method)">#index_user</a></span>
+    <small>Octokit::EnterpriseAdminClient::SearchIndexing</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/SearchIndexing.html#index_users_repositories-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_users_repositories (method)">#index_users_repositories</a></span>
+    <small>Octokit::EnterpriseAdminClient::SearchIndexing</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/SearchIndexing.html#index_users_repositories_code-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_users_repositories_code (method)">#index_users_repositories_code</a></span>
+    <small>Octokit::EnterpriseAdminClient::SearchIndexing</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/SearchIndexing.html#index_users_repositories_issues-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_users_repositories_issues (method)">#index_users_repositories_issues</a></span>
+    <small>Octokit::EnterpriseAdminClient::SearchIndexing</small>
   </li>
   
 
@@ -990,20 +1150,44 @@
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Repository.html#initialize-instance_method" title="Octokit::Repository#initialize (method)">#initialize</a></span>
-    <small>Octokit::Repository</small>
+    <span class='object_link'><a href="Octokit/Error.html#initialize-instance_method" title="Octokit::Error#initialize (method)">#initialize</a></span>
+    <small>Octokit::Error</small>
   </li>
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="Octokit/Error.html#initialize-instance_method" title="Octokit::Error#initialize (method)">#initialize</a></span>
-    <small>Octokit::Error</small>
+    <span class='object_link'><a href="Octokit/Middleware/FollowRedirects.html#initialize-instance_method" title="Octokit::Middleware::FollowRedirects#initialize (method)">#initialize</a></span>
+    <small>Octokit::Middleware::FollowRedirects</small>
   </li>
   
 
   <li class="r2 ">
     <span class='object_link'><a href="Octokit/Gist.html#initialize-instance_method" title="Octokit::Gist#initialize (method)">#initialize</a></span>
     <small>Octokit::Gist</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/Repository.html#initialize-instance_method" title="Octokit::Repository#initialize (method)">#initialize</a></span>
+    <small>Octokit::Repository</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient.html#initialize-instance_method" title="Octokit::EnterpriseAdminClient#initialize (method)">#initialize</a></span>
+    <small>Octokit::EnterpriseAdminClient</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient.html#initialize-instance_method" title="Octokit::EnterpriseManagementConsoleClient#initialize (method)">#initialize</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Middleware/RedirectLimitReached.html#initialize-instance_method" title="Octokit::Middleware::RedirectLimitReached#initialize (method)">#initialize</a></span>
+    <small>Octokit::Middleware::RedirectLimitReached</small>
   </li>
   
 
@@ -1056,14 +1240,14 @@
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="Octokit/Configurable.html#keys-class_method" title="Octokit::Configurable.keys (method)">keys</a></span>
-    <small>Octokit::Configurable</small>
+    <span class='object_link'><a href="Octokit/Client/Users.html#keys-instance_method" title="Octokit::Client::Users#keys (method)">#keys</a></span>
+    <small>Octokit::Client::Users</small>
   </li>
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Client/Users.html#keys-instance_method" title="Octokit::Client::Users#keys (method)">#keys</a></span>
-    <small>Octokit::Client::Users</small>
+    <span class='object_link'><a href="Octokit/Configurable.html#keys-class_method" title="Octokit::Configurable.keys (method)">keys</a></span>
+    <small>Octokit::Configurable</small>
   </li>
   
 
@@ -1098,8 +1282,8 @@
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Client.html#last_response-instance_method" title="Octokit::Client#last_response (method)">#last_response</a></span>
-    <small>Octokit::Client</small>
+    <span class='object_link'><a href="Octokit/Connection.html#last_response-instance_method" title="Octokit::Connection#last_response (method)">#last_response</a></span>
+    <small>Octokit::Connection</small>
   </li>
   
 
@@ -1110,20 +1294,44 @@
   
 
   <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Client/Releases.html#latest_release-instance_method" title="Octokit::Client::Releases#latest_release (method)">#latest_release</a></span>
+    <small>Octokit::Client::Releases</small>
+  </li>
+  
+
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/LegacySearch.html#legacy_search_issues-instance_method" title="Octokit::Client::LegacySearch#legacy_search_issues (method)">#legacy_search_issues</a></span>
     <small>Octokit::Client::LegacySearch</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/LegacySearch.html#legacy_search_repositories-instance_method" title="Octokit::Client::LegacySearch#legacy_search_repositories (method)">#legacy_search_repositories</a></span>
     <small>Octokit::Client::LegacySearch</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/LegacySearch.html#legacy_search_users-instance_method" title="Octokit::Client::LegacySearch#legacy_search_users (method)">#legacy_search_users</a></span>
     <small>Octokit::Client::LegacySearch</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Client/Licenses.html#license-instance_method" title="Octokit::Client::Licenses#license (method)">#license</a></span>
+    <small>Octokit::Client::Licenses</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/License.html#license_info-instance_method" title="Octokit::EnterpriseAdminClient::License#license_info (method)">#license_info</a></span>
+    <small>Octokit::EnterpriseAdminClient::License</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Client/Licenses.html#licenses-instance_method" title="Octokit::Client::Licenses#licenses (method)">#licenses</a></span>
+    <small>Octokit::Client::Licenses</small>
   </li>
   
 
@@ -1170,236 +1378,272 @@
   
 
   <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient/ManagementConsole.html#maintenance_status-instance_method" title="Octokit::EnterpriseManagementConsoleClient::ManagementConsole#maintenance_status (method)">#maintenance_status</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient::ManagementConsole</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/Configurable.html#management_console_endpoint-instance_method" title="Octokit::Configurable#management_console_endpoint (method)">#management_console_endpoint</a></span>
+    <small>Octokit::Configurable</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Default.html#management_console_endpoint-class_method" title="Octokit::Default.management_console_endpoint (method)">management_console_endpoint</a></span>
+    <small>Octokit::Default</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/Default.html#management_console_password-class_method" title="Octokit::Default.management_console_password (method)">management_console_password</a></span>
+    <small>Octokit::Default</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Configurable.html#management_console_password-instance_method" title="Octokit::Configurable#management_console_password (method)">#management_console_password</a></span>
+    <small>Octokit::Configurable</small>
+  </li>
+  
+
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Notifications.html#mark_notifications_as_read-instance_method" title="Octokit::Client::Notifications#mark_notifications_as_read (method)">#mark_notifications_as_read</a></span>
     <small>Octokit::Client::Notifications</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Notifications.html#mark_repository_notifications_as_read-instance_method" title="Octokit::Client::Notifications#mark_repository_notifications_as_read (method)">#mark_repository_notifications_as_read</a></span>
     <small>Octokit::Client::Notifications</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Notifications.html#mark_thread_as_read-instance_method" title="Octokit::Client::Notifications#mark_thread_as_read (method)">#mark_thread_as_read</a></span>
     <small>Octokit::Client::Notifications</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Markdown.html#markdown-instance_method" title="Octokit::Client::Markdown#markdown (method)">#markdown</a></span>
     <small>Octokit::Client::Markdown</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Commits.html#merge-instance_method" title="Octokit::Client::Commits#merge (method)">#merge</a></span>
     <small>Octokit::Client::Commits</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/PullRequests.html#merge_pull_request-instance_method" title="Octokit::Client::PullRequests#merge_pull_request (method)">#merge_pull_request</a></span>
     <small>Octokit::Client::PullRequests</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Meta.html#meta-instance_method" title="Octokit::Client::Meta#meta (method)">#meta</a></span>
     <small>Octokit::Client::Meta</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Default.html#middleware-class_method" title="Octokit::Default.middleware (method)">middleware</a></span>
     <small>Octokit::Default</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Configurable.html#middleware-instance_method" title="Octokit::Configurable#middleware (method)">#middleware</a></span>
     <small>Octokit::Configurable</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Milestones.html#milestone-instance_method" title="Octokit::Client::Milestones#milestone (method)">#milestone</a></span>
     <small>Octokit::Client::Milestones</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Repository.html#name-instance_method" title="Octokit::Repository#name (method)">#name</a></span>
     <small>Octokit::Repository</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Repository.html#named_api_path-instance_method" title="Octokit::Repository#named_api_path (method)">#named_api_path</a></span>
     <small>Octokit::Repository</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Configurable.html#netrc-instance_method" title="Octokit::Configurable#netrc (method)">#netrc</a></span>
     <small>Octokit::Configurable</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Default.html#netrc-class_method" title="Octokit::Default.netrc (method)">netrc</a></span>
     <small>Octokit::Default</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Configurable.html#netrc%3F-instance_method" title="Octokit::Configurable#netrc? (method)">#netrc?</a></span>
     <small>Octokit::Configurable</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Default.html#netrc_file-class_method" title="Octokit::Default.netrc_file (method)">netrc_file</a></span>
     <small>Octokit::Default</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Configurable.html#netrc_file-instance_method" title="Octokit::Configurable#netrc_file (method)">#netrc_file</a></span>
     <small>Octokit::Configurable</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Notifications.html#notifications-instance_method" title="Octokit::Client::Notifications#notifications (method)">#notifications</a></span>
     <small>Octokit::Client::Notifications</small>
   </li>
   
 
-  <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Client.html#octokit_warn-instance_method" title="Octokit::Client#octokit_warn (method)">#octokit_warn</a></span>
-    <small>Octokit::Client</small>
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/Warnable.html#octokit_warn-instance_method" title="Octokit::Warnable#octokit_warn (method)">#octokit_warn</a></span>
+    <small>Octokit::Warnable</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Default.html#options-class_method" title="Octokit::Default.options (method)">options</a></span>
     <small>Octokit::Default</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Hooks.html#org_hook-instance_method" title="Octokit::Client::Hooks#org_hook (method)">#org_hook</a></span>
     <small>Octokit::Client::Hooks</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Hooks.html#org_hooks-instance_method" title="Octokit::Client::Hooks#org_hooks (method)">#org_hooks</a></span>
     <small>Octokit::Client::Hooks</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Issues.html#org_issues-instance_method" title="Octokit::Client::Issues#org_issues (method)">#org_issues</a></span>
     <small>Octokit::Client::Issues</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#organization-instance_method" title="Octokit::Client::Organizations#organization (method)">#organization</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Events.html#organization_events-instance_method" title="Octokit::Client::Events#organization_events (method)">#organization_events</a></span>
     <small>Octokit::Client::Events</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#organization_member%3F-instance_method" title="Octokit::Client::Organizations#organization_member? (method)">#organization_member?</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#organization_members-instance_method" title="Octokit::Client::Organizations#organization_members (method)">#organization_members</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#organization_membership-instance_method" title="Octokit::Client::Organizations#organization_membership (method)">#organization_membership</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#organization_memberships-instance_method" title="Octokit::Client::Organizations#organization_memberships (method)">#organization_memberships</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Events.html#organization_public_events-instance_method" title="Octokit::Client::Events#organization_public_events (method)">#organization_public_events</a></span>
     <small>Octokit::Client::Events</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#organization_public_member%3F-instance_method" title="Octokit::Client::Organizations#organization_public_member? (method)">#organization_public_member?</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#organization_public_members-instance_method" title="Octokit::Client::Organizations#organization_public_members (method)">#organization_public_members</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#organization_repositories-instance_method" title="Octokit::Client::Organizations#organization_repositories (method)">#organization_repositories</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#organization_teams-instance_method" title="Octokit::Client::Organizations#organization_teams (method)">#organization_teams</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#organizations-instance_method" title="Octokit::Client::Organizations#organizations (method)">#organizations</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Repository.html#owner-instance_method" title="Octokit::Repository#owner (method)">#owner</a></span>
     <small>Octokit::Repository</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Pages.html#pages-instance_method" title="Octokit::Client::Pages#pages (method)">#pages</a></span>
     <small>Octokit::Client::Pages</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Pages.html#pages_builds-instance_method" title="Octokit::Client::Pages#pages_builds (method)">#pages_builds</a></span>
     <small>Octokit::Client::Pages</small>
   </li>
   
 
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/Connection.html#paginate-instance_method" title="Octokit::Connection#paginate (method)">#paginate</a></span>
+    <small>Octokit::Connection</small>
+  </li>
+  
+
   <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Client.html#paginate-instance_method" title="Octokit::Client#paginate (method)">#paginate</a></span>
-    <small>Octokit::Client</small>
+    <span class='object_link'><a href="Octokit/Client/Hooks.html#parse_payload-instance_method" title="Octokit::Client::Hooks#parse_payload (method)">#parse_payload</a></span>
+    <small>Octokit::Client::Hooks</small>
   </li>
   
 
@@ -1428,8 +1672,8 @@
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="Octokit/Client.html#patch-instance_method" title="Octokit::Client#patch (method)">#patch</a></span>
-    <small>Octokit::Client</small>
+    <span class='object_link'><a href="Octokit/Connection.html#patch-instance_method" title="Octokit::Connection#patch (method)">#patch</a></span>
+    <small>Octokit::Connection</small>
   </li>
   
 
@@ -1446,26 +1690,26 @@
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Octokit/User.html#path-class_method" title="Octokit::User.path (method)">path</a></span>
-    <small>Octokit::User</small>
-  </li>
-  
-
-  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span>
     <small>Octokit::Repository</small>
   </li>
   
 
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/User.html#path-class_method" title="Octokit::User.path (method)">path</a></span>
+    <small>Octokit::User</small>
+  </li>
+  
+
   <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Default.html#per_page-class_method" title="Octokit::Default.per_page (method)">per_page</a></span>
-    <small>Octokit::Default</small>
+    <span class='object_link'><a href="Octokit/Configurable.html#per_page-instance_method" title="Octokit::Configurable#per_page (method)">#per_page</a></span>
+    <small>Octokit::Configurable</small>
   </li>
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="Octokit/Configurable.html#per_page-instance_method" title="Octokit::Configurable#per_page (method)">#per_page</a></span>
-    <small>Octokit::Configurable</small>
+    <span class='object_link'><a href="Octokit/Default.html#per_page-class_method" title="Octokit::Default.per_page (method)">per_page</a></span>
+    <small>Octokit::Default</small>
   </li>
   
 
@@ -1476,169 +1720,181 @@
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="Octokit/Client.html#post-instance_method" title="Octokit::Client#post (method)">#post</a></span>
-    <small>Octokit::Client</small>
+    <span class='object_link'><a href="Octokit/Connection.html#post-instance_method" title="Octokit::Connection#post (method)">#post</a></span>
+    <small>Octokit::Connection</small>
   </li>
   
 
   <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/Users.html#promote-instance_method" title="Octokit::EnterpriseAdminClient::Users#promote (method)">#promote</a></span>
+    <small>Octokit::EnterpriseAdminClient::Users</small>
+  </li>
+  
+
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Default.html#proxy-class_method" title="Octokit::Default.proxy (method)">proxy</a></span>
     <small>Octokit::Default</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Configurable.html#proxy-instance_method" title="Octokit::Configurable#proxy (method)">#proxy</a></span>
     <small>Octokit::Configurable</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Events.html#public_events-instance_method" title="Octokit::Client::Events#public_events (method)">#public_events</a></span>
     <small>Octokit::Client::Events</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#public_gists-instance_method" title="Octokit::Client::Gists#public_gists (method)">#public_gists</a></span>
     <small>Octokit::Client::Gists</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#publicize_membership-instance_method" title="Octokit::Client::Organizations#publicize_membership (method)">#publicize_membership</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/PullRequests.html#pull_merged%3F-instance_method" title="Octokit::Client::PullRequests#pull_merged? (method)">#pull_merged?</a></span>
     <small>Octokit::Client::PullRequests</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/PullRequests.html#pull_request-instance_method" title="Octokit::Client::PullRequests#pull_request (method)">#pull_request</a></span>
     <small>Octokit::Client::PullRequests</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/PullRequests.html#pull_request_comment-instance_method" title="Octokit::Client::PullRequests#pull_request_comment (method)">#pull_request_comment</a></span>
     <small>Octokit::Client::PullRequests</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/PullRequests.html#pull_request_comments-instance_method" title="Octokit::Client::PullRequests#pull_request_comments (method)">#pull_request_comments</a></span>
     <small>Octokit::Client::PullRequests</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/PullRequests.html#pull_request_commits-instance_method" title="Octokit::Client::PullRequests#pull_request_commits (method)">#pull_request_commits</a></span>
     <small>Octokit::Client::PullRequests</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/PullRequests.html#pull_request_files-instance_method" title="Octokit::Client::PullRequests#pull_request_files (method)">#pull_request_files</a></span>
     <small>Octokit::Client::PullRequests</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/PullRequests.html#pull_requests-instance_method" title="Octokit::Client::PullRequests#pull_requests (method)">#pull_requests</a></span>
     <small>Octokit::Client::PullRequests</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/PullRequests.html#pull_requests_comments-instance_method" title="Octokit::Client::PullRequests#pull_requests_comments (method)">#pull_requests_comments</a></span>
     <small>Octokit::Client::PullRequests</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Stats.html#punch_card_stats-instance_method" title="Octokit::Client::Stats#punch_card_stats (method)">#punch_card_stats</a></span>
     <small>Octokit::Client::Stats</small>
   </li>
   
 
-  <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Client.html#put-instance_method" title="Octokit::Client#put (method)">#put</a></span>
-    <small>Octokit::Client</small>
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/Connection.html#put-instance_method" title="Octokit::Connection#put (method)">#put</a></span>
+    <small>Octokit::Connection</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/RateLimit.html#rate_limit-instance_method" title="Octokit::Client::RateLimit#rate_limit (method)">#rate_limit</a></span>
     <small>Octokit::Client::RateLimit</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/RateLimit.html#rate_limit%21-instance_method" title="Octokit::Client::RateLimit#rate_limit! (method)">#rate_limit!</a></span>
     <small>Octokit::Client::RateLimit</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/RateLimit.html#rate_limit_remaining-instance_method" title="Octokit::Client::RateLimit#rate_limit_remaining (method)">#rate_limit_remaining</a></span>
     <small>Octokit::Client::RateLimit</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/RateLimit.html#rate_limit_remaining%21-instance_method" title="Octokit::Client::RateLimit#rate_limit_remaining! (method)">#rate_limit_remaining!</a></span>
     <small>Octokit::Client::RateLimit</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Contents.html#readme-instance_method" title="Octokit::Client::Contents#readme (method)">#readme</a></span>
     <small>Octokit::Client::Contents</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Events.html#received_events-instance_method" title="Octokit::Client::Events#received_events (method)">#received_events</a></span>
     <small>Octokit::Client::Events</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Events.html#received_public_events-instance_method" title="Octokit::Client::Events#received_public_events (method)">#received_public_events</a></span>
     <small>Octokit::Client::Events</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Refs.html#ref-instance_method" title="Octokit::Client::Refs#ref (method)">#ref</a></span>
     <small>Octokit::Client::Refs</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Refs.html#refs-instance_method" title="Octokit::Client::Refs#refs (method)">#refs</a></span>
     <small>Octokit::Client::Refs</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Releases.html#release-instance_method" title="Octokit::Client::Releases#release (method)">#release</a></span>
     <small>Octokit::Client::Releases</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Releases.html#release_asset-instance_method" title="Octokit::Client::Releases#release_asset (method)">#release_asset</a></span>
     <small>Octokit::Client::Releases</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Releases.html#release_assets-instance_method" title="Octokit::Client::Releases#release_assets (method)">#release_assets</a></span>
+    <small>Octokit::Client::Releases</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Client/Releases.html#release_for_tag-instance_method" title="Octokit::Client::Releases#release_for_tag (method)">#release_for_tag</a></span>
     <small>Octokit::Client::Releases</small>
   </li>
   
@@ -1662,49 +1918,61 @@
   
 
   <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient/ManagementConsole.html#remove_authorized_key-instance_method" title="Octokit::EnterpriseManagementConsoleClient::ManagementConsole#remove_authorized_key (method)">#remove_authorized_key</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient::ManagementConsole</small>
+  </li>
+  
+
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#remove_collaborator-instance_method" title="Octokit::Client::Repositories#remove_collaborator (method)">#remove_collaborator</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#remove_deploy_key-instance_method" title="Octokit::Client::Repositories#remove_deploy_key (method)">#remove_deploy_key</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#remove_email-instance_method" title="Octokit::Client::Users#remove_email (method)">#remove_email</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Hooks.html#remove_hook-instance_method" title="Octokit::Client::Hooks#remove_hook (method)">#remove_hook</a></span>
     <small>Octokit::Client::Hooks</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#remove_key-instance_method" title="Octokit::Client::Users#remove_key (method)">#remove_key</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Labels.html#remove_label-instance_method" title="Octokit::Client::Labels#remove_label (method)">#remove_label</a></span>
     <small>Octokit::Client::Labels</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Hooks.html#remove_org_hook-instance_method" title="Octokit::Client::Hooks#remove_org_hook (method)">#remove_org_hook</a></span>
     <small>Octokit::Client::Hooks</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#remove_organization_member-instance_method" title="Octokit::Client::Organizations#remove_organization_member (method)">#remove_organization_member</a></span>
+    <small>Octokit::Client::Organizations</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/Client/Organizations.html#remove_organization_membership-instance_method" title="Octokit::Client::Organizations#remove_organization_membership (method)">#remove_organization_membership</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
@@ -1818,74 +2086,74 @@
   
 
   <li class="r2 ">
-    <span class='object_link'><a href="Octokit.html#respond_to%3F-instance_method" title="Octokit#respond_to? (method)">#respond_to?</a></span>
-    <small>Octokit</small>
+    <span class='object_link'><a href="Octokit/Middleware/RedirectLimitReached.html#response-instance_method" title="Octokit::Middleware::RedirectLimitReached#response (method)">#response</a></span>
+    <small>Octokit::Middleware::RedirectLimitReached</small>
   </li>
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="Octokit.html#respond_to_missing%3F-instance_method" title="Octokit#respond_to_missing? (method)">#respond_to_missing?</a></span>
-    <small>Octokit</small>
-  </li>
-  
-
-  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Authorizations.html#revoke_all_application_authorizations-instance_method" title="Octokit::Client::Authorizations#revoke_all_application_authorizations (method)">#revoke_all_application_authorizations</a></span>
     <small>Octokit::Client::Authorizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Authorizations.html#revoke_application_authorization-instance_method" title="Octokit::Client::Authorizations#revoke_application_authorization (method)">#revoke_application_authorization</a></span>
     <small>Octokit::Client::Authorizations</small>
   </li>
   
 
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/Connection.html#root-instance_method" title="Octokit::Connection#root (method)">#root</a></span>
+    <small>Octokit::Connection</small>
+  </li>
+  
+
   <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Client.html#root-instance_method" title="Octokit::Client#root (method)">#root</a></span>
-    <small>Octokit::Client</small>
+    <span class='object_link'><a href="Octokit/Configurable.html#same_options%3F-instance_method" title="Octokit::Configurable#same_options? (method)">#same_options?</a></span>
+    <small>Octokit::Configurable</small>
   </li>
   
 
   <li class="r1 ">
-    <span class='object_link'><a href="Octokit/Client.html#same_options%3F-instance_method" title="Octokit::Client#same_options? (method)">#same_options?</a></span>
-    <small>Octokit::Client</small>
-  </li>
-  
-
-  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Say.html#say-instance_method" title="Octokit::Client::Say#say (method)">#say</a></span>
     <small>Octokit::Client::Say</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Authorizations.html#scopes-instance_method" title="Octokit::Client::Authorizations#scopes (method)">#scopes</a></span>
     <small>Octokit::Client::Authorizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Search.html#search_code-instance_method" title="Octokit::Client::Search#search_code (method)">#search_code</a></span>
     <small>Octokit::Client::Search</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Search.html#search_issues-instance_method" title="Octokit::Client::Search#search_issues (method)">#search_issues</a></span>
     <small>Octokit::Client::Search</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Search.html#search_repositories-instance_method" title="Octokit::Client::Search#search_repositories (method)">#search_repositories</a></span>
     <small>Octokit::Client::Search</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Search.html#search_users-instance_method" title="Octokit::Client::Search#search_users (method)">#search_users</a></span>
     <small>Octokit::Client::Search</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient/ManagementConsole.html#set_maintenance_status-instance_method" title="Octokit::EnterpriseManagementConsoleClient::ManagementConsole#set_maintenance_status (method)">#set_maintenance_status</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient::ManagementConsole</small>
   </li>
   
 
@@ -1902,44 +2170,56 @@
   
 
   <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient/ManagementConsole.html#settings-instance_method" title="Octokit::EnterpriseManagementConsoleClient::ManagementConsole#settings (method)">#settings</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient::ManagementConsole</small>
+  </li>
+  
+
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Repository.html#slug-instance_method" title="Octokit::Repository#slug (method)">#slug</a></span>
     <small>Octokit::Repository</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#star-instance_method" title="Octokit::Client::Repositories#star (method)">#star</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#star_gist-instance_method" title="Octokit::Client::Gists#star_gist (method)">#star_gist</a></span>
     <small>Octokit::Client::Gists</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#stargazers-instance_method" title="Octokit::Client::Repositories#stargazers (method)">#stargazers</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#starred-instance_method" title="Octokit::Client::Users#starred (method)">#starred</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#starred%3F-instance_method" title="Octokit::Client::Users#starred? (method)">#starred?</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#starred_gists-instance_method" title="Octokit::Client::Gists#starred_gists (method)">#starred_gists</a></span>
     <small>Octokit::Client::Gists</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient/ManagementConsole.html#start_configuration-instance_method" title="Octokit::EnterpriseManagementConsoleClient::ManagementConsole#start_configuration (method)">#start_configuration</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient::ManagementConsole</small>
   </li>
   
 
@@ -1980,122 +2260,134 @@
   
 
   <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/Users.html#suspend-instance_method" title="Octokit::EnterpriseAdminClient::Users#suspend (method)">#suspend</a></span>
+    <small>Octokit::EnterpriseAdminClient::Users</small>
+  </li>
+  
+
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Objects.html#tag-instance_method" title="Octokit::Client::Objects#tag (method)">#tag</a></span>
     <small>Octokit::Client::Objects</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#tags-instance_method" title="Octokit::Client::Repositories#tags (method)">#tags</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#team-instance_method" title="Octokit::Client::Organizations#team (method)">#team</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#team_member%3F-instance_method" title="Octokit::Client::Organizations#team_member? (method)">#team_member?</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#team_members-instance_method" title="Octokit::Client::Organizations#team_members (method)">#team_members</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#team_membership-instance_method" title="Octokit::Client::Organizations#team_membership (method)">#team_membership</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#team_repositories-instance_method" title="Octokit::Client::Organizations#team_repositories (method)">#team_repositories</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#team_repository%3F-instance_method" title="Octokit::Client::Organizations#team_repository? (method)">#team_repository?</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Hooks.html#test_hook-instance_method" title="Octokit::Client::Hooks#test_hook (method)">#test_hook</a></span>
     <small>Octokit::Client::Hooks</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Notifications.html#thread_notifications-instance_method" title="Octokit::Client::Notifications#thread_notifications (method)">#thread_notifications</a></span>
     <small>Octokit::Client::Notifications</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Notifications.html#thread_subscription-instance_method" title="Octokit::Client::Notifications#thread_subscription (method)">#thread_subscription</a></span>
     <small>Octokit::Client::Notifications</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Gist.html#to_s-instance_method" title="Octokit::Gist#to_s (method)">#to_s</a></span>
     <small>Octokit::Gist</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Authentication.html#token_authenticated%3F-instance_method" title="Octokit::Authentication#token_authenticated? (method)">#token_authenticated?</a></span>
     <small>Octokit::Authentication</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Objects.html#tree-instance_method" title="Octokit::Client::Objects#tree (method)">#tree</a></span>
     <small>Octokit::Client::Objects</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Users.html#unfollow-instance_method" title="Octokit::Client::Users#unfollow (method)">#unfollow</a></span>
     <small>Octokit::Client::Users</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Organizations.html#unpublicize_membership-instance_method" title="Octokit::Client::Organizations#unpublicize_membership (method)">#unpublicize_membership</a></span>
     <small>Octokit::Client::Organizations</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#unstar-instance_method" title="Octokit::Client::Repositories#unstar (method)">#unstar</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/Gists.html#unstar_gist-instance_method" title="Octokit::Client::Gists#unstar_gist (method)">#unstar_gist</a></span>
     <small>Octokit::Client::Gists</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/PubSubHubbub.html#unsubscribe-instance_method" title="Octokit::Client::PubSubHubbub#unsubscribe (method)">#unsubscribe</a></span>
     <small>Octokit::Client::PubSubHubbub</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Octokit/Client/PubSubHubbub.html#unsubscribe_service_hook-instance_method" title="Octokit::Client::PubSubHubbub#unsubscribe_service_hook (method)">#unsubscribe_service_hook</a></span>
     <small>Octokit::Client::PubSubHubbub</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/EnterpriseAdminClient/Users.html#unsuspend-instance_method" title="Octokit::EnterpriseAdminClient::Users#unsuspend (method)">#unsuspend</a></span>
+    <small>Octokit::EnterpriseAdminClient::Users</small>
   </li>
   
 
@@ -2232,8 +2524,20 @@
   
 
   <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient/ManagementConsole.html#upgrade-instance_method" title="Octokit::EnterpriseManagementConsoleClient::ManagementConsole#upgrade (method)">#upgrade</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient::ManagementConsole</small>
+  </li>
+  
+
+  <li class="r2 ">
     <span class='object_link'><a href="Octokit/Client/Releases.html#upload_asset-instance_method" title="Octokit::Client::Releases#upload_asset (method)">#upload_asset</a></span>
     <small>Octokit::Client::Releases</small>
+  </li>
+  
+
+  <li class="r1 ">
+    <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient/ManagementConsole.html#upload_license-instance_method" title="Octokit::EnterpriseManagementConsoleClient::ManagementConsole#upload_license (method)">#upload_license</a></span>
+    <small>Octokit::EnterpriseManagementConsoleClient::ManagementConsole</small>
   </li>
   
 
@@ -2309,27 +2613,33 @@
   </li>
   
 
-  <li class="r2 deprecated">
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Client/Licenses.html#warn_license_preview-instance_method" title="Octokit::Client::Licenses#warn_license_preview (method)">#warn_license_preview</a></span>
+    <small>Octokit::Client::Licenses</small>
+  </li>
+  
+
+  <li class="r1 deprecated">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#watch-instance_method" title="Octokit::Client::Repositories#watch (method)">#watch</a></span>
     <small>Octokit::Client::Repositories</small>
   </li>
   
 
-  <li class="r1 deprecated">
+  <li class="r2 deprecated">
     <span class='object_link'><a href="Octokit/Client/Repositories.html#watchers-instance_method" title="Octokit::Client::Repositories#watchers (method)">#watchers</a></span>
     <small>Octokit::Client::Repositories</small>
-  </li>
-  
-
-  <li class="r2 ">
-    <span class='object_link'><a href="Octokit/Configurable.html#web_endpoint-instance_method" title="Octokit::Configurable#web_endpoint (method)">#web_endpoint</a></span>
-    <small>Octokit::Configurable</small>
   </li>
   
 
   <li class="r1 ">
     <span class='object_link'><a href="Octokit/Default.html#web_endpoint-class_method" title="Octokit::Default.web_endpoint (method)">web_endpoint</a></span>
     <small>Octokit::Default</small>
+  </li>
+  
+
+  <li class="r2 ">
+    <span class='object_link'><a href="Octokit/Configurable.html#web_endpoint-instance_method" title="Octokit::Configurable#web_endpoint (method)">#web_endpoint</a></span>
+    <small>Octokit::Configurable</small>
   </li>
   
 

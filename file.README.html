@@ -298,6 +298,60 @@ from every page into a single array:</p>
 <code>100</code>, and seek to not overstep your rate limit, you probably want to use a
 custom pattern for traversing large lists.</p>
 
+<h2>Working with GitHub Enterprise</h2>
+
+<p>With a bit of setup, you can also use Octokit with your Github Enterprise instance.</p>
+
+<h3>Interacting with the GitHub.com APIs in GitHub Enterprise</h3>
+
+<p>To interact with the &quot;regular&quot; GitHub.com APIs in GitHub Enterprise, simply configure the <code>api_endpoint</code> to match your hostname. For example:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;hostname&gt;/api/v3/</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
+<span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:access_token</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</code></pre>
+
+<h3>Interacting with the GitHub Enterprise Admin APIs</h3>
+
+<p>The GitHub Enterprise Admin APIs are under a different client: <code>EnterpriseAdminClient</code>. You&#39;ll need to have an administrator account in order to use these APIs.</p>
+
+<pre class="code ruby"><code class="ruby">admin_client = Octokit::EnterpriseAdminClient.new \
+                          :access_token =&gt; &quot;&lt;your 40 char token&gt;&quot;,
+                          :api_endpoint = &quot;https://&lt;hostname&gt;/api/v3/&quot;
+
+# or
+Octokit.configure do |c|
+  c.api_endpoint = &quot;https://hostname/api/v3/&quot;
+  c.access_token = &quot;&lt;your 40 char token&gt;&quot;
+end
+admin_client = Octokit.enterprise_admin_client
+</code></pre>
+
+<h3>Interacting with the GitHub Enterprise Management Console APIs</h3>
+
+<p>The GitHub Enterprise Management Console APIs are also under a separate client: <code>EnterpriseManagementConsoleClient</code>. In order to use it, you&#39;ll need to provide both your management console password as well as the endpoint to your management console. This is different than the API endpoint provided above.</p>
+
+<pre class="code ruby"><code class="ruby">management_console_client = Octokit::EnterpriseManagementConsoleClient.new \
+                          :management_console_password =&gt; &quot;secret&quot;,
+                          :management_console_endpoint = &quot;https://hostname:8633&quot;
+# or
+Octokit.configure do |c|
+  c.management_console_endpoint = &quot;https://hostname:8633&quot;
+  c.management_console_password = &quot;secret&quot;
+end
+management_console_client = Octokit.enterprise_management_console_client
+</code></pre>
+
+<h3>SSL Connection Errors</h3>
+
+<p>You <em>may</em> need to disable SSL temporarily while first setting up your GitHub Enterprise install. You can do that with the following configuration:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_connection_options'>connection_options</span><span class='lbracket'>[</span><span class='symbol'>:ssl</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='symbol'>:verify</span> <span class='op'>=&gt;</span> <span class='kw'>false</span> <span class='rbrace'>}</span>
+</code></pre>
+
+<p>Do remember to turn <code>:verify</code> back to <code>true</code>, as it&#39;s important for secure communication.</p>
+
 <h2>Configuration and defaults</h2>
 
 <p>While <code>Octokit::Client</code> accepts a range of options when creating a new client
@@ -391,6 +445,17 @@ the API root and follow link relations from there:</p>
 construction currently used throughout the client.</p>
 
 <h2>Upgrading guide</h2>
+
+<p>Version 4.0</p>
+
+<ul>
+<li><strong>removes support for a <a href="https://github.com/octokit/octokit.rb/commit/e48e91f736d5fce51e3bf74d7c9022aaa52f5c5c">long-deprecated overload</a> for
+passing state as a positional argument</strong> when listing pull requests. Instead,
+pass <code>state</code> in the method options.</li>
+<li><strong>drops support for Ruby &lt; 2.0</strong>.</li>
+<li>adds support for new <a href="#Working_with_github_enterprise">Enterprise-only APIs</a>.</li>
+<li>adds support for <a href="https://developer.github.com/changes/2015-05-26-repository-redirects-are-coming/">Repository redirects</a>.</li>
+</ul>
 
 <p>Version 3.0 includes a couple breaking changes when upgrading from v2.x.x:</p>
 
@@ -525,15 +590,61 @@ There are several different authenticating method&#39;s used across the api.
 Here is the full list of configurable environmental variables for testing
 Octokit:</p>
 
-<p>ENV Variable | Description |
-:-------------------|:-----------------|
-<code>OCTOKIT_TEST_GITHUB_LOGIN</code>| GitHub login name (preferably one created specifically for testing against).
-<code>OCTOKIT_TEST_GITHUB_PASSWORD</code>| Password for the test GitHub login.
-<code>OCTOKIT_TEST_GITHUB_TOKEN</code> | <a href="https://github.com/blog/1509-personal-api-tokens">Personal Access Token</a> for the test GitHub login.
-<code>OCTOKIT_TEST_GITHUB_CLIENT_ID</code> | Test OAuth application client id.
-<code>OCTOKIT_TEST_GITHUB_CLIENT_SECRET</code> | Test OAuth application client secret.
-<code>OCTOKIT_TEST_GITHUB_REPOSITORY</code> | Test repository to perform destructive actions against, this should not be set to any repository of importance. <strong>Automatically created by the test suite if nonexistent</strong> Default: <code>api-sandbox</code>
-<code>OCTOKIT_TEST_GITHUB_ORGANIZATION</code> | Test organization.</p>
+<table><thead>
+<tr>
+<th style="text-align: left">ENV Variable</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_LOGIN</code></td>
+<td style="text-align: left">GitHub login name (preferably one created specifically for testing against).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_PASSWORD</code></td>
+<td style="text-align: left">Password for the test GitHub login.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_TOKEN</code></td>
+<td style="text-align: left"><a href="https://github.com/blog/1509-personal-api-tokens">Personal Access Token</a> for the test GitHub login.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_CLIENT_ID</code></td>
+<td style="text-align: left">Test OAuth application client id.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_CLIENT_SECRET</code></td>
+<td style="text-align: left">Test OAuth application client secret.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_REPOSITORY</code></td>
+<td style="text-align: left">Test repository to perform destructive actions against, this should not be set to any repository of importance. <strong>Automatically created by the test suite if nonexistent</strong> Default: <code>api-sandbox</code></td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_ORGANIZATION</code></td>
+<td style="text-align: left">Test organization.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_ENTERPRISE_LOGIN</code></td>
+<td style="text-align: left">GitHub Enterprise login name</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN</code></td>
+<td style="text-align: left">GitHub Enterprise token</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD</code></td>
+<td style="text-align: left">GitHub Enterprise management console password</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT</code></td>
+<td style="text-align: left">GitHub Enterprise hostname</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT</code></td>
+<td style="text-align: left">GitHub Enterprise Management Console endpoint</td>
+</tr>
+</tbody></table>
 
 <p>Since we periodically refresh our cassettes, please keep some points in mind
 when writing new specs.</p>
@@ -556,10 +667,9 @@ response is an Array. We&#39;re testing the client, not the API.</li>
 implementations:</p>
 
 <ul>
-<li>Ruby 1.9.2</li>
-<li>Ruby 1.9.3</li>
-<li>Ruby 2.0.0</li>
-<li>Ruby 2.1.0</li>
+<li>Ruby 2.0</li>
+<li>Ruby 2.1</li>
+<li>Ruby 2.2</li>
 </ul>
 
 <p>If something doesn&#39;t work on one of these Ruby versions, it&#39;s a bug.</p>
@@ -614,9 +724,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Sat Feb 14 08:50:11 2015 by
+  Generated on Thu Jun 25 14:25:58 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.4).
+  0.8.7.6 (ruby-2.1.6).
 </div>
 
   </body>

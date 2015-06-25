@@ -84,7 +84,7 @@
   
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/octokit.rb<span class="defines">,<br />
-  lib/octokit/user.rb,<br /> lib/octokit/gist.rb,<br /> lib/octokit/error.rb,<br /> lib/octokit/client.rb,<br /> lib/octokit/default.rb,<br /> lib/octokit/version.rb,<br /> lib/octokit/client/say.rb,<br /> lib/octokit/repository.rb,<br /> lib/octokit/rate_limit.rb,<br /> lib/octokit/client/refs.rb,<br /> lib/octokit/client/meta.rb,<br /> lib/octokit/client/stats.rb,<br /> lib/octokit/client/hooks.rb,<br /> lib/octokit/configurable.rb,<br /> lib/octokit/organization.rb,<br /> lib/octokit/client/pages.rb,<br /> lib/octokit/client/feeds.rb,<br /> lib/octokit/client/gists.rb,<br /> lib/octokit/client/users.rb,<br /> lib/octokit/client/search.rb,<br /> lib/octokit/client/emojis.rb,<br /> lib/octokit/client/events.rb,<br /> lib/octokit/client/issues.rb,<br /> lib/octokit/client/labels.rb,<br /> lib/octokit/client/commits.rb,<br /> lib/octokit/client/objects.rb,<br /> lib/octokit/authentication.rb,<br /> lib/octokit/client/contents.rb,<br /> lib/octokit/client/markdown.rb,<br /> lib/octokit/client/statuses.rb,<br /> lib/octokit/client/releases.rb,<br /> lib/octokit/client/downloads.rb,<br /> lib/octokit/client/gitignore.rb,<br /> lib/octokit/client/milestones.rb,<br /> lib/octokit/client/rate_limit.rb,<br /> lib/octokit/client/deployments.rb,<br /> lib/octokit/client/repositories.rb,<br /> lib/octokit/client/legacy_search.rb,<br /> lib/octokit/client/pull_requests.rb,<br /> lib/octokit/client/notifications.rb,<br /> lib/octokit/client/organizations.rb,<br /> lib/octokit/client/authorizations.rb,<br /> lib/octokit/client/pub_sub_hubbub.rb,<br /> lib/octokit/client/service_status.rb,<br /> lib/octokit/client/commit_comments.rb</span>
+  lib/octokit/user.rb,<br /> lib/octokit/gist.rb,<br /> lib/octokit/error.rb,<br /> lib/octokit/client.rb,<br /> lib/octokit/version.rb,<br /> lib/octokit/default.rb,<br /> lib/octokit/warnable.rb,<br /> lib/octokit/rate_limit.rb,<br /> lib/octokit/client/say.rb,<br /> lib/octokit/connection.rb,<br /> lib/octokit/repository.rb,<br /> lib/octokit/client/meta.rb,<br /> lib/octokit/client/refs.rb,<br /> lib/octokit/client/pages.rb,<br /> lib/octokit/client/hooks.rb,<br /> lib/octokit/configurable.rb,<br /> lib/octokit/client/stats.rb,<br /> lib/octokit/client/gists.rb,<br /> lib/octokit/client/feeds.rb,<br /> lib/octokit/organization.rb,<br /> lib/octokit/client/users.rb,<br /> lib/octokit/client/labels.rb,<br /> lib/octokit/client/issues.rb,<br /> lib/octokit/client/emojis.rb,<br /> lib/octokit/client/search.rb,<br /> lib/octokit/client/events.rb,<br /> lib/octokit/client/objects.rb,<br /> lib/octokit/authentication.rb,<br /> lib/octokit/client/commits.rb,<br /> lib/octokit/client/markdown.rb,<br /> lib/octokit/client/licenses.rb,<br /> lib/octokit/client/releases.rb,<br /> lib/octokit/client/contents.rb,<br /> lib/octokit/client/statuses.rb,<br /> lib/octokit/client/downloads.rb,<br /> lib/octokit/client/gitignore.rb,<br /> lib/octokit/client/rate_limit.rb,<br /> lib/octokit/client/milestones.rb,<br /> lib/octokit/client/deployments.rb,<br /> lib/octokit/client/repositories.rb,<br /> lib/octokit/client/notifications.rb,<br /> lib/octokit/client/organizations.rb,<br /> lib/octokit/client/legacy_search.rb,<br /> lib/octokit/client/pull_requests.rb,<br /> lib/octokit/client/authorizations.rb,<br /> lib/octokit/client/service_status.rb,<br /> lib/octokit/client/pub_sub_hubbub.rb,<br /> lib/octokit/client/commit_comments.rb,<br /> lib/octokit/enterprise_admin_client.rb,<br /> lib/octokit/middleware/follow_redirects.rb,<br /> lib/octokit/enterprise_admin_client/users.rb,<br /> lib/octokit/enterprise_admin_client/license.rb,<br /> lib/octokit/enterprise_admin_client/admin_stats.rb,<br /> lib/octokit/enterprise_management_console_client.rb,<br /> lib/octokit/enterprise_admin_client/search_indexing.rb,<br /> lib/octokit/enterprise_management_console_client/management_console.rb</span>
 </dd>
   
 </dl>
@@ -92,7 +92,10 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Ruby toolkit for the GitHub API</p>
+    <p>Adapted from lostisland/faraday_middleware. Trimmed down to just the logic
+that we need for octokit.rb.</p>
+
+<p><a href="https://github.com/lostisland/faraday_middleware/blob/138766e/lib/faraday_middleware/response/follow_redirects.rb">https://github.com/lostisland/faraday_middleware/blob/138766e/lib/faraday_middleware/response/follow_redirects.rb</a></p>
 
 
   </div>
@@ -104,11 +107,11 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Octokit/Authentication.html" title="Octokit::Authentication (module)">Authentication</a></span>, <span class='object_link'><a href="Octokit/Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span>, <span class='object_link'><a href="Octokit/Default.html" title="Octokit::Default (module)">Default</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Octokit/Authentication.html" title="Octokit::Authentication (module)">Authentication</a></span>, <span class='object_link'><a href="Octokit/Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span>, <span class='object_link'><a href="Octokit/Connection.html" title="Octokit::Connection (module)">Connection</a></span>, <span class='object_link'><a href="Octokit/Default.html" title="Octokit::Default (module)">Default</a></span>, <span class='object_link'><a href="Octokit/Middleware.html" title="Octokit::Middleware (module)">Middleware</a></span>, <span class='object_link'><a href="Octokit/Warnable.html" title="Octokit::Warnable (module)">Warnable</a></span>
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Octokit/AbuseDetected.html" title="Octokit::AbuseDetected (class)">AbuseDetected</a></span>, <span class='object_link'><a href="Octokit/ApplicationCredentialsRequired.html" title="Octokit::ApplicationCredentialsRequired (class)">ApplicationCredentialsRequired</a></span>, <span class='object_link'><a href="Octokit/BadGateway.html" title="Octokit::BadGateway (class)">BadGateway</a></span>, <span class='object_link'><a href="Octokit/BadRequest.html" title="Octokit::BadRequest (class)">BadRequest</a></span>, <span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span>, <span class='object_link'><a href="Octokit/ClientError.html" title="Octokit::ClientError (class)">ClientError</a></span>, <span class='object_link'><a href="Octokit/Conflict.html" title="Octokit::Conflict (class)">Conflict</a></span>, <span class='object_link'><a href="Octokit/Error.html" title="Octokit::Error (class)">Error</a></span>, <span class='object_link'><a href="Octokit/Forbidden.html" title="Octokit::Forbidden (class)">Forbidden</a></span>, <span class='object_link'><a href="Octokit/Gist.html" title="Octokit::Gist (class)">Gist</a></span>, <span class='object_link'><a href="Octokit/InternalServerError.html" title="Octokit::InternalServerError (class)">InternalServerError</a></span>, <span class='object_link'><a href="Octokit/MethodNotAllowed.html" title="Octokit::MethodNotAllowed (class)">MethodNotAllowed</a></span>, <span class='object_link'><a href="Octokit/MissingContentType.html" title="Octokit::MissingContentType (class)">MissingContentType</a></span>, <span class='object_link'><a href="Octokit/NotAcceptable.html" title="Octokit::NotAcceptable (class)">NotAcceptable</a></span>, <span class='object_link'><a href="Octokit/NotFound.html" title="Octokit::NotFound (class)">NotFound</a></span>, <span class='object_link'><a href="Octokit/NotImplemented.html" title="Octokit::NotImplemented (class)">NotImplemented</a></span>, <span class='object_link'><a href="Octokit/OneTimePasswordRequired.html" title="Octokit::OneTimePasswordRequired (class)">OneTimePasswordRequired</a></span>, <span class='object_link'><a href="Octokit/Organization.html" title="Octokit::Organization (class)">Organization</a></span>, <span class='object_link'><a href="Octokit/RateLimit.html" title="Octokit::RateLimit (class)">RateLimit</a></span>, <span class='object_link'><a href="Octokit/Repository.html" title="Octokit::Repository (class)">Repository</a></span>, <span class='object_link'><a href="Octokit/ServerError.html" title="Octokit::ServerError (class)">ServerError</a></span>, <span class='object_link'><a href="Octokit/ServiceUnavailable.html" title="Octokit::ServiceUnavailable (class)">ServiceUnavailable</a></span>, <span class='object_link'><a href="Octokit/TooManyLoginAttempts.html" title="Octokit::TooManyLoginAttempts (class)">TooManyLoginAttempts</a></span>, <span class='object_link'><a href="Octokit/TooManyRequests.html" title="Octokit::TooManyRequests (class)">TooManyRequests</a></span>, <span class='object_link'><a href="Octokit/Unauthorized.html" title="Octokit::Unauthorized (class)">Unauthorized</a></span>, <span class='object_link'><a href="Octokit/UnprocessableEntity.html" title="Octokit::UnprocessableEntity (class)">UnprocessableEntity</a></span>, <span class='object_link'><a href="Octokit/UnsupportedMediaType.html" title="Octokit::UnsupportedMediaType (class)">UnsupportedMediaType</a></span>, <span class='object_link'><a href="Octokit/User.html" title="Octokit::User (class)">User</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Octokit/AbuseDetected.html" title="Octokit::AbuseDetected (class)">AbuseDetected</a></span>, <span class='object_link'><a href="Octokit/ApplicationCredentialsRequired.html" title="Octokit::ApplicationCredentialsRequired (class)">ApplicationCredentialsRequired</a></span>, <span class='object_link'><a href="Octokit/BadGateway.html" title="Octokit::BadGateway (class)">BadGateway</a></span>, <span class='object_link'><a href="Octokit/BadRequest.html" title="Octokit::BadRequest (class)">BadRequest</a></span>, <span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span>, <span class='object_link'><a href="Octokit/ClientError.html" title="Octokit::ClientError (class)">ClientError</a></span>, <span class='object_link'><a href="Octokit/Conflict.html" title="Octokit::Conflict (class)">Conflict</a></span>, <span class='object_link'><a href="Octokit/EnterpriseAdminClient.html" title="Octokit::EnterpriseAdminClient (class)">EnterpriseAdminClient</a></span>, <span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient.html" title="Octokit::EnterpriseManagementConsoleClient (class)">EnterpriseManagementConsoleClient</a></span>, <span class='object_link'><a href="Octokit/Error.html" title="Octokit::Error (class)">Error</a></span>, <span class='object_link'><a href="Octokit/Forbidden.html" title="Octokit::Forbidden (class)">Forbidden</a></span>, <span class='object_link'><a href="Octokit/Gist.html" title="Octokit::Gist (class)">Gist</a></span>, <span class='object_link'><a href="Octokit/InternalServerError.html" title="Octokit::InternalServerError (class)">InternalServerError</a></span>, <span class='object_link'><a href="Octokit/MethodNotAllowed.html" title="Octokit::MethodNotAllowed (class)">MethodNotAllowed</a></span>, <span class='object_link'><a href="Octokit/MissingContentType.html" title="Octokit::MissingContentType (class)">MissingContentType</a></span>, <span class='object_link'><a href="Octokit/NotAcceptable.html" title="Octokit::NotAcceptable (class)">NotAcceptable</a></span>, <span class='object_link'><a href="Octokit/NotFound.html" title="Octokit::NotFound (class)">NotFound</a></span>, <span class='object_link'><a href="Octokit/NotImplemented.html" title="Octokit::NotImplemented (class)">NotImplemented</a></span>, <span class='object_link'><a href="Octokit/OneTimePasswordRequired.html" title="Octokit::OneTimePasswordRequired (class)">OneTimePasswordRequired</a></span>, <span class='object_link'><a href="Octokit/Organization.html" title="Octokit::Organization (class)">Organization</a></span>, <span class='object_link'><a href="Octokit/RateLimit.html" title="Octokit::RateLimit (class)">RateLimit</a></span>, <span class='object_link'><a href="Octokit/Repository.html" title="Octokit::Repository (class)">Repository</a></span>, <span class='object_link'><a href="Octokit/RepositoryUnavailable.html" title="Octokit::RepositoryUnavailable (class)">RepositoryUnavailable</a></span>, <span class='object_link'><a href="Octokit/ServerError.html" title="Octokit::ServerError (class)">ServerError</a></span>, <span class='object_link'><a href="Octokit/ServiceUnavailable.html" title="Octokit::ServiceUnavailable (class)">ServiceUnavailable</a></span>, <span class='object_link'><a href="Octokit/TooManyLoginAttempts.html" title="Octokit::TooManyLoginAttempts (class)">TooManyLoginAttempts</a></span>, <span class='object_link'><a href="Octokit/TooManyRequests.html" title="Octokit::TooManyRequests (class)">TooManyRequests</a></span>, <span class='object_link'><a href="Octokit/Unauthorized.html" title="Octokit::Unauthorized (class)">Unauthorized</a></span>, <span class='object_link'><a href="Octokit/UnprocessableEntity.html" title="Octokit::UnprocessableEntity (class)">UnprocessableEntity</a></span>, <span class='object_link'><a href="Octokit/UnsupportedMediaType.html" title="Octokit::UnsupportedMediaType (class)">UnsupportedMediaType</a></span>, <span class='object_link'><a href="Octokit/User.html" title="Octokit::User (class)">User</a></span>
     
   
 </p>
@@ -143,7 +146,7 @@
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
       
         <dt id="MINOR-constant" class="">MINOR =
           <div class="docstring">
@@ -171,7 +174,7 @@
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
       
         <dt id="PATCH-constant" class="">PATCH =
           <div class="docstring">
@@ -199,7 +202,7 @@
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
       
         <dt id="VERSION-constant" class="">VERSION =
           <div class="docstring">
@@ -357,7 +360,7 @@
   
   
   <h3 class="inherited">Attributes included from <span class='object_link'><a href="Octokit/Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Octokit/Configurable.html#access_token-instance_method" title="Octokit::Configurable#access_token (method)">#access_token</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#api_endpoint-instance_method" title="Octokit::Configurable#api_endpoint (method)">#api_endpoint</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#auto_paginate-instance_method" title="Octokit::Configurable#auto_paginate (method)">#auto_paginate</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#client_id-instance_method" title="Octokit::Configurable#client_id (method)">#client_id</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#client_secret-instance_method" title="Octokit::Configurable#client_secret (method)">#client_secret</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#connection_options-instance_method" title="Octokit::Configurable#connection_options (method)">#connection_options</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#default_media_type-instance_method" title="Octokit::Configurable#default_media_type (method)">#default_media_type</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#login-instance_method" title="Octokit::Configurable#login (method)">#login</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#middleware-instance_method" title="Octokit::Configurable#middleware (method)">#middleware</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#netrc-instance_method" title="Octokit::Configurable#netrc (method)">#netrc</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#netrc_file-instance_method" title="Octokit::Configurable#netrc_file (method)">#netrc_file</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#password%3D-instance_method" title="Octokit::Configurable#password= (method)">#password</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#per_page-instance_method" title="Octokit::Configurable#per_page (method)">#per_page</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#proxy-instance_method" title="Octokit::Configurable#proxy (method)">#proxy</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#user_agent-instance_method" title="Octokit::Configurable#user_agent (method)">#user_agent</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#web_endpoint-instance_method" title="Octokit::Configurable#web_endpoint (method)">#web_endpoint</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Octokit/Configurable.html#access_token-instance_method" title="Octokit::Configurable#access_token (method)">#access_token</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#api_endpoint-instance_method" title="Octokit::Configurable#api_endpoint (method)">#api_endpoint</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#auto_paginate-instance_method" title="Octokit::Configurable#auto_paginate (method)">#auto_paginate</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#client_id-instance_method" title="Octokit::Configurable#client_id (method)">#client_id</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#client_secret-instance_method" title="Octokit::Configurable#client_secret (method)">#client_secret</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#connection_options-instance_method" title="Octokit::Configurable#connection_options (method)">#connection_options</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#default_media_type-instance_method" title="Octokit::Configurable#default_media_type (method)">#default_media_type</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#login-instance_method" title="Octokit::Configurable#login (method)">#login</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#management_console_endpoint-instance_method" title="Octokit::Configurable#management_console_endpoint (method)">#management_console_endpoint</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#management_console_password-instance_method" title="Octokit::Configurable#management_console_password (method)">#management_console_password</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#middleware-instance_method" title="Octokit::Configurable#middleware (method)">#middleware</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#netrc-instance_method" title="Octokit::Configurable#netrc (method)">#netrc</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#netrc_file-instance_method" title="Octokit::Configurable#netrc_file (method)">#netrc_file</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#password%3D-instance_method" title="Octokit::Configurable#password= (method)">#password</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#per_page-instance_method" title="Octokit::Configurable#per_page (method)">#per_page</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#proxy-instance_method" title="Octokit::Configurable#proxy (method)">#proxy</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#user_agent-instance_method" title="Octokit::Configurable#user_agent (method)">#user_agent</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#web_endpoint-instance_method" title="Octokit::Configurable#web_endpoint (method)">#web_endpoint</a></span></p>
 
 
   
@@ -391,19 +394,10 @@
 </li>
 
       
-    </ul>
-  
-    <h2>
-      Instance Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
-    </h2>
-
-    <ul class="summary">
-      
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#respond_to%3F-instance_method" title="#respond_to? (instance method)">- (Boolean) <strong>respond_to?</strong>(method_name, include_private = false) </a>
+      <a href="#enterprise_admin_client-class_method" title="enterprise_admin_client (class method)">+ (Octokit::EnterpriseAdminClient) <strong>enterprise_admin_client</strong> </a>
     
 
     
@@ -417,7 +411,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>EnterpriseAdminClient client based on configured options <span class='object_link'><a href="Octokit/Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span>.</p>
+</div></span>
   
 </li>
 
@@ -425,7 +420,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#respond_to_missing%3F-instance_method" title="#respond_to_missing? (instance method)">- (Boolean) <strong>respond_to_missing?</strong>(method_name, include_private = false) </a>
+      <a href="#enterprise_management_console_client-class_method" title="enterprise_management_console_client (class method)">+ (Octokit::EnterpriseManagementConsoleClient) <strong>enterprise_management_console_client</strong> </a>
     
 
     
@@ -439,7 +434,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'><p>EnterpriseManagementConsoleClient client based on configured options <span class='object_link'><a href="Octokit/Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span>.</p>
+</div></span>
   
 </li>
 
@@ -457,7 +453,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Octokit/Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Octokit/Configurable.html#configure-instance_method" title="Octokit::Configurable#configure (method)">configure</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#keys-class_method" title="Octokit::Configurable.keys (method)">keys</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#netrc%3F-instance_method" title="Octokit::Configurable#netrc? (method)">netrc?</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#reset%21-instance_method" title="Octokit::Configurable#reset! (method)">reset!</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Octokit/Configurable.html#configure-instance_method" title="Octokit::Configurable#configure (method)">configure</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#keys-class_method" title="Octokit::Configurable.keys (method)">keys</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#netrc%3F-instance_method" title="Octokit::Configurable#netrc? (method)">netrc?</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#reset%21-instance_method" title="Octokit::Configurable#reset! (method)">reset!</a></span>, <span class='object_link'><a href="Octokit/Configurable.html#same_options%3F-instance_method" title="Octokit::Configurable#same_options? (method)">same_options?</a></span></p>
 
   <div id="instance_attr_details" class="attr_details">
     <h2>Instance Attribute Details</h2>
@@ -867,33 +863,27 @@
       <pre class="lines">
 
 
-13
-14
 15
-16</pre>
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_client'>client</span>
-  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='kw'>defined?</span><span class='lparen'>(</span><span class='ivar'>@client</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_same_options?'>same_options?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='ivar'>@client</span>
+  <span class='kw'>return</span> <span class='ivar'>@client</span> <span class='kw'>if</span> <span class='kw'>defined?</span><span class='lparen'>(</span><span class='ivar'>@client</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_same_options?'>same_options?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
 </div>
     
-  </div>
-
-  <div id="instance_method_details" class="method_details_list">
-    <h2>Instance Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="respond_to?-instance_method">
+      <div class="method_details ">
+  <h3 class="signature " id="enterprise_admin_client-class_method">
   
-    - (<tt>Boolean</tt>) <strong>respond_to?</strong>(method_name, include_private = false) 
+    + (<tt><span class='object_link'><a href="Octokit/EnterpriseAdminClient.html" title="Octokit::EnterpriseAdminClient (class)">Octokit::EnterpriseAdminClient</a></span></tt>) <strong>enterprise_admin_client</strong> 
   
 
   
@@ -901,7 +891,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
+    <p>EnterpriseAdminClient client based on configured options <span class='object_link'><a href="Octokit/Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span></p>
+
 
   </div>
 </div>
@@ -913,9 +904,13 @@
     <li>
       
       
-        <span class='type'>(<tt>Boolean</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Octokit/EnterpriseAdminClient.html" title="Octokit::EnterpriseAdminClient (class)">Octokit::EnterpriseAdminClient</a></span></tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'><p>API wrapper</p>
+</div>
       
     </li>
   
@@ -927,21 +922,27 @@
       <pre class="lines">
 
 
-21</pre>
+23
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit.rb', line 23</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='id identifier rubyid_include_private'>include_private</span><span class='op'>=</span><span class='kw'>false</span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='id identifier rubyid_include_private'>include_private</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='kw'>super</span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_enterprise_admin_client'>enterprise_admin_client</span>
+  <span class='kw'>return</span> <span class='ivar'>@enterprise_admin_client</span> <span class='kw'>if</span> <span class='kw'>defined?</span><span class='lparen'>(</span><span class='ivar'>@enterprise_admin_client</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@enterprise_admin_client</span><span class='period'>.</span><span class='id identifier rubyid_same_options?'>same_options?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='ivar'>@enterprise_admin_client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>EnterpriseAdminClient</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="respond_to_missing?-instance_method">
+  <h3 class="signature " id="enterprise_management_console_client-class_method">
   
-    - (<tt>Boolean</tt>) <strong>respond_to_missing?</strong>(method_name, include_private = false) 
+    + (<tt><span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient.html" title="Octokit::EnterpriseManagementConsoleClient (class)">Octokit::EnterpriseManagementConsoleClient</a></span></tt>) <strong>enterprise_management_console_client</strong> 
   
 
   
@@ -949,7 +950,8 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
+    <p>EnterpriseManagementConsoleClient client based on configured options <span class='object_link'><a href="Octokit/Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span></p>
+
 
   </div>
 </div>
@@ -961,9 +963,13 @@
     <li>
       
       
-        <span class='type'>(<tt>Boolean</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Octokit/EnterpriseManagementConsoleClient.html" title="Octokit::EnterpriseManagementConsoleClient (class)">Octokit::EnterpriseManagementConsoleClient</a></span></tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'><p>API wrapper</p>
+</div>
       
     </li>
   
@@ -975,12 +981,18 @@
       <pre class="lines">
 
 
-19</pre>
+31
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit.rb', line 31</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='id identifier rubyid_include_private'>include_private</span><span class='op'>=</span><span class='kw'>false</span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='id identifier rubyid_include_private'>include_private</span><span class='rparen'>)</span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_enterprise_management_console_client'>enterprise_management_console_client</span>
+  <span class='kw'>return</span> <span class='ivar'>@enterprise_management_console_client</span> <span class='kw'>if</span> <span class='kw'>defined?</span><span class='lparen'>(</span><span class='ivar'>@enterprise_management_console_client</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@enterprise_management_console_client</span><span class='period'>.</span><span class='id identifier rubyid_same_options?'>same_options?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='ivar'>@enterprise_management_console_client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>EnterpriseManagementConsoleClient</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -991,9 +1003,9 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Feb 14 08:50:11 2015 by
+  Generated on Thu Jun 25 14:25:58 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.4).
+  0.8.7.6 (ruby-2.1.6).
 </div>
 
   </body>
