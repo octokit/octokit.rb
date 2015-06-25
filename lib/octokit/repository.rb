@@ -27,6 +27,8 @@ module Octokit
       when Hash
         @name = repo[:repo] ||= repo[:name]
         @owner = repo[:owner] ||= repo[:user] ||= repo[:username]
+      else
+        raise ArgumentError, "Invalid Repository. Use user/repo format."
       end
     end
 

@@ -34,6 +34,27 @@ describe Octokit::Repository do
     end
   end
 
+  context "when passed a boolean true" do
+    it "raises ArgumentError" do
+      expect { Octokit::Repository.new(true) }.
+        to raise_error ArgumentError, "Invalid Repository. Use user/repo format."
+    end
+  end
+
+  context "when passed a boolean false" do
+    it "false raises ArgumentError" do
+      expect { Octokit::Repository.new(false) }.
+        to raise_error ArgumentError, "Invalid Repository. Use user/repo format."
+    end
+  end
+
+  context "when passed nil" do
+    it "raises ArgumentError" do
+      expect { Octokit::Repository.new(nil) }.
+        to raise_error ArgumentError, "Invalid Repository. Use user/repo format."
+    end
+  end
+
   describe ".path" do
     context "with named repository" do
       it "returns the url path" do
