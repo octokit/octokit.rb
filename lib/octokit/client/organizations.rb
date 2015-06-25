@@ -82,6 +82,23 @@ module Octokit
       alias :list_orgs :organizations
       alias :orgs :organizations
 
+      # List all GitHub organizations
+      #
+      # This provides a list of every organization, in the order that they
+      # were created.
+      #
+      # @param options [Hash] Optional options.
+      # @option options [Integer] :since The integer ID of the last
+      # Organization that you’ve seen.
+      #
+      # @see https://developer.github.com/v3/orgs/#list-all-organizations
+      #
+      # @return [Array<Sawyer::Resource>] List of GitHub organizations.
+      def all_organizations(options = {})
+        paginate "organizations"
+      end
+      alias :all_orgs :all_organizations
+
       # List organization repositories
       #
       # Public repositories are available without authentication. Private repos

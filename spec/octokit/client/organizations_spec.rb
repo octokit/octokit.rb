@@ -36,6 +36,14 @@ describe Octokit::Client::Organizations do
     end
   end # .organizations
 
+  describe ".all_organizations", :vcr do
+    it "paginates organizations on GitHub" do
+      orgs = Octokit.all_organizations
+      expect(orgs).to be_kind_of Array
+      assert_requested :get, github_url("organizations")
+    end
+  end # .all_organizations
+
   describe ".organization_repositories", :vcr do
     it "returns all public repositories for an organization" do
       repositories = @client.organization_repositories("codeforamerica")
