@@ -420,6 +420,17 @@ construction currently used throughout the client.
 
 ## Upgrading guide
 
+Version 4.0
+
+- **removes support for a [long deprecated overload][list_pulls] for
+passing state as a positional argument** when listing pull requests. Instead,
+pass `state` in the method options.
+- **drops support for Ruby < 2.0**.
+- adds support for new [Enterprise-only APIs](#working-with-github-enterprise).
+- adds support for [Repository redirects][redirects].
+
+[redirects]: https://developer.github.com/changes/2015-05-26-repository-redirects-are-coming/
+
 Version 3.0 includes a couple breaking changes when upgrading from v2.x.x:
 
 The [default media type][default-media-type] is now `v3` instead of `beta`. If
