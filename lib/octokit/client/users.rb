@@ -8,7 +8,7 @@ module Octokit
 
       # List all GitHub users
       #
-      # This provides a dump of every user, in the order that they signed up
+      # This provides a list of every user, in the order that they signed up
       # for GitHub.
       #
       # @param options [Hash] Optional options.
