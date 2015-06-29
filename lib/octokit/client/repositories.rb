@@ -155,7 +155,7 @@ module Octokit
         if organization.nil?
           post 'user/repos', options
         else
-          post "orgs/#{organization}/repos", options
+          post "#{Organization.path organization}/repos", options
         end
       end
       alias :create_repo :create_repository
