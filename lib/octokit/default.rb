@@ -19,6 +19,9 @@ module Octokit
 
     # Default WEB endpoint
     WEB_ENDPOINT = "https://github.com".freeze
+    
+    # Default GitHub Pages endpoint
+    PAGES_ENDPOINT = "https://github.io".freeze
 
     # In Faraday 0.9, Faraday::Builder was renamed to Faraday::RackBuilder
     RACK_BUILDER_CLASS = defined?(Faraday::RackBuilder) ? Faraday::RackBuilder : Faraday::Builder
@@ -141,6 +144,12 @@ module Octokit
       # @return [String]
       def web_endpoint
         ENV['OCTOKIT_WEB_ENDPOINT'] || WEB_ENDPOINT
+      end
+      
+      # Default pages endpount from ENV or {PAGES_ENDPOINT}
+      # @return [String]
+      def pages_endpoint
+        ENV['OCTOKIT_PAGES_ENDPOINT'] || PAGES_ENDPOINT
       end
 
       # Default behavior for reading .netrc file
