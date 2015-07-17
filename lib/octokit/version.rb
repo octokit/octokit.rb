@@ -1,15 +1,15 @@
 module Octokit
   # Current major release.
   # @return [Integer]
-  MAJOR = 3
+  MAJOR = 4
 
   # Current minor release.
   # @return [Integer]
-  MINOR = 8
+  MINOR = 0
 
   # Current patch level.
   # @return [Integer]
-  PATCH = 0
+  PATCH = 1
 
   # Full release version.
   # @return [String]

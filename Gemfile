@@ -5,7 +5,7 @@ gem 'rake'
 
 group :development do
   gem 'awesome_print', :require => 'ap'
-  gem 'guard-rspec'
+  gem 'guard-rspec', '~> 4.5'
   gem 'hirb-unicode'
   gem 'pry'
   gem 'redcarpet'
@@ -16,7 +16,8 @@ end
 
 group :test do
   gem 'coveralls', :require => false
-  gem 'json', '~> 1.7', :platforms => [:ruby_18, :jruby]
+  gem 'json', '~> 1.7', :platforms => [:jruby]
+  gem 'multi_json', '~> 1.11.0'
   gem 'mime-types', '< 2.0.0'
   gem 'netrc', '~> 0.7.7'
   gem 'rb-fsevent', '~> 0.9'

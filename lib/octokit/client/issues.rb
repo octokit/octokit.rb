@@ -28,7 +28,8 @@ module Octokit
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.list_issues
       def list_issues(repository = nil, options = {})
-        paginate "#{Repository.new(repository).path}/issues", options
+        path = repository ? "#{Repository.new(repository).path}/issues" : "issues"
+        paginate path, options
       end
       alias :issues :list_issues
 

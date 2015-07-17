@@ -1,3 +1,4 @@
+require 'octokit/middleware/follow_redirects'
 require 'octokit/response/raise_error'
 require 'octokit/response/feed_parser'
 require 'octokit/version'
@@ -24,6 +25,7 @@ module Octokit
 
     # Default Faraday middleware stack
     MIDDLEWARE = RACK_BUILDER_CLASS.new do |builder|
+      builder.use Octokit::Middleware::FollowRedirects
       builder.use Octokit::Response::RaiseError
       builder.use Octokit::Response::FeedParser
       builder.adapter Faraday.default_adapter
@@ -65,6 +67,18 @@ module Octokit
       # @return [String]
       def client_secret
         ENV['OCTOKIT_SECRET']
+      end
+
+      # Default management console password from ENV
+      # @return [String]
+      def management_console_password
+        ENV['OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD']
+      end
+
+      # Default management console endpoint from ENV
+      # @return [String]
+      def management_console_endpoint
+        ENV['OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT']
       end
 
       # Default options for Faraday::Connection

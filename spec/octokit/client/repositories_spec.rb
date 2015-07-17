@@ -46,6 +46,12 @@ describe Octokit::Client::Repositories do
       rescue Octokit::NotFound
       end
     end
+
+    it "creates a repository for an organization by ID" do
+      request = stub_post(github_url("/organizations/1/repos"))
+      repository = @client.create_repository("an-org-repo", :organization => 1)
+      assert_requested request
+    end
   end
 
   describe ".add_deploy_key" do

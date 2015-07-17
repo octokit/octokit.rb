@@ -36,6 +36,14 @@ describe Octokit::Client::Organizations do
     end
   end # .organizations
 
+  describe ".all_organizations", :vcr do
+    it "paginates organizations on GitHub" do
+      orgs = Octokit.all_organizations
+      expect(orgs).to be_kind_of Array
+      assert_requested :get, github_url("organizations")
+    end
+  end # .all_organizations
+
   describe ".organization_repositories", :vcr do
     it "returns all public repositories for an organization" do
       repositories = @client.organization_repositories("codeforamerica")
@@ -223,7 +231,7 @@ describe Octokit::Client::Organizations do
 
   describe ".add_team_membership", :vcr do
     it "invites a user to a team" do
-      membership = @client.add_team_membership(946194, test_github_login) 
+      membership = @client.add_team_membership(946194, test_github_login)
       assert_requested :put, github_url("teams/946194/memberships/#{test_github_login}")
       expect(membership.status).to eq("active")
     end
@@ -245,11 +253,33 @@ describe Octokit::Client::Organizations do
     end
   end # .organization_memberships
 
+  describe ".remove_organization_membership", :vcr do
+    it "removes an organization membership for a given user" do
+      stub_delete github_url("orgs/#{test_github_org}/memberships/#{test_github_login}")
+      @client.remove_organization_membership(
+        test_github_org,
+        :user => test_github_login,
+        :accept => "application/vnd.github.moondragon+json"
+      )
+      assert_requested :delete, github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
+    end
+  end
+
   describe ".organization_membership", :vcr do
     it "returns an organization membership" do
       stub_get github_url("/user/memberships/orgs/#{test_github_org}")
       membership = @client.organization_membership(test_github_org)
       assert_requested :get, github_url("/user/memberships/orgs/#{test_github_org}")
+    end
+
+    it "returns an organization membership for a given user" do
+      stub_get github_url("orgs/#{test_github_org}/memberships/#{test_github_login}")
+      @client.organization_membership(
+        test_github_org,
+        :user => test_github_login,
+        :accept => "application/vnd.github.moondragon+json"
+      )
+      assert_requested :get, github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
     end
   end # .organization_membership
 
@@ -258,6 +288,17 @@ describe Octokit::Client::Organizations do
       stub_patch github_url("/user/memberships/orgs/#{test_github_org}")
       membership = @client.update_organization_membership(test_github_org, {:state => 'active'})
       assert_requested :patch, github_url("/user/memberships/orgs/#{test_github_org}")
+    end
+
+    it "adds or updates an organization membership for a given user" do
+      stub_put github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
+      @client.update_organization_membership(
+        test_github_org,
+        :user => test_github_login,
+        :role => "admin",
+        :accept => "application/vnd.github.moondragon+json"
+      )
+      assert_requested :put, github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
     end
   end # .update_organization_membership
 end

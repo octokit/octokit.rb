@@ -4,8 +4,6 @@ module Octokit
     # Methods for the Hooks API
     module Hooks
 
-      ORG_HOOKS_PREVIEW_MEDIA_TYPE = "application/vnd.github.sersi-preview+json".freeze
-
       # List all Service Hooks supported by GitHub
       #
       # @return [Sawyer::Resource] A list of all hooks on GitHub
@@ -118,7 +116,7 @@ module Octokit
       #     }
       #   )
       def edit_hook(repo, id, name, config, options = {})
-        options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
+        options = {:name => name, :config => config}.merge(options)
         patch "#{Repository.path repo}/hooks/#{id}", options
       end
 
@@ -160,7 +158,6 @@ module Octokit
       # @example
       #   @client.org_hooks('octokit')
       def org_hooks(org, options = {})
-        options = ensure_org_hooks_api_media_type(options)
         paginate "orgs/#{org}/hooks", options
       end
       alias :list_org_hooks :org_hooks
@@ -176,7 +173,6 @@ module Octokit
       # @example
       #   @client.org_hook('octokit', 123)
       def org_hook(org, id, options = {})
-        options = ensure_org_hooks_api_media_type(options)
         get "orgs/#{org}/hooks/#{id}", options
       end
 
@@ -207,7 +203,6 @@ module Octokit
       #     }
       #   )
       def create_org_hook(org, config, options = {})
-        options = ensure_org_hooks_api_media_type(options)
         options = { :name => "web", :config => config }.merge(options)
         post "orgs/#{org}/hooks", options
       end
@@ -241,7 +236,6 @@ module Octokit
       #     }
       #   )
       def edit_org_hook(org, id, config, options = {})
-        options = ensure_org_hooks_api_media_type(options)
         options = { :config => config }.merge(options)
         patch "orgs/#{org}/hooks/#{id}", options
       end
@@ -258,7 +252,6 @@ module Octokit
       # @example
       #   @client.ping_org_hook('octokit', 1000000)
       def ping_org_hook(org, id, options = {})
-        options = ensure_org_hooks_api_media_type(options)
         boolean_from_response :post, "orgs/#{org}/hooks/#{id}/pings", options
       end
 
@@ -273,27 +266,17 @@ module Octokit
       # @example
       #   @client.remove_org_hook('octokit', 1000000)
       def remove_org_hook(org, id, options = {})
-        options = ensure_org_hooks_api_media_type(options)
         boolean_from_response :delete, "orgs/#{org}/hooks/#{id}", options
       end
 
-      private
-
-      def ensure_org_hooks_api_media_type(options = {})
-        if options[:accept].nil?
-          options[:accept] = ORG_HOOKS_PREVIEW_MEDIA_TYPE
-          warn_org_hooks_preview
-        end
-
-        options
-      end
-
-      def warn_org_hooks_preview
-        octokit_warn <<-EOS
-WARNING: The preview version of the Org Hooks API is not yet suitable for production use.
-You can avoid this message by supplying an appropriate media type in the 'Accept' request
-header. See the blog post for details: http://git.io/uucWqg
-EOS
+      # Parse payload string
+      #
+      # @param payload_string [String] The payload
+      # @return [Sawyer::Resource] The payload object
+      # @see https://developer.github.com/v3/activity/events/types/
+      def parse_payload(payload_string)
+        payload_hash = agent.class.decode payload_string
+        Sawyer::Resource.new agent, payload_hash
       end
     end
   end

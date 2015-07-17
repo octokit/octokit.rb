@@ -1,10 +1,3 @@
-major, minor, patch = RUBY_VERSION.split('.').map(&:to_i)
-
-if (major == 1 && minor < 9) || (major == 1 && minor == 9 && patch < 2)
-  # pull in backports
-  require 'octokit/backports/uri'
-end
-
 module Octokit
   class Client
 
@@ -93,7 +86,7 @@ module Octokit
       private
 
       def pub_sub_hubbub_request(options = {})
-        # This method is janky, bypass normal stack so we don'tl
+        # This method is janky, bypass normal stack so we don't
         # serialize request as JSON
         conn = Faraday.new(:url => @api_endpoint) do |http|
           http.headers[:user_agent] = user_agent

@@ -44,7 +44,7 @@ module Octokit
       # @example
       #   @client.update_org('github', {:company => 'Unicorns, Inc.'})
       def update_organization(org, values, options = {})
-        patch Organization.path(org), options.merge({:organization => values})
+        patch Organization.path(org), options.merge(values)
       end
       alias :update_org :update_organization
 
@@ -76,11 +76,28 @@ module Octokit
       # @example
       #   @client.organizations
       def organizations(user=nil, options = {})
-        get "#{User.path user}/orgs", options
+        paginate "#{User.path user}/orgs", options
       end
       alias :list_organizations :organizations
       alias :list_orgs :organizations
       alias :orgs :organizations
+
+      # List all GitHub organizations
+      #
+      # This provides a list of every organization, in the order that they
+      # were created.
+      #
+      # @param options [Hash] Optional options.
+      # @option options [Integer] :since The integer ID of the last
+      # Organization that you’ve seen.
+      #
+      # @see https://developer.github.com/v3/orgs/#list-all-organizations
+      #
+      # @return [Array<Sawyer::Resource>] List of GitHub organizations.
+      def all_organizations(options = {})
+        paginate "organizations"
+      end
+      alias :all_orgs :all_organizations
 
       # List organization repositories
       #
@@ -535,26 +552,49 @@ module Octokit
       end
       alias :org_memberships :organization_memberships
 
-      # Get an organization membership for the authenticated user
+      # Get an organization membership
       #
       # @param org [String] Organization GitHub login.
+      # @option options [String] :user  The login of the user, otherwise authenticated user.
       # @return [Sawyer::Resource] Hash representing the organization membership.
       # @see https://developer.github.com/v3/orgs/members/#get-your-organization-membership
+      # @see https://developer.github.com/v3/orgs/members/#get-organization-membership
       def organization_membership(org, options = {})
-        get "user/memberships/orgs/#{org}", options
+        if user = options.delete(:user)
+          get "orgs/#{org}/memberships/#{user}", options
+        else
+          get "user/memberships/orgs/#{org}", options
+        end
       end
       alias :org_membership :organization_membership
 
-      # Edit an organization membership for the authenticated user
+      # Edit an organization membership
       #
       # @param org [String] Organization GitHub login.
+      # @option options [String] :role  The role of the user in the organization.
       # @option options [String] :state The state that the membership should be in.
+      # @option options [String] :user  The login of the user, otherwise authenticated user.
       # @return [Sawyer::Resource] Hash representing the updated organization membership.
       # @see https://developer.github.com/v3/orgs/members/#edit-your-organization-membership
+      # @see https://developer.github.com/v3/orgs/members/#add-or-update-organization-membership
       def update_organization_membership(org, options = {})
-        patch "user/memberships/orgs/#{org}", options
+        if user = options.delete(:user)
+          put "orgs/#{org}/memberships/#{user}", options
+        else
+          patch "user/memberships/orgs/#{org}", options
+        end
       end
       alias :update_org_membership :update_organization_membership
+
+      # Remove an organization membership
+      #
+      # @param org [String] Organization GitHub login.
+      # @return [Boolean] Success
+      # @see https://developer.github.com/v3/orgs/members/#remove-organization-membership
+      def remove_organization_membership(org, options = {})
+        user = options.delete(:user)
+        user && boolean_from_response(:delete, "orgs/#{org}/memberships/#{user}", options)
+      end
     end
   end
 end
