@@ -6,6 +6,8 @@ module Octokit
     # @see https://developer.github.com/v3/orgs/
     module Organizations
 
+      MIGRATIONS_PREVIEW_MEDIA_TYPE = 'application/vnd.github.wyandotte-preview+json'.freeze
+
       # Get an organization
       #
       # @param org [String, Integer] Organization GitHub login or id.
@@ -594,6 +596,22 @@ module Octokit
       def remove_organization_membership(org, options = {})
         user = options.delete(:user)
         user && boolean_from_response(:delete, "orgs/#{org}/memberships/#{user}", options)
+      end
+
+      def ensure_migrations_api_media_type(options = {})
+        if options[:accept].nil?
+          options[:accept] = MIGRATIONS_PREVIEW_MEDIA_TYPE
+          warn_migrations_preview
+        end
+        options
+      end
+
+      def warn_migrations_preview
+        warn <<-EOS
+WARNING: The preview version of the Migrations API is not yet suitable for production use.
+You can avoid this message by supplying an appropriate media type in the 'Accept' request
+header.
+EOS
       end
     end
   end
