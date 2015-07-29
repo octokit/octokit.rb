@@ -46,6 +46,8 @@ module Octokit
       # sequence.
       URI_UNSAFE = /[^\-_.!~*'()a-zA-Z\d;\/?:@&=+$,\[\]%]/
 
+      AMAZON_LOCATION_HEADER = %r{s3.amazonaws.com/github-cloud/}
+
       # Public: Initialize the middleware.
       #
       # options - An options Hash (default: {}):
@@ -103,7 +105,8 @@ module Octokit
 
       def follow_redirect?(env, response)
         ALLOWED_METHODS.include?(env[:method]) &&
-          REDIRECT_CODES.include?(response.status)
+          REDIRECT_CODES.include?(response.status) &&
+            env.response_headers['location'] !~ AMAZON_LOCATION_HEADER
       end
 
       def follow_limit
