@@ -632,6 +632,19 @@ EOS
         options = ensure_migrations_api_media_type(options)
         post "orgs/#{org}/migrations", options
       end
+
+      # Lists the most recent migrations.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @return [Array<Sawyer::Resource>] Array of migration resources.
+      # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
+      def migrations(org, options = {})
+        options = ensure_migrations_api_media_type(options)
+        paginate "orgs/#{org}/migrations", options
+      end
+
     end
   end
 end
