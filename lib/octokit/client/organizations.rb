@@ -6,8 +6,6 @@ module Octokit
     # @see https://developer.github.com/v3/orgs/
     module Organizations
 
-      MIGRATIONS_PREVIEW_MEDIA_TYPE = 'application/vnd.github.wyandotte-preview+json'.freeze
-
       # Get an organization
       #
       # @param org [String, Integer] Organization GitHub login or id.
@@ -598,22 +596,6 @@ module Octokit
         user && boolean_from_response(:delete, "orgs/#{org}/memberships/#{user}", options)
       end
 
-      def ensure_migrations_api_media_type(options = {})
-        if options[:accept].nil?
-          options[:accept] = MIGRATIONS_PREVIEW_MEDIA_TYPE
-          warn_migrations_preview
-        end
-        options
-      end
-
-      def warn_migrations_preview
-        warn <<-EOS
-WARNING: The preview version of the Migrations API is not yet suitable for production use.
-You can avoid this message by supplying an appropriate media type in the 'Accept' request
-header.
-EOS
-      end
-
       # Initiates the generation of a migration archive.
       #
       # Requires authenticated organization owner.
@@ -629,7 +611,7 @@ EOS
       #   })
       # @see https://developer.github.com/v3/orgs/migrations/#start-a-migration
       def start_migration(org, options = {})
-        options = ensure_migrations_api_media_type(options)
+        options = ensure_api_media_type(:migrations, options)
         post "orgs/#{org}/migrations", options
       end
 
@@ -641,7 +623,7 @@ EOS
       # @return [Array<Sawyer::Resource>] Array of migration resources.
       # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
       def migrations(org, options = {})
-        options = ensure_migrations_api_media_type(options)
+        options = ensure_api_media_type(:migrations, options)
         paginate "orgs/#{org}/migrations", options
       end
 
@@ -653,7 +635,7 @@ EOS
       # @param id [Integer] ID number of the migration.
       # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
       def migration_status(org, id, options = {})
-        options = ensure_migrations_api_media_type(options)
+        options = ensure_api_media_type(:migrations, options)
         get "orgs/#{org}/migrations/#{id}", options
       end
 
@@ -665,7 +647,7 @@ EOS
       # @param id [Integer] ID number of the migration.
       # @see https://developer.github.com/v3/orgs/migrations/#download-a-migration-archive
       def download_migration_archive(org, id, options = {})
-        options = ensure_migrations_api_media_type(options)
+        options = ensure_api_media_type(:migrations, options)
         get "orgs/#{org}/migrations/#{id}/archive", options
       end
 
@@ -677,7 +659,7 @@ EOS
       # @param id [Integer] ID number of the migration.
       # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
       def delete_migration_archive(org, id, options = {})
-        options = ensure_migrations_api_media_type(options)
+        options = ensure_api_media_type(:migrations, options)
         delete "orgs/#{org}/migrations/#{id}/archive", options
       end
 
@@ -690,7 +672,7 @@ EOS
       # @param repo [String] Name of the repository.
       # @see https://developer.github.com/v3/orgs/migrations/#unlock-a-repository
       def unlock_repository(org, id, repo, options = {})
-        options = ensure_migrations_api_media_type(options)
+        options = ensure_api_media_type(:migrations, options)
         delete "orgs/#{org}/migrations/#{id}/repos/#{repo}/lock", options
       end
     end

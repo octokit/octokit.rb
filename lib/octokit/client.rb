@@ -9,6 +9,7 @@ require 'octokit/rate_limit'
 require 'octokit/repository'
 require 'octokit/user'
 require 'octokit/organization'
+require 'octokit/preview'
 require 'octokit/client/authorizations'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
@@ -55,6 +56,7 @@ module Octokit
     include Octokit::Authentication
     include Octokit::Configurable
     include Octokit::Connection
+    include Octokit::Preview
     include Octokit::Warnable
     include Octokit::Client::Authorizations
     include Octokit::Client::Commits
