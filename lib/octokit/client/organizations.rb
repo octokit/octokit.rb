@@ -613,6 +613,25 @@ You can avoid this message by supplying an appropriate media type in the 'Accept
 header.
 EOS
       end
+
+      # Initiates the generation of a migration archive.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @option options [Array<String>] :repositories Repositories for the organization.
+      # @option options [Boolean, optional] :lock_repositories Indicates whether repositories should be locked during migration
+      # @return [Sawyer::Resource] Hash representing the new migration.
+      # @see https://developer.github.com/v3/orgs/teams/#create-team
+      # @example
+      #   @client.start_migration('github', {
+      #     :repositories => ['github/dotfiles']
+      #   })
+      # @see https://developer.github.com/v3/orgs/migrations/#start-a-migration
+      def start_migration(org, options = {})
+        options = ensure_migrations_api_media_type(options)
+        post "orgs/#{org}/migrations", options
+      end
     end
   end
 end
