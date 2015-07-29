@@ -681,6 +681,18 @@ EOS
         delete "orgs/#{org}/migrations/#{id}/archive", options
       end
 
+      # Unlock a previous migration archive.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param id [Integer] ID number of the migration.
+      # @param repo [String] Name of the repository.
+      # @see https://developer.github.com/v3/orgs/migrations/#unlock-a-repository
+      def unlock_repository(org, id, repo, options = {})
+        options = ensure_migrations_api_media_type(options)
+        delete "orgs/#{org}/migrations/#{id}/repos/#{repo}/lock", options
+      end
     end
   end
 end
