@@ -645,6 +645,18 @@ EOS
         paginate "orgs/#{org}/migrations", options
       end
 
+      # Fetches the status of a migration.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param id [Integer] ID number of the migration.
+      # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
+      def migration_status(org, id, options = {})
+        options = ensure_migrations_api_media_type(options)
+        get "orgs/#{org}/migrations/#{id}", options
+      end
+
     end
   end
 end
