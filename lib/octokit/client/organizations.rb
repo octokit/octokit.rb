@@ -657,6 +657,18 @@ EOS
         get "orgs/#{org}/migrations/#{id}", options
       end
 
+      # Fetches the URL to a migration archive.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param id [Integer] ID number of the migration.
+      # @see https://developer.github.com/v3/orgs/migrations/#download-a-migration-archive
+      def download_migration_archive(org, id, options = {})
+        options = ensure_migrations_api_media_type(options)
+        get "orgs/#{org}/migrations/#{id}/archive", options
+      end
+
     end
   end
 end
