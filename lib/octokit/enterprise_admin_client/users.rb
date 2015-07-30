@@ -11,8 +11,8 @@ module Octokit
       # @param email [String] The user's email address.
       # @see https://developer.github.com/v3/users/administration/#create-a-new-user
       # @example
-      #   @admin_client.promote('foobar', 'notreal@foo.bar')
-      def create(login, email, options = {})
+      #   @admin_client.create_user('foobar', 'notreal@foo.bar')
+      def create_user(login, email, options = {})
         options[:login] = login
         options[:email] = email
         boolean_from_response :post, "admin/users", options
@@ -46,8 +46,8 @@ module Octokit
       # @param new_login [String] The user's new username.
       # @see https://developer.github.com/v3/users/administration/#rename-an-existing-user
       # @example
-      #   @admin_client.rename('foobar', 'foofoobar')
-      def rename(old_login, new_login, options = {})
+      #   @admin_client.rename_user('foobar', 'foofoobar')
+      def rename_user(old_login, new_login, options = {})
         options[:login] = new_login
         boolean_from_response :patch, "admin/users/#{old_login}", options
       end

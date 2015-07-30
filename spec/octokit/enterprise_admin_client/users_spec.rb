@@ -7,13 +7,13 @@ describe Octokit::EnterpriseAdminClient::Users do
     @admin_client = enterprise_admin_client
   end
 
-  describe ".create", :vcr do
+  describe ".create_user", :vcr do
     it "creates a new user" do
-      @admin_client.create("foobar", "notreal@foo.bar")
+      @admin_client.create_user("foobar", "notreal@foo.bar")
       expect(@admin_client.last_response.status).to eq(201)
       assert_requested :post, github_enterprise_url("admin/users")
     end
-  end # .create
+  end # .create_user
 
   describe ".promote", :vcr do
     it "promotes an ordinary user to a site administrator" do
@@ -29,13 +29,13 @@ describe Octokit::EnterpriseAdminClient::Users do
     end
   end # .demote
 
-  describe ".rename", :vcr do
+  describe ".rename_user", :vcr do
     it "rename a user" do
-      @admin_client.rename("foobar", "foofoobar")
+      @admin_client.rename_user("foobar", "foofoobar")
       expect(@admin_client.last_response.status).to eq(202)
       assert_requested :patch, github_enterprise_url("admin/users/foobar")
     end
-  end # .rename
+  end # .rename_user
 
   describe ".suspend", :vcr do
     it "suspends a user" do
