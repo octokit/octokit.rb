@@ -75,4 +75,12 @@ describe Octokit::EnterpriseAdminClient::Users do
       assert_requested :get, github_enterprise_url("admin/keys")
     end
   end # .list_all_keys
+
+  describe ".delete_key", :vcr do
+    it "deletes a public keys" do
+      result = @admin_client.delete_key(1)
+      expect(@admin_client.last_response.status).to eq(204)
+      assert_requested :delete, github_enterprise_url("admin/keys/1")
+    end
+  end # .delete_key
 end

@@ -99,9 +99,19 @@ module Octokit
       #
       # @see https://developer.github.com/v3/users/administration/#list-all-public-keys
       # @example
-      #   @admin_client.all_keys
+      #   @admin_client.list_all_keys
       def list_all_keys(options = {})
         get "admin/keys", options
+      end
+
+      # Deletes a public SSH keys.
+      #
+      # @param [id] Number The ID of the key to delete.
+      # @see https://developer.github.com/v3/users/administration/#delete-a-public-key
+      # @example
+      #   @admin_client.delete_key(1)
+      def delete_key(id, options = {})
+        boolean_from_response :delete,  "admin/keys/#{id}", options
       end
     end
   end
