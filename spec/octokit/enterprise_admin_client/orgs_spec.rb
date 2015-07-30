@@ -7,11 +7,11 @@ describe Octokit::EnterpriseAdminClient::Orgs do
     @admin_client = enterprise_admin_client
   end
 
-  describe ".orgs", :vcr do
+  describe ".create_organization", :vcr do
     it "creates a new organization" do
-      @admin_client.create_organization({:login => 'SuchAGreatOrg', :admin => 'gjtorikian'})
+      @admin_client.create_organization('SuchAGreatOrg', 'gjtorikian')
       expect(@admin_client.last_response.status).to eq(201)
       assert_requested :post, github_enterprise_url("admin/organizations")
     end
-  end # .orgs
+  end # .create_organization
 end

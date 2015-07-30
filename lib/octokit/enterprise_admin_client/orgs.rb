@@ -8,15 +8,15 @@ module Octokit
 
       # Create a new organization on the instance.
       #
-      # options [Hash] A set of options.
-      # @option options [String] :login The organization's username.
-      # @option options [String] :admin The login of the user who will manage this organization.
+      # @param login [String] The organization's username.
+      # @param admin [String] The login of the user who will manage this organization.
+      # @param options [Hash] A set of options.
       # @option options [String] :profile_name The organization's display name.
       # @return [nil]
       # @see https://developer.github.com/v3/enterprise/orgs/#create-an-organization
       # @example
-      #   @admin_client.create_organization({:login => 'GitHub', :admin => 'monalisaoctocat'})
-      def create_organization(options)
+      #   @admin_client.create_organization('SuchAGreatOrg', 'gjtorikian')
+      def create_organization(login, admin, options = {})
         post "admin/organizations", options
       end
 
