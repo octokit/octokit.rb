@@ -13,5 +13,5 @@ describe Octokit::EnterpriseAdminClient::Orgs do
       expect(@admin_client.last_response.status).to eq(201)
       assert_requested :post, github_enterprise_url("admin/organizations")
     end
-  end # .license
+  end # .orgs
 end

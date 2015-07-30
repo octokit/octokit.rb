@@ -5,6 +5,19 @@ module Octokit
     #
     # @see https://developer.github.com/v3/users/administration/
     module Users
+      # Create a new user.
+      #
+      # @param login [String] The user's username.
+      # @param email [String] The user's email address.
+      # @see https://developer.github.com/v3/users/administration/#create-a-new-user
+      # @example
+      #   @admin_client.promote('foobar', 'notreal@foo.bar')
+      def create(login, email, options = {})
+        options[:login] = login
+        options[:email] = email
+        boolean_from_response :post, "admin/users", options
+      end
+
       # Promote an ordinary user to a site administrator
       #
       # @param user [String] Username of the user to promote.

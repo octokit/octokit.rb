@@ -7,12 +7,20 @@ describe Octokit::EnterpriseAdminClient::Users do
     @admin_client = enterprise_admin_client
   end
 
+  describe ".create", :vcr do
+    it "creates a new user" do
+      @admin_client.create("foobar", "notreal@foo.bar")
+      expect(@admin_client.last_response.status).to eq(201)
+      assert_requested :post, github_enterprise_url("admin/users")
+    end
+  end # .create
+
   describe ".promote", :vcr do
     it "promotes an ordinary user to a site administrator" do
       @admin_client.promote("pengwynn")
       assert_requested :put, github_enterprise_url("users/pengwynn/site_admin")
     end
-  end # .prmote
+  end # .promote
 
   describe ".demote", :vcr do
     it "demotes a site administrator to an ordinary user" do
