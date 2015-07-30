@@ -73,6 +73,17 @@ module Octokit
       def unsuspend(user, options = {})
         boolean_from_response :delete, "users/#{user}/suspended", options
       end
+
+      # Creates an impersonation OAuth token.
+      #
+      # @param login [String] The user to create a token for.
+      # @param options [Array<String>] :scopes The scopes to apply.
+      # @see https://developer.github.com/v3/users/administration/#create-an-impersonation-oauth-token
+      # @example
+      #   @admin_client.create_impersonation_token('foobar', {:scopes => ['repo:write']})
+      def create_impersonation_token(login, options = {})
+        boolean_from_response :post, "admin/users/#{login}/authorizations", options
+      end
     end
   end
 end
