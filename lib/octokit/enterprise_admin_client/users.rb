@@ -84,6 +84,16 @@ module Octokit
       def create_impersonation_token(login, options = {})
         boolean_from_response :post, "admin/users/#{login}/authorizations", options
       end
+
+      # Deletes an impersonation OAuth token.
+      #
+      # @param login [String] The user whose token should be deleted.
+      # @see https://developer.github.com/v3/users/administration/#delete-an-impersonation-oauth-token
+      # @example
+      #   @admin_client.delete_impersonation_token('foobar')
+      def delete_impersonation_token(login, options = {})
+        boolean_from_response :delete, "admin/users/#{login}/authorizations", options
+      end
     end
   end
 end
