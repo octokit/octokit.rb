@@ -40,6 +40,18 @@ module Octokit
         boolean_from_response :delete, "users/#{user}/site_admin", options
       end
 
+      # Rename a user.
+      #
+      # @param old_login [String] The user's old username.
+      # @param new_login [String] The user's new username.
+      # @see https://developer.github.com/v3/users/administration/#rename-an-existing-user
+      # @example
+      #   @admin_client.rename('foobar', 'foofoobar')
+      def rename(old_login, new_login, options = {})
+        options[:login] = new_login
+        boolean_from_response :patch, "admin/users/#{old_login}", options
+      end
+
       # Suspend a user.
       #
       # @param user [String] Username of the user to suspend.

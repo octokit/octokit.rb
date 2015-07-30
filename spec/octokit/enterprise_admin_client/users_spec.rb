@@ -29,6 +29,14 @@ describe Octokit::EnterpriseAdminClient::Users do
     end
   end # .demote
 
+  describe ".rename", :vcr do
+    it "rename a user" do
+      @admin_client.rename("foobar", "foofoobar")
+      expect(@admin_client.last_response.status).to eq(202)
+      assert_requested :patch, github_enterprise_url("admin/users/foobar")
+    end
+  end # .rename
+
   describe ".suspend", :vcr do
     it "suspends a user" do
       @admin_client.suspend("pengwynn")
