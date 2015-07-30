@@ -94,6 +94,15 @@ module Octokit
       def delete_impersonation_token(login, options = {})
         boolean_from_response :delete, "admin/users/#{login}/authorizations", options
       end
+
+      # Lists all the public SSH keys.
+      #
+      # @see https://developer.github.com/v3/users/administration/#list-all-public-keys
+      # @example
+      #   @admin_client.all_keys
+      def list_all_keys(options = {})
+        get "admin/keys", options
+      end
     end
   end
 end

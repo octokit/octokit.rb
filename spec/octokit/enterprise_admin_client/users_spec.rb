@@ -66,4 +66,13 @@ describe Octokit::EnterpriseAdminClient::Users do
       assert_requested :delete, github_enterprise_url("admin/users/foobar/authorizations")
     end
   end # .delete_impersonation_token
+
+  describe ".list_all_keys", :vcr do
+    it "lists all public keys" do
+      result = @admin_client.list_all_keys
+      expect(@admin_client.last_response.status).to eq(200)
+      expect(result).to be_kind_of Array
+      assert_requested :get, github_enterprise_url("admin/keys")
+    end
+  end # .list_all_keys
 end
