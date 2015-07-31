@@ -33,7 +33,7 @@ Install via Rubygems
 
 ... or add to your Gemfile
 
-    gem "octokit", "~> 3.0"
+    gem "octokit", "~> 4.0"
 
 ### Making requests
 
