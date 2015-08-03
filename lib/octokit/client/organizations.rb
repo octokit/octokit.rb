@@ -648,7 +648,10 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/migrations/#download-a-migration-archive
       def download_migration_archive(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
-        get "orgs/#{org}/migrations/#{id}/archive", options
+        url = "orgs/#{org}/migrations/#{id}/archive"
+
+        response = client_without_redirects(options).get(url)
+        response.body
       end
 
       # Deletes a previous migration archive.

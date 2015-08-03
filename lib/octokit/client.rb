@@ -190,5 +190,23 @@ module Octokit
       reset_agent
       @client_secret = value
     end
+
+    def client_without_redirects(options = {})
+      conn_opts = @connection_options
+      conn_opts[:url] = @api_endpoint
+      conn_opts[:builder] = @middleware.dup if @middleware
+      conn_opts[:proxy] = @proxy if @proxy
+      conn = Faraday.new(conn_opts) do |http|
+        if basic_authenticated?
+          http.basic_auth(@login, @password)
+        elsif token_authenticated?
+          http.authorization 'token', @access_token
+        end
+        http.headers['accept'] = options[:accept] if options.key?(:accept)
+      end
+      conn.builder.delete(Octokit::Middleware::FollowRedirects)
+
+      conn
+    end
   end
 end
