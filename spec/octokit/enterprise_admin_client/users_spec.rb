@@ -62,7 +62,7 @@ describe Octokit::EnterpriseAdminClient::Users do
   describe ".delete_impersonation_token", :vcr do
     it "deletes an impersonation token as a user" do
       @admin_client.delete_impersonation_token('foobar')
-      expect(@admin_client.last_response.status).to eq(200)
+      expect(@admin_client.last_response.status).to eq(204)
       assert_requested :delete, github_enterprise_url("admin/users/foobar/authorizations")
     end
   end # .delete_impersonation_token
