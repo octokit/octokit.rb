@@ -12,7 +12,7 @@ module Octokit
       # @example
       #   Octokit.licenses
       def licenses(options = {})
-        options = ensure_license_api_media_type(options)
+        options = ensure_api_media_type(:licenses, options)
         paginate "licenses", options
       end
 
