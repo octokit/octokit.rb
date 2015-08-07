@@ -304,7 +304,7 @@ describe Octokit::Client::Organizations do
 
   describe ".migrations", :vcr do
     it "starts a migration for an organization" do
-      result = @client.start_migration(test_github_org, {:repositories => ["github-api/api-playground"]})
+      result = @client.start_migration(test_github_org, ["github-api/api-playground"])
       expect(result).to be_kind_of Sawyer::Resource
       assert_requested :post, github_url("/orgs/#{test_github_org}/migrations")
     end

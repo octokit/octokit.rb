@@ -601,16 +601,14 @@ module Octokit
       # Requires authenticated organization owner.
       #
       # @param org [String, Integer] Organization GitHub login or id.
-      # @option options [Array<String>] :repositories Repositories for the organization.
+      # @param repositories [Array<String>] :repositories Repositories for the organization.
       # @option options [Boolean, optional] :lock_repositories Indicates whether repositories should be locked during migration
       # @return [Sawyer::Resource] Hash representing the new migration.
       # @see https://developer.github.com/v3/orgs/teams/#create-team
       # @example
-      #   @client.start_migration('github', {
-      #     :repositories => ['github/dotfiles']
-      #   })
+      #   @client.start_migration('github', ['github/dotfiles'])
       # @see https://developer.github.com/v3/orgs/migrations/#start-a-migration
-      def start_migration(org, options = {})
+      def start_migration(org, repositories, options = {})
         options = ensure_api_media_type(:migrations, options)
         post "orgs/#{org}/migrations", options
       end
