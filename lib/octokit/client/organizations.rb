@@ -651,7 +651,7 @@ module Octokit
         url = "orgs/#{org}/migrations/#{id}/archive"
 
         response = client_without_redirects(options).get(url)
-        response.body
+        response.headers['location']
       end
 
       # Deletes a previous migration archive.
