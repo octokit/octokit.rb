@@ -11,7 +11,7 @@ module Octokit
       # @param repository [Integer, String, Repository, Hash] A GitHub repository.
       # @param options [Sawyer::Resource] A customizable set of options.
       # @option options [Integer] :milestone Milestone number.
-      # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
+      # @option options [String] :state (open) State: <tt>open</tt>, <tt>closed</tt> or <tt>all</tt>.
       # @option options [String] :assignee User login.
       # @option options [String] :creator User login.
       # @option options [String] :mentioned User login.
