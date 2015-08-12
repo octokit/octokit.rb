@@ -411,12 +411,12 @@
       <pre class="lines">
 
 
-54
-55
-56</pre>
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/milestones.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/milestones.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_milestone'>create_milestone</span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/milestones</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:title</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_title'>title</span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -547,12 +547,12 @@
       <pre class="lines">
 
 
-85
-86
-87</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/milestones.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/milestones.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_milestone'>delete_milestone</span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/milestones/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -661,7 +661,7 @@
             
           </span>
           
-            &mdash; <div class='inline'><p>State: <tt>open</tt> or <tt>closed</tt>.</p>
+            &mdash; <div class='inline'><p>State: <tt>open</tt>, <tt>closed</tt>, or <tt>all</tt>.</p>
 </div>
           
         </li>
@@ -832,51 +832,6 @@
           
         </li>
       
-        <li>
-          <span class="name">:state</span>
-          <span class="type">(<tt>String</tt>)</span>
-          <span class="default">
-            
-              &mdash; default:
-              <tt>open</tt>
-            
-          </span>
-          
-            &mdash; <div class='inline'><p>State: <tt>open</tt> or <tt>closed</tt>.</p>
-</div>
-          
-        </li>
-      
-        <li>
-          <span class="name">:sort</span>
-          <span class="type">(<tt>String</tt>)</span>
-          <span class="default">
-            
-              &mdash; default:
-              <tt>created</tt>
-            
-          </span>
-          
-            &mdash; <div class='inline'><p>Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.</p>
-</div>
-          
-        </li>
-      
-        <li>
-          <span class="name">:direction</span>
-          <span class="type">(<tt>String</tt>)</span>
-          <span class="default">
-            
-              &mdash; default:
-              <tt>desc</tt>
-            
-          </span>
-          
-            &mdash; <div class='inline'><p>Direction: <tt>asc</tt> or <tt>desc</tt>.</p>
-</div>
-          
-        </li>
-      
     </ul>
   
 
@@ -911,12 +866,12 @@
       <pre class="lines">
 
 
-38
-39
-40</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/milestones.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/milestones.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_milestone'>milestone</span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/milestones/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1105,12 +1060,12 @@
       <pre class="lines">
 
 
-71
-72
-73</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/milestones.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/milestones.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_milestone'>update_milestone</span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/milestones/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1125,7 +1080,7 @@
 </div>
 
     <div id="footer">
-  Generated on Thu Jun 25 14:26:01 2015 by
+  Generated on Wed Aug 12 15:03:48 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.1.6).
 </div>
