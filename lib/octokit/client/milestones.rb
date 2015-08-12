@@ -28,9 +28,6 @@ module Octokit
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :milestone Milestone number.
-      # @option options [String] :state (open) State: <tt>open</tt>, <tt>closed</tt>, or <tt>all</tt>.
-      # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
-      # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @return [Sawyer::Resource] A single milestone from a repository.
       # @see https://developer.github.com/v3/issues/milestones/#get-a-single-milestone
       # @example Get a single milestone for a repository
@@ -44,7 +41,7 @@ module Octokit
       # @param repository [String, Repository, Hash] A GitHub repository.
       # @param title [String] A unique title.
       # @param options [Hash] A customizable set of options.
-      # @option options [String] :state (open) State: <tt>open</tt>, <tt>closed</tt>, or <tt>all</tt>.
+      # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
       # @option options [String] :description A meaningful description
       # @option options [Time] :due_on Set if the milestone has a due date
       # @return [Sawyer::Resource] A single milestone object
@@ -61,7 +58,7 @@ module Octokit
       # @param number [String, Integer] ID of the milestone
       # @param options [Hash] A customizable set of options.
       # @option options [String] :title A unique title.
-      # @option options [String] :state (open) State: <tt>open</tt>, <tt>closed</tt>, or <tt>all</tt>.
+      # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
       # @option options [String] :description A meaningful description
       # @option options [Time] :due_on Set if the milestone has a due date
       # @return [Sawyer::Resource] A single milestone object
