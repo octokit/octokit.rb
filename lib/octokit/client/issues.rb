@@ -11,7 +11,7 @@ module Octokit
       # @param repository [Integer, String, Repository, Hash] A GitHub repository.
       # @param options [Sawyer::Resource] A customizable set of options.
       # @option options [Integer] :milestone Milestone number.
-      # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
+      # @option options [String] :state (open) State: <tt>open</tt>, <tt>closed</tt>, or <tt>all</tt>.
       # @option options [String] :assignee User login.
       # @option options [String] :creator User login.
       # @option options [String] :mentioned User login.
@@ -37,7 +37,7 @@ module Octokit
       #
       # @param options [Sawyer::Resource] A customizable set of options.
       # @option options [String] :filter (assigned) State: <tt>assigned</tt>, <tt>created</tt>, <tt>mentioned</tt>, <tt>subscribed</tt> or <tt>closed</tt>.
-      # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
+      # @option options [String] :state (open) State: <tt>open</tt>, <tt>closed</tt>, or <tt>all</tt>.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
@@ -58,7 +58,7 @@ module Octokit
       # @param org [String, Integer] Organization GitHub login or id.
       # @param options [Sawyer::Resource] A customizable set of options.
       # @option options [String] :filter (assigned) State: <tt>assigned</tt>, <tt>created</tt>, <tt>mentioned</tt>, <tt>subscribed</tt> or <tt>closed</tt>.
-      # @option options [String] :state (open) State: <tt>open</tt> or <tt>closed</tt>.
+      # @option options [String] :state (open) State: <tt>open</tt>, <tt>closed</tt>, or <tt>all</tt>.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
