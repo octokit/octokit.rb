@@ -322,7 +322,7 @@ describe Octokit::Client::Organizations do
     end
 
     it "downloads a migration archive" do
-      result = @client.download_migration_archive(test_github_org, 97)
+      result = @client.migration_archive_url(test_github_org, 97)
       expect(result).to be_kind_of String
       assert_requested :get, github_url("/orgs/#{test_github_org}/migrations/97/archive")
     end

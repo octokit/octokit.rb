@@ -644,7 +644,7 @@ module Octokit
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] ID number of the migration.
       # @see https://developer.github.com/v3/orgs/migrations/#download-a-migration-archive
-      def download_migration_archive(org, id, options = {})
+      def migration_archive_url(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
         url = "orgs/#{org}/migrations/#{id}/archive"
 
