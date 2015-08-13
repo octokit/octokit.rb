@@ -82,7 +82,7 @@ module Octokit
       # @example
       #   @admin_client.create_impersonation_token('foobar', {:scopes => ['repo:write']})
       def create_impersonation_token(login, options = {})
-        boolean_from_response :post, "admin/users/#{login}/authorizations", options
+        post "admin/users/#{login}/authorizations", options
       end
 
       # Deletes an impersonation OAuth token.

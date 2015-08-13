@@ -53,9 +53,9 @@ describe Octokit::EnterpriseAdminClient::Users do
 
   describe ".create_impersonation_token", :vcr do
     it "creates an impersonation token as a user" do
-      @admin_client.create_impersonation_token('foobar')
+      @admin_client.create_impersonation_token('mikemcquaid')
       expect(@admin_client.last_response.status).to eq(201)
-      assert_requested :post, github_enterprise_url("admin/users/foobar/authorizations")
+      assert_requested :post, github_enterprise_url("admin/users/mikemcquaid/authorizations")
     end
   end # .create_impersonation_token
 
