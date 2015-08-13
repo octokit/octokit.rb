@@ -15,7 +15,7 @@ module Octokit
       def create_user(login, email, options = {})
         options[:login] = login
         options[:email] = email
-        boolean_from_response :post, "admin/users", options
+        post "admin/users", options
       end
 
       # Promote an ordinary user to a site administrator
@@ -49,7 +49,7 @@ module Octokit
       #   @admin_client.rename_user('foobar', 'foofoobar')
       def rename_user(old_login, new_login, options = {})
         options[:login] = new_login
-        boolean_from_response :patch, "admin/users/#{old_login}", options
+        patch "admin/users/#{old_login}", options
       end
 
       # Suspend a user.
