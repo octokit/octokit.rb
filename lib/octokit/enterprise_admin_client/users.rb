@@ -106,7 +106,7 @@ module Octokit
 
       # Deletes a public SSH keys.
       #
-      # @param [id] Number The ID of the key to delete.
+      # @param id [Number] The ID of the key to delete.
       # @see https://developer.github.com/v3/users/administration/#delete-a-public-key
       # @example
       #   @admin_client.delete_key(1)
