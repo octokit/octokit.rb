@@ -91,7 +91,7 @@
   
     
       <dt class="r2">Includes:</dt>
-      <dd class="r2"><span class='object_link'><a href="Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span>, <span class='object_link'><a href="Connection.html" title="Octokit::Connection (module)">Connection</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/AdminStats.html" title="Octokit::EnterpriseAdminClient::AdminStats (module)">AdminStats</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/License.html" title="Octokit::EnterpriseAdminClient::License (module)">License</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html" title="Octokit::EnterpriseAdminClient::SearchIndexing (module)">SearchIndexing</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html" title="Octokit::EnterpriseAdminClient::Users (module)">Users</a></span>, <span class='object_link'><a href="Warnable.html" title="Octokit::Warnable (module)">Warnable</a></span></dd>
+      <dd class="r2"><span class='object_link'><a href="Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span>, <span class='object_link'><a href="Connection.html" title="Octokit::Connection (module)">Connection</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/AdminStats.html" title="Octokit::EnterpriseAdminClient::AdminStats (module)">AdminStats</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/License.html" title="Octokit::EnterpriseAdminClient::License (module)">License</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Orgs.html" title="Octokit::EnterpriseAdminClient::Orgs (module)">Orgs</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html" title="Octokit::EnterpriseAdminClient::SearchIndexing (module)">SearchIndexing</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html" title="Octokit::EnterpriseAdminClient::Users (module)">Users</a></span>, <span class='object_link'><a href="Warnable.html" title="Octokit::Warnable (module)">Warnable</a></span></dd>
       
     
   
@@ -99,7 +99,7 @@
   
     <dt class="r1 last">Defined in:</dt>
     <dd class="r1 last">lib/octokit/enterprise_admin_client.rb<span class="defines">,<br />
-  lib/octokit/enterprise_admin_client/users.rb,<br /> lib/octokit/enterprise_admin_client/license.rb,<br /> lib/octokit/enterprise_admin_client/admin_stats.rb,<br /> lib/octokit/enterprise_admin_client/search_indexing.rb</span>
+  lib/octokit/enterprise_admin_client/orgs.rb,<br /> lib/octokit/enterprise_admin_client/users.rb,<br /> lib/octokit/enterprise_admin_client/license.rb,<br /> lib/octokit/enterprise_admin_client/admin_stats.rb,<br /> lib/octokit/enterprise_admin_client/search_indexing.rb</span>
 </dd>
   
 </dl>
@@ -130,7 +130,7 @@ Management Console, and the Search Indexing API.</p>
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="EnterpriseAdminClient/AdminStats.html" title="Octokit::EnterpriseAdminClient::AdminStats (module)">AdminStats</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/License.html" title="Octokit::EnterpriseAdminClient::License (module)">License</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html" title="Octokit::EnterpriseAdminClient::SearchIndexing (module)">SearchIndexing</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html" title="Octokit::EnterpriseAdminClient::Users (module)">Users</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="EnterpriseAdminClient/AdminStats.html" title="Octokit::EnterpriseAdminClient::AdminStats (module)">AdminStats</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/License.html" title="Octokit::EnterpriseAdminClient::License (module)">License</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Orgs.html" title="Octokit::EnterpriseAdminClient::Orgs (module)">Orgs</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html" title="Octokit::EnterpriseAdminClient::SearchIndexing (module)">SearchIndexing</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html" title="Octokit::EnterpriseAdminClient::Users (module)">Users</a></span>
     
   
     
@@ -203,7 +203,7 @@ Management Console, and the Search Indexing API.</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="EnterpriseAdminClient/Users.html" title="Octokit::EnterpriseAdminClient::Users (module)">Users</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="EnterpriseAdminClient/Users.html#demote-instance_method" title="Octokit::EnterpriseAdminClient::Users#demote (method)">#demote</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#promote-instance_method" title="Octokit::EnterpriseAdminClient::Users#promote (method)">#promote</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#suspend-instance_method" title="Octokit::EnterpriseAdminClient::Users#suspend (method)">#suspend</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#unsuspend-instance_method" title="Octokit::EnterpriseAdminClient::Users#unsuspend (method)">#unsuspend</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="EnterpriseAdminClient/Users.html#create_impersonation_token-instance_method" title="Octokit::EnterpriseAdminClient::Users#create_impersonation_token (method)">#create_impersonation_token</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#create_user-instance_method" title="Octokit::EnterpriseAdminClient::Users#create_user (method)">#create_user</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#delete_impersonation_token-instance_method" title="Octokit::EnterpriseAdminClient::Users#delete_impersonation_token (method)">#delete_impersonation_token</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#delete_key-instance_method" title="Octokit::EnterpriseAdminClient::Users#delete_key (method)">#delete_key</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#demote-instance_method" title="Octokit::EnterpriseAdminClient::Users#demote (method)">#demote</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#list_all_keys-instance_method" title="Octokit::EnterpriseAdminClient::Users#list_all_keys (method)">#list_all_keys</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#promote-instance_method" title="Octokit::EnterpriseAdminClient::Users#promote (method)">#promote</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#rename_user-instance_method" title="Octokit::EnterpriseAdminClient::Users#rename_user (method)">#rename_user</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#suspend-instance_method" title="Octokit::EnterpriseAdminClient::Users#suspend (method)">#suspend</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/Users.html#unsuspend-instance_method" title="Octokit::EnterpriseAdminClient::Users#unsuspend (method)">#unsuspend</a></span></p>
 
   
   
@@ -215,6 +215,17 @@ Management Console, and the Search Indexing API.</p>
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html" title="Octokit::EnterpriseAdminClient::SearchIndexing (module)">SearchIndexing</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html#index_repository-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_repository (method)">#index_repository</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html#index_repository_code-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_repository_code (method)">#index_repository_code</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html#index_repository_issues-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_repository_issues (method)">#index_repository_issues</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html#index_user-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_user (method)">#index_user</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html#index_users_repositories-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_users_repositories (method)">#index_users_repositories</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html#index_users_repositories_code-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_users_repositories_code (method)">#index_users_repositories_code</a></span>, <span class='object_link'><a href="EnterpriseAdminClient/SearchIndexing.html#index_users_repositories_issues-instance_method" title="Octokit::EnterpriseAdminClient::SearchIndexing#index_users_repositories_issues (method)">#index_users_repositories_issues</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="EnterpriseAdminClient/Orgs.html" title="Octokit::EnterpriseAdminClient::Orgs (module)">Orgs</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="EnterpriseAdminClient/Orgs.html#create_organization-instance_method" title="Octokit::EnterpriseAdminClient::Orgs#create_organization (method)">#create_organization</a></span></p>
 
   
   
@@ -309,15 +320,15 @@ Management Console, and the Search Indexing API.</p>
       <pre class="lines">
 
 
-28
-29
 30
 31
 32
-33</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/enterprise_admin_client.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/enterprise_admin_client.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='comment'># Use options passed in, but fall back to module defaults
@@ -336,7 +347,7 @@ Management Console, and the Search Indexing API.</p>
 </div>
 
     <div id="footer">
-  Generated on Wed Aug 12 15:03:50 2015 by
+  Generated on Sat Aug 22 14:51:21 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.1.6).
 </div>

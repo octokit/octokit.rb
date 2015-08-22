@@ -99,18 +99,6 @@
   
 
 </div>
-  <h2>Constant Summary</h2>
-  
-    <dl class="constants">
-      
-        <dt id="LICENSES_PREVIEW_MEDIA_TYPE-constant" class="">LICENSES_PREVIEW_MEDIA_TYPE =
-          
-        </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.drax-preview+json</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-      
-    </dl>
-  
-
 
 
 
@@ -124,28 +112,6 @@
     </h2>
 
     <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#ensure_license_api_media_type-instance_method" title="#ensure_license_api_media_type (instance method)">- (Object) <strong>ensure_license_api_media_type</strong>(options = {}) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
       
         <li class="public ">
   <span class="summary_signature">
@@ -193,28 +159,6 @@
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#warn_license_preview-instance_method" title="#warn_license_preview (instance method)">- (Object) <strong>warn_license_preview</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
     </ul>
   
 
@@ -225,45 +169,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="ensure_license_api_media_type-instance_method">
-  
-    - (<tt>Object</tt>) <strong>ensure_license_api_media_type</strong>(options = {}) 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-33
-34
-35
-36
-37
-38
-39</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/licenses.rb', line 33</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_ensure_license_api_media_type'>ensure_license_api_media_type</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:accept</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>LICENSES_PREVIEW_MEDIA_TYPE</span>
-    <span class='id identifier rubyid_warn_license_preview'>warn_license_preview</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_options'>options</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="license-instance_method">
+  <h3 class="signature first" id="license-instance_method">
   
     - (<tt>Sawyer::Resource</tt>) <strong>license</strong>(license_name, options = {}) 
   
@@ -338,16 +244,16 @@
       <pre class="lines">
 
 
+26
+27
 28
-29
-30
-31</pre>
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/licenses.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/licenses.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_license'>license</span><span class='lparen'>(</span><span class='id identifier rubyid_license_name'>license_name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_license_api_media_type'>ensure_license_api_media_type</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:licenses</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>licenses/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_license_name'>license_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -412,56 +318,18 @@
       <pre class="lines">
 
 
+14
+15
 16
-17
-18
-19</pre>
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/licenses.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/licenses.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_licenses'>licenses</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_license_api_media_type'>ensure_license_api_media_type</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:licenses</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>licenses</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="warn_license_preview-instance_method">
-  
-    - (<tt>Object</tt>) <strong>warn_license_preview</strong> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-41
-42
-43
-44
-45
-46
-47</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/licenses.rb', line 41</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_warn_license_preview'>warn_license_preview</span>
-  <span class='id identifier rubyid_warn'>warn</span> <span class='heredoc_beg'>&lt;&lt;-EOS</span>
-<span class='tstring_content'>WARNING: The preview version of the License API is not yet suitable for production use.
-You can avoid this message by supplying an appropriate media type in the &#39;Accept&#39; request
-header. 
-</span><span class='heredoc_end'>EOS
-</span><span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -472,7 +340,7 @@ header.
 </div>
 
     <div id="footer">
-  Generated on Wed Aug 12 15:03:48 2015 by
+  Generated on Sat Aug 22 14:51:18 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.1.6).
 </div>

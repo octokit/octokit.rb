@@ -84,7 +84,7 @@
   
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/octokit.rb<span class="defines">,<br />
-  lib/octokit/user.rb,<br /> lib/octokit/gist.rb,<br /> lib/octokit/error.rb,<br /> lib/octokit/client.rb,<br /> lib/octokit/version.rb,<br /> lib/octokit/default.rb,<br /> lib/octokit/warnable.rb,<br /> lib/octokit/rate_limit.rb,<br /> lib/octokit/client/say.rb,<br /> lib/octokit/connection.rb,<br /> lib/octokit/repository.rb,<br /> lib/octokit/client/meta.rb,<br /> lib/octokit/client/refs.rb,<br /> lib/octokit/client/pages.rb,<br /> lib/octokit/client/hooks.rb,<br /> lib/octokit/configurable.rb,<br /> lib/octokit/client/stats.rb,<br /> lib/octokit/client/gists.rb,<br /> lib/octokit/client/feeds.rb,<br /> lib/octokit/organization.rb,<br /> lib/octokit/client/users.rb,<br /> lib/octokit/client/labels.rb,<br /> lib/octokit/client/issues.rb,<br /> lib/octokit/client/emojis.rb,<br /> lib/octokit/client/search.rb,<br /> lib/octokit/client/events.rb,<br /> lib/octokit/client/objects.rb,<br /> lib/octokit/authentication.rb,<br /> lib/octokit/client/commits.rb,<br /> lib/octokit/client/markdown.rb,<br /> lib/octokit/client/licenses.rb,<br /> lib/octokit/client/releases.rb,<br /> lib/octokit/client/contents.rb,<br /> lib/octokit/client/statuses.rb,<br /> lib/octokit/client/downloads.rb,<br /> lib/octokit/client/gitignore.rb,<br /> lib/octokit/client/rate_limit.rb,<br /> lib/octokit/client/milestones.rb,<br /> lib/octokit/client/deployments.rb,<br /> lib/octokit/client/repositories.rb,<br /> lib/octokit/client/notifications.rb,<br /> lib/octokit/client/organizations.rb,<br /> lib/octokit/client/legacy_search.rb,<br /> lib/octokit/client/pull_requests.rb,<br /> lib/octokit/client/authorizations.rb,<br /> lib/octokit/client/service_status.rb,<br /> lib/octokit/client/pub_sub_hubbub.rb,<br /> lib/octokit/client/commit_comments.rb,<br /> lib/octokit/enterprise_admin_client.rb,<br /> lib/octokit/middleware/follow_redirects.rb,<br /> lib/octokit/enterprise_admin_client/users.rb,<br /> lib/octokit/enterprise_admin_client/license.rb,<br /> lib/octokit/enterprise_admin_client/admin_stats.rb,<br /> lib/octokit/enterprise_management_console_client.rb,<br /> lib/octokit/enterprise_admin_client/search_indexing.rb,<br /> lib/octokit/enterprise_management_console_client/management_console.rb</span>
+  lib/octokit/gist.rb,<br /> lib/octokit/user.rb,<br /> lib/octokit/error.rb,<br /> lib/octokit/client.rb,<br /> lib/octokit/version.rb,<br /> lib/octokit/preview.rb,<br /> lib/octokit/default.rb,<br /> lib/octokit/warnable.rb,<br /> lib/octokit/connection.rb,<br /> lib/octokit/client/say.rb,<br /> lib/octokit/rate_limit.rb,<br /> lib/octokit/repository.rb,<br /> lib/octokit/client/meta.rb,<br /> lib/octokit/client/refs.rb,<br /> lib/octokit/organization.rb,<br /> lib/octokit/configurable.rb,<br /> lib/octokit/client/pages.rb,<br /> lib/octokit/client/hooks.rb,<br /> lib/octokit/client/stats.rb,<br /> lib/octokit/client/gists.rb,<br /> lib/octokit/client/feeds.rb,<br /> lib/octokit/client/users.rb,<br /> lib/octokit/client/labels.rb,<br /> lib/octokit/client/emojis.rb,<br /> lib/octokit/client/events.rb,<br /> lib/octokit/client/issues.rb,<br /> lib/octokit/client/search.rb,<br /> lib/octokit/client/commits.rb,<br /> lib/octokit/authentication.rb,<br /> lib/octokit/client/objects.rb,<br /> lib/octokit/client/markdown.rb,<br /> lib/octokit/client/contents.rb,<br /> lib/octokit/client/statuses.rb,<br /> lib/octokit/client/licenses.rb,<br /> lib/octokit/client/releases.rb,<br /> lib/octokit/client/downloads.rb,<br /> lib/octokit/client/gitignore.rb,<br /> lib/octokit/client/rate_limit.rb,<br /> lib/octokit/client/milestones.rb,<br /> lib/octokit/client/deployments.rb,<br /> lib/octokit/client/repositories.rb,<br /> lib/octokit/client/notifications.rb,<br /> lib/octokit/client/legacy_search.rb,<br /> lib/octokit/client/pull_requests.rb,<br /> lib/octokit/client/organizations.rb,<br /> lib/octokit/client/authorizations.rb,<br /> lib/octokit/client/service_status.rb,<br /> lib/octokit/client/pub_sub_hubbub.rb,<br /> lib/octokit/client/commit_comments.rb,<br /> lib/octokit/enterprise_admin_client.rb,<br /> lib/octokit/middleware/follow_redirects.rb,<br /> lib/octokit/enterprise_admin_client/orgs.rb,<br /> lib/octokit/enterprise_admin_client/users.rb,<br /> lib/octokit/enterprise_admin_client/license.rb,<br /> lib/octokit/enterprise_admin_client/admin_stats.rb,<br /> lib/octokit/enterprise_management_console_client.rb,<br /> lib/octokit/enterprise_admin_client/search_indexing.rb,<br /> lib/octokit/enterprise_management_console_client/management_console.rb</span>
 </dd>
   
 </dl>
@@ -107,7 +107,7 @@ that we need for octokit.rb.</p>
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Octokit/Authentication.html" title="Octokit::Authentication (module)">Authentication</a></span>, <span class='object_link'><a href="Octokit/Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span>, <span class='object_link'><a href="Octokit/Connection.html" title="Octokit::Connection (module)">Connection</a></span>, <span class='object_link'><a href="Octokit/Default.html" title="Octokit::Default (module)">Default</a></span>, <span class='object_link'><a href="Octokit/Middleware.html" title="Octokit::Middleware (module)">Middleware</a></span>, <span class='object_link'><a href="Octokit/Warnable.html" title="Octokit::Warnable (module)">Warnable</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Octokit/Authentication.html" title="Octokit::Authentication (module)">Authentication</a></span>, <span class='object_link'><a href="Octokit/Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span>, <span class='object_link'><a href="Octokit/Connection.html" title="Octokit::Connection (module)">Connection</a></span>, <span class='object_link'><a href="Octokit/Default.html" title="Octokit::Default (module)">Default</a></span>, <span class='object_link'><a href="Octokit/Middleware.html" title="Octokit::Middleware (module)">Middleware</a></span>, <span class='object_link'><a href="Octokit/Preview.html" title="Octokit::Preview (module)">Preview</a></span>, <span class='object_link'><a href="Octokit/Warnable.html" title="Octokit::Warnable (module)">Warnable</a></span>
     
   
     
@@ -174,7 +174,7 @@ that we need for octokit.rb.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
       
         <dt id="PATCH-constant" class="">PATCH =
           <div class="docstring">
@@ -202,7 +202,7 @@ that we need for octokit.rb.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
       
         <dt id="VERSION-constant" class="">VERSION =
           <div class="docstring">
@@ -1003,7 +1003,7 @@ that we need for octokit.rb.</p>
 </div>
 
     <div id="footer">
-  Generated on Wed Aug 12 15:03:46 2015 by
+  Generated on Sat Aug 22 14:51:15 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.1.6).
 </div>
