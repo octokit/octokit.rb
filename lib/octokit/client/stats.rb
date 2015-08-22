@@ -23,7 +23,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @return [Array<Sawyer::Resource>] The last year of commit activity grouped by
       #   week. The days array is a group of commits per day, starting on Sunday.
-      # @see https://developer.github.com/v3/repos/statistics/#get-the-last-year-of-commit-activity-data
+      # @see https://developer.github.com/v3/repos/statistics/#commit-activity
       # @example Get commit activity for octokit
       #   @client.commit_activity_stats('octokit/octokit.rb')
       def commit_activity_stats(repo, options = {})
