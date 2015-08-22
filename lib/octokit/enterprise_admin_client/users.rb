@@ -5,6 +5,19 @@ module Octokit
     #
     # @see https://developer.github.com/v3/users/administration/
     module Users
+      # Create a new user.
+      #
+      # @param login [String] The user's username.
+      # @param email [String] The user's email address.
+      # @see https://developer.github.com/v3/users/administration/#create-a-new-user
+      # @example
+      #   @admin_client.create_user('foobar', 'notreal@foo.bar')
+      def create_user(login, email, options = {})
+        options[:login] = login
+        options[:email] = email
+        post "admin/users", options
+      end
+
       # Promote an ordinary user to a site administrator
       #
       # @param user [String] Username of the user to promote.
@@ -27,6 +40,18 @@ module Octokit
         boolean_from_response :delete, "users/#{user}/site_admin", options
       end
 
+      # Rename a user.
+      #
+      # @param old_login [String] The user's old username.
+      # @param new_login [String] The user's new username.
+      # @see https://developer.github.com/v3/users/administration/#rename-an-existing-user
+      # @example
+      #   @admin_client.rename_user('foobar', 'foofoobar')
+      def rename_user(old_login, new_login, options = {})
+        options[:login] = new_login
+        patch "admin/users/#{old_login}", options
+      end
+
       # Suspend a user.
       #
       # @param user [String] Username of the user to suspend.
@@ -47,6 +72,46 @@ module Octokit
       #   @admin_client.unsuspend('holman')
       def unsuspend(user, options = {})
         boolean_from_response :delete, "users/#{user}/suspended", options
+      end
+
+      # Creates an impersonation OAuth token.
+      #
+      # @param login [String] The user to create a token for.
+      # @param options [Array<String>] :scopes The scopes to apply.
+      # @see https://developer.github.com/v3/users/administration/#create-an-impersonation-oauth-token
+      # @example
+      #   @admin_client.create_impersonation_token('foobar', {:scopes => ['repo:write']})
+      def create_impersonation_token(login, options = {})
+        post "admin/users/#{login}/authorizations", options
+      end
+
+      # Deletes an impersonation OAuth token.
+      #
+      # @param login [String] The user whose token should be deleted.
+      # @see https://developer.github.com/v3/users/administration/#delete-an-impersonation-oauth-token
+      # @example
+      #   @admin_client.delete_impersonation_token('foobar')
+      def delete_impersonation_token(login, options = {})
+        boolean_from_response :delete, "admin/users/#{login}/authorizations", options
+      end
+
+      # Lists all the public SSH keys.
+      #
+      # @see https://developer.github.com/v3/users/administration/#list-all-public-keys
+      # @example
+      #   @admin_client.list_all_keys
+      def list_all_keys(options = {})
+        get "admin/keys", options
+      end
+
+      # Deletes a public SSH keys.
+      #
+      # @param [id] Number The ID of the key to delete.
+      # @see https://developer.github.com/v3/users/administration/#delete-a-public-key
+      # @example
+      #   @admin_client.delete_key(1)
+      def delete_key(id, options = {})
+        boolean_from_response :delete,  "admin/keys/#{id}", options
       end
     end
   end
