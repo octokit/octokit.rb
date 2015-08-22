@@ -595,6 +595,87 @@ module Octokit
         user = options.delete(:user)
         user && boolean_from_response(:delete, "orgs/#{org}/memberships/#{user}", options)
       end
+
+      # Initiates the generation of a migration archive.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param repositories [Array<String>] :repositories Repositories for the organization.
+      # @option options [Boolean, optional] :lock_repositories Indicates whether repositories should be locked during migration
+      # @return [Sawyer::Resource] Hash representing the new migration.
+      # @see https://developer.github.com/v3/orgs/teams/#create-team
+      # @example
+      #   @client.start_migration('github', ['github/dotfiles'])
+      # @see https://developer.github.com/v3/orgs/migrations/#start-a-migration
+      def start_migration(org, repositories, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        post "orgs/#{org}/migrations", options
+      end
+
+      # Lists the most recent migrations.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @return [Array<Sawyer::Resource>] Array of migration resources.
+      # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
+      def migrations(org, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        paginate "orgs/#{org}/migrations", options
+      end
+
+      # Fetches the status of a migration.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param id [Integer] ID number of the migration.
+      # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
+      def migration_status(org, id, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        get "orgs/#{org}/migrations/#{id}", options
+      end
+
+      # Fetches the URL to a migration archive.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param id [Integer] ID number of the migration.
+      # @see https://developer.github.com/v3/orgs/migrations/#download-a-migration-archive
+      def migration_archive_url(org, id, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        url = "orgs/#{org}/migrations/#{id}/archive"
+
+        response = client_without_redirects(options).get(url)
+        response.headers['location']
+      end
+
+      # Deletes a previous migration archive.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param id [Integer] ID number of the migration.
+      # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
+      def delete_migration_archive(org, id, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        delete "orgs/#{org}/migrations/#{id}/archive", options
+      end
+
+      # Unlock a previous migration archive.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param id [Integer] ID number of the migration.
+      # @param repo [String] Name of the repository.
+      # @see https://developer.github.com/v3/orgs/migrations/#unlock-a-repository
+      def unlock_repository(org, id, repo, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        delete "orgs/#{org}/migrations/#{id}/repos/#{repo}/lock", options
+      end
     end
   end
 end
