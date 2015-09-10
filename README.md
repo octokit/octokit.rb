@@ -639,8 +639,11 @@ Constraint][pvc] with two digits of precision. For example:
 
     spec.add_dependency 'octokit', '~> 3.0'
 
+The changes made between versions can be seen on the [project releases page][releases].
+
 [semver]: http://semver.org/
 [pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
+[releases]: https://github.com/octokit/octokit.rb/releases
 
 ## License
 
