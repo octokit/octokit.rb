@@ -30,28 +30,42 @@ describe Octokit::Repository do
   context "when passed a string without a slash" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new('raise-error') }.
-        to raise_error ArgumentError, "Invalid Repository. Use user/repo format."
+        to raise_error Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
+    end
+  end
+
+  context "when passed a string with more than 1 slash" do
+    it "raises ArgumentError" do
+      expect { Octokit::Repository.new('more_than/one/slash') }.
+        to raise_error Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
+    end
+  end
+
+  context "when passed an invalid path" do
+    it "raises ArgumentError" do
+      expect { Octokit::Repository.new('invalid / path') }.
+        to raise_error Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
     end
   end
 
   context "when passed a boolean true" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new(true) }.
-        to raise_error ArgumentError, "Invalid Repository. Use user/repo format."
+        to raise_error Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
     end
   end
 
   context "when passed a boolean false" do
     it "false raises ArgumentError" do
       expect { Octokit::Repository.new(false) }.
-        to raise_error ArgumentError, "Invalid Repository. Use user/repo format."
+        to raise_error Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
     end
   end
 
   context "when passed nil" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new(nil) }.
-        to raise_error ArgumentError, "Invalid Repository. Use user/repo format."
+        to raise_error Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
     end
   end
 
@@ -90,6 +104,34 @@ describe Octokit::Repository do
       repository = Octokit::Repository.new({:username => 'sferik', :name => 'octokit'})
       expect(repository.name).to eq("octokit")
       expect(repository.username).to eq("sferik")
+    end
+  end
+
+  context "when passed a hash with invalid username" do
+    it "raises ArgumentError" do
+      expect { Octokit::Repository.new({:username => 'invalid username!', :name => 'octokit'}) }.
+        to raise_error Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
+    end
+  end
+
+  context "when passed a hash with a username that contains a slash" do
+    it "raises ArgumentError" do
+      expect { Octokit::Repository.new({:username => 'invalid/username', :name => 'octokit'}) }.
+        to raise_error Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
+    end
+  end
+
+  context "when passed a hash with invalid repo" do
+    it "raises ArgumentError" do
+      expect { Octokit::Repository.new({:username => 'sferik', :name => 'invalid repo!'}) }.
+        to raise_error Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
+    end
+  end
+
+  context "when passed a hash with a repo that contains a slash" do
+    it "raises ArgumentError" do
+      expect { Octokit::Repository.new({:username => 'sferik', :name => 'invalid/repo'}) }.
+        to raise_error Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
     end
   end
 

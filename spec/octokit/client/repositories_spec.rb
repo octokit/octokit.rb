@@ -368,5 +368,13 @@ describe Octokit::Client::Repositories do
       expect(result).to be false
       assert_requested :get, github_url("/repos/pengwynn/octokit")
     end
+    it "returns false if the repository has an invalid format" do
+      result = @client.repository?("invalid format")
+      expect(result).to be false
+    end
+    it "returns false if the repository has more than one slash" do
+      result = @client.repository?("more_than/one/slash")
+      expect(result).to be false
+    end
   end # .repository?
 end
