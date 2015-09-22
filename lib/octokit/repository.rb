@@ -4,6 +4,7 @@ module Octokit
   # URLs and to generate URLs
   class Repository
     attr_accessor :owner, :name, :id
+    NAME_WITH_OWNER_PATTERN = /\A(?<owner>[\.\w-]+)\/(?<name>[\.\w-]+)\z/i
 
     # Instantiate from a GitHub repository URL
     #
@@ -12,15 +13,14 @@ module Octokit
       Repository.new(URI.parse(url).path[1..-1])
     end
 
+    # @raise [Octokit::InvalidRepository] if the repository
+    #   has an invalid format
     def initialize(repo)
       case repo
       when Integer
         @id = repo
-      when String
-        @owner, @name = repo.split('/')
-        unless @owner && @name
-          raise ArgumentError, "Invalid Repository. Use user/repo format."
-        end
+      when NAME_WITH_OWNER_PATTERN
+        @owner, @name = repo.split("/")
       when Repository
         @owner = repo.owner
         @name = repo.name
@@ -28,7 +28,10 @@ module Octokit
         @name = repo[:repo] ||= repo[:name]
         @owner = repo[:owner] ||= repo[:user] ||= repo[:username]
       else
-        raise ArgumentError, "Invalid Repository. Use user/repo format."
+        raise_invalid_repository!
+      end
+      if @owner && @name
+        validate_owner_and_name!
       end
     end
 
@@ -71,5 +74,17 @@ module Octokit
     alias :user :owner
     alias :username :owner
     alias :repo :name
+
+    private
+
+      def validate_owner_and_name!
+        if @owner.include?('/') || @name.include?('/') || !url.match(/\A#{URI.regexp}\z/)
+          raise_invalid_repository!
+        end
+      end
+
+      def raise_invalid_repository!
+        raise Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
+      end
   end
 end

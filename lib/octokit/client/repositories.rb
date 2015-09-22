@@ -13,6 +13,8 @@ module Octokit
       # @return [Sawyer::Resource] if a repository exists, false otherwise
       def repository?(repo, options = {})
         !!repository(repo, options)
+      rescue Octokit::InvalidRepository
+        false
       rescue Octokit::NotFound
         false
       end

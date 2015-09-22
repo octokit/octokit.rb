@@ -238,4 +238,8 @@ module Octokit
   # Raised when a method requires an application client_id
   # and secret but none is provided
   class ApplicationCredentialsRequired < StandardError; end
+
+  # Raised when a repository is created with an invalid format
+  class InvalidRepository < ArgumentError; end
+
 end
