@@ -115,10 +115,17 @@ module Octokit
       # @param token [String] GitHub OAuth token
       # @return [Array<String>] OAuth scopes
       # @see https://developer.github.com/v3/oauth/#scopes
-      def scopes(token = @access_token)
+      def scopes(token = @access_token, options = {})
         raise ArgumentError.new("Access token required") if token.nil?
+        authorization_header = { "Authorization" => "token #{token}" }
 
-        agent.call(:get, "user", :headers => {"Authorization" => "token #{token}" }).
+        if options[:headers]
+          options[:headers].merge(authorization_header)
+        else
+          options[:headers] = authorization_header
+        end
+
+        agent.call(:get, "user", options).
           headers['X-OAuth-Scopes'].
           to_s.
           split(',').
