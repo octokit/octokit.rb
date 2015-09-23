@@ -113,6 +113,7 @@ module Octokit
       # Check scopes for a token
       #
       # @param token [String] GitHub OAuth token
+      # @param options [Hash] A customizable set of options.
       # @return [Array<String>] OAuth scopes
       # @see https://developer.github.com/v3/oauth/#scopes
       def scopes(token = @access_token, options = {})
