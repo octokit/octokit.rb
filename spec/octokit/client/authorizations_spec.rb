@@ -50,6 +50,18 @@ describe Octokit::Client::Authorizations do
         assert_requested :put, basic_github_url("/authorizations/clients/#{test_github_client_id}")
       end
 
+      it "creates a new authorization with fingerprint" do
+        path = "/authorization/clients/#{test_github_client_id}/jklmnop12345678"
+        stub_get(basic_github_url(path))
+        @client.create_authorization \
+          :idempotent    => true,
+          :client_id     => test_github_client_id,
+          :client_secret => test_github_client_secret,
+          :scopes => %w(gist),
+          :fingerprint => "jklmnop12345678"
+        assert_requested :put, basic_github_url("/authorizations/clients/#{test_github_client_id}/jklmnop12345678")
+      end
+
       it 'returns an existing API authorization if one already exists' do
         first_authorization = @client.create_authorization \
           :idempotent    => true,
