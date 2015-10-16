@@ -36,7 +36,7 @@ module Octokit
       # @return [Sawyer::Resource] The detail of the license file
       # @example
       #   Octokit.license_contents 'benbalter/licensee'
-      def license_contents(repo, options = {})
+      def repository_license_contents(repo, options = {})
         options = ensure_api_media_type(:licenses, options)
         get "#{Repository.path repo}/license", options
       end

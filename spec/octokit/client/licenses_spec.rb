@@ -16,9 +16,10 @@ describe Octokit::Client::Licenses do
     end
   end
 
-  describe ".license_contents", :vcr do
+  describe ".repository_license_contents", :vcr do
     it "returns a repository's license file" do
-      response = Octokit.license_contents 'benbalter/licensee', :accept => "application/vnd.github.drax-preview+json"
+      options = { :accept => "application/vnd.github.drax-preview+json" }
+      response = Octokit.repository_license_contents 'benbalter/licensee', options
       expect(response.license.key).to eql("mit")
       content = Base64.decode64 response.content
       expect(content).to match(/MIT/)
