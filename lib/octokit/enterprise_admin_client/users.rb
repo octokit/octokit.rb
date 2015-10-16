@@ -52,6 +52,16 @@ module Octokit
         patch "admin/users/#{old_login}", options
       end
 
+      # Deletes a user.
+      #
+      # @param username [String] The username to delete.
+      # @see https://developer.github.com/v3/users/administration/#delete-a-user
+      # @example
+      #   @admin_client.delete_key(1)
+      def delete_user(id, options = {})
+        boolean_from_response :delete,  "admin/users/#{id}", options
+      end
+
       # Suspend a user.
       #
       # @param user [String] Username of the user to suspend.

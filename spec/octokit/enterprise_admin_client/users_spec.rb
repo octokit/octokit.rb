@@ -51,6 +51,14 @@ describe Octokit::EnterpriseAdminClient::Users do
     end
   end # .unsuspend
 
+  describe ".delete_user", :vcr do
+    it "deletes a user" do
+      @admin_client.delete_user("afakeperson")
+      expect(@admin_client.last_response.status).to eq(204)
+      assert_requested :delete, github_enterprise_url("admin/users/afakeperson")
+    end
+  end # .delete_user
+
   describe ".create_impersonation_token", :vcr do
     it "creates an impersonation token as a user" do
       @admin_client.create_impersonation_token('mikemcquaid')
