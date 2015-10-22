@@ -32,7 +32,7 @@ module Octokit
       #
       # @see https://developer.github.com/v3/licenses/#get-a-repositorys-license
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to “master”.
+      # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to 'master'.
       # @return [Sawyer::Resource] The detail of the license file
       # @example
       #   Octokit.license_contents 'benbalter/licensee'
