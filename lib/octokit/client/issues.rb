@@ -15,7 +15,7 @@ module Octokit
       # @option options [String] :assignee User login.
       # @option options [String] :creator User login.
       # @option options [String] :mentioned User login.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array<String>] :labels List of Label names. Example: <tt>['bug', 'ui', '@high']</tt>.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
@@ -38,7 +38,7 @@ module Octokit
       # @param options [Sawyer::Resource] A customizable set of options.
       # @option options [String] :filter (assigned) State: <tt>assigned</tt>, <tt>created</tt>, <tt>mentioned</tt>, <tt>subscribed</tt> or <tt>closed</tt>.
       # @option options [String] :state (open) State: <tt>open</tt>, <tt>closed</tt>, or <tt>all</tt>.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array<String>] :labels List of Label names. Example: <tt>['bug', 'ui', '@high']</tt>.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
@@ -59,7 +59,7 @@ module Octokit
       # @param options [Sawyer::Resource] A customizable set of options.
       # @option options [String] :filter (assigned) State: <tt>assigned</tt>, <tt>created</tt>, <tt>mentioned</tt>, <tt>subscribed</tt> or <tt>closed</tt>.
       # @option options [String] :state (open) State: <tt>open</tt>, <tt>closed</tt>, or <tt>all</tt>.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array<String>] :labels List of Label names. Example: <tt>['bug', 'ui', '@high']</tt>.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
@@ -121,7 +121,7 @@ module Octokit
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array<String>] :labels List of Label names. Example: <tt>['bug', 'ui', '@high']</tt>.
       # @return [Sawyer::Resource] The updated Issue
       # @see https://developer.github.com/v3/issues/#edit-an-issue
       # @example Close Issue #25 from octokit/octokit.rb
@@ -137,7 +137,7 @@ module Octokit
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
       # @option options [Integer] :milestone Milestone number.
-      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array<String>] :labels List of Label names. Example: <tt>['bug', 'ui', '@high']</tt>.
       # @return [Sawyer::Resource] The updated Issue
       # @see https://developer.github.com/v3/issues/#edit-an-issue
       # @example Reopen Issue #25 from octokit/octokit.rb
@@ -167,7 +167,7 @@ module Octokit
       #   @option options [String] :body Updated body of the issue
       #   @option options [String] :assignee User login.
       #   @option options [Integer] :milestone Milestone number.
-      #   @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
+      # @option options [Array<String>] :labels List of Label names. Example: <tt>['bug', 'ui', '@high']</tt>.
       #   @option options [String] :state State of the issue. <tt>open</tt> or <tt>closed</tt>
       # @return [Sawyer::Resource] The updated Issue
       # @see https://developer.github.com/v3/issues/#edit-an-issue
