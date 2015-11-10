@@ -66,6 +66,8 @@ module Octokit
         Octokit::AbuseDetected
       elsif body =~ /repository access blocked/i
         Octokit::RepositoryUnavailable
+      elsif body =~ /email address must be verified/i
+        Octokit::UnverifiedEmail
       else
         Octokit::Forbidden
       end
@@ -198,6 +200,10 @@ module Octokit
   # Raised when GitHub returns a 403 HTTP status code
   # and body matches 'repository access blocked'
   class RepositoryUnavailable < Forbidden; end
+
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'email address must be verified'
+  class UnverifiedEmail < Forbidden; end
 
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end

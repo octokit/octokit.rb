@@ -789,6 +789,14 @@ describe Octokit::Client do
         },
         :body => {:message => "Repository access blocked"}.to_json
       expect { Octokit.get("/blocked/repository") }.to raise_error Octokit::RepositoryUnavailable
+
+      stub_post('/user/repos').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "At least one email address must be verified to do that"}.to_json
+      expect { Octokit.post("/user/repos") }.to raise_error Octokit::UnverifiedEmail
     end
 
     it "raises on unknown client errors" do
