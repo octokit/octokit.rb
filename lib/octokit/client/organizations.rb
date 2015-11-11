@@ -498,7 +498,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of team resources.
       # @see https://developer.github.com/v3/orgs/teams/#list-user-teams
       def user_teams(options = {})
-        paginate "/user/teams", options
+        paginate "user/teams", options
       end
 
       # Check if a user has a team membership.
