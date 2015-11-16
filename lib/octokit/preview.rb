@@ -11,7 +11,7 @@ module Octokit
     def ensure_api_media_type(type, options)
       if options[:accept].nil?
         options[:accept] = PREVIEW_TYPES[type]
-        warn_preview(:migrations)
+        warn_preview(type)
       end
       options
     end
