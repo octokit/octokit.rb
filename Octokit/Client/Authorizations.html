@@ -332,7 +332,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#scopes-instance_method" title="#scopes (instance method)">- (Array&lt;String&gt;) <strong>scopes</strong>(token = @access_token) </a>
+      <a href="#scopes-instance_method" title="#scopes (instance method)">- (Array&lt;String&gt;) <strong>scopes</strong>(token = @access_token, options = {}) </a>
     
 
     
@@ -687,22 +687,22 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-232
-233
-234
-235
-236
-237
-238
-239
-240
 241
 242
 243
-244</pre>
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 232</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 241</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_authorize_url'>authorize_url</span><span class='lparen'>(</span><span class='id identifier rubyid_app_id'>app_id</span> <span class='op'>=</span> <span class='id identifier rubyid_client_id'>client_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_app_id'>app_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -801,18 +801,18 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-140
-141
-142
-143
-144
-145
-146
-147
-148</pre>
+149
+150
+151
+152
+153
+154
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_check_application_authorization'>check_application_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_token'>token</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -1017,7 +1017,12 @@ Basic Authentication.</p>
 70
 71
 72
-73</pre>
+73
+74
+75
+76
+77
+78</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 61</span>
@@ -1030,7 +1035,12 @@ Basic Authentication.</p>
     <span class='id identifier rubyid_client_id'>client_id</span><span class='comma'>,</span> <span class='id identifier rubyid_client_secret'>client_secret</span> <span class='op'>=</span> <span class='id identifier rubyid_fetch_client_id_and_secret'>fetch_client_id_and_secret</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Client ID and Secret required for idempotent authorizations</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_client_id'>client_id</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_client_secret'>client_secret</span>
 
-    <span class='id identifier rubyid_put'>put</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>authorizations/clients/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_client_id'>client_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='symbol'>:client_secret</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_client_secret'>client_secret</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_fingerprint'>fingerprint</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:fingerprint</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_put'>put</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>authorizations/clients/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_client_id'>client_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_fingerprint'>fingerprint</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='symbol'>:client_secret</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_client_secret'>client_secret</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_put'>put</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>authorizations/clients/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_client_id'>client_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='symbol'>:client_secret</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_client_secret'>client_secret</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
   <span class='kw'>else</span>
     <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>authorizations</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
   <span class='kw'>end</span>
@@ -1123,12 +1133,12 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-109
-110
-111</pre>
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 114</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_authorization'>delete_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>authorizations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1217,18 +1227,18 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-161
-162
-163
-164
-165
-166
-167
-168
-169</pre>
+170
+171
+172
+173
+174
+175
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 161</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 170</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_application_authorization'>reset_application_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_token'>token</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -1304,22 +1314,22 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-206
-207
-208
-209
-210
-211
-212
-213
-214
 215
 216
 217
-218</pre>
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 206</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 215</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_revoke_all_application_authorizations'>revoke_all_application_authorizations</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -1422,22 +1432,22 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-182
-183
-184
-185
-186
-187
-188
-189
-190
 191
 192
 193
-194</pre>
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 182</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 191</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_revoke_application_authorization'>revoke_application_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_token'>token</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -1460,7 +1470,7 @@ Basic Authentication.</p>
       <div class="method_details ">
   <h3 class="signature " id="scopes-instance_method">
   
-    - (<tt>Array&lt;String&gt;</tt>) <strong>scopes</strong>(token = @access_token) 
+    - (<tt>Array&lt;String&gt;</tt>) <strong>scopes</strong>(token = @access_token, options = {}) 
   
 
   
@@ -1490,6 +1500,23 @@ Basic Authentication.</p>
       
         &mdash;
         <div class='inline'><p>GitHub OAuth token</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Header params for request</p>
 </div>
       
     </li>
@@ -1540,24 +1567,30 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-118
-119
-120
-121
-122
-123
 124
 125
 126
-127</pre>
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 124</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_scopes'>scopes</span><span class='lparen'>(</span><span class='id identifier rubyid_token'>token</span> <span class='op'>=</span> <span class='ivar'>@access_token</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_scopes'>scopes</span><span class='lparen'>(</span><span class='id identifier rubyid_token'>token</span> <span class='op'>=</span> <span class='ivar'>@access_token</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Access token required</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_token'>token</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 
-  <span class='id identifier rubyid_agent'>agent</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:headers</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Authorization</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>token </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_token'>token</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span>
+  <span class='id identifier rubyid_auth'>auth</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Authorization</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>token </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_token'>token</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:headers</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_auth'>auth</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_agent'>agent</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:headers</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_headers'>headers</span><span class='rparen'>)</span><span class='period'>.</span>
     <span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-OAuth-Scopes</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span>
     <span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span>
     <span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>,</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span>
@@ -1727,12 +1760,12 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-93
-94
-95</pre>
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_authorization'>update_authorization</span><span class='lparen'>(</span><span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>authorizations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1747,9 +1780,9 @@ Basic Authentication.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Aug 22 14:51:19 2015 by
+  Generated on Tue Nov 17 14:27:32 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.1.6).
+  0.8.7.6 (ruby-2.2.3).
 </div>
 
   </body>

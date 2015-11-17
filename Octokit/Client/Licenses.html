@@ -159,6 +159,29 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#repository_license_contents-instance_method" title="#repository_license_contents (instance method)">- (Sawyer::Resource) <strong>repository_license_contents</strong>(repo, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the contents of the repository’s license file, if one is detected.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -335,14 +358,147 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="repository_license_contents-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>repository_license_contents</strong>(repo, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the contents of the repository’s license file, if one is detected.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_license_contents'>license_contents</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>benbalter/licensee</span><span class='tstring_end'>&#39;</span></span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>repo</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>String</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>, <tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A GitHub repository</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:ref</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>name of the Commit/Branch/Tag. Defaults to &#39;master&#39;.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The detail of the license file</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/licenses/#get-a-repositorys-license" target="_parent" title="https://developer.github.com/v3/licenses/#get-a-repositorys-license">https://developer.github.com/v3/licenses/#get-a-repositorys-license</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+39
+40
+41
+42</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/licenses.rb', line 39</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_repository_license_contents'>repository_license_contents</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:licenses</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/license</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
     <div id="footer">
-  Generated on Sat Aug 22 14:51:18 2015 by
+  Generated on Tue Nov 17 14:27:30 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.1.6).
+  0.8.7.6 (ruby-2.2.3).
 </div>
 
   </body>

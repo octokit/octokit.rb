@@ -580,6 +580,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#protect_branch-instance_method" title="#protect_branch (instance method)">- (Sawyer::Resource) <strong>protect_branch</strong>(repo, branch, required_status_checks = {}, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Lock a single branch from a repository.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#remove_collaborator-instance_method" title="#remove_collaborator (instance method)">- (Boolean) <strong>remove_collaborator</strong>(repo, collaborator, options = {}) </a>
     
 
@@ -912,6 +935,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#unprotect_branch-instance_method" title="#unprotect_branch (instance method)">- (Sawyer::Resource) <strong>unprotect_branch</strong>(repo, branch, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Unlock a single branch from a repository.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#unstar-instance_method" title="#unstar (instance method)">- (Boolean) <strong>unstar</strong>(repo, options = {}) </a>
     
 
@@ -1133,12 +1179,12 @@
       <pre class="lines">
 
 
-301
-302
-303</pre>
+303
+304
+305</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 301</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 303</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_collaborator'>add_collaborator</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_collaborator'>collaborator</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/collaborators/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collaborator'>collaborator</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1256,12 +1302,12 @@
       <pre class="lines">
 
 
-233
-234
-235</pre>
+235
+236
+237</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 233</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 235</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_deploy_key'>add_deploy_key</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/keys</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='symbol'>:title</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='symbol'>:key</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -1366,12 +1412,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-85
-86
-87</pre>
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_repositories'>all_repositories</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>repositories</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1479,12 +1525,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-479
-480
-481</pre>
+481
+482
+483</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 479</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 481</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_branch'>branch</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_branch'>branch</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/branches/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_branch'>branch</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1575,12 +1621,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-467
-468
-469</pre>
+469
+470
+471</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 467</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 469</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_branches'>branches</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/branches</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1681,12 +1727,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-510
-511
-512</pre>
+550
+551
+552</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 510</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 550</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_check_assignee'>check_assignee</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_assignee'>assignee</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/assignees/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_assignee'>assignee</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1789,12 +1835,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-333
-334
-335</pre>
+335
+336
+337</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 333</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 335</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collaborator?'>collaborator?</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_collaborator'>collaborator</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/collaborators/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collaborator'>collaborator</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1892,12 +1938,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-284
-285
-286</pre>
+286
+287
+288</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 284</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 286</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collaborators'>collaborators</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/collaborators</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2012,13 +2058,13 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-370
-371
 372
-373</pre>
+373
+374
+375</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 370</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 372</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_contributors'>contributors</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_anon'>anon</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:anon</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>1</span> <span class='kw'>if</span> <span class='id identifier rubyid_anon'>anon</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='lbracket'>[</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>1|true</span><span class='regexp_end'>/</span></span><span class='rbracket'>]</span>
@@ -2249,8 +2295,6 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-151
-152
 153
 154
 155
@@ -2258,10 +2302,12 @@ that you’ve seen.</p>
 157
 158
 159
-160</pre>
+160
+161
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_repository'>create_repository</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_organization'>organization</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:organization</span>
@@ -2352,12 +2398,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-171
-172
-173</pre>
+173
+174
+175</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 171</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 173</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_repository'>delete_repository</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2443,12 +2489,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-561
-562
-563</pre>
+601
+602
+603</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 561</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 601</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_subscription'>delete_subscription</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/subscription</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2549,12 +2595,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-218
-219
-220</pre>
+220
+221
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 218</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 220</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deploy_key'>deploy_key</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/keys/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2649,12 +2695,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-205
-206
-207</pre>
+207
+208
+209</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 205</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 207</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deploy_keys'>deploy_keys</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/keys</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2822,12 +2868,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-252
-253
-254</pre>
+254
+255
+256</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 252</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 254</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_deploy_key'>edit_deploy_key</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/keys/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3033,14 +3079,14 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-44
-45
 46
 47
-48</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_repository'>edit_repository</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_repo'>repo</span> <span class='op'>=</span> <span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span>
@@ -3120,12 +3166,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-132
-133
-134</pre>
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fork'>fork</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/forks</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3223,12 +3269,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-421
-422
-423</pre>
+423
+424
+425</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 421</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 423</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_forks'>forks</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/forks</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3319,15 +3365,150 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-437
-438
-439</pre>
+439
+440
+441</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 437</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 439</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_languages'>languages</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/languages</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="protect_branch-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>protect_branch</strong>(repo, branch, required_status_checks = {}, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Lock a single branch from a repository</p>
+
+<p>Requires authenticated client</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_protect_branch'>protect_branch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>master</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_foo'>foo</span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>repo</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>String</tt>, <tt>Hash</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A GitHub repository.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>branch</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Branch name</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>required_status_checks</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The protected branch</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/repos/#enabling-and-disabling-branch-protection" target="_parent" title="https://developer.github.com/v3/repos/#enabling-and-disabling-branch-protection">https://developer.github.com/v3/repos/#enabling-and-disabling-branch-protection</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 497</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_protect_branch'>protect_branch</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_branch'>branch</span><span class='comma'>,</span> <span class='id identifier rubyid_required_status_checks'>required_status_checks</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_required_status_checks'>required_status_checks</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_required_status_checks'>required_status_checks</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='symbol'>:required_status_checks</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_required_status_checks'>required_status_checks</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_protection'>protection</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='symbol'>:protection</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='symbol'>:enabled</span> <span class='op'>=&gt;</span> <span class='kw'>true</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_required_status_checks'>required_status_checks</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_options'>options</span>    <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:branch_protection</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_protection'>protection</span><span class='rparen'>)</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/branches/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_branch'>branch</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3434,12 +3615,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-318
-319
-320</pre>
+320
+321
+322</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 318</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 320</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_collaborator'>remove_collaborator</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_collaborator'>collaborator</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/collaborators/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collaborator'>collaborator</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3542,12 +3723,12 @@ that you’ve seen.</p>
       <pre class="lines">
 
 
-267
-268
-269</pre>
+269
+270
+271</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 267</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 269</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_deploy_key'>remove_deploy_key</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/keys/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3647,12 +3828,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-67
-68
-69</pre>
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_repositories'>repositories</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_content'>/repos</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3734,12 +3915,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-25
-26
-27</pre>
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_repository'>repository</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3821,13 +4002,17 @@ to list repos.</p>
 15
 16
 17
-18</pre>
+18
+19
+20</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_repository?'>repository?</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='op'>!</span><span class='op'>!</span><span class='id identifier rubyid_repository'>repository</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>InvalidRepository</span>
+  <span class='kw'>false</span>
 <span class='kw'>rescue</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>NotFound</span>
   <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
@@ -3924,12 +4109,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-497
-498
-499</pre>
+537
+538
+539</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 497</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 537</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_repository_assignees'>repository_assignees</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/assignees</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4027,12 +4212,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-350
-351
-352</pre>
+352
+353
+354</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 350</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 352</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_repository_teams'>repository_teams</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/teams</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4103,13 +4288,13 @@ to list repos.</p>
       <pre class="lines">
 
 
-180
-181
 182
-183</pre>
+183
+184
+185</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 180</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 182</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_private'>set_private</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='comment'># GitHub Api for setting private updated to use private attr, rather than public
@@ -4181,13 +4366,13 @@ to list repos.</p>
       <pre class="lines">
 
 
-189
-190
 191
-192</pre>
+192
+193
+194</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 191</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_public'>set_public</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='comment'># GitHub Api for setting private updated to use private attr, rather than public
@@ -4266,12 +4451,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-94
-95
-96</pre>
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_star'>star</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user/starred/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4362,12 +4547,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-387
-388
-389</pre>
+389
+390
+391</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 387</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 389</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stargazers'>stargazers</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/stargazers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4453,12 +4638,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-521
-522
-523</pre>
+561
+562
+563</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 521</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 561</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subscribers'>subscribers</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/subscribers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4544,12 +4729,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-532
-533
-534</pre>
+572
+573
+574</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 532</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 572</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subscription'>subscription</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/subscription</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4640,15 +4825,127 @@ to list repos.</p>
       <pre class="lines">
 
 
-452
-453
-454</pre>
+454
+455
+456</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 452</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 454</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tags'>tags</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/tags</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="unprotect_branch-instance_method">
+  
+    - (<tt>Sawyer::Resource</tt>) <strong>unprotect_branch</strong>(repo, branch, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Unlock a single branch from a repository</p>
+
+<p>Requires authenticated client</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_unprotect_branch'>unprotect_branch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>master</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>repo</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>String</tt>, <tt>Hash</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A GitHub repository.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>branch</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Branch name</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The unprotected branch</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/repos/#enabling-and-disabling-branch-protection" target="_parent" title="https://developer.github.com/v3/repos/#enabling-and-disabling-branch-protection">https://developer.github.com/v3/repos/#enabling-and-disabling-branch-protection</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+518
+519
+520
+521
+522</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 518</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_unprotect_branch'>unprotect_branch</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_branch'>branch</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_protection'>protection</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='symbol'>:protection</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='symbol'>:enabled</span> <span class='op'>=&gt;</span> <span class='kw'>false</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:branch_protection</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_protection'>protection</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/branches/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_branch'>branch</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -4723,12 +5020,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-103
-104
-105</pre>
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unstar'>unstar</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user/starred/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4808,12 +5105,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-123
-124
-125</pre>
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 123</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 125</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unwatch'>unwatch</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user/watched/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4952,12 +5249,12 @@ should be blocked from this repository.</p>
       <pre class="lines">
 
 
-549
-550
-551</pre>
+589
+590
+591</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 549</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 589</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_subscription'>update_subscription</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_put'>put</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/subscription</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -5037,12 +5334,12 @@ should be blocked from this repository.</p>
       <pre class="lines">
 
 
-113
-114
-115</pre>
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_watch'>watch</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user/watched/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -5135,12 +5432,12 @@ should be blocked from this repository.</p>
       <pre class="lines">
 
 
-404
-405
-406</pre>
+406
+407
+408</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 404</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/repositories.rb', line 406</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_watchers'>watchers</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/watchers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -5155,9 +5452,9 @@ should be blocked from this repository.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Aug 22 14:51:19 2015 by
+  Generated on Tue Nov 17 14:27:31 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.1.6).
+  0.8.7.6 (ruby-2.2.3).
 </div>
 
   </body>
