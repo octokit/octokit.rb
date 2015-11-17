@@ -483,6 +483,44 @@ module Octokit
       end
       alias :get_branch :branch
 
+      # Lock a single branch from a repository
+      #
+      # Requires authenticated client
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param branch [String] Branch name
+      # @param required_status_checks [Hash]
+      # @return [Sawyer::Resource] The protected branch
+      # @see https://developer.github.com/v3/repos/#enabling-and-disabling-branch-protection
+      # @example
+      #   @client.protect_branch('octokit/octokit.rb', 'master', foo)
+      def protect_branch(repo, branch, required_status_checks = {}, options = {})
+        if !required_status_checks.empty?
+          required_status_checks = { :required_status_checks => required_status_checks }
+        end
+
+        protection = { :protection => { :enabled => true }.merge(required_status_checks) }
+        options    = ensure_api_media_type(:branch_protection, options.merge(protection))
+
+        patch "#{Repository.path repo}/branches/#{branch}", options
+      end
+
+      # Unlock a single branch from a repository
+      #
+      # Requires authenticated client
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param branch [String] Branch name
+      # @return [Sawyer::Resource] The unprotected branch
+      # @see https://developer.github.com/v3/repos/#enabling-and-disabling-branch-protection
+      # @example
+      #   @client.unprotect_branch('octokit/octokit.rb', 'master')
+      def unprotect_branch(repo, branch, options = {})
+        protection = { :protection => { :enabled => false } }
+        options = ensure_api_media_type(:branch_protection, options.merge(protection))
+        patch "#{Repository.path repo}/branches/#{branch}", options
+      end
+
       # List users available for assigning to issues.
       #
       # Requires authenticated client for private repos.
