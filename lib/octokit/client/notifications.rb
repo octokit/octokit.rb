@@ -115,7 +115,7 @@ module Octokit
       # @return [Boolean] True if updated, false otherwise.
       # @see https://developer.github.com/v3/activity/notifications/#mark-a-thread-as-read
       # @example
-      #   @client.mark_thread_as_ready(1, :read => false)
+      #   @client.mark_thread_as_read(1, :read => false)
       def mark_thread_as_read(thread_id, options = {})
         request :patch, "notifications/threads/#{thread_id}", options
 
