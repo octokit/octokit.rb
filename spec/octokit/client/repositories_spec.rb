@@ -311,6 +311,31 @@ describe Octokit::Client::Repositories do
       expect(branch.commit.sha).not_to be_nil
       assert_requested :get, github_url("/repos/octokit/octokit.rb/branches/master")
     end
+
+    context 'with repository' do
+      before(:each) do
+        @repo = @client.create_repository("an-repo", auto_init: true)
+      end
+
+      after(:each) do
+        begin
+          @client.delete_repository(@repo.full_name)
+        rescue Octokit::NotFound
+        end
+      end
+
+      it "protects a single branch" do
+        branch = @client.protect_branch(@repo.full_name, "master")
+        expect(branch.protection.enabled).to be true
+      end
+      it "unprotects a single branch" do
+        branch = @client.protect_branch(@repo.full_name, "master")
+        expect(branch.protection.enabled).to be true
+
+        branch = @client.unprotect_branch(@repo.full_name, "master")
+        expect(branch.protection.enabled?).to be false
+      end
+    end
   end # .branches
 
   describe ".assignees", :vcr do
