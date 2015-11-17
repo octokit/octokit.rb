@@ -58,8 +58,8 @@ module Octokit
       # @see https://developer.github.com/v3/users/administration/#delete-a-user
       # @example
       #   @admin_client.delete_key(1)
-      def delete_user(id, options = {})
-        boolean_from_response :delete,  "admin/users/#{id}", options
+      def delete_user(username, options = {})
+        boolean_from_response :delete,  "admin/users/#{username}", options
       end
 
       # Suspend a user.
