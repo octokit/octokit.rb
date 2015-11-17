@@ -4,8 +4,9 @@ module Octokit
   module Preview
 
     PREVIEW_TYPES = {
-      :migrations    => 'application/vnd.github.wyandotte-preview+json'.freeze,
-      :licenses      => 'application/vnd.github.drax-preview+json'.freeze
+      :branch_protection => 'application/vnd.github.loki-preview+json'.freeze,
+      :migrations        => 'application/vnd.github.wyandotte-preview+json'.freeze,
+      :licenses          => 'application/vnd.github.drax-preview+json'.freeze
     }
 
     def ensure_api_media_type(type, options)
