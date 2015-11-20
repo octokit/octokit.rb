@@ -17,6 +17,8 @@ module Octokit
       # @example
       #   @admin_client.create_organization('SuchAGreatOrg', 'gjtorikian')
       def create_organization(login, admin, options = {})
+        options[:login] = login
+        options[:admin] = admin
         post "admin/organizations", options
       end
 
