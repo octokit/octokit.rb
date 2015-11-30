@@ -423,6 +423,23 @@ module Octokit
       end
       alias :add_team_repo :add_team_repository
 
+      # Add or update a user's mebership to organization
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param user [String] GitHub username of the user to invite.
+      #
+      # @return [Sawyer::Resource] Hash of team membership info
+      #
+      # @see https://developer.github.com/v3/orgs/members/#add-or-update-organization-membership
+      #
+      # @example
+      #   @client.add_or_update_organization_membership("github", 'pengwynn')
+      def add_or_update_organization_membership(org, user, options = {})
+        put "#{Organization.path org}/memberships/#{user}", options
+      end
+      alias :add_organization_membership :add_or_update_organization_membership
+      alias :update_organization_membership :add_or_update_organization_membership
+
       # Remove team repository
       #
       # Removes repository from team. Does not delete the repository.
