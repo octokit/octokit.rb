@@ -610,6 +610,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/migrations/#start-a-migration
       def start_migration(org, repositories, options = {})
         options = ensure_api_media_type(:migrations, options)
+        options[:repositories] = repositories
         post "orgs/#{org}/migrations", options
       end
 
