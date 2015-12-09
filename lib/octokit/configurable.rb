@@ -49,10 +49,10 @@ module Octokit
 
     attr_accessor :access_token, :auto_paginate, :client_id,
                   :client_secret, :default_media_type, :connection_options,
-                  :management_console_endpoint, :management_console_password,
                   :middleware, :netrc, :netrc_file,
                   :per_page, :proxy, :user_agent
-    attr_writer :password, :web_endpoint, :api_endpoint, :login
+    attr_writer :password, :web_endpoint, :api_endpoint, :login,
+                :management_console_endpoint, :management_console_password
 
     class << self
 
