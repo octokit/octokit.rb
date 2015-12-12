@@ -63,6 +63,7 @@ module Octokit
       #   list of organizations.
       # @return [Array<Sawyer::Resource>] Array of hashes representing organizations.
       # @see https://developer.github.com/v3/orgs/#list-your-organizations
+      # @see https://developer.github.com/v3/orgs/#list-user-organizations
       # @example
       #   Octokit.organizations('pengwynn')
       # @example
