@@ -71,6 +71,14 @@ describe Octokit::Client::Hooks do
         end
       end # .test_hook
 
+      describe ".ping_hook", :vcr do
+        it "pings a hook" do
+          @client.create_hook(@repo.full_name, "railsbp", {:railsbp_url => "http://railsbp.com", :token => "xAAQZtJhYHGagsed1kYR"})
+          @client.ping_hook(@repo.full_name, @hook.id)
+          assert_requested :post, github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}/pings")
+        end
+      end # .ping_hook
+
       describe ".remove_hook", :vcr do
         it "removes a hook" do
           @client.remove_hook(@repo.full_name, @hook.id)
