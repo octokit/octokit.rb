@@ -62,7 +62,7 @@ module Octokit
       # @param user [Integer, String] GitHub user login or id of the user to get
       #   list of organizations.
       # @return [Array<Sawyer::Resource>] Array of hashes representing organizations.
-      # @see https://developer.github.com/v3/orgs/#list-user-organizations
+      # @see https://developer.github.com/v3/orgs/#list-your-organizations
       # @example
       #   Octokit.organizations('pengwynn')
       # @example
@@ -393,7 +393,7 @@ module Octokit
       # @return [Boolean] True if managed by a team. False if not managed by
       #   the team OR the requesting user does not have authorization to access
       #   the team information.
-      # @see https://developer.github.com/v3/orgs/teams/#get-team-repo
+      # @see https://developer.github.com/v3/orgs/teams/#check-if-a-team-manages-a-repository
       # @example
       #   @client.team_repository?(8675309, 'octokit/octokit.rb')
       # @example
@@ -413,7 +413,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Boolean] True if successful, false otherwise.
       # @see Octokit::Repository
-      # @see https://developer.github.com/v3/orgs/teams/#add-team-repo
+      # @see https://developer.github.com/v3/orgs/teams/#add-team-repository
       # @example
       #   @client.add_team_repository(100000, 'github/developer.github.com')
       # @example
@@ -433,7 +433,7 @@ module Octokit
       # @param repo [String, Hash, Repository] A GitHub repository.
       # @return [Boolean] Return true if repo removed from team, false otherwise.
       # @see Octokit::Repository
-      # @see https://developer.github.com/v3/orgs/teams/#remove-team-repo
+      # @see https://developer.github.com/v3/orgs/teams/#remove-team-repository
       # @example
       #   @client.remove_team_repository(100000, 'github/developer.github.com')
       # @example
@@ -604,7 +604,6 @@ module Octokit
       # @param repositories [Array<String>] :repositories Repositories for the organization.
       # @option options [Boolean, optional] :lock_repositories Indicates whether repositories should be locked during migration
       # @return [Sawyer::Resource] Hash representing the new migration.
-      # @see https://developer.github.com/v3/orgs/teams/#create-team
       # @example
       #   @client.start_migration('github', ['github/dotfiles'])
       # @see https://developer.github.com/v3/orgs/migrations/#start-a-migration
@@ -632,7 +631,7 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] ID number of the migration.
-      # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
+      # @see https://developer.github.com/v3/orgs/migrations/#get-the-status-of-a-migration
       def migration_status(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
         get "orgs/#{org}/migrations/#{id}", options
@@ -659,7 +658,7 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] ID number of the migration.
-      # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
+      # @see https://developer.github.com/v3/orgs/migrations/#delete-a-migration-archive
       def delete_migration_archive(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
         delete "orgs/#{org}/migrations/#{id}/archive", options

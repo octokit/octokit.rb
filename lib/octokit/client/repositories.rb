@@ -199,7 +199,7 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @return [Array<Sawyer::Resource>] Array of hashes representing deploy keys.
-      # @see https://developer.github.com/v3/repos/keys/#list
+      # @see https://developer.github.com/v3/repos/keys/#list-deploy-keys
       # @example
       #   @client.deploy_keys('octokit/octokit.rb')
       # @example
@@ -214,7 +214,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Deploy key ID.
       # @return [Sawyer::Resource] Deploy key.
-      # @see https://developer.github.com/v3/repos/keys/#get
+      # @see https://developer.github.com/v3/repos/keys/#get-a-deploy-key
       # @example
       #   @client.deploy_key('octokit/octokit.rb', 8675309)
       def deploy_key(repo, id, options={})
@@ -229,7 +229,7 @@ module Octokit
       # @param title [String] Title reference for the deploy key.
       # @param key [String] Public key.
       # @return [Sawyer::Resource] Hash representing newly added key.
-      # @see https://developer.github.com/v3/repos/keys/#create
+      # @see https://developer.github.com/v3/repos/keys/#add-a-new-deploy-key
       # @example
       #    @client.add_deploy_key('octokit/octokit.rb', 'Staging server', 'ssh-rsa AAA...')
       def add_deploy_key(repo, title, key, options = {})
@@ -246,7 +246,7 @@ module Octokit
       # @return [Sawyer::Resource] Updated deploy key.
       # @deprecated This method is no longer supported in the API
       # @see https://developer.github.com/changes/2014-02-24-finer-grained-scopes-for-ssh-keys/
-      # @see https://developer.github.com/v3/repos/keys/#edit
+      # @see https://developer.github.com/v3/repos/keys/#edit-a-deploy-key
       # @example Update the key for a deploy key.
       #   @client.edit_deploy_key('octokit/octokit.rb', 8675309, :key => 'ssh-rsa BBB...')
       # @example
@@ -263,7 +263,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param id [Integer] Id of the deploy key to remove.
       # @return [Boolean] True if key removed, false otherwise.
-      # @see https://developer.github.com/v3/repos/keys/#delete
+      # @see https://developer.github.com/v3/repos/keys/#remove-a-deploy-key
       # @example
       #   @client.remove_deploy_key('octokit/octokit.rb', 100000)
       def remove_deploy_key(repo, id, options = {})
@@ -276,7 +276,7 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing collaborating users.
-      # @see https://developer.github.com/v3/repos/collaborators/#list
+      # @see https://developer.github.com/v3/repos/collaborators/#list-collaborators
       # @example
       #   Octokit.collaborators('octokit/octokit.rb')
       # @example
@@ -295,7 +295,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param collaborator [String] Collaborator GitHub username to add.
       # @return [Boolean] True if collaborator added, false otherwise.
-      # @see https://developer.github.com/v3/repos/collaborators/#add-collaborator
+      # @see https://developer.github.com/v3/repos/collaborators/#add-user-as-a-collaborator
       # @example
       #   @client.add_collaborator('octokit/octokit.rb', 'holman')
       # @example
@@ -312,7 +312,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param collaborator [String] Collaborator GitHub username to remove.
       # @return [Boolean] True if collaborator removed, false otherwise.
-      # @see https://developer.github.com/v3/repos/collaborators/#remove-collaborator
+      # @see https://developer.github.com/v3/repos/collaborators/#remove-user-as-a-collaborator
       # @example
       #   @client.remove_collaborator('octokit/octokit.rb', 'holman')
       # @example
@@ -329,7 +329,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param collaborator [String] Collaborator GitHub username to check.
       # @return [Boolean] True if user is a collaborator, false otherwise.
-      # @see https://developer.github.com/v3/repos/collaborators/#get
+      # @see https://developer.github.com/v3/repos/collaborators/#check-if-a-user-is-a-collaborator
       # @example
       #   @client.collaborator?('octokit/octokit.rb', 'holman')
       def collaborator?(repo, collaborator, options={})

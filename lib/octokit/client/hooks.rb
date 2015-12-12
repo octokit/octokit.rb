@@ -248,7 +248,7 @@ module Octokit
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] Id of the hook to update.
       # @return [Boolean] Success
-      # @see https://developer.github.com/v3/orgs/hooks/#ping-a-hook
+      # @see https://developer.github.com/v3/repos/hooks/#ping-a-hook
       # @example
       #   @client.ping_org_hook('octokit', 1000000)
       def ping_org_hook(org, id, options = {})
