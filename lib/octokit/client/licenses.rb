@@ -30,7 +30,7 @@ module Octokit
 
       # Returns the contents of the repository’s license file, if one is detected.
       #
-      # @see https://developer.github.com/v3/licenses/#get-a-repositorys-license
+      # @see https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to 'master'.
       # @return [Sawyer::Resource] The detail of the license file

@@ -22,6 +22,7 @@ module Octokit
       # Get a single repository
       #
       # @see https://developer.github.com/v3/repos/#get
+      # @see https://developer.github.com/v3/licenses/#get-a-repositorys-license
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Repository information
       def repository(repo, options = {})
