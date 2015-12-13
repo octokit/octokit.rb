@@ -125,6 +125,17 @@ module Octokit
         post "gists/#{Gist.new(gist)}/forks", options
       end
 
+      # List gist forks
+      #
+      # @param gist [String] Gist ID
+      # @return [Array] List of gist forks
+      # @see https://developer.github.com/v3/gists/#list-gist-forks
+      # @example List gist forks
+      #   @client.gist_forks('some-id')
+      def gist_forks(gist, options = {})
+        get "gists/#{Gist.new(gist)}/forks", options
+      end
+
       # Delete a gist
       #
       # @param gist [String] Gist ID
