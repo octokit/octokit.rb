@@ -133,7 +133,7 @@ module Octokit
       # @example List gist forks
       #   @client.gist_forks('some-id')
       def gist_forks(gist, options = {})
-        get "gists/#{Gist.new(gist)}/forks", options
+        paginate "gists/#{Gist.new(gist)}/forks", options
       end
 
       # Delete a gist
