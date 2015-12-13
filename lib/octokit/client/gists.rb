@@ -96,7 +96,7 @@ module Octokit
       # @example List commits for a gist
       #   @client.gist_commits('some_id')
       def gist_commits(gist, options = {})
-        get "gists/#{Gist.new(gist)}/commits", options
+        paginate "gists/#{Gist.new(gist)}/commits", options
       end
 
       #
