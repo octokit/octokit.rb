@@ -147,6 +147,14 @@ describe Octokit::Client::Gists do
       end
     end # .fork_gist
 
+    describe ".gist_forks" do
+      it "lists a gists forks" do
+        forks = @client.gist_forks(@gist.id)
+        expect(forks).to be_kind_of Array
+        assert_requested :get, github_url("/gists/#{@gist.id}/forks")
+      end
+    end # .gist_forks
+
     describe ".gist_comments" do
       it "returns the list of gist comments" do
         comments = @client.gist_comments(5421307)
