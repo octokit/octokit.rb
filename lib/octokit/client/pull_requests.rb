@@ -276,7 +276,7 @@ module Octokit
 
       # Merge a pull request
       #
-      # @see https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-buttontrade
+      # @see https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @param commit_message [String] Optional commit message for the merge commit
