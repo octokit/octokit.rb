@@ -88,6 +88,17 @@ module Octokit
         patch "gists/#{Gist.new(gist)}", options
       end
 
+      # List gist commits
+      #
+      # @param gist [String] Gist ID
+      # @return [Array] List of commits to the gist
+      # @see https://developer.github.com/v3/gists/#list-gist-commits
+      # @example List commits for a gist
+      #   @client.gist_commits('some_id')
+      def gist_commits(gist, options = {})
+        paginate "gists/#{Gist.new(gist)}/commits", options
+      end
+
       #
       # Star a gist
       #

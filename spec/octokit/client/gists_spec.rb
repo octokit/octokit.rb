@@ -97,6 +97,13 @@ describe Octokit::Client::Gists do
       end
     end # .edit_gist
 
+    describe ".gist_commits" do
+      it "lists a gists commits" do
+        @client.gist_commits(@gist.id)
+        assert_requested :get, github_url("/gists/#{@gist.id}/commits")
+      end
+    end # .gist_commits
+
     describe ".star_gist" do
       it "stars an existing gist" do
         @client.star_gist(@gist.id)
