@@ -148,6 +148,20 @@ module Octokit
         boolean_from_response :post, "#{Repository.path repo}/hooks/#{id}/tests", options
       end
 
+      # Ping hook
+      #
+      # Requires authenticated client.
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param id [Integer] Id of the hook to send a ping.
+      # @return [Boolean] Ping requested?
+      # @see https://developer.github.com/v3/repos/hooks/#ping-a-hook
+      # @example
+      #   @client.ping_hook('octokit/octokit.rb', 1000000)
+      def ping_hook(repo, id, options={})
+        boolean_from_response :post, "#{Repository.path repo}/hooks/#{id}/pings", options
+      end
+
       # List org hooks
       #
       # Requires client authenticated as admin for the org.
