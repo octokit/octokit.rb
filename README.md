@@ -320,7 +320,9 @@ Do remember to turn `:verify` back to `true`, as it's important for secure commu
 While `Octokit::Client` accepts a range of options when creating a new client
 instance, Octokit's configuration API allows you to set your configuration
 options at the module level. This is particularly handy if you're creating a
-number of client instances based on some shared defaults.
+number of client instances based on some shared defaults. Changing options
+affects new instances only and will not modify existing `Octokit::Client`
+instances created with previous options.
 
 ### Configuring module defaults
 
