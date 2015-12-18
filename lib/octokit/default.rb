@@ -131,6 +131,12 @@ module Octokit
         ENV['OCTOKIT_PROXY']
       end
 
+      # Default stats timeout from ENV or 0
+      # @return [Fixnum]
+      def stats_timeout
+        ENV['WAIT_FOR_STATS'] || 0
+      end
+
       # Default User-Agent header string from ENV or {USER_AGENT}
       # @return [String]
       def user_agent

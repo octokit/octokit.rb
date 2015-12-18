@@ -44,13 +44,15 @@ module Octokit
     #   @return [String] URI for proxy server
     # @!attribute user_agent
     #   @return [String] Configure User-Agent header for requests.
+    # @!attribute stats_timeout
+    #   @return [Fixnum] For how long Octokit should be trying to reach stats (in milliseconds)
     # @!attribute web_endpoint
     #   @return [String] Base URL for web URLs. default: https://github.com/
 
     attr_accessor :access_token, :auto_paginate, :client_id,
                   :client_secret, :default_media_type, :connection_options,
                   :middleware, :netrc, :netrc_file,
-                  :per_page, :proxy, :user_agent
+                  :per_page, :proxy, :stats_timeout, :user_agent
     attr_writer :password, :web_endpoint, :api_endpoint, :login,
                 :management_console_endpoint, :management_console_password
 
@@ -76,6 +78,7 @@ module Octokit
           :per_page,
           :password,
           :proxy,
+          :stats_timeout,
           :user_agent,
           :web_endpoint
         ]
