@@ -77,9 +77,19 @@ module Octokit
       # @param metric [String] The metrics you are looking for
       # @return [Array<Sawyer::Resource>] Magical unicorn stats
       def get_stats(repo, metric, options = {})
-        data = get("#{Repository.path repo}/stats/#{metric}", options)
+        get_stats_data_patiently(repo, metric, options).tap do
+          return nil if last_response.status == 202
+        end
+      end
 
-        last_response.status == 202 ? nil : data
+      def get_stats_data_patiently(repo, metric, options = {})
+        time_start = Time.now
+
+        loop do
+          data = get("#{Repository.path repo}/stats/#{metric}", options)
+          return data if last_response.status == 200 || Time.now - time_start >= stats_timeout
+          sleep 0.1
+        end
       end
     end
   end
