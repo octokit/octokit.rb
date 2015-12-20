@@ -45,10 +45,17 @@ module Octokit
       # Get a single gist
       #
       # @param gist [String] ID of gist to fetch
-      # @return [Sawyer::Resource] Gist information
+      # @option options [String] :sha Specific gist revision SHA
+      # @return [Sawyer::Resource] Gist data from the latest revision, or the
+      #   gist from a specific revision if SHA provided in the options.
       # @see https://developer.github.com/v3/gists/#get-a-single-gist
+      # @see https://developer.github.com/v3/gists/#get-a-specific-revision-of-a-gist
       def gist(gist, options = {})
-        get "gists/#{Gist.new(gist)}", options
+        if sha = options.delete(:sha)
+          get "gists/#{Gist.new(gist)}/#{sha}", options
+        else
+          get "gists/#{Gist.new(gist)}", options
+        end
       end
 
       # Create a gist

@@ -41,6 +41,12 @@ describe Octokit::Client::Gists do
         expect(gist.owner.login).to eq('jmccartie')
         assert_requested :get, github_url("/gists/790381")
       end
+
+      it "returns a gist at a specific revision" do
+        gist = Octokit.client.gist(790381, sha: "12e53275c298ab759fa38a1f4980a4aa0556593f")
+        expect(gist).to be_kind_of Sawyer::Resource
+        assert_requested :get, github_url("/gists/790381/12e53275c298ab759fa38a1f4980a4aa0556593f")
+      end
     end
 
   end # unauthenticated
