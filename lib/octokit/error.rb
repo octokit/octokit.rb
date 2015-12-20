@@ -221,7 +221,20 @@ module Octokit
   class UnsupportedMediaType < ClientError; end
 
   # Raised when GitHub returns a 422 HTTP status code
-  class UnprocessableEntity < ClientError; end
+  class UnprocessableEntity < ClientError
+    private
+
+    # .create_ref method automatically prepends "refs/" to the parameter, here
+    # we remove that from the error message if the method fails in order to
+    # provide a clear error message.
+    def response_message
+      super.tap do |data|
+        if data =~ /is not a valid ref name/
+          data.gsub!(/^refs\//, '')
+        end
+      end
+    end
+  end
 
   # Raised on errors in the 500-599 range
   class ServerError < Error; end
