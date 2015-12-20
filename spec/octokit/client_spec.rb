@@ -690,21 +690,6 @@ describe Octokit::Client do
       end
     end
 
-    it "removes automatic data added by octokit from error message" do
-      stub_get('/boom').
-        to_return \
-        :status => 422,
-        :headers => {
-          :content_type => "application/json",
-        },
-        :body => {:message => "refs/badoom-boom is not a valid ref name."}.to_json
-      begin
-        Octokit.get('/boom')
-      rescue Octokit::UnprocessableEntity => e
-        expect(e.message).to include("422 - badoom-boom is not a valid ref name.")
-      end
-    end
-
     it "includes an error" do
       stub_get('/boom').
         to_return \
