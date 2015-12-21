@@ -28,6 +28,13 @@ describe Octokit::Client::Refs do
   end # .ref
 
   describe ".create_ref" do
+    it "prepends refs/ to the ref parameter" do
+      request = stub_post("/repos/#{@test_repo}/git/refs").
+        with(:body => {ref: "refs/heads/testing/test-ref-2", sha: @first_sha}.to_json)
+        @client.create_ref(@test_repo, "heads/testing/test-ref-2", @first_sha)
+        assert_requested request
+    end
+
     it "does not duplicate refs/ in ref parameter" do
       request = stub_post("/repos/#{@test_repo}/git/refs").
         with(:body => {ref: "refs/heads/testing/test-ref-2", sha: @first_sha}.to_json)
