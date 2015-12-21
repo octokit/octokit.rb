@@ -75,11 +75,32 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param metric [String] The metrics you are looking for
-      # @return [Array<Sawyer::Resource>] Magical unicorn stats
+      # @return [Array<Sawyer::Resource> or nil] Stats in metric-specific format, or nil if not yet calculated.
+      # @see https://developer.github.com/v3/repos/statistics/
       def get_stats(repo, metric, options = {})
-        data = get("#{Repository.path repo}/stats/#{metric}", options)
+        path = "#{Repository.path repo}/stats/#{metric}"
+        if retry_timeout = options.delete(:retry_timeout)
+          get_stats_with_retry(retry_timeout, path, options)
+        else
+          get(path, options)
+        end.tap do
+          return nil if last_response.status == 202
+        end
+      end
 
-        last_response.status == 202 ? nil : data
+      # @private Get stats for a repository. Retry call until stats are ready or retry_timeout exceeded.
+      #
+      # @param retry_timeout [String] For how long Octokit should keep trying to get stats (in seconds)
+      # @return [Array<Sawyer::Resource> or nil] Stats in metric-specific format, or nil if not yet calculated.
+      def get_stats_with_retry(retry_timeout, path, options = {})
+        time_start = Time.now
+
+        loop do
+          data = get(path, options)
+          timeout_exceeded = Time.now - time_start >= retry_timeout
+          return data if last_response.status != 202 || timeout_exceeded
+          sleep retry_timeout / 4.0
+        end
       end
     end
   end
