@@ -54,7 +54,7 @@ module Octokit
       # @see https://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app
       # @example Create a new authorization for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
-      #  client.create_authorization({:scopes => ["public_repo","gist"], :note => "Why not Zoidberg?", :note_url=> "https://en.wikipedia.org/wiki/Zoidberg"})
+      #  client.create_authorization({:scopes => ["public_repo", "gist"], :note => "Why not Zoidberg?", :note_url=> "https://en.wikipedia.org/wiki/Zoidberg"})
       # @example Create a new OR return an existing authorization to be used by a specific client for user ctshryock's project Zoidberg
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.create_authorization({:idempotent => true, :client_id => 'xxxx', :client_secret => 'yyyy', :scopes => ["user"]})
