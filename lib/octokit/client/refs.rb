@@ -44,7 +44,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] The list of references, already containing the new one
       # @see https://developer.github.com/v3/git/refs/#create-a-reference
       # @example Create refs/heads/master for octocat/Hello-World with sha 827efc6d56897b048c772eb4087f854f46256132
-      #   Octokit.create_ref("octocat/Hello-World","heads/master", "827efc6d56897b048c772eb4087f854f46256132")
+      #   Octokit.create_ref("octocat/Hello-World", "heads/master", "827efc6d56897b048c772eb4087f854f46256132")
       def create_ref(repo, ref, sha, options = {})
         ref = "refs/#{ref}" unless ref =~ %r{refs/}
         parameters = {
@@ -64,7 +64,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] The list of references updated
       # @see https://developer.github.com/v3/git/refs/#update-a-reference
       # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
-      #   Octokit.update_ref("octocat/Hello-World","heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
+      #   Octokit.update_ref("octocat/Hello-World", "heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
       def update_ref(repo, ref, sha, force = true, options = {})
         parameters = {
           :sha  => sha,
