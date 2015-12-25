@@ -12,7 +12,11 @@ describe Octokit::Client::Stats do
     before do
       VCR.turn_off!
       stub_request(:any, /api\.github\.com\/repos\/octokit/).
-        to_return(:status => 202)
+        to_return(
+          { :status => 202 }, # Cold request
+          { :status => 202 }, # Cold request
+          { :status => 200, :body => [].to_json }, # Warm request
+        )
     end
 
     after do
@@ -24,6 +28,13 @@ describe Octokit::Client::Stats do
         stats = @client.contributors_stats("octokit/octokit.rb")
         expect(stats).to be_nil
         assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/contributors")
+      end
+
+      it "retries" do
+        stats = @client.contributors_stats("octokit/octokit.rb", :retry_timeout => 3)
+        expect(stats).to_not be_nil
+
+        assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/contributors"), :times => 3
       end
     end # .contributors_stats
 
