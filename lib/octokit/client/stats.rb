@@ -88,32 +88,16 @@ module Octokit
       # @return [Array<Sawyer::Resource> or nil] Stats in metric-specific format, or nil if not yet calculated.
       # @see https://developer.github.com/v3/repos/statistics/
       def get_stats(repo, metric, options = {})
-        path = "#{Repository.path repo}/stats/#{metric}"
         if retry_timeout = options.delete(:retry_timeout)
           retry_wait = options.delete(:retry_wait) || 0.5
-          get_stats_with_retry(path, retry_timeout, retry_wait, options)
-        else
-          get(path, options)
-        end.tap do
-          return nil if last_response.status == 202
+          timeout = Time.now + retry_timeout
         end
-      end
-
-      # @private Get stats for a repository. Retry call until stats are ready or retry_timeout exceeded.
-      #
-      # @param path [String] The path, relative to {#api_endpoint}
-      # @param timeout [Number] How long Octokit should keep trying to get stats (in seconds)
-      # @param wait [Number] How long Octokit should wait between retries.
-      # @param options [Hash] Query and header params for request
-      # @return [Array<Sawyer::Resource> or nil] Stats in metric-specific format, or nil if not yet calculated.
-      def get_stats_with_retry(path, retry_timeout, retry_wait, options = {})
-        time_start = Time.now
-
         loop do
-          data = get(path, options)
-          timeout_exceeded = Time.now - time_start >= retry_timeout
-          return data if last_response.status != 202 || timeout_exceeded
-          sleep retry_wait
+          data = get("#{Repository.path repo}/stats/#{metric}", options)
+          return data if last_response.status == 200
+          return nil unless retry_timeout
+          return data if Time.now >= timeout
+          sleep retry_wait if retry_wait
         end
       end
     end
