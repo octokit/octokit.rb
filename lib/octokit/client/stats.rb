@@ -9,8 +9,6 @@ module Octokit
       # Get contributors list with additions, deletions, and commit counts
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @option retry_timeout [Number] How long Octokit should keep trying to get stats (in seconds)
-      # @option retry_wait [Number] How long Octokit should wait between retries.
       # @return [Array<Sawyer::Resource>] Array of contributor stats
       # @see https://developer.github.com/v3/repos/statistics/#get-contributors-list-with-additions-deletions-and-commit-counts
       # @example Get contributor stats for octokit
@@ -23,8 +21,6 @@ module Octokit
       # Get the last year of commit activity data
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @option retry_timeout [Number] How long Octokit should keep trying to get stats (in seconds)
-      # @option retry_wait [Number] How long Octokit should wait between retries.
       # @return [Array<Sawyer::Resource>] The last year of commit activity grouped by
       #   week. The days array is a group of commits per day, starting on Sunday.
       # @see https://developer.github.com/v3/repos/statistics/#get-the-last-year-of-commit-activity-data
@@ -37,8 +33,6 @@ module Octokit
       # Get the number of additions and deletions per week
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @option retry_timeout [Number] How long Octokit should keep trying to get stats (in seconds)
-      # @option retry_wait [Number] How long Octokit should wait between retries.
       # @return [Array<Sawyer::Resource>] Weekly aggregate of the number of additions
       #   and deletions pushed to a repository.
       # @see https://developer.github.com/v3/repos/statistics/#get-the-number-of-additions-and-deletions-per-week
@@ -51,8 +45,6 @@ module Octokit
       # Get the weekly commit count for the repo owner and everyone else
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @option retry_timeout [Number] How long Octokit should keep trying to get stats (in seconds)
-      # @option retry_wait [Number] How long Octokit should wait between retries.
       # @return [Sawyer::Resource] Total commit counts for the owner and total commit
       #   counts in all. all is everyone combined, including the owner in the last
       #   52 weeks. If you’d like to get the commit counts for non-owners, you can
@@ -67,8 +59,6 @@ module Octokit
       # Get the number of commits per hour in each day
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @option retry_timeout [Number] How long Octokit should keep trying to get stats (in seconds)
-      # @option retry_wait [Number] How long Octokit should wait between retries.
       # @return [Array<Array>] Arrays containing the day number, hour number, and
       #   number of commits
       # @see https://developer.github.com/v3/repos/statistics/#get-the-number-of-commits-per-hour-in-each-day
@@ -85,20 +75,11 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param metric [String] The metrics you are looking for
-      # @return [Array<Sawyer::Resource> or nil] Stats in metric-specific format, or nil if not yet calculated.
-      # @see https://developer.github.com/v3/repos/statistics/
+      # @return [Array<Sawyer::Resource>] Magical unicorn stats
       def get_stats(repo, metric, options = {})
-        if retry_timeout = options.delete(:retry_timeout)
-          retry_wait = options.delete(:retry_wait) || 0.5
-          timeout = Time.now + retry_timeout
-        end
-        loop do
-          data = get("#{Repository.path repo}/stats/#{metric}", options)
-          return data if last_response.status == 200
-          return nil unless retry_timeout
-          return data if Time.now >= timeout
-          sleep retry_wait if retry_wait
-        end
+        data = get("#{Repository.path repo}/stats/#{metric}", options)
+
+        last_response.status == 202 ? nil : data
       end
     end
   end
