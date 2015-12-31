@@ -12,11 +12,7 @@ describe Octokit::Client::Stats do
     before do
       VCR.turn_off!
       stub_request(:any, /api\.github\.com\/repos\/octokit/).
-        to_return(
-          { :status => 202 }, # Cold request
-          { :status => 202 }, # Cold request
-          { :status => 200, :body => [].to_json }, # Warm request
-        )
+        to_return(:status => 202)
     end
 
     after do
@@ -29,13 +25,6 @@ describe Octokit::Client::Stats do
         expect(stats).to be_nil
         assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/contributors")
       end
-
-      it "retries" do
-        stats = @client.contributors_stats("octokit/octokit.rb", :retry_timeout => 3)
-        expect(stats).to_not be_nil
-
-        assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/contributors"), :times => 3
-      end
     end # .contributors_stats
 
     describe ".commit_activity_stats" do
@@ -43,13 +32,6 @@ describe Octokit::Client::Stats do
         stats = @client.commit_activity_stats("octokit/octokit.rb")
         expect(stats).to be_nil
         assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/commit_activity")
-      end
-
-      it "retries" do
-        stats = @client.commit_activity_stats("octokit/octokit.rb", :retry_timeout => 3)
-        expect(stats).to_not be_nil
-
-        assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/commit_activity"), :times => 3
       end
     end # .commit_activity_stats
 
@@ -59,13 +41,6 @@ describe Octokit::Client::Stats do
         expect(stats).to be_nil
         assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/code_frequency")
       end
-
-      it "retries" do
-        stats = @client.code_frequency_stats("octokit/octokit.rb", :retry_timeout => 3)
-        expect(stats).to_not be_nil
-
-        assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/code_frequency"), :times => 3
-      end
     end # .code_frequency_stats
 
     describe ".participation_stats" do
@@ -74,13 +49,6 @@ describe Octokit::Client::Stats do
         expect(stats).to be_nil
         assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/participation")
       end
-
-      it "retries" do
-        stats = @client.participation_stats("octokit/octokit.rb", :retry_timeout => 3)
-        expect(stats).to_not be_nil
-
-        assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/participation"), :times => 3
-      end
     end # .participation_stats
 
     describe ".punch_card_stats" do
@@ -88,13 +56,6 @@ describe Octokit::Client::Stats do
         stats = @client.punch_card_stats('octokit/octokit.rb')
         expect(stats).to be_nil
         assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/punch_card")
-      end
-
-      it "retries" do
-        stats = @client.punch_card_stats("octokit/octokit.rb", :retry_timeout => 3)
-        expect(stats).to_not be_nil
-
-        assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/punch_card"), :times => 3
       end
     end # .punch_card_stats
   end
