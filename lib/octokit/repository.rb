@@ -10,7 +10,11 @@ module Octokit
     #
     # @return [Repository]
     def self.from_url(url)
-      Repository.new(URI.parse(url).path[1..-1])
+      repo = URI.parse(url).path[1..-1]
+      if /repos\/(?<owner>[\w.-]+)\/(?<name>[\w.-]+)/i =~ repo
+        repo = {owner: owner, name: name}
+      end
+      new repo
     end
 
     # @raise [Octokit::InvalidRepository] if the repository
