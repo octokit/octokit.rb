@@ -157,6 +157,12 @@ describe Octokit::Repository do
       expect(repo_from_url.username).to eq("sferik")
     end
 
+    it "parses html urls" do
+      repo_from_url = Octokit::Repository.from_url("https://github.com/sferik/octokit/issues/132")
+      expect(repo_from_url.name).to eq("octokit")
+      expect(repo_from_url.username).to eq("sferik")
+    end
+
     it "raises InvalidRepository error for unsupported url" do
       expect { Octokit::Repository.new("https://api.github.com/gists/0083ae") }.
         to raise_error Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
