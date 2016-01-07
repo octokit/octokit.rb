@@ -267,7 +267,7 @@ To interact with the "regular" GitHub.com APIs in GitHub Enterprise, simply conf
 
 ``` ruby
 Octokit.configure do |c|
-  c.api_endpoint = "<hostname>/api/v3/"
+  c.api_endpoint = "https://<hostname>/api/v3/"
 end
 client = Octokit::Client.new(:access_token => "<your 40 char token>")
 ```
@@ -283,7 +283,7 @@ admin_client = Octokit::EnterpriseAdminClient.new \
 
 # or
 Octokit.configure do |c|
-  c.api_endpoint = "https://hostname/api/v3/"
+  c.api_endpoint = "https://<hostname>/api/v3/"
   c.access_token = "<your 40 char token>"
 end
 admin_client = Octokit.enterprise_admin_client
