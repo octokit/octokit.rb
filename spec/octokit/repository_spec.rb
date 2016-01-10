@@ -152,8 +152,8 @@ describe Octokit::Repository do
     end
 
     it "parses api urls" do
-      repo_from_url = Octokit::Repository.from_url("https://api.github.com/repos/sferik/octokit/issues/21")
-      expect(repo_from_url.name).to eq("octokit")
+      repo_from_url = Octokit::Repository.from_url("https://api.github.com/repos/sferik/octokit-repos/issues/21")
+      expect(repo_from_url.name).to eq("octokit-repos")
       expect(repo_from_url.username).to eq("sferik")
     end
 

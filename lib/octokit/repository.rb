@@ -11,7 +11,7 @@ module Octokit
     # @return [Repository]
     def self.from_url(url)
       new URI.parse(url).path[1..-1].
-        gsub('repos/','').
+        gsub(/^repos\//,'').
         split('/')[0..1].
         join('/')
     end
