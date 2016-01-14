@@ -15,7 +15,7 @@ module Octokit
       # @option options [String] :assignee User login.
       # @option options [String] :creator User login.
       # @option options [String] :mentioned User login.
-      # @option options [Array<String>] :labels List of Label names. Example: <tt>['bug', 'ui', '@high']</tt>.
+      # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
