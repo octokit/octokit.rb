@@ -203,30 +203,6 @@ module Octokit
       end
       alias :delete_application_authorization :revoke_application_authorization
 
-      # Revoke all tokens for an app
-      #
-      # Applications can revoke all of their tokens in a single request
-      #
-      # @return [Boolean] Result
-      # @see https://developer.github.com/v3/oauth_authorizations/#revoke-all-authorizations-for-an-application
-      # @example
-      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
-      #  client.revoke_all_application_authorizations
-      def revoke_all_application_authorizations(options = {})
-        opts = options.dup
-        key    = opts.delete(:client_id)     || client_id
-        secret = opts.delete(:client_secret) || client_secret
-
-        as_app(key, secret) do |app_client|
-          app_client.delete "/applications/#{client_id}/tokens", opts
-
-          app_client.last_response.status == 204
-        end
-      rescue Octokit::NotFound
-        false
-      end
-      alias :delete_application_authorization :revoke_application_authorization
-
       # Get the URL to authorize a user for an application via the web flow
       #
       # @param app_id [String] Client Id we received when our application was registered with GitHub.
