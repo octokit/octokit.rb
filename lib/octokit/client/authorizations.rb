@@ -203,6 +203,17 @@ module Octokit
       end
       alias :delete_application_authorization :revoke_application_authorization
 
+      # Revoke all tokens for an app
+      #
+      # Applications can revoke all of their tokens in a single request
+      #
+      # @deprecated As of January 25th, 2016: https://developer.github.com/changes/2014-04-08-reset-api-tokens/
+      # @return [Boolean] false
+      def revoke_all_application_authorizations(options = {})
+        octokit_warn("Deprecated: If you need to revoke all tokens for your application, you can do so via the settings page for your application.")
+        false
+      end
+
       # Get the URL to authorize a user for an application via the web flow
       #
       # @param app_id [String] Client Id we received when our application was registered with GitHub.
