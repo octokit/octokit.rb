@@ -207,25 +207,12 @@ module Octokit
       #
       # Applications can revoke all of their tokens in a single request
       #
-      # @return [Boolean] Result
-      # @see https://developer.github.com/v3/oauth_authorizations/#revoke-all-authorizations-for-an-application
-      # @example
-      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
-      #  client.revoke_all_application_authorizations
+      # @deprecated As of January 25th, 2016: https://developer.github.com/changes/2014-04-08-reset-api-tokens/
+      # @return [Boolean] false
       def revoke_all_application_authorizations(options = {})
-        opts = options.dup
-        key    = opts.delete(:client_id)     || client_id
-        secret = opts.delete(:client_secret) || client_secret
-
-        as_app(key, secret) do |app_client|
-          app_client.delete "/applications/#{client_id}/tokens", opts
-
-          app_client.last_response.status == 204
-        end
-      rescue Octokit::NotFound
+        octokit_warn("Deprecated: If you need to revoke all tokens for your application, you can do so via the settings page for your application.")
         false
       end
-      alias :delete_application_authorization :revoke_application_authorization
 
       # Get the URL to authorize a user for an application via the web flow
       #

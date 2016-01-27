@@ -200,15 +200,21 @@ describe Octokit::Client::Authorizations do
   end # .revoke_application_authorization
 
   describe ".revoke_all_application_authorizations" do
-    it "deletes all authorizations for an application" do
+    before do
+      allow(@app_client).to receive(:octokit_warn)
+    end
+
+    it "returns false" do
       path = "/applications/#{test_github_client_id}/tokens"
       revoke_url = basic_github_url path,
         :login => test_github_client_id, :password => test_github_client_secret
       stub_delete(revoke_url).to_return(:status => 204)
 
       result = @app_client.revoke_all_application_authorizations
-      expect(result).to be
-      assert_requested :delete, revoke_url
+      expect(result).not_to be
+
+      expect(@app_client).to have_received(:octokit_warn)
+        .with('Deprecated: If you need to revoke all tokens for your application, you can do so via the settings page for your application.')
     end
   end # .revoke_all_application_authorizations
 
