@@ -410,6 +410,8 @@ the API root and follow link relations from there:
 ```ruby
 root = Octokit.root
 root.rels[:repository].get :uri => {:owner => "octokit", :repo => "octokit.rb" }
+root.rels[:user_repositories].get :uri => { :user => "octokit" },
+                                  :query => { :type => "owner" }
 ```
 
 Octokit 3.0 aims to be hypermedia-driven, removing the internal URL
