@@ -204,7 +204,7 @@ module Octokit
         end
         http.headers['accept'] = options[:accept] if options.key?(:accept)
       end
-      conn.builder.delete(Octokit::Middleware::FollowRedirects)
+      conn.builder.delete(Octokit::Middleware::Response::FollowRedirects)
 
       conn
     end

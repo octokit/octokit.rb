@@ -541,7 +541,7 @@ describe Octokit::Client do
         to_return(:status => 302, :headers => { "Location" => "/e" })
       fourth_redirect = stub_get("/e").to_return(:status => 200)
 
-      expect { client.get("/a") }.to raise_error(Octokit::Middleware::RedirectLimitReached)
+      expect { client.get("/a") }.to raise_error(Octokit::Middleware::Response::RedirectLimitReached)
       assert_requested original_request
       assert_requested first_redirect
       assert_requested second_redirect
