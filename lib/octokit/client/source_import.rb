@@ -44,6 +44,8 @@ module Octokit
       # List source import commit authors
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param options [Hash]
+      # @option options [String] :since Only authors found after this id are returned.
       # @return [Array<Sawyer::Resource>] Array of hashes representing commit_authors.
       # @see https://developer.github.com/v3/migration/source_imports/#get-commit-authors
       #
