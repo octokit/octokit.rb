@@ -58,7 +58,6 @@ module Octokit
 
       # Update an author's identity for the import.
       #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param author_url [String] The source import API url for the commit author
       # @param values [Hash] The updated author attributes
       # @option values [String] :email The new Git author email.
