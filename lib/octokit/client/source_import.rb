@@ -59,7 +59,7 @@ module Octokit
       # Update an author's identity for the import.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
-      # @param author [Integer] The id of the commit author
+      # @param author_url [String] The source import API url for the commit author
       # @param values [Hash] The updated author attributes
       # @option values [String] :email The new Git author email.
       # @option values [String] :name The new Git author name.
@@ -67,13 +67,14 @@ module Octokit
       # @see https://developer.github.com/v3/migration/source_imports/#map-a-commit-author
       #
       # @example
-      #   @client.map_source_import_commit_author("octokit/octokit.rb", 1, {
+      #   author_url = "https://api.github.com/repos/octokit/octokit.rb/import/authors/1"
+      #   @client.map_source_import_commit_author(author_url, {
       #     :email => "hubot@github.com",
       #     :name => "Hubot the Robot"
       #   })
-      def map_source_import_commit_author(repo, author, values, options = {})
-        opts = ensure_api_media_type(:source_imports, options.merge(values))
-        patch "#{Repository.path repo}/import/authors/#{author}", opts
+      def map_source_import_commit_author(author_url, values, options = {})
+        options = ensure_api_media_type(:source_imports, options.merge(values))
+        patch author_url, options
       end
 
       # Stop an import for a repository.
