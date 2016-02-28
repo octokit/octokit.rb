@@ -42,6 +42,7 @@ require 'octokit/client/repositories'
 require 'octokit/client/say'
 require 'octokit/client/search'
 require 'octokit/client/service_status'
+require 'octokit/client/source_import'
 require 'octokit/client/stats'
 require 'octokit/client/statuses'
 require 'octokit/client/users'
@@ -90,6 +91,7 @@ module Octokit
     include Octokit::Client::Say
     include Octokit::Client::Search
     include Octokit::Client::ServiceStatus
+    include Octokit::Client::SourceImport
     include Octokit::Client::Stats
     include Octokit::Client::Statuses
     include Octokit::Client::Users
