@@ -45,6 +45,7 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing commit_authors.
+      # @see https://developer.github.com/v3/migration/source_imports/#get-import-progress
       #
       # @example
       #   @client.source_import_commit_authors("octokit/octokit.rb")
