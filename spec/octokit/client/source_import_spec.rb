@@ -26,7 +26,8 @@ describe Octokit::Client::SourceImport do
 
   describe ".source_import_progress", :vcr do
     it "returns the progress of the source import" do
-      @client.source_import_progress(@repo.full_name)
+      result = @client.source_import_progress(@repo.full_name)
+      expect(result).to be_kind_of Sawyer::Resource
       assert_requested :get, github_url("/repos/#{@repo.full_name}/import")
     end
   end # .source_import_progress
@@ -60,7 +61,8 @@ describe Octokit::Client::SourceImport do
 
   describe ".cancel_source_import", :vcr do
     it "cancels the source import" do
-      @client.cancel_source_import(@repo.full_name)
+      result = @client.cancel_source_import(@repo.full_name)
+      expect(result).to be true
       assert_requested :delete, github_url("/repos/#{@repo.full_name}/import")
     end
   end # .cancel_source_import
