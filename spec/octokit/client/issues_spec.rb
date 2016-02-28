@@ -40,121 +40,140 @@ describe Octokit::Client::Issues do
     end
   end # .org_issues
 
-  describe ".create_issue", :vcr do
-    it "creates an issue" do
-      issue = @client.create_issue \
-        @test_repo,
-        "Migrate issues to v3",
-        "Move all Issues calls to v3 of the API"
-      expect(issue.title).to match(/Migrate/)
-      assert_requested :post, github_url("/repos/#{@test_repo}/issues")
-    end
-    it "creates an issue with delimited labels" do
-      issue = @client.create_issue \
-        @test_repo,
-        "New issue with delimited labels",
-        "Testing",
-        :labels => "bug, feature"
-      expect(issue.title).to match(/delimited/)
-      expect(issue.labels.map(&:name)).to include("feature")
-      assert_requested :post, github_url("/repos/#{@test_repo}/issues")
-    end
-    it "creates an issue with labels array" do
-      issue = @client.create_issue \
-        @test_repo,
-        "New issue with labels array",
-        "Testing",
-        :labels => %w(bug feature)
-      expect(issue.title).to match(/array/)
-      expect(issue.labels.map(&:name)).to include("feature")
-      assert_requested :post, github_url("/repos/#{@test_repo}/issues")
-    end
-    it "creates an issue without body argument" do
-      issue = @client.create_issue(@test_repo, "New issue without body argument")
-      expect(issue.body).to be_nil
-      assert_requested :post, github_url("/repos/#{@test_repo}/issues")
-    end
-  end # .create_issue
-
-  context "with issue", :vcr do
-    before do
-      @issue = @client.create_issue(@test_repo, "Migrate issues to v3", "Move all Issues calls to v3 of the API")
+  context "with repository" do
+    before(:each) do
+      @repo = @client.create_repository("an-repo")
     end
 
-    describe ".issue" do
-      it "returns an issue" do
-        issue = @client.issue(@test_repo, @issue.number)
-        assert_requested :get, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
-        expect(issue.number).to eq(@issue.number)
+    after(:each) do
+      begin
+        @client.delete_repository(@repo.full_name)
+      rescue Octokit::NotFound
       end
-      it "returns a full issue" do
-        issue = @client.issue(@test_repo, @issue.number, :accept => 'application/vnd.github.full+json')
-        assert_requested :get, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
-        expect(issue.body_html).to include('<p>Move all')
-        expect(issue.body_text).to include('Move all')
-      end
-    end # .issue
+    end
 
-    describe ".close_issue" do
-      it "closes an issue" do
-        issue = @client.close_issue(@test_repo, @issue.number)
-        expect(issue.state).to eq "closed"
-        expect(issue.number).to eq(@issue.number)
-        assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
+    describe ".create_issue", :vcr do
+      it "creates an issue" do
+        issue = @client.create_issue \
+          @repo.full_name,
+          "Migrate issues to v3",
+          "Move all Issues calls to v3 of the API"
+        expect(issue.title).to match(/Migrate/)
+        assert_requested :post, github_url("/repos/#{@repo.full_name}/issues")
       end
-    end # .close_issue
-
-    describe ".reopen_issue" do
-      it "reopens an issue" do
-        issue = @client.reopen_issue(@test_repo, @issue.number)
-        expect(issue.state).to eq "open"
-        expect(issue.number).to eq(@issue.number)
-        assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
+      it "creates an issue with delimited labels" do
+        issue = @client.create_issue \
+          @repo.full_name,
+          "New issue with delimited labels",
+          "Testing",
+          :labels => "bug, feature"
+        expect(issue.title).to match(/delimited/)
+        expect(issue.labels.map(&:name)).to include("feature")
+        assert_requested :post, github_url("/repos/#{@repo.full_name}/issues")
       end
-    end # .reopen_issue
-
-    describe ".update_issue" do
-      it "updates an issue" do
-        issue = @client.update_issue(@test_repo, @issue.number, "Use all the v3 api!", "")
-        expect(issue.number).to eq(@issue.number)
-        assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
+      it "creates an issue with labels array" do
+        issue = @client.create_issue \
+          @repo.full_name,
+          "New issue with labels array",
+          "Testing",
+          :labels => %w(bug feature)
+        expect(issue.title).to match(/array/)
+        expect(issue.labels.map(&:name)).to include("feature")
+        assert_requested :post, github_url("/repos/#{@repo.full_name}/issues")
       end
-
-      it "updates an issue without positional args" do
-        issue = @client.update_issue(@test_repo, @issue.number, :title => "Use all the v3 api!", :body => "")
-        expect(issue.number).to eq(@issue.number)
-        assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
+      it "creates an issue without body argument" do
+        issue = @client.create_issue(@repo.full_name, "New issue without body argument")
+        expect(issue.body).to be_nil
+        assert_requested :post, github_url("/repos/#{@repo.full_name}/issues")
       end
-    end # .update_issue
+    end # .create_issue
 
-    describe ".add_comment" do
-      it "adds a comment" do
-        comment = @client.add_comment(@test_repo, @issue.number, "A test comment")
-        expect(comment.user.login).to eq(test_github_login)
-        assert_requested :post, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/comments")
-      end
-    end # .add_comment
-
-    context "with issue comment" do
-      before do
-        @issue_comment = @client.add_comment(@test_repo, @issue.number, "Another test comment")
+    context "with issue" do
+      before(:each) do
+        @issue = @client.create_issue(@repo.full_name, "Migrate issues to v3", "Move all Issues calls to v3 of the API")
       end
 
-      describe ".update_comment" do
-        it "updates an existing comment" do
-          @client.update_comment(@test_repo, @issue_comment.id, "A test comment update")
-          assert_requested :patch, github_url("/repos/#{@test_repo}/issues/comments/#{@issue_comment.id}")
+      describe ".issue", :vcr do
+        it "returns an issue" do
+          issue = @client.issue(@repo.full_name, @issue.number)
+          assert_requested :get, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}")
+          expect(issue.number).to eq(@issue.number)
         end
-      end # .update_comment
-
-      describe ".delete_comment" do
-        it "deletes an existing comment" do
-          @client.delete_comment(@test_repo, @issue_comment.id)
-          assert_requested :delete, github_url("/repos/#{@test_repo}/issues/comments/#{@issue_comment.id}")
+        it "returns a full issue" do
+          issue = @client.issue(@repo.full_name, @issue.number, :accept => 'application/vnd.github.full+json')
+          assert_requested :get, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}")
+          expect(issue.body_html).to include('<p>Move all')
+          expect(issue.body_text).to include('Move all')
         end
-      end # .delete_comment
-    end # with issue comment
-  end # with issue
+      end # .issue
+
+      describe ".close_issue", :vcr do
+        it "closes an issue" do
+          issue = @client.close_issue(@repo.full_name, @issue.number)
+          expect(issue.state).to eq "closed"
+          expect(issue.number).to eq(@issue.number)
+          assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}")
+        end
+      end # .close_issue
+
+      context "with closed issue" do
+        before(:each) do
+          @client.close_issue(@repo.full_name, @issue.number)
+        end
+
+        describe ".reopen_issue", :vcr do
+          it "reopens an issue" do
+            issue = @client.reopen_issue(@repo.full_name, @issue.number)
+            expect(issue.state).to eq "open"
+            expect(issue.number).to eq(@issue.number)
+            assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}"), :times => 2
+          end
+        end # .reopen_issue
+      end # with closed issue
+
+      describe ".update_issue", :vcr do
+        it "updates an issue" do
+          issue = @client.update_issue(@repo.full_name, @issue.number, "Use all the v3 api!", "")
+          expect(issue.number).to eq(@issue.number)
+          assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}")
+        end
+
+        it "updates an issue without positional args" do
+          issue = @client.update_issue(@repo.full_name, @issue.number, :title => "Use all the v3 api!", :body => "")
+          expect(issue.number).to eq(@issue.number)
+          assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}")
+        end
+      end # .update_issue
+
+      describe ".add_comment", :vcr do
+        it "adds a comment" do
+          comment = @client.add_comment(@repo.full_name, @issue.number, "A test comment")
+          expect(comment.user.login).to eq(test_github_login)
+          assert_requested :post, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/comments")
+        end
+      end # .add_comment
+
+      context "with issue comment" do
+        before(:each) do
+          @issue_comment = @client.add_comment(@repo.full_name, @issue.number, "Another test comment")
+        end
+
+        describe ".update_comment", :vcr do
+          it "updates an existing comment" do
+            @client.update_comment(@repo.full_name, @issue_comment.id, "A test comment update")
+            assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/comments/#{@issue_comment.id}")
+          end
+        end # .update_comment
+
+        describe ".delete_comment", :vcr do
+          it "deletes an existing comment" do
+            @client.delete_comment(@repo.full_name, @issue_comment.id)
+            assert_requested :delete, github_url("/repos/#{@repo.full_name}/issues/comments/#{@issue_comment.id}")
+          end
+        end # .delete_comment
+      end # with issue comment
+    end # with issue
+  end # with repository
 
   describe ".repository_issues_comments", :vcr do
     it "returns comments for all issues in a repository" do
@@ -179,5 +198,4 @@ describe Octokit::Client::Issues do
       assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/comments/1194690')
     end
   end # .issue_comment
-
 end
