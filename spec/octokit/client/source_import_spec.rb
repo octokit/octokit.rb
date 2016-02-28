@@ -8,7 +8,7 @@ describe Octokit::Client::SourceImport do
 
   before(:each) do
     @repo = @client.create_repository("an-repo")
-    @client.start_source_import(@repo.full_name, "git", "https://github.com/github/gitignore")
+    @client.start_source_import(@repo.full_name, "svn", "https://rphotogallery.googlecode.com/svn/")
   end
 
   after(:each) do
@@ -41,14 +41,20 @@ describe Octokit::Client::SourceImport do
 
   describe ".map_source_import_commit_author", :vcr do
     it "updates the commit authors identity" do
-      begin
-        commit_author = @client.map_source_import_commit_author(@repo.full_name, 1, {
-          :email => "hubot@github.com",
-          :name => "Hubot the Robot"
-        })
-      rescue Octokit::NotFound
-        assert_requested :patch, github_url("/repos/#{@repo.full_name}/import/authors/#{1}")
+      # We have to wait for the importer to load the authors before continuing
+      until(!@client.source_import_commit_authors(@repo.full_name).empty?)
+        sleep 1
       end
+
+      commit_author_url = @client.source_import_commit_authors(@repo.full_name).first.url
+      commit_author = @client.map_source_import_commit_author(commit_author_url, {
+        :email => "hubot@github.com",
+        :name => "Hubot the Robot"
+      })
+
+      expect(commit_author.email).to eql("hubot@github.com")
+      expect(commit_author.name).to eql("Hubot the Robot")
+      assert_requested :patch, commit_author_url
     end
   end # .map_source_import_commit_author
 
