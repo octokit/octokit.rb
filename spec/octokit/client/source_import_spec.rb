@@ -42,7 +42,7 @@ describe Octokit::Client::SourceImport do
   describe ".map_source_import_commit_author", :vcr do
     it "updates the commit authors identity" do
       # We have to wait for the importer to load the authors before continuing
-      until(!@client.source_import_commit_authors(@repo.full_name).empty?)
+      while(@client.source_import_commit_authors(@repo.full_name).empty?)
         sleep 1
       end
 
