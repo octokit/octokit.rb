@@ -3,7 +3,7 @@ require 'octokit/error'
 
 module Octokit
   # Faraday response middleware
-  module Response
+  module Middleware
 
     # This class raises an Octokit-flavored exception based
     # HTTP status codes returned by the API
