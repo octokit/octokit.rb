@@ -1,6 +1,7 @@
 require 'octokit/middleware/feed_parser'
 require 'octokit/middleware/follow_redirects'
 require 'octokit/middleware/raise_error'
+require 'octokit/response'
 require 'octokit/version'
 
 module Octokit
