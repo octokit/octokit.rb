@@ -41,6 +41,17 @@ describe Octokit do
         expect(Octokit.instance_variable_get(:"@#{key}")).to eq(key)
       end
     end
+
+    it "it supports deprecated middleware namespaces" do
+      builder_class = Octokit::Default::RACK_BUILDER_CLASS
+
+      stack = builder_class.new do |builder|
+        builder.use Octokit::Middleware::FollowRedirects
+        builder.use Octokit::Response::RaiseError
+        builder.use Octokit::Response::FeedParser
+        builder.adapter Faraday.default_adapter
+      end
+    end
   end
 
 end
