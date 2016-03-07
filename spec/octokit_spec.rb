@@ -52,6 +52,19 @@ describe Octokit do
         builder.adapter Faraday.default_adapter
       end
     end
+
+    it "it defines a default stack" do
+      builder_class = Octokit::Default::RACK_BUILDER_CLASS
+
+      stack = builder_class.new do |builder|
+        builder.use Octokit::Middleware::RaiseError
+        builder.use Octokit::Middleware::FollowRedirects
+        builder.use Octokit::Middleware::FeedParser
+        builder.adapter Faraday.default_adapter
+      end
+
+      expect(Octokit.middleware).to eq(stack)
+    end
   end
 
 end

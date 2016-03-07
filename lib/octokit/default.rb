@@ -26,9 +26,9 @@ module Octokit
 
     # Default Faraday middleware stack
     MIDDLEWARE = RACK_BUILDER_CLASS.new do |builder|
-      builder.use Octokit::Middleware::FeedParser
-      builder.use Octokit::Middleware::FollowRedirects
       builder.use Octokit::Middleware::RaiseError
+      builder.use Octokit::Middleware::FollowRedirects
+      builder.use Octokit::Middleware::FeedParser
       builder.adapter Faraday.default_adapter
     end
 
