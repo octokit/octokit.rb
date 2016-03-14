@@ -797,6 +797,13 @@ describe Octokit::Client do
         },
         :body => {:message => "At least one email address must be verified to do that"}.to_json
       expect { Octokit.post("/user/repos") }.to raise_error Octokit::UnverifiedEmail
+
+      stub_get('/torrentz').to_return \
+        :status => 451,
+        :headers => {
+          :content_type => "application/json",
+        }
+        expect { Octokit.get('/torrentz') }.to raise_error Octokit::UnavailableForLegalReasons
     end
 
     it "raises on unknown client errors" do
