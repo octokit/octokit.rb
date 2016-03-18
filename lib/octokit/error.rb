@@ -22,6 +22,7 @@ module Octokit
                   when 409      then Octokit::Conflict
                   when 415      then Octokit::UnsupportedMediaType
                   when 422      then Octokit::UnprocessableEntity
+                  when 451      then Octokit::UnavailableForLegalReasons
                   when 400..499 then Octokit::ClientError
                   when 500      then Octokit::InternalServerError
                   when 501      then Octokit::NotImplemented
@@ -222,6 +223,9 @@ module Octokit
 
   # Raised when GitHub returns a 422 HTTP status code
   class UnprocessableEntity < ClientError; end
+
+  # Raised when GitHub returns a 451 HTTP status code
+  class UnavailableForLegalReasons < ClientError; end
 
   # Raised on errors in the 500-599 range
   class ServerError < Error; end
