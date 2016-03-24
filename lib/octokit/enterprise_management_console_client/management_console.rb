@@ -168,7 +168,7 @@ module Octokit
           http.ssl[:verify] = false
         end
 
-        http.use Octokit::Response::RaiseError
+        http.use Octokit::Middleware::RaiseError
         http.adapter Faraday.default_adapter
       end
     end
