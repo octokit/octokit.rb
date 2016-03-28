@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Source Import API
     #
-    # @see https://developer.github.com/v3/repos/source_imports
+    # @see https://developer.github.com/v3/migration/source_imports
     module SourceImport
 
       # Start a source import to a GitHub repository using GitHub Importer.
