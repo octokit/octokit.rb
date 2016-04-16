@@ -9,9 +9,9 @@ module Octokit
       # Start a source import to a GitHub repository using GitHub Importer.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
-      # @param vcs [String] The originating VCS type. Can be one of "subversion", "git", "mercurial", or "tfvc".
       # @param vcs_url [String] The URL of the originating repository.
       # @param options [Hash]
+      # @option options [String] :vcs The originating VCS type. Can be one of "subversion", "git", "mercurial", or "tfvc".
       # @option options [String] :vcs_username If authentication is required, the username to provide to vcs_url.
       # @option options [String] :vcs_password If authentication is required, the password to provide to vcs_url.
       # @option options [String] :tfvc_project For a tfvc import, the name of the project that is being imported.
@@ -23,8 +23,8 @@ module Octokit
       #    :vcs_username" => "octocat",
       #    :vcs_password  => "secret"
       #   })
-      def start_source_import(repo, vcs, vcs_url, options = {})
-        options = ensure_api_media_type(:source_imports, options.merge(:vcs => vcs, :vcs_url => vcs_url))
+      def start_source_import(repo, vcs_url, options = {})
+        options = ensure_api_media_type(:source_imports, options.merge(:vcs_url => vcs_url))
         put "#{Repository.path repo}/import", options
       end
 

@@ -8,7 +8,7 @@ describe Octokit::Client::SourceImport do
 
   before(:each) do
     @repo = @client.create_repository("an-repo")
-    @client.start_source_import(@repo.full_name, "svn", "https://rphotogallery.googlecode.com/svn/")
+    @client.start_source_import(@repo.full_name, "https://rphotogallery.googlecode.com/svn/", { "vcs" => "svn" })
   end
 
   after(:each) do
