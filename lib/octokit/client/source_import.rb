@@ -88,6 +88,19 @@ module Octokit
         options = ensure_api_media_type(:source_imports, options)
         boolean_from_response :delete, "#{Repository.path repo}/import", options
       end
+
+      # Opt in to store large files with Git LFS during an import.
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @return [Boolean] True if the import has opted-in to lfs, false otherwise.
+      # @see https://developer.github.com/v3/migration/source_imports/#opt-in-to-git-large-file-storage
+      #
+      # @example
+      # @client.opt_in_to_lfs_source_import("octokit/octokit.rb")
+      def opt_in_to_lfs_source_import(repo, options = {})
+        options = ensure_api_media_type(:source_imports, options)
+        boolean_from_response :put, "#{Repository.path repo}/import/lfs", options
+      end
     end
   end
 end

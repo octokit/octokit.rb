@@ -66,4 +66,12 @@ describe Octokit::Client::SourceImport do
       assert_requested :delete, github_url("/repos/#{@repo.full_name}/import")
     end
   end # .cancel_source_import
+
+  describe ".opt_in_to_lfs_source_import", :vcr do
+    it "opts in to use lfs" do
+      result = @client.opt_in_to_lfs_source_import(@repo.full_name)
+      expect(result).to be true
+      assert_requested :put, github_url("/repos/#{@repo.full_name}/import/lfs")
+    end
+  end # .opt_in_to_lfs_source_import
 end
