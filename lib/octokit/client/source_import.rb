@@ -89,6 +89,21 @@ module Octokit
         boolean_from_response :delete, "#{Repository.path repo}/import", options
       end
 
+      # List source import large files
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param options [Hash]
+      # @option options [Fixnum] :page Page of paginated results
+      # @return [Array<Sawyer::Resource>] Array of hashes representing files over 100MB.
+      # @see https://developer.github.com/v3/migration/source_imports/#get-large-files
+      #
+      # @example
+      #   @client.source_import_large_files("octokit/octokit.rb")
+      def source_import_large_files(repo, options = {})
+        options = ensure_api_media_type(:source_imports, options)
+        get "#{Repository.path repo}/import/large_files", options
+      end
+
       # Opt in to store large files with Git LFS during an import.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.

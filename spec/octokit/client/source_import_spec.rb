@@ -67,6 +67,14 @@ describe Octokit::Client::SourceImport do
     end
   end # .cancel_source_import
 
+  describe ".source_import_large_files", :vcr do
+    it "lists the source imports large files" do
+      large_files = @client.source_import_large_files(@repo.full_name)
+      expect(large_files).to be_kind_of Array
+      assert_requested :get, github_url("/repos/#{@repo.full_name}/import/large_files")
+    end
+  end # .source_import_large_files
+
   describe ".opt_in_to_lfs_source_import", :vcr do
     it "opts in to use lfs" do
       result = @client.opt_in_to_lfs_source_import(@repo.full_name)
