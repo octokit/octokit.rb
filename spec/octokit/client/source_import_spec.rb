@@ -32,6 +32,14 @@ describe Octokit::Client::SourceImport do
     end
   end # .source_import_progress
 
+  describe ".update_source_import", :vcr do
+    it "restarts the source import" do
+      result = @client.update_source_import(@repo.full_name)
+      expect(result).to be_kind_of Sawyer::Resource
+      assert_requested :patch, github_url("/repos/#{@repo.full_name}/import")
+    end
+  end # .update_source_import
+
   describe ".source_import_commit_authors", :vcr do
     it "lists the source imports commit authors" do
       commit_authors = @client.source_import_commit_authors(@repo.full_name)

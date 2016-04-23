@@ -41,6 +41,27 @@ module Octokit
         get "#{Repository.path repo}/import", options
       end
 
+      # Update source import with authentication/project_choice
+      # Restart source import if no options are passed
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @return [Sawyer::Resource] Hash representing the repository import
+      # @see https://developer.github.com/v3/migration/source_imports/#update-existing-import
+      # @option options [String] :vcs_username If authentication is required, the username to provide to vcs_url.
+      # @option options [String] :vcs_password If authentication is required, the password to provide to vcs_url.
+      # @option options [String] :vcs The originating VCS type. Can be one of "subversion", "git", "mercurial", or "tfvc".
+      # @option options [String] :tfvc_project For a tfvc import, the name of the project that is being imported.
+      #
+      # @example
+      #   @client.update_source_import("octokit/octokit.rb", {
+      #    :vcs_username" => "octocat",
+      #    :vcs_password  => "secret"
+      #   })
+      def update_source_import(repo, options = {})
+        options = ensure_api_media_type(:source_imports, options)
+        patch "#{Repository.path repo}/import", options
+      end
+
       # List source import commit authors
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
