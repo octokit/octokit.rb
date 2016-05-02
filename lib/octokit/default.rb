@@ -1,6 +1,6 @@
+require 'octokit/middleware/feed_parser'
 require 'octokit/middleware/follow_redirects'
-require 'octokit/response/raise_error'
-require 'octokit/response/feed_parser'
+require 'octokit/middleware/raise_error'
 require 'octokit/version'
 
 module Octokit
@@ -25,9 +25,9 @@ module Octokit
 
     # Default Faraday middleware stack
     MIDDLEWARE = RACK_BUILDER_CLASS.new do |builder|
+      builder.use Octokit::Middleware::RaiseError
       builder.use Octokit::Middleware::FollowRedirects
-      builder.use Octokit::Response::RaiseError
-      builder.use Octokit::Response::FeedParser
+      builder.use Octokit::Middleware::FeedParser
       builder.adapter Faraday.default_adapter
     end
 

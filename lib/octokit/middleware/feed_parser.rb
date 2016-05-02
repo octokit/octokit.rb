@@ -2,7 +2,7 @@ require 'faraday'
 
 module Octokit
 
-  module Response
+  module Middleware
 
     # Parses RSS and Atom feed responses.
     class FeedParser < Faraday::Response::Middleware
