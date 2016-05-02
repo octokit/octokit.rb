@@ -83,19 +83,11 @@ describe Octokit::Client::SourceImport do
     end
   end # .source_import_large_files
 
-  describe ".opt_in_to_lfs_source_import", :vcr do
-    it "opts in to use lfs" do
-      result = @client.opt_in_to_lfs_source_import(@repo.full_name)
-      expect(result).to be true
-      assert_requested :put, github_url("/repos/#{@repo.full_name}/import/lfs")
+  describe ".set_source_import_lfs_preference", :vcr do
+    it "sets use_lfs to opt_in for the import" do
+      result = @client.set_source_import_lfs_preference(@repo.full_name, "opt_in")
+      expect(result).to be_kind_of Sawyer::Resource
+      assert_requested :patch, github_url("repos/#{@repo.full_name}/import/lfs")
     end
-  end # .opt_in_to_lfs_source_import
-
-  describe ".opt_out_of_lfs_source_import", :vcr do
-    it "opts out of lfs" do
-      result = @client.opt_out_of_lfs_source_import(@repo.full_name)
-      expect(result).to be true
-      assert_requested :delete, github_url("/repos/#{@repo.full_name}/import/lfs")
-    end
-  end # .opt_out_of_lfs_source_import
+  end # .set_source_import_lfs_preference
 end

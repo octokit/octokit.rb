@@ -125,30 +125,18 @@ module Octokit
         get "#{Repository.path repo}/import/large_files", options
       end
 
-      # Opt in to store large files with Git LFS during an import.
+      # Set preference for using Git LFS to import files over 100MB
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
-      # @return [Boolean] True if the import has opted-in to lfs, false otherwise.
-      # @see https://developer.github.com/v3/migration/source_imports/#opt-in-to-git-large-file-storage
+      # @param use_lfs [String] Preference for using Git LFS to import large files. Can be one of "opt_in" or "opt_out"
+      # @return [Sawyer::Resource] Hash representing the repository import
+      # @see https://developer.github.com/v3/migration/source_imports/#set-git-lfs-preference
       #
       # @example
-      # @client.opt_in_to_lfs_source_import("octokit/octokit.rb")
-      def opt_in_to_lfs_source_import(repo, options = {})
-        options = ensure_api_media_type(:source_imports, options)
-        boolean_from_response :put, "#{Repository.path repo}/import/lfs", options
-      end
-
-      # Opt out of storing large files with Git LFS during an import.
-      #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
-      # @return [Boolean] True if the import has opted-out of lfs, false otherwise.
-      # @see https://developer.github.com/v3/migration/source_imports/#opt-out-of-git-large-file-storage
-      #
-      # @example
-      # @client.opt_out_of_lfs_source_import("octokit/octokit.rb")
-      def opt_out_of_lfs_source_import(repo, options = {})
-        options = ensure_api_media_type(:source_imports, options)
-        boolean_from_response :delete, "#{Repository.path repo}/import/lfs", options
+      # @client.opt_in_source_import_lfs("octokit/octokit.rb", "opt_in")
+      def set_source_import_lfs_preference(repo, use_lfs, options = {})
+        options = ensure_api_media_type(:source_imports, options.merge(:use_lfs => use_lfs))
+        patch "#{Repository.path repo}/import/lfs", options
       end
     end
   end
