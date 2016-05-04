@@ -42,7 +42,7 @@ module Octokit
         get "#{Repository.path repo}/import", options
       end
 
-      # Update source import with authentication/project_choice
+      # Update source import with authentication or project choice
       # Restart source import if no options are passed
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
@@ -50,8 +50,8 @@ module Octokit
       # @see https://developer.github.com/v3/migration/source_imports/#update-existing-import
       # @option options [String] :vcs_username If authentication is required, the username to provide to vcs_url.
       # @option options [String] :vcs_password If authentication is required, the password to provide to vcs_url.
-      # @option options [String] :vcs The originating VCS type. Can be one of "subversion", "git", "mercurial", or "tfvc".
-      # @option options [String] :tfvc_project For a tfvc import, the name of the project that is being imported.
+      # @option options [String] To update project choice, please refer to the project_choice array from the progress return hash for the exact attributes.
+      # https://developer.github.com/v3/migration/source_imports/#update-existing-import
       #
       # @example
       #   @client.update_source_import("octokit/octokit.rb", {
