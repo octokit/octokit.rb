@@ -279,7 +279,7 @@ The GitHub Enterprise Admin APIs are under a different client: `EnterpriseAdminC
 ``` ruby
 admin_client = Octokit::EnterpriseAdminClient.new \
                           :access_token => "<your 40 char token>",
-                          :api_endpoint = "https://<hostname>/api/v3/"
+                          :api_endpoint => "https://<hostname>/api/v3/"
 
 # or
 Octokit.configure do |c|
