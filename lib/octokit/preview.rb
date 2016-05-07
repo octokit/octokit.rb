@@ -19,7 +19,7 @@ module Octokit
     end
 
     def warn_preview(type)
-      warn <<-EOS
+      octokit_warn <<-EOS
 WARNING: The preview version of the #{type.to_s.capitalize} API is not yet suitable for production use.
 You can avoid this message by supplying an appropriate media type in the 'Accept' request
 header.
