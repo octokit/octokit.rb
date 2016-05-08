@@ -2,7 +2,7 @@ if RUBY_ENGINE == 'ruby'
   require 'simplecov'
   require 'coveralls'
 
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [
     SimpleCov::Formatter::HTMLFormatter,
     Coveralls::SimpleCov::Formatter
   ]
@@ -13,7 +13,7 @@ require 'json'
 require 'octokit'
 require 'rspec'
 require 'webmock/rspec'
-require "base64"
+require 'base64'
 
 WebMock.disable_net_connect!(:allow => 'coveralls.io')
 

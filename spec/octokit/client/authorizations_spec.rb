@@ -153,6 +153,18 @@ describe Octokit::Client::Authorizations do
         Octokit.authorize_url
       }.to raise_error Octokit::ApplicationCredentialsRequired
     end
+    context "with passed options hash" do
+      it "appends options hash as query params" do
+        url = Octokit.authorize_url('id_here', redirect_uri: 'git.io', scope: 'user')
+        expect(url).to eq('https://github.com/login/oauth/authorize?client_id=id_here&redirect_uri=git.io&scope=user')
+      end
+      it "escapes values before adding to query params" do
+        uri = Octokit.authorize_url('id_here', redirect_uri: 'http://git.io')
+        expect(uri).to eq('https://github.com/login/oauth/authorize?client_id=id_here&redirect_uri=http%3A%2F%2Fgit.io')
+        scope = Octokit.authorize_url('id_here', scope: 'repo:status')
+        expect(scope).to eq('https://github.com/login/oauth/authorize?client_id=id_here&scope=repo%3Astatus')
+      end
+    end
   end # .authorize_url
 
   describe ".check_application_authorization", :vcr do
