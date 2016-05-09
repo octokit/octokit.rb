@@ -8,6 +8,44 @@ Ruby toolkit for the GitHub API.
 Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
 [major version][semver].
 
+## Table of Contents
+
+1. [Philosophy](#philosophy)
+2. [Quick start](#quick-start)
+3. [Making requests](#making-requests)
+4. [Consuming resources](#consuming-resources)
+5. [Accessing HTTP responses](#accessing-http-responses)
+6. [Authentication](#authentication)
+   1. [Basic Authentication](#basic-authentication)
+   2. [OAuth access tokens](#oauth-access-tokens)
+   3. [Two-Factor Authentication](#two-factor-authentication)
+   4. [Using a .netrc file](#using-a-netrc-file)
+   5. [Application authentication](#application-authentication)
+7. [Pagination](#pagination)
+   1. [Auto pagination](#auto-pagination)
+8. [Working with GitHub Enterprise](#working-with-github-enterprise)
+   1. [Interacting with the GitHub.com APIs in GitHub Enterprise](#interacting-with-the-githubcom-apis-in-github-enterprise)
+   2. [Interacting with the GitHub Enterprise Admin APIs](#interacting-with-the-github-enterprise-admin-apis)
+   3. [Interacting with the GitHub Enterprise Management Console APIs](#interacting-with-the-github-enterprise-management-console-apis)
+9. [SSL Connection Errors](#ssl-connection-errors)
+10. [Configuration and defaults](#configuration-and-defaults)
+    1. [Configuring module defaults](#configuring-module-defaults)
+    2. [Using ENV variables](#using-env-variables)
+11. [Hypermedia agent](#hypermedia-agent)
+    1. [Hypermedia in Octokit](#hypermedia-in-octokit)
+    2. [URI templates](#uri-templates)
+    3. [The Full Hypermedia Experience™](#the-full-hypermedia-experience)
+12. [Upgrading guide](#upgrading-guide)
+    1. [Upgrading from 1.x.x](#upgrading-from-1xx)
+13. [Advanced usage](#advanced-usage)
+    1. [Debugging](#debugging)
+    2. [Caching](#caching)
+14. [Hacking on Octokit.rb](#hacking-on-octokitrb)
+    1. [Running and writing new tests](#running-and-writing-new-tests)
+15. [Supported Ruby Versions](#supported-ruby-versions)
+16. [Versioning](#versioning)
+17. [License](#license)
+
 ## Philosophy
 
 API wrappers [should reflect the idioms of the language in which they were
