@@ -382,7 +382,7 @@ end
 
 ### Using ENV variables
 
-Default configuration values are specified in {Octokit::Default}. Many
+Default configuration values are specified in [`Octokit::Default`](https://github.com/octokit/octokit.rb/blob/master/lib/octokit/default.rb). Many
 attributes will look for a default value from the ENV before returning
 Octokit's default.
 
