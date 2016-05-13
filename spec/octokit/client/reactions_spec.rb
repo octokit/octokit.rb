@@ -107,22 +107,9 @@ describe Octokit::Client::Reactions do
 
     context "with pull request" do
       before do
-        # # Create a new reference
-        master  = @client.ref(@repo.full_name, "heads/master")
-        new_ref = @client.create_ref(@repo.full_name, "heads/branch-for-pr", master.object.sha)
-
-        file_name = File.join("some_dir", "new_file.txt")
-        blob_sha = @client.create_blob(@repo.full_name, Base64.encode64("foo bar baz"), "base64")
-        last_commit = @client.commits(@repo.full_name, "branch-for-pr").last
-
-        sha_new_tree = @client.create_tree(@repo.full_name,
-                                          [ { :path => file_name,
-                                              :mode => "100644",
-                                              :type => "blob",
-                                              :sha => blob_sha } ],
-                                              {:base_tree => last_commit.commit.tree.sha }).sha
-
-        commit = @client.create_commit(@repo.full_name, "Hello There", sha_new_tree, last_commit.sha)
+        master_ref = @client.ref(@repo.full_name, "heads/master")
+        @client.create_ref(@repo.full_name, "heads/branch-for-pr", master_ref.object.sha)
+        @content = @client.create_contents(@repo.full_name, "lib/test.txt", "Adding content", "File Content", :branch => "branch-for-pr")
 
         args = [@repo.full_name, "master", "branch-for-pr", "A new PR", "The Body"]
         @pull = @client.create_pull_request(*args)
@@ -132,8 +119,8 @@ describe Octokit::Client::Reactions do
         before do
           new_comment = {
             :body => "Looks good!",
-            :commit_id => "9bf22dff54fd6a7650230b70417b55e8cccfc4f2",
-            :path => "test.md",
+            :commit_id => @content.commit.sha,
+            :path => "lib/test.txt",
             :position => 1
           }
 
@@ -150,7 +137,7 @@ describe Octokit::Client::Reactions do
           it "returns an Array of reactions" do
             reactions = @client.pull_request_review_comment_reactions(@repo.full_name, @pull_request_review_comment.id)
             expect(reactions).to be_kind_of Array
-            assert_requested :get, github_url("/repos/#{@repo.full_name}/pulls/#{@pull_request_review_comment.id}/reactions")
+            assert_requested :get, github_url("/repos/#{@repo.full_name}/pulls/comments/#{@pull_request_review_comment.id}/reactions")
           end
         end # .pull_request_review_comment_reactions
 
@@ -158,7 +145,7 @@ describe Octokit::Client::Reactions do
           it "creates a reaction" do
             reaction = @client.create_pull_request_review_comment_reaction(@repo.full_name, @pull_request_review_comment.id, "+1")
             expect(reaction.content).to eql("+1")
-            assert_requested :post, github_url("/repos/#{@repo.full_name}/pulls/#{@pull_request_review_comment.id}/reactions")
+            assert_requested :post, github_url("/repos/#{@repo.full_name}/pulls/comments/#{@pull_request_review_comment.id}/reactions")
           end
         end # .create_pull_request_review_comment_reaction
       end # with pull request review comment

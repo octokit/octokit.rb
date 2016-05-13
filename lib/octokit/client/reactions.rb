@@ -113,7 +113,7 @@ module Octokit
       #   @client.pull_request_review_comment_reactions("octokit/octokit.rb", 1)
       #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the reactions.
-      def pull_request_review_comment_reactions(repo, id, options)
+      def pull_request_review_comment_reactions(repo, id, options = {})
         options = ensure_api_media_type(:reactions, options)
         get "#{Repository.path repo}/pulls/comments/#{id}/reactions", options
       end
