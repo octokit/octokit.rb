@@ -27,10 +27,6 @@ describe Octokit::Client::Reactions do
           @commit.files.last.filename
       end
 
-      after do
-        @client.delete_commit_comment(@repo.full_name, @commit_comment.id)
-      end
-
       describe ".commit_comment_reactions" do
         it "returns an Array of reactions" do
           reactions = @client.commit_comment_reactions(@repo.full_name, @commit_comment.id)
