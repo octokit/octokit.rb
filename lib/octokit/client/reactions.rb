@@ -25,8 +25,9 @@ module Octokit
       #
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param id [Integer] The id of the commit comment
-      # @param reaction [Integer] The Reaction
+      # @param reaction [String] The Reaction
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-a-commit-comment
+      # @see https://developer.github.com/v3/reactions/#reaction-types
       #
       # @example
       #   @client.create_commit_comment_reactions("octokit/octokit.rb", 1)
@@ -59,6 +60,7 @@ module Octokit
       # @param reaction [String] The Reaction
       #
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue
+      # @see https://developer.github.com/v3/reactions/#reaction-types
       #
       # @example
       #   @client.create_issue_reaction("octokit/octokit.rb", 1)
@@ -92,6 +94,7 @@ module Octokit
       # @param reaction [String] The Reaction
       #
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue-comment
+      # @see https://developer.github.com/v3/reactions/#reaction-types
       #
       # @example
       #   @client.create_issue_comment_reaction("octokit/octokit.rb", 1)
@@ -125,6 +128,7 @@ module Octokit
       # @param reaction [String] The Reaction
       #
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-a-pull-request-review-comment
+      # @see https://developer.github.com/v3/reactions/#reaction-types
       #
       # @example
       #   @client.create_pull_request_reiew_comment_reaction("octokit/octokit.rb", 1)
