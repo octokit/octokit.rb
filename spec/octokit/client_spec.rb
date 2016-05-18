@@ -798,6 +798,14 @@ describe Octokit::Client do
         :body => {:message => "At least one email address must be verified to do that"}.to_json
       expect { Octokit.post("/user/repos") }.to raise_error Octokit::UnverifiedEmail
 
+      stub_post('/user/repos').to_return \
+        :status => 403,
+        :headers => {
+            :content_type => "application/json",
+        },
+        :body => {:message => "Sorry. Your account was suspended. Please contact github-enterprise@example.com"}.to_json
+      expect { Octokit.post("/user/repos") }.to raise_error Octokit::AccountSuspended
+
       stub_get('/torrentz').to_return \
         :status => 451,
         :headers => {
