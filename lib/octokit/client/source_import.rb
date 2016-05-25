@@ -24,18 +24,7 @@ module Octokit
       #    :vcs_username" => "octocat",
       #    :vcs_password  => "secret"
       #   })
-      def start_source_import(repo, vcs_url, options = {}, _deprecated_args=nil)
-        if !options.is_a?(Hash)
-          octokit_warn "Octokit#start_source_import vcs parameter is now an option, please update your call before the next major Octokit version update."
-          vcs = vcs_url
-          vcs_url = options
-          if _deprecated_args
-            options = _deprecated_args.merge(:vcs => vcs)
-          else
-            options = {:vcs => vcs}
-          end
-        end
-
+      def start_source_import(repo, vcs_url, options = {})
         options = ensure_api_media_type(:source_imports, options.merge(:vcs_url => vcs_url))
         put "#{Repository.path repo}/import", options
       end
