@@ -8,7 +8,7 @@ module Octokit
 
       # List reactions for a commit comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param id [Integer] The id of the commit comment
       # @see https://developer.github.com/v3/reactions/#list-reactions-for-a-commit-comment
       #
@@ -23,7 +23,7 @@ module Octokit
 
       # Create a reaction for a commit comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param id [Integer] The id of the commit comment
       # @param reaction [String] The Reaction
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-a-commit-comment
@@ -40,7 +40,7 @@ module Octokit
 
       # List reactions for an issue
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] The Issue number
       # @see https://developer.github.com/v3/reactions/#list-reactions-for-an-issue
       #
@@ -55,7 +55,7 @@ module Octokit
 
       # Create reaction for an issue
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] The Issue number
       # @param reaction [String] The Reaction
       #
@@ -73,7 +73,7 @@ module Octokit
 
       # List reactions for an issue comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param id [Integer] The Issue comment id
       #
       # @see https://developer.github.com/v3/reactions/#list-reactions-for-an-issue-comment
@@ -89,7 +89,7 @@ module Octokit
 
       # Create reaction for an issue comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param id [Integer] The Issue comment id
       # @param reaction [String] The Reaction
       #
@@ -107,7 +107,7 @@ module Octokit
 
       # List reactions for a pull request review comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param id [Integer] The Issue comment id
       #
       # @see https://developer.github.com/v3/reactions/#list-reactions-for-a-pull-request-review-comment
@@ -123,7 +123,7 @@ module Octokit
 
       # Create reaction for a pull request review comment
       #
-      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param id [Integer] The Issue comment id
       # @param reaction [String] The Reaction
       #
