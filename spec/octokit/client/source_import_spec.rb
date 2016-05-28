@@ -24,7 +24,8 @@ describe Octokit::Client::SourceImport do
         result = @client.start_source_import(@repo.full_name, "hg", "https://bitbucket.org/spraints/goboom")
 
         expect(result).to be_kind_of Sawyer::Resource
-        expect(@client).to have_received(:octokit_warn).with("Octokit#start_source_import vcs parameter is now an option, please update your call before the next major Octokit version update.")
+        expect(@client).to have_received(:octokit_warn)
+          .with("Octokit#start_source_import vcs parameter is now an option, please update your call before the next major Octokit version update.")
         assert_requested :put, github_url("/repos/#{@repo.full_name}/import")
       end
     end # .start_source_import
