@@ -862,6 +862,21 @@ describe Octokit::Client do
         :body => [].to_json
       expect { Octokit.get('/user') }.to raise_error Octokit::ServerError
     end
+
+    it "exposes the response status code" do
+      stub_get('/boom').
+        to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:error => "No repository found for hubtopic"}.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.response_status).to eql 422
+      end
+    end
   end
 
   it "knows the difference between unauthorized and needs OTP" do

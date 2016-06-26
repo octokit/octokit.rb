@@ -291,16 +291,24 @@ module Octokit
 
       # Add collaborator to repo
       #
+      # This can also be used to update the permission of an existing collaborator
+      #
       # Requires authenticated client.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param collaborator [String] Collaborator GitHub username to add.
+      # @option options [String] :permission The permission to grant the collaborator.
+      #   Only valid on organization-owned repositories.
+      #   Can be one of: <tt>pull</tt>, <tt>push</tt>, or <tt>admin</tt>.
+      #   If not specified, defaults to <tt>push</tt>
       # @return [Boolean] True if collaborator added, false otherwise.
       # @see https://developer.github.com/v3/repos/collaborators/#add-user-as-a-collaborator
       # @example
       #   @client.add_collaborator('octokit/octokit.rb', 'holman')
       # @example
       #   @client.add_collab('octokit/octokit.rb', 'holman')
+      # @example Add a collaborator with admin permissions
+      #   @client.add_collaborator('octokit/octokit.rb', 'holman', permission: 'admin')
       def add_collaborator(repo, collaborator, options = {})
         boolean_from_response :put, "#{Repository.path repo}/collaborators/#{collaborator}", options
       end

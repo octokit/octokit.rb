@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.licenses = ['MIT']
   spec.name = 'octokit'
   spec.require_paths = ['lib']
-  spec.required_ruby_version = '>= 1.9.2'
+  spec.required_ruby_version = '>= 2.0.0'
   spec.required_rubygems_version = '>= 1.3.5'
   spec.summary = "Ruby toolkit for working with the GitHub API"
   spec.version = Octokit::VERSION.dup
