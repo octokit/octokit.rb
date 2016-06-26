@@ -36,6 +36,7 @@ require 'octokit/client/pages'
 require 'octokit/client/pub_sub_hubbub'
 require 'octokit/client/pull_requests'
 require 'octokit/client/rate_limit'
+require 'octokit/client/reactions'
 require 'octokit/client/refs'
 require 'octokit/client/releases'
 require 'octokit/client/repositories'
@@ -85,6 +86,7 @@ module Octokit
     include Octokit::Client::PubSubHubbub
     include Octokit::Client::PullRequests
     include Octokit::Client::RateLimit
+    include Octokit::Client::Reactions
     include Octokit::Client::Refs
     include Octokit::Client::Releases
     include Octokit::Client::Repositories

@@ -8,6 +8,7 @@ module Octokit
       :migrations        => 'application/vnd.github.wyandotte-preview+json'.freeze,
       :licenses          => 'application/vnd.github.drax-preview+json'.freeze,
       :source_imports    => 'application/vnd.github.barred-rock-preview'.freeze,
+      :reactions         => 'application/vnd.github.squirrel-girl-preview'.freeze,
     }
 
     def ensure_api_media_type(type, options)
