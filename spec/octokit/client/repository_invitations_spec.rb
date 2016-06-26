@@ -18,9 +18,9 @@ describe Octokit::Client::RepositoryInvitations do
       end
     end
 
-    describe ".invite_user", :vcr do
+    describe ".invite_user_to_repository", :vcr do
       it "invites a user to a repository" do
-        @client.invite_user(@repo.id, "tarebyte")
+        @client.invite_user_to_repository(@repo.id, "tarebyte")
         assert_requested :put, github_url("/repositories/#{@repo.id}/collaborators/tarebyte")
       end
     end

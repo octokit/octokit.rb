@@ -14,10 +14,11 @@ module Octokit
       # @param user [String] User GitHub username to add
       # @return [Sawyer::Resource] The repository invitation
       # @see https://developer.github.com/v3/repos/invitations/#invite-a-user-to-a-repository
-      def invite_user(repo, user, options = {})
+      def invite_user_to_repository(repo, user, options = {})
         options = ensure_api_media_type(:repository_invitations, options)
         put "#{Repository.path repo}/collaborators/#{user}", options
       end
+      alias invite_user_to_repo invite_user_to_repository
 
       # List all invitations for a repository
       #
