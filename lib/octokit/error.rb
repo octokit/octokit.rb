@@ -86,6 +86,13 @@ module Octokit
       end
     end
 
+    # Status code returned by the GitHub server.
+    #
+    # @return [Integer]
+    def response_status
+      @response[:status]
+    end
+
     private
 
     def data
