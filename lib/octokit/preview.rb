@@ -4,10 +4,11 @@ module Octokit
   module Preview
 
     PREVIEW_TYPES = {
-      :branch_protection => 'application/vnd.github.loki-preview+json'.freeze,
-      :migrations        => 'application/vnd.github.wyandotte-preview+json'.freeze,
-      :licenses          => 'application/vnd.github.drax-preview+json'.freeze,
-      :source_imports    => 'application/vnd.github.barred-rock-preview'.freeze,
+      :branch_protection      => 'application/vnd.github.loki-preview+json'.freeze,
+      :migrations             => 'application/vnd.github.wyandotte-preview+json'.freeze,
+      :licenses               => 'application/vnd.github.drax-preview+json'.freeze,
+      :source_imports         => 'application/vnd.github.barred-rock-preview'.freeze,
+      :repository_invitations => 'application/vnd.github.swamp-thing-preview+json'.freeze,
     }
 
     def ensure_api_media_type(type, options)
