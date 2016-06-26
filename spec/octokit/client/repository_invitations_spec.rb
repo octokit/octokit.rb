@@ -65,7 +65,7 @@ describe Octokit::Client::RepositoryInvitations do
 
     context "with repository invitation" do
       before(:each) do
-        @invitation = @client.invite_user(@repo.id, "tarebyte")
+        @invitation = @client.invite_user_to_repository(@repo.id, "tarebyte")
       end
 
       describe ".delete_repository_invitation", :vcr do
