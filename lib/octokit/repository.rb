@@ -78,7 +78,7 @@ module Octokit
     private
 
       def validate_owner_and_name!
-        if @owner.include?('/') || @name.include?('/') || !url.match(/\A#{URI.regexp}\z/)
+        if @owner.include?('/') || @name.include?('/') || !url.match(/\A#{URI::ABS_URI}\z/)
           raise_invalid_repository!
         end
       end
