@@ -33,7 +33,7 @@ describe Octokit::Client::SourceImport do
 
   describe "post deprecation" do
     before(:each) do
-      @client.start_source_import(@repo.full_name, "https://bitbucket.org/spraints/goboom", { "vcs" => "hg" })
+      @client.start_source_import(@repo.full_name, "https://bitbucket.org/spraints/goboom", { :vcs => "hg" })
     end
 
     describe ".start_source_import", :vcr do

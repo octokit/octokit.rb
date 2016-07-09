@@ -8,13 +8,23 @@ module Octokit
 
       # Start a source import to a GitHub repository using GitHub Importer.
       #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
-      # @param vcs_url [String] The URL of the originating repository.
-      # @param options [Hash]
-      # @option options [String] :vcs The originating VCS type. Can be one of "subversion", "git", "mercurial", or "tfvc".
-      # @option options [String] :vcs_username If authentication is required, the username to provide to vcs_url.
-      # @option options [String] :vcs_password If authentication is required, the password to provide to vcs_url.
-      # @option options [String] :tfvc_project For a tfvc import, the name of the project that is being imported.
+      # @overload start_source_import(repo, vcs, vcs_url, options = {})
+      #   @deprecated
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      #   @param vcs [String] The originating VCS type. Can be one of "subversion", "git", "mercurial", or "tfvc".
+      #   @param vcs_url [String] The URL of the originating repository.
+      #   @param options [Hash]
+      #   @option options [String] :vcs_username If authentication is required, the username to provide to vcs_url.
+      #   @option options [String] :vcs_password If authentication is required, the password to provide to vcs_url.
+      #   @option options [String] :tfvc_project For a tfvc import, the name of the project that is being imported.
+      # @overload start_source_import(repo, vcs_url, options = {})
+      #   @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      #   @param vcs_url [String] The URL of the originating repository.
+      #   @param options [Hash]
+      #   @param options [String] :vcs The originating VCS type. Can be one of "subversion", "git", "mercurial", or "tfvc".
+      #   @option options [String] :vcs_username If authentication is required, the username to provide to vcs_url.
+      #   @option options [String] :vcs_password If authentication is required, the password to provide to vcs_url.
+      #   @option options [String] :tfvc_project For a tfvc import, the name of the project that is being imported.
       # @return [Sawyer::Resource] Hash representing the repository import
       # @see https://developer.github.com/v3/migration/source_imports/#start-an-import
       #
@@ -24,20 +34,16 @@ module Octokit
       #    :vcs_username" => "octocat",
       #    :vcs_password  => "secret"
       #   })
-      def start_source_import(repo, vcs_url, options = {}, _deprecated_args=nil)
-        if !options.is_a?(Hash)
+      def start_source_import(*args)
+        arguments = Octokit::RepoArguments.new(args)
+        vcs_url = arguments.pop
+        vcs = arguments.pop
+        if vcs
           octokit_warn "Octokit#start_source_import vcs parameter is now an option, please update your call before the next major Octokit version update."
-          vcs = vcs_url
-          vcs_url = options
-          if _deprecated_args
-            options = _deprecated_args.merge(:vcs => vcs)
-          else
-            options = {:vcs => vcs}
-          end
+          arguments.options.merge!(:vcs => vcs)
         end
-
-        options = ensure_api_media_type(:source_imports, options.merge(:vcs_url => vcs_url))
-        put "#{Repository.path repo}/import", options
+        options = ensure_api_media_type(:source_imports, arguments.options.merge(:vcs_url => vcs_url))
+        put "#{Repository.path arguments.repo}/import", options
       end
 
       # View the progress of an import.
