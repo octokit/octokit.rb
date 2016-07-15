@@ -152,13 +152,14 @@ module Octokit
       # @return [Sawyer::Resource] Repository info for the new repository
       # @see https://developer.github.com/v3/repos/#create
       def create_repository(name, options = {})
-        organization = options.delete :organization
-        options.merge! :name => name
+        opts = options.dup
+        organization = opts.delete :organization
+        opts.merge! :name => name
 
         if organization.nil?
-          post 'user/repos', options
+          post 'user/repos', opts
         else
-          post "#{Organization.path organization}/repos", options
+          post "#{Organization.path organization}/repos", opts
         end
       end
       alias :create_repo :create_repository
