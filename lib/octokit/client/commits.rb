@@ -126,7 +126,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see https://developer.github.com/v3/repos/commits/#list-commits-on-a-repository
       # @example
-      #   Octokit.commits_on('octokit/octokit.rb', '2012-10-01', '2012-11-01')
+      #   Octokit.commits_between('octokit/octokit.rb', '2012-10-01', '2012-11-01')
       def commits_between(*args)
         arguments = Octokit::RepoArguments.new(args)
         date       = parse_date(arguments.shift)
