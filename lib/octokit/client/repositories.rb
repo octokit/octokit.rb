@@ -504,14 +504,13 @@ module Octokit
       # @example
       #   @client.protect_branch('octokit/octokit.rb', 'master', foo)
       def protect_branch(repo, branch, required_status_checks = {}, options = {})
-        if !required_status_checks.empty?
-          required_status_checks = { :required_status_checks => required_status_checks }
-        end
+        required_status_checks[:restrictions] ||= nil
+        required_status_checks[:required_status_checks] ||= {
+          :include_admins => true, :strict => false, :contexts => []
+        }
 
-        protection = { :protection => { :enabled => true }.merge(required_status_checks) }
-        options    = ensure_api_media_type(:branch_protection, options.merge(protection))
-
-        patch "#{Repository.path repo}/branches/#{branch}", options
+        options = ensure_api_media_type(:branch_protection, options.merge(required_status_checks))
+        put "#{Repository.path repo}/branches/#{branch}/protection", options
       end
 
       # Unlock a single branch from a repository
@@ -525,9 +524,8 @@ module Octokit
       # @example
       #   @client.unprotect_branch('octokit/octokit.rb', 'master')
       def unprotect_branch(repo, branch, options = {})
-        protection = { :protection => { :enabled => false } }
-        options = ensure_api_media_type(:branch_protection, options.merge(protection))
-        patch "#{Repository.path repo}/branches/#{branch}", options
+        options = ensure_api_media_type(:branch_protection, options)
+        delete "#{Repository.path repo}/branches/#{branch}/protection", options
       end
 
       # List users available for assigning to issues.
