@@ -16,6 +16,11 @@ module Octokit
       end
       alias :list_deployments :deployments
 
+      def deployment(repo, id, options = {})
+        get("#{Repository.path repo}/deployments/#{id}", options)
+      end
+      alias :get_deployment :deployment
+
       # Create a deployment for a ref
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

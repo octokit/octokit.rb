@@ -19,6 +19,14 @@ describe Octokit::Client::Deployments do
     end
   end # .deployments
 
+  describe ".deployment", :vcr do
+    it "gets single deployment" do
+      deployment = @client.deployment(@test_repo, 137)
+      expect(deployment).to wont_be_kind_of Array
+      assert_requested :get, github_url("/repos/#{@test_repo}/deployments/137")
+    end
+  end # .deployment
+
   describe ".create_deployment", :vcr do
     before do
       @sha = "626ee940f85663dadf245210aaf8ded281fd4cd6"
