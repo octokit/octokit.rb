@@ -10,6 +10,7 @@ module Octokit
       :source_imports         => 'application/vnd.github.barred-rock-preview'.freeze,
       :reactions              => 'application/vnd.github.squirrel-girl-preview'.freeze,
       :repository_invitations => 'application/vnd.github.swamp-thing-preview+json'.freeze,
+      :issue_timelines        => 'application/vnd.github.mockingbird-preview+json'.freeze,
     }
 
     def ensure_api_media_type(type, options)

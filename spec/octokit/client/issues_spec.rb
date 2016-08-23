@@ -154,6 +154,14 @@ describe Octokit::Client::Issues do
         end
       end # .delete_comment
     end # with issue comment
+
+    describe ".issue_timeline" do
+      it "returns an issue timeline" do
+        timeline = @client.issue_timeline(@test_repo, @issue.number)
+        expect(timeline).to be_kind_of Array
+        assert_requested :get, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/timeline")
+      end
+    end # .issue_timeline
   end # with issue
 
   describe ".repository_issues_comments", :vcr do
