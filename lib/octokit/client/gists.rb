@@ -75,7 +75,6 @@ module Octokit
       #
       # @param options [Hash] Gist information.
       # @option options [String] :description
-      # @option options [Boolean] :public Sets gist visibility
       # @option options [Hash] :files Files that make up this gist. Keys
       #   should be the filename, the value a Hash with a :content key with text
       #   content of the Gist.
