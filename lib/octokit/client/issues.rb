@@ -279,6 +279,19 @@ module Octokit
       def delete_comment(repo, number, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/issues/comments/#{number}", options
       end
+
+      # Get the timeline for an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Number ID of the comment
+      # @return [Sawyer::Resource] The timeline for this issue
+      # @see https://developer.github.com/v3/issues/timeline/
+      # @example Get timeline for issue #1435 on octokit/octokit.rb
+      #   Octokit.issue_timeline("octokit/octokit.rb", 1435)
+      def issue_timeline(repo, number, options = {})
+        options = ensure_api_media_type(:issue_timelines, options)
+        paginate "#{Repository.path repo}/issues/#{number}/timeline", options
+      end
     end
   end
 end
