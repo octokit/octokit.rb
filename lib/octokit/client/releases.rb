@@ -83,7 +83,7 @@ module Octokit
       # @return [Sawyer::Resource] The release asset
       # @see https://developer.github.com/v3/repos/releases/#upload-a-release-asset
       def upload_asset(release_url, path_or_file, options = {})
-        file = path_or_file.respond_to?(:read) ? path_or_file : File.new(path_or_file, "r+b")
+        file = path_or_file.respond_to?(:read) ? path_or_file : File.new(path_or_file, "rb")
         options[:content_type] ||= content_type_from_file(file)
         raise Octokit::MissingContentType.new if options[:content_type].nil?
         unless name = options[:name]
