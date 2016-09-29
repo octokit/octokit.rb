@@ -27,9 +27,9 @@ module Octokit
       # @example List issues for the authenticated user across repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.list_issues
-      def list_issues(repository = nil, options = {})
+      def list_issues(repository = nil, options = {}, &block)
         path = repository ? "#{Repository.new(repository).path}/issues" : "issues"
-        paginate path, options
+        paginate path, options, &block
       end
       alias :issues :list_issues
 
@@ -49,8 +49,8 @@ module Octokit
       # @example List issues for the authenticated user across owned and member repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.user_issues
-      def user_issues(options = {})
-        paginate 'user/issues', options
+      def user_issues(options = {}, &block)
+        paginate 'user/issues', options, &block
       end
 
       # List all issues for a given organization for the authenticated user
@@ -70,8 +70,8 @@ module Octokit
       # @example List all issues for a given organization for the authenticated user
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.org_issues("octokit")
-      def org_issues(org, options = {})
-        paginate "#{Organization.path org}/issues", options
+      def org_issues(org, options = {}, &block)
+        paginate "#{Organization.path org}/issues", options, &block
       end
 
       # Create an issue for a repository
@@ -238,8 +238,8 @@ module Octokit
       #     :direction => 'asc',
       #     :since => '2010-05-04T23:45:02Z'
       #   })
-      def issues_comments(repo, options = {})
-        paginate "#{Repository.path repo}/issues/comments", options
+      def issues_comments(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/issues/comments", options, &block
       end
 
       # Get all comments attached to an issue
@@ -250,8 +250,8 @@ module Octokit
       # @see https://developer.github.com/v3/issues/comments/#list-comments-on-an-issue
       # @example Get comments for issue #25 from octokit/octokit.rb
       #   Octokit.issue_comments("octokit/octokit.rb", "25")
-      def issue_comments(repo, number, options = {})
-        paginate "#{Repository.path repo}/issues/#{number}/comments", options
+      def issue_comments(repo, number, options = {}, &block)
+        paginate "#{Repository.path repo}/issues/#{number}/comments", options, &block
       end
 
       # Get a single comment attached to an issue
@@ -262,8 +262,8 @@ module Octokit
       # @see https://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comment #1194549 from an issue on octokit/octokit.rb
       #   Octokit.issue_comments("octokit/octokit.rb", 1194549)
-      def issue_comment(repo, number, options = {})
-        paginate "#{Repository.path repo}/issues/comments/#{number}", options
+      def issue_comment(repo, number, options = {}, &block)
+        paginate "#{Repository.path repo}/issues/comments/#{number}", options, &block
       end
 
       # Add a comment to an issue
@@ -312,9 +312,9 @@ module Octokit
       # @see https://developer.github.com/v3/issues/timeline/
       # @example Get timeline for issue #1435 on octokit/octokit.rb
       #   Octokit.issue_timeline("octokit/octokit.rb", 1435)
-      def issue_timeline(repo, number, options = {})
+      def issue_timeline(repo, number, options = {}, &block)
         options = ensure_api_media_type(:issue_timelines, options)
-        paginate "#{Repository.path repo}/issues/#{number}/timeline", options
+        paginate "#{Repository.path repo}/issues/#{number}/timeline", options, &block
       end
     end
   end

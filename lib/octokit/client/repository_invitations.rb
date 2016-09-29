@@ -27,9 +27,9 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of invitations
       # @see https://developer.github.com/v3/repos/invitations/#list-invitations-for-a-repository
-      def repository_invitations(repo, options = {})
+      def repository_invitations(repo, options = {}, &block)
         options = ensure_api_media_type(:repository_invitations, options)
-        paginate "#{Repository.path repo}/invitations", options
+        paginate "#{Repository.path repo}/invitations", options, &block
       end
       alias repo_invitations repository_invitations
 
@@ -67,9 +67,9 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] The users repository invitations
       # @see https://developer.github.com/v3/repos/invitations/#list-a-users-repository-invitations
-      def user_repository_invitations(options = {})
+      def user_repository_invitations(options = {}, &block)
         options = ensure_api_media_type(:repository_invitations, options)
-        paginate "/user/repository_invitations", options
+        paginate "/user/repository_invitations", options, &block
       end
       alias user_repo_invitations user_repository_invitations
 

@@ -14,8 +14,8 @@ module Octokit
       # @see https://developer.github.com/v3/repos/downloads/#list-downloads-for-a-repository
       # @example List all downloads for Github/Hubot
       #   Octokit.downloads("github/hubot")
-      def downloads(repo, options={})
-        paginate "#{Repository.path repo}/downloads", options
+      def downloads(repo, options={}, &block)
+        paginate "#{Repository.path repo}/downloads", options, &block
       end
       alias :list_downloads :downloads
 

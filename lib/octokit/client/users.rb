@@ -18,8 +18,8 @@ module Octokit
       # @see https://developer.github.com/v3/users/#get-all-users
       #
       # @return [Array<Sawyer::Resource>] List of GitHub users.
-      def all_users(options = {})
-        paginate "users", options
+      def all_users(options = {}, &block)
+        paginate "users", options, &block
       end
 
       # Get a single user
@@ -95,8 +95,8 @@ module Octokit
       # @see https://developer.github.com/v3/users/followers/#list-followers-of-a-user
       # @example
       #   Octokit.followers('pengwynn')
-      def followers(user=login, options = {})
-        paginate "#{User.path user}/followers", options
+      def followers(user=login, options = {}, &block)
+        paginate "#{User.path user}/followers", options, &block
       end
 
       # Get list of users a user is following.
@@ -108,8 +108,8 @@ module Octokit
       # @see https://developer.github.com/v3/users/followers/#list-users-followed-by-another-user
       # @example
       #   Octokit.following('pengwynn')
-      def following(user=login, options = {})
-        paginate "#{User.path user}/following", options
+      def following(user=login, options = {}, &block)
+        paginate "#{User.path user}/following", options, &block
       end
 
       # Check if you are following a user. Alternatively, check if a given user
@@ -173,8 +173,8 @@ module Octokit
       # @see https://developer.github.com/v3/activity/starring/#list-repositories-being-starred
       # @example
       #   Octokit.starred('pengwynn')
-      def starred(user=login, options = {})
-        paginate user_path(user, 'starred'), options
+      def starred(user=login, options = {}, &block)
+        paginate user_path(user, 'starred'), options, &block
       end
 
       # Check if you are starring a repo.
@@ -225,8 +225,8 @@ module Octokit
       # @see https://developer.github.com/v3/users/keys/#list-your-public-keys
       # @example
       #   @client.keys
-      def keys(options = {})
-        paginate "user/keys", options
+      def keys(options = {}, &block)
+        paginate "user/keys", options, &block
       end
 
       # Get list of public keys for user.
@@ -236,9 +236,9 @@ module Octokit
       # @see https://developer.github.com/v3/users/keys/#list-public-keys-for-a-user
       # @example
       #   @client.user_keys('pengwynn')
-      def user_keys(user, options = {})
+      def user_keys(user, options = {}, &block)
         # TODO: Roll this into .keys
-        paginate "#{User.path user}/keys", options
+        paginate "#{User.path user}/keys", options, &block
       end
 
       # Add public key to user account.
@@ -295,8 +295,8 @@ module Octokit
       # @see https://developer.github.com/v3/users/emails/#list-email-addresses-for-a-user
       # @example
       #   @client.emails
-      def emails(options = {})
-        paginate "user/emails", options
+      def emails(options = {}, &block)
+        paginate "user/emails", options, &block
       end
 
       # Add email address to user.
@@ -334,8 +334,8 @@ module Octokit
       # @see https://developer.github.com/v3/activity/watching/#list-repositories-being-watched
       # @example
       #   @client.subscriptions("pengwynn")
-      def subscriptions(user=login, options = {})
-        paginate user_path(user, 'subscriptions'), options
+      def subscriptions(user=login, options = {}, &block)
+        paginate user_path(user, 'subscriptions'), options, &block
       end
       alias :watched :subscriptions
 

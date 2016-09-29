@@ -23,8 +23,8 @@ module Octokit
       # @see https://developer.github.com/v3/repos/hooks/#list-hooks
       # @example
       #   @client.hooks('octokit/octokit.rb')
-      def hooks(repo, options = {})
-        paginate "#{Repository.path repo}/hooks", options
+      def hooks(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/hooks", options, &block
       end
 
       # Get single hook
@@ -171,7 +171,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/hooks/#list-hooks
       # @example
       #   @client.org_hooks('octokit')
-      def org_hooks(org, options = {})
+      def org_hooks(org, options = {}, &block)
         paginate "#{Organization.path org}/hooks", options
       end
       alias :list_org_hooks :org_hooks

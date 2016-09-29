@@ -289,6 +289,31 @@ issues.length
 # => 702
 ```
 
+#### Manual pages processing
+
+Also it is possible to not concatenate results while using auto pagination.
+You just need to provide a block for paginated resource and deal with pages
+as you wish:
+
+```ruby
+Octokit.auto_paginate = true
+
+open_issues = []
+first_page_data = Octokit.issues 'rails/rails' do |_, next_page|
+  next_page.data.each do |issue|
+    open_issues << issue if issue[:state] == 'open'
+  end
+end
+first_page_data.each do |issue|
+  open_issues << issue if issue[:state] == 'open'
+end
+
+open_issues.length
+
+# => 42
+```
+
+
 **Note:** While Octokit auto pagination will set the page size to the maximum
 `100`, and seek to not overstep your rate limit, you probably want to use a
 custom pattern for traversing large lists.

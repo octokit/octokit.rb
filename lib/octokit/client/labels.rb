@@ -15,8 +15,8 @@ module Octokit
       # @see https://developer.github.com/v3/issues/labels/#list-all-labels-for-this-repository
       # @example List labels for octokit/octokit.rb
       #   Octokit.labels("octokit/octokit.rb")
-      def labels(repo, options = {})
-        paginate "#{Repository.path repo}/labels", options
+      def labels(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/labels", options, &block
       end
 
       # Get single label for a repository
@@ -110,8 +110,8 @@ module Octokit
       # @see https://developer.github.com/v3/issues/labels/#list-labels-on-an-issue
       # @example List labels for octokit/octokit.rb, issue # 1
       #   Octokit.labels_for_issue("octokit/octokit.rb", 1)
-      def labels_for_issue(repo, number, options = {})
-        paginate "#{Repository.path repo}/issues/#{number}/labels", options
+      def labels_for_issue(repo, number, options = {}, &block)
+        paginate "#{Repository.path repo}/issues/#{number}/labels", options, &block
       end
 
       # Add label(s) to an Issue
@@ -148,8 +148,8 @@ module Octokit
       # @see  http://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
       # @example List all labels for milestone #2 on octokit/octokit.rb
       #   Octokit.labels_for_milestone("octokit/octokit.rb", 2)
-      def labels_for_milestone(repo, number, options = {})
-        paginate "#{Repository.path repo}/milestones/#{number}/labels", options
+      def labels_for_milestone(repo, number, options = {}, &block)
+        paginate "#{Repository.path repo}/milestones/#{number}/labels", options, &block
       end
     end
   end

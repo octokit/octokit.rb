@@ -11,9 +11,9 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of licenses
       # @example
       #   Octokit.licenses
-      def licenses(options = {})
+      def licenses(options = {}, &block)
         options = ensure_api_media_type(:licenses, options)
-        paginate "licenses", options
+        paginate "licenses", options, &block
       end
 
       # List an individual license

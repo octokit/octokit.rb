@@ -18,8 +18,8 @@ module Octokit
       # @see https://developer.github.com/v3/issues/milestones/#list-milestones-for-a-repository
       # @example List milestones for a repository
       #   Octokit.list_milestones("octokit/octokit.rb")
-      def list_milestones(repository, options = {})
-        paginate "#{Repository.path repository}/milestones", options
+      def list_milestones(repository, options = {}, &block)
+        paginate "#{Repository.path repository}/milestones", options, &block
       end
       alias :milestones :list_milestones
 

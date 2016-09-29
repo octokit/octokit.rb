@@ -23,8 +23,8 @@ module Octokit
       #   @client.notifications
       # @example Get all notifications since a certain time.
       #   @client.notifications({all: true, since: '2012-10-09T23:39:01Z'})
-      def notifications(options = {})
-        paginate "notifications", options
+      def notifications(options = {}, &block)
+        paginate "notifications", options, &block
       end
 
       # List your notifications in a repository
@@ -45,8 +45,8 @@ module Octokit
       #   @client.repository_notifications('octokit/octokit.rb')
       # @example Get your notifications for octokit/octokit.rb since a time.
       #   @client.repository_notifications({since: '2012-10-09T23:39:01Z'})
-      def repository_notifications(repo, options = {})
-        paginate "#{Repository.path repo}/notifications", options
+      def repository_notifications(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/notifications", options, &block
       end
       alias :repo_notifications :repository_notifications
 

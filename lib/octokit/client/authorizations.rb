@@ -17,8 +17,8 @@ module Octokit
       # @example List authorizations for user ctshryock
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorizations
-      def authorizations(options = {})
-        paginate 'authorizations', options
+      def authorizations(options = {}, &block)
+        paginate 'authorizations', options, &block
       end
 
       # Get a single authorization for the authenticated user.
