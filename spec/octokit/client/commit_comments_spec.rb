@@ -11,6 +11,20 @@ describe Octokit::Client::CommitComments do
       expect(commit_comments.first.user.login).to eq("sferik")
       assert_requested :get, github_url("/repos/sferik/rails_admin/comments")
     end
+
+    context 'when use manual pagination' do
+      it "lists all commit comments" do
+        client = oauth_client
+        client.auto_paginate = true
+        data = []
+        first_page_data = client.list_commit_comments("sferik/rails_admin") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+        expect(data.size).not_to be_zero
+      end
+    end
   end # .list_commit_comments
 
   describe ".commit_comments", :vcr do
@@ -18,6 +32,20 @@ describe Octokit::Client::CommitComments do
       commit_comments = @client.commit_comments("sferik/rails_admin", "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3")
       expect(commit_comments.first.user.login).to eq("bbenezech")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits/629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3/comments")
+    end
+
+    context 'when use manual pagination' do
+      it "lists all comments for specific commit" do
+        client = oauth_client
+        client.auto_paginate = true
+        data = []
+        first_page_data = client.commit_comments("sferik/rails_admin", "629e9fd9d4df25528e84d31afdc8ebeb0f56fbb3") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+        expect(data.size).not_to be_zero
+      end
     end
   end # .commit_comments
 

@@ -82,6 +82,18 @@ describe Octokit::Client::Authorizations do
       expect(authorizations).to be_kind_of Array
       assert_requested :get, basic_github_url("/authorizations")
     end
+
+    context 'when use manual pagination' do
+      it "lists existing authorizations" do
+        data = []
+        first_page_data = @client.authorizations do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+        expect(data.size).not_to be_zero
+      end
+    end
   end # .authorizations
 
   describe ".authorization", :vcr do

@@ -13,6 +13,20 @@ describe Octokit::Client::Downloads do
       expect(downloads.last.description).to eq("Version 1.0.0 of the Hubot Campfire Bot")
       assert_requested :get, github_url("/repos/github/hubot/downloads")
     end
+
+    context 'when use manual pagination' do
+      it "lists available downloads" do
+        client = oauth_client
+        client.auto_paginate = true
+        data = []
+        first_page_data = client.downloads("github/hubot") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+        expect(data.size).not_to be_zero
+      end
+    end
   end # .downloads
 
   describe ".download", :vcr do

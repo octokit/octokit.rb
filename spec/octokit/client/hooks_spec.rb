@@ -32,6 +32,17 @@ describe Octokit::Client::Hooks do
         expect(hooks).to be_kind_of Array
         assert_requested :get, github_url("/repos/#{@repo.full_name}/hooks")
       end
+
+      context 'when use manual pagination' do
+        it "returns a repository's hooks" do
+          data = []
+          first_page_data = @client.hooks(@repo.full_name) do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
+      end
     end
 
     context "with hook" do
@@ -98,6 +109,17 @@ describe Octokit::Client::Hooks do
       request = stub_get("/organizations/1/hooks")
       @client.org_hooks(1)
       assert_requested request
+    end
+
+    context 'when use manual pagination' do
+      it "returns a repository's hooks" do
+        data = []
+        first_page_data = @client.org_hooks(test_github_org) do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end
 

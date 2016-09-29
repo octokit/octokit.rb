@@ -13,6 +13,17 @@ describe Octokit::Client::Notifications do
       expect(notifications).to be_kind_of Array
       assert_requested :get, github_url("/notifications")
     end
+
+    context "when use manual pagination" do
+      it "lists the notifications for the current user" do
+        data = []
+        first_page_data = @client.notifications do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .notifications
 
   describe ".repository_notifications", :vcr do

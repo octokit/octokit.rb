@@ -22,6 +22,17 @@ describe Octokit::Client::Issues do
       expect(issues).to be_kind_of Array
       assert_requested :get, github_url("/issues")
     end
+
+    context "when use manual pagination" do
+      it "returns issues for a repository" do
+        data = []
+        first_page_data = @client.issues("sferik/rails_admin") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .list_issues
 
   describe ".user_issues", :vcr do
@@ -30,6 +41,17 @@ describe Octokit::Client::Issues do
       expect(issues).to be_kind_of Array
       assert_requested :get, github_url("/user/issues")
     end
+
+    context "when use manual pagination" do
+      it "returns issues for the authenticated user for owned and member repos" do
+        data = []
+        first_page_data = @client.user_issues do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .user_issues
 
   describe ".org_issues", :vcr do
@@ -37,6 +59,17 @@ describe Octokit::Client::Issues do
       issues = @client.org_issues(test_github_org)
       expect(issues).to be_kind_of Array
       assert_requested :get, github_url("/orgs/#{test_github_org}/issues")
+    end
+
+    context "when use manual pagination" do
+      it "returns issues for the organization for the authenticated user" do
+        data = []
+        first_page_data = @client.org_issues(test_github_org) do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .org_issues
 
@@ -202,15 +235,37 @@ describe Octokit::Client::Issues do
           expect(timeline).to be_kind_of Array
           assert_requested :get, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/timeline")
         end
+
+        context "when use manual pagination" do
+          it "returns an issue timeline" do
+            data = []
+            first_page_data = @client.issue_timeline(@repo.full_name, @issue.number) do |_, next_page|
+              data += next_page.data
+            end
+            data = first_page_data + data
+            expect(data).to be_kind_of Array
+          end
+        end
       end # .issue_timeline
     end # with issue
- end # with repo
+  end # with repo
 
   describe ".repository_issues_comments", :vcr do
     it "returns comments for all issues in a repository" do
       comments = @client.issues_comments("octokit/octokit.rb")
       expect(comments).to be_kind_of Array
       assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/comments')
+    end
+
+    context "when use manual pagination" do
+      it "returns comments for all issues in a repository" do
+        data = []
+        first_page_data = @client.issues_comments("octokit/octokit.rb") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .repository_issues_comments
 
@@ -219,6 +274,17 @@ describe Octokit::Client::Issues do
       comments = @client.issue_comments("octokit/octokit.rb", 25)
       expect(comments).to be_kind_of Array
       assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/25/comments')
+    end
+
+    context "when use manual pagination" do
+      it "returns comments for an issue" do
+        data = []
+        first_page_data = @client.issue_comments("octokit/octokit.rb", 25) do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .issue_comments
 

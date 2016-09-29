@@ -19,6 +19,17 @@ describe Octokit::Client::Milestones do
       expect(milestones).to be_kind_of Array
       assert_requested :get, github_url("/repositories/#{@test_repo_id}/milestones")
     end
+
+    context "when use manual pagination" do
+      it "lists milestones belonging to repository" do
+        data = []
+        first_page_data = @client.list_milestones(@test_repo) do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .list_milestones
 
   context "with milestone" do

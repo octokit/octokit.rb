@@ -7,11 +7,22 @@ describe Octokit::Client::Releases do
     @client = oauth_client
   end
 
-  describe ".releases" do
-    it "lists releases for a repo", :vcr do
+  describe ".releases", :vcr do
+    it "lists releases for a repo" do
       releases = @client.releases @test_repo
       expect(releases).to be_kind_of Array
       assert_requested :get, github_url("/repos/#{@test_repo}/releases")
+    end
+
+    context "when use manual pagination" do
+      it "lists releases for a repo" do
+        data = []
+        first_page_data = @client.releases @test_repo do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end
 
@@ -67,6 +78,17 @@ describe Octokit::Client::Releases do
       it "lists assets for a release" do
         assets = @client.release_assets(@release_url)
         expect(assets).to be_kind_of(Array)
+      end
+
+      context "when use manual pagination" do
+        it "lists assets for a release" do
+          data = []
+          first_page_data = @client.release_assets(@release_url) do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
       end
     end
 
