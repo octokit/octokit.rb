@@ -36,6 +36,8 @@ describe Octokit::Client::Hooks do
       context 'when use manual pagination' do
         it "returns a repository's hooks" do
           data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
           first_page_data = @client.hooks(@repo.full_name) do |_, next_page|
             data += next_page.data
           end
@@ -114,6 +116,8 @@ describe Octokit::Client::Hooks do
     context 'when use manual pagination' do
       it "returns a repository's hooks" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.org_hooks(test_github_org) do |_, next_page|
           data += next_page.data
         end

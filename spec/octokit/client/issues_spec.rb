@@ -26,6 +26,8 @@ describe Octokit::Client::Issues do
     context "when use manual pagination" do
       it "returns issues for a repository" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.issues("sferik/rails_admin") do |_, next_page|
           data += next_page.data
         end
@@ -45,6 +47,8 @@ describe Octokit::Client::Issues do
     context "when use manual pagination" do
       it "returns issues for the authenticated user for owned and member repos" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.user_issues do |_, next_page|
           data += next_page.data
         end
@@ -64,6 +68,8 @@ describe Octokit::Client::Issues do
     context "when use manual pagination" do
       it "returns issues for the organization for the authenticated user" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.org_issues(test_github_org) do |_, next_page|
           data += next_page.data
         end
@@ -239,6 +245,8 @@ describe Octokit::Client::Issues do
         context "when use manual pagination" do
           it "returns an issue timeline" do
             data = []
+            @client.auto_paginate = true
+            @client.per_page = 1
             first_page_data = @client.issue_timeline(@repo.full_name, @issue.number) do |_, next_page|
               data += next_page.data
             end
@@ -260,6 +268,8 @@ describe Octokit::Client::Issues do
     context "when use manual pagination" do
       it "returns comments for all issues in a repository" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.issues_comments("octokit/octokit.rb") do |_, next_page|
           data += next_page.data
         end
@@ -279,6 +289,8 @@ describe Octokit::Client::Issues do
     context "when use manual pagination" do
       it "returns comments for an issue" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.issue_comments("octokit/octokit.rb", 25) do |_, next_page|
           data += next_page.data
         end

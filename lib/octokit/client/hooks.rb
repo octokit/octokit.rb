@@ -182,7 +182,7 @@ module Octokit
       # @example
       #   @client.org_hooks('octokit')
       def org_hooks(org, options = {}, &block)
-        paginate "#{Organization.path org}/hooks", options
+        paginate "#{Organization.path org}/hooks", options, &block
       end
       alias :list_org_hooks :org_hooks
 

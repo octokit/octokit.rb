@@ -17,6 +17,8 @@ describe Octokit::Client::Notifications do
     context "when use manual pagination" do
       it "lists the notifications for the current user" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.notifications do |_, next_page|
           data += next_page.data
         end

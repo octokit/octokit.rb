@@ -35,6 +35,8 @@ describe Octokit::Client::RepositoryInvitations do
       context "when use manual pagination" do
         it "lists the repositories outstanding invitations" do
           data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
           first_page_data = @client.repository_invitations(@repo.id) do |_, next_page|
             data += next_page.data
           end

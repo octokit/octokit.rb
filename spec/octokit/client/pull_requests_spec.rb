@@ -22,6 +22,8 @@ describe Octokit::Client::PullRequests do
     context "when use manual pagination" do
       it "lists all pull requests" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.pulls("octokit/octokit.rb") do |_, next_page|
           data += next_page.data
         end
@@ -188,6 +190,8 @@ describe Octokit::Client::PullRequests do
     context "when use manual pagination" do
       it "returns the commits for a pull request" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.pull_commits("octokit/octokit.rb", 67) do |_, next_page|
           data += next_page.data
         end
@@ -209,6 +213,8 @@ describe Octokit::Client::PullRequests do
     context "when use manual pagination" do
       it "lists files for a pull request" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.pull_request_files("octokit/octokit.rb", 67) do |_, next_page|
           data += next_page.data
         end
@@ -228,6 +234,8 @@ describe Octokit::Client::PullRequests do
     context "when use manual pagination" do
       it "returns the comments for a pull request" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.pull_comments("octokit/octokit.rb", 67) do |_, next_page|
           data += next_page.data
         end

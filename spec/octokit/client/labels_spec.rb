@@ -17,6 +17,8 @@ describe Octokit::Client::Labels do
     context "when use manual pagination" do
       it "returns labels" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.labels("octokit/octokit.rb") do |_, next_page|
           data += next_page.data
         end
@@ -84,6 +86,8 @@ describe Octokit::Client::Labels do
       context "when use manual pagination" do
         it "returns all labels for a given issue" do
           data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
           first_page_data = @client.labels_for_issue(@test_repo, @issue.number) do |_, next_page|
             data += next_page.data
           end
@@ -125,6 +129,8 @@ describe Octokit::Client::Labels do
     context "when use manual pagination" do
       it "returns all labels for a repository" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.labels_for_milestone('octokit/octokit.rb', 2) do |_, next_page|
           data += next_page.data
         end

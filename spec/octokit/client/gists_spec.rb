@@ -17,8 +17,9 @@ describe Octokit::Client::Gists do
 
       context 'when use manual pagination' do
         it "returns public gists" do
-          Octokit.client.auto_paginate = true
           data = []
+          Octokit.auto_paginate = true
+          Octokit.per_page = 1
           first_page_data = Octokit.client.public_gists do |_, next_page|
             data += next_page.data
           end
@@ -51,6 +52,8 @@ describe Octokit::Client::Gists do
           client = oauth_client
           client.auto_paginate = true
           data = []
+          client.auto_paginate = true
+          client.per_page = 1
           first_page_data = client.gists('defunkt') do |_, next_page|
             data += next_page.data
           end
@@ -116,6 +119,8 @@ describe Octokit::Client::Gists do
       context 'when use manual pagination' do
         it "returns the user's starred gists" do
           data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
           first_page_data = @client.starred_gists do |_, next_page|
             data += next_page.data
           end
@@ -150,6 +155,8 @@ describe Octokit::Client::Gists do
       context 'when use manual pagination' do
         it "lists a gists commits" do
           data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
           first_page_data = @client.gist_commits(@gist.id) do |_, next_page|
             data += next_page.data
           end
@@ -220,6 +227,8 @@ describe Octokit::Client::Gists do
       context 'when use manual pagination' do
         it "lists a gists forks" do
           data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
           first_page_data = @client.gist_forks(@gist.id) do |_, next_page|
             data += next_page.data
           end
@@ -239,6 +248,8 @@ describe Octokit::Client::Gists do
       context 'when use manual pagination' do
         it "returns the list of gist comments" do
           data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
           first_page_data = @client.gist_comments(5421307) do |_, next_page|
             data += next_page.data
           end

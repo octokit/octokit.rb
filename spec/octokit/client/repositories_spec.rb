@@ -127,6 +127,8 @@ describe Octokit::Client::Repositories do
       context "when use manual pagination" do
         it "returns a repository's deploy keys" do
           data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
           first_page_data = @client.deploy_keys @repo.full_name do |_, next_page|
             data += next_page.data
           end
@@ -181,6 +183,8 @@ describe Octokit::Client::Repositories do
       context "when use manual pagination" do
         it "returns all repository teams" do
           data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
           first_page_data = @client.repository_teams(@repo.full_name) do |_, next_page|
             data += next_page.data
           end
@@ -233,6 +237,8 @@ describe Octokit::Client::Repositories do
     context "when use manual pagination" do
       it "returns a user's repositories" do
         data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
         first_page_data = Octokit.repositories("sferik") do |_, next_page|
           data += next_page.data
         end
@@ -252,6 +258,8 @@ describe Octokit::Client::Repositories do
     context "when use manual pagination" do
       it "returns all repositories on github" do
         data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
         first_page_data = Octokit.all_repositories do |_, next_page|
           data += next_page.data
         end
@@ -313,6 +321,8 @@ describe Octokit::Client::Repositories do
     context "when use manual pagination" do
       it "returns a repository's collaborators" do
         data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
         first_page_data = Octokit.collaborators("sferik/rails_admin") do |_, next_page|
           data += next_page.data
         end
@@ -337,6 +347,8 @@ describe Octokit::Client::Repositories do
     context "when use manual pagination" do
       it "returns repository contributors" do
         data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
         first_page_data = Octokit.contributors("sferik/rails_admin", true) do |_, next_page|
           data += next_page.data
         end
@@ -356,6 +368,8 @@ describe Octokit::Client::Repositories do
     context "when use manual pagination" do
       it "returns all repository stargazers" do
         data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
         first_page_data = Octokit.stargazers("sferik/rails_admin") do |_, next_page|
           data += next_page.data
         end
@@ -375,6 +389,8 @@ describe Octokit::Client::Repositories do
     context "when use manual pagination" do
       it "returns all repository watchers" do
         data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
         first_page_data = Octokit.watchers("sferik/rails_admin") do |_, next_page|
           data += next_page.data
         end
@@ -410,6 +426,8 @@ describe Octokit::Client::Repositories do
     context "when use manual pagination" do
       it "returns a repository's tags" do
         data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
         first_page_data = Octokit.tags("octokit/octokit.rb") do |_, next_page|
           data += next_page.data
         end
@@ -435,6 +453,8 @@ describe Octokit::Client::Repositories do
     context "when use manual pagination" do
       it "returns a repository's branches" do
         data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
         first_page_data = Octokit.branches("octokit/octokit.rb") do |_, next_page|
           data += next_page.data
         end
@@ -506,6 +526,8 @@ describe Octokit::Client::Repositories do
     context "when use manual pagination" do
       it "lists all the available assignees (owner + collaborators)" do
         data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
         first_page_data = Octokit.repo_assignees("octokit/octokit.rb") do |_, next_page|
           data += next_page.data
         end
@@ -532,6 +554,8 @@ describe Octokit::Client::Repositories do
     context "when use manual pagination" do
       it "lists all the users watching the repository" do
         data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
         first_page_data = Octokit.subscribers("octokit/octokit.rb") do |_, next_page|
           data += next_page.data
         end

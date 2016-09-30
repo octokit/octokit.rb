@@ -1,6 +1,9 @@
 require 'helper'
 
 describe Octokit::Client::Projects do
+  before do
+    Octokit.reset!
+  end
 
   describe ".projects", :vcr do
     it "returns a list of projects for a repository" do

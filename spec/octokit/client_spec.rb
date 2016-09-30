@@ -266,13 +266,11 @@ describe Octokit::Client do
   end
 
   describe ".agent" do
-    before do
-      Octokit.reset!
-    end
     it "acts like a Sawyer agent" do
       expect(Octokit.client.agent).to respond_to :start
     end
     it "caches the agent" do
+      Octokit.reset!
       agent = Octokit.client.agent
       expect(agent.object_id).to eq(Octokit.client.agent.object_id)
     end

@@ -1,6 +1,7 @@
 require 'helper'
 
 describe Octokit::Client::Licenses do
+  before { Octokit.reset! }
 
   describe ".licenses", :vcr do
     it "returns all licenses" do
@@ -11,6 +12,8 @@ describe Octokit::Client::Licenses do
     context "when use manual pagination" do
       it "returns all licenses" do
         data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
         first_page_data = Octokit.licenses :accept => "application/vnd.github.drax-preview+json" do |_, next_page|
           data += next_page.data
         end

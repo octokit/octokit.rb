@@ -19,6 +19,8 @@ describe Octokit::Client::Downloads do
         client = oauth_client
         client.auto_paginate = true
         data = []
+        client.auto_paginate = true
+        client.per_page = 1
         first_page_data = client.downloads("github/hubot") do |_, next_page|
           data += next_page.data
         end

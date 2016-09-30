@@ -21,6 +21,8 @@ describe Octokit::Client::Refs do
     context "when use manual pagination" do
       it "returns all refs" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.refs("sferik/rails_admin") do |_, next_page|
           data += next_page.data
         end

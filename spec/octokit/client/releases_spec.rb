@@ -17,6 +17,8 @@ describe Octokit::Client::Releases do
     context "when use manual pagination" do
       it "lists releases for a repo" do
         data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
         first_page_data = @client.releases @test_repo do |_, next_page|
           data += next_page.data
         end
@@ -83,6 +85,8 @@ describe Octokit::Client::Releases do
       context "when use manual pagination" do
         it "lists assets for a release" do
           data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
           first_page_data = @client.release_assets(@release_url) do |_, next_page|
             data += next_page.data
           end
