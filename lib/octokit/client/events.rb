@@ -9,6 +9,11 @@ module Octokit
 
       # List all public events for GitHub
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of all public events from GitHub
       # @see https://developer.github.com/v3/activity/events/#list-public-events
       # @example List all pubilc events
@@ -20,6 +25,11 @@ module Octokit
       # List all user events
       #
       # @param user [Integer, String] GitHub user login or id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of all user events
       # @see https://developer.github.com/v3/activity/events/#list-events-performed-by-a-user
       # @example List all user events
@@ -31,6 +41,11 @@ module Octokit
       # List public user events
       #
       # @param user [Integer, String] GitHub user login or id
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of public user events
       # @see https://developer.github.com/v3/activity/events/#list-public-events-performed-by-a-user
       # @example List public user events
@@ -42,6 +57,11 @@ module Octokit
       # List events that a user has received
       #
       # @param user [Integer, String] GitHub user login or id
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of all user received events
       # @see https://developer.github.com/v3/activity/events/#list-events-that-a-user-has-received
       # @example List all user received events
@@ -53,6 +73,11 @@ module Octokit
       # List public events a user has received
       #
       # @param user [Integer, String] GitHub user login or id
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of public user received events
       # @see https://developer.github.com/v3/activity/events/#list-public-events-that-a-user-has-received
       # @example List public user received events
@@ -64,6 +89,11 @@ module Octokit
       # List events for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of events for a repository
       # @see https://developer.github.com/v3/activity/events/#list-repository-events
       # @example List events for a repository
@@ -75,6 +105,11 @@ module Octokit
       # List public events for a repository's network
       #
       # @param repo [String, Repository, Hash] A GitHub repository
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of events for a repository's network
       # @see https://developer.github.com/v3/activity/events/#list-public-events-for-a-network-of-repositories
       # @example List events for a repository's network
@@ -88,6 +123,11 @@ module Octokit
       # Requires authenticated client.
       #
       # @param org [String] Organization GitHub handle
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of all events from a GitHub organization
       # @see https://developer.github.com/v3/activity/events/#list-events-for-an-organization
       # @example List events for the lostisland organization
@@ -99,6 +139,11 @@ module Octokit
       # List an organization's public events
       #
       # @param org [String, Integer] Organization GitHub login or id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of public events from a GitHub organization
       # @see https://developer.github.com/v3/activity/events/#list-public-events-for-an-organization
       # @example List public events for GitHub
@@ -110,6 +155,11 @@ module Octokit
       # Get all Issue Events for a given Repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       #
       # @return [Array<Sawyer::Resource>] Array of all Issue Events for this Repository
       # @see https://developer.github.com/v3/issues/events/#list-events-for-a-repository
@@ -125,6 +175,10 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Issue number
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
       #
       # @return [Array<Sawyer::Resource>] Array of events for that issue
       # @see https://developer.github.com/v3/issues/events/#list-events-for-an-issue
@@ -138,6 +192,10 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Event number
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
       #
       # @return [Sawyer::Resource] A single Event for an Issue
       # @see https://developer.github.com/v3/issues/events/#get-a-single-event

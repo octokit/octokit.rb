@@ -9,6 +9,11 @@ module Octokit
       # List all commit comments
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array] List of commit comments
       # @see https://developer.github.com/v3/repos/comments/#list-commit-comments-for-a-repository
       def list_commit_comments(repo, options = {}, &block)
@@ -19,6 +24,11 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param sha [String] The SHA of the commit whose comments will be fetched
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array]  List of commit comments
       # @see https://developer.github.com/v3/repos/comments/#list-comments-for-a-single-commit
       def commit_comments(repo, sha, options = {}, &block)

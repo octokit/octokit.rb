@@ -9,6 +9,11 @@ module Octokit
       # List releases for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of releases
       # @see https://developer.github.com/v3/repos/releases/#list-releases-for-a-repository
       def releases(repo, options = {}, &block)
@@ -68,6 +73,11 @@ module Octokit
       # List release assets
       #
       # @param release_url [String] URL for the release as returned from .releases
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of release assets
       # @see https://developer.github.com/v3/repos/releases/#list-assets-for-a-release
       def release_assets(release_url, options = {}, &block)

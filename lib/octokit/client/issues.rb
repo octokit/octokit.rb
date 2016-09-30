@@ -19,6 +19,11 @@ module Octokit
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of issues for a repository.
       # @see https://developer.github.com/v3/issues/#list-issues-for-a-repository
       # @see https://developer.github.com/v3/issues/#list-issues
@@ -44,6 +49,11 @@ module Octokit
       # @option options [Integer] :page (1) Page number.
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of issues for a repository.
       # @see https://developer.github.com/v3/issues/#list-issues
       # @example List issues for the authenticated user across owned and member repositories
@@ -65,6 +75,11 @@ module Octokit
       # @option options [Integer] :page (1) Page number.
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of issues.
       # @see https://developer.github.com/v3/issues/#list-issues
       # @example List all issues for a given organization for the authenticated user
@@ -225,6 +240,11 @@ module Octokit
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of issues comments.
       #
       # @see https://developer.github.com/v3/issues/comments/#list-comments-in-a-repository
@@ -246,6 +266,11 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the issue
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of comments that belong to an issue
       # @see https://developer.github.com/v3/issues/comments/#list-comments-on-an-issue
       # @example Get comments for issue #25 from octokit/octokit.rb
@@ -258,6 +283,11 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the comment
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Sawyer::Resource] The specific comment in question
       # @see https://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comment #1194549 from an issue on octokit/octokit.rb
@@ -308,6 +338,11 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the comment
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Sawyer::Resource] The timeline for this issue
       # @see https://developer.github.com/v3/issues/timeline/
       # @example Get timeline for issue #1435 on octokit/octokit.rb

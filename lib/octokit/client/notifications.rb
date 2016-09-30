@@ -17,6 +17,11 @@ module Octokit
       # @option options [String] :since Time filters out any notifications
       #   updated before the given time. The time should be passed in as UTC in
       #   the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. '2012-10-09T23:39:01Z'
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of notifications.
       # @see https://developer.github.com/v3/activity/notifications/#list-your-notifications
       # @example Get users notifications
@@ -39,6 +44,11 @@ module Octokit
       # @option options [String] :since Time filters out any notifications
       #   updated before the given time. The time should be passed in as UTC in
       #   the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. '2012-10-09T23:39:01Z'
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of notifications.
       # @see https://developer.github.com/v3/activity/notifications/#list-your-notifications-in-a-repository
       # @example Get your notifications for octokit/octokit.rb

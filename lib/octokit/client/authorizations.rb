@@ -12,6 +12,11 @@ module Octokit
       # You can only access your own tokens, and only through
       # Basic Authentication.
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of authorizations for the authenticated user
       # @see https://developer.github.com/v3/oauth_authorizations/#list-your-authorizations
       # @example List authorizations for user ctshryock

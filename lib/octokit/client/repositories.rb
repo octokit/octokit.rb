@@ -66,6 +66,11 @@ module Octokit
       # @see https://developer.github.com/v3/repos/#list-user-repositories
       # @param user [Integer, String] Optional GitHub user login or id for which
       #   to list repos.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of repositories
       def repositories(user=nil, options = {}, &block)
         paginate "#{User.path user}/repos", options, &block
@@ -84,6 +89,12 @@ module Octokit
       # @param options [Hash] Optional options
       # @option options [Integer] :since The integer ID of the last Repository
       #   that you’ve seen.
+      #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of repositories.
       def all_repositories(options = {}, &block)
         paginate 'repositories', options, &block
@@ -200,6 +211,11 @@ module Octokit
       # Requires authenticated client.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing deploy keys.
       # @see https://developer.github.com/v3/repos/keys/#list-deploy-keys
       # @example
@@ -277,6 +293,11 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing collaborating users.
       # @see https://developer.github.com/v3/repos/collaborators/#list-collaborators
       # @example
@@ -351,6 +372,11 @@ module Octokit
       # Requires authenticated client that is an owner or collaborator of the repo.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing teams.
       # @see https://developer.github.com/v3/repos/#list-teams
       # @example
@@ -371,6 +397,11 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param anon [Boolean] Set true to include anonymous contributors.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/repos/#list-contributors
       # @example
@@ -390,6 +421,11 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/activity/starring/#list-stargazers
       # @example
@@ -407,6 +443,11 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/repos/watching/#list-watchers
       # @example
@@ -422,6 +463,11 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing repos.
       # @see https://developer.github.com/v3/repos/forks/#list-forks
       # @example
@@ -440,6 +486,11 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing languages.
       # @see https://developer.github.com/v3/repos/#list-languages
       # @example
@@ -455,6 +506,11 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing tags.
       # @see https://developer.github.com/v3/repos/#list-tags
       # @example
@@ -470,6 +526,11 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing branches.
       # @see https://developer.github.com/v3/repos/#list-branches
       # @example
@@ -558,6 +619,11 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/issues/assignees/#list-assignees
       # @example
@@ -586,6 +652,11 @@ module Octokit
       # List watchers subscribing to notifications for a repo
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of users watching.
       # @see https://developer.github.com/v3/activity/watching/#list-watchers
       # @example

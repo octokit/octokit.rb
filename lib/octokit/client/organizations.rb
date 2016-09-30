@@ -61,6 +61,11 @@ module Octokit
       #
       # @param user [Integer, String] GitHub user login or id of the user to get
       #   list of organizations.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing organizations.
       # @see https://developer.github.com/v3/orgs/#list-your-organizations
       # @see https://developer.github.com/v3/orgs/#list-user-organizations
@@ -89,6 +94,11 @@ module Octokit
       # were created.
       #
       # @param options [Hash] Optional options.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @option options [Integer] :since The integer ID of the last
       # Organization that you’ve seen.
       #
@@ -109,6 +119,11 @@ module Octokit
       #   to list repos.
       # @option options [String] :type ('all') Filter by repository type.
       #   `all`, `public`, `member`, `sources`, `forks`, or `private`.
+      #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
       #
       # @return [Array<Sawyer::Resource>] List of repositories
       # @see https://developer.github.com/v3/repos/#list-organization-repositories
@@ -133,6 +148,11 @@ module Octokit
       # is required to get private members.
       #
       # @param org [String, Integer] Organization GitHub login or id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/orgs/members/#members-list
       # @example
@@ -212,6 +232,11 @@ module Octokit
       # Requires authenticated organization member.
       #
       # @param org [String, Integer] Organization GitHub login or id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing teams.
       # @see https://developer.github.com/v3/orgs/teams/#list-teams
       # @example
@@ -297,6 +322,11 @@ module Octokit
       # Requires authenticated organization member.
       #
       # @param team_id [Integer] Team id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/orgs/teams/#list-team-members
       # @example
@@ -372,6 +402,11 @@ module Octokit
       # Requires authenticated organization member.
       #
       # @param team_id [Integer] Team id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing repositories.
       # @see https://developer.github.com/v3/orgs/teams/#list-team-repos
       # @example
@@ -501,6 +536,11 @@ module Octokit
 
       # List all teams for the authenticated user across all their orgs
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of team resources.
       # @see https://developer.github.com/v3/orgs/teams/#list-user-teams
       def user_teams(options = {}, &block)
@@ -550,6 +590,11 @@ module Octokit
       end
 
       # List all organizations memberships for the authenticated user
+      #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
       #
       # @return [Array<Sawyer::Resource>] Array of organizations memberships.
       # @see https://developer.github.com/v3/orgs/members/#list-your-organization-memberships
@@ -624,6 +669,11 @@ module Octokit
       # Requires authenticated organization owner.
       #
       # @param org [String, Integer] Organization GitHub login or id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of migration resources.
       # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
       def migrations(org, options = {}, &block)

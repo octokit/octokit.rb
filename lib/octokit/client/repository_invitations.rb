@@ -25,6 +25,11 @@ module Octokit
       # Requires authenticated client
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of invitations
       # @see https://developer.github.com/v3/repos/invitations/#list-invitations-for-a-repository
       def repository_invitations(repo, options = {}, &block)
@@ -64,6 +69,11 @@ module Octokit
       # List all repository invitations for the user
       #
       # Requires authenticated client
+      #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
       #
       # @return [Array<Sawyer::Resource>] The users repository invitations
       # @see https://developer.github.com/v3/repos/invitations/#list-a-users-repository-invitations

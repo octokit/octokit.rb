@@ -15,6 +15,11 @@ module Octokit
       # @option options [Integer] :since The integer ID of the last User that
       #   you’ve seen.
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @see https://developer.github.com/v3/users/#get-all-users
       #
       # @return [Array<Sawyer::Resource>] List of GitHub users.
@@ -90,6 +95,11 @@ module Octokit
       #
       # @param user [Integer, String] GitHub user login or id of the user whose
       #   list of followers you are getting.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users
       #   followers.
       # @see https://developer.github.com/v3/users/followers/#list-followers-of-a-user
@@ -103,6 +113,11 @@ module Octokit
       #
       # @param user [Intger, String] GitHub user login or id of the user who you
       #   are getting the list of the people they follow.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users a
       #   user is following.
       # @see https://developer.github.com/v3/users/followers/#list-users-followed-by-another-user
@@ -169,6 +184,12 @@ module Octokit
       # @param options [Hash] Optional options
       # @option options [String] :sort (created) Sort: <tt>created</tt> or <tt>updated</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
+      #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing repositories starred by user.
       # @see https://developer.github.com/v3/activity/starring/#list-repositories-being-starred
       # @example
@@ -221,6 +242,11 @@ module Octokit
       #
       # Requires authenticated client.
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing public keys.
       # @see https://developer.github.com/v3/users/keys/#list-your-public-keys
       # @example
@@ -232,6 +258,11 @@ module Octokit
       # Get list of public keys for user.
       #
       # @param user [Integer, String] GitHub user login or id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing public keys.
       # @see https://developer.github.com/v3/users/keys/#list-public-keys-for-a-user
       # @example
@@ -291,6 +322,11 @@ module Octokit
       #
       # Requires authenticated client.
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<String>] Array of email addresses.
       # @see https://developer.github.com/v3/users/emails/#list-email-addresses-for-a-user
       # @example
@@ -330,6 +366,11 @@ module Octokit
       # List repositories being watched by a user.
       #
       # @param user [Integer, String] GitHub user login or id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of repositories.
       # @see https://developer.github.com/v3/activity/watching/#list-repositories-being-watched
       # @example

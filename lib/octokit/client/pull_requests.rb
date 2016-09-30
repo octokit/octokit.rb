@@ -12,6 +12,12 @@ module Octokit
       #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param options [Hash] Method options
       #   @option options [String] :state `open` or `closed`.
+      #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of pulls
       # @see https://developer.github.com/v3/pulls/#list-pull-requests
       # @example
@@ -124,6 +130,11 @@ module Octokit
       # @see https://developer.github.com/v3/pulls/#list-commits-on-a-pull-request
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of commits
       def pull_request_commits(repo, number, options = {}, &block)
         paginate "#{Repository.path repo}/pulls/#{number}/commits", options, &block
@@ -141,6 +152,11 @@ module Octokit
       #   parameter.
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
+      #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
       #
       # @return [Array] List of pull request review comments.
       #
@@ -166,6 +182,11 @@ module Octokit
       # @see https://developer.github.com/v3/pulls/comments/#list-comments-on-a-pull-request
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of comments
       def pull_request_comments(repo, number, options = {}, &block)
         # return the comments for a pull request
@@ -268,6 +289,11 @@ module Octokit
       # @see https://developer.github.com/v3/pulls/#list-pull-requests-files
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of files
       def pull_request_files(repo, number, options = {}, &block)
         paginate "#{Repository.path repo}/pulls/#{number}/files", options, &block

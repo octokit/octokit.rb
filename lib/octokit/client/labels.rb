@@ -11,6 +11,11 @@ module Octokit
       # List available labels for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of the labels across the repository
       # @see https://developer.github.com/v3/issues/labels/#list-all-labels-for-this-repository
       # @example List labels for octokit/octokit.rb
@@ -106,6 +111,11 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Fixnum] Number ID of the issue
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of the labels currently on the issue
       # @see https://developer.github.com/v3/issues/labels/#list-labels-on-an-issue
       # @example List labels for octokit/octokit.rb, issue # 1
@@ -144,6 +154,11 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Fixnum] Number ID of the milestone
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of the labels across the milestone
       # @see  http://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
       # @example List all labels for milestone #2 on octokit/octokit.rb

@@ -9,6 +9,11 @@ module Octokit
       # List available downloads for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A Github Repository
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array] A list of available downloads
       # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
       # @see https://developer.github.com/v3/repos/downloads/#list-downloads-for-a-repository

@@ -10,6 +10,11 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param namespace [String] The ref namespace, e.g. <tt>tag</tt> or <tt>heads</tt>
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of references matching the repo and the namespace
       # @see https://developer.github.com/v3/git/refs/#get-all-references
       # @example Fetch all refs for sferik/rails_admin

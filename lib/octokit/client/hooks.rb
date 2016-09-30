@@ -19,6 +19,11 @@ module Octokit
       # Requires authenticated client.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing hooks.
       # @see https://developer.github.com/v3/repos/hooks/#list-hooks
       # @example
@@ -167,6 +172,11 @@ module Octokit
       # Requires client authenticated as admin for the org.
       #
       # @param org [String, Integer] Organization GitHub login or id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing hooks.
       # @see https://developer.github.com/v3/orgs/hooks/#list-hooks
       # @example
