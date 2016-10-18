@@ -326,14 +326,15 @@ describe Octokit::Client::Repositories do
 
       it "protects a single branch" do
         branch = @client.protect_branch(@repo.full_name, "master")
-        expect(branch.protection.enabled).to be true
+        expect(branch.required_status_checks.include_admins).to be true
       end
+
       it "unprotects a single branch" do
         branch = @client.protect_branch(@repo.full_name, "master")
-        expect(branch.protection.enabled).to be true
+        expect(branch.required_status_checks.include_admins).to be true
 
         branch = @client.unprotect_branch(@repo.full_name, "master")
-        expect(branch.protection.enabled?).to be false
+        expect(branch).to be_empty
       end
     end
   end # .branches

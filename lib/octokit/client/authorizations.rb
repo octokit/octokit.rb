@@ -230,10 +230,11 @@ module Octokit
           raise Octokit::ApplicationCredentialsRequired.new "client_id required"
         end
         authorize_url = options.delete(:endpoint) || Octokit.web_endpoint
-        authorize_url += "login/oauth/authorize?client_id=" + app_id
+        authorize_url << "login/oauth/authorize?client_id=#{app_id}"
 
+        require 'cgi'
         options.each do |key, value|
-          authorize_url += "&" + key.to_s + "=" + value
+          authorize_url << "&#{key}=#{CGI.escape value}"
         end
 
         authorize_url

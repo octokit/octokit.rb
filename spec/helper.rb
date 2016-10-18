@@ -2,7 +2,7 @@ if RUBY_ENGINE == 'ruby'
   require 'simplecov'
   require 'coveralls'
 
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [
     SimpleCov::Formatter::HTMLFormatter,
     Coveralls::SimpleCov::Formatter
   ]
@@ -13,7 +13,7 @@ require 'json'
 require 'octokit'
 require 'rspec'
 require 'webmock/rspec'
-require "base64"
+require 'base64'
 
 WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
@@ -21,6 +21,7 @@ RSpec.configure do |config|
   config.raise_errors_for_deprecations!
   config.before(:all) do
     @test_repo = "#{test_github_login}/#{test_github_repository}"
+    @test_repo_id = test_github_repository_id
     @test_org_repo = "#{test_github_org}/#{test_github_repository}"
   end
 end
@@ -148,6 +149,10 @@ end
 
 def test_github_repository
   ENV.fetch 'OCTOKIT_TEST_GITHUB_REPOSITORY', 'api-sandbox'
+end
+
+def test_github_repository_id
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_REPOSITORY_ID', 20974780
 end
 
 def test_github_org

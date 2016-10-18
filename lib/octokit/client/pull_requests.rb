@@ -222,7 +222,7 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing new comment
       # @see https://developer.github.com/v3/pulls/comments/#create-a-comment
       # @example
-      #   @client.create_pull_request_comment_reply("octokit/octokit.rb", 1903950, "done.")
+      #   @client.create_pull_request_comment_reply("octokit/octokit.rb", 163, "done.", 1903950)
       def create_pull_request_comment_reply(repo, pull_id, body, comment_id, options = {})
         options.merge!({
           :body => body,

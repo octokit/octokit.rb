@@ -13,6 +13,12 @@ describe Octokit::Client::Milestones do
       expect(milestones).to be_kind_of Array
       assert_requested :get, github_url("/repos/#{@test_repo}/milestones")
     end
+
+    it "lists milestones belonging to repository using id of repository" do
+      milestones = @client.list_milestones(@test_repo_id)
+      expect(milestones).to be_kind_of Array
+      assert_requested :get, github_url("/repositories/#{@test_repo_id}/milestones")
+    end
   end # .list_milestones
 
   context "with milestone" do

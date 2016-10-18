@@ -291,16 +291,24 @@ module Octokit
 
       # Add collaborator to repo
       #
+      # This can also be used to update the permission of an existing collaborator
+      #
       # Requires authenticated client.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param collaborator [String] Collaborator GitHub username to add.
+      # @option options [String] :permission The permission to grant the collaborator.
+      #   Only valid on organization-owned repositories.
+      #   Can be one of: <tt>pull</tt>, <tt>push</tt>, or <tt>admin</tt>.
+      #   If not specified, defaults to <tt>push</tt>
       # @return [Boolean] True if collaborator added, false otherwise.
       # @see https://developer.github.com/v3/repos/collaborators/#add-user-as-a-collaborator
       # @example
       #   @client.add_collaborator('octokit/octokit.rb', 'holman')
       # @example
       #   @client.add_collab('octokit/octokit.rb', 'holman')
+      # @example Add a collaborator with admin permissions
+      #   @client.add_collaborator('octokit/octokit.rb', 'holman', permission: 'admin')
       def add_collaborator(repo, collaborator, options = {})
         boolean_from_response :put, "#{Repository.path repo}/collaborators/#{collaborator}", options
       end
@@ -496,14 +504,13 @@ module Octokit
       # @example
       #   @client.protect_branch('octokit/octokit.rb', 'master', foo)
       def protect_branch(repo, branch, required_status_checks = {}, options = {})
-        if !required_status_checks.empty?
-          required_status_checks = { :required_status_checks => required_status_checks }
-        end
+        required_status_checks[:restrictions] ||= nil
+        required_status_checks[:required_status_checks] ||= {
+          :include_admins => true, :strict => false, :contexts => []
+        }
 
-        protection = { :protection => { :enabled => true }.merge(required_status_checks) }
-        options    = ensure_api_media_type(:branch_protection, options.merge(protection))
-
-        patch "#{Repository.path repo}/branches/#{branch}", options
+        options = ensure_api_media_type(:branch_protection, options.merge(required_status_checks))
+        put "#{Repository.path repo}/branches/#{branch}/protection", options
       end
 
       # Unlock a single branch from a repository
@@ -517,9 +524,8 @@ module Octokit
       # @example
       #   @client.unprotect_branch('octokit/octokit.rb', 'master')
       def unprotect_branch(repo, branch, options = {})
-        protection = { :protection => { :enabled => false } }
-        options = ensure_api_media_type(:branch_protection, options.merge(protection))
-        patch "#{Repository.path repo}/branches/#{branch}", options
+        options = ensure_api_media_type(:branch_protection, options)
+        delete "#{Repository.path repo}/branches/#{branch}/protection", options
       end
 
       # List users available for assigning to issues.

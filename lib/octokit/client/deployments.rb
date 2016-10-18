@@ -48,6 +48,8 @@ module Octokit
       #
       # @param deployment_url [String] A URL for a deployment resource
       # @param state [String] The state: pending, success, failure, error
+      # @option options [String] :target_url The target URL to associate with this status. Default: ""
+      # @option options [String] :description A short description of the status. Maximum length of 140 characters. Default: ""
       # @return [Sawyer::Resource] A deployment status
       # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment-status
       def create_deployment_status(deployment_url, state, options = {})

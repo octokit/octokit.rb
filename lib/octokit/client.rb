@@ -36,12 +36,15 @@ require 'octokit/client/pages'
 require 'octokit/client/pub_sub_hubbub'
 require 'octokit/client/pull_requests'
 require 'octokit/client/rate_limit'
+require 'octokit/client/reactions'
 require 'octokit/client/refs'
 require 'octokit/client/releases'
 require 'octokit/client/repositories'
+require 'octokit/client/repository_invitations'
 require 'octokit/client/say'
 require 'octokit/client/search'
 require 'octokit/client/service_status'
+require 'octokit/client/source_import'
 require 'octokit/client/stats'
 require 'octokit/client/statuses'
 require 'octokit/client/users'
@@ -84,12 +87,15 @@ module Octokit
     include Octokit::Client::PubSubHubbub
     include Octokit::Client::PullRequests
     include Octokit::Client::RateLimit
+    include Octokit::Client::Reactions
     include Octokit::Client::Refs
     include Octokit::Client::Releases
     include Octokit::Client::Repositories
+    include Octokit::Client::RepositoryInvitations
     include Octokit::Client::Say
     include Octokit::Client::Search
     include Octokit::Client::ServiceStatus
+    include Octokit::Client::SourceImport
     include Octokit::Client::Stats
     include Octokit::Client::Statuses
     include Octokit::Client::Users

@@ -22,6 +22,7 @@ module Octokit
                   when 409      then Octokit::Conflict
                   when 415      then Octokit::UnsupportedMediaType
                   when 422      then Octokit::UnprocessableEntity
+                  when 451      then Octokit::UnavailableForLegalReasons
                   when 400..499 then Octokit::ClientError
                   when 500      then Octokit::InternalServerError
                   when 501      then Octokit::NotImplemented
@@ -68,6 +69,8 @@ module Octokit
         Octokit::RepositoryUnavailable
       elsif body =~ /email address must be verified/i
         Octokit::UnverifiedEmail
+      elsif body =~ /account was suspended/i
+        Octokit::AccountSuspended
       else
         Octokit::Forbidden
       end
@@ -81,6 +84,13 @@ module Octokit
       else
         []
       end
+    end
+
+    # Status code returned by the GitHub server.
+    #
+    # @return [Integer]
+    def response_status
+      @response[:status]
     end
 
     private
@@ -205,6 +215,10 @@ module Octokit
   # and body matches 'email address must be verified'
   class UnverifiedEmail < Forbidden; end
 
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'account was suspended'
+  class AccountSuspended < Forbidden; end
+
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end
 
@@ -222,6 +236,9 @@ module Octokit
 
   # Raised when GitHub returns a 422 HTTP status code
   class UnprocessableEntity < ClientError; end
+
+  # Raised when GitHub returns a 451 HTTP status code
+  class UnavailableForLegalReasons < ClientError; end
 
   # Raised on errors in the 500-599 range
   class ServerError < Error; end
