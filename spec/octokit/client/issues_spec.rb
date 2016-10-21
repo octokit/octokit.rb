@@ -113,6 +113,20 @@ describe Octokit::Client::Issues do
       end
     end # .reopen_issue
 
+    describe ".lock_issue" do
+      it "locks an issue" do
+        @client.lock_issue(@test_repo, @issue.number)
+        assert_requested :put, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/lock")
+      end
+    end # .lock_issue
+
+    describe ".unlock_issue" do
+      it "unlocks an issue" do
+        @client.unlock_issue(@test_repo, @issue.number)
+        assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/lock")
+      end
+    end # .unlock_issue
+
     describe ".update_issue" do
       it "updates an issue" do
         issue = @client.update_issue(@test_repo, @issue.number, "Use all the v3 api!", "")

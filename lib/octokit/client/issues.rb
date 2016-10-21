@@ -146,6 +146,30 @@ module Octokit
         patch "#{Repository.path repo}/issues/#{number}", options.merge({:state => "open"})
       end
 
+      # Lock an issue's conversation, limiting it to collaborators
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Number ID of the issue
+      # @return [Boolean] Success
+      # @see https://developer.github.com/v3/issues/#lock-an-issue
+      # @example Lock Issue #25 from octokit/octokit.rb
+      #   Octokit.lock_issue("octokit/octokit.rb", "25")
+      def lock_issue(repo, number, options = {})
+        boolean_from_response :put, "#{Repository.path repo}/issues/#{number}/lock", options
+      end
+
+      # Unlock an issue's conversation, opening it to all viewers
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Number ID of the issue
+      # @return [Boolean] Success
+      # @see https://developer.github.com/v3/issues/#unlock-an-issue
+      # @example Unlock Issue #25 from octokit/octokit.rb
+      #   Octokit.close_issue("octokit/octokit.rb", "25")
+      def unlock_issue(repo, number, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/issues/#{number}/lock", options
+      end
+
       # Update an issue
       #
       # @overload update_issue(repo, number, title, body, options)
