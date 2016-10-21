@@ -115,14 +115,14 @@ describe Octokit::Client::Issues do
 
     describe ".lock_issue" do
       it "locks an issue" do
-        @client.lock_issue(@test_repo, @issue)
+        @client.lock_issue(@test_repo, @issue.number)
         assert_requested :put, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/lock")
       end
     end # .lock_issue
 
     describe ".unlock_issue" do
       it "unlocks an issue" do
-        @client.unlock_issue(@test_repo, @issue)
+        @client.unlock_issue(@test_repo, @issue.number)
         assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/lock")
       end
     end # .unlock_issue
