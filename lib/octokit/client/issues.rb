@@ -154,8 +154,8 @@ module Octokit
       # @see https://developer.github.com/v3/issues/#lock-an-issue
       # @example Lock Issue #25 from octokit/octokit.rb
       #   Octokit.lock_issue("octokit/octokit.rb", "25")
-      def lock_issue(repo, number)
-        boolean_from_response :put, "#{Repository.path repo}/issues/#{number}/lock"
+      def lock_issue(repo, number, options = {})
+        boolean_from_response :put, "#{Repository.path repo}/issues/#{number}/lock", options
       end
 
       # Unlock an issue's conversation, opening it to all viewers
@@ -164,10 +164,10 @@ module Octokit
       # @param number [Integer] Number ID of the issue
       # @return [Boolean] Success
       # @see https://developer.github.com/v3/issues/#unlock-an-issue
-      # @example Close Issue #25 from octokit/octokit.rb
+      # @example Unlock Issue #25 from octokit/octokit.rb
       #   Octokit.close_issue("octokit/octokit.rb", "25")
       def unlock_issue(repo, number, options = {})
-        boolean_from_response :delete, "#{Repository.path repo}/issues/#{number}/lock"
+        boolean_from_response :delete, "#{Repository.path repo}/issues/#{number}/lock", options
       end
 
       # Update an issue
