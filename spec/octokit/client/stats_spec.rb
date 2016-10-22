@@ -36,6 +36,12 @@ describe Octokit::Client::Stats do
 
         assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/contributors"), :times => 3
       end
+
+      it "returns nil on timeout" do
+        stats = @client.contributors_stats("octokit/octokit.rb", :retry_timeout => 1, :retry_wait => 1)
+        expect(stats).to be_nil
+        assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/contributors"), :times => 2
+      end
     end # .contributors_stats
 
     describe ".commit_activity_stats" do
