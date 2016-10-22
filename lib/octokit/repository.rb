@@ -10,7 +10,10 @@ module Octokit
     #
     # @return [Repository]
     def self.from_url(url)
-      Repository.new(URI.parse(url).path[1..-1])
+      new URI.parse(url).path[1..-1].
+        gsub(/^repos\//,'').
+        split('/', 3)[0..1].
+        join('/')
     end
 
     # @raise [Octokit::InvalidRepository] if the repository
