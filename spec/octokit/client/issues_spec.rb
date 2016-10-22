@@ -42,7 +42,7 @@ describe Octokit::Client::Issues do
 
   context "with repository" do
     before(:each) do
-      @repo = @client.create_repository("an-repo")
+      @repo = @client.create_repository("#{test_github_repository}_#{Time.now.to_f}")
     end
 
     after(:each) do
@@ -61,6 +61,7 @@ describe Octokit::Client::Issues do
         expect(issue.title).to match(/Migrate/)
         assert_requested :post, github_url("/repos/#{@repo.full_name}/issues")
       end
+
       it "creates an issue with delimited labels" do
         issue = @client.create_issue \
           @repo.full_name,
@@ -71,6 +72,7 @@ describe Octokit::Client::Issues do
         expect(issue.labels.map(&:name)).to include("feature")
         assert_requested :post, github_url("/repos/#{@repo.full_name}/issues")
       end
+
       it "creates an issue with labels array" do
         issue = @client.create_issue \
           @repo.full_name,
@@ -81,6 +83,7 @@ describe Octokit::Client::Issues do
         expect(issue.labels.map(&:name)).to include("feature")
         assert_requested :post, github_url("/repos/#{@repo.full_name}/issues")
       end
+
       it "creates an issue without body argument" do
         issue = @client.create_issue(@repo.full_name, "New issue without body argument")
         expect(issue.body).to be_nil
@@ -171,17 +174,17 @@ describe Octokit::Client::Issues do
             assert_requested :delete, github_url("/repos/#{@repo.full_name}/issues/comments/#{@issue_comment.id}")
           end
         end # .delete_comment
-      end # .delete_comment
-    end # with issue comment
+      end # with issue comment
 
-    describe ".issue_timeline" do
-      it "returns an issue timeline" do
-        timeline = @client.issue_timeline(@test_repo, @issue.number)
-        expect(timeline).to be_kind_of Array
-        assert_requested :get, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/timeline")
-      end
-    end # .issue_timeline
-  end # with issue
+      describe ".issue_timeline", :vcr do
+        it "returns an issue timeline" do
+          timeline = @client.issue_timeline(@repo.full_name, @issue.number)
+          expect(timeline).to be_kind_of Array
+          assert_requested :get, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/timeline")
+        end
+      end # .issue_timeline
+    end # with issue
+ end # with issue
 
   describe ".repository_issues_comments", :vcr do
     it "returns comments for all issues in a repository" do
