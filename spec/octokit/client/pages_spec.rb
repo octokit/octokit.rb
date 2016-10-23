@@ -40,4 +40,14 @@ describe Octokit::Client::Pages do
       assert_requested :get, github_url("/repos/github/developer.github.com/pages/builds/latest")
     end
   end # .latest_pages_build
+
+  describe ".request_page_build", :vcr do
+    # This test requires some manual setup in your test repository,
+    # ensure it has pages site enabled and setup.
+    it "requests a build for the latest revision" do
+      request = @client.request_page_build(@test_repo)
+      expect(request.status).not_to be_nil
+      assert_requested :post, github_url("/repos/#{@test_repo}/pages/builds")
+    end
+  end # .request_page_build
 end
