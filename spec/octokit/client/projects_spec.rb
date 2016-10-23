@@ -70,6 +70,14 @@ describe Octokit::Client::Projects do
         end
       end # .project_columns
 
+      describe ".create_project_column", :vcr do
+        it "returns the newly created project column" do
+          column = oauth_client.create_project_column(@repo.full_name, @project.number, "Todos")
+          expect(column.name).to eq "Todos"
+          assert_requested :post, github_url("/repos/#{@repo.full_name}/projects/#{@project.number}/columns")
+        end
+      end # .create_project_column
+
     end # with project
   end # with repository
 end # Octokit::Client::Projects

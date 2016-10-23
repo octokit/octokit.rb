@@ -98,6 +98,23 @@ module Octokit
         paginate "#{Repository.path repo}/projects/#{number}/columns", opts
       end
 
+      # Create a project column
+      #
+      # Requires authenticated client
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Project number
+      # @param name [String] New column name
+      # @return [Sawyer::Resource] Newly created column
+      # @see https://developer.github.com/v3/repos/projects/#create-a-column
+      # @example
+      #   @client.create_project_column("octokit/octokit.rb", 1, "To Dones")
+      def create_project_column(repo, number, name, options = {})
+        opts = ensure_api_media_type(:projects, options)
+        opts[:name] = name
+        post "#{Repository.path repo}/projects/#{number}/columns", opts
+      end
+
     end # Projects
   end
 end
