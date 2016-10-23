@@ -16,6 +16,19 @@ module Octokit
         get "#{Repository.path repo}/pages", opts
       end
 
+      # Get a specific Pages build by ID
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param id [Integer, String] Build ID
+      # @return [Sawyer::Resource] Pages build information
+      # @see https://developer.github.com/v3/repos/pages/#list-a-specific-pages-build
+      # @example
+      #   Octokit.pages_build("github/developer.github.com", 5472601)
+      def pages_build(repo, id, options = {})
+        opts = ensure_api_media_type(:pages, options)
+        get "#{Repository.path repo}/pages/builds/#{id}", opts
+      end
+
       # List Pages builds for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
