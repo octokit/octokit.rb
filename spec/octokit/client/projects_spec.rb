@@ -10,4 +10,12 @@ describe Octokit::Client::Projects do
     end
   end # .projects
 
+  describe ".create_project", :vcr do
+    it "returns the newly created project" do
+      project = oauth_client.create_project(@test_repo, "api kpi")
+      expect(project.name).to eq("api kpi")
+      assert_requested :post, github_url("/repos/#{@test_repo}/projects")
+    end
+  end # .create_project
+
 end # Octokit::Client::Projects
