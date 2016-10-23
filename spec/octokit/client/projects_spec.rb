@@ -62,6 +62,14 @@ describe Octokit::Client::Projects do
         end
       end # .delete_project
 
+      describe ".project_columns", :vcr do
+        it "returns the columns for a project" do
+          columns = Octokit.project_columns(@repo.full_name, @project.number)
+          expect(columns).to be_kind_of Array
+          assert_requested :get, github_url("/repos/#{@repo.full_name}/projects/#{@project.number}/columns")
+        end
+      end # .project_columns
+
     end # with project
   end # with repository
 end # Octokit::Client::Projects

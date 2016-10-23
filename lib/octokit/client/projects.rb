@@ -75,7 +75,7 @@ module Octokit
       # Requires authenticated client
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param number [Integer] Project Number
+      # @param number [Integer] Project number
       # @return [Boolean] Result of deletion
       # @see https://developer.github.com/v3/repos/projects/#delete-a-project
       # @example
@@ -83,6 +83,19 @@ module Octokit
       def delete_project(repo, number, options = {})
         opts = ensure_api_media_type(:projects, options)
         boolean_from_response :delete, "#{Repository.path repo}/projects/#{number}", opts
+      end
+
+      # Get project columns
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Project number
+      # @return [Array<Sawyer::Resource>] List of project columns
+      # @see https://developer.github.com/v3/repos/projects/#list-columns
+      # @example
+      #   @client.project_columns("octokit/octokit.rb", 1)
+      def project_columns(repo, number, options = {})
+        opts = ensure_api_media_type(:projects, options)
+        paginate "#{Repository.path repo}/projects/#{number}/columns", opts
       end
 
     end # Projects
