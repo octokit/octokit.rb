@@ -151,7 +151,7 @@ module Octokit
       # @see https://developer.github.com/v3/migration/source_imports/#set-git-lfs-preference
       #
       # @example
-      # @client.opt_in_source_import_lfs("octokit/octokit.rb", "opt_in")
+      #   @client.opt_in_source_import_lfs("octokit/octokit.rb", "opt_in")
       def set_source_import_lfs_preference(repo, use_lfs, options = {})
         options = ensure_api_media_type(:source_imports, options.merge(:use_lfs => use_lfs))
         patch "#{Repository.path repo}/import/lfs", options
