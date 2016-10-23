@@ -43,7 +43,7 @@ module Octokit
       # Get a project by number
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub Repository
-      # @param number [Integer, String] The project number
+      # @param number [Integer] The project number
       # @return [Sawyer::Resource] Project
       # @see https://developer.github.com/v3/repos/projects/#get-a-project
       # @example
@@ -51,6 +51,21 @@ module Octokit
       def project(repo, number, options = {})
         opts = ensure_api_media_type(:projects, options)
         get "#{Repository.path repo}/projects/#{number}", opts
+      end
+
+      # Update a project
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Project number
+      # @option options [String] :name Project name
+      # @option options [String] :body Project body
+      # @return [Sawyer::Resource] Project
+      # @see https://developer.github.com/v3/repos/projects/#update-a-project
+      # @example Update project name
+      #   @client.update_project("octokit/octokit.rb", 1, name: 'New name')
+      def update_project(repo, number, options = {})
+        opts = ensure_api_media_type(:projects, options)
+        patch "#{Repository.path repo}/projects/#{number}", opts
       end
 
     end # Projects

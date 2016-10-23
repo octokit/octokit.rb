@@ -43,6 +43,17 @@ describe Octokit::Client::Projects do
         end
       end # .project
 
+      describe ".update_project", :vcr do
+        it "updates the project name and body then returns the updated project" do
+          name = "new name"
+          body = "new body"
+          project = oauth_client.update_project(@repo.full_name, @project.number, {name: name, body: body})
+          expect(project.name).to eq name
+          expect(project.body).to eq body
+          assert_requested :patch, github_url("/repos/#{@repo.full_name}/projects/#{@project.number}")
+        end
+      end # .update_project
+
     end # with project
   end # with repository
 end # Octokit::Client::Projects
