@@ -115,6 +115,87 @@ module Octokit
         post "#{Repository.path repo}/projects/#{number}/columns", opts
       end
 
+      # Get a project column by ID
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Project number
+      # @param id [Integer] Column id
+      # @return [Sawyer::Resource] Project column
+      # @see https://developer.github.com/v3/repos/projects/#get-a-column
+      # @example
+      #   Octokit.project_column("octokit/octokit.rb", 1, 30)
+      def project_column(repo, number, id, options = {})
+        opts = ensure_api_media_type(:projects, options)
+        get "#{Repository.path repo}/projects/#{number}/columns/#{id}", opts
+      end
+
+      # Update a project column
+      #
+      # Requires authenticated client
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Project number
+      # @param id [Integer] Column ID
+      # @param name [String] New column name
+      # @return [Sawyer::Resource] Updated column
+      # @see https://developer.github.com/v3/repos/projects/#update-a-column
+      # @example
+      #   @client.update_project_column("octokit/octokit.rb", 1, 30294, "new column name")
+      def update_project_column(repo, number, id, name, options = {})
+        opts = ensure_api_media_type(:projects, options)
+        opts[:name] = name
+        patch "#{Repository.path repo}/projects/#{number}/columns/#{id}", opts
+      end
+
+      # Delete a project column
+      #
+      # Requires authenticated client
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Project number
+      # @param id [Integer] Project column id
+      # @return [Boolean] Result of deletion request, true when deleted
+      # @see https://developer.github.com/v3/repos/projects/#delete-a-column
+      # @example
+      #   @client.delete_project_column("octokit/octokit.rb", 1, 30294)
+      def delete_project_column(repo, number, id, options = {})
+        opts = ensure_api_media_type(:projects, options)
+        boolean_from_response :delete, "#{Repository.path repo}/projects/#{number}/columns/#{id}", opts
+      end
+
+      # Move a project column
+      #
+      # Requires authenticated client
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Project number
+      # @param id [Integer] Project column id
+      # @param position [String] New position for the column. Can be one of 
+      #   <tt>first</tt>, <tt>last</tt>, or <tt>after:<column-id></tt>, where
+      #   <tt><column-id></tt> is the id value of a column in the same project.
+      # @return [Boolean] Move result, true if successful
+      # @see https://developer.github.com/v3/repos/projects/#move-a-column
+      # @example
+      #   @client.move_project_column("octokit/octokit.rb", 1, 3049, "last")
+      def move_project_column(repo, number, id, position, options = {})
+        opts = ensure_api_media_type(:projects, options)
+        boolean_from_response :post, "#{Repository.path repo}/projects/#{number}/columns/#{id}/moves", opts
+      end
+
+      # Get the list of cards for a project column
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Project number
+      # @param id [Integer] Project column id
+      # @return [Array<Sawyer::Resource>] List of cards in the column
+      # @see https://developer.github.com/v3/repos/projects/#list-projects-cards
+      # @example
+      #   @client.projects_cards("octokit/octokit.rb", 1, 39484)
+      def projects_cards(repo, number, id, optons = {})
+        opts = ensure_api_media_type(:projects, options)
+        paginate "#{Repository.path repo}/projects/#{number}/columns/#{id}/cards", opts
+      end
+
     end # Projects
   end
 end
