@@ -518,7 +518,7 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param branch [String] Branch name
-      # @return [Sawyer::Resource] Branch protection summary or nil if the branch
+      # @return [Sawyer::Resource, nil] Branch protection summary or nil if the branch
       #   is not protected
       # @see https://developer.github.com/v3/repos/branches/#get-branch-protection
       # @example
