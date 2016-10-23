@@ -514,6 +514,24 @@ module Octokit
         put "#{Repository.path repo}/branches/#{branch}/protection", options
       end
 
+      # Get branch protection summary
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param branch [String] Branch name
+      # @return [Sawyer::Resource] Branch protection summary or nil if the branch
+      #   is not protected
+      # @see https://developer.github.com/v3/repos/branches/#get-branch-protection
+      # @example
+      #   @client.branch_protection('octokit/octokit.rb', 'master')
+      def branch_protection(repo, branch, options = {})
+        opts = ensure_api_media_type(:branch_protection, options)
+        begin
+          get "#{Repository.path repo}/branches/#{branch}/protection", opts
+        rescue Octokit::BranchNotProtected
+          nil
+        end
+      end
+
       # Unlock a single branch from a repository
       #
       # Requires authenticated client

@@ -91,7 +91,7 @@ describe Octokit::Client::Repositories do
 
   context "with repository" do
     before(:each) do
-      @repo = @client.create_repository("an-repo")
+      @repo = @client.create_repository(test_github_repository, auto_init: true)
     end
 
     after(:each) do
@@ -174,6 +174,26 @@ describe Octokit::Client::Repositories do
         assert_requested :delete, github_url("/repos/#{@repo.full_name}")
       end
     end # .delete_repository
+
+    describe ".branch_protection", :vcr do
+      it "returns nil for an unprotected branch" do
+        branch_protection = @client.branch_protection(@repo.full_name, "master")
+        expect(branch_protection).to be_nil
+        assert_requested :get, github_url("/repos/#{@repo.full_name}/branches/master/protection")
+      end
+
+      context "with protected branch" do
+        before(:each) do
+          @client.protect_branch(@repo.full_name, "master")
+        end
+
+        it "returns branch protection summary" do
+          branch_protection = @client.branch_protection(@repo.full_name, "master")
+          expect(branch_protection).not_to be_nil
+          assert_requested :get, github_url("/repos/#{@repo.full_name}/branches/master/protection")
+        end
+      end
+    end # .branch_protection
   end # with repository
 
   describe ".repositories", :vcr do
