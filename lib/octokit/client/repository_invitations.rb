@@ -92,7 +92,7 @@ module Octokit
       #
       # @param invitation_id [Integer] The id of the invitation
       # @return [Boolean] True if the acceptance of the invitation was successful
-      # @see https://developer.github.com/v3/repos/invitations/#list-a-users-repository-invitations
+      # @see https://developer.github.com/v3/repos/invitations/#decline-a-repository-invitation
       def decline_repository_invitation(invitation_id, options = {})
         options = ensure_api_media_type(:repository_invitations, options)
         boolean_from_response :delete, "/user/repository_invitations/#{invitation_id}", options
