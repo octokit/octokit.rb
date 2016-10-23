@@ -40,6 +40,19 @@ module Octokit
         post "#{Repository.path repo}/projects", opts
       end
 
+      # Get a project by number
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub Repository
+      # @param number [Integer, String] The project number
+      # @return [Sawyer::Resource] Project
+      # @see https://developer.github.com/v3/repos/projects/#get-a-project
+      # @example
+      #   Octokit.project("octokit/octokit.rb", 1)
+      def project(repo, number, options = {})
+        opts = ensure_api_media_type(:projects, options)
+        get "#{Repository.path repo}/projects/#{number}", opts
+      end
+
     end # Projects
   end
 end
