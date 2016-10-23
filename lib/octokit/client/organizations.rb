@@ -230,21 +230,17 @@ module Octokit
       # @param org [String, Integer] Organization GitHub login or id.
       # @option options [String] :name Team name.
       # @option options [Array<String>] :repo_names Repositories for the team.
-      # @option options [String, optional] :permission ('pull') Permissions the
-      #   team has for team repositories.
-      #
-      #   `pull` - team members can pull, but not push to or administer these repositories.
-      #   `push` - team members can pull and push, but not administer these repositories.
-      #   `admin` - team members can pull, push and administer these repositories.
       # @return [Sawyer::Resource] Hash representing new team.
       # @see https://developer.github.com/v3/orgs/teams/#create-team
       # @example
       #   @client.create_team('github', {
       #     :name => 'Designers',
-      #     :repo_names => ['github/dotfiles'],
-      #     :permission => 'push'
+      #     :repo_names => ['github/dotfiles']
       #   })
       def create_team(org, options = {})
+        if options.key?(:permission)
+          octokit_warn "Deprecated: Passing :permission option to #create_team. Assign team repository permission by passing :permission to #add_team_repository instead."
+        end
         post "#{Organization.path org}/teams", options
       end
 
