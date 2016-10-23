@@ -12,7 +12,8 @@ module Octokit
       # @return Sawyer::Resource A GitHub Pages resource
       # @see https://developer.github.com/v3/repos/pages/#get-information-about-a-pages-site
       def pages(repo, options = {})
-        get "#{Repository.path repo}/pages", options
+        opts = ensure_api_media_type(:pages, options)
+        get "#{Repository.path repo}/pages", opts
       end
 
       # List Pages builds for a repository
