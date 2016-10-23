@@ -16,10 +16,11 @@ describe Octokit::Client::Pages do
   end # .pages
 
   describe ".pages_build", :vcr do
+    # Grabbed this build ID manually from pages_builds
     it "lists a specific page build" do
-      build = @client.pages_build("github/developer.github.com", 1666784)
+      build = @client.pages_build(@test_repo, 40071035)
       expect(build.status).not_to be_nil
-      assert_requested :get, github_url("/repos/github/developer.github.com/pages/builds/1666784")
+      assert_requested :get, github_url("/repos/#{@test_repo}/pages/builds/40071035")
     end
   end # .pages_build
 
