@@ -344,14 +344,31 @@ describe Octokit::Client::Repositories do
         end
       end
 
-      it "protects a single branch" do
+      it "protects a single branch without mandating required_status_checks or restrictions" do
         branch = @client.protect_branch(@repo.full_name, "master")
+        expect(branch.url).not_to be_nil
+        expect(branch.required_status_checks).to be_nil
+        expect(branch.restrictions).to be_nil
+      end
+
+      it "protects a single branch with required_status_checks" do
+        rules = {
+          required_status_checks: {
+            strict: true,
+            include_admins: true,
+            contexts: [] 
+          },
+          restrictions: nil
+        }
+        branch = @client.protect_branch(@repo.full_name, "master", rules)
+
         expect(branch.required_status_checks.include_admins).to be true
+        expect(branch.restrictions).to be_nil
       end
 
       it "unprotects a single branch" do
         branch = @client.protect_branch(@repo.full_name, "master")
-        expect(branch.required_status_checks.include_admins).to be true
+        expect(branch.url).not_to be_nil
 
         branch = @client.unprotect_branch(@repo.full_name, "master")
         expect(branch).to be_empty

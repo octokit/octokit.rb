@@ -506,9 +506,7 @@ module Octokit
       #   @client.protect_branch('octokit/octokit.rb', 'master', foo)
       def protect_branch(repo, branch, required_status_checks = {}, options = {})
         required_status_checks[:restrictions] ||= nil
-        required_status_checks[:required_status_checks] ||= {
-          :include_admins => true, :strict => false, :contexts => []
-        }
+        required_status_checks[:required_status_checks] ||= nil
 
         options = ensure_api_media_type(:branch_protection, options.merge(required_status_checks))
         put "#{Repository.path repo}/branches/#{branch}/protection", options
