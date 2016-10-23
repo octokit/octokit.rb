@@ -55,6 +55,8 @@ module Octokit
 
       # Update a project
       #
+      # Requires authenticated client
+      #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Project number
       # @option options [String] :name Project name
@@ -66,6 +68,21 @@ module Octokit
       def update_project(repo, number, options = {})
         opts = ensure_api_media_type(:projects, options)
         patch "#{Repository.path repo}/projects/#{number}", opts
+      end
+
+      # Delete a project
+      #
+      # Requires authenticated client
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Project Number
+      # @return [Boolean] Result of deletion
+      # @see https://developer.github.com/v3/repos/projects/#delete-a-project
+      # @example
+      #   @client.delete_project("octokit/octokit.rb", 1)
+      def delete_project(repo, number, options = {})
+        opts = ensure_api_media_type(:projects, options)
+        boolean_from_response :delete, "#{Repository.path repo}/projects/#{number}", opts
       end
 
     end # Projects

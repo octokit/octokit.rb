@@ -54,6 +54,14 @@ describe Octokit::Client::Projects do
         end
       end # .update_project
 
+      describe ".delete_project", :vcr do
+        it "returns the result of deleting a project" do
+          result = oauth_client.delete_project(@repo.full_name, @project.number)
+          expect(result).to eq true
+          assert_requested :delete, github_url("/repos/#{@repo.full_name}/projects/#{@project.number}")
+        end
+      end # .delete_project
+
     end # with project
   end # with repository
 end # Octokit::Client::Projects
