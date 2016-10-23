@@ -16,7 +16,7 @@ module Octokit
                   when 400      then Octokit::BadRequest
                   when 401      then error_for_401(headers)
                   when 403      then error_for_403(body)
-                  when 404      then Octokit::NotFound
+                  when 404      then error_for_404(body)
                   when 405      then Octokit::MethodNotAllowed
                   when 406      then Octokit::NotAcceptable
                   when 409      then Octokit::Conflict
@@ -73,6 +73,16 @@ module Octokit
         Octokit::AccountSuspended
       else
         Octokit::Forbidden
+      end
+    end
+
+    # Return most appropriate error for 404 HTTP status code
+    # @private
+    def self.error_for_404(body)
+      if body =~ /Branch not protected/i
+        Octokit::BranchNotProtected
+      else
+        Octokit::NotFound
       end
     end
 
@@ -221,6 +231,10 @@ module Octokit
 
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end
+
+  # Raised when GitHub returns a 404 HTTP status code
+  # and body matches 'Branch not protected'
+  class BranchNotProtected < ClientError; end
 
   # Raised when GitHub returns a 405 HTTP status code
   class MethodNotAllowed < ClientError; end
