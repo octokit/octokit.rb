@@ -1169,15 +1169,15 @@
       <pre class="lines">
 
 
+329
+330
+331
 332
 333
-334
-335
-336
-337</pre>
+334</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 332</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 329</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_team_member'>add_team_member</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='comment'># There&#39;s a bug in this API call. The docs say to leave the body blank,
@@ -1284,12 +1284,12 @@
       <pre class="lines">
 
 
-530
-531
-532</pre>
+536
+537
+538</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 530</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 536</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_team_membership'>add_team_membership</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_put'>put</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/memberships/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1316,6 +1316,8 @@
   <div class="discussion">
     <p>Add team repository</p>
 
+<p>This can also be used to update the permission of an existing team</p>
+
 <p>Requires authenticated user to be an owner of the organization that the
 team is associated with. Also, the repo must be owned by the
 organization, or a direct form of a repo owned by the organization.</p>
@@ -1333,6 +1335,12 @@ organization, or a direct form of a repo owned by the organization.</p>
     
       
       <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_add_team_repo'>add_team_repo</span><span class='lparen'>(</span><span class='int'>100000</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>github/developer.github.com</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Add a team with admin permissions</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_add_team_repository'>add_team_repository</span><span class='lparen'>(</span><span class='int'>100000</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>github/developer.github.com</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>permission:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>admin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1368,7 +1376,53 @@ organization, or a direct form of a repo owned by the organization.</p>
       
     </li>
   
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
 </ul>
+
+  
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:permission</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>The permission to grant the team.
+Only valid on organization-owned repositories.
+Can be one of: <tt>pull</tt>, <tt>push</tt>, or <tt>admin</tt>.
+If not specified, the team&#39;s <tt>permission</tt> attribute will be
+used to determine what permission to grant the team on this repository.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
@@ -1393,7 +1447,7 @@ organization, or a direct form of a repo owned by the organization.</p>
     
       <li><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></li>
     
-      <li><a href="https://developer.github.com/v3/orgs/teams/#add-team-repo" target="_parent" title="https://developer.github.com/v3/orgs/teams/#add-team-repo">https://developer.github.com/v3/orgs/teams/#add-team-repo</a></li>
+      <li><a href="https://developer.github.com/v3/orgs/teams/#add-or-update-team-repository" target="_parent" title="https://developer.github.com/v3/orgs/teams/#add-or-update-team-repository">https://developer.github.com/v3/orgs/teams/#add-or-update-team-repository</a></li>
     
   </ul>
 
@@ -1403,12 +1457,12 @@ organization, or a direct form of a repo owned by the organization.</p>
       <pre class="lines">
 
 
-421
-422
-423</pre>
+427
+428
+429</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 421</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 427</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_team_repository'>add_team_repository</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -1518,12 +1572,12 @@ were created.</p>
       <pre class="lines">
 
 
-97
 98
-99</pre>
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_organizations'>all_organizations</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>organizations</span><span class='tstring_end'>&quot;</span></span>
@@ -1559,8 +1613,7 @@ were created.</p>
       
       <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_create_team'>create_team</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>github</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
   <span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Designers</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-  <span class='symbol'>:repo_names</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>github/dotfiles</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
-  <span class='symbol'>:permission</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>push</span><span class='tstring_end'>&#39;</span></span>
+  <span class='symbol'>:repo_names</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>github/dotfiles</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
 <span class='rbrace'>}</span><span class='rparen'>)</span></code></pre>
     
   </div>
@@ -1633,26 +1686,6 @@ were created.</p>
           
         </li>
       
-        <li>
-          <span class="name">:permission</span>
-          <span class="type">(<tt>String</tt>, <tt>optional</tt>)</span>
-          <span class="default">
-            
-              &mdash; default:
-              <tt>&#39;pull&#39;</tt>
-            
-          </span>
-          
-            &mdash; <div class='inline'><p>Permissions the
-team has for team repositories.</p>
-
-<p><code>pull</code> - team members can pull, but not push to or administer these repositories.
-<code>push</code> - team members can pull and push, but not administer these repositories.
-<code>admin</code> - team members can pull, push and administer these repositories.</p>
-</div>
-          
-        </li>
-      
     </ul>
   
 
@@ -1687,14 +1720,20 @@ team has for team repositories.</p>
       <pre class="lines">
 
 
-246
-247
-248</pre>
+240
+241
+242
+243
+244
+245</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 246</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 240</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_team'>create_team</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='symbol'>:permission</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_octokit_warn'>octokit_warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Deprecated: Passing :permission option to #create_team. Assign team repository permission by passing :permission to #add_team_repository instead.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
   <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Organization</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_org'>org</span><span class='embexpr_end'>}</span><span class='tstring_content'>/teams</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1760,7 +1799,7 @@ team has for team repositories.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations" target="_parent" title="https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations">https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations</a></li>
+      <li><a href="https://developer.github.com/v3/orgs/migrations/#delete-a-migration-archive" target="_parent" title="https://developer.github.com/v3/orgs/migrations/#delete-a-migration-archive">https://developer.github.com/v3/orgs/migrations/#delete-a-migration-archive</a></li>
     
   </ul>
 
@@ -1770,13 +1809,13 @@ team has for team repositories.</p>
       <pre class="lines">
 
 
-662
-663
-664
-665</pre>
+668
+669
+670
+671</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 662</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 668</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_migration_archive'>delete_migration_archive</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:migrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -1865,12 +1904,12 @@ team has for team repositories.</p>
       <pre class="lines">
 
 
-294
-295
-296</pre>
+291
+292
+293</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 294</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 291</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_team'>delete_team</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1948,16 +1987,16 @@ team has for team repositories.</p>
       <pre class="lines">
 
 
-647
-648
-649
-650
-651
-652
-653</pre>
+653
+654
+655
+656
+657
+658
+659</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 647</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 653</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_migration_archive_url'>migration_archive_url</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:migrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -2029,7 +2068,7 @@ team has for team repositories.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations" target="_parent" title="https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations">https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations</a></li>
+      <li><a href="https://developer.github.com/v3/orgs/migrations/#get-the-status-of-a-migration" target="_parent" title="https://developer.github.com/v3/orgs/migrations/#get-the-status-of-a-migration">https://developer.github.com/v3/orgs/migrations/#get-the-status-of-a-migration</a></li>
     
   </ul>
 
@@ -2039,13 +2078,13 @@ team has for team repositories.</p>
       <pre class="lines">
 
 
-635
-636
-637
-638</pre>
+641
+642
+643
+644</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 635</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 641</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_migration_status'>migration_status</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:migrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -2126,13 +2165,13 @@ team has for team repositories.</p>
       <pre class="lines">
 
 
-623
-624
-625
-626</pre>
+629
+630
+631
+632</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 623</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 629</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_migrations'>migrations</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:migrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -2344,17 +2383,17 @@ use .organization_public_member? instead.</p>
       <pre class="lines">
 
 
-179
 180
 181
 182
 183
 184
 185
-186</pre>
+186
+187</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_organization_member?'>organization_member?</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span><span class='lparen'>(</span><span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Organization</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_org'>org</span><span class='embexpr_end'>}</span><span class='tstring_content'>/members/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -2456,13 +2495,13 @@ is required to get private members.</p>
       <pre class="lines">
 
 
-141
 142
 143
-144</pre>
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 142</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_organization_members'>organization_members</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>public_</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:public</span><span class='rparen'>)</span>
@@ -2587,16 +2626,16 @@ is required to get private members.</p>
       <pre class="lines">
 
 
-562
-563
-564
-565
-566
-567
-568</pre>
+568
+569
+570
+571
+572
+573
+574</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 562</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 568</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_organization_membership'>organization_membership</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:user</span><span class='rparen'>)</span>
@@ -2663,12 +2702,12 @@ is required to get private members.</p>
       <pre class="lines">
 
 
-550
-551
-552</pre>
+556
+557
+558</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 550</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 556</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_organization_memberships'>organization_memberships</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user/memberships/orgs</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2780,12 +2819,12 @@ you are in, use .organization_member? instead.</p>
       <pre class="lines">
 
 
-204
 205
-206</pre>
+206
+207</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 204</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 205</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_organization_public_member?'>organization_public_member?</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Organization</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_org'>org</span><span class='embexpr_end'>}</span><span class='tstring_content'>/public_members/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2880,12 +2919,12 @@ you are in, use .organization_member? instead.</p>
       <pre class="lines">
 
 
-158
 159
-160</pre>
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 158</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 159</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_organization_public_members'>organization_public_members</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_organization_members'>organization_members</span> <span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='symbol'>:public</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -3032,12 +3071,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-122
 123
-124</pre>
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_organization_repositories'>organization_repositories</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Organization</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_org'>org</span><span class='embexpr_end'>}</span><span class='tstring_content'>/repos</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3132,12 +3171,12 @@ to list repos.</p>
       <pre class="lines">
 
 
-220
 221
-222</pre>
+222
+223</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 220</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 221</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_organization_teams'>organization_teams</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Organization</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_org'>org</span><span class='embexpr_end'>}</span><span class='tstring_content'>/teams</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3244,6 +3283,8 @@ list of organizations.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
+      <li><a href="https://developer.github.com/v3/orgs/#list-your-organizations" target="_parent" title="https://developer.github.com/v3/orgs/#list-your-organizations">https://developer.github.com/v3/orgs/#list-your-organizations</a></li>
+    
       <li><a href="https://developer.github.com/v3/orgs/#list-user-organizations" target="_parent" title="https://developer.github.com/v3/orgs/#list-user-organizations">https://developer.github.com/v3/orgs/#list-user-organizations</a></li>
     
   </ul>
@@ -3254,12 +3295,12 @@ list of organizations.</p>
       <pre class="lines">
 
 
-78
 79
-80</pre>
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_organizations'>organizations</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_content'>/orgs</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3362,12 +3403,12 @@ list of organizations.</p>
       <pre class="lines">
 
 
-475
-476
-477</pre>
+481
+482
+483</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 475</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 481</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_publicize_membership'>publicize_membership</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Organization</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_org'>org</span><span class='embexpr_end'>}</span><span class='tstring_content'>/public_members/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3477,14 +3518,14 @@ list of organizations.</p>
       <pre class="lines">
 
 
-458
-459
-460
-461
-462</pre>
+464
+465
+466
+467
+468</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 458</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 464</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_organization_member'>remove_organization_member</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='comment'># this is a synonym for: for team in org.teams: remove_team_member(team.id, user)
@@ -3564,13 +3605,13 @@ list of organizations.</p>
       <pre class="lines">
 
 
-594
-595
-596
-597</pre>
+600
+601
+602
+603</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 594</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 600</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_organization_membership'>remove_organization_membership</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:user</span><span class='rparen'>)</span>
@@ -3675,12 +3716,12 @@ list of organizations.</p>
       <pre class="lines">
 
 
-350
-351
-352</pre>
+347
+348
+349</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 350</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 347</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_team_member'>remove_team_member</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/members/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3781,12 +3822,12 @@ list of organizations.</p>
       <pre class="lines">
 
 
-542
-543
-544</pre>
+548
+549
+550</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 542</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 548</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_team_membership'>remove_team_membership</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/memberships/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -3890,7 +3931,7 @@ list of organizations.</p>
     
       <li><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></li>
     
-      <li><a href="https://developer.github.com/v3/orgs/teams/#remove-team-repo" target="_parent" title="https://developer.github.com/v3/orgs/teams/#remove-team-repo">https://developer.github.com/v3/orgs/teams/#remove-team-repo</a></li>
+      <li><a href="https://developer.github.com/v3/orgs/teams/#remove-team-repository" target="_parent" title="https://developer.github.com/v3/orgs/teams/#remove-team-repository">https://developer.github.com/v3/orgs/teams/#remove-team-repository</a></li>
     
   </ul>
 
@@ -3900,12 +3941,12 @@ list of organizations.</p>
       <pre class="lines">
 
 
-441
-442
-443</pre>
+447
+448
+449</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 441</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 447</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_team_repository'>remove_team_repository</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -4040,8 +4081,6 @@ list of organizations.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="https://developer.github.com/v3/orgs/teams/#create-team" target="_parent" title="https://developer.github.com/v3/orgs/teams/#create-team">https://developer.github.com/v3/orgs/teams/#create-team</a></li>
-    
       <li><a href="https://developer.github.com/v3/orgs/migrations/#start-a-migration" target="_parent" title="https://developer.github.com/v3/orgs/migrations/#start-a-migration">https://developer.github.com/v3/orgs/migrations/#start-a-migration</a></li>
     
   </ul>
@@ -4052,16 +4091,18 @@ list of organizations.</p>
       <pre class="lines">
 
 
-611
-612
-613
-614</pre>
+616
+617
+618
+619
+620</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 611</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 616</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_start_migration'>start_migration</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_repositories'>repositories</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:migrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:repositories</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_repositories'>repositories</span>
   <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>orgs/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_org'>org</span><span class='embexpr_end'>}</span><span class='tstring_content'>/migrations</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -4147,12 +4188,12 @@ list of organizations.</p>
       <pre class="lines">
 
 
-259
-260
-261</pre>
+256
+257
+258</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 259</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 256</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_team'>team</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4260,12 +4301,12 @@ you are a member.</p>
       <pre class="lines">
 
 
-369
-370
-371</pre>
+366
+367
+368</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 369</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 366</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_team_member?'>team_member?</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/members/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4353,12 +4394,12 @@ you are a member.</p>
       <pre class="lines">
 
 
-307
-308
-309</pre>
+304
+305
+306</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 307</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 304</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_team_members'>team_members</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/members</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4462,12 +4503,12 @@ you are a member.</p>
       <pre class="lines">
 
 
-515
-516
-517</pre>
+521
+522
+523</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 515</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 521</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_team_membership'>team_membership</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/memberships/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4562,12 +4603,12 @@ you are a member.</p>
       <pre class="lines">
 
 
-384
-385
-386</pre>
+381
+382
+383</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 384</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 381</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_team_repositories'>team_repositories</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/repos</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -4667,7 +4708,7 @@ the team information.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="https://developer.github.com/v3/orgs/teams/#get-team-repo" target="_parent" title="https://developer.github.com/v3/orgs/teams/#get-team-repo">https://developer.github.com/v3/orgs/teams/#get-team-repo</a></li>
+      <li><a href="https://developer.github.com/v3/orgs/teams/#check-if-a-team-manages-a-repository" target="_parent" title="https://developer.github.com/v3/orgs/teams/#check-if-a-team-manages-a-repository">https://developer.github.com/v3/orgs/teams/#check-if-a-team-manages-a-repository</a></li>
     
   </ul>
 
@@ -4677,12 +4718,12 @@ the team information.</p>
       <pre class="lines">
 
 
-401
-402
-403</pre>
+398
+399
+400</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 401</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 398</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_team_repository?'>team_repository?</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/repos/</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -4775,13 +4816,13 @@ the team information.</p>
       <pre class="lines">
 
 
-675
-676
-677
-678</pre>
+681
+682
+683
+684</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 675</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 681</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unlock_repository'>unlock_repository</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:migrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -4892,12 +4933,12 @@ the team information.</p>
       <pre class="lines">
 
 
-491
-492
-493</pre>
+497
+498
+499</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 491</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 497</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unpublicize_membership'>unpublicize_membership</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Organization</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_org'>org</span><span class='embexpr_end'>}</span><span class='tstring_content'>/public_members/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -5239,16 +5280,16 @@ the team information.</p>
       <pre class="lines">
 
 
-580
-581
-582
-583
-584
-585
-586</pre>
+586
+587
+588
+589
+590
+591
+592</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 580</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 586</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_organization_membership'>update_organization_membership</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:user</span><span class='rparen'>)</span>
@@ -5399,12 +5440,12 @@ the team information.</p>
       <pre class="lines">
 
 
-281
-282
-283</pre>
+278
+279
+280</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 281</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 278</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_team'>update_team</span><span class='lparen'>(</span><span class='id identifier rubyid_team_id'>team_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>teams/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_team_id'>team_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -5463,12 +5504,12 @@ the team information.</p>
       <pre class="lines">
 
 
-500
-501
-502</pre>
+506
+507
+508</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 500</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/organizations.rb', line 506</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_teams'>user_teams</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user/teams</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -5483,7 +5524,7 @@ the team information.</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Nov 17 14:27:32 2015 by
+  Generated on Sun Oct 23 19:00:53 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

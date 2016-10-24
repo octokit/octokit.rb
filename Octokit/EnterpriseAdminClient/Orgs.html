@@ -283,12 +283,16 @@
 
 19
 20
-21</pre>
+21
+22
+23</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/enterprise_admin_client/orgs.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_organization'>create_organization</span><span class='lparen'>(</span><span class='id identifier rubyid_login'>login</span><span class='comma'>,</span> <span class='id identifier rubyid_admin'>admin</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:login</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_login'>login</span>
+  <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:admin</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_admin'>admin</span>
   <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>admin/organizations</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -301,7 +305,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Nov 17 14:27:32 2015 by
+  Generated on Sun Oct 23 19:00:54 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

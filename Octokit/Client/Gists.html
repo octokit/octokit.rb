@@ -330,6 +330,52 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#gist_commits-instance_method" title="#gist_commits (instance method)">- (Array) <strong>gist_commits</strong>(gist, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>List gist commits.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#gist_forks-instance_method" title="#gist_forks (instance method)">- (Array) <strong>gist_forks</strong>(gist, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>List gist forks.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#gist_starred%3F-instance_method" title="#gist_starred? (instance method)">- (Boolean) <strong>gist_starred?</strong>(gist, options = {}) </a>
     
 
@@ -613,12 +659,12 @@ content of the Gist.</p>
       <pre class="lines">
 
 
-64
-65
-66</pre>
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_gist'>create_gist</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>gists</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -721,13 +767,13 @@ content of the Gist.</p>
       <pre class="lines">
 
 
-170
-171
-172
-173</pre>
+197
+198
+199
+200</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 197</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_gist_comment'>create_gist_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_gist_id'>gist_id</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_comment'>comment</span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -806,12 +852,12 @@ content of the Gist.</p>
       <pre class="lines">
 
 
-133
-134
-135</pre>
+160
+161
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 133</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 160</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_gist'>delete_gist</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='const'>Gist</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -914,12 +960,12 @@ content of the Gist.</p>
       <pre class="lines">
 
 
-201
-202
-203</pre>
+228
+229
+230</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 201</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 228</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_gist_comment'>delete_gist_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_gist_id'>gist_id</span><span class='comma'>,</span> <span class='id identifier rubyid_gist_comment_id'>gist_comment_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span><span class='lparen'>(</span><span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_gist_id'>gist_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_gist_comment_id'>gist_comment_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -999,18 +1045,6 @@ content of the Gist.</p>
         </li>
       
         <li>
-          <span class="name">:public</span>
-          <span class="type">(<tt>Boolean</tt>)</span>
-          <span class="default">
-            
-          </span>
-          
-            &mdash; <div class='inline'><p>Sets gist visibility</p>
-</div>
-          
-        </li>
-      
-        <li>
           <span class="name">:files</span>
           <span class="type">(<tt>Hash</tt>)</span>
           <span class="default">
@@ -1062,12 +1096,12 @@ can be performed by including the filename with a null hash.</p>
       <pre class="lines">
 
 
-87
-88
-89</pre>
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_gist'>edit_gist</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='const'>Gist</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1145,12 +1179,12 @@ can be performed by including the filename with a null hash.</p>
       <pre class="lines">
 
 
-124
-125
-126</pre>
+140
+141
+142</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fork_gist'>fork_gist</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='const'>Gist</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/forks</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1195,7 +1229,47 @@ can be performed by including the filename with a null hash.</p>
       
     </li>
   
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>a customizable set of options</p>
+</div>
+      
+    </li>
+  
 </ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:sha</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Specific gist revision SHA</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
@@ -1220,6 +1294,8 @@ can be performed by including the filename with a null hash.</p>
     
       <li><a href="https://developer.github.com/v3/gists/#get-a-single-gist" target="_parent" title="https://developer.github.com/v3/gists/#get-a-single-gist">https://developer.github.com/v3/gists/#get-a-single-gist</a></li>
     
+      <li><a href="https://developer.github.com/v3/gists/#get-a-specific-revision-of-a-gist" target="_parent" title="https://developer.github.com/v3/gists/#get-a-specific-revision-of-a-gist">https://developer.github.com/v3/gists/#get-a-specific-revision-of-a-gist</a></li>
+    
   </ul>
 
 </div><table class="source_code">
@@ -1228,15 +1304,23 @@ can be performed by including the filename with a null hash.</p>
       <pre class="lines">
 
 
-50
-51
-52</pre>
+52
+53
+54
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_gist'>gist</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='const'>Gist</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_sha'>sha</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:sha</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='const'>Gist</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_sha'>sha</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='const'>Gist</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1334,12 +1418,12 @@ can be performed by including the filename with a null hash.</p>
       <pre class="lines">
 
 
-156
-157
-158</pre>
+183
+184
+185</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 156</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 183</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_gist_comment'>gist_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_gist_id'>gist_id</span><span class='comma'>,</span> <span class='id identifier rubyid_gist_comment_id'>gist_comment_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_gist_id'>gist_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_gist_comment_id'>gist_comment_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1425,15 +1509,203 @@ can be performed by including the filename with a null hash.</p>
       <pre class="lines">
 
 
-144
-145
-146</pre>
+171
+172
+173</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 171</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_gist_comments'>gist_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_gist_id'>gist_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_gist_id'>gist_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="gist_commits-instance_method">
+  
+    - (<tt>Array</tt>) <strong>gist_commits</strong>(gist, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>List gist commits</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'><p>List commits for a gist</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_gist_commits'>gist_commits</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>some_id</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>gist</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Gist ID</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>List of commits to the gist</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/gists/#list-gist-commits" target="_parent" title="https://developer.github.com/v3/gists/#list-gist-commits">https://developer.github.com/v3/gists/#list-gist-commits</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+103
+104
+105</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 103</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_gist_commits'>gist_commits</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='const'>Gist</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/commits</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="gist_forks-instance_method">
+  
+    - (<tt>Array</tt>) <strong>gist_forks</strong>(gist, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>List gist forks</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'><p>List gist forks</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_gist_forks'>gist_forks</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>some-id</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>gist</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Gist ID</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>List of gist forks</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/gists/#list-gist-forks" target="_parent" title="https://developer.github.com/v3/gists/#list-gist-forks">https://developer.github.com/v3/gists/#list-gist-forks</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+151
+152
+153</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 151</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_gist_forks'>gist_forks</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='const'>Gist</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/forks</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1508,12 +1780,12 @@ can be performed by including the filename with a null hash.</p>
       <pre class="lines">
 
 
-115
-116
-117</pre>
+131
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 131</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_gist_starred?'>gist_starred?</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='const'>Gist</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/star</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1780,12 +2052,12 @@ can be performed by including the filename with a null hash.</p>
       <pre class="lines">
 
 
-97
-98
-99</pre>
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_star_gist'>star_gist</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='const'>Gist</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/star</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1927,12 +2199,12 @@ can be performed by including the filename with a null hash.</p>
       <pre class="lines">
 
 
-106
-107
-108</pre>
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unstar_gist'>unstar_gist</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gists/</span><span class='embexpr_beg'>#{</span><span class='const'>Gist</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_gist'>gist</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/star</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2050,13 +2322,13 @@ can be performed by including the filename with a null hash.</p>
       <pre class="lines">
 
 
-186
-187
-188
-189</pre>
+213
+214
+215
+216</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 186</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/gists.rb', line 213</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_gist_comment'>update_gist_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_gist_id'>gist_id</span><span class='comma'>,</span> <span class='id identifier rubyid_gist_comment_id'>gist_comment_id</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_comment'>comment</span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -2072,7 +2344,7 @@ can be performed by including the filename with a null hash.</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Nov 17 14:27:29 2015 by
+  Generated on Sun Oct 23 19:00:44 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

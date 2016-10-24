@@ -325,7 +325,9 @@ Management Console, and the Search Indexing API.</p>
 32
 33
 34
-35</pre>
+35
+36
+37</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/enterprise_admin_client.rb', line 30</span>
@@ -335,6 +337,8 @@ Management Console, and the Search Indexing API.</p>
 </span>  <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Configurable</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
     <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='symbol'>:@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_instance_variable_get'>instance_variable_get</span><span class='lparen'>(</span><span class='symbol'>:@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_login_from_netrc'>login_from_netrc</span> <span class='kw'>unless</span> <span class='id identifier rubyid_user_authenticated?'>user_authenticated?</span> <span class='op'>||</span> <span class='id identifier rubyid_application_authenticated?'>application_authenticated?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -347,7 +351,7 @@ Management Console, and the Search Indexing API.</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Nov 17 14:27:33 2015 by
+  Generated on Sun Oct 23 19:00:57 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

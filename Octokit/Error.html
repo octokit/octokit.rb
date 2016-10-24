@@ -233,6 +233,29 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#response_status-instance_method" title="#response_status (instance method)">- (Integer) <strong>response_status</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Status code returned by the GitHub server.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -265,13 +288,13 @@
       <pre class="lines">
 
 
-36
 37
 38
-39</pre>
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@response</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span>
@@ -371,7 +394,8 @@ on status and response message</p>
 31
 32
 33
-34</pre>
+34
+35</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 10</span>
@@ -385,12 +409,13 @@ on status and response message</p>
               <span class='kw'>when</span> <span class='int'>400</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>BadRequest</span>
               <span class='kw'>when</span> <span class='int'>401</span>      <span class='kw'>then</span> <span class='id identifier rubyid_error_for_401'>error_for_401</span><span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='rparen'>)</span>
               <span class='kw'>when</span> <span class='int'>403</span>      <span class='kw'>then</span> <span class='id identifier rubyid_error_for_403'>error_for_403</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
-              <span class='kw'>when</span> <span class='int'>404</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>NotFound</span>
+              <span class='kw'>when</span> <span class='int'>404</span>      <span class='kw'>then</span> <span class='id identifier rubyid_error_for_404'>error_for_404</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
               <span class='kw'>when</span> <span class='int'>405</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>MethodNotAllowed</span>
               <span class='kw'>when</span> <span class='int'>406</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>NotAcceptable</span>
               <span class='kw'>when</span> <span class='int'>409</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Conflict</span>
               <span class='kw'>when</span> <span class='int'>415</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>UnsupportedMediaType</span>
               <span class='kw'>when</span> <span class='int'>422</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>UnprocessableEntity</span>
+              <span class='kw'>when</span> <span class='int'>451</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>UnavailableForLegalReasons</span>
               <span class='kw'>when</span> <span class='int'>400</span><span class='op'>..</span><span class='int'>499</span> <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>ClientError</span>
               <span class='kw'>when</span> <span class='int'>500</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>InternalServerError</span>
               <span class='kw'>when</span> <span class='int'>501</span>      <span class='kw'>then</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>NotImplemented</span>
@@ -450,12 +475,12 @@ on status and response message</p>
       <pre class="lines">
 
 
-44
 45
-46</pre>
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_documentation_url'>documentation_url</span>
   <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:documentation_url</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Hash</span>
@@ -507,16 +532,16 @@ on status and response message</p>
       <pre class="lines">
 
 
-78
-79
-80
-81
-82
-83
-84</pre>
+91
+92
+93
+94
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_errors'>errors</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
@@ -530,12 +555,65 @@ on status and response message</p>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="response_status-instance_method">
+  
+    - (<tt>Integer</tt>) <strong>response_status</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Status code returned by the GitHub server.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+102
+103
+104</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/error.rb', line 102</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_response_status'>response_status</span>
+  <span class='ivar'>@response</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
     <div id="footer">
-  Generated on Tue Nov 17 14:27:32 2015 by
+  Generated on Sun Oct 23 19:00:55 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

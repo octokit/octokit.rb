@@ -281,7 +281,7 @@
 </li>
 
       
-        <li class="public ">
+        <li class="public deprecated">
   <span class="summary_signature">
     
       <a href="#revoke_all_application_authorizations-instance_method" title="#revoke_all_application_authorizations (instance method)">- (Boolean) <strong>revoke_all_application_authorizations</strong>(options = {}) </a>
@@ -294,11 +294,11 @@
   
   
   
-  
+  <span class="deprecated note title">deprecated</span>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Revoke all tokens for an app.</p>
+    <span class="summary_desc"><strong>Deprecated.</strong> <div class='inline'><p>As of January 25th, 2016: <a href="https://developer.github.com/changes/2014-04-08-reset-api-tokens/">https://developer.github.com/changes/2014-04-08-reset-api-tokens/</a></p>
 </div></span>
   
 </li>
@@ -687,32 +687,34 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-241
-242
-243
-244
-245
-246
-247
-248
-249
-250
-251
-252
-253</pre>
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 241</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 228</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_authorize_url'>authorize_url</span><span class='lparen'>(</span><span class='id identifier rubyid_app_id'>app_id</span> <span class='op'>=</span> <span class='id identifier rubyid_client_id'>client_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_app_id'>app_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>ApplicationCredentialsRequired</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>client_id required</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_authorize_url'>authorize_url</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:endpoint</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_web_endpoint'>web_endpoint</span>
-  <span class='id identifier rubyid_authorize_url'>authorize_url</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>login/oauth/authorize?client_id=</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_app_id'>app_id</span>
+  <span class='id identifier rubyid_authorize_url'>authorize_url</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>login/oauth/authorize?client_id=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_app_id'>app_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 
+  <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>cgi</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
-    <span class='id identifier rubyid_authorize_url'>authorize_url</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_value'>value</span>
+    <span class='id identifier rubyid_authorize_url'>authorize_url</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_content'>=</span><span class='embexpr_beg'>#{</span><span class='const'>CGI</span><span class='period'>.</span><span class='id identifier rubyid_escape'>escape</span> <span class='id identifier rubyid_value'>value</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 
   <span class='id identifier rubyid_authorize_url'>authorize_url</span>
@@ -857,7 +859,7 @@ Basic Authentication.</p>
 </div></p>
       
       <pre class="example code"><code><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ctshryock</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>secret</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_authorization'>create_authorization</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:scopes</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>public_repo</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gist</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:note</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Why not Zoidberg?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:note_url</span><span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://en.wikipedia.org/wiki/Zoidberg</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span></code></pre>
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_authorization'>create_authorization</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:scopes</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>public_repo</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gist</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:note</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Why not Zoidberg?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:note_url</span><span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://en.wikipedia.org/wiki/Zoidberg</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span></code></pre>
     
       
         <p class="example_title"><div class='inline'><p>Create a new OR return an existing authorization to be used by a specific client for user ctshryock&#39;s project Zoidberg</p>
@@ -1265,7 +1267,9 @@ Basic Authentication.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Revoke all tokens for an app</p>
+    <div class="note deprecated"><strong>Deprecated.</strong> <div class='inline'><p>As of January 25th, 2016: <a href="https://developer.github.com/changes/2014-04-08-reset-api-tokens/">https://developer.github.com/changes/2014-04-08-reset-api-tokens/</a></p>
+</div></div>
+<p>Revoke all tokens for an app</p>
 
 <p>Applications can revoke all of their tokens in a single request</p>
 
@@ -1274,15 +1278,6 @@ Basic Authentication.</p>
 </div>
 <div class="tags">
   
-  <div class="examples">
-    <p class="tag_title">Examples:</p>
-    
-      
-      <pre class="example code"><code><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:client_id</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>abcdefg12345</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:client_secret</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>secret</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_revoke_all_application_authorizations'>revoke_all_application_authorizations</span></code></pre>
-    
-  </div>
-
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -1294,19 +1289,12 @@ Basic Authentication.</p>
       
       
         &mdash;
-        <div class='inline'><p>Result</p>
+        <div class='inline'><p>false</p>
 </div>
       
     </li>
   
 </ul>
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><a href="https://developer.github.com/v3/oauth_authorizations/#revoke-all-authorizations-for-an-application" target="_parent" title="https://developer.github.com/v3/oauth_authorizations/#revoke-all-authorizations-for-an-application">https://developer.github.com/v3/oauth_authorizations/#revoke-all-authorizations-for-an-application</a></li>
-    
-  </ul>
 
 </div><table class="source_code">
   <tr>
@@ -1314,34 +1302,16 @@ Basic Authentication.</p>
       <pre class="lines">
 
 
-215
-216
-217
-218
-219
-220
-221
-222
-223
-224
-225
-226
-227</pre>
+212
+213
+214
+215</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 215</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/authorizations.rb', line 212</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_revoke_all_application_authorizations'>revoke_all_application_authorizations</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
-  <span class='id identifier rubyid_key'>key</span>    <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:client_id</span><span class='rparen'>)</span>     <span class='op'>||</span> <span class='id identifier rubyid_client_id'>client_id</span>
-  <span class='id identifier rubyid_secret'>secret</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:client_secret</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_client_secret'>client_secret</span>
-
-  <span class='id identifier rubyid_as_app'>as_app</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_secret'>secret</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_client'>app_client</span><span class='op'>|</span>
-    <span class='id identifier rubyid_app_client'>app_client</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/applications/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_client_id'>client_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/tokens</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
-
-    <span class='id identifier rubyid_app_client'>app_client</span><span class='period'>.</span><span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='op'>==</span> <span class='int'>204</span>
-  <span class='kw'>end</span>
-<span class='kw'>rescue</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>NotFound</span>
+  <span class='id identifier rubyid_octokit_warn'>octokit_warn</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Deprecated: If you need to revoke all tokens for your application, you can do so via the settings page for your application.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1780,7 +1750,7 @@ Basic Authentication.</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Nov 17 14:27:32 2015 by
+  Generated on Sun Oct 23 19:00:54 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>

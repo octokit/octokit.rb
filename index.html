@@ -70,6 +70,70 @@
 <p>Upgrading? Check the <a href="#Upgrading_guide">Upgrade Guide</a> before bumping to a new
 <a href="http://semver.org/">major version</a>.</p>
 
+<h2>Table of Contents</h2>
+
+<ol>
+<li><a href="#Philosophy">Philosophy</a></li>
+<li><a href="#Quick_start">Quick start</a></li>
+<li><a href="#Making_requests">Making requests</a></li>
+<li><a href="#Consuming_resources">Consuming resources</a></li>
+<li><a href="#Accessing_http_responses">Accessing HTTP responses</a></li>
+<li><a href="#Authentication">Authentication</a>
+
+<ol>
+<li><a href="#basic-Authentication">Basic Authentication</a></li>
+<li><a href="#Oauth_access_tokens">OAuth access tokens</a></li>
+<li><a href="#two-factor-Authentication">Two-Factor Authentication</a></li>
+<li><a href="#Using_a_netrc_file">Using a .netrc file</a></li>
+<li><a href="#application-Authentication">Application Authentication</a></li>
+</ol></li>
+<li><a href="#Pagination">Pagination</a>
+
+<ol>
+<li><a href="#auto-Pagination">Auto Pagination</a></li>
+</ol></li>
+<li><a href="#Working_with_github_enterprise">Working with GitHub Enterprise</a>
+
+<ol>
+<li><a href="#Interacting_with_the_githubcom_apis_in_github_enterprise">Interacting with the GitHub.com APIs in GitHub Enterprise</a></li>
+<li><a href="#Interacting_with_the_github_enterprise_admin_apis">Interacting with the GitHub Enterprise Admin APIs</a></li>
+<li><a href="#Interacting_with_the_github_enterprise_management_console_apis">Interacting with the GitHub Enterprise Management Console APIs</a></li>
+</ol></li>
+<li><a href="#Ssl_connection_errors">SSL Connection Errors</a></li>
+<li><a href="#Configuration_and_defaults">Configuration and defaults</a>
+
+<ol>
+<li><a href="#Configuring_module_defaults">Configuring module defaults</a></li>
+<li><a href="#Using_env_variables">Using ENV variables</a></li>
+</ol></li>
+<li><a href="#Hypermedia_agent">Hypermedia agent</a>
+
+<ol>
+<li><a href="#Hypermedia_in_octokit">Hypermedia in Octokit</a></li>
+<li><a href="#Uri_templates">URI templates</a></li>
+<li><a href="#The_full_hypermedia_experience">The Full Hypermedia Experience™</a></li>
+</ol></li>
+<li><a href="#Upgrading_guide">Upgrading guide</a>
+
+<ol>
+<li><a href="#Upgrading_from_1xx">Upgrading from 1.x.x</a></li>
+</ol></li>
+<li><a href="#Advanced_usage">Advanced usage</a>
+
+<ol>
+<li><a href="#Debugging">Debugging</a></li>
+<li><a href="#Caching">Caching</a></li>
+</ol></li>
+<li><a href="#Hacking_on_octokitrb">Hacking on Octokit.rb</a>
+
+<ol>
+<li><a href="#Running_and_writing_new_tests">Running and writing new tests</a></li>
+</ol></li>
+<li><a href="#Supported_ruby_versions">Supported Ruby Versions</a></li>
+<li><a href="#Versioning">Versioning</a></li>
+<li><a href="#License">License</a></li>
+</ol>
+
 <h2>Philosophy</h2>
 
 <p>API wrappers <a href="http://wynnnetherland.com/journal/what-makes-a-good-api-wrapper">should reflect the idioms of the language in which they were
@@ -99,7 +163,7 @@ for optional parameters, headers, or other options:</p>
 <p><a href="http://octokit.github.io/octokit.rb/method_list.html">API methods</a> are available as module methods (consuming module-level
 configuration) or as client instance methods.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='comment'># Provide authentication credentials
+<pre class="code ruby"><code class="ruby"><span class='comment'># Provide Authentication credentials
 </span><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
   <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_login'>login</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_password'>password</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
@@ -111,7 +175,7 @@ configuration) or as client instance methods.</p>
 
 <p>or</p>
 
-<pre class="code ruby"><code class="ruby"><span class='comment'># Provide authentication credentials
+<pre class="code ruby"><code class="ruby"><span class='comment'># Provide Authentication credentials
 </span><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='comment'># Fetch the current user
 </span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span>
@@ -150,7 +214,7 @@ response with <code>Client#last_response</code>:</p>
 
 <h2>Authentication</h2>
 
-<p>Octokit supports the various <a href="http://developer.github.com/v3/#authentication">authentication methods supported by the GitHub
+<p>Octokit supports the various <a href="http://developer.github.com/v3/#Authentication">Authentication methods supported by the GitHub
 API</a>:</p>
 
 <h3>Basic Authentication</h3>
@@ -206,9 +270,9 @@ or with a basic authenticated Octokit client:</p>
 
 <h3>Two-Factor Authentication</h3>
 
-<p><a href="https://help.github.com/articles/about-two-factor-authentication">Two-Factor Authentication</a> brings added security to the account by requiring more information to login.</p>
+<p><a href="https://help.github.com/articles/about-two-factor-Authentication">Two-Factor Authentication</a> brings added security to the account by requiring more information to login.</p>
 
-<p>Using two-factor authentication for API calls is as simple as adding the <a href="http://developer.github.com/v3/auth/#working-with-two-factor-authentication">required header</a> as an option:</p>
+<p>Using two-factor Authentication for API calls is as simple as adding the <a href="http://developer.github.com/v3/auth/#working-with-two-factor-Authentication">required header</a> as an option:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> \
   <span class='symbol'>:login</span>    <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
@@ -256,9 +320,9 @@ token as a Basic password, you totally can:</p>
 <p><strong>Note:</strong> Support for netrc requires adding the <a href="https://rubygems.org/gems/netrc">netrc gem</a> to your Gemfile
 or <code>.gemspec</code>.</p>
 
-<h3>Application authentication</h3>
+<h3>Application Authentication</h3>
 
-<p>Octokit also supports application-only authentication <a href="http://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications">using OAuth application client
+<p>Octokit also supports application-only Authentication <a href="http://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications">using OAuth application client
 credentials</a>. Using application credentials will result in making
 anonymous API calls on behalf of an application in order to take advantage of
 the higher rate limit.</p>
@@ -272,7 +336,7 @@ the higher rate limit.</p>
 
 <h2>Pagination</h2>
 
-<p>Many GitHub API resources are <a href="http://developer.github.com/v3/#pagination">paginated</a>. While you may be tempted to start
+<p>Many GitHub API resources are <a href="http://developer.github.com/v3/#Pagination">paginated</a>. While you may be tempted to start
 adding <code>:page</code> parameters to your calls, the API returns links to the next,
 previous, and last pages for you in the <code>Link</code> response header as <a href="#Hypermedia_agent">Hypermedia
 link relations</a>.</p>
@@ -281,9 +345,9 @@ link relations</a>.</p>
 <span class='id identifier rubyid_issues'>issues</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:next</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
 </code></pre>
 
-<h3>Auto pagination</h3>
+<h3>Auto Pagination</h3>
 
-<p>For smallish resource lists, Octokit provides auto pagination. When this is
+<p>For smallish resource lists, Octokit provides auto Pagination. When this is
 enabled, calls for paginated resources will fetch and concatenate the results
 from every page into a single array:</p>
 
@@ -294,7 +358,7 @@ from every page into a single array:</p>
 <span class='comment'># =&gt; 702
 </span></code></pre>
 
-<p><strong>Note:</strong> While Octokit auto pagination will set the page size to the maximum
+<p><strong>Note:</strong> While Octokit auto Pagination will set the page size to the maximum
 <code>100</code>, and seek to not overstep your rate limit, you probably want to use a
 custom pattern for traversing large lists.</p>
 
@@ -307,7 +371,7 @@ custom pattern for traversing large lists.</p>
 <p>To interact with the &quot;regular&quot; GitHub.com APIs in GitHub Enterprise, simply configure the <code>api_endpoint</code> to match your hostname. For example:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
-  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;hostname&gt;/api/v3/</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://&lt;hostname&gt;/api/v3/</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span>
 <span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:access_token</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
@@ -316,16 +380,16 @@ custom pattern for traversing large lists.</p>
 
 <p>The GitHub Enterprise Admin APIs are under a different client: <code>EnterpriseAdminClient</code>. You&#39;ll need to have an administrator account in order to use these APIs.</p>
 
-<pre class="code ruby"><code class="ruby">admin_client = Octokit::EnterpriseAdminClient.new \
-                          :access_token =&gt; &quot;&lt;your 40 char token&gt;&quot;,
-                          :api_endpoint = &quot;https://&lt;hostname&gt;/api/v3/&quot;
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_admin_client'>admin_client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>EnterpriseAdminClient</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> \
+                          <span class='symbol'>:access_token</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                          <span class='symbol'>:api_endpoint</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://&lt;hostname&gt;/api/v3/</span><span class='tstring_end'>&quot;</span></span>
 
-# or
-Octokit.configure do |c|
-  c.api_endpoint = &quot;https://hostname/api/v3/&quot;
-  c.access_token = &quot;&lt;your 40 char token&gt;&quot;
-end
-admin_client = Octokit.enterprise_admin_client
+<span class='comment'># or
+</span><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://&lt;hostname&gt;/api/v3/</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_access_token'>access_token</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
+<span class='id identifier rubyid_admin_client'>admin_client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_enterprise_admin_client'>enterprise_admin_client</span>
 </code></pre>
 
 <h3>Interacting with the GitHub Enterprise Management Console APIs</h3>
@@ -357,7 +421,9 @@ management_console_client = Octokit.enterprise_management_console_client
 <p>While <code>Octokit::Client</code> accepts a range of options when creating a new client
 instance, Octokit&#39;s configuration API allows you to set your configuration
 options at the module level. This is particularly handy if you&#39;re creating a
-number of client instances based on some shared defaults.</p>
+number of client instances based on some shared defaults. Changing options
+affects new instances only and will not modify existing <code>Octokit::Client</code>
+instances created with previous options.</p>
 
 <h3>Configuring module defaults</h3>
 
@@ -439,6 +505,8 @@ the API root and follow link relations from there:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_root'>root</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_root'>root</span>
 <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:repository</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='symbol'>:uri</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='symbol'>:owner</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:repo</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit.rb</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:user_repositories</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='symbol'>:uri</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='symbol'>:user</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+                                  <span class='symbol'>:query</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='symbol'>:type</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>owner</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
 </code></pre>
 
 <p>Octokit 3.0 aims to be hypermedia-driven, removing the internal URL
@@ -544,7 +612,7 @@ the hypermedia tax, you can use <a href="https://github.com/plataformatec/farada
 <p>Next, construct your own Faraday middleware:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stack'>stack</span> <span class='op'>=</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>RackBuilder</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_builder'>builder</span><span class='op'>|</span>
-  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>HttpCache</span>
+  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>HttpCache</span><span class='comma'>,</span> <span class='label'>serializer:</span> <span class='const'>Marshal</span><span class='comma'>,</span> <span class='label'>shared_cache:</span> <span class='kw'>false</span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Response</span><span class='op'>::</span><span class='const'>RaiseError</span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_adapter'>adapter</span> <span class='const'>Faraday</span><span class='period'>.</span><span class='id identifier rubyid_default_adapter'>default_adapter</span>
 <span class='kw'>end</span>
@@ -583,7 +651,7 @@ cassettes with:</p>
 </code></pre>
 
 <p>Octokit uses environmental variables for storing credentials used in testing.
-If you are testing an API endpoint that doesn&#39;t require authentication, you
+If you are testing an API endpoint that doesn&#39;t require Authentication, you
 can get away without any additional configuration. For the most part, tests
 use an authenticated client, using a token stored in <code>ENV[&#39;OCTOKIT_TEST_GITHUB_TOKEN&#39;]</code>.
 There are several different authenticating method&#39;s used across the api.
@@ -670,6 +738,7 @@ implementations:</p>
 <li>Ruby 2.0</li>
 <li>Ruby 2.1</li>
 <li>Ruby 2.2</li>
+<li>Ruby 2.3</li>
 </ul>
 
 <p>If something doesn&#39;t work on one of these Ruby versions, it&#39;s a bug.</p>
@@ -709,7 +778,7 @@ Constraint</a> with two digits of precision. For example:</p>
 a copy of this software and associated documentation files (the
 &quot;Software&quot;), to deal in the Software without restriction, including
 without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
+distribute, subLicense, and/or sell copies of the Software, and to
 permit persons to whom the Software is furnished to do so, subject to
 the following conditions:</p>
 
@@ -726,7 +795,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Tue Nov 17 14:27:28 2015 by
+  Generated on Sun Oct 23 19:00:40 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.3).
 </div>
