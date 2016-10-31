@@ -5,11 +5,11 @@ module Octokit
 
   # Current minor release.
   # @return [Integer]
-  MINOR = 4
+  MINOR = 5
 
   # Current patch level.
   # @return [Integer]
-  PATCH = 1
+  PATCH = '0.pre'
 
   # Full release version.
   # @return [String]
