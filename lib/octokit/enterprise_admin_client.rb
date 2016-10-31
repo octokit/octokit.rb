@@ -32,8 +32,6 @@ module Octokit
       Octokit::Configurable.keys.each do |key|
         instance_variable_set(:"@#{key}", options[key] || Octokit.instance_variable_get(:"@#{key}"))
       end
-
-      login_from_netrc unless user_authenticated? || application_authenticated?
     end
 
   end
