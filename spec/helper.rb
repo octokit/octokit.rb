@@ -107,6 +107,13 @@ VCR.configure do |c|
   c.hook_into :webmock
 end
 
+def delete_test_repo
+  begin
+    oauth_client.delete_repository @test_repo
+  rescue Octokit::NotFound
+  end
+end
+
 def test_github_login
   ENV.fetch 'OCTOKIT_TEST_GITHUB_LOGIN', 'api-padawan'
 end
