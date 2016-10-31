@@ -110,6 +110,8 @@ module Octokit
           http.basic_auth(@login, @password)
         elsif token_authenticated?
           http.authorization 'token', @access_token
+        elsif bearer_authenticated?
+          http.authorization 'Bearer', @bearer_token
         elsif application_authenticated?
           http.params = http.params.merge application_authentication
         end
