@@ -283,7 +283,7 @@ module Octokit
       #   card in the same column, or in the new column specified by column_id.
       # @option options [Integer] :column_id The column id to move the card to,
       #   must be column in same project
-      # @return [Boolean] True if successful, false otherwise
+      # @return [Sawyer::Resource] Empty sawyer resource
       # @see https://developer.github.com/v3/projects/cards/#move-a-project-card
       # @example Move a card to the bottom of the same column
       #   @client.move_project_card(123495, 'bottom')
@@ -292,7 +292,7 @@ module Octokit
       def move_project_card(id, position, options = {})
         opts = ensure_api_media_type(:projects, options)
         opts[:position] = position
-        boolean_from_response :post, "projects/columns/cards/#{id}/moves", opts
+        post "projects/columns/cards/#{id}/moves", opts
       end
 
       # Delete a project card

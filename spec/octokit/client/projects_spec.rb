@@ -168,8 +168,8 @@ describe Octokit::Client::Projects do
 
           describe ".move_project_card", :vcr do
             it "moves the project card" do
-              success = oauth_client.move_project_card(@card.id, 'bottom')
-              expect(success).to eq true
+              result = oauth_client.move_project_card(@card.id, 'bottom')
+              expect(result).not_to be_nil
               assert_requested :post, github_url("/projects/columns/cards/#{@card.id}/moves")
             end
           end # .move_project_card
