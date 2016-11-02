@@ -48,6 +48,7 @@ require 'octokit/client/service_status'
 require 'octokit/client/source_import'
 require 'octokit/client/stats'
 require 'octokit/client/statuses'
+require 'octokit/client/traffic'
 require 'octokit/client/users'
 
 module Octokit
@@ -100,6 +101,7 @@ module Octokit
     include Octokit::Client::SourceImport
     include Octokit::Client::Stats
     include Octokit::Client::Statuses
+    include Octokit::Client::Traffic
     include Octokit::Client::Users
 
     # Header keys that can be passed in options hash to {#get},{#head}
