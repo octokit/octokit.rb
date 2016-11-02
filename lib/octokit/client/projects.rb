@@ -195,14 +195,14 @@ module Octokit
       # @param position [String] New position for the column. Can be one of 
       #   <tt>first</tt>, <tt>last</tt>, or <tt>after:<column-id></tt>, where
       #   <tt><column-id></tt> is the id value of a column in the same project.
-      # @return [Boolean] Move result, true if successful
+      # @return [Sawyer::Resource] Result
       # @see https://developer.github.com/v3/projects/columns/#move-a-project-column
       # @example
       #   @client.move_project_column(3049, "last")
       def move_project_column(id, position, options = {})
         opts = ensure_api_media_type(:projects, options)
         opts[:position] = position
-        boolean_from_response :post, "projects/columns/#{id}/moves", opts
+        post "projects/columns/#{id}/moves", opts
       end
 
       # List columns cards

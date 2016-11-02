@@ -116,6 +116,7 @@ describe Octokit::Client::Projects do
         describe ".move_project_column", :vcr do
           it "moves the project column" do
             result = oauth_client.move_project_column(@column.id, "last")
+            expect(result).not_to be_nil
             assert_requested :post, github_url("/projects/columns/#{@column.id}/moves")
           end
         end # .move_project_column
