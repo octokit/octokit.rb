@@ -499,17 +499,25 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param branch [String] Branch name
-      # @param required_status_checks [Hash]
+      # @option options [Hash] :required_status_checks If not null, the following keys are required:  
+      #   <tt>:include_admins [boolean] Enforce required status checks for repository administrators.</tt>  
+      #   <tt>:strict [boolean] Require branches to be up to date before merging.</tt>  
+      #   <tt>:contexts [Array] The list of status checks to require in order to merge into this branch</tt>  
+      #
+      # @option options [Hash] :restrictions If not null, the following keys are required:
+      #   <tt>:users [Array] The list of user logins with push access</tt>  
+      #   <tt>:teams [Array] The list of team slugs with push access</tt>.  
+      #
+      #   Teams and users restrictions are only available for organization-owned repositories.
       # @return [Sawyer::Resource] The protected branch
       # @see https://developer.github.com/v3/repos/#enabling-and-disabling-branch-protection
       # @example
       #   @client.protect_branch('octokit/octokit.rb', 'master', foo)
-      def protect_branch(repo, branch, required_status_checks = {}, options = {})
-        required_status_checks[:restrictions] ||= nil
-        required_status_checks[:required_status_checks] ||= nil
-
-        options = ensure_api_media_type(:branch_protection, options.merge(required_status_checks))
-        put "#{Repository.path repo}/branches/#{branch}/protection", options
+      def protect_branch(repo, branch, options = {})
+        opts = ensure_api_media_type(:branch_protection, options)
+        opts[:restrictions] ||= nil
+        opts[:required_status_checks] ||= nil
+        put "#{Repository.path repo}/branches/#{branch}/protection", opts
       end
 
       # Get branch protection summary
@@ -541,8 +549,8 @@ module Octokit
       # @example
       #   @client.unprotect_branch('octokit/octokit.rb', 'master')
       def unprotect_branch(repo, branch, options = {})
-        options = ensure_api_media_type(:branch_protection, options)
-        delete "#{Repository.path repo}/branches/#{branch}/protection", options
+        opts = ensure_api_media_type(:branch_protection, options)
+        boolean_from_response :delete, "#{Repository.path repo}/branches/#{branch}/protection", opts
       end
 
       # List users available for assigning to issues.

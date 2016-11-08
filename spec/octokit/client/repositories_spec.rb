@@ -326,29 +326,31 @@ describe Octokit::Client::Repositories do
       expect(branches).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/branches")
     end
+
     it "returns a single branch" do
       branch = Octokit.branch("octokit/octokit.rb", "master")
       expect(branch.commit.sha).not_to be_nil
       assert_requested :get, github_url("/repos/octokit/octokit.rb/branches/master")
     end
+  end # .branches
 
-    context 'with repository' do
-      before(:each) do
-        @repo = @client.create_repository("an-repo", auto_init: true)
+  context 'with repository' do
+    before(:each) do
+      @repo = @client.create_repository("an-repo", auto_init: true)
+    end
+
+    after(:each) do
+      begin
+        @client.delete_repository(@repo.full_name)
+      rescue Octokit::NotFound
       end
+    end
 
-      after(:each) do
-        begin
-          @client.delete_repository(@repo.full_name)
-        rescue Octokit::NotFound
-        end
-      end
-
-      it "protects a single branch without mandating required_status_checks or restrictions" do
+    describe ".protect_branch", :vcr do
+      it "protects a single branch" do
         branch = @client.protect_branch(@repo.full_name, "master")
         expect(branch.url).not_to be_nil
-        expect(branch.required_status_checks).to be_nil
-        expect(branch.restrictions).to be_nil
+        assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
       end
 
       it "protects a single branch with required_status_checks" do
@@ -364,17 +366,25 @@ describe Octokit::Client::Repositories do
 
         expect(branch.required_status_checks.include_admins).to be true
         expect(branch.restrictions).to be_nil
+        assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
+      end
+    end # .protect_branch
+
+    context "with protected branch" do
+      before(:each) do
+        @client.protect_branch(@repo.full_name, "master")
       end
 
-      it "unprotects a single branch" do
-        branch = @client.protect_branch(@repo.full_name, "master")
-        expect(branch.url).not_to be_nil
+      describe ".unprotect_branch", :vcr do
+        it "unprotects a single branch" do
+          branch = @client.unprotect_branch(@repo.full_name, "master")
+          expect(branch).to eq true
+          assert_requested :delete, github_url("/repos/#{@repo.full_name}/branches/master/protection")
+        end
+      end # .unprotect_branch
 
-        branch = @client.unprotect_branch(@repo.full_name, "master")
-        expect(branch).to be_empty
-      end
-    end
-  end # .branches
+    end # with protected_branch
+  end # with repository
 
   describe ".assignees", :vcr do
     it "lists all the available assignees (owner + collaborators)" do
