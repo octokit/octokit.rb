@@ -50,6 +50,7 @@ require 'octokit/client/stats'
 require 'octokit/client/statuses'
 require 'octokit/client/traffic'
 require 'octokit/client/users'
+require 'ext/sawyer/relation'
 
 module Octokit
 
