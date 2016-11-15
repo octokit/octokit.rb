@@ -175,6 +175,8 @@ module Octokit
   # Raised when GitHub returns a 401 HTTP status code
   class Unauthorized < ClientError; end
 
+  class TokenAuthenticationRequired < Unauthorized; end
+
   # Raised when GitHub returns a 401 HTTP status code
   # and headers include "X-GitHub-OTP"
   class OneTimePasswordRequired < ClientError
