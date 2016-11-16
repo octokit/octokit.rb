@@ -1,11 +1,11 @@
-module Sawyer
-  class Relation
-    def href(options=nil)
-      return @href if @href_template.nil?
-      return @href if name.to_s == "ssh"
+require 'sawyer'
 
-      @href_template.expand(options || {}).to_s
-    end
+module Patch
+  def href(options=nil)
+    # see: octokit/octokit.rb#727
+    name.to_s == "ssh" ? @href : super
   end
 end
+
+Sawyer::Relation.send(:prepend, Patch)
 
