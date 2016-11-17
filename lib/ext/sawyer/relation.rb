@@ -2,7 +2,7 @@ require 'sawyer'
 
 module Patch
   def href(options=nil)
-    # see: octokit/octokit.rb#727
+    # Temporary workaround for: https://github.com/octokit/octokit.rb/issues/727
     name.to_s == "ssh" ? @href : super
   end
 end
