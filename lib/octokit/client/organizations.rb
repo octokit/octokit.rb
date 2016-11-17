@@ -207,6 +207,21 @@ module Octokit
       end
       alias :org_public_member? :organization_public_member?
 
+      # List pending organization invitations
+      #
+      # Requires authenticated organization member.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing invitations.
+      # @see https://developer.github.com/v3/orgs/members/#list-pending-organization-invitations
+      #
+      # @example
+      #   @client.organization_invitations('github')
+      def organization_invitations(org, options = {})
+        options = ensure_api_media_type(:org_memberships, options)
+        get "#{Organization.path org}/invitations", options
+      end
+
       # List teams
       #
       # Requires authenticated organization member.
