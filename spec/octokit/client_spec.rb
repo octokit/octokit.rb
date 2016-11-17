@@ -935,4 +935,16 @@ describe Octokit::Client do
                             .collect { |m| m.public_instance_methods }.flatten
     end
   end
+
+  describe "rels parsing" do
+    before do
+      Octokit.reset!
+      @client = oauth_client
+    end
+
+    it "handles git@github ssh URLs", :vcr do
+      repo = @client.repository("octokit/octokit.rb")
+      expect(repo.rels[:ssh].href).to eq("git@github.com:octokit/octokit.rb.git")
+    end
+  end
 end
