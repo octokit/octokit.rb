@@ -8,4 +8,3 @@ module Patch
 end
 
 Sawyer::Relation.send(:prepend, Patch)
-
