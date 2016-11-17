@@ -382,6 +382,21 @@ module Octokit
         boolean_from_response :get, "teams/#{team_id}/members/#{user}", options
       end
 
+      # List pending team invitations
+      #
+      # Requires authenticated organization member.
+      #
+      # @param team_id [Integer] Team id.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing invitations.
+      # @see https://developer.github.com/v3/orgs/teams/#list-pending-team-invitations
+      #
+      # @example
+      #   @client.team_invitations('github')
+      def team_invitations(team_id, options = {})
+        options = ensure_api_media_type(:org_memberships, options)
+        get "teams/#{team_id}/invitations", options
+      end
+
       # List team repositories
       #
       # Requires authenticated organization member.

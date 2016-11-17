@@ -160,6 +160,13 @@ describe Octokit::Client::Organizations do
       end
     end # .team_member?
 
+    describe ".team_invitations", :vcr do
+      it "lists pending team invitations" do
+        @client.team_invitations(@team.id, :accept => 'application/vnd.github.korra-preview+json')
+        assert_requested :get, github_url("/teams/#{@team.id}/invitations")
+      end
+    end # .team_invitations
+
     describe ".team_repositories", :vcr do
       it "returns team repositories" do
         repositories = @client.team_repositories(@team.id)
