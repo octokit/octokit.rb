@@ -292,6 +292,7 @@ module Octokit
       # @param org [String, Integer] Organization GitHub login or id.
       # @option options [String] :name Team name.
       # @option options [Array<String>] :repo_names Repositories for the team.
+      # @option options [Array<String>] :maintainers Maintainers for the team.
       # @return [Sawyer::Resource] Hash representing new team.
       # @see https://developer.github.com/v3/orgs/teams/#create-team
       # @example
