@@ -349,6 +349,19 @@ module Octokit
         boolean_from_response :get, "#{Repository.path repo}/collaborators/#{collaborator}", options
       end
 
+      # Get a user's permission level for a repo.
+      #
+      # Requires authenticated client
+      #
+      # @return [Sawyer::Resource] Hash representing the user's permission level for the given repository
+      # @see https://developer.github.com/v3/repos/collaborators/#review-a-users-permission-level
+      # @example
+      #   @client.permission_level('octokit/octokit.rb', 'lizzhale')
+      def permission_level(repo, collaborator, options={})
+        options = ensure_api_media_type(:org_memberships, options)
+        get "#{Repository.path repo}/collaborators/#{collaborator}/permission", options
+      end
+
       # List teams for a repo
       #
       # Requires authenticated client that is an owner or collaborator of the repo.
