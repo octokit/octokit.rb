@@ -91,30 +91,28 @@ describe Octokit::Client::Organizations do
     end
   end # .organization_invitations
 
-  context "with outside collaborator" do
-    describe ".outside_collaborators", :vcr do
-      it "lists outside collaborators for an organization" do
-        @client.outside_collaborators(test_github_org, :accept => 'application/vnd.github.korra-preview+json')
-        assert_requested :get, github_url("/orgs/#{test_github_org}/outside_collaborators")
-      end
-    end #  .outside_collaborators
+  describe ".outside_collaborators", :vcr do
+    it "lists outside collaborators for an organization" do
+      @client.outside_collaborators(test_github_org, :accept => 'application/vnd.github.korra-preview+json')
+      assert_requested :get, github_url("/orgs/#{test_github_org}/outside_collaborators")
+    end
+  end #  .outside_collaborators
 
-    describe ".remove_outside_collaborator", :vcr do
-      it "removes the outside collaborator from an organization" do
-        stub_delete github_url("/orgs/#{test_github_org}/outside_collaborator/lizzhale")
-        @client.remove_outside_collaborator(test_github_org, 'lizzhale', :accept => 'application/vnd.github.korra-preview+json')
-        assert_requested :delete, github_url("/orgs/#{test_github_org}/outside_collaborator/lizzhale")
-      end
-    end # .remove_outside_collaborator
+  describe ".remove_outside_collaborator", :vcr do
+    it "removes the outside collaborator from an organization" do
+      stub_delete github_url("/orgs/#{test_github_org}/outside_collaborator/lizzhale")
+      @client.remove_outside_collaborator(test_github_org, 'lizzhale', :accept => 'application/vnd.github.korra-preview+json')
+      assert_requested :delete, github_url("/orgs/#{test_github_org}/outside_collaborator/lizzhale")
+    end
+  end # .remove_outside_collaborator
 
-    describe ".convert_to_outside_collaborator", :vcr do
-      it "converts an organization member to an outside collaborator" do
-        stub_put github_url("orgs/#{test_github_org}/outside_collaborator/lizzhale")
-        @client.convert_to_outside_collaborator(test_github_org, 'lizzhale', :accept => 'application/vnd.github.korra-preview+json')
-        assert_requested :put, github_url("orgs/#{test_github_org}/outside_collaborator/lizzhale")
-      end
-    end # .convert_to_outside_collaborator
-  end # with outside collaborator
+  describe ".convert_to_outside_collaborator", :vcr do
+    it "converts an organization member to an outside collaborator" do
+      stub_put github_url("orgs/#{test_github_org}/outside_collaborator/lizzhale")
+      @client.convert_to_outside_collaborator(test_github_org, 'lizzhale', :accept => 'application/vnd.github.korra-preview+json')
+      assert_requested :put, github_url("orgs/#{test_github_org}/outside_collaborator/lizzhale")
+    end
+  end # .convert_to_outside_collaborator
 
   describe ".organization_teams", :vcr do
     it "returns all teams for an organization" do
