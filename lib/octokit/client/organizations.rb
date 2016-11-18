@@ -253,6 +253,22 @@ module Octokit
         boolean_from_response :delete, "#{Organization.path org}/outside_collaborator/#{user}", options
       end
 
+      # Converts an organization member to an outside collaborator
+      #
+      # Requires authenticated organization members.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param user [String] GitHub username to be removed as outside collaborator
+      # @return [Boolean] Return true if outside collaborator removed from organization, false otherwise.
+      # @see https://developer.github.com/v3/orgs/outside-collaborators/#convert-member-to-outside-collaborator
+      #
+      # @example
+      #   @client.convert_to_outside_collaborator('github', 'lizzhale')
+      def convert_to_outside_collaborator(org, user, options={})
+        options = ensure_api_media_type(:org_memberships, options)
+        boolean_from_response :put, "#{Organization.path org}/outside_collaborator/#{user}", options
+      end
+
       # List teams
       #
       # Requires authenticated organization member.

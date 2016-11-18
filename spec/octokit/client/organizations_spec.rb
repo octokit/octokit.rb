@@ -106,6 +106,14 @@ describe Octokit::Client::Organizations do
         assert_requested :delete, github_url("/orgs/#{test_github_org}/outside_collaborator/lizzhale")
       end
     end # .remove_outside_collaborator
+
+    describe ".convert_to_outside_collaborator", :vcr do
+      it "converts an organization member to an outside collaborator" do
+        stub_put github_url("orgs/#{test_github_org}/outside_collaborator/lizzhale")
+        @client.convert_to_outside_collaborator(test_github_org, 'lizzhale', :accept => 'application/vnd.github.korra-preview+json')
+        assert_requested :put, github_url("orgs/#{test_github_org}/outside_collaborator/lizzhale")
+      end
+    end # .convert_to_outside_collaborator
   end # with outside collaborator
 
   describe ".organization_teams", :vcr do
