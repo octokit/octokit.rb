@@ -222,6 +222,21 @@ module Octokit
         get "#{Organization.path org}/invitations", options
       end
 
+      # List outside collaborators for an organization
+      #
+      # Requires authenticated organization members.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users.
+      # @see https://developer.github.com/v3/orgs/outside-collaborators/#list-outside-collaborators
+      #
+      # @example
+      #   @client.outside_collaborators('github')
+      def outside_collaborators(org, options={})
+        options = ensure_api_media_type(:org_memberships, options)
+        get "#{Organization.path org}/outside_collaborators", options
+      end
+
       # List teams
       #
       # Requires authenticated organization member.

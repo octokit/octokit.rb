@@ -91,6 +91,15 @@ describe Octokit::Client::Organizations do
     end
   end # .organization_invitations
 
+  context "with outside collaborator" do
+    describe ".outside_collaborators", :vcr do
+      it "lists outside collaborators for an organization" do
+        @client.outside_collaborators(test_github_org, :accept => 'application/vnd.github.korra-preview+json')
+        assert_requested :get, github_url("/orgs/#{test_github_org}/outside_collaborators")
+      end
+    end #  .outside_collaborators
+  end # with outside collaborator
+
   describe ".organization_teams", :vcr do
     it "returns all teams for an organization" do
       teams = @client.organization_teams(test_github_org)
