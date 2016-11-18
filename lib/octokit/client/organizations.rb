@@ -31,6 +31,8 @@ module Octokit
       # @option values [String] :email Publicly visible email address.
       # @option values [String] :location Location of organization.
       # @option values [String] :name GitHub username for organization.
+      # @option values [String] :default_repository_permission The default permission members have on organization repositories.
+      # @option values [Boolean] :members_can_create_repositories Set true to allow members to create repositories on the organization.
       # @return [Sawyer::Resource] Hash representing GitHub organization.
       # @see https://developer.github.com/v3/orgs/#edit-an-organization
       # @example
