@@ -250,7 +250,7 @@ module Octokit
       #   @client.remove_outside_collaborator('github', 'lizzhale')
       def remove_outside_collaborator(org, user, options={})
         options = ensure_api_media_type(:org_memberships, options)
-        boolean_from_response :delete, "#{Organization.path org}/outside_collaborator/#{user}", options
+        boolean_from_response :delete, "#{Organization.path org}/outside_collaborators/#{user}", options
       end
 
       # Converts an organization member to an outside collaborator
@@ -266,7 +266,7 @@ module Octokit
       #   @client.convert_to_outside_collaborator('github', 'lizzhale')
       def convert_to_outside_collaborator(org, user, options={})
         options = ensure_api_media_type(:org_memberships, options)
-        boolean_from_response :put, "#{Organization.path org}/outside_collaborator/#{user}", options
+        boolean_from_response :put, "#{Organization.path org}/outside_collaborators/#{user}", options
       end
 
       # List teams
