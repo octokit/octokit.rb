@@ -12,12 +12,18 @@ module Octokit
       #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param options [Hash] Method options
       #   @option options [String] :state `open` or `closed`.
+      #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of pulls
       # @see https://developer.github.com/v3/pulls/#list-pull-requests
       # @example
       #   Octokit.pull_requests('rails/rails', :state => 'closed')
-      def pull_requests(repo, options = {})
-        paginate "#{Repository.path repo}/pulls", options
+      def pull_requests(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/pulls", options, &block
       end
       alias :pulls :pull_requests
 
@@ -124,9 +130,14 @@ module Octokit
       # @see https://developer.github.com/v3/pulls/#list-commits-on-a-pull-request
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of commits
-      def pull_request_commits(repo, number, options = {})
-        paginate "#{Repository.path repo}/pulls/#{number}/commits", options
+      def pull_request_commits(repo, number, options = {}, &block)
+        paginate "#{Repository.path repo}/pulls/#{number}/commits", options, &block
       end
       alias :pull_commits :pull_request_commits
 
@@ -142,6 +153,11 @@ module Octokit
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array] List of pull request review comments.
       #
       # @see https://developer.github.com/v3/pulls/comments/#list-comments-in-a-repository
@@ -155,8 +171,8 @@ module Octokit
       #     :direction => 'down',
       #     :since => '2010-05-04T23:45:02Z'
       #   })
-      def pull_requests_comments(repo, options = {})
-        paginate("#{Repository.path repo}/pulls/comments", options)
+      def pull_requests_comments(repo, options = {}, &block)
+        paginate("#{Repository.path repo}/pulls/comments", options, &block)
       end
       alias :pulls_comments   :pull_requests_comments
       alias :reviews_comments :pull_requests_comments
@@ -166,10 +182,15 @@ module Octokit
       # @see https://developer.github.com/v3/pulls/comments/#list-comments-on-a-pull-request
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of comments
-      def pull_request_comments(repo, number, options = {})
+      def pull_request_comments(repo, number, options = {}, &block)
         # return the comments for a pull request
-        paginate("#{Repository.path repo}/pulls/#{number}/comments", options)
+        paginate("#{Repository.path repo}/pulls/#{number}/comments", options, &block)
       end
       alias :pull_comments   :pull_request_comments
       alias :review_comments :pull_request_comments
@@ -268,9 +289,14 @@ module Octokit
       # @see https://developer.github.com/v3/pulls/#list-pull-requests-files
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of files
-      def pull_request_files(repo, number, options = {})
-        paginate "#{Repository.path repo}/pulls/#{number}/files", options
+      def pull_request_files(repo, number, options = {}, &block)
+        paginate "#{Repository.path repo}/pulls/#{number}/files", options, &block
       end
       alias :pull_files :pull_request_files
 

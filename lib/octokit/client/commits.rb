@@ -18,15 +18,21 @@ module Octokit
       # @overload commits(repo, options = {})
       #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param options [String] :sha Commit SHA or branch name from which to start the list
+      #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] An array of hashes representing commits
       # @see https://developer.github.com/v3/repos/commits/#list-commits-on-a-repository
-      def commits(*args)
+      def commits(*args, &block)
         arguments = Octokit::RepoArguments.new(args)
         sha_or_branch = arguments.pop
         if sha_or_branch
           arguments.options[:sha] = sha_or_branch
         end
-        paginate "#{Repository.new(arguments.repo).path}/commits", arguments.options
+        paginate "#{Repository.new(arguments.repo).path}/commits", arguments.options, &block
       end
       alias :list_commits :commits
 

@@ -18,6 +18,19 @@ describe Octokit::Client::PullRequests do
       expect(pulls).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls?state=open")
     end
+
+    context "when use manual pagination" do
+      it "lists all pull requests" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.pulls("octokit/octokit.rb") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .pull_requests
 
   context "methods that require a new pull" do
@@ -173,6 +186,19 @@ describe Octokit::Client::PullRequests do
       expect(commits).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls/67/commits")
     end
+
+    context "when use manual pagination" do
+      it "returns the commits for a pull request" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.pull_commits("octokit/octokit.rb", 67) do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .pull_request_commits
 
   describe ".pull_request_files", :vcr do
@@ -183,6 +209,19 @@ describe Octokit::Client::PullRequests do
       expect(file.additions).to eq(4)
       assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls/67/files")
     end
+
+    context "when use manual pagination" do
+      it "lists files for a pull request" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.pull_request_files("octokit/octokit.rb", 67) do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .pull_request_files
 
   describe ".pull_request_comments", :vcr do
@@ -190,6 +229,19 @@ describe Octokit::Client::PullRequests do
       comments = @client.pull_comments("octokit/octokit.rb", 67)
       expect(comments).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls/67/comments")
+    end
+
+    context "when use manual pagination" do
+      it "returns the comments for a pull request" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.pull_comments("octokit/octokit.rb", 67) do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .pull_request_comments
 

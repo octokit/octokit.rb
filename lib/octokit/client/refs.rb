@@ -10,14 +10,19 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param namespace [String] The ref namespace, e.g. <tt>tag</tt> or <tt>heads</tt>
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of references matching the repo and the namespace
       # @see https://developer.github.com/v3/git/refs/#get-all-references
       # @example Fetch all refs for sferik/rails_admin
       #   Octokit.refs("sferik/rails_admin")
-      def refs(repo, namespace = nil, options = {})
+      def refs(repo, namespace = nil, options = {}, &block)
         path = "#{Repository.path repo}/git/refs"
         path += "/#{namespace}" unless namespace.nil?
-        paginate path, options
+        paginate path, options, &block
       end
       alias :list_refs :refs
       alias :references :refs

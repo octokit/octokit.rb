@@ -7,13 +7,18 @@ module Octokit
 
       # List all licenses
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @see https://developer.github.com/v3/licenses/#list-all-licenses
       # @return [Array<Sawyer::Resource>] A list of licenses
       # @example
       #   Octokit.licenses
-      def licenses(options = {})
+      def licenses(options = {}, &block)
         options = ensure_api_media_type(:licenses, options)
-        paginate "licenses", options
+        paginate "licenses", options, &block
       end
 
       # List an individual license

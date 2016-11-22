@@ -66,9 +66,14 @@ module Octokit
       # @see https://developer.github.com/v3/repos/#list-user-repositories
       # @param user [Integer, String] Optional GitHub user login or id for which
       #   to list repos.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of repositories
-      def repositories(user=nil, options = {})
-        paginate "#{User.path user}/repos", options
+      def repositories(user=nil, options = {}, &block)
+        paginate "#{User.path user}/repos", options, &block
       end
       alias :list_repositories :repositories
       alias :list_repos :repositories
@@ -84,9 +89,15 @@ module Octokit
       # @param options [Hash] Optional options
       # @option options [Integer] :since The integer ID of the last Repository
       #   that you’ve seen.
+      #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of repositories.
-      def all_repositories(options = {})
-        paginate 'repositories', options
+      def all_repositories(options = {}, &block)
+        paginate 'repositories', options, &block
       end
 
       # Star a repository
@@ -200,14 +211,19 @@ module Octokit
       # Requires authenticated client.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing deploy keys.
       # @see https://developer.github.com/v3/repos/keys/#list-deploy-keys
       # @example
       #   @client.deploy_keys('octokit/octokit.rb')
       # @example
       #   @client.list_deploy_keys('octokit/octokit.rb')
-      def deploy_keys(repo, options = {})
-        paginate "#{Repository.path repo}/keys", options
+      def deploy_keys(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/keys", options, &block
       end
       alias :list_deploy_keys :deploy_keys
 
@@ -277,6 +293,11 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing collaborating users.
       # @see https://developer.github.com/v3/repos/collaborators/#list-collaborators
       # @example
@@ -285,8 +306,8 @@ module Octokit
       #   Octokit.collabs('octokit/octokit.rb')
       # @example
       #   @client.collabs('octokit/octokit.rb')
-      def collaborators(repo, options = {})
-        paginate "#{Repository.path repo}/collaborators", options
+      def collaborators(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/collaborators", options, &block
       end
       alias :collabs :collaborators
 
@@ -351,6 +372,11 @@ module Octokit
       # Requires authenticated client that is an owner or collaborator of the repo.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing teams.
       # @see https://developer.github.com/v3/repos/#list-teams
       # @example
@@ -359,8 +385,8 @@ module Octokit
       #   @client.repo_teams('octokit/pengwynn')
       # @example
       #   @client.teams('octokit/pengwynn')
-      def repository_teams(repo, options = {})
-        paginate "#{Repository.path repo}/teams", options
+      def repository_teams(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/teams", options, &block
       end
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
@@ -371,6 +397,11 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param anon [Boolean] Set true to include anonymous contributors.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/repos/#list-contributors
       # @example
@@ -379,9 +410,9 @@ module Octokit
       #   Octokit.contribs('octokit/octokit.rb')
       # @example
       #   @client.contribs('octokit/octokit.rb')
-      def contributors(repo, anon = nil, options = {})
+      def contributors(repo, anon = nil, options = {}, &block)
         options[:anon] = 1 if anon.to_s[/1|true/]
-        paginate "#{Repository.path repo}/contributors", options
+        paginate "#{Repository.path repo}/contributors", options, &block
       end
       alias :contribs :contributors
 
@@ -390,14 +421,19 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/activity/starring/#list-stargazers
       # @example
       #   Octokit.stargazers('octokit/octokit.rb')
       # @example
       #   @client.stargazers('octokit/octokit.rb')
-      def stargazers(repo, options = {})
-        paginate "#{Repository.path repo}/stargazers", options
+      def stargazers(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/stargazers", options, &block
       end
 
       # @deprecated Use {#stargazers} instead
@@ -407,14 +443,19 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/repos/watching/#list-watchers
       # @example
       #   Octokit.watchers('octokit/octokit.rb')
       # @example
       #   @client.watchers('octokit/octokit.rb')
-      def watchers(repo, options = {})
-        paginate "#{Repository.path repo}/watchers", options
+      def watchers(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/watchers", options, &block
       end
 
       # List forks
@@ -422,6 +463,11 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing repos.
       # @see https://developer.github.com/v3/repos/forks/#list-forks
       # @example
@@ -430,8 +476,8 @@ module Octokit
       #   Octokit.network('octokit/octokit.rb')
       # @example
       #   @client.forks('octokit/octokit.rb')
-      def forks(repo, options = {})
-        paginate "#{Repository.path repo}/forks", options
+      def forks(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/forks", options, &block
       end
       alias :network :forks
 
@@ -440,14 +486,19 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing languages.
       # @see https://developer.github.com/v3/repos/#list-languages
       # @example
       #   Octokit.languages('octokit/octokit.rb')
       # @example
       #   @client.languages('octokit/octokit.rb')
-      def languages(repo, options = {})
-        paginate "#{Repository.path repo}/languages", options
+      def languages(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/languages", options, &block
       end
 
       # List tags
@@ -455,14 +506,19 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing tags.
       # @see https://developer.github.com/v3/repos/#list-tags
       # @example
       #   Octokit.tags('octokit/octokit.rb')
       # @example
       #   @client.tags('octokit/octokit.rb')
-      def tags(repo, options = {})
-        paginate "#{Repository.path repo}/tags", options
+      def tags(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/tags", options, &block
       end
 
       # List branches
@@ -470,14 +526,19 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing branches.
       # @see https://developer.github.com/v3/repos/#list-branches
       # @example
       #   Octokit.branches('octokit/octokit.rb')
       # @example
       #   @client.branches('octokit/octokit.rb')
-      def branches(repo, options = {})
-        paginate "#{Repository.path repo}/branches", options
+      def branches(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/branches", options, &block
       end
 
       # Get a single branch from a repository
@@ -558,6 +619,11 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/issues/assignees/#list-assignees
       # @example
@@ -566,8 +632,8 @@ module Octokit
       #   Octokit.repo_assignees('octokit/octokit.rb')
       # @example
       #   @client.repository_assignees('octokit/octokit.rb')
-      def repository_assignees(repo, options = {})
-        paginate "#{Repository.path repo}/assignees", options
+      def repository_assignees(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/assignees", options, &block
       end
       alias :repo_assignees :repository_assignees
 
@@ -586,12 +652,17 @@ module Octokit
       # List watchers subscribing to notifications for a repo
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of users watching.
       # @see https://developer.github.com/v3/activity/watching/#list-watchers
       # @example
       #   @client.subscribers("octokit/octokit.rb")
-      def subscribers(repo, options = {})
-        paginate "#{Repository.path repo}/subscribers", options
+      def subscribers(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/subscribers", options, &block
       end
 
       # Get a repository subscription

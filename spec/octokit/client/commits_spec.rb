@@ -21,6 +21,20 @@ describe Octokit::Client::Commits do
       @client.commits("sferik/rails_admin", :sha => "master")
       assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master")
     end
+
+    context 'when use manual pagination' do
+      it "returns all commits" do
+        client = oauth_client
+        client.auto_paginate = true
+        data = []
+        first_page_data = client.commits("sferik/rails_admin") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+        expect(data.size).not_to be_zero
+      end
+    end
   end # .commits
 
   describe ".commits_on", :vcr do

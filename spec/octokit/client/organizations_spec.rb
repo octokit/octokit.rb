@@ -1,7 +1,6 @@
 require 'helper'
 
 describe Octokit::Client::Organizations do
-
   before do
     Octokit.reset!
     @client = oauth_client
@@ -42,6 +41,19 @@ describe Octokit::Client::Organizations do
       expect(orgs).to be_kind_of Array
       assert_requested :get, github_url("organizations")
     end
+
+    context "when use manual pagination" do
+      it "paginates organizations on GitHub" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.all_organizations do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .all_organizations
 
   describe ".organization_repositories", :vcr do
@@ -49,6 +61,19 @@ describe Octokit::Client::Organizations do
       repositories = @client.organization_repositories("codeforamerica")
       expect(repositories).to be_kind_of Array
       assert_requested :get, github_url("/orgs/codeforamerica/repos")
+    end
+
+    context "when use manual pagination" do
+      it "returns all public repositories for an organization" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.organization_repositories("codeforamerica") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .organization_repositories
 
@@ -130,6 +155,19 @@ describe Octokit::Client::Organizations do
         expect(users).to be_kind_of Array
         assert_requested :get, github_url("/teams/#{@team.id}/members")
       end
+
+      context "when use manual pagination" do
+        it "returns team members"  do
+          data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
+          first_page_data = @client.team_members(@team.id) do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
+      end
     end # .team_members
 
     describe ".add_team_member", :vcr do
@@ -158,6 +196,19 @@ describe Octokit::Client::Organizations do
         repositories = @client.team_repositories(@team.id)
         expect(repositories).to be_kind_of Array
         assert_requested :get, github_url("/teams/#{@team.id}/repos")
+      end
+
+      context "when use manual pagination" do
+        it "returns team repositories" do
+          data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
+          first_page_data = @client.team_repositories(@team.id) do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
       end
     end # .team_repositories
 
@@ -219,6 +270,19 @@ describe Octokit::Client::Organizations do
       assert_requested :get, github_url("/user/teams")
       expect(teams).to be_kind_of(Array)
     end
+
+    context "when use manual pagination" do
+      it "lists all teams for the authenticated user" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.user_teams do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .user_teams
 
   describe ".team_membership", :vcr do
@@ -250,6 +314,19 @@ describe Octokit::Client::Organizations do
       memberships = @client.organization_memberships
       expect(memberships).to be_kind_of Array
       assert_requested :get, github_url("/user/memberships/orgs")
+    end
+
+    context "when use manual pagination" do
+      it "returns all organization memberships for the user" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.organization_memberships do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .organization_memberships
 
@@ -331,6 +408,19 @@ describe Octokit::Client::Organizations do
       @client.unlock_repository(test_github_org, 97, 'api-playground')
       expect(@client.last_response.status).to eq(204)
       assert_requested :delete, github_url("/orgs/#{test_github_org}/migrations/97/repos/api-playground/lock")
+    end
+
+    context "when use manual pagination" do
+      it "lists migrations for an organization" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.migrations(test_github_org) do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .migrations
 end

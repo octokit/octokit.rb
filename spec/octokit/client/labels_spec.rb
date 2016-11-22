@@ -13,6 +13,19 @@ describe Octokit::Client::Labels do
       expect(labels).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/labels")
     end
+
+    context "when use manual pagination" do
+      it "returns labels" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.labels("octokit/octokit.rb") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .labels
 
   describe ".label", :vcr do
@@ -69,6 +82,19 @@ describe Octokit::Client::Labels do
         expect(labels).to be_kind_of Array
         assert_requested :get, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
       end
+
+      context "when use manual pagination" do
+        it "returns all labels for a given issue" do
+          data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
+          first_page_data = @client.labels_for_issue(@test_repo, @issue.number) do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
+      end
     end # .labels_for_issue
 
     describe ".remove_label", :vcr do
@@ -98,6 +124,19 @@ describe Octokit::Client::Labels do
       labels = @client.labels_for_milestone('octokit/octokit.rb', 2)
       expect(labels).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/milestones/2/labels")
+    end
+
+    context "when use manual pagination" do
+      it "returns all labels for a repository" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.labels_for_milestone('octokit/octokit.rb', 2) do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .labels_for_milestone
 

@@ -19,6 +19,11 @@ module Octokit
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
       # @option options [Integer] :page (1) Page number.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of issues for a repository.
       # @see https://developer.github.com/v3/issues/#list-issues-for-a-repository
       # @see https://developer.github.com/v3/issues/#list-issues
@@ -27,9 +32,9 @@ module Octokit
       # @example List issues for the authenticated user across repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.list_issues
-      def list_issues(repository = nil, options = {})
+      def list_issues(repository = nil, options = {}, &block)
         path = repository ? "#{Repository.new(repository).path}/issues" : "issues"
-        paginate path, options
+        paginate path, options, &block
       end
       alias :issues :list_issues
 
@@ -44,13 +49,18 @@ module Octokit
       # @option options [Integer] :page (1) Page number.
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of issues for a repository.
       # @see https://developer.github.com/v3/issues/#list-issues
       # @example List issues for the authenticated user across owned and member repositories
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.user_issues
-      def user_issues(options = {})
-        paginate 'user/issues', options
+      def user_issues(options = {}, &block)
+        paginate 'user/issues', options, &block
       end
 
       # List all issues for a given organization for the authenticated user
@@ -65,13 +75,18 @@ module Octokit
       # @option options [Integer] :page (1) Page number.
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of issues.
       # @see https://developer.github.com/v3/issues/#list-issues
       # @example List all issues for a given organization for the authenticated user
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.org_issues("octokit")
-      def org_issues(org, options = {})
-        paginate "#{Organization.path org}/issues", options
+      def org_issues(org, options = {}, &block)
+        paginate "#{Organization.path org}/issues", options, &block
       end
 
       # Create an issue for a repository
@@ -225,6 +240,11 @@ module Octokit
       # @option options [String] :since Timestamp in ISO 8601
       #   format: YYYY-MM-DDTHH:MM:SSZ
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of issues comments.
       #
       # @see https://developer.github.com/v3/issues/comments/#list-comments-in-a-repository
@@ -238,32 +258,42 @@ module Octokit
       #     :direction => 'asc',
       #     :since => '2010-05-04T23:45:02Z'
       #   })
-      def issues_comments(repo, options = {})
-        paginate "#{Repository.path repo}/issues/comments", options
+      def issues_comments(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/issues/comments", options, &block
       end
 
       # Get all comments attached to an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the issue
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of comments that belong to an issue
       # @see https://developer.github.com/v3/issues/comments/#list-comments-on-an-issue
       # @example Get comments for issue #25 from octokit/octokit.rb
       #   Octokit.issue_comments("octokit/octokit.rb", "25")
-      def issue_comments(repo, number, options = {})
-        paginate "#{Repository.path repo}/issues/#{number}/comments", options
+      def issue_comments(repo, number, options = {}, &block)
+        paginate "#{Repository.path repo}/issues/#{number}/comments", options, &block
       end
 
       # Get a single comment attached to an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the comment
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Sawyer::Resource] The specific comment in question
       # @see https://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comment #1194549 from an issue on octokit/octokit.rb
       #   Octokit.issue_comments("octokit/octokit.rb", 1194549)
-      def issue_comment(repo, number, options = {})
-        paginate "#{Repository.path repo}/issues/comments/#{number}", options
+      def issue_comment(repo, number, options = {}, &block)
+        paginate "#{Repository.path repo}/issues/comments/#{number}", options, &block
       end
 
       # Add a comment to an issue
@@ -308,13 +338,18 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Number ID of the comment
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Sawyer::Resource] The timeline for this issue
       # @see https://developer.github.com/v3/issues/timeline/
       # @example Get timeline for issue #1435 on octokit/octokit.rb
       #   Octokit.issue_timeline("octokit/octokit.rb", 1435)
-      def issue_timeline(repo, number, options = {})
+      def issue_timeline(repo, number, options = {}, &block)
         options = ensure_api_media_type(:issue_timelines, options)
-        paginate "#{Repository.path repo}/issues/#{number}/timeline", options
+        paginate "#{Repository.path repo}/issues/#{number}/timeline", options, &block
       end
     end
   end

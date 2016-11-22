@@ -123,6 +123,19 @@ describe Octokit::Client::Repositories do
         expect(public_keys).to be_kind_of Array
         assert_requested :get, github_url("/repos/#{@repo.full_name}/keys")
       end
+
+      context "when use manual pagination" do
+        it "returns a repository's deploy keys" do
+          data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
+          first_page_data = @client.deploy_keys @repo.full_name do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
+      end
     end # .deploy_keys
 
     describe ".add_collaborator", :vcr do
@@ -166,6 +179,19 @@ describe Octokit::Client::Repositories do
         assert_requested :get, github_url("/repos/#{@repo.full_name}/teams")
         expect(teams).to be_kind_of Array
       end
+
+      context "when use manual pagination" do
+        it "returns all repository teams" do
+          data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
+          first_page_data = @client.repository_teams(@repo.full_name) do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
+      end
     end # .repository_teams
 
     describe ".delete_repository", :vcr do
@@ -207,6 +233,19 @@ describe Octokit::Client::Repositories do
       expect(repositories).to be_kind_of Array
       assert_requested :get, github_url("/user/repos")
     end
+
+    context "when use manual pagination" do
+      it "returns a user's repositories" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.repositories("sferik") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .repositories
 
   describe ".all_repositories", :vcr do
@@ -214,6 +253,19 @@ describe Octokit::Client::Repositories do
       repositories = Octokit.all_repositories
       expect(repositories).to be_kind_of Array
       assert_requested :get, github_url("/repositories")
+    end
+
+    context "when use manual pagination" do
+      it "returns all repositories on github" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.all_repositories do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .all_repositories
 
@@ -265,6 +317,19 @@ describe Octokit::Client::Repositories do
       expect(collaborators).to be_kind_of Array
       assert_requested :get, github_url("/repos/sferik/rails_admin/collaborators")
     end
+
+    context "when use manual pagination" do
+      it "returns a repository's collaborators" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.collaborators("sferik/rails_admin") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .collaborators
 
   describe ".contributors", :vcr do
@@ -278,6 +343,19 @@ describe Octokit::Client::Repositories do
       expect(contributors).to be_kind_of Array
       assert_requested :get, github_url("/repos/sferik/rails_admin/contributors")
     end
+
+    context "when use manual pagination" do
+      it "returns repository contributors" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.contributors("sferik/rails_admin", true) do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .contributors
 
   describe ".stargazers", :vcr do
@@ -286,6 +364,19 @@ describe Octokit::Client::Repositories do
       expect(stargazers).to be_kind_of Array
       assert_requested :get, github_url("/repos/sferik/rails_admin/stargazers")
     end
+
+    context "when use manual pagination" do
+      it "returns all repository stargazers" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.stargazers("sferik/rails_admin") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .stargazers
 
   describe ".watchers", :vcr do
@@ -293,6 +384,19 @@ describe Octokit::Client::Repositories do
       watchers = Octokit.watchers("sferik/rails_admin")
       expect(watchers).to be_kind_of Array
       assert_requested :get, github_url("/repos/sferik/rails_admin/watchers")
+    end
+
+    context "when use manual pagination" do
+      it "returns all repository watchers" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.watchers("sferik/rails_admin") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .watchers
 
@@ -318,6 +422,19 @@ describe Octokit::Client::Repositories do
       expect(tags).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/tags")
     end
+
+    context "when use manual pagination" do
+      it "returns a repository's tags" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.tags("octokit/octokit.rb") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .tags
 
   describe ".branches", :vcr do
@@ -331,6 +448,19 @@ describe Octokit::Client::Repositories do
       branch = Octokit.branch("octokit/octokit.rb", "master")
       expect(branch.commit.sha).not_to be_nil
       assert_requested :get, github_url("/repos/octokit/octokit.rb/branches/master")
+    end
+
+    context "when use manual pagination" do
+      it "returns a repository's branches" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.branches("octokit/octokit.rb") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .branches
 
@@ -358,7 +488,7 @@ describe Octokit::Client::Repositories do
           required_status_checks: {
             strict: true,
             include_admins: true,
-            contexts: [] 
+            contexts: []
           },
           restrictions: nil
         }
@@ -392,6 +522,19 @@ describe Octokit::Client::Repositories do
       expect(assignees).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/assignees")
     end
+
+    context "when use manual pagination" do
+      it "lists all the available assignees (owner + collaborators)" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.repo_assignees("octokit/octokit.rb") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .assignees
 
   describe ".check_assignee", :vcr do
@@ -406,6 +549,19 @@ describe Octokit::Client::Repositories do
       subscribers = Octokit.subscribers("octokit/octokit.rb")
       expect(subscribers).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/subscribers")
+    end
+
+    context "when use manual pagination" do
+      it "lists all the users watching the repository" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.subscribers("octokit/octokit.rb") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .subscribers
 

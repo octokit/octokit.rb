@@ -61,6 +61,11 @@ module Octokit
       #
       # @param user [Integer, String] GitHub user login or id of the user to get
       #   list of organizations.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing organizations.
       # @see https://developer.github.com/v3/orgs/#list-your-organizations
       # @see https://developer.github.com/v3/orgs/#list-user-organizations
@@ -76,8 +81,8 @@ module Octokit
       #   Octokit.list_orgs('pengwynn')
       # @example
       #   @client.organizations
-      def organizations(user=nil, options = {})
-        paginate "#{User.path user}/orgs", options
+      def organizations(user=nil, options = {}, &block)
+        paginate "#{User.path user}/orgs", options, &block
       end
       alias :list_organizations :organizations
       alias :list_orgs :organizations
@@ -89,14 +94,19 @@ module Octokit
       # were created.
       #
       # @param options [Hash] Optional options.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @option options [Integer] :since The integer ID of the last
       # Organization that you’ve seen.
       #
       # @see https://developer.github.com/v3/orgs/#list-all-organizations
       #
       # @return [Array<Sawyer::Resource>] List of GitHub organizations.
-      def all_organizations(options = {})
-        paginate "organizations"
+      def all_organizations(options = {}, &block)
+        paginate "organizations", &block
       end
       alias :all_orgs :all_organizations
 
@@ -110,6 +120,11 @@ module Octokit
       # @option options [String] :type ('all') Filter by repository type.
       #   `all`, `public`, `member`, `sources`, `forks`, or `private`.
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] List of repositories
       # @see https://developer.github.com/v3/repos/#list-organization-repositories
       # @example
@@ -120,8 +135,8 @@ module Octokit
       #   Octokit.org_repos('github')
       # @example
       #   @client.org_repos('github', {:type => 'private'})
-      def organization_repositories(org, options = {})
-        paginate "#{Organization.path org}/repos", options
+      def organization_repositories(org, options = {}, &block)
+        paginate "#{Organization.path org}/repos", options, &block
       end
       alias :org_repositories :organization_repositories
       alias :org_repos :organization_repositories
@@ -133,15 +148,20 @@ module Octokit
       # is required to get private members.
       #
       # @param org [String, Integer] Organization GitHub login or id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/orgs/members/#members-list
       # @example
       #   Octokit.organization_members('github')
       # @example
       #   Octokit.org_members('github')
-      def organization_members(org, options = {})
+      def organization_members(org, options = {}, &block)
         path = "public_" if options.delete(:public)
-        paginate "#{Organization.path org}/#{path}members", options
+        paginate "#{Organization.path org}/#{path}members", options, &block
       end
       alias :org_members :organization_members
 
@@ -212,14 +232,19 @@ module Octokit
       # Requires authenticated organization member.
       #
       # @param org [String, Integer] Organization GitHub login or id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing teams.
       # @see https://developer.github.com/v3/orgs/teams/#list-teams
       # @example
       #   @client.organization_teams('github')
       # @example
       #   @client.org_teams('github')
-      def organization_teams(org, options = {})
-        paginate "#{Organization.path org}/teams", options
+      def organization_teams(org, options = {}, &block)
+        paginate "#{Organization.path org}/teams", options, &block
       end
       alias :org_teams :organization_teams
 
@@ -297,12 +322,17 @@ module Octokit
       # Requires authenticated organization member.
       #
       # @param team_id [Integer] Team id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
       # @see https://developer.github.com/v3/orgs/teams/#list-team-members
       # @example
       #   @client.team_members(100000)
-      def team_members(team_id, options = {})
-        paginate "teams/#{team_id}/members", options
+      def team_members(team_id, options = {}, &block)
+        paginate "teams/#{team_id}/members", options, &block
       end
 
       # Add team member
@@ -372,14 +402,19 @@ module Octokit
       # Requires authenticated organization member.
       #
       # @param team_id [Integer] Team id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing repositories.
       # @see https://developer.github.com/v3/orgs/teams/#list-team-repos
       # @example
       #   @client.team_repositories(100000)
       # @example
       #   @client.team_repos(100000)
-      def team_repositories(team_id, options = {})
-        paginate "teams/#{team_id}/repos", options
+      def team_repositories(team_id, options = {}, &block)
+        paginate "teams/#{team_id}/repos", options, &block
       end
       alias :team_repos :team_repositories
 
@@ -501,10 +536,15 @@ module Octokit
 
       # List all teams for the authenticated user across all their orgs
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of team resources.
       # @see https://developer.github.com/v3/orgs/teams/#list-user-teams
-      def user_teams(options = {})
-        paginate "user/teams", options
+      def user_teams(options = {}, &block)
+        paginate "user/teams", options, &block
       end
 
       # Check if a user has a team membership.
@@ -551,10 +591,15 @@ module Octokit
 
       # List all organizations memberships for the authenticated user
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of organizations memberships.
       # @see https://developer.github.com/v3/orgs/members/#list-your-organization-memberships
-      def organization_memberships(options = {})
-        paginate "user/memberships/orgs", options
+      def organization_memberships(options = {}, &block)
+        paginate "user/memberships/orgs", options, &block
       end
       alias :org_memberships :organization_memberships
 
@@ -624,11 +669,16 @@ module Octokit
       # Requires authenticated organization owner.
       #
       # @param org [String, Integer] Organization GitHub login or id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of migration resources.
       # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
-      def migrations(org, options = {})
+      def migrations(org, options = {}, &block)
         options = ensure_api_media_type(:migrations, options)
-        paginate "orgs/#{org}/migrations", options
+        paginate "orgs/#{org}/migrations", options, &block
       end
 
       # Fetches the status of a migration.

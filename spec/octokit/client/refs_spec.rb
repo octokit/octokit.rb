@@ -17,6 +17,19 @@ describe Octokit::Client::Refs do
       expect(refs).to be_kind_of Array
       assert_requested :get, github_url("/repos/sferik/rails_admin/git/refs/tags")
     end
+
+    context "when use manual pagination" do
+      it "returns all refs" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.refs("sferik/rails_admin") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .refs
 
   describe ".ref", :vcr do

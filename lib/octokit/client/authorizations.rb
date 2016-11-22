@@ -12,13 +12,18 @@ module Octokit
       # You can only access your own tokens, and only through
       # Basic Authentication.
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of authorizations for the authenticated user
       # @see https://developer.github.com/v3/oauth_authorizations/#list-your-authorizations
       # @example List authorizations for user ctshryock
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.authorizations
-      def authorizations(options = {})
-        paginate 'authorizations', options
+      def authorizations(options = {}, &block)
+        paginate 'authorizations', options, &block
       end
 
       # Get a single authorization for the authenticated user.

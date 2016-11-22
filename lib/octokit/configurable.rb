@@ -92,6 +92,7 @@ module Octokit
       Octokit::Configurable.keys.each do |key|
         instance_variable_set(:"@#{key}", Octokit::Default.options[key])
       end
+      remove_instance_variable(:@client) if defined? @client
       self
     end
     alias setup reset!

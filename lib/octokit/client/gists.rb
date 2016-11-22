@@ -9,37 +9,52 @@ module Octokit
       # List gists for a user or all public gists
       #
       # @param user [String] An optional user to filter listing
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of gists
       # @example Fetch all gists for defunkt
       #   Octokit.gists('defunkt')
       # @example Fetch all public gists
       #   Octokit.gists
       # @see https://developer.github.com/v3/gists/#list-gists
-      def gists(user=nil, options = {})
+      def gists(user=nil, options = {}, &block)
         if user.nil?
-          paginate 'gists', options
+          paginate 'gists', options, &block
         else
-          paginate "#{User.path user}/gists", options
+          paginate "#{User.path user}/gists", options, &block
         end
       end
       alias :list_gists :gists
 
       # List public gists
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of gists
       # @example Fetch all public gists
       #   Octokit.public_gists
       # @see https://developer.github.com/v3/gists/#list-gists
-      def public_gists(options = {})
-        paginate 'gists/public', options
+      def public_gists(options = {}, &block)
+        paginate 'gists/public', options, &block
       end
 
       # List the authenticated user’s starred gists
       #
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of gists
       # @see https://developer.github.com/v3/gists/#list-gists
-      def starred_gists(options = {})
-        paginate 'gists/starred', options
+      def starred_gists(options = {}, &block)
+        paginate 'gists/starred', options, &block
       end
 
       # Get a single gist
@@ -96,12 +111,17 @@ module Octokit
       # List gist commits
       #
       # @param gist [String] Gist ID
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array] List of commits to the gist
       # @see https://developer.github.com/v3/gists/#list-gist-commits
       # @example List commits for a gist
       #   @client.gist_commits('some_id')
-      def gist_commits(gist, options = {})
-        paginate "gists/#{Gist.new(gist)}/commits", options
+      def gist_commits(gist, options = {}, &block)
+        paginate "gists/#{Gist.new(gist)}/commits", options, &block
       end
 
       #
@@ -144,12 +164,17 @@ module Octokit
       # List gist forks
       #
       # @param gist [String] Gist ID
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array] List of gist forks
       # @see https://developer.github.com/v3/gists/#list-gist-forks
       # @example List gist forks
       #   @client.gist_forks('some-id')
-      def gist_forks(gist, options = {})
-        paginate "gists/#{Gist.new(gist)}/forks", options
+      def gist_forks(gist, options = {}, &block)
+        paginate "gists/#{Gist.new(gist)}/forks", options, &block
       end
 
       # Delete a gist
@@ -164,12 +189,17 @@ module Octokit
       # List gist comments
       #
       # @param gist_id [String] Gist Id.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of hashes representing comments.
       # @see https://developer.github.com/v3/gists/comments/#list-comments-on-a-gist
       # @example
       #   Octokit.gist_comments('3528ae645')
-      def gist_comments(gist_id, options = {})
-        paginate "gists/#{gist_id}/comments", options
+      def gist_comments(gist_id, options = {}, &block)
+        paginate "gists/#{gist_id}/comments", options, &block
       end
 
       # Get gist comment

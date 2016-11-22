@@ -17,14 +17,19 @@ module Octokit
       # @option options [String] :since Time filters out any notifications
       #   updated before the given time. The time should be passed in as UTC in
       #   the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. '2012-10-09T23:39:01Z'
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of notifications.
       # @see https://developer.github.com/v3/activity/notifications/#list-your-notifications
       # @example Get users notifications
       #   @client.notifications
       # @example Get all notifications since a certain time.
       #   @client.notifications({all: true, since: '2012-10-09T23:39:01Z'})
-      def notifications(options = {})
-        paginate "notifications", options
+      def notifications(options = {}, &block)
+        paginate "notifications", options, &block
       end
 
       # List your notifications in a repository
@@ -39,14 +44,19 @@ module Octokit
       # @option options [String] :since Time filters out any notifications
       #   updated before the given time. The time should be passed in as UTC in
       #   the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Ex. '2012-10-09T23:39:01Z'
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] Array of notifications.
       # @see https://developer.github.com/v3/activity/notifications/#list-your-notifications-in-a-repository
       # @example Get your notifications for octokit/octokit.rb
       #   @client.repository_notifications('octokit/octokit.rb')
       # @example Get your notifications for octokit/octokit.rb since a time.
       #   @client.repository_notifications({since: '2012-10-09T23:39:01Z'})
-      def repository_notifications(repo, options = {})
-        paginate "#{Repository.path repo}/notifications", options
+      def repository_notifications(repo, options = {}, &block)
+        paginate "#{Repository.path repo}/notifications", options, &block
       end
       alias :repo_notifications :repository_notifications
 

@@ -14,12 +14,17 @@ module Octokit
       # @option options [String] :state (open) State: <tt>open</tt>, <tt>closed</tt>, or <tt>all</tt>.
       # @option options [String] :sort (created) Sort: <tt>created</tt>, <tt>updated</tt>, or <tt>comments</tt>.
       # @option options [String] :direction (desc) Direction: <tt>asc</tt> or <tt>desc</tt>.
+      # @param block [Block] Block to perform the data concatination of the
+      #   multiple requests. The block is called with two parameters, the first
+      #   contains the contents of the requests so far and the second parameter
+      #   contains the latest response.
+      #
       # @return [Array<Sawyer::Resource>] A list of milestones for a repository.
       # @see https://developer.github.com/v3/issues/milestones/#list-milestones-for-a-repository
       # @example List milestones for a repository
       #   Octokit.list_milestones("octokit/octokit.rb")
-      def list_milestones(repository, options = {})
-        paginate "#{Repository.path repository}/milestones", options
+      def list_milestones(repository, options = {}, &block)
+        paginate "#{Repository.path repository}/milestones", options, &block
       end
       alias :milestones :list_milestones
 

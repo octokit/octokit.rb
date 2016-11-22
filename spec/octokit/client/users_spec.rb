@@ -12,6 +12,19 @@ describe Octokit::Client::Users do
       users = Octokit.all_users
       expect(users).to be_kind_of Array
     end
+
+    context "when use manual pagination" do
+      it "returns all GitHub users" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.all_users do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .all_users
 
   describe ".user", :vcr do
@@ -50,6 +63,19 @@ describe Octokit::Client::Users do
       expect(users).to be_kind_of Array
       assert_requested :get, github_url("/users/#{test_github_login}/followers")
     end
+
+    context "when use manual pagination" do
+      it "returns followers for a user" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.followers("sferik") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .followers
 
   describe ".following", :vcr do
@@ -62,6 +88,19 @@ describe Octokit::Client::Users do
       users = @client.following
       expect(users).to be_kind_of Array
       assert_requested :get, github_url("/users/#{test_github_login}/following")
+    end
+
+    context "when use manual pagination" do
+      it "returns following for a user" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.following("sferik") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .following
 
@@ -104,6 +143,19 @@ describe Octokit::Client::Users do
         Octokit.starred("sferik")
         assert_requested :get, github_url("/users/sferik/starred")
       end
+
+      context "when use manual pagination" do
+        it "gets a user's starred repositories" do
+          data = []
+          Octokit.auto_paginate = true
+          Octokit.per_page = 1
+          first_page_data = Octokit.starred("sferik") do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
+      end
     end
     context "authenticated" do
       it "gets the authenticated user's starred repositories" do
@@ -115,6 +167,19 @@ describe Octokit::Client::Users do
         @client.starred("sferik")
         assert_requested :get, github_url("/users/sferik/starred")
       end
+
+      context "when use manual pagination" do
+        it "gets the authenticated user's starred repositories" do
+          data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
+          first_page_data = @client.starred do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
+      end
     end
   end # .starred
 
@@ -124,6 +189,19 @@ describe Octokit::Client::Users do
       expect(public_keys).to be_kind_of Array
       assert_requested :get, github_url("/user/keys")
     end
+
+    context "when use manual pagination" do
+      it "returns public keys for the authenticated user" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.keys do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .keys
 
   describe ".user_keys", :vcr do
@@ -131,6 +209,19 @@ describe Octokit::Client::Users do
       public_keys = Octokit.user_keys("pengwynn")
       expect(public_keys).to be_kind_of Array
       assert_requested :get, github_url("/users/pengwynn/keys")
+    end
+
+    context "when use manual pagination" do
+      it "returns public keys for another user" do
+        data = []
+        Octokit.auto_paginate = true
+        Octokit.per_page = 1
+        first_page_data = Octokit.user_keys("pengwynn") do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
     end
   end # .user_keys
 
@@ -181,6 +272,19 @@ describe Octokit::Client::Users do
       expect(emails).to be_kind_of Array
       assert_requested :get, github_url("/user/emails")
     end
+
+    context "when use manual pagination" do
+      it "returns email addresses" do
+        data = []
+        @client.auto_paginate = true
+        @client.per_page = 1
+        first_page_data = @client.emails do |_, next_page|
+          data += next_page.data
+        end
+        data = first_page_data + data
+        expect(data).to be_kind_of Array
+      end
+    end
   end # .emails
 
   describe ".add_email", :vcr do
@@ -203,6 +307,19 @@ describe Octokit::Client::Users do
         Octokit.subscriptions("pengwynn")
         assert_requested :get, github_url("/users/pengwynn/subscriptions")
       end
+
+      context "when use manual pagination" do
+        it "returns the repositories a user watches for notifications" do
+          data = []
+          Octokit.auto_paginate = true
+          Octokit.per_page = 1
+          first_page_data = Octokit.subscriptions("pengwynn") do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
+      end
     end
 
     context "authenticated" do
@@ -214,6 +331,19 @@ describe Octokit::Client::Users do
       it "returns the repositories a user watches for notifications" do
         @client.subscriptions("pengwynn")
         assert_requested :get, github_url("/users/pengwynn/subscriptions")
+      end
+
+      context "when use manual pagination" do
+        it "returns the repositories the authenticated user watches for notifications" do
+          data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
+          first_page_data = @client.subscriptions("pengwynn") do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
       end
     end
   end # .subscriptions

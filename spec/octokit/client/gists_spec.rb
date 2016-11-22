@@ -14,6 +14,20 @@ describe Octokit::Client::Gists do
         expect(gists).not_to be_empty
         assert_requested :get, github_url('/gists/public')
       end
+
+      context 'when use manual pagination' do
+        it "returns public gists" do
+          data = []
+          Octokit.auto_paginate = true
+          Octokit.per_page = 1
+          first_page_data = Octokit.client.public_gists do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+          expect(data.size).not_to be_zero
+        end
+      end
     end # .public_gists
 
     describe ".gists" do
@@ -33,6 +47,21 @@ describe Octokit::Client::Gists do
         end
       end
 
+      context 'when use manual pagination' do
+        it "returns a list of gists" do
+          client = oauth_client
+          client.auto_paginate = true
+          data = []
+          client.auto_paginate = true
+          client.per_page = 1
+          first_page_data = client.gists('defunkt') do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+          expect(data.size).not_to be_zero
+        end
+      end
     end # .gists
 
     describe ".gist" do
@@ -86,6 +115,20 @@ describe Octokit::Client::Gists do
         expect(gists).to be_kind_of Array
         assert_requested :get, github_url("/gists/starred")
       end
+
+      context 'when use manual pagination' do
+        it "returns the user's starred gists" do
+          data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
+          first_page_data = @client.starred_gists do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+          expect(data.size).not_to be_zero
+        end
+      end
     end # .starred_gists
 
     describe ".create_gist" do
@@ -107,6 +150,20 @@ describe Octokit::Client::Gists do
       it "lists a gists commits" do
         @client.gist_commits(@gist.id)
         assert_requested :get, github_url("/gists/#{@gist.id}/commits")
+      end
+
+      context 'when use manual pagination' do
+        it "lists a gists commits" do
+          data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
+          first_page_data = @client.gist_commits(@gist.id) do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+          expect(data.size).not_to be_zero
+        end
       end
     end # .gist_commits
 
@@ -166,6 +223,19 @@ describe Octokit::Client::Gists do
         expect(forks).to be_kind_of Array
         assert_requested :get, github_url("/gists/#{@gist.id}/forks")
       end
+
+      context 'when use manual pagination' do
+        it "lists a gists forks" do
+          data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
+          first_page_data = @client.gist_forks(@gist.id) do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+        end
+      end
     end # .gist_forks
 
     describe ".gist_comments" do
@@ -173,6 +243,20 @@ describe Octokit::Client::Gists do
         comments = @client.gist_comments(5421307)
         expect(comments).to be_kind_of Array
         assert_requested :get, github_url("/gists/5421307/comments")
+      end
+
+      context 'when use manual pagination' do
+        it "returns the list of gist comments" do
+          data = []
+          @client.auto_paginate = true
+          @client.per_page = 1
+          first_page_data = @client.gist_comments(5421307) do |_, next_page|
+            data += next_page.data
+          end
+          data = first_page_data + data
+          expect(data).to be_kind_of Array
+          expect(data.size).not_to be_zero
+        end
       end
     end # .gist_comments
 
