@@ -96,7 +96,7 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] List of GitHub organizations.
       def all_organizations(options = {})
-        paginate "organizations"
+        paginate "organizations", options
       end
       alias :all_orgs :all_organizations
 
