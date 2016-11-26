@@ -9,8 +9,8 @@ describe Octokit::Client do
     context "with no last response" do
       it "makes a response", :vcr => { cassette_name: "rate_limit" } do
         rate = client.rate_limit
-        expect(rate.limit).to be_kind_of Fixnum
-        expect(rate.remaining).to be_kind_of Fixnum
+        expect(rate.limit).to be_kind_of Integer
+        expect(rate.remaining).to be_kind_of Integer
       end # #rate_limit
     end
 
@@ -23,10 +23,10 @@ describe Octokit::Client do
 
       it "checks the rate limit from the last response", :vcr => { cassette_name: "rate_limit" } do
         rate = client.rate_limit
-        expect(rate.limit).to be_kind_of Fixnum
-        expect(rate.remaining).to be_kind_of Fixnum
+        expect(rate.limit).to be_kind_of Integer
+        expect(rate.remaining).to be_kind_of Integer
         expect(rate.resets_at).to be_kind_of Time
-        expect(rate.resets_in).to be_kind_of Fixnum
+        expect(rate.resets_in).to be_kind_of Integer
       end
     end
   end
@@ -34,10 +34,10 @@ describe Octokit::Client do
   describe "#rate_limit!", :vcr => { cassette_name: "rate_limit" } do
     it "makes a web request to check the rate limit" do
       rate = client.rate_limit!
-      expect(rate.limit).to be_kind_of Fixnum
-      expect(rate.remaining).to be_kind_of Fixnum
+      expect(rate.limit).to be_kind_of Integer
+      expect(rate.remaining).to be_kind_of Integer
       expect(rate.resets_at).to be_kind_of Time
-      expect(rate.resets_in).to be_kind_of Fixnum
+      expect(rate.resets_in).to be_kind_of Integer
     end
   end # #rate_limit!
 

@@ -78,7 +78,7 @@ module Octokit
       # This removes the label from the Issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param number [Fixnum] Number ID of the issue
+      # @param number [Integer] Number ID of the issue
       # @param label [String] String name of the label
       # @return [Array<Sawyer::Resource>] A list of the labels currently on the issue
       # @see https://developer.github.com/v3/issues/labels/#remove-a-label-from-an-issue
@@ -93,7 +93,7 @@ module Octokit
       # This removes the label from the Issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param number [Fixnum] Number ID of the issue
+      # @param number [Integer] Number ID of the issue
       # @return [Boolean] Success of operation
       # @see https://developer.github.com/v3/issues/labels/#remove-all-labels-from-an-issue
       # @example Remove all labels from Issue #23
@@ -105,7 +105,7 @@ module Octokit
       # List labels for a given issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param number [Fixnum] Number ID of the issue
+      # @param number [Integer] Number ID of the issue
       # @return [Array<Sawyer::Resource>] A list of the labels currently on the issue
       # @see https://developer.github.com/v3/issues/labels/#list-labels-on-an-issue
       # @example List labels for octokit/octokit.rb, issue # 1
@@ -117,7 +117,7 @@ module Octokit
       # Add label(s) to an Issue
       #
       # @param repo [Integer, String, Repository, Hash] A Github repository
-      # @param number [Fixnum] Number ID of the issue
+      # @param number [Integer] Number ID of the issue
       # @param labels [Array] An array of labels to apply to this Issue
       # @return [Array<Sawyer::Resource>] A list of the labels currently on the issue
       # @see https://developer.github.com/v3/issues/labels/#add-labels-to-an-issue
@@ -130,7 +130,7 @@ module Octokit
       # Replace all labels on an Issue
       #
       # @param repo [Integer, String, Repository, Hash] A Github repository
-      # @param number [Fixnum] Number ID of the issue
+      # @param number [Integer] Number ID of the issue
       # @param labels [Array] An array of labels to use as replacement
       # @return [Array<Sawyer::Resource>] A list of the labels currently on the issue
       # @see https://developer.github.com/v3/issues/labels/#replace-all-labels-for-an-issue
@@ -143,7 +143,7 @@ module Octokit
       # Get labels for every issue in a milestone
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param number [Fixnum] Number ID of the milestone
+      # @param number [Integer] Number ID of the milestone
       # @return [Array<Sawyer::Resource>] A list of the labels across the milestone
       # @see  http://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
       # @example List all labels for milestone #2 on octokit/octokit.rb
