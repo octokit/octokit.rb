@@ -223,6 +223,7 @@ module Octokit
         options = ensure_api_media_type(:org_memberships, options)
         get "#{Organization.path org}/invitations", options
       end
+      alias :org_invitations :organization_invitations
 
       # List outside collaborators for an organization
       #
