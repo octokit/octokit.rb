@@ -13,7 +13,8 @@ module Octokit
       :issue_timelines        => 'application/vnd.github.mockingbird-preview+json'.freeze,
       :pages                  => 'application/vnd.github.mister-fantastic-preview+json'.freeze,
       :projects               => 'application/vnd.github.inertia-preview+json'.freeze,
-      :traffic                => 'application/vnd.github.spiderman-preview'.freeze
+      :traffic                => 'application/vnd.github.spiderman-preview'.freeze,
+      :org_membership         => 'application/vnd.github.korra-preview'.freeze
     }
 
     def ensure_api_media_type(type, options)

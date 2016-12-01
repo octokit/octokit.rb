@@ -84,6 +84,36 @@ describe Octokit::Client::Organizations do
     end
   end # .organization_public_member?
 
+  describe ".organization_invitations", :vcr do
+    it "lists pending organization invitations" do
+      @client.organization_invitations(test_github_org, :accept => 'application/vnd.github.korra-preview+json')
+      assert_requested :get, github_url("/orgs/#{test_github_org}/invitations")
+    end
+  end # .organization_invitations
+
+  describe ".outside_collaborators", :vcr do
+    it "lists outside collaborators for an organization" do
+      @client.outside_collaborators(test_github_org, :accept => 'application/vnd.github.korra-preview+json')
+      assert_requested :get, github_url("/orgs/#{test_github_org}/outside_collaborators")
+    end
+  end #  .outside_collaborators
+
+  describe ".remove_outside_collaborator", :vcr do
+    it "removes the outside collaborator from an organization" do
+      stub_delete github_url("/orgs/#{test_github_org}/outside_collaborators/lizzhale")
+      @client.remove_outside_collaborator(test_github_org, 'lizzhale', :accept => 'application/vnd.github.korra-preview+json')
+      assert_requested :delete, github_url("/orgs/#{test_github_org}/outside_collaborators/lizzhale")
+    end
+  end # .remove_outside_collaborator
+
+  describe ".convert_to_outside_collaborator", :vcr do
+    it "converts an organization member to an outside collaborator" do
+      stub_put github_url("orgs/#{test_github_org}/outside_collaborators/lizzhale")
+      @client.convert_to_outside_collaborator(test_github_org, 'lizzhale', :accept => 'application/vnd.github.korra-preview+json')
+      assert_requested :put, github_url("orgs/#{test_github_org}/outside_collaborators/lizzhale")
+    end
+  end # .convert_to_outside_collaborator
+
   describe ".organization_teams", :vcr do
     it "returns all teams for an organization" do
       teams = @client.organization_teams(test_github_org)
@@ -152,6 +182,13 @@ describe Octokit::Client::Organizations do
         assert_requested :get, github_url("/teams/#{@team.id}/members/api-padawan")
       end
     end # .team_member?
+
+    describe ".team_invitations", :vcr do
+      it "lists pending team invitations" do
+        @client.team_invitations(@team.id, :accept => 'application/vnd.github.korra-preview+json')
+        assert_requested :get, github_url("/teams/#{@team.id}/invitations")
+      end
+    end # .team_invitations
 
     describe ".team_repositories", :vcr do
       it "returns team repositories" do
