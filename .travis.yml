@@ -6,7 +6,8 @@ rvm:
   - 2.0
   - 2.1
   - 2.2
-  - 2.3.1
+  - 2.3.3
+  - ruby-head
 
 bundler_args: --without development
 
@@ -28,6 +29,7 @@ matrix:
   allow_failures:
     - rvm: rbx-2
     - rvm: jruby
+    - rvm: ruby-head
 
 notifications:
   emails: false
