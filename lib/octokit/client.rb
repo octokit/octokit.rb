@@ -42,6 +42,7 @@ require 'octokit/client/refs'
 require 'octokit/client/releases'
 require 'octokit/client/repositories'
 require 'octokit/client/repository_invitations'
+require 'octokit/client/reviews'
 require 'octokit/client/say'
 require 'octokit/client/search'
 require 'octokit/client/service_status'
@@ -96,6 +97,7 @@ module Octokit
     include Octokit::Client::Releases
     include Octokit::Client::Repositories
     include Octokit::Client::RepositoryInvitations
+    include Octokit::Client::Reviews
     include Octokit::Client::Say
     include Octokit::Client::Search
     include Octokit::Client::ServiceStatus
