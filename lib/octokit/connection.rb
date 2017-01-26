@@ -76,7 +76,7 @@ module Octokit
     #   contains the latest response.
     # @return [Sawyer::Resource]
     def paginate(url, options = {}, &block)
-      opts = parse_query_and_convenience_headers(options.dup)
+      opts = parse_query_and_convenience_headers(options)
       if @auto_paginate || @per_page
         opts[:query][:per_page] ||=  @per_page || (@auto_paginate ? 100 : nil)
       end
@@ -179,6 +179,7 @@ module Octokit
     end
 
     def parse_query_and_convenience_headers(options)
+      options = options.dup
       headers = options.delete(:headers) { Hash.new }
       CONVENIENCE_HEADERS.each do |h|
         if header = options.delete(h)
