@@ -40,7 +40,7 @@ module Octokit
       # Delete a pending review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param pr_id [Integer] The id of the pull request
+      # @param pull_id [Integer] The id of the pull request
       # @param review_id [Integer] The id of the review
       # @see https://developer.github.com/v3/pulls/reviews/#delete-a-pending-review
       #

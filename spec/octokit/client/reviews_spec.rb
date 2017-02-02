@@ -81,11 +81,6 @@ describe Octokit::Client::Reviews do
                                             'The Body')
       end
 
-      describe '.request_pull_request_review' do
-        it 'requests a pull request review' do
-        end
-      end
-
       describe '.create_pull_request_review' do
         it 'creates a pull request review with comments' do
           comments = [{ path: 'lib/test.txt', position: 1, body: 'Good!' }]
