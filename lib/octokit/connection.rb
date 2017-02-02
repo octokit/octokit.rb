@@ -160,7 +160,7 @@ module Octokit
     # @return [Boolean] True on success, false otherwise
     def boolean_from_response(method, path, options = {})
       request(method, path, options)
-      @last_response.status.between?(200, 206)
+      @last_response.status == 204
     rescue Octokit::NotFound
       false
     end

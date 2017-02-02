@@ -47,14 +47,10 @@ module Octokit
       # @example
       #   @client.delete_pull_request_review('octokit/octokit.rb', 825, 6505518)
       #
-      # @return [Boolean] True if deleted, false otherwise
+      # @return [Sawyer::Resource] Hash representing the deleted review
       def delete_pull_request_review(repo, pull_id, review_id, options = {})
         options = ensure_api_media_type(:reviews, options)
-        boolean_from_response(
-          :delete,
-          "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}",
-          options
-        )
+        delete "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}", options
       end
 
       # Get comments for a single review
@@ -70,8 +66,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the review comments
       def pull_request_review_comments(repo, pull_id, review_id, options = {})
         options = ensure_api_media_type(:reviews, options)
-        get "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}/comments",
-            options
+        get "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}/comments", options
       end
 
       # Create a pull request review
@@ -80,8 +75,8 @@ module Octokit
       # @param id [Integer] The id of the pull request
       # @param options [Hash] Method options
       # @option options [String] :event The review action (event) to perform;
-      #                                 can be one of APPROVE, REQUEST_CHANGES, or COMMENT.
-      #                                 If left blank, the review is left PENDING.
+      #   can be one of APPROVE, REQUEST_CHANGES, or COMMENT.
+      #   If left blank, the review is left PENDING.
       # @option options [String] :body The body text of the pull request review
       # @option options [Array<Hash>] :comments Comments part of the review
       # @option comments [String] :path The path to the file being commented on
@@ -94,9 +89,8 @@ module Octokit
       #     { path: '.travis.yml', position: 10, body: 'ruby-head is under development that is not stable.' },
       #     { path: '.travis.yml', position: 32, body: 'ruby-head is also required in thervm section.' },
       #   ]
-      #   @client.create_pull_request_review('octokit/octokit.rb', 844,
-      #                                      event: 'REQUEST_CHANGES',
-      #                                      comments: comments)
+      #   options = { event: 'REQUEST_CHANGES', comments: comments }
+      #   @client.create_pull_request_review('octokit/octokit.rb', 844, options)
       #
       # @return [Sawyer::Resource>] Hash respresenting the review
       def create_pull_request_review(repo, id, options = {})
@@ -121,9 +115,9 @@ module Octokit
       #
       # @return [Sawyer::Resource] Hash respresenting the review
       def submit_pull_request_review(repo, pull_id, review_id, event, options = {})
+        options = options.merge(event: event)
         options = ensure_api_media_type(:reviews, options)
-        post "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}/events",
-             options.merge(event: event)
+        post "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}/events", options
       end
 
       # Dismiss a pull request review
@@ -137,14 +131,11 @@ module Octokit
       # @example
       #   @client.dismiss_pull_request_review('octokit/octokit.rb', 825, 6505518)
       #
-      # @return [Boolean] True if dismissed succesfully, otherwise false
+      # @return [Sawyer::Resource] Hash representing the dismissed review
       def dismiss_pull_request_review(repo, pull_id, review_id, message, options = {})
+        options = options.merge(message: message)
         options = ensure_api_media_type(:reviews, options)
-        boolean_from_response(
-          :put,
-          "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}/dismissals",
-          options.merge(message: message)
-        )
+        put "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}/dismissals", options
       end
 
       # List review requests
@@ -156,8 +147,7 @@ module Octokit
       # @example
       #   @client.pull_request_review_requests('octokit/octokit.rb', 2)
       #
-      # @return [Array<Sawyer::Resource>] Array of Hashes representing the
-      #                                   review requests
+      # @return [Array<Sawyer::Resource>] Array of Hashes representing the review requests
       def pull_request_review_requests(repo, id, options = {})
         options = ensure_api_media_type(:reviews, options)
         get "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
@@ -175,9 +165,9 @@ module Octokit
       #
       # @return [Sawyer::Resource>] Hash respresenting the pull request
       def request_pull_request_review(repo, id, reviewers, options = {})
+        options = options.merge(reviewers: reviewers)
         options = ensure_api_media_type(:reviews, options)
-        post "#{Repository.path repo}/pulls/#{id}/requested_reviewers",
-             options.merge(reviewers: reviewers)
+        post "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
       end
     end
   end
