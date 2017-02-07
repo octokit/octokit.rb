@@ -78,14 +78,14 @@ module Octokit
       end
 
       # Update a pull request
-      # @overload update_pull_request(repo, id, title=nil, body=nil, state=nil, options = {})
+      # @overload update_pull_request(repo, number, title=nil, body=nil, state=nil, options = {})
       #   @deprecated
       #   @param repo [Integer, String, Hash, Repository] A GitHub repository.
       #   @param number [Integer] Number of pull request to update.
       #   @param title [String] Title for the pull request.
       #   @param body [String] Body content for pull request. Supports GFM.
       #   @param state [String] State of the pull request. `open` or `closed`.
-      # @overload update_pull_request(repo, id,  options = {})
+      # @overload update_pull_request(repo, number,  options = {})
       #   @param repo [Integer, String, Hash, Repository] A GitHub repository.
       #   @param number [Integer] Number of pull request to update.
       #   @option options [String] :title Title for the pull request.
