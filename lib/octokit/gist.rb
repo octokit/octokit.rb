@@ -15,7 +15,7 @@ module Octokit
 
     def initialize(gist)
       case gist
-      when Fixnum, String
+      when Integer, String
         @id = gist.to_s
       end
     end

@@ -49,7 +49,7 @@ module Octokit
       # Public: Initialize the middleware.
       #
       # options - An options Hash (default: {}):
-      #           :limit               - A Fixnum redirect limit (default: 3).
+      #           :limit               - A Integer redirect limit (default: 3).
       def initialize(app, options = {})
         super(app)
         @options = options

@@ -14,7 +14,7 @@ describe Octokit::Client::Search do
         :order => 'asc'
 
       assert_requested :get, github_url('/search/code?q=code%20user:github%20in:file%20extension:gemspec%20-repo:octokit/octokit.rb&sort=indexed&order=asc')
-      expect(results.total_count).to be_kind_of Fixnum
+      expect(results.total_count).to be_kind_of Integer
       expect(results.items).to be_kind_of Array
     end
   end # .search_code
@@ -26,7 +26,7 @@ describe Octokit::Client::Search do
         :order => 'desc'
 
       assert_requested :get, github_url('/search/issues?q=http%20author:jasonrudolph&sort=created&order=desc')
-      expect(results.total_count).to be_kind_of Fixnum
+      expect(results.total_count).to be_kind_of Integer
       expect(results.items).to be_kind_of Array
     end
   end # .search_issues
@@ -38,7 +38,7 @@ describe Octokit::Client::Search do
         :order => 'desc'
 
       assert_requested :get, github_url('/search/repositories?q=tetris%20language:assembly&sort=stars&order=desc')
-      expect(results.total_count).to be_kind_of Fixnum
+      expect(results.total_count).to be_kind_of Integer
       expect(results.items).to be_kind_of Array
     end
   end # .search_repositories
@@ -50,7 +50,7 @@ describe Octokit::Client::Search do
         :order => 'desc'
 
       assert_requested :get, github_url('/search/users?q=mike%20followers:%3E10&sort=joined&order=desc')
-      expect(results.total_count).to be_kind_of Fixnum
+      expect(results.total_count).to be_kind_of Integer
       expect(results.items).to be_kind_of Array
     end
 
