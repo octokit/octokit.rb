@@ -427,7 +427,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/teams/#get-team-member
       #
       # @example Check if a user is in your team
-      #   @client.team_member?('your_team', 'pengwynn')
+      #   @client.team_member?(100000, 'pengwynn')
       #   => false
       def team_member?(team_id, user, options = {})
         boolean_from_response :get, "teams/#{team_id}/members/#{user}", options
