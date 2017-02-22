@@ -641,14 +641,14 @@ module Octokit
 
       # Get an organization membership
       #
-      # @param org [String] Organization GitHub login.
+      # @param org [Integer, String] The GitHub Organization.
       # @option options [String] :user  The login of the user, otherwise authenticated user.
       # @return [Sawyer::Resource] Hash representing the organization membership.
       # @see https://developer.github.com/v3/orgs/members/#get-your-organization-membership
       # @see https://developer.github.com/v3/orgs/members/#get-organization-membership
       def organization_membership(org, options = {})
         if user = options.delete(:user)
-          get "orgs/#{org}/memberships/#{user}", options
+          get "#{Organization.path(org)}/memberships/#{user}", options
         else
           get "user/memberships/orgs/#{org}", options
         end
