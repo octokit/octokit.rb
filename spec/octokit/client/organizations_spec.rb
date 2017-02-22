@@ -318,6 +318,17 @@ describe Octokit::Client::Organizations do
       )
       assert_requested :get, github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
     end
+
+    it "returns an organization membership for a given user by the orgs id" do
+      org_id = 42
+      stub_get github_url("organizations/42/memberships/#{test_github_login}")
+      @client.organization_membership(
+        org_id,
+        :user => test_github_login,
+        :accept => "application/vnd.github.moondragon+json"
+      )
+      assert_requested :get, github_url("/organizations/#{org_id}/memberships/#{test_github_login}")
+    end
   end # .organization_membership
 
   describe ".update_organization_membership", :vcr do
