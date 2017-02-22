@@ -321,7 +321,7 @@ describe Octokit::Client::Organizations do
 
     it "returns an organization membership for a given user by the orgs id" do
       org_id = 42
-      stub_get github_url("organizations/42/memberships/#{test_github_login}")
+      stub_get github_url("organizations/#{org_id}/memberships/#{test_github_login}")
       @client.organization_membership(
         org_id,
         :user => test_github_login,
