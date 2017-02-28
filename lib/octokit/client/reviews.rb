@@ -24,49 +24,49 @@ module Octokit
       # Get a single review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param pull_id [Integer] The id of the pull request
-      # @param review_id [Integer] The id of the review
+      # @param number [Integer] The id of the pull request
+      # @param review [Integer] The id of the review
       # @see https://developer.github.com/v3/pulls/reviews/#get-a-single-review
       #
       # @example
       #   @client.pull_request_review('octokit/octokit.rb', 825, 6505518)
       #
       # @return [Sawyer::Resource] Hash representing the review
-      def pull_request_review(repo, pull_id, review_id, options = {})
+      def pull_request_review(repo, number, review, options = {})
         options = ensure_api_media_type(:reviews, options)
-        get "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}", options
+        get "#{Repository.path repo}/pulls/#{number}/reviews/#{review}", options
       end
 
       # Delete a pending review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param pull_id [Integer] The id of the pull request
-      # @param review_id [Integer] The id of the review
+      # @param number [Integer] The id of the pull request
+      # @param review [Integer] The id of the review
       # @see https://developer.github.com/v3/pulls/reviews/#delete-a-pending-review
       #
       # @example
       #   @client.delete_pull_request_review('octokit/octokit.rb', 825, 6505518)
       #
       # @return [Sawyer::Resource] Hash representing the deleted review
-      def delete_pull_request_review(repo, pull_id, review_id, options = {})
+      def delete_pull_request_review(repo, number, review, options = {})
         options = ensure_api_media_type(:reviews, options)
-        delete "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}", options
+        delete "#{Repository.path repo}/pulls/#{number}/reviews/#{review}", options
       end
 
       # Get comments for a single review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param pull_id [Integer] The id of the pull request
-      # @param review_id [Integer] The id of the review
+      # @param number [Integer] The id of the pull request
+      # @param review [Integer] The id of the review
       # @see https://developer.github.com/v3/pulls/reviews/#get-comments-for-a-single-review
       #
       # @example
       #   @client.pull_request_review_comments('octokit/octokit.rb', 825, 6505518)
       #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the review comments
-      def pull_request_review_comments(repo, pull_id, review_id, options = {})
+      def pull_request_review_comments(repo, number, review, options = {})
         options = ensure_api_media_type(:reviews, options)
-        get "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}/comments", options
+        get "#{Repository.path repo}/pulls/#{number}/reviews/#{review}/comments", options
       end
 
       # Create a pull request review
@@ -101,8 +101,8 @@ module Octokit
       # Submit a pull request review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param pull_id [Integer] The id of the pull request
-      # @param review_id [Integer] The id of the review
+      # @param number [Integer] The id of the pull request
+      # @param review [Integer] The id of the review
       # @param event [String] The review action (event) to perform; can be one of
       #                       APPROVE, REQUEST_CHANGES, or COMMENT.
       # @param options [Hash] Method options
@@ -114,17 +114,17 @@ module Octokit
       #                                      'APPROVE', body: 'LGTM!')
       #
       # @return [Sawyer::Resource] Hash respresenting the review
-      def submit_pull_request_review(repo, pull_id, review_id, event, options = {})
+      def submit_pull_request_review(repo, number, review, event, options = {})
         options = options.merge(event: event)
         options = ensure_api_media_type(:reviews, options)
-        post "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}/events", options
+        post "#{Repository.path repo}/pulls/#{number}/reviews/#{review}/events", options
       end
 
       # Dismiss a pull request review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param pull_id [Integer] The id of the pull request
-      # @param review_id [Integer] The id of the review
+      # @param number [Integer] The id of the pull request
+      # @param review [Integer] The id of the review
       # @param message [String] The message for the pull request review dismissal
       # @see https://developer.github.com/v3/pulls/reviews/#dismiss-a-pull-request-review
       #
@@ -132,10 +132,10 @@ module Octokit
       #   @client.dismiss_pull_request_review('octokit/octokit.rb', 825, 6505518)
       #
       # @return [Sawyer::Resource] Hash representing the dismissed review
-      def dismiss_pull_request_review(repo, pull_id, review_id, message, options = {})
+      def dismiss_pull_request_review(repo, number, review, message, options = {})
         options = options.merge(message: message)
         options = ensure_api_media_type(:reviews, options)
-        put "#{Repository.path repo}/pulls/#{pull_id}/reviews/#{review_id}/dismissals", options
+        put "#{Repository.path repo}/pulls/#{number}/reviews/#{review}/dismissals", options
       end
 
       # List review requests
