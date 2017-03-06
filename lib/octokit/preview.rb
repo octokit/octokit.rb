@@ -15,7 +15,8 @@ module Octokit
       :projects               => 'application/vnd.github.inertia-preview+json'.freeze,
       :traffic                => 'application/vnd.github.spiderman-preview'.freeze,
       :org_membership         => 'application/vnd.github.korra-preview'.freeze,
-      :reviews                => 'application/vnd.github.black-cat-preview'.freeze
+      :reviews                => 'application/vnd.github.black-cat-preview'.freeze,
+      :integrations           => 'Accept: application/vnd.github.machine-man-preview+json'.freeze
     }
 
     def ensure_api_media_type(type, options)

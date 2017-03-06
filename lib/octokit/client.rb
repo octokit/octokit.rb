@@ -22,6 +22,7 @@ require 'octokit/client/feeds'
 require 'octokit/client/gists'
 require 'octokit/client/gitignore'
 require 'octokit/client/hooks'
+require 'octokit/client/integrations'
 require 'octokit/client/issues'
 require 'octokit/client/labels'
 require 'octokit/client/legacy_search'
@@ -77,6 +78,7 @@ module Octokit
     include Octokit::Client::Gists
     include Octokit::Client::Gitignore
     include Octokit::Client::Hooks
+    include Octokit::Client::Integrations
     include Octokit::Client::Issues
     include Octokit::Client::Labels
     include Octokit::Client::LegacySearch
