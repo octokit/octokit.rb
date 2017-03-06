@@ -1,4 +1,3 @@
-require 'pry'
 require 'helper'
 
 describe Octokit::Client::Integrations do
