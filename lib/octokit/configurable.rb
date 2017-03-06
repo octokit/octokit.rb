@@ -10,6 +10,9 @@ module Octokit
     #   @return [String] Base URL for API requests. default: https://api.github.com/
     # @!attribute auto_paginate
     #   @return [Boolean] Auto fetch next page of results until rate limit reached
+    # @!attribute [w] bearer_token
+    #   @see https://developer.github.com/early-access/integrations/authentication/#as-an-integration
+    #   @return [String] JWT bearer token for authentication
     # @!attribute client_id
     #   @see https://developer.github.com/v3/oauth/
     #   @return [String] Configure OAuth app key
@@ -47,7 +50,7 @@ module Octokit
     # @!attribute web_endpoint
     #   @return [String] Base URL for web URLs. default: https://github.com/
 
-    attr_accessor :access_token, :auto_paginate, :client_id,
+    attr_accessor :access_token, :auto_paginate, :bearer_token, :client_id,
                   :client_secret, :default_media_type, :connection_options,
                   :middleware, :netrc, :netrc_file,
                   :per_page, :proxy, :user_agent
@@ -63,6 +66,7 @@ module Octokit
           :access_token,
           :api_endpoint,
           :auto_paginate,
+          :bearer_token,
           :client_id,
           :client_secret,
           :connection_options,

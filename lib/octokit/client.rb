@@ -128,6 +128,7 @@ module Octokit
       # mask password
       inspected = inspected.gsub! @password, "*******" if @password
       inspected = inspected.gsub! @management_console_password, "*******" if @management_console_password
+      inspected = inspected.gsub! @bearer_token, '********' if @bearer_token
       # Only show last 4 of token, secret
       if @access_token
         inspected = inspected.gsub! @access_token, "#{'*'*36}#{@access_token[36..-1]}"
@@ -188,6 +189,14 @@ module Octokit
       @access_token = value
     end
 
+    # Set Bearer Token for authentication
+    #
+    # @param value [String] JWT
+    def bearer_token=(value)
+      reset_agent
+      @bearer_token = value
+    end
+
     # Set OAuth app client_id
     #
     # @param value [String] 20 character GitHub OAuth app client_id
@@ -214,6 +223,8 @@ module Octokit
           http.basic_auth(@login, @password)
         elsif token_authenticated?
           http.authorization 'token', @access_token
+        elsif bearer_authenticated?
+          http.authorization 'Bearer', @bearer_token
         end
         http.headers['accept'] = options[:accept] if options.key?(:accept)
       end

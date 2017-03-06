@@ -21,6 +21,14 @@ module Octokit
       !!@access_token
     end
 
+    # Indicates if the client was supplied a bearer token
+    #
+    # @see https://developer.github.com/early-access/integrations/authentication/#as-an-integration
+    # @return [Boolean]
+    def bearer_authenticated?
+      !!@bearer_token
+    end
+
     # Indicates if the client was supplied an OAuth
     # access token or Basic Auth username and password
     #
