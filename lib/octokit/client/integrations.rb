@@ -34,9 +34,6 @@ module Octokit
       # List repositories that are accessible to the authenticated installation
       #
       # @param options [Hash] An customizable set of options
-      # @option options user_id [String] To filter results to repositories that are visible to
-      #   both the installation and the given user.
-      #
       # @see https://developer.github.com/v3/integrations/installations/#list-repositories
       #
       # @return [Array<Sawyer::Resource>] A list of repositories
