@@ -64,6 +64,13 @@ describe Octokit::Client::Refs do
       end
     end # .create_ref
 
+    describe ".list_required_status" do
+      it "retrieves all the required statuses of a protected branch" do
+        @client.list_required_status(@test_repo, "heads/master")
+        assert_requested :patch, github_url("/repos/#{@test_repo}/branches/heads/master/protection/required_status_checks/contexts")
+      end
+    end # .list_required_status
+
     describe ".update_branch" do
       it "updates a branch" do
         @client.update_branch(@test_repo, "testing/test-ref", @last_sha, true)
@@ -93,4 +100,3 @@ describe Octokit::Client::Refs do
     end # .delete_ref
   end # with ref
 end
-

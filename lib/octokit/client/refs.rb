@@ -55,6 +55,16 @@ module Octokit
       end
       alias :create_reference :create_ref
 
+      # List required status
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param branch [String] The ref, e.g. <tt>feature/new-shiny</tt>
+      # @return [Array<Sawyer::Resource>] The list of required status
+      # @see https://developer.github.com/v3/repos/branches/#list-required-status-checks-contexts-of-protected-branch
+      def list_required_status(repo, ref)
+        get "#{Repository.path repo}/branches/#{ref}/protection/required_status_checks/contexts"
+      end
+
       # Update a reference
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
