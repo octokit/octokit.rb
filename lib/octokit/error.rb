@@ -138,8 +138,12 @@ module Octokit
       return nil unless data.is_a?(Hash) && !Array(data[:errors]).empty?
 
       summary = "\nError summary:\n"
-      summary << data[:errors].map do |hash|
-        hash.map { |k,v| "  #{k}: #{v}" }
+      summary << data[:errors].map do |error|
+        if error.is_a? Hash
+          error.map { |k,v| "  #{k}: #{v}" }
+        else
+          "  #{error}"
+        end
       end.join("\n")
 
       summary

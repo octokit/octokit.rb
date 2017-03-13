@@ -754,6 +754,7 @@ describe Octokit::Client do
         :body => {
           :message => "Validation Failed",
           :errors => [
+            "Position is invalid",
             :resource => "Issue",
             :field    => "title",
             :code     => "missing_field"
@@ -763,6 +764,7 @@ describe Octokit::Client do
         Octokit.get('/boom')
       rescue Octokit::UnprocessableEntity => e
         expect(e.message).to include("GET https://api.github.com/boom: 422 - Validation Failed")
+        expect(e.message).to include("  Position is invalid")
         expect(e.message).to include("  resource: Issue")
         expect(e.message).to include("  field: title")
         expect(e.message).to include("  code: missing_field")
