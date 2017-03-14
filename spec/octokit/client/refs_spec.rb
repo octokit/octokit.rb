@@ -43,6 +43,16 @@ describe Octokit::Client::Refs do
     end
   end # .create_ref
 
+  describe ".with_branch", vcr: { record: :new_episodes } do
+    it ".list_required_status" do
+        test_repo = 'kevinrobayna/octokit.rb'
+        branch = 'master'
+        url = "/repos/#{@test_repo}/branches/#{branch}/protection/required_status_checks/contexts"
+        @client.list_required_status(test_repo, branch)
+        assert_requested :get, github_url(url)
+    end # .list_required_status
+  end # .with_branch
+
   context "with ref", :vcr do
     before(:each) do
       commits = @client.commits(@test_repo)
@@ -63,13 +73,6 @@ describe Octokit::Client::Refs do
         assert_requested :post, github_url("/repos/#{@test_repo}/git/refs")
       end
     end # .create_ref
-
-    describe ".list_required_status" do
-      it "retrieves all the required statuses of a protected branch" do
-        @client.list_required_status(@test_repo, "heads/master")
-        assert_requested :patch, github_url("/repos/#{@test_repo}/branches/heads/master/protection/required_status_checks/contexts")
-      end
-    end # .list_required_status
 
     describe ".update_branch" do
       it "updates a branch" do
