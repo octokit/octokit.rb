@@ -181,6 +181,10 @@ def test_github_integration_installation
   ENV.fetch 'OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION', 37
 end
 
+def test_github_integration_pem_key
+  ENV.fetch 'OCTOKIT_TEST_INTEGRATION_PEM_KEY', "#{fixture_path}/fake_integration.private-key.pem"
+end
+
 def stub_delete(url)
   stub_request(:delete, github_url(url))
 end

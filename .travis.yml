@@ -20,7 +20,6 @@ env:
     - OCTOKIT_TEST_GITHUB_TOKEN="6a21f190e3422bf89afa8b360d923b0c30e8fbfa"
     - OCTOKIT_TEST_GITHUB_CLIENT_ID='abcdefabcdefabcdefab'
     - OCTOKIT_TEST_GITHUB_CLIENT_SECRET='abcdefabcdefabcdefababcdefabcdefabcdefab'
-    - OCTOKIT_TEST_INTEGRATION_PEM_KEY='./spec/fixtures/fake_integration.private-key.pem'
     - OCTOKIT_SILENT=true
 
 before_script:

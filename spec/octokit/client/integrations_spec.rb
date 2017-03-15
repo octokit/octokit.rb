@@ -90,7 +90,7 @@ describe Octokit::Client::Integrations do
   private
 
   def new_jwt_token
-    private_pem = File.read(ENV['OCTOKIT_TEST_INTEGRATION_PEM_KEY'])
+    private_pem = File.read(test_github_integration_pem_key)
     private_key = OpenSSL::PKey::RSA.new(private_pem)
 
     payload = {}.tap do |opts|
