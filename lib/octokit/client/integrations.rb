@@ -12,10 +12,10 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] A list of installations
       def find_integration_installations(options = {})
-        options = ensure_api_media_type(:integrations, options)
-        paginate "/integration/installations", options
+        opts = ensure_api_media_type(:integrations, options)
+        paginate "/integration/installations", opts
       end
-      alias :find_installations :find_integration_installations
+      alias find_installations find_integration_installations
 
       # Create a new installation token
       #
@@ -26,10 +26,10 @@ module Octokit
       #
       # @return [<Sawyer::Resource>] An installation token
       def create_integration_installation_access_token(installation, options = {})
-        options = ensure_api_media_type(:integrations, options)
-        post "/installations/#{installation}/access_tokens", options
+        opts = ensure_api_media_type(:integrations, options)
+        post "/installations/#{installation}/access_tokens", opts
       end
-      alias :create_installation_access_token :create_integration_installation_access_token
+      alias create_installation_access_token create_integration_installation_access_token
 
       # List repositories that are accessible to the authenticated installation
       #
@@ -38,10 +38,10 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] A list of repositories
       def list_integration_installation_repositories(options = {})
-        options = ensure_api_media_type(:integrations, options)
-        paginate "/installation/repositories", options
+        opts = ensure_api_media_type(:integrations, options)
+        paginate "/installation/repositories", opts
       end
-      alias :list_installation_repos :list_integration_installation_repositories
+      alias list_installation_repos list_integration_installation_repositories
 
       # Add a single repository to an installation
       #
@@ -53,10 +53,10 @@ module Octokit
       #
       # @return [Boolean] Success
       def add_repository_to_integration_installation(installation, repo, options = {})
-        options = ensure_api_media_type(:integrations, options)
-        boolean_from_response :put, "/installations/#{installation}/repositories/#{repo}", options
+        opts = ensure_api_media_type(:integrations, options)
+        boolean_from_response :put, "/installations/#{installation}/repositories/#{repo}", opts
       end
-      alias :add_repo_to_installation :add_repository_to_integration_installation
+      alias add_repo_to_installation add_repository_to_integration_installation
 
       # Remove a single repository to an installation
       #
@@ -68,10 +68,10 @@ module Octokit
       #
       # @return [Boolean] Success
       def remove_repository_from_integration_installation(installation, repo, options = {})
-        options = ensure_api_media_type(:integrations, options)
-        boolean_from_response :delete, "/installations/#{installation}/repositories/#{repo}", options
+        opts = ensure_api_media_type(:integrations, options)
+        boolean_from_response :delete, "/installations/#{installation}/repositories/#{repo}", opts
       end
-      alias :remove_repo_from_installation :remove_repository_from_integration_installation
+      alias remove_repo_from_installation remove_repository_from_integration_installation
     end
   end
 end
