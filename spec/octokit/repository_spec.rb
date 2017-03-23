@@ -107,6 +107,14 @@ describe Octokit::Repository do
     end
   end
 
+  context "when passed a frozen hash" do
+    it "sets the repository name and username" do
+      repository = Octokit::Repository.new({:username => 'sferik', :name => 'octokit'}.freeze)
+      expect(repository.name).to eq("octokit")
+      expect(repository.username).to eq("sferik")
+    end
+  end
+
   context "when passed a hash with invalid username" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new({:username => 'invalid username!', :name => 'octokit'}) }.
