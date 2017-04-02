@@ -195,7 +195,7 @@ module Octokit
       # @example
       #   @client.create_gist_comment('3528645', 'This is very helpful.')
       def create_gist_comment(gist_id, comment, options = {})
-        options.merge!({:body => comment})
+        options = options.merge({:body => comment})
         post "gists/#{gist_id}/comments", options
       end
 
@@ -211,7 +211,7 @@ module Octokit
       # @example
       #   @client.update_gist_comment('208sdaz3', '3528645', ':heart:')
       def update_gist_comment(gist_id, gist_comment_id, comment, options = {})
-        options.merge!({:body => comment})
+        options = options.merge({:body => comment})
         patch "gists/#{gist_id}/comments/#{gist_comment_id}", options
       end
 
