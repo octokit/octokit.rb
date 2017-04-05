@@ -44,7 +44,7 @@ module Octokit
       # @example
       #   Octokit.exchange_code_for_token('aaaa', 'xxxx', 'yyyy', {:accept => 'application/json'})
       def exchange_code_for_token(code, app_id = client_id, app_secret = client_secret, options = {})
-        options.merge!({
+        options = options.merge({
           :code => code,
           :client_id => app_id,
           :client_secret => app_secret,
@@ -53,6 +53,7 @@ module Octokit
             :accept       => 'application/json'
           }
         })
+
         post "#{web_endpoint}login/oauth/access_token", options
       end
 
