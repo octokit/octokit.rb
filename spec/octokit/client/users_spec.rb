@@ -243,4 +243,20 @@ describe Octokit::Client::Users do
       end
     end # with credentials passed as parameters
   end # .exchange_code_for_token
+
+  describe ".suspend", :vcr do
+    it "suspends a user" do
+      @client.suspend("pengwynn")
+      assert_requested :put, github_url("/users/pengwynn/suspended")
+    end
+  end # .suspend
+
+  describe ".unsuspend", :vcr do
+    it "unsuspends a user" do
+      @client.unsuspend("pengwynn")
+      assert_requested :delete, github_url("/users/pengwynn/suspended")
+    end
+  end # .unsuspend
+
+
 end
