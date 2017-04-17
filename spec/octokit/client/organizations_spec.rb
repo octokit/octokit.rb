@@ -381,4 +381,21 @@ describe Octokit::Client::Organizations do
       assert_requested :delete, github_url("/orgs/#{test_github_org}/migrations/97/repos/api-playground/lock")
     end
   end # .migrations
+
+  describe ".add_or_update_organization_membership", :vcr do
+    it "adds user membership to organization" do
+      membership = @client.add_or_update_organization_membership(test_github_org , test_github_login)
+
+      assert_requested :put, github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
+      expect(membership.state).to eq("pending")
+    end
+
+    it "update user membership to otganization" do
+      membership = @client.add_or_update_organization_membership(test_github_org , test_github_login, { role: "admin" })
+
+      assert_requested :put, github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
+      expect(membership.state).to eq("active")
+      expect(membership.role).to eq("admin")
+    end
+  end
 end
