@@ -17,6 +17,18 @@ module Octokit
       end
       alias find_installations find_integration_installations
 
+      # Get a single installation
+      #
+      # @param id [Integer] Installation id
+      #
+      # @see https://developer.github.com/v3/integrations/#get-a-single-installation
+      #
+      # @return [Sawyer::Resource] Installation information
+      def installation(id, options = {})
+        opts = ensure_api_media_type(:integrations, options)
+        get "/integration/installations/#{id}", opts
+      end
+
       # Create a new installation token
       #
       # @param installation [Integer] The id of a a GitHub Integration Installation
