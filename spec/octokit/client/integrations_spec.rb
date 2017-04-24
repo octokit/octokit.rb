@@ -23,6 +23,14 @@ describe Octokit::Client::Integrations do
   context "with integration installation", :vcr do
     let(:installation) { test_github_integration_installation }
 
+    describe ".installation" do
+      it "returns the installation" do
+        response = @jwt_client.installation(installation)
+        expect(response).to be_kind_of Sawyer::Resource
+        assert_requested :get, github_url("/integration/installations/#{installation}")
+      end
+    end # .installation
+
     describe ".create_integration_installation_access_token" do
       it "creates an access token for the installation" do
         response = @jwt_client.create_integration_installation_access_token(installation)
