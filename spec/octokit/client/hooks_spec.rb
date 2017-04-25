@@ -94,11 +94,6 @@ describe Octokit::Client::Hooks do
       expect(hooks).to be_kind_of Array
       assert_requested :get, github_url("/orgs/#{test_github_org}/hooks")
     end
-    it "returns an organization's hooks by ID" do
-      request = stub_get("/organizations/1/hooks")
-      @client.org_hooks(1)
-      assert_requested request
-    end
   end
 
   context "with org hook" do
@@ -114,22 +109,12 @@ describe Octokit::Client::Hooks do
       it "creates an org hook" do
         assert_requested :post, github_url("/orgs/#{test_github_org}/hooks")
       end
-      it "creates an org hook for by ID" do
-        request = stub_post("/organizations/1/hooks")
-        org_hook = @client.create_org_hook(1, {:url => "http://railsbp.com", :content_type => "json"})
-        assert_requested request
-      end
     end # .create_org_hook
 
     describe ".org_hook", :vcr do
       it "returns a single org hook" do
         @client.org_hook(test_github_org, @org_hook.id)
         assert_requested :get, github_url("/orgs/#{test_github_org}/hooks/#{@org_hook.id}")
-      end
-      it "returns a single org hook by ID" do
-        request = stub_get(github_url("/organizations/1/hooks/#{@org_hook.id}"))
-        @client.org_hook(1, @org_hook.id)
-        assert_requested request
       end
     end # .org_hook
 
@@ -138,11 +123,6 @@ describe Octokit::Client::Hooks do
         @client.edit_org_hook(test_github_org, @org_hook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
         assert_requested :patch, github_url("/orgs/#{test_github_org}/hooks/#{@org_hook.id}")
       end
-      it "edits an org hook by ID" do
-        request = stub_patch("/organizations/1/hooks/#{@org_hook.id}")
-        @client.edit_org_hook(1, @org_hook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
-        assert_requested request
-      end
     end # .edit_org_hook
 
     describe ".ping_org_hook", :vcr do
@@ -150,22 +130,12 @@ describe Octokit::Client::Hooks do
         @client.ping_org_hook(test_github_org, @org_hook.id)
         assert_requested :post, github_url("/orgs/#{test_github_org}/hooks/#{@org_hook.id}/pings")
       end
-      it "pings an org hook by ID" do
-        request = stub_post("/organizations/1/hooks/#{@org_hook.id}/pings")
-        @client.ping_org_hook(1, @org_hook.id)
-        assert_requested request
-      end
     end # .ping_org_hook
 
     describe ".remove_org_hook", :vcr do
       it "removes an org hook" do
         @client.remove_org_hook(test_github_org, @org_hook.id)
         assert_requested :delete, github_url("/orgs/#{test_github_org}/hooks/#{@org_hook.id}")
-      end
-      it "removes an org hook by ID" do
-        request = stub_delete("/organizations/1/hooks/#{@org_hook.id}")
-        @client.remove_org_hook(1, @org_hook.id)
-        assert_requested request
       end
     end # .remove_org_hook
   end # with org hook

@@ -166,13 +166,13 @@ module Octokit
       #
       # Requires client authenticated as admin for the org.
       #
-      # @param org [String, Integer] Organization GitHub login or id.
+      # @param org [String] A GitHub organization login.
       # @return [Array<Sawyer::Resource>] Array of hashes representing hooks.
       # @see https://developer.github.com/v3/orgs/hooks/#list-hooks
       # @example
       #   @client.org_hooks('octokit')
       def org_hooks(org, options = {})
-        paginate "#{Organization.path org}/hooks", options
+        paginate "orgs/#{org}/hooks", options
       end
       alias :list_org_hooks :org_hooks
 
@@ -180,21 +180,21 @@ module Octokit
       #
       # Requires client authenticated as admin for the org.
       #
-      # @param org [String, Integer] Organization GitHub login or id.
+      # @param org [String] A GitHub organization login.
       # @param id [Integer] Id of the hook to get.
       # @return [Sawyer::Resource] Hash representing hook.
       # @see https://developer.github.com/v3/orgs/hooks/#get-single-hook
       # @example
       #   @client.org_hook('octokit', 123)
       def org_hook(org, id, options = {})
-        get "#{Organization.path org}/hooks/#{id}", options
+        get "orgs/#{org}/hooks/#{id}", options
       end
 
       # Create an org hook
       #
       # Requires client authenticated as admin for the org.
       #
-      # @param org [String, Integer] Organization GitHub login or id.
+      # @param org [String] A GitHub organization login.
       # @param config [Hash] A Hash containing key/value pairs to provide
       #   settings for this hook.
       # @option options [Array<String>] :events ('["push"]') Determines what
@@ -218,14 +218,14 @@ module Octokit
       #   )
       def create_org_hook(org, config, options = {})
         options = { :name => "web", :config => config }.merge(options)
-        post "#{Organization.path org}/hooks", options
+        post "orgs/#{org}/hooks", options
       end
 
       # Update an org hook
       #
       # Requires client authenticated as admin for the org.
       #
-      # @param org [String, Integer] Organization GitHub login or id.
+      # @param org [String] A GitHub organization login.
       # @param id [Integer] Id of the hook to update.
       # @param config [Hash] A Hash containing key/value pairs to provide
       #   settings for this hook.
@@ -251,7 +251,7 @@ module Octokit
       #   )
       def edit_org_hook(org, id, config, options = {})
         options = { :config => config }.merge(options)
-        patch "#{Organization.path org}/hooks/#{id}", options
+        patch "orgs/#{org}/hooks/#{id}", options
       end
       alias :update_org_hook :edit_org_hook
 
@@ -259,28 +259,28 @@ module Octokit
       #
       # Requires client authenticated as admin for the org.
       #
-      # @param org [String, Integer] Organization GitHub login or id.
+      # @param org [String] A GitHub organization login.
       # @param id [Integer] Id of the hook to update.
       # @return [Boolean] Success
       # @see https://developer.github.com/v3/orgs/hooks/#ping-a-hook
       # @example
       #   @client.ping_org_hook('octokit', 1000000)
       def ping_org_hook(org, id, options = {})
-        boolean_from_response :post, "#{Organization.path org}/hooks/#{id}/pings", options
+        boolean_from_response :post, "orgs/#{org}/hooks/#{id}/pings", options
       end
 
       # Remove org hook
       #
       # Requires client authenticated as admin for the org.
       #
-      # @param org [String, Integer] Organization GitHub login or id.
+      # @param org [String] A GitHub organization login.
       # @param id [Integer] Id of the hook to update.
       # @return [Boolean] True if hook removed, false otherwise.
       # @see https://developer.github.com/v3/orgs/hooks/#delete-a-hook
       # @example
       #   @client.remove_org_hook('octokit', 1000000)
       def remove_org_hook(org, id, options = {})
-        boolean_from_response :delete, "#{Organization.path org}/hooks/#{id}", options
+        boolean_from_response :delete, "orgs/#{org}/hooks/#{id}", options
       end
 
       # Parse payload string
