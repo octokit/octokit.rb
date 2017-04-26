@@ -18,7 +18,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the reviews
       def pull_request_reviews(repo, id, options = {})
         options = ensure_api_media_type(:reviews, options)
-        get "#{Repository.path repo}/pulls/#{id}/reviews", options
+        paginate "#{Repository.path repo}/pulls/#{id}/reviews", options
       end
 
       # Get a single review
@@ -66,7 +66,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the review comments
       def pull_request_review_comments(repo, number, review, options = {})
         options = ensure_api_media_type(:reviews, options)
-        get "#{Repository.path repo}/pulls/#{number}/reviews/#{review}/comments", options
+        paginate "#{Repository.path repo}/pulls/#{number}/reviews/#{review}/comments", options
       end
 
       # Create a pull request review
@@ -150,7 +150,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the review requests
       def pull_request_review_requests(repo, id, options = {})
         options = ensure_api_media_type(:reviews, options)
-        get "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
+        paginate "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
       end
 
       # Create a review request
