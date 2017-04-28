@@ -26,7 +26,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Repository information
       def repository(repo, options = {})
-        get Repository.path(repo), options
+        get_and_patch Repository.path(repo), options
       end
       alias :repo :repository
 
@@ -68,7 +68,7 @@ module Octokit
       #   to list repos.
       # @return [Array<Sawyer::Resource>] List of repositories
       def repositories(user=nil, options = {})
-        paginate "#{User.path user}/repos", options
+        paginate_and_patch "#{User.path user}/repos", options
       end
       alias :list_repositories :repositories
       alias :list_repos :repositories
@@ -86,7 +86,7 @@ module Octokit
       #   that you’ve seen.
       # @return [Array<Sawyer::Resource>] List of repositories.
       def all_repositories(options = {})
-        paginate 'repositories', options
+        paginate_and_patch 'repositories', options
       end
 
       # Star a repository
@@ -648,6 +648,30 @@ module Octokit
       #   @client.delete_subscription("octokit/octokit.rb")
       def delete_subscription(repo, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/subscription", options
+      end
+
+      module_function
+
+      def get_and_patch(url, options = {})
+        monkey_patch(get(url, options))
+      end
+
+      def paginate_and_patch(url, options = {})
+        paginate(url, options).map { |repository| monkey_patch(repository) }
+      end
+
+      def monkey_patch repository
+        # more context for and details about this patch in
+        # https://github.com/octokit/octokit.rb/issues/727
+        if ssh_relation = repository.rels[:ssh]
+          unless ssh_relation =~ %r{\Assh://}
+            href_template = ssh_relation.href_template
+            scp_pattern   = href_template.pattern                     #       "git@github.com:octokit/octokit.rb.git"
+            ssh_pattern   = "ssh://%s/%s" % scp_pattern.split(':', 2) # "ssh://git@github.com/octokit/octokit.rb.git"
+            href_template.instance_variable_set(:"@pattern", ssh_pattern)
+          end
+        end
+        repository
       end
     end
   end
