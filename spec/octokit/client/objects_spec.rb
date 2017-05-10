@@ -7,6 +7,15 @@ describe Octokit::Client::Objects do
     @client = oauth_client
   end
 
+  describe ".data_commit", :vcr do
+    it "gets a commit via Git Data API" do
+      result = @client.data_commit("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
+      expect(result.sha).to eq("3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
+      expect(result.author.name).to eq("sferik")
+      assert_requested :get, github_url("/repos/sferik/rails_admin/git/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
+    end
+  end # .data_commit
+
   describe ".tree", :vcr do
     it "gets a tree" do
       result = @client.tree("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")

@@ -6,6 +6,18 @@ module Octokit
     # @see https://developer.github.com/v3/git/
     module Objects
 
+      # Get a Commit via Data API
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param commit_sha [String] The SHA of the commit to fetch
+      # @return [Sawyer::Resource] A hash representing the fetched commit
+      # @example Get a Commit
+      #   commit = Octokit.data_commits("octocat/Hello-World", "9fb037999f264ba9a7fc6274d15fa3ae2ab98312")
+      # @see https://developer.github.com/v3/git/commits/#get-a-commit
+      def data_commit(repo, commit_sha)
+        get "#{Repository.path repo}/git/commits/#{commit_sha}"
+      end
+
       # Get a single tree, fetching information about its root-level objects
       #
       # Pass <tt>:recursive => true</tt> in <tt>options</tt> to fetch information about all of the tree's objects, including those in subdirectories.
