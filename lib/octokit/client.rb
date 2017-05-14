@@ -17,6 +17,7 @@ require 'octokit/client/contents'
 require 'octokit/client/downloads'
 require 'octokit/client/deployments'
 require 'octokit/client/emojis'
+require 'octokit/client/enterprise_stats'
 require 'octokit/client/events'
 require 'octokit/client/feeds'
 require 'octokit/client/gists'
@@ -73,6 +74,7 @@ module Octokit
     include Octokit::Client::Deployments
     include Octokit::Client::Downloads
     include Octokit::Client::Emojis
+    include Octokit::Client::EnterpriseStats
     include Octokit::Client::Events
     include Octokit::Client::Feeds
     include Octokit::Client::Gists
