@@ -139,7 +139,7 @@ module Octokit
       # @example Create Pull Request Review Request
       #   @client.create_pull_request_review_request('octokit/octokit.rb', 21, { :reviewers => ['octokit', 'github', 'anotheruser'] })
       def create_pull_request_review_request(repo, number, options = {})
-        post "#{Repository.path repo}/pulls#{number}/requested_reviewers", options
+        post "#{Repository.path repo}/pulls/#{number}/requested_reviewers", options
       end
 
       # List pull request comments for a repository
