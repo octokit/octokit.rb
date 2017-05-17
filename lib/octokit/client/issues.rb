@@ -24,7 +24,8 @@ module Octokit
       # @see https://developer.github.com/v3/issues/#list-issues
       # @example List issues for a repository
       #   Octokit.list_issues("sferik/rails_admin")
-      # @example List issues for the authenticated user across repositories
+      # @example List issues for the authenticated user across repositories, which the user is assigned to
+      # @example list_issues has a default :filter => 'assigned'
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.list_issues
       def list_issues(repository = nil, options = {})
