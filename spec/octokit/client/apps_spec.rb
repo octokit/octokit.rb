@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Integrations do
+describe Octokit::Client::Apps do
   before(:each) do
     Octokit.reset!
     @client     = oauth_client
@@ -16,7 +16,7 @@ describe Octokit::Client::Integrations do
     it "returns installations for an integration" do
       installations = @jwt_client.find_integration_installations
       expect(installations).to be_kind_of Array
-      assert_requested :get, github_url("/integration/installations")
+      assert_requested :get, github_url("/app/installations")
     end
   end # .find_integration_installations
 
@@ -27,7 +27,7 @@ describe Octokit::Client::Integrations do
       it "returns the installation" do
         response = @jwt_client.installation(installation)
         expect(response).to be_kind_of Sawyer::Resource
-        assert_requested :get, github_url("/integration/installations/#{installation}")
+        assert_requested :get, github_url("/app/installations/#{installation}")
       end
     end # .installation
 
