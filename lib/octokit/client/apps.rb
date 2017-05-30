@@ -16,7 +16,16 @@ module Octokit
         paginate "/app/installations", opts
       end
       alias find_installations find_app_installations
-      alias find_integration_installations find_app_installations
+
+      def find_integration_installations(options = {})
+        octokit_warn(
+          "Deprecated: Octokit::Client::Apps#find_integration_installations "\
+          "method is deprecated. Please update your call to use "\
+          "Octokit::Client::Apps#find_app_installations before the next major "\
+          "Octokit version update."
+        )
+        find_app_installations(options)
+      end
 
       # Get a single installation
       #
@@ -43,7 +52,16 @@ module Octokit
         post "/installations/#{installation}/access_tokens", opts
       end
       alias create_installation_access_token create_app_installation_access_token
-      alias create_integration_installation_access_token create_app_installation_access_token
+
+      def create_integration_installation_access_token(installation, options = {})
+        octokit_warn(
+          "Deprecated: Octokit::Client::Apps#create_integration_installation_access_token "\
+          "method is deprecated. Please update your call to use "\
+          "Octokit::Client::Apps#create_app_installation_access_token before the next major "\
+          "Octokit version update."
+        )
+        create_app_installation_access_token(installation, options)
+      end
 
       # List repositories that are accessible to the authenticated installation
       #
@@ -56,7 +74,16 @@ module Octokit
         paginate "/installation/repositories", opts
       end
       alias list_installation_repos list_app_installation_repositories
-      alias list_integration_installation_repositories list_app_installation_repositories
+
+      def list_integration_installation_repositories(options = {})
+        octokit_warn(
+          "Deprecated: Octokit::Client::Apps#list_integration_installation_repositories "\
+          "method is deprecated. Please update your call to use "\
+          "Octokit::Client::Apps#list_app_installation_repositories before the next major "\
+          "Octokit version update."
+        )
+        list_app_installation_repositories(options)
+      end
 
       # Add a single repository to an installation
       #
@@ -72,7 +99,16 @@ module Octokit
         boolean_from_response :put, "/installations/#{installation}/repositories/#{repo}", opts
       end
       alias add_repo_to_installation add_repository_to_app_installation
-      alias add_repository_to_integration_installation add_repository_to_app_installation
+
+      def add_repository_to_integration_installation(installation, repo, options = {})
+        octokit_warn(
+          "Deprecated: Octokit::Client::Apps#add_repository_to_integration_installation "\
+          "method is deprecated. Please update your call to use "\
+          "Octokit::Client::Apps#add_repository_to_app_installation before the next major "\
+          "Octokit version update."
+        )
+        add_repository_to_app_installation(installation, repo, options)
+      end
 
       # Remove a single repository to an installation
       #
@@ -88,7 +124,16 @@ module Octokit
         boolean_from_response :delete, "/installations/#{installation}/repositories/#{repo}", opts
       end
       alias remove_repo_from_installation remove_repository_from_app_installation
-      alias remove_repository_from_integration_installation remove_repository_from_app_installation
+
+      def remove_repository_from_integration_installation(installation, repo, options = {})
+        octokit_warn(
+          "Deprecated: Octokit::Client::Apps#remove_repository_from_integration_installation "\
+          "method is deprecated. Please update your call to use "\
+          "Octokit::Client::Apps#remove_repository_from_app_installation before the next major "\
+          "Octokit version update."
+        )
+        remove_repository_from_app_installation(installation, repo, options)
+      end
     end
   end
 end

@@ -14,9 +14,11 @@ describe Octokit::Client::Apps do
 
   describe ".find_integration_installations", :vcr do
     it "returns installations for an integration" do
+      allow(@jwt_client).to receive(:octokit_warn)
       installations = @jwt_client.find_integration_installations
       expect(installations).to be_kind_of Array
       assert_requested :get, github_url("/app/installations")
+      expect(@jwt_client).to have_received(:octokit_warn).with(/Deprecated/)
     end
   end # .find_integration_installations
 
@@ -41,6 +43,7 @@ describe Octokit::Client::Apps do
 
     describe ".create_integration_installation_access_token" do
       it "creates an access token for the installation" do
+        allow(@jwt_client).to receive(:octokit_warn)
         response = @jwt_client.create_integration_installation_access_token(installation)
 
         expect(response).to be_kind_of(Sawyer::Resource)
@@ -48,6 +51,7 @@ describe Octokit::Client::Apps do
         expect(response.expires_at).not_to be_nil
 
         assert_requested :post, github_url("/installations/#{installation}/access_tokens")
+        expect(@jwt_client).to have_received(:octokit_warn).with(/Deprecated/)
       end
     end # .create_integration_installation_access_token
 
@@ -72,9 +76,11 @@ describe Octokit::Client::Apps do
 
       describe ".list_integration_installation_repositories" do
         it "lists the installations repositories" do
+          allow(installation_client).to receive(:octokit_warn)
           response = installation_client.list_integration_installation_repositories
           expect(response.total_count).not_to be_nil
           expect(response.repositories).to be_kind_of(Array)
+          expect(installation_client).to have_received(:octokit_warn).with(/Deprecated/)
         end
       end # .list_integration_installation_repositories
 
@@ -103,8 +109,10 @@ describe Octokit::Client::Apps do
 
       describe ".add_repository_to_integration_installation" do
         it "adds the repository to the installation" do
+          allow(@client).to receive(:octokit_warn)
           response = @client.add_repository_to_integration_installation(installation, @repo.id)
           expect(response).to be_truthy
+          expect(@client).to have_received(:octokit_warn).with(/Deprecated/)
         end
       end # .add_repository_to_integration_installation
 
@@ -122,8 +130,10 @@ describe Octokit::Client::Apps do
 
         describe ".remove_repository_from_integration_installation" do
           it "removes the repository from the installation" do
+            allow(@client).to receive(:octokit_warn)
             response = @client.remove_repository_from_integration_installation(installation, @repo.id)
             expect(response).to be_truthy
+            expect(@client).to have_received(:octokit_warn).with(/Deprecated/)
           end
         end # .remove_repository_from_integration_installation
 
