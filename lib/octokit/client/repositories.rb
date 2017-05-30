@@ -515,14 +515,14 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param branch [String] Branch name
-      # @option options [Hash] :required_status_checks If not null, the following keys are required:  
-      #   <tt>:include_admins [boolean] Enforce required status checks for repository administrators.</tt>  
-      #   <tt>:strict [boolean] Require branches to be up to date before merging.</tt>  
-      #   <tt>:contexts [Array] The list of status checks to require in order to merge into this branch</tt>  
+      # @option options [Hash] :required_status_checks If not null, the following keys are required:
+      #   <tt>:include_admins [boolean] Enforce required status checks for repository administrators.</tt>
+      #   <tt>:strict [boolean] Require branches to be up to date before merging.</tt>
+      #   <tt>:contexts [Array] The list of status checks to require in order to merge into this branch</tt>
       #
       # @option options [Hash] :restrictions If not null, the following keys are required:
-      #   <tt>:users [Array] The list of user logins with push access</tt>  
-      #   <tt>:teams [Array] The list of team slugs with push access</tt>.  
+      #   <tt>:users [Array] The list of user logins with push access</tt>
+      #   <tt>:teams [Array] The list of team slugs with push access</tt>.
       #
       #   Teams and users restrictions are only available for organization-owned repositories.
       # @return [Sawyer::Resource] The protected branch
@@ -648,6 +648,23 @@ module Octokit
       #   @client.delete_subscription("octokit/octokit.rb")
       def delete_subscription(repo, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/subscription", options
+      end
+
+      # Perform a merge to a repo
+      #
+      # Requires authenticated client.
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param base [String] The name of the base branch that the head will be merged into.
+      # @param head [String] The head to merge. This can be a branch name or a commit SHA1.
+      # @param options [Hash] Merge options.
+      # @option commit_message [String] Commit message to use for the merge commit. If omitted, a default message will be used.
+      # @return [Sawyer::Resource] Hash representing newly added key.
+      # @see https://developer.github.com/v3/repos/merging/#perform-a-merge
+      # @example
+      #    @client.perform_merge('octokit/octokit.rb', 'master', 'develop', { :commit_message => 'merge develop branch into master' })
+      def perform_merge(repo, base, head, options = {})
+        post "#{Repository.path repo}/merges", options.merge(:base => base, :head => head)
       end
     end
   end
