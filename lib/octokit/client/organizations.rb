@@ -610,7 +610,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] Hash of team membership info
       #
-      # @see https://developer.github.com/v3/orgs/teams/#add-team-membership
+      # @see https://developer.github.com/v3/orgs/teams/#add-or-update-team-membership
       #
       # @example Check if a user has a membership for a team
       #   @client.add_team_membership(1234, 'pengwynn')
