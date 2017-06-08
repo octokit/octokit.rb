@@ -107,5 +107,11 @@ describe Octokit::Client::Labels do
       @client.delete_label!(@test_repo, label.name, {:color => 'ededed'})
       assert_requested :delete, github_url("/repos/#{@test_repo}/labels/add%20label%20with%20space")
     end
+
+    it "deletes a label with a forward slash from the repository" do
+      label = @client.add_label(@test_repo, "forward/slash")
+      @client.delete_label!(@test_repo, label.name, {:color => 'ededed'})
+      assert_requested :delete, github_url("/repos/#{@test_repo}/labels/forward%252fslash")
+    end
   end # .delete_label!
 end
