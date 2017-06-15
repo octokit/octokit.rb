@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   Module: Octokit::Client::Issues
   
@@ -15,9 +15,8 @@
   <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
+  pathId = "Octokit::Client::Issues";
   relpath = '../../';
-  framesUrl = "../../frames.html#!Octokit/Client/Issues.html";
 </script>
 
 
@@ -28,65 +27,66 @@
 
   </head>
   <body>
-    <div id="header">
-      <div id="menu">
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
   
     <a href="../../_index.html">Index (I)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Client.html" title="Octokit::Client (class)">Client</a></span></span>
      &raquo; 
     <span class="title">Issues</span>
   
-
-  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
-      <div id="search">
+        <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="../../class_list.html">
-      Class List
-    </a>
-  
-    <a class="full_list_link" id="method_list_link"
-        href="../../method_list.html">
-      Method List
-    </a>
-  
-    <a class="full_list_link" id="file_list_link"
-        href="../../file_list.html">
-      File List
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
     </a>
   
 </div>
-      <div class="clear"></div>
-    </div>
+        <div class="clear"></div>
+      </div>
 
-    <iframe id="search_frame"></iframe>
-
-    <div id="content"><h1>Module: Octokit::Client::Issues
+      <div id="content"><h1>Module: Octokit::Client::Issues
   
   
   
 </h1>
+<div class="box_info">
+  
 
-<dl class="box">
   
   
-    
-  
-    
   
   
-    <dt class="r1">Included in:</dt>
-    <dd class="r1"><span class='object_link'><a href="../Client.html" title="Octokit::Client (class)">Octokit::Client</a></span></dd>
-    
   
+
   
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/octokit/client/issues.rb</dd>
+  <dl>
+    <dt>Included in:</dt>
+    <dd><span class='object_link'><a href="../Client.html" title="Octokit::Client (class)">Octokit::Client</a></span></dd>
+  </dl>
   
-</dl>
-<div class="clear"></div>
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/octokit/client/issues.rb</dd>
+  </dl>
+  
+</div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
@@ -115,7 +115,7 @@
   
     <h2>
       Instance Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+      <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
 
     <ul class="summary">
@@ -123,7 +123,30 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#add_comment-instance_method" title="#add_comment (instance method)">- (Sawyer::Resource) <strong>add_comment</strong>(repo, number, comment, options = {}) </a>
+      <a href="#add_assignees-instance_method" title="#add_assignees (instance method)">#<strong>add_assignees</strong>(repo, number, assignees, options = {})  &#x21d2; Sawyer::Resource </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Add assignees to an issue.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_comment-instance_method" title="#add_comment (instance method)">#<strong>add_comment</strong>(repo, number, comment, options = {})  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -146,7 +169,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#close_issue-instance_method" title="#close_issue (instance method)">- (Sawyer::Resource) <strong>close_issue</strong>(repo, number, options = {}) </a>
+      <a href="#close_issue-instance_method" title="#close_issue (instance method)">#<strong>close_issue</strong>(repo, number, options = {})  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -169,7 +192,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_issue-instance_method" title="#create_issue (instance method)">- (Sawyer::Resource) <strong>create_issue</strong>(repo, title, body = nil, options = {}) </a>
+      <a href="#create_issue-instance_method" title="#create_issue (instance method)">#<strong>create_issue</strong>(repo, title, body = nil, options = {})  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -194,7 +217,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete_comment-instance_method" title="#delete_comment (instance method)">- (Boolean) <strong>delete_comment</strong>(repo, number, options = {}) </a>
+      <a href="#delete_comment-instance_method" title="#delete_comment (instance method)">#<strong>delete_comment</strong>(repo, number, options = {})  &#x21d2; Boolean </a>
     
 
     
@@ -217,7 +240,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#issue-instance_method" title="#issue (instance method)">- (Sawyer::Resource) <strong>issue</strong>(repo, number, options = {}) </a>
+      <a href="#issue-instance_method" title="#issue (instance method)">#<strong>issue</strong>(repo, number, options = {})  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -240,7 +263,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#issue_comment-instance_method" title="#issue_comment (instance method)">- (Sawyer::Resource) <strong>issue_comment</strong>(repo, number, options = {}) </a>
+      <a href="#issue_comment-instance_method" title="#issue_comment (instance method)">#<strong>issue_comment</strong>(repo, number, options = {})  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -263,7 +286,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#issue_comments-instance_method" title="#issue_comments (instance method)">- (Array&lt;Sawyer::Resource&gt;) <strong>issue_comments</strong>(repo, number, options = {}) </a>
+      <a href="#issue_comments-instance_method" title="#issue_comments (instance method)">#<strong>issue_comments</strong>(repo, number, options = {})  &#x21d2; Array&lt;Sawyer::Resource&gt; </a>
     
 
     
@@ -286,7 +309,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#issue_timeline-instance_method" title="#issue_timeline (instance method)">- (Sawyer::Resource) <strong>issue_timeline</strong>(repo, number, options = {}) </a>
+      <a href="#issue_timeline-instance_method" title="#issue_timeline (instance method)">#<strong>issue_timeline</strong>(repo, number, options = {})  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -309,7 +332,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#issues_comments-instance_method" title="#issues_comments (instance method)">- (Array&lt;Sawyer::Resource&gt;) <strong>issues_comments</strong>(repo, options = {}) </a>
+      <a href="#issues_comments-instance_method" title="#issues_comments (instance method)">#<strong>issues_comments</strong>(repo, options = {})  &#x21d2; Array&lt;Sawyer::Resource&gt; </a>
     
 
     
@@ -332,7 +355,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_issues-instance_method" title="#list_issues (instance method)">- (Array&lt;Sawyer::Resource&gt;) <strong>list_issues</strong>(repository = nil, options = {}) </a>
+      <a href="#list_issues-instance_method" title="#list_issues (instance method)">#<strong>list_issues</strong>(repository = nil, options = {})  &#x21d2; Array&lt;Sawyer::Resource&gt; </a>
     
 
     
@@ -357,7 +380,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#lock_issue-instance_method" title="#lock_issue (instance method)">- (Boolean) <strong>lock_issue</strong>(repo, number, options = {}) </a>
+      <a href="#lock_issue-instance_method" title="#lock_issue (instance method)">#<strong>lock_issue</strong>(repo, number, options = {})  &#x21d2; Boolean </a>
     
 
     
@@ -380,7 +403,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#org_issues-instance_method" title="#org_issues (instance method)">- (Array&lt;Sawyer::Resource&gt;) <strong>org_issues</strong>(org, options = {}) </a>
+      <a href="#org_issues-instance_method" title="#org_issues (instance method)">#<strong>org_issues</strong>(org, options = {})  &#x21d2; Array&lt;Sawyer::Resource&gt; </a>
     
 
     
@@ -403,7 +426,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#reopen_issue-instance_method" title="#reopen_issue (instance method)">- (Sawyer::Resource) <strong>reopen_issue</strong>(repo, number, options = {}) </a>
+      <a href="#reopen_issue-instance_method" title="#reopen_issue (instance method)">#<strong>reopen_issue</strong>(repo, number, options = {})  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -426,7 +449,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#unlock_issue-instance_method" title="#unlock_issue (instance method)">- (Boolean) <strong>unlock_issue</strong>(repo, number, options = {}) </a>
+      <a href="#unlock_issue-instance_method" title="#unlock_issue (instance method)">#<strong>unlock_issue</strong>(repo, number, options = {})  &#x21d2; Boolean </a>
     
 
     
@@ -449,7 +472,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#update_comment-instance_method" title="#update_comment (instance method)">- (Sawyer::Resource) <strong>update_comment</strong>(repo, number, comment, options = {}) </a>
+      <a href="#update_comment-instance_method" title="#update_comment (instance method)">#<strong>update_comment</strong>(repo, number, comment, options = {})  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -472,7 +495,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#update_issue-instance_method" title="#update_issue (instance method)">- (Sawyer::Resource) <strong>update_issue</strong>(repo, number, *args) </a>
+      <a href="#update_issue-instance_method" title="#update_issue (instance method)">#<strong>update_issue</strong>(repo, number, *args)  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -495,7 +518,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#user_issues-instance_method" title="#user_issues (instance method)">- (Array&lt;Sawyer::Resource&gt;) <strong>user_issues</strong>(options = {}) </a>
+      <a href="#user_issues-instance_method" title="#user_issues (instance method)">#<strong>user_issues</strong>(options = {})  &#x21d2; Array&lt;Sawyer::Resource&gt; </a>
     
 
     
@@ -525,9 +548,133 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="add_comment-instance_method">
+  <h3 class="signature first" id="add_assignees-instance_method">
   
-    - (<tt>Sawyer::Resource</tt>) <strong>add_comment</strong>(repo, number, comment, options = {}) 
+    #<strong>add_assignees</strong>(repo, number, assignees, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Add assignees to an issue</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'><p>Add assignees &quot;pengwynn&quot; and &quot;joeyw&quot; to Issue #23 on octokit/octokit.rb</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_add_assignees'>add_assignees</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>23</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pengwynn</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>joeyw</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>repo</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>String</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>, <tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A GitHub repository</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>number</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Issue number</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>assignees</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Assignees to be added</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Issue</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/issues/assignees/#add-assignees-to-an-issue" target="_parent" title="https://developer.github.com/v3/issues/assignees/#add-assignees-to-an-issue">https://developer.github.com/v3/issues/assignees/#add-assignees-to-an-issue</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+329
+330
+331</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 329</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add_assignees'>add_assignees</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_assignees'>assignees</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/assignees</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:assignees</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_assignees'>assignees</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="add_comment-instance_method">
+  
+    #<strong>add_comment</strong>(repo, number, comment, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
   
 
   
@@ -549,7 +696,7 @@
         <p class="example_title"><div class='inline'><p>Add the comment &quot;Almost to v1&quot; to Issue #23 on octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_add_comment'>add_comment</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>23</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Almost to v1</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_add_comment'>add_comment</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>23</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Almost to v1</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -641,7 +788,7 @@
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 278</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_comment'>add_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_comment'>comment</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_comment'>comment</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -651,7 +798,7 @@
       <div class="method_details ">
   <h3 class="signature " id="close_issue-instance_method">
   
-    - (<tt>Sawyer::Resource</tt>) <strong>close_issue</strong>(repo, number, options = {}) 
+    #<strong>close_issue</strong>(repo, number, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
   
 
   
@@ -673,7 +820,7 @@
         <p class="example_title"><div class='inline'><p>Close Issue #25 from octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_close_issue'>close_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_close_issue'>close_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -816,7 +963,7 @@
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 129</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close_issue'>close_issue</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:state</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:state</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>closed</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -826,7 +973,7 @@
       <div class="method_details ">
   <h3 class="signature " id="create_issue-instance_method">
   
-    - (<tt>Sawyer::Resource</tt>) <strong>create_issue</strong>(repo, title, body = nil, options = {}) 
+    #<strong>create_issue</strong>(repo, title, body = nil, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
   
 
   
@@ -852,7 +999,7 @@
         <p class="example_title"><div class='inline'><p>Create a new Issues for a repository</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_create_issue'>create_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sferik/rails_admin</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Updated Docs</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Added some extra links</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_create_issue'>create_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sferik/rails_admin</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Updated Docs</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Added some extra links</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1034,7 +1181,7 @@
                      <span class='kw'>end</span>
   <span class='id identifier rubyid_parameters'>parameters</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='symbol'>:title</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_title'>title</span> <span class='rbrace'>}</span>
   <span class='id identifier rubyid_parameters'>parameters</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_body'>body</span> <span class='kw'>unless</span> <span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_parameters'>parameters</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1044,7 +1191,7 @@
       <div class="method_details ">
   <h3 class="signature " id="delete_comment-instance_method">
   
-    - (<tt>Boolean</tt>) <strong>delete_comment</strong>(repo, number, options = {}) 
+    #<strong>delete_comment</strong>(repo, number, options = {})  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -1066,7 +1213,7 @@
         <p class="example_title"><div class='inline'><p>Delete the comment #1194549 on an issue on octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_delete_comment'>delete_comment</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1194549</span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete_comment'>delete_comment</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1194549</span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1143,7 +1290,7 @@
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 303</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_comment'>delete_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1153,7 +1300,7 @@
       <div class="method_details ">
   <h3 class="signature " id="issue-instance_method">
   
-    - (<tt>Sawyer::Resource</tt>) <strong>issue</strong>(repo, number, options = {}) 
+    #<strong>issue</strong>(repo, number, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
   
 
   
@@ -1175,7 +1322,7 @@
         <p class="example_title"><div class='inline'><p>Get issue #25 from octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_issue'>issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_issue'>issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1252,7 +1399,7 @@
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_issue'>issue</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1262,7 +1409,7 @@
       <div class="method_details ">
   <h3 class="signature " id="issue_comment-instance_method">
   
-    - (<tt>Sawyer::Resource</tt>) <strong>issue_comment</strong>(repo, number, options = {}) 
+    #<strong>issue_comment</strong>(repo, number, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
   
 
   
@@ -1284,7 +1431,7 @@
         <p class="example_title"><div class='inline'><p>Get comment #1194549 from an issue on octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_issue_comments'>issue_comments</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1194549</span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_issue_comments'>issue_comments</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1194549</span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1361,7 +1508,7 @@
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 265</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_issue_comment'>issue_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1371,7 +1518,7 @@
       <div class="method_details ">
   <h3 class="signature " id="issue_comments-instance_method">
   
-    - (<tt>Array&lt;Sawyer::Resource&gt;</tt>) <strong>issue_comments</strong>(repo, number, options = {}) 
+    #<strong>issue_comments</strong>(repo, number, options = {})  &#x21d2; <tt>Array&lt;Sawyer::Resource&gt;</tt> 
   
 
   
@@ -1393,7 +1540,7 @@
         <p class="example_title"><div class='inline'><p>Get comments for issue #25 from octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_issue_comments'>issue_comments</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_issue_comments'>issue_comments</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1470,7 +1617,7 @@
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 253</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_issue_comments'>issue_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1480,7 +1627,7 @@
       <div class="method_details ">
   <h3 class="signature " id="issue_timeline-instance_method">
   
-    - (<tt>Sawyer::Resource</tt>) <strong>issue_timeline</strong>(repo, number, options = {}) 
+    #<strong>issue_timeline</strong>(repo, number, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
   
 
   
@@ -1502,7 +1649,7 @@
         <p class="example_title"><div class='inline'><p>Get timeline for issue #1435 on octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_issue_timeline'>issue_timeline</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1435</span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_issue_timeline'>issue_timeline</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1435</span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1581,7 +1728,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_issue_timeline'>issue_timeline</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:issue_timelines</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/timeline</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/timeline</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1591,7 +1738,7 @@
       <div class="method_details ">
   <h3 class="signature " id="issues_comments-instance_method">
   
-    - (<tt>Array&lt;Sawyer::Resource&gt;</tt>) <strong>issues_comments</strong>(repo, options = {}) 
+    #<strong>issues_comments</strong>(repo, options = {})  &#x21d2; <tt>Array&lt;Sawyer::Resource&gt;</tt> 
   
 
   
@@ -1753,7 +1900,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 241</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_issues_comments'>issues_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1763,7 +1910,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <div class="method_details ">
   <h3 class="signature " id="list_issues-instance_method">
   
-    - (<tt>Array&lt;Sawyer::Resource&gt;</tt>) <strong>list_issues</strong>(repository = nil, options = {}) 
+    #<strong>list_issues</strong>(repository = nil, options = {})  &#x21d2; <tt>Array&lt;Sawyer::Resource&gt;</tt> 
   
 
   
@@ -1789,13 +1936,13 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
         <p class="example_title"><div class='inline'><p>List issues for a repository</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_list_issues'>list_issues</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sferik/rails_admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_list_issues'>list_issues</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sferik/rails_admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
       
         <p class="example_title"><div class='inline'><p>List issues for the authenticated user across repositories</p>
 </div></p>
       
-      <pre class="example code"><code><span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bar</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <pre class="example code"><code><span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bar</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_list_issues'>list_issues</span></code></pre>
     
   </div>
@@ -2011,7 +2158,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_issues'>list_issues</span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_repository'>repository</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>issues</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_repository'>repository</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Repository.html#initialize-instance_method" title="Octokit::Repository#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_repository'>repository</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>issues</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2022,7 +2169,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <div class="method_details ">
   <h3 class="signature " id="lock_issue-instance_method">
   
-    - (<tt>Boolean</tt>) <strong>lock_issue</strong>(repo, number, options = {}) 
+    #<strong>lock_issue</strong>(repo, number, options = {})  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -2044,7 +2191,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
         <p class="example_title"><div class='inline'><p>Lock Issue #25 from octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_lock_issue'>lock_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_lock_issue'>lock_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -2121,7 +2268,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 157</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lock_issue'>lock_issue</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/lock</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/lock</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2131,7 +2278,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <div class="method_details ">
   <h3 class="signature " id="org_issues-instance_method">
   
-    - (<tt>Array&lt;Sawyer::Resource&gt;</tt>) <strong>org_issues</strong>(org, options = {}) 
+    #<strong>org_issues</strong>(org, options = {})  &#x21d2; <tt>Array&lt;Sawyer::Resource&gt;</tt> 
   
 
   
@@ -2153,7 +2300,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
         <p class="example_title"><div class='inline'><p>List all issues for a given organization for the authenticated user</p>
 </div></p>
       
-      <pre class="example code"><code><span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bar</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <pre class="example code"><code><span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bar</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_org_issues'>org_issues</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
@@ -2344,7 +2491,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_org_issues'>org_issues</span><span class='lparen'>(</span><span class='id identifier rubyid_org'>org</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Organization</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_org'>org</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Organization.html" title="Octokit::Organization (class)">Organization</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Organization.html#path-class_method" title="Octokit::Organization.path (method)">path</a></span></span> <span class='id identifier rubyid_org'>org</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2354,7 +2501,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <div class="method_details ">
   <h3 class="signature " id="reopen_issue-instance_method">
   
-    - (<tt>Sawyer::Resource</tt>) <strong>reopen_issue</strong>(repo, number, options = {}) 
+    #<strong>reopen_issue</strong>(repo, number, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
   
 
   
@@ -2376,7 +2523,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
         <p class="example_title"><div class='inline'><p>Reopen Issue #25 from octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_reopen_issue'>reopen_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reopen_issue'>reopen_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -2519,7 +2666,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 145</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reopen_issue'>reopen_issue</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:state</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>open</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:state</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>open</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2529,7 +2676,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <div class="method_details ">
   <h3 class="signature " id="unlock_issue-instance_method">
   
-    - (<tt>Boolean</tt>) <strong>unlock_issue</strong>(repo, number, options = {}) 
+    #<strong>unlock_issue</strong>(repo, number, options = {})  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -2551,7 +2698,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
         <p class="example_title"><div class='inline'><p>Unlock Issue #25 from octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_close_issue'>close_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_close_issue'>close_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -2628,7 +2775,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 169</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unlock_issue'>unlock_issue</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/lock</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/lock</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2638,7 +2785,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <div class="method_details ">
   <h3 class="signature " id="update_comment-instance_method">
   
-    - (<tt>Sawyer::Resource</tt>) <strong>update_comment</strong>(repo, number, comment, options = {}) 
+    #<strong>update_comment</strong>(repo, number, comment, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
   
 
   
@@ -2660,7 +2807,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
         <p class="example_title"><div class='inline'><p>Update the comment #1194549 with body &quot;I&#39;ve started this on my 25-issue-comments-v3 fork&quot; on an issue on octokit/octokit.rb</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_update_comment'>update_comment</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1194549</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Almost to v1, added this on my fork</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_comment'>update_comment</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1194549</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Almost to v1, added this on my fork</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -2752,7 +2899,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/issues.rb', line 291</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_comment'>update_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_comment'>comment</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_comment'>comment</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_comment'>comment</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2763,9 +2910,9 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
   <h3 class="signature " id="update_issue-instance_method">
   
     
-      <span class="overload">- (<tt>Sawyer::Resource</tt>) <strong>update_issue</strong>(repo, number, title, body, options) </span>
+      <span class="overload">#<strong>update_issue</strong>(repo, number, title, body, options)  &#x21d2; <tt>Sawyer::Resource</tt> </span>
     
-      <span class="overload">- (<tt>Sawyer::Resource</tt>) <strong>update_issue</strong>(repo, number, options) </span>
+      <span class="overload">#<strong>update_issue</strong>(repo, number, options)  &#x21d2; <tt>Sawyer::Resource</tt> </span>
     
   
 
@@ -2788,13 +2935,13 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
         <p class="example_title"><div class='inline'><p>Change the title of Issue #25</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_update_issue'>update_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>A new title</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the same body</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_issue'>update_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>A new title</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>the same body</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
       
         <p class="example_title"><div class='inline'><p>Change only the assignee of Issue #25</p>
 </div></p>
       
-      <pre class="example code"><code><span class='const'>Octokit</span><span class='period'>.</span><span class='id identifier rubyid_update_issue'>update_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:assignee</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pengwynn</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_issue'>update_issue</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>25</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:assignee</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pengwynn</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 
@@ -2803,7 +2950,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
     
       
       <li class="overload_item">
-        <span class="signature">- (<tt>Sawyer::Resource</tt>) <strong>update_issue</strong>(repo, number, title, body, options) </span>
+        <span class="signature">#<strong>update_issue</strong>(repo, number, title, body, options)  &#x21d2; <tt>Sawyer::Resource</tt> </span>
         <div class="docstring">
   <div class="discussion">
     
@@ -2962,7 +3109,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
     
       
       <li class="overload_item">
-        <span class="signature">- (<tt>Sawyer::Resource</tt>) <strong>update_issue</strong>(repo, number, options) </span>
+        <span class="signature">#<strong>update_issue</strong>(repo, number, options)  &#x21d2; <tt>Sawyer::Resource</tt> </span>
         <div class="docstring">
   <div class="discussion">
     
@@ -3169,7 +3316,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
     <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
   <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Repository</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_patch'>patch</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/issues/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -3179,7 +3326,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <div class="method_details ">
   <h3 class="signature " id="user_issues-instance_method">
   
-    - (<tt>Array&lt;Sawyer::Resource&gt;</tt>) <strong>user_issues</strong>(options = {}) 
+    #<strong>user_issues</strong>(options = {})  &#x21d2; <tt>Array&lt;Sawyer::Resource&gt;</tt> 
   
 
   
@@ -3201,7 +3348,7 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
         <p class="example_title"><div class='inline'><p>List issues for the authenticated user across owned and member repositories</p>
 </div></p>
       
-      <pre class="example code"><code><span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bar</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <pre class="example code"><code><span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>bar</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_user_issues'>user_issues</span></code></pre>
     
   </div>
@@ -3386,11 +3533,12 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
 
 </div>
 
-    <div id="footer">
-  Generated on Sun Oct 23 19:00:46 2016 by
+      <div id="footer">
+  Generated on Thu Jun 15 10:36:55 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.2.3).
+  0.9.9 (ruby-2.4.1).
 </div>
 
+    </div>
   </body>
 </html>

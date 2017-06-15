@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   
   
@@ -13,9 +13,8 @@
   <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
+  pathId = null;
   relpath = '';
-  framesUrl = "frames.html#!_index.html";
 </script>
 
 
@@ -26,37 +25,34 @@
 
   </head>
   <body>
-    <div id="header">
-      <div id="menu">
-  
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
 
-  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
 </div>
 
-      <div id="search">
+        <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="class_list.html">
-      Class List
-    </a>
-  
-    <a class="full_list_link" id="method_list_link"
-        href="method_list.html">
-      Method List
-    </a>
-  
-    <a class="full_list_link" id="file_list_link"
-        href="file_list.html">
-      File List
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
     </a>
   
 </div>
-      <div class="clear"></div>
-    </div>
+        <div class="clear"></div>
+      </div>
 
-    <iframe id="search_frame"></iframe>
-
-    <div id="content"><h1 class="noborder title"></h1>
+      <div id="content"><h1 class="noborder title"></h1>
 <div id="listing">
   <h1 class="alphaindex">Alphabetic Index</h1>
   
@@ -112,6 +108,13 @@
                 <span class='object_link'><a href="Octokit/ApplicationCredentialsRequired.html" title="Octokit::ApplicationCredentialsRequired (class)">ApplicationCredentialsRequired</a></span>
                 
                   <small>(Octokit)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Octokit/Client/Apps.html" title="Octokit::Client::Apps (module)">Apps</a></span>
+                
+                  <small>(Octokit::Client)</small>
                 
               </li>
             
@@ -599,6 +602,13 @@
               </li>
             
               <li>
+                <span class='object_link'><a href="Octokit/Client/Projects.html" title="Octokit::Client::Projects (module)">Projects</a></span>
+                
+                  <small>(Octokit::Client)</small>
+                
+              </li>
+            
+              <li>
                 <span class='object_link'><a href="Octokit/Client/PubSubHubbub.html" title="Octokit::Client::PubSubHubbub (module)">PubSubHubbub</a></span>
                 
                   <small>(Octokit::Client)</small>
@@ -621,16 +631,16 @@
           <ul>
             
               <li>
-                <span class='object_link'><a href="Octokit/Client/RateLimit.html" title="Octokit::Client::RateLimit (module)">RateLimit</a></span>
+                <span class='object_link'><a href="Octokit/RateLimit.html" title="Octokit::RateLimit (class)">RateLimit</a></span>
                 
-                  <small>(Octokit::Client)</small>
+                  <small>(Octokit)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Octokit/RateLimit.html" title="Octokit::RateLimit (class)">RateLimit</a></span>
+                <span class='object_link'><a href="Octokit/Client/RateLimit.html" title="Octokit::Client::RateLimit (module)">RateLimit</a></span>
                 
-                  <small>(Octokit)</small>
+                  <small>(Octokit::Client)</small>
                 
               </li>
             
@@ -687,6 +697,13 @@
                 <span class='object_link'><a href="Octokit/RepositoryUnavailable.html" title="Octokit::RepositoryUnavailable (class)">RepositoryUnavailable</a></span>
                 
                   <small>(Octokit)</small>
+                
+              </li>
+            
+              <li>
+                <span class='object_link'><a href="Octokit/Client/Reviews.html" title="Octokit::Client::Reviews (module)">Reviews</a></span>
+                
+                  <small>(Octokit::Client)</small>
                 
               </li>
             
@@ -786,6 +803,13 @@
                 
               </li>
             
+              <li>
+                <span class='object_link'><a href="Octokit/Client/Traffic.html" title="Octokit::Client::Traffic (module)">Traffic</a></span>
+                
+                  <small>(Octokit::Client)</small>
+                
+              </li>
+            
           </ul>
         </ul>
       
@@ -837,16 +861,16 @@
               </li>
             
               <li>
-                <span class='object_link'><a href="Octokit/EnterpriseAdminClient/Users.html" title="Octokit::EnterpriseAdminClient::Users (module)">Users</a></span>
+                <span class='object_link'><a href="Octokit/Client/Users.html" title="Octokit::Client::Users (module)">Users</a></span>
                 
-                  <small>(Octokit::EnterpriseAdminClient)</small>
+                  <small>(Octokit::Client)</small>
                 
               </li>
             
               <li>
-                <span class='object_link'><a href="Octokit/Client/Users.html" title="Octokit::Client::Users (module)">Users</a></span>
+                <span class='object_link'><a href="Octokit/EnterpriseAdminClient/Users.html" title="Octokit::EnterpriseAdminClient::Users (module)">Users</a></span>
                 
-                  <small>(Octokit::Client)</small>
+                  <small>(Octokit::EnterpriseAdminClient)</small>
                 
               </li>
             
@@ -876,11 +900,12 @@
 
 </div>
 
-    <div id="footer">
-  Generated on Sun Oct 23 19:00:40 2016 by
+      <div id="footer">
+  Generated on Thu Jun 15 10:36:53 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.2.3).
+  0.9.9 (ruby-2.4.1).
 </div>
 
+    </div>
   </body>
 </html>

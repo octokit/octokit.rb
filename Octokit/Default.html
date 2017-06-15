@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   Module: Octokit::Default
   
@@ -15,9 +15,8 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
+  pathId = "Octokit::Default";
   relpath = '../';
-  framesUrl = "../frames.html#!Octokit/Default.html";
 </script>
 
 
@@ -28,61 +27,61 @@
 
   </head>
   <body>
-    <div id="header">
-      <div id="menu">
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
   
     <a href="../_index.html">Index (D)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span></span>
      &raquo; 
     <span class="title">Default</span>
   
-
-  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
-      <div id="search">
+        <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="../class_list.html">
-      Class List
-    </a>
-  
-    <a class="full_list_link" id="method_list_link"
-        href="../method_list.html">
-      Method List
-    </a>
-  
-    <a class="full_list_link" id="file_list_link"
-        href="../file_list.html">
-      File List
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
     </a>
   
 </div>
-      <div class="clear"></div>
-    </div>
+        <div class="clear"></div>
+      </div>
 
-    <iframe id="search_frame"></iframe>
-
-    <div id="content"><h1>Module: Octokit::Default
+      <div id="content"><h1>Module: Octokit::Default
   
   
   
 </h1>
+<div class="box_info">
+  
 
-<dl class="box">
-  
-  
-    
-  
-    
   
   
   
-    <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/octokit/default.rb</dd>
   
-</dl>
-<div class="clear"></div>
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/octokit/default.rb</dd>
+  </dl>
+  
+</div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
@@ -96,11 +95,10 @@
 
 </div>
   <h2>Constant Summary</h2>
-  
-    <dl class="constants">
-      
-        <dt id="API_ENDPOINT-constant" class="">API_ENDPOINT =
-          <div class="docstring">
+  <dl class="constants">
+    
+      <dt id="API_ENDPOINT-constant" class="">API_ENDPOINT =
+        <div class="docstring">
   <div class="discussion">
     <p>Default API endpoint</p>
 
@@ -111,11 +109,11 @@
   
 
 </div>
-        </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://api.github.com</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-      
-        <dt id="USER_AGENT-constant" class="">USER_AGENT =
-          <div class="docstring">
+      </dt>
+      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://api.github.com</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+    
+      <dt id="USER_AGENT-constant" class="">USER_AGENT =
+        <div class="docstring">
   <div class="discussion">
     <p>Default User Agent header string</p>
 
@@ -126,11 +124,11 @@
   
 
 </div>
-        </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Octokit Ruby Gem </span><span class='embexpr_beg'>#{</span><span class='const'>Octokit</span><span class='op'>::</span><span class='const'>VERSION</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-      
-        <dt id="MEDIA_TYPE-constant" class="">MEDIA_TYPE =
-          <div class="docstring">
+      </dt>
+      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Octokit Ruby Gem </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Octokit.html#VERSION-constant" title="Octokit::VERSION (constant)">VERSION</a></span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+    
+      <dt id="MEDIA_TYPE-constant" class="">MEDIA_TYPE =
+        <div class="docstring">
   <div class="discussion">
     <p>Default media type</p>
 
@@ -141,11 +139,11 @@
   
 
 </div>
-        </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.v3+json</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-      
-        <dt id="WEB_ENDPOINT-constant" class="">WEB_ENDPOINT =
-          <div class="docstring">
+      </dt>
+      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.v3+json</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+    
+      <dt id="WEB_ENDPOINT-constant" class="">WEB_ENDPOINT =
+        <div class="docstring">
   <div class="discussion">
     <p>Default WEB endpoint</p>
 
@@ -156,11 +154,11 @@
   
 
 </div>
-        </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://github.com</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-      
-        <dt id="RACK_BUILDER_CLASS-constant" class="">RACK_BUILDER_CLASS =
-          <div class="docstring">
+      </dt>
+      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://github.com</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+    
+      <dt id="RACK_BUILDER_CLASS-constant" class="">RACK_BUILDER_CLASS =
+        <div class="docstring">
   <div class="discussion">
     <p>In Faraday 0.9, Faraday::Builder was renamed to Faraday::RackBuilder</p>
 
@@ -171,11 +169,11 @@
   
 
 </div>
-        </dt>
-        <dd><pre class="code"><span class='kw'>defined?</span><span class='lparen'>(</span><span class='const'>Faraday</span><span class='op'>::</span><span class='const'>RackBuilder</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>RackBuilder</span> <span class='op'>:</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>Builder</span></pre></dd>
-      
-        <dt id="MIDDLEWARE-constant" class="">MIDDLEWARE =
-          <div class="docstring">
+      </dt>
+      <dd><pre class="code"><span class='kw'>defined?</span><span class='lparen'>(</span><span class='const'>Faraday</span><span class='op'>::</span><span class='const'>RackBuilder</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>RackBuilder</span> <span class='op'>:</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>Builder</span></pre></dd>
+    
+      <dt id="MIDDLEWARE-constant" class="">MIDDLEWARE =
+        <div class="docstring">
   <div class="discussion">
     <p>Default Faraday middleware stack</p>
 
@@ -186,16 +184,15 @@
   
 
 </div>
-        </dt>
-        <dd><pre class="code"><span class='const'>RACK_BUILDER_CLASS</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_builder'>builder</span><span class='op'>|</span>
-  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Middleware</span><span class='op'>::</span><span class='const'>FollowRedirects</span>
-  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Response</span><span class='op'>::</span><span class='const'>RaiseError</span>
-  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Response</span><span class='op'>::</span><span class='const'>FeedParser</span>
+      </dt>
+      <dd><pre class="code"><span class='const'><span class='object_link'><a href="#RACK_BUILDER_CLASS-constant" title="Octokit::Default::RACK_BUILDER_CLASS (constant)">RACK_BUILDER_CLASS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_builder'>builder</span><span class='op'>|</span>
+  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Middleware.html" title="Octokit::Middleware (module)">Middleware</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Middleware/FollowRedirects.html" title="Octokit::Middleware::FollowRedirects (class)">FollowRedirects</a></span></span>
+  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'>Response</span><span class='op'>::</span><span class='const'>RaiseError</span>
+  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'>Response</span><span class='op'>::</span><span class='const'>FeedParser</span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_adapter'>adapter</span> <span class='const'>Faraday</span><span class='period'>.</span><span class='id identifier rubyid_default_adapter'>default_adapter</span>
 <span class='kw'>end</span></pre></dd>
-      
-    </dl>
-  
+    
+  </dl>
 
 
 
@@ -206,7 +203,7 @@
   
     <h2>
       Class Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+      <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
 
     <ul class="summary">
@@ -214,7 +211,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#access_token-class_method" title="access_token (class method)">+ (String) <strong>access_token</strong> </a>
+      <a href="#access_token-class_method" title="access_token (class method)">.<strong>access_token</strong>  &#x21d2; String </a>
     
 
     
@@ -237,7 +234,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#api_endpoint-class_method" title="api_endpoint (class method)">+ (String) <strong>api_endpoint</strong> </a>
+      <a href="#api_endpoint-class_method" title="api_endpoint (class method)">.<strong>api_endpoint</strong>  &#x21d2; String </a>
     
 
     
@@ -260,7 +257,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#auto_paginate-class_method" title="auto_paginate (class method)">+ (String) <strong>auto_paginate</strong> </a>
+      <a href="#auto_paginate-class_method" title="auto_paginate (class method)">.<strong>auto_paginate</strong>  &#x21d2; String </a>
     
 
     
@@ -283,7 +280,30 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#client_id-class_method" title="client_id (class method)">+ (String) <strong>client_id</strong> </a>
+      <a href="#bearer_token-class_method" title="bearer_token (class method)">.<strong>bearer_token</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Default bearer token from ENV.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#client_id-class_method" title="client_id (class method)">.<strong>client_id</strong>  &#x21d2; String </a>
     
 
     
@@ -306,7 +326,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#client_secret-class_method" title="client_secret (class method)">+ (String) <strong>client_secret</strong> </a>
+      <a href="#client_secret-class_method" title="client_secret (class method)">.<strong>client_secret</strong>  &#x21d2; String </a>
     
 
     
@@ -329,7 +349,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#connection_options-class_method" title="connection_options (class method)">+ (Hash) <strong>connection_options</strong> </a>
+      <a href="#connection_options-class_method" title="connection_options (class method)">.<strong>connection_options</strong>  &#x21d2; Hash </a>
     
 
     
@@ -352,7 +372,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#default_media_type-class_method" title="default_media_type (class method)">+ (String) <strong>default_media_type</strong> </a>
+      <a href="#default_media_type-class_method" title="default_media_type (class method)">.<strong>default_media_type</strong>  &#x21d2; String </a>
     
 
     
@@ -375,7 +395,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#login-class_method" title="login (class method)">+ (String) <strong>login</strong> </a>
+      <a href="#login-class_method" title="login (class method)">.<strong>login</strong>  &#x21d2; String </a>
     
 
     
@@ -398,7 +418,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#management_console_endpoint-class_method" title="management_console_endpoint (class method)">+ (String) <strong>management_console_endpoint</strong> </a>
+      <a href="#management_console_endpoint-class_method" title="management_console_endpoint (class method)">.<strong>management_console_endpoint</strong>  &#x21d2; String </a>
     
 
     
@@ -421,7 +441,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#management_console_password-class_method" title="management_console_password (class method)">+ (String) <strong>management_console_password</strong> </a>
+      <a href="#management_console_password-class_method" title="management_console_password (class method)">.<strong>management_console_password</strong>  &#x21d2; String </a>
     
 
     
@@ -444,7 +464,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#middleware-class_method" title="middleware (class method)">+ (Faraday::RackBuilder or Faraday::Builder) <strong>middleware</strong> </a>
+      <a href="#middleware-class_method" title="middleware (class method)">.<strong>middleware</strong>  &#x21d2; Faraday::RackBuilder or Faraday::Builder </a>
     
 
     
@@ -467,7 +487,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#netrc-class_method" title="netrc (class method)">+ (Boolean) <strong>netrc</strong> </a>
+      <a href="#netrc-class_method" title="netrc (class method)">.<strong>netrc</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -490,7 +510,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#netrc_file-class_method" title="netrc_file (class method)">+ (String) <strong>netrc_file</strong> </a>
+      <a href="#netrc_file-class_method" title="netrc_file (class method)">.<strong>netrc_file</strong>  &#x21d2; String </a>
     
 
     
@@ -513,7 +533,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#options-class_method" title="options (class method)">+ (Hash) <strong>options</strong> </a>
+      <a href="#options-class_method" title="options (class method)">.<strong>options</strong>  &#x21d2; Hash </a>
     
 
     
@@ -536,7 +556,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#password-class_method" title="password (class method)">+ (String) <strong>password</strong> </a>
+      <a href="#password-class_method" title="password (class method)">.<strong>password</strong>  &#x21d2; String </a>
     
 
     
@@ -559,7 +579,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#per_page-class_method" title="per_page (class method)">+ (Fixnum) <strong>per_page</strong> </a>
+      <a href="#per_page-class_method" title="per_page (class method)">.<strong>per_page</strong>  &#x21d2; Integer </a>
     
 
     
@@ -582,7 +602,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#proxy-class_method" title="proxy (class method)">+ (String) <strong>proxy</strong> </a>
+      <a href="#proxy-class_method" title="proxy (class method)">.<strong>proxy</strong>  &#x21d2; String </a>
     
 
     
@@ -605,7 +625,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#user_agent-class_method" title="user_agent (class method)">+ (String) <strong>user_agent</strong> </a>
+      <a href="#user_agent-class_method" title="user_agent (class method)">.<strong>user_agent</strong>  &#x21d2; String </a>
     
 
     
@@ -628,7 +648,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#web_endpoint-class_method" title="web_endpoint (class method)">+ (String) <strong>web_endpoint</strong> </a>
+      <a href="#web_endpoint-class_method" title="web_endpoint (class method)">.<strong>web_endpoint</strong>  &#x21d2; String </a>
     
 
     
@@ -660,7 +680,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="access_token-class_method">
   
-    + (<tt>String</tt>) <strong>access_token</strong> 
+    .<strong>access_token</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -713,7 +733,7 @@
       <div class="method_details ">
   <h3 class="signature " id="api_endpoint-class_method">
   
-    + (<tt>String</tt>) <strong>api_endpoint</strong> 
+    .<strong>api_endpoint</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -756,7 +776,7 @@
       <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_api_endpoint'>api_endpoint</span>
-  <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_API_ENDPOINT</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>API_ENDPOINT</span>
+  <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_API_ENDPOINT</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#API_ENDPOINT-constant" title="Octokit::Default::API_ENDPOINT (constant)">API_ENDPOINT</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -766,7 +786,7 @@
       <div class="method_details ">
   <h3 class="signature " id="auto_paginate-class_method">
   
-    + (<tt>String</tt>) <strong>auto_paginate</strong> 
+    .<strong>auto_paginate</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -817,9 +837,62 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="bearer_token-class_method">
+  
+    .<strong>bearer_token</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Default bearer token from ENV</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 62</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bearer_token'>bearer_token</span>
+  <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_BEARER_TOKEN</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="client_id-class_method">
   
-    + (<tt>String</tt>) <strong>client_id</strong> 
+    .<strong>client_id</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -854,12 +927,12 @@
       <pre class="lines">
 
 
-62
-63
-64</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_client_id'>client_id</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_CLIENT_ID</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -872,7 +945,7 @@
       <div class="method_details ">
   <h3 class="signature " id="client_secret-class_method">
   
-    + (<tt>String</tt>) <strong>client_secret</strong> 
+    .<strong>client_secret</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -907,12 +980,12 @@
       <pre class="lines">
 
 
-68
-69
-70</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_client_secret'>client_secret</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_SECRET</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -925,7 +998,7 @@
       <div class="method_details ">
   <h3 class="signature " id="connection_options-class_method">
   
-    + (<tt>Hash</tt>) <strong>connection_options</strong> 
+    .<strong>connection_options</strong>  &#x21d2; <tt>Hash</tt> 
   
 
   
@@ -960,17 +1033,17 @@
       <pre class="lines">
 
 
-86
-87
-88
-89
-90
-91
 92
-93</pre>
+93
+94
+95
+96
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_connection_options'>connection_options</span>
   <span class='lbrace'>{</span>
@@ -988,7 +1061,7 @@
       <div class="method_details ">
   <h3 class="signature " id="default_media_type-class_method">
   
-    + (<tt>String</tt>) <strong>default_media_type</strong> 
+    .<strong>default_media_type</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1023,15 +1096,15 @@
       <pre class="lines">
 
 
-97
-98
-99</pre>
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_media_type'>default_media_type</span>
-  <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_DEFAULT_MEDIA_TYPE</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>MEDIA_TYPE</span>
+  <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_DEFAULT_MEDIA_TYPE</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#MEDIA_TYPE-constant" title="Octokit::Default::MEDIA_TYPE (constant)">MEDIA_TYPE</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1041,7 +1114,7 @@
       <div class="method_details ">
   <h3 class="signature " id="login-class_method">
   
-    + (<tt>String</tt>) <strong>login</strong> 
+    .<strong>login</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1076,12 +1149,12 @@
       <pre class="lines">
 
 
-103
-104
-105</pre>
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_login'>login</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_LOGIN</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -1094,7 +1167,7 @@
       <div class="method_details ">
   <h3 class="signature " id="management_console_endpoint-class_method">
   
-    + (<tt>String</tt>) <strong>management_console_endpoint</strong> 
+    .<strong>management_console_endpoint</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1129,12 +1202,12 @@
       <pre class="lines">
 
 
-80
-81
-82</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_management_console_endpoint'>management_console_endpoint</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -1147,7 +1220,7 @@
       <div class="method_details ">
   <h3 class="signature " id="management_console_password-class_method">
   
-    + (<tt>String</tt>) <strong>management_console_password</strong> 
+    .<strong>management_console_password</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1182,12 +1255,12 @@
       <pre class="lines">
 
 
-74
-75
-76</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_management_console_password'>management_console_password</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -1200,7 +1273,7 @@
       <div class="method_details ">
   <h3 class="signature " id="middleware-class_method">
   
-    + (<tt>Faraday::RackBuilder or Faraday::Builder</tt>) <strong>middleware</strong> 
+    .<strong>middleware</strong>  &#x21d2; <tt>Faraday::RackBuilder or Faraday::Builder</tt> 
   
 
   
@@ -1236,15 +1309,15 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <pre class="lines">
 
 
-110
-111
-112</pre>
+116
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_middleware'>middleware</span>
-  <span class='const'>MIDDLEWARE</span>
+  <span class='const'><span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::Default::MIDDLEWARE (constant)">MIDDLEWARE</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1254,7 +1327,7 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <div class="method_details ">
   <h3 class="signature " id="netrc-class_method">
   
-    + (<tt>Boolean</tt>) <strong>netrc</strong> 
+    .<strong>netrc</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -1289,12 +1362,12 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <pre class="lines">
 
 
-148
-149
-150</pre>
+154
+155
+156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 154</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_netrc'>netrc</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_NETRC</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='kw'>false</span>
@@ -1307,7 +1380,7 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <div class="method_details ">
   <h3 class="signature " id="netrc_file-class_method">
   
-    + (<tt>String</tt>) <strong>netrc_file</strong> 
+    .<strong>netrc_file</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1342,12 +1415,12 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <pre class="lines">
 
 
-154
-155
-156</pre>
+160
+161
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 154</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 160</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_netrc_file'>netrc_file</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_NETRC_FILE</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>HOME</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.netrc</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1360,7 +1433,7 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <div class="method_details ">
   <h3 class="signature " id="options-class_method">
   
-    + (<tt>Hash</tt>) <strong>options</strong> 
+    .<strong>options</strong>  &#x21d2; <tt>Hash</tt> 
   
 
   
@@ -1403,7 +1476,7 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_options'>options</span>
-  <span class='const'>Hash</span><span class='lbracket'>[</span><span class='const'>Octokit</span><span class='op'>::</span><span class='const'>Configurable</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='rbrace'>}</span><span class='rbracket'>]</span>
+  <span class='const'>Hash</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Configurable.html" title="Octokit::Configurable (module)">Configurable</a></span></span><span class='period'>.</span><span class='id identifier rubyid_keys'><span class='object_link'><a href="Configurable.html#keys-class_method" title="Octokit::Configurable.keys (method)">keys</a></span></span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='rbrace'>}</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1413,7 +1486,7 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <div class="method_details ">
   <h3 class="signature " id="password-class_method">
   
-    + (<tt>String</tt>) <strong>password</strong> 
+    .<strong>password</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1448,12 +1521,12 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <pre class="lines">
 
 
-116
-117
-118</pre>
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_password'>password</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_PASSWORD</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -1466,7 +1539,7 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <div class="method_details ">
   <h3 class="signature " id="per_page-class_method">
   
-    + (<tt>Fixnum</tt>) <strong>per_page</strong> 
+    .<strong>per_page</strong>  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -1487,7 +1560,7 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
     <li>
       
       
-        <span class='type'>(<tt>Fixnum</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
@@ -1505,14 +1578,14 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <pre class="lines">
 
 
-122
-123
-124
-125
-126</pre>
+128
+129
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_per_page'>per_page</span>
   <span class='id identifier rubyid_page_size'>page_size</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_PER_PAGE</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -1527,7 +1600,7 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <div class="method_details ">
   <h3 class="signature " id="proxy-class_method">
   
-    + (<tt>String</tt>) <strong>proxy</strong> 
+    .<strong>proxy</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1562,12 +1635,12 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <pre class="lines">
 
 
-130
-131
-132</pre>
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 136</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_proxy'>proxy</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_PROXY</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -1580,7 +1653,7 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <div class="method_details ">
   <h3 class="signature " id="user_agent-class_method">
   
-    + (<tt>String</tt>) <strong>user_agent</strong> 
+    .<strong>user_agent</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1615,15 +1688,15 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <pre class="lines">
 
 
-136
-137
-138</pre>
+142
+143
+144</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 142</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_agent'>user_agent</span>
-  <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_USER_AGENT</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>USER_AGENT</span>
+  <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_USER_AGENT</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#USER_AGENT-constant" title="Octokit::Default::USER_AGENT (constant)">USER_AGENT</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1633,7 +1706,7 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <div class="method_details ">
   <h3 class="signature " id="web_endpoint-class_method">
   
-    + (<tt>String</tt>) <strong>web_endpoint</strong> 
+    .<strong>web_endpoint</strong>  &#x21d2; <tt>String</tt> 
   
 
   
@@ -1668,15 +1741,15 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
       <pre class="lines">
 
 
-142
-143
-144</pre>
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 142</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/default.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_web_endpoint'>web_endpoint</span>
-  <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_WEB_ENDPOINT</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>WEB_ENDPOINT</span>
+  <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>OCTOKIT_WEB_ENDPOINT</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#WEB_ENDPOINT-constant" title="Octokit::Default::WEB_ENDPOINT (constant)">WEB_ENDPOINT</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1687,11 +1760,12 @@ from <span class='object_link'><a href="#MIDDLEWARE-constant" title="Octokit::De
 
 </div>
 
-    <div id="footer">
-  Generated on Sun Oct 23 19:00:41 2016 by
+      <div id="footer">
+  Generated on Thu Jun 15 10:36:53 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.2.3).
+  0.9.9 (ruby-2.4.1).
 </div>
 
+    </div>
   </body>
 </html>
