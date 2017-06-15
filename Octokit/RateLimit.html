@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   Class: Octokit::RateLimit
   
@@ -15,9 +15,8 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  hasFrames = window.top.frames.main ? true : false;
+  pathId = "Octokit::RateLimit";
   relpath = '../';
-  framesUrl = "../frames.html#!Octokit/RateLimit.html";
 </script>
 
 
@@ -28,51 +27,48 @@
 
   </head>
   <body>
-    <div id="header">
-      <div id="menu">
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
   
     <a href="../_index.html">Index (R)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../Octokit.html" title="Octokit (module)">Octokit</a></span></span>
      &raquo; 
     <span class="title">RateLimit</span>
   
-
-  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
-      <div id="search">
+        <div id="search">
   
     <a class="full_list_link" id="class_list_link"
         href="../class_list.html">
-      Class List
-    </a>
-  
-    <a class="full_list_link" id="method_list_link"
-        href="../method_list.html">
-      Method List
-    </a>
-  
-    <a class="full_list_link" id="file_list_link"
-        href="../file_list.html">
-      File List
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
     </a>
   
 </div>
-      <div class="clear"></div>
-    </div>
+        <div class="clear"></div>
+      </div>
 
-    <iframe id="search_frame"></iframe>
-
-    <div id="content"><h1>Class: Octokit::RateLimit
+      <div id="content"><h1>Class: Octokit::RateLimit
   
   
   
 </h1>
-
-<dl class="box">
+<div class="box_info">
   
-    <dt class="r1">Inherits:</dt>
-    <dd class="r1">
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
       <span class="inheritName">Struct</span>
       
         <ul class="fullTree">
@@ -85,21 +81,25 @@
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
       
-      </dd>
-    
+    </dd>
+  </dl>
   
-  
-    
-  
-    
+
   
   
   
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/octokit/rate_limit.rb</dd>
   
-</dl>
-<div class="clear"></div>
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/octokit/rate_limit.rb</dd>
+  </dl>
+  
+</div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
@@ -122,13 +122,13 @@
 
 
 
-  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
   <ul class="summary">
     
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#limit-instance_method" title="#limit (instance method)">- (Object) <strong>limit</strong> </a>
+      <a href="#limit=-instance_method" title="#limit= (instance method)">#<strong>limit</strong>  &#x21d2; Integer </a>
     
 
     
@@ -138,6 +138,8 @@
   
     
     
+      <span class="note title writeonly">writeonly</span>
+    
   
   
   
@@ -145,7 +147,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute limit.</p>
+    <span class="summary_desc"><div class='inline'><p>Max tries per rate limit period.</p>
 </div></span>
   
 </li>
@@ -154,7 +156,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#remaining-instance_method" title="#remaining (instance method)">- (Object) <strong>remaining</strong> </a>
+      <a href="#remaining=-instance_method" title="#remaining= (instance method)">#<strong>remaining</strong>  &#x21d2; Integer </a>
     
 
     
@@ -164,6 +166,8 @@
   
     
     
+      <span class="note title writeonly">writeonly</span>
+    
   
   
   
@@ -171,7 +175,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute remaining.</p>
+    <span class="summary_desc"><div class='inline'><p>Remaining tries per rate limit period.</p>
 </div></span>
   
 </li>
@@ -180,7 +184,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#resets_at-instance_method" title="#resets_at (instance method)">- (Object) <strong>resets_at</strong> </a>
+      <a href="#resets_at=-instance_method" title="#resets_at= (instance method)">#<strong>resets_at</strong>  &#x21d2; Time </a>
     
 
     
@@ -190,6 +194,8 @@
   
     
     
+      <span class="note title writeonly">writeonly</span>
+    
   
   
   
@@ -197,7 +203,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute resets_at.</p>
+    <span class="summary_desc"><div class='inline'><p>Indicates when rate limit resets.</p>
 </div></span>
   
 </li>
@@ -206,7 +212,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#resets_in-instance_method" title="#resets_in (instance method)">- (Object) <strong>resets_in</strong> </a>
+      <a href="#resets_in=-instance_method" title="#resets_in= (instance method)">#<strong>resets_in</strong>  &#x21d2; Integer </a>
     
 
     
@@ -216,6 +222,8 @@
   
     
     
+      <span class="note title writeonly">writeonly</span>
+    
   
   
   
@@ -223,7 +231,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute resets_in.</p>
+    <span class="summary_desc"><div class='inline'><p>Number of seconds when rate limit resets.</p>
 </div></span>
   
 </li>
@@ -237,7 +245,7 @@
   
     <h2>
       Class Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+      <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
 
     <ul class="summary">
@@ -245,7 +253,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#from_response-class_method" title="from_response (class method)">+ (RateLimit) <strong>from_response</strong>(response) </a>
+      <a href="#from_response-class_method" title="from_response (class method)">.<strong>from_response</strong>(response)  &#x21d2; RateLimit </a>
     
 
     
@@ -274,11 +282,11 @@
     <h2>Instance Attribute Details</h2>
     
       
-      <span id="limit=-instance_method"></span>
+      <span id=""></span>
       <div class="method_details first">
-  <h3 class="signature first" id="limit-instance_method">
+  <h3 class="signature first" id="limit=-instance_method">
   
-    - (<tt>Object</tt>) <strong>limit</strong> 
+    #<strong>limit=</strong>(value)  &#x21d2; <tt>Integer</tt>  <span class="extras">(writeonly)</span>
   
 
   
@@ -286,7 +294,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute limit</p>
+    <p>Returns Max tries per rate limit period</p>
 
 
   </div>
@@ -299,12 +307,12 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><p>the current value of limit</p>
+        <div class='inline'><p>Max tries per rate limit period</p>
 </div>
       
     </li>
@@ -319,13 +327,43 @@
 
 15
 16
-17</pre>
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/rate_limit.rb', line 15</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_limit'>limit</span>
-  <span class='ivar'>@limit</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Octokit::RateLimit (class)">RateLimit</a></span></span> <span class='op'>&lt;</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:limit</span><span class='comma'>,</span> <span class='symbol'>:remaining</span><span class='comma'>,</span> <span class='symbol'>:resets_at</span><span class='comma'>,</span> <span class='symbol'>:resets_in</span><span class='rparen'>)</span>
+
+  <span class='comment'># Get rate limit info from HTTP response
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param response [#headers] HTTP response
+</span>  <span class='comment'># @return [RateLimit]
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_response'>from_response</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_info'>info</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Limit</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_remaining'>remaining</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Remaining</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_at'>resets_at</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Reset</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_in'>resets_in</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_at'>resets_at</span> <span class='op'>-</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_info'>info</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -333,11 +371,11 @@
 </div>
     
       
-      <span id="remaining=-instance_method"></span>
+      <span id=""></span>
       <div class="method_details ">
-  <h3 class="signature " id="remaining-instance_method">
+  <h3 class="signature " id="remaining=-instance_method">
   
-    - (<tt>Object</tt>) <strong>remaining</strong> 
+    #<strong>remaining=</strong>(value)  &#x21d2; <tt>Integer</tt>  <span class="extras">(writeonly)</span>
   
 
   
@@ -345,7 +383,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute remaining</p>
+    <p>Returns Remaining tries per rate limit period</p>
 
 
   </div>
@@ -358,12 +396,12 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><p>the current value of remaining</p>
+        <div class='inline'><p>Remaining tries per rate limit period</p>
 </div>
       
     </li>
@@ -378,13 +416,43 @@
 
 15
 16
-17</pre>
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/rate_limit.rb', line 15</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_remaining'>remaining</span>
-  <span class='ivar'>@remaining</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Octokit::RateLimit (class)">RateLimit</a></span></span> <span class='op'>&lt;</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:limit</span><span class='comma'>,</span> <span class='symbol'>:remaining</span><span class='comma'>,</span> <span class='symbol'>:resets_at</span><span class='comma'>,</span> <span class='symbol'>:resets_in</span><span class='rparen'>)</span>
+
+  <span class='comment'># Get rate limit info from HTTP response
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param response [#headers] HTTP response
+</span>  <span class='comment'># @return [RateLimit]
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_response'>from_response</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_info'>info</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Limit</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_remaining'>remaining</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Remaining</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_at'>resets_at</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Reset</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_in'>resets_in</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_at'>resets_at</span> <span class='op'>-</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_info'>info</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -392,11 +460,11 @@
 </div>
     
       
-      <span id="resets_at=-instance_method"></span>
+      <span id=""></span>
       <div class="method_details ">
-  <h3 class="signature " id="resets_at-instance_method">
+  <h3 class="signature " id="resets_at=-instance_method">
   
-    - (<tt>Object</tt>) <strong>resets_at</strong> 
+    #<strong>resets_at=</strong>(value)  &#x21d2; <tt>Time</tt>  <span class="extras">(writeonly)</span>
   
 
   
@@ -404,7 +472,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute resets_at</p>
+    <p>Returns Indicates when rate limit resets</p>
 
 
   </div>
@@ -417,12 +485,12 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Time</tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><p>the current value of resets_at</p>
+        <div class='inline'><p>Indicates when rate limit resets</p>
 </div>
       
     </li>
@@ -437,13 +505,43 @@
 
 15
 16
-17</pre>
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/rate_limit.rb', line 15</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_resets_at'>resets_at</span>
-  <span class='ivar'>@resets_at</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Octokit::RateLimit (class)">RateLimit</a></span></span> <span class='op'>&lt;</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:limit</span><span class='comma'>,</span> <span class='symbol'>:remaining</span><span class='comma'>,</span> <span class='symbol'>:resets_at</span><span class='comma'>,</span> <span class='symbol'>:resets_in</span><span class='rparen'>)</span>
+
+  <span class='comment'># Get rate limit info from HTTP response
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param response [#headers] HTTP response
+</span>  <span class='comment'># @return [RateLimit]
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_response'>from_response</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_info'>info</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Limit</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_remaining'>remaining</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Remaining</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_at'>resets_at</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Reset</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_in'>resets_in</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_at'>resets_at</span> <span class='op'>-</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_info'>info</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -451,11 +549,11 @@
 </div>
     
       
-      <span id="resets_in=-instance_method"></span>
+      <span id=""></span>
       <div class="method_details ">
-  <h3 class="signature " id="resets_in-instance_method">
+  <h3 class="signature " id="resets_in=-instance_method">
   
-    - (<tt>Object</tt>) <strong>resets_in</strong> 
+    #<strong>resets_in=</strong>(value)  &#x21d2; <tt>Integer</tt>  <span class="extras">(writeonly)</span>
   
 
   
@@ -463,7 +561,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute resets_in</p>
+    <p>Returns Number of seconds when rate limit resets</p>
 
 
   </div>
@@ -476,12 +574,12 @@
     <li>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt>Integer</tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><p>the current value of resets_in</p>
+        <div class='inline'><p>Number of seconds when rate limit resets</p>
 </div>
       
     </li>
@@ -496,13 +594,43 @@
 
 15
 16
-17</pre>
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/rate_limit.rb', line 15</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_resets_in'>resets_in</span>
-  <span class='ivar'>@resets_in</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Octokit::RateLimit (class)">RateLimit</a></span></span> <span class='op'>&lt;</span> <span class='const'>Struct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:limit</span><span class='comma'>,</span> <span class='symbol'>:remaining</span><span class='comma'>,</span> <span class='symbol'>:resets_at</span><span class='comma'>,</span> <span class='symbol'>:resets_in</span><span class='rparen'>)</span>
+
+  <span class='comment'># Get rate limit info from HTTP response
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param response [#headers] HTTP response
+</span>  <span class='comment'># @return [RateLimit]
+</span>  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_response'>from_response</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_info'>info</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Limit</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_remaining'>remaining</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Remaining</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_at'>resets_at</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>X-RateLimit-Reset</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_in'>resets_in</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_info'>info</span><span class='period'>.</span><span class='id identifier rubyid_resets_at'>resets_at</span> <span class='op'>-</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_info'>info</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -519,7 +647,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="from_response-class_method">
   
-    + (<tt><span class='object_link'><a href="" title="Octokit::RateLimit (class)">RateLimit</a></span></tt>) <strong>from_response</strong>(response) 
+    .<strong>from_response</strong>(response)  &#x21d2; <tt><span class='object_link'><a href="" title="Octokit::RateLimit (class)">RateLimit</a></span></tt> 
   
 
   
@@ -608,11 +736,12 @@
 
 </div>
 
-    <div id="footer">
-  Generated on Sun Oct 23 19:00:57 2016 by
+      <div id="footer">
+  Generated on Thu Jun 15 10:37:02 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.2.3).
+  0.9.9 (ruby-2.4.1).
 </div>
 
+    </div>
   </body>
 </html>
