@@ -152,7 +152,7 @@ module Octokit
         secret = opts.delete(:client_secret) || client_secret
 
         as_app(key, secret) do |app_client|
-          app_client.get "/applications/#{client_id}/tokens/#{token}", opts
+          app_client.get "applications/#{client_id}/tokens/#{token}", opts
         end
       end
 
@@ -173,7 +173,7 @@ module Octokit
         secret = opts.delete(:client_secret) || client_secret
 
         as_app(key, secret) do |app_client|
-          app_client.post "/applications/#{client_id}/tokens/#{token}", opts
+          app_client.post "applications/#{client_id}/tokens/#{token}", opts
         end
       end
 
@@ -194,7 +194,7 @@ module Octokit
         secret = opts.delete(:client_secret) || client_secret
 
         as_app(key, secret) do |app_client|
-          app_client.delete "/applications/#{client_id}/tokens/#{token}", opts
+          app_client.delete "applications/#{client_id}/tokens/#{token}", opts
 
           app_client.last_response.status == 204
         end

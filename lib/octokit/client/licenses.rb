@@ -35,7 +35,7 @@ module Octokit
       # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to 'master'.
       # @return [Sawyer::Resource] The detail of the license file
       # @example
-      #   Octokit.license_contents 'benbalter/licensee'
+      #   Octokit.repository_license_contents 'benbalter/licensee'
       def repository_license_contents(repo, options = {})
         options = ensure_api_media_type(:licenses, options)
         get "#{Repository.path repo}/license", options

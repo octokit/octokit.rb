@@ -81,7 +81,7 @@ module Octokit
       # @return [Sawyer::Resource] Project
       # @see https://developer.github.com/v3/projects/#get-a-project 
       # @example
-      #   Octokit.project("octokit/octokit.rb", 1)
+      #   Octokit.project(123942)
       def project(id, options = {})
         opts = ensure_api_media_type(:projects, options)
         get "projects/#{id}", opts
@@ -123,7 +123,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] List of project columns
       # @see https://developer.github.com/v3/projects/columns/#list-project-columns 
       # @example
-      #   @client.project_columns("octokit/octokit.rb", 1)
+      #   @client.project_columns(123942)
       def project_columns(id, options = {})
         opts = ensure_api_media_type(:projects, options)
         paginate "projects/#{id}/columns", opts
@@ -138,7 +138,7 @@ module Octokit
       # @return [Sawyer::Resource] Newly created column
       # @see https://developer.github.com/v3/projects/columns/#create-a-project-column 
       # @example
-      #   @client.create_project_column("octokit/octokit.rb", 1, "To Dones")
+      #   @client.create_project_column(123942, "To Dones")
       def create_project_column(id, name, options = {})
         opts = ensure_api_media_type(:projects, options)
         opts[:name] = name
@@ -151,7 +151,7 @@ module Octokit
       # @return [Sawyer::Resource] Project column
       # @see https://developer.github.com/v3/projects/columns/#get-a-project-column 
       # @example
-      #   Octokit.project_column(123940, 30)
+      #   Octokit.project_column(30294)
       def project_column(id, options = {})
         opts = ensure_api_media_type(:projects, options)
         get "projects/columns/#{id}", opts
@@ -198,7 +198,7 @@ module Octokit
       # @return [Sawyer::Resource] Result
       # @see https://developer.github.com/v3/projects/columns/#move-a-project-column
       # @example
-      #   @client.move_project_column(3049, "last")
+      #   @client.move_project_column(30294, "last")
       def move_project_column(id, position, options = {})
         opts = ensure_api_media_type(:projects, options)
         opts[:position] = position
@@ -213,7 +213,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Cards in the column
       # @see https://developer.github.com/v3/projects/cards/#list-project-cards
       # @example
-      #   @client.column_cards(123847)
+      #   @client.column_cards(30294)
       def column_cards(id, options = {})
         opts = ensure_api_media_type(:projects, options)
         paginate "projects/columns/#{id}/cards", opts

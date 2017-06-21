@@ -103,6 +103,20 @@ module Octokit
       @response[:status]
     end
 
+    # Headers returned by the GitHub server.
+    #
+    # @return [Hash]
+    def response_headers
+      @response[:response_headers]
+    end
+
+    # Body returned by the GitHub server.
+    #
+    # @return [String]
+    def response_body
+      @response[:body]
+    end
+
     private
 
     def data
@@ -138,8 +152,12 @@ module Octokit
       return nil unless data.is_a?(Hash) && !Array(data[:errors]).empty?
 
       summary = "\nError summary:\n"
-      summary << data[:errors].map do |hash|
-        hash.map { |k,v| "  #{k}: #{v}" }
+      summary << data[:errors].map do |error|
+        if error.is_a? Hash
+          error.map { |k,v| "  #{k}: #{v}" }
+        else
+          "  #{error}"
+        end
       end.join("\n")
 
       summary

@@ -2,8 +2,7 @@
 
 Ruby toolkit for the GitHub API.
 
-![Logo][logo]
-[logo]: http://cl.ly/image/3Y013H0A2z3z/gundam-ruby.png
+![logo](http://cl.ly/image/3Y013H0A2z3z/gundam-ruby.png)
 
 Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
 [major version][semver].
@@ -622,11 +621,14 @@ ENV Variable | Description |
 `OCTOKIT_TEST_GITHUB_CLIENT_SECRET` | Test OAuth application client secret.
 `OCTOKIT_TEST_GITHUB_REPOSITORY` | Test repository to perform destructive actions against, this should not be set to any repository of importance. **Automatically created by the test suite if nonexistent** Default: `api-sandbox`
 `OCTOKIT_TEST_GITHUB_ORGANIZATION` | Test organization.
-`OCTOKIT_TEST_GITHUB_ENTERPRISE_LOGIN` | GitHub Enterprise login name
-`OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN` | GitHub Enterprise token
-`OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD` | GitHub Enterprise management console password
-`OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT` | GitHub Enterprise hostname
-`OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT` | GitHub Enterprise Management Console endpoint
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_LOGIN` | GitHub Enterprise login name.
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN` | GitHub Enterprise token.
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD` | GitHub Enterprise management console password.
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT` | GitHub Enterprise hostname.
+`OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT` | GitHub Enterprise Management Console endpoint.
+`OCTOKIT_TEST_GITHUB_INTEGRATION` | [GitHub Integration](https://developer.github.com/early-access/integrations/) owned by your test organization.
+`OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION` | Installation of the GitHub Integration specified above.
+`OCTOKIT_TEST_INTEGRATION_PEM_KEY` | File path to the private key generated from your integration.
 
 Since we periodically refresh our cassettes, please keep some points in mind
 when writing new specs.

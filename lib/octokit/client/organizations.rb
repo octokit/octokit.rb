@@ -31,6 +31,8 @@ module Octokit
       # @option values [String] :email Publicly visible email address.
       # @option values [String] :location Location of organization.
       # @option values [String] :name GitHub username for organization.
+      # @option values [String] :default_repository_permission The default permission members have on organization repositories.
+      # @option values [Boolean] :members_can_create_repositories Set true to allow members to create repositories on the organization.
       # @return [Sawyer::Resource] Hash representing GitHub organization.
       # @see https://developer.github.com/v3/orgs/#edit-an-organization
       # @example
@@ -96,7 +98,7 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] List of GitHub organizations.
       def all_organizations(options = {})
-        paginate "organizations"
+        paginate "organizations", options
       end
       alias :all_orgs :all_organizations
 
@@ -207,6 +209,69 @@ module Octokit
       end
       alias :org_public_member? :organization_public_member?
 
+      # List pending organization invitations
+      #
+      # Requires authenticated organization member.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing invitations.
+      # @see https://developer.github.com/v3/orgs/members/#list-pending-organization-invitations
+      #
+      # @example
+      #   @client.organization_invitations('github')
+      def organization_invitations(org, options = {})
+        options = ensure_api_media_type(:org_memberships, options)
+        get "#{Organization.path org}/invitations", options
+      end
+      alias :org_invitations :organization_invitations
+
+      # List outside collaborators for an organization
+      #
+      # Requires authenticated organization members.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing users.
+      # @see https://developer.github.com/v3/orgs/outside-collaborators/#list-outside-collaborators
+      #
+      # @example
+      #   @client.outside_collaborators('github')
+      def outside_collaborators(org, options={})
+        options = ensure_api_media_type(:org_memberships, options)
+        get "#{Organization.path org}/outside_collaborators", options
+      end
+
+      # Remove outside collaborator from an organization
+      #
+      # Requires authenticated organization members.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param user [String] GitHub username to be removed as outside collaborator
+      # @return [Boolean] Return true if outside collaborator removed from organization, false otherwise.
+      # @see https://developer.github.com/v3/orgs/outside-collaborators/#remove-outside-collaborator
+      #
+      # @example
+      #   @client.remove_outside_collaborator('github', 'lizzhale')
+      def remove_outside_collaborator(org, user, options={})
+        options = ensure_api_media_type(:org_memberships, options)
+        boolean_from_response :delete, "#{Organization.path org}/outside_collaborators/#{user}", options
+      end
+
+      # Converts an organization member to an outside collaborator
+      #
+      # Requires authenticated organization members.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param user [String] GitHub username to be removed as outside collaborator
+      # @return [Boolean] Return true if outside collaborator removed from organization, false otherwise.
+      # @see https://developer.github.com/v3/orgs/outside-collaborators/#convert-member-to-outside-collaborator
+      #
+      # @example
+      #   @client.convert_to_outside_collaborator('github', 'lizzhale')
+      def convert_to_outside_collaborator(org, user, options={})
+        options = ensure_api_media_type(:org_memberships, options)
+        boolean_from_response :put, "#{Organization.path org}/outside_collaborators/#{user}", options
+      end
+
       # List teams
       #
       # Requires authenticated organization member.
@@ -230,6 +295,7 @@ module Octokit
       # @param org [String, Integer] Organization GitHub login or id.
       # @option options [String] :name Team name.
       # @option options [Array<String>] :repo_names Repositories for the team.
+      # @option options [Array<String>] :maintainers Maintainers for the team.
       # @return [Sawyer::Resource] Hash representing new team.
       # @see https://developer.github.com/v3/orgs/teams/#create-team
       # @example
@@ -361,10 +427,25 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/teams/#get-team-member
       #
       # @example Check if a user is in your team
-      #   @client.team_member?('your_team', 'pengwynn')
+      #   @client.team_member?(100000, 'pengwynn')
       #   => false
       def team_member?(team_id, user, options = {})
         boolean_from_response :get, "teams/#{team_id}/members/#{user}", options
+      end
+
+      # List pending team invitations
+      #
+      # Requires authenticated organization member.
+      #
+      # @param team_id [Integer] Team id.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing invitations.
+      # @see https://developer.github.com/v3/orgs/teams/#list-pending-team-invitations
+      #
+      # @example
+      #   @client.team_invitations('github')
+      def team_invitations(team_id, options = {})
+        options = ensure_api_media_type(:org_memberships, options)
+        get "teams/#{team_id}/invitations", options
       end
 
       # List team repositories
@@ -529,7 +610,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] Hash of team membership info
       #
-      # @see https://developer.github.com/v3/orgs/teams/#add-team-membership
+      # @see https://developer.github.com/v3/orgs/teams/#add-or-update-team-membership
       #
       # @example Check if a user has a membership for a team
       #   @client.add_team_membership(1234, 'pengwynn')
@@ -560,14 +641,14 @@ module Octokit
 
       # Get an organization membership
       #
-      # @param org [String] Organization GitHub login.
+      # @param org [Integer, String] The GitHub Organization.
       # @option options [String] :user  The login of the user, otherwise authenticated user.
       # @return [Sawyer::Resource] Hash representing the organization membership.
       # @see https://developer.github.com/v3/orgs/members/#get-your-organization-membership
       # @see https://developer.github.com/v3/orgs/members/#get-organization-membership
       def organization_membership(org, options = {})
         if user = options.delete(:user)
-          get "orgs/#{org}/memberships/#{user}", options
+          get "#{Organization.path(org)}/memberships/#{user}", options
         else
           get "user/memberships/orgs/#{org}", options
         end

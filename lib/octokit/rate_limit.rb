@@ -3,13 +3,13 @@ module Octokit
   # Class for API Rate Limit info
   #
   # @!attribute [w] limit
-  #   @return [Fixnum] Max tries per rate limit period
+  #   @return [Integer] Max tries per rate limit period
   # @!attribute [w] remaining
-  #   @return [Fixnum] Remaining tries per rate limit period
+  #   @return [Integer] Remaining tries per rate limit period
   # @!attribute [w] resets_at
   #   @return [Time] Indicates when rate limit resets
   # @!attribute [w] resets_in
-  #   @return [Fixnum] Number of seconds when rate limit resets
+  #   @return [Integer] Number of seconds when rate limit resets
   #
   # @see https://developer.github.com/v3/#rate-limiting
   class RateLimit < Struct.new(:limit, :remaining, :resets_at, :resets_in)

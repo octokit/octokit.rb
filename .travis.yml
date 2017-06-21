@@ -6,7 +6,8 @@ rvm:
   - 2.0
   - 2.1
   - 2.2
-  - 2.3.1
+  - 2.3.3
+  - 2.4.0
 
 bundler_args: --without development
 
@@ -30,4 +31,4 @@ matrix:
     - rvm: jruby
 
 notifications:
-  emails: false
+  email: false

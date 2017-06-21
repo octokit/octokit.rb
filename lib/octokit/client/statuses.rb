@@ -39,7 +39,7 @@ module Octokit
       # @return [Sawyer::Resource] A status
       # @see https://developer.github.com/v3/repos/statuses/#create-a-status
       def create_status(repo, sha, state, options = {})
-        options.merge!(:state => state)
+        options = options.merge(:state => state)
         post "#{Repository.path repo}/statuses/#{sha}", options
       end
     end

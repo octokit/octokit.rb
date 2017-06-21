@@ -2,10 +2,9 @@ require 'helper'
 require 'octokit/rate_limit'
 
 describe Octokit::RateLimit do
-  subject { described_class }
 
   describe ".from_response" do
-    let(:resonse_headers) do
+    let(:response_headers) do
       {
         "X-RateLimit-Limit" => 60,
         "X-RateLimit-Remaining" => 42,
@@ -18,7 +17,7 @@ describe Octokit::RateLimit do
     it "parses rate limit info from response headers" do
       expect(response).to receive(:headers).
         at_least(:once).
-        and_return(resonse_headers)
+        and_return(response_headers)
       info = described_class.from_response(response)
       expect(info.limit).to eq(60)
       expect(info.remaining).to eq(42)
@@ -49,7 +48,7 @@ describe Octokit::RateLimit do
       expect(response).to receive(:headers).
         at_least(:once).
         and_return(
-          resonse_headers.merge("X-RateLimit-Reset" => (Time.now - 60).to_i)
+          response_headers.merge("X-RateLimit-Reset" => (Time.now - 60).to_i)
         )
       info = described_class.from_response(response)
       expect(info.limit).to eq(60)

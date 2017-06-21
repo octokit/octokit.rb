@@ -12,8 +12,8 @@ module Octokit
       # @param options [Hash] Sort and pagination options
       # @option options [String] :sort Sort field
       # @option options [String] :order Sort order (asc or desc)
-      # @option options [Fixnum] :page Page of paginated results
-      # @option options [Fixnum] :per_page Number of items per page
+      # @option options [Integer] :page Page of paginated results
+      # @option options [Integer] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
       # @see https://developer.github.com/v3/search/#search-code
       def search_code(query, options = {})
@@ -26,8 +26,8 @@ module Octokit
       # @param options [Hash] Sort and pagination options
       # @option options [String] :sort Sort field
       # @option options [String] :order Sort order (asc or desc)
-      # @option options [Fixnum] :page Page of paginated results
-      # @option options [Fixnum] :per_page Number of items per page
+      # @option options [Integer] :page Page of paginated results
+      # @option options [Integer] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
       # @see https://developer.github.com/v3/search/#search-issues
       def search_issues(query, options = {})
@@ -40,8 +40,8 @@ module Octokit
       # @param options [Hash] Sort and pagination options
       # @option options [String] :sort Sort field
       # @option options [String] :order Sort order (asc or desc)
-      # @option options [Fixnum] :page Page of paginated results
-      # @option options [Fixnum] :per_page Number of items per page
+      # @option options [Integer] :page Page of paginated results
+      # @option options [Integer] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
       # @see https://developer.github.com/v3/search/#search-repositories
       def search_repositories(query, options = {})
@@ -55,8 +55,8 @@ module Octokit
       # @param options [Hash] Sort and pagination options
       # @option options [String] :sort Sort field
       # @option options [String] :order Sort order (asc or desc)
-      # @option options [Fixnum] :page Page of paginated results
-      # @option options [Fixnum] :per_page Number of items per page
+      # @option options [Integer] :page Page of paginated results
+      # @option options [Integer] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
       # @see https://developer.github.com/v3/search/#search-users
       def search_users(query, options = {})

@@ -28,7 +28,7 @@ describe Octokit::Gist do
     end
   end
 
-  context "when passed a Fixnum ID" do
+  context "when passed a Integer ID" do
     before do
       @gist = Octokit::Gist.new(12345)
     end

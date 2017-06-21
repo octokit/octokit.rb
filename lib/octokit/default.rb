@@ -57,6 +57,12 @@ module Octokit
         ENV['OCTOKIT_AUTO_PAGINATE']
       end
 
+      # Default bearer token from ENV
+      # @return [String]
+      def bearer_token
+        ENV['OCTOKIT_BEARER_TOKEN']
+      end
+
       # Default OAuth app key from ENV
       # @return [String]
       def client_id
@@ -118,7 +124,7 @@ module Octokit
       end
 
       # Default pagination page size from ENV
-      # @return [Fixnum] Page size
+      # @return [Integer] Page size
       def per_page
         page_size = ENV['OCTOKIT_PER_PAGE']
 

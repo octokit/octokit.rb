@@ -79,6 +79,12 @@ describe Octokit::Client do
         expect(inspected).not_to include("87614b09dd141c22800f96f11737ade5226d7ba8")
       end
 
+      it "masks bearer token on inspect" do
+        client = Octokit::Client.new(bearer_token: 'secret JWT')
+        inspected = client.inspect
+        expect(inspected).not_to include("secret JWT")
+      end
+
       it "masks client secrets on inspect" do
         client = Octokit::Client.new(:client_secret => '87614b09dd141c22800f96f11737ade5226d7ba8')
         inspected = client.inspect
@@ -140,6 +146,7 @@ describe Octokit::Client do
       before do
         Octokit.reset!
       end
+
       it "sets basic auth creds with .configure" do
         Octokit.configure do |config|
           config.login = 'pengwynn'
@@ -147,11 +154,13 @@ describe Octokit::Client do
         end
         expect(Octokit.client).to be_basic_authenticated
       end
+
       it "sets basic auth creds with module methods" do
         Octokit.login = 'pengwynn'
         Octokit.password = 'il0veruby'
         expect(Octokit.client).to be_basic_authenticated
       end
+
       it "sets oauth token with .configure" do
         Octokit.configure do |config|
           config.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
@@ -159,11 +168,27 @@ describe Octokit::Client do
         expect(Octokit.client).not_to be_basic_authenticated
         expect(Octokit.client).to be_token_authenticated
       end
+
       it "sets oauth token with module methods" do
         Octokit.access_token = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
         expect(Octokit.client).not_to be_basic_authenticated
         expect(Octokit.client).to be_token_authenticated
       end
+
+      it "sets bearer token with module method" do
+        Octokit.bearer_token = 'secret JWT'
+        expect(Octokit.client).to be_bearer_authenticated
+      end
+
+      it "sets bearer token with .configure" do
+        Octokit.configure do |config|
+          config.bearer_token = 'secret JWT'
+        end
+        expect(Octokit.client).not_to be_basic_authenticated
+        expect(Octokit.client).not_to be_token_authenticated
+        expect(Octokit.client).to be_bearer_authenticated
+      end
+
       it "sets oauth application creds with .configure" do
         Octokit.configure do |config|
           config.client_id     = '97b4937b385eb63d1f46'
@@ -173,6 +198,7 @@ describe Octokit::Client do
         expect(Octokit.client).not_to be_token_authenticated
         expect(Octokit.client).to be_application_authenticated
       end
+
       it "sets oauth token with module methods" do
         Octokit.client_id     = '97b4937b385eb63d1f46'
         Octokit.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
@@ -252,6 +278,19 @@ describe Octokit::Client do
         assert_requested :get, github_url('/user')
       end
     end
+
+    describe "when bearer authenticated", :vcr do
+      it "makes authenticated calls" do
+        jwt = 'secret JWT'
+        client = Octokit::Client.new(bearer_token: jwt)
+
+        root_request = stub_get("/").
+          with(:headers => {:authorization => "Bearer #{jwt}"})
+        client.get("/")
+        assert_requested root_request
+      end
+    end
+
     describe "when application authenticated" do
       it "makes authenticated calls" do
         client = Octokit.client
@@ -715,6 +754,7 @@ describe Octokit::Client do
         :body => {
           :message => "Validation Failed",
           :errors => [
+            "Position is invalid",
             :resource => "Issue",
             :field    => "title",
             :code     => "missing_field"
@@ -724,6 +764,7 @@ describe Octokit::Client do
         Octokit.get('/boom')
       rescue Octokit::UnprocessableEntity => e
         expect(e.message).to include("GET https://api.github.com/boom: 422 - Validation Failed")
+        expect(e.message).to include("  Position is invalid")
         expect(e.message).to include("  resource: Issue")
         expect(e.message).to include("  field: title")
         expect(e.message).to include("  code: missing_field")
@@ -877,6 +918,36 @@ describe Octokit::Client do
         expect(e.response_status).to eql 422
       end
     end
+
+    it "exposes the response headers" do
+      stub_get('/boom').
+        to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:error => "No repository found for hubtopic"}.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.response_headers).to eql({ "content-type" => "application/json" })
+      end
+    end
+
+    it "exposes the response body" do
+      stub_get('/boom').
+        to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:error => "No repository found for hubtopic"}.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.response_body).to eql({:error => "No repository found for hubtopic"}.to_json)
+      end
+    end
   end
 
   it "knows the difference between unauthorized and needs OTP" do
@@ -933,6 +1004,18 @@ describe Octokit::Client do
     def collect_methods(clazz)
       clazz.included_modules.select { |m| m.to_s =~ Regexp.new(clazz.to_s) } \
                             .collect { |m| m.public_instance_methods }.flatten
+    end
+  end
+
+  describe "rels parsing" do
+    before do
+      Octokit.reset!
+      @client = oauth_client
+    end
+
+    it "handles git@github ssh URLs", :vcr do
+      repo = @client.repository("octokit/octokit.rb")
+      expect(repo.rels[:ssh].href).to eq("git@github.com:octokit/octokit.rb.git")
     end
   end
 end

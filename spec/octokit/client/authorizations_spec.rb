@@ -167,8 +167,8 @@ describe Octokit::Client::Authorizations do
     end
   end # .authorize_url
 
-  describe ".check_application_authorization", :vcr do
-    it "checks an application authorization" do
+  describe ".check_application_authorization" do
+    it "checks an application authorization", :vcr do
       authorization = create_app_token
 
       token = @app_client.check_application_authorization(authorization.token)
@@ -179,10 +179,24 @@ describe Octokit::Client::Authorizations do
       assert_requested :get, url
       expect(token.user.login).to eq(test_github_login)
     end
+
+    it "works in Enterprise mode" do
+      client = Octokit::Client.new \
+        :client_id     => "abcde12345fghij67890",
+        :client_secret => "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
+        :api_endpoint  => "https://gh-enterprise.com/api/v3"
+
+      path = "applications/abcde12345fghij67890/tokens/25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
+
+      request = stub_get("https://abcde12345fghij67890:abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd@gh-enterprise.com/api/v3/#{path}")
+      token = client.check_application_authorization("25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8")
+
+      assert_requested request
+    end
   end # .check_application_authorization
 
-  describe ".reset_application_authorization", :vcr do
-    it "resets a token" do
+  describe ".reset_application_authorization" do
+    it "resets a token", :vcr do
       authorization = create_app_token
 
       new_authorization = @app_client.reset_application_authorization authorization.token
@@ -195,10 +209,24 @@ describe Octokit::Client::Authorizations do
         :login => test_github_client_id, :password => test_github_client_secret
       assert_requested :post, reset_url
     end
+
+    it "works in Enterprise mode" do
+      client = Octokit::Client.new \
+        :client_id     => "abcde12345fghij67890",
+        :client_secret => "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
+        :api_endpoint  => "https://gh-enterprise.com/api/v3"
+
+      path = "applications/abcde12345fghij67890/tokens/25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
+
+      request = stub_post("https://abcde12345fghij67890:abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd@gh-enterprise.com/api/v3/#{path}")
+      token = client.reset_application_authorization("25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8")
+
+      assert_requested request
+    end
   end # .reset_application_authorization
 
-  describe ".revoke_application_authorization", :vcr do
-    it "deletes an application authorization" do
+  describe ".revoke_application_authorization" do
+    it "deletes an application authorization", :vcr do
       authorization = create_app_token
 
       result = @app_client.revoke_application_authorization authorization.token
@@ -208,6 +236,20 @@ describe Octokit::Client::Authorizations do
       revoke_url = basic_github_url path,
         :login => test_github_client_id, :password => test_github_client_secret
       assert_requested :delete, revoke_url
+    end
+
+    it "works in Enterprise mode" do
+      client = Octokit::Client.new \
+        :client_id     => "abcde12345fghij67890",
+        :client_secret => "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
+        :api_endpoint  => "https://gh-enterprise.com/api/v3"
+
+      path = "applications/abcde12345fghij67890/tokens/25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
+
+      request = stub_delete("https://abcde12345fghij67890:abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd@gh-enterprise.com/api/v3/#{path}")
+      token = client.revoke_application_authorization("25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8")
+
+      assert_requested request
     end
   end # .revoke_application_authorization
 

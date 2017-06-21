@@ -12,6 +12,12 @@ describe Octokit::Client::Repositories do
       expect(repository.name).to eq("rails_admin")
       assert_requested :get, github_url("/repos/sferik/rails_admin")
     end
+
+    it "returns the repository, including topics" do
+      repository = @client.repository("github/linguist", :accept => 'application/vnd.github.mercy-preview+json')
+      expect(repository.topics).to be_kind_of Array
+      expect(repository.topics).to include("syntax-highlighting")
+    end
   end # .repository
 
   describe ".set_private" do
@@ -345,6 +351,13 @@ describe Octokit::Client::Repositories do
       rescue Octokit::NotFound
       end
     end
+
+    describe ".permission_level", :vcr do
+      it "returns the permission level a user has on a repository" do
+        @client.permission_level(@repo.full_name, "lizzhale", :accept => 'application/vnd.github.korra-preview+json')
+        assert_requested :get, github_url("/repos/#{@repo.full_name}/collaborators/lizzhale/permission")
+      end
+    end # .permission_level
 
     describe ".protect_branch", :vcr do
       it "protects a single branch" do

@@ -21,7 +21,7 @@ module Octokit
       # Get number of rate limted requests remaining
       #
       # @see https://developer.github.com/v3/rate_limit/#rate-limit
-      # @return [Fixnum] Number of requests remaining in this period
+      # @return [Integer] Number of requests remaining in this period
       def rate_limit_remaining(options = {})
         octokit_warn "Deprecated: Please use .rate_limit.remaining"
         rate_limit.remaining
@@ -41,7 +41,7 @@ module Octokit
       # Refresh rate limit info and get number of rate limted requests remaining
       #
       # @see https://developer.github.com/v3/rate_limit/#rate-limit
-      # @return [Fixnum] Number of requests remaining in this period
+      # @return [Integer] Number of requests remaining in this period
       def rate_limit_remaining!(options = {})
         octokit_warn "Deprecated: Please use .rate_limit!.remaining"
         rate_limit!.remaining

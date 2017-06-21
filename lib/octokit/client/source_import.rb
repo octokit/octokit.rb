@@ -132,7 +132,7 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param options [Hash]
-      # @option options [Fixnum] :page Page of paginated results
+      # @option options [Integer] :page Page of paginated results
       # @return [Array<Sawyer::Resource>] Array of hashes representing files over 100MB.
       # @see https://developer.github.com/v3/migration/source_imports/#get-large-files
       #

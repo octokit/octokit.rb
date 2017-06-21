@@ -14,6 +14,7 @@ require 'octokit'
 require 'rspec'
 require 'webmock/rspec'
 require 'base64'
+require 'jwt'
 
 WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
@@ -48,10 +49,10 @@ VCR.configure do |c|
     test_github_enterprise_login
   end
   c.filter_sensitive_data("<<ENTERPRISE_ACCESS_TOKEN>>") do
-      test_github_enterprise_token
+    test_github_enterprise_token
   end
   c.filter_sensitive_data("<<ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD>>") do
-      test_github_enterprise_management_console_password
+    test_github_enterprise_management_console_password
   end
   c.filter_sensitive_data("<<ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT>>") do
     test_github_enterprise_management_console_endpoint
@@ -67,6 +68,12 @@ VCR.configure do |c|
   end
   c.define_cassette_placeholder("<GITHUB_TEST_ORG_TEAM_ID>") do
     "10050505050000"
+  end
+  c.define_cassette_placeholder("<GITHUB_TEST_INTEGRATION>") do
+    test_github_integration
+  end
+  c.define_cassette_placeholder("<GITHUB_TEST_INTEGRATION_INSTALLATION>") do
+    test_github_integration_installation
   end
 
   c.before_http_request(:real?) do |request|
@@ -159,11 +166,23 @@ def test_github_repository
 end
 
 def test_github_repository_id
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_REPOSITORY_ID', 20974780
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_REPOSITORY_ID', 20_974_780
 end
 
 def test_github_org
   ENV.fetch 'OCTOKIT_TEST_GITHUB_ORGANIZATION', 'api-playground'
+end
+
+def test_github_integration
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_INTEGRATION', 42
+end
+
+def test_github_integration_installation
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION', 37
+end
+
+def test_github_integration_pem_key
+  ENV.fetch 'OCTOKIT_TEST_INTEGRATION_PEM_KEY', "#{fixture_path}/fake_integration.private-key.pem"
 end
 
 def stub_delete(url)

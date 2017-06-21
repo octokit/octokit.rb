@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'jruby-openssl', :platforms => :jruby
-gem 'rake'
+gem 'rake', '> 11.0.1', '< 12.0'
 
 group :development do
   gem 'awesome_print', :require => 'ap'
@@ -17,6 +17,7 @@ end
 group :test do
   gem 'coveralls', :require => false
   gem 'json', '~> 1.7', :platforms => [:jruby]
+  gem 'jwt', '~> 1.5', '>= 1.5.6'
   gem 'multi_json', '~> 1.11.0'
   gem 'mime-types', '< 2.0.0'
   gem 'netrc', '~> 0.7.7'
