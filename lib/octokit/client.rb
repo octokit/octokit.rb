@@ -22,6 +22,7 @@ require 'octokit/client/events'
 require 'octokit/client/feeds'
 require 'octokit/client/gists'
 require 'octokit/client/gitignore'
+require 'octokit/client/graphql'
 require 'octokit/client/hooks'
 require 'octokit/client/issues'
 require 'octokit/client/labels'
@@ -77,6 +78,7 @@ module Octokit
     include Octokit::Client::Feeds
     include Octokit::Client::Gists
     include Octokit::Client::Gitignore
+    include Octokit::Client::GraphQL
     include Octokit::Client::Hooks
     include Octokit::Client::Apps
     include Octokit::Client::Issues
