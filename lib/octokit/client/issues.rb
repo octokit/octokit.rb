@@ -316,6 +316,19 @@ module Octokit
         options = ensure_api_media_type(:issue_timelines, options)
         paginate "#{Repository.path repo}/issues/#{number}/timeline", options
       end
+
+      # Add assignees to an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Issue number
+      # @param assignees [Array] Assignees to be added
+      # @return [Sawyer::Resource] Issue
+      # @see https://developer.github.com/v3/issues/assignees/#add-assignees-to-an-issue
+      # @example Add assignees "pengwynn" and "joeyw" to Issue #23 on octokit/octokit.rb
+      #   Octokit.add_assignees("octokit/octokit.rb", 23, ["pengwynn", "joeyw"])
+      def add_assignees(repo, number, assignees, options = {})
+        post "#{Repository.path repo}/issues/#{number}/assignees", options.merge({:assignees => assignees})
+      end
     end
   end
 end
