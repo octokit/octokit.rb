@@ -134,6 +134,18 @@ module Octokit
         )
         remove_repository_from_app_installation(installation, repo, options)
       end
+
+      # List all plans for your Marketplace listing
+      #
+      # @param options [Hash] An customizable set of options
+      #
+      # @see https://developer.github.com/v3/apps/marketplace/#list-all-plans-for-your-marketplace-listing
+      #
+      # @return  [Array<Sawyer::Resource>] A list of marketplace
+      def list_marketplace_plans(options = {})
+        opts = ensure_api_media_type(:marketplace, options)
+        get "/marketplace_listing/plans", opts
+      end
     end
   end
 end
