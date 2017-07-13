@@ -28,8 +28,8 @@ module Octokit
         @owner = repo.owner
         @name = repo.name
       when Hash
-        @name = repo[:repo] ||= repo[:name]
-        @owner = repo[:owner] ||= repo[:user] ||= repo[:username]
+        @name = repo[:repo] || repo[:name]
+        @owner = repo[:owner] || repo[:user] || repo[:username]
       else
         raise_invalid_repository!
       end
