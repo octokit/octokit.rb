@@ -918,6 +918,36 @@ describe Octokit::Client do
         expect(e.response_status).to eql 422
       end
     end
+
+    it "exposes the response headers" do
+      stub_get('/boom').
+        to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:error => "No repository found for hubtopic"}.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.response_headers).to eql({ "content-type" => "application/json" })
+      end
+    end
+
+    it "exposes the response body" do
+      stub_get('/boom').
+        to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:error => "No repository found for hubtopic"}.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.response_body).to eql({:error => "No repository found for hubtopic"}.to_json)
+      end
+    end
   end
 
   it "knows the difference between unauthorized and needs OTP" do

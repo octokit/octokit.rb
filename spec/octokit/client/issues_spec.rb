@@ -229,4 +229,12 @@ describe Octokit::Client::Issues do
       assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/comments/1194690')
     end
   end # .issue_comment
+
+  describe ".add_assignees", :vcr do
+    it "adds assignees" do
+      issue = @client.add_assignees('tomb0y/wheelbarrow', 10, ["tomb0y"])
+      expect(issue.assignees.count).not_to be_zero
+      assert_requested :post, github_url("repos/tomb0y/wheelbarrow/issues/10/assignees")
+    end
+  end # .add_assignees
 end

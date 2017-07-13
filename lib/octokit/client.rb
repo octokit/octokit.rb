@@ -10,6 +10,7 @@ require 'octokit/repository'
 require 'octokit/user'
 require 'octokit/organization'
 require 'octokit/preview'
+require 'octokit/client/apps'
 require 'octokit/client/authorizations'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
@@ -22,7 +23,6 @@ require 'octokit/client/feeds'
 require 'octokit/client/gists'
 require 'octokit/client/gitignore'
 require 'octokit/client/hooks'
-require 'octokit/client/integrations'
 require 'octokit/client/issues'
 require 'octokit/client/labels'
 require 'octokit/client/legacy_search'
@@ -78,7 +78,7 @@ module Octokit
     include Octokit::Client::Gists
     include Octokit::Client::Gitignore
     include Octokit::Client::Hooks
-    include Octokit::Client::Integrations
+    include Octokit::Client::Apps
     include Octokit::Client::Issues
     include Octokit::Client::Labels
     include Octokit::Client::LegacySearch
