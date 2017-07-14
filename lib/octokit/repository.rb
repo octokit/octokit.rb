@@ -31,10 +31,10 @@ module Octokit
         @name = repo[:repo] || repo[:name]
         @owner = repo[:owner] || repo[:user] || repo[:username]
       else
-        raise_invalid_repository!
+        raise_invalid_repository!(repo)
       end
       if @owner && @name
-        validate_owner_and_name!
+        validate_owner_and_name!(repo)
       end
     end
 
@@ -80,14 +80,16 @@ module Octokit
 
     private
 
-      def validate_owner_and_name!
+      def validate_owner_and_name!(repo)
         if @owner.include?('/') || @name.include?('/') || !url.match(URI::ABS_URI)
-          raise_invalid_repository!
+          raise_invalid_repository!(repo)
         end
       end
 
-      def raise_invalid_repository!
-        raise Octokit::InvalidRepository, "Invalid Repository. Use user/repo format."
+      def raise_invalid_repository!(repo)
+        msg = "#{repo.inspect} is invalid as a repository identifier. " +
+              "Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys."
+        raise Octokit::InvalidRepository, msg
       end
   end
 end
