@@ -87,7 +87,9 @@ module Octokit
       end
 
       def raise_invalid_repository!(repo)
-        raise Octokit::InvalidRepository, "#{repo.inspect} is invalid as a repository identifier. Use repo/user, an Integer or a Hash."
+        msg = "#{repo.inspect} is invalid as a repository identifier. " +
+              "Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys."
+        raise Octokit::InvalidRepository, msg
       end
   end
 end

@@ -30,42 +30,42 @@ describe Octokit::Repository do
   context "when passed a string without a slash" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new('raise-error') }.
-        to raise_error Octokit::InvalidRepository, '"raise-error" is invalid as a repository identifier. Use repo/user, an Integer or a Hash.'
+        to raise_error Octokit::InvalidRepository, '"raise-error" is invalid as a repository identifier. Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys.'
     end
   end
 
   context "when passed a string with more than 1 slash" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new('more_than/one/slash') }.
-        to raise_error Octokit::InvalidRepository, '"more_than/one/slash" is invalid as a repository identifier. Use repo/user, an Integer or a Hash.'
+        to raise_error Octokit::InvalidRepository, '"more_than/one/slash" is invalid as a repository identifier. Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys.'
     end
   end
 
   context "when passed an invalid path" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new('invalid / path') }.
-        to raise_error Octokit::InvalidRepository, '"invalid / path" is invalid as a repository identifier. Use repo/user, an Integer or a Hash.'
+        to raise_error Octokit::InvalidRepository, '"invalid / path" is invalid as a repository identifier. Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys.'
     end
   end
 
   context "when passed a boolean true" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new(true) }.
-        to raise_error Octokit::InvalidRepository, "true is invalid as a repository identifier. Use repo/user, an Integer or a Hash."
+        to raise_error Octokit::InvalidRepository, "true is invalid as a repository identifier. Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys."
     end
   end
 
   context "when passed a boolean false" do
     it "false raises ArgumentError" do
       expect { Octokit::Repository.new(false) }.
-        to raise_error Octokit::InvalidRepository, "false is invalid as a repository identifier. Use repo/user, an Integer or a Hash."
+        to raise_error Octokit::InvalidRepository, "false is invalid as a repository identifier. Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys."
     end
   end
 
   context "when passed nil" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new(nil) }.
-        to raise_error Octokit::InvalidRepository, "nil is invalid as a repository identifier. Use repo/user, an Integer or a Hash."
+        to raise_error Octokit::InvalidRepository, "nil is invalid as a repository identifier. Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys."
     end
   end
 
@@ -118,28 +118,28 @@ describe Octokit::Repository do
   context "when passed a hash with invalid username" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new({:username => 'invalid username!', :name => 'octokit'}) }.
-        to raise_error Octokit::InvalidRepository, "#{{:username => 'invalid username!', :name => 'octokit'}.inspect} is invalid as a repository identifier. Use repo/user, an Integer or a Hash."
+        to raise_error Octokit::InvalidRepository, "#{{:username => 'invalid username!', :name => 'octokit'}.inspect} is invalid as a repository identifier. Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys."
     end
   end
 
   context "when passed a hash with a username that contains a slash" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new({:username => 'invalid/username', :name => 'octokit'}) }.
-        to raise_error Octokit::InvalidRepository, "#{{:username => 'invalid/username', :name => 'octokit'}.inspect} is invalid as a repository identifier. Use repo/user, an Integer or a Hash."
+        to raise_error Octokit::InvalidRepository, "#{{:username => 'invalid/username', :name => 'octokit'}.inspect} is invalid as a repository identifier. Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys."
     end
   end
 
   context "when passed a hash with invalid repo" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new({:username => 'sferik', :name => 'invalid repo!'}) }.
-        to raise_error Octokit::InvalidRepository, "#{{:username => 'sferik', :name => 'invalid repo!'}.inspect} is invalid as a repository identifier. Use repo/user, an Integer or a Hash."
+        to raise_error Octokit::InvalidRepository, "#{{:username => 'sferik', :name => 'invalid repo!'}.inspect} is invalid as a repository identifier. Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys."
     end
   end
 
   context "when passed a hash with a repo that contains a slash" do
     it "raises ArgumentError" do
       expect { Octokit::Repository.new({:username => 'sferik', :name => 'invalid/repo'}) }.
-        to raise_error Octokit::InvalidRepository, "#{{:username => 'sferik', :name => 'invalid/repo'}.inspect} is invalid as a repository identifier. Use repo/user, an Integer or a Hash."
+        to raise_error Octokit::InvalidRepository, "#{{:username => 'sferik', :name => 'invalid/repo'}.inspect} is invalid as a repository identifier. Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys."
     end
   end
 
@@ -173,7 +173,7 @@ describe Octokit::Repository do
 
     it "raises InvalidRepository error for unsupported url" do
       expect { Octokit::Repository.new("https://api.github.com/gists/0083ae") }.
-        to raise_error Octokit::InvalidRepository, '"https://api.github.com/gists/0083ae" is invalid as a repository identifier. Use repo/user, an Integer or a Hash.'
+        to raise_error Octokit::InvalidRepository, '"https://api.github.com/gists/0083ae" is invalid as a repository identifier. Use the repo/user (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys.'
     end
   end
 end
