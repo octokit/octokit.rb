@@ -3,7 +3,6 @@ require 'helper'
 describe Octokit::Client::Marketplace do
   before(:each) do
     Octokit.reset!
-    binding.pry
     @client = oauth_client
   end
 
