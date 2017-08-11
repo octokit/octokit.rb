@@ -358,7 +358,6 @@ module Octokit
       # @example
       #   @client.permission_level('octokit/octokit.rb', 'lizzhale')
       def permission_level(repo, collaborator, options={})
-        options = ensure_api_media_type(:org_memberships, options)
         get "#{Repository.path repo}/collaborators/#{collaborator}/permission", options
       end
 
