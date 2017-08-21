@@ -354,7 +354,7 @@ describe Octokit::Client::Repositories do
 
     describe ".permission_level", :vcr do
       it "returns the permission level a user has on a repository" do
-        @client.permission_level(@repo.full_name, "lizzhale", :accept => 'application/vnd.github.korra-preview+json')
+        @client.permission_level(@repo.full_name, "lizzhale")
         assert_requested :get, github_url("/repos/#{@repo.full_name}/collaborators/lizzhale/permission")
       end
     end # .permission_level
