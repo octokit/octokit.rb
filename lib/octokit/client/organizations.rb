@@ -220,7 +220,6 @@ module Octokit
       # @example
       #   @client.organization_invitations('github')
       def organization_invitations(org, options = {})
-        options = ensure_api_media_type(:org_memberships, options)
         get "#{Organization.path org}/invitations", options
       end
       alias :org_invitations :organization_invitations
@@ -236,7 +235,6 @@ module Octokit
       # @example
       #   @client.outside_collaborators('github')
       def outside_collaborators(org, options={})
-        options = ensure_api_media_type(:org_memberships, options)
         get "#{Organization.path org}/outside_collaborators", options
       end
 
@@ -252,7 +250,6 @@ module Octokit
       # @example
       #   @client.remove_outside_collaborator('github', 'lizzhale')
       def remove_outside_collaborator(org, user, options={})
-        options = ensure_api_media_type(:org_memberships, options)
         boolean_from_response :delete, "#{Organization.path org}/outside_collaborators/#{user}", options
       end
 
@@ -268,7 +265,6 @@ module Octokit
       # @example
       #   @client.convert_to_outside_collaborator('github', 'lizzhale')
       def convert_to_outside_collaborator(org, user, options={})
-        options = ensure_api_media_type(:org_memberships, options)
         boolean_from_response :put, "#{Organization.path org}/outside_collaborators/#{user}", options
       end
 
@@ -444,7 +440,6 @@ module Octokit
       # @example
       #   @client.team_invitations('github')
       def team_invitations(team_id, options = {})
-        options = ensure_api_media_type(:org_memberships, options)
         get "teams/#{team_id}/invitations", options
       end
 

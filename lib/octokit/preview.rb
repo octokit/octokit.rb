@@ -14,7 +14,6 @@ module Octokit
       :pages                  => 'application/vnd.github.mister-fantastic-preview+json'.freeze,
       :projects               => 'application/vnd.github.inertia-preview+json'.freeze,
       :traffic                => 'application/vnd.github.spiderman-preview'.freeze,
-      :org_membership         => 'application/vnd.github.korra-preview'.freeze,
       :reviews                => 'application/vnd.github.black-cat-preview'.freeze,
       :integrations           => 'application/vnd.github.machine-man-preview+json'.freeze,
       :topics                 => 'application/vnd.github.mercy-preview+json'.freeze

@@ -103,6 +103,20 @@ module Octokit
       @response[:status]
     end
 
+    # Headers returned by the GitHub server.
+    #
+    # @return [Hash]
+    def response_headers
+      @response[:response_headers]
+    end
+
+    # Body returned by the GitHub server.
+    #
+    # @return [String]
+    def response_body
+      @response[:body]
+    end
+
     private
 
     def data
