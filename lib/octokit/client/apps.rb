@@ -27,6 +27,18 @@ module Octokit
         find_app_installations(options)
       end
 
+      # Find all installations that are accessible to the authenticated user
+      #
+      # @param options [Hash] An customizable set of options
+      #
+      # @see https://developer.github.com/v3/apps/#list-installations-for-user
+      #
+      # @return [Array<Sawyer::Resource>] A list of installations
+      def find_user_installations(options = {})
+        opts = ensure_api_media_type(:integrations, options)
+        paginate "/user/installations", opts
+      end
+
       # Get a single installation
       #
       # @param id [Integer] Installation id
