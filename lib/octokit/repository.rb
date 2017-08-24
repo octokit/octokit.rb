@@ -4,7 +4,7 @@ module Octokit
   # URLs and to generate URLs
   class Repository
     attr_accessor :owner, :name, :id
-    NAME_WITH_OWNER_PATTERN = /\A[\w.-]+\/[\w.-]+\z/i
+    NAME_WITH_OWNER_PATTERN = /\A[\w.-_]+\/[\w.-_]+\z/i
 
     # Instantiate from a GitHub repository URL
     #
