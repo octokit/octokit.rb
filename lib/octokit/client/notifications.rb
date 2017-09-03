@@ -108,10 +108,6 @@ module Octokit
       # Mark thread as read
       #
       # @param thread_id [Integer] Id of the thread to update.
-      # @param options [Hash] Optional parameters.
-      # @option options [Boolean] :unread Changes the unread status of the
-      #   threads.
-      # @option options [Boolean] :read Inverse of 'unread'.
       # @return [Boolean] True if updated, false otherwise.
       # @see https://developer.github.com/v3/activity/notifications/#mark-a-thread-as-read
       # @example
