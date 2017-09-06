@@ -319,6 +319,20 @@ module Octokit
         get "teams/#{team_id}", options
       end
 
+      # List child teams
+      #
+      # Requires authenticated organization member.
+      #
+      # @param team_id [Integer] Team id.
+      # @return [Sawyer::Resource] Hash representing team.
+      # @see https://developer.github.com/v3/orgs/teams/#list-child-teams
+      # @example
+      #   @client.child_teams(100000, :accept => "application/vnd.github.hellcat-preview+json")
+      def child_teams(team_id, options = {})
+        options = ensure_api_media_type(:nested_teams, options)
+        paginate "teams/#{team_id}/teams", options
+      end
+
       # Update team
       #
       # Requires authenticated organization owner.

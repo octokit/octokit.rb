@@ -11,6 +11,7 @@ module Octokit
       :reactions              => 'application/vnd.github.squirrel-girl-preview'.freeze,
       :repository_invitations => 'application/vnd.github.swamp-thing-preview+json'.freeze,
       :issue_timelines        => 'application/vnd.github.mockingbird-preview+json'.freeze,
+      :nested_teams           => 'application/vnd.github.hellcat-preview+json'.freeze,
       :pages                  => 'application/vnd.github.mister-fantastic-preview+json'.freeze,
       :projects               => 'application/vnd.github.inertia-preview+json'.freeze,
       :traffic                => 'application/vnd.github.spiderman-preview'.freeze,
