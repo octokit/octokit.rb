@@ -304,6 +304,9 @@ module Octokit
         if options.key?(:permission)
           octokit_warn "Deprecated: Passing :permission option to #create_team. Assign team repository permission by passing :permission to #add_team_repository instead."
         end
+        if options.key?(:parent_team_id)
+          options = ensure_api_media_type(:nested_teams, options)
+        end
         post "#{Organization.path org}/teams", options
       end
 
@@ -354,6 +357,9 @@ module Octokit
       #     :permission => 'push'
       #   })
       def update_team(team_id, options = {})
+        if options.key?(:parent_team_id)
+          options = ensure_api_media_type(:nested_teams, options)
+        end
         patch "teams/#{team_id}", options
       end
 
