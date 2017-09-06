@@ -292,6 +292,7 @@ module Octokit
       # @option options [String] :name Team name.
       # @option options [Array<String>] :repo_names Repositories for the team.
       # @option options [Array<String>] :maintainers Maintainers for the team.
+      # @option options [Integer] :parent_team_id ID of a team to set as the parent team.
       # @return [Sawyer::Resource] Hash representing new team.
       # @see https://developer.github.com/v3/orgs/teams/#create-team
       # @example
@@ -344,6 +345,7 @@ module Octokit
       #   `pull` - team members can pull, but not push to or administer these repositories.
       #   `push` - team members can pull and push, but not administer these repositories.
       #   `admin` - team members can pull, push and administer these repositories.
+      # @option options [Integer] :parent_team_id ID of a team to set as the parent team.
       # @return [Sawyer::Resource] Hash representing updated team.
       # @see https://developer.github.com/v3/orgs/teams/#edit-team
       # @example
