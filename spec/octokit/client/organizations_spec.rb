@@ -86,14 +86,14 @@ describe Octokit::Client::Organizations do
 
   describe ".organization_invitations", :vcr do
     it "lists pending organization invitations" do
-      @client.organization_invitations(test_github_org, :accept => 'application/vnd.github.korra-preview+json')
+      @client.organization_invitations(test_github_org)
       assert_requested :get, github_url("/orgs/#{test_github_org}/invitations")
     end
   end # .organization_invitations
 
   describe ".outside_collaborators", :vcr do
     it "lists outside collaborators for an organization" do
-      @client.outside_collaborators(test_github_org, :accept => 'application/vnd.github.korra-preview+json')
+      @client.outside_collaborators(test_github_org)
       assert_requested :get, github_url("/orgs/#{test_github_org}/outside_collaborators")
     end
   end #  .outside_collaborators
@@ -101,7 +101,7 @@ describe Octokit::Client::Organizations do
   describe ".remove_outside_collaborator", :vcr do
     it "removes the outside collaborator from an organization" do
       stub_delete github_url("/orgs/#{test_github_org}/outside_collaborators/lizzhale")
-      @client.remove_outside_collaborator(test_github_org, 'lizzhale', :accept => 'application/vnd.github.korra-preview+json')
+      @client.remove_outside_collaborator(test_github_org, 'lizzhale')
       assert_requested :delete, github_url("/orgs/#{test_github_org}/outside_collaborators/lizzhale")
     end
   end # .remove_outside_collaborator
@@ -109,7 +109,7 @@ describe Octokit::Client::Organizations do
   describe ".convert_to_outside_collaborator", :vcr do
     it "converts an organization member to an outside collaborator" do
       stub_put github_url("orgs/#{test_github_org}/outside_collaborators/lizzhale")
-      @client.convert_to_outside_collaborator(test_github_org, 'lizzhale', :accept => 'application/vnd.github.korra-preview+json')
+      @client.convert_to_outside_collaborator(test_github_org, 'lizzhale')
       assert_requested :put, github_url("orgs/#{test_github_org}/outside_collaborators/lizzhale")
     end
   end # .convert_to_outside_collaborator
@@ -185,7 +185,7 @@ describe Octokit::Client::Organizations do
 
     describe ".team_invitations", :vcr do
       it "lists pending team invitations" do
-        @client.team_invitations(@team.id, :accept => 'application/vnd.github.korra-preview+json')
+        @client.team_invitations(@team.id)
         assert_requested :get, github_url("/teams/#{@team.id}/invitations")
       end
     end # .team_invitations

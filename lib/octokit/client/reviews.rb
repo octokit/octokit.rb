@@ -17,7 +17,6 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the reviews
       def pull_request_reviews(repo, id, options = {})
-        options = ensure_api_media_type(:reviews, options)
         paginate "#{Repository.path repo}/pulls/#{id}/reviews", options
       end
 
@@ -33,7 +32,6 @@ module Octokit
       #
       # @return [Sawyer::Resource] Hash representing the review
       def pull_request_review(repo, number, review, options = {})
-        options = ensure_api_media_type(:reviews, options)
         get "#{Repository.path repo}/pulls/#{number}/reviews/#{review}", options
       end
 
@@ -49,7 +47,6 @@ module Octokit
       #
       # @return [Sawyer::Resource] Hash representing the deleted review
       def delete_pull_request_review(repo, number, review, options = {})
-        options = ensure_api_media_type(:reviews, options)
         delete "#{Repository.path repo}/pulls/#{number}/reviews/#{review}", options
       end
 
@@ -65,7 +62,6 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the review comments
       def pull_request_review_comments(repo, number, review, options = {})
-        options = ensure_api_media_type(:reviews, options)
         paginate "#{Repository.path repo}/pulls/#{number}/reviews/#{review}/comments", options
       end
 
@@ -94,7 +90,6 @@ module Octokit
       #
       # @return [Sawyer::Resource>] Hash respresenting the review
       def create_pull_request_review(repo, id, options = {})
-        options = ensure_api_media_type(:reviews, options)
         post "#{Repository.path repo}/pulls/#{id}/reviews", options
       end
 
@@ -116,7 +111,6 @@ module Octokit
       # @return [Sawyer::Resource] Hash respresenting the review
       def submit_pull_request_review(repo, number, review, event, options = {})
         options = options.merge(event: event)
-        options = ensure_api_media_type(:reviews, options)
         post "#{Repository.path repo}/pulls/#{number}/reviews/#{review}/events", options
       end
 
@@ -134,7 +128,6 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing the dismissed review
       def dismiss_pull_request_review(repo, number, review, message, options = {})
         options = options.merge(message: message)
-        options = ensure_api_media_type(:reviews, options)
         put "#{Repository.path repo}/pulls/#{number}/reviews/#{review}/dismissals", options
       end
 
@@ -149,7 +142,6 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the review requests
       def pull_request_review_requests(repo, id, options = {})
-        options = ensure_api_media_type(:reviews, options)
         paginate "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
       end
 
@@ -166,7 +158,6 @@ module Octokit
       # @return [Sawyer::Resource>] Hash respresenting the pull request
       def request_pull_request_review(repo, id, reviewers, options = {})
         options = options.merge(reviewers: reviewers)
-        options = ensure_api_media_type(:reviews, options)
         post "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
       end
     end
