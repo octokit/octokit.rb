@@ -303,6 +303,19 @@ def enterprise_management_console_client
   client
 end
 
+def new_jwt_token
+  private_pem = File.read(test_github_integration_pem_key)
+  private_key = OpenSSL::PKey::RSA.new(private_pem)
+
+  payload = {}.tap do |opts|
+    opts[:iat] = Time.now.to_i           # Issued at time.
+    opts[:exp] = opts[:iat] + 600        # JWT expiration time is 10 minutes from issued time.
+    opts[:iss] = test_github_integration # Integration's GitHub identifier.
+  end
+
+  JWT.encode(payload, private_key, 'RS256')
+end
+
 def use_vcr_placeholder_for(text, replacement)
   VCR.configure do |c|
     c.define_cassette_placeholder(replacement) do

@@ -4,7 +4,7 @@ module Octokit
     # Methods for the Marketplace Listing API
     #
     # @see https://developer.github.com/v3/apps/marketplace/
-    module MarketplaceListings
+    module Marketplace
 
       # List all plans for an app's marketplace listing
       #
@@ -40,8 +40,6 @@ module Octokit
       def plan_for_account(account_id, options = {})
         opts = ensure_api_media_type(:marketplace, options)
         get "/marketplace_listing/accounts/#{account_id}", opts
-      rescue Octokit::NotFound
-        nil
       end
     end
   end

@@ -29,7 +29,7 @@ require 'octokit/client/legacy_search'
 require 'octokit/client/licenses'
 require 'octokit/client/meta'
 require 'octokit/client/markdown'
-require 'octokit/client/marketplace_listings'
+require 'octokit/client/marketplace'
 require 'octokit/client/milestones'
 require 'octokit/client/notifications'
 require 'octokit/client/objects'
@@ -86,7 +86,7 @@ module Octokit
     include Octokit::Client::Licenses
     include Octokit::Client::Meta
     include Octokit::Client::Markdown
-    include Octokit::Client::MarketplaceListings
+    include Octokit::Client::Marketplace
     include Octokit::Client::Milestones
     include Octokit::Client::Notifications
     include Octokit::Client::Objects
