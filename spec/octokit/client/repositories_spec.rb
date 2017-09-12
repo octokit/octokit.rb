@@ -462,5 +462,13 @@ describe Octokit::Client::Repositories do
       result = @client.repository?("more_than/one/slash")
       expect(result).to be false
     end
+    it "returns false if the repository is unreachable" do
+      url = "https://api.github.com/repos/github/secret"
+      error = Octokit::Unauthorized.new(method: "POST")
+      stub_post(url).and_raise(error)
+      result = @client.repository?("github/secret")
+      expect(result).to be false
+      assert_requested :get, github_url("repos/github/secret")
+    end
   end # .repository?
 end
