@@ -26,9 +26,9 @@ module Octokit
       # @see https://developer.github.com/v3/apps/marketplace/#list-all-github-accounts-user-or-organization-on-a-specific-plan
       #
       # @return [Array<Sawyer::Resource>] A list of accounts
-      def list_accounts_for_plan(plan, options = {})
+      def list_accounts_for_plan(plan_id, options = {})
         opts = ensure_api_media_type(:marketplace, options)
-        paginate "/marketplace_listing/plans/#{plan}/accounts", opts
+        paginate "/marketplace_listing/plans/#{plan_id}/accounts", opts
       end
 
       # Get the plan associated with a given GitHub account
