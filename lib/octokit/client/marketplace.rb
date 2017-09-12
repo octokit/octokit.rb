@@ -8,7 +8,7 @@ module Octokit
 
       # List all plans for an app's marketplace listing
       #
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/marketplace/#list-all-plans-for-your-marketplace-listing
       #
@@ -20,7 +20,8 @@ module Octokit
 
       # List all GitHub accounts on a specific plan
       #
-      # @param options [Hash] An customizable set of options
+      # @param plan_id [Integer] The id of the GitHub plan
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/marketplace/#list-all-github-accounts-user-or-organization-on-a-specific-plan
       #
@@ -32,7 +33,8 @@ module Octokit
 
       # Get the plan associated with a given GitHub account
       #
-      # @param options [Hash] An customizable set of options
+      # @param account_id [Integer] The id of the GitHub account
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/marketplace/#check-if-a-github-account-is-associated-with-any-marketplace-listing
       #
