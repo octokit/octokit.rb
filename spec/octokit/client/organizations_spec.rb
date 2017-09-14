@@ -147,6 +147,17 @@ describe Octokit::Client::Organizations do
       end
     end # .team
 
+    describe ".child_teams", :vcr do
+      it "returns all child teams for the team" do
+        child_teams = @client.child_teams(
+          @team.id,
+          :accept => "application/vnd.github.hellcat-preview+json"
+        )
+        expect(child_teams).to be_kind_of Array
+        assert_requested :get, github_url("/teams/#{@team.id}/teams")
+      end
+    end # .child_teams
+
     describe ".update_team", :vcr do
       it "updates a team" do
         @client.update_team(@team.id, :name => "API Jedi")

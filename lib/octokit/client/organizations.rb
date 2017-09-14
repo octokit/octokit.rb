@@ -292,6 +292,7 @@ module Octokit
       # @option options [String] :name Team name.
       # @option options [Array<String>] :repo_names Repositories for the team.
       # @option options [Array<String>] :maintainers Maintainers for the team.
+      # @option options [Integer] :parent_team_id ID of a team to set as the parent team.
       # @return [Sawyer::Resource] Hash representing new team.
       # @see https://developer.github.com/v3/orgs/teams/#create-team
       # @example
@@ -302,6 +303,9 @@ module Octokit
       def create_team(org, options = {})
         if options.key?(:permission)
           octokit_warn "Deprecated: Passing :permission option to #create_team. Assign team repository permission by passing :permission to #add_team_repository instead."
+        end
+        if options.key?(:parent_team_id)
+          options = ensure_api_media_type(:nested_teams, options)
         end
         post "#{Organization.path org}/teams", options
       end
@@ -319,6 +323,20 @@ module Octokit
         get "teams/#{team_id}", options
       end
 
+      # List child teams
+      #
+      # Requires authenticated organization member.
+      #
+      # @param team_id [Integer] Team id.
+      # @return [Sawyer::Resource] Hash representing team.
+      # @see https://developer.github.com/v3/orgs/teams/#list-child-teams
+      # @example
+      #   @client.child_teams(100000, :accept => "application/vnd.github.hellcat-preview+json")
+      def child_teams(team_id, options = {})
+        options = ensure_api_media_type(:nested_teams, options)
+        paginate "teams/#{team_id}/teams", options
+      end
+
       # Update team
       #
       # Requires authenticated organization owner.
@@ -330,6 +348,7 @@ module Octokit
       #   `pull` - team members can pull, but not push to or administer these repositories.
       #   `push` - team members can pull and push, but not administer these repositories.
       #   `admin` - team members can pull, push and administer these repositories.
+      # @option options [Integer] :parent_team_id ID of a team to set as the parent team.
       # @return [Sawyer::Resource] Hash representing updated team.
       # @see https://developer.github.com/v3/orgs/teams/#edit-team
       # @example
@@ -338,6 +357,9 @@ module Octokit
       #     :permission => 'push'
       #   })
       def update_team(team_id, options = {})
+        if options.key?(:parent_team_id)
+          options = ensure_api_media_type(:nested_teams, options)
+        end
         patch "teams/#{team_id}", options
       end
 
