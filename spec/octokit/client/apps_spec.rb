@@ -30,6 +30,14 @@ describe Octokit::Client::Apps do
     end
   end # .find_app_installations
 
+  describe ".find_user_installations", :vcr do
+    it "returns installations for a user" do
+      installations = @client.find_user_installations
+      expect(installations).to be_kind_of Array
+      assert_requested :get, github_url("/user/installations")
+    end
+  end # .find_user_installations
+
   context "with app installation", :vcr do
     let(:installation) { test_github_integration_installation }
 
@@ -43,7 +51,6 @@ describe Octokit::Client::Apps do
 
     describe ".find_installation_repositories_for_user", :vcr do
       it "returns repositories for a user" do
-        pending
         repositories = @jwt_client.find_installation_repositories_for_user(installation)
         expect(repositories).to be_kind_of Array
         assert_requested :get, github_url("/user/installations")
