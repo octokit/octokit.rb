@@ -142,8 +142,14 @@ describe Octokit::Client::PullRequests do
   # stub this so we don't have to set up new fixture data
   describe ".merge_pull_request" do
     it "merges the pull request" do
-      request = stub_put(github_url("/repos/api-playground/api-sandbox/pulls/123/merge"))
+      request = stub_put(github_url("/repos/api-playground/api-sandbox/pulls/123/merge")).with(:body => {:commit_message=>''})
       @client.merge_pull_request("api-playground/api-sandbox", 123)
+      assert_requested request
+    end
+
+    it "merges the pull request without commit_message" do
+      request = stub_put(github_url("/repos/api-playground/api-sandbox/pulls/123/merge")).with(:body => {})
+      @client.merge_pull_request("api-playground/api-sandbox", 123, nil)
       assert_requested request
     end
   end # .merge_pull_request

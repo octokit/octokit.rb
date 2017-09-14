@@ -282,7 +282,8 @@ module Octokit
       # @param commit_message [String] Optional commit message for the merge commit
       # @return [Array<Sawyer::Resource>] Merge commit info if successful
       def merge_pull_request(repo, number, commit_message='', options = {})
-        put "#{Repository.path repo}/pulls/#{number}/merge", options.merge({:commit_message => commit_message})
+        options = options.merge(commit_message: commit_message) unless commit_message.nil?
+        put "#{Repository.path repo}/pulls/#{number}/merge", options
       end
 
       # Check pull request merge status
