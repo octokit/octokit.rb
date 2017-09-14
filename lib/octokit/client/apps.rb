@@ -146,6 +146,19 @@ module Octokit
         )
         remove_repository_from_app_installation(installation, repo, options)
       end
+
+      # List repositories accessible to the user for an installation
+      #
+      # @param installation [Integer] The id of a a GitHub App Installation
+      # @param options [Hash] An customizable set of options
+      #
+      # @see https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps/
+      #
+      # @return [Array<Sawyer::Resource>] A list of repositories
+      def find_installation_repositories_for_user(installation, options = {})
+        opts = ensure_api_media_type(:integrations, options)
+        paginate "/user/installations/#{installation}/repositories", opts
+      end
     end
   end
 end
