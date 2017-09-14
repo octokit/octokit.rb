@@ -49,7 +49,7 @@ describe Octokit::Client::Apps do
       end
     end # .installation
 
-    describe ".find_installation_repositories_for_user", :vcr do
+    describe ".find_installation_repositories_for_user" do
       it "returns repositories for a user" do
         repositories = @jwt_client.find_installation_repositories_for_user(installation)
         expect(repositories).to be_kind_of Array
