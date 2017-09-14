@@ -43,6 +43,16 @@ describe Octokit::Client::Refs do
     end
   end # .create_ref
 
+  describe ".with_branch", vcr: { record: :new_episodes } do
+    it ".list_required_status" do
+        test_repo = 'kevinrobayna/octokit.rb'
+        branch = 'master'
+        url = "/repos/#{@test_repo}/branches/#{branch}/protection/required_status_checks/contexts"
+        @client.list_required_status(test_repo, branch)
+        assert_requested :get, github_url(url)
+    end # .list_required_status
+  end # .with_branch
+
   context "with ref", :vcr do
     before(:each) do
       commits = @client.commits(@test_repo)
@@ -93,4 +103,3 @@ describe Octokit::Client::Refs do
     end # .delete_ref
   end # with ref
 end
-
