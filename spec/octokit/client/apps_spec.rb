@@ -51,9 +51,10 @@ describe Octokit::Client::Apps do
 
     describe ".find_installation_repositories_for_user" do
       it "returns repositories for a user" do
-        repositories = @jwt_client.find_installation_repositories_for_user(installation)
-        expect(repositories).to be_kind_of Array
-        assert_requested :get, github_url("/user/installations")
+        response = @client.find_installation_repositories_for_user(installation)
+        expect(response.total_count).not_to be_nil
+        expect(response.repositories).to be_kind_of(Array)
+        assert_requested :get, github_url("/user/installations/#{installation}/repositories")
       end
     end # .find_installation_repositories_for_user
 
