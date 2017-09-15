@@ -32,8 +32,10 @@ describe Octokit::Client::Apps do
 
   describe ".find_user_installations", :vcr do
     it "returns installations for a user" do
-      installations = @client.find_user_installations
-      expect(installations).to be_kind_of Array
+      response = @client.find_user_installations
+
+      expect(response.total_count).not_to be_nil
+      expect(response.installations).to be_kind_of(Array)
       assert_requested :get, github_url("/user/installations")
     end
   end # .find_user_installations
