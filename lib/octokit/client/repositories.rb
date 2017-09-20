@@ -491,13 +491,13 @@ module Octokit
       # @example
       #   @client.topics('octokit/octokit.rb')
       def topics(repo, options = {})
-        options[:accept] = 'application/vnd.github.mercy-preview+json'
+        options = ensure_api_media_type(:topics, options)
         paginate "#{Repository.path repo}/topics", options
       end
 
       # List branches
       #
-      # Requires authenticated client for private repos.
+      # Requires authenticated client for private repos. 
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing branches.
