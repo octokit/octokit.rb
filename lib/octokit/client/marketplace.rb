@@ -43,6 +43,18 @@ module Octokit
         opts = ensure_api_media_type(:marketplace, options)
         get "/marketplace_listing/accounts/#{account_id}", opts
       end
+
+      # Get user's Marketplace purchases
+      #
+      # @param options [Hash] A customizable set of options
+      #
+      # @see https://developer.github.com/v3/apps/marketplace/#get-a-users-marketplace-purchases
+      #
+      # @return [Array<Sawyer::Resource>] A list of Marketplace purchases
+      def marketplace_purchases(options = {})
+        opts = ensure_api_media_type(:marketplace, options)
+        get "/user/marketplace_purchases", opts
+      end
     end
   end
 end
