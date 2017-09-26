@@ -489,7 +489,7 @@ module Octokit
       # @example
       #   Octokit.topics('octokit/octokit.rb')
       # @example
-      #   @client.topics('octokit/octokit.rb')
+      #   @client.branches('octokit/octokit.rb')
       def topics(repo, options = {})
         options = ensure_api_media_type(:topics, options)
         paginate "#{Repository.path repo}/topics", options
