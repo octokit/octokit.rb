@@ -6,7 +6,7 @@ module Octokit
 
       # Find all installations that belong to an App
       #
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/#find-installations
       #
@@ -29,7 +29,7 @@ module Octokit
 
       # Find all installations that are accessible to the authenticated user
       #
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/#list-installations-for-user
       #
@@ -54,7 +54,7 @@ module Octokit
       # Create a new installation token
       #
       # @param installation [Integer] The id of a a GitHub App Installation
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/#find-installations
       #
@@ -77,7 +77,7 @@ module Octokit
 
       # List repositories that are accessible to the authenticated installation
       #
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       # @see https://developer.github.com/v3/apps/installations/#list-repositories
       #
       # @return [Array<Sawyer::Resource>] A list of repositories
@@ -101,7 +101,7 @@ module Octokit
       #
       # @param installation [Integer] The id of a a GitHub App Installation
       # @param repo [Integer] The id of the GitHub repository
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/installations/#add-repository-to-installation
       #
@@ -126,7 +126,7 @@ module Octokit
       #
       # @param installation [Integer] The id of a a GitHub App Installation
       # @param repo [Integer] The id of the GitHub repository
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/installations/#remove-repository-from-installation
       #
@@ -150,7 +150,7 @@ module Octokit
       # List repositories accessible to the user for an installation
       #
       # @param installation [Integer] The id of a a GitHub App Installation
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps/
       #
