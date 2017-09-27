@@ -53,7 +53,7 @@ module Octokit
 
       # Create a new installation token
       #
-      # @param installation [Integer] The id of a a GitHub App Installation
+      # @param installation [Integer] The id of a GitHub App Installation
       # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/#find-installations
@@ -99,7 +99,7 @@ module Octokit
 
       # Add a single repository to an installation
       #
-      # @param installation [Integer] The id of a a GitHub App Installation
+      # @param installation [Integer] The id of a GitHub App Installation
       # @param repo [Integer] The id of the GitHub repository
       # @param options [Hash] A customizable set of options
       #
@@ -124,7 +124,7 @@ module Octokit
 
       # Remove a single repository to an installation
       #
-      # @param installation [Integer] The id of a a GitHub App Installation
+      # @param installation [Integer] The id of a GitHub App Installation
       # @param repo [Integer] The id of the GitHub repository
       # @param options [Hash] A customizable set of options
       #
@@ -149,7 +149,7 @@ module Octokit
 
       # List repositories accessible to the user for an installation
       #
-      # @param installation [Integer] The id of a a GitHub App Installation
+      # @param installation [Integer] The id of a GitHub App Installation
       # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps/
