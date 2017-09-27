@@ -35,4 +35,12 @@ describe Octokit::Client::Marketplace do
       assert_requested :get, github_url("/marketplace_listing/accounts/1")
     end
   end # .plan_for_account
+
+  describe ".marketplace_purchases", :vcr do
+    it "returns marketplace purchases for user" do
+      plans = @client.marketplace_purchases
+      expect(plans).to be_kind_of Array
+      assert_requested :get, github_url("/user/marketplace_purchases")
+    end
+  end # .marketplace_purchases
 end
