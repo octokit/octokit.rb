@@ -51,6 +51,15 @@ describe Octokit::Client::Apps do
       end
     end # .installation
 
+    describe ".find_installation_repositories_for_user" do
+      it "returns repositories for a user" do
+        response = @client.find_installation_repositories_for_user(installation)
+        expect(response.total_count).not_to be_nil
+        expect(response.repositories).to be_kind_of(Array)
+        assert_requested :get, github_url("/user/installations/#{installation}/repositories")
+      end
+    end # .find_installation_repositories_for_user
+
     describe ".create_integration_installation_access_token" do
       it "creates an access token for the installation" do
         allow(@jwt_client).to receive(:octokit_warn)

@@ -6,7 +6,7 @@ module Octokit
 
       # Find all installations that belong to an App
       #
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/#find-installations
       #
@@ -29,7 +29,7 @@ module Octokit
 
       # Find all installations that are accessible to the authenticated user
       #
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/#list-installations-for-user
       #
@@ -53,8 +53,8 @@ module Octokit
 
       # Create a new installation token
       #
-      # @param installation [Integer] The id of a a GitHub App Installation
-      # @param options [Hash] An customizable set of options
+      # @param installation [Integer] The id of a GitHub App Installation
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/#find-installations
       #
@@ -77,7 +77,7 @@ module Octokit
 
       # List repositories that are accessible to the authenticated installation
       #
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       # @see https://developer.github.com/v3/apps/installations/#list-repositories
       #
       # @return [Array<Sawyer::Resource>] A list of repositories
@@ -99,9 +99,9 @@ module Octokit
 
       # Add a single repository to an installation
       #
-      # @param installation [Integer] The id of a a GitHub App Installation
+      # @param installation [Integer] The id of a GitHub App Installation
       # @param repo [Integer] The id of the GitHub repository
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/installations/#add-repository-to-installation
       #
@@ -124,9 +124,9 @@ module Octokit
 
       # Remove a single repository to an installation
       #
-      # @param installation [Integer] The id of a a GitHub App Installation
+      # @param installation [Integer] The id of a GitHub App Installation
       # @param repo [Integer] The id of the GitHub repository
-      # @param options [Hash] An customizable set of options
+      # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/installations/#remove-repository-from-installation
       #
@@ -145,6 +145,19 @@ module Octokit
           "Octokit version update."
         )
         remove_repository_from_app_installation(installation, repo, options)
+      end
+
+      # List repositories accessible to the user for an installation
+      #
+      # @param installation [Integer] The id of a GitHub App Installation
+      # @param options [Hash] A customizable set of options
+      #
+      # @see https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps/
+      #
+      # @return [Array<Sawyer::Resource>] A list of repositories
+      def find_installation_repositories_for_user(installation, options = {})
+        opts = ensure_api_media_type(:integrations, options)
+        paginate "/user/installations/#{installation}/repositories", opts
       end
     end
   end
