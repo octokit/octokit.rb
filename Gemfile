@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'jruby-openssl', :platforms => :jruby
-gem 'rake', '> 11.0.1', '< 12.0'
+gem 'rake', '~> 12.0'
 
 group :development do
   gem 'awesome_print', :require => 'ap'
@@ -22,10 +22,10 @@ group :test do
   gem 'mime-types', '< 2.0.0'
   gem 'netrc', '~> 0.7.7'
   gem 'rb-fsevent', '~> 0.9'
-  gem 'rspec', '~> 3.0.0'
+  gem 'rspec', '~> 3.6'
   gem 'simplecov', :require => false
-  gem 'vcr', '~> 2.9.2'
-  gem 'webmock', '>= 1.9', '< 2.0.0'
+  gem 'vcr', '~> 3.0', '>= 3.0.3'
+  gem 'webmock', '~> 3.0', '>= 3.0.1'
 end
 
 platforms :rbx do
