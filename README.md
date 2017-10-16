@@ -96,6 +96,19 @@ client = Octokit::Client.new(:login => 'defunkt', :password => 'c0d3b4ssssss!')
 client.user
 ```
 
+### Additional Query Parameters
+
+When passing additional parameters to GET based request use the following syntax:
+
+```ruby
+ # query: { parameter_name: 'value' }
+ # Example: Get repository listing by owner in ascending order
+ client.repos({}, query: {type: 'owner', sort: 'asc'})
+
+ # Example: Get contents of a repository by ref
+ client.contents(repo: 'octokit/octokit.rb', path: 'path/to/file', query: {ref: 'some-other-branch'})
+```
+
 [API methods]: http://octokit.github.io/octokit.rb/method_list.html
 
 ### Consuming resources
