@@ -106,7 +106,9 @@ When passing additional parameters to GET based request use the following syntax
  client.repos({}, query: {type: 'owner', sort: 'asc'})
 
  # Example: Get contents of a repository by ref
- client.contents(repo: 'octokit/octokit.rb', path: 'path/to/file', query: {ref: 'some-other-branch'})
+ # https://api.github.com/repos/octokit/octokit.rb/contents/path/to/file.rb?ref=some-other-branch
+ client.contents(repo: 'octokit/octokit.rb', path: 'path/to/file.rb', query: {ref: 'some-other-branch'})
+
 ```
 
 [API methods]: http://octokit.github.io/octokit.rb/method_list.html
