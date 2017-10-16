@@ -262,6 +262,14 @@ user = client.user 'defunkt'
 [access scopes]: http://developer.github.com/v3/oauth/#scopes
 [app-creds]: http://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications
 
+## Default results per_page
+
+Default results from the GitHub API are 30, if you wish to add more you must do so during Octokit configuration.
+
+```ruby
+  Octokit::Client.new(access_token: "<your 40 char token>", per_page: 100)
+```
+
 ## Pagination
 
 Many GitHub API resources are [paginated][]. While you may be tempted to start
@@ -270,7 +278,7 @@ previous, and last pages for you in the `Link` response header as [Hypermedia
 link relations](#hypermedia-agent).
 
 ```ruby
-issues = Octokit.issues 'rails/rails', :per_page => 100
+issues = Octokit.issues 'rails/rails'
 issues.concat Octokit.last_response.rels[:next].get.data
 ```
 
