@@ -515,7 +515,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param branch [String] Branch name
       # @option options [Hash] :required_status_checks If not null, the following keys are required:  
-      #   <tt>:include_admins [boolean] Enforce required status checks for repository administrators.</tt>  
+      #   <tt>:enforce_admins [boolean] Enforce required status checks for repository administrators.</tt>  
       #   <tt>:strict [boolean] Require branches to be up to date before merging.</tt>  
       #   <tt>:contexts [Array] The list of status checks to require in order to merge into this branch</tt>  
       #
