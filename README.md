@@ -107,7 +107,7 @@ When passing additional parameters to GET based request use the following syntax
 
  # Example: Get contents of a repository by ref
  # https://api.github.com/repos/octokit/octokit.rb/contents/path/to/file.rb?ref=some-other-branch
- client.contents('octokit/octokit.rb', path: 'path/to/file.rb', query: {ref: 'some-other-branch'})
+ client.contents(repo: 'octokit/octokit.rb', path: 'path/to/file.rb', query: {ref: 'some-other-branch'})
 
 ```
 
