@@ -108,7 +108,7 @@ module Octokit
       # @return [Boolean] Success
       def add_repository_to_app_installation(installation, repo, options = {})
         opts = ensure_api_media_type(:integrations, options)
-        boolean_from_response :put, "/installations/#{installation}/repositories/#{repo}", opts
+        boolean_from_response :put, "/user/installations/#{installation}/repositories/#{repo}", opts
       end
       alias add_repo_to_installation add_repository_to_app_installation
 
@@ -133,7 +133,7 @@ module Octokit
       # @return [Boolean] Success
       def remove_repository_from_app_installation(installation, repo, options = {})
         opts = ensure_api_media_type(:integrations, options)
-        boolean_from_response :delete, "/installations/#{installation}/repositories/#{repo}", opts
+        boolean_from_response :delete, "/user/installations/#{installation}/repositories/#{repo}", opts
       end
       alias remove_repo_from_installation remove_repository_from_app_installation
 
