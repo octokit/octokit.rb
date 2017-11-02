@@ -19,6 +19,18 @@ describe Octokit::Client::Search do
     end
   end # .search_code
 
+  describe ".search_commits" do
+    it "searches commits", :vcr do
+      results = @client.search_commits 'repo:octokit/octokit.rb author:jasonrudolph', \
+        :sort  => 'author-date',
+        :order => 'asc'
+
+      assert_requested :get, github_url('/search/commits?q=repo:octokit/octokit.rb%20author:jasonrudolph&sort=author-date&order=asc')
+      expect(results.total_count).to be_kind_of Integer
+      expect(results.items).to be_kind_of Array
+    end
+  end # .search_commits
+
   describe ".search_issues" do
     it "searches issues", :vcr do
       results = @client.search_issues 'http author:jasonrudolph', \
