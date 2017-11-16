@@ -24,8 +24,8 @@ group :test do
   gem 'rb-fsevent', '~> 0.9'
   gem 'rspec', '~> 3.0.0'
   gem 'simplecov', :require => false
-  gem 'vcr', '~> 2.9.2'
-  gem 'webmock', '>= 1.9', '< 2.0.0'
+  gem 'vcr', '~> 3.0', '>= 3.0.3'
+  gem 'webmock', '~> 3.1'
 end
 
 platforms :rbx do
