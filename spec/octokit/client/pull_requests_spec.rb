@@ -62,8 +62,12 @@ describe Octokit::Client::PullRequests do
 
     describe ".update_pull_request", :vcr do
       it "updates a pull request" do
-        @client.update_pull_request(@test_repo, @pull.number, 'New title', 'Updated body')
+        expected_body = 'Updated body'
+        expected_title = 'New title'
+        pull = @client.update_pull_request(@test_repo, @pull.number, expected_title, expected_body)
         assert_requested :patch, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}")
+        expect(pull.body).to eq(expected_body)
+        expect(pull.title).to eq(expected_title)
       end
     end # .update_pull_request
 
