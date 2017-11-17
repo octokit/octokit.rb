@@ -28,7 +28,6 @@ before_script:
 matrix:
   allow_failures:
     - rvm: rubinius-2.11
-    - rvm: jruby-19mode
 
 notifications:
   email: false
