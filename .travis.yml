@@ -2,7 +2,7 @@ language: ruby
 
 rvm:
   - jruby-19mode
-  - rbx-2
+  - rubinius-2.11
   - 2.0
   - 2.1
   - 2.2
@@ -27,7 +27,7 @@ before_script:
 
 matrix:
   allow_failures:
-    - rvm: rbx-2
+    - rvm: rubinius-2.11
     - rvm: jruby-19mode
 
 notifications:
