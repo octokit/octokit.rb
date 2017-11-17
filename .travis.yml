@@ -4,7 +4,6 @@ language: ruby
 
 rvm:
   - jruby-19mode
-  - rubinius-2.11
   - 2.0
   - 2.1
   - 2.2
@@ -26,10 +25,6 @@ env:
 
 before_script:
   - chmod 600 spec/fixtures/.netrc
-
-matrix:
-  allow_failures:
-    - rvm: rubinius-2.11
 
 notifications:
   email: false
