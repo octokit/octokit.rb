@@ -198,7 +198,7 @@ describe Octokit::Client::Issues do
 
       describe ".issue_timeline", :vcr do
         it "returns an issue timeline" do
-          timeline = @client.issue_timeline(@repo.full_name, @issue.number)
+          timeline = @client.issue_timeline(@repo.full_name, @issue.number, accept: Octokit::Preview::PREVIEW_TYPES[:issue_timelines])
           expect(timeline).to be_kind_of Array
           assert_requested :get, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/timeline")
         end

@@ -183,18 +183,18 @@ describe Octokit::Client::Repositories do
 
     describe ".branch_protection", :vcr do
       it "returns nil for an unprotected branch" do
-        branch_protection = @client.branch_protection(@repo.full_name, "master")
+        branch_protection = @client.branch_protection(@repo.full_name, "master", accept: preview_header)
         expect(branch_protection).to be_nil
         assert_requested :get, github_url("/repos/#{@repo.full_name}/branches/master/protection")
       end
 
       context "with protected branch" do
         before(:each) do
-          @client.protect_branch(@repo.full_name, "master")
+          @client.protect_branch(@repo.full_name, "master", accept: preview_header)
         end
 
         it "returns branch protection summary" do
-          branch_protection = @client.branch_protection(@repo.full_name, "master")
+          branch_protection = @client.branch_protection(@repo.full_name, "master", accept: preview_header)
           expect(branch_protection).not_to be_nil
           assert_requested :get, github_url("/repos/#{@repo.full_name}/branches/master/protection")
         end
@@ -361,7 +361,7 @@ describe Octokit::Client::Repositories do
 
     describe ".protect_branch", :vcr do
       it "protects a single branch" do
-        branch = @client.protect_branch(@repo.full_name, "master")
+        branch = @client.protect_branch(@repo.full_name, "master", accept: preview_header)
         expect(branch.url).not_to be_nil
         assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
       end
@@ -375,7 +375,7 @@ describe Octokit::Client::Repositories do
           },
           restrictions: nil
         }
-        branch = @client.protect_branch(@repo.full_name, "master", rules)
+        branch = @client.protect_branch(@repo.full_name, "master", rules.merge(accept: preview_header))
 
         expect(branch.required_status_checks.include_admins).to be true
         expect(branch.restrictions).to be_nil
@@ -385,12 +385,12 @@ describe Octokit::Client::Repositories do
 
     context "with protected branch" do
       before(:each) do
-        @client.protect_branch(@repo.full_name, "master")
+        @client.protect_branch(@repo.full_name, "master", accept: preview_header)
       end
 
       describe ".unprotect_branch", :vcr do
         it "unprotects a single branch" do
-          branch = @client.unprotect_branch(@repo.full_name, "master")
+          branch = @client.unprotect_branch(@repo.full_name, "master", accept: preview_header)
           expect(branch).to eq true
           assert_requested :delete, github_url("/repos/#{@repo.full_name}/branches/master/protection")
         end
@@ -463,4 +463,10 @@ describe Octokit::Client::Repositories do
       expect(result).to be false
     end
   end # .repository?
+
+  private
+
+  def preview_header
+    Octokit::Preview::PREVIEW_TYPES[:branch_protection]
+  end
 end
