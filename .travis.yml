@@ -4,9 +4,9 @@ rvm:
   - jruby-19mode
   - 2.0
   - 2.1
-  - 2.2
-  - 2.3.4
-  - 2.4.1
+  - 2.2.8
+  - 2.3.5
+  - 2.4.2
 
 bundler_args: --without development
 
