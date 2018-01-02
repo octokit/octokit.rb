@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Reviews API
     #
-    # @see https://developer.github.com/v3/reviews/
+    # @see https://developer.github.com/v3/pulls/reviews/
     module Reviews
 
       # List reviews on a pull request
