@@ -151,8 +151,8 @@ module Octokit
       #
       # @example Get review comments, sort by updated asc since a time
       #   @client.pull_requests_comments("octokit/octokit.rb", {
-      #     :sort => 'asc',
-      #     :direction => 'down',
+      #     :sort => 'updated',
+      #     :direction => 'asc',
       #     :since => '2010-05-04T23:45:02Z'
       #   })
       def pull_requests_comments(repo, options = {})
