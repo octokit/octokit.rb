@@ -326,6 +326,14 @@ describe Octokit::Client::Repositories do
     end
   end # .tags
 
+  describe ".topics", :vcr do
+    it "returns a repository's topics" do
+      topics = Octokit.topics("octokit-fixture-org/hello-world", accept: Octokit::Preview::PREVIEW_TYPES[:topics])
+      assert_requested :get, github_url("/repos/octokit-fixture-org/hello-world/topics")
+      expect(topics.names.sort).to eq(["fixtures", "hello", "hello-world"].sort)
+    end
+  end # .topics
+
   describe ".branches", :vcr do
     it "returns a repository's branches" do
       branches = Octokit.branches("octokit/octokit.rb")
