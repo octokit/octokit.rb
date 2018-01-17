@@ -496,6 +496,20 @@ module Octokit
         paginate "#{Repository.path repo}/topics", options
       end
 
+      # Replace all topics for a repo
+      #
+      # @param repo [Integer, String, Hash, Repositroy] A GitHub repository.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing topics.
+      # @see https://developer.github.com/v3/repos/?#replace-all-topics-for-a-repository
+      # @example
+      #   Octokit.replace_all_topics('octokit/octokit.rb', ['octocat', 'atom', 'electron'])
+      # @example
+      #   @client.replace_all_topics('octokit/octokit.rb', ['octocat', 'atom', 'electron'])
+      def replace_all_topics(repo, names, options = {})
+        options = ensure_api_media_type(:topics, options)
+        put "#{Repository.path repo}/topics", options.merge(:names => names)
+      end
+
       # List branches
       #
       # Requires authenticated client for private repos. 
