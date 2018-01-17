@@ -480,9 +480,24 @@ module Octokit
         paginate "#{Repository.path repo}/tags", options
       end
 
-      # List branches
+      # List all topics for a repo
       #
       # Requires authenticated client for private repos.
+      # @param repo [Integer, String, Hash, Repositroy] A GitHub repository.
+      # @return [Array<Sawyer::Resource>] Array of hashes representing topics.
+      # @see https://developer.github.com/v3/repos/#list-all-topics-for-a-repository
+      # @example
+      #   Octokit.topics('octokit/octokit.rb')
+      # @example
+      #   @client.branches('octokit/octokit.rb')
+      def topics(repo, options = {})
+        options = ensure_api_media_type(:topics, options)
+        paginate "#{Repository.path repo}/topics", options
+      end
+
+      # List branches
+      #
+      # Requires authenticated client for private repos. 
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @return [Array<Sawyer::Resource>] Array of hashes representing branches.
