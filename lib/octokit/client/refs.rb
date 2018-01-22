@@ -65,7 +65,7 @@ module Octokit
       # @see https://developer.github.com/v3/git/refs/#update-a-reference
       # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
       #   Octokit.update_ref("octocat/Hello-World", "heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
-      def update_ref(repo, ref, sha, force = true, options = {})
+      def update_ref(repo, ref, sha, force = false, options = {})
         parameters = {
           :sha  => sha,
           :force => force
