@@ -421,6 +421,13 @@ describe Octokit::Client do
       conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
       expect(conn.proxy[:uri].to_s).to eq('http://proxy.example.com')
     end
+    it "sets an ssl verify mode" do
+      Octokit.configure do |config|
+        config.ssl_verify_mode = OpenSSL::SSL::VERIFY_NONE
+      end
+      conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
+      expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_NONE)
+    end
     it "passes along request headers for POST" do
       headers = {"X-GitHub-Foo" => "bar"}
       root_request = stub_post("/").

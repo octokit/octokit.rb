@@ -137,6 +137,12 @@ module Octokit
         ENV['OCTOKIT_PROXY']
       end
 
+      # Default SSL verify mode from ENV
+      # @return [String]
+      def ssl_verify_mode
+        ENV['OCTOKIT_SSL_VERIFY_MODE']
+      end
+
       # Default User-Agent header string from ENV or {USER_AGENT}
       # @return [String]
       def user_agent
