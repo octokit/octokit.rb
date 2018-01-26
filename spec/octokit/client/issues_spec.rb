@@ -203,8 +203,25 @@ describe Octokit::Client::Issues do
           assert_requested :get, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/timeline")
         end
       end # .issue_timeline
+
+        context "with assignees" do
+          before(:each) do
+            issue = @client.add_assignees(@repo.full_name, @issue.number, ["api-padawan"])
+            expect(issue.assignees.count).not_to be_zero
+          end
+
+          describe ".remove_assignees", :vcr do
+            it "removes assignees" do
+              issue = @client.remove_assignees(
+                @repo.full_name, @issue.number, ["api-padawan"]
+              )
+              expect(issue.assignees.count).to be_zero
+              assert_requested :post, github_url("repos/#{@repo.full_name}/issues/#{@issue.number}/assignees")
+            end
+          end # .remove_assignees
+        end # with assignees
     end # with issue
- end # with repo
+  end # with repo
 
   describe ".repository_issues_comments", :vcr do
     it "returns comments for all issues in a repository" do
