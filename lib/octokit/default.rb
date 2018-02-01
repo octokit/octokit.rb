@@ -137,6 +137,15 @@ module Octokit
         ENV['OCTOKIT_PROXY']
       end
 
+      # Default SSL verify mode from ENV
+      # @return [Integer]
+      def ssl_verify_mode
+        # 0 is OpenSSL::SSL::VERIFY_NONE
+        # 1 is OpenSSL::SSL::SSL_VERIFY_PEER
+        # the standard default for SSL is SSL_VERIFY_PEER which requires a server certificate check on the client
+        ENV['OCTOKIT_SSL_VERIFY_MODE'] || 1 
+      end
+
       # Default User-Agent header string from ENV or {USER_AGENT}
       # @return [String]
       def user_agent
