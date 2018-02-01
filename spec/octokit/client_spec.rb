@@ -428,6 +428,10 @@ describe Octokit::Client do
       conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
       expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_NONE)
     end
+    it "ensures ssl verify mode is set to default when no override provided" do
+      conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
+      expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_PEER)
+    end
     it "passes along request headers for POST" do
       headers = {"X-GitHub-Foo" => "bar"}
       root_request = stub_post("/").
