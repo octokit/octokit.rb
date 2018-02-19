@@ -44,6 +44,7 @@ module Octokit
       # Update a release
       #
       # @param url [String] URL for the release as returned from .releases
+      # @option options [String] :tag_name Git tag from which to create release
       # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from.
       # @option options [String] :name Name for the release
       # @option options [String] :body Content for release notes
