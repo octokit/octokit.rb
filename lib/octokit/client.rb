@@ -222,6 +222,7 @@ module Octokit
       conn_opts[:url] = @api_endpoint
       conn_opts[:builder] = @middleware.dup if @middleware
       conn_opts[:proxy] = @proxy if @proxy
+      conn_opts[:ssl] = { :verify_mode => @ssl_verify_mode } if @ssl_verify_mode
       conn = Faraday.new(conn_opts) do |http|
         if basic_authenticated?
           http.basic_auth(@login, @password)
