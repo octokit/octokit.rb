@@ -335,6 +335,7 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Issue number
       # @param assignees [Array] Assignees to be removed
+      # @param options [Hash] Header params for request
       # @return [Sawyer::Resource] Issue
       # @see https://developer.github.com/v3/issues/assignees/#remove-assignees-from-an-issue
       # @example Remove assignees "pengwynn" and "joeyw" from Issue #23 on octokit/octokit.rb
