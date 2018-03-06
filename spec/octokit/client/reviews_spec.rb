@@ -127,6 +127,18 @@ describe Octokit::Client::Reviews do
             assert_requested :get, requested_url
           end
         end
+
+        describe '.delete_pull_request_review_request' do
+          it 'deletes a requests for a pull request review' do
+            review = @client.delete_pull_request_review_request(@repo.full_name,
+                                                                @pull.number,
+                                                                "reviewers" => [reviewers])
+            expect(review).to be_kind_of Sawyer::Resource
+
+            requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
+            assert_requested :delete, requested_url
+          end
+        end
       end
 
       context 'with pending pull request review' do
