@@ -160,6 +160,28 @@ module Octokit
         options = options.merge(reviewers: reviewers)
         post "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
       end
+
+      # Delete a review request
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param id [Integer] The id of the pull request
+      # @param reviewers [Hash] A hash including "reviewers" which is an array of user
+      #                         logins and "team_reviewers" which is an array of team slug
+      # @see https://developer.github.com/v3/pulls/review_requests/#delete-a-review-request
+      #
+      # @example
+      #   reviewers = {
+      #     "reviewers" => [ "octocat", "hubot", "other_user" ],
+      #     "team_reviewers" => [ "justice-league" ]
+      #   }
+      #   @client.delete_request_pull_request_review('octokit/octokit.rb', 2, reviewers)
+      #
+      # @return [Sawyer::Resource>] Hash representing the pull request
+      def delete_pull_request_review_request(repo, id, reviewers, options = {})
+        # "reviewers" has to be an array otherwise "422 - Invalid request"
+        options = options.merge(reviewers: reviewers.values.flatten)
+        delete "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
+      end
     end
   end
 end
