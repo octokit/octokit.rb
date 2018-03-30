@@ -35,7 +35,7 @@ describe Octokit::Client::Deployments do
       end
     end
 
-    describe ".create_deployment", :vcr do
+    describe ".create_deployment" do
       it "creates a deployment" do
         deployment = @client.create_deployment(@test_repo, @branch_name)
         expect(deployment.sha).to eq(@ref.object.sha)
