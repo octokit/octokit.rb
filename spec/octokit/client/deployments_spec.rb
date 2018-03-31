@@ -59,6 +59,14 @@ describe Octokit::Client::Deployments do
         @deployment_url = "https://api.github.com/repos/#{@test_repo}/deployments/#{@deployment.id}"
       end
 
+      describe ".deployment" do
+        it "gets a single deployment" do
+          deployment = @client.deployment(@test_repo, @deployment.id)
+          expect(deployment).to be_kind_of Sawyer::Resource
+          assert_requested :get, github_url("/repos/#{@test_repo}/deployments/#{@deployment.id}")
+        end
+      end # .deployment
+
       describe ".deployment_statuses" do
         it "lists deployment statuses" do
           statuses = @client.deployment_statuses(@deployment_url)
