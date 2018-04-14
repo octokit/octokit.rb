@@ -10,7 +10,7 @@ module Octokit
       #
       # @see https://developer.github.com/v3/apps/#find-installations
       #
-      # @return [Array<Sawyer::Resource>] A list of installations
+      # @return [Array<Sawyer::Resource>] the total_count and an array of installations
       def find_app_installations(options = {})
         opts = ensure_api_media_type(:integrations, options)
         paginate "app/installations", opts
@@ -33,7 +33,7 @@ module Octokit
       #
       # @see https://developer.github.com/v3/apps/#list-installations-for-user
       #
-      # @return [Sawyer::Resource] A list of installations
+      # @return [Sawyer::Resource] the total_count and an array of installations
       def find_user_installations(options = {})
         opts = ensure_api_media_type(:integrations, options)
         paginate("user/installations", opts) do |data, last_response|
@@ -82,7 +82,7 @@ module Octokit
       # @param options [Hash] A customizable set of options
       # @see https://developer.github.com/v3/apps/installations/#list-repositories
       #
-      # @return [Sawyer::Resource] A list of repositories
+      # @return [Sawyer::Resource] the total_count and an array of repositories
       def list_app_installation_repositories(options = {})
         opts = ensure_api_media_type(:integrations, options)
         paginate("installation/repositories", opts) do |data, last_response|
@@ -158,7 +158,7 @@ module Octokit
       #
       # @see https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps/
       #
-      # @return [Sawyer::Resource] A list of repositories
+      # @return [Sawyer::Resource] the total_count and an array of repositories
       def find_installation_repositories_for_user(installation, options = {})
         opts = ensure_api_media_type(:integrations, options)
         paginate("user/installations/#{installation}/repositories", opts) do |data, last_response|
