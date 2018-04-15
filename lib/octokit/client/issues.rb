@@ -329,6 +329,23 @@ module Octokit
       def add_assignees(repo, number, assignees, options = {})
         post "#{Repository.path repo}/issues/#{number}/assignees", options.merge({:assignees => assignees})
       end
+
+      # Remove assignees from an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Issue number
+      # @param assignees [Array] Assignees to be removed
+      # @return [Sawyer::Resource] Issue
+      # @see https://developer.github.com/v3/issues/assignees/#remove-assignees-from-an-issue
+      # @example Remove assignees "pengwynn" and "joeyw" from Issue #23 on octokit/octokit.rb
+      #   Octokit.remove_assignees("octokit/octokit.rb", 23, ["pengwynn", "joeyw"])
+      #
+      # @example Remove assignees "pengwynn" from Issue #23 on octokit/octokit.rb
+      #   Octokit.remove_assignees("octokit/octokit.rb", 23, ["pengwynn"],
+      #     :accept => "application/vnd.github.v3+json")
+      def remove_assignees(repo, number, assignees, options = {})
+        delete "#{Repository.path repo}/issues/#{number}/assignees", options.merge({:assignees => assignees})
+      end
     end
   end
 end
