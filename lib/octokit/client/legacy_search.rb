@@ -12,7 +12,7 @@ module Octokit
       # @param q [String] Search keyword
       # @return [Array<Sawyer::Resource>] List of repositories found
       def legacy_search_repositories(q, options = {})
-        get("legacy/repos/search/#{q}", options)['repositories']
+        get("legacy/repos/search/#{http_escape(q)}", options)['repositories']
       end
 
       # Legacy search issues within a repository
@@ -24,7 +24,7 @@ module Octokit
       # @example Search for 'test' in the open issues for sferik/rails_admin
       #   Octokit.search_issues("sferik/rails_admin", 'test', 'open')
       def legacy_search_issues(repo, search_term, state='open', options = {})
-        get("legacy/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options)['issues']
+        get("legacy/issues/search/#{Repository.new(repo)}/#{state}/#{http_escape(search_term)}", options)['issues']
       end
 
       # Search for user.
@@ -35,7 +35,7 @@ module Octokit
       # @example
       #   Octokit.search_users('pengwynn')
       def legacy_search_users(search, options = {})
-        get("legacy/user/search/#{search}", options)['users']
+        get("legacy/user/search/#{http_escape(search)}", options)['users']
       end
     end
   end

@@ -8,7 +8,7 @@ module Octokit
     def self.path user
       case user
       when String
-        "users/#{user}"
+        "users/#{Addressable::URI.escape(user)}"
       when Integer
         "user/#{user}"
       else
