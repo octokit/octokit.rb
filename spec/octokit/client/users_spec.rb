@@ -19,6 +19,12 @@ describe Octokit::Client::Users do
       user = Octokit.client.user("sferik")
       expect(user.login).to eq('sferik')
     end
+
+    it "handle [bot] users", :vcr do
+      user = Octokit.client.user("shipit[bot]")
+      expect(user.login).to eq('shipit[bot]')
+    end
+
     it "returns the authenticated user" do
       user = @client.user
       expect(user.login).to eq(test_github_login)
