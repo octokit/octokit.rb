@@ -153,7 +153,7 @@ module Octokit
         end
       end
 
-      @last_response = response = agent.call(method, URI::Parser.new.escape(path.to_s), data, options)
+      @last_response = response = agent.call(method, Addressable::URI.parse(path.to_s).normalize.to_s, data, options)
       response.data
     end
 
