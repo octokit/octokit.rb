@@ -237,5 +237,11 @@ module Octokit
 
       conn
     end
+
+    private
+
+    def http_escape(string)
+      Addressable::URI.escape(string)
+    end
   end
 end

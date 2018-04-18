@@ -14,6 +14,11 @@ describe Octokit::User do
         path = Octokit::User.path 'pengwynn'
         expect(path).to eq 'users/pengwynn'
       end
+
+      it "escapes the login" do
+        path = Octokit::User.path 'hu[bot]'
+        expect(path).to eq 'users/hu%5Bbot%5D'
+      end
     end # with login
 
     context "with id" do
