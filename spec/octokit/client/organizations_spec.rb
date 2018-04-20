@@ -149,10 +149,7 @@ describe Octokit::Client::Organizations do
 
     describe ".child_teams", :vcr do
       it "returns all child teams for the team" do
-        child_teams = @client.child_teams(
-          @team.id,
-          :accept => "application/vnd.github.hellcat-preview+json"
-        )
+        child_teams = @client.child_teams(@team.id, accept: preview_header)
         expect(child_teams).to be_kind_of Array
         assert_requested :get, github_url("/teams/#{@team.id}/teams")
       end
@@ -363,33 +360,39 @@ describe Octokit::Client::Organizations do
 
   describe ".migrations", :vcr do
     it "starts a migration for an organization" do
-      result = @client.start_migration(test_github_org, ["github-api/api-playground"])
+      result = @client.start_migration(test_github_org, ["github-api/api-playground"], accept: preview_header)
       expect(result).to be_kind_of Sawyer::Resource
       assert_requested :post, github_url("/orgs/#{test_github_org}/migrations")
     end
 
     it "lists migrations for an organization" do
-      result = @client.migrations(test_github_org)
+      result = @client.migrations(test_github_org, accept: preview_header)
       expect(result).to be_kind_of Array
       assert_requested :get, github_url("/orgs/#{test_github_org}/migrations")
     end
 
     it "gets the status of a migration" do
-      result = @client.migration_status(test_github_org, 97)
+      result = @client.migration_status(test_github_org, 97, accept: preview_header)
       expect(result).to be_kind_of Sawyer::Resource
       assert_requested :get, github_url("/orgs/#{test_github_org}/migrations/97")
     end
 
     it "downloads a migration archive" do
-      result = @client.migration_archive_url(test_github_org, 97)
+      result = @client.migration_archive_url(test_github_org, 97, accept: preview_header)
       expect(result).to be_kind_of String
       assert_requested :get, github_url("/orgs/#{test_github_org}/migrations/97/archive")
     end
 
     it "unlocks a migrated repository" do
-      @client.unlock_repository(test_github_org, 97, 'api-playground')
+      @client.unlock_repository(test_github_org, 97, 'api-playground', accept: preview_header)
       expect(@client.last_response.status).to eq(204)
       assert_requested :delete, github_url("/orgs/#{test_github_org}/migrations/97/repos/api-playground/lock")
     end
   end # .migrations
+
+  private
+
+  def preview_header
+    Octokit::Preview::PREVIEW_TYPES[:migrations]
+  end
 end

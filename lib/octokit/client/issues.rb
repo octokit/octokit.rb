@@ -261,7 +261,7 @@ module Octokit
       # @return [Sawyer::Resource] The specific comment in question
       # @see https://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comment #1194549 from an issue on octokit/octokit.rb
-      #   Octokit.issue_comments("octokit/octokit.rb", 1194549)
+      #   Octokit.issue_comment("octokit/octokit.rb", 1194549)
       def issue_comment(repo, number, options = {})
         paginate "#{Repository.path repo}/issues/comments/#{number}", options
       end
@@ -328,6 +328,23 @@ module Octokit
       #   Octokit.add_assignees("octokit/octokit.rb", 23, ["pengwynn", "joeyw"])
       def add_assignees(repo, number, assignees, options = {})
         post "#{Repository.path repo}/issues/#{number}/assignees", options.merge({:assignees => assignees})
+      end
+
+      # Remove assignees from an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param number [Integer] Issue number
+      # @param assignees [Array] Assignees to be removed
+      # @return [Sawyer::Resource] Issue
+      # @see https://developer.github.com/v3/issues/assignees/#remove-assignees-from-an-issue
+      # @example Remove assignees "pengwynn" and "joeyw" from Issue #23 on octokit/octokit.rb
+      #   Octokit.remove_assignees("octokit/octokit.rb", 23, ["pengwynn", "joeyw"])
+      #
+      # @example Remove assignees "pengwynn" from Issue #23 on octokit/octokit.rb
+      #   Octokit.remove_assignees("octokit/octokit.rb", 23, ["pengwynn"],
+      #     :accept => "application/vnd.github.v3+json")
+      def remove_assignees(repo, number, assignees, options = {})
+        delete "#{Repository.path repo}/issues/#{number}/assignees", options.merge({:assignees => assignees})
       end
     end
   end
