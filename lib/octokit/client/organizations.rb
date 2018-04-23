@@ -699,6 +699,7 @@ module Octokit
         user = options.delete(:user)
         user && boolean_from_response(:delete, "orgs/#{org}/memberships/#{user}", options)
       end
+      alias :remove_org_membership :remove_organization_membership
 
       # Initiates the generation of a migration archive.
       #
