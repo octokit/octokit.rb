@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Reviews API
     #
-    # @see https://developer.github.com/v3/reviews/
+    # @see https://developer.github.com/v3/pulls/reviews/
     module Reviews
 
       # List reviews on a pull request
@@ -123,7 +123,7 @@ module Octokit
       # @see https://developer.github.com/v3/pulls/reviews/#dismiss-a-pull-request-review
       #
       # @example
-      #   @client.dismiss_pull_request_review('octokit/octokit.rb', 825, 6505518)
+      #   @client.dismiss_pull_request_review('octokit/octokit.rb', 825, 6505518, 'The message.')
       #
       # @return [Sawyer::Resource] Hash representing the dismissed review
       def dismiss_pull_request_review(repo, number, review, message, options = {})

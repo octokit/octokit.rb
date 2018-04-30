@@ -24,19 +24,41 @@ describe Octokit::Client::Apps do
 
   describe ".find_app_installations", :vcr do
     it "returns installations for an app" do
-      installations = @jwt_client.find_app_installations
+      installations = @jwt_client.find_app_installations(accept: preview_header)
       expect(installations).to be_kind_of Array
       assert_requested :get, github_url("/app/installations")
+    end
+
+    it "works for GitHub Enterprise installs" do
+      client = Octokit::Client.new \
+        bearer_token: new_jwt_token,
+        api_endpoint: "https://ghe.local/api/v3"
+
+      request = stub_get("https://ghe.local/api/v3/app/installations")
+      response = client.find_app_installations(accept: preview_header)
+
+      assert_requested request
     end
   end # .find_app_installations
 
   describe ".find_user_installations", :vcr do
     it "returns installations for a user" do
-      response = @client.find_user_installations
+      response = @client.find_user_installations(accept: preview_header)
 
       expect(response.total_count).not_to be_nil
       expect(response.installations).to be_kind_of(Array)
       assert_requested :get, github_url("/user/installations")
+    end
+
+    it "works for GitHub Enterprise installs" do
+      client = Octokit::Client.new \
+        bearer_token: new_jwt_token,
+        api_endpoint: "https://ghe.local/api/v3"
+
+      request = stub_get("https://ghe.local/api/v3/user/installations")
+      response = client.find_user_installations(accept: preview_header)
+
+      assert_requested request
     end
   end # .find_user_installations
 
@@ -45,25 +67,47 @@ describe Octokit::Client::Apps do
 
     describe ".installation" do
       it "returns the installation" do
-        response = @jwt_client.installation(installation)
+        response = @jwt_client.installation(installation, accept: preview_header)
         expect(response).to be_kind_of Sawyer::Resource
         assert_requested :get, github_url("/app/installations/#{installation}")
+      end
+
+      it "works for GitHub Enterprise installs" do
+        client = Octokit::Client.new \
+          bearer_token: new_jwt_token,
+          api_endpoint: "https://ghe.local/api/v3"
+
+        request = stub_get("https://ghe.local/api/v3/app/installations/1234")
+        response = client.installation(1234, accept: preview_header)
+
+        assert_requested request
       end
     end # .installation
 
     describe ".find_installation_repositories_for_user" do
       it "returns repositories for a user" do
-        response = @client.find_installation_repositories_for_user(installation)
+        response = @client.find_installation_repositories_for_user(installation, accept: preview_header)
         expect(response.total_count).not_to be_nil
         expect(response.repositories).to be_kind_of(Array)
         assert_requested :get, github_url("/user/installations/#{installation}/repositories")
+      end
+
+      it "works for GitHub Enterprise installs" do
+        client = Octokit::Client.new \
+          bearer_token: new_jwt_token,
+          api_endpoint: "https://ghe.local/api/v3"
+
+        request = stub_get("https://ghe.local/api/v3/user/installations/1234/repositories")
+        response = client.find_installation_repositories_for_user(1234, accept: preview_header)
+
+        assert_requested request
       end
     end # .find_installation_repositories_for_user
 
     describe ".create_integration_installation_access_token" do
       it "creates an access token for the installation" do
         allow(@jwt_client).to receive(:octokit_warn)
-        response = @jwt_client.create_integration_installation_access_token(installation)
+        response = @jwt_client.create_integration_installation_access_token(installation, accept: preview_header)
 
         expect(response).to be_kind_of(Sawyer::Resource)
         expect(response.token).not_to be_nil
@@ -76,7 +120,7 @@ describe Octokit::Client::Apps do
 
     describe ".create_app_installation_access_token" do
       it "creates an access token for the installation" do
-        response = @jwt_client.create_app_installation_access_token(installation)
+        response = @jwt_client.create_app_installation_access_token(installation, accept: preview_header)
 
         expect(response).to be_kind_of(Sawyer::Resource)
         expect(response.token).not_to be_nil
@@ -84,19 +128,37 @@ describe Octokit::Client::Apps do
 
         assert_requested :post, github_url("/installations/#{installation}/access_tokens")
       end
+
+      it "works for GitHub Enterprise installs" do
+        client = Octokit::Client.new \
+          bearer_token: new_jwt_token,
+          api_endpoint: "https://ghe.local/api/v3"
+
+        path = "installations/1234/access_tokens"
+        request = stub_post("https://ghe.local/api/v3/#{path}")
+        response = client.create_app_installation_access_token(1234, accept: preview_header)
+
+        assert_requested request
+      end
     end # .create_app_installation_access_token
 
     context "with app installation access token" do
       let(:installation_client) do
-        token = @jwt_client.create_app_installation_access_token(installation).token
+        token = @jwt_client.create_app_installation_access_token(installation, accept: preview_header).token
         use_vcr_placeholder_for(token, '<INTEGRATION_INSTALLATION_TOKEN>')
         Octokit::Client.new(:access_token => token)
+      end
+
+      let(:ghe_installation_client) do
+        Octokit::Client.new \
+          access_token: "v1.1f699f1069f60xxx",
+          api_endpoint: "https://ghe.local/api/v3"
       end
 
       describe ".list_integration_installation_repositories" do
         it "lists the installations repositories" do
           allow(installation_client).to receive(:octokit_warn)
-          response = installation_client.list_integration_installation_repositories
+          response = installation_client.list_integration_installation_repositories(accept: preview_header)
           expect(response.total_count).not_to be_nil
           expect(response.repositories).to be_kind_of(Array)
           expect(installation_client).to have_received(:octokit_warn).with(/Deprecated/)
@@ -105,9 +167,15 @@ describe Octokit::Client::Apps do
 
       describe ".list_app_installation_repositories" do
         it "lists the installations repositories" do
-          response = installation_client.list_app_installation_repositories
+          response = installation_client.list_app_installation_repositories(accept: preview_header)
           expect(response.total_count).not_to be_nil
           expect(response.repositories).to be_kind_of(Array)
+        end
+
+        it "works for GitHub Enterprise installs" do
+          request = stub_get("https://ghe.local/api/v3/installation/repositories")
+          response = ghe_installation_client.list_app_installation_repositories(accept: preview_header)
+          assert_requested request
         end
       end # .list_app_installation_repositories
     end # with app installation access token
@@ -129,7 +197,7 @@ describe Octokit::Client::Apps do
       describe ".add_repository_to_integration_installation" do
         it "adds the repository to the installation" do
           allow(@client).to receive(:octokit_warn)
-          response = @client.add_repository_to_integration_installation(installation, @repo.id)
+          response = @client.add_repository_to_integration_installation(installation, @repo.id, accept: preview_header)
           expect(response).to be_truthy
           expect(@client).to have_received(:octokit_warn).with(/Deprecated/)
         end
@@ -137,20 +205,20 @@ describe Octokit::Client::Apps do
 
       describe ".add_repository_to_app_installation" do
         it "adds the repository to the installation" do
-          response = @client.add_repository_to_app_installation(installation, @repo.id)
+          response = @client.add_repository_to_app_installation(installation, @repo.id, accept: preview_header)
           expect(response).to be_truthy
         end
       end # .add_repository_to_app_installation
 
       context 'with installed repository on installation' do
         before(:each) do
-          @client.add_repository_to_app_installation(installation, @repo.id)
+          @client.add_repository_to_app_installation(installation, @repo.id, accept: preview_header)
         end
 
         describe ".remove_repository_from_integration_installation" do
           it "removes the repository from the installation" do
             allow(@client).to receive(:octokit_warn)
-            response = @client.remove_repository_from_integration_installation(installation, @repo.id)
+            response = @client.remove_repository_from_integration_installation(installation, @repo.id, accept: preview_header)
             expect(response).to be_truthy
             expect(@client).to have_received(:octokit_warn).with(/Deprecated/)
           end
@@ -158,11 +226,41 @@ describe Octokit::Client::Apps do
 
         describe ".remove_repository_from_app_installation" do
           it "removes the repository from the installation" do
-            response = @client.remove_repository_from_app_installation(installation, @repo.id)
+            response = @client.remove_repository_from_app_installation(installation, @repo.id, accept: preview_header)
             expect(response).to be_truthy
           end
         end # .remove_repository_from_app_installation
       end # with installed repository on installation
     end # with repository
+
+    context "with repository on GitHub Enterprise" do
+      let(:ghe_client) do
+        Octokit::Client.new \
+          access_token: "x" * 40,
+          api_endpoint: "https://ghe.local/api/v3"
+      end
+
+      describe ".add_repository_to_app_installation" do
+        it "works for GitHub Enterprise installs" do
+          request = stub_put("https://ghe.local/api/v3/user/installations/1234/repositories/1234")
+          response = ghe_client.add_repository_to_app_installation(1234, 1234, accept: preview_header)
+          assert_requested request
+        end
+      end # .add_repository_to_app_installation
+
+      describe ".remove_repository_from_app_installation" do
+        it "works for GitHub Enterprise installs" do
+          request = stub_delete("https://ghe.local/api/v3/user/installations/1234/repositories/1234")
+          response = ghe_client.remove_repository_from_app_installation(1234, 1234, accept: preview_header)
+          assert_requested request
+        end
+      end # .remove_repository_from_app_installation
+    end # with repository on GitHub Enterprise
   end # with app installation
+
+  private
+
+  def preview_header
+    Octokit::Preview::PREVIEW_TYPES[:integrations]
+  end
 end

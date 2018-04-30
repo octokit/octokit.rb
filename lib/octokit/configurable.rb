@@ -45,6 +45,9 @@ module Octokit
     # @!attribute proxy
     #   @see https://github.com/lostisland/faraday
     #   @return [String] URI for proxy server
+    # @!attribute ssl_verify_mode
+    #   @see https://github.com/lostisland/faraday
+    #   @return [String] SSL verify mode for ssl connections
     # @!attribute user_agent
     #   @return [String] Configure User-Agent header for requests.
     # @!attribute web_endpoint
@@ -53,7 +56,7 @@ module Octokit
     attr_accessor :access_token, :auto_paginate, :bearer_token, :client_id,
                   :client_secret, :default_media_type, :connection_options,
                   :middleware, :netrc, :netrc_file,
-                  :per_page, :proxy, :user_agent
+                  :per_page, :proxy, :ssl_verify_mode, :user_agent
     attr_writer :password, :web_endpoint, :api_endpoint, :login,
                 :management_console_endpoint, :management_console_password
 
@@ -80,6 +83,7 @@ module Octokit
           :per_page,
           :password,
           :proxy,
+          :ssl_verify_mode,
           :user_agent,
           :web_endpoint
         ]

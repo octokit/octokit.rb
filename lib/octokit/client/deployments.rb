@@ -6,6 +6,16 @@ module Octokit
     # @see https://developer.github.com/v3/repos/commits/deployments/
     module Deployments
 
+      # Fetch a single deployment for a repository
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param deployment_id [Integer, String, Repository, Hash] A GitHub repository
+      # @return <Sawyer::Resource> A single deployment
+      # @see https://developer.github.com/v3/repos/deployments/#get-a-single-deployment
+      def deployment(repo, deployment_id, options = {})
+        get("#{Repository.path repo}/deployments/#{deployment_id}", options)
+      end
+
       # List all deployments for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
