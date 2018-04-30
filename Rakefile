@@ -20,3 +20,12 @@ namespace :doc do
   rescue LoadError
   end
 end
+
+desc "SPIKE: Generate the API client files based on route docs."
+task :spike do
+  require_relative "lib/spike"
+  api = Spike::API.at(File.absolute_path("../../routes/routes/repos/deployments", __FILE__))
+  File.open("lib/octokit/client/deployments.rb", "w") do |f|
+    f.puts api.to_s
+  end
+end
