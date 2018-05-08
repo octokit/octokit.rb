@@ -30,6 +30,7 @@ module Octokit
       # @example List the contents of lib/octokit.rb
       #   Octokit.contents("octokit/octokit.rb", :path => 'lib/octokit.rb')
       def contents(repo, options={})
+        options = options.dup
         repo_path = options.delete :path
         url = "#{Repository.path repo}/contents/#{repo_path}"
         get url, options
@@ -54,6 +55,7 @@ module Octokit
       #                    "File content",
       #                    :branch => "my-new-feature")
       def create_contents(*args)
+        args    = args.map { |item| item && item.dup }
         options = args.last.is_a?(Hash) ? args.pop : {}
         repo    = args.shift
         path    = args.shift

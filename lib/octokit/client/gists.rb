@@ -50,6 +50,7 @@ module Octokit
       # @see https://developer.github.com/v3/gists/#get-a-single-gist
       # @see https://developer.github.com/v3/gists/#get-a-specific-revision-of-a-gist
       def gist(gist, options = {})
+        options = options.dup
         if sha = options.delete(:sha)
           get "gists/#{Gist.new(gist)}/#{sha}", options
         else
