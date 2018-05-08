@@ -10,7 +10,7 @@ module Octokit
       #
       # @see https://developer.github.com/v3/apps/#find-installations
       #
-      # @return [Array<Sawyer::Resource>] A list of installations
+      # @return [Array<Sawyer::Resource>] the total_count and an array of installations
       def find_app_installations(options = {})
         opts = ensure_api_media_type(:integrations, options)
         paginate "app/installations", opts
@@ -33,10 +33,12 @@ module Octokit
       #
       # @see https://developer.github.com/v3/apps/#list-installations-for-user
       #
-      # @return [Array<Sawyer::Resource>] A list of installations
+      # @return [Sawyer::Resource] the total_count and an array of installations
       def find_user_installations(options = {})
         opts = ensure_api_media_type(:integrations, options)
-        paginate "user/installations", opts
+        paginate("user/installations", opts) do |data, last_response|
+          data.installations.concat last_response.data.installations
+        end
       end
 
       # Get a single installation
@@ -80,10 +82,12 @@ module Octokit
       # @param options [Hash] A customizable set of options
       # @see https://developer.github.com/v3/apps/installations/#list-repositories
       #
-      # @return [Array<Sawyer::Resource>] A list of repositories
+      # @return [Sawyer::Resource] the total_count and an array of repositories
       def list_app_installation_repositories(options = {})
         opts = ensure_api_media_type(:integrations, options)
-        paginate "installation/repositories", opts
+        paginate("installation/repositories", opts) do |data, last_response|
+          data.repositories.concat last_response.data.repositories
+        end
       end
       alias list_installation_repos list_app_installation_repositories
 
@@ -154,10 +158,12 @@ module Octokit
       #
       # @see https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps/
       #
-      # @return [Array<Sawyer::Resource>] A list of repositories
+      # @return [Sawyer::Resource] the total_count and an array of repositories
       def find_installation_repositories_for_user(installation, options = {})
         opts = ensure_api_media_type(:integrations, options)
-        paginate "user/installations/#{installation}/repositories", opts
+        paginate("user/installations/#{installation}/repositories", opts) do |data, last_response|
+          data.repositories.concat last_response.data.repositories
+        end
       end
     end
   end
