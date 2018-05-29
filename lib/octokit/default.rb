@@ -143,7 +143,7 @@ module Octokit
         # 0 is OpenSSL::SSL::VERIFY_NONE
         # 1 is OpenSSL::SSL::SSL_VERIFY_PEER
         # the standard default for SSL is SSL_VERIFY_PEER which requires a server certificate check on the client
-        ENV['OCTOKIT_SSL_VERIFY_MODE'] || 1 
+        ENV.fetch('OCTOKIT_SSL_VERIFY_MODE', 1).to_i
       end
 
       # Default User-Agent header string from ENV or {USER_AGENT}
