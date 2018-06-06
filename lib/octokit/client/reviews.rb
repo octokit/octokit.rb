@@ -9,21 +9,21 @@ module Octokit
       # List reviews on a pull request
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The id of the pull request
+      # @param number [Integer] Number ID of the pull request
       # @see https://developer.github.com/v3/pulls/reviews/#list-reviews-on-a-pull-request
       #
       # @example
       #   @client.pull_request_reviews('octokit/octokit.rb', 2)
       #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the reviews
-      def pull_request_reviews(repo, id, options = {})
-        paginate "#{Repository.path repo}/pulls/#{id}/reviews", options
+      def pull_request_reviews(repo, number, options = {})
+        paginate "#{Repository.path repo}/pulls/#{number}/reviews", options
       end
 
       # Get a single review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param number [Integer] The id of the pull request
+      # @param number [Integer] Number ID of the pull request
       # @param review [Integer] The id of the review
       # @see https://developer.github.com/v3/pulls/reviews/#get-a-single-review
       #
@@ -38,7 +38,7 @@ module Octokit
       # Delete a pending review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param number [Integer] The id of the pull request
+      # @param number [Integer] Number ID of the pull request
       # @param review [Integer] The id of the review
       # @see https://developer.github.com/v3/pulls/reviews/#delete-a-pending-review
       #
@@ -53,7 +53,7 @@ module Octokit
       # Get comments for a single review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param number [Integer] The id of the pull request
+      # @param number [Integer] Number ID of the pull request
       # @param review [Integer] The id of the review
       # @see https://developer.github.com/v3/pulls/reviews/#get-comments-for-a-single-review
       #
@@ -68,7 +68,7 @@ module Octokit
       # Create a pull request review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The id of the pull request
+      # @param number [Integer] Number ID of the pull request
       # @param options [Hash] Method options
       # @option options [String] :event The review action (event) to perform;
       #   can be one of APPROVE, REQUEST_CHANGES, or COMMENT.
@@ -89,14 +89,14 @@ module Octokit
       #   @client.create_pull_request_review('octokit/octokit.rb', 844, options)
       #
       # @return [Sawyer::Resource>] Hash respresenting the review
-      def create_pull_request_review(repo, id, options = {})
-        post "#{Repository.path repo}/pulls/#{id}/reviews", options
+      def create_pull_request_review(repo, number, options = {})
+        post "#{Repository.path repo}/pulls/#{number}/reviews", options
       end
 
       # Submit a pull request review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param number [Integer] The id of the pull request
+      # @param number [Integer] Number ID of the pull request
       # @param review [Integer] The id of the review
       # @param event [String] The review action (event) to perform; can be one of
       #                       APPROVE, REQUEST_CHANGES, or COMMENT.
@@ -117,13 +117,13 @@ module Octokit
       # Dismiss a pull request review
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param number [Integer] The id of the pull request
+      # @param number [Integer] Number ID of the pull request
       # @param review [Integer] The id of the review
       # @param message [String] The message for the pull request review dismissal
       # @see https://developer.github.com/v3/pulls/reviews/#dismiss-a-pull-request-review
       #
       # @example
-      #   @client.dismiss_pull_request_review('octokit/octokit.rb', 825, 6505518)
+      #   @client.dismiss_pull_request_review('octokit/octokit.rb', 825, 6505518, 'The message.')
       #
       # @return [Sawyer::Resource] Hash representing the dismissed review
       def dismiss_pull_request_review(repo, number, review, message, options = {})
@@ -134,21 +134,21 @@ module Octokit
       # List review requests
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The id of the pull request
+      # @param number [Integer] Number ID of the pull request
       # @see https://developer.github.com/v3/pulls/review_requests/#list-review-requests
       #
       # @example
       #   @client.pull_request_review_requests('octokit/octokit.rb', 2)
       #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the review requests
-      def pull_request_review_requests(repo, id, options = {})
-        paginate "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
+      def pull_request_review_requests(repo, number, options = {})
+        paginate "#{Repository.path repo}/pulls/#{number}/requested_reviewers", options
       end
 
       # Create a review request
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The id of the pull request
+      # @param number [Integer] Number ID of the pull request
       # @param reviewers [Array<String>] An array of user logins that will be requested
       # @see https://developer.github.com/v3/pulls/review_requests/#create-a-review-request
       #
@@ -156,9 +156,9 @@ module Octokit
       #   @client.request_pull_request_review('octokit/octokit.rb', 2, ['soudy'])
       #
       # @return [Sawyer::Resource>] Hash respresenting the pull request
-      def request_pull_request_review(repo, id, reviewers, options = {})
+      def request_pull_request_review(repo, number, reviewers, options = {})
         options = options.merge(reviewers: reviewers)
-        post "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
+        post "#{Repository.path repo}/pulls/#{number}/requested_reviewers", options
       end
 
       # Delete a review request

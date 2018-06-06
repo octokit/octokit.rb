@@ -60,6 +60,15 @@ describe Octokit::Client::Apps do
 
       assert_requested request
     end
+
+    it "allows auto_pagination", :vcr do
+      @client.auto_paginate = true
+      response = @client.find_user_installations(accept: preview_header, per_page: 1)
+
+      expect(response.total_count).to eq 2
+      expect(response.installations.count).to eq 2
+      expect(response.installations).to be_kind_of(Array)
+    end
   end # .find_user_installations
 
   context "with app installation", :vcr do
@@ -101,6 +110,15 @@ describe Octokit::Client::Apps do
         response = client.find_installation_repositories_for_user(1234, accept: preview_header)
 
         assert_requested request
+      end
+
+      it "allows auto_pagination", :vcr do
+        @client.auto_paginate = true
+        response = @client.find_installation_repositories_for_user(installation, accept: preview_header, per_page: 1)
+
+        expect(response.total_count).to eq 2
+        expect(response.repositories.count).to eq 2
+        expect(response.repositories).to be_kind_of(Array)
       end
     end # .find_installation_repositories_for_user
 
@@ -176,6 +194,14 @@ describe Octokit::Client::Apps do
           request = stub_get("https://ghe.local/api/v3/installation/repositories")
           response = ghe_installation_client.list_app_installation_repositories(accept: preview_header)
           assert_requested request
+        end
+        it "allows auto_pagination", :vcr do
+          installation_client.auto_paginate = true
+          response = installation_client.list_app_installation_repositories({accept: preview_header, per_page: 1})
+
+          expect(response.total_count).to eq 2
+          expect(response.repositories.count).to eq 2
+          expect(response.repositories).to be_kind_of(Array)
         end
       end # .list_app_installation_repositories
     end # with app installation access token
