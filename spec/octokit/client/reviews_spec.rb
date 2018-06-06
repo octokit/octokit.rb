@@ -134,7 +134,7 @@ describe Octokit::Client::Reviews do
           it 'deletes a requests for a pull request review' do
             review = @client.delete_pull_request_review_request(@repo.full_name,
                                                                 @pull.number,
-                                                                "reviewers" => [reviewers])
+                                                                "reviewers" => [test_github_collaborator_login])
             expect(review).to be_kind_of Sawyer::Resource
 
             requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
