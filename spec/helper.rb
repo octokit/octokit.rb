@@ -33,11 +33,17 @@ VCR.configure do |c|
   c.filter_sensitive_data("<GITHUB_LOGIN>") do
     test_github_login
   end
+  c.filter_sensitive_data("<GITHUB_COLLABORATOR_LOGIN>") do
+    test_github_collaborator_login
+  end
   c.filter_sensitive_data("<GITHUB_PASSWORD>") do
     test_github_password
   end
   c.filter_sensitive_data("<<ACCESS_TOKEN>>") do
     test_github_token
+  end
+  c.filter_sensitive_data("<GITHUB_COLLABORATOR_TOKEN>") do
+    test_github_collaborator_token
   end
   c.filter_sensitive_data("<GITHUB_CLIENT_ID>") do
     test_github_client_id
@@ -125,12 +131,20 @@ def test_github_login
   ENV.fetch 'OCTOKIT_TEST_GITHUB_LOGIN', 'api-padawan'
 end
 
+def test_github_collaborator_login
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_COLLABORATOR_LOGIN', 'hubot'
+end
+
 def test_github_password
   ENV.fetch 'OCTOKIT_TEST_GITHUB_PASSWORD', 'wow_such_password'
 end
 
 def test_github_token
   ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN', 'x' * 40
+end
+
+def test_github_collaborator_token
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_COLLABORATOR_TOKEN', 'x' * 40
 end
 
 def test_github_client_id
