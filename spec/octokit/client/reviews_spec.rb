@@ -59,7 +59,7 @@ describe Octokit::Client::Reviews do
 
   context 'with repository', :vcr do
     before(:each) do
-      @repo = @client.create_repository('test-repo', auto_init: true)
+      @repo = @client.create_repository("test-repo-#{SecureRandom.hex(6)}", auto_init: true)
     end
 
     after(:each) do
@@ -98,19 +98,19 @@ describe Octokit::Client::Reviews do
 
       context 'with pull request review request' do
         before do
-          reviewers = %w(coveralls hubot)
-          reviewers.each do |reviewer|
-            @client.add_collaborator(@repo.full_name, reviewer)
-          end
+          reviewer = test_github_collaborator_login
 
-          @review_request =
-            @client.request_pull_request_review(@repo.full_name, @pull.number,
-                                                reviewers)
+          invitation = @client.invite_user_to_repository(@repo.full_name, reviewer)
+
+          collaborator_client = Octokit::Client.new(access_token: test_github_collaborator_token)
+          collaborator_client.accept_repository_invitation(invitation.id)
+
+          @review_request = @client.request_pull_request_review(@repo.full_name, @pull.number, [reviewer])
         end
 
         describe '.request_pull_request_review' do
           it 'requests a new pull request review' do
-            expect(@review_request.requested_reviewers.length).to eq(2)
+            expect(@review_request.requested_reviewers.length).to eq(1)
 
             requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
             assert_requested :post, requested_url
@@ -121,7 +121,8 @@ describe Octokit::Client::Reviews do
           it 'returns all requested reviewers' do
             reviewers = @client.pull_request_review_requests(@repo.full_name,
                                                              @pull.number)
-            expect(reviewers).to be_kind_of Array
+
+            expect(reviewers.users).to be_kind_of Array
 
             requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
             assert_requested :get, requested_url
