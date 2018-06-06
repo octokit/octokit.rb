@@ -1,4 +1,5 @@
 require 'helper'
+require 'securerandom'
 
 describe Octokit::Client::Reviews do
   before do
