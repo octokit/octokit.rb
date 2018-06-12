@@ -56,7 +56,6 @@ describe Octokit::Client::Stats do
           { :status => 202 }, # Cold request
           { :status => 202 }, # Cold request
           { :status => 200, :body => [].to_json }, # Warm request
-          { :status => 204, :body => [].to_json }, # Warm request
         )
     end
 
