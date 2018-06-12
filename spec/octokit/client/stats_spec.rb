@@ -7,8 +7,40 @@ describe Octokit::Client::Stats do
     @client = oauth_client
   end
 
-  context "with cold graph cache" do
+  context "with empty repo" do
+    before do
+      VCR.turn_off!
+      stub_request(:any, /api\.github\.com\/repos\/octokit/).
+        to_return(
+          { :status => 202 }, # Cold request
+          { :status => 202 }, # Cold request
+          { :status => 204, :body => [].to_json }, # Warm request
+        )
+    end
 
+    describe ".contributors_stats" do
+      it "returns nil when statistics are not ready" do
+        stats = @client.contributors_stats("octokit/octokit.rb")
+        expect(stats).to be_nil
+        assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/contributors")
+      end
+
+      it "returns [] when GitHub returns 204" do
+        stats = @client.contributors_stats("octokit/octokit.rb", :retry_timeout => 3)
+        expect(stats).to eq([])
+
+        assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/contributors"), :times => 3
+      end
+
+      it "returns nil on timeout" do
+        stats = @client.contributors_stats("octokit/octokit.rb", :retry_timeout => 1, :retry_wait => 1)
+        expect(stats).to be_nil
+        assert_requested :get, github_url("/repos/octokit/octokit.rb/stats/contributors"), :times => 2
+      end
+    end
+  end
+
+  context "with cold graph cache" do
     before do
       VCR.turn_off!
       stub_request(:any, /api\.github\.com\/repos\/octokit/).
