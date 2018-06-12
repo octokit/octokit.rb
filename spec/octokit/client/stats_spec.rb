@@ -19,6 +19,10 @@ describe Octokit::Client::Stats do
         )
     end
 
+    after do
+      VCR.turn_on!
+    end
+
     describe ".contributors_stats" do
       it "returns nil when statistics are not ready" do
         stats = @client.contributors_stats("octokit/octokit.rb")
