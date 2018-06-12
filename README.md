@@ -82,6 +82,8 @@ configuration) or as client instance methods.
 Octokit.configure do |c|
   c.login = 'defunkt'
   c.password = 'c0d3b4ssssss!'
+  # Set access_token instead of login and password if you use personal access token
+  # c.access_token = '[personal_access_token]'
 end
 
 # Fetch the current user
@@ -92,6 +94,10 @@ or
 ```ruby
 # Provide authentication credentials
 client = Octokit::Client.new(:login => 'defunkt', :password => 'c0d3b4ssssss!')
+
+# Set access_token instead of login and password if you use personal access token
+# client = Octokit::Client.new(:access_token => '[personal_access_token]!')
+
 # Fetch the current user
 client.user
 ```
