@@ -96,6 +96,7 @@ module Octokit
         loop do
           data = get("#{Repository.path repo}/stats/#{metric}", options)
           return data if last_response.status == 200
+          return [] if last_response.status == 204
           return nil unless retry_timeout
           return nil if Time.now >= timeout
           sleep retry_wait if retry_wait
