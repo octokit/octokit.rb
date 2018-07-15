@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Enterprise Management Console API
     #
-    # @see https://developer.github.com/v3/enterprise/management_console
+    # @see https://developer.github.com/v3/enterprise-admin/management_console/
     module ManagementConsole
 
       # Uploads a license for the first time
