@@ -231,11 +231,11 @@ module Octokit
         if app_id.to_s.empty?
           raise Octokit::ApplicationCredentialsRequired.new "client_id required"
         end
-        authorize_url = options.delete(:endpoint) || Octokit.web_endpoint
+        authorize_url = opts.delete(:endpoint) || Octokit.web_endpoint
         authorize_url << "login/oauth/authorize?client_id=#{app_id}"
 
         require 'cgi'
-        options.each do |key, value|
+        opts.each do |key, value|
           authorize_url << "&#{key}=#{CGI.escape value}"
         end
 
