@@ -13,7 +13,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of statuses
       # @see https://developer.github.com/v3/repos/statuses/#list-statuses-for-a-specific-ref
       def statuses(repo, sha, options = {})
-        get "#{Repository.path repo}/statuses/#{sha}", options
+        paginate "#{Repository.path repo}/statuses/#{sha}", options
       end
       alias :list_statuses :statuses
 
