@@ -142,6 +142,7 @@ module Octokit
       # @example
       #   Octokit.org_members('github')
       def organization_members(org, options = {})
+        options = options.dup
         path = "public_" if options.delete(:public)
         paginate "#{Organization.path org}/#{path}members", options
       end
@@ -664,6 +665,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/members/#get-your-organization-membership
       # @see https://developer.github.com/v3/orgs/members/#get-organization-membership
       def organization_membership(org, options = {})
+        options = options.dup
         if user = options.delete(:user)
           get "#{Organization.path(org)}/memberships/#{user}", options
         else
@@ -682,6 +684,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/members/#edit-your-organization-membership
       # @see https://developer.github.com/v3/orgs/members/#add-or-update-organization-membership
       def update_organization_membership(org, options = {})
+        options = options.dup
         if user = options.delete(:user)
           put "orgs/#{org}/memberships/#{user}", options
         else
@@ -696,9 +699,11 @@ module Octokit
       # @return [Boolean] Success
       # @see https://developer.github.com/v3/orgs/members/#remove-organization-membership
       def remove_organization_membership(org, options = {})
+        options = options.dup
         user = options.delete(:user)
         user && boolean_from_response(:delete, "orgs/#{org}/memberships/#{user}", options)
       end
+      alias :remove_org_membership :remove_organization_membership
 
       # Initiates the generation of a migration archive.
       #

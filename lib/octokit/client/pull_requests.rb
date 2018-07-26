@@ -27,6 +27,8 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of the pull request to fetch
       # @return [Sawyer::Resource] Pull request info
+      # @example
+      #   Octokit.pull_request('rails/rails', 42, :state => 'closed')      
       def pull_request(repo, number, options = {})
         get "#{Repository.path repo}/pulls/#{number}", options
       end

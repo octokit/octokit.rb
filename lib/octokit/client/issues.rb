@@ -261,7 +261,7 @@ module Octokit
       # @return [Sawyer::Resource] The specific comment in question
       # @see https://developer.github.com/v3/issues/comments/#get-a-single-comment
       # @example Get comment #1194549 from an issue on octokit/octokit.rb
-      #   Octokit.issue_comments("octokit/octokit.rb", 1194549)
+      #   Octokit.issue_comment("octokit/octokit.rb", 1194549)
       def issue_comment(repo, number, options = {})
         paginate "#{Repository.path repo}/issues/comments/#{number}", options
       end

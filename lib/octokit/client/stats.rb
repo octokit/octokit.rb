@@ -88,6 +88,7 @@ module Octokit
       # @return [Array<Sawyer::Resource> or nil] Stats in metric-specific format, or nil if not yet calculated.
       # @see https://developer.github.com/v3/repos/statistics/
       def get_stats(repo, metric, options = {})
+        options = options.dup
         if retry_timeout = options.delete(:retry_timeout)
           retry_wait = options.delete(:retry_wait) || 0.5
           timeout = Time.now + retry_timeout
@@ -95,6 +96,7 @@ module Octokit
         loop do
           data = get("#{Repository.path repo}/stats/#{metric}", options)
           return data if last_response.status == 200
+          return [] if last_response.status == 204
           return nil unless retry_timeout
           return nil if Time.now >= timeout
           sleep retry_wait if retry_wait
