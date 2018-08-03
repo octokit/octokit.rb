@@ -273,6 +273,14 @@ describe Octokit::Client::Repositories do
     end
   end # .collaborators
 
+  describe ".topics", :vcr do
+    it "returns repository topics" do
+      topics = Octokit.topics("github/linguist", :accept => 'application/vnd.github.mercy-preview+json')
+      expect(topics.names).to include("syntax-highlighting")
+      assert_requested :get, github_url("/repos/github/linguist/topics")
+    end
+  end # .topics
+
   describe ".contributors", :vcr do
     it "returns repository contributors" do
       contributors = Octokit.contributors("sferik/rails_admin", true)

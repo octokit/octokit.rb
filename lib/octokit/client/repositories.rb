@@ -380,6 +380,22 @@ module Octokit
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
 
+      # List all topics for a repository
+      #
+      # Requires authenticated client for private repos.
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @return [Array<Sawyer::Resource>] Hash of array representing topics.
+      # @see https://developer.github.com/v3/repos/#list-all-topics-for-a-repository
+      # @example List topics for octokit/octokit.rb
+      #   Octokit.topics('octokit/octokit.rb')
+      # @example List topics for octokit/octokit.rb
+      #   client.topics('octokit/octokit.rb')      
+      def topics(repo, options = {})
+        opts = ensure_api_media_type(:topics, options)
+        paginate "#{Repository.path repo}/topics", opts
+      end
+
       # List contributors to a repo
       #
       # Requires authenticated client for private repos.
