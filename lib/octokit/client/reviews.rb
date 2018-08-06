@@ -179,7 +179,7 @@ module Octokit
       # @return [Sawyer::Resource>] Hash representing the pull request
       def delete_pull_request_review_request(repo, id, reviewers, options = {})
         # "reviewers" has to be an array otherwise "422 - Invalid request"
-        options = options.merge(reviewers: reviewers.values.flatten)
+        options = options.merge(reviewers: reviewers.flatten)
         delete "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
       end
     end
