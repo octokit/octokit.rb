@@ -396,6 +396,23 @@ module Octokit
         paginate "#{Repository.path repo}/topics", opts
       end
 
+      # Replace all topics for a repository
+      #
+      # Requires authenticated client.
+      #
+      # @param repo [Integer, String, Repository, Hash] A Github repository
+      # @param names [Integer] Number ID of the issue
+      # @return [Array<Sawyer::Resource>] A list of the topics currently on the issue
+      # @see https://developer.github.com/v3/repos/#replace-all-topics-for-a-repository
+      # @example Replace topics for octokit/octokit.rb
+      #   client.replace_all_topics('octokit/octokit.rb', ['octocat', 'atom', 'electron', 'API'])
+      # @example Clear all topics for octokit/octokit.rb
+      #   client.replace_all_topics('octokit/octokit.rb', [])
+      def replace_all_topics(repo, names, options = {})
+        opts = ensure_api_media_type(:topics, options)
+        put "#{Repository.path repo}/topics", opts.merge(:names => names)
+      end
+
       # List contributors to a repo
       #
       # Requires authenticated client for private repos.
