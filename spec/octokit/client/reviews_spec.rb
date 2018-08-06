@@ -118,6 +118,7 @@ describe Octokit::Client::Reviews do
                                                              @pull.number)
 
             expect(reviewers.users).to be_kind_of Array
+            expect(reviewers.teams).to be_kind_of Array
 
             requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
             assert_requested :get, requested_url
