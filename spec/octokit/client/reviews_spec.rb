@@ -105,20 +105,6 @@ describe Octokit::Client::Reviews do
           collaborator_client.accept_repository_invitation(invitation.id)
         end
 
-        describe '.request_pull_request_review' do
-          after do
-            @client.delete_pull_request_review_request(@repo.full_name, @pull.number, "reviewers" => [test_github_collaborator_login])
-          end
-
-          it 'requests a new pull request review' do
-            review_request = @client.request_pull_request_review(@repo.full_name, @pull.number, [test_github_collaborator_login])
-
-            expect(review_request.requested_reviewers.length).to eq(1)
-            requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
-            assert_requested :post, requested_url
-          end
-        end
-
         describe '.pull_request_review_requests' do
           before do
             @client.request_pull_request_review(@repo.full_name, @pull.number, [test_github_collaborator_login])
@@ -135,6 +121,20 @@ describe Octokit::Client::Reviews do
 
             requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
             assert_requested :get, requested_url
+          end
+        end
+
+        describe '.request_pull_request_review' do
+          after do
+            @client.delete_pull_request_review_request(@repo.full_name, @pull.number, "reviewers" => [test_github_collaborator_login])
+          end
+
+          it 'requests a new pull request review' do
+            review_request = @client.request_pull_request_review(@repo.full_name, @pull.number, [test_github_collaborator_login])
+
+            expect(review_request.requested_reviewers.length).to eq(1)
+            requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
+            assert_requested :post, requested_url
           end
         end
 
