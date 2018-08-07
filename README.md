@@ -687,6 +687,7 @@ implementations:
 * Ruby 2.2
 * Ruby 2.3
 * Ruby 2.4
+* Ruby 2.5
 
 If something doesn't work on one of these Ruby versions, it's a bug.
 
