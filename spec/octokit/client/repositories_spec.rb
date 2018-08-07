@@ -275,7 +275,7 @@ describe Octokit::Client::Repositories do
 
   describe ".topics", :vcr do
     it "returns repository topics" do
-      topics = Octokit.topics("github/linguist", :accept => 'application/vnd.github.mercy-preview+json')
+      topics = Octokit.topics("github/linguist", :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
       expect(topics.names).to include("syntax-highlighting")
       assert_requested :get, github_url("/repos/github/linguist/topics")
     end
