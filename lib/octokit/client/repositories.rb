@@ -385,7 +385,7 @@ module Octokit
       # Requires authenticated client for private repos.
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
-      # @return [Array<Sawyer::Resource>] Hash of array representing topics.
+      # @return [Sawyer::Resource] representing the topics for given repo
       # @see https://developer.github.com/v3/repos/#list-all-topics-for-a-repository
       # @example List topics for octokit/octokit.rb
       #   Octokit.topics('octokit/octokit.rb')
