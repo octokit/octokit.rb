@@ -401,7 +401,7 @@ module Octokit
       # Requires authenticated client.
       #
       # @param repo [Integer, String, Repository, Hash] A Github repository
-      # @param names [Integer] Number ID of the issue
+      # @param names [Array] An array of topics to add to the repository.
       # @return [Array<Sawyer::Resource>] A list of the topics currently on the issue
       # @see https://developer.github.com/v3/repos/#replace-all-topics-for-a-repository
       # @example Replace topics for octokit/octokit.rb
