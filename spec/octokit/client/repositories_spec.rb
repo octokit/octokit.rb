@@ -14,7 +14,7 @@ describe Octokit::Client::Repositories do
     end
 
     it "returns the repository, including topics" do
-      repository = @client.repository("github/linguist", :accept => Octokit::Preview::PREVIEW_TYPES[:topic])
+      repository = @client.repository("github/linguist", :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
       expect(repository.topics).to be_kind_of Array
       expect(repository.topics).to include("syntax-highlighting")
     end
