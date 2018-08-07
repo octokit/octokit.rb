@@ -402,7 +402,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A Github repository
       # @param names [Array] An array of topics to add to the repository.
-      # @return [Array<Sawyer::Resource>] A list of the topics currently on the issue
+      # @return [Sawyer::Resource] representing the replaced topics for given repo
       # @see https://developer.github.com/v3/repos/#replace-all-topics-for-a-repository
       # @example Replace topics for octokit/octokit.rb
       #   client.replace_all_topics('octokit/octokit.rb', ['octocat', 'atom', 'electron', 'API'])
