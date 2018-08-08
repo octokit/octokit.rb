@@ -200,6 +200,14 @@ describe Octokit::Client::Repositories do
         end
       end
     end # .branch_protection
+
+    describe ".topics", :vcr do
+      it "returns repository topics" do
+        topics = Octokit.topics(@repo.full_name, :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
+        expect(topics.names).to include("octokit")
+        assert_requested :get, github_url("/repos/#{@repo.full_name}/topics")
+      end
+    end # .topics    
   end # with repository
 
   describe ".repositories", :vcr do
@@ -272,14 +280,6 @@ describe Octokit::Client::Repositories do
       assert_requested :get, github_url("/repos/sferik/rails_admin/collaborators")
     end
   end # .collaborators
-
-  describe ".topics", :vcr do
-    it "returns repository topics" do
-      topics = Octokit.topics("github/linguist", :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
-      expect(topics.names).to include("syntax-highlighting")
-      assert_requested :get, github_url("/repos/github/linguist/topics")
-    end
-  end # .topics
 
   describe ".replace_all_topics", :vcr do
     it "replaces all topics for a repository" do
