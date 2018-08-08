@@ -208,6 +208,18 @@ describe Octokit::Client::Repositories do
         assert_requested :get, github_url("/repos/#{@repo.full_name}/topics")
       end
     end # .topics    
+
+    describe ".replace_all_topics", :vcr do
+      it "replaces all topics for a repository" do
+        new_topics = ["octocat", "github", "github-api"]
+        options = {
+          :accept => "application/vnd.github.mercy-preview+json"
+        }
+        topics = @client.replace_all_topics(@repo.full_name, new_topics, options)
+        expect(topics.names.sort).to eq(new_topics.sort)
+        assert_requested :put, github_url("/repos/#{@repo.full_name}/topics")
+      end
+    end # .replace_all_topics
   end # with repository
 
   describe ".repositories", :vcr do
@@ -280,18 +292,6 @@ describe Octokit::Client::Repositories do
       assert_requested :get, github_url("/repos/sferik/rails_admin/collaborators")
     end
   end # .collaborators
-
-  describe ".replace_all_topics", :vcr do
-    it "replaces all topics for a repository" do
-      new_topics = ["octocat", "github", "github-api"]
-      options = {
-        :accept => "application/vnd.github.mercy-preview+json"
-      }
-      topics = @client.replace_all_topics("octokit/octokit.rb", new_topics, options)
-      expect(topics.names.sort).to eq(new_topics.sort)
-      assert_requested :put, github_url("/repos/octokit/octokit.rb/topics")
-    end
-  end # .replace_all_topics
 
   describe ".contributors", :vcr do
     it "returns repository contributors" do
