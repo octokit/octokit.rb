@@ -213,7 +213,7 @@ describe Octokit::Client::Repositories do
       it "replaces all topics for a repository" do
         new_topics = ["octocat", "github", "github-api"]
         options = {
-          :accept => "application/vnd.github.mercy-preview+json"
+          :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics)
         }
         topics = @client.replace_all_topics(@repo.full_name, new_topics, options)
         expect(topics.names.sort).to eq(new_topics.sort)
