@@ -326,6 +326,14 @@ describe Octokit::Client::Repositories do
     end
   end # .tags
 
+  describe ".topics", :vcr do
+    it "returns a repository's topics" do
+      topics = Octokit.topics("octokit-fixture-org/hello-world")
+      assert_requested :get, github_url("/repos/octokit-fixture-org/hello-world/topics")
+      expect(topics.names.sort).to eq(["fixtures", "hello", "hello-world"].sort)
+    end
+  end # .topics
+
   describe ".branches", :vcr do
     it "returns a repository's branches" do
       branches = Octokit.branches("octokit/octokit.rb")
@@ -358,6 +366,14 @@ describe Octokit::Client::Repositories do
         assert_requested :get, github_url("/repos/#{@repo.full_name}/collaborators/lizzhale/permission")
       end
     end # .permission_level
+
+    describe ".replace_all_topics", :vcr do
+      it "replaces all topics for a repository" do
+        topics = @client.replace_all_topics(@repo.full_name, ["octocat", "atom", "electron"])
+        expect(topics.names.sort).to eq(["octocat", "atom", "electron"].sort)
+        assert_requested :put, github_url("/repos/#{@repo.full_name}/topics")
+      end
+    end # .replace_all_topics
 
     describe ".protect_branch", :vcr do
       it "protects a single branch" do
