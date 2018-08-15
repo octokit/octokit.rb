@@ -92,7 +92,7 @@ module Octokit
 
       # Enables an app to find the repository's installation information.
       #
-      # @param repo [String] Name of a GitHub repository
+      # @param repo [String] A GitHub repository
       # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/#find-repository-installation
