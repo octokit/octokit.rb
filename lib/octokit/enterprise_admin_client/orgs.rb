@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Enterprise Orgs API
     #
-    # @see https://developer.github.com/v3/enterprise/orgs/
+    # @see https://developer.github.com/v3/enterprise-admin/orgs/
     module Orgs
 
       # Create a new organization on the instance.
@@ -13,7 +13,7 @@ module Octokit
       # @param options [Hash] A set of options.
       # @option options [String] :profile_name The organization's display name.
       # @return [nil]
-      # @see https://developer.github.com/v3/enterprise/orgs/#create-an-organization
+      # @see https://developer.github.com/v3/enterprise-admin/orgs/#create-an-organization
       # @example
       #   @admin_client.create_organization('SuchAGreatOrg', 'gjtorikian')
       def create_organization(login, admin, options = {})

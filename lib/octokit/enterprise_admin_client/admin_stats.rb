@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Enterprise Admin Stats API
     #
-    # @see https://developer.github.com/v3/enterprise/admin_stats/
+    # @see https://developer.github.com/v3/enterprise-admin/admin_stats/
     module AdminStats
 
       # Get all available stats

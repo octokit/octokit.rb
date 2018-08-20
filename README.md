@@ -110,7 +110,7 @@ Most methods return a `Resource` object which provides dot notation and `[]`
 access for fields returned in the API response.
 
 ```ruby
-client = Octokit::Client
+client = Octokit::Client.new
 
 # Fetch a user
 user = client.user 'jbarnette'
@@ -687,6 +687,7 @@ implementations:
 * Ruby 2.2
 * Ruby 2.3
 * Ruby 2.4
+* Ruby 2.5
 
 If something doesn't work on one of these Ruby versions, it's a bug.
 

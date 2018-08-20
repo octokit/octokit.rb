@@ -380,6 +380,39 @@ module Octokit
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
 
+      # List all topics for a repository
+      #
+      # Requires authenticated client for private repos.
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @return [Sawyer::Resource] representing the topics for given repo
+      # @see https://developer.github.com/v3/repos/#list-all-topics-for-a-repository
+      # @example List topics for octokit/octokit.rb
+      #   Octokit.topics('octokit/octokit.rb')
+      # @example List topics for octokit/octokit.rb
+      #   client.topics('octokit/octokit.rb')      
+      def topics(repo, options = {})
+        opts = ensure_api_media_type(:topics, options)
+        paginate "#{Repository.path repo}/topics", opts
+      end
+
+      # Replace all topics for a repository
+      #
+      # Requires authenticated client.
+      #
+      # @param repo [Integer, String, Repository, Hash] A Github repository
+      # @param names [Array] An array of topics to add to the repository.
+      # @return [Sawyer::Resource] representing the replaced topics for given repo
+      # @see https://developer.github.com/v3/repos/#replace-all-topics-for-a-repository
+      # @example Replace topics for octokit/octokit.rb
+      #   client.replace_all_topics('octokit/octokit.rb', ['octocat', 'atom', 'electron', 'API'])
+      # @example Clear all topics for octokit/octokit.rb
+      #   client.replace_all_topics('octokit/octokit.rb', [])
+      def replace_all_topics(repo, names, options = {})
+        opts = ensure_api_media_type(:topics, options)
+        put "#{Repository.path repo}/topics", opts.merge(:names => names)
+      end
+
       # List contributors to a repo
       #
       # Requires authenticated client for private repos.

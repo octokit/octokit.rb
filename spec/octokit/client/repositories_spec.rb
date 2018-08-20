@@ -14,7 +14,7 @@ describe Octokit::Client::Repositories do
     end
 
     it "returns the repository, including topics" do
-      repository = @client.repository("github/linguist", :accept => 'application/vnd.github.mercy-preview+json')
+      repository = @client.repository("github/linguist", :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
       expect(repository.topics).to be_kind_of Array
       expect(repository.topics).to include("syntax-highlighting")
     end
@@ -200,6 +200,26 @@ describe Octokit::Client::Repositories do
         end
       end
     end # .branch_protection
+
+    describe ".topics", :vcr do
+      it "returns repository topics" do
+        topics = Octokit.topics(@repo.full_name, :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
+        expect(topics.names).to include("octokit")
+        assert_requested :get, github_url("/repos/#{@repo.full_name}/topics")
+      end
+    end # .topics    
+
+    describe ".replace_all_topics", :vcr do
+      it "replaces all topics for a repository" do
+        new_topics = ["octocat", "github", "github-api"]
+        options = {
+          :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics)
+        }
+        topics = @client.replace_all_topics(@repo.full_name, new_topics, options)
+        expect(topics.names.sort).to eq(new_topics.sort)
+        assert_requested :put, github_url("/repos/#{@repo.full_name}/topics")
+      end
+    end # .replace_all_topics
   end # with repository
 
   describe ".repositories", :vcr do

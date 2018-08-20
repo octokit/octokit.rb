@@ -3,7 +3,7 @@ module Octokit
 
     # Methods for the Enterprise Search Indexing API
     #
-    # @see https://developer.github.com/v3/enterprise/search_indexing/
+    # @see https://developer.github.com/v3/enterprise-admin/search_indexing/
     module SearchIndexing
 
       # Queue a User or Organization to be indexed

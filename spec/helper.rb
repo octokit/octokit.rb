@@ -36,6 +36,12 @@ VCR.configure do |c|
   c.filter_sensitive_data("<GITHUB_COLLABORATOR_LOGIN>") do
     test_github_collaborator_login
   end
+  c.filter_sensitive_data("<GITHUB_TEAM_SLUG>") do
+    test_github_team_slug
+  end
+  c.filter_sensitive_data("<GITHUB_TEAM_ID>") do
+    test_github_team_id
+  end
   c.filter_sensitive_data("<GITHUB_PASSWORD>") do
     test_github_password
   end
@@ -133,6 +139,14 @@ end
 
 def test_github_collaborator_login
   ENV.fetch 'OCTOKIT_TEST_GITHUB_COLLABORATOR_LOGIN', 'hubot'
+end
+
+def test_github_team_slug
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_TEAM_SLUG', 'the-a-team'
+end
+
+def test_github_team_id
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_TEAM_ID', 123456
 end
 
 def test_github_password
