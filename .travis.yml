@@ -21,6 +21,9 @@ env:
     - OCTOKIT_TEST_GITHUB_CLIENT_SECRET='abcdefabcdefabcdefababcdefabcdefabcdefab'
     - OCTOKIT_SILENT=true
 
+before_install:
+  - gem update bundler
+
 before_script:
   - chmod 600 spec/fixtures/.netrc
 
