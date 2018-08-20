@@ -63,7 +63,7 @@ module Octokit
       # @return [<Sawyer::Resource>] An installation token
       def create_app_installation_access_token(installation, options = {})
         opts = ensure_api_media_type(:integrations, options)
-        post "installations/#{installation}/access_tokens", opts
+        post "app/installations/#{installation}/access_tokens", opts
       end
       alias create_installation_access_token create_app_installation_access_token
 
