@@ -524,7 +524,7 @@ module Octokit
       # @example Add a team with admin permissions
       #   @client.add_team_repository(100000, 'github/developer.github.com', permission: 'admin')
       def add_team_repository(team_id, repo, options = {})
-        boolean_from_response :put, "teams/#{team_id}/repos/#{Repository.new(repo)}", options.merge(:name => Repository.new(repo))
+        boolean_from_response :put, "teams/#{team_id}/repos/#{Repository.new(repo)}", options
       end
       alias :add_team_repo :add_team_repository
 
