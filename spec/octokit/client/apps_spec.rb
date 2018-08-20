@@ -131,7 +131,7 @@ describe Octokit::Client::Apps do
         expect(response.token).not_to be_nil
         expect(response.expires_at).not_to be_nil
 
-        assert_requested :post, github_url("/installations/#{installation}/access_tokens")
+        assert_requested :post, github_url("/app/installations/#{installation}/access_tokens")
         expect(@jwt_client).to have_received(:octokit_warn).with(/Deprecated/)
       end
     end # .create_integration_installation_access_token
@@ -144,7 +144,7 @@ describe Octokit::Client::Apps do
         expect(response.token).not_to be_nil
         expect(response.expires_at).not_to be_nil
 
-        assert_requested :post, github_url("/installations/#{installation}/access_tokens")
+        assert_requested :post, github_url("/app/installations/#{installation}/access_tokens")
       end
 
       it "works for GitHub Enterprise installs" do
@@ -152,7 +152,7 @@ describe Octokit::Client::Apps do
           bearer_token: new_jwt_token,
           api_endpoint: "https://ghe.local/api/v3"
 
-        path = "installations/1234/access_tokens"
+        path = "app/installations/1234/access_tokens"
         request = stub_post("https://ghe.local/api/v3/#{path}")
         response = client.create_app_installation_access_token(1234, accept: preview_header)
 
