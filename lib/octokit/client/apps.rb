@@ -87,7 +87,7 @@ module Octokit
       # @return [Sawyer::Resource] Installation information
       def find_organization_installation(organization, options = {})
         opts = ensure_api_media_type(:integrations, options)
-        get "orgs/#{organization}/installation", opts
+        get "#{Organization.path(organization)}/installation", opts
       end
 
       # Enables an app to find the repository's installation information.
@@ -100,7 +100,7 @@ module Octokit
       # @return [Sawyer::Resource] Installation information
       def find_repository_installation(repo, options = {})
         opts = ensure_api_media_type(:integrations, options)
-        get "repos/#{repo}/installation", opts
+        get "#{Repository.path(repo)}/installation", opts
       end
 
       # Enables an app to find the user's installation information.
@@ -113,7 +113,7 @@ module Octokit
       # @return [Sawyer::Resource] Installation information
       def find_user_installation(user, options = {})
         opts = ensure_api_media_type(:integrations, options)
-        get "users/#{user}/installation", opts
+        get "#{User.path(user)}/installation", opts
       end
 
       # List repositories that are accessible to the authenticated installation
