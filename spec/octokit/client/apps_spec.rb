@@ -87,7 +87,7 @@ describe Octokit::Client::Apps do
         bearer_token: new_jwt_token,
         api_endpoint: "https://ghe.local/api/v3"
 
-      request = stub_get("https://ghe.local/api/v3/orgs/1234/installation")
+      request = stub_get("https://ghe.local/api/v3/organizations/1234/installation")
       response = client.find_organization_installation(1234, accept: preview_header)
 
       assert_requested request
