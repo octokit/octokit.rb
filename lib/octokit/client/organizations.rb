@@ -231,7 +231,7 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see https://developer.github.com/v3/orgs/outside-collaborators/#list-outside-collaborators
+      # @see https://developer.github.com/v3/orgs/outside_collaborators/#list-outside-collaborators
       #
       # @example
       #   @client.outside_collaborators('github')
