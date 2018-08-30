@@ -77,6 +77,45 @@ module Octokit
         create_app_installation_access_token(installation, options)
       end
 
+      # Enables an app to find the organization's installation information.
+      #
+      # @param org [String] Organization GitHub login
+      # @param options [Hash] A customizable set of options
+      #
+      # @see https://developer.github.com/v3/apps/#find-organization-installation
+      #
+      # @return [Sawyer::Resource] Installation information
+      def find_organization_installation(organization, options = {})
+        opts = ensure_api_media_type(:integrations, options)
+        get "#{Organization.path(organization)}/installation", opts
+      end
+
+      # Enables an app to find the repository's installation information.
+      #
+      # @param repo [String] A GitHub repository
+      # @param options [Hash] A customizable set of options
+      #
+      # @see https://developer.github.com/v3/apps/#find-repository-installation
+      #
+      # @return [Sawyer::Resource] Installation information
+      def find_repository_installation(repo, options = {})
+        opts = ensure_api_media_type(:integrations, options)
+        get "#{Repository.path(repo)}/installation", opts
+      end
+
+      # Enables an app to find the user's installation information.
+      #
+      # @param user [String] GitHub user login
+      # @param options [Hash] A customizable set of options
+      #
+      # @see https://developer.github.com/v3/apps/#find-user-installation
+      #
+      # @return [Sawyer::Resource] Installation information
+      def find_user_installation(user, options = {})
+        opts = ensure_api_media_type(:integrations, options)
+        get "#{User.path(user)}/installation", opts
+      end
+
       # List repositories that are accessible to the authenticated installation
       #
       # @param options [Hash] A customizable set of options
