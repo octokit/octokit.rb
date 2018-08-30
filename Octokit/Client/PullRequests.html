@@ -635,13 +635,13 @@
       <pre class="lines">
 
 
-117
-118
 119
-120</pre>
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_close_pull_request'>close_pull_request</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span> <span class='symbol'>:state</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>closed</span><span class='tstring_end'>&#39;</span></span>
@@ -794,18 +794,18 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-50
-51
 52
 53
 54
 55
 56
 57
-58</pre>
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_pull_request'>create_pull_request</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_base'>base</span><span class='comma'>,</span> <span class='id identifier rubyid_head'>head</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pull'>pull</span> <span class='op'>=</span> <span class='lbrace'>{</span>
@@ -977,18 +977,18 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-204
-205
 206
 207
 208
 209
 210
 211
-212</pre>
+212
+213
+214</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 204</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 206</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_pull_request_comment'>create_pull_request_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_pull_id'>pull_id</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_commit_id'>commit_id</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_position'>position</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='lbrace'>{</span>
@@ -1129,16 +1129,16 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-226
-227
 228
 229
 230
 231
-232</pre>
+232
+233
+234</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 228</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_pull_request_comment_reply'>create_pull_request_comment_reply</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_pull_id'>pull_id</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_comment_id'>comment_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='lbrace'>{</span>
@@ -1268,17 +1268,17 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-71
-72
 73
 74
 75
 76
 77
-78</pre>
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_pull_request_for_issue'>create_pull_request_for_issue</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_base'>base</span><span class='comma'>,</span> <span class='id identifier rubyid_head'>head</span><span class='comma'>,</span> <span class='id identifier rubyid_issue'>issue</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pull'>pull</span> <span class='op'>=</span> <span class='lbrace'>{</span>
@@ -1388,12 +1388,12 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-260
-261
-262</pre>
+262
+263
+264</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 260</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 262</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_pull_request_comment'>delete_pull_request_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_comment_id'>comment_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span><span class='lparen'>(</span><span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_comment_id'>comment_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -1503,12 +1503,12 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-284
-285
-286</pre>
+286
+287
+288</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 284</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 286</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_merge_pull_request'>merge_pull_request</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_commit_message'>commit_message</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_put'>put</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/merge</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='symbol'>:commit_message</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_commit_message'>commit_message</span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -1605,12 +1605,12 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-294
-295
-296</pre>
+296
+297
+298</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 294</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 296</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pull_merged?'>pull_merged?</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:get</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/merge</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1641,7 +1641,15 @@ a merge to a base of another repo.</p>
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_pull_request'>pull_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rails/rails</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='int'>42</span><span class='comma'>,</span> <span class='symbol'>:state</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>closed</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>      </code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -1707,12 +1715,12 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-30
-31
-32</pre>
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pull_request'>pull_request</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1817,12 +1825,12 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-185
-186
-187</pre>
+187
+188
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 185</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 187</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pull_request_comment'>pull_request_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_comment_id'>comment_id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/comments/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_comment_id'>comment_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1919,13 +1927,13 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-170
-171
 172
-173</pre>
+173
+174
+175</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 172</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pull_request_comments'>pull_request_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='comment'># return the comments for a pull request
@@ -2023,12 +2031,12 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-128
-129
-130</pre>
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 130</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pull_request_commits'>pull_request_commits</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/commits</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2125,12 +2133,12 @@ a merge to a base of another repo.</p>
       <pre class="lines">
 
 
-272
-273
-274</pre>
+274
+275
+276</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 272</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 274</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pull_request_files'>pull_request_files</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/files</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -2322,8 +2330,8 @@ a merge to a base of another repo.</p>
 </div></p>
       
       <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_pull_requests_comments'>pull_requests_comments</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span>
-  <span class='symbol'>:sort</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>asc</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-  <span class='symbol'>:direction</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>down</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:sort</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>updated</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:direction</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>asc</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
   <span class='symbol'>:since</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>2010-05-04T23:45:02Z</span><span class='tstring_end'>&#39;</span></span>
 <span class='rbrace'>}</span><span class='rparen'>)</span></code></pre>
     
@@ -2445,12 +2453,12 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="lines">
 
 
-158
-159
-160</pre>
+160
+161
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 158</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 160</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pull_requests_comments'>pull_requests_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -2737,15 +2745,15 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="lines">
 
 
-102
-103
 104
 105
 106
-107</pre>
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_pull_request'>update_pull_request</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_arguments'>arguments</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'>Arguments</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
@@ -2868,13 +2876,13 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
       <pre class="lines">
 
 
-245
-246
 247
-248</pre>
+248
+249
+250</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 245</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/pull_requests.rb', line 247</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_pull_request_comment'>update_pull_request_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_comment_id'>comment_id</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span> <span class='symbol'>:body</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_body'>body</span>
@@ -2890,9 +2898,9 @@ format: YYYY-MM-DDTHH:MM:SSZ</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Jun 15 10:37:00 2017 by
+  Generated on Thu Aug 30 11:17:24 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.16 (ruby-2.5.1).
 </div>
 
     </div>

@@ -138,8 +138,10 @@ client that follows Ruby conventions and requires little knowledge of REST.
 Most methods have positional arguments for required input and an options hash
 for optional parameters, headers, or other options:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='comment'># Fetch a README with Accept header for HTML format
-</span><span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_readme'>readme</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>al3x/sovereign</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:accept</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/vnd.github.html</span><span class='tstring_end'>&#39;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span>
+
+<span class='comment'># Fetch a README with Accept header for HTML format
+</span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_readme'>readme</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>al3x/sovereign</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:accept</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/vnd.github.html</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
 <h2>Quick start</h2>
@@ -154,27 +156,36 @@ for optional parameters, headers, or other options:</p>
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~&gt; 4.0</span><span class='tstring_end'>&quot;</span></span>
 </code></pre>
 
-<h3>Making requests</h3>
+<p>Access the library in Ruby:</p>
 
-<p><a href="http://octokit.github.io/octokit.rb/method_list.html">API methods</a> are available as module methods (consuming module-level
-configuration) or as client instance methods.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='comment'># Provide Authentication credentials
-</span><span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="Octokit/Configurable.html#configure-instance_method" title="Octokit::Configurable#configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
-  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_login'>login</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span>
-  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_password'>password</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
-<span class='kw'>end</span>
-
-<span class='comment'># Fetch the current user
-</span><span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
-<p>or</p>
+<h3>Making requests</h3>
+
+<p><a href="http://octokit.github.io/octokit.rb/method_list.html">API methods</a> are available as client instance methods.</p>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># Provide Authentication credentials
 </span><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+
+<span class='comment'># Set access_token instead of login and password if you use personal access token
+</span><span class='comment'># client = Octokit::Client.new(:access_token =&gt; &#39;[personal_access_token]!&#39;)
+</span>
 <span class='comment'># Fetch the current user
 </span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span>
+</code></pre>
+
+<h3>Additional Query Parameters</h3>
+
+<p>When passing additional parameters to GET based request use the following syntax:</p>
+
+<pre class="code ruby"><code class="ruby"> <span class='comment'># query: { parameter_name: &#39;value&#39; }
+</span> <span class='comment'># Example: Get repository listing by owner in ascending order
+</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_repos'>repos</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>query:</span> <span class='lbrace'>{</span><span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>owner</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>sort:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>asc</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
+
+ <span class='comment'># Example: Get contents of a repository by ref
+</span> <span class='comment'># https://api.github.com/repos/octokit/octokit.rb/contents/path/to/file.rb?ref=some-other-branch
+</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_contents'>contents</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>path:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>path/to/file.rb</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>query:</span> <span class='lbrace'>{</span><span class='label'>ref:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>some-other-branch</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
 </code></pre>
 
 <h3>Consuming resources</h3>
@@ -182,8 +193,10 @@ configuration) or as client instance methods.</p>
 <p>Most methods return a <code>Resource</code> object which provides dot notation and <code>[]</code>
 access for fields returned in the API response.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='comment'># Fetch a user
-</span><span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>jbarnette</span><span class='tstring_end'>&#39;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span>
+
+<span class='comment'># Fetch a user
+</span><span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>jbarnette</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
 <span class='comment'># =&gt; &quot;John Barnette&quot;
 </span><span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_fields'>fields</span>
@@ -203,8 +216,8 @@ access for fields returned in the API response.</p>
 need access to the raw HTTP response headers. You can access the last HTTP
 response with <code>Client#last_response</code>:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_user'>user</span>      <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>andrewpthorp</span><span class='tstring_end'>&#39;</span></span>
-<span class='id identifier rubyid_response'>response</span>  <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_last_response'>last_response</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_user'>user</span>      <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>andrewpthorp</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_response'>response</span>  <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_last_response'>last_response</span>
 <span class='id identifier rubyid_etag'>etag</span>      <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='symbol'>:etag</span><span class='rbracket'>]</span>
 </code></pre>
 
@@ -218,9 +231,7 @@ API</a>:</p>
 <p>Using your GitHub username and password is the easiest way to get started
 making authenticated requests:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span> \
-  <span class='symbol'>:login</span>    <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-  <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 
 <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span>
 <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_login'>login</span>
@@ -256,9 +267,7 @@ access to your gists but not your private repositories.</li>
 <p>You can <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use">create access tokens through your GitHub Account Settings</a>
 or with a basic authenticated Octokit client:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span> \
-  <span class='symbol'>:login</span>    <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-  <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c0d3b4ssssss!</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 
 <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_authorization'>create_authorization</span><span class='lparen'>(</span><span class='symbol'>:scopes</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='symbol'>:note</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Name of token</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='comment'># =&gt; &lt;your new oauth token&gt;
@@ -330,6 +339,13 @@ the higher rate limit.</p>
 <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>defunkt</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
+<h2>Default results per_page</h2>
+
+<p>Default results from the GitHub API are 30, if you wish to add more you must do so during Octokit configuration.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>access_token:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>per_page:</span> <span class='int'>100</span><span class='rparen'>)</span>
+</code></pre>
+
 <h2>Pagination</h2>
 
 <p>Many GitHub API resources are <a href="http://developer.github.com/v3/#Pagination">paginated</a>. While you may be tempted to start
@@ -337,8 +353,8 @@ adding <code>:page</code> parameters to your calls, the API returns links to the
 previous, and last pages for you in the <code>Link</code> response header as <a href="#Hypermedia_agent">Hypermedia
 link relations</a>.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_issues'>issues</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_issues'>issues</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rails/rails</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:per_page</span> <span class='op'>=&gt;</span> <span class='int'>100</span>
-<span class='id identifier rubyid_issues'>issues</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:next</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_issues'>issues</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_issues'>issues</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rails/rails</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_issues'>issues</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:next</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
 </code></pre>
 
 <h3>Auto Pagination</h3>
@@ -347,12 +363,19 @@ link relations</a>.</p>
 enabled, calls for paginated resources will fetch and concatenate the results
 from every page into a single array:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_auto_paginate'><span class='object_link'><a href="Octokit/Configurable.html#auto_paginate-instance_method" title="Octokit::Configurable#auto_paginate (method)">auto_paginate</a></span></span> <span class='op'>=</span> <span class='kw'>true</span>
-<span class='id identifier rubyid_issues'>issues</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_issues'>issues</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rails/rails</span><span class='tstring_end'>&#39;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_auto_paginate'>auto_paginate</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='id identifier rubyid_issues'>issues</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_issues'>issues</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>rails/rails</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_issues'>issues</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
 
 <span class='comment'># =&gt; 702
 </span></code></pre>
+
+<p>You can also enable auto Pagination for all Octokit client instances:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="Octokit/Configurable.html#configure-instance_method" title="Octokit::Configurable#configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_auto_paginate'>auto_paginate</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='kw'>end</span>
+</code></pre>
 
 <p><strong>Note:</strong> While Octokit auto Pagination will set the page size to the maximum
 <code>100</code>, and seek to not overstep your rate limit, you probably want to use a
@@ -369,6 +392,7 @@ custom pattern for traversing large lists.</p>
 <pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="Octokit/Configurable.html#configure-instance_method" title="Octokit::Configurable#configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
   <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://&lt;hostname&gt;/api/v3/</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span>
+
 <span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='symbol'>:access_token</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
 
@@ -376,31 +400,36 @@ custom pattern for traversing large lists.</p>
 
 <p>The GitHub Enterprise Admin APIs are under a different client: <code>EnterpriseAdminClient</code>. You&#39;ll need to have an administrator account in order to use these APIs.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_admin_client'>admin_client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/EnterpriseAdminClient.html" title="Octokit::EnterpriseAdminClient (class)">EnterpriseAdminClient</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/EnterpriseAdminClient.html#initialize-instance_method" title="Octokit::EnterpriseAdminClient#initialize (method)">new</a></span></span> \
-                          <span class='symbol'>:access_token</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-                          <span class='symbol'>:api_endpoint</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://&lt;hostname&gt;/api/v3/</span><span class='tstring_end'>&quot;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_admin_client'>admin_client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/EnterpriseAdminClient.html" title="Octokit::EnterpriseAdminClient (class)">EnterpriseAdminClient</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/EnterpriseAdminClient.html#initialize-instance_method" title="Octokit::EnterpriseAdminClient#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+  <span class='symbol'>:access_token</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:api_endpoint</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://&lt;hostname&gt;/api/v3/</span><span class='tstring_end'>&quot;</span></span>
+<span class='rparen'>)</span>
 
 <span class='comment'># or
 </span><span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="Octokit/Configurable.html#configure-instance_method" title="Octokit::Configurable#configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
   <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://&lt;hostname&gt;/api/v3/</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_access_token'>access_token</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;your 40 char token&gt;</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span>
-<span class='id identifier rubyid_admin_client'>admin_client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_enterprise_admin_client'><span class='object_link'><a href="Octokit.html#enterprise_admin_client-class_method" title="Octokit.enterprise_admin_client (method)">enterprise_admin_client</a></span></span>
+
+<span class='id identifier rubyid_admin_client'>admin_client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_enterprise_admin_client'><span class='object_link'><a href="Octokit.html#enterprise_admin_client-class_method" title="Octokit.enterprise_admin_client (method)">enterprise_admin_client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 </code></pre>
 
 <h3>Interacting with the GitHub Enterprise Management Console APIs</h3>
 
 <p>The GitHub Enterprise Management Console APIs are also under a separate client: <code>EnterpriseManagementConsoleClient</code>. In order to use it, you&#39;ll need to provide both your management console password as well as the endpoint to your management console. This is different than the API endpoint provided above.</p>
 
-<pre class="code ruby"><code class="ruby">management_console_client = Octokit::EnterpriseManagementConsoleClient.new \
-                          :management_console_password =&gt; &quot;secret&quot;,
-                          :management_console_endpoint = &quot;https://hostname:8633&quot;
+<pre class="code ruby"><code class="ruby">management_console_client = Octokit::EnterpriseManagementConsoleClient.new(
+  :management_console_password =&gt; &quot;secret&quot;,
+  :management_console_endpoint = &quot;https://hostname:8633&quot;
+)
+
 # or
 Octokit.configure do |c|
   c.management_console_endpoint = &quot;https://hostname:8633&quot;
   c.management_console_password = &quot;secret&quot;
 end
-management_console_client = Octokit.enterprise_management_console_client
+
+management_console_client = Octokit.enterprise_management_console_client.new
 </code></pre>
 
 <h3>SSL Connection Errors</h3>
@@ -444,7 +473,7 @@ attributes will look for a default value from the ENV before returning
 Octokit&#39;s default.</p>
 
 <pre class="code ruby"><code class="ruby"><span class='comment'># Given $OCTOKIT_API_ENDPOINT is &quot;http://api.github.dev&quot;
-</span><span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'><span class='object_link'><a href="Octokit/Configurable.html#api_endpoint-instance_method" title="Octokit::Configurable#api_endpoint (method)">api_endpoint</a></span></span>
+</span><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_api_endpoint'>api_endpoint</span>
 
 <span class='comment'># =&gt; &quot;http://api.github.dev&quot;
 </span></code></pre>
@@ -463,7 +492,7 @@ printed to STDOUT by default, these can be disabled by setting the ENV
 <p>Resources returned by Octokit methods contain not only data but hypermedia
 link relations:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>technoweenie</span><span class='tstring_end'>&#39;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>technoweenie</span><span class='tstring_end'>&#39;</span></span>
 
 <span class='comment'># Get the repos rel, returned from the API
 </span><span class='comment'># as repos_url in the resource
@@ -483,7 +512,7 @@ relations collection. Any <code>url</code> attribute becomes <code>.rels[:self]<
 <p>You might notice many link relations have variable placeholders. Octokit
 supports <a href="http://tools.ietf.org/html/rfc6570">URI Templates</a> for parameterized URI expansion:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_repo'>repo</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_repo'>repo</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pengwynn/pingwynn</span><span class='tstring_end'>&#39;</span></span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_repo'>repo</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_repo'>repo</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pengwynn/pingwynn</span><span class='tstring_end'>&#39;</span></span>
 <span class='id identifier rubyid_rel'>rel</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:issues</span><span class='rbracket'>]</span>
 <span class='comment'># =&gt; #&lt;Sawyer::Relation: issues: get https://api.github.com/repos/pengwynn/pingwynn/issues{/number}&gt;
 </span>
@@ -499,7 +528,7 @@ supports <a href="http://tools.ietf.org/html/rfc6570">URI Templates</a> for para
 <p>If you want to use Octokit as a pure hypermedia API client, you can start at
 the API root and follow link relations from there:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_root'>root</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_root'>root</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_root'>root</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_root'>root</span>
 <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:repository</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='symbol'>:uri</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='symbol'>:owner</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:repo</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit.rb</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
 <span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:user_repositories</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='symbol'>:uri</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='symbol'>:user</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octokit</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
                                   <span class='symbol'>:query</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='symbol'>:type</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>owner</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
@@ -532,7 +561,7 @@ for the client:</p>
 
 <p>or per-request</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_emails'>emails</span><span class='lparen'>(</span><span class='symbol'>:accept</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.beta+json</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_emails'>emails</span><span class='lparen'>(</span><span class='symbol'>:accept</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/vnd.github.beta+json</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
 
 <p>The long-deprecated <code>Octokit::Client#create_download</code> method has been removed.</p>
@@ -569,12 +598,17 @@ logger to the middleware that enables you to peek into the underlying HTTP
 traffic:</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stack'>stack</span> <span class='op'>=</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>RackBuilder</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_builder'>builder</span><span class='op'>|</span>
-  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_response'>response</span> <span class='symbol'>:logger</span>
+  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'>Faraday</span><span class='op'>::</span><span class='const'>Request</span><span class='op'>::</span><span class='const'>Retry</span><span class='comma'>,</span> <span class='label'>exceptions:</span> <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/ServerError.html" title="Octokit::ServerError (class)">ServerError</a></span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Middleware.html" title="Octokit::Middleware (module)">Middleware</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Middleware/FollowRedirects.html" title="Octokit::Middleware::FollowRedirects (class)">FollowRedirects</a></span></span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'>Response</span><span class='op'>::</span><span class='const'>RaiseError</span>
+  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'>Response</span><span class='op'>::</span><span class='const'>FeedParser</span>
+  <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_response'>response</span> <span class='symbol'>:logger</span>
   <span class='id identifier rubyid_builder'>builder</span><span class='period'>.</span><span class='id identifier rubyid_adapter'>adapter</span> <span class='const'>Faraday</span><span class='period'>.</span><span class='id identifier rubyid_default_adapter'>default_adapter</span>
 <span class='kw'>end</span>
 <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_middleware'><span class='object_link'><a href="Octokit/Configurable.html#middleware-instance_method" title="Octokit::Configurable#middleware (method)">middleware</a></span></span> <span class='op'>=</span> <span class='id identifier rubyid_stack'>stack</span>
-<span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pengwynn</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Octokit.html" title="Octokit (module)">Octokit</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Octokit/Client.html" title="Octokit::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Octokit/Client.html#initialize-instance_method" title="Octokit::Client#initialize (method)">new</a></span></span>
+<span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>pengwynn</span><span class='tstring_end'>&#39;</span></span>
 </code></pre>
 
 <pre class="code ruby"><code class="ruby">I, [2013-08-22T15:54:38.583300 #88227]  INFO -- : get https://api.github.com/users/pengwynn
@@ -747,6 +781,8 @@ implementations:</p>
 <li>Ruby 2.1</li>
 <li>Ruby 2.2</li>
 <li>Ruby 2.3</li>
+<li>Ruby 2.4</li>
+<li>Ruby 2.5</li>
 </ul>
 
 <p>If something doesn&#39;t work on one of these Ruby versions, it&#39;s a bug.</p>
@@ -803,9 +839,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Jun 15 10:36:53 2017 by
+  Generated on Thu Aug 30 11:17:17 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.16 (ruby-2.5.1).
 </div>
 
     </div>

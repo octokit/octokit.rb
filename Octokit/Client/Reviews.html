@@ -101,7 +101,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><a href="https://developer.github.com/v3/reviews/" target="_parent" title="https://developer.github.com/v3/reviews/">https://developer.github.com/v3/reviews/</a></li>
+      <li><a href="https://developer.github.com/v3/pulls/reviews/" target="_parent" title="https://developer.github.com/v3/pulls/reviews/">https://developer.github.com/v3/pulls/reviews/</a></li>
     
   </ul>
 
@@ -123,7 +123,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_pull_request_review-instance_method" title="#create_pull_request_review (instance method)">#<strong>create_pull_request_review</strong>(repo, id, options = {})  &#x21d2; Sawyer::Resource </a>
+      <a href="#create_pull_request_review-instance_method" title="#create_pull_request_review (instance method)">#<strong>create_pull_request_review</strong>(repo, number, options = {})  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -161,6 +161,29 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Delete a pending review.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_pull_request_review_request-instance_method" title="#delete_pull_request_review_request (instance method)">#<strong>delete_pull_request_review_request</strong>(repo, id, reviewers = {}, options = {})  &#x21d2; Sawyer::Resource </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Delete a review request.</p>
 </div></span>
   
 </li>
@@ -238,7 +261,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#pull_request_review_requests-instance_method" title="#pull_request_review_requests (instance method)">#<strong>pull_request_review_requests</strong>(repo, id, options = {})  &#x21d2; Array&lt;Sawyer::Resource&gt; </a>
+      <a href="#pull_request_review_requests-instance_method" title="#pull_request_review_requests (instance method)">#<strong>pull_request_review_requests</strong>(repo, number, options = {})  &#x21d2; Array&lt;Sawyer::Resource&gt; </a>
     
 
     
@@ -261,7 +284,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#pull_request_reviews-instance_method" title="#pull_request_reviews (instance method)">#<strong>pull_request_reviews</strong>(repo, id, options = {})  &#x21d2; Array&lt;Sawyer::Resource&gt; </a>
+      <a href="#pull_request_reviews-instance_method" title="#pull_request_reviews (instance method)">#<strong>pull_request_reviews</strong>(repo, number, options = {})  &#x21d2; Array&lt;Sawyer::Resource&gt; </a>
     
 
     
@@ -284,7 +307,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#request_pull_request_review-instance_method" title="#request_pull_request_review (instance method)">#<strong>request_pull_request_review</strong>(repo, id, reviewers, options = {})  &#x21d2; Sawyer::Resource </a>
+      <a href="#request_pull_request_review-instance_method" title="#request_pull_request_review (instance method)">#<strong>request_pull_request_review</strong>(repo, number, reviewers = {}, options = {})  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -339,7 +362,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="create_pull_request_review-instance_method">
   
-    #<strong>create_pull_request_review</strong>(repo, id, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
+    #<strong>create_pull_request_review</strong>(repo, number, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
   
 
   
@@ -386,7 +409,7 @@
   
     <li>
       
-        <span class='name'>id</span>
+        <span class='name'>number</span>
       
       
         <span class='type'>(<tt>Integer</tt>)</span>
@@ -394,7 +417,7 @@
       
       
         &mdash;
-        <div class='inline'><p>The id of the pull request</p>
+        <div class='inline'><p>Number ID of the pull request</p>
 </div>
       
     </li>
@@ -515,17 +538,15 @@ If left blank, the review is left PENDING.</p>
       <pre class="lines">
 
 
-96
-97
-98
-99</pre>
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 92</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_create_pull_request_review'>create_pull_request_review</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:reviews</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/reviews</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_create_pull_request_review'>create_pull_request_review</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/reviews</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -585,7 +606,7 @@ If left blank, the review is left PENDING.</p>
       
       
         &mdash;
-        <div class='inline'><p>The id of the pull request</p>
+        <div class='inline'><p>Number ID of the pull request</p>
 </div>
       
     </li>
@@ -638,17 +659,181 @@ If left blank, the review is left PENDING.</p>
       <pre class="lines">
 
 
-51
-52
-53
-54</pre>
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_pull_request_review'>delete_pull_request_review</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_review'>review</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:reviews</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_delete'>delete</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/reviews/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_review'>review</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_pull_request_review_request-instance_method">
+  
+    #<strong>delete_pull_request_review_request</strong>(repo, id, reviewers = {}, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Delete a review request</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>reviewers</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>octocat</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hubot</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>other_user</span><span class='tstring_end'>&quot;</span></span> <span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>team_reviewers</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>justice-league</span><span class='tstring_end'>&quot;</span></span> <span class='rbracket'>]</span>
+<span class='rbrace'>}</span>
+<span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_delete_pull_request_review_request'>delete_pull_request_review_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='int'>2</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>repo</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>String</tt>, <tt>Hash</tt>, <tt><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A GitHub repository</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The id of the pull request</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>reviewers</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>:reviewers [Array] An array of user logins</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>:team_reviewers [Array] An array of team slugs</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>] Hash representing the pull request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/pulls/review_requests/#delete-a-review-request" target="_parent" title="https://developer.github.com/v3/pulls/review_requests/#delete-a-review-request">https://developer.github.com/v3/pulls/review_requests/#delete-a-review-request</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 193</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_pull_request_review_request'>delete_pull_request_review_request</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_reviewers'>reviewers</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='comment'># TODO(5.0): remove deprecated behavior
+</span>  <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_reviewers'>reviewers</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_octokit_warn'>octokit_warn</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Deprecated: Octokit::Client#delete_pull_request_review_request </span><span class='tstring_end'>&quot;</span></span>\
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>no longer takes a separate :reviewers argument.\n</span><span class='tstring_end'>&quot;</span></span> \
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Please update your call to pass :reviewers and :team_reviewers as part of the options hash.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='comment'># For backwards compatibility, this endpoint can be called with a separate reviewers hash.
+</span>  <span class='comment'># If not called with a separate hash, then &#39;reviewers&#39; is, in fact, &#39;options&#39;.
+</span>  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_reviewers'>reviewers</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_delete'>delete</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/requested_reviewers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -677,7 +862,7 @@ If left blank, the review is left PENDING.</p>
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_dismiss_pull_request_review'>dismiss_pull_request_review</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='int'>825</span><span class='comma'>,</span> <span class='int'>6505518</span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_dismiss_pull_request_review'>dismiss_pull_request_review</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='int'>825</span><span class='comma'>,</span> <span class='int'>6505518</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>The message.</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -708,7 +893,7 @@ If left blank, the review is left PENDING.</p>
       
       
         &mdash;
-        <div class='inline'><p>The id of the pull request</p>
+        <div class='inline'><p>Number ID of the pull request</p>
 </div>
       
     </li>
@@ -776,18 +961,16 @@ If left blank, the review is left PENDING.</p>
       <pre class="lines">
 
 
-135
-136
-137
-138
-139</pre>
+129
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 129</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dismiss_pull_request_review'>dismiss_pull_request_review</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_review'>review</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>message:</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:reviews</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_put'>put</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/reviews/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_review'>review</span><span class='embexpr_end'>}</span><span class='tstring_content'>/dismissals</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -848,7 +1031,7 @@ If left blank, the review is left PENDING.</p>
       
       
         &mdash;
-        <div class='inline'><p>The id of the pull request</p>
+        <div class='inline'><p>Number ID of the pull request</p>
 </div>
       
     </li>
@@ -901,16 +1084,14 @@ If left blank, the review is left PENDING.</p>
       <pre class="lines">
 
 
+34
 35
-36
-37
-38</pre>
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pull_request_review'>pull_request_review</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_review'>review</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:reviews</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/reviews/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_review'>review</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -971,7 +1152,7 @@ If left blank, the review is left PENDING.</p>
       
       
         &mdash;
-        <div class='inline'><p>The id of the pull request</p>
+        <div class='inline'><p>Number ID of the pull request</p>
 </div>
       
     </li>
@@ -1024,16 +1205,14 @@ If left blank, the review is left PENDING.</p>
       <pre class="lines">
 
 
-67
-68
-69
-70</pre>
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pull_request_review_comments'>pull_request_review_comments</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_review'>review</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:reviews</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/reviews/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_review'>review</span><span class='embexpr_end'>}</span><span class='tstring_content'>/comments</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1044,7 +1223,7 @@ If left blank, the review is left PENDING.</p>
       <div class="method_details ">
   <h3 class="signature " id="pull_request_review_requests-instance_method">
   
-    #<strong>pull_request_review_requests</strong>(repo, id, options = {})  &#x21d2; <tt>Array&lt;Sawyer::Resource&gt;</tt> 
+    #<strong>pull_request_review_requests</strong>(repo, number, options = {})  &#x21d2; <tt>Array&lt;Sawyer::Resource&gt;</tt> 
   
 
   
@@ -1086,7 +1265,7 @@ If left blank, the review is left PENDING.</p>
   
     <li>
       
-        <span class='name'>id</span>
+        <span class='name'>number</span>
       
       
         <span class='type'>(<tt>Integer</tt>)</span>
@@ -1094,7 +1273,7 @@ If left blank, the review is left PENDING.</p>
       
       
         &mdash;
-        <div class='inline'><p>The id of the pull request</p>
+        <div class='inline'><p>Number ID of the pull request</p>
 </div>
       
     </li>
@@ -1132,17 +1311,15 @@ If left blank, the review is left PENDING.</p>
       <pre class="lines">
 
 
-151
-152
-153
-154</pre>
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 144</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_pull_request_review_requests'>pull_request_review_requests</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:reviews</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/requested_reviewers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_pull_request_review_requests'>pull_request_review_requests</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/requested_reviewers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1152,7 +1329,7 @@ If left blank, the review is left PENDING.</p>
       <div class="method_details ">
   <h3 class="signature " id="pull_request_reviews-instance_method">
   
-    #<strong>pull_request_reviews</strong>(repo, id, options = {})  &#x21d2; <tt>Array&lt;Sawyer::Resource&gt;</tt> 
+    #<strong>pull_request_reviews</strong>(repo, number, options = {})  &#x21d2; <tt>Array&lt;Sawyer::Resource&gt;</tt> 
   
 
   
@@ -1194,7 +1371,7 @@ If left blank, the review is left PENDING.</p>
   
     <li>
       
-        <span class='name'>id</span>
+        <span class='name'>number</span>
       
       
         <span class='type'>(<tt>Integer</tt>)</span>
@@ -1202,7 +1379,7 @@ If left blank, the review is left PENDING.</p>
       
       
         &mdash;
-        <div class='inline'><p>The id of the pull request</p>
+        <div class='inline'><p>Number ID of the pull request</p>
 </div>
       
     </li>
@@ -1242,15 +1419,13 @@ If left blank, the review is left PENDING.</p>
 
 19
 20
-21
-22</pre>
+21</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 19</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_pull_request_reviews'>pull_request_reviews</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:reviews</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/reviews</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_pull_request_reviews'>pull_request_reviews</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/reviews</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1260,7 +1435,7 @@ If left blank, the review is left PENDING.</p>
       <div class="method_details ">
   <h3 class="signature " id="request_pull_request_review-instance_method">
   
-    #<strong>request_pull_request_review</strong>(repo, id, reviewers, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
+    #<strong>request_pull_request_review</strong>(repo, number, reviewers = {}, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
   
 
   
@@ -1279,7 +1454,7 @@ If left blank, the review is left PENDING.</p>
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_request_pull_request_review'>request_pull_request_review</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='int'>2</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>soudy</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span></code></pre>
+      <pre class="example code"><code><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_request_pull_request_review'>request_pull_request_review</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>octokit/octokit.rb</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='int'>2</span><span class='comma'>,</span> <span class='label'>reviewers:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>soudy</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1302,7 +1477,7 @@ If left blank, the review is left PENDING.</p>
   
     <li>
       
-        <span class='name'>id</span>
+        <span class='name'>number</span>
       
       
         <span class='type'>(<tt>Integer</tt>)</span>
@@ -1310,7 +1485,7 @@ If left blank, the review is left PENDING.</p>
       
       
         &mdash;
-        <div class='inline'><p>The id of the pull request</p>
+        <div class='inline'><p>Number ID of the pull request</p>
 </div>
       
     </li>
@@ -1320,12 +1495,31 @@ If left blank, the review is left PENDING.</p>
         <span class='name'>reviewers</span>
       
       
-        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+        <span class='type'>(<tt>Hash</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
       
       
         &mdash;
-        <div class='inline'><p>An array of user logins that will be requested</p>
+        <div class='inline'><p>:reviewers [Array<String>] An array of user logins</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>:team_reviewers [Array<String>] An array of team slugs</p>
 </div>
       
     </li>
@@ -1363,19 +1557,39 @@ If left blank, the review is left PENDING.</p>
       <pre class="lines">
 
 
+160
+161
+162
+163
+164
+165
+166
 167
 168
 169
 170
-171</pre>
+171
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 167</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 160</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_request_pull_request_review'>request_pull_request_review</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_reviewers'>reviewers</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>reviewers:</span> <span class='id identifier rubyid_reviewers'>reviewers</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:reviews</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/requested_reviewers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_request_pull_request_review'>request_pull_request_review</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_reviewers'>reviewers</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='comment'># TODO(5.0): remove deprecated behavior
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_reviewers'>reviewers</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_octokit_warn'>octokit_warn</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Deprecated: Octokit::Client#request_pull_request_review </span><span class='tstring_end'>&quot;</span></span>\
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>no longer takes a separate :reviewers argument.\n</span><span class='tstring_end'>&quot;</span></span> \
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Please update your call to pass :reviewers and :team_reviewers as part of the options hash.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span>
+    <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>reviewers:</span> <span class='id identifier rubyid_reviewers'>reviewers</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_reviewers'>reviewers</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/requested_reviewers</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1436,7 +1650,7 @@ If left blank, the review is left PENDING.</p>
       
       
         &mdash;
-        <div class='inline'><p>The id of the pull request</p>
+        <div class='inline'><p>Number ID of the pull request</p>
 </div>
       
     </li>
@@ -1551,18 +1765,16 @@ APPROVE, REQUEST_CHANGES, or COMMENT.</p>
       <pre class="lines">
 
 
-117
-118
-119
-120
-121</pre>
+112
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/reviews.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_submit_pull_request_review'>submit_pull_request_review</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_number'>number</span><span class='comma'>,</span> <span class='id identifier rubyid_review'>review</span><span class='comma'>,</span> <span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>event:</span> <span class='id identifier rubyid_event'>event</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:reviews</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pulls/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_number'>number</span><span class='embexpr_end'>}</span><span class='tstring_content'>/reviews/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_review'>review</span><span class='embexpr_end'>}</span><span class='tstring_content'>/events</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1575,9 +1787,9 @@ APPROVE, REQUEST_CHANGES, or COMMENT.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Jun 15 10:36:56 2017 by
+  Generated on Thu Aug 30 11:17:21 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.16 (ruby-2.5.1).
 </div>
 
     </div>

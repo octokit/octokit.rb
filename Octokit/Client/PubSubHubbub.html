@@ -351,11 +351,11 @@ client.subscribe(&quot;https://github.com/joshk/devise_imapable/events/push&quot
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subscribe'>subscribe</span><span class='lparen'>(</span><span class='id identifier rubyid_topic'>topic</span><span class='comma'>,</span> <span class='id identifier rubyid_callback'>callback</span><span class='comma'>,</span> <span class='id identifier rubyid_secret'>secret</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
-    <span class='symbol'>:hub.callback</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_callback'>callback</span><span class='comma'>,</span>
-    <span class='symbol'>:hub.mode</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>subscribe</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-    <span class='symbol'>:hub.topic</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_topic'>topic</span>
+    <span class='symbol'>:&quot;hub.callback&quot;</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_callback'>callback</span><span class='comma'>,</span>
+    <span class='symbol'>:&quot;hub.mode&quot;</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>subscribe</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='symbol'>:&quot;hub.topic&quot;</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_topic'>topic</span>
   <span class='rbrace'>}</span>
-  <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='symbol'>:hub.secret</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_secret'>secret</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_secret'>secret</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='symbol'>:&quot;hub.secret&quot;</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_secret'>secret</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_secret'>secret</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_pub_sub_hubbub_request'>pub_sub_hubbub_request</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 
@@ -627,9 +627,9 @@ client.unsubscribe(&quot;https://github.com/joshk/devise_imapable/events/push&qu
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unsubscribe'>unsubscribe</span><span class='lparen'>(</span><span class='id identifier rubyid_topic'>topic</span><span class='comma'>,</span> <span class='id identifier rubyid_callback'>callback</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
-    <span class='symbol'>:hub.callback</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_callback'>callback</span><span class='comma'>,</span>
-    <span class='symbol'>:hub.mode</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unsubscribe</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-    <span class='symbol'>:hub.topic</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_topic'>topic</span>
+    <span class='symbol'>:&quot;hub.callback&quot;</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_callback'>callback</span><span class='comma'>,</span>
+    <span class='symbol'>:&quot;hub.mode&quot;</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unsubscribe</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='symbol'>:&quot;hub.topic&quot;</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_topic'>topic</span>
   <span class='rbrace'>}</span>
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_pub_sub_hubbub_request'>pub_sub_hubbub_request</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 
@@ -743,9 +743,9 @@ List of services is available @ <a href="https://github.com/github/github-servic
 </div>
 
       <div id="footer">
-  Generated on Thu Jun 15 10:37:01 2017 by
+  Generated on Thu Aug 30 11:17:24 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.16 (ruby-2.5.1).
 </div>
 
     </div>

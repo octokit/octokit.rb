@@ -235,6 +235,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#find_installation_repositories_for_user-instance_method" title="#find_installation_repositories_for_user (instance method)">#<strong>find_installation_repositories_for_user</strong>(installation, options = {})  &#x21d2; Sawyer::Resource </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>List repositories accessible to the user for an installation.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#find_integration_installations-instance_method" title="#find_integration_installations (instance method)">#<strong>find_integration_installations</strong>(options = {})  &#x21d2; Object </a>
     
 
@@ -250,6 +273,98 @@
 
   
     <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find_organization_installation-instance_method" title="#find_organization_installation (instance method)">#<strong>find_organization_installation</strong>(organization, options = {})  &#x21d2; Sawyer::Resource </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Enables an app to find the organization&#39;s installation information.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find_repository_installation-instance_method" title="#find_repository_installation (instance method)">#<strong>find_repository_installation</strong>(repo, options = {})  &#x21d2; Sawyer::Resource </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Enables an app to find the repository&#39;s installation information.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find_user_installation-instance_method" title="#find_user_installation (instance method)">#<strong>find_user_installation</strong>(user, options = {})  &#x21d2; Sawyer::Resource </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Enables an app to find the user&#39;s installation information.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find_user_installations-instance_method" title="#find_user_installations (instance method)">#<strong>find_user_installations</strong>(options = {})  &#x21d2; Sawyer::Resource </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Find all installations that are accessible to the authenticated user.</p>
+</div></span>
   
 </li>
 
@@ -280,7 +395,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_app_installation_repositories-instance_method" title="#list_app_installation_repositories (instance method)">#<strong>list_app_installation_repositories</strong>(options = {})  &#x21d2; Array&lt;Sawyer::Resource&gt; </a>
+      <a href="#list_app_installation_repositories-instance_method" title="#list_app_installation_repositories (instance method)">#<strong>list_app_installation_repositories</strong>(options = {})  &#x21d2; Sawyer::Resource </a>
     
 
     
@@ -414,7 +529,7 @@
       
       
         &mdash;
-        <div class='inline'><p>The id of a a GitHub App Installation</p>
+        <div class='inline'><p>The id of a GitHub App Installation</p>
 </div>
       
     </li>
@@ -446,7 +561,7 @@
       
       
         &mdash;
-        <div class='inline'><p>An customizable set of options</p>
+        <div class='inline'><p>A customizable set of options</p>
 </div>
       
     </li>
@@ -484,17 +599,17 @@
       <pre class="lines">
 
 
-97
-98
-99
-100</pre>
+152
+153
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_repository_to_app_installation'>add_repository_to_app_installation</span><span class='lparen'>(</span><span class='id identifier rubyid_installation'>installation</span><span class='comma'>,</span> <span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:integrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/installations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_installation'>installation</span><span class='embexpr_end'>}</span><span class='tstring_content'>/repositories/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user/installations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_installation'>installation</span><span class='embexpr_end'>}</span><span class='tstring_content'>/repositories/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -516,18 +631,18 @@
       <pre class="lines">
 
 
-103
-104
-105
-106
-107
-108
-109
-110
-111</pre>
+158
+159
+160
+161
+162
+163
+164
+165
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 158</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_repository_to_integration_installation'>add_repository_to_integration_installation</span><span class='lparen'>(</span><span class='id identifier rubyid_installation'>installation</span><span class='comma'>,</span> <span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_octokit_warn'>octokit_warn</span><span class='lparen'>(</span>
@@ -577,7 +692,7 @@
       
       
         &mdash;
-        <div class='inline'><p>The id of a a GitHub App Installation</p>
+        <div class='inline'><p>The id of a GitHub App Installation</p>
 </div>
       
     </li>
@@ -594,7 +709,7 @@
       
       
         &mdash;
-        <div class='inline'><p>An customizable set of options</p>
+        <div class='inline'><p>A customizable set of options</p>
 </div>
       
     </li>
@@ -632,17 +747,17 @@
       <pre class="lines">
 
 
-50
-51
-52
-53</pre>
+64
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_app_installation_access_token'>create_app_installation_access_token</span><span class='lparen'>(</span><span class='id identifier rubyid_installation'>installation</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:integrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/installations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_installation'>installation</span><span class='embexpr_end'>}</span><span class='tstring_content'>/access_tokens</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>app/installations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_installation'>installation</span><span class='embexpr_end'>}</span><span class='tstring_content'>/access_tokens</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -664,18 +779,18 @@
       <pre class="lines">
 
 
-56
-57
-58
-59
-60
-61
-62
-63
-64</pre>
+70
+71
+72
+73
+74
+75
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_integration_installation_access_token'>create_integration_installation_access_token</span><span class='lparen'>(</span><span class='id identifier rubyid_installation'>installation</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_octokit_warn'>octokit_warn</span><span class='lparen'>(</span>
@@ -727,7 +842,7 @@
       
       
         &mdash;
-        <div class='inline'><p>An customizable set of options</p>
+        <div class='inline'><p>A customizable set of options</p>
 </div>
       
     </li>
@@ -745,7 +860,7 @@
       
       
         &mdash;
-        <div class='inline'><p>A list of installations</p>
+        <div class='inline'><p>the total_count and an array of installations</p>
 </div>
       
     </li>
@@ -775,7 +890,113 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_app_installations'>find_app_installations</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:integrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/app/installations</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>app/installations</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="find_installation_repositories_for_user-instance_method">
+  
+    #<strong>find_installation_repositories_for_user</strong>(installation, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>List repositories accessible to the user for an installation</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>installation</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The id of a GitHub App Installation</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>A customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the total_count and an array of repositories</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps/" target="_parent" title="https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps/">https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps/</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+201
+202
+203
+204
+205
+206</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 201</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find_installation_repositories_for_user'>find_installation_repositories_for_user</span><span class='lparen'>(</span><span class='id identifier rubyid_installation'>installation</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:integrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_paginate'>paginate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user/installations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_installation'>installation</span><span class='embexpr_end'>}</span><span class='tstring_content'>/repositories</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_last_response'>last_response</span><span class='op'>|</span>
+    <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_repositories'>repositories</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span> <span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_repositories'>repositories</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -818,6 +1039,403 @@
     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Octokit version update.</span><span class='tstring_end'>&quot;</span></span>
   <span class='rparen'>)</span>
   <span class='id identifier rubyid_find_app_installations'>find_app_installations</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="find_organization_installation-instance_method">
+  
+    #<strong>find_organization_installation</strong>(organization, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Enables an app to find the organization&#39;s installation information.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>organization</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Organization GitHub login</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>A customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Installation information</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/apps/#find-organization-installation" target="_parent" title="https://developer.github.com/v3/apps/#find-organization-installation">https://developer.github.com/v3/apps/#find-organization-installation</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+88
+89
+90
+91</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 88</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find_organization_installation'>find_organization_installation</span><span class='lparen'>(</span><span class='id identifier rubyid_organization'>organization</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:integrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Organization.html" title="Octokit::Organization (class)">Organization</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Organization.html#path-class_method" title="Octokit::Organization.path (method)">path</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_organization'>organization</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/installation</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="find_repository_installation-instance_method">
+  
+    #<strong>find_repository_installation</strong>(repo, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Enables an app to find the repository&#39;s installation information.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>repo</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A GitHub repository</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>A customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Installation information</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/apps/#find-repository-installation" target="_parent" title="https://developer.github.com/v3/apps/#find-repository-installation">https://developer.github.com/v3/apps/#find-repository-installation</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+101
+102
+103
+104</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 101</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find_repository_installation'>find_repository_installation</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:integrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/installation</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="find_user_installation-instance_method">
+  
+    #<strong>find_user_installation</strong>(user, options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Enables an app to find the user&#39;s installation information.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>user</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>GitHub user login</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>A customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Installation information</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/apps/#find-user-installation" target="_parent" title="https://developer.github.com/v3/apps/#find-user-installation">https://developer.github.com/v3/apps/#find-user-installation</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+114
+115
+116
+117</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 114</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find_user_installation'>find_user_installation</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:integrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../User.html" title="Octokit::User (class)">User</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../User.html#path-class_method" title="Octokit::User.path (method)">path</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/installation</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="find_user_installations-instance_method">
+  
+    #<strong>find_user_installations</strong>(options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Find all installations that are accessible to the authenticated user</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>A customizable set of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the total_count and an array of installations</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://developer.github.com/v3/apps/#list-installations-for-user" target="_parent" title="https://developer.github.com/v3/apps/#list-installations-for-user">https://developer.github.com/v3/apps/#list-installations-for-user</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
+40
+41
+42</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find_user_installations'>find_user_installations</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:integrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_paginate'>paginate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user/installations</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_last_response'>last_response</span><span class='op'>|</span>
+    <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_installations'>installations</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span> <span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_installations'>installations</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -892,17 +1510,17 @@
       <pre class="lines">
 
 
-37
-38
-39
-40</pre>
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_installation'>installation</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:integrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/app/installations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>app/installations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -912,7 +1530,7 @@
       <div class="method_details ">
   <h3 class="signature " id="list_app_installation_repositories-instance_method">
   
-    #<strong>list_app_installation_repositories</strong>(options = {})  &#x21d2; <tt>Array&lt;Sawyer::Resource&gt;</tt> 
+    #<strong>list_app_installation_repositories</strong>(options = {})  &#x21d2; <tt>Sawyer::Resource</tt> 
   
 
   
@@ -945,7 +1563,7 @@
       
       
         &mdash;
-        <div class='inline'><p>An customizable set of options</p>
+        <div class='inline'><p>A customizable set of options</p>
 </div>
       
     </li>
@@ -958,12 +1576,12 @@
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;Sawyer::Resource&gt;</tt>)</span>
+        <span class='type'>(<tt>Sawyer::Resource</tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><p>A list of repositories</p>
+        <div class='inline'><p>the total_count and an array of repositories</p>
 </div>
       
     </li>
@@ -983,17 +1601,21 @@
       <pre class="lines">
 
 
-72
-73
-74
-75</pre>
+125
+126
+127
+128
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 125</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_app_installation_repositories'>list_app_installation_repositories</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:integrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_paginate'>paginate</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/installation/repositories</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_paginate'>paginate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>installation/repositories</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_last_response'>last_response</span><span class='op'>|</span>
+    <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_repositories'>repositories</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span> <span class='id identifier rubyid_last_response'>last_response</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_repositories'>repositories</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1015,18 +1637,18 @@
       <pre class="lines">
 
 
-78
-79
-80
-81
-82
-83
-84
-85
-86</pre>
+133
+134
+135
+136
+137
+138
+139
+140
+141</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 133</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_integration_installation_repositories'>list_integration_installation_repositories</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_octokit_warn'>octokit_warn</span><span class='lparen'>(</span>
@@ -1076,7 +1698,7 @@
       
       
         &mdash;
-        <div class='inline'><p>The id of a a GitHub App Installation</p>
+        <div class='inline'><p>The id of a GitHub App Installation</p>
 </div>
       
     </li>
@@ -1108,7 +1730,7 @@
       
       
         &mdash;
-        <div class='inline'><p>An customizable set of options</p>
+        <div class='inline'><p>A customizable set of options</p>
 </div>
       
     </li>
@@ -1146,17 +1768,17 @@
       <pre class="lines">
 
 
-122
-123
-124
-125</pre>
+177
+178
+179
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 177</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_repository_from_app_installation'>remove_repository_from_app_installation</span><span class='lparen'>(</span><span class='id identifier rubyid_installation'>installation</span><span class='comma'>,</span> <span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_ensure_api_media_type'>ensure_api_media_type</span><span class='lparen'>(</span><span class='symbol'>:integrations</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/installations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_installation'>installation</span><span class='embexpr_end'>}</span><span class='tstring_content'>/repositories/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user/installations/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_installation'>installation</span><span class='embexpr_end'>}</span><span class='tstring_content'>/repositories/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1178,18 +1800,18 @@
       <pre class="lines">
 
 
-128
-129
-130
-131
-132
-133
-134
-135
-136</pre>
+183
+184
+185
+186
+187
+188
+189
+190
+191</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/apps.rb', line 183</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_repository_from_integration_installation'>remove_repository_from_integration_installation</span><span class='lparen'>(</span><span class='id identifier rubyid_installation'>installation</span><span class='comma'>,</span> <span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_octokit_warn'>octokit_warn</span><span class='lparen'>(</span>
@@ -1210,9 +1832,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Jun 15 10:36:53 2017 by
+  Generated on Thu Aug 30 11:17:18 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.16 (ruby-2.5.1).
 </div>
 
     </div>
