@@ -669,12 +669,12 @@
       <pre class="lines">
 
 
-64
 65
-66</pre>
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_release'>delete_release</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span><span class='lparen'>(</span><span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -752,12 +752,12 @@
       <pre class="lines">
 
 
-126
 127
-128</pre>
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_release_asset'>delete_release_asset</span><span class='lparen'>(</span><span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_boolean_from_response'>boolean_from_response</span><span class='lparen'>(</span><span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -835,12 +835,12 @@
       <pre class="lines">
 
 
-145
 146
-147</pre>
+147
+148</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 145</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 146</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_latest_release'>latest_release</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/releases/latest</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1001,12 +1001,12 @@
       <pre class="lines">
 
 
-105
 106
-107</pre>
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 106</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_release_asset'>release_asset</span><span class='lparen'>(</span><span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -1084,12 +1084,12 @@
       <pre class="lines">
 
 
-73
 74
-75</pre>
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_release_assets'>release_assets</span><span class='lparen'>(</span><span class='id identifier rubyid_release_url'>release_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_paginate'>paginate</span> <span class='id identifier rubyid_release'>release</span><span class='lparen'>(</span><span class='id identifier rubyid_release_url'>release_url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_rels'>rels</span><span class='lbracket'>[</span><span class='symbol'>:assets</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_href'>href</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1182,12 +1182,12 @@
       <pre class="lines">
 
 
-136
 137
-138</pre>
+138
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 137</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_release_for_tag'>release_for_tag</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_tag_name'>tag_name</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Octokit::Repository (class)">Repository</a></span></span><span class='period'>.</span><span class='id identifier rubyid_path'><span class='object_link'><a href="../Repository.html#path-class_method" title="Octokit::Repository.path (method)">path</a></span></span> <span class='id identifier rubyid_repo'>repo</span><span class='embexpr_end'>}</span><span class='tstring_content'>/releases/tags/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tag_name'>tag_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1351,6 +1351,18 @@
     <ul class="option">
       
         <li>
+          <span class="name">:tag_name</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Git tag from which to create release</p>
+</div>
+          
+        </li>
+      
+        <li>
           <span class="name">:target_commitish</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
@@ -1444,12 +1456,12 @@
       <pre class="lines">
 
 
-54
 55
-56</pre>
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_release'>update_release</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
@@ -1583,12 +1595,12 @@
       <pre class="lines">
 
 
-116
 117
-118</pre>
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_release_asset'>update_release_asset</span><span class='lparen'>(</span><span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_patch'>patch</span><span class='lparen'>(</span><span class='id identifier rubyid_asset_url'>asset_url</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -1735,7 +1747,6 @@
       <pre class="lines">
 
 
-85
 86
 87
 88
@@ -1747,10 +1758,11 @@
 94
 95
 96
-97</pre>
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/octokit/client/releases.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_upload_asset'>upload_asset</span><span class='lparen'>(</span><span class='id identifier rubyid_release_url'>release_url</span><span class='comma'>,</span> <span class='id identifier rubyid_path_or_file'>path_or_file</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='id identifier rubyid_path_or_file'>path_or_file</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:read</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_path_or_file'>path_or_file</span> <span class='op'>:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_path_or_file'>path_or_file</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rb</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1775,9 +1787,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Jun 15 10:36:57 2017 by
+  Generated on Thu Aug 30 11:17:21 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.16 (ruby-2.5.1).
 </div>
 
     </div>

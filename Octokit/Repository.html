@@ -111,15 +111,21 @@ URLs and to generate URLs</p>
   
 
 </div>
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="NAME_WITH_OWNER_PATTERN-constant" class="">NAME_WITH_OWNER_PATTERN =
-        
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\A[\w.-]+\/[\w.-]+\z</span><span class='regexp_end'>/i</span></span></pre></dd>
-    
-  </dl>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="NAME_WITH_OWNER_PATTERN-constant" class="">NAME_WITH_OWNER_PATTERN =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\A[\w.-]+\/[\w.-]+\z</span><span class='regexp_end'>/i</span></span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -501,13 +507,13 @@ has an invalid format</p>
     <span class='ivar'>@owner</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span><span class='period'>.</span><span class='id identifier rubyid_owner'>owner</span>
     <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
   <span class='kw'>when</span> <span class='const'>Hash</span>
-    <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:repo</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
-    <span class='ivar'>@owner</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:owner</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:user</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span>
+    <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:repo</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
+    <span class='ivar'>@owner</span> <span class='op'>=</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:owner</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:user</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_repo'>repo</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_raise_invalid_repository!'>raise_invalid_repository!</span>
+    <span class='id identifier rubyid_raise_invalid_repository!'>raise_invalid_repository!</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='kw'>if</span> <span class='ivar'>@owner</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@name</span>
-    <span class='id identifier rubyid_validate_owner_and_name!'>validate_owner_and_name!</span>
+    <span class='id identifier rubyid_validate_owner_and_name!'>validate_owner_and_name!</span><span class='lparen'>(</span><span class='id identifier rubyid_repo'>repo</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1090,9 +1096,9 @@ has an invalid format</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Jun 15 10:37:02 2017 by
+  Generated on Thu Aug 30 11:17:26 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.16 (ruby-2.5.1).
 </div>
 
     </div>

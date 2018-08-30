@@ -119,11 +119,16 @@ doesn&#39;t support parallelism.</p>
   
 
 </div>
-  <h2>Constant Summary</h2>
-  <dl class="constants">
-    
-      <dt id="ALLOWED_METHODS-constant" class="">ALLOWED_METHODS =
-        <div class="docstring">
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="ALLOWED_METHODS-constant" class="">ALLOWED_METHODS =
+          <div class="docstring">
   <div class="discussion">
     <p>HTTP methods for which 30x redirects can be followed</p>
 
@@ -134,11 +139,11 @@ doesn&#39;t support parallelism.</p>
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbracket'>[</span><span class='symbol'>:head</span><span class='comma'>,</span> <span class='symbol'>:options</span><span class='comma'>,</span> <span class='symbol'>:get</span><span class='comma'>,</span> <span class='symbol'>:post</span><span class='comma'>,</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='symbol'>:patch</span><span class='comma'>,</span> <span class='symbol'>:delete</span><span class='rbracket'>]</span></pre></dd>
-    
-      <dt id="REDIRECT_CODES-constant" class="">REDIRECT_CODES =
-        <div class="docstring">
+        </dt>
+        <dd><pre class="code"><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbracket'>[</span><span class='symbol'>:head</span><span class='comma'>,</span> <span class='symbol'>:options</span><span class='comma'>,</span> <span class='symbol'>:get</span><span class='comma'>,</span> <span class='symbol'>:post</span><span class='comma'>,</span> <span class='symbol'>:put</span><span class='comma'>,</span> <span class='symbol'>:patch</span><span class='comma'>,</span> <span class='symbol'>:delete</span><span class='rbracket'>]</span></pre></dd>
+      
+        <dt id="REDIRECT_CODES-constant" class="">REDIRECT_CODES =
+          <div class="docstring">
   <div class="discussion">
     <p>HTTP redirect status codes that this middleware implements</p>
 
@@ -149,11 +154,11 @@ doesn&#39;t support parallelism.</p>
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbracket'>[</span><span class='int'>301</span><span class='comma'>,</span> <span class='int'>302</span><span class='comma'>,</span> <span class='int'>303</span><span class='comma'>,</span> <span class='int'>307</span><span class='rbracket'>]</span></pre></dd>
-    
-      <dt id="ENV_TO_CLEAR-constant" class="">ENV_TO_CLEAR =
-        <div class="docstring">
+        </dt>
+        <dd><pre class="code"><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbracket'>[</span><span class='int'>301</span><span class='comma'>,</span> <span class='int'>302</span><span class='comma'>,</span> <span class='int'>303</span><span class='comma'>,</span> <span class='int'>307</span><span class='rbracket'>]</span></pre></dd>
+      
+        <dt id="ENV_TO_CLEAR-constant" class="">ENV_TO_CLEAR =
+          <div class="docstring">
   <div class="discussion">
     <p>Keys in env hash which will get cleared between requests</p>
 
@@ -164,11 +169,11 @@ doesn&#39;t support parallelism.</p>
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbracket'>[</span><span class='symbol'>:status</span><span class='comma'>,</span> <span class='symbol'>:response</span><span class='comma'>,</span> <span class='symbol'>:response_headers</span><span class='rbracket'>]</span></pre></dd>
-    
-      <dt id="FOLLOW_LIMIT-constant" class="">FOLLOW_LIMIT =
-        <div class="docstring">
+        </dt>
+        <dd><pre class="code"><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbracket'>[</span><span class='symbol'>:status</span><span class='comma'>,</span> <span class='symbol'>:response</span><span class='comma'>,</span> <span class='symbol'>:response_headers</span><span class='rbracket'>]</span></pre></dd>
+      
+        <dt id="FOLLOW_LIMIT-constant" class="">FOLLOW_LIMIT =
+          <div class="docstring">
   <div class="discussion">
     <p>Default value for max redirects followed</p>
 
@@ -179,11 +184,11 @@ doesn&#39;t support parallelism.</p>
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='int'>3</span></pre></dd>
-    
-      <dt id="URI_UNSAFE-constant" class="">URI_UNSAFE =
-        <div class="docstring">
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="URI_UNSAFE-constant" class="">URI_UNSAFE =
+          <div class="docstring">
   <div class="discussion">
     <p>Regex that matches characters that need to be escaped in URLs, sans
 the &quot;%&quot; character which we assume already represents an escaped
@@ -196,10 +201,11 @@ sequence.</p>
   
 
 </div>
-      </dt>
-      <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[^\-_.!~*&#39;()a-zA-Z\d;\/?:@&amp;=+$,\[\]%]</span><span class='regexp_end'>/</span></span></pre></dd>
-    
-  </dl>
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[^\-_.!~*&#39;()a-zA-Z\d;\/?:@&amp;=+$,\[\]%]</span><span class='regexp_end'>/</span></span></pre></dd>
+      
+    </dl>
+  
 
 
 
@@ -360,9 +366,9 @@ sequence.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Jun 15 10:37:03 2017 by
+  Generated on Thu Aug 30 11:17:26 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.16 (ruby-2.5.1).
 </div>
 
     </div>
