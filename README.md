@@ -73,6 +73,10 @@ Install via Rubygems
 
     gem "octokit", "~> 4.0"
 
+Access the library in Ruby:
+
+    require 'octokit'
+
 ### Making requests
 
 [API methods][] are available as client instance methods.
