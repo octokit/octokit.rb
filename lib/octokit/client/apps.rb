@@ -79,7 +79,7 @@ module Octokit
 
       # Enables an app to find the organization's installation information.
       #
-      # @param org [String] Organization GitHub login
+      # @param organization [String] Organization GitHub login
       # @param options [Hash] A customizable set of options
       #
       # @see https://developer.github.com/v3/apps/#find-organization-installation
