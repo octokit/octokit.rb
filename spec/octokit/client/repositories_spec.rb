@@ -484,6 +484,24 @@ describe Octokit::Client::Repositories do
     end
   end # .repository?
 
+  describe ".transfer_repository", :vcr do
+    it "repository transfer from myself to my organization" do
+      repository = @client.create_repository("an-repo", auto_init: true)
+      accept_header = Octokit::Preview::PREVIEW_TYPES[:transfer_repository]
+      @client.transfer_repository(repository.full_name, { new_owner: test_github_org, accept: accept_header })
+      assert_requested :post, github_url("/repos/#{repository.full_name}/transfer")
+
+      result = @client.repository?("#{test_github_org}/#{repository.name}")
+      expect(result).to be true
+
+      # cleanup
+      begin
+        @client.delete_repository("#{test_github_org}/#{repository.name}")
+      rescue Octokit::NotFound
+      end
+    end
+  end # .transfer_repository
+
   private
 
   def preview_header

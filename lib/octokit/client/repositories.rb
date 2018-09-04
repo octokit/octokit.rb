@@ -177,6 +177,19 @@ module Octokit
       end
       alias :delete_repo :delete_repository
 
+      # Transfer repository
+      #
+      # Requires authenticated repository or organization owner of source and destination.
+      #
+      # @see https://developer.github.com/v3/repos/#transfer-a-repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @return [Sawyer::Resource] Repository info for the transferred repository
+      def transfer_repository(repo, options = {})
+        options = ensure_api_media_type(:transfer_repository, options)
+        post "#{Repository.path repo}/transfer", options
+      end
+      alias :transfer_repo :transfer_repository
+
       # Hide a public repository
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
