@@ -75,6 +75,9 @@ VCR.configure do |c|
   c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY>") do
     test_github_repository
   end
+  c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY_ID>") do
+    test_github_repository_id
+  end
   c.define_cassette_placeholder("<GITHUB_TEST_ORGANIZATION>") do
     test_github_org
   end
@@ -194,7 +197,7 @@ def test_github_repository
 end
 
 def test_github_repository_id
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_REPOSITORY_ID', 20_974_780
+  ENV.fetch('OCTOKIT_TEST_GITHUB_REPOSITORY_ID', 20_974_780).to_i
 end
 
 def test_github_org
