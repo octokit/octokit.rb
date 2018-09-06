@@ -62,9 +62,9 @@ describe Octokit::Client::Organizations do
 
   describe ".organization_member?", :vcr do
     it "checks organization membership" do
-      is_hubbernaut = @client.organization_member?('github', 'pengwynn')
-      assert_requested :get, github_url("/orgs/github/members/pengwynn")
-      expect(is_hubbernaut).to be true
+      is_member = @client.organization_member?(test_github_org, test_github_login)
+      assert_requested :get, github_url("/orgs/#{test_github_org}/members/#{test_github_login}")
+      expect(is_member).to be true
     end
   end # .organization_member?
 
@@ -78,9 +78,9 @@ describe Octokit::Client::Organizations do
 
   describe ".organization_public_member?", :vcr do
     it "checks publicized org membership" do
-      is_hubbernaut = @client.organization_public_member?('github', 'pengwynn')
-      expect(is_hubbernaut).to be true
-      assert_requested :get, github_url("/orgs/github/public_members/pengwynn")
+      is_member = @client.organization_public_member?(test_github_org, test_github_login)
+      expect(is_member).to be true
+      assert_requested :get, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
     end
   end # .organization_public_member?
 
