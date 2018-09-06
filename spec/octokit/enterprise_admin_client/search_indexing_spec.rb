@@ -44,50 +44,50 @@ describe Octokit::EnterpriseAdminClient::SearchIndexing do
 
   describe ".index_user", :vcr do
     subject { :index_user }
-    let(:target) { "api-padawan" }
-    it_behaves_like "search index queuer", "api-padawan"
+    let(:target) { test_github_login }
+    it_behaves_like "search index queuer", test_github_login
     it_behaves_like "single target queue"
   end
 
   describe ".index_repository", :vcr do
     subject { :index_repository }
-    let(:target) { "api-playground/api-sandbox" }
-    it_behaves_like "search index queuer", "api-playground/api-sandbox"
+    let(:target) { "#{test_github_org}/#{test_github_repository}" }
+    it_behaves_like "search index queuer", "#{test_github_org}/#{test_github_repository}"
     it_behaves_like "single target queue"
   end
 
   describe ".index_repository_issues", :vcr do
     subject { :index_repository_issues }
-    let(:target) { "api-playground/api-sandbox" }
-    it_behaves_like "search index queuer", "api-playground/api-sandbox/issues"
+    let(:target) { "#{test_github_org}/#{test_github_repository}" }
+    it_behaves_like "search index queuer", "#{test_github_org}/#{test_github_repository}/issues"
     it_behaves_like "single target queue"
   end
 
   describe ".index_repository_code", :vcr do
     subject { :index_repository_code }
-    let(:target) { "api-playground/api-sandbox" }
-    it_behaves_like "search index queuer", "api-playground/api-sandbox/code"
+    let(:target) { "#{test_github_org}/#{test_github_repository}" }
+    it_behaves_like "search index queuer", "#{test_github_org}/#{test_github_repository}/code"
     it_behaves_like "single target queue"
   end
 
   describe ".index_users_repositories", :vcr do
     subject { :index_users_repositories }
-    let(:target) { "api-padawan" }
-    it_behaves_like "search index queuer", "api-padawan/*"
+    let(:target) { test_github_login }
+    it_behaves_like "search index queuer", "#{test_github_login}/*"
     it_behaves_like "multiple target queue"
   end
 
   describe ".index_users_repositories_issues", :vcr do
     subject { :index_users_repositories_issues }
-    let(:target) { "api-padawan" }
-    it_behaves_like "search index queuer", "api-padawan/*/issues"
+    let(:target) { test_github_login }
+    it_behaves_like "search index queuer", "#{test_github_login}/*/issues"
     it_behaves_like "multiple target queue"
   end
 
   describe ".index_users_repositories_code", :vcr do
     subject { :index_users_repositories_code }
-    let(:target) { "api-padawan" }
-    it_behaves_like "search index queuer", "api-padawan/*/code"
+    let(:target) { test_github_login }
+    it_behaves_like "search index queuer", "#{test_github_login}/*/code"
     it_behaves_like "multiple target queue"
   end
 
