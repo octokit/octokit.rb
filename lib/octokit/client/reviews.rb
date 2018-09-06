@@ -149,7 +149,7 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number ID of the pull request
-      # @param options [Hash] :reviewers [Array<String>] An array of user logins
+      # @param reviewers [Hash] :reviewers [Array<String>] An array of user logins
       # @param options [Hash] :team_reviewers [Array<String>] An array of team slugs
       # @see https://developer.github.com/v3/pulls/review_requests/#create-a-review-request
       #
@@ -177,7 +177,7 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param id [Integer] The id of the pull request
-      # @param options [Hash] :reviewers [Array] An array of user logins
+      # @param reviewers [Hash] :reviewers [Array] An array of user logins
       # @param options [Hash] :team_reviewers [Array] An array of team slugs
       #
       # @see https://developer.github.com/v3/pulls/review_requests/#delete-a-review-request

@@ -71,6 +71,98 @@ describe Octokit::Client::Apps do
     end
   end # .find_user_installations
 
+  describe ".find_organization_installation", :vcr do
+    let(:organization) { test_github_org }
+
+    it "returns installation for an organization" do
+      response = @jwt_client.find_organization_installation(organization, accept: preview_header)
+
+      expect(response.id).not_to be_nil
+      expect(response.target_type).to eq("Organization")
+      assert_requested :get, github_url("/orgs/#{organization}/installation")
+    end
+
+    it "works for GitHub Enterprise installs" do
+      client = Octokit::Client.new \
+        bearer_token: new_jwt_token,
+        api_endpoint: "https://ghe.local/api/v3"
+
+      request = stub_get("https://ghe.local/api/v3/organizations/1234/installation")
+      response = client.find_organization_installation(1234, accept: preview_header)
+
+      assert_requested request
+    end
+
+    it "allows auto_pagination" do
+      @jwt_client.auto_paginate = true
+      response = @jwt_client.find_organization_installation(organization, accept: preview_header, per_page: 1)
+
+      expect(response.id).not_to be_nil
+      expect(response.target_type).to eq("Organization")
+    end
+  end # .find_organization_installation
+
+  describe ".find_repository_installation", :vcr do
+
+    it "returns installation for an repository" do
+      response = @jwt_client.find_repository_installation(@test_org_repo, accept: preview_header)
+
+      expect(response.id).not_to be_nil
+      expect(response.target_type).to eq("Organization")
+      assert_requested :get, github_url("/repos/#{@test_org_repo}/installation")
+    end
+
+    it "works for GitHub Enterprise installs" do
+      client = Octokit::Client.new \
+        bearer_token: new_jwt_token,
+        api_endpoint: "https://ghe.local/api/v3"
+
+      request = stub_get("https://ghe.local/api/v3/repos/testing/1234/installation")
+      response = client.find_repository_installation('testing/1234', accept: preview_header)
+
+      assert_requested request
+    end
+
+    it "allows auto_pagination" do
+      @jwt_client.auto_paginate = true
+      response = @jwt_client.find_repository_installation(@test_org_repo, accept: preview_header, per_page: 1)
+
+      expect(response.id).not_to be_nil
+      expect(response.target_type).to eq("Organization")
+    end
+  end # .find_repository_installation
+
+  describe ".find_user_installation", :vcr do
+    let(:user) { test_github_login }
+
+    it "returns installation for a user" do
+      response = @jwt_client.find_user_installation(user, accept: preview_header)
+
+      expect(response.id).not_to be_nil
+      expect(response.account.login).to eq(user)
+      assert_requested :get, github_url("/users/#{user}/installation")
+    end
+
+    it "works for GitHub Enterprise installs" do
+      client = Octokit::Client.new \
+        bearer_token: new_jwt_token,
+        api_endpoint: "https://ghe.local/api/v3"
+
+      request = stub_get("https://ghe.local/api/v3/users/1234/installation")
+      response = client.find_user_installation('1234', accept: preview_header)
+
+      assert_requested request
+    end
+
+    it "allows auto_pagination" do
+      @jwt_client.auto_paginate = true
+      response = @jwt_client.find_user_installation(user, accept: preview_header, per_page: 1)
+
+      expect(response.id).not_to be_nil
+      expect(response.account.login).to eq(user)
+    end
+  end # .find_user_installation
+
   context "with app installation", :vcr do
     let(:installation) { test_github_integration_installation }
 
@@ -131,7 +223,7 @@ describe Octokit::Client::Apps do
         expect(response.token).not_to be_nil
         expect(response.expires_at).not_to be_nil
 
-        assert_requested :post, github_url("/installations/#{installation}/access_tokens")
+        assert_requested :post, github_url("/app/installations/#{installation}/access_tokens")
         expect(@jwt_client).to have_received(:octokit_warn).with(/Deprecated/)
       end
     end # .create_integration_installation_access_token
@@ -144,7 +236,7 @@ describe Octokit::Client::Apps do
         expect(response.token).not_to be_nil
         expect(response.expires_at).not_to be_nil
 
-        assert_requested :post, github_url("/installations/#{installation}/access_tokens")
+        assert_requested :post, github_url("/app/installations/#{installation}/access_tokens")
       end
 
       it "works for GitHub Enterprise installs" do
@@ -152,7 +244,7 @@ describe Octokit::Client::Apps do
           bearer_token: new_jwt_token,
           api_endpoint: "https://ghe.local/api/v3"
 
-        path = "installations/1234/access_tokens"
+        path = "app/installations/1234/access_tokens"
         request = stub_post("https://ghe.local/api/v3/#{path}")
         response = client.create_app_installation_access_token(1234, accept: preview_header)
 
