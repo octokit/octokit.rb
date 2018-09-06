@@ -122,6 +122,14 @@ describe Octokit::Client::Organizations do
     end
   end # .organization_teams
 
+  describe ".child_teams", :vcr do
+    it "returns all child teams for the team" do
+      child_teams = @client.child_teams(test_github_team_id, accept: Octokit::Preview::PREVIEW_TYPES[:nested_teams])
+      expect(child_teams).to be_kind_of Array
+      assert_requested :get, github_url("/teams/#{test_github_team_id}/teams")
+    end
+  end # .child_teams
+
   context "with team", :order => :defined do
     before(:each) do
       @team_name = "Test Team #{Time.now.to_i}"
@@ -146,14 +154,6 @@ describe Octokit::Client::Organizations do
         assert_requested :get, github_url("/teams/#{@team.id}")
       end
     end # .team
-
-    describe ".child_teams", :vcr do
-      it "returns all child teams for the team" do
-        child_teams = @client.child_teams(@team.id, accept: preview_header)
-        expect(child_teams).to be_kind_of Array
-        assert_requested :get, github_url("/teams/#{@team.id}/teams")
-      end
-    end # .child_teams
 
     describe ".update_team", :vcr do
       it "updates a team" do
