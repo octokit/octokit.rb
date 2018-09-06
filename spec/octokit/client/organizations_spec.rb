@@ -25,9 +25,9 @@ describe Octokit::Client::Organizations do
 
   describe ".organizations", :vcr do
     it "returns all organizations for a user" do
-      organizations = @client.organizations("sferik")
+      organizations = @client.organizations(test_github_login)
       expect(organizations).to be_kind_of Array
-      assert_requested :get, github_url("/users/sferik/orgs")
+      assert_requested :get, github_url("/users/#{test_github_login}/orgs")
     end
     it "returns all organizations for the authenticated user" do
       organizations = @client.organizations
