@@ -100,17 +100,17 @@ describe Octokit::Client::Organizations do
 
   describe ".remove_outside_collaborator", :vcr do
     it "removes the outside collaborator from an organization" do
-      stub_delete github_url("/orgs/#{test_github_org}/outside_collaborators/lizzhale")
-      @client.remove_outside_collaborator(test_github_org, 'lizzhale')
-      assert_requested :delete, github_url("/orgs/#{test_github_org}/outside_collaborators/lizzhale")
+      stub_delete github_url("/orgs/#{test_github_org}/outside_collaborators/#{test_github_login}")
+      @client.remove_outside_collaborator(test_github_org, test_github_login)
+      assert_requested :delete, github_url("/orgs/#{test_github_org}/outside_collaborators/#{test_github_login}")
     end
   end # .remove_outside_collaborator
 
   describe ".convert_to_outside_collaborator", :vcr do
     it "converts an organization member to an outside collaborator" do
-      stub_put github_url("orgs/#{test_github_org}/outside_collaborators/lizzhale")
-      @client.convert_to_outside_collaborator(test_github_org, 'lizzhale')
-      assert_requested :put, github_url("orgs/#{test_github_org}/outside_collaborators/lizzhale")
+      stub_put github_url("orgs/#{test_github_org}/outside_collaborators/#{test_github_login}")
+      @client.convert_to_outside_collaborator(test_github_org, test_github_login)
+      assert_requested :put, github_url("orgs/#{test_github_org}/outside_collaborators/#{test_github_login}")
     end
   end # .convert_to_outside_collaborator
 
