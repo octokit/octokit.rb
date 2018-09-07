@@ -341,20 +341,17 @@ describe Octokit::Client::Organizations do
 
   describe ".update_organization_membership", :vcr do
     it "updates an organization membership" do
-      stub_patch github_url("/user/memberships/orgs/#{test_github_org}")
       membership = @client.update_organization_membership(test_github_org, {:state => 'active'})
       assert_requested :patch, github_url("/user/memberships/orgs/#{test_github_org}")
     end
 
     it "adds or updates an organization membership for a given user" do
-      stub_put github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
       @client.update_organization_membership(
         test_github_org,
-        :user => test_github_login,
-        :role => "admin",
-        :accept => "application/vnd.github.moondragon+json"
+        :user => test_github_collaborator_login,
+        :role => "member",
       )
-      assert_requested :put, github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
+      assert_requested :put, github_url("/orgs/#{test_github_org}/memberships/#{test_github_collaborator_login}")
     end
   end # .update_organization_membership
 

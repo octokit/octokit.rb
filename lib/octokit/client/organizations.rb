@@ -686,8 +686,10 @@ module Octokit
       def update_organization_membership(org, options = {})
         options = options.dup
         if user = options.delete(:user)
+          options.delete(:state)
           put "orgs/#{org}/memberships/#{user}", options
         else
+          options.delete(:role)
           patch "user/memberships/orgs/#{org}", options
         end
       end
