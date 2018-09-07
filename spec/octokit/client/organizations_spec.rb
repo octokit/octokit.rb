@@ -172,8 +172,8 @@ describe Octokit::Client::Organizations do
 
     describe ".add_team_member", :vcr do
       it "adds a team member" do
-        @client.add_team_member(@team.id, "api-padawan")
-        assert_requested :put, github_url("/teams/#{@team.id}/members/api-padawan")
+        @client.add_team_member(@team.id, test_github_repository)
+        assert_requested :put, github_url("/teams/#{@team.id}/members/#{test_github_repository}")
       end
     end # .add_team_member
 
@@ -276,9 +276,9 @@ describe Octokit::Client::Organizations do
 
   describe ".add_team_membership", :vcr do
     it "invites a user to a team" do
-      membership = @client.add_team_membership(946194, test_github_login)
-      assert_requested :put, github_url("teams/946194/memberships/#{test_github_login}")
-      expect(membership.status).to eq("active")
+      membership = @client.add_team_membership(test_github_team_id, test_github_login)
+      assert_requested :put, github_url("teams/#{test_github_team_id}/memberships/#{test_github_login}")
+      expect(membership.state).to eq("active")
     end
   end # .add_team_membership
 
