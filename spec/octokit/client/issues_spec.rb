@@ -40,6 +40,14 @@ describe Octokit::Client::Issues do
     end
   end # .org_issues
 
+  describe ".list_assignees", :vcr do
+    it "returns available assignees for a repository" do
+      users = @client.list_assignees("octokit/octokit.rb")
+      expect(users).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/assignees")
+    end
+  end
+
   context "with repository" do
     before(:each) do
       @repo = @client.create_repository("#{test_github_repository}_#{Time.now.to_f}")
