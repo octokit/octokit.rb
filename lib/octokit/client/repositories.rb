@@ -183,10 +183,12 @@ module Octokit
       #
       # @see https://developer.github.com/v3/repos/#transfer-a-repository
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param new_owner [String] The username or organization name the repository will be transferred to.
+      # @param options [Array<Integer>] :team_ids ID of the team or teams to add to the repository. Teams can only be added to organization-owned repositories.
       # @return [Sawyer::Resource] Repository info for the transferred repository
-      def transfer_repository(repo, options = {})
+      def transfer_repository(repo, new_owner, options = {})
         options = ensure_api_media_type(:transfer_repository, options)
-        post "#{Repository.path repo}/transfer", options
+        post "#{Repository.path repo}/transfer", options.merge({ new_owner: new_owner })
       end
       alias :transfer_repo :transfer_repository
 
