@@ -76,14 +76,6 @@ describe Octokit::Client::Organizations do
     end
   end
 
-  describe ".organization_public_member?", :vcr do
-    it "checks publicized org membership" do
-      is_member = @client.organization_public_member?(test_github_org, test_github_login)
-      expect(is_member).to be true
-      assert_requested :get, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
-    end
-  end # .organization_public_member?
-
   describe ".organization_invitations", :vcr do
     it "lists pending organization invitations" do
       @client.organization_invitations(test_github_org)
@@ -228,20 +220,6 @@ describe Octokit::Client::Organizations do
       end
     end #.remove_team_repository
 
-    describe ".publicize_membership", :vcr do
-      it "publicizes membership" do
-        @client.publicize_membership test_github_org, test_github_login
-        assert_requested :put, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
-      end
-    end # .publicize_membership
-
-    describe ".unpublicize_membership", :vcr do
-      it "unpublicizes membership" do
-        @client.unpublicize_membership test_github_org, test_github_login
-        assert_requested :delete, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
-      end
-    end # .unpublicize_membership
-
     describe ".delete_team", :vcr do
       it "deletes a team" do
         @client.delete_team(@team.id)
@@ -249,6 +227,30 @@ describe Octokit::Client::Organizations do
       end
     end # .delete_team
   end # with team
+
+  context "public org members", :order => :defined do
+    describe ".unpublicize_membership", :vcr do
+      it "unpublicizes membership" do
+        @client.unpublicize_membership test_github_org, test_github_login
+        assert_requested :delete, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
+      end
+    end # .unpublicize_membership
+
+    describe ".publicize_membership", :vcr do
+      it "publicizes membership" do
+        @client.publicize_membership test_github_org, test_github_login
+        assert_requested :put, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
+      end
+    end # .publicize_membership
+
+    describe ".organization_public_member?", :vcr do
+      it "checks publicized org membership" do
+        is_member = @client.organization_public_member?(test_github_org, test_github_login)
+        expect(is_member).to be true
+        assert_requested :get, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
+      end
+    end # .organization_public_member?
+  end # public org members
 
   describe ".remove_organization_member" do
     it "removes a member from an organization" do
