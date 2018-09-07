@@ -14,6 +14,7 @@ require 'octokit/client/apps'
 require 'octokit/client/authorizations'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
+require 'octokit/client/community_profile'
 require 'octokit/client/contents'
 require 'octokit/client/downloads'
 require 'octokit/client/deployments'
@@ -70,6 +71,7 @@ module Octokit
     include Octokit::Client::Authorizations
     include Octokit::Client::Commits
     include Octokit::Client::CommitComments
+    include Octokit::Client::CommunityProfile
     include Octokit::Client::Contents
     include Octokit::Client::Deployments
     include Octokit::Client::Downloads
