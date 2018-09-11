@@ -10,6 +10,7 @@ module Octokit
       :licenses               => 'application/vnd.github.drax-preview+json'.freeze,
       :source_imports         => 'application/vnd.github.barred-rock-preview'.freeze,
       :reactions              => 'application/vnd.github.squirrel-girl-preview'.freeze,
+      :transfer_repository    => 'application/vnd.github.nightshade-preview+json'.freeze,
       :issue_timelines        => 'application/vnd.github.mockingbird-preview+json'.freeze,
       :nested_teams           => 'application/vnd.github.hellcat-preview+json'.freeze,
       :pages                  => 'application/vnd.github.mister-fantastic-preview+json'.freeze,
