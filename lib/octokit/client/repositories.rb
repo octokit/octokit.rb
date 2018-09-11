@@ -179,7 +179,7 @@ module Octokit
 
       # Transfer repository
       #
-      # Requires authenticated repository or organization owner of source and destination.
+      # Transfer a repository owned by your organization
       #
       # @see https://developer.github.com/v3/repos/#transfer-a-repository
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
