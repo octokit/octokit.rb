@@ -317,6 +317,17 @@ module Octokit
         paginate "#{Repository.path repo}/issues/#{number}/timeline", options
       end
 
+      # Lists the available assignees for issues in a repository.
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @return [Array<Sawyer::Resource>] List of GitHub users.
+      # @see https://developer.github.com/v3/issues/assignees/#list-assignees
+      # @example Get available assignees on repository octokit/octokit.rb
+      #   Octokit.list_assignees("octokit/octokit.rb")
+      def list_assignees(repo, options = {})
+        paginate "#{Repository.path repo}/assignees", options
+      end
+
       # Add assignees to an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
