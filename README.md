@@ -43,7 +43,8 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
     1. [Running and writing new tests](#running-and-writing-new-tests)
 15. [Supported Ruby Versions](#supported-ruby-versions)
 16. [Versioning](#versioning)
-17. [License](#license)
+17. [Making Repeating Requests](#making-repeating-requests)
+18. [License](#license)
 
 ## Philosophy
 
@@ -726,6 +727,8 @@ The changes made between versions can be seen on the [project releases page][rel
 [semver]: http://semver.org/
 [pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
 [releases]: https://github.com/octokit/octokit.rb/releases
+
+## Making Repeating Requests
 
 ## License
 
