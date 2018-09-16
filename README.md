@@ -729,6 +729,19 @@ The changes made between versions can be seen on the [project releases page][rel
 [releases]: https://github.com/octokit/octokit.rb/releases
 
 ## Making Repeating Requests
+Sometimes one might need to poll for progress or retry a request on failure. For these circumstances we designed [Octopoller](https://github.com/octokit/octopoller.rb), a micro gem perfect for making repeating requests.
+
+```ruby
+Octopoller.poll(timeout: 15.seconds) do
+  begin
+    client.request_progress # ex. request a long running job's status
+  rescue Error
+    :re_poll
+  end
+end
+```
+
+This is useful when making requests such as a [Source Import's progress](https://developer.github.com/v3/migrations/source_imports/#get-import-progress).
 
 ## License
 
