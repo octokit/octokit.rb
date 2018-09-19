@@ -43,7 +43,8 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
     1. [Running and writing new tests](#running-and-writing-new-tests)
 15. [Supported Ruby Versions](#supported-ruby-versions)
 16. [Versioning](#versioning)
-17. [License](#license)
+17. [Making Repeating Requests](#making-repeating-requests)
+18. [License](#license)
 
 ## Philosophy
 
@@ -726,6 +727,21 @@ The changes made between versions can be seen on the [project releases page][rel
 [semver]: http://semver.org/
 [pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
 [releases]: https://github.com/octokit/octokit.rb/releases
+
+## Making Repeating Requests
+In most cases it would be best to use a [webhooks](https://developer.github.com/webhooks/), but sometimes webhooks don't provide all of the information needed. In those cases where one might need to poll for progress or retry a request on failure, we designed [Octopoller](https://github.com/octokit/octopoller.rb). Octopoller is a micro gem perfect for making repeating requests. 
+
+```ruby
+Octopoller.poll(timeout: 15.seconds) do
+  begin
+    client.request_progress # ex. request a long running job's status
+  rescue Error
+    :re_poll
+  end
+end
+```
+
+This is useful when making requests for a long running job's progress (ex. requesting a [Source Import's progress](https://developer.github.com/v3/migrations/source_imports/#get-import-progress)).
 
 ## License
 
