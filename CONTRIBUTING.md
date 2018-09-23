@@ -16,6 +16,8 @@
 10. Add, commit, and push your changes. For documentation-only fixes, please
     add "[ci skip]" to your commit message to avoid needless CI builds.
 11. [Submit a pull request.][pr]
+12. [- (void)invokeWithTarget:(id)target;][branch]
+13. [- (void)selectTabViewItem:(NSTabViewItem *)tabViewItem{fork}][fork]
 
 [fork]: https://help.github.com/articles/fork-a-repo
 [branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/

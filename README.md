@@ -113,7 +113,7 @@ When passing additional parameters to GET based request use the following syntax
 
 Most methods return a `Resource` object which provides dot notation and `[]`
 access for fields returned in the API response.
-
+<script src="https://gist.github.com/usernamealreadyis/e23b9c63e410ce5ff8e0.js"></script>
 ```ruby
 client = Octokit::Client.new
 
