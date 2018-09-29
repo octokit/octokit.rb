@@ -205,11 +205,11 @@ def test_github_org
 end
 
 def test_github_integration
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_INTEGRATION', 42
+  ENV.fetch('OCTOKIT_TEST_GITHUB_INTEGRATION', 76_765).to_i
 end
 
 def test_github_integration_installation
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION', 37
+  ENV.fetch('OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION', 898_507).to_i
 end
 
 def test_github_integration_pem_key
