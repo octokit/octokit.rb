@@ -120,7 +120,6 @@ VCR.configure do |c|
   end
 
   c.default_cassette_options = {
-    :serialize_with             => :json,
     # TODO: Track down UTF-8 issue and remove
     :preserve_exact_body_bytes  => true,
     :decode_compressed_response => true,
