@@ -161,6 +161,7 @@ describe Octokit::Client::Authorizations do
 
     it "checks the scopes on a one-off token" do
       authorization = @client.create_authorization(note: note)
+      use_vcr_placeholder_for(authorization.token, "ONE_OFF_SCOPE_AUTHORIZATION_TOKEN")
 
       Octokit.reset!
 
