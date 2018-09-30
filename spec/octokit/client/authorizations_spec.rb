@@ -15,62 +15,92 @@ describe Octokit::Client::Authorizations do
     Octokit.reset!
   end
 
+  def note
+    "Note #{SecureRandom.hex(20)}"
+  end
+
   describe ".create_authorization", :vcr do
     context 'without :idempotent => true' do
       it "creates an API authorization" do
-        authorization = @client.create_authorization
+        authorization = @client.create_authorization(note: note)
         expect(authorization.app.name).not_to be_nil
-        assert_requested :post, basic_github_url("/authorizations")
+        expect(WebMock).to have_requested(:post, github_url("/authorizations")).with(
+          basic_auth: [
+            test_github_login,
+            test_github_password
+          ]
+        )
       end
 
       it "creates a new API authorization each time" do
-        first_authorization = @client.create_authorization
-        second_authorization = @client.create_authorization
+        first_authorization = @client.create_authorization(note: note)
+        second_authorization = @client.create_authorization(note: note)
         expect(first_authorization.id).not_to eq(second_authorization.id)
       end
 
       it "creates a new authorization with options" do
         info = {
-          :scopes => ["gist"],
+          note:  note,
+          scope: ["gist"],
         }
         authorization = @client.create_authorization info
         expect(authorization.scopes).to be_kind_of Array
-        assert_requested :post, basic_github_url("/authorizations")
+        expect(WebMock).to have_requested(:post, github_url("/authorizations")).with(
+          basic_auth: [
+            test_github_login,
+            test_github_password
+          ]
+        )
       end
     end
 
     context 'with :idempotent => true' do
       it "creates a new authorization with options" do
-        authorization = @client.create_authorization \
-          :idempotent    => true,
-          :client_id     => test_github_client_id,
-          :client_secret => test_github_client_secret,
-          :scopes => %w(gist)
+        authorization = @client.create_authorization(
+          idempotent:    true,
+          client_id:     test_github_client_id,
+          client_secret: test_github_client_secret,
+          scopes:        %w(gist)
+        )
+
         expect(authorization.scopes).to be_kind_of Array
-        assert_requested :put, basic_github_url("/authorizations/clients/#{test_github_client_id}")
+        expect(WebMock).to have_requested(:put, github_url("/authorizations/clients/#{test_github_client_id}")).with(
+          basic_auth: [
+            test_github_login,
+            test_github_password
+          ]
+        )
       end
 
       it "creates a new authorization with fingerprint" do
-        path = "/authorization/clients/#{test_github_client_id}/jklmnop12345678"
-        stub_get(basic_github_url(path))
-        @client.create_authorization \
-          :idempotent    => true,
-          :client_id     => test_github_client_id,
-          :client_secret => test_github_client_secret,
-          :scopes => %w(gist),
-          :fingerprint => "jklmnop12345678"
-        assert_requested :put, basic_github_url("/authorizations/clients/#{test_github_client_id}/jklmnop12345678")
+        path = "/authorizations/clients/#{test_github_client_id}/jklmnop12345678"
+
+        @client.create_authorization(
+          idempotent:    true,
+          client_id:     test_github_client_id,
+          client_secret: test_github_client_secret,
+          scopes:        %w(gist),
+          fingerprint:  "jklmnop12345678"
+        )
+
+        expect(WebMock).to have_requested(:put, github_url(path)).with(
+          basic_auth: [
+            test_github_login,
+            test_github_password
+          ]
+        )
       end
 
       it 'returns an existing API authorization if one already exists' do
-        first_authorization = @client.create_authorization \
-          :idempotent    => true,
-          :client_id     => test_github_client_id,
-          :client_secret => test_github_client_secret
-        second_authorization = @client.create_authorization \
-          :idempotent    => true,
-          :client_id     => test_github_client_id,
-          :client_secret => test_github_client_secret
+        options = {
+          idempotent:    true,
+          client_id:     test_github_client_id,
+          client_secret: test_github_client_secret
+        }
+
+        first_authorization  = @client.create_authorization(options)
+        second_authorization = @client.create_authorization(options)
+
         expect(first_authorization.id).to eql second_authorization.id
       end
     end
@@ -80,37 +110,58 @@ describe Octokit::Client::Authorizations do
     it "lists existing authorizations" do
       authorizations = @client.authorizations
       expect(authorizations).to be_kind_of Array
-      assert_requested :get, basic_github_url("/authorizations")
+      expect(WebMock).to have_requested(:get, github_url("/authorizations")).with(
+        basic_auth: [
+          test_github_login,
+          test_github_password
+        ]
+      )
     end
   end # .authorizations
 
   describe ".authorization", :vcr do
     it "returns a single authorization" do
-      authorization = @client.create_authorization
+      authorization = @client.create_authorization(note: note)
       @client.authorization(authorization['id'])
-      assert_requested :get, basic_github_url("/authorizations/#{authorization.id}")
+
+      expect(WebMock).to have_requested(:get, github_url("/authorizations/#{authorization.id}")).with(
+        basic_auth: [
+          test_github_login,
+          test_github_password
+        ]
+      )
     end
   end # .authorization
 
   describe ".update_authorization", :vcr do
     it "updates and existing authorization" do
-      authorization = @client.create_authorization
-      updated = @client.update_authorization(authorization.id, :add_scopes => ['repo:status'])
+      authorization = @client.create_authorization(note: note)
+      updated       = @client.update_authorization(authorization.id, add_scopes: ['repo:status'])
+
       expect(updated.scopes).to include('repo:status')
-      assert_requested :patch, basic_github_url("/authorizations/#{authorization.id}")
+      expect(WebMock).to have_requested(:patch, github_url("/authorizations/#{authorization.id}")).with(
+        basic_auth: [
+          test_github_login,
+          test_github_password
+        ]
+      )
     end
   end # .update_authorization
 
   describe ".scopes", :vcr do
     it "checks the scopes on the current token" do
-      authorization = @client.create_authorization
-      token_client = Octokit::Client.new(:access_token => authorization.token)
+      authorization = @client.create_authorization(note: note)
+      token_client  = Octokit::Client.new(access_token: authorization.token)
+
       expect(token_client.scopes).to be_kind_of Array
       assert_requested :get, github_url("/user")
     end
+
     it "checks the scopes on a one-off token" do
-      authorization = @client.create_authorization
+      authorization = @client.create_authorization(note: note)
+
       Octokit.reset!
+
       expect(Octokit.scopes(authorization.token)).to be_kind_of Array
       assert_requested :get, github_url("/user")
     end
@@ -118,13 +169,16 @@ describe Octokit::Client::Authorizations do
 
   describe ".delete_authorization", :vcr do
     it "deletes an existing authorization" do
-      VCR.eject_cassette
-      VCR.use_cassette 'delete_authorization' do
-        authorization = @client.create_authorization
-        result = @client.delete_authorization(authorization.id)
-        expect(result).to be true
-        assert_requested :delete, basic_github_url("/authorizations/#{authorization.id}")
-      end
+      authorization = @client.create_authorization(note: note)
+      result        = @client.delete_authorization(authorization.id)
+
+      expect(result).to be_truthy
+      expect(WebMock).to have_requested(:delete, github_url("/authorizations/#{authorization.id}")).with(
+        basic_auth: [
+          test_github_login,
+          test_github_password
+        ]
+      )
     end
   end # .delete_authorization
 
@@ -169,27 +223,47 @@ describe Octokit::Client::Authorizations do
 
   describe ".check_application_authorization" do
     it "checks an application authorization", :vcr do
-      authorization = create_app_token
+      fingerprint = SecureRandom.hex(6)
+      use_vcr_placeholder_for(fingerprint, "CHECK_APPLICATION_AUTHORIZATION_FINGERPRINT")
+
+      authorization = @client.create_authorization(
+        idempotent:    true,
+        client_id:     test_github_client_id,
+        client_secret: test_github_client_secret,
+        fingerprint:   fingerprint
+      )
+
+      use_vcr_placeholder_for(authorization.token, "CHECK_APPLICATION_AUTHORIZATION_TOKEN")
 
       token = @app_client.check_application_authorization(authorization.token)
+      path  = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
 
-      path = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
-      url = basic_github_url path,
-        :login => test_github_client_id, :password => test_github_client_secret
-      assert_requested :get, url
+      expect(WebMock).to have_requested(:get, github_url(path)).with(
+        basic_auth: [
+          test_github_client_id,
+          test_github_client_secret
+        ]
+      )
+
       expect(token.user.login).to eq(test_github_login)
     end
 
     it "works in Enterprise mode" do
-      client = Octokit::Client.new \
-        :client_id     => "abcde12345fghij67890",
-        :client_secret => "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
-        :api_endpoint  => "https://gh-enterprise.com/api/v3"
+      api_endpoint  = "https://gh-enterprise.com/api/v3"
+      client_id     = "abcde12345fghij67890"
+      client_secret = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
+      token         = "25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
 
-      path = "applications/abcde12345fghij67890/tokens/25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
+      path = File.join(api_endpoint, "/applications/#{client_id}/tokens/#{token}")
 
-      request = stub_get("https://abcde12345fghij67890:abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd@gh-enterprise.com/api/v3/#{path}")
-      token = client.check_application_authorization("25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8")
+      client = Octokit::Client.new(
+        client_id:     client_id,
+        client_secret: client_secret,
+        api_endpoint:  api_endpoint
+      )
+
+      request = stub_request(:get, path).with(basic_auth: [client_id, client_secret])
+      client.check_application_authorization(token)
 
       assert_requested request
     end
@@ -197,29 +271,48 @@ describe Octokit::Client::Authorizations do
 
   describe ".reset_application_authorization" do
     it "resets a token", :vcr do
-      authorization = create_app_token
+      fingerprint = SecureRandom.hex(6)
+      use_vcr_placeholder_for(fingerprint, "RESET_APPLICATION_AUTHORIZATION_FINGERPRINT")
 
-      new_authorization = @app_client.reset_application_authorization authorization.token
+      authorization = @client.create_authorization(
+        idempotent:    true,
+        client_id:     test_github_client_id,
+        client_secret: test_github_client_secret,
+        fingerprint:   fingerprint
+      )
+
+      use_vcr_placeholder_for(authorization.token, "RESET_APPLICATION_AUTHORIZATION_TOKEN")
+
+      new_authorization = @app_client.reset_application_authorization(authorization.token)
 
       expect(new_authorization.rels[:self].href).to eq(authorization.rels[:self].href)
       expect(new_authorization.token).to_not eq(authorization.token)
-      path = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
 
-      reset_url = basic_github_url path,
-        :login => test_github_client_id, :password => test_github_client_secret
-      assert_requested :post, reset_url
+      path = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
+      expect(WebMock).to have_requested(:post, github_url(path)).with(
+        basic_auth: [
+          test_github_client_id,
+          test_github_client_secret
+        ]
+      )
     end
 
     it "works in Enterprise mode" do
-      client = Octokit::Client.new \
-        :client_id     => "abcde12345fghij67890",
-        :client_secret => "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
-        :api_endpoint  => "https://gh-enterprise.com/api/v3"
+      api_endpoint  = "https://gh-enterprise.com/api/v3"
+      client_id     = "abcde12345fghij67890"
+      client_secret = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
+      token         = "25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
 
-      path = "applications/abcde12345fghij67890/tokens/25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
+      path = File.join(api_endpoint, "/applications/#{client_id}/tokens/#{token}")
 
-      request = stub_post("https://abcde12345fghij67890:abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd@gh-enterprise.com/api/v3/#{path}")
-      token = client.reset_application_authorization("25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8")
+      client = Octokit::Client.new(
+        client_id:     client_id,
+        client_secret: client_secret,
+        api_endpoint:  api_endpoint
+      )
+
+      request = stub_request(:post, path).with(basic_auth: [client_id, client_secret])
+      client.reset_application_authorization(token)
 
       assert_requested request
     end
@@ -227,27 +320,46 @@ describe Octokit::Client::Authorizations do
 
   describe ".revoke_application_authorization" do
     it "deletes an application authorization", :vcr do
-      authorization = create_app_token
+      fingerprint = SecureRandom.hex(6)
+      use_vcr_placeholder_for(fingerprint, "REVOKE_APPLICATION_AUTHORIZATION_FINGERPRINT")
 
-      result = @app_client.revoke_application_authorization authorization.token
-      expect(result).to be
+      authorization = @client.create_authorization(
+        idempotent:    true,
+        client_id:     test_github_client_id,
+        client_secret: test_github_client_secret,
+        fingerprint:   fingerprint
+      )
+
+      use_vcr_placeholder_for(authorization.token, "REVOKE_APPLICATION_AUTHORIZATION_TOKEN")
+
+      result = @app_client.revoke_application_authorization(authorization.token)
+      expect(result).to be_truthy
 
       path = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
-      revoke_url = basic_github_url path,
-        :login => test_github_client_id, :password => test_github_client_secret
-      assert_requested :delete, revoke_url
+      expect(WebMock).to have_requested(:delete, github_url(path)).with(
+        basic_auth: [
+          test_github_client_id,
+          test_github_client_secret
+        ]
+      )
     end
 
     it "works in Enterprise mode" do
-      client = Octokit::Client.new \
-        :client_id     => "abcde12345fghij67890",
-        :client_secret => "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
-        :api_endpoint  => "https://gh-enterprise.com/api/v3"
+      api_endpoint  = "https://gh-enterprise.com/api/v3"
+      client_id     = "abcde12345fghij67890"
+      client_secret = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
+      token         = "25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
 
-      path = "applications/abcde12345fghij67890/tokens/25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
+      path = File.join(api_endpoint, "/applications/#{client_id}/tokens/#{token}")
 
-      request = stub_delete("https://abcde12345fghij67890:abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd@gh-enterprise.com/api/v3/#{path}")
-      token = client.revoke_application_authorization("25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8")
+      client = Octokit::Client.new(
+        client_id:     client_id,
+        client_secret: client_secret,
+        api_endpoint:  api_endpoint
+      )
+
+      request = stub_request(:delete, path).with(basic_auth: [client_id, client_secret])
+      client.revoke_application_authorization(token)
 
       assert_requested request
     end
@@ -260,9 +372,13 @@ describe Octokit::Client::Authorizations do
 
     it "returns false" do
       path = "/applications/#{test_github_client_id}/tokens"
-      revoke_url = basic_github_url path,
-        :login => test_github_client_id, :password => test_github_client_secret
-      stub_delete(revoke_url).to_return(:status => 204)
+
+      stub_request(:delete, github_url(path)).with(
+        basic_auth: [
+          test_github_client_id,
+          test_github_client_secret
+        ]
+      ).to_return(status: 204)
 
       result = @app_client.revoke_all_application_authorizations
       expect(result).not_to be
@@ -271,11 +387,4 @@ describe Octokit::Client::Authorizations do
         .with('Deprecated: If you need to revoke all tokens for your application, you can do so via the settings page for your application.')
     end
   end # .revoke_all_application_authorizations
-
-  def create_app_token
-    @client.create_authorization \
-        :idempotent    => true,
-        :client_id     => test_github_client_id,
-        :client_secret => test_github_client_secret
-  end
 end
