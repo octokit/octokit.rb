@@ -15,7 +15,10 @@ require 'rspec'
 require 'webmock/rspec'
 require 'base64'
 require 'jwt'
-require 'pry-byebug'
+
+unless RUBY_PLATFORM == "java"
+  require 'pry-byebug'
+end
 
 WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
