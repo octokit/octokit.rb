@@ -276,17 +276,6 @@ def github_management_console_url(url)
   test_github_enterprise_management_console_endpoint + url
 end
 
-def basic_github_url(path, options = {})
-  url = File.join(Octokit.api_endpoint, path)
-  uri = Addressable::URI.parse(url)
-  uri.path.gsub!("v3//", "v3/")
-
-  uri.user = options.fetch(:login, test_github_login)
-  uri.password = options.fetch(:password, test_github_password)
-
-  uri.to_s
-end
-
 def basic_auth_client(login: test_github_login, password: test_github_password)
   Octokit::Client.new(login: login, password: password)
 end
