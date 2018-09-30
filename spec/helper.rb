@@ -287,12 +287,12 @@ def basic_github_url(path, options = {})
   uri.to_s
 end
 
-def basic_auth_client(login = test_github_login, password = test_github_password )
   client = Octokit.client
   client.login = test_github_login
   client.password = test_github_password
 
   client
+def basic_auth_client(login: test_github_login, password: test_github_password)
 end
 
 def oauth_client
