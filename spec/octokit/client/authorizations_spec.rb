@@ -151,7 +151,9 @@ describe Octokit::Client::Authorizations do
   describe ".scopes", :vcr do
     it "checks the scopes on the current token" do
       authorization = @client.create_authorization(note: note)
-      token_client  = Octokit::Client.new(access_token: authorization.token)
+      use_vcr_placeholder_for(authorization.token, "SCOPE_AUTHORIZATION_TOKEN")
+
+      token_client = Octokit::Client.new(access_token: authorization.token)
 
       expect(token_client.scopes).to be_kind_of Array
       assert_requested :get, github_url("/user")
