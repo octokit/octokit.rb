@@ -18,7 +18,8 @@ module Octokit
       :traffic                => 'application/vnd.github.spiderman-preview'.freeze,
       :integrations           => 'application/vnd.github.machine-man-preview+json'.freeze,
       :topics                 => 'application/vnd.github.mercy-preview+json'.freeze,
-      :community_profile      => 'application/vnd.github.black-panther-preview+json'.freeze
+      :community_profile      => 'application/vnd.github.black-panther-preview+json'.freeze,
+      :strict_validation      => 'application/vnd.github.speedy-preview+json'.freeze,
     }
 
     def ensure_api_media_type(type, options)
