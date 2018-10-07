@@ -205,11 +205,11 @@ def test_github_org
 end
 
 def test_github_integration
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_INTEGRATION', 42
+  ENV.fetch('OCTOKIT_TEST_GITHUB_INTEGRATION', 76_765).to_i
 end
 
 def test_github_integration_installation
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION', 37
+  ENV.fetch('OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION', 898_507).to_i
 end
 
 def test_github_integration_pem_key
@@ -275,23 +275,8 @@ def github_management_console_url(url)
   test_github_enterprise_management_console_endpoint + url
 end
 
-def basic_github_url(path, options = {})
-  url = File.join(Octokit.api_endpoint, path)
-  uri = Addressable::URI.parse(url)
-  uri.path.gsub!("v3//", "v3/")
-
-  uri.user = options.fetch(:login, test_github_login)
-  uri.password = options.fetch(:password, test_github_password)
-
-  uri.to_s
-end
-
-def basic_auth_client(login = test_github_login, password = test_github_password )
-  client = Octokit.client
-  client.login = test_github_login
-  client.password = test_github_password
-
-  client
+def basic_auth_client(login: test_github_login, password: test_github_password)
+  Octokit::Client.new(login: login, password: password)
 end
 
 def oauth_client

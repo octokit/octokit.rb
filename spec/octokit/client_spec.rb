@@ -256,7 +256,7 @@ describe Octokit::Client do
           config.password = 'il0veruby'
         end
 
-        root_request = stub_get("https://pengwynn:il0veruby@api.github.com/")
+        root_request = stub_request(:get, github_url("/")).with(basic_auth: ["pengwynn", "il0veruby"])
         Octokit.client.get("/")
         assert_requested root_request
       end
@@ -455,7 +455,7 @@ describe Octokit::Client do
       client = Octokit::Client.new :login => "login", :password => "passw0rd"
       client.client_id     = key = '97b4937b385eb63d1f46'
       client.client_secret = secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-      root_request = stub_get basic_github_url("/?foo=bar", :login => "login", :password => "passw0rd")
+      root_request = stub_request(:get, github_url("/?foo=bar")).with(basic_auth: ["login", "passw0rd"])
 
       client.get("/", :foo => "bar")
       assert_requested root_request
@@ -654,8 +654,7 @@ describe Octokit::Client do
         config.per_page      = 50
       end
 
-      @root_request = stub_get basic_github_url "/",
-        :login => @client_id, :password => @client_secret
+      @root_request = stub_request(:get, github_url("/")).with(basic_auth: [@client_id, @client_secret])
     end
 
     it "uses preconfigured client and secret" do
