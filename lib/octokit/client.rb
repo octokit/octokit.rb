@@ -13,6 +13,7 @@ require 'octokit/preview'
 require 'octokit/client/apps'
 require 'octokit/client/authorizations'
 require 'octokit/client/check_runs'
+require 'octokit/client/check_suites'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
 require 'octokit/client/community_profile'
@@ -71,6 +72,7 @@ module Octokit
     include Octokit::Warnable
     include Octokit::Client::Authorizations
     include Octokit::Client::CheckRuns
+    include Octokit::Client::CheckSuites
     include Octokit::Client::Commits
     include Octokit::Client::CommitComments
     include Octokit::Client::CommunityProfile
