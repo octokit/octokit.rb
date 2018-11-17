@@ -30,6 +30,7 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
 10. [Configuration and defaults](#configuration-and-defaults)
     1. [Configuring module defaults](#configuring-module-defaults)
     2. [Using ENV variables](#using-env-variables)
+    3. [Timeouts](#timeouts)
 11. [Hypermedia agent](#hypermedia-agent)
     1. [Hypermedia in Octokit](#hypermedia-in-octokit)
     2. [URI templates](#uri-templates)
@@ -426,6 +427,27 @@ client.api_endpoint
 Deprecation warnings and API endpoints in development preview warnings are
 printed to STDOUT by default, these can be disabled by setting the ENV
 `OCTOKIT_SILENT=true`.
+
+### Timeouts
+
+By default, Octokit does not timeout network requests. To set a timeout, pass in Faraday timeout settings to Octokit's `connection_options` setting.
+
+```ruby
+Octokit.configure do |c|
+  c.api_endpoint = ENV.fetch('GITHUB_API_ENDPOINT', 'https://api.github.com/')
+  c.connection_options = {
+    request: {
+      open_timeout: 5,
+      timeout: 5
+    }
+  }
+end
+```
+You should set a timeout in order to avoid Ruby’s Timeout module, which can hose your server. Here are some resources for more information on this:
+
+- [The Oldest Bug In Ruby - Why Rack::Timeout Might Hose your Server](https://www.schneems.com/2017/02/21/the-oldest-bug-in-ruby-why-racktimeout-might-hose-your-server/)
+- [Timeout: Ruby's Most Dangerous API](https://www.mikeperham.com/2015/05/08/timeout-rubys-most-dangerous-api/)
+- [The Ultimate Guide to Ruby Timeouts](https://github.com/ankane/the-ultimate-guide-to-ruby-timeouts)
 
 ## Hypermedia agent
 
