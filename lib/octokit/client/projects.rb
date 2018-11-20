@@ -51,7 +51,7 @@ module Octokit
       #   @client.org_projects("octokit")
       def org_projects(org, options = {})
         opts = ensure_api_media_type(:projects, options)
-        get "orgs/#{org}/projects", opts
+        paginate "orgs/#{org}/projects", opts
       end
       alias :organization_projects :org_projects
 
