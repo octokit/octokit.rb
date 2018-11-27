@@ -119,7 +119,8 @@ module Octokit
     def initialize(options = {})
       # Use options passed in, but fall back to module defaults
       Octokit::Configurable.keys.each do |key|
-        instance_variable_set(:"@#{key}", options[key] || Octokit.instance_variable_get(:"@#{key}"))
+        value = options.key?(key) ? options[key] : Octokit.instance_variable_get(:"@#{key}")
+        instance_variable_set(:"@#{key}", value)
       end
 
       login_from_netrc unless user_authenticated? || application_authenticated?
