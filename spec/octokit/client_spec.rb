@@ -421,6 +421,24 @@ describe Octokit::Client do
       conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
       expect(conn.proxy[:uri].to_s).to eq('http://proxy.example.com')
     end
+    it "no sets an ssl verify" do
+      client = Octokit::Client.new
+      expect(client.connection_options[:ssl]).to be nil
+    end
+    it "sets an ssl verify => true" do
+      client = Octokit::Client.new(
+        :connection_options => {:ssl => {:verify => true}}
+      )
+      conn = client.send(:agent).instance_variable_get(:"@conn")
+      expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_PEER)
+    end
+    it "sets an ssl verify => false" do
+      client = Octokit::Client.new(
+        :connection_options => {:ssl => {:verify => false}}
+      )
+      conn = client.send(:agent).instance_variable_get(:"@conn")
+      expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_NONE)
+    end
     it "sets an ssl verify mode" do
       Octokit.configure do |config|
         config.ssl_verify_mode = OpenSSL::SSL::VERIFY_NONE
