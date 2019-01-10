@@ -10,7 +10,7 @@ module Octokit
       #
       # @see https://developer.github.com/v3/repos/#get
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @return [Sawyer::Resource] if a repository exists, false otherwise
+      # @return [Boolean]
       def repository?(repo, options = {})
         !!repository(repo, options)
       rescue Octokit::InvalidRepository
