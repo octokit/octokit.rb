@@ -133,16 +133,12 @@ module Octokit
       inspected = super
 
       # mask password
-      inspected = inspected.gsub! @password, "*******" if @password
-      inspected = inspected.gsub! @management_console_password, "*******" if @management_console_password
-      inspected = inspected.gsub! @bearer_token, '********' if @bearer_token
+      inspected.gsub! @password, '*******' if @password
+      inspected.gsub! @management_console_password, '*******' if @management_console_password
+      inspected.gsub! @bearer_token, '********' if @bearer_token
       # Only show last 4 of token, secret
-      if @access_token
-        inspected = inspected.gsub! @access_token, "#{'*'*36}#{@access_token[36..-1]}"
-      end
-      if @client_secret
-        inspected = inspected.gsub! @client_secret, "#{'*'*36}#{@client_secret[36..-1]}"
-      end
+      inspected.gsub! @access_token, "#{'*'*36}#{@access_token[36..-1]}" if @access_token
+      inspected.gsub! @client_secret, "#{'*'*36}#{@client_secret[36..-1]}" if @client_secret
 
       inspected
     end
