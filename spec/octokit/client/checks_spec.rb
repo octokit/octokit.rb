@@ -13,16 +13,6 @@ describe Octokit::Client::Checks, :vcr do
     @check_suite_id = 50031988
   end
 
-  # describe ".check_run" do
-  #   it "returns a check run" do
-  #     check_run = @client.check_run("probot/probot", 48583805, accept: preview_header)
-
-  #     expect(check_run.head_sha).to eq("ca853910cddc7787cf60e0f7255ebdb341d1f1b4")
-  #     expect(check_run.url).to eq("https://api.github.com/repos/probot/probot/check-runs/48583805")
-  #     assert_requested :get, github_url("/repos/probot/probot/check-runs/48583805")
-  #   end
-  # end
-
   describe ".create_check_run" do
     it "creates a check run" do
       @client.create_check_run(
