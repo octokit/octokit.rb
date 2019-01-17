@@ -308,7 +308,6 @@ describe Octokit::Client::Checks, :vcr do
 
   describe ".set_check_suite_preferences" do
     it "sets check suite preferences" do
-      puts @test_repo.inspect
       @client.set_check_suite_preferences(
         @test_repo,
         accept: preview_header,
