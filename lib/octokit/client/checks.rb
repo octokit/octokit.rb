@@ -92,6 +92,12 @@ module Octokit
       end
       alias :list_check_runs_for_check_suite :check_runs_for_check_suite
 
+      # Get a single check run
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param id [Integer] The ID of the check run
+      # @return [Sawyer::Resource] A hash representing the check run
+      # @see https://developer.github.com/v3/checks/runs/#get-a-single-check-run
       def check_run(repo, id, options = {})
         opts = ensure_api_media_type(:checks, options)
 
