@@ -69,6 +69,22 @@ module Octokit
       end
       alias :list_check_runs_for_ref :check_runs_for_ref
 
+      # List check runs in a check suite
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param id [Integer] The ID of the check suite
+      # @param options [Hash] A set of optional filters
+      # @option options [String] :check_name Returns check runs with the specified <tt>name</tt>
+      # @option options [String] :status Returns check runs with the specified <tt>status</tt>
+      # @option options [String] :filter Filters check runs by their <tt>completed_at</tt> timestamp
+      # @return [Sawyer::Resource] A hash representing a collection of check runs
+      # @see https://developer.github.com/v3/checks/runs/#list-check-runs-in-a-check-suite
+      # @example List check runs in a check suite
+      #   result = Octokit.check_runs_for_check_suite("octocat/Hello-World", 50440400, status: "in_progress")
+      #   result.total_count # => 1
+      #   result.check_runs.count # => 1
+      #   result.check_runs[0].check_suite.id #=> 50440400
+      #   result.check_runs[0].status #=> "in_progress"
       def check_runs_for_check_suite(repo, id, options = {})
         opts = ensure_api_media_type(:checks, options)
 
