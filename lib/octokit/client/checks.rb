@@ -10,6 +10,18 @@ module Octokit
       #
       # @see https://developer.github.com/v3/checks/runs/
 
+      # Create a check run
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param name [String] The name of the check
+      # @param head_sha [String] The SHA of the commit to check
+      # @return [Sawyer::Resource] A hash representing the new check run
+      # @see https://developer.github.com/v3/checks/runs/#create-a-check-run
+      # @example Create a check run
+      #   check_run = Octokit.create_check_run("octocat/Hello-World", "my-check", "7638417db6d59f3c431d3e1f261cc637155684cd")
+      #   check_run.name # => "my-check"
+      #   check_run.head_sha # => "7638417db6d59f3c431d3e1f261cc637155684cd"
+      #   check_run.status # => "queued"
       def create_check_run(repo, name, head_sha, options = {})
         opts = ensure_api_media_type(:checks, options)
         opts[:name] = name
