@@ -49,8 +49,6 @@ module Octokit
 
         get "#{Repository.path repo}/check-runs/#{id}/annotations", opts
       end
-      alias :annotations_for_check_run :check_run_annotations
-      alias :list_annotations_for_check_run :check_run_annotations
 
       # Methods for Check Suites
       #
