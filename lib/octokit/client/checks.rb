@@ -18,7 +18,7 @@ module Octokit
       # @return [Sawyer::Resource] A hash representing the new check run
       # @see https://developer.github.com/v3/checks/runs/#create-a-check-run
       # @example Create a check run
-      #   check_run = Octokit.create_check_run("octocat/Hello-World", "my-check", "7638417db6d59f3c431d3e1f261cc637155684cd")
+      #   check_run = @client.create_check_run("octocat/Hello-World", "my-check", "7638417db6d59f3c431d3e1f261cc637155684cd")
       #   check_run.name # => "my-check"
       #   check_run.head_sha # => "7638417db6d59f3c431d3e1f261cc637155684cd"
       #   check_run.status # => "queued"
@@ -37,7 +37,7 @@ module Octokit
       # @return [Sawyer::Resource] A hash representing the updated check run
       # @see https://developer.github.com/v3/checks/runs/#update-a-check-run
       # @example Update a check run
-      #   check_run = Octokit.update_check_run("octocat/Hello-World", 51295429, status: "in_progress")
+      #   check_run = @client.update_check_run("octocat/Hello-World", 51295429, status: "in_progress")
       #   check_run.id # => 51295429
       #   check_run.status # => "in_progress"
       def update_check_run(repo, id, options = {})
@@ -57,7 +57,7 @@ module Octokit
       # @return [Sawyer::Resource] A hash representing a collection of check runs
       # @see https://developer.github.com/v3/checks/runs/#list-check-runs-for-a-specific-ref
       # @example List check runs for a specific ref
-      #   result = Octokit.check_runs_for_ref("octocat/Hello-World", "7638417db6d59f3c431d3e1f261cc637155684cd", status: "in_progress")
+      #   result = @client.check_runs_for_ref("octocat/Hello-World", "7638417db6d59f3c431d3e1f261cc637155684cd", status: "in_progress")
       #   result.total_count # => 1
       #   result.check_runs.count # => 1
       #   result.check_runs[0].id #=> 51295429
@@ -80,7 +80,7 @@ module Octokit
       # @return [Sawyer::Resource] A hash representing a collection of check runs
       # @see https://developer.github.com/v3/checks/runs/#list-check-runs-in-a-check-suite
       # @example List check runs in a check suite
-      #   result = Octokit.check_runs_for_check_suite("octocat/Hello-World", 50440400, status: "in_progress")
+      #   result = @client.check_runs_for_check_suite("octocat/Hello-World", 50440400, status: "in_progress")
       #   result.total_count # => 1
       #   result.check_runs.count # => 1
       #   result.check_runs[0].check_suite.id #=> 50440400
@@ -111,7 +111,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] An array of hashes representing check run annotations
       # @see https://developer.github.com/v3/checks/runs/#list-annotations-for-a-check-run
       # @example List annotations for a check run
-      #   annotations = Octokit.check_run_annotations("octocat/Hello-World", 51295429)
+      #   annotations = @client.check_run_annotations("octocat/Hello-World", 51295429)
       #   annotations.count # => 1
       #   annotations[0].path # => "README.md"
       #   annotations[0].message # => "Looks good!"
