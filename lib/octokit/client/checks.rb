@@ -23,11 +23,11 @@ module Octokit
       #   check_run.head_sha # => "7638417db6d59f3c431d3e1f261cc637155684cd"
       #   check_run.status # => "queued"
       def create_check_run(repo, name, head_sha, options = {})
-        opts = ensure_api_media_type(:checks, options)
-        opts[:name] = name
-        opts[:head_sha] = head_sha
+        ensure_api_media_type(:checks, options)
+        options[:name] = name
+        options[:head_sha] = head_sha
 
-        post "#{Repository.path repo}/check-runs", opts
+        post "#{Repository.path repo}/check-runs", options
       end
 
       # Update a check run
@@ -41,9 +41,9 @@ module Octokit
       #   check_run.id # => 51295429
       #   check_run.status # => "in_progress"
       def update_check_run(repo, id, options = {})
-        opts = ensure_api_media_type(:checks, options)
+        ensure_api_media_type(:checks, options)
 
-        patch "#{Repository.path repo}/check-runs/#{id}", opts
+        patch "#{Repository.path repo}/check-runs/#{id}", options
       end
 
       # List check runs for a specific ref
@@ -63,9 +63,9 @@ module Octokit
       #   result.check_runs[0].id # => 51295429
       #   result.check_runs[0].status # => "in_progress"
       def check_runs_for_ref(repo, ref, options = {})
-        opts = ensure_api_media_type(:checks, options)
+        ensure_api_media_type(:checks, options)
 
-        get "#{Repository.path repo}/commits/#{ref}/check-runs", opts
+        get "#{Repository.path repo}/commits/#{ref}/check-runs", options
       end
       alias :list_check_runs_for_ref :check_runs_for_ref
 
@@ -86,9 +86,9 @@ module Octokit
       #   result.check_runs[0].check_suite.id # => 50440400
       #   result.check_runs[0].status # => "in_progress"
       def check_runs_for_check_suite(repo, id, options = {})
-        opts = ensure_api_media_type(:checks, options)
+        ensure_api_media_type(:checks, options)
 
-        get "#{Repository.path repo}/check-suites/#{id}/check-runs", opts
+        get "#{Repository.path repo}/check-suites/#{id}/check-runs", options
       end
       alias :list_check_runs_for_check_suite :check_runs_for_check_suite
 
@@ -99,9 +99,9 @@ module Octokit
       # @return [Sawyer::Resource] A hash representing the check run
       # @see https://developer.github.com/v3/checks/runs/#get-a-single-check-run
       def check_run(repo, id, options = {})
-        opts = ensure_api_media_type(:checks, options)
+        ensure_api_media_type(:checks, options)
 
-        get "#{Repository.path repo}/check-runs/#{id}", opts
+        get "#{Repository.path repo}/check-runs/#{id}", options
       end
 
       # List annotations for a check run
@@ -116,9 +116,9 @@ module Octokit
       #   annotations[0].path # => "README.md"
       #   annotations[0].message # => "Looks good!"
       def check_run_annotations(repo, id, options = {})
-        opts = ensure_api_media_type(:checks, options)
+        ensure_api_media_type(:checks, options)
 
-        get "#{Repository.path repo}/check-runs/#{id}/annotations", opts
+        get "#{Repository.path repo}/check-runs/#{id}/annotations", options
       end
 
       # Methods for Check Suites
@@ -132,9 +132,9 @@ module Octokit
       # @return [Sawyer::Resource] A hash representing the check suite
       # @see https://developer.github.com/v3/checks/suites/#get-a-single-check-suite
       def check_suite(repo, id, options = {})
-        opts = ensure_api_media_type(:checks, options)
+        ensure_api_media_type(:checks, options)
 
-        get "#{Repository.path repo}/check-suites/#{id}", opts
+        get "#{Repository.path repo}/check-suites/#{id}", options
       end
 
       # List check suites for a specific ref
@@ -153,9 +153,9 @@ module Octokit
       #   result.check_suites[0].id # => 50440400
       #   result.check_suites[0].app.id # => 76765
       def check_suites_for_ref(repo, ref, options = {})
-        opts = ensure_api_media_type(:checks, options)
+        ensure_api_media_type(:checks, options)
 
-        get "#{Repository.path repo}/commits/#{ref}/check-suites", opts
+        get "#{Repository.path repo}/commits/#{ref}/check-suites", options
       end
       alias :list_check_suites_for_ref :check_suites_for_ref
 
@@ -172,9 +172,9 @@ module Octokit
       #   result.preferences.auto_trigger_checks[0].setting # => false
       #   result.repository.full_name # => "octocat/Hello-World"
       def set_check_suite_preferences(repo, options = {})
-        opts = ensure_api_media_type(:checks, options)
+        ensure_api_media_type(:checks, options)
 
-        patch "#{Repository.path repo}/check-suites/preferences", opts
+        patch "#{Repository.path repo}/check-suites/preferences", options
       end
 
       # Create a check suite
@@ -188,10 +188,10 @@ module Octokit
       #   check_suite.head_sha # => "7638417db6d59f3c431d3e1f261cc637155684cd"
       #   check_suite.status # => "queued"
       def create_check_suite(repo, head_sha, options = {})
-        opts = ensure_api_media_type(:checks, options)
-        opts[:head_sha] = head_sha
+        ensure_api_media_type(:checks, options)
+        options[:head_sha] = head_sha
 
-        post "#{Repository.path repo}/check-suites", opts
+        post "#{Repository.path repo}/check-suites", options
       end
 
       # Rerequest check suite
@@ -201,9 +201,9 @@ module Octokit
       # @return [Boolean] True if successful, raises an error otherwise
       # @see https://developer.github.com/v3/checks/suites/#rerequest-check-suite
       def rerequest_check_suite(repo, id, options = {})
-        opts = ensure_api_media_type(:checks, options)
+        ensure_api_media_type(:checks, options)
 
-        post "#{Repository.path repo}/check-suites/#{id}/rerequest", opts
+        post "#{Repository.path repo}/check-suites/#{id}/rerequest", options
         true
       end
     end
