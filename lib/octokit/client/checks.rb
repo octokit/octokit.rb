@@ -54,25 +54,36 @@ module Octokit
       #
       # @see https://developer.github.com/v3/checks/suites/
 
-      def check_suite
-        # TODO
+      def check_suite(repo, id, options = {})
+        opts = ensure_api_media_type(:checks, options)
+
+        get "#{Repository.path repo}/check-suites/#{id}", opts
       end
 
-      def check_suites_for_ref
-        # TODO
+      def check_suites_for_ref(repo, ref, options = {})
+        opts = ensure_api_media_type(:checks, options)
+
+        get "#{Repository.path repo}/commits/#{ref}/check-suites", opts
       end
       alias :list_check_suites_for_ref :check_suites_for_ref
 
-      def set_check_suite_preferences
-        # TODO
+      def set_check_suite_preferences(repo, options = {})
+        opts = ensure_api_media_type(:checks, options)
+
+        patch "#{Repository.path repo}/check-suites/preferences", opts
       end
 
-      def create_check_suite
-        # TODO
+      def create_check_suite(repo, head_sha, options = {})
+        opts = ensure_api_media_type(:checks, options)
+        opts[:head_sha] = head_sha
+
+        post "#{Repository.path repo}/check-suites", opts
       end
 
-      def rerequest_check_suite
-        # TODO
+      def rerequest_check_suite(repo, id, options = {})
+        opts = ensure_api_media_type(:checks, options)
+
+        post "#{Repository.path repo}/check-suites/#{id}/rerequest", opts
       end
     end
   end
