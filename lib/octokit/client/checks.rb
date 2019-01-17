@@ -36,9 +36,7 @@ module Octokit
 
         get "#{Repository.path repo}/check-suites/#{id}/check-runs", opts
       end
-      alias :check_runs_for_suite :check_runs_for_check_suite
       alias :list_check_runs_for_check_suite :check_runs_for_check_suite
-      alias :list_check_runs_for_suite :check_runs_for_check_suite
 
       def check_run(repo, id, options = {})
         opts = ensure_api_media_type(:checks, options)
