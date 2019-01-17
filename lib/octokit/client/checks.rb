@@ -30,6 +30,16 @@ module Octokit
         post "#{Repository.path repo}/check-runs", opts
       end
 
+      # Update a check run
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param id [Integer] The ID of the check run
+      # @return [Sawyer::Resource] A hash representing the updated check run
+      # @see https://developer.github.com/v3/checks/runs/#update-a-check-run
+      # @example Update a check run
+      #   check_run = Octokit.update_check_run("octocat/Hello-World", 51295429, status: "in_progress")
+      #   check_run.id # => 51295429
+      #   check_run.status # => "in_progress"
       def update_check_run(repo, id, options = {})
         opts = ensure_api_media_type(:checks, options)
 
