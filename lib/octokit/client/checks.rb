@@ -60,8 +60,8 @@ module Octokit
       #   result = @client.check_runs_for_ref("octocat/Hello-World", "7638417db6d59f3c431d3e1f261cc637155684cd", status: "in_progress")
       #   result.total_count # => 1
       #   result.check_runs.count # => 1
-      #   result.check_runs[0].id #=> 51295429
-      #   result.check_runs[0].status #=> "in_progress"
+      #   result.check_runs[0].id # => 51295429
+      #   result.check_runs[0].status # => "in_progress"
       def check_runs_for_ref(repo, ref, options = {})
         opts = ensure_api_media_type(:checks, options)
 
@@ -83,8 +83,8 @@ module Octokit
       #   result = @client.check_runs_for_check_suite("octocat/Hello-World", 50440400, status: "in_progress")
       #   result.total_count # => 1
       #   result.check_runs.count # => 1
-      #   result.check_runs[0].check_suite.id #=> 50440400
-      #   result.check_runs[0].status #=> "in_progress"
+      #   result.check_runs[0].check_suite.id # => 50440400
+      #   result.check_runs[0].status # => "in_progress"
       def check_runs_for_check_suite(repo, id, options = {})
         opts = ensure_api_media_type(:checks, options)
 
@@ -125,12 +125,33 @@ module Octokit
       #
       # @see https://developer.github.com/v3/checks/suites/
 
+      # Get a single check suite
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param id [Integer] The ID of the check suite
+      # @return [Sawyer::Resource] A hash representing the check suite
+      # @see https://developer.github.com/v3/checks/suites/#get-a-single-check-suite
       def check_suite(repo, id, options = {})
         opts = ensure_api_media_type(:checks, options)
 
         get "#{Repository.path repo}/check-suites/#{id}", opts
       end
 
+      # List check suites for a specific ref
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param ref [String] A SHA, branch name, or tag name
+      # @param options [Hash] A set of optional filters
+      # @option options [Integer] :app_id Filters check suites by GitHub App <tt>id</tt>
+      # @option options [String] :check_name Filters checks suites by the <tt>name</tt> of the check run
+      # @return [Sawyer::Resource] A hash representing a collection of check suites
+      # @see https://developer.github.com/v3/checks/suites/#list-check-suites-for-a-specific-ref
+      # @example List check suites for a specific ref
+      #   result = @client.check_suites_for_ref("octocat/Hello-World", "7638417db6d59f3c431d3e1f261cc637155684cd", app_id: 76765)
+      #   result.total_count # => 1
+      #   result.check_suites.count # => 1
+      #   result.check_suites[0].id # => 50440400
+      #   result.check_suites[0].app.id # => 76765
       def check_suites_for_ref(repo, ref, options = {})
         opts = ensure_api_media_type(:checks, options)
 
@@ -138,12 +159,34 @@ module Octokit
       end
       alias :list_check_suites_for_ref :check_suites_for_ref
 
+      # Set preferences for check suites on a repository
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param options [Hash] Preferences to set
+      # @return [Sawyer::Resource] A hash representing the repository's check suite preferences
+      # @see https://developer.github.com/v3/checks/suites/#set-preferences-for-check-suites-on-a-repository
+      # @example Set preferences for check suites on a repository
+      #   result = @client.set_check_suite_preferences("octocat/Hello-World", auto_trigger_checks: [{ app_id: 76765, setting: false }])
+      #   result.preferences.auto_trigger_checks.count # => 1
+      #   result.preferences.auto_trigger_checks[0].app_id # => 76765
+      #   result.preferences.auto_trigger_checks[0].setting # => false
+      #   result.repository.full_name # => "octocat/Hello-World"
       def set_check_suite_preferences(repo, options = {})
         opts = ensure_api_media_type(:checks, options)
 
         patch "#{Repository.path repo}/check-suites/preferences", opts
       end
 
+      # Create a check suite
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param head_sha [String] The SHA of the commit to check
+      # @return [Sawyer::Resource] A hash representing the new check suite
+      # @see https://developer.github.com/v3/checks/suites/#create-a-check-suite
+      # @example Create a check suite
+      #   check_suite = @client.create_check_suite("octocat/Hello-World", "7638417db6d59f3c431d3e1f261cc637155684cd")
+      #   check_suite.head_sha # => "7638417db6d59f3c431d3e1f261cc637155684cd"
+      #   check_suite.status # => "queued"
       def create_check_suite(repo, head_sha, options = {})
         opts = ensure_api_media_type(:checks, options)
         opts[:head_sha] = head_sha
@@ -151,10 +194,17 @@ module Octokit
         post "#{Repository.path repo}/check-suites", opts
       end
 
+      # Rerequest check suite
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param id [Integer] The ID of the check suite
+      # @return [Boolean] True if successful, raises an error otherwise
+      # @see https://developer.github.com/v3/checks/suites/#rerequest-check-suite
       def rerequest_check_suite(repo, id, options = {})
         opts = ensure_api_media_type(:checks, options)
 
         post "#{Repository.path repo}/check-suites/#{id}/rerequest", opts
+        true
       end
     end
   end
