@@ -104,6 +104,17 @@ module Octokit
         get "#{Repository.path repo}/check-runs/#{id}", opts
       end
 
+      # List annotations for a check run
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param id [Integer] The ID of the check run
+      # @return [Array<Sawyer::Resource>] An array of hashes representing check run annotations
+      # @see https://developer.github.com/v3/checks/runs/#list-annotations-for-a-check-run
+      # @example List annotations for a check run
+      #   annotations = Octokit.check_run_annotations("octocat/Hello-World", 51295429)
+      #   annotations.count # => 1
+      #   annotations[0].path # => "README.md"
+      #   annotations[0].message # => "Looks good!"
       def check_run_annotations(repo, id, options = {})
         opts = ensure_api_media_type(:checks, options)
 
