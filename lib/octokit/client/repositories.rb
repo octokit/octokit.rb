@@ -293,7 +293,7 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @option options [String] :affiliation Filters the return array by affiliation.
-      #   Can be one of: <tt>outside</tt> or <tt>all</tt>.
+      #   Can be one of: <tt>outside</tt>, <tt>direct</tt>, or <tt>all</tt>.
       #   If not specified, defaults to <tt>all</tt>
       # @return [Array<Sawyer::Resource>] Array of hashes representing collaborating users.
       # @see https://developer.github.com/v3/repos/collaborators/#list-collaborators
