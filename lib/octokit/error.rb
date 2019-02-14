@@ -63,6 +63,8 @@ module Octokit
         Octokit::TooManyRequests
       elsif body =~ /login attempts exceeded/i
         Octokit::TooManyLoginAttempts
+      elsif body =~ /returns blobs up to [0-9]+ MB/i
+        Octokit::TooLargeContent
       elsif body =~ /abuse/i
         Octokit::AbuseDetected
       elsif body =~ /repository access blocked/i
@@ -230,6 +232,10 @@ module Octokit
   # Raised when GitHub returns a 403 HTTP status code
   # and body matches 'login attempts exceeded'
   class TooManyLoginAttempts < Forbidden; end
+
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'returns blobs up to [0-9]+ MB'
+  class TooLargeContent < Forbidden; end
 
   # Raised when GitHub returns a 403 HTTP status code
   # and body matches 'abuse'
