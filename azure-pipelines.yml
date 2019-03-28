@@ -19,7 +19,7 @@ steps:
     bundle install --retry=3 --jobs=4
   displayName: 'bundle install'
 
-- script: bundle exec rspec spec --format RspecJunitFormatter --out test_results/TEST-rspec.xml
+- script: bundle exec rspec --format RspecJunitFormatter --out test_results/TEST-rspec.xml
   displayName: 'bundle exec rspec'
 
 - task: PublishTestResults@1
