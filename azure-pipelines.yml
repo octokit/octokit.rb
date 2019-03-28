@@ -25,7 +25,6 @@ jobs:
       testResultsFiles: '**/test-*.xml'
       testRunTitle: 'Ruby tests'
 
-jobs:
 - job: Ruby 2.5
   pool:
     vmImage: 'Ubuntu-16.04'
