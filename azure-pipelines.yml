@@ -1,0 +1,16 @@
+pool:
+  vmImage: 'ubuntu-16.04'
+
+steps:
+- task: UseRubyVersion@0
+  inputs:
+    versionSpec: '>= 2.6'
+    addToPath: true
+
+- script: |
+    gem install bundler
+    bundle install --without-development --retry=3 --jobs=4
+  displayName: 'bundle install'
+
+- script: bundle exec rake
+  displayName: 'bundle exec rake'
