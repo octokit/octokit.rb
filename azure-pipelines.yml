@@ -2,7 +2,7 @@ trigger:
   - master
 
 jobs:
-  - job: Ruby 2.6
+- job: Ruby 2.6
   pool:
     vmImage: 'Ubuntu-16.04'
 
@@ -26,7 +26,7 @@ jobs:
       testRunTitle: 'Ruby tests'
 
 jobs:
-  - job: Ruby 2.5
+- job: Ruby 2.5
   pool:
     vmImage: 'Ubuntu-16.04'
 
