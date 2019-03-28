@@ -19,5 +19,11 @@ steps:
     bundle install --retry=3 --jobs=4
   displayName: 'bundle install'
 
-- script: bundle exec rspec
+- script: bundle exec rspec spec --format RspecJunitFormatter --out test_results/TEST-rspec.xml
   displayName: 'bundle exec rspec'
+
+- task: PublishTestResults@1
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFiles: '**/test-*.xml'
+    testRunTitle: 'Ruby tests'

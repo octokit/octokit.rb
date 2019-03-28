@@ -23,6 +23,7 @@ group :test do
   gem 'netrc', '~> 0.7.7'
   gem 'rb-fsevent', '~> 0.9'
   gem 'rspec', '~> 3.0.0'
+  gem 'rspec_junit_formatter', '~> 0.4.1'
   gem 'simplecov', :require => false
   gem 'vcr', '~> 4.0'
   gem 'webmock', '~> 3.4', '>= 3.4.2'
