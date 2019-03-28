@@ -1,29 +1,50 @@
-# Ruby
-# Package your Ruby project.
-# Add steps that install rails, analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/ruby
-
 trigger:
-- master
+  - master
 
-pool:
-  vmImage: 'Ubuntu-16.04'
+jobs:
+  - job: Ruby 2.6
+  pool:
+    vmImage: 'Ubuntu-16.04'
 
-steps:
-- task: UseRubyVersion@0
-  inputs:
-    versionSpec: '>= 2.5'
+  steps:
+  - task: UseRubyVersion@0
+    inputs:
+      versionSpec: '>= 2.6.2'
 
-- script: |
-    gem install bundler
-    bundle install --retry=3 --jobs=4
-  displayName: 'bundle install'
+  - script: |
+      gem install bundler
+      bundle install --retry=3 --jobs=4
+    displayName: 'bundle install'
 
-- script: bundle exec rspec --format RspecJunitFormatter --out test_results/test-rspec.xml
-  displayName: 'bundle exec rspec'
+  - script: bundle exec rspec --format RspecJunitFormatter --out test_results/test-rspec.xml
+    displayName: 'bundle exec rspec'
 
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testResultsFiles: '**/test-*.xml'
-    testRunTitle: 'Ruby tests'
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFiles: '**/test-*.xml'
+      testRunTitle: 'Ruby tests'
+
+jobs:
+  - job: Ruby 2.5
+  pool:
+    vmImage: 'Ubuntu-16.04'
+
+  steps:
+  - task: UseRubyVersion@0
+    inputs:
+      versionSpec: '2.5.5'
+
+  - script: |
+      gem install bundler
+      bundle install --retry=3 --jobs=4
+    displayName: 'bundle install'
+
+  - script: bundle exec rspec --format RspecJunitFormatter --out test_results/test-rspec.xml
+    displayName: 'bundle exec rspec'
+
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFiles: '**/test-*.xml'
+      testRunTitle: 'Ruby tests'
