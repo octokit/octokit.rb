@@ -22,7 +22,7 @@ steps:
 - script: bundle exec rspec --format RspecJunitFormatter --out test_results/TEST-rspec.xml
   displayName: 'bundle exec rspec'
 
-- task: PublishTestResults@1
+- task: PublishTestResults@2
   condition: succeededOrFailed()
   inputs:
     testResultsFiles: '**/test-*.xml'
