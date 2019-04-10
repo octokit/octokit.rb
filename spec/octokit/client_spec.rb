@@ -883,6 +883,14 @@ describe Octokit::Client do
         :body => {:message => "Sorry. Your account was suspended. Please contact github-enterprise@example.com"}.to_json
       expect { Octokit.post("/user/repos") }.to raise_error Octokit::AccountSuspended
 
+      stub_post('/user/repos').to_return \
+        :status => 403,
+        :headers => {
+            :content_type => "application/json",
+        },
+        :body => {:message => "The repository has been disabled due to a billing issue with the owner account."}.to_json
+      expect { Octokit.post("/user/repos") }.to raise_error Octokit::BillingIssue
+
       stub_get('/torrentz').to_return \
         :status => 451,
         :headers => {

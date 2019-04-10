@@ -73,6 +73,8 @@ module Octokit
         Octokit::UnverifiedEmail
       elsif body =~ /account was suspended/i
         Octokit::AccountSuspended
+      elsif body =~ /billing issue/i
+        Octokit::BillingIssue
       else
         Octokit::Forbidden
       end
@@ -252,6 +254,10 @@ module Octokit
   # Raised when GitHub returns a 403 HTTP status code
   # and body matches 'account was suspended'
   class AccountSuspended < Forbidden; end
+
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'billing issue'
+  class BillingIssue < Forbidden; end
 
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end
