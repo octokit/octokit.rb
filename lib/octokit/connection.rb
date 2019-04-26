@@ -154,7 +154,8 @@ module Octokit
       end
 
       @last_response = response = agent.call(method, Addressable::URI.parse(path.to_s).normalize.to_s, data, options)
-      response.data
+
+      response_data_correctly_encoded(response)
     end
 
     # Executes the request, checking if it was successful
@@ -203,6 +204,14 @@ module Octokit
       opts[:headers] = headers unless headers.empty?
 
       opts
+    end
+
+    def response_data_correctly_encoded(response)
+      # TODO: I'm guessing base64 content responses are still broken, but this fixes the bug we're running into
+      return response.data unless response.headers["content-type"]&.include?("charset") && response.data.is_a?(String)
+
+      reported_encoding = response.headers["content-type"].match(/charset=([^ ]+)/)[1]
+      response.data.force_encoding(reported_encoding)
     end
   end
 end
