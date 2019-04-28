@@ -208,9 +208,10 @@ module Octokit
 
     def response_data_correctly_encoded(response)
       # TODO: I'm guessing base64 content responses are still broken, but this fixes the bug we're running into
-      return response.data unless response.headers["content-type"]&.include?("charset") && response.data.is_a?(String)
+      content_type= response.headers.fetch("content-type", "")
+      return response.data unless content_type.include?("charset") && response.data.is_a?(String)
 
-      reported_encoding = response.headers["content-type"].match(/charset=([^ ]+)/)[1]
+      reported_encoding = content_type.match(/charset=([^ ]+)/)[1]
       response.data.force_encoding(reported_encoding)
     end
   end
