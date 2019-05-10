@@ -8,8 +8,17 @@ module Octokit
 
       # Root for status API
       # @private
+      SUMMARY_ROOT    = 'https://www.githubstatus.com/api/v2/summary.json'
       STATUS_ROOT     = 'https://www.githubstatus.com/api/v2/status.json'
       COMPONENTS_ROOT = 'https://www.githubstatus.com/api/v2/components.json'
+
+      # Returns a summary with the current status and the last status messages.
+      #
+      # @return [<Sawyer::Resource>] GitHub status summary
+      # @see https://www.githubstatus.com/api#summory
+      def github_status_summary
+        get(SUMMARY_ROOT)
+      end
 
       # Returns the current system status
       #

@@ -6,6 +6,15 @@ describe Octokit::Client::ServiceStatus do
     Octokit.reset!
   end
 
+  describe ".github_status_summary", :vcr do
+    it "returns the current system status summary" do
+      current_status = Octokit.github_status_summary
+      expect(current_status.status).not_to be_nil
+      expect(current_status.components).not_to be_nil
+      assert_requested :get, "https://www.githubstatus.com/api/v2/summary.json"
+    end
+  end # .github_status_summary
+
   describe ".github_status", :vcr do
     it "returns the current system status" do
       current_status = Octokit.github_status
