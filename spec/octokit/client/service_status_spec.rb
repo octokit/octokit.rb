@@ -32,12 +32,12 @@ describe Octokit::Client::ServiceStatus do
     end
   end # .github_status_last_message
 
-  describe ".github_status", :vcr do
+  describe ".github_status_messages", :vcr do
     it "returns the most recent status messages" do
       messages = Octokit.github_status_messages
       expect(messages).to be_kind_of Array
       assert_requested :get, "https://www.githubstatus.com/api/v2/components.json"
     end
-  end # .github_status
+  end # .github_status_messages
 
 end
