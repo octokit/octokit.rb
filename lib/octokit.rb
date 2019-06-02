@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'octokit/client'
 require 'octokit/enterprise_admin_client'
 require 'octokit/enterprise_management_console_client'

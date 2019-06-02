@@ -1,4 +1,6 @@
-require "helper"
+# frozen_string_literal: true
+
+require 'helper'
 
 describe Octokit::Client::Checks, :vcr do
   before do

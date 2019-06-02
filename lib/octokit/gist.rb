@@ -1,5 +1,6 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Class to parse and create Gist URLs
   class Gist
 

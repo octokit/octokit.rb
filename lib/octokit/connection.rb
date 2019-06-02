@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sawyer'
 require 'octokit/authentication'
 module Octokit

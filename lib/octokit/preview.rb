@@ -1,5 +1,6 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Default setup options for preview features
   module Preview
 

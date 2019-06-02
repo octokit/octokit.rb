@@ -1,5 +1,6 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Configuration options for {Client}, defaulting to values
   # in {Default}
   module Configurable

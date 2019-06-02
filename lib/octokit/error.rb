@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Octokit
   # Custom error class for rescuing from all GitHub errors
   class Error < StandardError

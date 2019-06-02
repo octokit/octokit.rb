@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'octokit/connection'
 require 'octokit/warnable'
 require 'octokit/arguments'

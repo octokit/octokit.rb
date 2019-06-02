@@ -1,5 +1,6 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Extracts options from method arguments
   # @private
   class Arguments < Array

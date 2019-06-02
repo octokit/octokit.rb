@@ -1,5 +1,6 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Allows warnings to be suppressed via environment variable.
   module Warnable
 

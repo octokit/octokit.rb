@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Octokit
   # GitHub user class to generate API path urls
   class User

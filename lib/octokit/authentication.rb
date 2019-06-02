@@ -1,5 +1,6 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Authentication methods for {Octokit::Client}
   module Authentication
 

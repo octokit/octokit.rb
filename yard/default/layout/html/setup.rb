@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def diskfile
   @file.attributes[:markup] ||= markup_for_file('', @file.filename)
   data = htmlify(@file.contents, @file.attributes[:markup])

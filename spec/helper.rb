@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if RUBY_ENGINE == 'ruby'
   require 'simplecov'
   require 'coveralls'

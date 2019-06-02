@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'octokit/middleware/follow_redirects'
 require 'octokit/response/raise_error'
 require 'octokit/response/feed_parser'

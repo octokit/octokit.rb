@@ -1,5 +1,6 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Class to parse GitHub repository owner and name from
   # URLs and to generate URLs
   class Repository

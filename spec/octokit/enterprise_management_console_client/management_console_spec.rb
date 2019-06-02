@@ -1,7 +1,8 @@
-require "helper"
+# frozen_string_literal: true
+
+require 'helper'
 
 describe Octokit::EnterpriseManagementConsoleClient::ManagementConsole do
-
   before do
     Octokit.reset!
     @enterprise_management_console_client = enterprise_management_console_client

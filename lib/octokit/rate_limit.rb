@@ -1,5 +1,6 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Class for API Rate Limit info
   #
   # @!attribute [w] limit

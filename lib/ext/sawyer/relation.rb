@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sawyer'
 
 patch = Module.new do

@@ -1,7 +1,8 @@
-require "helper"
+# frozen_string_literal: true
+
+require 'helper'
 
 describe Octokit::EnterpriseAdminClient::AdminStats do
-
   before do
     Octokit.reset!
     @admin_client = enterprise_admin_client
