@@ -118,12 +118,22 @@ VCR.configure do |c|
     !!request.headers['X-Vcr-Test-Repo-Setup']
   end
 
+  record_mode =
+    case
+    when ENV['TRAVIS']
+      :none
+    when ENV['OCTOKIT_TEST_VCR_RECORD']
+      :all
+    else
+      :once
+    end
+
   c.default_cassette_options = {
     :serialize_with             => :json,
     # TODO: Track down UTF-8 issue and remove
     :preserve_exact_body_bytes  => true,
     :decode_compressed_response => true,
-    :record                     => ENV['TRAVIS'] ? :none : :once
+    :record                     => record_mode
   }
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
