@@ -418,6 +418,23 @@ describe Octokit::Client::Repositories do
         expect(branch.restrictions).to be_nil
         assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
       end
+      it "protects a single branch with required_approving_review_count" do
+        rules = {
+          required_status_checks: {
+            strict: true,
+            contexts: []
+          },
+          enforce_admins: true,
+          required_pull_request_reviews: {
+            required_approving_review_count: 2
+          },
+        }
+        branch = @client.protect_branch(@repo.full_name, "master", rules.merge(accept: preview_header))
+
+        expect(branch.required_pull_request_reviews.required_approving_review_count).to eq 2
+        assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
+      end
+
     end # .protect_branch
 
     context "with protected branch" do
