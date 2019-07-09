@@ -190,7 +190,14 @@ describe Octokit::Client::Repositories do
 
       context "with protected branch" do
         before(:each) do
-          @client.protect_branch(@repo.full_name, "master", accept: preview_header)
+          protect_params = {
+            accept: preview_header,
+            enforce_admins: true,
+            required_pull_request_reviews: nil,
+            required_status_checks: { strict: true, contexts: []}
+          }
+
+          @client.protect_branch(@repo.full_name, "master", protect_params)
         end
 
         it "returns branch protection summary" do
@@ -207,7 +214,7 @@ describe Octokit::Client::Repositories do
         expect(topics.names).to include("octokit")
         assert_requested :get, github_url("/repos/#{@repo.full_name}/topics")
       end
-    end # .topics    
+    end # .topics
 
     describe ".replace_all_topics", :vcr do
       it "replaces all topics for a repository" do
@@ -381,7 +388,16 @@ describe Octokit::Client::Repositories do
 
     describe ".protect_branch", :vcr do
       it "protects a single branch" do
-        branch = @client.protect_branch(@repo.full_name, "master", accept: preview_header)
+        branch = @client.protect_branch(@repo.full_name, "master",
+                                        { accept: preview_header,
+                                          required_status_checks: {
+                                            strict: true,
+                                            contexts: []
+                                          },
+                                          enforce_admins: true,
+                                          required_pull_request_reviews: nil,
+                                        }
+                                       )
         expect(branch.url).not_to be_nil
         assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
       end
@@ -390,14 +406,15 @@ describe Octokit::Client::Repositories do
         rules = {
           required_status_checks: {
             strict: true,
-            include_admins: true,
-            contexts: [] 
+            contexts: []
           },
+          enforce_admins: true,
+          required_pull_request_reviews: nil,
           restrictions: nil
         }
         branch = @client.protect_branch(@repo.full_name, "master", rules.merge(accept: preview_header))
 
-        expect(branch.required_status_checks.include_admins).to be true
+        expect(branch.required_status_checks.strict).to be true
         expect(branch.restrictions).to be_nil
         assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
       end
