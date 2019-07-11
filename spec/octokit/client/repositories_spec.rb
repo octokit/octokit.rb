@@ -439,7 +439,18 @@ describe Octokit::Client::Repositories do
 
     context "with protected branch" do
       before(:each) do
-        @client.protect_branch(@repo.full_name, "master", accept: preview_header)
+        protection = {
+          required_status_checks: {
+            strict: true,
+            contexts: []
+          },
+          enforce_admins: true,
+          required_pull_request_reviews: nil,
+          restrictions: nil
+        }
+
+        @client.protect_branch(@repo.full_name, "master",
+                               protection.merge(accept: preview_header))
       end
 
       describe ".unprotect_branch", :vcr do
