@@ -47,6 +47,7 @@ module Octokit
       def edit_repository(repo, options = {})
         repo = Repository.new(repo)
         options[:name] ||= repo.name
+        ensure_api_media_type(:template_repositories, options) if options.include? :is_template
         patch "repos/#{repo}", options
       end
       alias :edit :edit_repository
@@ -144,6 +145,7 @@ module Octokit
       # @option options [String] :private `true` makes the repository private, and `false` makes it public.
       # @option options [String] :has_issues `true` enables issues for this repo, `false` disables issues.
       # @option options [String] :has_wiki `true` enables wiki for this repo, `false` disables wiki.
+      # @options options [Boolean] :is_template `true` makes this repo available as a template repository, `false` to prevent it.
       # @option options [String] :has_downloads `true` enables downloads for this repo, `false` disables downloads.
       # @option options [String] :organization Short name for the org under which to create the repo.
       # @option options [Integer] :team_id The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization.
@@ -155,6 +157,7 @@ module Octokit
         opts = options.dup
         organization = opts.delete :organization
         opts.merge! :name => name
+        ensure_api_media_type(:template_repositories, opts) if opts.include? :is_template
 
         if organization.nil?
           post 'user/repos', opts
@@ -191,6 +194,23 @@ module Octokit
         post "#{Repository.path repo}/transfer", options.merge({ new_owner: new_owner })
       end
       alias :transfer_repo :transfer_repository
+
+      # Clone a template repository for a user or organization
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub template repository
+      # @param name [String] Name of the new repo
+      # @option options [String] :owner Organization or user who will own the new repository.
+      # @option options [String] :description Description of the repo
+      # @option options [String] :private `true` makes the repository private, and `false` makes it public.
+      # @return [Sawyer::Resource] Repository info for the new repository
+      def clone_template_repository(repo, name, options = {})
+        options.merge! :name => name
+        options = ensure_api_media_type(:template_repositories, options)
+        post "#{Repository.path repo}/generate", options
+      end
+      alias :create_repository_from_template :clone_template_repository
+      alias :clone_template_repo :clone_template_repository
+      alias :create_repo_from_template :clone_template_repository
 
       # Hide a public repository
       #

@@ -107,6 +107,17 @@ describe Octokit::Client::Repositories do
       end
     end
 
+    describe ".clone_template_repository", :vcr do
+      before do
+        @client.edit_repository(@repo.full_name, is_template: true)
+      end
+
+      it "clones a repository" do
+        @client.clone_template_repository(@repo.id, "Cloned dasasdsarepo")
+        assert_requested :post, github_url("/repositories/#{@repo.id}/generate")
+      end
+    end
+
     describe ".create_repository", :vcr do
       it "creates a repository" do
         expect(@repo.name).to eq("an-repo")
