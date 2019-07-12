@@ -498,9 +498,9 @@ describe Octokit::Client::Repositories do
       assert_requested :get, github_url("/repos/sferik/rails_admin")
     end
     it "returns false if the repository doesn't exist" do
-      result = @client.repository?("pengwynn/octokit")
+      result = @client.repository?("octokit/nonexistent-repo")
       expect(result).to be false
-      assert_requested :get, github_url("/repos/pengwynn/octokit")
+      assert_requested :get, github_url("/repos/octokit/nonexistent-repo")
     end
     it "returns false if the repository has an invalid format" do
       result = @client.repository?("invalid format")
