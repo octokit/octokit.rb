@@ -294,9 +294,10 @@ describe Octokit::Client::Repositories do
 
   describe ".collaborators", :vcr do
     it "returns a repository's collaborators" do
-      collaborators = Octokit.collaborators("sferik/rails_admin")
+      # TODO: This test fails if you do not have PUSH permission to the repo
+      collaborators = @client.collaborators("octokit/octokit.rb")
       expect(collaborators).to be_kind_of Array
-      assert_requested :get, github_url("/repos/sferik/rails_admin/collaborators")
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/collaborators")
     end
   end # .collaborators
 
