@@ -109,49 +109,49 @@ describe Octokit::Client::Repositories do
 
     describe ".clone_template_repository", :vcr do
       before do
-        @client.edit_template_repository_setting(@repo.full_name, true)
+        @client.template_repository(@repo.full_name, true)
       end
 
       it "clones a repository" do
-        @client.clone_template_repository(@repo.id, "Cloned dasasdsarepo")
+        @client.clone_template_repository(@repo.id, "Cloned repo")
         assert_requested :post, github_url("/repositories/#{@repo.id}/generate")
       end
     end
 
-    describe ".template?", :vcr do
+    describe ".template_repository?", :vcr do
       context "repository is a template repository" do
         before(:each) do
-          @client.edit_template_repository_setting(@repo.full_name, true)
+          @client.template_repository(@repo.full_name, true)
         end
 
         it "returns true" do
-          expect(@client.template?(@repo.full_name)).to be true
+          expect(@client.template_repository?(@repo.full_name)).to be true
         end
       end
 
       context "repository is not a template repository" do
         before(:each) do
-          @client.edit_template_repository_setting(@repo.full_name, false)
+          @client.template_repository(@repo.full_name, false)
         end
 
         it "returns false" do
-          expect(@client.template?(@repo.full_name)).to be false
+          expect(@client.template_repository?(@repo.full_name)).to be false
         end
       end
     end
 
-    describe ".template", :vcr do
+    describe ".template_repository", :vcr do
       context "is_template is true" do
         it "makes repo a template repository" do
-          @client.template(@repo.full_name, true)
-          expect(@client.template?(@repo.full_name)).to be true
+          @client.template_repository(@repo.full_name, true)
+          expect(@client.template_repository?(@repo.full_name)).to be true
         end
       end
 
       context "is_template is false" do
         it "makes repo not a template repository" do
-          @client.template(@repo.full_name, false)
-          expect(@client.template?(@repo.full_name)).to be false
+          @client.template_repository(@repo.full_name, false)
+          expect(@client.template_repository?(@repo.full_name)).to be false
         end
       end
     end
