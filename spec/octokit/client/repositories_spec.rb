@@ -109,7 +109,7 @@ describe Octokit::Client::Repositories do
 
     describe ".create_repository", :vcr do
       it "creates a repository" do
-        expect(@repo.name).to eq("an-repo")
+        expect(@repo.name).to eq(test_github_repository)
         assert_requested :post, github_url("/user/repos")
       end
     end # .create_repository
