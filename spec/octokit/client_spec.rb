@@ -114,12 +114,21 @@ describe Octokit::Client do
   end
 
   describe "content type" do
+    before do
+      Octokit.reset!
+      @client = oauth_client
+    end
+
+    after do
+      Octokit.reset!
+    end
+
     it "sets a default Content-Type header" do
       gist_request = stub_post("/gists").
         with({
           :headers => {"Content-Type" => "application/json"}})
 
-      Octokit.client.post "/gists", {}
+      @client.post "/gists", {}
       assert_requested gist_request
     end
     it "fixes % bug", :vcr do
@@ -131,8 +140,8 @@ describe Octokit::Client do
         }
       }
 
-      Octokit.client.post "/gists", new_gist
-      expect(Octokit.client.last_response.status).to eq(201)
+      @client.post "/gists", new_gist
+      expect(@client.last_response.status).to eq(201)
     end
   end
 
