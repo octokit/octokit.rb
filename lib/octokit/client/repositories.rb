@@ -47,7 +47,6 @@ module Octokit
       def edit_repository(repo, options = {})
         repo = Repository.new(repo)
         options[:name] ||= repo.name
-        ensure_api_media_type(:template_repositories, options) if options.include? :is_template
         patch "repos/#{repo}", options
       end
       alias :edit :edit_repository
@@ -715,6 +714,28 @@ module Octokit
       #   @client.delete_subscription("octokit/octokit.rb")
       def delete_subscription(repo, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/subscription", options
+      end
+
+      # Check if a repository is a template repository
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @return [Boolean] True if repository is a template repository, false otherwise.
+      def template?(repo)
+        options = ensure_api_media_type(:template_repositories, {})
+        response = get Repository.path(repo), options
+        response.is_template?
+      end
+
+      # Change whether a repository is a template repository
+      #
+      # @param repo [String, Hash, Repository] A GitHub repository
+      # @param is_template [Boolean] True if making repo a template, false if making it not a template.
+      # @return [Sawyer::Resource] Repository information
+      def template(repo, is_template)
+        repo = Repository.new(repo)
+        options = { is_template: is_template, name: repo.name }
+        options = ensure_api_media_type(:template_repositories, options)
+        patch "repos/#{repo}", options
       end
     end
   end
