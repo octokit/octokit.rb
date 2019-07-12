@@ -210,9 +210,9 @@ describe Octokit::Client::Repositories do
 
     describe ".topics", :vcr do
       it "returns repository topics" do
-        topics = Octokit.topics(@repo.full_name, :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
+        topics = Octokit.topics("octokit/octokit.rb", :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
         expect(topics.names).to include("octokit")
-        assert_requested :get, github_url("/repos/#{@repo.full_name}/topics")
+        assert_requested :get, github_url("/repos/octokit/octokit.rb/topics")
       end
     end # .topics
 
