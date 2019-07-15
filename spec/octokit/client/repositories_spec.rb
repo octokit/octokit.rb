@@ -18,7 +18,12 @@ describe Octokit::Client::Repositories do
       expect(repository.topics).to be_kind_of Array
       expect(repository.topics).to include("syntax-highlighting")
     end
-  end # .repository
+
+    it "uses the template repository preview" do
+      repository = @client.repository("rails/rails")
+      expect(repository.is_template).to_not be nil
+    end
+  end # .repository 
 
   describe ".set_private" do
     it "sets a repository private" do
@@ -57,6 +62,23 @@ describe Octokit::Client::Repositories do
       request = stub_post(github_url("/organizations/1/repos"))
       repository = @client.create_repository("an-org-repo", :organization => 1)
       assert_requested request
+    end
+  end
+
+  describe ".edit_repository", :vcr do
+    before(:each) do
+      @repo = @client.create_repository(test_github_repository)
+    end
+
+    after(:each) do
+      @client.delete_repository(@repo.full_name)
+    end
+
+    context "is_template is passed in params", :vcr do
+      it "uses the template repositories preview flag and succeeds" do
+        @client.edit_repository(@repo.full_name, is_template: true)
+        expect(@client.repository(@repo.full_name).is_template).to be true
+      end
     end
   end
 
@@ -107,52 +129,14 @@ describe Octokit::Client::Repositories do
       end
     end
 
-    describe ".clone_template_repository", :vcr do
+    describe ".create_repository_from_template", :vcr do
       before do
-        @client.template_repository(@repo.full_name, true)
+        @client.edit_repository(@repo.full_name, is_template: true)
       end
 
-      it "clones a repository" do
-        @client.clone_template_repository(@repo.id, "Cloned repo")
+      it "generates a repository from the template" do
+        @client.create_repository_from_template(@repo.id, "Cloned repo")
         assert_requested :post, github_url("/repositories/#{@repo.id}/generate")
-      end
-    end
-
-    describe ".template_repository?", :vcr do
-      context "repository is a template repository" do
-        before(:each) do
-          @client.template_repository(@repo.full_name, true)
-        end
-
-        it "returns true" do
-          expect(@client.template_repository?(@repo.full_name)).to be true
-        end
-      end
-
-      context "repository is not a template repository" do
-        before(:each) do
-          @client.template_repository(@repo.full_name, false)
-        end
-
-        it "returns false" do
-          expect(@client.template_repository?(@repo.full_name)).to be false
-        end
-      end
-    end
-
-    describe ".template_repository", :vcr do
-      context "is_template is true" do
-        it "makes repo a template repository" do
-          @client.template_repository(@repo.full_name, true)
-          expect(@client.template_repository?(@repo.full_name)).to be true
-        end
-      end
-
-      context "is_template is false" do
-        it "makes repo not a template repository" do
-          @client.template_repository(@repo.full_name, false)
-          expect(@client.template_repository?(@repo.full_name)).to be false
-        end
       end
     end
 

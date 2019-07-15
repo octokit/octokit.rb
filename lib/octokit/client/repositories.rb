@@ -26,6 +26,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Repository information
       def repository(repo, options = {})
+        options = ensure_api_media_type(:template_repositories, options)
         get Repository.path(repo), options
       end
       alias :repo :repository
@@ -41,11 +42,13 @@ module Octokit
       # @option options [String] :private `true` makes the repository private, and `false` makes it public.
       # @option options [String] :has_issues `true` enables issues for this repo, `false` disables issues.
       # @option options [String] :has_wiki `true` enables wiki for this repo, `false` disables wiki.
+      # @option options [Boolean] :is_template `true` makes the repository a template, `false` makes it not a template.
       # @option options [String] :has_downloads `true` enables downloads for this repo, `false` disables downloads.
       # @option options [String] :default_branch Update the default branch for this repository.
       # @return [Sawyer::Resource] Repository information
       def edit_repository(repo, options = {})
         repo = Repository.new(repo)
+        options = ensure_api_media_type(:template_repositories, options) if options.include? :is_template
         options[:name] ||= repo.name
         patch "repos/#{repo}", options
       end
@@ -194,22 +197,20 @@ module Octokit
       end
       alias :transfer_repo :transfer_repository
 
-      # Clone a template repository for a user or organization
+      # Create a repository for a user or organization generated from a template repository
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub template repository
       # @param name [String] Name of the new repo
-      # @option options [String] :owner Organization or user who will own the new repository.
+      # @option options [String] :owner Organization or user who the new repository will belong to.
       # @option options [String] :description Description of the repo
       # @option options [String] :private `true` makes the repository private, and `false` makes it public.
       # @return [Sawyer::Resource] Repository info for the new repository
-      def clone_template_repository(repo, name, options = {})
+      def create_repository_from_template(repo, name, options = {})
         options.merge! :name => name
         options = ensure_api_media_type(:template_repositories, options)
         post "#{Repository.path repo}/generate", options
       end
-      alias :create_repository_from_template :clone_template_repository
-      alias :clone_template_repo :clone_template_repository
-      alias :create_repo_from_template :clone_template_repository
+      alias :create_repo_from_template :create_repository_from_template
 
       # Hide a public repository
       #
@@ -715,30 +716,6 @@ module Octokit
       def delete_subscription(repo, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/subscription", options
       end
-
-      # Check if a repository is a template repository
-      #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @return [Boolean] True if repository is a template repository, false otherwise.
-      def template_repository?(repo)
-        options = ensure_api_media_type(:template_repositories, {})
-        response = get Repository.path(repo), options
-        response.is_template?
-      end
-      alias :template_repo? :template_repository?
-
-      # Change whether a repository is a template repository
-      #
-      # @param repo [String, Hash, Repository] A GitHub repository
-      # @param is_template [Boolean] True if making repo a template, false if making it not a template.
-      # @return [Sawyer::Resource] Repository information
-      def template_repository(repo, is_template)
-        repo = Repository.new(repo)
-        options = { is_template: is_template, name: repo.name }
-        options = ensure_api_media_type(:template_repositories, options)
-        patch "repos/#{repo}", options
-      end
-      alias :template_repo :template_repository
     end
   end
 end
