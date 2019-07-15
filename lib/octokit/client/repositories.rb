@@ -159,7 +159,7 @@ module Octokit
         opts = options.dup
         organization = opts.delete :organization
         opts.merge! :name => name
-        ensure_api_media_type(:template_repositories, opts) if opts.include? :is_template
+        opts = ensure_api_media_type(:template_repositories, opts) if opts.include? :is_template
 
         if organization.nil?
           post 'user/repos', opts
