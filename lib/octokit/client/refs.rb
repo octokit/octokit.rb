@@ -83,7 +83,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] The list of references updated
       # @see https://developer.github.com/v3/git/refs/#update-a-reference
       # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
-      #   Octokit.update_ref("octocat/Hello-World","sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
+      #   Octokit.update_branch("octocat/Hello-World","sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
       def update_branch(repo, branch, sha, force = true, options = {})
         update_ref repo, "heads/#{branch}", sha, force, options
       end
