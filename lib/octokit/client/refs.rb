@@ -60,7 +60,7 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param ref [String] The ref, e.g. <tt>tags/v0.0.3</tt>
       # @param sha [String] A SHA, e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
-      # @param force [Boolean] A flag indicating one wants to force the update to make sure the update is a fast-forward update.
+      # @param force [Boolean] A flag indicating whether to force the update or to make sure the update is a fast-forward update.
       # @return [Array<Sawyer::Resource>] The list of references updated
       # @see https://developer.github.com/v3/git/refs/#update-a-reference
       # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
@@ -79,7 +79,7 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param branch [String] The ref, e.g. <tt>feature/new-shiny</tt>
       # @param sha [String] A SHA, e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
-      # @param force [Boolean] A flag indicating one wants to force the update to make sure the update is a fast-forward update.
+      # @param force [Boolean] A flag indicating whether to force the update or to make sure the update is a fast-forward update.
       # @return [Array<Sawyer::Resource>] The list of references updated
       # @see https://developer.github.com/v3/git/refs/#update-a-reference
       # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
