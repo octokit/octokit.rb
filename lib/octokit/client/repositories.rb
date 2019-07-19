@@ -204,6 +204,7 @@ module Octokit
       # @option options [String] :owner Organization or user who the new repository will belong to.
       # @option options [String] :description Description of the repo
       # @option options [String] :private `true` makes the repository private, and `false` makes it public.
+      # @option options [Boolean] :include_all_branches `true` copies all branches from the template repository, `false` (default) makes it only copy the master branch.
       # @return [Sawyer::Resource] Repository info for the new repository
       def create_repository_from_template(repo, name, options = {})
         options.merge! :name => name
