@@ -26,7 +26,6 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @return [Sawyer::Resource] Repository information
       def repository(repo, options = {})
-        options = ensure_api_media_type(:template_repositories, options)
         get Repository.path(repo), options
       end
       alias :repo :repository
@@ -48,7 +47,9 @@ module Octokit
       # @return [Sawyer::Resource] Repository information
       def edit_repository(repo, options = {})
         repo = Repository.new(repo)
-        options = ensure_api_media_type(:template_repositories, options) if options.include? :is_template
+        if options.include? :is_template
+          options = ensure_api_media_type(:template_repositories, options)
+        end
         options[:name] ||= repo.name
         patch "repos/#{repo}", options
       end
@@ -159,7 +160,9 @@ module Octokit
         opts = options.dup
         organization = opts.delete :organization
         opts.merge! :name => name
-        opts = ensure_api_media_type(:template_repositories, opts) if opts.include? :is_template
+        if opts.include? :is_template
+          opts = ensure_api_media_type(:template_repositories, opts)
+        end
 
         if organization.nil?
           post 'user/repos', opts
