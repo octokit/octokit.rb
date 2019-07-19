@@ -449,8 +449,7 @@ describe Octokit::Client::Repositories do
           restrictions: nil
         }
 
-        @client.protect_branch(@repo.full_name, "master",
-                               protection.merge(accept: preview_header))
+        @client.protect_branch(@repo.full_name, "master", protection.merge(accept: preview_header))
       end
 
       describe ".unprotect_branch", :vcr do
