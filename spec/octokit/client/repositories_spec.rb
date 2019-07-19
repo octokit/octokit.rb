@@ -18,11 +18,6 @@ describe Octokit::Client::Repositories do
       expect(repository.topics).to be_kind_of Array
       expect(repository.topics).to include("syntax-highlighting")
     end
-
-    it "uses the template repository preview" do
-      repository = @client.repository("rails/rails")
-      expect(repository.is_template).to_not be nil
-    end
   end # .repository 
 
   describe ".set_private" do
