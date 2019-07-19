@@ -9,7 +9,7 @@
 5. Implement your feature or bug fix.
 6. Run `script/test`. If your specs fail, return to step 5.
 7. Run `open coverage/index.html`. If your changes are not completely covered
-   by your tests, return to step 4.
+   by your tests, return to step 3.
 8. Add documentation for your feature or bug fix.
 9. Run `bundle exec rake doc:yard`. If your changes are not 100% documented, go
    back to step 8.
