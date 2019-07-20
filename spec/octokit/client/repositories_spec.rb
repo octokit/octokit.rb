@@ -18,7 +18,7 @@ describe Octokit::Client::Repositories do
       expect(repository.topics).to be_kind_of Array
       expect(repository.topics).to include("syntax-highlighting")
     end
-  end # .repository
+  end # .repository 
 
   describe ".set_private" do
     it "sets a repository private" do
@@ -57,6 +57,23 @@ describe Octokit::Client::Repositories do
       request = stub_post(github_url("/organizations/1/repos"))
       repository = @client.create_repository("an-org-repo", :organization => 1)
       assert_requested request
+    end
+  end
+
+  describe ".edit_repository", :vcr do
+    before(:each) do
+      @repo = @client.create_repository(test_github_repository)
+    end
+
+    after(:each) do
+      @client.delete_repository(@repo.full_name)
+    end
+
+    context "is_template is passed in params", :vcr do
+      it "uses the template repositories preview flag and succeeds" do
+        @client.edit_repository(@repo.full_name, is_template: true)
+        expect(@client.repository(@repo.full_name).is_template).to be true
+      end
     end
   end
 
@@ -104,6 +121,17 @@ describe Octokit::Client::Repositories do
       begin
         @client.delete_repository(@repo.full_name)
       rescue Octokit::NotFound
+      end
+    end
+
+    describe ".create_repository_from_template", :vcr do
+      before do
+        @client.edit_repository(@repo.full_name, is_template: true)
+      end
+
+      it "generates a repository from the template" do
+        @client.create_repository_from_template(@repo.id, "Cloned repo")
+        assert_requested :post, github_url("/repositories/#{@repo.id}/generate")
       end
     end
 
