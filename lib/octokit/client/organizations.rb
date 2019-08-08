@@ -335,7 +335,7 @@ module Octokit
       # @example
       #   @client.team("github", "justice-league")
       def team_by_name(org, team_slug, options = {})
-        get "/orgs/#{org}/teams/#{team_slug}", options
+        get "#{Organization.path(org)}/teams/#{team_slug}", options
       end
 
       # List child teams
