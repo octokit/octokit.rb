@@ -33,5 +33,7 @@ jobs:
         gem update bundler
         bundle install --without development --jobs 4 --retry 3
     - name: Test with RSpec
+      env:
+        GITHUB_CI: 1
       run: |
         bundle exec rake
