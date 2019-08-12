@@ -1,0 +1,40 @@
+name: Octokit CI
+
+on:
+   push:
+     branches:
+     - master
+   pull_request:
+     branches:
+     - master
+
+jobs:
+  test:
+    name: Ruby ${{ matrix.ruby_version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 3
+      matrix:
+        ruby_version: [2.4.x, 2.5.x, 2.6.x]
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Set up Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        version: ${{ matrix.ruby_version }}
+    - name: Setup .netrc
+      run: |
+        chmod 600 spec/fixtures/.netrc
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        gem update bundler
+        bundle install --without development --jobs 4 --retry 3
+    - name: Test with RSpec
+      env:
+        GITHUB_CI: 1
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+      run: |
+        bundle exec rspec
