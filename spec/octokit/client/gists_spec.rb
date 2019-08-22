@@ -179,7 +179,7 @@ describe Octokit::Client::Gists do
     describe ".gist_comment" do
       it "returns a gist comment" do
         comment = @client.gist_comment("5421307", 818334)
-        expect(comment.body).to eq(":sparkles:")
+        expect(comment.body).to match(/:sparkles:/)
         assert_requested :get, github_url("/gists/5421307/comments/818334")
       end
     end # .gist_comment
