@@ -324,6 +324,20 @@ module Octokit
         get "teams/#{team_id}", options
       end
 
+      # Get team by name and org
+      #
+      # Requires authenticated organization member.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param team_slug [String] Team slug.
+      # @return [Sawyer::Resource] Hash representing team.
+      # @see https://developer.github.com/v3/teams/#get-team-by-name
+      # @example
+      #   @client.team("github", "justice-league")
+      def team_by_name(org, team_slug, options = {})
+        get "#{Organization.path(org)}/teams/#{team_slug}", options
+      end
+
       # List child teams
       #
       # Requires authenticated organization member.
