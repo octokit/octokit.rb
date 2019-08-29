@@ -18,7 +18,7 @@ describe Octokit::Client::Labels do
   describe ".label", :vcr do
     it "returns a single label" do
       label = @client.label("octokit/octokit.rb", "V3 Addition")
-      expect(label.name).to eq("V3 Addition")
+      expect(label.name).to match(%r{V3 Addition}i) # Case insensitive
       assert_requested :get, github_url("/repos/octokit/octokit.rb/labels/V3%20Addition")
     end
   end # .label
