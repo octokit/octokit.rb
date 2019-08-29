@@ -73,6 +73,10 @@ describe Octokit::Client::Labels do
     end # .labels_for_issue
 
     describe ".remove_label", :vcr do
+      before do
+        @client.add_labels_to_an_issue(@test_repo, @issue.number, ['bug'])
+      end
+
       it "removes a label from the specified issue" do
         @client.remove_label(@test_repo, @issue.number, 'bug')
         assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels/bug")
