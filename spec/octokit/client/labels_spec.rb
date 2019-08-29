@@ -45,7 +45,8 @@ describe Octokit::Client::Labels do
 
     describe ".update_label", :vcr do
       it "updates a label with a new color" do
-        @client.update_label(@test_repo, @label.name, {:color => 'ffdd33'})
+        @client.update_label(@test_repo, @label.name, {:name => @label.name, :color => 'ffdd33'}
+                            )
         assert_requested :patch, github_url("/repos/#{@test_repo}/labels/#{@label.name}")
       end
     end # .update_label
