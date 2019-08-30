@@ -60,6 +60,23 @@ describe Octokit::Client::Repositories do
     end
   end
 
+  describe ".edit_repository", :vcr do
+    before(:each) do
+      @repo = @client.create_repository(test_github_repository)
+    end
+
+    after(:each) do
+      @client.delete_repository(@repo.full_name)
+    end
+
+    context "is_template is passed in params", :vcr do
+      it "uses the template repositories preview flag and succeeds" do
+        @client.edit_repository(@repo.full_name, is_template: true)
+        expect(@client.repository(@repo.full_name).is_template).to be true
+      end
+    end
+  end
+
   describe ".add_deploy_key" do
     it "adds a repository deploy keys" do
       request = stub_post(github_url("/repos/#{@test_repo}/keys"))
@@ -104,6 +121,17 @@ describe Octokit::Client::Repositories do
       begin
         @client.delete_repository(@repo.full_name)
       rescue Octokit::NotFound
+      end
+    end
+
+    describe ".create_repository_from_template", :vcr do
+      before do
+        @client.edit_repository(@repo.full_name, is_template: true)
+      end
+
+      it "generates a repository from the template" do
+        @client.create_repository_from_template(@repo.id, "Cloned repo")
+        assert_requested :post, github_url("/repositories/#{@repo.id}/generate")
       end
     end
 
@@ -419,6 +447,23 @@ describe Octokit::Client::Repositories do
         expect(branch.restrictions).to be_nil
         assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
       end
+      it "protects a single branch with required_approving_review_count" do
+        rules = {
+          required_status_checks: {
+            strict: true,
+            contexts: []
+          },
+          enforce_admins: true,
+          required_pull_request_reviews: {
+            required_approving_review_count: 2
+          },
+        }
+        branch = @client.protect_branch(@repo.full_name, "master", rules.merge(accept: preview_header))
+
+        expect(branch.required_pull_request_reviews.required_approving_review_count).to eq 2
+        assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
+      end
+
     end # .protect_branch
 
     context "with protected branch" do
@@ -433,8 +478,7 @@ describe Octokit::Client::Repositories do
           restrictions: nil
         }
 
-        @client.protect_branch(@repo.full_name, "master",
-                               protection.merge(accept: preview_header))
+        @client.protect_branch(@repo.full_name, "master", protection.merge(accept: preview_header))
       end
 
       describe ".unprotect_branch", :vcr do

@@ -120,7 +120,7 @@ VCR.configure do |c|
 
   record_mode =
     case
-    when ENV['TRAVIS']
+    when ENV['GITHUB_CI']
       :none
     when ENV['OCTOKIT_TEST_VCR_RECORD']
       :all
