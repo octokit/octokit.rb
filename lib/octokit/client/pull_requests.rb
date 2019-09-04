@@ -11,7 +11,7 @@ module Octokit
       # @overload pull_requests(repo, options)
       #   @param repo [Integer, String, Hash, Repository] A GitHub repository
       #   @param options [Hash] Method options
-      #   @option options [String] :state `open` or `closed`.
+      #   @option options [String] :state `open` or `closed` or `all`.
       # @return [Array<Sawyer::Resource>] Array of pulls
       # @see https://developer.github.com/v3/pulls/#list-pull-requests
       # @example
@@ -27,6 +27,8 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of the pull request to fetch
       # @return [Sawyer::Resource] Pull request info
+      # @example
+      #   Octokit.pull_request('rails/rails', 42, :state => 'closed')      
       def pull_request(repo, number, options = {})
         get "#{Repository.path repo}/pulls/#{number}", options
       end

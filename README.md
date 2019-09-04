@@ -30,6 +30,7 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
 10. [Configuration and defaults](#configuration-and-defaults)
     1. [Configuring module defaults](#configuring-module-defaults)
     2. [Using ENV variables](#using-env-variables)
+    3. [Timeouts](#timeouts)
 11. [Hypermedia agent](#hypermedia-agent)
     1. [Hypermedia in Octokit](#hypermedia-in-octokit)
     2. [URI templates](#uri-templates)
@@ -43,7 +44,8 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
     1. [Running and writing new tests](#running-and-writing-new-tests)
 15. [Supported Ruby Versions](#supported-ruby-versions)
 16. [Versioning](#versioning)
-17. [License](#license)
+17. [Making Repeating Requests](#making-repeating-requests)
+18. [License](#license)
 
 ## Philosophy
 
@@ -54,10 +56,11 @@ Most methods have positional arguments for required input and an options hash
 for optional parameters, headers, or other options:
 
 ```ruby
-# Fetch a README with Accept header for HTML format
-Octokit.readme 'al3x/sovereign', :accept => 'application/vnd.github.html'
-```
+client = Octokit::Client.new
 
+# Fetch a README with Accept header for HTML format
+client.readme 'al3x/sovereign', :accept => 'application/vnd.github.html'
+```
 
 [wrappers]: http://wynnnetherland.com/journal/what-makes-a-good-api-wrapper
 [github-api]: http://developer.github.com
@@ -72,26 +75,21 @@ Install via Rubygems
 
     gem "octokit", "~> 4.0"
 
+Access the library in Ruby:
+
+    require 'octokit'
+
 ### Making requests
 
-[API methods][] are available as module methods (consuming module-level
-configuration) or as client instance methods.
-
-```ruby
-# Provide authentication credentials
-Octokit.configure do |c|
-  c.login = 'defunkt'
-  c.password = 'c0d3b4ssssss!'
-end
-
-# Fetch the current user
-Octokit.user
-```
-or
+[API methods][] are available as client instance methods.
 
 ```ruby
 # Provide authentication credentials
 client = Octokit::Client.new(:login => 'defunkt', :password => 'c0d3b4ssssss!')
+
+# Set access_token instead of login and password if you use personal access token
+# client = Octokit::Client.new(:access_token => '[personal_access_token]!')
+
 # Fetch the current user
 client.user
 ```
@@ -108,7 +106,6 @@ When passing additional parameters to GET based request use the following syntax
  # Example: Get contents of a repository by ref
  # https://api.github.com/repos/octokit/octokit.rb/contents/path/to/file.rb?ref=some-other-branch
  client.contents('octokit/octokit.rb', path: 'path/to/file.rb', query: {ref: 'some-other-branch'})
-
 ```
 
 [API methods]: http://octokit.github.io/octokit.rb/method_list.html
@@ -119,8 +116,10 @@ Most methods return a `Resource` object which provides dot notation and `[]`
 access for fields returned in the API response.
 
 ```ruby
+client = Octokit::Client.new
+
 # Fetch a user
-user = Octokit.user 'jbarnette'
+user = client.user 'jbarnette'
 puts user.name
 # => "John Barnette"
 puts user.fields
@@ -141,8 +140,8 @@ need access to the raw HTTP response headers. You can access the last HTTP
 response with `Client#last_response`:
 
 ```ruby
-user      = Octokit.user 'andrewpthorp'
-response  = Octokit.last_response
+user      = client.user 'andrewpthorp'
+response  = client.last_response
 etag      = response.headers[:etag]
 ```
 
@@ -157,9 +156,7 @@ Using your GitHub username and password is the easiest way to get started
 making authenticated requests:
 
 ```ruby
-client = Octokit::Client.new \
-  :login    => 'defunkt',
-  :password => 'c0d3b4ssssss!'
+client = Octokit::Client.new(:login => 'defunkt', :password => 'c0d3b4ssssss!')
 
 user = client.user
 user.login
@@ -194,9 +191,7 @@ You can [create access tokens through your GitHub Account Settings](https://help
 or with a basic authenticated Octokit client:
 
 ```ruby
-client = Octokit::Client.new \
-  :login    => 'defunkt',
-  :password => 'c0d3b4ssssss!'
+client = Octokit::Client.new(:login => 'defunkt', :password => 'c0d3b4ssssss!')
 
 client.create_authorization(:scopes => ["user"], :note => "Name of token")
 # => <your new oauth token>
@@ -282,7 +277,7 @@ user = client.user 'defunkt'
 Default results from the GitHub API are 30, if you wish to add more you must do so during Octokit configuration.
 
 ```ruby
-  Octokit::Client.new(access_token: "<your 40 char token>", per_page: 100)
+Octokit::Client.new(access_token: "<your 40 char token>", per_page: 100)
 ```
 
 ## Pagination
@@ -293,8 +288,8 @@ previous, and last pages for you in the `Link` response header as [Hypermedia
 link relations](#hypermedia-agent).
 
 ```ruby
-issues = Octokit.issues 'rails/rails'
-issues.concat Octokit.last_response.rels[:next].get.data
+issues = client.issues 'rails/rails'
+issues.concat client.last_response.rels[:next].get.data
 ```
 
 ### Auto pagination
@@ -304,11 +299,19 @@ enabled, calls for paginated resources will fetch and concatenate the results
 from every page into a single array:
 
 ```ruby
-Octokit.auto_paginate = true
-issues = Octokit.issues 'rails/rails'
+client.auto_paginate = true
+issues = client.issues 'rails/rails'
 issues.length
 
 # => 702
+```
+
+You can also enable auto pagination for all Octokit client instances:
+
+```ruby
+Octokit.configure do |c|
+  c.auto_paginate = true
+end
 ```
 
 **Note:** While Octokit auto pagination will set the page size to the maximum
@@ -329,6 +332,7 @@ To interact with the "regular" GitHub.com APIs in GitHub Enterprise, simply conf
 Octokit.configure do |c|
   c.api_endpoint = "https://<hostname>/api/v3/"
 end
+
 client = Octokit::Client.new(:access_token => "<your 40 char token>")
 ```
 
@@ -337,16 +341,18 @@ client = Octokit::Client.new(:access_token => "<your 40 char token>")
 The GitHub Enterprise Admin APIs are under a different client: `EnterpriseAdminClient`. You'll need to have an administrator account in order to use these APIs.
 
 ``` ruby
-admin_client = Octokit::EnterpriseAdminClient.new \
-                          :access_token => "<your 40 char token>",
-                          :api_endpoint => "https://<hostname>/api/v3/"
+admin_client = Octokit::EnterpriseAdminClient.new(
+  :access_token => "<your 40 char token>",
+  :api_endpoint => "https://<hostname>/api/v3/"
+)
 
 # or
 Octokit.configure do |c|
   c.api_endpoint = "https://<hostname>/api/v3/"
   c.access_token = "<your 40 char token>"
 end
-admin_client = Octokit.enterprise_admin_client
+
+admin_client = Octokit.enterprise_admin_client.new
 ```
 
 ### Interacting with the GitHub Enterprise Management Console APIs
@@ -354,15 +360,18 @@ admin_client = Octokit.enterprise_admin_client
 The GitHub Enterprise Management Console APIs are also under a separate client: `EnterpriseManagementConsoleClient`. In order to use it, you'll need to provide both your management console password as well as the endpoint to your management console. This is different than the API endpoint provided above.
 
 ``` ruby
-management_console_client = Octokit::EnterpriseManagementConsoleClient.new \
-                          :management_console_password => "secret",
-                          :management_console_endpoint = "https://hostname:8633"
+management_console_client = Octokit::EnterpriseManagementConsoleClient.new(
+  :management_console_password => "secret",
+  :management_console_endpoint = "https://hostname:8633"
+)
+
 # or
 Octokit.configure do |c|
   c.management_console_endpoint = "https://hostname:8633"
   c.management_console_password = "secret"
 end
-management_console_client = Octokit.enterprise_management_console_client
+
+management_console_client = Octokit.enterprise_management_console_client.new
 ```
 
 ### SSL Connection Errors
@@ -410,7 +419,7 @@ Octokit's default.
 
 ```ruby
 # Given $OCTOKIT_API_ENDPOINT is "http://api.github.dev"
-Octokit.api_endpoint
+client.api_endpoint
 
 # => "http://api.github.dev"
 ```
@@ -418,6 +427,27 @@ Octokit.api_endpoint
 Deprecation warnings and API endpoints in development preview warnings are
 printed to STDOUT by default, these can be disabled by setting the ENV
 `OCTOKIT_SILENT=true`.
+
+### Timeouts
+
+By default, Octokit does not timeout network requests. To set a timeout, pass in Faraday timeout settings to Octokit's `connection_options` setting.
+
+```ruby
+Octokit.configure do |c|
+  c.api_endpoint = ENV.fetch('GITHUB_API_ENDPOINT', 'https://api.github.com/')
+  c.connection_options = {
+    request: {
+      open_timeout: 5,
+      timeout: 5
+    }
+  }
+end
+```
+You should set a timeout in order to avoid Ruby’s Timeout module, which can hose your server. Here are some resources for more information on this:
+
+- [The Oldest Bug In Ruby - Why Rack::Timeout Might Hose your Server](https://www.schneems.com/2017/02/21/the-oldest-bug-in-ruby-why-racktimeout-might-hose-your-server/)
+- [Timeout: Ruby's Most Dangerous API](https://www.mikeperham.com/2015/05/08/timeout-rubys-most-dangerous-api/)
+- [The Ultimate Guide to Ruby Timeouts](https://github.com/ankane/the-ultimate-guide-to-ruby-timeouts)
 
 ## Hypermedia agent
 
@@ -430,7 +460,7 @@ Resources returned by Octokit methods contain not only data but hypermedia
 link relations:
 
 ```ruby
-user = Octokit.user 'technoweenie'
+user = client.user 'technoweenie'
 
 # Get the repos rel, returned from the API
 # as repos_url in the resource
@@ -451,7 +481,7 @@ You might notice many link relations have variable placeholders. Octokit
 supports [URI Templates][uri-templates] for parameterized URI expansion:
 
 ```ruby
-repo = Octokit.repo 'pengwynn/pingwynn'
+repo = client.repo 'pengwynn/pingwynn'
 rel = repo.rels[:issues]
 # => #<Sawyer::Relation: issues: get https://api.github.com/repos/pengwynn/pingwynn/issues{/number}>
 
@@ -468,7 +498,7 @@ If you want to use Octokit as a pure hypermedia API client, you can start at
 the API root and follow link relations from there:
 
 ```ruby
-root = Octokit.root
+root = client.root
 root.rels[:repository].get :uri => {:owner => "octokit", :repo => "octokit.rb" }
 root.rels[:user_repositories].get :uri => { :user => "octokit" },
                                   :query => { :type => "owner" }
@@ -508,7 +538,7 @@ Octokit.default_media_type = "application/vnd.github.beta+json"
 or per-request
 
 ```ruby
-Octokit.emails(:accept => "application/vnd.github.beta+json")
+client.emails(:accept => "application/vnd.github.beta+json")
 ```
 
 The long-deprecated `Octokit::Client#create_download` method has been removed.
@@ -549,6 +579,7 @@ traffic:
 
 ```ruby
 stack = Faraday::RackBuilder.new do |builder|
+  builder.use Faraday::Request::Retry, exceptions: [Octokit::ServerError]
   builder.use Octokit::Middleware::FollowRedirects
   builder.use Octokit::Response::RaiseError
   builder.use Octokit::Response::FeedParser
@@ -556,7 +587,9 @@ stack = Faraday::RackBuilder.new do |builder|
   builder.adapter Faraday.default_adapter
 end
 Octokit.middleware = stack
-Octokit.user 'pengwynn'
+
+client = Octokit::Client.new
+client.user 'pengwynn'
 ```
 ```
 I, [2013-08-22T15:54:38.583300 #88227]  INFO -- : get https://api.github.com/users/pengwynn
@@ -681,6 +714,8 @@ implementations:
 * Ruby 2.2
 * Ruby 2.3
 * Ruby 2.4
+* Ruby 2.5
+* Ruby 2.6
 
 If something doesn't work on one of these Ruby versions, it's a bug.
 
@@ -715,6 +750,21 @@ The changes made between versions can be seen on the [project releases page][rel
 [semver]: http://semver.org/
 [pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
 [releases]: https://github.com/octokit/octokit.rb/releases
+
+## Making Repeating Requests
+In most cases it would be best to use a [webhooks](https://developer.github.com/webhooks/), but sometimes webhooks don't provide all of the information needed. In those cases where one might need to poll for progress or retry a request on failure, we designed [Octopoller](https://github.com/octokit/octopoller.rb). Octopoller is a micro gem perfect for making repeating requests. 
+
+```ruby
+Octopoller.poll(timeout: 15.seconds) do
+  begin
+    client.request_progress # ex. request a long running job's status
+  rescue Error
+    :re_poll
+  end
+end
+```
+
+This is useful when making requests for a long running job's progress (ex. requesting a [Source Import's progress](https://developer.github.com/v3/migrations/source_imports/#get-import-progress)).
 
 ## License
 

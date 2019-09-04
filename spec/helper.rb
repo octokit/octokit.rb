@@ -33,11 +33,23 @@ VCR.configure do |c|
   c.filter_sensitive_data("<GITHUB_LOGIN>") do
     test_github_login
   end
+  c.filter_sensitive_data("<GITHUB_COLLABORATOR_LOGIN>") do
+    test_github_collaborator_login
+  end
+  c.filter_sensitive_data("<GITHUB_TEAM_SLUG>") do
+    test_github_team_slug
+  end
+  c.filter_sensitive_data("<GITHUB_TEAM_ID>") do
+    test_github_team_id
+  end
   c.filter_sensitive_data("<GITHUB_PASSWORD>") do
     test_github_password
   end
   c.filter_sensitive_data("<<ACCESS_TOKEN>>") do
     test_github_token
+  end
+  c.filter_sensitive_data("<GITHUB_COLLABORATOR_TOKEN>") do
+    test_github_collaborator_token
   end
   c.filter_sensitive_data("<GITHUB_CLIENT_ID>") do
     test_github_client_id
@@ -62,6 +74,9 @@ VCR.configure do |c|
   end
   c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY>") do
     test_github_repository
+  end
+  c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY_ID>") do
+    test_github_repository_id
   end
   c.define_cassette_placeholder("<GITHUB_TEST_ORGANIZATION>") do
     test_github_org
@@ -103,12 +118,22 @@ VCR.configure do |c|
     !!request.headers['X-Vcr-Test-Repo-Setup']
   end
 
+  record_mode =
+    case
+    when ENV['GITHUB_CI']
+      :none
+    when ENV['OCTOKIT_TEST_VCR_RECORD']
+      :all
+    else
+      :once
+    end
+
   c.default_cassette_options = {
     :serialize_with             => :json,
     # TODO: Track down UTF-8 issue and remove
     :preserve_exact_body_bytes  => true,
     :decode_compressed_response => true,
-    :record                     => ENV['TRAVIS'] ? :none : :once
+    :record                     => record_mode
   }
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
@@ -125,12 +150,28 @@ def test_github_login
   ENV.fetch 'OCTOKIT_TEST_GITHUB_LOGIN', 'api-padawan'
 end
 
+def test_github_collaborator_login
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_COLLABORATOR_LOGIN', 'hubot'
+end
+
+def test_github_team_slug
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_TEAM_SLUG', 'the-a-team'
+end
+
+def test_github_team_id
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_TEAM_ID', 123456
+end
+
 def test_github_password
   ENV.fetch 'OCTOKIT_TEST_GITHUB_PASSWORD', 'wow_such_password'
 end
 
 def test_github_token
   ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN', 'x' * 40
+end
+
+def test_github_collaborator_token
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_COLLABORATOR_TOKEN', 'x' * 40
 end
 
 def test_github_client_id
@@ -166,7 +207,7 @@ def test_github_repository
 end
 
 def test_github_repository_id
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_REPOSITORY_ID', 20_974_780
+  ENV.fetch('OCTOKIT_TEST_GITHUB_REPOSITORY_ID', 20_974_780).to_i
 end
 
 def test_github_org
@@ -174,11 +215,11 @@ def test_github_org
 end
 
 def test_github_integration
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_INTEGRATION', 42
+  ENV.fetch('OCTOKIT_TEST_GITHUB_INTEGRATION', 76_765).to_i
 end
 
 def test_github_integration_installation
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION', 37
+  ENV.fetch('OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION', 898_507).to_i
 end
 
 def test_github_integration_pem_key
@@ -244,23 +285,8 @@ def github_management_console_url(url)
   test_github_enterprise_management_console_endpoint + url
 end
 
-def basic_github_url(path, options = {})
-  url = File.join(Octokit.api_endpoint, path)
-  uri = Addressable::URI.parse(url)
-  uri.path.gsub!("v3//", "v3/")
-
-  uri.user = options.fetch(:login, test_github_login)
-  uri.password = options.fetch(:password, test_github_password)
-
-  uri.to_s
-end
-
-def basic_auth_client(login = test_github_login, password = test_github_password )
-  client = Octokit.client
-  client.login = test_github_login
-  client.password = test_github_password
-
-  client
+def basic_auth_client(login: test_github_login, password: test_github_password)
+  Octokit::Client.new(login: login, password: password)
 end
 
 def oauth_client

@@ -142,6 +142,7 @@ module Octokit
       # @example
       #   Octokit.org_members('github')
       def organization_members(org, options = {})
+        options = options.dup
         path = "public_" if options.delete(:public)
         paginate "#{Organization.path org}/#{path}members", options
       end
@@ -230,7 +231,7 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @return [Array<Sawyer::Resource>] Array of hashes representing users.
-      # @see https://developer.github.com/v3/orgs/outside-collaborators/#list-outside-collaborators
+      # @see https://developer.github.com/v3/orgs/outside_collaborators/#list-outside-collaborators
       #
       # @example
       #   @client.outside_collaborators('github')
@@ -321,6 +322,20 @@ module Octokit
       #   @client.team(100000)
       def team(team_id, options = {})
         get "teams/#{team_id}", options
+      end
+
+      # Get team by name and org
+      #
+      # Requires authenticated organization member.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param team_slug [String] Team slug.
+      # @return [Sawyer::Resource] Hash representing team.
+      # @see https://developer.github.com/v3/teams/#get-team-by-name
+      # @example
+      #   @client.team("github", "justice-league")
+      def team_by_name(org, team_slug, options = {})
+        get "#{Organization.path(org)}/teams/#{team_slug}", options
       end
 
       # List child teams
@@ -523,7 +538,7 @@ module Octokit
       # @example Add a team with admin permissions
       #   @client.add_team_repository(100000, 'github/developer.github.com', permission: 'admin')
       def add_team_repository(team_id, repo, options = {})
-        boolean_from_response :put, "teams/#{team_id}/repos/#{Repository.new(repo)}", options.merge(:name => Repository.new(repo))
+        boolean_from_response :put, "teams/#{team_id}/repos/#{Repository.new(repo)}", options
       end
       alias :add_team_repo :add_team_repository
 
@@ -664,6 +679,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/members/#get-your-organization-membership
       # @see https://developer.github.com/v3/orgs/members/#get-organization-membership
       def organization_membership(org, options = {})
+        options = options.dup
         if user = options.delete(:user)
           get "#{Organization.path(org)}/memberships/#{user}", options
         else
@@ -682,9 +698,12 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/members/#edit-your-organization-membership
       # @see https://developer.github.com/v3/orgs/members/#add-or-update-organization-membership
       def update_organization_membership(org, options = {})
+        options = options.dup
         if user = options.delete(:user)
+          options.delete(:state)
           put "orgs/#{org}/memberships/#{user}", options
         else
+          options.delete(:role)
           patch "user/memberships/orgs/#{org}", options
         end
       end
@@ -696,6 +715,7 @@ module Octokit
       # @return [Boolean] Success
       # @see https://developer.github.com/v3/orgs/members/#remove-organization-membership
       def remove_organization_membership(org, options = {})
+        options = options.dup
         user = options.delete(:user)
         user && boolean_from_response(:delete, "orgs/#{org}/memberships/#{user}", options)
       end

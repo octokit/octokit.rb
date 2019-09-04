@@ -61,12 +61,16 @@ module Octokit
       def create_authorization(options = {})
         # Techincally we can omit scopes as GitHub has a default, however the
         # API will reject us if we send a POST request with an empty body.
-
+        options = options.dup
         if options.delete :idempotent
           client_id, client_secret = fetch_client_id_and_secret(options)
           raise ArgumentError.new("Client ID and Secret required for idempotent authorizations") unless client_id && client_secret
 
-          if fingerprint = options.delete(:fingerprint)
+          # Remove the client_id from the body otherwise
+          # this will result in a 422.
+          options.delete(:client_id)
+
+          if (fingerprint = options.delete(:fingerprint))
             put "authorizations/clients/#{client_id}/#{fingerprint}", options.merge(:client_secret => client_secret)
           else
             put "authorizations/clients/#{client_id}", options.merge(:client_secret => client_secret)
@@ -122,6 +126,7 @@ module Octokit
       # @return [Array<String>] OAuth scopes
       # @see https://developer.github.com/v3/oauth/#scopes
       def scopes(token = @access_token, options = {})
+        options= options.dup
         raise ArgumentError.new("Access token required") if token.nil?
 
         auth = { "Authorization" => "token #{token}" }
@@ -226,14 +231,15 @@ module Octokit
       # @example
       #   @client.authorize_url('xxxx')
       def authorize_url(app_id = client_id, options = {})
+        opts = options.dup
         if app_id.to_s.empty?
           raise Octokit::ApplicationCredentialsRequired.new "client_id required"
         end
-        authorize_url = options.delete(:endpoint) || Octokit.web_endpoint
+        authorize_url = opts.delete(:endpoint) || Octokit.web_endpoint
         authorize_url << "login/oauth/authorize?client_id=#{app_id}"
 
         require 'cgi'
-        options.each do |key, value|
+        opts.each do |key, value|
           authorize_url << "&#{key}=#{CGI.escape value}"
         end
 

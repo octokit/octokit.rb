@@ -10,7 +10,7 @@ module Octokit
       #
       # @see https://developer.github.com/v3/repos/#get
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @return [Sawyer::Resource] if a repository exists, false otherwise
+      # @return [Boolean]
       def repository?(repo, options = {})
         !!repository(repo, options)
       rescue Octokit::InvalidRepository
@@ -41,11 +41,15 @@ module Octokit
       # @option options [String] :private `true` makes the repository private, and `false` makes it public.
       # @option options [String] :has_issues `true` enables issues for this repo, `false` disables issues.
       # @option options [String] :has_wiki `true` enables wiki for this repo, `false` disables wiki.
+      # @option options [Boolean] :is_template `true` makes the repository a template, `false` makes it not a template.
       # @option options [String] :has_downloads `true` enables downloads for this repo, `false` disables downloads.
       # @option options [String] :default_branch Update the default branch for this repository.
       # @return [Sawyer::Resource] Repository information
       def edit_repository(repo, options = {})
         repo = Repository.new(repo)
+        if options.include? :is_template
+          options = ensure_api_media_type(:template_repositories, options)
+        end
         options[:name] ||= repo.name
         patch "repos/#{repo}", options
       end
@@ -144,6 +148,7 @@ module Octokit
       # @option options [String] :private `true` makes the repository private, and `false` makes it public.
       # @option options [String] :has_issues `true` enables issues for this repo, `false` disables issues.
       # @option options [String] :has_wiki `true` enables wiki for this repo, `false` disables wiki.
+      # @option options [Boolean] :is_template `true` makes this repo available as a template repository, `false` to prevent it.
       # @option options [String] :has_downloads `true` enables downloads for this repo, `false` disables downloads.
       # @option options [String] :organization Short name for the org under which to create the repo.
       # @option options [Integer] :team_id The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization.
@@ -155,6 +160,9 @@ module Octokit
         opts = options.dup
         organization = opts.delete :organization
         opts.merge! :name => name
+        if opts.include? :is_template
+          opts = ensure_api_media_type(:template_repositories, opts)
+        end
 
         if organization.nil?
           post 'user/repos', opts
@@ -176,6 +184,37 @@ module Octokit
         boolean_from_response :delete, Repository.path(repo), options
       end
       alias :delete_repo :delete_repository
+
+      # Transfer repository
+      #
+      # Transfer a repository owned by your organization
+      #
+      # @see https://developer.github.com/v3/repos/#transfer-a-repository
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param new_owner [String] The username or organization name the repository will be transferred to.
+      # @param options [Array<Integer>] :team_ids ID of the team or teams to add to the repository. Teams can only be added to organization-owned repositories.
+      # @return [Sawyer::Resource] Repository info for the transferred repository
+      def transfer_repository(repo, new_owner, options = {})
+        options = ensure_api_media_type(:transfer_repository, options)
+        post "#{Repository.path repo}/transfer", options.merge({ new_owner: new_owner })
+      end
+      alias :transfer_repo :transfer_repository
+
+      # Create a repository for a user or organization generated from a template repository
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub template repository
+      # @param name [String] Name of the new repo
+      # @option options [String] :owner Organization or user who the new repository will belong to.
+      # @option options [String] :description Description of the repo
+      # @option options [String] :private `true` makes the repository private, and `false` makes it public.
+      # @option options [Boolean] :include_all_branches `true` copies all branches from the template repository, `false` (default) makes it only copy the master branch.
+      # @return [Sawyer::Resource] Repository info for the new repository
+      def create_repository_from_template(repo, name, options = {})
+        options.merge! :name => name
+        options = ensure_api_media_type(:template_repositories, options)
+        post "#{Repository.path repo}/generate", options
+      end
+      alias :create_repo_from_template :create_repository_from_template
 
       # Hide a public repository
       #
@@ -278,7 +317,7 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @option options [String] :affiliation Filters the return array by affiliation.
-      #   Can be one of: <tt>outside</tt> or <tt>all</tt>.
+      #   Can be one of: <tt>outside</tt>, <tt>direct</tt>, or <tt>all</tt>.
       #   If not specified, defaults to <tt>all</tt>
       # @return [Array<Sawyer::Resource>] Array of hashes representing collaborating users.
       # @see https://developer.github.com/v3/repos/collaborators/#list-collaborators
@@ -379,6 +418,39 @@ module Octokit
       end
       alias :repo_teams :repository_teams
       alias :teams :repository_teams
+
+      # List all topics for a repository
+      #
+      # Requires authenticated client for private repos.
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @return [Sawyer::Resource] representing the topics for given repo
+      # @see https://developer.github.com/v3/repos/#list-all-topics-for-a-repository
+      # @example List topics for octokit/octokit.rb
+      #   Octokit.topics('octokit/octokit.rb')
+      # @example List topics for octokit/octokit.rb
+      #   client.topics('octokit/octokit.rb')      
+      def topics(repo, options = {})
+        opts = ensure_api_media_type(:topics, options)
+        paginate "#{Repository.path repo}/topics", opts
+      end
+
+      # Replace all topics for a repository
+      #
+      # Requires authenticated client.
+      #
+      # @param repo [Integer, String, Repository, Hash] A Github repository
+      # @param names [Array] An array of topics to add to the repository.
+      # @return [Sawyer::Resource] representing the replaced topics for given repo
+      # @see https://developer.github.com/v3/repos/#replace-all-topics-for-a-repository
+      # @example Replace topics for octokit/octokit.rb
+      #   client.replace_all_topics('octokit/octokit.rb', ['octocat', 'atom', 'electron', 'API'])
+      # @example Clear all topics for octokit/octokit.rb
+      #   client.replace_all_topics('octokit/octokit.rb', [])
+      def replace_all_topics(repo, names, options = {})
+        opts = ensure_api_media_type(:topics, options)
+        put "#{Repository.path repo}/topics", opts.merge(:names => names)
+      end
 
       # List contributors to a repo
       #

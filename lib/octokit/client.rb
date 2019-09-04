@@ -12,8 +12,10 @@ require 'octokit/organization'
 require 'octokit/preview'
 require 'octokit/client/apps'
 require 'octokit/client/authorizations'
+require 'octokit/client/checks'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
+require 'octokit/client/community_profile'
 require 'octokit/client/contents'
 require 'octokit/client/downloads'
 require 'octokit/client/deployments'
@@ -68,8 +70,10 @@ module Octokit
     include Octokit::Preview
     include Octokit::Warnable
     include Octokit::Client::Authorizations
+    include Octokit::Client::Checks
     include Octokit::Client::Commits
     include Octokit::Client::CommitComments
+    include Octokit::Client::CommunityProfile
     include Octokit::Client::Contents
     include Octokit::Client::Deployments
     include Octokit::Client::Downloads
@@ -117,7 +121,8 @@ module Octokit
     def initialize(options = {})
       # Use options passed in, but fall back to module defaults
       Octokit::Configurable.keys.each do |key|
-        instance_variable_set(:"@#{key}", options[key] || Octokit.instance_variable_get(:"@#{key}"))
+        value = options.key?(key) ? options[key] : Octokit.instance_variable_get(:"@#{key}")
+        instance_variable_set(:"@#{key}", value)
       end
 
       login_from_netrc unless user_authenticated? || application_authenticated?
@@ -130,16 +135,12 @@ module Octokit
       inspected = super
 
       # mask password
-      inspected = inspected.gsub! @password, "*******" if @password
-      inspected = inspected.gsub! @management_console_password, "*******" if @management_console_password
-      inspected = inspected.gsub! @bearer_token, '********' if @bearer_token
+      inspected.gsub! @password, '*******' if @password
+      inspected.gsub! @management_console_password, '*******' if @management_console_password
+      inspected.gsub! @bearer_token, '********' if @bearer_token
       # Only show last 4 of token, secret
-      if @access_token
-        inspected = inspected.gsub! @access_token, "#{'*'*36}#{@access_token[36..-1]}"
-      end
-      if @client_secret
-        inspected = inspected.gsub! @client_secret, "#{'*'*36}#{@client_secret[36..-1]}"
-      end
+      inspected.gsub! @access_token, "#{'*'*36}#{@access_token[36..-1]}" if @access_token
+      inspected.gsub! @client_secret, "#{'*'*36}#{@client_secret[36..-1]}" if @client_secret
 
       inspected
     end

@@ -10,7 +10,7 @@ module Octokit
   #
   # @see Octokit::Client Use Octokit::Client for regular API use for GitHub
   #   and GitHub Enterprise.
-  # @see https://developer.github.com/v3/enterprise/management_console/
+  # @see https://developer.github.com/v3/enterprise-admin/management_console/
   class EnterpriseManagementConsoleClient
 
     include Octokit::Configurable

@@ -14,11 +14,11 @@ describe Octokit::Client::Repositories do
     end
 
     it "returns the repository, including topics" do
-      repository = @client.repository("github/linguist", :accept => 'application/vnd.github.mercy-preview+json')
+      repository = @client.repository("github/linguist", :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
       expect(repository.topics).to be_kind_of Array
       expect(repository.topics).to include("syntax-highlighting")
     end
-  end # .repository
+  end # .repository 
 
   describe ".set_private" do
     it "sets a repository private" do
@@ -57,6 +57,23 @@ describe Octokit::Client::Repositories do
       request = stub_post(github_url("/organizations/1/repos"))
       repository = @client.create_repository("an-org-repo", :organization => 1)
       assert_requested request
+    end
+  end
+
+  describe ".edit_repository", :vcr do
+    before(:each) do
+      @repo = @client.create_repository(test_github_repository)
+    end
+
+    after(:each) do
+      @client.delete_repository(@repo.full_name)
+    end
+
+    context "is_template is passed in params", :vcr do
+      it "uses the template repositories preview flag and succeeds" do
+        @client.edit_repository(@repo.full_name, is_template: true)
+        expect(@client.repository(@repo.full_name).is_template).to be true
+      end
     end
   end
 
@@ -104,6 +121,17 @@ describe Octokit::Client::Repositories do
       begin
         @client.delete_repository(@repo.full_name)
       rescue Octokit::NotFound
+      end
+    end
+
+    describe ".create_repository_from_template", :vcr do
+      before do
+        @client.edit_repository(@repo.full_name, is_template: true)
+      end
+
+      it "generates a repository from the template" do
+        @client.create_repository_from_template(@repo.id, "Cloned repo")
+        assert_requested :post, github_url("/repositories/#{@repo.id}/generate")
       end
     end
 
@@ -190,7 +218,14 @@ describe Octokit::Client::Repositories do
 
       context "with protected branch" do
         before(:each) do
-          @client.protect_branch(@repo.full_name, "master", accept: preview_header)
+          protect_params = {
+            accept: preview_header,
+            enforce_admins: true,
+            required_pull_request_reviews: nil,
+            required_status_checks: { strict: true, contexts: []}
+          }
+
+          @client.protect_branch(@repo.full_name, "master", protect_params)
         end
 
         it "returns branch protection summary" do
@@ -200,6 +235,26 @@ describe Octokit::Client::Repositories do
         end
       end
     end # .branch_protection
+
+    describe ".topics", :vcr do
+      it "returns repository topics" do
+        topics = Octokit.topics(@repo.full_name, :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
+        expect(topics.names).to include("octokit")
+        assert_requested :get, github_url("/repos/#{@repo.full_name}/topics")
+      end
+    end # .topics
+
+    describe ".replace_all_topics", :vcr do
+      it "replaces all topics for a repository" do
+        new_topics = ["octocat", "github", "github-api"]
+        options = {
+          :accept => Octokit::Preview::PREVIEW_TYPES.fetch(:topics)
+        }
+        topics = @client.replace_all_topics(@repo.full_name, new_topics, options)
+        expect(topics.names.sort).to eq(new_topics.sort)
+        assert_requested :put, github_url("/repos/#{@repo.full_name}/topics")
+      end
+    end # .replace_all_topics
   end # with repository
 
   describe ".repositories", :vcr do
@@ -361,7 +416,16 @@ describe Octokit::Client::Repositories do
 
     describe ".protect_branch", :vcr do
       it "protects a single branch" do
-        branch = @client.protect_branch(@repo.full_name, "master", accept: preview_header)
+        branch = @client.protect_branch(@repo.full_name, "master",
+                                        { accept: preview_header,
+                                          required_status_checks: {
+                                            strict: true,
+                                            contexts: []
+                                          },
+                                          enforce_admins: true,
+                                          required_pull_request_reviews: nil,
+                                        }
+                                       )
         expect(branch.url).not_to be_nil
         assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
       end
@@ -370,22 +434,50 @@ describe Octokit::Client::Repositories do
         rules = {
           required_status_checks: {
             strict: true,
-            include_admins: true,
-            contexts: [] 
+            contexts: []
           },
+          enforce_admins: true,
+          required_pull_request_reviews: nil,
           restrictions: nil
         }
         branch = @client.protect_branch(@repo.full_name, "master", rules.merge(accept: preview_header))
 
-        expect(branch.required_status_checks.include_admins).to be true
+        expect(branch.required_status_checks.strict).to be true
         expect(branch.restrictions).to be_nil
         assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
       end
+      it "protects a single branch with required_approving_review_count" do
+        rules = {
+          required_status_checks: {
+            strict: true,
+            contexts: []
+          },
+          enforce_admins: true,
+          required_pull_request_reviews: {
+            required_approving_review_count: 2
+          },
+        }
+        branch = @client.protect_branch(@repo.full_name, "master", rules.merge(accept: preview_header))
+
+        expect(branch.required_pull_request_reviews.required_approving_review_count).to eq 2
+        assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
+      end
+
     end # .protect_branch
 
     context "with protected branch" do
       before(:each) do
-        @client.protect_branch(@repo.full_name, "master", accept: preview_header)
+        protection = {
+          required_status_checks: {
+            strict: true,
+            contexts: []
+          },
+          enforce_admins: true,
+          required_pull_request_reviews: nil,
+          restrictions: nil
+        }
+
+        @client.protect_branch(@repo.full_name, "master", protection.merge(accept: preview_header))
       end
 
       describe ".unprotect_branch", :vcr do
@@ -463,6 +555,29 @@ describe Octokit::Client::Repositories do
       expect(result).to be false
     end
   end # .repository?
+
+  describe ".transfer_repository", :vcr do
+    before do
+      @repository = @client.create_repository("a-repo", auto_init: true)
+    end
+
+    after do
+      # cleanup
+      begin
+        @client.delete_repository("#{test_github_org}/#{@repository.name}")
+      rescue Octokit::NotFound
+      end
+    end
+
+    it "repository transfer from myself to my organization" do
+      accept_header = Octokit::Preview::PREVIEW_TYPES[:transfer_repository]
+      @client.transfer_repository(@repository.full_name, test_github_org, { accept: accept_header })
+      assert_requested :post, github_url("/repos/#{@repository.full_name}/transfer")
+
+      result = @client.repository?("#{test_github_org}/#{@repository.name}")
+      expect(result).to be true
+    end
+  end # .transfer_repository
 
   private
 

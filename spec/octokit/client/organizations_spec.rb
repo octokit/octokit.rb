@@ -25,9 +25,9 @@ describe Octokit::Client::Organizations do
 
   describe ".organizations", :vcr do
     it "returns all organizations for a user" do
-      organizations = @client.organizations("sferik")
+      organizations = @client.organizations(test_github_login)
       expect(organizations).to be_kind_of Array
-      assert_requested :get, github_url("/users/sferik/orgs")
+      assert_requested :get, github_url("/users/#{test_github_login}/orgs")
     end
     it "returns all organizations for the authenticated user" do
       organizations = @client.organizations
@@ -62,9 +62,9 @@ describe Octokit::Client::Organizations do
 
   describe ".organization_member?", :vcr do
     it "checks organization membership" do
-      is_hubbernaut = @client.organization_member?('github', 'pengwynn')
-      assert_requested :get, github_url("/orgs/github/members/pengwynn")
-      expect(is_hubbernaut).to be true
+      is_member = @client.organization_member?(test_github_org, test_github_login)
+      assert_requested :get, github_url("/orgs/#{test_github_org}/members/#{test_github_login}")
+      expect(is_member).to be true
     end
   end # .organization_member?
 
@@ -75,14 +75,6 @@ describe Octokit::Client::Organizations do
       assert_requested :get, github_url("/orgs/codeforamerica/public_members")
     end
   end
-
-  describe ".organization_public_member?", :vcr do
-    it "checks publicized org membership" do
-      is_hubbernaut = @client.organization_public_member?('github', 'pengwynn')
-      expect(is_hubbernaut).to be true
-      assert_requested :get, github_url("/orgs/github/public_members/pengwynn")
-    end
-  end # .organization_public_member?
 
   describe ".organization_invitations", :vcr do
     it "lists pending organization invitations" do
@@ -100,17 +92,17 @@ describe Octokit::Client::Organizations do
 
   describe ".remove_outside_collaborator", :vcr do
     it "removes the outside collaborator from an organization" do
-      stub_delete github_url("/orgs/#{test_github_org}/outside_collaborators/lizzhale")
-      @client.remove_outside_collaborator(test_github_org, 'lizzhale')
-      assert_requested :delete, github_url("/orgs/#{test_github_org}/outside_collaborators/lizzhale")
+      stub_delete github_url("/orgs/#{test_github_org}/outside_collaborators/#{test_github_login}")
+      @client.remove_outside_collaborator(test_github_org, test_github_login)
+      assert_requested :delete, github_url("/orgs/#{test_github_org}/outside_collaborators/#{test_github_login}")
     end
   end # .remove_outside_collaborator
 
   describe ".convert_to_outside_collaborator", :vcr do
     it "converts an organization member to an outside collaborator" do
-      stub_put github_url("orgs/#{test_github_org}/outside_collaborators/lizzhale")
-      @client.convert_to_outside_collaborator(test_github_org, 'lizzhale')
-      assert_requested :put, github_url("orgs/#{test_github_org}/outside_collaborators/lizzhale")
+      stub_put github_url("orgs/#{test_github_org}/outside_collaborators/#{test_github_login}")
+      @client.convert_to_outside_collaborator(test_github_org, test_github_login)
+      assert_requested :put, github_url("orgs/#{test_github_org}/outside_collaborators/#{test_github_login}")
     end
   end # .convert_to_outside_collaborator
 
@@ -121,6 +113,14 @@ describe Octokit::Client::Organizations do
       assert_requested :get, github_url("/orgs/#{test_github_org}/teams")
     end
   end # .organization_teams
+
+  describe ".child_teams", :vcr do
+    it "returns all child teams for the team" do
+      child_teams = @client.child_teams(test_github_team_id, accept: Octokit::Preview::PREVIEW_TYPES[:nested_teams])
+      expect(child_teams).to be_kind_of Array
+      assert_requested :get, github_url("/teams/#{test_github_team_id}/teams")
+    end
+  end # .child_teams
 
   context "with team", :order => :defined do
     before(:each) do
@@ -147,13 +147,13 @@ describe Octokit::Client::Organizations do
       end
     end # .team
 
-    describe ".child_teams", :vcr do
-      it "returns all child teams for the team" do
-        child_teams = @client.child_teams(@team.id, accept: preview_header)
-        expect(child_teams).to be_kind_of Array
-        assert_requested :get, github_url("/teams/#{@team.id}/teams")
+    describe ".team_by_name", :vcr do
+      it "returns a team found by name" do
+        team = @client.team_by_name(test_github_org, @team.slug)
+        expect(team.id).to eq(@team.id)
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}")
       end
-    end # .child_teams
+    end # .team_by_name
 
     describe ".update_team", :vcr do
       it "updates a team" do
@@ -172,8 +172,8 @@ describe Octokit::Client::Organizations do
 
     describe ".add_team_member", :vcr do
       it "adds a team member" do
-        @client.add_team_member(@team.id, "api-padawan")
-        assert_requested :put, github_url("/teams/#{@team.id}/members/api-padawan")
+        @client.add_team_member(@team.id, test_github_repository)
+        assert_requested :put, github_url("/teams/#{@team.id}/members/#{test_github_repository}")
       end
     end # .add_team_member
 
@@ -228,20 +228,6 @@ describe Octokit::Client::Organizations do
       end
     end #.remove_team_repository
 
-    describe ".publicize_membership", :vcr do
-      it "publicizes membership" do
-        @client.publicize_membership test_github_org, test_github_login
-        assert_requested :put, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
-      end
-    end # .publicize_membership
-
-    describe ".unpublicize_membership", :vcr do
-      it "unpublicizes membership" do
-        @client.unpublicize_membership test_github_org, test_github_login
-        assert_requested :delete, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
-      end
-    end # .unpublicize_membership
-
     describe ".delete_team", :vcr do
       it "deletes a team" do
         @client.delete_team(@team.id)
@@ -249,6 +235,30 @@ describe Octokit::Client::Organizations do
       end
     end # .delete_team
   end # with team
+
+  context "public org members", :order => :defined do
+    describe ".unpublicize_membership", :vcr do
+      it "unpublicizes membership" do
+        @client.unpublicize_membership test_github_org, test_github_login
+        assert_requested :delete, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
+      end
+    end # .unpublicize_membership
+
+    describe ".publicize_membership", :vcr do
+      it "publicizes membership" do
+        @client.publicize_membership test_github_org, test_github_login
+        assert_requested :put, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
+      end
+    end # .publicize_membership
+
+    describe ".organization_public_member?", :vcr do
+      it "checks publicized org membership" do
+        is_member = @client.organization_public_member?(test_github_org, test_github_login)
+        expect(is_member).to be true
+        assert_requested :get, github_url("/orgs/#{test_github_org}/public_members/#{test_github_login}")
+      end
+    end # .organization_public_member?
+  end # public org members
 
   describe ".remove_organization_member" do
     it "removes a member from an organization" do
@@ -266,26 +276,26 @@ describe Octokit::Client::Organizations do
     end
   end # .user_teams
 
-  describe ".team_membership", :vcr do
-    it "gets a user's team membership" do
-      membership = @client.team_membership(946194, "pengwynn")
-      assert_requested :get, github_url("teams/946194/memberships/pengwynn")
-      expect(membership.status).to eq("active")
-    end
-  end # .team_membership
-
   describe ".add_team_membership", :vcr do
     it "invites a user to a team" do
-      membership = @client.add_team_membership(946194, test_github_login)
-      assert_requested :put, github_url("teams/946194/memberships/#{test_github_login}")
-      expect(membership.status).to eq("active")
+      membership = @client.add_team_membership(test_github_team_id, test_github_login)
+      assert_requested :put, github_url("teams/#{test_github_team_id}/memberships/#{test_github_login}")
+      expect(membership.state).to eq("active")
     end
   end # .add_team_membership
 
+  describe ".team_membership", :vcr do
+    it "gets a user's team membership" do
+      membership = @client.team_membership(test_github_team_id, test_github_login)
+      assert_requested :get, github_url("teams/#{test_github_team_id}/memberships/#{test_github_login}")
+      expect(membership.state).to eq("active")
+    end
+  end # .team_membership
+
   describe ".remove_team_membership", :vcr do
     it "removes a user's membership for a team" do
-      result = @client.remove_team_membership(946194, test_github_login)
-      assert_requested :delete, github_url("teams/946194/memberships/#{test_github_login}")
+      result = @client.remove_team_membership(test_github_team_id, test_github_login)
+      assert_requested :delete, github_url("teams/#{test_github_team_id}/memberships/#{test_github_login}")
       expect(result).to be true
     end
   end # .remove_team_membership
@@ -341,20 +351,17 @@ describe Octokit::Client::Organizations do
 
   describe ".update_organization_membership", :vcr do
     it "updates an organization membership" do
-      stub_patch github_url("/user/memberships/orgs/#{test_github_org}")
       membership = @client.update_organization_membership(test_github_org, {:state => 'active'})
       assert_requested :patch, github_url("/user/memberships/orgs/#{test_github_org}")
     end
 
     it "adds or updates an organization membership for a given user" do
-      stub_put github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
       @client.update_organization_membership(
         test_github_org,
-        :user => test_github_login,
-        :role => "admin",
-        :accept => "application/vnd.github.moondragon+json"
+        :user => test_github_collaborator_login,
+        :role => "member",
       )
-      assert_requested :put, github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
+      assert_requested :put, github_url("/orgs/#{test_github_org}/memberships/#{test_github_collaborator_login}")
     end
   end # .update_organization_membership
 

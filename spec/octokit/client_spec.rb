@@ -256,7 +256,7 @@ describe Octokit::Client do
           config.password = 'il0veruby'
         end
 
-        root_request = stub_get("https://pengwynn:il0veruby@api.github.com/")
+        root_request = stub_request(:get, github_url("/")).with(basic_auth: ["pengwynn", "il0veruby"])
         Octokit.client.get("/")
         assert_requested root_request
       end
@@ -421,6 +421,24 @@ describe Octokit::Client do
       conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
       expect(conn.proxy[:uri].to_s).to eq('http://proxy.example.com')
     end
+    it "no sets an ssl verify" do
+      client = Octokit::Client.new
+      expect(client.connection_options[:ssl]).to be nil
+    end
+    it "sets an ssl verify => true" do
+      client = Octokit::Client.new(
+        :connection_options => {:ssl => {:verify => true}}
+      )
+      conn = client.send(:agent).instance_variable_get(:"@conn")
+      expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_PEER)
+    end
+    it "sets an ssl verify => false" do
+      client = Octokit::Client.new(
+        :connection_options => {:ssl => {:verify => false}}
+      )
+      conn = client.send(:agent).instance_variable_get(:"@conn")
+      expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_NONE)
+    end
     it "sets an ssl verify mode" do
       Octokit.configure do |config|
         config.ssl_verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -455,7 +473,7 @@ describe Octokit::Client do
       client = Octokit::Client.new :login => "login", :password => "passw0rd"
       client.client_id     = key = '97b4937b385eb63d1f46'
       client.client_secret = secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-      root_request = stub_get basic_github_url("/?foo=bar", :login => "login", :password => "passw0rd")
+      root_request = stub_request(:get, github_url("/?foo=bar")).with(basic_auth: ["login", "passw0rd"])
 
       client.get("/", :foo => "bar")
       assert_requested root_request
@@ -654,8 +672,7 @@ describe Octokit::Client do
         config.per_page      = 50
       end
 
-      @root_request = stub_get basic_github_url "/",
-        :login => @client_id, :password => @client_secret
+      @root_request = stub_request(:get, github_url("/")).with(basic_auth: [@client_id, @client_secret])
     end
 
     it "uses preconfigured client and secret" do
@@ -831,6 +848,14 @@ describe Octokit::Client do
         :headers => {
           :content_type => "application/json",
         },
+        :body => {:message => "This API returns blobs up to 1 MB in size"}.to_json
+      expect { Octokit.get('/user') }.to raise_error Octokit::TooLargeContent
+
+      stub_get('/user').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
         :body => {:message => "You have triggered an abuse detection mechanism and have been temporarily blocked from content creation. Please retry your request again later."}.to_json
       expect { Octokit.get('/user') }.to raise_error Octokit::AbuseDetected
 
@@ -857,6 +882,14 @@ describe Octokit::Client do
         },
         :body => {:message => "Sorry. Your account was suspended. Please contact github-enterprise@example.com"}.to_json
       expect { Octokit.post("/user/repos") }.to raise_error Octokit::AccountSuspended
+
+      stub_post('/user/repos').to_return \
+        :status => 403,
+        :headers => {
+            :content_type => "application/json",
+        },
+        :body => {:message => "The repository has been disabled due to a billing issue with the owner account."}.to_json
+      expect { Octokit.post("/user/repos") }.to raise_error Octokit::BillingIssue
 
       stub_get('/torrentz').to_return \
         :status => 451,
