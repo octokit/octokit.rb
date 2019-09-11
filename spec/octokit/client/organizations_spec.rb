@@ -147,6 +147,14 @@ describe Octokit::Client::Organizations do
       end
     end # .team
 
+    describe ".team_by_name", :vcr do
+      it "returns a team found by name" do
+        team = @client.team_by_name(test_github_org, @team.slug)
+        expect(team.id).to eq(@team.id)
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}")
+      end
+    end # .team_by_name
+
     describe ".update_team", :vcr do
       it "updates a team" do
         @client.update_team(@team.id, :name => "API Jedi")
