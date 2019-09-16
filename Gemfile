@@ -8,6 +8,7 @@ group :development do
   gem 'guard-rspec', '~> 4.5'
   gem 'hirb-unicode'
   gem 'pry'
+  gem 'oas_parser'
   gem 'redcarpet'
   gem 'wirb'
   gem 'wirble'

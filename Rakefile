@@ -24,7 +24,7 @@ end
 desc "SPIKE: Generate the API client files based on route docs."
 task :spike do
   require_relative "lib/spike"
-  api = Spike::API.at(File.absolute_path("../../routes/routes/repos/deployments", __FILE__))
+  api = Spike::API.at(OasParser::Definition.resolve("../routes/openapi/api.github.com/index.json"))
   File.open("lib/octokit/client/deployments.rb", "w") do |f|
     f.puts api.to_s
   end

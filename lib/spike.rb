@@ -2,6 +2,7 @@ require 'forwardable'
 require 'json'
 require 'pathname'
 require 'active_support/inflector'
+require 'oas_parser'
 
 module Spike
   class Resource
@@ -143,11 +144,9 @@ module Spike
 
     delegate [:documentation_url] => :definition
 
-    attr_reader :definition, :resource, :directory, :parameterizer
-    def initialize(definition, directory: "", parameterizer: Spike::Endpoint::PositionalParameterizer)
-      @definition    = definition
-      @resource      = Spike::Resource.new(definition.path)
-      @directory     = directory
+    attr_reader :definition, :parameterizer
+    def initialize(oas_endpoint, parameterizer: Spike::Endpoint::PositionalParameterizer)
+      @definition    = oas_endpoint
       @parameterizer = parameterizer.new
     end
 
@@ -161,18 +160,18 @@ module Spike
 
     def tomdoc
       <<-TOMDOC.chomp
-      # #{definition.name}
+      # #{definition.summary}
       #
       # #{parameter_documentation.join("\n      # ")}
       # @return #{return_type_description} #{return_value_description}
-      # @see #{documentation_url}
+      # @see #{definition.raw["externalDocs"]["url"]}
       TOMDOC
     end
 
     def method_definition
       <<-DEF.chomp
       def #{method_name}(#{parameters})
-        #{resource.subresource?? subresource_method_implementation : method_implementation}
+        #{subresource?? subresource_method_implementation : method_implementation}
       end
       DEF
     end
@@ -180,6 +179,14 @@ module Spike
     def alias_definition
       return unless alternate_name
       "      alias :#{alternate_name} :#{method_name}"
+    end
+
+    def singular?
+      definition.path.path.include? "_id"
+    end
+
+    def subresource?
+      namespace.split("_").count > 1
     end
 
     def method_implementation
@@ -201,8 +208,8 @@ module Spike
     end
 
     def option_overrides
-      definition.params.select(&:required).reject do |param|
-        definition.path.include?(":#{param.name}") || param.name.end_with?("_url")
+      required_params.reject do |param|
+        param.name == "repo" || param.name.include?("id")
       end.map do |param|
         normalization = ""
         if !!param.enum
@@ -213,62 +220,79 @@ module Spike
     end
 
     def api_call
-      "#{definition.verb.downcase}(\"#{api_path}\", options)"
+      "#{definition.method.downcase}(\"#{api_path}\", options)"
     end
 
     def api_path
-      path = definition.path
-      path = path.gsub("/repos/:owner/:repo", "\#{Repository.path repo}")
-      path = definition.params.select(&:required).reduce(path) do |path, param|
-        path.gsub(":#{param.name}", "\#{#{param.name}}")
+      path = definition.path.path.gsub("/repos/{owner}/{repo}", "\#{Repository.path repo}")
+      path = required_params.reduce(path) do |path, param|
+        path.gsub("{#{param.name}}", "\#{#{param.name}}")
       end
     end
 
     def return_type_description
-      if definition.verb == "GET" && !resource.singular?
+      if verb == "GET" && !singular?
         "[Array<Sawyer::Resource>]"
       else
         "<Sawyer::Resource>"
       end
     end
 
-    def parameter_type(parameter)
-      {
-        "repo" => "[Integer, String, Repository, Hash]",
-      }[parameter.name] || "[#{parameter.type.capitalize}]"
+    def required_params
+      params = definition.parameters.select(&:required).reject {|param| ["owner", "accept"].include?(param.name)}
+      if definition.request_body
+        # annoyingly, definition.request_body.required doesn't work
+        params += definition.request_body.properties_for_format("application/json").select { |param| definition.request_body.content["application/json"]["schema"]["required"].include? param.name }
+      end
+      params
     end
 
-    def parameter_description(parameter)
-      return parameter.description unless parameter.description.empty?
-      return "A GitHub repository" if parameter.name == "repo"
+    def optional_params
+      params = definition.parameters.reject(&:required).reject {|param| ["accept", "per_page", "page"].include?(param.name)}
+      if definition.request_body
+        params += definition.request_body.properties_for_format("application/json").reject { |param| definition.request_body.content["application/json"]["schema"]["required"].include? param.name }
+      end
+      params
+    end
 
-      "The ID of the #{parameter.name.gsub("_id", "").gsub("_", " ")}" if parameter.name.end_with?("_id")
+    def parameter_type(param)
+      {
+        "repo" => "[Integer, String, Repository, Hash]",
+      }[param.name] || "[#{param.type.capitalize}]"
+    end
+
+    def parameter_description(param)
+      return "A GitHub repository" if param.name == "repo"
+      return "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if param.name.end_with? "_id"
+      return param.description.gsub("\n", "") unless param.description.empty?
+
+      "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if name.end_with?("_id")
     end
 
     def parameter_documentation
-      definition.params.select(&:required).map {|param|
+      required_params.map {|param|
         "@param #{param.name} #{parameter_type(param)} #{parameter_description(param)}"
-      } + definition.params.reject(&:required).reject {|param| ["per_page", "page"].include?(param.name)}.map {|param|
-        "@param options [#{param.type.capitalize}] :#{param.name} #{param.description}"
+      } + optional_params.map {|param|
+        "@param options [#{param.type.capitalize}] :#{param.name} #{param.description.gsub("\n", "")}"
       }
     end
 
     def return_value_description
       case verb
       when "GET"
-        if resource.singular?
-          "A single #{resource.name.gsub("_", " ")}"
+        if singular?
+          "A single #{namespace.gsub("_", " ")}"
         else
-          "A list of #{resource.name.gsub("_", " ")}"
+          "A list of #{namespace.gsub("_", " ")}"
         end
       when "POST"
-        "The new #{resource.name.singularize.gsub("_", " ")}"
+        "The new #{namespace.singularize.gsub("_", " ")}"
       else
       end
     end
 
     def verb
-      definition["method"]
+      definition.method.upcase
     end
 
     def parameters
@@ -292,22 +316,27 @@ module Spike
 
     def path_segments
       @path_segments ||= definition.path.to_s.split("/").reject(&:empty?)
+    end 
+
+    def namespace
+      definition.operation_id.split("/").last.split("-").drop(1).join("_")
     end
 
     def method_name
       case verb
       when "GET"
-        resource.name
+        namespace
       when "POST"
-        "create_#{resource.name.singularize}"
+        # "create_#{namespace.singularize}"
+        "create_#{namespace.gsub("-", "_")}"
       else
       end
     end
 
     def alternate_name
-      return unless definition.verb == "GET"
-      return if resource.singular?
-      "list_#{resource.name}"
+      return unless verb == "GET"
+      return if singular?
+      "list_#{namespace}"
     end
 
     def parts
@@ -315,18 +344,20 @@ module Spike
     end
 
     def priority
-      [parts.count, VERB_PRIORITY.index(verb), resource.singular?? 0 : 1]
+      [parts.count, VERB_PRIORITY.index(verb), singular?? 0 : 1]
     end
   end
 
   class API
-    def self.at(path, parameterizer: Spike::Endpoint::PositionalParameterizer)
-      files = Dir.entries(path) - %w(. ..)
-      endpoints = files.map do |file|
-        definition = Spike::Routes.new(File.read(File.join(path, file))).definition
-        Spike::Endpoint.new(definition, directory: Pathname.new(path).basename.to_s, parameterizer: parameterizer)
+    def self.at(definition, parameterizer: Spike::Endpoint::PositionalParameterizer)
+      # just for this spike
+      paths = definition.paths.select { |oas_path| oas_path.path.include? "deployment" }
+      endpoints = paths.each_with_object([]) do |path, a|
+        path.endpoints.each do |endpoint|
+          a << Spike::Endpoint.new(endpoint, parameterizer: parameterizer)
+        end
       end
-      new(path, endpoints: endpoints)
+      new("deployments", endpoints: endpoints)
     end
 
     attr_reader :path, :endpoints
@@ -340,7 +371,7 @@ module Spike
     end
 
     def documentation_url
-      endpoints.first&.documentation_url.to_s.gsub(/#.*/, "")
+      endpoints.first.definition.raw["externalDocs"]["url"].gsub(/#.*/, "")
     end
 
     def to_s
@@ -351,6 +382,7 @@ module Octokit
     #
     # @see #{documentation_url}
     module #{namespace}
+
 #{endpoints.sort_by(&:priority).join("\n\n")}
     end
   end
