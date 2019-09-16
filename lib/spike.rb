@@ -196,15 +196,16 @@ module Spike
       ].reject(&:empty?).join("\n        ")
     end
 
+    # TODO. possible breaking change as the url param isn't a required param 
     def subresource_method_implementation
-      url_param = definition.params.find {|param| param.name.end_with?("_url")}
-      the_resource = resource.objects.first.singularize
+      url_param = required_params.last
+      the_resource = namespace.split("_").first
       s = "#{the_resource} = get(#{url_param.name}, accept: options[:accept])"
       unless option_overrides.empty?
         s << "\n        "
         s << option_overrides.join("\n        ")
       end
-      s << "\n        #{definition.verb.downcase}(#{the_resource}.rels[:#{resource.objects.last}].href, options)"
+      s << "\n        #{verb.downcase}(#{the_resource}.rels[:#{namespace.split("_").last.pluralize}].href, options)"
     end
 
     def option_overrides
@@ -300,7 +301,7 @@ module Spike
     end
 
     def arguments
-      definition.params.select(&:required).map(&:name)
+      definition.parameters.select(&:required).map(&:name)
     end
 
     def resource
@@ -316,7 +317,7 @@ module Spike
 
     def path_segments
       @path_segments ||= definition.path.to_s.split("/").reject(&:empty?)
-    end 
+    end
 
     def namespace
       definition.operation_id.split("/").last.split("-").drop(1).join("_")
@@ -339,8 +340,9 @@ module Spike
       "list_#{namespace}"
     end
 
+    # TODO. `priority` is calculating the wrong priorities bc of this method
     def parts
-      @parts ||= path_segments[path_segments.index(directory)..-1].reject {|segment| segment.start_with?(":")}
+      definition.path.path.split(/["\/","_"]/)
     end
 
     def priority
