@@ -205,7 +205,6 @@ module Octokit
         delete "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
       end
 
-
       # Update a review request comment
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
