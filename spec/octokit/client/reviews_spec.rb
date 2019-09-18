@@ -58,6 +58,17 @@ describe Octokit::Client::Reviews do
     end
   end
 
+  describe '.update_pull_request_review' do
+    it 'updates the review summary comment with new text' do
+      requested_url = github_url('/repos/octokit/octokit.rb/pulls/1/reviews/1')
+      stub_put requested_url
+
+      @client.update_pull_request_review('octokit/octokit.rb', 1, 1, 'I disagree!')
+
+      assert_requested :put, requested_url
+    end
+  end
+
   context 'with repository', :vcr do
     before(:each) do
       @repo = @client.create_repository("test-repo-#{SecureRandom.hex(6)}", auto_init: true, organization: test_github_org)
