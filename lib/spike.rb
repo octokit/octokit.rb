@@ -52,7 +52,7 @@ module Spike
     def method_definition
       <<-DEF.chomp
       def #{method_name}(#{parameters})
-        #{subresource?? subresource_method_implementation : method_implementation}
+        #{method_implementation}
       end
       DEF
     end
@@ -63,7 +63,7 @@ module Spike
     end
 
     def singular?
-      definition.path.path.include? "_id"
+      definition.path.path.split("/").last.include? "id"
     end
 
     def subresource?
@@ -75,18 +75,6 @@ module Spike
         *option_overrides,
         api_call,
       ].reject(&:empty?).join("\n        ")
-    end
-
-    # TODO. possible breaking change as the url param isn't a required param 
-    def subresource_method_implementation
-      url_param = required_params.last
-      the_resource = namespace.split("_").first
-      s = "#{the_resource} = get(#{url_param.name}, accept: options[:accept])"
-      unless option_overrides.empty?
-        s << "\n        "
-        s << option_overrides.join("\n        ")
-      end
-      s << "\n        #{verb.downcase}(#{the_resource}.rels[:#{namespace.split("_").last.pluralize}].href, options)"
     end
 
     def option_overrides
@@ -123,7 +111,6 @@ module Spike
     def required_params
       params = definition.parameters.select(&:required).reject {|param| ["owner", "accept"].include?(param.name)}
       if definition.request_body
-        # annoyingly, definition.request_body.required doesn't work
         params += definition.request_body.properties_for_format("application/json").select { |param| definition.request_body.content["application/json"]["schema"]["required"].include? param.name }
       end
       params
@@ -190,8 +177,7 @@ module Spike
       when "GET"
         namespace
       when "POST"
-        # "create_#{namespace.singularize}"
-        "create_#{namespace.gsub("-", "_")}"
+        "create_#{namespace}"
       else
       end
     end
@@ -202,9 +188,8 @@ module Spike
       "list_#{namespace}"
     end
 
-    # TODO. `priority` is calculating the wrong priorities bc of this method
     def parts
-      definition.path.path.split(/["\/","_"]/)
+      definition.path.path.split(/["\/"]/).reject { |segment| segment.include? "id" }
     end
 
     def priority
