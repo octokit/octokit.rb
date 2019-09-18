@@ -220,7 +220,6 @@ module Octokit
       def update_pull_request_review(repo, number, review, body)
         put "#{Repository.path repo}/pulls/#{number}/reviews/#{review}", {body: body}
       end
-
     end
   end
 end
