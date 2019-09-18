@@ -5,6 +5,16 @@ module Octokit
     # @see https://developer.github.com/v3/repos/deployments/
     module Deployments
 
+      # Get a single deployment
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param deployment_id [Integer] The ID of the deployment
+      # @return <Sawyer::Resource> A single deployment
+      # @see https://developer.github.com/v3/repos/deployments/#get-a-single-deployment
+      def deployment(repo, deployment_id, options = {})
+        get("#{Repository.path repo}/deployments/#{deployment_id}", options)
+      end
+
       # List deployments
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -38,26 +48,27 @@ module Octokit
         post("#{Repository.path repo}/deployments", options)
       end
 
-      # Get a single deployment
+      # Get a single deployment status
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param deployment_id [Integer] The ID of the deployment
-      # @return <Sawyer::Resource> A single deployment
-      # @see https://developer.github.com/v3/repos/deployments/#get-a-single-deployment
-      def deployment(repo, deployment_id, options = {})
-        get("#{Repository.path repo}/deployments/#{deployment_id}", options)
+      # @param status_id [Integer] The ID of the status
+      # @return <Sawyer::Resource> A single deployment status
+      # @see https://developer.github.com/v3/repos/deployments/#get-a-single-deployment-status
+      def deployment_status(repo, deployment_id, status_id, options = {})
+        get("#{Repository.path repo}/deployments/#{deployment_id}/statuses/#{status_id}", options)
       end
 
       # List deployment statuses
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param deployment_id [Integer] The ID of the deployment
-      # @return <Sawyer::Resource> A single deployment statuses
+      # @return [Array<Sawyer::Resource>] A list of deployment statuses
       # @see https://developer.github.com/v3/repos/deployments/#list-deployment-statuses
       def deployment_statuses(repo, deployment_id, options = {})
-        deployment = get(deployment_id, accept: options[:accept])
-        get(deployment.rels[:statuses].href, options)
+        get("#{Repository.path repo}/deployments/#{deployment_id}/statuses", options)
       end
+      alias :list_deployment_statuses :deployment_statuses
 
       # Create a deployment status
       #
@@ -73,21 +84,8 @@ module Octokit
       # @return <Sawyer::Resource> The new deployment status
       # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment-status
       def create_deployment_status(repo, deployment_id, state, options = {})
-        deployment = get(state, accept: options[:accept])
         options[:state] = state.to_s.downcase
-        post(deployment.rels[:statuses].href, options)
-      end
-
-      # Get a single deployment status
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param deployment_id [Integer] The ID of the deployment
-      # @param status_id [Integer] The ID of the status
-      # @return <Sawyer::Resource> A single deployment status
-      # @see https://developer.github.com/v3/repos/deployments/#get-a-single-deployment-status
-      def deployment_status(repo, deployment_id, status_id, options = {})
-        deployment = get(status_id, accept: options[:accept])
-        get(deployment.rels[:statuses].href, options)
+        post("#{Repository.path repo}/deployments/#{deployment_id}/statuses", options)
       end
     end
   end
