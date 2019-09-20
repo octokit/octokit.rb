@@ -7,8 +7,7 @@ group :development do
   gem 'awesome_print', :require => 'ap'
   gem 'guard-rspec', '~> 4.5'
   gem 'hirb-unicode'
-  gem 'pry'
-  gem 'oas_parser'
+  gem 'pry-byebug'
   gem 'redcarpet'
   gem 'wirb'
   gem 'wirble'
@@ -31,6 +30,7 @@ end
 
 group :test, :development do
   gem 'activesupport'
+  gem 'oas_parser'
 end
 
 platforms :rbx do

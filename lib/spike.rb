@@ -3,6 +3,7 @@ require 'json'
 require 'pathname'
 require 'active_support/inflector'
 require 'oas_parser'
+require "pry"
 
 module Spike
 
@@ -66,10 +67,6 @@ module Spike
       definition.path.path.split("/").last.include? "id"
     end
 
-    def subresource?
-      namespace.split("_").count > 1
-    end
-
     def method_implementation
       [
         *option_overrides,
@@ -90,7 +87,7 @@ module Spike
     end
 
     def api_call
-      "#{definition.method.downcase}(\"#{api_path}\", options)"
+      "#{definition.method}(\"#{api_path}\", options)"
     end
 
     def api_path
@@ -189,7 +186,7 @@ module Spike
     end
 
     def parts
-      definition.path.path.split(/["\/"]/).reject { |segment| segment.include? "id" }
+      definition.path.path.split("/").reject { |segment| segment.include? "id" }
     end
 
     def priority
