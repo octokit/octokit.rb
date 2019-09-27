@@ -69,23 +69,35 @@ describe Octokit::Client::Deployments do
 
       describe ".deployment_statuses" do
         it "lists deployment statuses" do
-          statuses = @client.deployment_statuses(@deployment_url)
+          statuses = @client.deployment_statuses(@test_repo, @deployment.id)
           expect(statuses).to be_kind_of Array
-          assert_requested :get, github_url(@deployment_url)
           assert_requested :get, github_url("#{@deployment_url}/statuses")
         end
       end # .deployment_statuses
 
       describe ".create_deployment_status" do
         it "creates a deployment status" do
-          status = @client.create_deployment_status(@deployment_url, "SUCCESS", :target_url => "http://wynn.fm")
+          status = @client.create_deployment_status(@test_repo, @deployment.id, "SUCCESS", :log_url => "http://wynn.fm", :accept => "application/vnd.github.ant-man-preview+json")
           expect(status.creator.login).to eq(test_github_login)
           expect(status.state).to eq("success")
-          expect(status.rels[:target].href).to eq("http://wynn.fm")
-          assert_requested :get, github_url(@deployment_url)
+          expect(status.rels[:log].href).to eq("http://wynn.fm")
           assert_requested :post, github_url("#{@deployment_url}/statuses")
         end
       end # .create_deployment_status
+
+      context "with deployment status" do
+        before(:each) do
+          @status = @client.create_deployment_status(@test_repo, @deployment.id, "SUCCESS", :log_url => "http://wynn.fm", :accept => "application/vnd.github.ant-man-preview+json")
+        end
+
+        describe ".deployment_status" do
+          it "gets a single deployment status" do
+            status = @client.deployment_status(@test_repo, @deployment.id, @status.id,:accept => "application/vnd.github.ant-man-preview+json")
+            expect(status).to be_kind_of Sawyer::Resource
+            assert_requested :get, github_url("/repos/#{@test_repo}/deployments/#{@deployment.id}/statuses/#{status.id}")
+          end
+        end # .deployment_status
+      end
     end # with deployment
   end # with ref
 end
