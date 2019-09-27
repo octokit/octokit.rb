@@ -252,6 +252,13 @@ describe Octokit::Client::Apps do
       end
     end # .create_app_installation_access_token
 
+    describe ".delete_installation" do
+      it "deletes an installation" do
+        response = @jwt_client.delete_installation(installation, accept: Octokit::Preview::PREVIEW_TYPES[:uninstall_github_app])
+        expect(response).to be_truthy
+      end
+    end # .delete_installation
+
     context "with app installation access token" do
       let(:installation_client) do
         token = @jwt_client.create_app_installation_access_token(installation, accept: preview_header).token
