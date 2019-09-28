@@ -204,6 +204,19 @@ module Octokit
           data.repositories.concat last_response.data.repositories
         end
       end
+
+      # Delete an installation and uninstall a GitHub App
+      #
+      # @param installation [Integer] The id of a GitHub App Installation
+      # @param options [Hash] A customizable set of options
+      #
+      # @see https://developer.github.com/v3/apps/#delete-an-installation
+      #
+      # @return [Boolean] Success
+      def delete_installation(installation, options = {})
+        opts = ensure_api_media_type(:uninstall_github_app, options)
+        boolean_from_response :delete, "app/installations/#{installation}", opts
+      end
     end
   end
 end
