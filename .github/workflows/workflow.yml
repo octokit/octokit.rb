@@ -23,7 +23,7 @@ jobs:
     - name: Set up Ruby
       uses: actions/setup-ruby@v1
       with:
-        version: ${{ matrix.ruby_version }}
+        ruby-version: ${{ matrix.ruby_version }}
     - name: Setup .netrc
       run: |
         chmod 600 spec/fixtures/.netrc
