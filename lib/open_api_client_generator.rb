@@ -3,9 +3,8 @@ require 'json'
 require 'pathname'
 require 'active_support/inflector'
 require 'oas_parser'
-require "pry"
 
-module Spike
+module OpenAPIClientGenerator
 
   class Endpoint
     class PositionalParameterizer
@@ -27,7 +26,7 @@ module Spike
     delegate [:documentation_url] => :definition
 
     attr_reader :definition, :parameterizer
-    def initialize(oas_endpoint, parameterizer: Spike::Endpoint::PositionalParameterizer)
+    def initialize(oas_endpoint, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
       @definition    = oas_endpoint
       @parameterizer = parameterizer.new
     end
@@ -195,12 +194,12 @@ module Spike
   end
 
   class API
-    def self.at(definition, parameterizer: Spike::Endpoint::PositionalParameterizer)
+    def self.at(definition, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
       # just for this spike
       paths = definition.paths.select { |oas_path| oas_path.path.include? "deployment" }
       endpoints = paths.each_with_object([]) do |path, a|
         path.endpoints.each do |endpoint|
-          a << Spike::Endpoint.new(endpoint, parameterizer: parameterizer)
+          a << OpenAPIClientGenerator::Endpoint.new(endpoint, parameterizer: parameterizer)
         end
       end
       new("deployments", endpoints: endpoints)
