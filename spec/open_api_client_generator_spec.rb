@@ -90,11 +90,6 @@ describe OpenAPIClientGenerator do
   end
 
   context OpenAPIClientGenerator::API do
-    it "determines the module name based on the dirname for the routes JSON file" do
-      api = OpenAPIClientGenerator::API.new("path/to/meals/")
-      expect(api.namespace).to eq("Meals")
-    end
-
     it "determines the base documentation URL given a containing endpoint" do
       json = { "externalDocs" => { "url" => "http://example.com/meals/#cook-a-meal" }}
       endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(nil, nil, json))

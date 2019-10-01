@@ -12,7 +12,7 @@ module Octokit
       # @return <Sawyer::Resource> A single deployment
       # @see https://developer.github.com/v3/repos/deployments/#get-a-single-deployment
       def deployment(repo, deployment_id, options = {})
-        get("#{Repository.path repo}/deployments/#{deployment_id}", options)
+        get "#{Repository.path repo}/deployments/#{deployment_id}", options
       end
 
       # List deployments
@@ -25,7 +25,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of deployments
       # @see https://developer.github.com/v3/repos/deployments/#list-deployments
       def deployments(repo, options = {})
-        get("#{Repository.path repo}/deployments", options)
+        get "#{Repository.path repo}/deployments", options
       end
       alias :list_deployments :deployments
 
@@ -45,7 +45,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment
       def create_deployment(repo, ref, options = {})
         options[:ref] = ref
-        post("#{Repository.path repo}/deployments", options)
+        post "#{Repository.path repo}/deployments", options
       end
 
       # Get a single deployment status
@@ -56,7 +56,7 @@ module Octokit
       # @return <Sawyer::Resource> A single deployment status
       # @see https://developer.github.com/v3/repos/deployments/#get-a-single-deployment-status
       def deployment_status(repo, deployment_id, status_id, options = {})
-        get("#{Repository.path repo}/deployments/#{deployment_id}/statuses/#{status_id}", options)
+        get "#{Repository.path repo}/deployments/#{deployment_id}/statuses/#{status_id}", options
       end
 
       # List deployment statuses
@@ -66,7 +66,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of deployment statuses
       # @see https://developer.github.com/v3/repos/deployments/#list-deployment-statuses
       def deployment_statuses(repo, deployment_id, options = {})
-        get("#{Repository.path repo}/deployments/#{deployment_id}/statuses", options)
+        get "#{Repository.path repo}/deployments/#{deployment_id}/statuses", options
       end
       alias :list_deployment_statuses :deployment_statuses
 
@@ -85,7 +85,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment-status
       def create_deployment_status(repo, deployment_id, state, options = {})
         options[:state] = state.to_s.downcase
-        post("#{Repository.path repo}/deployments/#{deployment_id}/statuses", options)
+        post "#{Repository.path repo}/deployments/#{deployment_id}/statuses", options
       end
     end
   end

@@ -23,8 +23,6 @@ module OpenAPIClientGenerator
 
     VERB_PRIORITY = %w(GET POST)
 
-    delegate [:documentation_url] => :definition
-
     attr_reader :definition, :parameterizer
     def initialize(oas_endpoint, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
       @definition    = oas_endpoint
@@ -86,7 +84,7 @@ module OpenAPIClientGenerator
     end
 
     def api_call
-      "#{definition.method}(\"#{api_path}\", options)"
+      "#{definition.method} \"#{api_path}\", options"
     end
 
     def api_path
@@ -129,9 +127,7 @@ module OpenAPIClientGenerator
     def parameter_description(param)
       return "A GitHub repository" if param.name == "repo"
       return "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if param.name.end_with? "_id"
-      return param.description.gsub("\n", "") unless param.description.empty?
-
-      "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if name.end_with?("_id")
+      return param.description.gsub("\n", "")
     end
 
     def parameter_documentation
@@ -195,24 +191,31 @@ module OpenAPIClientGenerator
 
   class API
     def self.at(definition, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
-      # just for this spike
-      paths = definition.paths.select { |oas_path| oas_path.path.include? "deployment" }
-      endpoints = paths.each_with_object([]) do |path, a|
-        path.endpoints.each do |endpoint|
-          a << OpenAPIClientGenerator::Endpoint.new(endpoint, parameterizer: parameterizer)
-        end
+      grouped_paths = definition.paths.group_by do |oas_path|
+        resource_for_path(oas_path.path)
       end
-      new("deployments", endpoints: endpoints)
+      grouped_paths.delete(:unsupported)
+      grouped_paths.each do |resource, paths|
+        endpoints = paths.each_with_object([]) do |path, arr|
+          path.endpoints.each do |endpoint|
+            arr << OpenAPIClientGenerator::Endpoint.new(endpoint, parameterizer: parameterizer)
+          end
+        end
+        yield new(resource, endpoints: endpoints)
+      end
     end
 
-    attr_reader :path, :endpoints
-    def initialize(path, endpoints: [])
-      @path      = path
+    def self.resource_for_path(path)
+      return :unsupported unless path.include? "deployment"
+      path_segments = path.split("/").reject{ |segment| segment == "" }
+      resource = path_segments[3]
+      resource ||= "repositories"
+    end
+
+    attr_reader :resource, :endpoints
+    def initialize(resource, endpoints: [])
+      @resource = resource
       @endpoints = endpoints
-    end
-
-    def namespace
-      Pathname.new(path).basename.to_s.capitalize
     end
 
     def documentation_url
@@ -223,10 +226,10 @@ module OpenAPIClientGenerator
       <<-FILE
 module Octokit
   class Client
-    # Methods for the #{namespace} API
+    # Methods for the #{resource.capitalize} API
     #
     # @see #{documentation_url}
-    module #{namespace}
+    module #{resource.capitalize}
 
 #{endpoints.sort_by(&:priority).join("\n\n")}
     end
