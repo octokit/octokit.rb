@@ -1,4 +1,4 @@
-require_relative '../lib/open_api_client_generator'
+require_relative '../lib/openapi_client_generator'
 
 describe OpenAPIClientGenerator do
   context OpenAPIClientGenerator::Endpoint do
