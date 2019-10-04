@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 require 'json'
 require 'pathname'
@@ -105,7 +107,9 @@ module OpenAPIClientGenerator
     def required_params
       params = definition.parameters.select(&:required).reject {|param| ["owner", "accept"].include?(param.name)}
       if definition.request_body
-        params += definition.request_body.properties_for_format("application/json").select { |param| definition.request_body.content["application/json"]["schema"]["required"].include? param.name }
+        params += definition.request_body.properties_for_format("application/json").select do |param|
+          definition.request_body.content["application/json"]["schema"]["required"].include? param.name
+        end
       end
       params
     end
@@ -113,7 +117,9 @@ module OpenAPIClientGenerator
     def optional_params
       params = definition.parameters.reject(&:required).reject {|param| ["accept", "per_page", "page"].include?(param.name)}
       if definition.request_body
-        params += definition.request_body.properties_for_format("application/json").reject { |param| definition.request_body.content["application/json"]["schema"]["required"].include? param.name }
+        params += definition.request_body.properties_for_format("application/json").reject do |param|
+          definition.request_body.content["application/json"]["schema"]["required"].include? param.name
+        end
       end
       params
     end
@@ -206,10 +212,11 @@ module OpenAPIClientGenerator
     end
 
     def self.resource_for_path(path)
-      return :unsupported unless path.include? "deployment"
       path_segments = path.split("/").reject{ |segment| segment == "" }
       resource = path_segments[3]
-      resource ||= "repositories"
+
+      supported_resources = ["deployments"]
+      return (supported_resources.include? resource) ? resource : :unsupported
     end
 
     attr_reader :resource, :endpoints
