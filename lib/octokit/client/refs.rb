@@ -55,6 +55,20 @@ module Octokit
       end
       alias :create_reference :create_ref
 
+      # Create a branch
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param branch [String] The branch name, e.g. <tt>feature/branchA</tt>
+      # @param sha [String] A SHA, e.g. e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
+      # @return [Array<Sawyer::Resource>] The list of references, already containing the new one
+      # @see https://developer.github.com/v3/git/refs/#create-a-reference
+      # @example Create branch feature/branchA (refs/heads/feature/branchA) for octocat/Hello-World with sha 827efc6d56897b048c772eb4087f854f46256132
+      #   Octokit.create_branch("octocat/Hello-World", "feature/branchA", "827efc6d56897b048c772eb4087f854f46256132")
+      def create_branch(repo, branch, sha, options = {})
+        branch = "heads/#{branch}" unless branch =~ %r{heads/}
+        create_ref repo, branch, sha, options
+      end
+
       # Update a reference
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

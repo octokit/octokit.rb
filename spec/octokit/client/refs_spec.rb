@@ -43,6 +43,22 @@ describe Octokit::Client::Refs do
     end
   end # .create_ref
 
+  describe ".create_branch" do
+    it "prepends heads/ to the branch parameter" do
+      request = stub_post("/repos/#{@test_repo}/git/refs").
+        with(:body => {ref: "refs/heads/testing/test-ref-2", sha: @first_sha}.to_json)
+      @client.create_branch(@test_repo, "testing/test-ref-2", @first_sha)
+      assert_requested request
+    end
+
+    it "does not duplicate heads/ in branch parameter" do
+      request = stub_post("/repos/#{@test_repo}/git/refs").
+        with(:body => {ref: "refs/heads/testing/test-ref-2", sha: @first_sha}.to_json)
+      @client.create_branch(@test_repo, "heads/testing/test-ref-2", @first_sha)
+      assert_requested request
+    end
+  end # .create_branch
+
   context "with ref", :vcr do
     before(:each) do
       commits = @client.commits(@test_repo)
@@ -63,6 +79,12 @@ describe Octokit::Client::Refs do
         assert_requested :post, github_url("/repos/#{@test_repo}/git/refs")
       end
     end # .create_ref
+
+    describe ".create_branch" do
+      it "creates a branch" do
+        assert_requested :post, github_url("/repos/#{@test_repo}/git/refs")
+      end
+    end # .create_branch
 
     describe ".update_branch" do
       it "updates a branch" do
