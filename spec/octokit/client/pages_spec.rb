@@ -7,54 +7,70 @@ describe Octokit::Client::Pages do
     @client = oauth_client
   end
 
+  # These tests require some manual setup in your test repository,
+  # ensure it has pages site enabled and setup.
   describe ".pages", :vcr do
     it "lists page information" do
-      pages = @client.pages("github/developer.github.com")
-      expect(pages.cname).to eq("developer.github.com")
-      assert_requested :get, github_url("/repos/github/developer.github.com/pages")
+      pages = @client.pages(@test_repo)
+      expect(pages).not_to be_nil
+      assert_requested :get, github_url("/repos/#{@test_repo}/pages")
     end
   end # .pages
 
-  describe ".pages_build", :vcr do
-    # Grabbed this build ID manually from pages_builds
-    it "lists a specific page build" do
-      build = @client.pages_build(@test_repo, 40071035, accept: preview_header)
-      expect(build.status).not_to be_nil
-      assert_requested :get, github_url("/repos/#{@test_repo}/pages/builds/40071035")
-    end
-  end # .pages_build
-
   describe ".list_pages_builds", :vcr do
     it "lists information about all the page builds" do
-      builds = @client.pages_builds("github/developer.github.com")
+      builds = @client.pages_builds(@test_repo)
       expect(builds).to be_kind_of Array
       latest_build = builds.first
       expect(latest_build.status).to eq("built")
-      assert_requested :get, github_url("/repos/github/developer.github.com/pages/builds")
+      assert_requested :get, github_url("/repos/#{@test_repo}/pages/builds")
     end
   end # .list_pages_builds
 
-  describe ".latest_pages_build", :vcr do
-    it "lists information about the latest page build" do
-      latest_build = @client.latest_pages_build("github/developer.github.com")
-      expect(latest_build.status).to eq("built")
-      assert_requested :get, github_url("/repos/github/developer.github.com/pages/builds/latest")
-    end
-  end # .latest_pages_build
+  context "with build", :vcr do
+      before do
+        @latest_build = @client.latest_pages_build(@test_repo)
+      end
+
+      describe ".latest_pages_build", :vcr do
+        it "lists information about the latest page build" do
+          expect(@latest_build.status).to eq("built")
+          assert_requested :get, github_url("/repos/#{@test_repo}/pages/builds/latest")
+        end
+      end # .latest_pages_build
+
+      describe ".pages_build", :vcr do
+        # uses .latest_pages_build to grab a build id
+        it "lists a specific page build" do
+          build_id = @latest_build.url.split("/").last
+          build = @client.pages_build(@test_repo, build_id)
+          expect(build.status).not_to be_nil
+          assert_requested :get, github_url("/repos/#{@test_repo}/pages/builds/#{build_id}")
+        end
+      end # .pages_build
+  end
 
   describe ".request_page_build", :vcr do
-    # This test requires some manual setup in your test repository,
-    # ensure it has pages site enabled and setup.
     it "requests a build for the latest revision" do
-      request = @client.request_page_build(@test_repo, accept: preview_header)
+      request = @client.request_page_build(@test_repo)
       expect(request.status).not_to be_nil
       assert_requested :post, github_url("/repos/#{@test_repo}/pages/builds")
     end
   end # .request_page_build
 
-  private
+  describe ".update_pages_site", :vcr do
+    it "updates information about a pages site" do
+      response = @client.update_pages_site(@test_repo)
+      expect(response).to be_true
+      assert_requested :put, github_url("/repos/#{@test_repo}/pages")
+    end
+  end # .update_pages_site
 
-  def preview_header
-    Octokit::Preview::PREVIEW_TYPES[:pages]
-  end
+  describe ".delete_pages_site", :vcr do
+    it "returns true with successful pages deletion" do
+      response = @client.delete_pages_site(@test_repo)
+      expect(response).to be_true
+      assert_requested :delete, github_url("/repos/#{@test_repo}/pages")
+    end
+  end # .delete_pages_site
 end
