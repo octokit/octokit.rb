@@ -5,6 +5,7 @@ require 'json'
 require 'pathname'
 require 'active_support/inflector'
 require 'oas_parser'
+require 'pry'
 
 module OpenAPIClientGenerator
 
@@ -23,7 +24,7 @@ module OpenAPIClientGenerator
 
     extend Forwardable
 
-    VERB_PRIORITY = %w(GET POST)
+    VERB_PRIORITY = %w(GET POST PUT DELETE)
 
     attr_reader :definition, :parameterizer
     def initialize(oas_endpoint, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
@@ -63,7 +64,7 @@ module OpenAPIClientGenerator
     end
 
     def singular?
-      definition.path.path.split("/").last.include? "id"
+      (definition.path.path.split("/").last.include? "id") || (definition.summary.include? " a ")
     end
 
     def method_implementation
@@ -81,12 +82,22 @@ module OpenAPIClientGenerator
         if !!param.enum
           normalization = ".to_s.downcase"
         end
-        "options[:#{param.name}] = #{param.name}#{normalization}"
+        return "options[:#{param.name}] = #{param.name}#{normalization}"
+      end
+      if definition.raw["x-github"].key?("preview")
+        "opts = ensure_api_media_type(:#{namespace}, options)"
       end
     end
 
     def api_call
-      "#{definition.method} \"#{api_path}\", options"
+      option_format = definition.raw["x-github"].key?("preview") ? "opts" : "options"
+      case verb
+      when "DELETE"
+        # will only be boolean_from_response when 204 but only case so far
+        "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
+      else
+        "#{definition.method} \"#{api_path}\", #{option_format}"
+      end
     end
 
     def api_path
@@ -106,7 +117,7 @@ module OpenAPIClientGenerator
 
     def required_params
       params = definition.parameters.select(&:required).reject {|param| ["owner", "accept"].include?(param.name)}
-      if definition.request_body
+      if definition.request_body && definition.request_body.content["application/json"]["schema"]["required"]
         params += definition.request_body.properties_for_format("application/json").select do |param|
           definition.request_body.content["application/json"]["schema"]["required"].include? param.name
         end
@@ -117,8 +128,12 @@ module OpenAPIClientGenerator
     def optional_params
       params = definition.parameters.reject(&:required).reject {|param| ["accept", "per_page", "page"].include?(param.name)}
       if definition.request_body
-        params += definition.request_body.properties_for_format("application/json").reject do |param|
-          definition.request_body.content["application/json"]["schema"]["required"].include? param.name
+        if definition.request_body.content["application/json"]["schema"]["required"]
+          params += definition.request_body.properties_for_format("application/json").reject do |param|
+            definition.request_body.content["application/json"]["schema"]["required"].include? param.name
+          end
+        else
+          params += definition.request_body.properties_for_format("application/json")
         end
       end
       params
@@ -154,6 +169,8 @@ module OpenAPIClientGenerator
         end
       when "POST"
         "The new #{namespace.singularize.gsub("_", " ")}"
+      when "PUT", "DELETE"
+        "True if successful"
       else
       end
     end
@@ -175,7 +192,13 @@ module OpenAPIClientGenerator
       when "GET"
         namespace
       when "POST"
-        "create_#{namespace}"
+        definition.operation_id.split("/").last.split("-").join("_")
+      when "PUT"
+        # expecting this to not generalize well, but works for now
+        segments = definition.operation_id.split("/").last.split("-")
+        ([segments.first] + segments[-2..-1]).join("_")
+      when "DELETE"
+        "delete_#{namespace}"
       else
       end
     end
@@ -215,7 +238,7 @@ module OpenAPIClientGenerator
       path_segments = path.split("/").reject{ |segment| segment == "" }
       resource = path_segments[3]
 
-      supported_resources = ["deployments"]
+      supported_resources = ["deployments","pages"]
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
