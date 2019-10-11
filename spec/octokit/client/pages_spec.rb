@@ -1,4 +1,5 @@
 require 'helper'
+require 'pry'
 
 describe Octokit::Client::Pages do
 
@@ -59,8 +60,8 @@ describe Octokit::Client::Pages do
   end # .request_page_build
 
   describe ".update_pages_site", :vcr do
-    it "updates information about a pages site" do
-      response = @client.update_pages_site(@test_repo)
+    it "returns true with successful pages update" do
+      response = @client.update_pages_site(@test_repo, accept: preview_header)
       expect(response).to be_true
       assert_requested :put, github_url("/repos/#{@test_repo}/pages")
     end
@@ -68,9 +69,15 @@ describe Octokit::Client::Pages do
 
   describe ".delete_pages_site", :vcr do
     it "returns true with successful pages deletion" do
-      response = @client.delete_pages_site(@test_repo)
+      response = @client.delete_pages_site(@test_repo, accept: preview_header)
       expect(response).to be_true
       assert_requested :delete, github_url("/repos/#{@test_repo}/pages")
     end
   end # .delete_pages_site
+
+  private
+
+  def preview_header
+    Octokit::Preview::PREVIEW_TYPES[:pages_site]
+  end
 end
