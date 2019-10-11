@@ -84,7 +84,7 @@ module OpenAPIClientGenerator
         end
         return "options[:#{param.name}] = #{param.name}#{normalization}"
       end
-      if definition.raw["x-github"].key?("preview")
+      if definition.raw["x-github"]["previews"].any? {|e| e["required"]}
         "opts = ensure_api_media_type(:#{namespace}, options)"
       end
     end
@@ -92,9 +92,10 @@ module OpenAPIClientGenerator
     def api_call
       option_format = definition.raw["x-github"].key?("preview") ? "opts" : "options"
       case verb
-      when "DELETE"
-        # will only be boolean_from_response when 204 but only case so far
-        "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
+      when "PUT", "DELETE"
+        if definition.raw["responses"].key? "204"
+          "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
+        end
       else
         "#{definition.method} \"#{api_path}\", #{option_format}"
       end
@@ -110,6 +111,8 @@ module OpenAPIClientGenerator
     def return_type_description
       if verb == "GET" && !singular?
         "[Array<Sawyer::Resource>]"
+      elsif verb == "DELETE"
+        "<Boolean>"
       else
         "<Sawyer::Resource>"
       end
@@ -170,8 +173,7 @@ module OpenAPIClientGenerator
       when "POST"
         "The new #{namespace.singularize.gsub("_", " ")}"
       when "PUT", "DELETE"
-        "True if successful"
-      else
+        "True on success, false otherwise"
       end
     end
 
