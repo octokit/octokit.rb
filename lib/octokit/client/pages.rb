@@ -22,7 +22,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/pages/#enable-a-pages-site
       def enable_pages_site(repo, options = {})
         opts = ensure_api_media_type(:pages_site, options)
-        post "#{Repository.path repo}/pages", options
+        post "#{Repository.path repo}/pages", opts
       end
 
       # Update information about a Pages site
@@ -43,7 +43,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/pages/#disable-a-pages-site
       def delete_pages_site(repo, options = {})
         opts = ensure_api_media_type(:pages_site, options)
-        boolean_from_response :delete, "#{Repository.path repo}/pages", options
+        boolean_from_response :delete, "#{Repository.path repo}/pages", opts
       end
 
       # Get a specific Pages build

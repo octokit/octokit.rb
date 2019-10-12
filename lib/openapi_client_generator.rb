@@ -90,7 +90,7 @@ module OpenAPIClientGenerator
     end
 
     def api_call
-      option_format = definition.raw["x-github"].key?("preview") ? "opts" : "options"
+      option_format = definition.raw["x-github"]["previews"].any? {|e| e["required"]} ? "opts" : "options"
       case verb
       when "PUT", "DELETE"
         if definition.raw["responses"].key? "204"
