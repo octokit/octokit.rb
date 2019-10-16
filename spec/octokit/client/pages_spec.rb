@@ -69,13 +69,13 @@ describe Octokit::Client::Pages do
     end
   end # .update_pages_site
 
-  describe ".delete_pages_site", :vcr do
+  describe ".disable_pages_site", :vcr do
     it "returns true with successful pages deletion" do
        response = @client.disable_pages_site(@pages_repo, accept: preview_header)
        expect(response).to be_truthy
        assert_requested :delete, github_url("/repos/#{@pages_repo}/pages")
     end
-  end # .delete_pages_site
+  end # .disable_pages_site
 
   private
 
