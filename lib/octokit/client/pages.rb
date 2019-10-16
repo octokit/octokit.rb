@@ -41,7 +41,7 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return <Boolean> True on success, false otherwise
       # @see https://developer.github.com/v3/repos/pages/#disable-a-pages-site
-      def delete_pages_site(repo, options = {})
+      def disable_pages_site(repo, options = {})
         opts = ensure_api_media_type(:pages_site, options)
         boolean_from_response :delete, "#{Repository.path repo}/pages", opts
       end

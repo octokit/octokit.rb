@@ -195,12 +195,10 @@ module OpenAPIClientGenerator
         namespace
       when "POST"
         definition.operation_id.split("/").last.split("-").join("_")
-      when "PUT"
+      when "PUT", "DELETE"
         # expecting this to not generalize well, but works for now
         segments = definition.operation_id.split("/").last.split("-")
         ([segments.first] + segments[-2..-1]).join("_")
-      when "DELETE"
-        "delete_#{namespace}"
       else
       end
     end
