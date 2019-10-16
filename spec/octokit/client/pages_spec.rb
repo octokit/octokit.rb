@@ -62,18 +62,18 @@ describe Octokit::Client::Pages do
 
   describe ".update_pages_site", :vcr do
     it "returns true with successful pages update" do
-       response = @client.update_pages_site(@pages_repo, cname: "octopup.blog")
-       response = @client.update_pages_site(@pages_repo, cname: nil)
-       expect(response).to be_truthy
-       assert_requested :put, github_url("/repos/#{@pages_repo}/pages"), :times => 2
+        response = @client.update_pages_site(@pages_repo, cname: "octopup.blog")
+        response = @client.update_pages_site(@pages_repo, cname: nil)
+        expect(response).to be_truthy
+        assert_requested :put, github_url("/repos/#{@pages_repo}/pages"), :times => 2
     end
   end # .update_pages_site
 
   describe ".disable_pages_site", :vcr do
     it "returns true with successful pages deletion" do
-       response = @client.disable_pages_site(@pages_repo, accept: preview_header)
-       expect(response).to be_truthy
-       assert_requested :delete, github_url("/repos/#{@pages_repo}/pages")
+        response = @client.disable_pages_site(@pages_repo, accept: preview_header)
+        expect(response).to be_truthy
+        assert_requested :delete, github_url("/repos/#{@pages_repo}/pages")
     end
   end # .disable_pages_site
 
