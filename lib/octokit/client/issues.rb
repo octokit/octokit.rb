@@ -81,6 +81,7 @@ module Octokit
       # @param body [String] An optional concise description
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
+      # @option options [Array<String>] :assignees User login.
       # @option options [Integer] :milestone Milestone number.
       # @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       # @return [Sawyer::Resource] Your newly created issue
@@ -120,6 +121,7 @@ module Octokit
       # @param number [Integer] Number ID of the issue
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
+      # @option options [Array<String>] :assignees User login.
       # @option options [Integer] :milestone Milestone number.
       # @option options [Array<String>] :labels List of Label names. Example: <tt>['bug', 'ui', '@high']</tt>.
       # @return [Sawyer::Resource] The updated Issue
@@ -136,6 +138,7 @@ module Octokit
       # @param number [Integer] Number ID of the issue
       # @param options [Hash] A customizable set of options.
       # @option options [String] :assignee User login.
+      # @option options [Array<String>] :assignees User login.
       # @option options [Integer] :milestone Milestone number.
       # @option options [Array<String>] :labels List of Label names. Example: <tt>['bug', 'ui', '@high']</tt>.
       # @return [Sawyer::Resource] The updated Issue
@@ -179,6 +182,7 @@ module Octokit
       #   @param body [String] Updated body of the issue
       #   @param options [Hash] A customizable set of options.
       #   @option options [String] :assignee User login.
+      #   @option options [Array<String>] :assignees User login.
       #   @option options [Integer] :milestone Milestone number.
       #   @option options [String] :labels List of comma separated Label names. Example: <tt>bug,ui,@high</tt>.
       #   @option options [String] :state State of the issue. <tt>open</tt> or <tt>closed</tt>
@@ -190,6 +194,7 @@ module Octokit
       #   @option options [String] :title Updated title for the issue
       #   @option options [String] :body Updated body of the issue
       #   @option options [String] :assignee User login.
+      #   @option options [Array<String>] :assignees User login.
       #   @option options [Integer] :milestone Milestone number.
       # @option options [Array<String>] :labels List of Label names. Example: <tt>['bug', 'ui', '@high']</tt>.
       #   @option options [String] :state State of the issue. <tt>open</tt> or <tt>closed</tt>
@@ -332,7 +337,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Issue number
-      # @param assignees [Array] Assignees to be added
+      # @param assignees [Array<String>] Assignees to be added
       # @return [Sawyer::Resource] Issue
       # @see https://developer.github.com/v3/issues/assignees/#add-assignees-to-an-issue
       # @example Add assignees "pengwynn" and "joeyw" to Issue #23 on octokit/octokit.rb
@@ -345,7 +350,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param number [Integer] Issue number
-      # @param assignees [Array] Assignees to be removed
+      # @param assignees [Array<String>] Assignees to be removed
       # @param options [Hash] Header params for request
       # @return [Sawyer::Resource] Issue
       # @see https://developer.github.com/v3/issues/assignees/#remove-assignees-from-an-issue

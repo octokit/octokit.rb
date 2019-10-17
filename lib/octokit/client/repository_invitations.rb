@@ -13,7 +13,7 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param user [String] User GitHub username to add
       # @return [Sawyer::Resource] The repository invitation
-      # @see https://developer.github.com/v3/repos/invitations/#invite-a-user-to-a-repository
+      # @see https://developer.github.com/v3/repos/collaborators/#add-user-as-a-collaborator
       def invite_user_to_repository(repo, user, options = {})
         put "#{Repository.path repo}/collaborators/#{user}", options
       end
