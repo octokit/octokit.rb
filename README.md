@@ -64,7 +64,7 @@ client.readme 'al3x/sovereign', :accept => 'application/vnd.github.html'
 ```
 
 [wrappers]: http://wynnnetherland.com/journal/what-makes-a-good-api-wrapper
-[github-api]: http://developer.github.com
+[github-api]: https://developer.github.com/v3/
 
 ## Quick start
 
