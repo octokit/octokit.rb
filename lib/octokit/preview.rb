@@ -22,7 +22,8 @@ module Octokit
       :community_profile      => 'application/vnd.github.black-panther-preview+json'.freeze,
       :strict_validation      => 'application/vnd.github.speedy-preview+json'.freeze,
       :drafts                 => 'application/vnd.github.shadow-cat-preview'.freeze,
-      :template_repositories  => 'application/vnd.github.baptiste-preview+json'.freeze
+      :template_repositories  => 'application/vnd.github.baptiste-preview+json'.freeze,
+      :uninstall_github_app   => 'application/vnd.github.gambit-preview+json'.freeze,
     }
 
     def ensure_api_media_type(type, options)
