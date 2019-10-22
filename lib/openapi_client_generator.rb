@@ -5,7 +5,6 @@ require 'json'
 require 'pathname'
 require 'active_support/inflector'
 require 'oas_parser'
-require 'pry'
 
 module OpenAPIClientGenerator
 
@@ -111,7 +110,7 @@ module OpenAPIClientGenerator
     def return_type_description
       if verb == "GET" && !singular?
         "[Array<Sawyer::Resource>]"
-      elsif verb == "DELETE"
+      elsif verb == "DELETE" || verb == "PUT"
         "<Boolean>"
       else
         "<Sawyer::Resource>"
@@ -120,9 +119,9 @@ module OpenAPIClientGenerator
 
     def required_params
       params = definition.parameters.select(&:required).reject {|param| ["owner", "accept"].include?(param.name)}
-      if definition.request_body && definition.request_body.content["application/json"]["schema"]["required"]
+      if definition.request_body && fetch_required_parameters(definition.request_body).present?
         params += definition.request_body.properties_for_format("application/json").select do |param|
-          definition.request_body.content["application/json"]["schema"]["required"].include? param.name
+          fetch_required_parameters(definition.request_body).include? param.name
         end
       end
       params
@@ -131,9 +130,9 @@ module OpenAPIClientGenerator
     def optional_params
       params = definition.parameters.reject(&:required).reject {|param| ["accept", "per_page", "page"].include?(param.name)}
       if definition.request_body
-        if definition.request_body.content["application/json"]["schema"]["required"]
+        if fetch_required_parameters(definition.request_body).present?
           params += definition.request_body.properties_for_format("application/json").reject do |param|
-            definition.request_body.content["application/json"]["schema"]["required"].include? param.name
+            fetch_required_parameters(definition.request_body).include? param.name
           end
         else
           params += definition.request_body.properties_for_format("application/json")
@@ -216,6 +215,13 @@ module OpenAPIClientGenerator
     def priority
       [parts.count, VERB_PRIORITY.index(verb), singular?? 0 : 1]
     end
+
+    private 
+
+    def fetch_required_parameters(body)
+      body.content["application/json"]["schema"]["required"]
+    end
+
   end
 
   class API

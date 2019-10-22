@@ -1,5 +1,4 @@
 require 'helper'
-require 'pry'
 
 describe Octokit::Client::Pages do
 
