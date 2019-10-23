@@ -41,11 +41,15 @@ module Octokit
       # @option options [String] :private `true` makes the repository private, and `false` makes it public.
       # @option options [String] :has_issues `true` enables issues for this repo, `false` disables issues.
       # @option options [String] :has_wiki `true` enables wiki for this repo, `false` disables wiki.
+      # @option options [Boolean] :is_template `true` makes the repository a template, `false` makes it not a template.
       # @option options [String] :has_downloads `true` enables downloads for this repo, `false` disables downloads.
       # @option options [String] :default_branch Update the default branch for this repository.
       # @return [Sawyer::Resource] Repository information
       def edit_repository(repo, options = {})
         repo = Repository.new(repo)
+        if options.include? :is_template
+          options = ensure_api_media_type(:template_repositories, options)
+        end
         options[:name] ||= repo.name
         patch "repos/#{repo}", options
       end
@@ -144,6 +148,7 @@ module Octokit
       # @option options [String] :private `true` makes the repository private, and `false` makes it public.
       # @option options [String] :has_issues `true` enables issues for this repo, `false` disables issues.
       # @option options [String] :has_wiki `true` enables wiki for this repo, `false` disables wiki.
+      # @option options [Boolean] :is_template `true` makes this repo available as a template repository, `false` to prevent it.
       # @option options [String] :has_downloads `true` enables downloads for this repo, `false` disables downloads.
       # @option options [String] :organization Short name for the org under which to create the repo.
       # @option options [Integer] :team_id The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization.
@@ -155,6 +160,9 @@ module Octokit
         opts = options.dup
         organization = opts.delete :organization
         opts.merge! :name => name
+        if opts.include? :is_template
+          opts = ensure_api_media_type(:template_repositories, opts)
+        end
 
         if organization.nil?
           post 'user/repos', opts
@@ -191,6 +199,22 @@ module Octokit
         post "#{Repository.path repo}/transfer", options.merge({ new_owner: new_owner })
       end
       alias :transfer_repo :transfer_repository
+
+      # Create a repository for a user or organization generated from a template repository
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub template repository
+      # @param name [String] Name of the new repo
+      # @option options [String] :owner Organization or user who the new repository will belong to.
+      # @option options [String] :description Description of the repo
+      # @option options [String] :private `true` makes the repository private, and `false` makes it public.
+      # @option options [Boolean] :include_all_branches `true` copies all branches from the template repository, `false` (default) makes it only copy the master branch.
+      # @return [Sawyer::Resource] Repository info for the new repository
+      def create_repository_from_template(repo, name, options = {})
+        options.merge! :name => name
+        options = ensure_api_media_type(:template_repositories, options)
+        post "#{Repository.path repo}/generate", options
+      end
+      alias :create_repo_from_template :create_repository_from_template
 
       # Hide a public repository
       #
