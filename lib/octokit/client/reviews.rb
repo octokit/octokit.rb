@@ -204,6 +204,24 @@ module Octokit
         options = options.merge(reviewers)
         delete "#{Repository.path repo}/pulls/#{id}/requested_reviewers", options
       end
+
+      # Update a review request comment
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param number [Integer] Number ID of the pull request
+      # @param review [Integer] The id of the review
+      # @param body [String] body text of the pull request review.
+      # @param options [Hash] Method options
+      # @see https://developer.github.com/v3/pulls/reviews/#update-a-pull-request-review
+      #
+      # @example
+      #   @client.update_pull_request_review('octokit/octokit.rb', 825, 6505518, 'This is close to perfect! Please address the suggested inline change. And add more about this.')
+      #
+      # @return [Sawyer::Resource] Hash representing the review comment
+      def update_pull_request_review(repo, number, review, body, options = {})
+        options[:body] = body
+        put "#{Repository.path repo}/pulls/#{number}/reviews/#{review}", options
+      end
     end
   end
 end
