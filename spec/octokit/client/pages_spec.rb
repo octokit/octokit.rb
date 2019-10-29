@@ -8,27 +8,34 @@ describe Octokit::Client::Pages do
     @pages_repo =  "#{test_github_login}/#{test_github_login}.github.io"
   end
 
-  # These tests require some manual setup in your test repository,
-  # ensure it has pages site enabled and setup.
-  describe ".pages", :vcr do
-    it "lists page information" do
-      pages = @client.pages(@pages_repo)
-      expect(pages).not_to be_nil
-      assert_requested :get, github_url("/repos/#{@pages_repo}/pages")
+  context "with repository", :vcr do
+    before do
+      if !@client.repository?(@pages_repo, {})
+        Octokit.octokit_warn "NOTICE: Creating #{@pages_repo} test repository."
+        @client.create_repository("#{test_github_login}.github.io", { :auto_init => true })
+        sleep(1)
+      end
     end
-  end # .pages
 
-  describe ".list_pages_builds", :vcr do
-    it "lists information about all the page builds" do
-      builds = @client.pages_builds(@pages_repo)
-      expect(builds).to be_kind_of Array
-      latest_build = builds.first
-      expect(latest_build.status).to eq("built")
-      assert_requested :get, github_url("/repos/#{@pages_repo}/pages/builds")
-    end
-  end # .list_pages_builds
+    describe ".pages", :vcr do
+      it "lists page information" do
+        pages = @client.pages(@pages_repo)
+        expect(pages).not_to be_nil
+        assert_requested :get, github_url("/repos/#{@pages_repo}/pages")
+      end
+    end # .pages
 
-  context "with build", :vcr do
+    describe ".list_pages_builds", :vcr do
+      it "lists information about all the page builds" do
+        builds = @client.pages_builds(@pages_repo)
+        expect(builds).to be_kind_of Array
+        latest_build = builds.first
+        expect(latest_build.status).to eq("built")
+        assert_requested :get, github_url("/repos/#{@pages_repo}/pages/builds")
+      end
+    end # .list_pages_builds
+
+    context "with build", :vcr do
       before do
         @latest_build = @client.latest_pages_build(@pages_repo)
       end
@@ -49,26 +56,26 @@ describe Octokit::Client::Pages do
           assert_requested :get, github_url("/repos/#{@pages_repo}/pages/builds/#{build_id}")
         end
       end # .pages_build
-  end
-
-  describe ".request_page_build", :vcr do
-    it "requests a build for the latest revision" do
-      request = @client.request_page_build(@pages_repo)
-      expect(request.status).not_to be_nil
-      assert_requested :post, github_url("/repos/#{@pages_repo}/pages/builds")
     end
-  end # .request_page_build
 
-  describe ".update_pages_site", :vcr do
-    it "returns true with successful pages update" do
+    describe ".request_page_build", :vcr do
+      it "requests a build for the latest revision" do
+        request = @client.request_page_build(@pages_repo)
+        expect(request.status).not_to be_nil
+        assert_requested :post, github_url("/repos/#{@pages_repo}/pages/builds")
+      end
+    end # .request_page_build
+
+    describe ".update_pages_site", :vcr do
+      it "returns true with successful pages update" do
         response = @client.update_pages_site(@pages_repo, cname: "octopup.blog")
         response = @client.update_pages_site(@pages_repo, cname: nil)
         expect(response).to be_truthy
         assert_requested :put, github_url("/repos/#{@pages_repo}/pages"), :times => 2
-    end
-  end # .update_pages_site
+      end
+    end # .update_pages_site
 
-  context "disable and enable", :vcr do
+    context "disable and enable", :vcr do
       before do
         @disable_response = @client.disable_pages_site(@pages_repo, accept: preview_header)
         @enable_response = @client.enable_pages_site(@pages_repo, accept: preview_header)
@@ -87,6 +94,7 @@ describe Octokit::Client::Pages do
           assert_requested :post, github_url("/repos/#{@pages_repo}/pages")
         end
       end # .enable_pages_site
+    end
   end
 
   private
