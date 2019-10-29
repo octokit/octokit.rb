@@ -64,7 +64,6 @@ module Octokit
       def pages_builds(repo, options = {})
         get "#{Repository.path repo}/pages/builds", options
       end
-      alias :list_pages_builds :pages_builds
 
       # Request a page build
       #
@@ -83,7 +82,6 @@ module Octokit
       def latest_pages_build(repo, options = {})
         get "#{Repository.path repo}/pages/builds/latest", options
       end
-      alias :list_latest_pages_build :latest_pages_build
     end
   end
 end

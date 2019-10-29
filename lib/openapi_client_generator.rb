@@ -35,7 +35,6 @@ module OpenAPIClientGenerator
       [
         tomdoc,
         method_definition,
-        alias_definition,
       ].compact.join("\n")
     end
 
@@ -55,11 +54,6 @@ module OpenAPIClientGenerator
         #{method_implementation}
       end
       DEF
-    end
-
-    def alias_definition
-      return unless alternate_name
-      "      alias :#{alternate_name} :#{method_name}"
     end
 
     def singular?
