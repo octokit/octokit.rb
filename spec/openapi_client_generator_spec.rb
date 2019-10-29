@@ -82,7 +82,7 @@ describe OpenAPIClientGenerator do
       expect(endpoint.method_name).to eq("create_meal")
     end
 
-    it "prefixes the method name of DELETE endpoints with 'delete'" do
+    it "prefixes the method name of DELETE endpoints with the respective term" do
       json = { "operationId"=> "repos/disable-meal-status" }
       endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "meals/{meal_id}", {}), "delete", json))
       expect(endpoint.method_name).to eq("disable_meal_status")
