@@ -7,8 +7,14 @@ describe OpenAPIClientGenerator do
       expect(endpoint.singular?).to eq(true)
     end
 
+    # slight hack to work with pages site
+    it "defines singular? as true if summary has ' a '" do
+      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "/pages", nil), nil, {"summary"=>"get a pages site"}))
+      expect(endpoint.singular?).to eq(true)
+    end
+
     it "defines singular? as false if path doesn't end with an id" do
-      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "/meals/status", nil), nil, nil))
+      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "/meals/status", nil), nil, {"summary"=>""}))
       expect(endpoint.singular?).to eq(false)
     end
 
@@ -70,10 +76,16 @@ describe OpenAPIClientGenerator do
       expect(endpoint.parameter_description(endpoint.required_params.first)).to eq("The status of the meal")
     end
 
-    it "prefixes the method definition of POST endpoints with 'create'" do
-      json = { "operationId"=> "repos/get-meal" }
+    it "defines the method name of POST endpoints with underscores" do
+      json = { "operationId"=> "repos/create-meal" }
       endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "meals/{meal_id}", {}), "post", json))
       expect(endpoint.method_name).to eq("create_meal")
+    end
+
+    it "prefixes the method name of DELETE endpoints with the respective term" do
+      json = { "operationId"=> "repos/disable-meal-status" }
+      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "meals/{meal_id}", {}), "delete", json))
+      expect(endpoint.method_name).to eq("disable_meal_status")
     end
 
      it "defines positional arguments by default" do

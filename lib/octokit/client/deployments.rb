@@ -27,7 +27,6 @@ module Octokit
       def deployments(repo, options = {})
         get "#{Repository.path repo}/deployments", options
       end
-      alias :list_deployments :deployments
 
       # Create a deployment
       #
@@ -68,7 +67,6 @@ module Octokit
       def deployment_statuses(repo, deployment_id, options = {})
         get "#{Repository.path repo}/deployments/#{deployment_id}/statuses", options
       end
-      alias :list_deployment_statuses :deployment_statuses
 
       # Create a deployment status
       #

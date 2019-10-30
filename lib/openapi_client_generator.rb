@@ -23,7 +23,7 @@ module OpenAPIClientGenerator
 
     extend Forwardable
 
-    VERB_PRIORITY = %w(GET POST)
+    VERB_PRIORITY = %w(GET POST PUT DELETE)
 
     attr_reader :definition, :parameterizer
     def initialize(oas_endpoint, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
@@ -35,7 +35,6 @@ module OpenAPIClientGenerator
       [
         tomdoc,
         method_definition,
-        alias_definition,
       ].compact.join("\n")
     end
 
@@ -57,13 +56,8 @@ module OpenAPIClientGenerator
       DEF
     end
 
-    def alias_definition
-      return unless alternate_name
-      "      alias :#{alternate_name} :#{method_name}"
-    end
-
     def singular?
-      definition.path.path.split("/").last.include? "id"
+      (definition.path.path.split("/").last.include? "id") || (definition.summary.include? " a ")
     end
 
     def method_implementation
@@ -81,12 +75,23 @@ module OpenAPIClientGenerator
         if !!param.enum
           normalization = ".to_s.downcase"
         end
-        "options[:#{param.name}] = #{param.name}#{normalization}"
+        return "options[:#{param.name}] = #{param.name}#{normalization}"
+      end
+      if definition.raw["x-github"]["previews"].any? {|e| e["required"]}
+        "opts = ensure_api_media_type(:#{namespace}, options)"
       end
     end
 
     def api_call
-      "#{definition.method} \"#{api_path}\", options"
+      option_format = definition.raw["x-github"]["previews"].any? {|e| e["required"]} ? "opts" : "options"
+      case verb
+      when "PUT", "DELETE"
+        if definition.raw["responses"].key? "204"
+          "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
+        end
+      else
+        "#{definition.method} \"#{api_path}\", #{option_format}"
+      end
     end
 
     def api_path
@@ -99,6 +104,8 @@ module OpenAPIClientGenerator
     def return_type_description
       if verb == "GET" && !singular?
         "[Array<Sawyer::Resource>]"
+      elsif verb == "DELETE" || verb == "PUT"
+        "<Boolean>"
       else
         "<Sawyer::Resource>"
       end
@@ -106,9 +113,9 @@ module OpenAPIClientGenerator
 
     def required_params
       params = definition.parameters.select(&:required).reject {|param| ["owner", "accept"].include?(param.name)}
-      if definition.request_body
+      if definition.request_body && fetch_required_parameters(definition.request_body).present?
         params += definition.request_body.properties_for_format("application/json").select do |param|
-          definition.request_body.content["application/json"]["schema"]["required"].include? param.name
+          fetch_required_parameters(definition.request_body).include? param.name
         end
       end
       params
@@ -117,8 +124,12 @@ module OpenAPIClientGenerator
     def optional_params
       params = definition.parameters.reject(&:required).reject {|param| ["accept", "per_page", "page"].include?(param.name)}
       if definition.request_body
-        params += definition.request_body.properties_for_format("application/json").reject do |param|
-          definition.request_body.content["application/json"]["schema"]["required"].include? param.name
+        if fetch_required_parameters(definition.request_body).present?
+          params += definition.request_body.properties_for_format("application/json").reject do |param|
+            fetch_required_parameters(definition.request_body).include? param.name
+          end
+        else
+          params += definition.request_body.properties_for_format("application/json")
         end
       end
       params
@@ -154,7 +165,8 @@ module OpenAPIClientGenerator
         end
       when "POST"
         "The new #{namespace.singularize.gsub("_", " ")}"
-      else
+      when "PUT", "DELETE"
+        "True on success, false otherwise"
       end
     end
 
@@ -175,7 +187,11 @@ module OpenAPIClientGenerator
       when "GET"
         namespace
       when "POST"
-        "create_#{namespace}"
+        definition.operation_id.split("/").last.split("-").join("_")
+      when "PUT", "DELETE"
+        # expecting this to not generalize well, but works for now
+        segments = definition.operation_id.split("/").last.split("-")
+        ([segments.first] + segments[-2..-1]).join("_")
       else
       end
     end
@@ -193,6 +209,13 @@ module OpenAPIClientGenerator
     def priority
       [parts.count, VERB_PRIORITY.index(verb), singular?? 0 : 1]
     end
+
+    private 
+
+    def fetch_required_parameters(body)
+      body.content["application/json"]["schema"]["required"]
+    end
+
   end
 
   class API
@@ -215,7 +238,7 @@ module OpenAPIClientGenerator
       path_segments = path.split("/").reject{ |segment| segment == "" }
       resource = path_segments[3]
 
-      supported_resources = ["deployments"]
+      supported_resources = ["deployments","pages"]
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
