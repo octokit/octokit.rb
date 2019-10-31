@@ -23,7 +23,7 @@ module OpenAPIClientGenerator
 
     extend Forwardable
 
-    VERB_PRIORITY = %w(GET POST PUT DELETE)
+    VERB_PRIORITY = %w(GET POST PUT PATCH DELETE)
 
     attr_reader :definition, :parameterizer
     def initialize(oas_endpoint, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
@@ -40,12 +40,17 @@ module OpenAPIClientGenerator
 
     def tomdoc
       <<-TOMDOC.chomp
-      # #{definition.summary}
+      # #{method_summary}
       #
       # #{parameter_documentation.join("\n      # ")}
       # @return #{return_type_description} #{return_value_description}
       # @see #{definition.raw["externalDocs"]["url"]}
       TOMDOC
+    end
+
+    def method_summary
+      org_summary = definition.summary.gsub("#{namespace}", "org #{namespace}").gsub("a org", "an org")
+      org?? org_summary : definition.summary
     end
 
     def method_definition
@@ -68,27 +73,28 @@ module OpenAPIClientGenerator
     end
 
     def option_overrides
+      options = []
       required_params.reject do |param|
-        param.name == "repo" || param.name.include?("id")
+        param.name == "repo" || param.name.include?("id") || param.name == "org"
       end.map do |param|
         normalization = ""
         if !!param.enum
           normalization = ".to_s.downcase"
         end
-        return "options[:#{param.name}] = #{param.name}#{normalization}"
+        options << "options[:#{param.name}] = #{param.name}#{normalization}"
       end
       if definition.raw["x-github"]["previews"].any? {|e| e["required"]}
-        "opts = ensure_api_media_type(:#{namespace}, options)"
+        options << "opts = ensure_api_media_type(:#{namespace}, options)"
       end
+      options
     end
 
     def api_call
       option_format = definition.raw["x-github"]["previews"].any? {|e| e["required"]} ? "opts" : "options"
-      case verb
-      when "PUT", "DELETE"
-        if definition.raw["responses"].key? "204"
-          "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
-        end
+      if definition.raw["responses"].key? "204"
+        "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
+      elsif definition.operationId.include?("list")
+        "paginate \"#{api_path}\", #{option_format}"
       else
         "#{definition.method} \"#{api_path}\", #{option_format}"
       end
@@ -96,6 +102,7 @@ module OpenAPIClientGenerator
 
     def api_path
       path = definition.path.path.gsub("/repos/{owner}/{repo}", "\#{Repository.path repo}")
+      path = path.gsub("/orgs/{org}", "\#{Organization.path org}")
       path = required_params.reduce(path) do |path, param|
         path.gsub("{#{param.name}}", "\#{#{param.name}}")
       end
@@ -104,7 +111,7 @@ module OpenAPIClientGenerator
     def return_type_description
       if verb == "GET" && !singular?
         "[Array<Sawyer::Resource>]"
-      elsif verb == "DELETE" || verb == "PUT"
+      elsif definition.raw["responses"].key? "204"
         "<Boolean>"
       else
         "<Sawyer::Resource>"
@@ -113,9 +120,9 @@ module OpenAPIClientGenerator
 
     def required_params
       params = definition.parameters.select(&:required).reject {|param| ["owner", "accept"].include?(param.name)}
-      if definition.request_body && fetch_required_parameters(definition.request_body).present?
+      if definition.request_body
         params += definition.request_body.properties_for_format("application/json").select do |param|
-          fetch_required_parameters(definition.request_body).include? param.name
+          param.required
         end
       end
       params
@@ -124,12 +131,8 @@ module OpenAPIClientGenerator
     def optional_params
       params = definition.parameters.reject(&:required).reject {|param| ["accept", "per_page", "page"].include?(param.name)}
       if definition.request_body
-        if fetch_required_parameters(definition.request_body).present?
-          params += definition.request_body.properties_for_format("application/json").reject do |param|
-            fetch_required_parameters(definition.request_body).include? param.name
-          end
-        else
-          params += definition.request_body.properties_for_format("application/json")
+        params += definition.request_body.properties_for_format("application/json").reject do |param|
+          param.required
         end
       end
       params
@@ -156,17 +159,17 @@ module OpenAPIClientGenerator
     end
 
     def return_value_description
-      case verb
-      when "GET"
+      if verb == "GET"
         if singular?
           "A single #{namespace.gsub("_", " ")}"
         else
           "A list of #{namespace.gsub("_", " ")}"
         end
-      when "POST"
-        "The new #{namespace.singularize.gsub("_", " ")}"
-      when "PUT", "DELETE"
+      elsif definition.raw["responses"].key? "204"
         "True on success, false otherwise"
+      elsif verb == "POST"
+        "The new #{namespace.singularize.gsub("_", " ")}"
+      else
       end
     end
 
@@ -182,40 +185,40 @@ module OpenAPIClientGenerator
       definition.operation_id.split("/").last.split("-").drop(1).join("_")
     end
 
-    def method_name
-      case verb
-      when "GET"
-        namespace
-      when "POST"
-        definition.operation_id.split("/").last.split("-").join("_")
-      when "PUT", "DELETE"
-        # expecting this to not generalize well, but works for now
-        segments = definition.operation_id.split("/").last.split("-")
-        ([segments.first] + segments[-2..-1]).join("_")
-      else
-      end
+    def org?
+      definition.operation_id.split("/").first == "orgs"
     end
 
-    def alternate_name
-      return unless verb == "GET"
-      return if singular?
-      "list_#{namespace}"
+    def method_name
+      method_name = case verb
+        when "GET"
+          namespace
+        when "POST"
+          definition.operation_id.split("/").last.split("-").join("_")
+        when "PUT"
+          # expecting this to not generalize well, but works for now
+          segments = definition.operation_id.split("/").last.split("-")
+          ([segments.first] + segments[-2..-1]).join("_")
+        when "DELETE"
+          definition.operation_id.split("/").last.split("-").join("_")
+        when "PATCH"
+          "edit_#{namespace}"
+        else
+        end
+      org?? method_name.gsub(namespace, "org_#{namespace}") : method_name
     end
 
     def parts
       definition.path.path.split("/").reject { |segment| segment.include? "id" }
     end
 
+    def resource_priority
+      definition.tags.include?("repos")? 0 : 1
+    end
+
     def priority
-      [parts.count, VERB_PRIORITY.index(verb), singular?? 0 : 1]
+      [resource_priority, parts.count, VERB_PRIORITY.index(verb), singular?? 0 : 1]
     end
-
-    private 
-
-    def fetch_required_parameters(body)
-      body.content["application/json"]["schema"]["required"]
-    end
-
   end
 
   class API
@@ -236,9 +239,11 @@ module OpenAPIClientGenerator
 
     def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
-      resource = path_segments[3]
+      repo_resource = path_segments[3]
+      org_resource = path_segments[2]
 
-      supported_resources = ["deployments","pages"]
+      supported_resources = ["deployments","pages", "hooks"]
+      resource = path_segments.first == "orgs" ? org_resource : repo_resource
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
