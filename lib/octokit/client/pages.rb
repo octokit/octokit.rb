@@ -62,7 +62,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of pages builds
       # @see https://developer.github.com/v3/repos/pages/#list-pages-builds
       def pages_builds(repo, options = {})
-        get "#{Repository.path repo}/pages/builds", options
+        paginate "#{Repository.path repo}/pages/builds", options
       end
 
       # Request a page build
