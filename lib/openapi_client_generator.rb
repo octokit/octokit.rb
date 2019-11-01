@@ -82,6 +82,9 @@ module OpenAPIClientGenerator
           normalization = ".to_s.downcase"
         end
         options << "options[:#{param.name}] = #{param.name}#{normalization}"
+        if param.raw["required"]
+          options << "raise Octokit::MissingKey.new unless #{param.name}.key? :#{param.raw["required"].first}"
+        end
       end
       if definition.raw["x-github"]["previews"].any? {|e| e["required"]}
         options << "opts = ensure_api_media_type(:#{namespace}, options)"
@@ -178,7 +181,10 @@ module OpenAPIClientGenerator
     end
 
     def parameters
-      parameterizer.parameterize(required_params.map(&:name))
+      params = required_params.map do |p| 
+        (p.raw["required"].present? && p.raw["required"] != true) ? "#{p.name} = {}" : p.name 
+      end
+      parameterizer.parameterize(params)
     end
 
     def namespace
