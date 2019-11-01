@@ -40,6 +40,9 @@ describe Octokit::Client::Hooks do
         it "creates a hook" do
           assert_requested :post, github_url("/repos/#{@repo.full_name}/hooks")
         end
+        it "returns with no config url passed" do
+          expect { @client.create_hook(@repo.full_name)}.to raise_error Octokit::MissingKey
+        end
       end # .create_hook
 
       describe ".hook", :vcr do
@@ -53,6 +56,9 @@ describe Octokit::Client::Hooks do
         it "edits a hook" do
           @client.edit_hook(@repo.full_name, @hook.id, {:url => "https://railsbp.com"})
           assert_requested :patch, github_url("/repos/#{@repo.full_name}/hooks/#{@hook.id}")
+        end
+        it "returns with no config url passed" do
+          expect { @client.edit_hook(@repo.full_name, @hook.id)}.to raise_error Octokit::MissingKey
         end
       end # .edit_hook
 
@@ -94,8 +100,6 @@ describe Octokit::Client::Hooks do
 
   context "with org hook" do
     before(:each) do
-      hooks = @client.org_hooks(test_github_org)
-      @client.delete_org_hook(test_github_org, hooks.first.id) if hooks.any?
       @org_hook = @client.create_org_hook(test_github_org, "web", {:url => "http://railsbp.com", :content_type => "json"})
     end
 
@@ -111,6 +115,9 @@ describe Octokit::Client::Hooks do
         request = stub_post("/organizations/1/hooks")
         org_hook = @client.create_org_hook(1, "web", {:url => "http://railsbp.com", :content_type => "json"})
         assert_requested request
+      end
+      it "returns with no config url passed" do
+        expect { @client.create_org_hook(1, "web")}.to raise_error Octokit::MissingKey
       end
     end # .create_org_hook
 
@@ -135,6 +142,9 @@ describe Octokit::Client::Hooks do
         request = stub_patch("/organizations/1/hooks/#{@org_hook.id}")
         @client.edit_org_hook(1, @org_hook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
         assert_requested request
+      end
+      it "returns with no config url passed" do
+        expect { @client.edit_org_hook(1, @org_hook.id)}.to raise_error Octokit::MissingKey
       end
     end # .edit_org_hook
 
