@@ -33,8 +33,9 @@ module Octokit
       # @param options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
       # @return <Sawyer::Resource> The new hook
       # @see https://developer.github.com/v3/repos/hooks/#create-a-hook
-      def create_hook(repo, config, options = {})
+      def create_hook(repo, config = {}, options = {})
         options[:config] = config
+        raise Octokit::MissingKey.new unless config.key? :url
         post "#{Repository.path repo}/hooks", options
       end
 
@@ -49,8 +50,9 @@ module Octokit
       # @param options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
       # @return <Sawyer::Resource> 
       # @see https://developer.github.com/v3/repos/hooks/#edit-a-hook
-      def edit_hook(repo, hook_id, config, options = {})
+      def edit_hook(repo, hook_id, config = {}, options = {})
         options[:config] = config
+        raise Octokit::MissingKey.new unless config.key? :url
         patch "#{Repository.path repo}/hooks/#{hook_id}", options
       end
 
@@ -112,9 +114,10 @@ module Octokit
       # @param options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
       # @return <Sawyer::Resource> The new hook
       # @see https://developer.github.com/v3/orgs/hooks/#create-a-hook
-      def create_org_hook(org, name, config, options = {})
+      def create_org_hook(org, name, config = {}, options = {})
         options[:name] = name
         options[:config] = config
+        raise Octokit::MissingKey.new unless config.key? :url
         post "#{Organization.path org}/hooks", options
       end
 
@@ -127,8 +130,9 @@ module Octokit
       # @param options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
       # @return <Sawyer::Resource> 
       # @see https://developer.github.com/v3/orgs/hooks/#edit-a-hook
-      def edit_org_hook(org, hook_id, config, options = {})
+      def edit_org_hook(org, hook_id, config = {}, options = {})
         options[:config] = config
+        raise Octokit::MissingKey.new unless config.key? :url
         patch "#{Organization.path org}/hooks/#{hook_id}", options
       end
 
