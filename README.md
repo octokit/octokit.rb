@@ -290,7 +290,7 @@ link relations](#hypermedia-agent).
 
 ```ruby
 issues = client.issues 'rails/rails'
-issues.concat client.last_response.rels[:next].get.data
+issues.concat client.get(client.last_response.rels[:next].href)
 ```
 
 ### Auto pagination
