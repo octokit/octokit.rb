@@ -261,6 +261,10 @@ module Octokit
   # and body matches 'billing issue'
   class BillingIssue < Forbidden; end
 
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'Resource protected by organization SAML enforcement'
+  class SAMLProtected < Forbidden; end
+
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end
 
