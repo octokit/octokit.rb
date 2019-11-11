@@ -75,6 +75,8 @@ module Octokit
         Octokit::AccountSuspended
       elsif body =~ /billing issue/i
         Octokit::BillingIssue
+      elsif body =~ /Resource protected by organization SAML enforcement/i
+        Octokit::SAMLProtected
       else
         Octokit::Forbidden
       end
