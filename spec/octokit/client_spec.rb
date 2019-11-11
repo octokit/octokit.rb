@@ -891,13 +891,13 @@ describe Octokit::Client do
         :body => {:message => "The repository has been disabled due to a billing issue with the owner account."}.to_json
       expect { Octokit.post("/user/repos") }.to raise_error Octokit::BillingIssue
 
-      stub_post('/teams/8675309').to_return \
+      stub_get('/teams/8675309').to_return \
         :status => 403,
         :headers => {
             :content_type => "application/json",
         },
         :body => {:message => "Resource protected by organization SAML enforcement. You must grant your personal token access to this organization."}.to_json
-      expect { Octokit.post("/teams/8675309") }.to raise_error Octokit::SAMLProtected
+      expect { Octokit.get("/teams/8675309") }.to raise_error Octokit::SAMLProtected
 
       stub_get('/torrentz').to_return \
         :status => 451,
