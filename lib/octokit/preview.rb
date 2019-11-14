@@ -7,6 +7,7 @@ module Octokit
       :branch_protection      => 'application/vnd.github.luke-cage-preview+json'.freeze,
       :checks                 => 'application/vnd.github.antiope-preview+json'.freeze,
       :commit_search          => 'application/vnd.github.cloak-preview+json'.freeze,
+      :commit_pulls           => 'application/vnd.github.groot-preview+json'.freeze,
       :migrations             => 'application/vnd.github.wyandotte-preview+json'.freeze,
       :licenses               => 'application/vnd.github.drax-preview+json'.freeze,
       :source_imports         => 'application/vnd.github.barred-rock-preview'.freeze,
