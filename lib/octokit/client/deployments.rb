@@ -25,7 +25,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of deployments
       # @see https://developer.github.com/v3/repos/deployments/#list-deployments
       def deployments(repo, options = {})
-        get "#{Repository.path repo}/deployments", options
+        paginate "#{Repository.path repo}/deployments", options
       end
 
       # Create a deployment
@@ -65,7 +65,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of deployment statuses
       # @see https://developer.github.com/v3/repos/deployments/#list-deployment-statuses
       def deployment_statuses(repo, deployment_id, options = {})
-        get "#{Repository.path repo}/deployments/#{deployment_id}/statuses", options
+        paginate "#{Repository.path repo}/deployments/#{deployment_id}/statuses", options
       end
 
       # Create a deployment status
