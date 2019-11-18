@@ -115,9 +115,9 @@ module OpenAPIClientGenerator
       if verb == "GET" && !singular?
         "[Array<Sawyer::Resource>]"
       elsif definition.raw["responses"].key? "204"
-        "<Boolean>"
+        "[Boolean]"
       else
-        "<Sawyer::Resource>"
+        "[Sawyer::Resource]"
       end
     end
 
