@@ -50,7 +50,7 @@ module Octokit
       # @param options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
       # @return <Sawyer::Resource> 
       # @see https://developer.github.com/v3/repos/hooks/#edit-a-hook
-      def edit_hook(repo, hook_id, config = {}, options = {})
+      def update_hook(repo, hook_id, config = {}, options = {})
         options[:config] = config
         raise Octokit::MissingKey.new unless config.key? :url
         patch "#{Repository.path repo}/hooks/#{hook_id}", options
@@ -130,7 +130,7 @@ module Octokit
       # @param options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
       # @return <Sawyer::Resource> 
       # @see https://developer.github.com/v3/orgs/hooks/#edit-a-hook
-      def edit_org_hook(org, hook_id, config = {}, options = {})
+      def update_org_hook(org, hook_id, config = {}, options = {})
         options[:config] = config
         raise Octokit::MissingKey.new unless config.key? :url
         patch "#{Organization.path org}/hooks/#{hook_id}", options
