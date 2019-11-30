@@ -74,16 +74,18 @@ module OpenAPIClientGenerator
 
     def option_overrides
       options = []
-      required_params.reject do |param|
-        param.name == "repo" || param.name.include?("id") || param.name == "org"
-      end.map do |param|
-        normalization = ""
-        if !!param.enum
-          normalization = ".to_s.downcase"
-        end
-        options << "options[:#{param.name}] = #{param.name}#{normalization}"
-        if param.raw["required"]
-          options << "raise Octokit::MissingKey.new unless #{param.name}.key? :#{param.raw["required"].first}"
+      if definition.request_body
+        params = definition.request_body.properties_for_format("application/json").select do |param|
+          param.required
+        end.map do |param|
+          normalization = ""
+          if !!param.enum
+            normalization = ".to_s.downcase"
+          end
+          options << "options[:#{param.name}] = #{param.name}#{normalization}"
+          if param.raw["required"] && param.raw["required"] != true
+            options << "raise Octokit::MissingKey.new unless #{param.name}.key? :#{param.raw["required"].first}"
+          end
         end
       end
       if definition.raw["x-github"]["previews"].any? {|e| e["required"]}
@@ -122,7 +124,9 @@ module OpenAPIClientGenerator
     end
 
     def required_params
-      params = definition.parameters.select(&:required).reject {|param| ["owner", "accept"].include?(param.name)}
+      params = definition.parameters.select(&:required).reject do |param|
+        ["owner", "accept"].include?(param.name)
+      end
       if definition.request_body
         params += definition.request_body.properties_for_format("application/json").select do |param|
           param.required
@@ -132,7 +136,9 @@ module OpenAPIClientGenerator
     end
 
     def optional_params
-      params = definition.parameters.reject(&:required).reject {|param| ["accept", "per_page", "page"].include?(param.name)}
+      params = definition.parameters.reject(&:required).reject do |param|
+        ["accept", "per_page", "page"].include?(param.name)
+      end
       if definition.request_body
         params += definition.request_body.properties_for_format("application/json").reject do |param|
           param.required
@@ -188,7 +194,12 @@ module OpenAPIClientGenerator
     end
 
     def namespace
-      definition.operation_id.split("/").last.split("-").drop(1).join("_")
+      namespace_array = definition.operation_id.split("/").last.split("-").drop(1)
+      if namespace_array.include? "for" 
+        (namespace_array[-1] != "repo") ? "#{namespace_array[-1]}_#{namespace_array[0]}" : namespace_array[0]
+      else
+        namespace_array.join("_")
+      end
     end
 
     def org?
@@ -199,16 +210,12 @@ module OpenAPIClientGenerator
       method_name = case verb
         when "GET"
           namespace
-        when "POST"
-          definition.operation_id.split("/").last.split("-").join("_")
+        when "POST", "PATCH", "DELETE"
+          definition.operation_id.split("/").last.gsub("-", "_")
         when "PUT"
           # expecting this to not generalize well, but works for now
           segments = definition.operation_id.split("/").last.split("-")
           ([segments.first] + segments[-2..-1]).join("_")
-        when "DELETE"
-          definition.operation_id.split("/").last.split("-").join("_")
-        when "PATCH"
-          "edit_#{namespace}"
         else
         end
       org?? method_name.gsub(namespace, "org_#{namespace}") : method_name
@@ -248,7 +255,7 @@ module OpenAPIClientGenerator
       repo_resource = path_segments[3]
       org_resource = path_segments[2]
 
-      supported_resources = ["deployments","pages", "hooks"]
+      supported_resources = ["deployments","pages", "hooks", "releases", "labels", "milestones"]
       resource = path_segments.first == "orgs" ? org_resource : repo_resource
       return (supported_resources.include? resource) ? resource : :unsupported
     end
