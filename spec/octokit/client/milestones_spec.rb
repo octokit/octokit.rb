@@ -7,19 +7,19 @@ describe Octokit::Client::Milestones do
     @client = oauth_client
   end
 
-  describe ".list_milestones", :vcr do
+  describe ".milestones", :vcr do
     it "lists milestones belonging to repository" do
-      milestones = @client.list_milestones(@test_repo)
+      milestones = @client.milestones(@test_repo)
       expect(milestones).to be_kind_of Array
       assert_requested :get, github_url("/repos/#{@test_repo}/milestones")
     end
 
     it "lists milestones belonging to repository using id of repository" do
-      milestones = @client.list_milestones(@test_repo_id)
+      milestones = @client.milestones(@test_repo_id)
       expect(milestones).to be_kind_of Array
       assert_requested :get, github_url("/repositories/#{@test_repo_id}/milestones")
     end
-  end # .list_milestones
+  end # .milestones
 
   context "with milestone" do
     before(:each) do
@@ -59,4 +59,12 @@ describe Octokit::Client::Milestones do
       end
     end # .delete_milestone
   end # with milestone
+
+  describe ".lables_for_milestone", :vcr do
+    it "returns all labels for a repository" do
+      labels = @client.milestone_labels('octokit/octokit.rb', 2)
+      expect(labels).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/milestones/2/labels")
+    end
+  end # .labels_for_milestone
 end
