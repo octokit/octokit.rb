@@ -2,19 +2,23 @@ require_relative '../lib/openapi_client_generator'
 
 describe OpenAPIClientGenerator do
   context OpenAPIClientGenerator::Endpoint do
-    it "defines singular? as true if path ends with an id", focus: true do
-      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "/meals/{meal_id}", nil), nil, nil))
+    it "defines singular? as true if no response content" do
+      json = {"parameters"=> [{"name"=>"owner", "required"=>true}], "responses"=> {"200"=> {"description"=>"no content"}}}
+      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, nil, {}), "post", json))
       expect(endpoint.singular?).to eq(true)
     end
 
-    # slight hack to work with pages site
-    it "defines singular? as true if summary has ' a '" do
-      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "/pages", nil), nil, {"summary"=>"get a pages site"}))
+    it "defines singular? as true if response is not an array type" do
+      json = {"parameters"=> [{"name"=>"owner", "required"=>true}],
+             "responses"=> {"200" => {"content"=> {"application/json"=> {"schema"=> {"type"=> "object"}}}}}}
+      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, nil, {}), "get", json))
       expect(endpoint.singular?).to eq(true)
     end
 
-    it "defines singular? as false if path doesn't end with an id" do
-      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "/meals/status", nil), nil, {"summary"=>""}))
+    it "defines singular? as false if response is an array type" do
+      json = {"parameters"=> [{"name"=>"owner", "required"=>true}],
+             "responses"=> {"200" => {"content"=> {"application/json"=> {"schema"=> {"type"=> "array"}}}}}}
+      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, nil, {}), "get", json))
       expect(endpoint.singular?).to eq(false)
     end
 
