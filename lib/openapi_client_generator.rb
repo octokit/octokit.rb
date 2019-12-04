@@ -62,7 +62,11 @@ module OpenAPIClientGenerator
     end
 
     def singular?
-      (definition.path.path.split("/").last.include? "id") || (definition.summary.include? " a ")
+      if definition.responses.first.content.present?
+        definition.responses.first.content["application/json"]["schema"]["type"] != "array"
+      else
+        true
+      end
     end
 
     def method_implementation
@@ -169,7 +173,9 @@ module OpenAPIClientGenerator
 
     def return_value_description
       if verb == "GET"
-        if singular?
+        if namespace.include?("latest")
+          "The #{namespace.gsub("_", " ")}"
+        elsif singular?
           "A single #{namespace.gsub("_", " ")}"
         else
           "A list of #{namespace.gsub("_", " ")}"

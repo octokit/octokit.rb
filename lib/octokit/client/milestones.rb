@@ -11,7 +11,7 @@ module Octokit
       # @option options [String] :state The state of the milestone. Either `open`, `closed`, or `all`.
       # @option options [String] :sort What to sort results by. Either `due_on` or `completeness`.
       # @option options [String] :direction The direction of the sort. Either `asc` or `desc`.
-      # @return [Sawyer::Resource] A single milestones
+      # @return [Array<Sawyer::Resource>] A list of milestones
       # @see https://developer.github.com/v3/issues/milestones/#list-milestones-for-a-repository
       def milestones(repo, options = {})
         paginate "#{Repository.path repo}/milestones", options
@@ -69,7 +69,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param milestone_number [Integer] milestone_number parameter
-      # @return [Sawyer::Resource] A single milestone labels
+      # @return [Array<Sawyer::Resource>] A list of milestone labels
       # @see https://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
       def milestone_labels(repo, milestone_number, options = {})
         paginate "#{Repository.path repo}/milestones/#{milestone_number}/labels", options

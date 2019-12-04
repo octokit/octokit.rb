@@ -18,7 +18,7 @@ module Octokit
       # List releases for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @return [Sawyer::Resource] A single releases
+      # @return [Array<Sawyer::Resource>] A list of releases
       # @see https://developer.github.com/v3/repos/releases/#list-releases-for-a-repository
       def releases(repo, options = {})
         paginate "#{Repository.path repo}/releases", options
@@ -66,14 +66,13 @@ module Octokit
         boolean_from_response :delete, "#{Repository.path repo}/releases/#{release_id}", options
       end
 
-      # List assets for a release
+      # Get the latest release
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param release_id [Integer] The ID of the release
-      # @return [Sawyer::Resource] A single release assets
-      # @see https://developer.github.com/v3/repos/releases/#list-assets-for-a-release
-      def release_assets(repo, release_id, options = {})
-        paginate "#{Repository.path repo}/releases/#{release_id}/assets", options
+      # @return [Sawyer::Resource] The latest release
+      # @see https://developer.github.com/v3/repos/releases/#get-the-latest-release
+      def latest_release(repo, options = {})
+        get "#{Repository.path repo}/releases/latest", options
       end
 
       # Get a single release asset
@@ -86,13 +85,14 @@ module Octokit
         get "#{Repository.path repo}/releases/assets/#{asset_id}", options
       end
 
-      # Get the latest release
+      # List assets for a release
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @return [Array<Sawyer::Resource>] A list of latest release
-      # @see https://developer.github.com/v3/repos/releases/#get-the-latest-release
-      def latest_release(repo, options = {})
-        get "#{Repository.path repo}/releases/latest", options
+      # @param release_id [Integer] The ID of the release
+      # @return [Array<Sawyer::Resource>] A list of release assets
+      # @see https://developer.github.com/v3/repos/releases/#list-assets-for-a-release
+      def release_assets(repo, release_id, options = {})
+        paginate "#{Repository.path repo}/releases/#{release_id}/assets", options
       end
 
       # Edit a release asset

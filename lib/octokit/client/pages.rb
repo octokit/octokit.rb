@@ -77,7 +77,7 @@ module Octokit
       # Get latest Pages build
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @return [Array<Sawyer::Resource>] A list of latest pages build
+      # @return [Sawyer::Resource] The latest pages build
       # @see https://developer.github.com/v3/repos/pages/#get-latest-pages-build
       def latest_pages_build(repo, options = {})
         get "#{Repository.path repo}/pages/builds/latest", options
