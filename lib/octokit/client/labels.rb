@@ -19,7 +19,7 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param name [String] The name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/).
       # @param color [String] The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
-      # @param options [String] :description A short description of the label.
+      # @option options [String] :description A short description of the label.
       # @return [Sawyer::Resource] The new label
       # @see https://developer.github.com/v3/issues/labels/#create-a-label
       def create_label(repo, name, color, options = {})
@@ -42,9 +42,9 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param name [String] name parameter
-      # @param options [String] :new_name The new name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/).
-      # @param options [String] :color The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
-      # @param options [String] :description A short description of the label.
+      # @option options [String] :new_name The new name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/).
+      # @option options [String] :color The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
+      # @option options [String] :description A short description of the label.
       # @return [Sawyer::Resource] 
       # @see https://developer.github.com/v3/issues/labels/#update-a-label
       def update_label(repo, name, options = {})

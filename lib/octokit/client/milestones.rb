@@ -8,9 +8,9 @@ module Octokit
       # List milestones for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param options [String] :state The state of the milestone. Either `open`, `closed`, or `all`.
-      # @param options [String] :sort What to sort results by. Either `due_on` or `completeness`.
-      # @param options [String] :direction The direction of the sort. Either `asc` or `desc`.
+      # @option options [String] :state The state of the milestone. Either `open`, `closed`, or `all`.
+      # @option options [String] :sort What to sort results by. Either `due_on` or `completeness`.
+      # @option options [String] :direction The direction of the sort. Either `asc` or `desc`.
       # @return [Sawyer::Resource] A single milestones
       # @see https://developer.github.com/v3/issues/milestones/#list-milestones-for-a-repository
       def milestones(repo, options = {})
@@ -21,9 +21,9 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param title [String] The title of the milestone.
-      # @param options [String] :state The state of the milestone. Either `open` or `closed`.
-      # @param options [String] :description A description of the milestone.
-      # @param options [String] :due_on The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+      # @option options [String] :state The state of the milestone. Either `open` or `closed`.
+      # @option options [String] :description A description of the milestone.
+      # @option options [String] :due_on The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
       # @return [Sawyer::Resource] The new milestone
       # @see https://developer.github.com/v3/issues/milestones/#create-a-milestone
       def create_milestone(repo, title, options = {})
@@ -45,10 +45,10 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param milestone_number [Integer] milestone_number parameter
-      # @param options [String] :title The title of the milestone.
-      # @param options [String] :state The state of the milestone. Either `open` or `closed`.
-      # @param options [String] :description A description of the milestone.
-      # @param options [String] :due_on The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
+      # @option options [String] :title The title of the milestone.
+      # @option options [String] :state The state of the milestone. Either `open` or `closed`.
+      # @option options [String] :description A description of the milestone.
+      # @option options [String] :due_on The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
       # @return [Sawyer::Resource] 
       # @see https://developer.github.com/v3/issues/milestones/#update-a-milestone
       def update_milestone(repo, milestone_number, options = {})

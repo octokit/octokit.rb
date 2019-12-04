@@ -163,7 +163,7 @@ module OpenAPIClientGenerator
       required_params.map {|param|
         "@param #{param.name} #{parameter_type(param)} #{parameter_description(param)}"
       } + optional_params.map {|param|
-        "@param options [#{param.type.capitalize}] :#{param.name} #{param.description.gsub("\n", "")}"
+        "@option options [#{param.type.capitalize}] :#{param.name} #{param.description.gsub("\n", "")}"
       }
     end
 
