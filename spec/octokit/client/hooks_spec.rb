@@ -40,15 +40,15 @@ describe Octokit::Client::Hooks do
       end
     end # .hook
 
-    describe ".edit_hook", :vcr do
-      it "edits a hook" do
-        @client.edit_hook(@test_repo, @hook.id, {:url => "https://railsbp.com"})
+    describe ".update_hook", :vcr do
+      it "updates a hook" do
+        @client.update_hook(@test_repo, @hook.id, {:url => "https://railsbp.com"})
         assert_requested :patch, github_url("/repos/#{@test_repo}/hooks/#{@hook.id}")
       end
       it "returns with no config url passed" do
-        expect { @client.edit_hook(@test_repo, @hook.id)}.to raise_error Octokit::MissingKey
+        expect { @client.update_hook(@test_repo, @hook.id)}.to raise_error Octokit::MissingKey
       end
-    end # .edit_hook
+    end # .update_hook
 
     describe ".test_push_hook", :vcr do
       it "tests a hook" do
@@ -83,7 +83,7 @@ describe Octokit::Client::Hooks do
       @client.org_hooks(1)
       assert_requested request
     end
-  end
+  end # .org_hooks
 
   context "with org hook" do
     before(:each) do
@@ -120,20 +120,20 @@ describe Octokit::Client::Hooks do
       end
     end # .org_hook
 
-    describe ".edit_org_hook", :vcr do
-      it "edits an org hook" do
-        @client.edit_org_hook(test_github_org, @org_hook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
+    describe ".update_org_hook", :vcr do
+      it "update an org hook" do
+        @client.update_org_hook(test_github_org, @org_hook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
         assert_requested :patch, github_url("/orgs/#{test_github_org}/hooks/#{@org_hook.id}")
       end
-      it "edits an org hook by ID" do
+      it "updates an org hook by ID" do
         request = stub_patch("/organizations/1/hooks/#{@org_hook.id}")
-        @client.edit_org_hook(1, @org_hook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
+        @client.update_org_hook(1, @org_hook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
         assert_requested request
       end
       it "returns with no config url passed" do
-        expect { @client.edit_org_hook(1, @org_hook.id)}.to raise_error Octokit::MissingKey
+        expect { @client.update_org_hook(1, @org_hook.id)}.to raise_error Octokit::MissingKey
       end
-    end # .edit_org_hook
+    end # .update_org_hook
 
     describe ".ping_org_hook", :vcr do
       it "pings an org hook" do

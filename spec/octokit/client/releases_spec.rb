@@ -56,8 +56,8 @@ describe Octokit::Client::Releases do
   context "handling release assets" do
 
     before(:each) do
-      created = @client.create_release @test_repo, "test-handling-release-assets"
-      @release_id = created.id
+      @release_repo = "api-playground/api-sandbox"
+      @asset_id = "21313"
     end
 
     after(:each) do
@@ -66,58 +66,27 @@ describe Octokit::Client::Releases do
 
     describe ".release_assets", :vcr do
       it "lists assets for a release" do
-        assets = @client.release_assets(@test_repo, @release_id)
+        created = @client.create_release @test_repo, "test-handling-release-assets"
+        releases = @client.releases @test_repo
+        assets = @client.release_assets(@test_repo, releases.first.id)
         expect(assets).to be_kind_of(Array)
       end
     end # .release_assets
 
-#     describe ".upload_release_asset", :vcr do
-#       it "uploads a release asset by path" do
-#         local_path = "spec/fixtures/upload.png"
-#         name = "upload_by_path.png"
-#         asset = @client.upload_asset(@release_url, local_path, :content_type => "image/png", :name => name)
-#         expect(asset.name).to eq(name)
-#       end
-#       it "uploads a release asset as file object" do
-#         file = File.new("spec/fixtures/upload.png", "r+b")
-#         size = File.size(file)
-#         name = "upload_by_file.png"
-#         asset = @client.upload_asset(@release_url, file, :content_type => "image/png", :name => name)
-#         expect(asset.name).to eq(name)
-#         expect(asset.size).to eq(size)
-#       end
-#       it "uploads a release asset with a default name" do
-#         path = "spec/fixtures/upload.png"
-#         name = "upload.png"
-#         asset = @client.upload_asset(@release_url, path, :content_type => "image/png")
-#         expect(asset.name).to eq(name)
-#       end
-#       it "guesses the content type for an asset" do
-#         path = "spec/fixtures/upload.png"
-#         name = "upload_guess_content_type.png"
-#         asset = @client.upload_asset(@release_url, path, :name => name)
-#         expect(asset.name).to eq(name)
-#         expect(asset.content_type).to eq("image/png")
-#       end
-#     end
-
-    # TODO: newly created releases don't have assets?
     describe ".release_asset" do
       it "gets a single release asset", :vcr do
-        assets = @client.release_assets(@test_repo, @release_id)
-        asset_url = "https://api.github.com/repos/#{@test_repo}/releases/assets/#{assets.first.id}"
+        asset_url = "https://api.github.com/repos/#{@release_repo}/releases/assets/#{@asset_id}"
         request = stub_get(asset_url)
-        @client.release_asset(@test_repo, assets.first.id)
+        @client.release_asset(@release_repo, @asset_id)
         assert_requested request
       end
     end # .release_asset
 
     describe ".update_release_asset" do
       it "edits a release asset", :vcr do
-        assets = @client.release_assets(@test_repo, @release_id)
-        asset_url = "https://api.github.com/repos/#{@test_repo}/releases/assets/#{assets.first.id}"
+        asset_url = "https://api.github.com/repos/#{@release_repo}/releases/assets/#{@asset_id}"
         request = stub_get(asset_url)
-        updated = @client.update_release_asset(@test_repo, assets.first.id, :label => "Updated")
+        updated = @client.update_release_asset(@release_repo, @asset_id, :label => "Updated")
         expect(updated.label).to eq("Updated")
         assert_requested request
       end
@@ -125,11 +94,9 @@ describe Octokit::Client::Releases do
 
     describe ".delete_release_asset" do
       it "deletes a release asset", :vcr do
-        assets = @client.release_assets(@test_repo, @release_id)
-        asset_url = "https://api.github.com/repos/#{@test_repo}/releases/assets/#{assets.first.id}"
-
+        asset_url = "https://api.github.com/repos/#{@release_repo}/releases/assets/#{@asset_id}"
         request = stub_delete(asset_url).to_return(:status => 204)
-        expect(@client.delete_release_asset(@test_repo, assests.first.id)).to be true
+        expect(@client.delete_release_asset(@release_repo, @asset_id)).to be true
         assert_requested request
       end
     end # .delete_release_asset
