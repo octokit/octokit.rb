@@ -30,11 +30,6 @@ describe Octokit::Client::Labels do
       expect(label.color).to eq("ededed")
       assert_requested :post, github_url("/repos/#{@test_repo}/labels")
     end
-#     it "adds a label with default color" do
-#       @client.delete_label(@test_repo, 'test-label', {:color => 'ededed'})
-#       @client.create_label(@test_repo, "test-label")
-#       assert_requested :post, github_url("/repos/#{@test_repo}/labels")
-#     end
   end # .create_label
 
   context "with label" do
@@ -50,56 +45,6 @@ describe Octokit::Client::Labels do
       end
     end # .update_label
   end # with label
-
-#   context "with issue" do
-#     before do
-#       @issue = @client.create_issue(@test_repo, "Issue for label test", "The body")
-#     end
-# 
-#     describe ".create_labels_to_an_issue", :vcr do
-#       it "adds labels to a given issue" do
-#         @client.create_labels_to_an_issue(@test_repo, @issue.number, ['bug'])
-#         assert_requested :post, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
-#       end
-#     end # .create_labels_to_an_issue
-# 
-#     describe ".labels_for_issue", :vcr do
-#       it "returns all labels for a given issue" do
-#         labels = @client.labels_for_issue(@test_repo, @issue.number)
-#         expect(labels).to be_kind_of Array
-#         assert_requested :get, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
-#       end
-#     end # .labels_for_issue
-# 
-#     describe ".remove_label", :vcr do
-#       it "removes a label from the specified issue" do
-#         @client.remove_label(@test_repo, @issue.number, 'bug')
-#         assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels/bug")
-#       end
-#     end # .remove_label
-# 
-#     describe ".remove_all_labels", :vcr do
-#       it "removes all labels from the specified issue" do
-#         @client.remove_all_labels(@test_repo, @issue.number)
-#         assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
-#       end
-#     end # .remove_all_labels
-# 
-#     describe ".replace_all_labels", :vcr do
-#       it "replaces all labels for an issue" do
-#         @client.replace_all_labels(@test_repo, @issue.number, ['bug', 'pdi'])
-#         assert_requested :put, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
-#       end
-#     end # .replace_all_labels
-#   end # with issue
-# 
-#   describe ".lables_for_milestone", :vcr do
-#     it "returns all labels for a repository" do
-#       labels = @client.labels_for_milestone('octokit/octokit.rb', 2)
-#       expect(labels).to be_kind_of Array
-#       assert_requested :get, github_url("/repos/octokit/octokit.rb/milestones/2/labels")
-#     end
-#   end # .labels_for_milestone
 
   describe ".delete_label", :vcr do
     it "deletes a label from the repository" do
