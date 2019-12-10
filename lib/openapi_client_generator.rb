@@ -62,11 +62,8 @@ module OpenAPIClientGenerator
     end
 
     def singular?
-      if definition.responses.first.content.present?
-        definition.responses.first.content["application/json"]["schema"]["type"] != "array"
-      else
-        true
-      end
+      return true unless definition.responses.first.content.present?
+      definition.responses.first.content["application/json"]["schema"]["type"] != "array"
     end
 
     def method_implementation
