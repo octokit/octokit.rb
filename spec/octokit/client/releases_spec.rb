@@ -56,17 +56,17 @@ describe Octokit::Client::Releases do
   context "handling release assets" do
 
     before(:each) do
-      @release_repo = "api-playground/api-sandbox"
-      @asset_id = "21313"
+      @release = @client.create_release @test_repo, "test-handling-release-assets"
+      file = File.new("spec/fixtures/upload.png", "r+b")
+      @asset_id = upload_asset(@release, file).id
     end
 
     after(:each) do
-      @client.delete_release @test_repo, @release_id
+      @client.delete_release @test_repo, @release.id
     end
 
     describe ".release_assets", :vcr do
       it "lists assets for a release" do
-        created = @client.create_release @test_repo, "test-handling-release-assets"
         releases = @client.releases @test_repo
         assets = @client.release_assets(@test_repo, releases.first.id)
         expect(assets).to be_kind_of(Array)
@@ -75,28 +75,27 @@ describe Octokit::Client::Releases do
 
     describe ".release_asset" do
       it "gets a single release asset", :vcr do
-        asset_url = "https://api.github.com/repos/#{@release_repo}/releases/assets/#{@asset_id}"
+        assets = @client.release_assets(@test_repo, @release.id)
+        asset_url = "https://api.github.com/repos/#{@test_repo}/releases/assets/#{assets.first.id}"
         request = stub_get(asset_url)
-        @client.release_asset(@release_repo, @asset_id)
+        @client.release_asset(@test_repo, assets.first.id)
         assert_requested request
       end
     end # .release_asset
 
     describe ".update_release_asset" do
       it "edits a release asset", :vcr do
-        asset_url = "https://api.github.com/repos/#{@release_repo}/releases/assets/#{@asset_id}"
-        request = stub_get(asset_url)
-        updated = @client.update_release_asset(@release_repo, @asset_id, :label => "Updated")
+        updated = @client.update_release_asset(@test_repo, @asset_id, :label => "Updated")
         expect(updated.label).to eq("Updated")
-        assert_requested request
       end
     end # .update_release_asset
 
     describe ".delete_release_asset" do
       it "deletes a release asset", :vcr do
-        asset_url = "https://api.github.com/repos/#{@release_repo}/releases/assets/#{@asset_id}"
+        assets = @client.release_assets(@test_repo, @release.id)
+        asset_url = "https://api.github.com/repos/#{@test_repo}/releases/assets/#{assets.first.id}"
         request = stub_delete(asset_url).to_return(:status => 204)
-        expect(@client.delete_release_asset(@release_repo, @asset_id)).to be true
+        expect(@client.delete_release_asset(@test_repo, assets.first.id)).to be true
         assert_requested request
       end
     end # .delete_release_asset
@@ -116,4 +115,20 @@ describe Octokit::Client::Releases do
       assert_requested :get, github_url("/repos/octokit/octokit.rb/releases/latest")
     end
   end # .latest_release
+
+  private
+
+  def upload_asset(release, path_or_file, options = {})
+    file = path_or_file.respond_to?(:read) ? path_or_file : File.new(path_or_file, "rb")
+    options[:content_type] = "image/png"
+    raise Octokit::MissingContentType.new if options[:content_type].nil?
+    unless name = options[:name]
+      name = File.basename(file.path)
+    end
+    upload_url = release.rels[:upload].href_template.expand(:name => name)
+
+    @client.post upload_url, file.read
+  ensure
+    file.close if file
+  end
 end
