@@ -93,7 +93,7 @@ module OpenAPIClientGenerator
         # this is a bit janky
         resource = definition.operation_id.split("/").first
         namespace_segments = namespace.split("_")
-        preview_type = (resource == namespace_segments.last) ? resource : namespace
+        preview_type = (resource == namespace_segments.last.pluralize) ? resource : namespace
 
         options << "opts = ensure_api_media_type(:#{preview_type}, options)"
       end
@@ -298,7 +298,6 @@ module OpenAPIClientGenerator
                  else
                    primary_resource
                  end
-      puts resource if (supported_resources.include? resource)
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 

@@ -11,7 +11,7 @@ module Octokit
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/reactions/#delete-a-reaction
       def delete_reaction(reaction_id, options = {})
-        opts = ensure_api_media_type(:reaction, options)
+        opts = ensure_api_media_type(:reactions, options)
         boolean_from_response :delete, "/reactions/#{reaction_id}", opts
       end
     end

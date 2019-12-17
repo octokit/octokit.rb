@@ -233,7 +233,7 @@ module Octokit
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue-comment
       def create_issue_comment_reaction(repo, comment_id, content, options = {})
         options[:content] = content.to_s.downcase
-        opts = ensure_api_media_type(:issue_comment_reaction, options)
+        opts = ensure_api_media_type(:reactions, options)
         post "#{Repository.path repo}/issues/comments/#{comment_id}/reactions", opts
       end
 
@@ -246,7 +246,7 @@ module Octokit
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue
       def create_issue_reaction(repo, issue_number, content, options = {})
         options[:content] = content.to_s.downcase
-        opts = ensure_api_media_type(:issue_reaction, options)
+        opts = ensure_api_media_type(:reactions, options)
         post "#{Repository.path repo}/issues/#{issue_number}/reactions", opts
       end
 
