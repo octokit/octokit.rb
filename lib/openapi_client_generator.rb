@@ -11,13 +11,13 @@ module OpenAPIClientGenerator
   class Endpoint
     class PositionalParameterizer
       def parameterize(args)
-        "#{args.join(", ")}, options = {}"
+        args.empty? ? "options = {}" : "#{args.join(", ")}, options = {}"
       end
     end
 
     class KwargsParameterizer
       def parameterize(args)
-        "#{args.map {|arg| arg + ":"}.join(", ")}, **options"
+        args.empty? ? "**options" : "#{args.map {|arg| arg + ":"}.join(", ")}, **options"
       end
     end
 
@@ -90,7 +90,12 @@ module OpenAPIClientGenerator
         end
       end
       if definition.raw["x-github"]["previews"].any? {|e| e["required"]}
-        options << "opts = ensure_api_media_type(:#{namespace}, options)"
+        # this is a bit janky
+        resource = definition.operation_id.split("/").first
+        namespace_segments = namespace.split("_")
+        preview_type = (resource == namespace_segments.last) ? resource : namespace
+
+        options << "opts = ensure_api_media_type(:#{preview_type}, options)"
       end
       options
     end
@@ -99,7 +104,7 @@ module OpenAPIClientGenerator
       option_format = definition.raw["x-github"]["previews"].any? {|e| e["required"]} ? "opts" : "options"
       if definition.raw["responses"].key? "204"
         "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
-      elsif definition.operationId.include?("list")
+      elsif definition.parameters.any? {|p| p.name == "per_page"}
         "paginate \"#{api_path}\", #{option_format}"
       else
         "#{definition.method} \"#{api_path}\", #{option_format}"
@@ -157,6 +162,8 @@ module OpenAPIClientGenerator
     def parameter_description(param)
       return "A GitHub repository" if param.name == "repo"
       return "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if param.name.end_with? "_id"
+      split_param =  param.name.split("_")
+      return "The #{split_param.last} of the #{split_param.first}" if split_param.size > 1
       return param.description.gsub("\n", "")
     end
 
@@ -172,6 +179,9 @@ module OpenAPIClientGenerator
       if verb == "GET"
         if namespace.include?("latest")
           "The #{namespace.gsub("_", " ")}"
+        elsif definition.parameters.any? {|p| p.name == "per_page"}
+          # TODO: clean up
+          "A list of #{namespace.gsub("_", " ")}"
         elsif singular?
           "A single #{namespace.gsub("_", " ")}"
         else
@@ -181,7 +191,14 @@ module OpenAPIClientGenerator
         "True on success, false otherwise"
       elsif verb == "POST"
         "The new #{namespace.singularize.gsub("_", " ")}"
+      elsif verb == "PATCH"
+        "The updated #{namespace.singularize.gsub("_", " ")}"
       else
+        if definition.responses && definition.responses.first.content["application/json"]["schema"]["type"] == "array"
+          "An array of the remaining #{namespace.pluralize}"
+        else
+          "The updated #{definition.operation_id.split("/").first.singularize}"
+        end
       end
     end
 
@@ -197,12 +214,25 @@ module OpenAPIClientGenerator
     end
 
     def namespace
-      namespace_array = definition.operation_id.split("/").last.split("-").drop(1)
-      if namespace_array.include? "for" 
-        (namespace_array[-1] != "repo") ? "#{namespace_array[-1]}_#{namespace_array[0]}" : namespace_array[0]
+      operation_array = definition.operation_id.split("/")
+      namespace_array = operation_array.last.split("-")
+
+      if namespace_array.include? "for" or namespace_array.include? "on" 
+        index = (namespace_array.include? "for") ? namespace_array.index("for") : namespace_array.index("on")
+
+        first_half = namespace_array[0..index-1]
+        resource = namespace_array[index+1..-1].join("_")
+
+        subresource = (first_half.size == 1) ? operation_array.first : first_half.drop(1).join("_")
+        subresource = singular? ? subresource.singularize : subresource
+        resource == "repo" ? "repository_#{subresource}" : "#{resource}_#{subresource}"
       else
-        namespace_array.join("_")
+        (namespace_array.size == 1) ? operation_array.first.singularize : namespace_array.drop(1).join("_")
       end
+    end
+
+    def action
+      definition.operation_id.split("/").last.split("-").first
     end
 
     def org?
@@ -214,11 +244,10 @@ module OpenAPIClientGenerator
         when "GET"
           namespace
         when "POST", "PATCH", "DELETE"
-          definition.operation_id.split("/").last.gsub("-", "_")
+          "#{action}_#{namespace}"
         when "PUT"
-          # expecting this to not generalize well, but works for now
           segments = definition.operation_id.split("/").last.split("-")
-          ([segments.first] + segments[-2..-1]).join("_")
+          segments = segments.size > 3 ? ([segments.first] + segments[-2..-1]).join("_") : segments.join("_")
         else
         end
       org?? method_name.gsub(namespace, "org_#{namespace}") : method_name
@@ -240,7 +269,7 @@ module OpenAPIClientGenerator
   class API
     def self.at(definition, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
       grouped_paths = definition.paths.group_by do |oas_path|
-        resource_for_path(oas_path.path)
+        resource_for_path(oas_path.path, oas_path.endpoints.first.operation_id)
       end
       grouped_paths.delete(:unsupported)
       grouped_paths.each do |resource, paths|
@@ -253,13 +282,28 @@ module OpenAPIClientGenerator
       end
     end
 
-    def self.resource_for_path(path)
+    def self.resource_for_path(path, operation_id)
       path_segments = path.split("/").reject{ |segment| segment == "" }
-      repo_resource = path_segments[3]
-      org_resource = path_segments[2]
+      operation_resource = operation_id.split("/")[0]
 
-      supported_resources = ["deployments","pages", "hooks", "releases", "labels", "milestones"]
-      resource = path_segments.first == "orgs" ? org_resource : repo_resource
+      if path_segments.first == operation_resource
+        repo_resource = path_segments[3]
+        org_resource = path_segments[2]
+        primary_resource = operation_resource
+      else
+        repo_resource = operation_resource
+        org_resource = operation_resource
+      end
+
+      supported_resources = ["deployments","pages", "hooks", "releases", "labels", "milestones", "issues", "reactions"]
+      resource = case path_segments.first
+      when "orgs"
+        org_resource
+      when "repos"
+        repo_resource
+      else
+        primary_resource
+      end
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
