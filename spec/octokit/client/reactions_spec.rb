@@ -46,7 +46,7 @@ describe Octokit::Client::Reactions do
 
     context "with issue", :vcr do
       before do
-        @issue = @client.create_issue(@repo.full_name, "Migrate issues to v3", "Move all Issues calls to v3 of the API")
+        @issue = @client.create_issue(@repo.full_name, "Migrate issues to v3", :body => "Move all Issues calls to v3 of the API")
       end
 
       describe ".issue_reactions" do
@@ -67,7 +67,7 @@ describe Octokit::Client::Reactions do
 
       context "with issue comment" do
         before do
-          @issue_comment = @client.add_comment(@repo.full_name, @issue.number, "Another test comment")
+          @issue_comment = @client.create_comment(@repo.full_name, @issue.number, "Another test comment")
         end
 
         describe ".issue_comment_reactions" do

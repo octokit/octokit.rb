@@ -11,7 +11,7 @@ describe Octokit::Client::Issues do
     Octokit.reset!
   end
 
-  describe ".list_issues", :vcr do
+  describe ".issues", :vcr do
     it "returns issues for a repository" do
       issues = @client.issues("sferik/rails_admin")
       expect(issues).to be_kind_of Array
@@ -40,9 +40,9 @@ describe Octokit::Client::Issues do
     end
   end # .org_issues
 
-  describe ".list_assignees", :vcr do
+  describe ".assignees", :vcr do
     it "returns available assignees for a repository" do
-      users = @client.list_assignees("octokit/octokit.rb")
+      users = @client.assignees("octokit/octokit.rb")
       expect(users).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/assignees")
     end
@@ -64,28 +64,26 @@ describe Octokit::Client::Issues do
       it "creates an issue" do
         issue = @client.create_issue \
           @repo.full_name,
-          "Migrate issues to v3",
-          "Move all Issues calls to v3 of the API"
+          "Migrate issues to v3"
         expect(issue.title).to match(/Migrate/)
         assert_requested :post, github_url("/repos/#{@repo.full_name}/issues")
       end
 
-      it "creates an issue with delimited labels" do
-        issue = @client.create_issue \
-          @repo.full_name,
-          "New issue with delimited labels",
-          "Testing",
-          :labels => "bug, feature"
-        expect(issue.title).to match(/delimited/)
-        expect(issue.labels.map(&:name)).to include("feature")
-        assert_requested :post, github_url("/repos/#{@repo.full_name}/issues")
-      end
+#       it "creates an issue with delimited labels" do
+#         issue = @client.create_issue \
+#           @repo.full_name,
+#           "New issue with delimited labels",
+#           "Testing",
+#           :labels => "bug, feature"
+#         expect(issue.title).to match(/delimited/)
+#         expect(issue.labels.map(&:name)).to include("feature")
+#         assert_requested :post, github_url("/repos/#{@repo.full_name}/issues")
+#       end
 
       it "creates an issue with labels array" do
         issue = @client.create_issue \
           @repo.full_name,
           "New issue with labels array",
-          "Testing",
           :labels => %w(bug feature)
         expect(issue.title).to match(/array/)
         expect(issue.labels.map(&:name)).to include("feature")
@@ -101,7 +99,7 @@ describe Octokit::Client::Issues do
 
     context "with issue" do
       before(:each) do
-        @issue = @client.create_issue(@repo.full_name, "Migrate issues to v3", "Move all Issues calls to v3 of the API")
+        @issue = @client.create_issue(@repo.full_name, "Migrate issues to v3", :body => "Move all Issues calls to v3 of the API")
       end
 
       describe ".issue", :vcr do
@@ -118,40 +116,40 @@ describe Octokit::Client::Issues do
         end
       end # .issue
 
-      describe ".close_issue", :vcr do
-        it "closes an issue" do
-          issue = @client.close_issue(@repo.full_name, @issue.number)
-          expect(issue.state).to eq "closed"
-          expect(issue.number).to eq(@issue.number)
-          assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}")
-        end
-      end # .close_issue
+#       describe ".close_issue", :vcr do
+#         it "closes an issue" do
+#           issue = @client.close_issue(@repo.full_name, @issue.number)
+#           expect(issue.state).to eq "closed"
+#           expect(issue.number).to eq(@issue.number)
+#           assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}")
+#         end
+#       end # .close_issue
+# 
+#       context "with closed issue" do
+#         before(:each) do
+#           @client.close_issue(@repo.full_name, @issue.number)
+#         end
+# 
+#         describe ".reopen_issue", :vcr do
+#           it "reopens an issue" do
+#             issue = @client.reopen_issue(@repo.full_name, @issue.number)
+#             expect(issue.state).to eq "open"
+#             expect(issue.number).to eq(@issue.number)
+#             assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}"), :times => 2
+#           end
+#         end # .reopen_issue
+#       end # with closed issue
 
-      context "with closed issue" do
-        before(:each) do
-          @client.close_issue(@repo.full_name, @issue.number)
-        end
-
-        describe ".reopen_issue", :vcr do
-          it "reopens an issue" do
-            issue = @client.reopen_issue(@repo.full_name, @issue.number)
-            expect(issue.state).to eq "open"
-            expect(issue.number).to eq(@issue.number)
-            assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}"), :times => 2
-          end
-        end # .reopen_issue
-      end # with closed issue
-
-      describe ".lock_issue", :vcr do
+      describe ".lock", :vcr do
         it "locks an issue" do
-          @client.lock_issue(@repo.full_name, @issue.number)
+          @client.lock(@repo.full_name, @issue.number)
           assert_requested :put, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/lock")
         end
-      end # .lock_issue
+      end # .lock
 
       context "with locked issue" do
         before(:each) do
-          @client.lock_issue(@repo.full_name, @issue.number)
+          @client.lock(@repo.full_name, @issue.number)
         end
 
         describe ".unlock_issue", :vcr do
@@ -164,29 +162,29 @@ describe Octokit::Client::Issues do
 
       describe ".update_issue", :vcr do
         it "updates an issue" do
-          issue = @client.update_issue(@repo.full_name, @issue.number, "Use all the v3 api!", "")
+          issue = @client.update_issue(@repo.full_name, @issue.number, :title => "Use all the v3 api!")
           expect(issue.number).to eq(@issue.number)
           assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}")
         end
 
-        it "updates an issue without positional args" do
-          issue = @client.update_issue(@repo.full_name, @issue.number, :title => "Use all the v3 api!", :body => "")
-          expect(issue.number).to eq(@issue.number)
-          assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}")
-        end
+#         it "updates an issue without positional args" do
+#           issue = @client.update_issue(@repo.full_name, @issue.number, :title => "Use all the v3 api!", :body => "")
+#           expect(issue.number).to eq(@issue.number)
+#           assert_requested :patch, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}")
+#         end
       end # .update_issue
 
-      describe ".add_comment", :vcr do
+      describe ".create_comment", :vcr do
         it "adds a comment" do
-          comment = @client.add_comment(@repo.full_name, @issue.number, "A test comment")
+          comment = @client.create_comment(@repo.full_name, @issue.number, "A test comment")
           expect(comment.user.login).to eq(test_github_login)
           assert_requested :post, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/comments")
         end
-      end # .add_comment
+      end # .create_comment
 
       context "with issue comment" do
         before(:each) do
-          @issue_comment = @client.add_comment(@repo.full_name, @issue.number, "Another test comment")
+          @issue_comment = @client.create_comment(@repo.full_name, @issue.number, "Another test comment")
         end
 
         describe ".update_comment", :vcr do
@@ -204,9 +202,10 @@ describe Octokit::Client::Issues do
         end # .delete_comment
       end # with issue comment
 
-      describe ".issue_timeline", :vcr do
+      describe ".timeline_events", :vcr do
         it "returns an issue timeline" do
-          timeline = @client.issue_timeline(@repo.full_name, @issue.number, accept: Octokit::Preview::PREVIEW_TYPES[:issue_timelines])
+          # TODO: fix preview naming
+          timeline = @client.timeline_events(@repo.full_name, @issue.number, accept: Octokit::Preview::PREVIEW_TYPES[:issue_timelines])
           expect(timeline).to be_kind_of Array
           assert_requested :get, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/timeline")
         end
@@ -214,7 +213,8 @@ describe Octokit::Client::Issues do
 
         context "with assignees" do
           before(:each) do
-            issue = @client.add_assignees(@repo.full_name, @issue.number, ["api-padawan"])
+            # TODO: 
+            issue = @client.add_assignees(@repo.full_name, @issue.number, :assignees => ["api-padawan"])
             expect(issue.assignees.count).not_to be_zero
           end
 
@@ -231,32 +231,33 @@ describe Octokit::Client::Issues do
     end # with issue
   end # with repo
 
-  describe ".repository_issues_comments", :vcr do
+  describe ".repository_comments", :vcr do
     it "returns comments for all issues in a repository" do
-      comments = @client.issues_comments("octokit/octokit.rb")
+      comments = @client.repository_comments("octokit/octokit.rb")
       expect(comments).to be_kind_of Array
       assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/comments')
     end
-  end # .repository_issues_comments
+  end # .repository_comments
 
-  describe ".issue_comments", :vcr do
+  describe ".comments", :vcr do
     it "returns comments for an issue" do
-      comments = @client.issue_comments("octokit/octokit.rb", 25)
+      comments = @client.comments("octokit/octokit.rb", 25)
       expect(comments).to be_kind_of Array
       assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/25/comments')
     end
-  end # .issue_comments
+  end # .comments
 
-  describe ".issue_comment", :vcr do
+  describe ".comment", :vcr do
     it "returns a single comment for an issue" do
-      comment = @client.issue_comment("octokit/octokit.rb", 1194690)
+      comment = @client.comment("octokit/octokit.rb", 1194690)
       expect(comment.rels[:self].href).to eq("https://api.github.com/repos/octokit/octokit.rb/issues/comments/1194690")
       assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/comments/1194690')
     end
-  end # .issue_comment
+  end # .comment
 
   describe ".add_assignees", :vcr do
     it "adds assignees" do
+      # TODO: 
       issue = @client.add_assignees('tomb0y/wheelbarrow', 10, ["tomb0y"])
       expect(issue.assignees.count).not_to be_zero
       assert_requested :post, github_url("repos/tomb0y/wheelbarrow/issues/10/assignees")
