@@ -48,7 +48,7 @@ module Octokit
       # @option options [Array] :add_events Determines a list of events to be added to the list of events that the Hook triggers for.
       # @option options [Array] :remove_events Determines a list of events to be removed from the list of events that the Hook triggers for.
       # @option options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
-      # @return [Sawyer::Resource] 
+      # @return [Sawyer::Resource] The updated hook
       # @see https://developer.github.com/v3/repos/hooks/#edit-a-hook
       def update_hook(repo, hook_id, config = {}, options = {})
         options[:config] = config
@@ -128,7 +128,7 @@ module Octokit
       # @param config [Object] Key/value pairs to provide settings for this webhook. [These are defined below](https://developer.github.com/v3/orgs/hooks/#update-hook-config-params).
       # @option options [Array] :events Determines what [events](https://developer.github.com/v3/activity/events/types/) the hook is triggered for.
       # @option options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
-      # @return [Sawyer::Resource] 
+      # @return [Sawyer::Resource] The updated hook
       # @see https://developer.github.com/v3/orgs/hooks/#edit-a-hook
       def update_org_hook(org, hook_id, config = {}, options = {})
         options[:config] = config

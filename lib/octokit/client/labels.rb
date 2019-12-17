@@ -8,9 +8,9 @@ module Octokit
       # List all labels for this repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @return [Array<Sawyer::Resource>] A list of labels
+      # @return [Array<Sawyer::Resource>] A list of repository labels
       # @see https://developer.github.com/v3/issues/labels/#list-all-labels-for-this-repository
-      def labels(repo, options = {})
+      def repository_labels(repo, options = {})
         paginate "#{Repository.path repo}/labels", options
       end
 
@@ -45,7 +45,7 @@ module Octokit
       # @option options [String] :new_name The new name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/).
       # @option options [String] :color The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
       # @option options [String] :description A short description of the label.
-      # @return [Sawyer::Resource] 
+      # @return [Sawyer::Resource] The updated label
       # @see https://developer.github.com/v3/issues/labels/#update-a-label
       def update_label(repo, name, options = {})
         patch "#{Repository.path repo}/labels/#{name}", options

@@ -269,7 +269,7 @@ module OpenAPIClientGenerator
   class API
     def self.at(definition, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
       grouped_paths = definition.paths.group_by do |oas_path|
-        resource_for_path(oas_path.path, oas_path.endpoints.first.operation_id)
+        resource_for_path(oas_path.path)
       end
       grouped_paths.delete(:unsupported)
       grouped_paths.each do |resource, paths|
@@ -282,13 +282,12 @@ module OpenAPIClientGenerator
       end
     end
 
-    def self.resource_for_path(path, operation_id)
+    def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
-      operation_resource = operation_id.split("/")[0]
 
       repo_resource = path_segments[3]
       org_resource = path_segments[2]
-      primary_resource = operation_resource
+      primary_resource = path_segments[0]
 
       supported_resources = ["deployments","pages", "hooks", "releases", "labels", "milestones", "issues", "reactions"]
       resource = case path_segments.first

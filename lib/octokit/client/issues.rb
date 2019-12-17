@@ -34,36 +34,6 @@ module Octokit
         paginate "#{Organization.path org}/issues", options
       end
 
-      # List all labels for this repository
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @return [Array<Sawyer::Resource>] A list of repository labels
-      # @see https://developer.github.com/v3/issues/labels/#list-all-labels-for-this-repository
-      def repository_labels(repo, options = {})
-        paginate "#{Repository.path repo}/labels", options
-      end
-
-      # List assignees
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @return [Array<Sawyer::Resource>] A list of assignees
-      # @see https://developer.github.com/v3/issues/assignees/#list-assignees
-      def assignees(repo, options = {})
-        paginate "#{Repository.path repo}/assignees", options
-      end
-
-      # List milestones for a repository
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @option options [String] :state The state of the milestone. Either `open`, `closed`, or `all`.
-      # @option options [String] :sort What to sort results by. Either `due_on` or `completeness`.
-      # @option options [String] :direction The direction of the sort. Either `asc` or `desc`.
-      # @return [Array<Sawyer::Resource>] A list of repository milestones
-      # @see https://developer.github.com/v3/issues/milestones/#list-milestones-for-a-repository
-      def repository_milestones(repo, options = {})
-        paginate "#{Repository.path repo}/milestones", options
-      end
-
       # List issues for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -82,20 +52,6 @@ module Octokit
         paginate "#{Repository.path repo}/issues", options
       end
 
-      # Create a milestone
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param title [String] The title of the milestone.
-      # @option options [String] :state The state of the milestone. Either `open` or `closed`.
-      # @option options [String] :description A description of the milestone.
-      # @option options [String] :due_on The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
-      # @return [Sawyer::Resource] The new milestone
-      # @see https://developer.github.com/v3/issues/milestones/#create-a-milestone
-      def create_milestone(repo, title, options = {})
-        options[:title] = title
-        post "#{Repository.path repo}/milestones", options
-      end
-
       # Create an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -112,20 +68,6 @@ module Octokit
         post "#{Repository.path repo}/issues", options
       end
 
-      # Create a label
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param name [String] The name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/).
-      # @param color [String] The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
-      # @option options [String] :description A short description of the label.
-      # @return [Sawyer::Resource] The new label
-      # @see https://developer.github.com/v3/issues/labels/#create-a-label
-      def create_label(repo, name, color, options = {})
-        options[:name] = name
-        options[:color] = color
-        post "#{Repository.path repo}/labels", options
-      end
-
       # Get a single issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -134,36 +76,6 @@ module Octokit
       # @see https://developer.github.com/v3/issues/#get-a-single-issue
       def issue(repo, issue_number, options = {})
         get "#{Repository.path repo}/issues/#{issue_number}", options
-      end
-
-      # Check assignee
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param assignee [String] assignee parameter
-      # @return [Boolean] A single assignee
-      # @see https://developer.github.com/v3/issues/assignees/#check-assignee
-      def assignee(repo, assignee, options = {})
-        boolean_from_response :get, "#{Repository.path repo}/assignees/#{assignee}", options
-      end
-
-      # Get a single milestone
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param milestone_number [Integer] The number of the milestone
-      # @return [Sawyer::Resource] A single milestone
-      # @see https://developer.github.com/v3/issues/milestones/#get-a-single-milestone
-      def milestone(repo, milestone_number, options = {})
-        get "#{Repository.path repo}/milestones/#{milestone_number}", options
-      end
-
-      # Get a single event
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param event_id [Integer] The ID of the event
-      # @return [Sawyer::Resource] A single event
-      # @see https://developer.github.com/v3/issues/events/#get-a-single-event
-      def event(repo, event_id, options = {})
-        get "#{Repository.path repo}/issues/events/#{event_id}", options
       end
 
       # Get a single comment
@@ -176,14 +88,14 @@ module Octokit
         paginate "#{Repository.path repo}/issues/comments/#{comment_id}", options
       end
 
-      # Get a single label
+      # Get a single event
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param name [String] name parameter
-      # @return [Sawyer::Resource] A single label
-      # @see https://developer.github.com/v3/issues/labels/#get-a-single-label
-      def label(repo, name, options = {})
-        get "#{Repository.path repo}/labels/#{name}", options
+      # @param event_id [Integer] The ID of the event
+      # @return [Sawyer::Resource] A single event
+      # @see https://developer.github.com/v3/issues/events/#get-a-single-event
+      def event(repo, event_id, options = {})
+        get "#{Repository.path repo}/issues/events/#{event_id}", options
       end
 
       # List comments in a repository
@@ -207,31 +119,6 @@ module Octokit
         paginate "#{Repository.path repo}/issues/events", options
       end
 
-      # Update a label
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param name [String] name parameter
-      # @option options [String] :new_name The new name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/).
-      # @option options [String] :color The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
-      # @option options [String] :description A short description of the label.
-      # @return [Sawyer::Resource] The updated label
-      # @see https://developer.github.com/v3/issues/labels/#update-a-label
-      def update_label(repo, name, options = {})
-        patch "#{Repository.path repo}/labels/#{name}", options
-      end
-
-      # Edit a comment
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param comment_id [Integer] The ID of the comment
-      # @param body [String] The contents of the comment.
-      # @return [Sawyer::Resource] The updated comment
-      # @see https://developer.github.com/v3/issues/comments/#edit-a-comment
-      def update_comment(repo, comment_id, body, options = {})
-        options[:body] = body
-        patch "#{Repository.path repo}/issues/comments/#{comment_id}", options
-      end
-
       # Edit an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -249,28 +136,16 @@ module Octokit
         patch "#{Repository.path repo}/issues/#{issue_number}", options
       end
 
-      # Update a milestone
+      # Edit a comment
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param milestone_number [Integer] The number of the milestone
-      # @option options [String] :title The title of the milestone.
-      # @option options [String] :state The state of the milestone. Either `open` or `closed`.
-      # @option options [String] :description A description of the milestone.
-      # @option options [String] :due_on The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
-      # @return [Sawyer::Resource] The updated milestone
-      # @see https://developer.github.com/v3/issues/milestones/#update-a-milestone
-      def update_milestone(repo, milestone_number, options = {})
-        patch "#{Repository.path repo}/milestones/#{milestone_number}", options
-      end
-
-      # Delete a milestone
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param milestone_number [Integer] The number of the milestone
-      # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/issues/milestones/#delete-a-milestone
-      def delete_milestone(repo, milestone_number, options = {})
-        boolean_from_response :delete, "#{Repository.path repo}/milestones/#{milestone_number}", options
+      # @param comment_id [Integer] The ID of the comment
+      # @param body [String] The contents of the comment.
+      # @return [Sawyer::Resource] The updated comment
+      # @see https://developer.github.com/v3/issues/comments/#edit-a-comment
+      def update_comment(repo, comment_id, body, options = {})
+        options[:body] = body
+        patch "#{Repository.path repo}/issues/comments/#{comment_id}", options
       end
 
       # Delete a comment
@@ -283,24 +158,27 @@ module Octokit
         boolean_from_response :delete, "#{Repository.path repo}/issues/comments/#{comment_id}", options
       end
 
-      # Delete a label
+      # List events for an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param name [String] name parameter
-      # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/issues/labels/#delete-a-label
-      def delete_label(repo, name, options = {})
-        boolean_from_response :delete, "#{Repository.path repo}/labels/#{name}", options
+      # @param issue_number [Integer] The number of the issue
+      # @return [Array<Sawyer::Resource>] A list of timeline events
+      # @see https://developer.github.com/v3/issues/timeline/#list-events-for-an-issue
+      def timeline_events(repo, issue_number, options = {})
+        opts = ensure_api_media_type(:timeline_events, options)
+        paginate "#{Repository.path repo}/issues/#{issue_number}/timeline", opts
       end
 
-      # Get labels for every issue in a milestone
+      # List reactions for an issue comment
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param milestone_number [Integer] The number of the milestone
-      # @return [Array<Sawyer::Resource>] A list of milestone labels
-      # @see https://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
-      def milestone_labels(repo, milestone_number, options = {})
-        paginate "#{Repository.path repo}/milestones/#{milestone_number}/labels", options
+      # @param comment_id [Integer] The ID of the comment
+      # @option options [String] :content Returns a single [reaction type](https://developer.github.com/v3/reactions/#reaction-types). Omit this parameter to list all reactions to an issue comment.
+      # @return [Array<Sawyer::Resource>] A list of issue comment reactions
+      # @see https://developer.github.com/v3/reactions/#list-reactions-for-an-issue-comment
+      def issue_comment_reactions(repo, comment_id, options = {})
+        opts = ensure_api_media_type(:reactions, options)
+        paginate "#{Repository.path repo}/issues/comments/#{comment_id}/reactions", opts
       end
 
       # List comments on an issue
@@ -334,15 +212,42 @@ module Octokit
         paginate "#{Repository.path repo}/issues/#{issue_number}/labels", options
       end
 
-      # List events for an issue
+      # List reactions for an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param issue_number [Integer] The number of the issue
-      # @return [Array<Sawyer::Resource>] A list of timeline events
-      # @see https://developer.github.com/v3/issues/timeline/#list-events-for-an-issue
-      def timeline_events(repo, issue_number, options = {})
-        opts = ensure_api_media_type(:timeline_events, options)
-        paginate "#{Repository.path repo}/issues/#{issue_number}/timeline", opts
+      # @option options [String] :content Returns a single [reaction type](https://developer.github.com/v3/reactions/#reaction-types). Omit this parameter to list all reactions to an issue.
+      # @return [Array<Sawyer::Resource>] A list of issue reactions
+      # @see https://developer.github.com/v3/reactions/#list-reactions-for-an-issue
+      def issue_reactions(repo, issue_number, options = {})
+        opts = ensure_api_media_type(:reactions, options)
+        paginate "#{Repository.path repo}/issues/#{issue_number}/reactions", opts
+      end
+
+      # Create reaction for an issue comment
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param comment_id [Integer] The ID of the comment
+      # @param content [String] The [reaction type](https://developer.github.com/v3/reactions/#reaction-types) to add to the issue comment.
+      # @return [Sawyer::Resource] The new issue comment reaction
+      # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue-comment
+      def create_issue_comment_reaction(repo, comment_id, content, options = {})
+        options[:content] = content.to_s.downcase
+        opts = ensure_api_media_type(:issue_comment_reaction, options)
+        post "#{Repository.path repo}/issues/comments/#{comment_id}/reactions", opts
+      end
+
+      # Create reaction for an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @param content [String] The [reaction type](https://developer.github.com/v3/reactions/#reaction-types) to add to the issue.
+      # @return [Sawyer::Resource] The new issue reaction
+      # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue
+      def create_issue_reaction(repo, issue_number, content, options = {})
+        options[:content] = content.to_s.downcase
+        opts = ensure_api_media_type(:issue_reaction, options)
+        post "#{Repository.path repo}/issues/#{issue_number}/reactions", opts
       end
 
       # Add assignees to an issue
@@ -402,16 +307,6 @@ module Octokit
         put "#{Repository.path repo}/issues/#{issue_number}/labels", options
       end
 
-      # Unlock an issue
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param issue_number [Integer] The number of the issue
-      # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/issues/#unlock-an-issue
-      def unlock_issue(repo, issue_number, options = {})
-        boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_number}/lock", options
-      end
-
       # Remove all labels from an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -420,6 +315,16 @@ module Octokit
       # @see https://developer.github.com/v3/issues/labels/#remove-all-labels-from-an-issue
       def remove_labels(repo, issue_number, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_number}/labels", options
+      end
+
+      # Unlock an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @return [Boolean] True on success, false otherwise
+      # @see https://developer.github.com/v3/issues/#unlock-an-issue
+      def unlock_issue(repo, issue_number, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_number}/lock", options
       end
 
       # Remove assignees from an issue

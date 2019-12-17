@@ -27,7 +27,7 @@ module Octokit
       # Create a release
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param tag_name [String] The name of the tag.
+      # @param tag_name [String] The name of the tag
       # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`).
       # @option options [String] :name The name of the release.
       # @option options [String] :body Text describing the contents of the tag.
@@ -50,7 +50,7 @@ module Octokit
       # @option options [String] :body Text describing the contents of the tag.
       # @option options [Boolean] :draft `true` makes the release a draft, and `false` publishes the release.
       # @option options [Boolean] :prerelease `true` to identify the release as a prerelease, `false` to identify the release as a full release.
-      # @return [Sawyer::Resource] 
+      # @return [Sawyer::Resource] The updated release
       # @see https://developer.github.com/v3/repos/releases/#edit-a-release
       def update_release(repo, release_id, options = {})
         patch "#{Repository.path repo}/releases/#{release_id}", options
@@ -101,7 +101,7 @@ module Octokit
       # @param asset_id [Integer] The ID of the asset
       # @option options [String] :name The file name of the asset.
       # @option options [String] :label An alternate short description of the asset. Used in place of the filename.
-      # @return [Sawyer::Resource] 
+      # @return [Sawyer::Resource] The updated release asset
       # @see https://developer.github.com/v3/repos/releases/#edit-a-release-asset
       def update_release_asset(repo, asset_id, options = {})
         patch "#{Repository.path repo}/releases/assets/#{asset_id}", options
