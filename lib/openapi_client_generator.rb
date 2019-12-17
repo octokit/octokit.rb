@@ -286,24 +286,20 @@ module OpenAPIClientGenerator
       path_segments = path.split("/").reject{ |segment| segment == "" }
       operation_resource = operation_id.split("/")[0]
 
-      if path_segments.first == operation_resource
-        repo_resource = path_segments[3]
-        org_resource = path_segments[2]
-        primary_resource = operation_resource
-      else
-        repo_resource = operation_resource
-        org_resource = operation_resource
-      end
+      repo_resource = path_segments[3]
+      org_resource = path_segments[2]
+      primary_resource = operation_resource
 
       supported_resources = ["deployments","pages", "hooks", "releases", "labels", "milestones", "issues", "reactions"]
       resource = case path_segments.first
-      when "orgs"
-        org_resource
-      when "repos"
-        repo_resource
-      else
-        primary_resource
-      end
+                 when "orgs"
+                   org_resource
+                 when "repos"
+                   repo_resource
+                 else
+                   primary_resource
+                 end
+      puts resource if (supported_resources.include? resource)
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
