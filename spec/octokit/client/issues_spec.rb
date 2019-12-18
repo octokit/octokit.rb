@@ -163,7 +163,7 @@ describe Octokit::Client::Issues do
 
         describe ".issue_comment_reactions" do
           it "returns an Array of reactions" do
-            reactions = @client.issue_comment_reactions(@test_repo, @issue_comment.id, accept: preview_header)
+            reactions = @client.issue_comment_reactions(@test_repo, @issue_comment.id, accept: reactions_preview_header)
             expect(reactions).to be_kind_of Array
             assert_requested :get, github_url("/repos/#{@test_repo}/issues/comments/#{@issue_comment.id}/reactions")
           end
@@ -171,7 +171,7 @@ describe Octokit::Client::Issues do
 
         describe ".create_issue_comment_reaction" do
           it "creates a reaction" do
-            reaction = @client.create_issue_comment_reaction(@test_repo, @issue_comment.id, "+1", accept: preview_header)
+            reaction = @client.create_issue_comment_reaction(@test_repo, @issue_comment.id, "+1", accept: reactions_preview_header)
             expect(reaction.content).to eql("+1")
             assert_requested :post, github_url("/repos/#{@test_repo}/issues/comments/#{@issue_comment.id}/reactions")
           end
@@ -180,8 +180,7 @@ describe Octokit::Client::Issues do
 
       describe ".timeline_events", :vcr do
         it "returns an issue timeline" do
-          # TODO: fix preview naming
-          timeline = @client.timeline_events(@test_repo, @issue.number, accept: Octokit::Preview::PREVIEW_TYPES[:issue_timelines])
+          timeline = @client.timeline_events(@test_repo, @issue.number, accept: events_preview_header)
           expect(timeline).to be_kind_of Array
           assert_requested :get, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/timeline")
         end
@@ -238,7 +237,7 @@ describe Octokit::Client::Issues do
 
       describe ".issue_reactions" do
         it "returns an Array of reactions" do
-          reactions = @client.issue_reactions(@test_repo, @issue.number, accept: preview_header)
+          reactions = @client.issue_reactions(@test_repo, @issue.number, accept: reactions_preview_header)
           expect(reactions).to be_kind_of Array
           assert_requested :get, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/reactions")
         end
@@ -246,7 +245,7 @@ describe Octokit::Client::Issues do
 
       describe ".create_issue_reaction" do
         it "creates a reaction" do
-          reaction = @client.create_issue_reaction(@test_repo, @issue.number, "+1", accept: preview_header)
+          reaction = @client.create_issue_reaction(@test_repo, @issue.number, "+1", accept: reactions_preview_header)
           expect(reaction.content).to eql("+1")
           assert_requested :post, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/reactions")
         end
@@ -254,12 +253,12 @@ describe Octokit::Client::Issues do
 
       context "with reaction" do
         before do
-          @reaction = @client.create_issue_reaction(@test_repo, @issue.number, "+1", accept: preview_header)
+          @reaction = @client.create_issue_reaction(@test_repo, @issue.number, "+1", accept: reactions_preview_header)
         end
 
         describe ".delete_reaction" do
           it "deletes the reaction" do
-            @client.delete_reaction(@reaction.id, accept: preview_header)
+            @client.delete_reaction(@reaction.id, accept: reactions_preview_header)
             assert_requested :delete, github_url("/reactions/#{@reaction.id}")
           end
         end # .delete_reaction
@@ -269,7 +268,11 @@ describe Octokit::Client::Issues do
 
   private
 
-  def preview_header
+  def reactions_preview_header
+    Octokit::Preview::PREVIEW_TYPES[:reactions]
+  end
+
+  def events_preview_header
     Octokit::Preview::PREVIEW_TYPES[:reactions]
   end
 end
