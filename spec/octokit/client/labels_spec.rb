@@ -7,13 +7,13 @@ describe Octokit::Client::Labels do
     @client = oauth_client
   end
 
-  describe ".labels", :vcr do
+  describe ".repository_labels", :vcr do
     it "returns labels" do
-      labels = @client.labels("octokit/octokit.rb")
+      labels = @client.repository_labels("octokit/octokit.rb")
       expect(labels).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/labels")
     end
-  end # .labels
+  end # .repository_labels
 
   describe ".label", :vcr do
     it "returns a single label" do

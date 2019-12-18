@@ -13,9 +13,9 @@ module Octokit
       # @option options [String] :sort What to sort results by. Can be either `created`, `updated`, `comments`.
       # @option options [String] :direction The direction of the sort. Can be either `asc` or `desc`.
       # @option options [String] :since Only issues updated at or after this time are returned. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
-      # @return [Array<Sawyer::Resource>] A list of issue
+      # @return [Array<Sawyer::Resource>] A list of issues
       # @see https://developer.github.com/v3/issues/#list-issues
-      def issue(options = {})
+      def issues(options = {})
         paginate "/issues", options
       end
 

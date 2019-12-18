@@ -81,13 +81,15 @@ describe OpenAPIClientGenerator do
     end
 
     it "defines the method name of POST endpoints with underscores" do
-      json = { "operationId"=> "repos/create-meal" }
+      json = { "operationId"=> "repos/create-meal",
+               "responses"=> {"200"=>{}}}
       endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "meals/{meal_id}", {}), "post", json))
       expect(endpoint.method_name).to eq("create_meal")
     end
 
     it "prefixes the method name of DELETE endpoints with the respective term" do
-      json = { "operationId"=> "repos/disable-meal-status" }
+      json = { "operationId"=> "repos/disable-meal-status",
+               "responses"=> {"200"=>{}}}
       endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "meals/{meal_id}", {}), "delete", json))
       expect(endpoint.method_name).to eq("disable_meal_status")
     end

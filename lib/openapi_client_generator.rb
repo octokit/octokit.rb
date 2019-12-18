@@ -227,7 +227,8 @@ module OpenAPIClientGenerator
         subresource = singular? ? subresource.singularize : subresource
         resource == "repo" ? "repository_#{subresource}" : "#{resource}_#{subresource}"
       else
-        (namespace_array.size == 1) ? operation_array.first.singularize : namespace_array.drop(1).join("_")
+        operation_resource = singular? ? operation_array.first.singularize : operation_array.first
+        (namespace_array.size == 1) ? operation_resource : namespace_array.drop(1).join("_")
       end
     end
 
