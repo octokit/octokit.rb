@@ -263,6 +263,73 @@ describe Octokit::Client::Issues do
           end
         end # .delete_reaction
       end # with reaction
+
+      describe ".add_labels" do
+        it "adds labels to a given issue" do
+          @client.add_labels(@test_repo, @issue.number, ['bug'])
+          assert_requested :post, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
+        end
+      end # .add_labels
+
+      context "with labels", :vcr do
+        before do
+          @client.add_labels(@test_repo, @issue.number, ['bug', 'feature'])
+        end
+
+        describe ".issue_labels" do
+          it "returns all labels for a given issue" do
+            labels = @client.issue_labels(@test_repo, @issue.number)
+            expect(labels).to be_kind_of Array
+            assert_requested :get, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
+          end
+        end # .issue_labels
+
+        describe ".remove_label" do
+          it "removes a label from the specified issue" do
+            @client.remove_label(@test_repo, @issue.number, 'bug')
+            assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels/bug")
+            
+            labels = @client.issue_labels(@test_repo, @issue.number)
+            expect(labels.map(&:name)).to eq(['feature'])
+          end
+        end # .remove_label
+
+        describe ".remove_labels" do
+          it "removes all labels from the specified issue" do
+            @client.remove_labels(@test_repo, @issue.number)
+            assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
+            
+            labels = @client.issue_labels(@test_repo, @issue.number)
+            expect(labels).to be_empty
+          end
+        end # .remove_labels
+
+        describe ".replace_labels" do
+          it "replaces all labels for an issue" do
+            @client.replace_labels(@test_repo, @issue.number, ['random'])
+            assert_requested :put, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
+            
+            labels = @client.issue_labels(@test_repo, @issue.number)
+            expect(labels.map(&:name)).to eq(['random'])
+          end
+        end # .replace_labels
+      end # with labels
+
+      describe ".issue_events" do
+        it "lists issue events for a repository" do
+          issue_events = @client.issue_events("octokit/octokit.rb", 4)
+          expect(issue_events).to be_kind_of Array
+          assert_requested :get, github_url("/repos/octokit/octokit.rb/issues/4/events")
+        end
+      end # .issue_events
+
+      describe ".issue_event" do
+        it "lists a issue event for a repository" do
+          # TODO: Remove and use hypermedia
+          @client.issue_event("octokit/octokit.rb", 37786228)
+          assert_requested :get, github_url("/repos/octokit/octokit.rb/issues/events/37786228")
+        end
+      end # .issue_event
     end # with issue
   end # with repository
 
@@ -273,6 +340,6 @@ describe Octokit::Client::Issues do
   end
 
   def events_preview_header
-    Octokit::Preview::PREVIEW_TYPES[:reactions]
+    Octokit::Preview::PREVIEW_TYPES[:timeline_events]
   end
 end
