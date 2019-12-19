@@ -63,7 +63,7 @@ describe Octokit::Client::Issues do
       end
     end # .create_issue
 
-    context "with issue" do
+    context "with issue", :vcr do
       before(:each) do
         @issue = @client.create_issue(@test_repo, "Migrate issues to v3", :body => "Move all Issues calls to v3 of the API")
       end
