@@ -161,9 +161,12 @@ module OpenAPIClientGenerator
 
     def parameter_description(param)
       return "A GitHub repository" if param.name == "repo"
+      return "A GitHub organization" if param.name == "org"
       return "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if param.name.end_with? "_id"
       split_param =  param.name.split("_")
       return "The #{split_param.last} of the #{split_param.first}" if split_param.size > 1
+      split_description = param.description.split(" ")
+      return "The #{split_param.last} of the #{namespace.split("_").first}" if split_description.last == "parameter"
       return param.description.gsub("\n", "")
     end
 
@@ -179,18 +182,21 @@ module OpenAPIClientGenerator
       if verb == "GET"
         if namespace.include?("latest")
           "The #{namespace.gsub("_", " ")}"
-        elsif definition.parameters.any? {|p| p.name == "per_page"}
-          # TODO: clean up
+        elsif !singular? or definition.parameters.any? {|p| p.name == "per_page"}
           "A list of #{namespace.gsub("_", " ")}"
-        elsif singular?
+        else singular?
           "A single #{namespace.gsub("_", " ")}"
-        else
-          "A list of #{namespace.gsub("_", " ")}"
         end
       elsif definition.raw["responses"].key? "204"
         "True on success, false otherwise"
       elsif verb == "POST"
-        "The new #{namespace.singularize.gsub("_", " ")}"
+        case namespace
+        # Note: hardcoded check
+        when "assignees"
+          "The updated #{definition.tags.first.singularize}"
+        else
+          "The new #{namespace.gsub("_", " ").singularize}"
+        end
       elsif verb == "PATCH"
         "The updated #{namespace.singularize.gsub("_", " ")}"
       else
@@ -244,11 +250,9 @@ module OpenAPIClientGenerator
       method_name = case verb
         when "GET"
           namespace
-        when "POST", "PATCH", "DELETE"
-          "#{action}_#{namespace}"
-        when "PUT"
+        when "POST", "PATCH", "DELETE", "PUT"
           segments = definition.operation_id.split("/").last.split("-")
-          segments = segments.size > 3 ? ([segments.first] + segments[-2..-1]).join("_") : segments.join("_")
+          segments.size > 4 ? ([segments.first] + segments[-2..-1]).join("_") : "#{action}_#{namespace}"
         else
         end
       org?? method_name.gsub(namespace, "org_#{namespace}") : method_name

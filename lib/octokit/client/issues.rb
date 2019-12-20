@@ -21,7 +21,7 @@ module Octokit
 
       # List all issues for a given organization assigned to the authenticated user
       #
-      # @param org [String] org parameter
+      # @param org [String] A GitHub organization
       # @option options [String] :filter Indicates which sorts of issues to return. Can be one of:  \* `assigned`: Issues assigned to you  \* `created`: Issues created by you  \* `mentioned`: Issues mentioning you  \* `subscribed`: Issues you're subscribed to updates for  \* `all`: All issues the authenticated user can see, regardless of participation or creation
       # @option options [String] :state Indicates the state of the issues to return. Can be either `open`, `closed`, or `all`.
       # @option options [String] :labels A list of comma separated label names. Example: `bug,ui,@high`
@@ -255,7 +255,7 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param issue_number [Integer] The number of the issue
       # @option options [Array] :assignees Usernames of people to assign this issue to. _NOTE: Only users with push access can add assignees to an issue. Assignees are silently ignored otherwise._
-      # @return [Sawyer::Resource] The new assignee
+      # @return [Sawyer::Resource] The updated issue
       # @see https://developer.github.com/v3/issues/assignees/#add-assignees-to-an-issue
       def add_assignees(repo, issue_number, options = {})
         post "#{Repository.path repo}/issues/#{issue_number}/assignees", options
@@ -292,7 +292,7 @@ module Octokit
       # @option options [String] :lock_reason The reason for locking the issue or pull request conversation. Lock will fail if you don't use one of these reasons:  \* `off-topic`  \* `too heated`  \* `resolved`  \* `spam`
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/issues/#lock-an-issue
-      def lock(repo, issue_number, options = {})
+      def lock_issue(repo, issue_number, options = {})
         boolean_from_response :put, "#{Repository.path repo}/issues/#{issue_number}/lock", options
       end
 
@@ -342,7 +342,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param issue_number [Integer] The number of the issue
-      # @param name [String] name parameter
+      # @param name [String] The name of the label
       # @return [Sawyer::Resource] An array of the remaining labels
       # @see https://developer.github.com/v3/issues/labels/#remove-a-label-from-an-issue
       def remove_label(repo, issue_number, name, options = {})

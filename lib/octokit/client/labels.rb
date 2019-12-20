@@ -31,7 +31,7 @@ module Octokit
       # Get a single label
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param name [String] name parameter
+      # @param name [String] The name of the label
       # @return [Sawyer::Resource] A single label
       # @see https://developer.github.com/v3/issues/labels/#get-a-single-label
       def label(repo, name, options = {})
@@ -41,7 +41,7 @@ module Octokit
       # Update a label
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param name [String] name parameter
+      # @param name [String] The name of the label
       # @option options [String] :new_name The new name of the label. Emoji can be added to label names, using either native emoji or colon-style markup. For example, typing `:strawberry:` will render the emoji ![:strawberry:](https://github.githubassets.com/images/icons/emoji/unicode/1f353.png ":strawberry:"). For a full list of available emoji and codes, see [emoji-cheat-sheet.com](http://emoji-cheat-sheet.com/).
       # @option options [String] :color The [hexadecimal color code](http://www.color-hex.com/) for the label, without the leading `#`.
       # @option options [String] :description A short description of the label.
@@ -54,7 +54,7 @@ module Octokit
       # Delete a label
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param name [String] name parameter
+      # @param name [String] The name of the label
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/issues/labels/#delete-a-label
       def delete_label(repo, name, options = {})

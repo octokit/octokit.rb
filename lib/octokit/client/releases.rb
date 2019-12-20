@@ -120,7 +120,7 @@ module Octokit
       # Get a release by tag name
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param tag [String] tag parameter
+      # @param tag [String] The tag of the release
       # @return [Sawyer::Resource] A single release by tag
       # @see https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
       def release_by_tag(repo, tag, options = {})

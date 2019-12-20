@@ -106,16 +106,16 @@ describe Octokit::Client::Issues do
       #         end # .reopen_issue
       #       end # with closed issue
 
-      describe ".lock", :vcr do
+      describe ".lock_issue", :vcr do
         it "locks an issue" do
-          @client.lock(@test_repo, @issue.number)
+          @client.lock_issue(@test_repo, @issue.number)
           assert_requested :put, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/lock")
         end
-      end # .lock
+      end # .lock_issue
 
       context "with locked issue" do
         before(:each) do
-          @client.lock(@test_repo, @issue.number)
+          @client.lock_issue(@test_repo, @issue.number)
         end
 
         describe ".unlock_issue", :vcr do
