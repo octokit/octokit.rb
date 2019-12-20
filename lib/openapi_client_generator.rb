@@ -94,7 +94,6 @@ module OpenAPIClientGenerator
         resource = definition.operation_id.split("/").first
         namespace_segments = namespace.split("_")
         preview_type = (resource == namespace_segments.last.pluralize) ? resource : namespace
-
         options << "opts = ensure_api_media_type(:#{preview_type}, options)"
       end
       options
@@ -223,15 +222,19 @@ module OpenAPIClientGenerator
       operation_array = definition.operation_id.split("/")
       namespace_array = operation_array.last.split("-")
 
-      if namespace_array.include? "for" or namespace_array.include? "on" 
-        index = (namespace_array.include? "for") ? namespace_array.index("for") : namespace_array.index("on")
+      div_words = %w(for on about)
+      if (div_words & namespace_array).any?
+        words = namespace_array.select {|w| div_words.include? w}
+        index = namespace_array.index(words.first)
+
+        resource = namespace_array[index+1..-1].join("_").gsub("repo", "repository")
+        return resource if words.first == "about"
 
         first_half = namespace_array[0..index-1]
-        resource = namespace_array[index+1..-1].join("_")
-
         subresource = (first_half.size == 1) ? operation_array.first : first_half.drop(1).join("_")
         subresource = singular? ? subresource.singularize : subresource
-        resource == "repo" ? "repository_#{subresource}" : "#{resource}_#{subresource}"
+
+        "#{resource}_#{subresource}"
       else
         operation_resource = singular? ? operation_array.first.singularize : operation_array.first
         (namespace_array.size == 1) ? operation_resource : namespace_array.drop(1).join("_")
@@ -251,8 +254,7 @@ module OpenAPIClientGenerator
         when "GET"
           namespace
         when "POST", "PATCH", "DELETE", "PUT"
-          segments = definition.operation_id.split("/").last.split("-")
-          segments.size > 4 ? ([segments.first] + segments[-2..-1]).join("_") : "#{action}_#{namespace}"
+          "#{action}_#{namespace}"
         else
         end
       org?? method_name.gsub(namespace, "org_#{namespace}") : method_name
