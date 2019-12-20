@@ -75,6 +75,8 @@ module Octokit
         Octokit::AccountSuspended
       elsif body =~ /billing issue/i
         Octokit::BillingIssue
+      elsif body =~ /Resource protected by organization SAML enforcement/i
+        Octokit::SAMLProtected
       else
         Octokit::Forbidden
       end
@@ -259,6 +261,10 @@ module Octokit
   # and body matches 'billing issue'
   class BillingIssue < Forbidden; end
 
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'Resource protected by organization SAML enforcement'
+  class SAMLProtected < Forbidden; end
+
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end
 
@@ -301,6 +307,9 @@ module Octokit
 
   # Raised when client fails to provide valid Content-Type
   class MissingContentType < ArgumentError; end
+
+  # Raised when client fails to provide a required key
+  class MissingKey < ArgumentError; end
 
   # Raised when a method requires an application client_id
   # and secret but none is provided
