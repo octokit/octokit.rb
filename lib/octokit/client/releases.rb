@@ -27,7 +27,7 @@ module Octokit
       # Create a release
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param tag_name [String] The name of the tag
+      # @param tag_name [String] The name of the tag.
       # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`).
       # @option options [String] :name The name of the release.
       # @option options [String] :body Text describing the contents of the tag.

@@ -163,17 +163,24 @@ module OpenAPIClientGenerator
       return "A GitHub organization" if param.name == "org"
       return "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if param.name.end_with? "_id"
       split_param =  param.name.split("_")
-      return "The #{split_param.last} of the #{split_param.first}" if split_param.size > 1
       split_description = param.description.split(" ")
-      return "The #{split_param.last} of the #{namespace.split("_").first}" if split_description.last == "parameter"
-      return param.description.gsub("\n", "")
+      resource = split_param.size > 1 ? split_param.first : namespace.split("_").first
+      return "The #{split_param.last} of the #{resource}" if split_description.last == "parameter"
+      return collapse_lists(param).gsub("\n", "")
+    end
+
+    def collapse_lists(param)
+      split_description = param.description.split("\\\*")
+      test = param.description.split("\\\*")
+      list = split_description.drop(1).map { |line| line.split("`")[1] }
+      test2 = (split_description[0] + list.join(", "))
     end
 
     def parameter_documentation
       required_params.map {|param|
         "@param #{param.name} #{parameter_type(param)} #{parameter_description(param)}"
       } + optional_params.map {|param|
-        "@option options [#{param.type.capitalize}] :#{param.name} #{param.description.gsub("\n", "")}"
+        "@option options [#{param.type.capitalize}] :#{param.name} #{parameter_description(param).gsub("\n", "")}"
       }
     end
 

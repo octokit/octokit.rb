@@ -7,7 +7,7 @@ module Octokit
 
       # List all issues assigned to the authenticated user across all visible repositories including owned repositories, member repositories, and organization repositories
       #
-      # @option options [String] :filter Indicates which sorts of issues to return. Can be one of:  \* `assigned`: Issues assigned to you  \* `created`: Issues created by you  \* `mentioned`: Issues mentioning you  \* `subscribed`: Issues you're subscribed to updates for  \* `all`: All issues the authenticated user can see, regardless of participation or creation
+      # @option options [String] :filter Indicates which sorts of issues to return. Can be one of:  assigned, created, mentioned, subscribed, all
       # @option options [String] :state Indicates the state of the issues to return. Can be either `open`, `closed`, or `all`.
       # @option options [String] :labels A list of comma separated label names. Example: `bug,ui,@high`
       # @option options [String] :sort What to sort results by. Can be either `created`, `updated`, `comments`.
@@ -21,8 +21,8 @@ module Octokit
 
       # List all issues for a given organization assigned to the authenticated user
       #
-      # @param org [String] A GitHub organization
-      # @option options [String] :filter Indicates which sorts of issues to return. Can be one of:  \* `assigned`: Issues assigned to you  \* `created`: Issues created by you  \* `mentioned`: Issues mentioning you  \* `subscribed`: Issues you're subscribed to updates for  \* `all`: All issues the authenticated user can see, regardless of participation or creation
+      # @param org [String] The name of a GitHub organization
+      # @option options [String] :filter Indicates which sorts of issues to return. Can be one of:  assigned, created, mentioned, subscribed, all
       # @option options [String] :state Indicates the state of the issues to return. Can be either `open`, `closed`, or `all`.
       # @option options [String] :labels A list of comma separated label names. Example: `bug,ui,@high`
       # @option options [String] :sort What to sort results by. Can be either `created`, `updated`, `comments`.
@@ -289,7 +289,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param issue_number [Integer] The number of the issue
-      # @option options [String] :lock_reason The reason for locking the issue or pull request conversation. Lock will fail if you don't use one of these reasons:  \* `off-topic`  \* `too heated`  \* `resolved`  \* `spam`
+      # @option options [String] :lock_reason The reason for locking the issue or pull request conversation. Lock will fail if you don't use one of these reasons:  off-topic, too heated, resolved, spam
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/issues/#lock-an-issue
       def lock_issue(repo, issue_number, options = {})
