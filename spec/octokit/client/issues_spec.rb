@@ -82,29 +82,29 @@ describe Octokit::Client::Issues do
         end
       end # .issue
 
-      #       describe ".close_issue", :vcr do
-      #         it "closes an issue" do
-      #           issue = @client.close_issue(@test_repo, @issue.number)
-      #           expect(issue.state).to eq "closed"
-      #           expect(issue.number).to eq(@issue.number)
-      #           assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
-      #         end
-      #       end # .close_issue
-      # 
-      #       context "with closed issue" do
-      #         before(:each) do
-      #           @client.close_issue(@test_repo, @issue.number)
-      #         end
-      # 
-      #         describe ".reopen_issue", :vcr do
-      #           it "reopens an issue" do
-      #             issue = @client.reopen_issue(@test_repo, @issue.number)
-      #             expect(issue.state).to eq "open"
-      #             expect(issue.number).to eq(@issue.number)
-      #             assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}"), :times => 2
-      #           end
-      #         end # .reopen_issue
-      #       end # with closed issue
+      describe ".close_issue", :vcr do
+        it "closes an issue" do
+          issue = @client.close_issue(@test_repo, @issue.number)
+          expect(issue.state).to eq "closed"
+          expect(issue.number).to eq(@issue.number)
+          assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}")
+        end
+      end # .close_issue
+
+      context "with closed issue" do
+        before(:each) do
+          @client.close_issue(@test_repo, @issue.number)
+        end
+
+        describe ".open_issue", :vcr do
+          it "opens an issue" do
+            issue = @client.open_issue(@test_repo, @issue.number)
+            expect(issue.state).to eq "open"
+            expect(issue.number).to eq(@issue.number)
+            assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}"), :times => 2
+          end
+        end # .reopen_issue
+      end # with closed issue
 
       describe ".lock_issue", :vcr do
         it "locks an issue" do

@@ -35,6 +35,7 @@ module OpenAPIClientGenerator
       [
         tomdoc,
         method_definition,
+        enum_definitions
       ].compact.join("\n")
     end
 
@@ -59,6 +60,32 @@ module OpenAPIClientGenerator
         #{method_implementation}
       end
       DEF
+    end
+
+    def enum_definitions
+      result = []
+      if definition.request_body
+        definition.request_body.properties_for_format("application/json").each do |param|
+          if param.enum && param.enum.size < 3 && param.default.nil?
+            param.enum.each do |enum|
+              enum_action = enum.delete_suffix("d")
+              parameter_docs = parameter_documentation.reject { |p| p.include? param.name }
+              result << %Q(
+     # #{enum_action.capitalize} an #{namespace}
+     #
+     # #{parameter_docs.join("\n     # ")}
+     def #{enum_action}_#{namespace}(#{parameters})
+        options[:#{param.name}] = "#{enum}"
+        #{method_implementation}
+      end)
+            end
+          end
+        end
+      end
+
+      if result.any?
+        result.join("\n")
+      end
     end
 
     def singular?
