@@ -25,7 +25,7 @@ describe OpenAPIClientGenerator do
     it "defines api_path to replace required param variables" do
       json = {"parameters"=> [{"name"=>"meal_id", "required"=>true}, {"name"=>"repo", "required"=>false}]}
       endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "/{repo}/meals/{meal_id}", json), "get", {}))
-      expect(endpoint.api_path).to eq("/{repo}/meals/\#{meal_id}")
+      expect(endpoint.api_path).to eq("{repo}/meals/\#{meal_id}")
     end
     
     it "defines required_params to ignore owner and accept" do
