@@ -16,12 +16,12 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of issues
       # @see https://developer.github.com/v3/issues/#list-issues
       def issues(options = {})
-        paginate "/issues", options
+        paginate "issues", options
       end
 
       # List all issues for a given organization assigned to the authenticated user
       #
-      # @param org [String] The name of a GitHub organization
+      # @param org [Integer, String] A GitHub organization
       # @option options [String] :filter Indicates which sorts of issues to return. Can be one of:  assigned, created, mentioned, subscribed, all
       # @option options [String] :state Indicates the state of the issues to return. Can be either `open`, `closed`, or `all`.
       # @option options [String] :labels A list of comma separated label names. Example: `bug,ui,@high`
