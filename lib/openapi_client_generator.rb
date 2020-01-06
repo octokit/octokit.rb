@@ -182,6 +182,7 @@ module OpenAPIClientGenerator
     def parameter_type(param)
       {
         "repo" => "[Integer, String, Repository, Hash]",
+        "org" => "[Integer, String]",
       }[param.name] || "[#{param.type.capitalize}]"
     end
 
