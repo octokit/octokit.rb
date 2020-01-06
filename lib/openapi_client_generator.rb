@@ -138,8 +138,9 @@ module OpenAPIClientGenerator
     end
 
     def api_path
-      path = definition.path.path.gsub("/repos/{owner}/{repo}", "\#{Repository.path repo}")
-      path = path.gsub("/orgs/{org}", "\#{Organization.path org}")
+      path = definition.path.path[1..-1]
+      path = path.gsub("repos/{owner}/{repo}", "\#{Repository.path repo}")
+      path = path.gsub("orgs/{org}", "\#{Organization.path org}")
       path = required_params.reduce(path) do |path, param|
         path.gsub("{#{param.name}}", "\#{#{param.name}}")
       end
