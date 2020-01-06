@@ -17,7 +17,7 @@ module Octokit
       # Enable a Pages site
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @option options [Object] :source source parameter
+      # @option options [Object] :source The source of the pages
       # @return [Sawyer::Resource] The new pages site
       # @see https://developer.github.com/v3/repos/pages/#enable-a-pages-site
       def enable_pages_site(repo, options = {})

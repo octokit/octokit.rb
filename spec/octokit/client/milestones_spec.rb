@@ -7,19 +7,19 @@ describe Octokit::Client::Milestones do
     @client = oauth_client
   end
 
-  describe ".milestones", :vcr do
+  describe ".repository_milestones", :vcr do
     it "lists milestones belonging to repository" do
-      milestones = @client.milestones(@test_repo)
+      milestones = @client.repository_milestones(@test_repo)
       expect(milestones).to be_kind_of Array
       assert_requested :get, github_url("/repos/#{@test_repo}/milestones")
     end
 
     it "lists milestones belonging to repository using id of repository" do
-      milestones = @client.milestones(@test_repo_id)
+      milestones = @client.repository_milestones(@test_repo_id)
       expect(milestones).to be_kind_of Array
       assert_requested :get, github_url("/repositories/#{@test_repo_id}/milestones")
     end
-  end # .milestones
+  end # .repository_milestones
 
   context "with milestone" do
     before(:each) do
