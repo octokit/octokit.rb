@@ -41,17 +41,12 @@ module OpenAPIClientGenerator
 
     def tomdoc
       <<-TOMDOC.chomp
-      # #{method_summary}
+      # #{definition.summary}
       #
       # #{parameter_documentation.join("\n      # ")}
       # @return #{return_type_description} #{return_value_description}
       # @see #{definition.raw["externalDocs"]["url"]}
       TOMDOC
-    end
-
-    def method_summary
-      org_summary = definition.summary.gsub("#{namespace}", "org #{namespace}").gsub("a org", "an org")
-      org?? org_summary : definition.summary
     end
 
     def method_definition
@@ -227,7 +222,7 @@ module OpenAPIClientGenerator
       elsif verb == "POST"
         case namespace
         # Note: hardcoded check
-        when "assignees"
+        when "issue_assignees"
           "The updated #{definition.tags.first.singularize}"
         else
           "The new #{namespace.split("_").last.singularize}"
@@ -258,7 +253,7 @@ module OpenAPIClientGenerator
       operation_array = definition.operation_id.split("/")
       namespace_array = operation_array.last.split("-")
 
-      div_words = %w(for on about)
+      div_words = %w(for on about by)
       if (div_words & namespace_array).any?
         words = namespace_array.select {|w| div_words.include? w}
         index = namespace_array.index(words.first)
