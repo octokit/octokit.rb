@@ -11,7 +11,7 @@ module Octokit
       # @option options [String] :state The state of the milestone. Either `open`, `closed`, or `all`.
       # @option options [String] :sort What to sort results by. Either `due_on` or `completeness`.
       # @option options [String] :direction The direction of the sort. Either `asc` or `desc`.
-      # @return [Array<Sawyer::Resource>] A list of repository milestones
+      # @return [Array<Sawyer::Resource>] A list of milestones
       # @see https://developer.github.com/v3/issues/milestones/#list-milestones-for-a-repository
       def repository_milestones(repo, options = {})
         paginate "#{Repository.path repo}/milestones", options
@@ -26,7 +26,7 @@ module Octokit
       # @option options [String] :due_on The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
       # @return [Sawyer::Resource] The new milestone
       # @see https://developer.github.com/v3/issues/milestones/#create-a-milestone
-      def create_milestone(repo, title, options = {})
+      def create_issue_milestone(repo, title, options = {})
         options[:title] = title
         post "#{Repository.path repo}/milestones", options
       end
@@ -37,7 +37,7 @@ module Octokit
       # @param milestone_number [Integer] The number of the milestone
       # @return [Sawyer::Resource] A single milestone
       # @see https://developer.github.com/v3/issues/milestones/#get-a-single-milestone
-      def milestone(repo, milestone_number, options = {})
+      def issue_milestone(repo, milestone_number, options = {})
         get "#{Repository.path repo}/milestones/#{milestone_number}", options
       end
 
@@ -51,7 +51,7 @@ module Octokit
       # @option options [String] :due_on The milestone due date. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`.
       # @return [Sawyer::Resource] The updated milestone
       # @see https://developer.github.com/v3/issues/milestones/#update-a-milestone
-      def update_milestone(repo, milestone_number, options = {})
+      def update_issue_milestone(repo, milestone_number, options = {})
         patch "#{Repository.path repo}/milestones/#{milestone_number}", options
       end
 
@@ -61,7 +61,7 @@ module Octokit
       # @param milestone_number [Integer] The number of the milestone
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/issues/milestones/#delete-a-milestone
-      def delete_milestone(repo, milestone_number, options = {})
+      def delete_issue_milestone(repo, milestone_number, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/milestones/#{milestone_number}", options
       end
 
@@ -69,7 +69,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param milestone_number [Integer] The number of the milestone
-      # @return [Array<Sawyer::Resource>] A list of milestone labels
+      # @return [Array<Sawyer::Resource>] A list of labels
       # @see https://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
       def milestone_labels(repo, milestone_number, options = {})
         paginate "#{Repository.path repo}/milestones/#{milestone_number}/labels", options

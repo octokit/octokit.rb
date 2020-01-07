@@ -86,7 +86,7 @@ module Octokit
         boolean_from_response :post, "#{Repository.path repo}/hooks/#{hook_id}/pings", options
       end
 
-      # Get single org hook
+      # Get single hook
       #
       # @param org [Integer, String] A GitHub organization
       # @param hook_id [Integer] The ID of the hook
@@ -96,7 +96,7 @@ module Octokit
         get "#{Organization.path org}/hooks/#{hook_id}", options
       end
 
-      # List org hooks
+      # List hooks
       #
       # @param org [Integer, String] A GitHub organization
       # @return [Array<Sawyer::Resource>] A list of hooks
@@ -105,7 +105,7 @@ module Octokit
         paginate "#{Organization.path org}/hooks", options
       end
 
-      # Create an org hook
+      # Create a hook
       #
       # @param org [Integer, String] A GitHub organization
       # @param name [String] Must be passed as "web".
@@ -121,7 +121,7 @@ module Octokit
         post "#{Organization.path org}/hooks", options
       end
 
-      # Edit an org hook
+      # Edit a hook
       #
       # @param org [Integer, String] A GitHub organization
       # @param hook_id [Integer] The ID of the hook
@@ -136,7 +136,7 @@ module Octokit
         patch "#{Organization.path org}/hooks/#{hook_id}", options
       end
 
-      # Delete an org hook
+      # Delete a hook
       #
       # @param org [Integer, String] A GitHub organization
       # @param hook_id [Integer] The ID of the hook
@@ -146,7 +146,7 @@ module Octokit
         boolean_from_response :delete, "#{Organization.path org}/hooks/#{hook_id}", options
       end
 
-      # Ping an org hook
+      # Ping a hook
       #
       # @param org [Integer, String] A GitHub organization
       # @param hook_id [Integer] The ID of the hook
