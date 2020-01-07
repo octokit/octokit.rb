@@ -1,22 +1,23 @@
 require 'helper'
+require 'pry'
 
 describe Octokit::Client::Projects do
 
-  describe ".projects", :vcr do
+  describe ".repository_projects", :vcr do
     it "returns a list of projects for a repository" do
-      projects = oauth_client.projects('octokit/octokit.rb', accept: preview_header)
+      projects = oauth_client.repository_projects('octokit/octokit.rb', accept: preview_header)
       expect(projects).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/projects")
     end
-  end # .projects
+  end # .repository_projects
 
-  describe ".create_project", :vcr do
+  describe ".create_repository_project", :vcr do
     it "returns the newly created project" do
-      project = oauth_client.create_project(@test_repo, "api kpi", accept: preview_header)
+      project = oauth_client.create_repository_project(@test_repo, "api kpi", accept: preview_header)
       expect(project.name).to eq("api kpi")
       assert_requested :post, github_url("/repos/#{@test_repo}/projects")
     end
-  end # .create_project
+  end # .create_repository_project
 
   describe ".org_projects", :vcr do
     it "returns the projects for an organization" do
@@ -36,17 +37,9 @@ describe Octokit::Client::Projects do
   end # .create_org_project
 
   context "with repository" do
-    before(:each) do
-      delete_test_repo
-    end
-
-    after(:each) do
-      delete_test_repo
-    end
-
     context "with project" do
       before(:each) do
-        @project = oauth_client.create_project(@test_repo, "implement apis", accept: preview_header)
+        @project = oauth_client.create_repository_project(@test_repo, "implement apis", accept: preview_header)
       end
 
       describe ".project", :vcr do
@@ -66,12 +59,19 @@ describe Octokit::Client::Projects do
           expect(project.body).to eq body
           assert_requested :patch, github_url("/projects/#{@project.id}")
         end
+
+        it "helper methods close and reopen the project" do
+          project = oauth_client.close_project(@project.id, accept: preview_header)
+          expect(project.state).to eq "closed"
+          project = oauth_client.open_project(@project.id, accept: preview_header)
+          expect(project.state).to eq "open"
+          assert_requested :patch, github_url("/projects/#{@project.id}"), :times => 2
+        end
       end # .update_project
 
       describe ".delete_project", :vcr do
         it "returns the result of deleting a project" do
-          result = oauth_client.delete_project(@project.id, accept: preview_header)
-          expect(result).to eq true
+          oauth_client.delete_project(@project.id, accept: preview_header)
           assert_requested :delete, github_url("/projects/#{@project.id}")
         end
       end # .delete_project
@@ -129,13 +129,13 @@ describe Octokit::Client::Projects do
           end
         end # .delete_project_column
 
-        describe ".column_cards", :vcr do
+        describe ".project_cards", :vcr do
           it "returns a list of the cards in a project column" do
-            cards = oauth_client.column_cards(@column.id, accept: preview_header)
+            cards = oauth_client.project_cards(@column.id, accept: preview_header)
             expect(cards).to be_kind_of Array
             assert_requested :get, github_url("/projects/columns/#{@column.id}/cards")
           end
-        end # .column_cards
+        end # .project_cards
 
         describe ".create_project_card", :vcr do
           it "creates a new card with a note" do
@@ -181,9 +181,16 @@ describe Octokit::Client::Projects do
               assert_requested :delete, github_url("/projects/columns/cards/#{@card.id}")
             end
           end # .delete_project_card
-
         end # with project card
       end # with project column
+
+      describe ".project_collaborators", :vcr do
+        it "returns a list of projects collaborators" do
+          # binding.pry
+          result = oauth_client.project_collaborators(@project.id, accept: preview_header)
+          assert_requested :get, github_url("/projects/#{@project.id}/collaborators")
+        end
+      end
     end # with project
   end # with repository
 

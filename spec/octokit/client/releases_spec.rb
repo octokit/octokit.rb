@@ -101,13 +101,13 @@ describe Octokit::Client::Releases do
     end # .delete_release_asset
   end # handling_release_assets
 
-  describe '.release_by_tag', :vcr do
+  describe '.tag_release', :vcr do
     it "returns the release for a tag" do
-      release = @client.release_by_tag("octokit/octokit.rb", "v3.7.0")
+      release = @client.tag_release("octokit/octokit.rb", "v3.7.0")
       expect(release.tag_name).to eq("v3.7.0")
       assert_requested :get, github_url("/repos/octokit/octokit.rb/releases/tags/v3.7.0")
     end
-  end # .release_by_tag
+  end # .tag_release
 
   describe '.latest_release', :vcr do
     it "returns the latest release" do
