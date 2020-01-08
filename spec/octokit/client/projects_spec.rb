@@ -33,9 +33,9 @@ describe Octokit::Client::Projects do
       expect(project.name).to eq "synergy"
       expect(project.body).to eq "do it"
       assert_requested :post, github_url("/orgs/#{test_github_org}/projects")
+      oauth_client.delete_project(project.id, accept: preview_header)
     end
   end # .create_org_project
-
 
   context "with org project" do
     before(:each) do
@@ -93,6 +93,10 @@ describe Octokit::Client::Projects do
         @project = oauth_client.create_repository_project(@test_repo, "implement apis", accept: preview_header)
       end
 
+      after(:each) do
+        oauth_client.delete_project(@project.id, accept: preview_header)
+      end
+
       describe ".project", :vcr do
         it "returns a project" do
           project = oauth_client.project(@project.id, accept: preview_header)
@@ -148,6 +152,10 @@ describe Octokit::Client::Projects do
           @column = oauth_client.create_project_column(@project.id, "Todos #{Time.now.to_f}", accept: preview_header)
         end
 
+        after(:each) do
+          oauth_client.delete_project_column(@column.id, accept: preview_header)
+        end
+
         describe ".project_column", :vcr do
           it "returns a project column by id" do
             column = oauth_client.project_column(@column.id, accept: preview_header)
@@ -199,6 +207,10 @@ describe Octokit::Client::Projects do
         context "with project card" do
           before(:each) do
             @card = oauth_client.create_project_card(@column.id, note: 'octocard', accept: preview_header)
+          end
+
+          after(:each) do
+            oauth_client.delete_project_card(@card.id, accept: preview_header)
           end
 
           describe ".project_card", :vcr do
