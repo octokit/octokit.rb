@@ -72,7 +72,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of columns
       # @see https://developer.github.com/v3/projects/columns/#get-a-project-column
       def project_column(column_id, options = {})
-        opts = ensure_api_media_type(:project_column, options)
+        opts = ensure_api_media_type(:projects, options)
         get "projects/columns/#{column_id}", opts
       end
 
@@ -82,7 +82,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of columns
       # @see https://developer.github.com/v3/projects/columns/#list-project-columns
       def project_columns(project_id, options = {})
-        opts = ensure_api_media_type(:project_columns, options)
+        opts = ensure_api_media_type(:projects, options)
         paginate "projects/#{project_id}/columns", opts
       end
 
@@ -93,7 +93,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of collaborators
       # @see https://developer.github.com/v3/projects/collaborators/#list-collaborators
       def project_collaborators(project_id, options = {})
-        opts = ensure_api_media_type(:project_collaborators, options)
+        opts = ensure_api_media_type(:projects, options)
         paginate "projects/#{project_id}/collaborators", opts
       end
 
@@ -105,7 +105,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/columns/#create-a-project-column
       def create_project_column(project_id, name, options = {})
         options[:name] = name
-        opts = ensure_api_media_type(:project_column, options)
+        opts = ensure_api_media_type(:projects, options)
         post "projects/#{project_id}/columns", opts
       end
 
@@ -117,7 +117,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/columns/#update-a-project-column
       def update_project_column(column_id, name, options = {})
         options[:name] = name
-        opts = ensure_api_media_type(:project_column, options)
+        opts = ensure_api_media_type(:projects, options)
         patch "projects/columns/#{column_id}", opts
       end
 
@@ -127,7 +127,7 @@ module Octokit
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/projects/columns/#delete-a-project-column
       def delete_project_column(column_id, options = {})
-        opts = ensure_api_media_type(:project_column, options)
+        opts = ensure_api_media_type(:projects, options)
         boolean_from_response :delete, "projects/columns/#{column_id}", opts
       end
 
@@ -148,7 +148,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of cards
       # @see https://developer.github.com/v3/projects/cards/#get-a-project-card
       def project_card(card_id, options = {})
-        opts = ensure_api_media_type(:project_card, options)
+        opts = ensure_api_media_type(:projects, options)
         get "projects/columns/cards/#{card_id}", opts
       end
 
@@ -159,7 +159,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of cards
       # @see https://developer.github.com/v3/projects/cards/#list-project-cards
       def project_cards(column_id, options = {})
-        opts = ensure_api_media_type(:project_cards, options)
+        opts = ensure_api_media_type(:projects, options)
         paginate "projects/columns/#{column_id}/cards", opts
       end
 
@@ -183,7 +183,7 @@ module Octokit
       # @return [Sawyer::Resource] The new card
       # @see https://developer.github.com/v3/projects/cards/#create-a-project-card
       def create_project_card(column_id, options = {})
-        opts = ensure_api_media_type(:project_card, options)
+        opts = ensure_api_media_type(:projects, options)
         post "projects/columns/#{column_id}/cards", opts
       end
 
@@ -208,7 +208,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/columns/#move-a-project-column
       def move_project_column(column_id, position, options = {})
         options[:position] = position
-        opts = ensure_api_media_type(:project_column, options)
+        opts = ensure_api_media_type(:projects, options)
         post "projects/columns/#{column_id}/moves", opts
       end
 
@@ -220,7 +220,7 @@ module Octokit
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/projects/collaborators/#add-user-as-a-collaborator
       def add_project_collaborator(project_id, username, options = {})
-        opts = ensure_api_media_type(:project_collaborator, options)
+        opts = ensure_api_media_type(:projects, options)
         boolean_from_response :put, "projects/#{project_id}/collaborators/#{username}", opts
       end
 
@@ -232,7 +232,7 @@ module Octokit
       # @return [Sawyer::Resource] The updated card
       # @see https://developer.github.com/v3/projects/cards/#update-a-project-card
       def update_project_card(card_id, options = {})
-        opts = ensure_api_media_type(:project_card, options)
+        opts = ensure_api_media_type(:projects, options)
         patch "projects/columns/cards/#{card_id}", opts
       end
 
@@ -242,7 +242,7 @@ module Octokit
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/projects/cards/#delete-a-project-card
       def delete_project_card(card_id, options = {})
-        opts = ensure_api_media_type(:project_card, options)
+        opts = ensure_api_media_type(:projects, options)
         boolean_from_response :delete, "projects/columns/cards/#{card_id}", opts
       end
 
@@ -253,7 +253,7 @@ module Octokit
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/projects/collaborators/#remove-user-as-a-collaborator
       def remove_project_collaborator(project_id, username, options = {})
-        opts = ensure_api_media_type(:project_collaborator, options)
+        opts = ensure_api_media_type(:projects, options)
         boolean_from_response :delete, "projects/#{project_id}/collaborators/#{username}", opts
       end
 
@@ -264,7 +264,7 @@ module Octokit
       # @return [Sawyer::Resource] A single level
       # @see https://developer.github.com/v3/projects/collaborators/#review-a-users-permission-level
       def user_permission_level(project_id, username, options = {})
-        opts = ensure_api_media_type(:user_permission_level, options)
+        opts = ensure_api_media_type(:projects, options)
         get "projects/#{project_id}/collaborators/#{username}/permission", opts
       end
 
@@ -301,7 +301,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/cards/#move-a-project-card
       def move_project_card(card_id, position, options = {})
         options[:position] = position
-        opts = ensure_api_media_type(:project_card, options)
+        opts = ensure_api_media_type(:projects, options)
         post "projects/columns/cards/#{card_id}/moves", opts
       end
     end

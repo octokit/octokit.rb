@@ -42,5 +42,15 @@ You can avoid this message by supplying an appropriate media type in the 'Accept
 header.
 EOS
     end
+
+    def self.get_media_type(preview)
+      PREVIEW_TYPES.each do |type|
+        if type.last.include? preview
+          return type.first
+        else
+          # octokit needs a new preview
+        end
+      end
+    end
   end
 end

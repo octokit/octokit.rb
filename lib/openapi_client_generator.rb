@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'forwardable'
 require 'json'
 require 'pathname'
 require 'active_support/inflector'
 require 'oas_parser'
+require 'octokit/preview'
 
 module OpenAPIClientGenerator
 
@@ -20,8 +20,6 @@ module OpenAPIClientGenerator
         args.empty? ? "**options" : "#{args.map {|arg| arg + ":"}.join(", ")}, **options"
       end
     end
-
-    extend Forwardable
 
     VERB_PRIORITY = %w(GET POST PUT PATCH DELETE)
 
@@ -112,10 +110,8 @@ module OpenAPIClientGenerator
         end
       end
       if definition.raw["x-github"]["previews"].any? {|e| e["required"]}
-        # this is a bit janky
-        resource = definition.operation_id.split("/").first
-        namespace_segments = namespace.split("_")
-        preview_type = (resource == namespace_segments.last.pluralize) ? resource : namespace
+        preview_types = definition.raw["x-github"]["previews"].select {|e| e["required"]}
+        preview_type = Octokit::Preview.get_media_type(preview_types.first["name"])
         options << "opts = ensure_api_media_type(:#{preview_type}, options)"
       end
       options
