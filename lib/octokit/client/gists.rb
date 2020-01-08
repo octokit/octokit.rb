@@ -7,11 +7,11 @@ module Octokit
 
       # Get a single gist
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @return [Sawyer::Resource] A single gist
       # @see https://developer.github.com/v3/gists/#get-a-single-gist
       def gist(gist_id, options = {})
-        get "gists/#{gist_id}", options
+        get "gists/#{Gist.new gist_id}", options
       end
 
       # List the authenticated user's gists or if called anonymously, this will return all public gists
@@ -37,60 +37,60 @@ module Octokit
 
       # Edit a gist
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @option options [String] :description A descriptive name for this gist.
       # @option options [Object] :files The filenames and content that make up this gist.
       # @return [Sawyer::Resource] The updated gist
       # @see https://developer.github.com/v3/gists/#edit-a-gist
       def update_gist(gist_id, options = {})
-        patch "gists/#{gist_id}", options
+        patch "gists/#{Gist.new gist_id}", options
       end
 
       # Delete a gist
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/gists/#delete-a-gist
       def delete_gist(gist_id, options = {})
-        boolean_from_response :delete, "gists/#{gist_id}", options
+        boolean_from_response :delete, "gists/#{Gist.new gist_id}", options
       end
 
       # Check if a gist is starred
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @return [Boolean] A single starred
       # @see https://developer.github.com/v3/gists/#check-if-a-gist-is-starred
       def is_starred?(gist_id, options = {})
-        boolean_from_response :get, "gists/#{gist_id}/star", options
+        boolean_from_response :get, "gists/#{Gist.new gist_id}/star", options
       end
 
       # Get a specific revision of a gist
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @param sha [String] The sha of the revision
       # @return [Sawyer::Resource] A single revision
       # @see https://developer.github.com/v3/gists/#get-a-specific-revision-of-a-gist
       def gist_revision(gist_id, sha, options = {})
-        get "gists/#{gist_id}/#{sha}", options
+        get "gists/#{Gist.new gist_id}/#{sha}", options
       end
 
       # Get a single comment
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @param comment_id [Integer] The ID of the comment
       # @return [Sawyer::Resource] A single comment
       # @see https://developer.github.com/v3/gists/comments/#get-a-single-comment
       def gist_comment(gist_id, comment_id, options = {})
-        get "gists/#{gist_id}/comments/#{comment_id}", options
+        get "gists/#{Gist.new gist_id}/comments/#{comment_id}", options
       end
 
       # List gist forks
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @return [Array<Sawyer::Resource>] A list of forks
       # @see https://developer.github.com/v3/gists/#list-gist-forks
       def gist_forks(gist_id, options = {})
-        paginate "gists/#{gist_id}/forks", options
+        paginate "gists/#{Gist.new gist_id}/forks", options
       end
 
       # List starred gists
@@ -104,11 +104,11 @@ module Octokit
 
       # List gist commits
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @return [Array<Sawyer::Resource>] A list of commits
       # @see https://developer.github.com/v3/gists/#list-gist-commits
       def gist_commits(gist_id, options = {})
-        paginate "gists/#{gist_id}/commits", options
+        paginate "gists/#{Gist.new gist_id}/commits", options
       end
 
       # List all public gists
@@ -122,71 +122,71 @@ module Octokit
 
       # List comments on a gist
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @return [Array<Sawyer::Resource>] A list of comments
       # @see https://developer.github.com/v3/gists/comments/#list-comments-on-a-gist
       def gist_comments(gist_id, options = {})
-        paginate "gists/#{gist_id}/comments", options
+        paginate "gists/#{Gist.new gist_id}/comments", options
       end
 
       # Create a comment
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @param body [String] The comment text.
       # @return [Sawyer::Resource] The new comment
       # @see https://developer.github.com/v3/gists/comments/#create-a-comment
       def create_gist_comment(gist_id, body, options = {})
         options[:body] = body
-        post "gists/#{gist_id}/comments", options
+        post "gists/#{Gist.new gist_id}/comments", options
       end
 
       # Fork a gist
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @return [Sawyer::Resource] The new gist
       # @see https://developer.github.com/v3/gists/#fork-a-gist
       def fork_gist(gist_id, options = {})
-        post "gists/#{gist_id}/forks", options
+        post "gists/#{Gist.new gist_id}/forks", options
       end
 
       # Star a gist
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/gists/#star-a-gist
       def star_gist(gist_id, options = {})
-        boolean_from_response :put, "gists/#{gist_id}/star", options
+        boolean_from_response :put, "gists/#{Gist.new gist_id}/star", options
       end
 
       # Edit a comment
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @param comment_id [Integer] The ID of the comment
       # @param body [String] The comment text.
       # @return [Sawyer::Resource] The updated comment
       # @see https://developer.github.com/v3/gists/comments/#edit-a-comment
       def update_gist_comment(gist_id, comment_id, body, options = {})
         options[:body] = body
-        patch "gists/#{gist_id}/comments/#{comment_id}", options
+        patch "gists/#{Gist.new gist_id}/comments/#{comment_id}", options
       end
 
       # Unstar a gist
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/gists/#unstar-a-gist
       def unstar_gist(gist_id, options = {})
-        boolean_from_response :delete, "gists/#{gist_id}/star", options
+        boolean_from_response :delete, "gists/#{Gist.new gist_id}/star", options
       end
 
       # Delete a comment
       #
-      # @param gist_id [String] The ID of the gist
+      # @param gist_id [Integer, String] The ID of the gist
       # @param comment_id [Integer] The ID of the comment
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/gists/comments/#delete-a-comment
       def delete_gist_comment(gist_id, comment_id, options = {})
-        boolean_from_response :delete, "gists/#{gist_id}/comments/#{comment_id}", options
+        boolean_from_response :delete, "gists/#{Gist.new gist_id}/comments/#{comment_id}", options
       end
 
       # List public gists for the specified user

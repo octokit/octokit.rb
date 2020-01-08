@@ -133,6 +133,7 @@ module OpenAPIClientGenerator
       path = path.gsub("repos/{owner}/{repo}", "\#{Repository.path repo}")
       path = path.gsub("orgs/{org}", "\#{Organization.path org}")
       path = path.gsub("users/{username}", "\#{User.path user}")
+      path = path.gsub("{gist_id}", "\#{Gist.new gist_id}")
       path = required_params.reduce(path) do |path, param|
         path.gsub("{#{param.name}}", "\#{#{param.name}}")
       end
@@ -183,6 +184,7 @@ module OpenAPIClientGenerator
         "repo" => "[Integer, String, Repository, Hash]",
         "org" => "[Integer, String]",
         "user" => "[Integer, String]",
+        "gist_id" => "[Integer, String]",
       }[param.name] || "[#{param.type.capitalize}]"
     end
 
