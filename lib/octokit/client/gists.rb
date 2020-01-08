@@ -191,12 +191,12 @@ module Octokit
 
       # List public gists for the specified user
       #
-      # @param username [String] The username of the gists
+      # @param user [Integer, String] A GitHub user
       # @option options [String] :since This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Only gists updated at or after this time are returned.
       # @return [Array<Sawyer::Resource>] A list of gists
       # @see https://developer.github.com/v3/gists/#list-a-users-gists
-      def user_public_gists(username, options = {})
-        paginate "users/#{username}/gists", options
+      def user_public_gists(user, options = {})
+        paginate "#{User.path user}/gists", options
       end
     end
   end

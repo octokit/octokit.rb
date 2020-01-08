@@ -132,6 +132,7 @@ module OpenAPIClientGenerator
       path = definition.path.path[1..-1]
       path = path.gsub("repos/{owner}/{repo}", "\#{Repository.path repo}")
       path = path.gsub("orgs/{org}", "\#{Organization.path org}")
+      path = path.gsub("users/{username}", "\#{User.path user}")
       path = required_params.reduce(path) do |path, param|
         path.gsub("{#{param.name}}", "\#{#{param.name}}")
       end
@@ -150,6 +151,10 @@ module OpenAPIClientGenerator
     def required_params
       params = definition.parameters.select(&:required).reject do |param|
         ["owner", "accept"].include?(param.name)
+      end
+      if params.first && params.first.name == "username"
+        params.first.raw["name"] = "user"
+        params[0] = OasParser::Parameter.new(params.first.owner, params.first.raw) 
       end
       if definition.request_body
         params += definition.request_body.properties_for_format("application/json").select do |param|
@@ -175,12 +180,14 @@ module OpenAPIClientGenerator
       {
         "repo" => "[Integer, String, Repository, Hash]",
         "org" => "[Integer, String]",
+        "user" => "[Integer, String]",
       }[param.name] || "[#{param.type.capitalize}]"
     end
 
     def parameter_description(param)
       return "A GitHub repository" if param.name == "repo"
       return "A GitHub organization" if param.name == "org"
+      return "A GitHub user" if param.name == "user"
       return "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if param.name.end_with? "_id"
       split_param =  param.name.split("_")
       split_description = param.description.split(" ")

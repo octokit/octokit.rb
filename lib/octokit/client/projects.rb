@@ -133,13 +133,13 @@ module Octokit
 
       # List user projects
       #
-      # @param username [String] The username of the projects
+      # @param user [Integer, String] A GitHub user
       # @option options [String] :state Indicates the state of the projects to return. Can be either `open`, `closed`, or `all`.
       # @return [Array<Sawyer::Resource>] A list of projects
       # @see https://developer.github.com/v3/projects/#list-user-projects
-      def user_projects(username, options = {})
+      def user_projects(user, options = {})
         opts = ensure_api_media_type(:projects, options)
-        paginate "users/#{username}/projects", opts
+        paginate "#{User.path user}/projects", opts
       end
 
       # Get a project card
