@@ -88,7 +88,7 @@ module Octokit
 
       # Get single hook
       #
-      # @param org [Integer, String] A GitHub organization
+      # @param org [Integer, String] A GitHub organization id or login
       # @param hook_id [Integer] The ID of the hook
       # @return [Sawyer::Resource] A single hook
       # @see https://developer.github.com/v3/orgs/hooks/#get-single-hook
@@ -98,7 +98,7 @@ module Octokit
 
       # List hooks
       #
-      # @param org [Integer, String] A GitHub organization
+      # @param org [Integer, String] A GitHub organization id or login
       # @return [Array<Sawyer::Resource>] A list of hooks
       # @see https://developer.github.com/v3/orgs/hooks/#list-hooks
       def org_hooks(org, options = {})
@@ -107,7 +107,7 @@ module Octokit
 
       # Create a hook
       #
-      # @param org [Integer, String] A GitHub organization
+      # @param org [Integer, String] A GitHub organization id or login
       # @param name [String] Must be passed as "web".
       # @param config [Object] Key/value pairs to provide settings for this webhook. [These are defined below](https://developer.github.com/v3/orgs/hooks/#create-hook-config-params).
       # @option options [Array] :events Determines what [events](https://developer.github.com/v3/activity/events/types/) the hook is triggered for.
@@ -123,7 +123,7 @@ module Octokit
 
       # Edit a hook
       #
-      # @param org [Integer, String] A GitHub organization
+      # @param org [Integer, String] A GitHub organization id or login
       # @param hook_id [Integer] The ID of the hook
       # @param config [Object] Key/value pairs to provide settings for this webhook. [These are defined below](https://developer.github.com/v3/orgs/hooks/#update-hook-config-params).
       # @option options [Array] :events Determines what [events](https://developer.github.com/v3/activity/events/types/) the hook is triggered for.
@@ -138,7 +138,7 @@ module Octokit
 
       # Delete a hook
       #
-      # @param org [Integer, String] A GitHub organization
+      # @param org [Integer, String] A GitHub organization id or login
       # @param hook_id [Integer] The ID of the hook
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/orgs/hooks/#delete-a-hook
@@ -148,7 +148,7 @@ module Octokit
 
       # Ping a hook
       #
-      # @param org [Integer, String] A GitHub organization
+      # @param org [Integer, String] A GitHub organization id or login
       # @param hook_id [Integer] The ID of the hook
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/orgs/hooks/#ping-a-hook

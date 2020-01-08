@@ -152,10 +152,12 @@ module OpenAPIClientGenerator
       params = definition.parameters.select(&:required).reject do |param|
         ["owner", "accept"].include?(param.name)
       end
+
       if params.first && params.first.name == "username"
         params.first.raw["name"] = "user"
         params[0] = OasParser::Parameter.new(params.first.owner, params.first.raw) 
       end
+
       if definition.request_body
         params += definition.request_body.properties_for_format("application/json").select do |param|
           param.required
@@ -186,8 +188,8 @@ module OpenAPIClientGenerator
 
     def parameter_description(param)
       return "A GitHub repository" if param.name == "repo"
-      return "A GitHub organization" if param.name == "org"
-      return "A GitHub user" if param.name == "user"
+      return "A GitHub organization id or login" if param.name == "org"
+      return "A GitHub user id or login" if param.name == "user"
       return "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if param.name.end_with? "_id"
       split_param =  param.name.split("_")
       split_description = param.description.split(" ")
@@ -273,11 +275,10 @@ module OpenAPIClientGenerator
       elsif namespace_array.size == 1
         singular? ? operation_array.first.singularize : operation_array.first
       elsif namespace_array.size == 2
-        if namespace_array.last.end_with?("ed")
-          operation_array.first == "repos" ? namespace_array.drop(1).join("_") : "#{namespace_array.drop(1).join("_")}_#{operation_array.first}"
-        else
-          operation_array.first == "repos" ? namespace_array.drop(1).join("_") : "#{operation_array.first.singularize}_#{namespace_array.drop(1).join("_")}"
-        end
+        resource = namespace_array.drop(1).join("_")
+        return resource if operation_array.first == "repos"
+        return "#{resource}_#{operation_array.first}" if namespace_array.last.end_with?("ed")
+        "#{operation_array.first.singularize}_#{resource}"
       else
         namespace_array.drop(1).join("_")
       end
@@ -285,10 +286,6 @@ module OpenAPIClientGenerator
 
     def action
       definition.operation_id.split("/").last.split("-").first
-    end
-
-    def org?
-      definition.operation_id.split("/").first == "orgs"
     end
 
     def method_name

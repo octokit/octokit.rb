@@ -133,7 +133,7 @@ module Octokit
 
       # List user projects
       #
-      # @param user [Integer, String] A GitHub user
+      # @param user [Integer, String] A GitHub user id or login
       # @option options [String] :state Indicates the state of the projects to return. Can be either `open`, `closed`, or `all`.
       # @return [Array<Sawyer::Resource>] A list of projects
       # @see https://developer.github.com/v3/projects/#list-user-projects
@@ -165,7 +165,7 @@ module Octokit
 
       # List organization projects
       #
-      # @param org [Integer, String] A GitHub organization
+      # @param org [Integer, String] A GitHub organization id or login
       # @option options [String] :state Indicates the state of the projects to return. Can be either `open`, `closed`, or `all`.
       # @return [Array<Sawyer::Resource>] A list of projects
       # @see https://developer.github.com/v3/projects/#list-organization-projects
@@ -189,7 +189,7 @@ module Octokit
 
       # Create an organization project
       #
-      # @param org [Integer, String] A GitHub organization
+      # @param org [Integer, String] A GitHub organization id or login
       # @param name [String] The name of the project.
       # @option options [String] :body The description of the project.
       # @return [Sawyer::Resource] The new project
