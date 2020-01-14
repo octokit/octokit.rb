@@ -7,7 +7,6 @@ group :development do
   gem 'awesome_print', :require => 'ap'
   gem 'guard-rspec', '~> 4.5'
   gem 'hirb-unicode'
-  gem 'pry'
   gem 'redcarpet'
   gem 'wirb'
   gem 'wirble'
@@ -26,6 +25,12 @@ group :test do
   gem 'simplecov', :require => false
   gem 'vcr', '~> 4.0'
   gem 'webmock', '~> 3.4', '>= 3.4.2'
+end
+
+group :test, :development do
+  gem 'activesupport'
+  gem 'oas_parser'
+  gem 'pry-byebug'
 end
 
 platforms :rbx do

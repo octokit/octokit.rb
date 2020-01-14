@@ -41,7 +41,8 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
     1. [Debugging](#debugging)
     2. [Caching](#caching)
 14. [Hacking on Octokit.rb](#hacking-on-octokitrb)
-    1. [Running and writing new tests](#running-and-writing-new-tests)
+    1. [Code of Conduction](#code_of_conduct)
+    2. [Running and writing new tests](#running-and-writing-new-tests)
 15. [Supported Ruby Versions](#supported-ruby-versions)
 16. [Versioning](#versioning)
 17. [Making Repeating Requests](#making-repeating-requests)
@@ -63,7 +64,7 @@ client.readme 'al3x/sovereign', :accept => 'application/vnd.github.html'
 ```
 
 [wrappers]: http://wynnnetherland.com/journal/what-makes-a-good-api-wrapper
-[github-api]: http://developer.github.com
+[github-api]: https://developer.github.com/v3/
 
 ## Quick start
 
@@ -289,7 +290,7 @@ link relations](#hypermedia-agent).
 
 ```ruby
 issues = client.issues 'rails/rails'
-issues.concat client.last_response.rels[:next].get.data
+issues.concat client.get(client.last_response.rels[:next].href)
 ```
 
 ### Auto pagination
@@ -653,6 +654,12 @@ to run a Ruby console to poke on Octokit, you can crank one up with:
 Using the scripts in `./scripts` instead of `bundle exec rspec`, `bundle
 console`, etc.  ensures your dependencies are up-to-date.
 
+### Code of Conduct
+
+We want both the Octokit.rb and larger Octokit communities to be an open
+and welcoming environments. Please read and follow both in spirit and
+letter [Code of Conduct](CODE_OF_CONDUCT.md).
+
 ### Running and writing new tests
 
 Octokit uses [VCR][] for recording and playing back API fixtures during test
@@ -752,7 +759,7 @@ The changes made between versions can be seen on the [project releases page][rel
 [releases]: https://github.com/octokit/octokit.rb/releases
 
 ## Making Repeating Requests
-In most cases it would be best to use a [webhooks](https://developer.github.com/webhooks/), but sometimes webhooks don't provide all of the information needed. In those cases where one might need to poll for progress or retry a request on failure, we designed [Octopoller](https://github.com/octokit/octopoller.rb). Octopoller is a micro gem perfect for making repeating requests. 
+In most cases it would be best to use a [webhooks](https://developer.github.com/webhooks/), but sometimes webhooks don't provide all of the information needed. In those cases where one might need to poll for progress or retry a request on failure, we designed [Octopoller](https://github.com/octokit/octopoller.rb). Octopoller is a micro gem perfect for making repeating requests.
 
 ```ruby
 Octopoller.poll(timeout: 15.seconds) do

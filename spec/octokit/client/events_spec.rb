@@ -51,7 +51,7 @@ describe Octokit::Client::Events do
     it "returns events for a repository" do
       repo_events = @client.repository_events("sferik/rails_admin")
       expect(repo_events).to be_kind_of Array
-      assert_requested :get, github_url('/repos/sferik/rails_admin/events')
+      assert_requested :get, github_url('/repos/sferik/rails_admin/issues/events')
     end
   end # .repository_events
 

@@ -150,7 +150,7 @@ describe Octokit::Client::PullRequests do
 
   describe ".create_pull_request_for_issue", :vcr do
     it "creates a pull request and attach it to an existing issue" do
-      issue = @client.create_issue(@test_repo, 'A new issue', "Gonna turn this into a PR")
+      issue = @client.create_issue(@test_repo, 'A new issue', :body => "Gonna turn this into a PR")
       pull = @client.create_pull_request_for_issue(@test_repo, "master", "some-fourth-branch", issue.number)
       assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
 

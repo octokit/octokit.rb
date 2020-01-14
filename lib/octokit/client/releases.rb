@@ -1,10 +1,19 @@
 module Octokit
   class Client
-
     # Methods for the Releases API
     #
     # @see https://developer.github.com/v3/repos/releases/
     module Releases
+
+      # Get a single release
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param release_id [Integer] The ID of the release
+      # @return [Sawyer::Resource] A single release
+      # @see https://developer.github.com/v3/repos/releases/#get-a-single-release
+      def release(repo, release_id, options = {})
+        get "#{Repository.path repo}/releases/#{release_id}", options
+      end
 
       # List releases for a repository
       #
@@ -14,151 +23,109 @@ module Octokit
       def releases(repo, options = {})
         paginate "#{Repository.path repo}/releases", options
       end
-      alias :list_releases :releases
 
       # Create a release
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param tag_name [String] Git tag from which to create release
-      # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from.
-      # @option options [String] :name Name for the release
-      # @option options [String] :body Content for release notes
-      # @option options [Boolean] :draft Mark this release as a draft
-      # @option options [Boolean] :prerelease Mark this release as a pre-release
-      # @return [Sawyer::Resource] The release
+      # @param tag_name [String] The name of the tag.
+      # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`).
+      # @option options [String] :name The name of the release.
+      # @option options [String] :body Text describing the contents of the tag.
+      # @option options [Boolean] :draft `true` to create a draft (unpublished) release, `false` to create a published one.
+      # @option options [Boolean] :prerelease `true` to identify the release as a prerelease. `false` to identify the release as a full release.
+      # @return [Sawyer::Resource] The new release
       # @see https://developer.github.com/v3/repos/releases/#create-a-release
       def create_release(repo, tag_name, options = {})
-        opts = options.merge(:tag_name => tag_name)
-        post "#{Repository.path repo}/releases", opts
+        options[:tag_name] = tag_name
+        post "#{Repository.path repo}/releases", options
       end
 
-      # Get a release
+      # Edit a release
       #
-      # @param url [String] URL for the release as returned from .releases
-      # @return [Sawyer::Resource] The release
-      # @see https://developer.github.com/v3/repos/releases/#get-a-single-release
-      def release(url, options = {})
-        get url, options
-      end
-
-      # Update a release
-      #
-      # @param url [String] URL for the release as returned from .releases
-      # @option options [String] :tag_name Git tag from which to create release
-      # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from.
-      # @option options [String] :name Name for the release
-      # @option options [String] :body Content for release notes
-      # @option options [Boolean] :draft Mark this release as a draft
-      # @option options [Boolean] :prerelease Mark this release as a pre-release
-      # @return [Sawyer::Resource] The release
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param release_id [Integer] The ID of the release
+      # @option options [String] :tag_name The name of the tag.
+      # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`).
+      # @option options [String] :name The name of the release.
+      # @option options [String] :body Text describing the contents of the tag.
+      # @option options [Boolean] :draft `true` makes the release a draft, and `false` publishes the release.
+      # @option options [Boolean] :prerelease `true` to identify the release as a prerelease, `false` to identify the release as a full release.
+      # @return [Sawyer::Resource] The updated release
       # @see https://developer.github.com/v3/repos/releases/#edit-a-release
-      def update_release(url, options = {})
-        patch url, options
+      def update_release(repo, release_id, options = {})
+        patch "#{Repository.path repo}/releases/#{release_id}", options
       end
-      alias :edit_release :update_release
 
       # Delete a release
       #
-      # @param url [String] URL for the release as returned from .releases
-      # @return [Boolean] Success or failure
-      # @see https://developer.github.com/v3/repos/releases/#delete-a-release
-      def delete_release(url, options = {})
-        boolean_from_response(:delete, url, options)
-      end
-
-      # List release assets
-      #
-      # @param release_url [String] URL for the release as returned from .releases
-      # @return [Array<Sawyer::Resource>] A list of release assets
-      # @see https://developer.github.com/v3/repos/releases/#list-assets-for-a-release
-      def release_assets(release_url, options = {})
-        paginate release(release_url).rels[:assets].href, options
-      end
-
-      # Upload a release asset
-      #
-      # @param release_url [String] URL for the release as returned from .releases
-      # @param path_or_file [String] Path to file to upload
-      # @option options [String] :content_type The MIME type for the file to upload
-      # @option options [String] :name The name for the file
-      # @return [Sawyer::Resource] The release asset
-      # @see https://developer.github.com/v3/repos/releases/#upload-a-release-asset
-      def upload_asset(release_url, path_or_file, options = {})
-        file = path_or_file.respond_to?(:read) ? path_or_file : File.new(path_or_file, "rb")
-        options[:content_type] ||= content_type_from_file(file)
-        raise Octokit::MissingContentType.new if options[:content_type].nil?
-        unless name = options[:name]
-          name = File.basename(file.path)
-        end
-        upload_url = release(release_url).rels[:upload].href_template.expand(:name => name)
-
-        request :post, upload_url, file.read, parse_query_and_convenience_headers(options)
-      ensure
-        file.close if file
-      end
-
-      # Get a single release asset
-      #
-      #
-      # @param asset_url [String] URL for the asset as returned from .release_assets
-      # @return [Sawyer::Resource] The release asset
-      # @see https://developer.github.com/v3/repos/releases/#get-a-single-release-asset
-      def release_asset(asset_url, options = {})
-        get(asset_url, options)
-      end
-
-      # Update a release asset
-      #
-      # @param asset_url [String] URL for the asset as returned from .release_assets
-      # @option options [String] :name The name for the file
-      # @option options [String] :label The download text for the file
-      # @return [Sawyer::Resource] The release asset
-      # @see https://developer.github.com/v3/repos/releases/#edit-a-release-asset
-      def update_release_asset(asset_url, options = {})
-        patch(asset_url, options)
-      end
-      alias :edit_release_asset :update_release_asset
-
-      # Delete a release asset
-      #
-      # @param asset_url [String] URL for the asset as returned from .release_assets
-      # @return [Boolean] Success or failure
-      # @see https://developer.github.com/v3/repos/releases/#delete-a-release-asset
-      def delete_release_asset(asset_url, options = {})
-        boolean_from_response(:delete, asset_url, options)
-      end
-
-      # Get the release for a given tag
-      #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param tag_name [String] the name for a tag
-      # @return [Sawyer::Resource] The release
-      # @see https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
-      def release_for_tag(repo, tag_name, options = {})
-        get "#{Repository.path repo}/releases/tags/#{tag_name}", options
+      # @param release_id [Integer] The ID of the release
+      # @return [Boolean] True on success, false otherwise
+      # @see https://developer.github.com/v3/repos/releases/#delete-a-release
+      def delete_release(repo, release_id, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/releases/#{release_id}", options
       end
 
       # Get the latest release
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @return [Sawyer::Resource] The release
+      # @return [Sawyer::Resource] The latest release
       # @see https://developer.github.com/v3/repos/releases/#get-the-latest-release
       def latest_release(repo, options = {})
         get "#{Repository.path repo}/releases/latest", options
       end
 
-      private
-
-      def content_type_from_file(file)
-        require 'mime/types'
-        if mime_type = MIME::Types.type_for(file.path).first
-          mime_type.content_type
-        end
-      rescue LoadError
-        msg = "Please pass content_type or install mime-types gem to guess content type from file"
-        raise Octokit::MissingContentType.new(msg)
+      # Get a single release asset
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param asset_id [Integer] The ID of the asset
+      # @return [Sawyer::Resource] A single release asset
+      # @see https://developer.github.com/v3/repos/releases/#get-a-single-release-asset
+      def release_asset(repo, asset_id, options = {})
+        get "#{Repository.path repo}/releases/assets/#{asset_id}", options
       end
 
+      # List assets for a release
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param release_id [Integer] The ID of the release
+      # @return [Array<Sawyer::Resource>] A list of release assets
+      # @see https://developer.github.com/v3/repos/releases/#list-assets-for-a-release
+      def release_assets(repo, release_id, options = {})
+        paginate "#{Repository.path repo}/releases/#{release_id}/assets", options
+      end
+
+      # Edit a release asset
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param asset_id [Integer] The ID of the asset
+      # @option options [String] :name The file name of the asset.
+      # @option options [String] :label An alternate short description of the asset. Used in place of the filename.
+      # @return [Sawyer::Resource] The updated release asset
+      # @see https://developer.github.com/v3/repos/releases/#edit-a-release-asset
+      def update_release_asset(repo, asset_id, options = {})
+        patch "#{Repository.path repo}/releases/assets/#{asset_id}", options
+      end
+
+      # Delete a release asset
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param asset_id [Integer] The ID of the asset
+      # @return [Boolean] True on success, false otherwise
+      # @see https://developer.github.com/v3/repos/releases/#delete-a-release-asset
+      def delete_release_asset(repo, asset_id, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/releases/assets/#{asset_id}", options
+      end
+
+      # Get a release by tag name
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param tag [String] The tag of the release
+      # @return [Sawyer::Resource] A single release by tag
+      # @see https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
+      def release_by_tag(repo, tag, options = {})
+        get "#{Repository.path repo}/releases/tags/#{tag}", options
+      end
     end
   end
 end
