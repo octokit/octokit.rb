@@ -202,9 +202,8 @@ module OpenAPIClientGenerator
 
     def collapse_lists(param)
       split_description = param.description.split("\\\*")
-      test = param.description.split("\\\*")
       list = split_description.drop(1).map { |line| line.split("`")[1] }
-      test2 = (split_description[0] + list.join(", "))
+      (split_description[0] + list.join(", "))
     end
 
     def parameter_documentation
