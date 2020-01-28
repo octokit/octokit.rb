@@ -96,9 +96,9 @@ describe Octokit::Client::Issues do
           @client.close_issue(@test_repo, @issue.number)
         end
 
-        describe ".open_issue", :vcr do
-          it "opens an issue" do
-            issue = @client.open_issue(@test_repo, @issue.number)
+        describe ".reopen_issue", :vcr do
+          it "reopens an issue" do
+            issue = @client.reopen_issue(@test_repo, @issue.number)
             expect(issue.state).to eq "open"
             expect(issue.number).to eq(@issue.number)
             assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}"), :times => 2

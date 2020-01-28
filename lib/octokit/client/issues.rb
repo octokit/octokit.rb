@@ -136,7 +136,7 @@ module Octokit
         patch "#{Repository.path repo}/issues/#{issue_number}", options
       end
 
-     # Open an issue
+     # Reopen an issue
      #
      # @param repo [Integer, String, Repository, Hash] A GitHub repository
      # @param issue_number [Integer] The number of the issue
@@ -146,7 +146,7 @@ module Octokit
      # @option options [Integer] :milestone The `number` of the milestone to associate this issue with or `null` to remove current. _NOTE: Only users with push access can set the milestone for issues. The milestone is silently dropped otherwise._
      # @option options [Array] :labels Labels to associate with this issue. Pass one or more Labels to _replace_ the set of Labels on this Issue. Send an empty array (`[]`) to clear all Labels from the Issue. _NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise._
      # @option options [Array] :assignees Logins for Users to assign to this issue. Pass one or more user logins to _replace_ the set of assignees on this Issue. Send an empty array (`[]`) to clear all assignees from the Issue. _NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise._
-     def open_issue(repo, issue_number, options = {})
+     def reopen_issue(repo, issue_number, options = {})
         options[:state] = "open"
         patch "#{Repository.path repo}/issues/#{issue_number}", options
       end

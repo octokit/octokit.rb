@@ -39,12 +39,18 @@ module OpenAPIClientGenerator
 
     def tomdoc
       <<-TOMDOC.chomp
-      # #{definition.summary}
+      # #{method_summary}
       #
       # #{parameter_documentation.join("\n      # ")}
       # @return #{return_type_description} #{return_value_description}
       # @see #{definition.raw["externalDocs"]["url"]}
       TOMDOC
+    end
+
+    def method_summary
+      resource = namespace.split("_").last
+      org_summary = definition.summary.gsub("#{resource}", "org #{resource}").gsub("a org", "an org")
+      (definition.operation_id.split("/").first == "orgs") ? org_summary : definition.summary
     end
 
     def method_definition
@@ -61,7 +67,7 @@ module OpenAPIClientGenerator
         definition.request_body.properties_for_format("application/json").each do |param|
           if param.enum && param.enum.size < 3 && param.default.nil?
             param.enum.each do |enum|
-              enum_action = enum.delete_suffix("d")
+              enum_action = enum.delete_suffix("d").gsub("open", "reopen")
               parameter_docs = parameter_documentation.reject { |p| p.include? param.name }
               result << %Q(
      # #{enum_action.capitalize} an #{namespace}
@@ -196,6 +202,7 @@ module OpenAPIClientGenerator
       split_param =  param.name.split("_")
       split_description = param.description.split(" ")
       resource = split_param.size > 1 ? split_param.first : namespace.split("_").last
+      resource = (namespace.split("_").size == 3)? namespace.split("_").first : resource
       return "The #{split_param.last} of the #{resource}" if split_description.last == "parameter"
       return collapse_lists(param).gsub("\n", "")
     end
@@ -221,7 +228,8 @@ module OpenAPIClientGenerator
         elsif !singular? or definition.parameters.any? {|p| p.name == "per_page"}
           "A list of #{namespace.split("_").last.pluralize}"
         else singular?
-          "A single #{namespace.split("_").last}"
+          resource = (namespace.include? "by")? namespace.split("_").first : namespace.split("_").last
+          "A single #{resource}"
         end
       elsif definition.raw["responses"].key? "204"
         "True on success, false otherwise"
@@ -259,7 +267,7 @@ module OpenAPIClientGenerator
       operation_array = definition.operation_id.split("/")
       namespace_array = operation_array.last.split("-")
 
-      div_words = %w(for on about by)
+      div_words = %w(for on about)
       if (div_words & namespace_array).any?
         words = namespace_array.select {|w| div_words.include? w}
         index = namespace_array.index(words.first)
@@ -278,7 +286,11 @@ module OpenAPIClientGenerator
       elsif namespace_array.size == 2
         resource = namespace_array.drop(1).join("_")
         return resource if operation_array.first == "repos"
-        return "#{resource}_#{operation_array.first}" if namespace_array.last.end_with?("ed")
+
+        if namespace_array.last.end_with?("ed") or resource == "public"
+          return "#{resource}_#{operation_array.first}"
+        end
+
         "#{operation_array.first.singularize}_#{resource}"
       else
         namespace_array.drop(1).join("_")

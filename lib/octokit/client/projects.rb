@@ -30,14 +30,14 @@ module Octokit
         patch "projects/#{project_id}", opts
       end
 
-     # Open an project
+     # Reopen an project
      #
      # @param project_id [Integer] The ID of the project
      # @option options [String] :name The name of the project.
      # @option options [String] :body The description of the project.
      # @option options [String] :organization_permission The permission level that determines whether all members of the project's organization can see and/or make changes to the project. Setting `organization_permission` is only available for organization projects. If an organization member belongs to a team with a higher level of access or is a collaborator with a higher level of access, their permission level is not lowered by `organization_permission`. For information on changing access for a team or collaborator, see [Add or update team project](https://developer.github.com/v3/teams/#add-or-update-team-project) or [Add user as a collaborator](https://developer.github.com/v3/projects/collaborators/#add-user-as-a-collaborator).    **Note:** Updating a project's `organization_permission` requires `admin` access to the project.    Can be one of:  read, write, admin, none
      # @option options [Boolean] :private Sets the visibility of a project board. Setting `private` is only available for organization and user projects. **Note:** Updating a project's visibility requires `admin` access to the project.    Can be one of:  false, true
-     def open_project(project_id, options = {})
+     def reopen_project(project_id, options = {})
         options[:state] = "open"
         opts = ensure_api_media_type(:projects, options)
         patch "projects/#{project_id}", opts
@@ -260,7 +260,7 @@ module Octokit
       # Review a user's permission level
       #
       # @param project_id [Integer] The ID of the project
-      # @param username [String] The username of the level
+      # @param username [String] The username of the user
       # @return [Sawyer::Resource] A single level
       # @see https://developer.github.com/v3/projects/collaborators/#review-a-users-permission-level
       def user_permission_level(project_id, username, options = {})

@@ -123,7 +123,7 @@ module Octokit
       # @param tag [String] The tag of the release
       # @return [Sawyer::Resource] A single release
       # @see https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
-      def tag_release(repo, tag, options = {})
+      def release_by_tag(repo, tag, options = {})
         get "#{Repository.path repo}/releases/tags/#{tag}", options
       end
     end

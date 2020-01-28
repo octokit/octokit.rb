@@ -114,9 +114,9 @@ module Octokit
       # List all public gists
       #
       # @option options [String] :since This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Only gists updated at or after this time are returned.
-      # @return [Array<Sawyer::Resource>] A list of publics
+      # @return [Array<Sawyer::Resource>] A list of gists
       # @see https://developer.github.com/v3/gists/#list-all-public-gists
-      def gist_public(options = {})
+      def public_gists(options = {})
         paginate "gists/public", options
       end
 

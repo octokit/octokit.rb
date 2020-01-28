@@ -118,7 +118,7 @@ describe Octokit::Client::Projects do
         it "helper methods close and reopen the project" do
           project = oauth_client.close_project(@project.id, accept: preview_header)
           expect(project.state).to eq "closed"
-          project = oauth_client.open_project(@project.id, accept: preview_header)
+          project = oauth_client.reopen_project(@project.id, accept: preview_header)
           expect(project.state).to eq "open"
           assert_requested :patch, github_url("/projects/#{@project.id}"), :times => 2
         end

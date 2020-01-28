@@ -8,13 +8,13 @@ describe Octokit::Client::Gists do
 
   describe "unauthenticated", :vcr do
 
-    describe ".gist_public" do
+    describe ".public_gists" do
       it "returns public gists" do
-        gists = Octokit.client.gist_public
+        gists = Octokit.client.public_gists
         expect(gists).not_to be_empty
         assert_requested :get, github_url('/gists/public')
       end
-    end # .gist_public
+    end # .public_gists
 
     describe ".user_public_gists" do
       describe "with username passed" do
