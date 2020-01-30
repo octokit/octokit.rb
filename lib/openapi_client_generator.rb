@@ -368,6 +368,8 @@ module OpenAPIClientGenerator
 
     def to_s
       <<-FILE
+# frozen_string_literal: true
+
 module Octokit
   class Client
     # Methods for the #{resource.capitalize} API
