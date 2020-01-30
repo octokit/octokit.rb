@@ -21,7 +21,9 @@ module Octokit
       # @return [Sawyer::Resource] The new site
       # @see https://developer.github.com/v3/repos/pages/#enable-a-pages-site
       def enable_pages_site(repo, options = {})
-        opts = ensure_api_media_type(:pages_site, options)
+        opts = options
+        opts[:accept] = "application/vnd.github.switcheroo-preview+json" if opts[:accept].nil?
+
         post "#{Repository.path repo}/pages", opts
       end
 
@@ -42,7 +44,9 @@ module Octokit
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/repos/pages/#disable-a-pages-site
       def disable_pages_site(repo, options = {})
-        opts = ensure_api_media_type(:pages_site, options)
+        opts = options
+        opts[:accept] = "application/vnd.github.switcheroo-preview+json" if opts[:accept].nil?
+
         boolean_from_response :delete, "#{Repository.path repo}/pages", opts
       end
 

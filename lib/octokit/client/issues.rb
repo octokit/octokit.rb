@@ -195,7 +195,9 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of events
       # @see https://developer.github.com/v3/issues/timeline/#list-events-for-an-issue
       def timeline_events(repo, issue_number, options = {})
-        opts = ensure_api_media_type(:timeline_events, options)
+        opts = options
+        opts[:accept] = "application/vnd.github.mockingbird-preview+json" if opts[:accept].nil?
+
         paginate "#{Repository.path repo}/issues/#{issue_number}/timeline", opts
       end
 
@@ -207,7 +209,9 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of reactions
       # @see https://developer.github.com/v3/reactions/#list-reactions-for-an-issue-comment
       def issue_comment_reactions(repo, comment_id, options = {})
-        opts = ensure_api_media_type(:reactions, options)
+        opts = options
+        opts[:accept] = "application/vnd.github.squirrel-girl-preview+json" if opts[:accept].nil?
+
         paginate "#{Repository.path repo}/issues/comments/#{comment_id}/reactions", opts
       end
 
@@ -250,7 +254,9 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of reactions
       # @see https://developer.github.com/v3/reactions/#list-reactions-for-an-issue
       def issue_reactions(repo, issue_number, options = {})
-        opts = ensure_api_media_type(:reactions, options)
+        opts = options
+        opts[:accept] = "application/vnd.github.squirrel-girl-preview+json" if opts[:accept].nil?
+
         paginate "#{Repository.path repo}/issues/#{issue_number}/reactions", opts
       end
 
@@ -263,7 +269,9 @@ module Octokit
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue-comment
       def create_issue_comment_reaction(repo, comment_id, content, options = {})
         options[:content] = content.to_s.downcase
-        opts = ensure_api_media_type(:reactions, options)
+        opts = options
+        opts[:accept] = "application/vnd.github.squirrel-girl-preview+json" if opts[:accept].nil?
+
         post "#{Repository.path repo}/issues/comments/#{comment_id}/reactions", opts
       end
 
@@ -276,7 +284,9 @@ module Octokit
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue
       def create_issue_reaction(repo, issue_number, content, options = {})
         options[:content] = content.to_s.downcase
-        opts = ensure_api_media_type(:reactions, options)
+        opts = options
+        opts[:accept] = "application/vnd.github.squirrel-girl-preview+json" if opts[:accept].nil?
+
         post "#{Repository.path repo}/issues/#{issue_number}/reactions", opts
       end
 

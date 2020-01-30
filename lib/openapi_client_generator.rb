@@ -117,8 +117,9 @@ module OpenAPIClientGenerator
       end
       if definition.raw["x-github"]["previews"].any? {|e| e["required"]}
         preview_types = definition.raw["x-github"]["previews"].select {|e| e["required"]}
-        preview_type = Octokit::Preview.get_media_type(preview_types.first["name"])
-        options << "opts = ensure_api_media_type(:#{preview_type}, options)"
+        accept_header = "\"application/vnd.github.#{preview_types.first["name"]}-preview+json\""
+        options << "opts = options"
+        options << "opts[:accept] = #{accept_header} if opts[:accept].nil?\n"
       end
       options
     end
