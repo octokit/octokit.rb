@@ -122,8 +122,8 @@ module Octokit
       # @return [Sawyer::Resource] The new column
       # @see https://developer.github.com/v3/projects/columns/#create-a-project-column
       def create_project_column(project_id, name, options = {})
-        options[:name] = name
         opts = options
+        opts[:name] = name
         opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
 
         post "projects/#{project_id}/columns", opts
@@ -136,8 +136,8 @@ module Octokit
       # @return [Sawyer::Resource] The updated column
       # @see https://developer.github.com/v3/projects/columns/#update-a-project-column
       def update_project_column(column_id, name, options = {})
-        options[:name] = name
         opts = options
+        opts[:name] = name
         opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
 
         patch "projects/columns/#{column_id}", opts
@@ -229,8 +229,8 @@ module Octokit
       # @return [Sawyer::Resource] The new project
       # @see https://developer.github.com/v3/projects/#create-an-organization-project
       def create_org_project(org, name, options = {})
-        options[:name] = name
         opts = options
+        opts[:name] = name
         opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
 
         post "#{Organization.path org}/projects", opts
@@ -243,8 +243,8 @@ module Octokit
       # @return [Sawyer::Resource] The new column
       # @see https://developer.github.com/v3/projects/columns/#move-a-project-column
       def move_project_column(column_id, position, options = {})
-        options[:position] = position
         opts = options
+        opts[:position] = position
         opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
 
         post "projects/columns/#{column_id}/moves", opts
@@ -337,8 +337,8 @@ module Octokit
       # @return [Sawyer::Resource] The new project
       # @see https://developer.github.com/v3/projects/#create-a-repository-project
       def create_repository_project(repo, name, options = {})
-        options[:name] = name
         opts = options
+        opts[:name] = name
         opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
 
         post "#{Repository.path repo}/projects", opts
@@ -352,8 +352,8 @@ module Octokit
       # @return [Sawyer::Resource] The new card
       # @see https://developer.github.com/v3/projects/cards/#move-a-project-card
       def move_project_card(card_id, position, options = {})
-        options[:position] = position
         opts = options
+        opts[:position] = position
         opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
 
         post "projects/columns/cards/#{card_id}/moves", opts

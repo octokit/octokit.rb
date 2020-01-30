@@ -36,9 +36,10 @@ module Octokit
       # @return [Sawyer::Resource] The new hook
       # @see https://developer.github.com/v3/repos/hooks/#create-a-hook
       def create_hook(repo, config = {}, options = {})
-        options[:config] = config
+        opts = options
+        opts[:config] = config
         raise Octokit::MissingKey.new unless config.key? :url
-        post "#{Repository.path repo}/hooks", options
+        post "#{Repository.path repo}/hooks", opts
       end
 
       # Edit a hook
@@ -53,9 +54,10 @@ module Octokit
       # @return [Sawyer::Resource] The updated hook
       # @see https://developer.github.com/v3/repos/hooks/#edit-a-hook
       def update_hook(repo, hook_id, config = {}, options = {})
-        options[:config] = config
+        opts = options
+        opts[:config] = config
         raise Octokit::MissingKey.new unless config.key? :url
-        patch "#{Repository.path repo}/hooks/#{hook_id}", options
+        patch "#{Repository.path repo}/hooks/#{hook_id}", opts
       end
 
       # Delete a hook
@@ -117,10 +119,11 @@ module Octokit
       # @return [Sawyer::Resource] The new hook
       # @see https://developer.github.com/v3/orgs/hooks/#create-a-hook
       def create_org_hook(org, name, config = {}, options = {})
-        options[:name] = name
-        options[:config] = config
+        opts = options
+        opts[:name] = name
+        opts[:config] = config
         raise Octokit::MissingKey.new unless config.key? :url
-        post "#{Organization.path org}/hooks", options
+        post "#{Organization.path org}/hooks", opts
       end
 
       # Edit an org hook
@@ -133,9 +136,10 @@ module Octokit
       # @return [Sawyer::Resource] The updated hook
       # @see https://developer.github.com/v3/orgs/hooks/#edit-a-hook
       def update_org_hook(org, hook_id, config = {}, options = {})
-        options[:config] = config
+        opts = options
+        opts[:config] = config
         raise Octokit::MissingKey.new unless config.key? :url
-        patch "#{Organization.path org}/hooks/#{hook_id}", options
+        patch "#{Organization.path org}/hooks/#{hook_id}", opts
       end
 
       # Delete an org hook

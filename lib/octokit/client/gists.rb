@@ -33,8 +33,9 @@ module Octokit
       # @return [Sawyer::Resource] The new gist
       # @see https://developer.github.com/v3/gists/#create-a-gist
       def create_gist(files, options = {})
-        options[:files] = files
-        post "gists", options
+        opts = options
+        opts[:files] = files
+        post "gists", opts
       end
 
       # Edit a gist
@@ -138,8 +139,9 @@ module Octokit
       # @return [Sawyer::Resource] The new comment
       # @see https://developer.github.com/v3/gists/comments/#create-a-comment
       def create_gist_comment(gist_id, body, options = {})
-        options[:body] = body
-        post "gists/#{Gist.new gist_id}/comments", options
+        opts = options
+        opts[:body] = body
+        post "gists/#{Gist.new gist_id}/comments", opts
       end
 
       # Fork a gist
@@ -168,8 +170,9 @@ module Octokit
       # @return [Sawyer::Resource] The updated comment
       # @see https://developer.github.com/v3/gists/comments/#edit-a-comment
       def update_gist_comment(gist_id, comment_id, body, options = {})
-        options[:body] = body
-        patch "gists/#{Gist.new gist_id}/comments/#{comment_id}", options
+        opts = options
+        opts[:body] = body
+        patch "gists/#{Gist.new gist_id}/comments/#{comment_id}", opts
       end
 
       # Unstar a gist

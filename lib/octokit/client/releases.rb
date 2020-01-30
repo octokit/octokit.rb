@@ -38,8 +38,9 @@ module Octokit
       # @return [Sawyer::Resource] The new release
       # @see https://developer.github.com/v3/repos/releases/#create-a-release
       def create_release(repo, tag_name, options = {})
-        options[:tag_name] = tag_name
-        post "#{Repository.path repo}/releases", options
+        opts = options
+        opts[:tag_name] = tag_name
+        post "#{Repository.path repo}/releases", opts
       end
 
       # Edit a release

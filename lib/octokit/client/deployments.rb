@@ -45,8 +45,9 @@ module Octokit
       # @return [Sawyer::Resource] The new deployment
       # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment
       def create_deployment(repo, ref, options = {})
-        options[:ref] = ref
-        post "#{Repository.path repo}/deployments", options
+        opts = options
+        opts[:ref] = ref
+        post "#{Repository.path repo}/deployments", opts
       end
 
       # Get a single deployment status
@@ -84,8 +85,9 @@ module Octokit
       # @return [Sawyer::Resource] The new status
       # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment-status
       def create_deployment_status(repo, deployment_id, state, options = {})
-        options[:state] = state.to_s.downcase
-        post "#{Repository.path repo}/deployments/#{deployment_id}/statuses", options
+        opts = options
+        opts[:state] = state.to_s.downcase
+        post "#{Repository.path repo}/deployments/#{deployment_id}/statuses", opts
       end
     end
   end

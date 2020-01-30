@@ -29,8 +29,9 @@ module Octokit
       # @return [Sawyer::Resource] The new milestone
       # @see https://developer.github.com/v3/issues/milestones/#create-a-milestone
       def create_issue_milestone(repo, title, options = {})
-        options[:title] = title
-        post "#{Repository.path repo}/milestones", options
+        opts = options
+        opts[:title] = title
+        post "#{Repository.path repo}/milestones", opts
       end
 
       # Get a single milestone

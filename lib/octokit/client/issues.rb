@@ -66,8 +66,9 @@ module Octokit
       # @return [Sawyer::Resource] The new issue
       # @see https://developer.github.com/v3/issues/#create-an-issue
       def create_issue(repo, title, options = {})
-        options[:title] = title
-        post "#{Repository.path repo}/issues", options
+        opts = options
+        opts[:title] = title
+        post "#{Repository.path repo}/issues", opts
       end
 
       # Get a single issue
@@ -176,8 +177,9 @@ module Octokit
       # @return [Sawyer::Resource] The updated comment
       # @see https://developer.github.com/v3/issues/comments/#edit-a-comment
       def update_issue_comment(repo, comment_id, body, options = {})
-        options[:body] = body
-        patch "#{Repository.path repo}/issues/comments/#{comment_id}", options
+        opts = options
+        opts[:body] = body
+        patch "#{Repository.path repo}/issues/comments/#{comment_id}", opts
       end
 
       # Delete a comment
@@ -270,8 +272,8 @@ module Octokit
       # @return [Sawyer::Resource] The new reaction
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue-comment
       def create_issue_comment_reaction(repo, comment_id, content, options = {})
-        options[:content] = content.to_s.downcase
         opts = options
+        opts[:content] = content.to_s.downcase
         opts[:accept] = "application/vnd.github.squirrel-girl-preview+json" if opts[:accept].nil?
 
         post "#{Repository.path repo}/issues/comments/#{comment_id}/reactions", opts
@@ -285,8 +287,8 @@ module Octokit
       # @return [Sawyer::Resource] The new reaction
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue
       def create_issue_reaction(repo, issue_number, content, options = {})
-        options[:content] = content.to_s.downcase
         opts = options
+        opts[:content] = content.to_s.downcase
         opts[:accept] = "application/vnd.github.squirrel-girl-preview+json" if opts[:accept].nil?
 
         post "#{Repository.path repo}/issues/#{issue_number}/reactions", opts
@@ -311,8 +313,9 @@ module Octokit
       # @return [Sawyer::Resource] The new comment
       # @see https://developer.github.com/v3/issues/comments/#create-a-comment
       def create_issue_comment(repo, issue_number, body, options = {})
-        options[:body] = body
-        post "#{Repository.path repo}/issues/#{issue_number}/comments", options
+        opts = options
+        opts[:body] = body
+        post "#{Repository.path repo}/issues/#{issue_number}/comments", opts
       end
 
       # Add labels to an issue
@@ -323,8 +326,9 @@ module Octokit
       # @return [Sawyer::Resource] The new label
       # @see https://developer.github.com/v3/issues/labels/#add-labels-to-an-issue
       def add_issue_labels(repo, issue_number, labels, options = {})
-        options[:labels] = labels
-        post "#{Repository.path repo}/issues/#{issue_number}/labels", options
+        opts = options
+        opts[:labels] = labels
+        post "#{Repository.path repo}/issues/#{issue_number}/labels", opts
       end
 
       # Lock an issue

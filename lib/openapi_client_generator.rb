@@ -4,7 +4,6 @@ require 'json'
 require 'pathname'
 require 'active_support/inflector'
 require 'oas_parser'
-require 'octokit/preview'
 
 module OpenAPIClientGenerator
 
@@ -100,7 +99,7 @@ module OpenAPIClientGenerator
     end
 
     def option_overrides
-      options = []
+      options = ["opts = options"]
       if definition.request_body
         params = definition.request_body.properties_for_format("application/json").select do |param|
           param.required
@@ -109,7 +108,7 @@ module OpenAPIClientGenerator
           if !!param.enum
             normalization = ".to_s.downcase"
           end
-          options << "options[:#{param.name}] = #{param.name}#{normalization}"
+          options << "opts[:#{param.name}] = #{param.name}#{normalization}"
           if param.raw["required"] && param.raw["required"] != true
             options << "raise Octokit::MissingKey.new unless #{param.name}.key? :#{param.raw["required"].first}"
           end
@@ -118,14 +117,13 @@ module OpenAPIClientGenerator
       if definition.raw["x-github"]["previews"].any? {|e| e["required"]}
         preview_types = definition.raw["x-github"]["previews"].select {|e| e["required"]}
         accept_header = "\"application/vnd.github.#{preview_types.first["name"]}-preview+json\""
-        options << "opts = options"
         options << "opts[:accept] = #{accept_header} if opts[:accept].nil?\n"
       end
-      options
+      options.size > 1 ? options : []
     end
 
     def api_call
-      option_format = definition.raw["x-github"]["previews"].any? {|e| e["required"]} ? "opts" : "options"
+      option_format = option_overrides.any? ? "opts" : "options"
       if definition.raw["responses"].key? "204"
         "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
       elsif definition.parameters.any? {|p| p.name == "per_page"}
