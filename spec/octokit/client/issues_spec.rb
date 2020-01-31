@@ -96,9 +96,9 @@ describe Octokit::Client::Issues do
           @client.close_issue(@test_repo, @issue.number)
         end
 
-        describe ".open_issue", :vcr do
-          it "opens an issue" do
-            issue = @client.open_issue(@test_repo, @issue.number)
+        describe ".reopen_issue", :vcr do
+          it "reopens an issue" do
+            issue = @client.reopen_issue(@test_repo, @issue.number)
             expect(issue.state).to eq "open"
             expect(issue.number).to eq(@issue.number)
             assert_requested :patch, github_url("/repos/#{@test_repo}/issues/#{@issue.number}"), :times => 2
@@ -134,32 +134,32 @@ describe Octokit::Client::Issues do
         end
       end # .update_issue
 
-      describe ".create_comment", :vcr do
+      describe ".create_issue_comment", :vcr do
         it "adds a comment" do
-          comment = @client.create_comment(@test_repo, @issue.number, "A test comment")
+          comment = @client.create_issue_comment(@test_repo, @issue.number, "A test comment")
           expect(comment.user.login).to eq(test_github_login)
           assert_requested :post, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/comments")
         end
-      end # .create_comment
+      end # .create_issue_comment
 
       context "with issue comment" do
         before(:each) do
-          @issue_comment = @client.create_comment(@test_repo, @issue.number, "Another test comment")
+          @issue_comment = @client.create_issue_comment(@test_repo, @issue.number, "Another test comment")
         end
 
-        describe ".update_comment", :vcr do
+        describe ".update_issue_comment", :vcr do
           it "updates an existing comment" do
-            @client.update_comment(@test_repo, @issue_comment.id, "A test comment update")
+            @client.update_issue_comment(@test_repo, @issue_comment.id, "A test comment update")
             assert_requested :patch, github_url("/repos/#{@test_repo}/issues/comments/#{@issue_comment.id}")
           end
-        end # .update_comment
+        end # .update_issue_comment
 
-        describe ".delete_comment", :vcr do
+        describe ".delete_issue_comment", :vcr do
           it "deletes an existing comment" do
-            @client.delete_comment(@test_repo, @issue_comment.id)
+            @client.delete_issue_comment(@test_repo, @issue_comment.id)
             assert_requested :delete, github_url("/repos/#{@test_repo}/issues/comments/#{@issue_comment.id}")
           end
-        end # .delete_comment
+        end # .delete_issue_comment
 
         describe ".issue_comment_reactions" do
           it "returns an Array of reactions" do
@@ -188,19 +188,19 @@ describe Octokit::Client::Issues do
 
       context "with assignees" do
         before(:each) do
-          issue = @client.add_assignees(@test_repo, @issue.number, :assignees => [@test_login])
+          issue = @client.add_issue_assignees(@test_repo, @issue.number, :assignees => [@test_login])
           expect(issue.assignees.count).not_to be_zero
         end
 
-        describe ".remove_assignees", :vcr do
+        describe ".remove_issue_assignees", :vcr do
           it "removes assignees" do
-            issue = @client.remove_assignees(
+            issue = @client.remove_issue_assignees(
               @test_repo, @issue.number, :assignees => [@test_login]
             )
             expect(issue.assignees.count).to be_zero
             assert_requested :post, github_url("repos/#{@test_repo}/issues/#{@issue.number}/assignees")
           end
-        end # .remove_assignees
+        end # .remove_issue_assignees
       end # with assignees
 
       describe ".repository_comments", :vcr do
@@ -211,29 +211,29 @@ describe Octokit::Client::Issues do
         end
       end # .repository_comments
 
-      describe ".comments", :vcr do
+      describe ".issue_comments", :vcr do
         it "returns comments for an issue" do
-          comments = @client.comments("octokit/octokit.rb", 25)
+          comments = @client.issue_comments("octokit/octokit.rb", 25)
           expect(comments).to be_kind_of Array
           assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/25/comments')
         end
-      end # .comments
+      end # .issue_comments
 
-      describe ".comment", :vcr do
+      describe ".issue_comment", :vcr do
         it "returns a single comment for an issue" do
-          comment = @client.comment("octokit/octokit.rb", 1194690)
+          comment = @client.issue_comment("octokit/octokit.rb", 1194690)
           expect(comment.rels[:self].href).to eq("https://api.github.com/repos/octokit/octokit.rb/issues/comments/1194690")
           assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/comments/1194690')
         end
-      end # .comment
+      end # .issue_comment
 
-      describe ".add_assignees", :vcr do
+      describe ".add_issue_assignees", :vcr do
         it "adds assignees" do
-          issue = @client.add_assignees(@test_repo, @issue.number, :assignees => [@test_login])
+          issue = @client.add_issue_assignees(@test_repo, @issue.number, :assignees => [@test_login])
           expect(issue.assignees.count).not_to be_zero
           assert_requested :post, github_url("repos/#{@test_repo}/issues/#{@issue.number}/assignees")
         end
-      end # .add_assignees
+      end # .add_issue_assignees
 
       describe ".issue_reactions" do
         it "returns an Array of reactions" do
@@ -264,16 +264,16 @@ describe Octokit::Client::Issues do
         end # .delete_reaction
       end # with reaction
 
-      describe ".add_labels" do
+      describe ".add_issue_labels" do
         it "adds labels to a given issue" do
-          @client.add_labels(@test_repo, @issue.number, ['bug'])
+          @client.add_issue_labels(@test_repo, @issue.number, ['bug'])
           assert_requested :post, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
         end
-      end # .add_labels
+      end # .add_issue_labels
 
       context "with labels", :vcr do
         before do
-          @client.add_labels(@test_repo, @issue.number, ['bug', 'feature'])
+          @client.add_issue_labels(@test_repo, @issue.number, ['bug', 'feature'])
         end
 
         describe ".issue_labels" do
@@ -284,19 +284,19 @@ describe Octokit::Client::Issues do
           end
         end # .issue_labels
 
-        describe ".remove_label" do
+        describe ".remove_issue_label" do
           it "removes a label from the specified issue" do
-            @client.remove_label(@test_repo, @issue.number, 'bug')
+            @client.remove_issue_label(@test_repo, @issue.number, 'bug')
             assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels/bug")
             
             labels = @client.issue_labels(@test_repo, @issue.number)
             expect(labels.map(&:name)).to eq(['feature'])
           end
-        end # .remove_label
+        end # .remove_issue_label
 
-        describe ".remove_labels" do
+        describe ".remove_issue_labels" do
           it "removes all labels from the specified issue" do
-            @client.remove_labels(@test_repo, @issue.number)
+            @client.remove_issue_labels(@test_repo, @issue.number)
             assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
             
             labels = @client.issue_labels(@test_repo, @issue.number)
@@ -304,15 +304,15 @@ describe Octokit::Client::Issues do
           end
         end # .remove_labels
 
-        describe ".replace_labels" do
+        describe ".replace_issue_labels" do
           it "replaces all labels for an issue" do
-            @client.replace_labels(@test_repo, @issue.number, ['random'])
+            @client.replace_issue_labels(@test_repo, @issue.number, ['random'])
             assert_requested :put, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
             
             labels = @client.issue_labels(@test_repo, @issue.number)
             expect(labels.map(&:name)).to eq(['random'])
           end
-        end # .replace_labels
+        end # .replace_issue_labels
       end # with labels
 
       describe ".issue_events" do

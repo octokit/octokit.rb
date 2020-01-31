@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
     # Methods for the Pages API
@@ -17,11 +19,13 @@ module Octokit
       # Enable a Pages site
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @option options [Object] :source The source of the pages
-      # @return [Sawyer::Resource] The new pages site
+      # @option options [Object] :source The source of the site
+      # @return [Sawyer::Resource] The new site
       # @see https://developer.github.com/v3/repos/pages/#enable-a-pages-site
       def enable_pages_site(repo, options = {})
-        opts = ensure_api_media_type(:pages_site, options)
+        opts = options
+        opts[:accept] = "application/vnd.github.switcheroo-preview+json" if opts[:accept].nil?
+
         post "#{Repository.path repo}/pages", opts
       end
 
@@ -42,7 +46,9 @@ module Octokit
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/repos/pages/#disable-a-pages-site
       def disable_pages_site(repo, options = {})
-        opts = ensure_api_media_type(:pages_site, options)
+        opts = options
+        opts[:accept] = "application/vnd.github.switcheroo-preview+json" if opts[:accept].nil?
+
         boolean_from_response :delete, "#{Repository.path repo}/pages", opts
       end
 
@@ -50,7 +56,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param build_id [Integer] The ID of the build
-      # @return [Sawyer::Resource] A single pages build
+      # @return [Sawyer::Resource] A single build
       # @see https://developer.github.com/v3/repos/pages/#get-a-specific-pages-build
       def pages_build(repo, build_id, options = {})
         get "#{Repository.path repo}/pages/builds/#{build_id}", options
@@ -59,7 +65,7 @@ module Octokit
       # List Pages builds
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @return [Array<Sawyer::Resource>] A list of pages builds
+      # @return [Array<Sawyer::Resource>] A list of builds
       # @see https://developer.github.com/v3/repos/pages/#list-pages-builds
       def pages_builds(repo, options = {})
         paginate "#{Repository.path repo}/pages/builds", options
@@ -68,7 +74,7 @@ module Octokit
       # Request a page build
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @return [Sawyer::Resource] The new page build
+      # @return [Sawyer::Resource] The new build
       # @see https://developer.github.com/v3/repos/pages/#request-a-page-build
       def request_page_build(repo, options = {})
         post "#{Repository.path repo}/pages/builds", options
@@ -77,7 +83,7 @@ module Octokit
       # Get latest Pages build
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @return [Sawyer::Resource] The latest pages build
+      # @return [Sawyer::Resource] The latest build
       # @see https://developer.github.com/v3/repos/pages/#get-latest-pages-build
       def latest_pages_build(repo, options = {})
         get "#{Repository.path repo}/pages/builds/latest", options

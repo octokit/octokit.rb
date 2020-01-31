@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
     # Methods for the Labels API
@@ -8,7 +10,7 @@ module Octokit
       # List all labels for this repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @return [Array<Sawyer::Resource>] A list of repository labels
+      # @return [Array<Sawyer::Resource>] A list of labels
       # @see https://developer.github.com/v3/issues/labels/#list-all-labels-for-this-repository
       def repository_labels(repo, options = {})
         paginate "#{Repository.path repo}/labels", options
@@ -22,10 +24,11 @@ module Octokit
       # @option options [String] :description A short description of the label.
       # @return [Sawyer::Resource] The new label
       # @see https://developer.github.com/v3/issues/labels/#create-a-label
-      def create_label(repo, name, color, options = {})
-        options[:name] = name
-        options[:color] = color
-        post "#{Repository.path repo}/labels", options
+      def create_issue_label(repo, name, color, options = {})
+        opts = options
+        opts[:name] = name
+        opts[:color] = color
+        post "#{Repository.path repo}/labels", opts
       end
 
       # Get a single label
@@ -34,7 +37,7 @@ module Octokit
       # @param name [String] The name of the label
       # @return [Sawyer::Resource] A single label
       # @see https://developer.github.com/v3/issues/labels/#get-a-single-label
-      def label(repo, name, options = {})
+      def issue_label(repo, name, options = {})
         get "#{Repository.path repo}/labels/#{name}", options
       end
 
@@ -47,7 +50,7 @@ module Octokit
       # @option options [String] :description A short description of the label.
       # @return [Sawyer::Resource] The updated label
       # @see https://developer.github.com/v3/issues/labels/#update-a-label
-      def update_label(repo, name, options = {})
+      def update_issue_label(repo, name, options = {})
         patch "#{Repository.path repo}/labels/#{name}", options
       end
 
@@ -57,7 +60,7 @@ module Octokit
       # @param name [String] The name of the label
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/issues/labels/#delete-a-label
-      def delete_label(repo, name, options = {})
+      def delete_issue_label(repo, name, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/labels/#{name}", options
       end
     end

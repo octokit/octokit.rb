@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
     # Methods for the Releases API
@@ -36,8 +38,9 @@ module Octokit
       # @return [Sawyer::Resource] The new release
       # @see https://developer.github.com/v3/repos/releases/#create-a-release
       def create_release(repo, tag_name, options = {})
-        options[:tag_name] = tag_name
-        post "#{Repository.path repo}/releases", options
+        opts = options
+        opts[:tag_name] = tag_name
+        post "#{Repository.path repo}/releases", opts
       end
 
       # Edit a release
@@ -79,7 +82,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param asset_id [Integer] The ID of the asset
-      # @return [Sawyer::Resource] A single release asset
+      # @return [Sawyer::Resource] A single asset
       # @see https://developer.github.com/v3/repos/releases/#get-a-single-release-asset
       def release_asset(repo, asset_id, options = {})
         get "#{Repository.path repo}/releases/assets/#{asset_id}", options
@@ -89,7 +92,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param release_id [Integer] The ID of the release
-      # @return [Array<Sawyer::Resource>] A list of release assets
+      # @return [Array<Sawyer::Resource>] A list of assets
       # @see https://developer.github.com/v3/repos/releases/#list-assets-for-a-release
       def release_assets(repo, release_id, options = {})
         paginate "#{Repository.path repo}/releases/#{release_id}/assets", options
@@ -101,7 +104,7 @@ module Octokit
       # @param asset_id [Integer] The ID of the asset
       # @option options [String] :name The file name of the asset.
       # @option options [String] :label An alternate short description of the asset. Used in place of the filename.
-      # @return [Sawyer::Resource] The updated release asset
+      # @return [Sawyer::Resource] The updated asset
       # @see https://developer.github.com/v3/repos/releases/#edit-a-release-asset
       def update_release_asset(repo, asset_id, options = {})
         patch "#{Repository.path repo}/releases/assets/#{asset_id}", options
@@ -121,7 +124,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param tag [String] The tag of the release
-      # @return [Sawyer::Resource] A single release by tag
+      # @return [Sawyer::Resource] A single release
       # @see https://developer.github.com/v3/repos/releases/#get-a-release-by-tag-name
       def release_by_tag(repo, tag, options = {})
         get "#{Repository.path repo}/releases/tags/#{tag}", options

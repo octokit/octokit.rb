@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
     # Methods for the Deployments API
@@ -43,8 +45,9 @@ module Octokit
       # @return [Sawyer::Resource] The new deployment
       # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment
       def create_deployment(repo, ref, options = {})
-        options[:ref] = ref
-        post "#{Repository.path repo}/deployments", options
+        opts = options
+        opts[:ref] = ref
+        post "#{Repository.path repo}/deployments", opts
       end
 
       # Get a single deployment status
@@ -52,7 +55,7 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param deployment_id [Integer] The ID of the deployment
       # @param status_id [Integer] The ID of the status
-      # @return [Sawyer::Resource] A single deployment status
+      # @return [Sawyer::Resource] A single status
       # @see https://developer.github.com/v3/repos/deployments/#get-a-single-deployment-status
       def deployment_status(repo, deployment_id, status_id, options = {})
         get "#{Repository.path repo}/deployments/#{deployment_id}/statuses/#{status_id}", options
@@ -62,7 +65,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param deployment_id [Integer] The ID of the deployment
-      # @return [Array<Sawyer::Resource>] A list of deployment statuses
+      # @return [Array<Sawyer::Resource>] A list of statuses
       # @see https://developer.github.com/v3/repos/deployments/#list-deployment-statuses
       def deployment_statuses(repo, deployment_id, options = {})
         paginate "#{Repository.path repo}/deployments/#{deployment_id}/statuses", options
@@ -79,11 +82,12 @@ module Octokit
       # @option options [String] :environment Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`. **Note:** This parameter requires you to use the [`application/vnd.github.flash-preview+json`](https://developer.github.com/v3/previews/#deployment-statuses) custom media type.
       # @option options [String] :environment_url Sets the URL for accessing your environment. Default: `""`  **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type. **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type.
       # @option options [Boolean] :auto_inactive Adds a new `inactive` status to all prior non-transient, non-production environment deployments with the same repository and `environment` name as the created status's deployment. An `inactive` status is only added to deployments that had a `success` state. Default: `true`  **Note:** To add an `inactive` status to `production` environments, you must use the [`application/vnd.github.flash-preview+json`](https://developer.github.com/v3/previews/#deployment-statuses) custom media type.  **Note:** This parameter requires you to use the [`application/vnd.github.ant-man-preview+json`](https://developer.github.com/v3/previews/#enhanced-deployments) custom media type.
-      # @return [Sawyer::Resource] The new deployment status
+      # @return [Sawyer::Resource] The new status
       # @see https://developer.github.com/v3/repos/deployments/#create-a-deployment-status
       def create_deployment_status(repo, deployment_id, state, options = {})
-        options[:state] = state.to_s.downcase
-        post "#{Repository.path repo}/deployments/#{deployment_id}/statuses", options
+        opts = options
+        opts[:state] = state.to_s.downcase
+        post "#{Repository.path repo}/deployments/#{deployment_id}/statuses", opts
       end
     end
   end

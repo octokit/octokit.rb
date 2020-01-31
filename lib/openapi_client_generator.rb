@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'forwardable'
 require 'json'
 require 'pathname'
 require 'active_support/inflector'
@@ -20,8 +19,6 @@ module OpenAPIClientGenerator
         args.empty? ? "**options" : "#{args.map {|arg| arg + ":"}.join(", ")}, **options"
       end
     end
-
-    extend Forwardable
 
     VERB_PRIORITY = %w(GET POST PUT PATCH DELETE)
 
@@ -50,8 +47,9 @@ module OpenAPIClientGenerator
     end
 
     def method_summary
-      org_summary = definition.summary.gsub("#{namespace}", "org #{namespace}").gsub("a org", "an org")
-      org?? org_summary : definition.summary
+      resource = namespace.split("_").last
+      org_summary = definition.summary.gsub("#{resource}", "org #{resource}").gsub("a org", "an org")
+      (definition.operation_id.split("/").first == "orgs") ? org_summary : definition.summary
     end
 
     def method_definition
@@ -68,7 +66,7 @@ module OpenAPIClientGenerator
         definition.request_body.properties_for_format("application/json").each do |param|
           if param.enum && param.enum.size < 3 && param.default.nil?
             param.enum.each do |enum|
-              enum_action = enum.delete_suffix("d")
+              enum_action = enum.delete_suffix("d").gsub("open", "reopen")
               parameter_docs = parameter_documentation.reject { |p| p.include? param.name }
               result << %Q(
      # #{enum_action.capitalize} an #{namespace}
@@ -90,7 +88,7 @@ module OpenAPIClientGenerator
 
     def singular?
       return true unless definition.responses.first.content.present?
-      definition.responses.first.content["application/json"]["schema"]["type"] != "array"
+      definition.responses.first.content["application/json"] && definition.responses.first.content["application/json"]["schema"]["type"] != "array"
     end
 
     def method_implementation
@@ -101,7 +99,7 @@ module OpenAPIClientGenerator
     end
 
     def option_overrides
-      options = []
+      options = ["opts = options"]
       if definition.request_body
         params = definition.request_body.properties_for_format("application/json").select do |param|
           param.required
@@ -110,24 +108,22 @@ module OpenAPIClientGenerator
           if !!param.enum
             normalization = ".to_s.downcase"
           end
-          options << "options[:#{param.name}] = #{param.name}#{normalization}"
+          options << "opts[:#{param.name}] = #{param.name}#{normalization}"
           if param.raw["required"] && param.raw["required"] != true
             options << "raise Octokit::MissingKey.new unless #{param.name}.key? :#{param.raw["required"].first}"
           end
         end
       end
       if definition.raw["x-github"]["previews"].any? {|e| e["required"]}
-        # this is a bit janky
-        resource = definition.operation_id.split("/").first
-        namespace_segments = namespace.split("_")
-        preview_type = (resource == namespace_segments.last.pluralize) ? resource : namespace
-        options << "opts = ensure_api_media_type(:#{preview_type}, options)"
+        preview_types = definition.raw["x-github"]["previews"].select {|e| e["required"]}
+        accept_header = "\"application/vnd.github.#{preview_types.first["name"]}-preview+json\""
+        options << "opts[:accept] = #{accept_header} if opts[:accept].nil?\n"
       end
-      options
+      options.size > 1 ? options : []
     end
 
     def api_call
-      option_format = definition.raw["x-github"]["previews"].any? {|e| e["required"]} ? "opts" : "options"
+      option_format = option_overrides.any? ? "opts" : "options"
       if definition.raw["responses"].key? "204"
         "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
       elsif definition.parameters.any? {|p| p.name == "per_page"}
@@ -141,6 +137,8 @@ module OpenAPIClientGenerator
       path = definition.path.path[1..-1]
       path = path.gsub("repos/{owner}/{repo}", "\#{Repository.path repo}")
       path = path.gsub("orgs/{org}", "\#{Organization.path org}")
+      path = path.gsub("users/{username}", "\#{User.path user}")
+      path = path.gsub("{gist_id}", "\#{Gist.new gist_id}")
       path = required_params.reduce(path) do |path, param|
         path.gsub("{#{param.name}}", "\#{#{param.name}}")
       end
@@ -160,6 +158,12 @@ module OpenAPIClientGenerator
       params = definition.parameters.select(&:required).reject do |param|
         ["owner", "accept"].include?(param.name)
       end
+
+      if params.first && params.first.name == "username"
+        params.first.raw["name"] = "user"
+        params[0] = OasParser::Parameter.new(params.first.owner, params.first.raw) 
+      end
+
       if definition.request_body
         params += definition.request_body.properties_for_format("application/json").select do |param|
           param.required
@@ -184,25 +188,28 @@ module OpenAPIClientGenerator
       {
         "repo" => "[Integer, String, Repository, Hash]",
         "org" => "[Integer, String]",
+        "user" => "[Integer, String]",
+        "gist_id" => "[Integer, String]",
       }[param.name] || "[#{param.type.capitalize}]"
     end
 
     def parameter_description(param)
       return "A GitHub repository" if param.name == "repo"
-      return "A GitHub organization" if param.name == "org"
+      return "A GitHub organization id or login" if param.name == "org"
+      return "A GitHub user id or login" if param.name == "user"
       return "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if param.name.end_with? "_id"
       split_param =  param.name.split("_")
       split_description = param.description.split(" ")
-      resource = split_param.size > 1 ? split_param.first : namespace.split("_").first
+      resource = split_param.size > 1 ? split_param.first : namespace.split("_").last
+      resource = (namespace.split("_").size == 3)? namespace.split("_").first : resource
       return "The #{split_param.last} of the #{resource}" if split_description.last == "parameter"
       return collapse_lists(param).gsub("\n", "")
     end
 
     def collapse_lists(param)
       split_description = param.description.split("\\\*")
-      test = param.description.split("\\\*")
       list = split_description.drop(1).map { |line| line.split("`")[1] }
-      test2 = (split_description[0] + list.join(", "))
+      (split_description[0] + list.join(", "))
     end
 
     def parameter_documentation
@@ -216,27 +223,28 @@ module OpenAPIClientGenerator
     def return_value_description
       if verb == "GET"
         if namespace.include?("latest")
-          "The #{namespace.gsub("_", " ")}"
+          "The latest #{namespace.split("_").last}"
         elsif !singular? or definition.parameters.any? {|p| p.name == "per_page"}
-          "A list of #{namespace.gsub("_", " ")}"
+          "A list of #{namespace.split("_").last.pluralize}"
         else singular?
-          "A single #{namespace.gsub("_", " ")}"
+          resource = (namespace.include? "by")? namespace.split("_").first : namespace.split("_").last
+          "A single #{resource}"
         end
       elsif definition.raw["responses"].key? "204"
         "True on success, false otherwise"
       elsif verb == "POST"
         case namespace
         # Note: hardcoded check
-        when "assignees"
+        when "issue_assignees"
           "The updated #{definition.tags.first.singularize}"
         else
-          "The new #{namespace.gsub("_", " ").singularize}"
+          "The new #{namespace.split("_").last.singularize}"
         end
       elsif verb == "PATCH"
-        "The updated #{namespace.singularize.gsub("_", " ")}"
+        "The updated #{namespace.split("_").last}"
       else
-        if definition.responses && definition.responses.first.content["application/json"]["schema"]["type"] == "array"
-          "An array of the remaining #{namespace.pluralize}"
+        if definition.responses && definition.responses.first.content && definition.responses.first.content["application/json"]["schema"]["type"] == "array"
+          "An array of the remaining #{namespace.split("_").last}"
         else
           "The updated #{definition.operation_id.split("/").first.singularize}"
         end
@@ -268,12 +276,23 @@ module OpenAPIClientGenerator
 
         first_half = namespace_array[0..index-1]
         subresource = (first_half.size == 1) ? operation_array.first : first_half.drop(1).join("_")
+        subresource = "#{subresource}_#{operation_array.first}" if subresource == "public"
         subresource = singular? ? subresource.singularize : subresource
 
         "#{resource}_#{subresource}"
+      elsif namespace_array.size == 1
+        singular? ? operation_array.first.singularize : operation_array.first
+      elsif namespace_array.size == 2
+        resource = namespace_array.drop(1).join("_")
+        return resource if operation_array.first == "repos"
+
+        if namespace_array.last.end_with?("ed") or resource == "public"
+          return "#{resource}_#{operation_array.first}"
+        end
+
+        "#{operation_array.first.singularize}_#{resource}"
       else
-        operation_resource = singular? ? operation_array.first.singularize : operation_array.first
-        (namespace_array.size == 1) ? operation_resource : namespace_array.drop(1).join("_")
+        namespace_array.drop(1).join("_")
       end
     end
 
@@ -281,19 +300,14 @@ module OpenAPIClientGenerator
       definition.operation_id.split("/").last.split("-").first
     end
 
-    def org?
-      definition.operation_id.split("/").first == "orgs"
-    end
-
     def method_name
       method_name = case verb
         when "GET"
-          namespace
+          (definition.operation_id.include? "check") ? "#{namespace}?" : namespace
         when "POST", "PATCH", "DELETE", "PUT"
           "#{action}_#{namespace}"
         else
         end
-      org?? method_name.gsub(namespace, "org_#{namespace}") : method_name
     end
 
     def parts
@@ -328,18 +342,14 @@ module OpenAPIClientGenerator
     def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
 
-      repo_resource = path_segments[3]
-      org_resource = path_segments[2]
-      primary_resource = path_segments[0]
-
-      supported_resources = ["deployments","pages", "hooks", "releases", "labels", "milestones", "issues", "reactions"]
+      supported_resources = ["deployments","pages", "hooks", "releases", "labels", "milestones", "issues", "reactions", "projects", "gists"]
       resource = case path_segments.first
-                 when "orgs"
-                   org_resource
+                 when "orgs", "users"
+                   path_segments[2]
                  when "repos"
-                   repo_resource
+                   path_segments[3]
                  else
-                   primary_resource
+                   path_segments[0]
                  end
       return (supported_resources.include? resource) ? resource : :unsupported
     end
@@ -356,6 +366,8 @@ module OpenAPIClientGenerator
 
     def to_s
       <<-FILE
+# frozen_string_literal: true
+
 module Octokit
   class Client
     # Methods for the #{resource.capitalize} API
