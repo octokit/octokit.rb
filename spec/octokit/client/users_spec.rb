@@ -232,11 +232,25 @@ describe Octokit::Client::Users do
   describe ".exchange_code_for_token" do
     context "with application authenticated client" do
       it "returns the access_token" do
-        client = Octokit::Client.new({client_id: '123', client_secret: '345'})
-        request = stub_post("https://github.com/login/oauth/access_token?client_id=123&client_secret=345").
-          with(:body => {:code=>"code", :client_id=>"123", :client_secret=>"345"}.to_json).
-          to_return(json_response("web_flow_token.json"))
+        request_body = {
+          code: "code",
+          client_id: "123",
+          client_secret: "345"
+        }
+
+        client = Octokit::Client.new(
+          client_id: request_body[:client_id],
+          client_secret: request_body[:client_secret]
+        )
+
+        request = stub_post("https://github.com/login/oauth/access_token").
+          with(
+            basic_auth: [request_body[:client_id], request_body[:client_secret]],
+            body: request_body.to_json
+          ).to_return(json_response("web_flow_token.json"))
+
         response = client.exchange_code_for_token("code")
+
         expect(response.access_token).to eq "this_be_ye_token/use_it_wisely"
         assert_requested request
       end
