@@ -233,7 +233,7 @@ describe Octokit::Client::Users do
     context "with application authenticated client" do
       it "returns the access_token" do
         client = Octokit::Client.new({client_id: '123', client_secret: '345'})
-        request = stub_post("https://github.com/login/oauth/access_token?client_id=123&client_secret=345").
+        request = stub_post("https://github.com/login/oauth/access_token").
           with(:body => {:code=>"code", :client_id=>"123", :client_secret=>"345"}.to_json).
           to_return(json_response("web_flow_token.json"))
         response = client.exchange_code_for_token("code")
