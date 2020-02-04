@@ -54,7 +54,16 @@ module Octokit
           }
         })
 
-        post "#{web_endpoint}login/oauth/access_token", options
+        # In the event that someone passed in the client_id
+        # and client_secret as part of the Octokit::Client
+        # initialization, we need to clear them out.
+        #
+        # This is because the client_id and client_secret
+        # are now used as part of Basic Authentication.
+        client = self.dup
+        client.client_id = client.client_secret = nil
+
+        client.post "#{web_endpoint}login/oauth/access_token", options
       end
 
       # Validate user username and password
