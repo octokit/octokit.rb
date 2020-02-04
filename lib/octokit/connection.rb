@@ -113,7 +113,7 @@ module Octokit
         elsif bearer_authenticated?
           http.authorization 'Bearer', @bearer_token
         elsif application_authenticated?
-          http.params = http.params.merge application_authentication
+          http.basic_auth(@client_id, @client_secret)
         end
       end
     end
