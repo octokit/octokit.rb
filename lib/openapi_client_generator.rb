@@ -4,6 +4,9 @@ require 'json'
 require 'pathname'
 require 'active_support/inflector'
 require 'oas_parser'
+require 'redcarpet'
+require 'redcarpet/render_strip'
+require 'pry'
 
 module OpenAPIClientGenerator
 
@@ -102,7 +105,7 @@ module OpenAPIClientGenerator
       options = ["opts = options"]
       if definition.request_body
         params = definition.request_body.properties_for_format("application/json").select do |param|
-          param.required
+          param.schema['required'].include? param.name if param.schema['required']
         end.map do |param|
           normalization = ""
           if !!param.enum
@@ -166,7 +169,7 @@ module OpenAPIClientGenerator
 
       if definition.request_body
         params += definition.request_body.properties_for_format("application/json").select do |param|
-          param.required
+          param.schema['required'].include? param.name if param.schema['required']
         end
       end
       params
@@ -178,7 +181,7 @@ module OpenAPIClientGenerator
       end
       if definition.request_body
         params += definition.request_body.properties_for_format("application/json").reject do |param|
-          param.required
+          param.schema['required'].include? param.name if param.schema['required']
         end
       end
       params
@@ -207,9 +210,11 @@ module OpenAPIClientGenerator
     end
 
     def collapse_lists(param)
-      split_description = param.description.split("\\\*")
-      list = split_description.drop(1).map { |line| line.split("`")[1] }
-      (split_description[0] + list.join(", "))
+      md = Redcarpet::Markdown.new(Redcarpet::Render::StripDown)
+      description = md.render(param.description)
+      split_description = description.split("*")
+      list = split_description.drop(1).map { |line| line.split(":")[0] }
+      (split_description[0] + list.join(","))
     end
 
     def parameter_documentation
@@ -303,7 +308,7 @@ module OpenAPIClientGenerator
     def method_name
       method_name = case verb
         when "GET"
-          (definition.operation_id.include? "check") ? "#{namespace}?" : namespace
+          (definition.operation_id.split("/").last.include? "check") ? "#{namespace}?" : namespace
         when "POST", "PATCH", "DELETE", "PUT"
           "#{action}_#{namespace}"
         else
@@ -342,7 +347,7 @@ module OpenAPIClientGenerator
     def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
 
-      supported_resources = ["deployments","pages", "hooks", "releases", "labels", "milestones", "issues", "reactions", "projects", "gists"]
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks)
       resource = case path_segments.first
                  when "orgs", "users"
                    path_segments[2]
@@ -351,6 +356,7 @@ module OpenAPIClientGenerator
                  else
                    path_segments[0]
                  end
+      resource = resource.split("-").first.pluralize unless resource.nil?
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
