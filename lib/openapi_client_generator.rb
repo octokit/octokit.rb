@@ -89,11 +89,6 @@ module OpenAPIClientGenerator
       end
     end
 
-    def singular?
-      return true unless definition.responses.first.content.present?
-      definition.responses.first.content["application/json"] && definition.responses.first.content["application/json"]["schema"]["type"] != "array"
-    end
-
     def method_implementation
       [
         *option_overrides,
@@ -129,7 +124,7 @@ module OpenAPIClientGenerator
       option_format = option_overrides.any? ? "opts" : "options"
       if definition.raw["responses"].key? "204"
         "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
-      elsif definition.parameters.any? {|p| p.name == "per_page"}
+      elsif !singular?
         "paginate \"#{api_path}\", #{option_format}"
       else
         "#{definition.method} \"#{api_path}\", #{option_format}"
@@ -137,11 +132,13 @@ module OpenAPIClientGenerator
     end
 
     def api_path
-      path = definition.path.path[1..-1]
-      path = path.gsub("repos/{owner}/{repo}", "\#{Repository.path repo}")
-      path = path.gsub("orgs/{org}", "\#{Organization.path org}")
-      path = path.gsub("users/{username}", "\#{User.path user}")
-      path = path.gsub("{gist_id}", "\#{Gist.new gist_id}")
+      map = {"repos/{owner}/{repo}" => "\#{Repository.path repo}",
+             "orgs/{org}" => "\#{Organization.path org}",
+             "users/{username}" => "\#{User.path user}",
+             "{gist_id}" => "\#{Gist.new gist_id}" }
+
+      re = Regexp.new(map.keys.map { |x| Regexp.escape(x) }.join('|'))
+      path = definition.path.path[1..-1].gsub(re, map)
       path = required_params.reduce(path) do |path, param|
         path.gsub("{#{param.name}}", "\#{#{param.name}}")
       end
@@ -229,9 +226,9 @@ module OpenAPIClientGenerator
       if verb == "GET"
         if namespace.include?("latest")
           "The latest #{namespace.split("_").last}"
-        elsif !singular? or definition.parameters.any? {|p| p.name == "per_page"}
+        elsif !singular?
           "A list of #{namespace.split("_").last.pluralize}"
-        else singular?
+        else
           resource = (namespace.include? "by")? namespace.split("_").first : namespace.split("_").last
           "A single #{resource}"
         end
@@ -267,6 +264,10 @@ module OpenAPIClientGenerator
       parameterizer.parameterize(params)
     end
 
+    def singular?
+      return true unless definition.parameters.any? {|p| p.name == "per_page"}
+    end
+
     def namespace
       operation_array = definition.operation_id.split("/")
       namespace_array = operation_array.last.split("-")
@@ -288,7 +289,7 @@ module OpenAPIClientGenerator
       elsif namespace_array.size == 1
         singular? ? operation_array.first.singularize : operation_array.first
       elsif namespace_array.size == 2
-        resource = namespace_array.drop(1).join("_")
+        resource = namespace_array.last
         return resource if operation_array.first == "repos"
 
         if namespace_array.last.end_with?("ed") or resource == "public"
