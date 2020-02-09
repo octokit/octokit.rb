@@ -7,7 +7,7 @@ describe Octokit::Client::Checks, :vcr do
     @jwt_client = Octokit::Client.new(:bearer_token => new_jwt_token)
     use_vcr_placeholder_for(@jwt_client.bearer_token, '<JWT_BEARER_TOKEN>')
 
-    token = @jwt_client.create_app_installation_access_token(ENV["OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION"]).token
+    token = @jwt_client.create_app_installation_access_token(test_github_integration_installation).token
     @client = Octokit::Client.new(:access_token => token)
   end
 
