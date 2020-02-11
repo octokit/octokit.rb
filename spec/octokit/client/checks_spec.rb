@@ -7,7 +7,10 @@ describe Octokit::Client::Checks, :vcr do
     @jwt_client = Octokit::Client.new(:bearer_token => new_jwt_token)
     use_vcr_placeholder_for(@jwt_client.bearer_token, '<JWT_BEARER_TOKEN>')
 
-    token = @jwt_client.create_app_installation_access_token(test_github_integration_installation).token
+    token = @jwt_client.create_app_installation_access_token(
+      test_github_integration_installation,
+      accept: preview_header(:integrations)
+    ).token
     @client = Octokit::Client.new(:access_token => token)
   end
 
@@ -24,7 +27,7 @@ describe Octokit::Client::Checks, :vcr do
           @test_repo,
           @check_name,
           @commit_sha,
-          accept: preview_header,
+          accept: preview_header(:checks),
         )
 
         assert_requested :post, repo_url("check-runs")
@@ -41,7 +44,7 @@ describe Octokit::Client::Checks, :vcr do
           @test_repo,
           @check_name,
           @commit_sha,
-          accept: preview_header,
+          accept: preview_header(:checks),
         )
         @check_run_id = check_run.id
         @path = "README.md"
@@ -52,7 +55,7 @@ describe Octokit::Client::Checks, :vcr do
           check_run = @client.update_check(
             @test_repo,
             @check_run_id,
-            accept: preview_header,
+            accept: preview_header(:checks),
             completed_at: "2019-01-17T14:52:51Z",
             conclusion: "success",
             output: {
@@ -82,7 +85,7 @@ describe Octokit::Client::Checks, :vcr do
           check_run = @client.check(
             @test_repo,
             @check_run_id,
-            accept: preview_header,
+            accept: preview_header(:checks),
           )
 
           expect(check_run.id).to eq(@check_run_id)
@@ -97,7 +100,7 @@ describe Octokit::Client::Checks, :vcr do
           check_run = @client.update_check(
             @test_repo,
             @check_run_id,
-            accept: preview_header,
+            accept: preview_header(:checks),
             completed_at: "2019-01-17T14:52:51Z",
             conclusion: "success",
             output: {
@@ -121,7 +124,7 @@ describe Octokit::Client::Checks, :vcr do
             annotations = @client.check_annotations(
               @test_repo,
               @check_run_id,
-              accept: preview_header,
+              accept: preview_header(:checks),
             )
 
             expect(annotations).to be_a(Array)
@@ -136,6 +139,7 @@ describe Octokit::Client::Checks, :vcr do
   context "with check suite" do
     before(:each) do
       branch = @client.branch(@test_repo, "master")
+      # doesn't work with @client
       commit = oauth_client.create_commit(@test_repo, 
                                           "help test create_check_suite",
                                           branch.commit.commit.tree.sha)
@@ -144,7 +148,7 @@ describe Octokit::Client::Checks, :vcr do
       @check_suite = @client.create_check_suite(
         @test_repo,
         commit.sha,
-        accept: preview_header,
+        accept: preview_header(:checks),
       )
     end
 
@@ -161,7 +165,7 @@ describe Octokit::Client::Checks, :vcr do
         check_suite = @client.check_suite(
           @test_repo,
           @check_suite.id,
-          accept: preview_header,
+          accept: preview_header(:checks),
         )
 
         expect(check_suite.id).to eq(@check_suite.id)
@@ -174,7 +178,7 @@ describe Octokit::Client::Checks, :vcr do
         result = @client.rerequest_check_suite(
           @test_repo,
           @check_suite.id,
-          accept: preview_header,
+          accept: preview_header(:checks),
         )
 
         assert_requested :post, repo_url("check-suites/#{@check_suite.id}/rerequest")
@@ -189,7 +193,7 @@ describe Octokit::Client::Checks, :vcr do
           @test_repo,
           check_name,
           @commit_sha,
-          accept: preview_header,
+          accept: preview_header(:checks),
         )
         @check_run_id = check_run.id
       end
@@ -199,7 +203,7 @@ describe Octokit::Client::Checks, :vcr do
           result = @client.suite_checks(
             @test_repo,
             @check_suite.id,
-            accept: preview_header,
+            accept: preview_header(:checks),
           )
 
           expect(result.total_count).to eq(1)
@@ -212,7 +216,7 @@ describe Octokit::Client::Checks, :vcr do
           result = @client.suite_checks(
             @test_repo,
             @check_suite.id,
-            accept: preview_header,
+            accept: preview_header(:checks),
             status: "completed",
           )
 
@@ -223,7 +227,7 @@ describe Octokit::Client::Checks, :vcr do
           result = @client.suite_checks(
             @test_repo,
             @check_suite.id,
-            accept: preview_header,
+            accept: preview_header(:checks),
             status: "queued",
           )
 
@@ -241,7 +245,7 @@ describe Octokit::Client::Checks, :vcr do
     it "sets check suite preferences" do
       @client.set_suites_preferences(
         @test_repo,
-        accept: preview_header,
+        accept: preview_header(:checks),
         auto_trigger_checks: [
           {
             app_id: test_github_integration,
@@ -257,8 +261,8 @@ describe Octokit::Client::Checks, :vcr do
 
   private
 
-  def preview_header
-    Octokit::Preview::PREVIEW_TYPES[:checks]
+  def preview_header(type)
+    Octokit::Preview::PREVIEW_TYPES[type]
   end
 
   def repo_url(repo_path)
