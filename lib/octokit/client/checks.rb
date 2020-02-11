@@ -126,13 +126,13 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param check_suite_id [Integer] The ID of the check suite
-      # @return [Sawyer::Resource] The new suite
+      # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/checks/suites/#rerequest-check-suite
       def rerequest_check_suite(repo, check_suite_id, options = {})
         opts = options
         opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
 
-        post "#{Repository.path repo}/check-suites/#{check_suite_id}/rerequest", opts
+        boolean_from_response :post, "#{Repository.path repo}/check-suites/#{check_suite_id}/rerequest", opts
       end
 
       # Set preferences for check suites on a repository

@@ -120,9 +120,15 @@ module OpenAPIClientGenerator
       options.size > 1 ? options : []
     end
 
+    def boolean_response?
+      return true if definition.raw["responses"].key? "204"
+      return true if definition.raw["responses"].key? "201" and definition.raw["responses"]["201"].keys.count == 1
+      false
+    end
+
     def api_call
       option_format = option_overrides.any? ? "opts" : "options"
-      if definition.raw["responses"].key? "204"
+      if boolean_response?
         "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
       elsif !singular?
         "paginate \"#{api_path}\", #{option_format}"
@@ -147,7 +153,7 @@ module OpenAPIClientGenerator
     def return_type_description
       if verb == "GET" && !singular?
         "[Array<Sawyer::Resource>]"
-      elsif definition.raw["responses"].key? "204"
+      elsif boolean_response?
         "[Boolean]"
       else
         "[Sawyer::Resource]"
@@ -232,7 +238,7 @@ module OpenAPIClientGenerator
           resource = (namespace.include? "by")? namespace.split("_").first : namespace.split("_").last
           "A single #{resource}"
         end
-      elsif definition.raw["responses"].key? "204"
+      elsif boolean_response?
         "True on success, false otherwise"
       elsif verb == "POST"
         case namespace
