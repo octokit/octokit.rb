@@ -8,21 +8,17 @@ describe OpenAPIClientGenerator do
       expect(endpoint.singular?).to eq(true)
     end
 
-    # changed singular? to depend on per_page parameter
-    #
-    # it "defines singular? as true if response is not an array type" do
-    #   json = {"parameters"=> [{"name"=>"owner", "required"=>true}],
-    #          "responses"=> {"200" => {"content"=> {"application/json"=> {"schema"=> {"type"=> "object"}}}}}}
-    #   endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, nil, {}), "get", json))
-    #   expect(endpoint.singular?).to eq(true)
-    # end
-    #
-    # it "defines singular? as false if response is an array type" do
-    #   json = {"parameters"=> [{"name"=>"owner", "required"=>true}],
-    #          "responses"=> {"200" => {"content"=> {"application/json"=> {"schema"=> {"type"=> "array"}}}}}}
-    #   endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, nil, {}), "get", json))
-    #   expect(endpoint.singular?).to eq(false)
-    # end
+    it "defines singular? as true if response is not an array type" do
+      json = {"parameters"=> [{"name"=>"owner", "required"=>true}]}
+      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, nil, {}), "get", json))
+      expect(endpoint.singular?).to eq(true)
+    end
+
+    it "defines singular? as false if response is an array type" do
+      json = {"parameters"=> [{"name"=>"per_page"}]}
+      endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, nil, {}), "get", json))
+      expect(endpoint.singular?).to eq(false)
+    end
 
     it "defines api_path to replace required param variables" do
       json = {"parameters"=> [{"name"=>"meal_id", "required"=>true}, {"name"=>"repo", "required"=>false}]}

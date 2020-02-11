@@ -18,7 +18,7 @@ module Octokit
 
       # List the authenticated user's gists or if called anonymously, this will return all public gists
       #
-      # @option options [String] :since This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Only gists updated at or after this time are returned.
+      # @option options [String] :since This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ. Only gists updated at or after this time are returned.
       # @return [Array<Sawyer::Resource>] A list of gists
       # @see https://developer.github.com/v3/gists/#list-a-users-gists
       def gists(options = {})
@@ -27,9 +27,9 @@ module Octokit
 
       # Create a gist
       #
-      # @param files [Object] The filenames and content of each file in the gist. The keys in the `files` object represent the filename and have the type `string`.
+      # @param files [Object] The filenames and content of each file in the gist. The keys in the files object represent the filename and have the type string.
       # @option options [String] :description A descriptive name for this gist.
-      # @option options [Boolean] :public When `true`, the gist will be public and available for anyone to see.
+      # @option options [Boolean] :public When true, the gist will be public and available for anyone to see.
       # @return [Sawyer::Resource] The new gist
       # @see https://developer.github.com/v3/gists/#create-a-gist
       def create_gist(files, options = {})
@@ -98,7 +98,7 @@ module Octokit
 
       # List starred gists
       #
-      # @option options [String] :since This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Only gists updated at or after this time are returned.
+      # @option options [String] :since This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ. Only gists updated at or after this time are returned.
       # @return [Array<Sawyer::Resource>] A list of gists
       # @see https://developer.github.com/v3/gists/#list-starred-gists
       def starred_gists(options = {})
@@ -116,7 +116,7 @@ module Octokit
 
       # List all public gists
       #
-      # @option options [String] :since This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Only gists updated at or after this time are returned.
+      # @option options [String] :since This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ. Only gists updated at or after this time are returned.
       # @return [Array<Sawyer::Resource>] A list of gists
       # @see https://developer.github.com/v3/gists/#list-all-public-gists
       def public_gists(options = {})
@@ -197,7 +197,7 @@ module Octokit
       # List public gists for the specified user
       #
       # @param user [Integer, String] A GitHub user id or login
-      # @option options [String] :since This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. Only gists updated at or after this time are returned.
+      # @option options [String] :since This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ. Only gists updated at or after this time are returned.
       # @return [Array<Sawyer::Resource>] A list of gists
       # @see https://developer.github.com/v3/gists/#list-a-users-gists
       def user_public_gists(user, options = {})

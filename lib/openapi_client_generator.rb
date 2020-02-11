@@ -65,7 +65,7 @@ module OpenAPIClientGenerator
 
     def enum_definitions
       result = []
-      if definition.request_body
+      if definition.request_body && definition.request_body.content["application/json"]
         definition.request_body.properties_for_format("application/json").each do |param|
           if param.enum && param.enum.size < 3 && param.default.nil?
             param.enum.each do |enum|
@@ -98,7 +98,7 @@ module OpenAPIClientGenerator
 
     def option_overrides
       options = ["opts = options"]
-      if definition.request_body
+      if definition.request_body && definition.request_body.content["application/json"]
         params = definition.request_body.properties_for_format("application/json").select do |param|
           param.schema['required'].include? param.name if param.schema['required']
         end.map do |param|
@@ -170,7 +170,7 @@ module OpenAPIClientGenerator
         params[0] = OasParser::Parameter.new(params.first.owner, params.first.raw) 
       end
 
-      if definition.request_body
+      if definition.request_body && definition.request_body.content["application/json"]
         params += definition.request_body.properties_for_format("application/json").select do |param|
           param.schema['required'].include? param.name if param.schema['required']
         end
@@ -182,7 +182,7 @@ module OpenAPIClientGenerator
       params = definition.parameters.reject(&:required).reject do |param|
         ["accept", "per_page", "page"].include?(param.name)
       end
-      if definition.request_body
+      if definition.request_body && definition.request_body.content["application/json"]
         params += definition.request_body.properties_for_format("application/json").reject do |param|
           param.schema['required'].include? param.name if param.schema['required']
         end
@@ -272,6 +272,7 @@ module OpenAPIClientGenerator
 
     def singular?
       return true unless definition.parameters.any? {|p| p.name == "per_page"}
+      false
     end
 
     def namespace

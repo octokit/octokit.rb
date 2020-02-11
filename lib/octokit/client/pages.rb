@@ -32,8 +32,8 @@ module Octokit
       # Update information about a Pages site
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @option options [String] :cname Specify a custom domain for the repository. Sending a `null` value will remove the custom domain. For more about custom domains, see "[Using a custom domain with GitHub Pages](https://help.github.com/articles/using-a-custom-domain-with-github-pages/)."
-      # @option options [String] :source Update the source for the repository. Must include the branch name, and may optionally specify the subdirectory `/docs`. Possible values are `"gh-pages"`, `"master"`, and `"master /docs"`.
+      # @option options [String] :cname Specify a custom domain for the repository. Sending a null value will remove the custom domain. For more about custom domains, see "Using a custom domain with GitHub Pages (https://help.github.com/articles/using-a-custom-domain-with-github-pages/)."
+      # @option options [String] :source Update the source for the repository. Must include the branch name, and may optionally specify the subdirectory /docs. Possible values are "gh-pages", "master", and "master /docs".
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/repos/pages/#update-information-about-a-pages-site
       def update_pages_site(repo, options = {})

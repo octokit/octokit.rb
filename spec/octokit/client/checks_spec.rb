@@ -171,13 +171,14 @@ describe Octokit::Client::Checks, :vcr do
 
     describe ".rerequest_check_suite" do
       it "requests the check suite again" do
-        @client.rerequest_check_suite(
+        result = @client.rerequest_check_suite(
           @test_repo,
           @check_suite.id,
           accept: preview_header,
         )
 
         assert_requested :post, repo_url("check-suites/#{@check_suite.id}/rerequest")
+        expect(result).to eq(true)
       end
     end
 
