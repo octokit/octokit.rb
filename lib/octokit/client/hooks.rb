@@ -29,10 +29,10 @@ module Octokit
       # Create a hook
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param config [Object] Key/value pairs to provide settings for this webhook. [These are defined below](https://developer.github.com/v3/repos/hooks/#create-hook-config-params).
-      # @option options [String] :name Use `web` to create a webhook. Default: `web`. This parameter only accepts the value `web`.
-      # @option options [Array] :events Determines what [events](https://developer.github.com/v3/activity/events/types/) the hook is triggered for.
-      # @option options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+      # @param config [Object] Key/value pairs to provide settings for this webhook. These are defined below (https://developer.github.com/v3/repos/hooks/#create-hook-config-params).
+      # @option options [String] :name Use web to create a webhook. Default: web. This parameter only accepts the value web.
+      # @option options [Array] :events Determines what events (https://developer.github.com/v3/activity/events/types/) the hook is triggered for.
+      # @option options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to true to send notifications.
       # @return [Sawyer::Resource] The new hook
       # @see https://developer.github.com/v3/repos/hooks/#create-a-hook
       def create_hook(repo, config = {}, options = {})
@@ -46,18 +46,15 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param hook_id [Integer] The ID of the hook
-      # @param config [Object] Key/value pairs to provide settings for this webhook. [These are defined below](https://developer.github.com/v3/repos/hooks/#create-hook-config-params).
-      # @option options [Array] :events Determines what [events](https://developer.github.com/v3/activity/events/types/) the hook is triggered for. This replaces the entire array of events.
+      # @option options [Object] :config Key/value pairs to provide settings for this webhook. These are defined below (https://developer.github.com/v3/repos/hooks/#create-hook-config-params).
+      # @option options [Array] :events Determines what events (https://developer.github.com/v3/activity/events/types/) the hook is triggered for. This replaces the entire array of events.
       # @option options [Array] :add_events Determines a list of events to be added to the list of events that the Hook triggers for.
       # @option options [Array] :remove_events Determines a list of events to be removed from the list of events that the Hook triggers for.
-      # @option options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+      # @option options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to true to send notifications.
       # @return [Sawyer::Resource] The updated hook
       # @see https://developer.github.com/v3/repos/hooks/#edit-a-hook
-      def update_hook(repo, hook_id, config = {}, options = {})
-        opts = options
-        opts[:config] = config
-        raise Octokit::MissingKey.new unless config.key? :url
-        patch "#{Repository.path repo}/hooks/#{hook_id}", opts
+      def update_hook(repo, hook_id, options = {})
+        patch "#{Repository.path repo}/hooks/#{hook_id}", options
       end
 
       # Delete a hook
@@ -113,9 +110,9 @@ module Octokit
       #
       # @param org [Integer, String] A GitHub organization id or login
       # @param name [String] Must be passed as "web".
-      # @param config [Object] Key/value pairs to provide settings for this webhook. [These are defined below](https://developer.github.com/v3/orgs/hooks/#create-hook-config-params).
-      # @option options [Array] :events Determines what [events](https://developer.github.com/v3/activity/events/types/) the hook is triggered for.
-      # @option options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+      # @param config [Object] Key/value pairs to provide settings for this webhook. These are defined below (https://developer.github.com/v3/orgs/hooks/#create-hook-config-params).
+      # @option options [Array] :events Determines what events (https://developer.github.com/v3/activity/events/types/) the hook is triggered for.
+      # @option options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to true to send notifications.
       # @return [Sawyer::Resource] The new hook
       # @see https://developer.github.com/v3/orgs/hooks/#create-a-hook
       def create_org_hook(org, name, config = {}, options = {})
@@ -130,16 +127,13 @@ module Octokit
       #
       # @param org [Integer, String] A GitHub organization id or login
       # @param hook_id [Integer] The ID of the hook
-      # @param config [Object] Key/value pairs to provide settings for this webhook. [These are defined below](https://developer.github.com/v3/orgs/hooks/#update-hook-config-params).
-      # @option options [Array] :events Determines what [events](https://developer.github.com/v3/activity/events/types/) the hook is triggered for.
-      # @option options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
+      # @option options [Object] :config Key/value pairs to provide settings for this webhook. These are defined below (https://developer.github.com/v3/orgs/hooks/#update-hook-config-params).
+      # @option options [Array] :events Determines what events (https://developer.github.com/v3/activity/events/types/) the hook is triggered for.
+      # @option options [Boolean] :active Determines if notifications are sent when the webhook is triggered. Set to true to send notifications.
       # @return [Sawyer::Resource] The updated hook
       # @see https://developer.github.com/v3/orgs/hooks/#edit-a-hook
-      def update_org_hook(org, hook_id, config = {}, options = {})
-        opts = options
-        opts[:config] = config
-        raise Octokit::MissingKey.new unless config.key? :url
-        patch "#{Organization.path org}/hooks/#{hook_id}", opts
+      def update_org_hook(org, hook_id, options = {})
+        patch "#{Organization.path org}/hooks/#{hook_id}", options
       end
 
       # Delete an org hook

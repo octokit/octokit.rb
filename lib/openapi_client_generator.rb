@@ -4,6 +4,9 @@ require 'json'
 require 'pathname'
 require 'active_support/inflector'
 require 'oas_parser'
+require 'redcarpet'
+require 'redcarpet/render_strip'
+require 'pry'
 
 module OpenAPIClientGenerator
 
@@ -62,7 +65,7 @@ module OpenAPIClientGenerator
 
     def enum_definitions
       result = []
-      if definition.request_body
+      if definition.request_body && definition.request_body.content["application/json"]
         definition.request_body.properties_for_format("application/json").each do |param|
           if param.enum && param.enum.size < 3 && param.default.nil?
             param.enum.each do |enum|
@@ -86,11 +89,6 @@ module OpenAPIClientGenerator
       end
     end
 
-    def singular?
-      return true unless definition.responses.first.content.present?
-      definition.responses.first.content["application/json"] && definition.responses.first.content["application/json"]["schema"]["type"] != "array"
-    end
-
     def method_implementation
       [
         *option_overrides,
@@ -100,9 +98,9 @@ module OpenAPIClientGenerator
 
     def option_overrides
       options = ["opts = options"]
-      if definition.request_body
+      if definition.request_body && definition.request_body.content["application/json"]
         params = definition.request_body.properties_for_format("application/json").select do |param|
-          param.required
+          param.schema['required'].include? param.name if param.schema['required']
         end.map do |param|
           normalization = ""
           if !!param.enum
@@ -122,11 +120,17 @@ module OpenAPIClientGenerator
       options.size > 1 ? options : []
     end
 
+    def boolean_response?
+      return true if definition.raw["responses"].key? "204"
+      return true if definition.raw["responses"].key? "201" and definition.raw["responses"]["201"].keys.count == 1
+      false
+    end
+
     def api_call
       option_format = option_overrides.any? ? "opts" : "options"
-      if definition.raw["responses"].key? "204"
+      if boolean_response?
         "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
-      elsif definition.parameters.any? {|p| p.name == "per_page"}
+      elsif !singular?
         "paginate \"#{api_path}\", #{option_format}"
       else
         "#{definition.method} \"#{api_path}\", #{option_format}"
@@ -134,11 +138,13 @@ module OpenAPIClientGenerator
     end
 
     def api_path
-      path = definition.path.path[1..-1]
-      path = path.gsub("repos/{owner}/{repo}", "\#{Repository.path repo}")
-      path = path.gsub("orgs/{org}", "\#{Organization.path org}")
-      path = path.gsub("users/{username}", "\#{User.path user}")
-      path = path.gsub("{gist_id}", "\#{Gist.new gist_id}")
+      map = {"repos/{owner}/{repo}" => "\#{Repository.path repo}",
+             "orgs/{org}" => "\#{Organization.path org}",
+             "users/{username}" => "\#{User.path user}",
+             "{gist_id}" => "\#{Gist.new gist_id}" }
+
+      re = Regexp.new(map.keys.map { |x| Regexp.escape(x) }.join('|'))
+      path = definition.path.path[1..-1].gsub(re, map)
       path = required_params.reduce(path) do |path, param|
         path.gsub("{#{param.name}}", "\#{#{param.name}}")
       end
@@ -147,7 +153,7 @@ module OpenAPIClientGenerator
     def return_type_description
       if verb == "GET" && !singular?
         "[Array<Sawyer::Resource>]"
-      elsif definition.raw["responses"].key? "204"
+      elsif boolean_response?
         "[Boolean]"
       else
         "[Sawyer::Resource]"
@@ -164,9 +170,9 @@ module OpenAPIClientGenerator
         params[0] = OasParser::Parameter.new(params.first.owner, params.first.raw) 
       end
 
-      if definition.request_body
+      if definition.request_body && definition.request_body.content["application/json"]
         params += definition.request_body.properties_for_format("application/json").select do |param|
-          param.required
+          param.schema['required'].include? param.name if param.schema['required']
         end
       end
       params
@@ -176,9 +182,9 @@ module OpenAPIClientGenerator
       params = definition.parameters.reject(&:required).reject do |param|
         ["accept", "per_page", "page"].include?(param.name)
       end
-      if definition.request_body
+      if definition.request_body && definition.request_body.content["application/json"]
         params += definition.request_body.properties_for_format("application/json").reject do |param|
-          param.required
+          param.schema['required'].include? param.name if param.schema['required']
         end
       end
       params
@@ -207,9 +213,11 @@ module OpenAPIClientGenerator
     end
 
     def collapse_lists(param)
-      split_description = param.description.split("\\\*")
-      list = split_description.drop(1).map { |line| line.split("`")[1] }
-      (split_description[0] + list.join(", "))
+      md = Redcarpet::Markdown.new(Redcarpet::Render::StripDown)
+      description = md.render(param.description)
+      split_description = description.split("*")
+      list = split_description.drop(1).map { |line| line.split(":")[0] }
+      (split_description[0] + list.join(","))
     end
 
     def parameter_documentation
@@ -224,13 +232,13 @@ module OpenAPIClientGenerator
       if verb == "GET"
         if namespace.include?("latest")
           "The latest #{namespace.split("_").last}"
-        elsif !singular? or definition.parameters.any? {|p| p.name == "per_page"}
+        elsif !singular?
           "A list of #{namespace.split("_").last.pluralize}"
-        else singular?
+        else
           resource = (namespace.include? "by")? namespace.split("_").first : namespace.split("_").last
           "A single #{resource}"
         end
-      elsif definition.raw["responses"].key? "204"
+      elsif boolean_response?
         "True on success, false otherwise"
       elsif verb == "POST"
         case namespace
@@ -262,6 +270,11 @@ module OpenAPIClientGenerator
       parameterizer.parameterize(params)
     end
 
+    def singular?
+      return true unless definition.parameters.any? {|p| p.name == "per_page"}
+      false
+    end
+
     def namespace
       operation_array = definition.operation_id.split("/")
       namespace_array = operation_array.last.split("-")
@@ -283,7 +296,7 @@ module OpenAPIClientGenerator
       elsif namespace_array.size == 1
         singular? ? operation_array.first.singularize : operation_array.first
       elsif namespace_array.size == 2
-        resource = namespace_array.drop(1).join("_")
+        resource = namespace_array.last
         return resource if operation_array.first == "repos"
 
         if namespace_array.last.end_with?("ed") or resource == "public"
@@ -303,7 +316,7 @@ module OpenAPIClientGenerator
     def method_name
       method_name = case verb
         when "GET"
-          (definition.operation_id.include? "check") ? "#{namespace}?" : namespace
+          (definition.operation_id.split("/").last.include? "check") ? "#{namespace}?" : namespace
         when "POST", "PATCH", "DELETE", "PUT"
           "#{action}_#{namespace}"
         else
@@ -342,7 +355,7 @@ module OpenAPIClientGenerator
     def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
 
-      supported_resources = ["deployments","pages", "hooks", "releases", "labels", "milestones", "issues", "reactions", "projects", "gists"]
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks)
       resource = case path_segments.first
                  when "orgs", "users"
                    path_segments[2]
@@ -351,6 +364,7 @@ module OpenAPIClientGenerator
                  else
                    path_segments[0]
                  end
+      resource = resource.split("-").first.pluralize unless resource.nil?
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 

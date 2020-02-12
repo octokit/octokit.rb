@@ -45,9 +45,6 @@ describe Octokit::Client::Hooks do
         @client.update_hook(@test_repo, @hook.id, {:url => "https://railsbp.com"})
         assert_requested :patch, github_url("/repos/#{@test_repo}/hooks/#{@hook.id}")
       end
-      it "returns with no config url passed" do
-        expect { @client.update_hook(@test_repo, @hook.id)}.to raise_error Octokit::MissingKey
-      end
     end # .update_hook
 
     describe ".test_push_hook", :vcr do
@@ -129,9 +126,6 @@ describe Octokit::Client::Hooks do
         request = stub_patch("/organizations/1/hooks/#{@org_hook.id}")
         @client.update_org_hook(1, @org_hook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
         assert_requested request
-      end
-      it "returns with no config url passed" do
-        expect { @client.update_org_hook(1, @org_hook.id)}.to raise_error Octokit::MissingKey
       end
     end # .update_org_hook
 

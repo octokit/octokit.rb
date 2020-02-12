@@ -30,11 +30,11 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param tag_name [String] The name of the tag.
-      # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`).
+      # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually master).
       # @option options [String] :name The name of the release.
       # @option options [String] :body Text describing the contents of the tag.
-      # @option options [Boolean] :draft `true` to create a draft (unpublished) release, `false` to create a published one.
-      # @option options [Boolean] :prerelease `true` to identify the release as a prerelease. `false` to identify the release as a full release.
+      # @option options [Boolean] :draft true to create a draft (unpublished) release, false to create a published one.
+      # @option options [Boolean] :prerelease true to identify the release as a prerelease. false to identify the release as a full release.
       # @return [Sawyer::Resource] The new release
       # @see https://developer.github.com/v3/repos/releases/#create-a-release
       def create_release(repo, tag_name, options = {})
@@ -48,11 +48,11 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param release_id [Integer] The ID of the release
       # @option options [String] :tag_name The name of the tag.
-      # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually `master`).
+      # @option options [String] :target_commitish Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually master).
       # @option options [String] :name The name of the release.
       # @option options [String] :body Text describing the contents of the tag.
-      # @option options [Boolean] :draft `true` makes the release a draft, and `false` publishes the release.
-      # @option options [Boolean] :prerelease `true` to identify the release as a prerelease, `false` to identify the release as a full release.
+      # @option options [Boolean] :draft true makes the release a draft, and false publishes the release.
+      # @option options [Boolean] :prerelease true to identify the release as a prerelease, false to identify the release as a full release.
       # @return [Sawyer::Resource] The updated release
       # @see https://developer.github.com/v3/repos/releases/#edit-a-release
       def update_release(repo, release_id, options = {})

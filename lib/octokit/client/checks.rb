@@ -1,210 +1,151 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Checks API
     #
-    # @see https://developer.github.com/v3/checks/
+    # @see https://developer.github.com/v3/checks/runs/
     module Checks
-
-      # Methods for Check Runs
-      #
-      # @see https://developer.github.com/v3/checks/runs/
-
-      # Create a check run
-      #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param name [String] The name of the check
-      # @param head_sha [String] The SHA of the commit to check
-      # @return [Sawyer::Resource] A hash representing the new check run
-      # @see https://developer.github.com/v3/checks/runs/#create-a-check-run
-      # @example Create a check run
-      #   check_run = @client.create_check_run("octocat/Hello-World", "my-check", "7638417db6d59f3c431d3e1f261cc637155684cd")
-      #   check_run.name # => "my-check"
-      #   check_run.head_sha # => "7638417db6d59f3c431d3e1f261cc637155684cd"
-      #   check_run.status # => "queued"
-      def create_check_run(repo, name, head_sha, options = {})
-        ensure_api_media_type(:checks, options)
-        options[:name] = name
-        options[:head_sha] = head_sha
-
-        post "#{Repository.path repo}/check-runs", options
-      end
-
-      # Update a check run
-      #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The ID of the check run
-      # @return [Sawyer::Resource] A hash representing the updated check run
-      # @see https://developer.github.com/v3/checks/runs/#update-a-check-run
-      # @example Update a check run
-      #   check_run = @client.update_check_run("octocat/Hello-World", 51295429, status: "in_progress")
-      #   check_run.id # => 51295429
-      #   check_run.status # => "in_progress"
-      def update_check_run(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
-
-        patch "#{Repository.path repo}/check-runs/#{id}", options
-      end
-
-      # List check runs for a specific ref
-      #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param ref [String] A SHA, branch name, or tag name
-      # @param options [Hash] A set of optional filters
-      # @option options [String] :check_name Returns check runs with the specified <tt>name</tt>
-      # @option options [String] :status Returns check runs with the specified <tt>status</tt>
-      # @option options [String] :filter Filters check runs by their <tt>completed_at</tt> timestamp
-      # @return [Sawyer::Resource] A hash representing a collection of check runs
-      # @see https://developer.github.com/v3/checks/runs/#list-check-runs-for-a-specific-ref
-      # @example List check runs for a specific ref
-      #   result = @client.check_runs_for_ref("octocat/Hello-World", "7638417db6d59f3c431d3e1f261cc637155684cd", status: "in_progress")
-      #   result.total_count # => 1
-      #   result.check_runs.count # => 1
-      #   result.check_runs[0].id # => 51295429
-      #   result.check_runs[0].status # => "in_progress"
-      def check_runs_for_ref(repo, ref, options = {})
-        ensure_api_media_type(:checks, options)
-
-        get "#{Repository.path repo}/commits/#{ref}/check-runs", options
-      end
-      alias :list_check_runs_for_ref :check_runs_for_ref
-
-      # List check runs in a check suite
-      #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The ID of the check suite
-      # @param options [Hash] A set of optional filters
-      # @option options [String] :check_name Returns check runs with the specified <tt>name</tt>
-      # @option options [String] :status Returns check runs with the specified <tt>status</tt>
-      # @option options [String] :filter Filters check runs by their <tt>completed_at</tt> timestamp
-      # @return [Sawyer::Resource] A hash representing a collection of check runs
-      # @see https://developer.github.com/v3/checks/runs/#list-check-runs-in-a-check-suite
-      # @example List check runs in a check suite
-      #   result = @client.check_runs_for_check_suite("octocat/Hello-World", 50440400, status: "in_progress")
-      #   result.total_count # => 1
-      #   result.check_runs.count # => 1
-      #   result.check_runs[0].check_suite.id # => 50440400
-      #   result.check_runs[0].status # => "in_progress"
-      def check_runs_for_check_suite(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
-
-        get "#{Repository.path repo}/check-suites/#{id}/check-runs", options
-      end
-      alias :list_check_runs_for_check_suite :check_runs_for_check_suite
 
       # Get a single check run
       #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The ID of the check run
-      # @return [Sawyer::Resource] A hash representing the check run
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param check_run_id [Integer] The ID of the check run
+      # @return [Sawyer::Resource] A single check
       # @see https://developer.github.com/v3/checks/runs/#get-a-single-check-run
-      def check_run(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
+      def check(repo, check_run_id, options = {})
+        opts = options
+        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
 
-        get "#{Repository.path repo}/check-runs/#{id}", options
+        get "#{Repository.path repo}/check-runs/#{check_run_id}", opts
       end
-
-      # List annotations for a check run
-      #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The ID of the check run
-      # @return [Array<Sawyer::Resource>] An array of hashes representing check run annotations
-      # @see https://developer.github.com/v3/checks/runs/#list-annotations-for-a-check-run
-      # @example List annotations for a check run
-      #   annotations = @client.check_run_annotations("octocat/Hello-World", 51295429)
-      #   annotations.count # => 1
-      #   annotations[0].path # => "README.md"
-      #   annotations[0].message # => "Looks good!"
-      def check_run_annotations(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
-
-        get "#{Repository.path repo}/check-runs/#{id}/annotations", options
-      end
-
-      # Methods for Check Suites
-      #
-      # @see https://developer.github.com/v3/checks/suites/
 
       # Get a single check suite
       #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The ID of the check suite
-      # @return [Sawyer::Resource] A hash representing the check suite
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param check_suite_id [Integer] The ID of the check suite
+      # @return [Sawyer::Resource] A single suite
       # @see https://developer.github.com/v3/checks/suites/#get-a-single-check-suite
-      def check_suite(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
+      def check_suite(repo, check_suite_id, options = {})
+        opts = options
+        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
 
-        get "#{Repository.path repo}/check-suites/#{id}", options
+        get "#{Repository.path repo}/check-suites/#{check_suite_id}", opts
       end
 
-      # List check suites for a specific ref
+      # Create a check run
       #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param ref [String] A SHA, branch name, or tag name
-      # @param options [Hash] A set of optional filters
-      # @option options [Integer] :app_id Filters check suites by GitHub App <tt>id</tt>
-      # @option options [String] :check_name Filters checks suites by the <tt>name</tt> of the check run
-      # @return [Sawyer::Resource] A hash representing a collection of check suites
-      # @see https://developer.github.com/v3/checks/suites/#list-check-suites-for-a-specific-ref
-      # @example List check suites for a specific ref
-      #   result = @client.check_suites_for_ref("octocat/Hello-World", "7638417db6d59f3c431d3e1f261cc637155684cd", app_id: 76765)
-      #   result.total_count # => 1
-      #   result.check_suites.count # => 1
-      #   result.check_suites[0].id # => 50440400
-      #   result.check_suites[0].app.id # => 76765
-      def check_suites_for_ref(repo, ref, options = {})
-        ensure_api_media_type(:checks, options)
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param name [String] The name of the check. For example, "code-coverage".
+      # @param head_sha [String] The SHA of the commit.
+      # @option options [String] :details_url The URL of the integrator's site that has the full details of the check.
+      # @option options [String] :external_id The ID of the external
+      # @option options [String] :status The current status. Can be one of queued, in_progress, or completed.
+      # @option options [String] :started_at The time that the check run began. This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ.
+      # @option options [String] :conclusion Required if you provide completed_at or a status of completed. The final conclusion of the check. Can be one of success, failure, neutral, cancelled, timed_out, or action_required. When the conclusion is action_required, additional details should be provided on the site specified by details_url.  Note: Providing conclusion will automatically set the status parameter to completed. Only GitHub can change a check run conclusion to stale.
+      # @option options [String] :completed_at The time the check completed. This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ.
+      # @option options [Object] :output Check runs can accept a variety of data in the output object, including a title and summary and can optionally provide descriptive details about the run. See the output object (https://developer.github.com/v3/checks/runs/#output-object) description.
+      # @option options [Array] :actions Displays a button on GitHub that can be clicked to alert your app to do additional tasks. For example, a code linting app can display a button that automatically fixes detected errors. The button created in this object is displayed after the check run completes. When a user clicks the button, GitHub sends the check_run.requested_action webhook (https://developer.github.com/v3/activity/events/types/#checkrunevent) to your app. Each action includes a label, identifier and description. A maximum of three actions are accepted. See the actions object (https://developer.github.com/v3/checks/runs/#actions-object) description. To learn more about check runs and requested actions, see "Check runs and requested actions (https://developer.github.com/v3/checks/runs/#check-runs-and-requested-actions)." To learn more about check runs and requested actions, see "Check runs and requested actions (https://developer.github.com/v3/checks/runs/#check-runs-and-requested-actions)."
+      # @return [Sawyer::Resource] The new check
+      # @see https://developer.github.com/v3/checks/runs/#create-a-check-run
+      def create_check(repo, name, head_sha, options = {})
+        opts = options
+        opts[:name] = name
+        opts[:head_sha] = head_sha
+        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
 
-        get "#{Repository.path repo}/commits/#{ref}/check-suites", options
-      end
-      alias :list_check_suites_for_ref :check_suites_for_ref
-
-      # Set preferences for check suites on a repository
-      #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param options [Hash] Preferences to set
-      # @return [Sawyer::Resource] A hash representing the repository's check suite preferences
-      # @see https://developer.github.com/v3/checks/suites/#set-preferences-for-check-suites-on-a-repository
-      # @example Set preferences for check suites on a repository
-      #   result = @client.set_check_suite_preferences("octocat/Hello-World", auto_trigger_checks: [{ app_id: 76765, setting: false }])
-      #   result.preferences.auto_trigger_checks.count # => 1
-      #   result.preferences.auto_trigger_checks[0].app_id # => 76765
-      #   result.preferences.auto_trigger_checks[0].setting # => false
-      #   result.repository.full_name # => "octocat/Hello-World"
-      def set_check_suite_preferences(repo, options = {})
-        ensure_api_media_type(:checks, options)
-
-        patch "#{Repository.path repo}/check-suites/preferences", options
+        post "#{Repository.path repo}/check-runs", opts
       end
 
       # Create a check suite
       #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param head_sha [String] The SHA of the commit to check
-      # @return [Sawyer::Resource] A hash representing the new check suite
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param head_sha [String] The sha of the head commit.
+      # @return [Sawyer::Resource] The new suite
       # @see https://developer.github.com/v3/checks/suites/#create-a-check-suite
-      # @example Create a check suite
-      #   check_suite = @client.create_check_suite("octocat/Hello-World", "7638417db6d59f3c431d3e1f261cc637155684cd")
-      #   check_suite.head_sha # => "7638417db6d59f3c431d3e1f261cc637155684cd"
-      #   check_suite.status # => "queued"
       def create_check_suite(repo, head_sha, options = {})
-        ensure_api_media_type(:checks, options)
-        options[:head_sha] = head_sha
+        opts = options
+        opts[:head_sha] = head_sha
+        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
 
-        post "#{Repository.path repo}/check-suites", options
+        post "#{Repository.path repo}/check-suites", opts
+      end
+
+      # Update a check run
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param check_run_id [Integer] The ID of the check run
+      # @option options [String] :name The name of the check. For example, "code-coverage".
+      # @option options [String] :details_url The URL of the integrator's site that has the full details of the check.
+      # @option options [String] :external_id The ID of the external
+      # @option options [String] :started_at This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ.
+      # @option options [String] :status The current status. Can be one of queued, in_progress, or completed.
+      # @option options [String] :conclusion Required if you provide completed_at or a status of completed. The final conclusion of the check. Can be one of success, failure, neutral, cancelled, timed_out, or action_required.  Note: Providing conclusion will automatically set the status parameter to completed. Only GitHub can change a check run conclusion to stale.
+      # @option options [String] :completed_at The time the check completed. This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ.
+      # @option options [Object] :output Check runs can accept a variety of data in the output object, including a title and summary and can optionally provide descriptive details about the run. See the output object (https://developer.github.com/v3/checks/runs/#output-object-1) description.
+      # @option options [Array] :actions Possible further actions the integrator can perform, which a user may trigger. Each action includes a label, identifier and description. A maximum of three actions are accepted. See the actions object (https://developer.github.com/v3/checks/runs/#actions-object) description. To learn more about check runs and requested actions, see "Check runs and requested actions (https://developer.github.com/v3/checks/runs/#check-runs-and-requested-actions)."
+      # @return [Sawyer::Resource] The updated check
+      # @see https://developer.github.com/v3/checks/runs/#update-a-check-run
+      def update_check(repo, check_run_id, options = {})
+        opts = options
+        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+
+        patch "#{Repository.path repo}/check-runs/#{check_run_id}", opts
+      end
+
+      # List check runs in a check suite
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param check_suite_id [Integer] The ID of the check suite
+      # @option options [String] :check_name Returns check runs with the specified name.
+      # @option options [String] :status Returns check runs with the specified status. Can be one of queued, in_progress, or completed.
+      # @option options [String] :filter Filters check runs by their completed_at timestamp. Can be one of latest (returning the most recent check runs) or all.
+      # @return [Array<Sawyer::Resource>] A list of checks
+      # @see https://developer.github.com/v3/checks/runs/#list-check-runs-in-a-check-suite
+      def suite_checks(repo, check_suite_id, options = {})
+        opts = options
+        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+
+        paginate "#{Repository.path repo}/check-suites/#{check_suite_id}/check-runs", opts
+      end
+
+      # List annotations for a check run
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param check_run_id [Integer] The ID of the check run
+      # @return [Array<Sawyer::Resource>] A list of annotations
+      # @see https://developer.github.com/v3/checks/runs/#list-annotations-for-a-check-run
+      def check_annotations(repo, check_run_id, options = {})
+        opts = options
+        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+
+        paginate "#{Repository.path repo}/check-runs/#{check_run_id}/annotations", opts
       end
 
       # Rerequest check suite
       #
-      # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The ID of the check suite
-      # @return [Boolean] True if successful, raises an error otherwise
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param check_suite_id [Integer] The ID of the check suite
+      # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/checks/suites/#rerequest-check-suite
-      def rerequest_check_suite(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
+      def rerequest_check_suite(repo, check_suite_id, options = {})
+        opts = options
+        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
 
-        post "#{Repository.path repo}/check-suites/#{id}/rerequest", options
-        true
+        boolean_from_response :post, "#{Repository.path repo}/check-suites/#{check_suite_id}/rerequest", opts
+      end
+
+      # Set preferences for check suites on a repository
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @option options [Array] :auto_trigger_checks Enables or disables automatic creation of CheckSuite events upon pushes to the repository. Enabled by default. See the auto_trigger_checks object (https://developer.github.com/v3/checks/suites/#auto_trigger_checks-object) description for details.
+      # @return [Sawyer::Resource] The updated preferences
+      # @see https://developer.github.com/v3/checks/suites/#set-preferences-for-check-suites-on-a-repository
+      def set_suites_preferences(repo, options = {})
+        opts = options
+        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+
+        patch "#{Repository.path repo}/check-suites/preferences", opts
       end
     end
   end
