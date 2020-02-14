@@ -1,42 +1,91 @@
-name: Octokit CI
+name: CI
 
 on:
    push:
      branches:
      - master
      - 4-stable
+     - '*'
    pull_request:
      branches:
      - master
      - 4-stable
 
 jobs:
-  test:
-    name: Ruby ${{ matrix.ruby_version }}
+  ubuntu:
+    name: ubuntu-latest Ruby ${{ matrix.ruby }}
     runs-on: ubuntu-latest
 
     strategy:
-      max-parallel: 3
+      fail-fast: false
       matrix:
-        ruby_version: [2.4.x, 2.5.x, 2.6.x]
+        ruby: [ 2.5, 2.6, 2.7, head ]
 
     steps:
-    - uses: actions/checkout@master
-    - name: Set up Ruby
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby_version }}
-    - name: Setup .netrc
-      run: |
-        chmod 600 spec/fixtures/.netrc
-    - name: Install dependencies
-      run: |
-        gem install bundler
-        gem update bundler
-        bundle install --without development --jobs 4 --retry 3
-    - name: Test with RSpec
-      env:
-        GITHUB_CI: 1
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-      run: |
-        bundle exec rspec
+      - uses: actions/checkout@v2
+      - name: Cache Ruby dependencies
+        uses: actions/cache@v1
+        with:
+          path: ./.bundle/gems
+          key: cache-${{ runner.os }}-${{ matrix.ruby }}-${{ github.sha }}
+          restore-keys: |
+            cache-${{ runner.os }}-${{ matrix.ruby }}-
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Setup .netrc
+        run: |
+          chmod 600 spec/fixtures/.netrc
+      - name: Install dependencies
+        run: |
+          bundle install --path=.bundle/gems --without=development --jobs 4 --retry 3
+      - name: Test with RSpec
+        env:
+          GITHUB_CI: 1
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+        run: |
+          bundle exec rspec
+
+  win32:
+    name: windows-latest Ruby ${{ matrix.ruby }}
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: [ 2.5, 2.6, 2.7, mingw ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Ruby dependencies
+        uses: actions/cache@v1
+        with:
+          path: ./.bundle/gems
+          key: cache-${{ runner.os }}-${{ matrix.ruby }}-${{ github.sha }}-
+          restore-keys: |
+            cache-${{ runner.os }}-${{ matrix.ruby }}-
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Update MSYS2 tools
+        uses: MSP-Greg/actions-ruby@v1
+        with:
+          base: update
+          mingw: libxml2 libxslt
+      - name: Install dependencies
+        run: |
+          $ErrorActionPreference = 'Continue'
+          $abi = ruby -e "print RbConfig::CONFIG['ruby_version']"
+          if ($abi -ge '2.7') {
+            bundle config force_ruby_platform true
+            bundle config build.nokogiri --use-system-libraries
+          }
+          bundle install --path=.bundle/gems  --without=development --jobs 4 --retry 3
+      - name: Test with RSpec
+        env:
+          GITHUB_CI: 1
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+        run: |
+          bundle exec rspec

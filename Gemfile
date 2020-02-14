@@ -3,6 +3,11 @@ source 'https://rubygems.org'
 gem 'jruby-openssl', :platforms => :jruby
 gem 'rake', '> 11.0.1', '< 12.0'
 
+# when stdlib items become gems, they need to added
+install_if -> { RUBY_VERSION >= '2.8' } do
+  gem 'rss', '>= 0.2.8'
+end
+
 group :development do
   gem 'awesome_print', :require => 'ap'
   gem 'guard-rspec', '~> 4.5'
@@ -13,6 +18,9 @@ group :development do
 end
 
 group :test do
+  install_if -> { RUBY_VERSION >= '2.8' } do
+    gem 'rexml', '>= 3.2.3'
+  end
   gem 'coveralls', :require => false
   gem 'json', '~> 1.7', :platforms => [:jruby]
   gem 'jwt', '~> 1.5', '>= 1.5.6'
