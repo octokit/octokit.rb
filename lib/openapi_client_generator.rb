@@ -125,10 +125,11 @@ module OpenAPIClientGenerator
     def read_file
       if required_params.any? { |p| p.name == "data" }
         %Q(file = data.respond_to?(:read) ? data : File.new(data, "rb")
-        options[:content_type] = content_type
-        unless options[:name]
-          name = File.basename(file.path)
-        end)
+        opts = options
+        unless opts[:name]
+          opts[:name] = File.basename(file.path)
+        end
+        opts[:content_type] = content_type)
       end
     end
 
