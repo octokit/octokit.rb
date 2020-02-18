@@ -98,6 +98,29 @@ module Octokit
         paginate "#{Repository.path repo}/releases/#{release_id}/assets", options
       end
 
+      # Upload a release asset
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param release_id [Integer] The ID of the release
+      # @param content_type [String] Media Type of the asset. For a list of media types, see https://www.iana.org/assignments/media-types/media-types.xhtml
+      # @param data [String] The raw file data
+      # @option options [String] :name The name of the asset
+      # @option options [String] :label The label of the asset
+      # @return [Sawyer::Resource] The new asset
+      # @see https://developer.github.com/v3/repos/releases/#upload-a-release-asset
+      def upload_release_asset(repo, release_id, content_type, data, options = {})
+        file = data.respond_to?(:read) ? data : File.new(data, "rb")
+        options[:content_type] = content_type
+        unless options[:name]
+          name = File.basename(file.path)
+        end
+        path = "https://uploads.github.com/#{Repository.path repo}/releases/#{release_id}/assets"
+        request :post, path, file.read, parse_query_and_convenience_headers(options)
+        
+      ensure
+        file.close if file
+      end
+
       # Edit a release asset
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

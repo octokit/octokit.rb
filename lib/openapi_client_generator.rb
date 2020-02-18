@@ -91,8 +91,10 @@ module OpenAPIClientGenerator
 
     def method_implementation
       [
+        *read_file,
         *option_overrides,
         api_call,
+        *ensure_file
       ].reject(&:empty?).join("\n        ")
     end
 
@@ -120,6 +122,25 @@ module OpenAPIClientGenerator
       options.size > 1 ? options : []
     end
 
+    def read_file
+      if required_params.any? { |p| p.name == "data" }
+        %Q(file = data.respond_to?(:read) ? data : File.new(data, "rb")
+        options[:content_type] = content_type
+        unless options[:name]
+          name = File.basename(file.path)
+        end)
+      end
+    end
+
+    def ensure_file
+      if required_params.any? { |p| p.name == "data" }
+        # this looks funky
+        %Q(
+      ensure
+        file.close if file)
+      end
+    end
+
     def boolean_response?
       return true if definition.raw["responses"].key? "204"
       return true if definition.raw["responses"].key? "201" and definition.raw["responses"]["201"].keys.count == 1
@@ -127,6 +148,12 @@ module OpenAPIClientGenerator
     end
 
     def api_call
+      if definition.raw.keys().include? "servers"
+        server_url = definition.raw["servers"].first["variables"]["origin"]["default"]
+        result = ["path = \"#{server_url}/#{api_path}\""]
+        return result << ["request :post, path, file.read, parse_query_and_convenience_headers(options)"]
+      end
+
       option_format = option_overrides.any? ? "opts" : "options"
       if boolean_response?
         "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
@@ -162,18 +189,29 @@ module OpenAPIClientGenerator
 
     def required_params
       params = definition.parameters.select(&:required).reject do |param|
-        ["owner", "accept"].include?(param.name)
+        param.in == "header" or param.name == "owner"
       end
 
       if params.first && params.first.name == "username"
         params.first.raw["name"] = "user"
-        params[0] = OasParser::Parameter.new(params.first.owner, params.first.raw) 
+        params[0] = OasParser::Parameter.new(params.first.owner, params.first.raw)
+      end
+
+      test = definition.parameters.select { |p| p.name == "content-type" or p.name == "content_type"}
+      if test.any?
+        test.first.raw["name"] = "content_type"
+        params += [OasParser::Parameter.new(test.first.owner, test.first.raw)]
       end
 
       if definition.request_body && definition.request_body.content["application/json"]
         params += definition.request_body.properties_for_format("application/json").select do |param|
           param.schema['required'].include? param.name if param.schema['required']
         end
+      end
+
+      if definition.request_body && definition.request_body.content["*/*"]
+        definition.request_body.content["*/*"]["schema"]["name"] = "data"
+        params += [OasParser::Parameter.new(params.first.owner, definition.request_body.content["*/*"]["schema"])]
       end
       params
     end
