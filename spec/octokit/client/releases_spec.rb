@@ -58,7 +58,7 @@ describe Octokit::Client::Releases do
     before(:each) do
       @release = @client.create_release @test_repo, "test-handling-release-asset-test-2"
       file = File.new("spec/fixtures/upload.png", "r+b")
-      @asset_id = @client.upload_release_asset(@test_repo, @release.id, "image/png", file).id
+      @asset_id = @client.upload_release_asset(@test_repo, @release.id, file).id
     end
 
     after(:each) do
