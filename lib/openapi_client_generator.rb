@@ -6,7 +6,7 @@ require 'active_support/inflector'
 require 'oas_parser'
 require 'redcarpet'
 require 'redcarpet/render_strip'
-require 'pry'
+require 'rubocop'
 
 module OpenAPIClientGenerator
 
@@ -26,8 +26,9 @@ module OpenAPIClientGenerator
     VERB_PRIORITY = %w(GET POST PUT PATCH DELETE)
 
     attr_reader :definition, :parameterizer
-    def initialize(oas_endpoint, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
+    def initialize(oas_endpoint, overrides, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
       @definition    = oas_endpoint
+      @overrides     = overrides
       @parameterizer = parameterizer.new
     end
 
@@ -90,12 +91,14 @@ module OpenAPIClientGenerator
     end
 
     def method_implementation
-      [
-        *read_file,
-        *option_overrides,
-        api_call,
-        *ensure_file
-      ].reject(&:empty?).join("\n        ")
+      if @overrides.include? method_name
+        @overrides[method_name]
+      else 
+        [
+          *option_overrides,
+          api_call,
+        ].reject(&:empty?).join("\n        ")
+      end
     end
 
     def option_overrides
@@ -122,26 +125,6 @@ module OpenAPIClientGenerator
       options.size > 1 ? options : []
     end
 
-    def read_file
-      if required_params.any? { |p| p.name == "data" }
-        %Q(file = data.respond_to?(:read) ? data : File.new(data, "rb")
-        opts = options
-        unless opts[:name]
-          opts[:name] = File.basename(file.path)
-        end
-        opts[:content_type] = content_type)
-      end
-    end
-
-    def ensure_file
-      if required_params.any? { |p| p.name == "data" }
-        # this looks funky
-        %Q(
-      ensure
-        file.close if file)
-      end
-    end
-
     def boolean_response?
       return true if definition.raw["responses"].key? "204"
       return true if definition.raw["responses"].key? "201" and definition.raw["responses"]["201"].keys.count == 1
@@ -149,12 +132,6 @@ module OpenAPIClientGenerator
     end
 
     def api_call
-      if definition.raw.keys().include? "servers"
-        server_url = definition.raw["servers"].first["variables"]["origin"]["default"]
-        result = ["path = \"#{server_url}/#{api_path}\""]
-        return result << ["request :post, path, file.read, parse_query_and_convenience_headers(options)"]
-      end
-
       option_format = option_overrides.any? ? "opts" : "options"
       if boolean_response?
         "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
@@ -196,12 +173,6 @@ module OpenAPIClientGenerator
       if params.first && params.first.name == "username"
         params.first.raw["name"] = "user"
         params[0] = OasParser::Parameter.new(params.first.owner, params.first.raw)
-      end
-
-      test = definition.parameters.select { |p| p.name == "content-type" or p.name == "content_type"}
-      if test.any?
-        test.first.raw["name"] = "content_type"
-        params += [OasParser::Parameter.new(test.first.owner, test.first.raw)]
       end
 
       if definition.request_body && definition.request_body.content["application/json"]
@@ -377,6 +348,12 @@ module OpenAPIClientGenerator
 
   class API
     def self.at(definition, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
+      overrides_path = "lib/openapi/overrides.rb"
+      source = RuboCop::ProcessedSource.new(File.read(overrides_path), 2.3, overrides_path)
+
+      # child_nodes[0] is args, child_node[1] is body
+      method_overrides = { source.ast.children.first.to_s => source.ast.child_nodes[1].source }  
+        
       grouped_paths = definition.paths.group_by do |oas_path|
         resource_for_path(oas_path.path)
       end
@@ -384,7 +361,7 @@ module OpenAPIClientGenerator
       grouped_paths.each do |resource, paths|
         endpoints = paths.each_with_object([]) do |path, arr|
           path.endpoints.each do |endpoint|
-            arr << OpenAPIClientGenerator::Endpoint.new(endpoint, parameterizer: parameterizer)
+            arr << OpenAPIClientGenerator::Endpoint.new(endpoint, method_overrides, parameterizer: parameterizer)
           end
         end
         yield new(resource, endpoints: endpoints)

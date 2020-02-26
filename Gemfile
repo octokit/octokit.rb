@@ -30,6 +30,7 @@ group :test, :development do
   gem 'activesupport'
   gem 'oas_parser'
   gem 'redcarpet'
+  gem 'rubocop'
   gem 'pry-byebug'
 end
 
