@@ -7,6 +7,7 @@ require 'oas_parser'
 require 'redcarpet'
 require 'redcarpet/render_strip'
 require 'rubocop'
+require 'pry'
 
 module OpenAPIClientGenerator
 
@@ -72,11 +73,13 @@ module OpenAPIClientGenerator
             param.enum.each do |enum|
               enum_action = enum.delete_suffix("d").gsub("open", "reopen")
               parameter_docs = parameter_documentation.reject { |p| p.include? param.name }
+              first_word = definition.summary.split(" ").first
+              enum_summary = definition.summary.gsub(first_word, enum_action.capitalize)
               result << %Q(
-     # #{enum_action.capitalize} an #{namespace}
-     #
-     # #{parameter_docs.join("\n     # ")}
-     def #{enum_action}_#{namespace}(#{parameters})
+      # #{enum_summary}
+      #
+      # #{parameter_docs.join("\n     # ")}
+      def #{enum_action}_#{namespace}(#{parameters})
         options[:#{param.name}] = "#{enum}"
         #{method_implementation}
       end)

@@ -6,7 +6,6 @@ module Octokit
     #
     # @see https://developer.github.com/v3/issues/
     module Issues
-
       # List all issues assigned to the authenticated user across all visible repositories including owned repositories, member repositories, and organization repositories
       #
       # @option options [String] :filter Indicates which sorts of issues to return. Can be one of:   assigned, created, mentioned, subscribed, all
@@ -18,7 +17,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of issues
       # @see https://developer.github.com/v3/issues/#list-issues
       def issues(options = {})
-        paginate "issues", options
+        paginate 'issues', options
       end
 
       # List all issues for a given organization assigned to the authenticated user
@@ -81,18 +80,6 @@ module Octokit
         get "#{Repository.path repo}/issues/#{issue_number}", options
       end
 
-      # List comments in a repository
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @option options [String] :sort Either created or updated.
-      # @option options [String] :direction Either asc or desc. Ignored without the sort parameter.
-      # @option options [String] :since Only comments updated at or after this time are returned. This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ.
-      # @return [Sawyer::Resource] A single comment
-      # @see https://developer.github.com/v3/issues/comments/#list-comments-in-a-repository
-      def repository_comments(repo, options = {})
-        get "#{Repository.path repo}/issues/comments", options
-      end
-
       # Get a single comment
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -113,6 +100,18 @@ module Octokit
         get "#{Repository.path repo}/issues/events/#{event_id}", options
       end
 
+      # List comments in a repository
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @option options [String] :sort Either created or updated.
+      # @option options [String] :direction Either asc or desc. Ignored without the sort parameter.
+      # @option options [String] :since Only comments updated at or after this time are returned. This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ.
+      # @return [Array<Sawyer::Resource>] A list of comments
+      # @see https://developer.github.com/v3/issues/comments/#list-comments-in-a-repository
+      def repository_comments(repo, options = {})
+        paginate "#{Repository.path repo}/issues/comments", options
+      end
+
       # List events for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -120,19 +119,6 @@ module Octokit
       # @see https://developer.github.com/v3/issues/events/#list-events-for-a-repository
       def repository_events(repo, options = {})
         paginate "#{Repository.path repo}/issues/events", options
-      end
-
-      # Edit a comment
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param comment_id [Integer] The ID of the comment
-      # @param body [String] The contents of the comment.
-      # @return [Sawyer::Resource] The updated comment
-      # @see https://developer.github.com/v3/issues/comments/#edit-a-comment
-      def update_issue_comment(repo, comment_id, body, options = {})
-        opts = options
-        opts[:body] = body
-        patch "#{Repository.path repo}/issues/comments/#{comment_id}", opts
       end
 
       # Edit an issue
@@ -152,34 +138,47 @@ module Octokit
         patch "#{Repository.path repo}/issues/#{issue_number}", options
       end
 
-     # Reopen an issue
-     #
-     # @param repo [Integer, String, Repository, Hash] A GitHub repository
-     # @param issue_number [Integer] The number of the issue
-     # @option options [String] :title The title of the issue.
-     # @option options [String] :body The contents of the issue.
-     # @option options [String] :assignee Login for the user that this issue should be assigned to. This field is deprecated.
-     # @option options [Integer] :milestone The number of the milestone to associate this issue with or null to remove current. NOTE: Only users with push access can set the milestone for issues. The milestone is silently dropped otherwise.
-     # @option options [Array] :labels Labels to associate with this issue. Pass one or more Labels to replace the set of Labels on this Issue. Send an empty array ([]) to clear all Labels from the Issue. NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise.
-     # @option options [Array] :assignees Logins for Users to assign to this issue. Pass one or more user logins to replace the set of assignees on this Issue. Send an empty array ([]) to clear all assignees from the Issue. NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise.
-     def reopen_issue(repo, issue_number, options = {})
-        options[:state] = "open"
+      # Reopen an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @option options [String] :title The title of the issue.
+      # @option options [String] :body The contents of the issue.
+      # @option options [String] :assignee Login for the user that this issue should be assigned to. This field is deprecated.
+      # @option options [Integer] :milestone The number of the milestone to associate this issue with or null to remove current. NOTE: Only users with push access can set the milestone for issues. The milestone is silently dropped otherwise.
+      # @option options [Array] :labels Labels to associate with this issue. Pass one or more Labels to replace the set of Labels on this Issue. Send an empty array ([]) to clear all Labels from the Issue. NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise.
+      # @option options [Array] :assignees Logins for Users to assign to this issue. Pass one or more user logins to replace the set of assignees on this Issue. Send an empty array ([]) to clear all assignees from the Issue. NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise.
+      def reopen_issue(repo, issue_number, options = {})
+        options[:state] = 'open'
         patch "#{Repository.path repo}/issues/#{issue_number}", options
       end
 
-     # Close an issue
-     #
-     # @param repo [Integer, String, Repository, Hash] A GitHub repository
-     # @param issue_number [Integer] The number of the issue
-     # @option options [String] :title The title of the issue.
-     # @option options [String] :body The contents of the issue.
-     # @option options [String] :assignee Login for the user that this issue should be assigned to. This field is deprecated.
-     # @option options [Integer] :milestone The number of the milestone to associate this issue with or null to remove current. NOTE: Only users with push access can set the milestone for issues. The milestone is silently dropped otherwise.
-     # @option options [Array] :labels Labels to associate with this issue. Pass one or more Labels to replace the set of Labels on this Issue. Send an empty array ([]) to clear all Labels from the Issue. NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise.
-     # @option options [Array] :assignees Logins for Users to assign to this issue. Pass one or more user logins to replace the set of assignees on this Issue. Send an empty array ([]) to clear all assignees from the Issue. NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise.
-     def close_issue(repo, issue_number, options = {})
-        options[:state] = "closed"
+      # Close an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @option options [String] :title The title of the issue.
+      # @option options [String] :body The contents of the issue.
+      # @option options [String] :assignee Login for the user that this issue should be assigned to. This field is deprecated.
+      # @option options [Integer] :milestone The number of the milestone to associate this issue with or null to remove current. NOTE: Only users with push access can set the milestone for issues. The milestone is silently dropped otherwise.
+      # @option options [Array] :labels Labels to associate with this issue. Pass one or more Labels to replace the set of Labels on this Issue. Send an empty array ([]) to clear all Labels from the Issue. NOTE: Only users with push access can set labels for issues. Labels are silently dropped otherwise.
+      # @option options [Array] :assignees Logins for Users to assign to this issue. Pass one or more user logins to replace the set of assignees on this Issue. Send an empty array ([]) to clear all assignees from the Issue. NOTE: Only users with push access can set assignees for new issues. Assignees are silently dropped otherwise.
+      def close_issue(repo, issue_number, options = {})
+        options[:state] = 'closed'
         patch "#{Repository.path repo}/issues/#{issue_number}", options
+      end
+
+      # Edit a comment
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param comment_id [Integer] The ID of the comment
+      # @param body [String] The contents of the comment.
+      # @return [Sawyer::Resource] The updated comment
+      # @see https://developer.github.com/v3/issues/comments/#edit-a-comment
+      def update_issue_comment(repo, comment_id, body, options = {})
+        opts = options
+        opts[:body] = body
+        patch "#{Repository.path repo}/issues/comments/#{comment_id}", opts
       end
 
       # Delete a comment
@@ -200,7 +199,7 @@ module Octokit
       # @see https://developer.github.com/v3/issues/timeline/#list-events-for-an-issue
       def timeline_events(repo, issue_number, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.mockingbird-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.mockingbird-preview+json' if opts[:accept].nil?
 
         paginate "#{Repository.path repo}/issues/#{issue_number}/timeline", opts
       end
@@ -214,7 +213,7 @@ module Octokit
       # @see https://developer.github.com/v3/reactions/#list-reactions-for-an-issue-comment
       def issue_comment_reactions(repo, comment_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.squirrel-girl-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
         paginate "#{Repository.path repo}/issues/comments/#{comment_id}/reactions", opts
       end
@@ -259,7 +258,7 @@ module Octokit
       # @see https://developer.github.com/v3/reactions/#list-reactions-for-an-issue
       def issue_reactions(repo, issue_number, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.squirrel-girl-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
         paginate "#{Repository.path repo}/issues/#{issue_number}/reactions", opts
       end
@@ -274,7 +273,7 @@ module Octokit
       def create_issue_comment_reaction(repo, comment_id, content, options = {})
         opts = options
         opts[:content] = content.to_s.downcase
-        opts[:accept] = "application/vnd.github.squirrel-girl-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
         post "#{Repository.path repo}/issues/comments/#{comment_id}/reactions", opts
       end
@@ -289,7 +288,7 @@ module Octokit
       def create_issue_reaction(repo, issue_number, content, options = {})
         opts = options
         opts[:content] = content.to_s.downcase
-        opts[:accept] = "application/vnd.github.squirrel-girl-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
         post "#{Repository.path repo}/issues/#{issue_number}/reactions", opts
       end

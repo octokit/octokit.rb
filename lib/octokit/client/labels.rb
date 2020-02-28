@@ -6,7 +6,6 @@ module Octokit
     #
     # @see https://developer.github.com/v3/issues/labels/
     module Labels
-
       # List all labels for this repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

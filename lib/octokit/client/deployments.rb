@@ -6,7 +6,6 @@ module Octokit
     #
     # @see https://developer.github.com/v3/repos/deployments/
     module Deployments
-
       # Get a single deployment
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

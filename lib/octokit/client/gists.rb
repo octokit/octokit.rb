@@ -6,7 +6,6 @@ module Octokit
     #
     # @see https://developer.github.com/v3/gists/
     module Gists
-
       # Get a single gist
       #
       # @param gist_id [Integer, String] The ID of the gist
@@ -22,7 +21,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of gists
       # @see https://developer.github.com/v3/gists/#list-a-users-gists
       def gists(options = {})
-        paginate "gists", options
+        paginate 'gists', options
       end
 
       # Create a gist
@@ -35,7 +34,7 @@ module Octokit
       def create_gist(files, options = {})
         opts = options
         opts[:files] = files
-        post "gists", opts
+        post 'gists', opts
       end
 
       # Edit a gist
@@ -102,7 +101,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of gists
       # @see https://developer.github.com/v3/gists/#list-starred-gists
       def starred_gists(options = {})
-        paginate "gists/starred", options
+        paginate 'gists/starred', options
       end
 
       # List gist commits
@@ -120,7 +119,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of gists
       # @see https://developer.github.com/v3/gists/#list-all-public-gists
       def public_gists(options = {})
-        paginate "gists/public", options
+        paginate 'gists/public', options
       end
 
       # List comments on a gist

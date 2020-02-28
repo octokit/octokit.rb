@@ -6,14 +6,13 @@ module Octokit
     #
     # @see https://developer.github.com/v3/activity/events/
     module Events
-
       # List public events
       #
-      # 
+      #
       # @return [Array<Sawyer::Resource>] A list of events
       # @see https://developer.github.com/v3/activity/events/#list-public-events
       def public_events(options = {})
-        paginate "events", options
+        paginate 'events', options
       end
 
       # List public events for an organization
