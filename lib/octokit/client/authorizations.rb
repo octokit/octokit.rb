@@ -152,12 +152,13 @@ module Octokit
       #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
       #  client.check_application_authorization('deadbeef1234567890deadbeef987654321')
       def check_application_authorization(token, options = {})
-        opts = options.dup
+        opts = ensure_api_media_type(:applications_api, options)
+        opts[:access_token] = token
         key    = opts.delete(:client_id)     || client_id
         secret = opts.delete(:client_secret) || client_secret
 
         as_app(key, secret) do |app_client|
-          app_client.get "applications/#{client_id}/tokens/#{token}", opts
+          app_client.post "applications/#{client_id}/tokens", opts
         end
       end
 
@@ -173,12 +174,13 @@ module Octokit
       #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
       #  client.reset_application_authorization('deadbeef1234567890deadbeef987654321')
       def reset_application_authorization(token, options = {})
-        opts = options.dup
+        opts = ensure_api_media_type(:applications_api, options)
+        opts[:access_token] = token
         key    = opts.delete(:client_id)     || client_id
         secret = opts.delete(:client_secret) || client_secret
 
         as_app(key, secret) do |app_client|
-          app_client.post "applications/#{client_id}/tokens/#{token}", opts
+          app_client.patch "applications/#{client_id}/tokens", opts
         end
       end
 
@@ -194,12 +196,13 @@ module Octokit
       #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
       #  client.revoke_application_authorization('deadbeef1234567890deadbeef987654321')
       def revoke_application_authorization(token, options = {})
-        opts = options.dup
+        opts = ensure_api_media_type(:applications_api, options)
+        opts[:access_token] = token
         key    = opts.delete(:client_id)     || client_id
         secret = opts.delete(:client_secret) || client_secret
 
         as_app(key, secret) do |app_client|
-          app_client.delete "applications/#{client_id}/tokens/#{token}", opts
+          app_client.delete "applications/#{client_id}/tokens", opts
 
           app_client.last_response.status == 204
         end
