@@ -333,7 +333,7 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing team.
       # @see https://developer.github.com/v3/teams/#get-team-by-name
       # @example
-      #   @client.team("github", "justice-league")
+      #   @client.team_by_name("github", "justice-league")
       def team_by_name(org, team_slug, options = {})
         get "#{Organization.path(org)}/teams/#{team_slug}", options
       end

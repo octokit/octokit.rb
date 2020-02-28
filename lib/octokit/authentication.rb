@@ -43,21 +43,12 @@ module Octokit
     # requests at a higher rate limit
     #
     # @see https://developer.github.com/v3/#unauthenticated-rate-limited-requests
-    # @return Boolean
+    # @return [Boolean]
     def application_authenticated?
-      !!application_authentication
+      @client_id && @client_secret
     end
 
     private
-
-    def application_authentication
-      if @client_id && @client_secret
-        {
-          :client_id     => @client_id,
-          :client_secret => @client_secret
-        }
-      end
-    end
 
     def login_from_netrc
       return unless netrc?

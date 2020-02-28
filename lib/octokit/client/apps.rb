@@ -8,7 +8,7 @@ module Octokit
       #
       # @param options [Hash] A customizable set of options
       #
-      # @see https://developer.github.com/v3/apps/#find-installations
+      # @see https://developer.github.com/v3/apps/#list-installations
       #
       # @return [Array<Sawyer::Resource>] the total_count and an array of installations
       def find_app_installations(options = {})
@@ -31,7 +31,7 @@ module Octokit
       #
       # @param options [Hash] A customizable set of options
       #
-      # @see https://developer.github.com/v3/apps/#list-installations-for-user
+      # @see https://developer.github.com/v3/apps/installations/#list-installations-for-a-user
       #
       # @return [Sawyer::Resource] the total_count and an array of installations
       def find_user_installations(options = {})
@@ -45,7 +45,7 @@ module Octokit
       #
       # @param id [Integer] Installation id
       #
-      # @see https://developer.github.com/v3/apps/#get-a-single-installation
+      # @see https://developer.github.com/v3/apps/#get-an-installation
       #
       # @return [Sawyer::Resource] Installation information
       def installation(id, options = {})
@@ -58,7 +58,7 @@ module Octokit
       # @param installation [Integer] The id of a GitHub App Installation
       # @param options [Hash] A customizable set of options
       #
-      # @see https://developer.github.com/v3/apps/#find-installations
+      # @see https://developer.github.com/v3/apps/#create-a-new-installation-token
       #
       # @return [<Sawyer::Resource>] An installation token
       def create_app_installation_access_token(installation, options = {})
@@ -82,7 +82,7 @@ module Octokit
       # @param organization [String] Organization GitHub login
       # @param options [Hash] A customizable set of options
       #
-      # @see https://developer.github.com/v3/apps/#find-organization-installation
+      # @see https://developer.github.com/v3/apps/#get-an-organization-installation
       #
       # @return [Sawyer::Resource] Installation information
       def find_organization_installation(organization, options = {})
@@ -95,7 +95,7 @@ module Octokit
       # @param repo [String] A GitHub repository
       # @param options [Hash] A customizable set of options
       #
-      # @see https://developer.github.com/v3/apps/#find-repository-installation
+      # @see https://developer.github.com/v3/apps/#get-a-repository-installation
       #
       # @return [Sawyer::Resource] Installation information
       def find_repository_installation(repo, options = {})
@@ -108,7 +108,7 @@ module Octokit
       # @param user [String] GitHub user login
       # @param options [Hash] A customizable set of options
       #
-      # @see https://developer.github.com/v3/apps/#find-user-installation
+      # @see https://developer.github.com/v3/apps/#get-a-user-installation
       #
       # @return [Sawyer::Resource] Installation information
       def find_user_installation(user, options = {})
@@ -119,6 +119,7 @@ module Octokit
       # List repositories that are accessible to the authenticated installation
       #
       # @param options [Hash] A customizable set of options
+      #
       # @see https://developer.github.com/v3/apps/installations/#list-repositories
       #
       # @return [Sawyer::Resource] the total_count and an array of repositories
@@ -195,7 +196,7 @@ module Octokit
       # @param installation [Integer] The id of a GitHub App Installation
       # @param options [Hash] A customizable set of options
       #
-      # @see https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/identifying-users-for-github-apps/
+      # @see https://developer.github.com/v3/apps/installations/#list-repositories-accessible-to-the-user-for-an-installation
       #
       # @return [Sawyer::Resource] the total_count and an array of repositories
       def find_installation_repositories_for_user(installation, options = {})
