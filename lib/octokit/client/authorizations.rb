@@ -152,7 +152,7 @@ module Octokit
       #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
       #  client.check_application_authorization('deadbeef1234567890deadbeef987654321')
       def check_application_authorization(token, options = {})
-        opts = ensure_api_media_type(:applications_api, options)
+        opts = ensure_api_media_type(:applications_api, options.dup)
         opts[:access_token] = token
         key    = opts.delete(:client_id)     || client_id
         secret = opts.delete(:client_secret) || client_secret
@@ -174,7 +174,7 @@ module Octokit
       #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
       #  client.reset_application_authorization('deadbeef1234567890deadbeef987654321')
       def reset_application_authorization(token, options = {})
-        opts = ensure_api_media_type(:applications_api, options)
+        opts = ensure_api_media_type(:applications_api, options.dup)
         opts[:access_token] = token
         key    = opts.delete(:client_id)     || client_id
         secret = opts.delete(:client_secret) || client_secret
@@ -196,7 +196,7 @@ module Octokit
       #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
       #  client.revoke_application_authorization('deadbeef1234567890deadbeef987654321')
       def revoke_application_authorization(token, options = {})
-        opts = ensure_api_media_type(:applications_api, options)
+        opts = ensure_api_media_type(:applications_api, options.dup)
         opts[:access_token] = token
         key    = opts.delete(:client_id)     || client_id
         secret = opts.delete(:client_secret) || client_secret
