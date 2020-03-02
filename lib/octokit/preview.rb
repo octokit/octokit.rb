@@ -4,6 +4,7 @@ module Octokit
   module Preview
 
     PREVIEW_TYPES = {
+      :applications_api       => 'application/vnd.github.doctor-strange-preview+json'.freeze,
       :branch_protection      => 'application/vnd.github.luke-cage-preview+json'.freeze,
       :checks                 => 'application/vnd.github.antiope-preview+json'.freeze,
       :commit_search          => 'application/vnd.github.cloak-preview+json'.freeze,
