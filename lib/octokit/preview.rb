@@ -4,6 +4,7 @@ module Octokit
   module Preview
 
     PREVIEW_TYPES = {
+      :applications_api       => 'application/vnd.github.doctor-strange-preview+json'.freeze,
       :branch_protection      => 'application/vnd.github.luke-cage-preview+json'.freeze,
       :checks                 => 'application/vnd.github.antiope-preview+json'.freeze,
       :commit_search          => 'application/vnd.github.cloak-preview+json'.freeze,
@@ -26,6 +27,7 @@ module Octokit
       :drafts                 => 'application/vnd.github.shadow-cat-preview'.freeze,
       :template_repositories  => 'application/vnd.github.baptiste-preview+json'.freeze,
       :uninstall_github_app   => 'application/vnd.github.gambit-preview+json'.freeze,
+      :project_card_events    => 'application/vnd.github.starfox-preview+json'.freeze,
     }
 
     def ensure_api_media_type(type, options)

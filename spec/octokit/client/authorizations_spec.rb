@@ -1,4 +1,5 @@
 require 'helper'
+require 'securerandom'
 
 describe Octokit::Client::Authorizations do
 
@@ -238,10 +239,10 @@ describe Octokit::Client::Authorizations do
 
       use_vcr_placeholder_for(authorization.token, "CHECK_APPLICATION_AUTHORIZATION_TOKEN")
 
-      token = @app_client.check_application_authorization(authorization.token)
-      path  = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
+      token = @app_client.check_application_authorization(authorization.token, accept: preview_header)
+      path  = "/applications/#{test_github_client_id}/tokens"
 
-      expect(WebMock).to have_requested(:get, github_url(path)).with(
+      expect(WebMock).to have_requested(:post, github_url(path)).with(
         basic_auth: [
           test_github_client_id,
           test_github_client_secret
@@ -257,7 +258,7 @@ describe Octokit::Client::Authorizations do
       client_secret = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
       token         = "25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
 
-      path = File.join(api_endpoint, "/applications/#{client_id}/tokens/#{token}")
+      path = File.join(api_endpoint, "/applications/#{client_id}/tokens")
 
       client = Octokit::Client.new(
         client_id:     client_id,
@@ -265,8 +266,8 @@ describe Octokit::Client::Authorizations do
         api_endpoint:  api_endpoint
       )
 
-      request = stub_request(:get, path).with(basic_auth: [client_id, client_secret])
-      client.check_application_authorization(token)
+      request = stub_request(:post, path).with(basic_auth: [client_id, client_secret])
+      client.check_application_authorization(token, accept: preview_header)
 
       assert_requested request
     end
@@ -286,13 +287,13 @@ describe Octokit::Client::Authorizations do
 
       use_vcr_placeholder_for(authorization.token, "RESET_APPLICATION_AUTHORIZATION_TOKEN")
 
-      new_authorization = @app_client.reset_application_authorization(authorization.token)
+      new_authorization = @app_client.reset_application_authorization(authorization.token, accept: preview_header)
 
       expect(new_authorization.rels[:self].href).to eq(authorization.rels[:self].href)
       expect(new_authorization.token).to_not eq(authorization.token)
 
-      path = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
-      expect(WebMock).to have_requested(:post, github_url(path)).with(
+      path = "/applications/#{test_github_client_id}/tokens"
+      expect(WebMock).to have_requested(:patch, github_url(path)).with(
         basic_auth: [
           test_github_client_id,
           test_github_client_secret
@@ -306,7 +307,7 @@ describe Octokit::Client::Authorizations do
       client_secret = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
       token         = "25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
 
-      path = File.join(api_endpoint, "/applications/#{client_id}/tokens/#{token}")
+      path = File.join(api_endpoint, "/applications/#{client_id}/tokens")
 
       client = Octokit::Client.new(
         client_id:     client_id,
@@ -314,8 +315,8 @@ describe Octokit::Client::Authorizations do
         api_endpoint:  api_endpoint
       )
 
-      request = stub_request(:post, path).with(basic_auth: [client_id, client_secret])
-      client.reset_application_authorization(token)
+      request = stub_request(:patch, path).with(basic_auth: [client_id, client_secret])
+      client.reset_application_authorization(token, accept: preview_header)
 
       assert_requested request
     end
@@ -335,10 +336,10 @@ describe Octokit::Client::Authorizations do
 
       use_vcr_placeholder_for(authorization.token, "REVOKE_APPLICATION_AUTHORIZATION_TOKEN")
 
-      result = @app_client.revoke_application_authorization(authorization.token)
+      result = @app_client.revoke_application_authorization(authorization.token, accept: preview_header)
       expect(result).to be_truthy
 
-      path = "/applications/#{test_github_client_id}/tokens/#{authorization.token}"
+      path = "/applications/#{test_github_client_id}/tokens"
       expect(WebMock).to have_requested(:delete, github_url(path)).with(
         basic_auth: [
           test_github_client_id,
@@ -353,7 +354,7 @@ describe Octokit::Client::Authorizations do
       client_secret = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
       token         = "25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
 
-      path = File.join(api_endpoint, "/applications/#{client_id}/tokens/#{token}")
+      path = File.join(api_endpoint, "/applications/#{client_id}/tokens")
 
       client = Octokit::Client.new(
         client_id:     client_id,
@@ -362,7 +363,7 @@ describe Octokit::Client::Authorizations do
       )
 
       request = stub_request(:delete, path).with(basic_auth: [client_id, client_secret])
-      client.revoke_application_authorization(token)
+      client.revoke_application_authorization(token, accept: preview_header)
 
       assert_requested request
     end
@@ -390,4 +391,8 @@ describe Octokit::Client::Authorizations do
         .with('Deprecated: If you need to revoke all tokens for your application, you can do so via the settings page for your application.')
     end
   end # .revoke_all_application_authorizations
+
+  def preview_header
+    Octokit::Preview::PREVIEW_TYPES[:applications_api]
+  end
 end
