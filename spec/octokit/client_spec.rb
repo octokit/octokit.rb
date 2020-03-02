@@ -130,9 +130,9 @@ describe Octokit::Client do
           "zen.text" => { :content => "Keep it logically awesome." }
         }
       }
-
-      Octokit.client.post "/gists", new_gist
-      expect(Octokit.client.last_response.status).to eq(201)
+      client = Octokit::Client.new
+      client.post "/gists", new_gist
+      expect(client.last_response.status).to eq(201)
     end
   end
 
@@ -315,8 +315,9 @@ describe Octokit::Client do
       expect(Octokit.client.agent).to respond_to :start
     end
     it "caches the agent" do
-      agent = Octokit.client.agent
-      expect(agent.object_id).to eq(Octokit.client.agent.object_id)
+      client = Octokit::Client.new
+      agent = client.agent
+      expect(agent.object_id).to eq(client.agent.object_id)
     end
   end # .agent
 
