@@ -96,7 +96,7 @@ module OpenAPIClientGenerator
     def method_implementation
       if @overrides.include? method_name
         @overrides[method_name]
-      else 
+      else
         [
           *option_overrides,
           api_call,
@@ -277,8 +277,8 @@ module OpenAPIClientGenerator
     end
 
     def parameters
-      params = required_params.map do |p| 
-        (p.raw["required"].present? && p.raw["required"] != true) ? "#{p.name} = {}" : p.name 
+      params = required_params.map do |p|
+        (p.raw["required"].present? && p.raw["required"] != true) ? "#{p.name} = {}" : p.name
       end
       parameterizer.parameterize(params)
     end
@@ -355,8 +355,8 @@ module OpenAPIClientGenerator
       source = RuboCop::ProcessedSource.new(File.read(overrides_path), 2.7, overrides_path)
 
       # child_nodes[0] is args, child_node[1] is body
-      method_overrides = { source.ast.children.first.to_s => source.ast.child_nodes[1].source }  
-        
+      method_overrides = { source.ast.children.first.to_s => source.ast.child_nodes[1].source }
+
       grouped_paths = definition.paths.group_by do |oas_path|
         resource_for_path(oas_path.path)
       end
