@@ -29,13 +29,7 @@ end
 group :test, :development do
   gem 'activesupport'
   gem 'oas_parser'
-  gem 'redcarpet'
   gem 'pry-byebug'
-end
-
-platforms :rbx do
-  gem 'psych'
-  gem 'rubysl', '~> 2.0'
 end
 
 gemspec
