@@ -352,7 +352,7 @@ module OpenAPIClientGenerator
   class API
     def self.at(definition, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
       overrides_path = "lib/openapi/overrides.rb"
-      source = RuboCop::ProcessedSource.new(File.read(overrides_path), 2.3, overrides_path)
+      source = RuboCop::ProcessedSource.new(File.read(overrides_path), 2.7, overrides_path)
 
       # child_nodes[0] is args, child_node[1] is body
       method_overrides = { source.ast.children.first.to_s => source.ast.child_nodes[1].source }  
