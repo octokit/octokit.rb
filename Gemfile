@@ -29,7 +29,6 @@ group :test, :development do
   gem 'oas_parser'
   gem 'pry-byebug'
   gem 'redcarpet'
-  gem 'rubocop'
 end
 
 gemspec
