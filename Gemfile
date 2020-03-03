@@ -11,25 +11,25 @@ group :development do
 end
 
 group :test do
-  gem 'coveralls', :require => false
-  gem 'json', '~> 1.7', :platforms => [:jruby]
-  gem 'jwt', '~> 1.5', '>= 1.5.6'
-  gem 'multi_json', '~> 1.11.0'
-  gem 'mime-types', '< 2.0.0'
-  gem 'netrc', '~> 0.7.7'
-  gem 'rb-fsevent', '~> 0.9'
-  gem 'rspec', '~> 3.0.0'
-  gem 'simplecov', :require => false
-  gem 'vcr', '~> 4.0'
-  gem 'webmock', '~> 3.4', '>= 3.4.2'
   gem 'coveralls', require: false
+  gem 'json', '~> 1.7', platforms: [:jruby]
+  gem 'jwt', '~> 2.2', '>= 2.2.1'
+  gem 'mime-types', '~> 3.3', '>= 3.3.1'
+  gem 'multi_json', '~> 1.14', '>= 1.14.1'
+  gem 'netrc', '~> 0.11.0'
+  gem 'rb-fsevent', '~> 0.10.3'
+  gem 'rspec', '~> 3.9'
   gem 'simplecov', require: false
+  gem 'vcr', '~> 5.1'
+  gem 'webmock', '~> 3.8', '>= 3.8.2'
 end
 
 group :test, :development do
   gem 'activesupport'
   gem 'oas_parser'
   gem 'pry-byebug'
+  gem 'redcarpet'
+  gem 'rubocop'
 end
 
 gemspec
