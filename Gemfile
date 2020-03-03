@@ -7,7 +7,6 @@ gem 'rake', '> 11.0.1', '< 12.0'
 
 group :development do
   gem 'awesome_print', :require => 'ap'
-  gem 'guard-rspec', '~> 4.5'
   gem 'hirb-unicode'
   gem 'wirb'
   gem 'wirble'
