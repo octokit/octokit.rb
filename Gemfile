@@ -2,11 +2,11 @@
 
 source 'https://rubygems.org'
 
-gem 'jruby-openssl', :platforms => :jruby
+gem 'jruby-openssl', platforms: :jruby
 gem 'rake', '~> 13.0', '>= 13.0.1'
 
 group :development do
-  gem 'awesome_print', :require => 'ap'
+  gem 'awesome_print', require: 'ap'
   gem 'yard'
 end
 
@@ -22,6 +22,8 @@ group :test do
   gem 'simplecov', :require => false
   gem 'vcr', '~> 4.0'
   gem 'webmock', '~> 3.4', '>= 3.4.2'
+  gem 'coveralls', require: false
+  gem 'simplecov', require: false
 end
 
 group :test, :development do
