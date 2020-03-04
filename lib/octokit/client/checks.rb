@@ -6,7 +6,6 @@ module Octokit
     #
     # @see https://developer.github.com/v3/checks/runs/
     module Checks
-
       # Get a single check run
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -15,7 +14,7 @@ module Octokit
       # @see https://developer.github.com/v3/checks/runs/#get-a-single-check-run
       def check(repo, check_run_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         get "#{Repository.path repo}/check-runs/#{check_run_id}", opts
       end
@@ -28,7 +27,7 @@ module Octokit
       # @see https://developer.github.com/v3/checks/suites/#get-a-single-check-suite
       def check_suite(repo, check_suite_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         get "#{Repository.path repo}/check-suites/#{check_suite_id}", opts
       end
@@ -52,7 +51,7 @@ module Octokit
         opts = options
         opts[:name] = name
         opts[:head_sha] = head_sha
-        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         post "#{Repository.path repo}/check-runs", opts
       end
@@ -66,7 +65,7 @@ module Octokit
       def create_check_suite(repo, head_sha, options = {})
         opts = options
         opts[:head_sha] = head_sha
-        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         post "#{Repository.path repo}/check-suites", opts
       end
@@ -88,7 +87,7 @@ module Octokit
       # @see https://developer.github.com/v3/checks/runs/#update-a-check-run
       def update_check(repo, check_run_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         patch "#{Repository.path repo}/check-runs/#{check_run_id}", opts
       end
@@ -104,7 +103,7 @@ module Octokit
       # @see https://developer.github.com/v3/checks/runs/#list-check-runs-in-a-check-suite
       def suite_checks(repo, check_suite_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         paginate "#{Repository.path repo}/check-suites/#{check_suite_id}/check-runs", opts
       end
@@ -117,7 +116,7 @@ module Octokit
       # @see https://developer.github.com/v3/checks/runs/#list-annotations-for-a-check-run
       def check_annotations(repo, check_run_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         paginate "#{Repository.path repo}/check-runs/#{check_run_id}/annotations", opts
       end
@@ -130,7 +129,7 @@ module Octokit
       # @see https://developer.github.com/v3/checks/suites/#rerequest-check-suite
       def rerequest_check_suite(repo, check_suite_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         boolean_from_response :post, "#{Repository.path repo}/check-suites/#{check_suite_id}/rerequest", opts
       end
@@ -143,7 +142,7 @@ module Octokit
       # @see https://developer.github.com/v3/checks/suites/#set-preferences-for-check-suites-on-a-repository
       def set_suites_preferences(repo, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.antiope-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         patch "#{Repository.path repo}/check-suites/preferences", opts
       end

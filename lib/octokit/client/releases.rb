@@ -6,7 +6,6 @@ module Octokit
     #
     # @see https://developer.github.com/v3/repos/releases/
     module Releases
-
       # Get a single release
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -96,6 +95,38 @@ module Octokit
       # @see https://developer.github.com/v3/repos/releases/#list-assets-for-a-release
       def release_assets(repo, release_id, options = {})
         paginate "#{Repository.path repo}/releases/#{release_id}/assets", options
+      end
+
+      # Upload a release asset
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param release_id [Integer] The ID of the release
+      # @param data [String] The raw file data
+      # @option options [String] :name The name of the asset
+      # @option options [String] :label The label of the asset
+      # @return [Sawyer::Resource] The new asset
+      # @see https://developer.github.com/v3/repos/releases/#upload-a-release-asset
+      def upload_release_asset(repo, release_id, data, options = {})
+        file = data.respond_to?(:read) ? data : File.new(data, 'rb')
+        unless options[:content_type]
+          begin
+            require 'mime/types'
+            if mime_type = MIME::Types.type_for(file.path).first
+              options[:content_type] = mime_type.content_type
+            end
+          rescue LoadError
+            msg = 'Please pass content_type or install mime-types gem to guess content type from file'
+            raise Octokit::MissingContentType.new(msg)
+          end
+        end
+        unless name = options[:name]
+          name = File.basename(file.path)
+        end
+        upload_url = release(repo, release_id).rels[:upload].href_template.expand(name: name)
+
+        request :post, upload_url, file.read, parse_query_and_convenience_headers(options)
+      ensure
+        file.close if file
       end
 
       # Edit a release asset

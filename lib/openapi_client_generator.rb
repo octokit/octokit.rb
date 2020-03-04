@@ -6,6 +6,7 @@ require 'active_support/inflector'
 require 'oas_parser'
 require 'redcarpet'
 require 'redcarpet/render_strip'
+require 'rubocop'
 require 'pry'
 
 module OpenAPIClientGenerator
@@ -26,8 +27,9 @@ module OpenAPIClientGenerator
     VERB_PRIORITY = %w(GET POST PUT PATCH DELETE)
 
     attr_reader :definition, :parameterizer
-    def initialize(oas_endpoint, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
+    def initialize(oas_endpoint, overrides, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
       @definition    = oas_endpoint
+      @overrides     = overrides
       @parameterizer = parameterizer.new
     end
 
@@ -71,11 +73,13 @@ module OpenAPIClientGenerator
             param.enum.each do |enum|
               enum_action = enum.delete_suffix("d").gsub("open", "reopen")
               parameter_docs = parameter_documentation.reject { |p| p.include? param.name }
+              first_word = definition.summary.split(" ").first
+              enum_summary = definition.summary.gsub(first_word, enum_action.capitalize)
               result << %Q(
-     # #{enum_action.capitalize} an #{namespace}
-     #
-     # #{parameter_docs.join("\n     # ")}
-     def #{enum_action}_#{namespace}(#{parameters})
+      # #{enum_summary}
+      #
+      # #{parameter_docs.join("\n     # ")}
+      def #{enum_action}_#{namespace}(#{parameters})
         options[:#{param.name}] = "#{enum}"
         #{method_implementation}
       end)
@@ -90,10 +94,14 @@ module OpenAPIClientGenerator
     end
 
     def method_implementation
-      [
-        *option_overrides,
-        api_call,
-      ].reject(&:empty?).join("\n        ")
+      if @overrides.include? method_name
+        @overrides[method_name]
+      else
+        [
+          *option_overrides,
+          api_call,
+        ].reject(&:empty?).join("\n        ")
+      end
     end
 
     def option_overrides
@@ -162,18 +170,23 @@ module OpenAPIClientGenerator
 
     def required_params
       params = definition.parameters.select(&:required).reject do |param|
-        ["owner", "accept"].include?(param.name)
+        param.in == "header" or param.name == "owner"
       end
 
       if params.first && params.first.name == "username"
         params.first.raw["name"] = "user"
-        params[0] = OasParser::Parameter.new(params.first.owner, params.first.raw) 
+        params[0] = OasParser::Parameter.new(params.first.owner, params.first.raw)
       end
 
       if definition.request_body && definition.request_body.content["application/json"]
         params += definition.request_body.properties_for_format("application/json").select do |param|
           param.schema['required'].include? param.name if param.schema['required']
         end
+      end
+
+      if definition.request_body && definition.request_body.content["*/*"]
+        definition.request_body.content["*/*"]["schema"]["name"] = "data"
+        params += [OasParser::Parameter.new(params.first.owner, definition.request_body.content["*/*"]["schema"])]
       end
       params
     end
@@ -264,8 +277,8 @@ module OpenAPIClientGenerator
     end
 
     def parameters
-      params = required_params.map do |p| 
-        (p.raw["required"].present? && p.raw["required"] != true) ? "#{p.name} = {}" : p.name 
+      params = required_params.map do |p|
+        (p.raw["required"].present? && p.raw["required"] != true) ? "#{p.name} = {}" : p.name
       end
       parameterizer.parameterize(params)
     end
@@ -338,6 +351,12 @@ module OpenAPIClientGenerator
 
   class API
     def self.at(definition, parameterizer: OpenAPIClientGenerator::Endpoint::PositionalParameterizer)
+      overrides_path = "lib/openapi/overrides.rb"
+      source = RuboCop::ProcessedSource.new(File.read(overrides_path), 2.7, overrides_path)
+
+      # child_nodes[0] is args, child_node[1] is body
+      method_overrides = { source.ast.children.first.to_s => source.ast.child_nodes[1].source }
+
       grouped_paths = definition.paths.group_by do |oas_path|
         resource_for_path(oas_path.path)
       end
@@ -345,7 +364,7 @@ module OpenAPIClientGenerator
       grouped_paths.each do |resource, paths|
         endpoints = paths.each_with_object([]) do |path, arr|
           path.endpoints.each do |endpoint|
-            arr << OpenAPIClientGenerator::Endpoint.new(endpoint, parameterizer: parameterizer)
+            arr << OpenAPIClientGenerator::Endpoint.new(endpoint, method_overrides, parameterizer: parameterizer)
           end
         end
         yield new(resource, endpoints: endpoints)

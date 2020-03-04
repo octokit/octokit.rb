@@ -6,7 +6,6 @@ module Octokit
     #
     # @see https://developer.github.com/v3/repos/pages/
     module Pages
-
       # Get information about a Pages site
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -24,7 +23,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/pages/#enable-a-pages-site
       def enable_pages_site(repo, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.switcheroo-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.switcheroo-preview+json' if opts[:accept].nil?
 
         post "#{Repository.path repo}/pages", opts
       end
@@ -47,7 +46,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/pages/#disable-a-pages-site
       def disable_pages_site(repo, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.switcheroo-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.switcheroo-preview+json' if opts[:accept].nil?
 
         boolean_from_response :delete, "#{Repository.path repo}/pages", opts
       end

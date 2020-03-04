@@ -28,5 +28,6 @@ task :generate do
     File.open("lib/octokit/client/#{api.resource}.rb", "w") do |f|
       f.puts api.to_s
     end
+    `bundle exec rubocop -a lib/octokit/client/#{api.resource}.rb`
   end
 end

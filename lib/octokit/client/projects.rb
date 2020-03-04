@@ -6,7 +6,6 @@ module Octokit
     #
     # @see https://developer.github.com/v3/projects/
     module Projects
-
       # Get a project
       #
       # @param project_id [Integer] The ID of the project
@@ -14,7 +13,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/#get-a-project
       def project(project_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         get "projects/#{project_id}", opts
       end
@@ -31,37 +30,37 @@ module Octokit
       # @see https://developer.github.com/v3/projects/#update-a-project
       def update_project(project_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         patch "projects/#{project_id}", opts
       end
 
-     # Reopen an project
-     #
-     # @param project_id [Integer] The ID of the project
-     # @option options [String] :name The name of the project.
-     # @option options [String] :body The description of the project.
-     # @option options [String] :organization_permission The permission level that determines whether all members of the project's organization can see and/or make changes to the project. Setting organization_permission is only available for organization projects. If an organization member belongs to a team with a higher level of access or is a collaborator with a higher level of access, their permission level is not lowered by organization_permission. For information on changing access for a team or collaborator, see Add or update team project (https://developer.github.com/v3/teams/#add-or-update-team-project) or Add user as a collaborator (https://developer.github.com/v3/projects/collaborators/#add-user-as-a-collaborator).  Note: Updating a project's organization_permission requires admin access to the project.  Can be one of:   read - Organization members can read, but not write to or administer this project.  , write - Organization members can read and write, but not administer this project.  , admin - Organization members can read, write and administer this project.  , none - Organization members can only see this project if it is public.
-     # @option options [Boolean] :private Sets the visibility of a project board. Setting private is only available for organization and user projects. Note: Updating a project's visibility requires admin access to the project.  Can be one of:   false - Anyone can see the project.  , true - Only the user can view a project board created on a user account. Organization members with the appropriate organization_permission can see project boards in an organization account.
-     def reopen_project(project_id, options = {})
-        options[:state] = "open"
+      # Reopen a project
+      #
+      # @param project_id [Integer] The ID of the project
+      # @option options [String] :name The name of the project.
+      # @option options [String] :body The description of the project.
+      # @option options [String] :organization_permission The permission level that determines whether all members of the project's organization can see and/or make changes to the project. Setting organization_permission is only available for organization projects. If an organization member belongs to a team with a higher level of access or is a collaborator with a higher level of access, their permission level is not lowered by organization_permission. For information on changing access for a team or collaborator, see Add or update team project (https://developer.github.com/v3/teams/#add-or-update-team-project) or Add user as a collaborator (https://developer.github.com/v3/projects/collaborators/#add-user-as-a-collaborator).  Note: Updating a project's organization_permission requires admin access to the project.  Can be one of:   read - Organization members can read, but not write to or administer this project.  , write - Organization members can read and write, but not administer this project.  , admin - Organization members can read, write and administer this project.  , none - Organization members can only see this project if it is public.
+      # @option options [Boolean] :private Sets the visibility of a project board. Setting private is only available for organization and user projects. Note: Updating a project's visibility requires admin access to the project.  Can be one of:   false - Anyone can see the project.  , true - Only the user can view a project board created on a user account. Organization members with the appropriate organization_permission can see project boards in an organization account.
+      def reopen_project(project_id, options = {})
+        options[:state] = 'open'
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         patch "projects/#{project_id}", opts
       end
 
-     # Close an project
-     #
-     # @param project_id [Integer] The ID of the project
-     # @option options [String] :name The name of the project.
-     # @option options [String] :body The description of the project.
-     # @option options [String] :organization_permission The permission level that determines whether all members of the project's organization can see and/or make changes to the project. Setting organization_permission is only available for organization projects. If an organization member belongs to a team with a higher level of access or is a collaborator with a higher level of access, their permission level is not lowered by organization_permission. For information on changing access for a team or collaborator, see Add or update team project (https://developer.github.com/v3/teams/#add-or-update-team-project) or Add user as a collaborator (https://developer.github.com/v3/projects/collaborators/#add-user-as-a-collaborator).  Note: Updating a project's organization_permission requires admin access to the project.  Can be one of:   read - Organization members can read, but not write to or administer this project.  , write - Organization members can read and write, but not administer this project.  , admin - Organization members can read, write and administer this project.  , none - Organization members can only see this project if it is public.
-     # @option options [Boolean] :private Sets the visibility of a project board. Setting private is only available for organization and user projects. Note: Updating a project's visibility requires admin access to the project.  Can be one of:   false - Anyone can see the project.  , true - Only the user can view a project board created on a user account. Organization members with the appropriate organization_permission can see project boards in an organization account.
-     def close_project(project_id, options = {})
-        options[:state] = "closed"
+      # Close a project
+      #
+      # @param project_id [Integer] The ID of the project
+      # @option options [String] :name The name of the project.
+      # @option options [String] :body The description of the project.
+      # @option options [String] :organization_permission The permission level that determines whether all members of the project's organization can see and/or make changes to the project. Setting organization_permission is only available for organization projects. If an organization member belongs to a team with a higher level of access or is a collaborator with a higher level of access, their permission level is not lowered by organization_permission. For information on changing access for a team or collaborator, see Add or update team project (https://developer.github.com/v3/teams/#add-or-update-team-project) or Add user as a collaborator (https://developer.github.com/v3/projects/collaborators/#add-user-as-a-collaborator).  Note: Updating a project's organization_permission requires admin access to the project.  Can be one of:   read - Organization members can read, but not write to or administer this project.  , write - Organization members can read and write, but not administer this project.  , admin - Organization members can read, write and administer this project.  , none - Organization members can only see this project if it is public.
+      # @option options [Boolean] :private Sets the visibility of a project board. Setting private is only available for organization and user projects. Note: Updating a project's visibility requires admin access to the project.  Can be one of:   false - Anyone can see the project.  , true - Only the user can view a project board created on a user account. Organization members with the appropriate organization_permission can see project boards in an organization account.
+      def close_project(project_id, options = {})
+        options[:state] = 'closed'
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         patch "projects/#{project_id}", opts
       end
@@ -73,7 +72,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/#delete-a-project
       def delete_project(project_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         delete "projects/#{project_id}", opts
       end
@@ -85,7 +84,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/columns/#get-a-project-column
       def project_column(column_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         get "projects/columns/#{column_id}", opts
       end
@@ -97,7 +96,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/columns/#list-project-columns
       def project_columns(project_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         paginate "projects/#{project_id}/columns", opts
       end
@@ -110,7 +109,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/collaborators/#list-collaborators
       def project_collaborators(project_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         paginate "projects/#{project_id}/collaborators", opts
       end
@@ -124,7 +123,7 @@ module Octokit
       def create_project_column(project_id, name, options = {})
         opts = options
         opts[:name] = name
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         post "projects/#{project_id}/columns", opts
       end
@@ -138,7 +137,7 @@ module Octokit
       def update_project_column(column_id, name, options = {})
         opts = options
         opts[:name] = name
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         patch "projects/columns/#{column_id}", opts
       end
@@ -150,7 +149,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/columns/#delete-a-project-column
       def delete_project_column(column_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         boolean_from_response :delete, "projects/columns/#{column_id}", opts
       end
@@ -162,7 +161,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/cards/#get-a-project-card
       def project_card(card_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         get "projects/columns/cards/#{card_id}", opts
       end
@@ -175,7 +174,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/#list-user-projects
       def user_projects(user, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         paginate "#{User.path user}/projects", opts
       end
@@ -188,7 +187,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/cards/#list-project-cards
       def project_cards(column_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         paginate "projects/columns/#{column_id}/cards", opts
       end
@@ -201,7 +200,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/#list-organization-projects
       def org_projects(org, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         paginate "#{Organization.path org}/projects", opts
       end
@@ -216,7 +215,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/cards/#create-a-project-card
       def create_project_card(column_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         post "projects/columns/#{column_id}/cards", opts
       end
@@ -231,7 +230,7 @@ module Octokit
       def create_org_project(org, name, options = {})
         opts = options
         opts[:name] = name
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         post "#{Organization.path org}/projects", opts
       end
@@ -245,7 +244,7 @@ module Octokit
       def move_project_column(column_id, position, options = {})
         opts = options
         opts[:position] = position
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         boolean_from_response :post, "projects/columns/#{column_id}/moves", opts
       end
@@ -259,7 +258,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/collaborators/#add-user-as-a-collaborator
       def add_project_collaborator(project_id, username, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         boolean_from_response :put, "projects/#{project_id}/collaborators/#{username}", opts
       end
@@ -273,7 +272,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/cards/#update-a-project-card
       def update_project_card(card_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         patch "projects/columns/cards/#{card_id}", opts
       end
@@ -285,7 +284,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/cards/#delete-a-project-card
       def delete_project_card(card_id, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         boolean_from_response :delete, "projects/columns/cards/#{card_id}", opts
       end
@@ -298,7 +297,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/collaborators/#remove-user-as-a-collaborator
       def remove_project_collaborator(project_id, username, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         boolean_from_response :delete, "projects/#{project_id}/collaborators/#{username}", opts
       end
@@ -311,7 +310,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/collaborators/#review-a-users-permission-level
       def user_permission_level(project_id, username, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         get "projects/#{project_id}/collaborators/#{username}/permission", opts
       end
@@ -324,7 +323,7 @@ module Octokit
       # @see https://developer.github.com/v3/projects/#list-repository-projects
       def repository_projects(repo, options = {})
         opts = options
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         paginate "#{Repository.path repo}/projects", opts
       end
@@ -339,7 +338,7 @@ module Octokit
       def create_repository_project(repo, name, options = {})
         opts = options
         opts[:name] = name
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         post "#{Repository.path repo}/projects", opts
       end
@@ -354,7 +353,7 @@ module Octokit
       def move_project_card(card_id, position, options = {})
         opts = options
         opts[:position] = position
-        opts[:accept] = "application/vnd.github.inertia-preview+json" if opts[:accept].nil?
+        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         boolean_from_response :post, "projects/columns/cards/#{card_id}/moves", opts
       end

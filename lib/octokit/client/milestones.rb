@@ -6,7 +6,6 @@ module Octokit
     #
     # @see https://developer.github.com/v3/issues/milestones/
     module Milestones
-
       # List milestones for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

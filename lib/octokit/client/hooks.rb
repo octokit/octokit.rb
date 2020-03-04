@@ -6,7 +6,6 @@ module Octokit
     #
     # @see https://developer.github.com/v3/orgs/hooks/
     module Hooks
-
       # Get single hook
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -38,7 +37,7 @@ module Octokit
       def create_hook(repo, config = {}, options = {})
         opts = options
         opts[:config] = config
-        raise Octokit::MissingKey.new unless config.key? :url
+        fail Octokit::MissingKey.new unless config.key? :url
         post "#{Repository.path repo}/hooks", opts
       end
 
@@ -119,7 +118,7 @@ module Octokit
         opts = options
         opts[:name] = name
         opts[:config] = config
-        raise Octokit::MissingKey.new unless config.key? :url
+        fail Octokit::MissingKey.new unless config.key? :url
         post "#{Organization.path org}/hooks", opts
       end
 
