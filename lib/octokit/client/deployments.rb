@@ -49,6 +49,16 @@ module Octokit
         post "#{Repository.path repo}/deployments", opts
       end
 
+      # Delete a deployment
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param deployment_id [Integer] The ID of the deployment
+      # @return [Boolean] True on success, false otherwise
+      # @see https://developer.github.com/v3/repos/deployments/#delete-a-deployment
+      def delete_deployment(repo, deployment_id, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/deployments/#{deployment_id}", options
+      end
+
       # Get a single deployment status
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

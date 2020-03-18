@@ -37,7 +37,8 @@ module Octokit
       def create_hook(repo, config = {}, options = {})
         opts = options
         opts[:config] = config
-        fail Octokit::MissingKey.new unless config.key? :url
+        raise Octokit::MissingKey unless config.key? :url
+
         post "#{Repository.path repo}/hooks", opts
       end
 
@@ -118,7 +119,8 @@ module Octokit
         opts = options
         opts[:name] = name
         opts[:config] = config
-        fail Octokit::MissingKey.new unless config.key? :url
+        raise Octokit::MissingKey unless config.key? :url
+
         post "#{Organization.path org}/hooks", opts
       end
 
