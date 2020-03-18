@@ -67,6 +67,14 @@ describe Octokit::Client::Deployments do
         end
       end # .deployment
 
+      describe ".delete_deployment" do
+        it "deletes a deployment" do
+          result = @client.delete_deployment(@test_repo, @deployment.id)
+          expect(result).to be_truthy
+          assert_requested :post, github_url("/repos/#{@test_repo}/deployments")
+        end
+      end
+
       describe ".deployment_statuses" do
         it "lists deployment statuses" do
           statuses = @client.deployment_statuses(@test_repo, @deployment.id)

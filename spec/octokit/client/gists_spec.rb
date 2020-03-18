@@ -16,14 +16,14 @@ describe Octokit::Client::Gists do
       end
     end # .public_gists
 
-    describe ".user_public_gists" do
+    describe ".user_gists" do
       describe "with username passed" do
         it "returns a list of gists" do
-          gists = Octokit.client.user_public_gists('defunkt')
+          gists = Octokit.client.user_gists('defunkt')
           expect(gists).not_to be_empty
           assert_requested :get, github_url("/users/defunkt/gists")
         end
-      end
+      end # .user_gists
 
       describe "without a username passed" do
         it "returns a list of gists" do
