@@ -38,6 +38,8 @@ module Octokit
         put "#{Repository.path repo}/contents/#{path}", opts
       end
 
+      alias create_file create_or_update_file
+      alias update_file create_or_update_file
 
       # Delete a file
       #

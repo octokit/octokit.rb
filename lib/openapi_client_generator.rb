@@ -37,6 +37,7 @@ module OpenAPIClientGenerator
       [
         tomdoc,
         method_definition,
+        alias_definitions,
         enum_definitions
       ].compact.join("\n")
     end
@@ -90,6 +91,17 @@ module OpenAPIClientGenerator
 
       if result.any?
         result.join("\n")
+      end
+    end
+
+    def alias_definitions
+      if namespace.include? "or_"
+        namespace_array = definition.operation_id.split(/-|\//)
+        index = namespace_array.index("or")
+        %Q(
+      alias #{namespace_array[index-1]}_#{namespace_array.last} #{method_name}
+      alias #{namespace_array[index+1]}_#{namespace_array.last} #{method_name}
+        )
       end
     end
 
