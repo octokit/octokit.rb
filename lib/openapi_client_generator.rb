@@ -114,7 +114,13 @@ module OpenAPIClientGenerator
           if !!param.enum
             normalization = ".to_s.downcase"
           end
-          options << "opts[:#{param.name}] = #{param.name}#{normalization}"
+          if param.description.include? "Base64"
+            options << "opts[:content] = Base64.respond_to?(:strict_encode64) ?\n" +
+              "          Base64.strict_encode64(content) :\n" +
+              "          Base64.encode64(content).delete(\"\\n\")"
+          else
+            options << "opts[:#{param.name}] = #{param.name}#{normalization}"
+          end
           if param.raw["required"] && param.raw["required"] != true
             options << "raise Octokit::MissingKey.new unless #{param.name}.key? :#{param.raw["required"].first}"
           end
@@ -374,7 +380,7 @@ module OpenAPIClientGenerator
     def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks)
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme)
       resource = case path_segments.first
                  when "orgs", "users"
                    path_segments[2]
@@ -383,7 +389,7 @@ module OpenAPIClientGenerator
                  else
                    path_segments[0]
                  end
-      resource = resource.split("-").first.pluralize unless resource.nil?
+      resource = resource.split("-").first.pluralize unless (resource.nil? or resource == "readme")
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
