@@ -127,9 +127,7 @@ module OpenAPIClientGenerator
             normalization = ".to_s.downcase"
           end
           if param.description.include? "Base64"
-            options << "opts[:content] = Base64.respond_to?(:strict_encode64) ?\n" +
-              "          Base64.strict_encode64(content) :\n" +
-              "          Base64.encode64(content).delete(\"\\n\")"
+            options << "opts[:#{param.name}] = Base64.strict_encode64(#{param.name})"
           else
             options << "opts[:#{param.name}] = #{param.name}#{normalization}"
           end

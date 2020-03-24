@@ -32,9 +32,7 @@ module Octokit
       def create_or_update_file(repo, path, message, content, options = {})
         opts = options
         opts[:message] = message
-        opts[:content] = Base64.respond_to?(:strict_encode64) ?
-          Base64.strict_encode64(content) :
-          Base64.encode64(content).delete("\n")
+        opts[:content] = Base64.strict_encode64(content)
         put "#{Repository.path repo}/contents/#{path}", opts
       end
 
