@@ -30,7 +30,7 @@ module Octokit
       # @return [Sawyer::Resource] The updated repo
       # @see https://developer.github.com/v3/repos/contents/#create-or-update-a-file
       def create_or_update_file(repo, path, message, content, options = {})
-        opts = options
+        opts = options.dup
         opts[:message] = message
         opts[:content] = Base64.strict_encode64(content)
         put "#{Repository.path repo}/contents/#{path}", opts
@@ -51,7 +51,7 @@ module Octokit
       # @return [Sawyer::Resource] The updated repo
       # @see https://developer.github.com/v3/repos/contents/#delete-a-file
       def delete_file(repo, path, message, sha, options = {})
-        opts = options
+        opts = options.dup
         opts[:message] = message
         opts[:sha] = sha
         delete "#{Repository.path repo}/contents/#{path}", opts

@@ -13,7 +13,7 @@ module Octokit
       # @return [Sawyer::Resource] A single check
       # @see https://developer.github.com/v3/checks/runs/#get-a-single-check-run
       def check(repo, check_run_id, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         get "#{Repository.path repo}/check-runs/#{check_run_id}", opts
@@ -26,7 +26,7 @@ module Octokit
       # @return [Sawyer::Resource] A single suite
       # @see https://developer.github.com/v3/checks/suites/#get-a-single-check-suite
       def check_suite(repo, check_suite_id, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         get "#{Repository.path repo}/check-suites/#{check_suite_id}", opts
@@ -48,7 +48,7 @@ module Octokit
       # @return [Sawyer::Resource] The new check
       # @see https://developer.github.com/v3/checks/runs/#create-a-check-run
       def create_check(repo, name, head_sha, options = {})
-        opts = options
+        opts = options.dup
         opts[:name] = name
         opts[:head_sha] = head_sha
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
@@ -63,7 +63,7 @@ module Octokit
       # @return [Sawyer::Resource] The new suite
       # @see https://developer.github.com/v3/checks/suites/#create-a-check-suite
       def create_check_suite(repo, head_sha, options = {})
-        opts = options
+        opts = options.dup
         opts[:head_sha] = head_sha
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
@@ -86,7 +86,7 @@ module Octokit
       # @return [Sawyer::Resource] The updated check
       # @see https://developer.github.com/v3/checks/runs/#update-a-check-run
       def update_check(repo, check_run_id, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         patch "#{Repository.path repo}/check-runs/#{check_run_id}", opts
@@ -102,7 +102,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of checks
       # @see https://developer.github.com/v3/checks/runs/#list-check-runs-in-a-check-suite
       def suite_checks(repo, check_suite_id, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         paginate "#{Repository.path repo}/check-suites/#{check_suite_id}/check-runs", opts
@@ -115,7 +115,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of annotations
       # @see https://developer.github.com/v3/checks/runs/#list-annotations-for-a-check-run
       def check_annotations(repo, check_run_id, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         paginate "#{Repository.path repo}/check-runs/#{check_run_id}/annotations", opts
@@ -128,7 +128,7 @@ module Octokit
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/checks/suites/#rerequest-check-suite
       def rerequest_check_suite(repo, check_suite_id, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         boolean_from_response :post, "#{Repository.path repo}/check-suites/#{check_suite_id}/rerequest", opts
@@ -141,7 +141,7 @@ module Octokit
       # @return [Sawyer::Resource] The updated preferences
       # @see https://developer.github.com/v3/checks/suites/#set-preferences-for-check-suites-on-a-repository
       def set_suites_preferences(repo, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
 
         patch "#{Repository.path repo}/check-suites/preferences", opts

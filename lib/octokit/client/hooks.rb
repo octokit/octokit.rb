@@ -35,7 +35,7 @@ module Octokit
       # @return [Sawyer::Resource] The new hook
       # @see https://developer.github.com/v3/repos/hooks/#create-a-hook
       def create_hook(repo, config = {}, options = {})
-        opts = options
+        opts = options.dup
         opts[:config] = config
         raise Octokit::MissingKey unless config.key? :url
 
@@ -116,7 +116,7 @@ module Octokit
       # @return [Sawyer::Resource] The new hook
       # @see https://developer.github.com/v3/orgs/hooks/#create-a-hook
       def create_org_hook(org, name, config = {}, options = {})
-        opts = options
+        opts = options.dup
         opts[:name] = name
         opts[:config] = config
         raise Octokit::MissingKey unless config.key? :url

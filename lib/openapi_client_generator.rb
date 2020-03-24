@@ -117,7 +117,7 @@ module OpenAPIClientGenerator
     end
 
     def option_overrides
-      options = ["opts = options"]
+      options = ["opts = options.dup"]
       if definition.request_body && definition.request_body.content["application/json"]
         params = definition.request_body.properties_for_format("application/json").select do |param|
           param.schema['required'].include? param.name if param.schema['required']
