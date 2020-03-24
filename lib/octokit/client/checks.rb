@@ -37,7 +37,7 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param name [String] The name of the check. For example, "code-coverage".
       # @param head_sha [String] The SHA of the commit.
-      # @option options [String] :details_url The URL of the integrator's site that has the full details of the check.
+      # @option options [String] :details_url The URL of the integrator's site that has the full details of the check. If the integrator does not provide this, then the homepage of the GitHub app is used.
       # @option options [String] :external_id The ID of the external
       # @option options [String] :status The current status. Can be one of queued, in_progress, or completed.
       # @option options [String] :started_at The time that the check run began. This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ.

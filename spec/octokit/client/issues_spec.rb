@@ -176,7 +176,33 @@ describe Octokit::Client::Issues do
             assert_requested :post, github_url("/repos/#{@test_repo}/issues/comments/#{@issue_comment.id}/reactions")
           end
         end # .create_issue_comment_reaction
+
+        context "with issue comment reaction", :vcr do
+          before do
+            @reaction = @client.create_issue_comment_reaction(@test_repo, @issue_comment.id, "+1", accept: reactions_preview_header)
+          end
+
+          describe ".delete_issue_comment_reaction" do
+            it "deletes the issue comment reaction" do
+              @client.delete_issue_comment_reaction(@test_repo, @issue_comment.id, @reaction.id, accept: reactions_preview_header)
+              assert_requested :delete, github_url("/repos/#{@test_repo}/issues/comments/#{@issue_comment.id}/reactions/#{@reaction.id}")
+            end
+          end # .delete_issue_comment_reaction
+        end # with issue comment reaction
       end # with issue comment
+
+      context "with issue reaction", :vcr do
+        before do
+          @reaction = @client.create_issue_reaction(@test_repo, @issue.number, "+1", accept: reactions_preview_header)
+        end
+
+        describe ".delete_issue_reaction" do
+          it "deletes the issue reaction" do
+            @client.delete_issue_reaction(@test_repo, @issue.id, @reaction.id, accept: reactions_preview_header)
+            assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.id}/reactions/#{@reaction.id}")
+          end
+        end # .delete_issue_reaction
+      end # with issue reaction
 
       describe ".timeline_events", :vcr do
         it "returns an issue timeline" do
@@ -258,7 +284,7 @@ describe Octokit::Client::Issues do
 
         describe ".delete_reaction" do
           it "deletes the reaction" do
-            @client.delete_reaction(@reaction.id, accept: reactions_preview_header)
+            @client.delete_reaction_legacy(@reaction.id, accept: reactions_preview_header)
             assert_requested :delete, github_url("/reactions/#{@reaction.id}")
           end
         end # .delete_reaction
@@ -296,7 +322,7 @@ describe Octokit::Client::Issues do
 
         describe ".remove_issue_labels" do
           it "removes all labels from the specified issue" do
-            @client.remove_issue_labels(@test_repo, @issue.number)
+            @client.remove_all_labels(@test_repo, @issue.number)
             assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
             
             labels = @client.issue_labels(@test_repo, @issue.number)
@@ -306,7 +332,7 @@ describe Octokit::Client::Issues do
 
         describe ".replace_issue_labels" do
           it "replaces all labels for an issue" do
-            @client.replace_issue_labels(@test_repo, @issue.number, ['random'])
+            @client.replace_all_labels(@test_repo, @issue.number, ['random'])
             assert_requested :put, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
             
             labels = @client.issue_labels(@test_repo, @issue.number)

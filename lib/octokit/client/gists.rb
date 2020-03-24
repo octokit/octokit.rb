@@ -6,20 +6,20 @@ module Octokit
     #
     # @see https://developer.github.com/v3/gists/
     module Gists
-      # Get a single gist
+      # Get a gist
       #
       # @param gist_id [Integer, String] The ID of the gist
       # @return [Sawyer::Resource] A single gist
-      # @see https://developer.github.com/v3/gists/#get-a-single-gist
+      # @see https://developer.github.com/v3/gists/#get-a-gist
       def gist(gist_id, options = {})
         get "gists/#{Gist.new gist_id}", options
       end
 
-      # List the authenticated user's gists or if called anonymously, this will return all public gists
+      # List gists for the authenticated user
       #
       # @option options [String] :since This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ. Only gists updated at or after this time are returned.
       # @return [Array<Sawyer::Resource>] A list of gists
-      # @see https://developer.github.com/v3/gists/#list-a-users-gists
+      # @see https://developer.github.com/v3/gists/#list-gists-for-the-authenticated-user
       def gists(options = {})
         paginate 'gists', options
       end
@@ -37,13 +37,13 @@ module Octokit
         post 'gists', opts
       end
 
-      # Edit a gist
+      # Update a gist
       #
       # @param gist_id [Integer, String] The ID of the gist
       # @option options [String] :description A descriptive name for this gist.
       # @option options [Object] :files The filenames and content that make up this gist.
       # @return [Sawyer::Resource] The updated gist
-      # @see https://developer.github.com/v3/gists/#edit-a-gist
+      # @see https://developer.github.com/v3/gists/#update-a-gist
       def update_gist(gist_id, options = {})
         patch "gists/#{Gist.new gist_id}", options
       end
@@ -113,11 +113,11 @@ module Octokit
         paginate "gists/#{Gist.new gist_id}/commits", options
       end
 
-      # List all public gists
+      # List public gists
       #
       # @option options [String] :since This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ. Only gists updated at or after this time are returned.
       # @return [Array<Sawyer::Resource>] A list of gists
-      # @see https://developer.github.com/v3/gists/#list-all-public-gists
+      # @see https://developer.github.com/v3/gists/#list-public-gists
       def public_gists(options = {})
         paginate 'gists/public', options
       end
@@ -193,13 +193,13 @@ module Octokit
         boolean_from_response :delete, "gists/#{Gist.new gist_id}/comments/#{comment_id}", options
       end
 
-      # List public gists for the specified user
+      # List gists for a user
       #
       # @param user [Integer, String] A GitHub user id or login
       # @option options [String] :since This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ. Only gists updated at or after this time are returned.
       # @return [Array<Sawyer::Resource>] A list of gists
-      # @see https://developer.github.com/v3/gists/#list-a-users-gists
-      def user_public_gists(user, options = {})
+      # @see https://developer.github.com/v3/gists/#list-gists-for-a-user
+      def user_gists(user, options = {})
         paginate "#{User.path user}/gists", options
       end
     end

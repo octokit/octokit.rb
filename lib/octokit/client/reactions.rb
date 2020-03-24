@@ -6,12 +6,12 @@ module Octokit
     #
     # @see https://developer.github.com/v3/reactions/
     module Reactions
-      # Delete a reaction
+      # Delete a reaction (Legacy)
       #
       # @param reaction_id [Integer] The ID of the reaction
       # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/reactions/#delete-a-reaction
-      def delete_reaction(reaction_id, options = {})
+      # @see https://developer.github.com/v3/reactions/#delete-a-reaction-legacy
+      def delete_reaction_legacy(reaction_id, options = {})
         opts = options
         opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
