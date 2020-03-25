@@ -15,6 +15,7 @@ require 'rspec'
 require 'webmock/rspec'
 require 'base64'
 require 'jwt'
+require 'pry-byebug'
 
 WebMock.disable_net_connect!(:allow => 'coveralls.io')
 
@@ -89,6 +90,11 @@ VCR.configure do |c|
   end
   c.define_cassette_placeholder("<GITHUB_TEST_INTEGRATION_INSTALLATION>") do
     test_github_integration_installation
+  end
+  # This MUST belong to the app used for test_github_client_id and
+  # test_github_client_secret
+  c.define_cassette_placeholder("<GITHUB_TEST_OAUTH_TOKEN>") do
+    test_github_oauth_token
   end
 
   c.before_http_request(:real?) do |request|
@@ -224,6 +230,10 @@ end
 
 def test_github_integration_pem_key
   ENV.fetch 'OCTOKIT_TEST_INTEGRATION_PEM_KEY', "#{fixture_path}/fake_integration.private-key.pem"
+end
+
+def test_github_oauth_token
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_OAUTH_TOKEN', 'q' * 40
 end
 
 def stub_delete(url)

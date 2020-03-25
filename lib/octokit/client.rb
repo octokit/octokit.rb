@@ -36,6 +36,7 @@ require 'octokit/client/markdown'
 require 'octokit/client/marketplace'
 require 'octokit/client/milestones'
 require 'octokit/client/notifications'
+require 'octokit/client/oauth_applications'
 require 'octokit/client/objects'
 require 'octokit/client/organizations'
 require 'octokit/client/pages'
@@ -97,6 +98,7 @@ module Octokit
     include Octokit::Client::Marketplace
     include Octokit::Client::Milestones
     include Octokit::Client::Notifications
+    include Octokit::Client::OauthApplications
     include Octokit::Client::Objects
     include Octokit::Client::Organizations
     include Octokit::Client::Pages
