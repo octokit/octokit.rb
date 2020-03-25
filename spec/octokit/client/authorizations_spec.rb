@@ -226,32 +226,6 @@ describe Octokit::Client::Authorizations do
   end # .authorize_url
 
   describe ".check_application_authorization" do
-    it "checks an application authorization", :vcr do
-      fingerprint = SecureRandom.hex(6)
-      use_vcr_placeholder_for(fingerprint, "CHECK_APPLICATION_AUTHORIZATION_FINGERPRINT")
-
-      authorization = @client.create_authorization(
-        idempotent:    true,
-        client_id:     test_github_client_id,
-        client_secret: test_github_client_secret,
-        fingerprint:   fingerprint
-      )
-
-      use_vcr_placeholder_for(authorization.token, "CHECK_APPLICATION_AUTHORIZATION_TOKEN")
-
-      token = @app_client.check_application_authorization(authorization.token, accept: preview_header)
-      path  = "/applications/#{test_github_client_id}/tokens"
-
-      expect(WebMock).to have_requested(:post, github_url(path)).with(
-        basic_auth: [
-          test_github_client_id,
-          test_github_client_secret
-        ]
-      )
-
-      expect(token.user.login).to eq(test_github_login)
-    end
-
     it "works in Enterprise mode" do
       api_endpoint  = "https://gh-enterprise.com/api/v3"
       client_id     = "abcde12345fghij67890"
@@ -274,33 +248,6 @@ describe Octokit::Client::Authorizations do
   end # .check_application_authorization
 
   describe ".reset_application_authorization" do
-    it "resets a token", :vcr do
-      fingerprint = SecureRandom.hex(6)
-      use_vcr_placeholder_for(fingerprint, "RESET_APPLICATION_AUTHORIZATION_FINGERPRINT")
-
-      authorization = @client.create_authorization(
-        idempotent:    true,
-        client_id:     test_github_client_id,
-        client_secret: test_github_client_secret,
-        fingerprint:   fingerprint
-      )
-
-      use_vcr_placeholder_for(authorization.token, "RESET_APPLICATION_AUTHORIZATION_TOKEN")
-
-      new_authorization = @app_client.reset_application_authorization(authorization.token, accept: preview_header)
-
-      expect(new_authorization.rels[:self].href).to eq(authorization.rels[:self].href)
-      expect(new_authorization.token).to_not eq(authorization.token)
-
-      path = "/applications/#{test_github_client_id}/tokens"
-      expect(WebMock).to have_requested(:patch, github_url(path)).with(
-        basic_auth: [
-          test_github_client_id,
-          test_github_client_secret
-        ]
-      )
-    end
-
     it "works in Enterprise mode" do
       api_endpoint  = "https://gh-enterprise.com/api/v3"
       client_id     = "abcde12345fghij67890"
@@ -323,31 +270,6 @@ describe Octokit::Client::Authorizations do
   end # .reset_application_authorization
 
   describe ".revoke_application_authorization" do
-    it "deletes an application authorization", :vcr do
-      fingerprint = SecureRandom.hex(6)
-      use_vcr_placeholder_for(fingerprint, "REVOKE_APPLICATION_AUTHORIZATION_FINGERPRINT")
-
-      authorization = @client.create_authorization(
-        idempotent:    true,
-        client_id:     test_github_client_id,
-        client_secret: test_github_client_secret,
-        fingerprint:   fingerprint
-      )
-
-      use_vcr_placeholder_for(authorization.token, "REVOKE_APPLICATION_AUTHORIZATION_TOKEN")
-
-      result = @app_client.revoke_application_authorization(authorization.token, accept: preview_header)
-      expect(result).to be_truthy
-
-      path = "/applications/#{test_github_client_id}/tokens"
-      expect(WebMock).to have_requested(:delete, github_url(path)).with(
-        basic_auth: [
-          test_github_client_id,
-          test_github_client_secret
-        ]
-      )
-    end
-
     it "works in Enterprise mode" do
       api_endpoint  = "https://gh-enterprise.com/api/v3"
       client_id     = "abcde12345fghij67890"
