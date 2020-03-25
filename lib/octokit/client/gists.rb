@@ -32,7 +32,7 @@ module Octokit
       # @return [Sawyer::Resource] The new gist
       # @see https://developer.github.com/v3/gists/#create-a-gist
       def create_gist(files, options = {})
-        opts = options
+        opts = options.dup
         opts[:files] = files
         post 'gists', opts
       end
@@ -138,7 +138,7 @@ module Octokit
       # @return [Sawyer::Resource] The new comment
       # @see https://developer.github.com/v3/gists/comments/#create-a-comment
       def create_gist_comment(gist_id, body, options = {})
-        opts = options
+        opts = options.dup
         opts[:body] = body
         post "gists/#{Gist.new gist_id}/comments", opts
       end
@@ -169,7 +169,7 @@ module Octokit
       # @return [Sawyer::Resource] The updated comment
       # @see https://developer.github.com/v3/gists/comments/#edit-a-comment
       def update_gist_comment(gist_id, comment_id, body, options = {})
-        opts = options
+        opts = options.dup
         opts[:body] = body
         patch "gists/#{Gist.new gist_id}/comments/#{comment_id}", opts
       end

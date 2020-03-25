@@ -12,7 +12,7 @@ module Octokit
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/reactions/#delete-a-reaction-legacy
       def delete_reaction_legacy(reaction_id, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
         boolean_from_response :delete, "reactions/#{reaction_id}", opts

@@ -37,6 +37,7 @@ module OpenAPIClientGenerator
       [
         tomdoc,
         method_definition,
+        alias_definitions,
         enum_definitions
       ].compact.join("\n")
     end
@@ -93,6 +94,17 @@ module OpenAPIClientGenerator
       end
     end
 
+    def alias_definitions
+      if namespace.include? "or_"
+        namespace_array = definition.operation_id.split(/-|\//)
+        index = namespace_array.index("or")
+        %Q(
+      alias #{namespace_array[index-1]}_#{namespace_array.last} #{method_name}
+      alias #{namespace_array[index+1]}_#{namespace_array.last} #{method_name}
+        )
+      end
+    end
+
     def method_implementation
       if @overrides.include? method_name
         @overrides[method_name]
@@ -105,7 +117,7 @@ module OpenAPIClientGenerator
     end
 
     def option_overrides
-      options = ["opts = options"]
+      options = ["opts = options.dup"]
       if definition.request_body && definition.request_body.content["application/json"]
         params = definition.request_body.properties_for_format("application/json").select do |param|
           param.schema['required'].include? param.name if param.schema['required']
@@ -114,7 +126,11 @@ module OpenAPIClientGenerator
           if !!param.enum
             normalization = ".to_s.downcase"
           end
-          options << "opts[:#{param.name}] = #{param.name}#{normalization}"
+          if param.description.include? "Base64"
+            options << "opts[:#{param.name}] = Base64.strict_encode64(#{param.name})"
+          else
+            options << "opts[:#{param.name}] = #{param.name}#{normalization}"
+          end
           if param.raw["required"] && param.raw["required"] != true
             options << "raise Octokit::MissingKey.new unless #{param.name}.key? :#{param.raw["required"].first}"
           end
@@ -374,7 +390,7 @@ module OpenAPIClientGenerator
     def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks)
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme)
       resource = case path_segments.first
                  when "orgs", "users"
                    path_segments[2]
@@ -383,7 +399,7 @@ module OpenAPIClientGenerator
                  else
                    path_segments[0]
                  end
-      resource = resource.split("-").first.pluralize unless resource.nil?
+      resource = resource.split("-").first.pluralize unless (resource.nil? or resource == "readme")
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 

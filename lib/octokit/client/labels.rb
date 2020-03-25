@@ -24,7 +24,7 @@ module Octokit
       # @return [Sawyer::Resource] The new label
       # @see https://developer.github.com/v3/issues/labels/#create-a-label
       def create_issue_label(repo, name, color, options = {})
-        opts = options
+        opts = options.dup
         opts[:name] = name
         opts[:color] = color
         post "#{Repository.path repo}/labels", opts

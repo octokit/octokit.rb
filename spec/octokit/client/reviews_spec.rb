@@ -58,7 +58,7 @@ describe Octokit::Client::Reviews do
     end
   end
 
-  context 'with pull request review' do 
+  context 'with pull request review' do
     describe '.update_pull_request_review' do
       it 'updates the review summary comment with new text' do
         requested_url = github_url('/repos/octokit/octokit.rb/pulls/1/reviews/1')
@@ -86,7 +86,7 @@ describe Octokit::Client::Reviews do
         @client.create_ref(@repo.full_name, 'heads/branch-for-pr',
                            master_ref.object.sha)
 
-        @content = @client.create_contents(@repo.full_name, 'lib/test.txt',
+        @content = @client.create_file(@repo.full_name, 'lib/test.txt',
                                            'Adding content', 'File Content',
                                            branch: 'branch-for-pr')
 

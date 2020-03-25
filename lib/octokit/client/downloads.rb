@@ -1,50 +1,39 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
-    # Methods for the Repo Downloads API
+    # Methods for the Downloads API
     #
     # @see https://developer.github.com/v3/repos/downloads/
     module Downloads
-
-      # List available downloads for a repository
+      # Get a single download
       #
-      # @param repo [Integer, String, Repository, Hash] A Github Repository
-      # @return [Array] A list of available downloads
-      # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param download_id [Integer] The ID of the download
+      # @return [Sawyer::Resource] A single download
+      # @see https://developer.github.com/v3/repos/downloads/#get-a-single-download
+      def download(repo, download_id, options = {})
+        get "#{Repository.path repo}/downloads/#{download_id}", options
+      end
+
+      # List downloads for a repository
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @return [Array<Sawyer::Resource>] A list of downloads
       # @see https://developer.github.com/v3/repos/downloads/#list-downloads-for-a-repository
-      # @example List all downloads for Github/Hubot
-      #   Octokit.downloads("github/hubot")
-      def downloads(repo, options={})
+      def downloads(repo, options = {})
         paginate "#{Repository.path repo}/downloads", options
       end
-      alias :list_downloads :downloads
 
-      # Get single download for a repository
+      # Delete a download
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param id [Integer] ID of the download
-      # @return [Sawyer::Resource] A single download from the repository
-      # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
-      # @see https://developer.github.com/v3/repos/downloads/#get-a-single-download
-      # @example Get the "Robawt" download from Github/Hubot
-      #   Octokit.download("github/hubot")
-      def download(repo, id, options={})
-        get "#{Repository.path repo}/downloads/#{id}", options
-      end
-
-      # Delete a single download for a repository
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param id [Integer] ID of the download
-      # @deprecated As of December 11th, 2012: https://github.com/blog/1302-goodbye-uploads
+      # @param download_id [Integer] The ID of the download
+      # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/repos/downloads/#delete-a-download
-      # @return [Boolean] Status
-      # @example Get the "Robawt" download from Github/Hubot
-      #   Octokit.delete_download("github/hubot", 1234)
-      def delete_download(repo, id, options = {})
-        boolean_from_response :delete, "#{Repository.path repo}/downloads/#{id}", options
+      def delete_download(repo, download_id, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/downloads/#{download_id}", options
       end
-
     end
   end
 end

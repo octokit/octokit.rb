@@ -65,7 +65,7 @@ module Octokit
       # @return [Sawyer::Resource] The new issue
       # @see https://developer.github.com/v3/issues/#create-an-issue
       def create_issue(repo, title, options = {})
-        opts = options
+        opts = options.dup
         opts[:title] = title
         post "#{Repository.path repo}/issues", opts
       end
@@ -176,7 +176,7 @@ module Octokit
       # @return [Sawyer::Resource] The updated comment
       # @see https://developer.github.com/v3/issues/comments/#edit-a-comment
       def update_issue_comment(repo, comment_id, body, options = {})
-        opts = options
+        opts = options.dup
         opts[:body] = body
         patch "#{Repository.path repo}/issues/comments/#{comment_id}", opts
       end
@@ -198,7 +198,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of events
       # @see https://developer.github.com/v3/issues/timeline/#list-events-for-an-issue
       def timeline_events(repo, issue_number, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.mockingbird-preview+json' if opts[:accept].nil?
 
         paginate "#{Repository.path repo}/issues/#{issue_number}/timeline", opts
@@ -212,7 +212,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of reactions
       # @see https://developer.github.com/v3/reactions/#list-reactions-for-an-issue-comment
       def issue_comment_reactions(repo, comment_id, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
         paginate "#{Repository.path repo}/issues/comments/#{comment_id}/reactions", opts
@@ -257,7 +257,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of reactions
       # @see https://developer.github.com/v3/reactions/#list-reactions-for-an-issue
       def issue_reactions(repo, issue_number, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
         paginate "#{Repository.path repo}/issues/#{issue_number}/reactions", opts
@@ -271,7 +271,7 @@ module Octokit
       # @return [Sawyer::Resource] The new comment
       # @see https://developer.github.com/v3/issues/comments/#create-a-comment
       def create_issue_comment(repo, issue_number, body, options = {})
-        opts = options
+        opts = options.dup
         opts[:body] = body
         post "#{Repository.path repo}/issues/#{issue_number}/comments", opts
       end
@@ -284,7 +284,7 @@ module Octokit
       # @return [Sawyer::Resource] The new reaction
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue
       def create_issue_reaction(repo, issue_number, content, options = {})
-        opts = options
+        opts = options.dup
         opts[:content] = content.to_s.downcase
         opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
@@ -299,7 +299,7 @@ module Octokit
       # @return [Sawyer::Resource] The new label
       # @see https://developer.github.com/v3/issues/labels/#add-labels-to-an-issue
       def add_issue_labels(repo, issue_number, labels, options = {})
-        opts = options
+        opts = options.dup
         opts[:labels] = labels
         post "#{Repository.path repo}/issues/#{issue_number}/labels", opts
       end
@@ -323,7 +323,7 @@ module Octokit
       # @return [Sawyer::Resource] The new reaction
       # @see https://developer.github.com/v3/reactions/#create-reaction-for-an-issue-comment
       def create_issue_comment_reaction(repo, comment_id, content, options = {})
-        opts = options
+        opts = options.dup
         opts[:content] = content.to_s.downcase
         opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
@@ -370,7 +370,7 @@ module Octokit
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/reactions/#delete-an-issue-reaction
       def delete_issue_reaction(repo, issue_number, reaction_id, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
         boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_number}/reactions/#{reaction_id}", opts
@@ -395,7 +395,7 @@ module Octokit
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/reactions/#delete-an-issue-comment-reaction
       def delete_issue_comment_reaction(repo, comment_id, reaction_id, options = {})
-        opts = options
+        opts = options.dup
         opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
 
         boolean_from_response :delete, "#{Repository.path repo}/issues/comments/#{comment_id}/reactions/#{reaction_id}", opts
