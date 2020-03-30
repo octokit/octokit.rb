@@ -105,7 +105,7 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of events
       # @see https://developer.github.com/v3/issues/events/#list-events-for-a-repository
-      def repository_events(repo, options = {})
+      def issues_events(repo, options = {})
         paginate "#{Repository.path repo}/issues/events", options
       end
 
@@ -117,7 +117,7 @@ module Octokit
       # @option options [String] :since Only comments updated at or after this time are returned. This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ.
       # @return [Array<Sawyer::Resource>] A list of comments
       # @see https://developer.github.com/v3/issues/comments/#list-comments-in-a-repository
-      def repository_comments(repo, options = {})
+      def issues_comments(repo, options = {})
         paginate "#{Repository.path repo}/issues/comments", options
       end
 
