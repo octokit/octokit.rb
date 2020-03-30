@@ -80,7 +80,7 @@ module OpenAPIClientGenerator
       # #{enum_summary}
       #
       # #{parameter_docs.join("\n     # ")}
-      def #{enum_action}_#{namespace}(#{parameters})
+      def #{enum_action.downcase}_#{namespace}(#{parameters})
         options[:#{param.name}] = "#{enum}"
         #{method_implementation}
       end)
@@ -145,7 +145,7 @@ module OpenAPIClientGenerator
     end
 
     def boolean_response?
-      return true if definition.raw["responses"].key? "204"
+      return true if definition.raw["responses"].key? "204" or definition.raw["responses"].key? "205"
       return true if definition.raw["responses"].key? "201" and definition.raw["responses"]["201"].keys.count == 1
       false
     end
@@ -313,7 +313,12 @@ module OpenAPIClientGenerator
         words = namespace_array.select {|w| div_words.include? w}
         index = namespace_array.index(words.first)
 
-        resource = namespace_array[index+1..-1].join("_").gsub("repo", "repository")
+        if words.first == "for" && index > 1 && operation_array.first != "activity"
+          resource = namespace_array[index+1..-1].join("_").gsub("repo", operation_array[0])
+        else
+          resource = namespace_array[index+1..-1].join("_").gsub("repo", "repository")
+        end
+
         return resource if words.first == "about"
 
         first_half = namespace_array[0..index-1]
@@ -326,13 +331,15 @@ module OpenAPIClientGenerator
         singular? ? operation_array.first.singularize : operation_array.first
       elsif namespace_array.size == 2
         resource = namespace_array.last
-        return resource if operation_array.first == "repos"
+        return resource if ["repos", "activity"].include? operation_array.first
 
         if namespace_array.last.end_with?("ed") or resource == "public"
           return "#{resource}_#{operation_array.first}"
         end
 
         "#{operation_array.first.singularize}_#{resource}"
+      elsif namespace_array.first == "check"
+        "#{operation_array.first.singularize}_#{namespace_array.last}"
       else
         namespace_array.drop(1).join("_")
       end
@@ -343,13 +350,13 @@ module OpenAPIClientGenerator
     end
 
     def method_name
-      method_name = case verb
-        when "GET"
-          (definition.operation_id.split("/").last.include? "check") ? "#{namespace}?" : namespace
-        when "POST", "PATCH", "DELETE", "PUT"
-          "#{action}_#{namespace}"
-        else
-        end
+      case verb
+      when "GET"
+        (definition.operation_id.split("/").last.include? "check") ? "#{namespace}?" : namespace
+      when "POST", "PATCH", "DELETE", "PUT"
+        "#{action}_#{namespace}"
+      else
+      end
     end
 
     def parts
@@ -390,7 +397,7 @@ module OpenAPIClientGenerator
     def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme)
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme pulls notifications)
       resource = case path_segments.first
                  when "orgs", "users"
                    path_segments[2]

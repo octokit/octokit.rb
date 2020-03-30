@@ -162,7 +162,7 @@ module Octokit
     # @return [Boolean] True on success, false otherwise
     def boolean_from_response(method, path, options = {})
       request(method, path, options)
-      @last_response.status == 204 || @last_response.status == 201
+      @last_response.status == 204 || @last_response.status == 201 || @last_response.status == 205
     rescue Octokit::NotFound
       false
     end
@@ -177,7 +177,7 @@ module Octokit
       conn_opts[:proxy] = @proxy if @proxy
       if conn_opts[:ssl].nil?
         conn_opts[:ssl] = { :verify_mode => @ssl_verify_mode } if @ssl_verify_mode
-      else 
+      else
         if @connection_options[:ssl][:verify] == false
           conn_opts[:ssl] = { :verify_mode => 0}
         else
