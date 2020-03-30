@@ -229,13 +229,13 @@ describe Octokit::Client::Issues do
         end # .remove_issue_assignees
       end # with assignees
 
-      describe ".repository_comments", :vcr do
+      describe ".issues_comments", :vcr do
         it "returns comments for all issues in a repository" do
-          comments = @client.repository_comments("octokit/octokit.rb")
+          comments = @client.issues_comments("octokit/octokit.rb")
           expect(comments).to be_kind_of Array
           assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/comments')
         end
-      end # .repository_comments
+      end # .issues_comments
 
       describe ".issue_comments", :vcr do
         it "returns comments for an issue" do
@@ -314,7 +314,7 @@ describe Octokit::Client::Issues do
           it "removes a label from the specified issue" do
             @client.remove_issue_label(@test_repo, @issue.number, 'bug')
             assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels/bug")
-            
+
             labels = @client.issue_labels(@test_repo, @issue.number)
             expect(labels.map(&:name)).to eq(['feature'])
           end
@@ -324,7 +324,7 @@ describe Octokit::Client::Issues do
           it "removes all labels from the specified issue" do
             @client.remove_all_labels(@test_repo, @issue.number)
             assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
-            
+
             labels = @client.issue_labels(@test_repo, @issue.number)
             expect(labels).to be_empty
           end
@@ -334,7 +334,7 @@ describe Octokit::Client::Issues do
           it "replaces all labels for an issue" do
             @client.replace_all_labels(@test_repo, @issue.number, ['random'])
             assert_requested :put, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
-            
+
             labels = @client.issue_labels(@test_repo, @issue.number)
             expect(labels.map(&:name)).to eq(['random'])
           end

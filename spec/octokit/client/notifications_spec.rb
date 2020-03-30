@@ -23,13 +23,13 @@ describe Octokit::Client::Notifications do
     end
   end # .repository_notifications
 
-  describe ".mark_notifications_as_read", :vcr do
+  describe ".mark_as_read", :vcr do
     it "returns true when notifications are marked as read" do
-      result = @client.mark_notifications_as_read
+      result = @client.mark_as_read
       expect(result).to be true
       assert_requested :put, github_url("/notifications")
     end
-  end # .mark_notifications_as_read
+  end # .mark_as_read
 
   describe ".mark_repository_notifications_as_read", :vcr do
     it "returns true when notifications for a repo are marked as read" do
@@ -44,12 +44,12 @@ describe Octokit::Client::Notifications do
       @thread_id = @client.repository_notifications(@test_repo, :all => true).last.id
     end
 
-    describe ".thread_notifications", :vcr do
+    describe ".thread", :vcr do
       it "returns notifications for a specific thread" do
-        @client.thread_notifications(@thread_id)
+        @client.thread(@thread_id)
         assert_requested :get, github_url("/notifications/threads/#{@thread_id}")
       end
-    end # .thread_notifications
+    end # .thread
 
     describe ".mark_thread_as_read", :vcr do
       it "marks a thread as read" do
@@ -60,7 +60,7 @@ describe Octokit::Client::Notifications do
 
     context "with subscription", :vcr do
       before do
-        @client.update_thread_subscription(@thread_id, :subscribed => true)
+        @client.set_thread_subscription(@thread_id, :subscribed => true)
       end
 
       describe ".thread_subscription" do
@@ -70,7 +70,7 @@ describe Octokit::Client::Notifications do
         end
       end # .thread_subscription
 
-      describe ".update_thread_subscription" do
+      describe ".set_thread_subscription" do
         it "updates a thread subscription" do
           assert_requested :put, github_url("/notifications/threads/#{@thread_id}/subscription")
         end
