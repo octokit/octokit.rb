@@ -62,7 +62,7 @@ module Octokit
       # @param gist_id [Integer, String] The ID of the gist
       # @return [Boolean] A single starred
       # @see https://developer.github.com/v3/gists/#check-if-a-gist-is-starred
-      def is_starred?(gist_id, options = {})
+      def gist_starred?(gist_id, options = {})
         boolean_from_response :get, "gists/#{Gist.new gist_id}/star", options
       end
 
