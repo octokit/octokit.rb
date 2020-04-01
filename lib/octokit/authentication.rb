@@ -45,7 +45,7 @@ module Octokit
     # @see https://developer.github.com/v3/#unauthenticated-rate-limited-requests
     # @return [Boolean]
     def application_authenticated?
-      @client_id && @client_secret
+      !!(@client_id && @client_secret)
     end
 
     private
