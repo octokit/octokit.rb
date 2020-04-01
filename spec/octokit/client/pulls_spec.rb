@@ -70,7 +70,13 @@ describe Octokit::Client::Pulls do
       end
     end # .pull_merged?
 
-    context "methods requiring a pull request comment" do
+    describe ".update_pull_branch", :vcr do
+      it "updates the pull request branch" do
+        result = @client.update_pull_branch(@test_repo, @pull.number)
+      end
+    end # .update_pull_branch
+
+    context "with pull request comment" do
 
       before do
         @comment = @client.create_pull_comment \
@@ -88,18 +94,6 @@ describe Octokit::Client::Pulls do
         end
       end # .create_pull_comment
 
-#       describe ".create_pull_comment_reply", :vcr do
-#         it "creates a new reply to a pull request comment" do
-#           new_comment = {
-#             :body => "done.",
-#             :in_reply_to => @comment.id
-#           }
-#           reply = @client.create_pull_comment_reply(@test_repo, @pull.number, new_comment[:body], new_comment[:in_reply_to])
-#           assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments"), :times => 2
-#           expect(reply.body).to eq(new_comment[:body])
-#         end
-#       end # .create_pull_comment_reply
-
       describe ".update_pull_comment", :vcr do
         it "updates a pull request comment" do
           comment = @client.update_pull_comment(@test_repo, @comment.id, ":shipit:")
@@ -116,17 +110,92 @@ describe Octokit::Client::Pulls do
         end
       end # .delete_pull_comment
 
-    end # pull request comment methods
+      describe ".create_review_comment_reply", :vcr do
+        it "creates a review comment reply" do
+          result = @client.create_review_comment_reply(@test_repo, @pull.number, @comment.id, "replying")
+          expect(result.body).to eq("replying")
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments/#{@comment.id}/replies")
+        end
+      end # .create_review_comment_reply
 
-    describe ".close_pull", :vcr do
-      it "closes a pull request" do
-        response = @client.close_pull(@test_repo, @pull.number)
-        expect(response.state).to eq('closed')
-        assert_requested :patch, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}")
+      describe ".create_pull_request_review_comment_reaction", :vcr do
+        it "creates a reaction on a pull request comment" do
+          result = @client.create_pull_request_review_comment_reaction(@test_repo, @comment.id, "hooray")
+          expect(result.content).to eq("hooray")
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls/comments/#{@comment.id}/reactions")
+        end
+      end # .create_pull_request_review_comment_reaction
+
+      context "with pull request comment reaction", :vcr do
+        before do
+          @reaction = @client.create_pull_request_review_comment_reaction(@test_repo, @comment.id, "rocket")
+        end
+
+        describe ".pull_request_review_comment_reactions" do
+          it "returns a list of reactions" do
+            result = @client.pull_request_review_comment_reactions(@test_repo, @comment.id)
+            expect(result).to be_kind_of Array
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls/comments/#{@comment.id}/reactions")
+          end
+        end # .pull_request_review_comment_reactions
+
+        describe ".delete_pull_request_comment_reaction" do
+          it "deletes a reaction on a pull request comment" do
+            result = @client.delete_pull_request_comment_reaction(@test_repo, @comment.id, @reaction.id)
+            expect(result).to be_truthy
+            assert_requested :post, github_url("/repos/#{@test_repo}/pulls/comments/#{@comment.id}/reactions")
+          end
+        end # .pull_request_review_comment_reactions
+      end # with pull request comment reaction
+    end # with pull request comment
+
+    describe ".left_pull_comment", :vcr do
+      it "creates a new comment on the left side of a pull request" do
+        comment = @client.left_pull_comment \
+          @test_repo,
+          @pull.number,
+          "The body",
+          @pull.head.sha,
+          "README.md",
+          :line => 1,
+          :accept => "application/vnd.github.comfort-fade-preview+json"
       end
-    end
+    end # .left_pull_comment
 
-  end # new @pull methods
+    describe ".right_pull_comment", :vcr do
+      it "creates a new comment on the right side of a pull request" do
+        comment = @client.left_pull_comment \
+          @test_repo,
+          @pull.number,
+          "The body",
+          @pull.head.sha,
+          "README.md",
+          :line => 1,
+          :accept => "application/vnd.github.comfort-fade-preview+json"
+      end
+    end # .right_pull_comment
+
+    context "with closed pull request" do
+      before do
+        @updated_pull = @client.close_pull(@test_repo, @pull.number)
+      end
+
+      describe ".close_pull", :vcr do
+        it "closes a pull request" do
+          expect(@updated_pull.state).to eq('closed')
+          assert_requested :patch, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}")
+        end
+      end
+
+      describe ".reopen_pull", :vcr do
+        it "closes a pull request" do
+          response = @client.reopen_pull(@test_repo, @pull.number)
+          expect(response.state).to eq('open')
+          assert_requested :patch, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}"), times: 2
+        end
+      end
+    end # with closed pull request
+  end # with pull
 
   # stub this so we don't have to set up new fixture data
   describe ".merge_pull" do
@@ -136,17 +205,6 @@ describe Octokit::Client::Pulls do
       assert_requested request
     end
   end # .merge_pull
-
-#   describe ".create_pull_for_issue", :vcr do
-#     it "creates a pull request and attach it to an existing issue" do
-#       issue = @client.create_issue(@test_repo, 'A new issue', :body => "Gonna turn this into a PR")
-#       pull = @client.create_pull_for_issue(@test_repo, "master", "some-fourth-branch", issue.number)
-#       assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
-#
-#       # cleanup so we can re-run test with blank cassette
-#       @client.close_pull(@test_repo, pull.number)
-#     end
-#   end # .create_pull_for_issue
 
   describe ".pulls_comments", :vcr do
     it "returns all comments on all pull requests" do
