@@ -11,7 +11,7 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of labels
       # @see https://developer.github.com/v3/issues/labels/#list-all-labels-for-this-repository
-      def repository_labels(repo, options = {})
+      def issues_labels(repo, options = {})
         paginate "#{Repository.path repo}/labels", options
       end
 
