@@ -126,10 +126,10 @@ describe Octokit::Client::Gists do
       end
     end # .unstar_gist
 
-    describe ".is_starred?" do
+    describe ".gist_starred?" do
 
       it "is not starred" do
-        starred = @client.is_starred?(5421308)
+        starred = @client.gist_starred?(5421308)
         assert_requested :get, github_url("/gists/5421308/star")
         expect(starred).to be false
       end
@@ -140,13 +140,13 @@ describe Octokit::Client::Gists do
         end
 
         it "is starred" do
-          starred = @client.is_starred?(5421307)
+          starred = @client.gist_starred?(5421307)
           assert_requested :get, github_url("/gists/5421307/star")
           expect(starred).to be true
         end
       end
 
-    end # .is_starred?
+    end # .gist_starred?
 
     describe ".fork_gist" do
       it "forks an existing gist" do

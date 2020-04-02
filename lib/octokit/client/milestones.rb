@@ -14,7 +14,7 @@ module Octokit
       # @option options [String] :direction The direction of the sort. Either asc or desc.
       # @return [Array<Sawyer::Resource>] A list of milestones
       # @see https://developer.github.com/v3/issues/milestones/#list-milestones-for-a-repository
-      def repository_milestones(repo, options = {})
+      def issues_milestones(repo, options = {})
         paginate "#{Repository.path repo}/milestones", options
       end
 

@@ -145,8 +145,8 @@ module OpenAPIClientGenerator
     end
 
     def boolean_response?
-      return true if definition.raw["responses"].key? "204"
-      return true if definition.raw["responses"].key? "201" and definition.raw["responses"]["201"].keys.count == 1
+      return true if definition.raw["responses"].key? "204" || definition.raw["responses"].key?("205")
+      return true if definition.raw["responses"].key? "201" && definition.raw["responses"]["201"].keys.count == 1
       false
     end
 
@@ -397,7 +397,7 @@ module OpenAPIClientGenerator
     def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme pulls)
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme notifications pulls)
       resource = case path_segments.first
                  when "orgs", "users"
                    path_segments[2]
