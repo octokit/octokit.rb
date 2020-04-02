@@ -162,7 +162,7 @@ module Octokit
     # @return [Boolean] True on success, false otherwise
     def boolean_from_response(method, path, options = {})
       request(method, path, options)
-      @last_response.status == 201 || @last_response.status == 204 || @last_response.status == 205
+      [201, 204, 205].include? @last_response.status
     rescue Octokit::NotFound
       false
     end
