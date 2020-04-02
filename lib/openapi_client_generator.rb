@@ -406,6 +406,7 @@ module OpenAPIClientGenerator
                  else
                    path_segments[0]
                  end
+      
       resource = resource.split("-").first.pluralize unless (resource.nil? or resource == "readme")
       return (supported_resources.include? resource) ? resource : :unsupported
     end
