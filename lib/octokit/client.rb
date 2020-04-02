@@ -40,7 +40,7 @@ require 'octokit/client/organizations'
 require 'octokit/client/pages'
 require 'octokit/client/projects'
 require 'octokit/client/pub_sub_hubbub'
-require 'octokit/client/pull_requests'
+require 'octokit/client/pulls'
 require 'octokit/client/rate_limit'
 require 'octokit/client/reactions'
 require 'octokit/client/readme'
@@ -48,7 +48,6 @@ require 'octokit/client/refs'
 require 'octokit/client/releases'
 require 'octokit/client/repositories'
 require 'octokit/client/repository_invitations'
-require 'octokit/client/reviews'
 require 'octokit/client/say'
 require 'octokit/client/search'
 require 'octokit/client/service_status'
@@ -101,7 +100,7 @@ module Octokit
     include Octokit::Client::Pages
     include Octokit::Client::Projects
     include Octokit::Client::PubSubHubbub
-    include Octokit::Client::PullRequests
+    include Octokit::Client::Pulls
     include Octokit::Client::RateLimit
     include Octokit::Client::Reactions
     include Octokit::Client::Readme
@@ -109,7 +108,6 @@ module Octokit
     include Octokit::Client::Releases
     include Octokit::Client::Repositories
     include Octokit::Client::RepositoryInvitations
-    include Octokit::Client::Reviews
     include Octokit::Client::Say
     include Octokit::Client::Search
     include Octokit::Client::ServiceStatus

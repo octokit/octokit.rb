@@ -80,7 +80,7 @@ module OpenAPIClientGenerator
       # #{enum_summary}
       #
       # #{parameter_docs.join("\n     # ")}
-      def #{enum_action}_#{namespace}(#{parameters})
+      def #{enum_action.downcase}_#{namespace}(#{parameters})
         options[:#{param.name}] = "#{enum}"
         #{method_implementation}
       end)
@@ -397,7 +397,7 @@ module OpenAPIClientGenerator
     def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme notifications)
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme notifications pulls)
       resource = case path_segments.first
                  when "orgs", "users"
                    path_segments[2]
@@ -406,6 +406,7 @@ module OpenAPIClientGenerator
                  else
                    path_segments[0]
                  end
+      
       resource = resource.split("-").first.pluralize unless (resource.nil? or resource == "readme")
       return (supported_resources.include? resource) ? resource : :unsupported
     end
