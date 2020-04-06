@@ -5,143 +5,168 @@ describe Octokit::Client::Commits do
   before do
     Octokit.reset!
     @client = oauth_client
+    @branch = "master"
+    @tag = "v1.0"
   end
 
   describe ".commits", :vcr do
     it "returns all commits" do
-      commits = @client.commits("sferik/rails_admin")
+      commits = @client.commits(@test_repo)
       expect(commits.first.author).not_to be_nil
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits")
-    end
-    it "handles branch or sha argument" do
-      @client.commits("sferik/rails_admin", "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master")
+      assert_requested :get, github_url("/repos/#{@test_repo}/commits")
     end
     it "handles the sha option" do
-      @client.commits("sferik/rails_admin", :sha => "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master")
+      @client.commits(@test_repo, :sha => "master")
+      assert_requested :get, github_url("/repos/#{@test_repo}/commits?sha=master")
     end
   end # .commits
 
-  describe ".commits_on", :vcr do
-    it "returns all commits on the specified date" do
-      commits = @client.commits_on("sferik/rails_admin", "2011-01-20")
-      expect(commits).to be_kind_of Array
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?since=2011-01-20T00:00:00%2B00:00&until=2011-01-21T00:00:00%2B00:00")
-    end
-    it "errors if the date is invalid" do
-      expect { @client.commits_on "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
-    end
-    it "handles branch or sha argument" do
-      @client.commits_on("sferik/rails_admin", "2011-01-15", "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00&until=2011-01-16T00:00:00%2B00:00")
-    end
-    it "handles the sha option" do
-      @client.commits_on("sferik/rails_admin", "2011-01-15", :sha => "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00&until=2011-01-16T00:00:00%2B00:00")
-    end
-  end # .commits_on
+  context "with commit" do
 
-  describe ".commits_since", :vcr do
-    it "returns all commits since the specified date" do
-      commits = @client.commits_since("sferik/rails_admin", "2011-01-20")
-      expect(commits).to be_kind_of Array
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?since=2011-01-20T00:00:00%2B00:00")
+    before do
+      @commit_id = @client.commits(@test_repo).first.sha
     end
-    it "errors if the date is invalid" do
-      expect { @client.commits_since "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
-    end
-    it "handles branch or sha argument" do
-      @client.commits_since("sferik/rails_admin", "2011-01-15", "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00")
-    end
-    it "handles the sha option" do
-      @client.commits_since("sferik/rails_admin", "2011-01-15", :sha => "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-15T00:00:00%2B00:00")
-    end
-  end # .commits_since
 
-  describe ".commits_before", :vcr do
-    it "returns all commits until the specified date" do
-      commits = @client.commits_before("sferik/rails_admin", "2011-01-20")
-      expect(commits).to be_kind_of Array
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?until=2011-01-20T00:00:00%2B00:00")
-    end
-    it "errors if the date is invalid" do
-      expect { @client.commits_before "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
-    end
-    it "handles branch or sha argument" do
-      @client.commits_before("sferik/rails_admin", "2011-01-15", "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&until=2011-01-15T00:00:00%2B00:00")
-    end
-    it "handles the sha option" do
-      @client.commits_before("sferik/rails_admin", "2011-01-15", :sha => "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&until=2011-01-15T00:00:00%2B00:00")
-    end
-  end # .commits_before
-
-  describe ".commits_between", :vcr do
-    it "returns all commits until the specified date" do
-      commits = @client.commits_between("sferik/rails_admin", "2011-01-20", "2013-01-20")
-      expect(commits).to be_kind_of Array
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?since=2011-01-20T00:00:00%2B00:00&until=2013-01-20T00:00:00%2B00:00")
-    end
-    it "errors if the date is invalid" do
-      expect { @client.commits_between "sferik/rails_admin", "A pear" }.to raise_error ArgumentError
-    end
-    it "handles branch or sha argument" do
-      @client.commits_between("sferik/rails_admin", "2011-01-20", "2013-01-20", "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-20T00:00:00%2B00:00&until=2013-01-20T00:00:00%2B00:00")
-    end
-    it "handles the sha option" do
-      @client.commits_between("sferik/rails_admin", "2011-01-20", "2013-01-20", :sha => "master")
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits?sha=master&since=2011-01-20T00:00:00%2B00:00&until=2013-01-20T00:00:00%2B00:00")
-    end
-  end # .commits_between
-
-  describe ".commit", :vcr do
-    it "returns a commit" do
-      commit = @client.commit("sferik/rails_admin", "3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-      expect(commit.author.login).to eq('caboteria')
-      assert_requested :get, github_url("/repos/sferik/rails_admin/commits/3cdfabd973bc3caac209cba903cfdb3bf6636bcd")
-    end
-  end # .commit
-
-  describe ".git_commit", :vcr do
-    it "returns a detailed git commit" do
-      commit = @client.git_commit("octokit/octokit.rb", "2bfca14ed8ebc3dad75082ff175e6703aed7ccc0")
-      expect(commit.author.name).to eq('Joey Wendt')
-      assert_requested :get, github_url("/repos/octokit/octokit.rb/git/commits/2bfca14ed8ebc3dad75082ff175e6703aed7ccc0")
-    end
-  end # .git_commit
-
-  describe ".create_commit", :vcr do
-    it "creates a commit" do
-      last_commit = @client.commits(@test_repo).last
-      @client.create_commit(@test_repo, "My commit message", last_commit.commit.tree.sha, last_commit.sha)
-      assert_requested :post, github_url("/repos/#{@test_repo}/git/commits")
-    end
-  end # .create_commit
-
-  describe ".merge", :vcr do
-    it "merges a branch into another" do
-      begin
-        @client.delete_ref(@test_repo, "heads/branch-to-merge")
-      rescue Octokit::UnprocessableEntity
+    describe ".commit", :vcr do
+      it "returns a commit" do
+        commit = @client.commit(@test_repo, @commit_id)
+        expect(commit.author.login).not_to be_nil
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@commit_id}")
       end
-      last_commit = @client.commits(@test_repo).last
-      @client.create_ref(@test_repo, "heads/branch-to-merge", last_commit.sha)
-      @client.merge(@test_repo, "master", "branch-to-merge", :commit_message => "Testing the merge API")
-      assert_requested :post, github_url("/repos/#{@test_repo}/merges")
-    end
-  end # .merge
+    end # .commit
 
-  describe ".compare", :vcr do
-    it "returns a comparison" do
-      comparison = @client.compare("gvaughn/octokit", '0e0d7ae299514da692eb1cab741562c253d44188', 'b7b37f75a80b8e84061cd45b246232ad958158f5')
-      expect(comparison.base_commit.sha).to eq('0e0d7ae299514da692eb1cab741562c253d44188')
-      expect(comparison.merge_base_commit.sha).to eq('b7b37f75a80b8e84061cd45b246232ad958158f5')
-      assert_requested :get, github_url("/repos/gvaughn/octokit/compare/0e0d7ae299514da692eb1cab741562c253d44188...b7b37f75a80b8e84061cd45b246232ad958158f5")
-    end
-  end # .compare
+    describe ".ref_statuses", :vcr do
+      it "lists commit statuses" do
+        statuses = Octokit.ref_statuses(@test_repo, @commit_id)
+        expect(statuses).to be_kind_of Array
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@commit_id}/statuses")
+      end
+    end # .ref_statuses
+
+    describe ".ref_combined_status", :vcr do
+      it "gets a combined status" do
+        status = Octokit.ref_combined_status(@test_repo, @commit_id)
+        expect(status.sha).to eq(@commit_id)
+        expect(status.statuses).to be_kind_of Array
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@commit_id}/status")
+      end
+    end # .ref_combined_status
+
+    describe ".commit_comments", :vcr do
+      it "returns a list of comments for a specific commit" do
+        commit_comments = @client.commit_comments(@test_repo, @commit_id)
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@commit_id}/comments")
+      end
+    end # .commit_comments
+
+    describe ".create_commit_comment", :vcr do
+      it "creates a commit comment" do
+        @commit_comment = @client.create_commit_comment \
+          @test_repo,
+          @commit_id,
+          ":metal:\n:sparkles:\n:cake:"
+
+        # expect(@commit_comment.user.login).to eq(test_github_login)
+        assert_requested :post, github_url("/repos/#{@test_repo}/commits/#{@commit_id}/comments")
+      end
+    end # .create_commit_comment
+
+    describe ".commit_pulls", :vcr do
+      it "returns a list of all pull requests associated with a commit" do
+        pulls = @client.commit_pull_requests(
+          @test_repo,
+          @commit_id,
+          accept: preview_header(:commit_pulls),
+        )
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@commit_id}/pulls")
+      end
+    end # .commit_pulls
+
+    describe ".commit_branches", :vcr do
+      it "returns a list of all branches associated with a commit" do
+        branches = @client.commit_branches(
+          @test_repo,
+          @commit_id,
+          accept: preview_header(:commit_branches),
+        )
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@commit_id}/branches-where-head")
+      end
+    end # .commit_branches
+
+    describe ".ref_checks", :vcr do
+      it "returns check runs for a commit" do
+        result = @client.ref_checks(
+          @test_repo,
+          @commit_id,
+          accept: preview_header(:checks),
+        )
+
+        expect(result.check_runs).to be_a(Array)
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@commit_id}/check-runs")
+      end
+
+      it "returns check runs for a branch" do
+        result = @client.ref_checks(
+          @test_repo,
+          @branch,
+          accept: preview_header(:checks),
+        )
+
+        expect(result.check_runs).to be_a(Array)
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@branch}/check-runs")
+      end
+
+      it "returns check runs for a tag" do
+        result = @client.ref_checks(
+          @test_repo,
+          @tag,
+          accept: preview_header(:checks),
+        )
+
+        expect(result.check_runs).to be_a(Array)
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@tag}/check-runs")
+      end
+    end # .ref_checks
+
+    describe ".ref_suites", :vcr do
+      it "returns check suites for a commit" do
+        result = @client.ref_suites(
+          @test_repo,
+          @commit_id,
+          accept: preview_header(:checks),
+        )
+
+        expect(result.check_suites).to be_a(Array)
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@commit_id}/check-suites")
+      end
+
+      it "returns check suites for a branch" do
+        result = @client.ref_suites(
+          @test_repo,
+          @branch,
+          accept: preview_header(:checks),
+        )
+
+        expect(result.check_suites).to be_a(Array)
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@branch}/check-suites")
+      end
+
+      it "returns check suites for a tag" do
+        result = @client.ref_suites(
+          @test_repo,
+          @tag,
+          accept: preview_header(:checks),
+        )
+
+        expect(result.check_suites).to be_a(Array)
+        assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@tag}/check-suites")
+      end
+    end # .ref_suites
+  end # with commit
+
+  private
+
+  def preview_header(type)
+    Octokit::Preview::PREVIEW_TYPES[type]
+  end
 end
