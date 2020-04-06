@@ -15,7 +15,6 @@ require 'octokit/client/authorizations'
 require 'octokit/client/checks'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
-require 'octokit/client/commit_pulls'
 require 'octokit/client/community_profile'
 require 'octokit/client/contents'
 require 'octokit/client/downloads'
@@ -74,7 +73,6 @@ module Octokit
     include Octokit::Client::Checks
     include Octokit::Client::Commits
     include Octokit::Client::CommitComments
-    include Octokit::Client::CommitPulls
     include Octokit::Client::CommunityProfile
     include Octokit::Client::Contents
     include Octokit::Client::Deployments
