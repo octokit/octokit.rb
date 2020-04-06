@@ -145,8 +145,8 @@ module OpenAPIClientGenerator
     end
 
     def boolean_response?
-      return true if definition.raw["responses"].key? "204" or definition.raw["responses"].key? "205"
-      return true if definition.raw["responses"].key? "201" and definition.raw["responses"]["201"].keys.count == 1
+      return true if definition.raw["responses"].key?("204") || definition.raw["responses"].key?("205")
+      return true if definition.raw["responses"].key?("201") && definition.raw["responses"]["201"].keys.count == 1
       false
     end
 
