@@ -55,6 +55,7 @@ describe Octokit::Client::Commits do
     describe ".commit_comments", :vcr do
       it "returns a list of comments for a specific commit" do
         commit_comments = @client.commit_comments(@test_repo, @commit_id)
+        expect(commit_comments.first.user.login).to eq(test_github_login)
         assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@commit_id}/comments")
       end
     end # .commit_comments
@@ -66,7 +67,7 @@ describe Octokit::Client::Commits do
           @commit_id,
           ":metal:\n:sparkles:\n:cake:"
 
-        # expect(@commit_comment.user.login).to eq(test_github_login)
+        expect(@commit_comment.user.login).to eq(test_github_login)
         assert_requested :post, github_url("/repos/#{@test_repo}/commits/#{@commit_id}/comments")
       end
     end # .create_commit_comment
@@ -89,6 +90,7 @@ describe Octokit::Client::Commits do
           @commit_id,
           accept: preview_header(:commit_branches),
         )
+        expect(branches.first.name).to eq('master')
         assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@commit_id}/branches-where-head")
       end
     end # .commit_branches
@@ -117,6 +119,7 @@ describe Octokit::Client::Commits do
       end
 
       it "returns check runs for a tag" do
+        release = @client.create_release(@test_repo, @tag)
         result = @client.ref_checks(
           @test_repo,
           @tag,
@@ -125,6 +128,7 @@ describe Octokit::Client::Commits do
 
         expect(result.check_runs).to be_a(Array)
         assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@tag}/check-runs")
+        @client.delete_release(@test_repo, release.id)
       end
     end # .ref_checks
 
@@ -152,6 +156,7 @@ describe Octokit::Client::Commits do
       end
 
       it "returns check suites for a tag" do
+        release = @client.create_release(@test_repo, @tag)
         result = @client.ref_suites(
           @test_repo,
           @tag,
@@ -160,6 +165,7 @@ describe Octokit::Client::Commits do
 
         expect(result.check_suites).to be_a(Array)
         assert_requested :get, github_url("/repos/#{@test_repo}/commits/#{@tag}/check-suites")
+        @client.delete_release(@test_repo, release.id)
       end
     end # .ref_suites
   end # with commit
