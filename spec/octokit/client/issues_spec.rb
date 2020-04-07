@@ -20,13 +20,13 @@ describe Octokit::Client::Issues do
     end
   end # .issues
 
-  describe ".repository_issues", :vcr do
+  describe ".repo_issues", :vcr do
     it "returns issues for a repository" do
-      issues = @client.repository_issues("sferik/rails_admin")
+      issues = @client.repo_issues(@test_repo)
       expect(issues).to be_kind_of Array
-      assert_requested :get, github_url("/repos/sferik/rails_admin/issues")
+      assert_requested :get, github_url("/repos/#{@test_repo}/issues")
     end
-  end # .repository_issues
+  end # .repo_issues
 
   describe ".org_issues", :vcr do
     it "returns issues for the organization for the authenticated user" do

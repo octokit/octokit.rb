@@ -6,12 +6,12 @@ module Octokit
     #
     # @see https://developer.github.com/v3/checks/runs/
     module Checks
-      # Get a single check run
+      # Get a check run
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param check_run_id [Integer] The ID of the check run
       # @return [Sawyer::Resource] A single check
-      # @see https://developer.github.com/v3/checks/runs/#get-a-single-check-run
+      # @see https://developer.github.com/v3/checks/runs/#get-a-check-run
       def check(repo, check_run_id, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
@@ -19,12 +19,12 @@ module Octokit
         get "#{Repository.path repo}/check-runs/#{check_run_id}", opts
       end
 
-      # Get a single check suite
+      # Get a check suite
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param check_suite_id [Integer] The ID of the check suite
       # @return [Sawyer::Resource] A single suite
-      # @see https://developer.github.com/v3/checks/suites/#get-a-single-check-suite
+      # @see https://developer.github.com/v3/checks/suites/#get-a-check-suite
       def check_suite(repo, check_suite_id, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
@@ -108,12 +108,12 @@ module Octokit
         paginate "#{Repository.path repo}/check-suites/#{check_suite_id}/check-runs", opts
       end
 
-      # List annotations for a check run
+      # List check run annotations
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param check_run_id [Integer] The ID of the check run
       # @return [Array<Sawyer::Resource>] A list of annotations
-      # @see https://developer.github.com/v3/checks/runs/#list-annotations-for-a-check-run
+      # @see https://developer.github.com/v3/checks/runs/#list-check-run-annotations
       def check_annotations(repo, check_run_id, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
@@ -121,12 +121,12 @@ module Octokit
         paginate "#{Repository.path repo}/check-runs/#{check_run_id}/annotations", opts
       end
 
-      # Rerequest check suite
+      # Rerequest a check suite
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param check_suite_id [Integer] The ID of the check suite
       # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/checks/suites/#rerequest-check-suite
+      # @see https://developer.github.com/v3/checks/suites/#rerequest-a-check-suite
       def rerequest_check_suite(repo, check_suite_id, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?
@@ -134,12 +134,12 @@ module Octokit
         boolean_from_response :post, "#{Repository.path repo}/check-suites/#{check_suite_id}/rerequest", opts
       end
 
-      # Set preferences for check suites on a repository
+      # Update repository preferences for check suites
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @option options [Array] :auto_trigger_checks Enables or disables automatic creation of CheckSuite events upon pushes to the repository. Enabled by default. See the auto_trigger_checks object (https://developer.github.com/v3/checks/suites/#auto_trigger_checks-object) description for details.
       # @return [Sawyer::Resource] The updated preferences
-      # @see https://developer.github.com/v3/checks/suites/#set-preferences-for-check-suites-on-a-repository
+      # @see https://developer.github.com/v3/checks/suites/#update-repository-preferences-for-check-suites
       def set_suites_preferences(repo, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.antiope-preview+json' if opts[:accept].nil?

@@ -15,20 +15,20 @@ module Octokit
         paginate 'events', options
       end
 
-      # List public events for an organization
+      # List public organization events
       #
       # @param org [Integer, String] A GitHub organization id or login
       # @return [Array<Sawyer::Resource>] A list of events
-      # @see https://developer.github.com/v3/activity/events/#list-public-events-for-an-organization
-      def org_public_events(org, options = {})
+      # @see https://developer.github.com/v3/activity/events/#list-public-organization-events
+      def public_org_events(org, options = {})
         paginate "#{Organization.path org}/events", options
       end
 
-      # List events performed by a user
+      # List events for the authenticated user
       #
       # @param user [Integer, String] A GitHub user id or login
       # @return [Array<Sawyer::Resource>] A list of events
-      # @see https://developer.github.com/v3/activity/events/#list-events-performed-by-a-user
+      # @see https://developer.github.com/v3/activity/events/#list-events-for-the-authenticated-user
       def user_events(user, options = {})
         paginate "#{User.path user}/events", options
       end
@@ -42,22 +42,22 @@ module Octokit
         paginate "#{Repository.path repo}/events", options
       end
 
-      # List public events performed by a user
+      # List public events for a user
       #
       # @param user [Integer, String] A GitHub user id or login
       # @return [Array<Sawyer::Resource>] A list of events
-      # @see https://developer.github.com/v3/activity/events/#list-public-events-performed-by-a-user
+      # @see https://developer.github.com/v3/activity/events/#list-public-events-for-a-user
       def user_public_events(user, options = {})
         paginate "#{User.path user}/events/public", options
       end
 
-      # List events for an organization
+      # List organization events for the authenticated user
       #
       # @param user [Integer, String] A GitHub user id or login
       # @param org [Integer, String] A GitHub organization id or login
       # @return [Array<Sawyer::Resource>] A list of events
-      # @see https://developer.github.com/v3/activity/events/#list-events-for-an-organization
-      def org_events(user, org, options = {})
+      # @see https://developer.github.com/v3/activity/events/#list-organization-events-for-the-authenticated-user
+      def user_org_events(user, org, options = {})
         paginate "#{User.path user}/events/#{Organization.path org}", options
       end
     end

@@ -3,21 +3,21 @@ require 'pry'
 
 describe Octokit::Client::Projects do
 
-  describe ".repository_projects", :vcr do
+  describe ".repo_projects", :vcr do
     it "returns a list of projects for a repository" do
-      projects = oauth_client.repository_projects('octokit/octokit.rb', accept: preview_header)
+      projects = oauth_client.repo_projects('octokit/octokit.rb', accept: preview_header)
       expect(projects).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/projects")
     end
-  end # .repository_projects
+  end # .repo_projects
 
-  describe ".create_repository_project", :vcr do
+  describe ".create_repo_project", :vcr do
     it "returns the newly created project" do
-      project = oauth_client.create_repository_project(@test_repo, "api kpi", accept: preview_header)
+      project = oauth_client.create_repo_project(@test_repo, "api kpi", accept: preview_header)
       expect(project.name).to eq("api kpi")
       assert_requested :post, github_url("/repos/#{@test_repo}/projects")
     end
-  end # .create_repository_project
+  end # .create_repo_project
 
   describe ".org_projects", :vcr do
     it "returns the projects for an organization" do
@@ -90,7 +90,7 @@ describe Octokit::Client::Projects do
   context "with repository" do
     context "with project" do
       before(:each) do
-        @project = oauth_client.create_repository_project(@test_repo, "implement apis", accept: preview_header)
+        @project = oauth_client.create_repo_project(@test_repo, "implement apis", accept: preview_header)
       end
 
       after(:each) do
