@@ -307,8 +307,7 @@ module OpenAPIClientGenerator
     def singular?
       return false if paginate?
       return false if definition.responses.first.content &&
-                      definition.responses.first.content["application/json"] &&
-                      definition.responses.first.content["application/json"]["schema"]["type"] == "array"
+                      definition.responses.first.content.dig("application/json", "schema", "type") == "array"
       true
     end
 
