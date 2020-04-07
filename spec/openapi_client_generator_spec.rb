@@ -8,7 +8,6 @@ describe OpenAPIClientGenerator do
       expect(endpoint.singular?).to eq(true)
     end
 
-
     it "defines singular? as true if response is not an array type and no per page param" do
       json = {"parameters"=> [{"name"=>"owner", "required"=>true}], "responses"=> {"200"=> {}}}
       endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, nil, {}), "get", json), [])
