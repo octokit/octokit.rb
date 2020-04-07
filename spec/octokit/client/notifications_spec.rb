@@ -7,41 +7,41 @@ describe Octokit::Client::Notifications do
     @client = oauth_client
   end
 
-  describe ".notifications", :vcr do
+  describe ".user_notifications", :vcr do
     it "lists the notifications for the current user" do
-      notifications = @client.notifications
+      notifications = @client.user_notifications
       expect(notifications).to be_kind_of Array
       assert_requested :get, github_url("/notifications")
     end
-  end # .notifications
+  end # .user_notifications
 
-  describe ".repository_notifications", :vcr do
+  describe ".user_repo_notifications", :vcr do
     it "lists all notifications for a repository" do
-      notifications = @client.repository_notifications(@test_repo)
+      notifications = @client.user_repo_notifications(@test_repo)
       expect(notifications).to be_kind_of Array
       assert_requested :get, github_url("/repos/#{@test_repo}/notifications")
     end
-  end # .repository_notifications
+  end # .user_repo_notifications
 
-  describe ".mark_as_read", :vcr do
+  describe ".mark_notifications_as_read", :vcr do
     it "returns true when notifications are marked as read" do
-      result = @client.mark_as_read
+      result = @client.mark_notifications_as_read
       expect(result).to be true
       assert_requested :put, github_url("/notifications")
     end
-  end # .mark_as_read
+  end # .mark_notifications_as_read
 
-  describe ".mark_repository_notifications_as_read", :vcr do
+  describe ".mark_repo_notifications_as_read", :vcr do
     it "returns true when notifications for a repo are marked as read" do
-      result = @client.mark_repository_notifications_as_read(@test_repo)
+      result = @client.mark_repo_notifications_as_read(@test_repo)
       expect(result).to be true
       assert_requested :put, github_url("/repos/#{@test_repo}/notifications")
     end
-  end # .mark_repository_notifications_as_read
+  end # .mark_repo_notifications_as_read
 
   context "with thread" do
     before(:each) do
-      @thread_id = @client.repository_notifications(@test_repo, :all => true).last.id
+      @thread_id = @client.user_repo_notifications(@test_repo, :all => true).last.id
     end
 
     describe ".thread", :vcr do
@@ -63,12 +63,12 @@ describe Octokit::Client::Notifications do
         @client.set_thread_subscription(@thread_id, :subscribed => true)
       end
 
-      describe ".thread_subscription" do
+      describe ".user_thread_subscription" do
         it "returns a thread subscription" do
-          @client.thread_subscription(@thread_id)
+          @client.user_thread_subscription(@thread_id)
           assert_requested :get, github_url("/notifications/threads/#{@thread_id}/subscription")
         end
-      end # .thread_subscription
+      end # .user_thread_subscription
 
       describe ".set_thread_subscription" do
         it "sets a thread subscription" do

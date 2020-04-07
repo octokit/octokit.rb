@@ -307,8 +307,7 @@ module OpenAPIClientGenerator
     def singular?
       return false if paginate?
       return false if definition.responses.first.content &&
-                      definition.responses.first.content["application/json"] &&
-                      definition.responses.first.content["application/json"]["schema"]["type"] == "array"
+                      definition.responses.first.content.dig("application/json", "schema", "type") == "array"
       true
     end
 
@@ -406,7 +405,7 @@ module OpenAPIClientGenerator
     def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme notifications pulls commits)
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme notifications pulls stats statuses commits)
       resource = case path_segments.first
                  when "orgs", "users"
                    path_segments[2]
