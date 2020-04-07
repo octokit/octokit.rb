@@ -49,7 +49,7 @@ module Octokit
       # @option options [String] :since Only issues updated at or after this time are returned. This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ.
       # @return [Array<Sawyer::Resource>] A list of issues
       # @see https://developer.github.com/v3/issues/#list-repository-issues
-      def repository_issues(repo, options = {})
+      def repo_issues(repo, options = {})
         paginate "#{Repository.path repo}/issues", options
       end
 
@@ -291,19 +291,6 @@ module Octokit
         post "#{Repository.path repo}/issues/#{issue_number}/reactions", opts
       end
 
-      # Add labels to an issue
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param issue_number [Integer] The number of the issue
-      # @param labels [Array] The name of the label to add to the issue. Must contain at least one label. Note: Alternatively, you can pass a single label as a string or an array of labels directly, but GitHub recommends passing an object with the labels key.
-      # @return [Sawyer::Resource] The new label
-      # @see https://developer.github.com/v3/issues/labels/#add-labels-to-an-issue
-      def add_issue_labels(repo, issue_number, labels, options = {})
-        opts = options.dup
-        opts[:labels] = labels
-        post "#{Repository.path repo}/issues/#{issue_number}/labels", opts
-      end
-
       # Add assignees to an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -330,15 +317,17 @@ module Octokit
         post "#{Repository.path repo}/issues/comments/#{comment_id}/reactions", opts
       end
 
-      # Replace all labels for an issue
+      # Add labels to an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param issue_number [Integer] The number of the issue
-      # @option options [Array] :labels The names of the labels to add to the issue. You can pass an empty array to remove all labels. Note: Alternatively, you can pass a single label as a string or an array of labels directly, but GitHub recommends passing an object with the labels key.
-      # @return [Sawyer::Resource] An array of the remaining labels
-      # @see https://developer.github.com/v3/issues/labels/#replace-all-labels-for-an-issue
-      def replace_all_labels(repo, issue_number, options = {})
-        put "#{Repository.path repo}/issues/#{issue_number}/labels", options
+      # @param labels [Array] The name of the label to add to the issue. Must contain at least one label. Note: Alternatively, you can pass a single label as a string or an array of labels directly, but GitHub recommends passing an object with the labels key.
+      # @return [Sawyer::Resource] The list of new labels
+      # @see https://developer.github.com/v3/issues/labels/#add-labels-to-an-issue
+      def add_issue_labels(repo, issue_number, labels, options = {})
+        opts = options.dup
+        opts[:labels] = labels
+        post "#{Repository.path repo}/issues/#{issue_number}/labels", opts
       end
 
       # Lock an issue
@@ -352,39 +341,25 @@ module Octokit
         boolean_from_response :put, "#{Repository.path repo}/issues/#{issue_number}/lock", options
       end
 
-      # Remove all labels from an issue
+      # Replace all labels for an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @option options [Array] :labels The names of the labels to add to the issue. You can pass an empty array to remove all labels. Note: Alternatively, you can pass a single label as a string or an array of labels directly, but GitHub recommends passing an object with the labels key.
+      # @return [Sawyer::Resource] An array of the remaining labels
+      # @see https://developer.github.com/v3/issues/labels/#replace-all-labels-for-an-issue
+      def replace_all_labels(repo, issue_number, options = {})
+        put "#{Repository.path repo}/issues/#{issue_number}/labels", options
+      end
+
+      # Unlock an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param issue_number [Integer] The number of the issue
       # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/issues/labels/#remove-all-labels-from-an-issue
-      def remove_all_labels(repo, issue_number, options = {})
-        boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_number}/labels", options
-      end
-
-      # Delete an issue reaction
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param issue_number [Integer] The number of the issue
-      # @param reaction_id [Integer] The ID of the reaction
-      # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/reactions/#delete-an-issue-reaction
-      def delete_issue_reaction(repo, issue_number, reaction_id, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
-
-        boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_number}/reactions/#{reaction_id}", opts
-      end
-
-      # Remove assignees from an issue
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param issue_number [Integer] The number of the issue
-      # @option options [Array] :assignees Usernames of assignees to remove from an issue. NOTE: Only users with push access can remove assignees from an issue. Assignees are silently ignored otherwise.
-      # @return [Sawyer::Resource] The updated issue
-      # @see https://developer.github.com/v3/issues/assignees/#remove-assignees-from-an-issue
-      def remove_issue_assignees(repo, issue_number, options = {})
-        delete "#{Repository.path repo}/issues/#{issue_number}/assignees", options
+      # @see https://developer.github.com/v3/issues/#unlock-an-issue
+      def unlock_issue(repo, issue_number, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_number}/lock", options
       end
 
       # Delete an issue comment reaction
@@ -401,14 +376,39 @@ module Octokit
         boolean_from_response :delete, "#{Repository.path repo}/issues/comments/#{comment_id}/reactions/#{reaction_id}", opts
       end
 
-      # Unlock an issue
+      # Remove assignees from an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @option options [Array] :assignees Usernames of assignees to remove from an issue. NOTE: Only users with push access can remove assignees from an issue. Assignees are silently ignored otherwise.
+      # @return [Sawyer::Resource] The updated issue
+      # @see https://developer.github.com/v3/issues/assignees/#remove-assignees-from-an-issue
+      def remove_issue_assignees(repo, issue_number, options = {})
+        delete "#{Repository.path repo}/issues/#{issue_number}/assignees", options
+      end
+
+      # Delete an issue reaction
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @param reaction_id [Integer] The ID of the reaction
+      # @return [Boolean] True on success, false otherwise
+      # @see https://developer.github.com/v3/reactions/#delete-an-issue-reaction
+      def delete_issue_reaction(repo, issue_number, reaction_id, options = {})
+        opts = options.dup
+        opts[:accept] = 'application/vnd.github.squirrel-girl-preview+json' if opts[:accept].nil?
+
+        boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_number}/reactions/#{reaction_id}", opts
+      end
+
+      # Remove all labels from an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param issue_number [Integer] The number of the issue
       # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/issues/#unlock-an-issue
-      def unlock_issue(repo, issue_number, options = {})
-        boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_number}/lock", options
+      # @see https://developer.github.com/v3/issues/labels/#remove-all-labels-from-an-issue
+      def remove_all_labels(repo, issue_number, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_number}/labels", options
       end
 
       # Remove a label from an issue

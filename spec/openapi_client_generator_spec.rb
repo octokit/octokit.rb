@@ -8,13 +8,13 @@ describe OpenAPIClientGenerator do
       expect(endpoint.singular?).to eq(true)
     end
 
-    it "defines singular? as true if response is not an array type" do
-      json = {"parameters"=> [{"name"=>"owner", "required"=>true}]}
+    it "defines singular? as true if response is not an array type and no per page param" do
+      json = {"parameters"=> [{"name"=>"owner", "required"=>true}], "responses"=> {"200"=> "no content"}}
       endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, nil, {}), "get", json), [])
       expect(endpoint.singular?).to eq(true)
     end
 
-    it "defines singular? as false if response is an array type" do
+    it "defines singular? as false if per page parameter" do
       json = {"parameters"=> [{"name"=>"per_page"}]}
       endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, nil, {}), "get", json), [])
       expect(endpoint.singular?).to eq(false)
@@ -25,7 +25,7 @@ describe OpenAPIClientGenerator do
       endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "/{repo}/meals/{meal_id}", json), "get", {}), [])
       expect(endpoint.api_path).to eq("{repo}/meals/\#{meal_id}")
     end
-    
+
     it "defines required_params to ignore owner and accept" do
       json = {"parameters"=> [{"name"=>"owner", "required"=>true}, {"name"=>"accept"}, {"name"=>"meal_id", "required"=>true}]}
       endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "/{repo}/meals/{meal_id}", json), "get", {}), [])
@@ -97,7 +97,7 @@ describe OpenAPIClientGenerator do
        endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "meals/{meal_id}", {}), "post", json), [])
        expect(endpoint.parameters).to eq("a, b, options = {}")
      end
- 
+
      it "defines kwarg arguments when specified" do
        json = {"parameters"=> [{"name"=> "a", "required"=> true}, {"name"=> "b", "required"=> true}]}
        endpoint = OpenAPIClientGenerator::Endpoint.new(OasParser::Endpoint.new(OasParser::Path.new(nil, "meals/{meal_id}", {}), "post", json), [], parameterizer: OpenAPIClientGenerator::Endpoint::KwargsParameterizer)

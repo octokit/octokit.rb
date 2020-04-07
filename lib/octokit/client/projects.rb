@@ -321,7 +321,7 @@ module Octokit
       # @option options [String] :state Indicates the state of the projects to return. Can be either open, closed, or all.
       # @return [Array<Sawyer::Resource>] A list of projects
       # @see https://developer.github.com/v3/projects/#list-repository-projects
-      def repository_projects(repo, options = {})
+      def repo_projects(repo, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
@@ -335,7 +335,7 @@ module Octokit
       # @option options [String] :body The description of the project.
       # @return [Sawyer::Resource] The new project
       # @see https://developer.github.com/v3/projects/#create-a-repository-project
-      def create_repository_project(repo, name, options = {})
+      def create_repo_project(repo, name, options = {})
         opts = options.dup
         opts[:name] = name
         opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?

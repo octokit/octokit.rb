@@ -145,8 +145,8 @@ module OpenAPIClientGenerator
     end
 
     def boolean_response?
-      return true if definition.raw["responses"].key? "204" || definition.raw["responses"].key?("205")
-      return true if definition.raw["responses"].key? "201" && definition.raw["responses"]["201"].keys.count == 1
+      return true if definition.raw["responses"].key?("204") || definition.raw["responses"].key?("205")
+      return true if definition.raw["responses"].key?("201") && definition.raw["responses"]["201"].keys.count == 1
       false
     end
 
@@ -154,7 +154,7 @@ module OpenAPIClientGenerator
       option_format = option_overrides.any? ? "opts" : "options"
       if boolean_response?
         "boolean_from_response :#{definition.method}, \"#{api_path}\", #{option_format}"
-      elsif !singular?
+      elsif paginate?
         "paginate \"#{api_path}\", #{option_format}"
       else
         "#{definition.method} \"#{api_path}\", #{option_format}"
@@ -270,10 +270,11 @@ module OpenAPIClientGenerator
       elsif boolean_response?
         "True on success, false otherwise"
       elsif verb == "POST"
-        case namespace
         # Note: hardcoded check
-        when "issue_assignees"
+        if namespace == "issue_assignees"
           "The updated #{definition.tags.first.singularize}"
+        elsif !singular?
+          "The list of new #{namespace.split("_").last.pluralize}"
         else
           "The new #{namespace.split("_").last.singularize}"
         end
@@ -299,47 +300,55 @@ module OpenAPIClientGenerator
       parameterizer.parameterize(params)
     end
 
+    def paginate?
+      (definition.parameters.any? {|p| p.name == "per_page"}) ? true : false
+    end
+
     def singular?
-      return true unless definition.parameters.any? {|p| p.name == "per_page"}
-      false
+      return false if paginate?
+      return false if definition.responses.first.content &&
+                      definition.responses.first.content["application/json"] &&
+                      definition.responses.first.content["application/json"]["schema"]["type"] == "array"
+      true
     end
 
     def namespace
       operation_array = definition.operation_id.split("/")
+      api = operation_array.first
       namespace_array = operation_array.last.split("-")
 
-      div_words = %w(for on about)
+      div_words = %w(for on about associated)
       if (div_words & namespace_array).any?
         words = namespace_array.select {|w| div_words.include? w}
         index = namespace_array.index(words.first)
+        return namespace_array[index+1..-1].join("_") if words.first == "about"
 
-        if words.first == "for" && index > 1 && operation_array.first != "activity"
-          resource = namespace_array[index+1..-1].join("_").gsub("repo", operation_array[0])
+        resource = (api == "reactions") ? namespace_array[index+1..-1] : [namespace_array.last]
+        if words.first == "for" && index > 1 && api != "activity"
+          resource = resource.join("_").gsub("repo", operation_array[0])
         else
-          resource = namespace_array[index+1..-1].join("_").gsub("repo", "repository")
+          resource = resource.join("_")
         end
 
-        return resource if words.first == "about"
-
         first_half = namespace_array[0..index-1]
-        subresource = (first_half.size == 1) ? operation_array.first : first_half.drop(1).join("_")
-        subresource = "#{subresource}_#{operation_array.first}" if subresource == "public"
+        subresource = (first_half.size == 1) ? api : first_half.drop(1).join("_")
+        subresource = "#{subresource}_#{api}" if subresource == "public"
         subresource = singular? ? subresource.singularize : subresource
 
         "#{resource}_#{subresource}"
       elsif namespace_array.size == 1
-        singular? ? operation_array.first.singularize : operation_array.first
+        singular? ? api.singularize : api
       elsif namespace_array.size == 2
         resource = namespace_array.last
-        return resource if ["repos", "activity"].include? operation_array.first
+        return resource if ["repos", "activity"].include? api
 
         if namespace_array.last.end_with?("ed") or resource == "public"
-          return "#{resource}_#{operation_array.first}"
+          return "#{resource}_#{api}"
         end
 
-        "#{operation_array.first.singularize}_#{resource}"
+        "#{api.singularize}_#{resource}"
       elsif namespace_array.first == "check"
-        "#{operation_array.first.singularize}_#{namespace_array.last}"
+        "#{api.singularize}_#{namespace_array.last}"
       else
         namespace_array.drop(1).join("_")
       end
@@ -406,7 +415,7 @@ module OpenAPIClientGenerator
                  else
                    path_segments[0]
                  end
-      
+
       resource = resource.split("-").first.pluralize unless (resource.nil? or resource == "readme")
       return (supported_resources.include? resource) ? resource : :unsupported
     end
