@@ -74,6 +74,7 @@ module Octokit
     include Octokit::Connection
     include Octokit::Preview
     include Octokit::Warnable
+    include Octokit::Client::ActionsSecrets
     include Octokit::Client::Authorizations
     include Octokit::Client::Checks
     include Octokit::Client::Commits
