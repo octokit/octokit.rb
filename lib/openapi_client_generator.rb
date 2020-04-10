@@ -237,8 +237,12 @@ module OpenAPIClientGenerator
       split_description = param.description.split(" ")
       resource = split_param.size > 1 ? split_param.first : namespace.split("_").last
       resource = (namespace.split("_").size == 3)? namespace.split("_").first : resource
-      return "The #{split_param.last} of the #{resource}" if split_description.last == "parameter"
-      return collapse_lists(param).gsub("\n", "")
+      if split_description.last == "parameter"
+        return "The #{split_param.last} name" if split_param.last == resource
+        return "The #{split_param.last} of the #{resource}"
+      else
+        return collapse_lists(param).gsub("\n", "")
+      end
     end
 
     def collapse_lists(param)
@@ -262,7 +266,13 @@ module OpenAPIClientGenerator
         if namespace.include?("latest")
           "The latest #{namespace.split("_").last}"
         elsif !singular?
-          "A list of #{namespace.split("_").last.pluralize}"
+          # Note: hardcoded check
+          if namespace == "commonly_used"
+            resource = definition.operation_id.split("/").first
+            "A list of #{resource}"
+          else
+            "A list of #{namespace.split("_").last.pluralize}"
+          end
         else
           resource = (namespace.include? "by")? namespace.split("_").first : namespace.split("_").last
           "A single #{resource}"
@@ -405,7 +415,7 @@ module OpenAPIClientGenerator
     def self.resource_for_path(path)
       path_segments = path.split("/").reject{ |segment| segment == "" }
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme notifications pulls stats statuses)
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme notifications pulls stats statuses licenses)
       resource = case path_segments.first
                  when "orgs", "users"
                    path_segments[2]
