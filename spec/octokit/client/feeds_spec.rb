@@ -37,11 +37,4 @@ describe Octokit::Client::Feeds do
     end
   end # .feeds
 
-  describe ".feed", :vcr do
-    it "returns parsed feed data" do
-      feed = Octokit.feed(:timeline)
-      expect(feed.title.content).to eq("GitHub Public Timeline Feed")
-    end
-  end # .feed
-
 end
