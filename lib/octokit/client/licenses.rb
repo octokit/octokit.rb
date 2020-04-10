@@ -1,43 +1,35 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
-    # Methods for licenses API
+    # Methods for the Licenses API
     #
+    # @see https://developer.github.com/v3/licenses/
     module Licenses
-
-      # List all licenses
+      # List commonly used licenses
       #
-      # @see https://developer.github.com/v3/licenses/#list-all-licenses
+      #
       # @return [Array<Sawyer::Resource>] A list of licenses
-      # @example
-      #   Octokit.licenses
-      def licenses(options = {})
-        options = ensure_api_media_type(:licenses, options)
-        paginate "licenses", options
+      # @see https://developer.github.com/v3/licenses/#list-commonly-used-licenses
+      def commonly_used(options = {})
+        get 'licenses', options
       end
 
-      # List an individual license
+      # Get an individual license
       #
+      # @param license [String] The license name
+      # @return [Sawyer::Resource] A single license
       # @see https://developer.github.com/v3/licenses/#get-an-individual-license
-      # @param license_name [String] The license name
-      # @return <Sawyer::Resource> An individual license
-      # @example
-      #   Octokit.license 'mit'
-      def license(license_name, options = {})
-        options = ensure_api_media_type(:licenses, options)
-        get "licenses/#{license_name}", options
+      def license(license, options = {})
+        get "licenses/#{license}", options
       end
 
-      # Returns the contents of the repository’s license file, if one is detected.
+      # Get the contents of a repository's license
       #
-      # @see https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @option options [String] :ref name of the Commit/Branch/Tag. Defaults to 'master'.
-      # @return [Sawyer::Resource] The detail of the license file
-      # @example
-      #   Octokit.repository_license_contents 'benbalter/licensee'
-      def repository_license_contents(repo, options = {})
-        options = ensure_api_media_type(:licenses, options)
+      # @return [Sawyer::Resource] A single license
+      # @see https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
+      def repo_license(repo, options = {})
         get "#{Repository.path repo}/license", options
       end
     end
