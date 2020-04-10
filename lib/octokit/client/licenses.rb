@@ -17,7 +17,7 @@ module Octokit
 
       # Get an individual license
       #
-      # @param license [String] The license name
+      # @param license [String] The license of the license
       # @return [Sawyer::Resource] A single license
       # @see https://developer.github.com/v3/licenses/#get-an-individual-license
       def license(license, options = {})

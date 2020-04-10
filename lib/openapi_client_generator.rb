@@ -237,12 +237,8 @@ module OpenAPIClientGenerator
       split_description = param.description.split(" ")
       resource = split_param.size > 1 ? split_param.first : namespace.split("_").last
       resource = (namespace.split("_").size == 3)? namespace.split("_").first : resource
-      if split_description.last == "parameter"
-        return "The #{split_param.last} name" if split_param.last == resource
-        return "The #{split_param.last} of the #{resource}"
-      else
-        return collapse_lists(param).gsub("\n", "")
-      end
+      return "The #{split_param.last} of the #{resource}" if split_description.last == "parameter"
+      return collapse_lists(param).gsub("\n", "")
     end
 
     def collapse_lists(param)
