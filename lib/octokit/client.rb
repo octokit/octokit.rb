@@ -11,8 +11,12 @@ require 'octokit/user'
 require 'octokit/organization'
 require 'octokit/preview'
 require 'octokit/client/apps'
+require 'octokit/client/assignees'
 require 'octokit/client/authorizations'
-require 'octokit/client/checks'
+require 'octokit/client/cards'
+require 'octokit/client/collaborators'
+require 'octokit/client/columns'
+require 'octokit/client/comments'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
 require 'octokit/client/commit_pulls'
@@ -48,12 +52,16 @@ require 'octokit/client/refs'
 require 'octokit/client/releases'
 require 'octokit/client/repositories'
 require 'octokit/client/repository_invitations'
+require 'octokit/client/reviews'
+require 'octokit/client/runs'
 require 'octokit/client/say'
 require 'octokit/client/search'
 require 'octokit/client/service_status'
 require 'octokit/client/source_import'
-require 'octokit/client/stats'
+require 'octokit/client/statistics'
 require 'octokit/client/statuses'
+require 'octokit/client/suites'
+require 'octokit/client/timeline'
 require 'octokit/client/traffic'
 require 'octokit/client/users'
 require 'ext/sawyer/relation'
@@ -70,8 +78,13 @@ module Octokit
     include Octokit::Connection
     include Octokit::Preview
     include Octokit::Warnable
+    include Octokit::Client::Apps
+    include Octokit::Client::Assignees
     include Octokit::Client::Authorizations
-    include Octokit::Client::Checks
+    include Octokit::Client::Cards
+    include Octokit::Client::Collaborators
+    include Octokit::Client::Columns
+    include Octokit::Client::Comments
     include Octokit::Client::Commits
     include Octokit::Client::CommitComments
     include Octokit::Client::CommitPulls
@@ -85,7 +98,6 @@ module Octokit
     include Octokit::Client::Gists
     include Octokit::Client::Gitignore
     include Octokit::Client::Hooks
-    include Octokit::Client::Apps
     include Octokit::Client::Issues
     include Octokit::Client::Labels
     include Octokit::Client::LegacySearch
@@ -108,12 +120,16 @@ module Octokit
     include Octokit::Client::Releases
     include Octokit::Client::Repositories
     include Octokit::Client::RepositoryInvitations
+    include Octokit::Client::Reviews
+    include Octokit::Client::Runs
     include Octokit::Client::Say
     include Octokit::Client::Search
     include Octokit::Client::ServiceStatus
     include Octokit::Client::SourceImport
-    include Octokit::Client::Stats
+    include Octokit::Client::Statistics
     include Octokit::Client::Statuses
+    include Octokit::Client::Suites
+    include Octokit::Client::Timeline
     include Octokit::Client::Traffic
     include Octokit::Client::Users
 
