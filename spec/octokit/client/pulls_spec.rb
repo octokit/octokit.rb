@@ -117,36 +117,6 @@ describe Octokit::Client::Pulls do
           assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments/#{@comment.id}/replies")
         end
       end # .create_review_comment_reply
-
-      describe ".create_pull_request_review_comment_reaction", :vcr do
-        it "creates a reaction on a pull request comment" do
-          result = @client.create_pull_request_review_comment_reaction(@test_repo, @comment.id, "hooray")
-          expect(result.content).to eq("hooray")
-          assert_requested :post, github_url("/repos/#{@test_repo}/pulls/comments/#{@comment.id}/reactions")
-        end
-      end # .create_pull_request_review_comment_reaction
-
-      context "with pull request comment reaction", :vcr do
-        before do
-          @reaction = @client.create_pull_request_review_comment_reaction(@test_repo, @comment.id, "rocket")
-        end
-
-        describe ".pull_request_review_comment_reactions" do
-          it "returns a list of reactions" do
-            result = @client.pull_request_review_comment_reactions(@test_repo, @comment.id)
-            expect(result).to be_kind_of Array
-          assert_requested :post, github_url("/repos/#{@test_repo}/pulls/comments/#{@comment.id}/reactions")
-          end
-        end # .pull_request_review_comment_reactions
-
-        describe ".delete_pull_request_comment_reaction" do
-          it "deletes a reaction on a pull request comment" do
-            result = @client.delete_pull_request_comment_reaction(@test_repo, @comment.id, @reaction.id)
-            expect(result).to be_truthy
-            assert_requested :post, github_url("/repos/#{@test_repo}/pulls/comments/#{@comment.id}/reactions")
-          end
-        end # .pull_request_review_comment_reactions
-      end # with pull request comment reaction
     end # with pull request comment
 
     describe ".left_pull_comment", :vcr do

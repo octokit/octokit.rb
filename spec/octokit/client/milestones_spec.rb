@@ -59,12 +59,4 @@ describe Octokit::Client::Milestones do
       end
     end # .delete_issue_milestone
   end # with milestone
-
-  describe ".lables_for_milestone", :vcr do
-    it "returns all labels for a repository" do
-      labels = @client.milestone_labels('octokit/octokit.rb', 2)
-      expect(labels).to be_kind_of Array
-      assert_requested :get, github_url("/repos/octokit/octokit.rb/milestones/2/labels")
-    end
-  end # .labels_for_milestone
 end

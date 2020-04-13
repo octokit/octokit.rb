@@ -63,4 +63,20 @@ describe Octokit::Client::Events do
       assert_requested :get, github_url("/repos/octokit/octokit.rb/issues/events/37786228")
     end
   end # .issue_events
+
+  describe ".issues_events", :vcr do
+    it "lists issue events for a repository" do
+      issue_events = @client.issues_events("octokit/octokit.rb")
+      expect(issue_events).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/issues/events")
+    end
+  end # .issues_events
+
+  describe ".issue_events", :vcr do
+    it "lists issue events for a repository" do
+      issue_events = @client.issue_events("octokit/octokit.rb", 4)
+      expect(issue_events).to be_kind_of Array
+      assert_requested :get, github_url("/repos/octokit/octokit.rb/issues/4/events")
+    end
+  end # .issue_events
 end
