@@ -95,9 +95,8 @@ module OpenAPIClientGenerator
     end
 
     def alias_definitions
-      if namespace.include? "or_"
-        namespace_array = definition.operation_id.split(/-|\//)
-        index = namespace_array.index("or")
+      namespace_array = definition.operation_id.split(/-|\//)
+      if index = namespace_array.index("or")
         %Q(
       alias #{namespace_array[index-1]}_#{namespace_array.last} #{method_name}
       alias #{namespace_array[index+1]}_#{namespace_array.last} #{method_name}
@@ -406,7 +405,7 @@ module OpenAPIClientGenerator
       # the specific endpoint is the last element, the api group is the one right before
       resource = url.split("/")[-2]
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects cards columns collaborators gists events runs checks contents downloads notifications pulls statistics statuses feeds)
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects cards columns collaborators gists events runs suites contents downloads notifications pulls statistics statuses feeds comments reviews assignees timeline)
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
