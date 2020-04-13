@@ -406,7 +406,7 @@ module OpenAPIClientGenerator
       # the specific endpoint is the last element, the api group is the one right before
       resource = url.split("/")[-2]
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects cards columns collaborators gists events runs checks contents downloads notifications pulls statistics statuses)
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects cards columns collaborators gists events runs checks contents downloads notifications pulls statistics statuses feeds)
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
