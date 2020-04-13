@@ -389,7 +389,7 @@ module OpenAPIClientGenerator
       method_overrides = { source.ast.children.first.to_s => source.ast.child_nodes[1].source }
 
       grouped_paths = definition.paths.group_by do |oas_path|
-        resource_for_path(oas_path.path)
+        resource_for_url(oas_path.endpoints.first.raw["externalDocs"]["url"])
       end
       grouped_paths.delete(:unsupported)
       grouped_paths.each do |resource, paths|
@@ -402,20 +402,11 @@ module OpenAPIClientGenerator
       end
     end
 
-    def self.resource_for_path(path)
-      path_segments = path.split("/").reject{ |segment| segment == "" }
+    def self.resource_for_url(url)
+      # the specific endpoint is the last element, the api group is the one right before
+      resource = url.split("/")[-2]
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme notifications pulls stats statuses feeds)
-      resource = case path_segments.first
-                 when "orgs", "users"
-                   path_segments[2]
-                 when "repos"
-                   path_segments[3]
-                 else
-                   path_segments[0]
-                 end
-
-      resource = resource.split("-").first.pluralize unless (resource.nil? or resource == "readme")
+      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects cards columns collaborators gists events runs checks contents downloads notifications pulls statistics statuses feeds)
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
