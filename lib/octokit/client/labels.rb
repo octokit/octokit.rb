@@ -62,6 +62,71 @@ module Octokit
       def delete_issue_label(repo, name, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/labels/#{name}", options
       end
+
+      # Get labels for every issue in a milestone
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param milestone_number [Integer] The number of the milestone
+      # @return [Array<Sawyer::Resource>] A list of labels
+      # @see https://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
+      def milestone_labels(repo, milestone_number, options = {})
+        paginate "#{Repository.path repo}/milestones/#{milestone_number}/labels", options
+      end
+
+      # List labels on an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @return [Array<Sawyer::Resource>] A list of labels
+      # @see https://developer.github.com/v3/issues/labels/#list-labels-on-an-issue
+      def issue_labels(repo, issue_number, options = {})
+        paginate "#{Repository.path repo}/issues/#{issue_number}/labels", options
+      end
+
+      # Add labels to an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @param labels [Array] The name of the label to add to the issue. Must contain at least one label. Note: Alternatively, you can pass a single label as a string or an array of labels directly, but GitHub recommends passing an object with the labels key.
+      # @return [Sawyer::Resource] The list of new labels
+      # @see https://developer.github.com/v3/issues/labels/#add-labels-to-an-issue
+      def add_issue_labels(repo, issue_number, labels, options = {})
+        opts = options.dup
+        opts[:labels] = labels
+        post "#{Repository.path repo}/issues/#{issue_number}/labels", opts
+      end
+
+      # Replace all labels for an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @option options [Array] :labels The names of the labels to add to the issue. You can pass an empty array to remove all labels. Note: Alternatively, you can pass a single label as a string or an array of labels directly, but GitHub recommends passing an object with the labels key.
+      # @return [Sawyer::Resource] An array of the remaining labels
+      # @see https://developer.github.com/v3/issues/labels/#replace-all-labels-for-an-issue
+      def replace_all_labels(repo, issue_number, options = {})
+        put "#{Repository.path repo}/issues/#{issue_number}/labels", options
+      end
+
+      # Remove all labels from an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @return [Boolean] True on success, false otherwise
+      # @see https://developer.github.com/v3/issues/labels/#remove-all-labels-from-an-issue
+      def remove_all_labels(repo, issue_number, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_number}/labels", options
+      end
+
+      # Remove a label from an issue
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param issue_number [Integer] The number of the issue
+      # @param name [String] The name of the label
+      # @return [Sawyer::Resource] An array of the remaining label
+      # @see https://developer.github.com/v3/issues/labels/#remove-a-label-from-an-issue
+      def remove_issue_label(repo, issue_number, name, options = {})
+        delete "#{Repository.path repo}/issues/#{issue_number}/labels/#{name}", options
+      end
     end
   end
 end

@@ -6,6 +6,16 @@ module Octokit
     #
     # @see https://developer.github.com/v3/repos/contents/
     module Contents
+      # Get the README
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @option options [String] :ref The name of the commit/branch/tag. Default: the repository’s default branch (usually master)
+      # @return [Sawyer::Resource] A single readme
+      # @see https://developer.github.com/v3/repos/contents/#get-the-readme
+      def readme(repo, options = {})
+        get "#{Repository.path repo}/readme", options
+      end
+
       # Get contents
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -15,6 +25,17 @@ module Octokit
       # @see https://developer.github.com/v3/repos/contents/#get-contents
       def contents(repo, path, options = {})
         get "#{Repository.path repo}/contents/#{path}", options
+      end
+
+      # Get archive link
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param archive_format [String] The format of the archive
+      # @param ref [String] The ref of the link
+      # @return [Sawyer::Resource] A single link
+      # @see https://developer.github.com/v3/repos/contents/#get-archive-link
+      def archive_link(repo, archive_format, ref, options = {})
+        get "#{Repository.path repo}/#{archive_format}/#{ref}", options
       end
 
       # Create or update a file

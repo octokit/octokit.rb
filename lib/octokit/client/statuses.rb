@@ -21,6 +21,26 @@ module Octokit
         opts[:state] = state.to_s.downcase
         post "#{Repository.path repo}/statuses/#{sha}", opts
       end
+
+      # Get the combined status for a specific ref
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param ref [String] The ref of the ref
+      # @return [Sawyer::Resource] A single status
+      # @see https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref
+      def ref_combined_status(repo, ref, options = {})
+        get "#{Repository.path repo}/commits/#{ref}/status", options
+      end
+
+      # List statuses for a specific ref
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param ref [String] The ref of the statuses
+      # @return [Array<Sawyer::Resource>] A list of statuses
+      # @see https://developer.github.com/v3/repos/statuses/#list-statuses-for-a-specific-ref
+      def ref_statuses(repo, ref, options = {})
+        paginate "#{Repository.path repo}/commits/#{ref}/statuses", options
+      end
     end
   end
 end

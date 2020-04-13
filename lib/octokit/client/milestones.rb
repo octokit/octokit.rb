@@ -66,16 +66,6 @@ module Octokit
       def delete_issue_milestone(repo, milestone_number, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/milestones/#{milestone_number}", options
       end
-
-      # Get labels for every issue in a milestone
-      #
-      # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param milestone_number [Integer] The number of the milestone
-      # @return [Array<Sawyer::Resource>] A list of labels
-      # @see https://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
-      def milestone_labels(repo, milestone_number, options = {})
-        paginate "#{Repository.path repo}/milestones/#{milestone_number}/labels", options
-      end
     end
   end
 end
