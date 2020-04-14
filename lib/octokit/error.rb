@@ -306,13 +306,13 @@ module Octokit
   class ServiceUnavailable < ServerError; end
 
   # Raised when client fails to provide valid Content-Type
-  class MissingContentType < ArgumentError; end
+  class MissingContentType < ClientError; end
 
   # Raised when a method requires an application client_id
   # and secret but none is provided
-  class ApplicationCredentialsRequired < StandardError; end
+  class ApplicationCredentialsRequired < ClientError; end
 
   # Raised when a repository is created with an invalid format
-  class InvalidRepository < ArgumentError; end
+  class InvalidRepository < Error; end
 
 end
