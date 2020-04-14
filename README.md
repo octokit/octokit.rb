@@ -713,16 +713,12 @@ when writing new specs.
 
 ## Supported Ruby Versions
 
-This library aims to support and is [tested against][travis] the following Ruby
+This library aims to support and is [tested against][actions] the following Ruby
 implementations:
 
-* Ruby 2.0
-* Ruby 2.1
-* Ruby 2.2
-* Ruby 2.3
-* Ruby 2.4
 * Ruby 2.5
 * Ruby 2.6
+* Ruby 2.7
 
 If something doesn't work on one of these Ruby versions, it's a bug.
 
@@ -737,7 +733,7 @@ implementation, you will be responsible for providing patches in a timely
 fashion. If critical issues for a particular implementation exist at the time
 of a major release, support for that Ruby version may be dropped.
 
-[travis]: https://travis-ci.org/octokit/octokit.rb
+[actions]: https://github.com/octokit/octokit.rb/actions
 
 ## Versioning
 
