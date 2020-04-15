@@ -51,7 +51,7 @@ module Octokit
       # @param name [String] Name of secret
       # @see https://developer.github.com/v3/actions/secrets/#delete-a-secret-from-a-repository
       def delete_secret(repo, name)
-        delete "#{Repository.path repo}/actions/secrets/#{name}"
+        boolean_from_response :delete, "#{Repository.path repo}/actions/secrets/#{name}"
       end
     end
   end
