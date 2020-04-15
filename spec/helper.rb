@@ -11,7 +11,7 @@ require 'base64'
 require 'jwt'
 require 'pry-byebug'
 
-WebMock.disable_net_connect!(:allow => 'coveralls.io')
+WebMock.disable_net_connect!()
 
 RSpec.configure do |config|
   config.raise_errors_for_deprecations!
