@@ -406,7 +406,7 @@ module OpenAPIClientGenerator
       v3_index = url.split("/").index("v3") + 1
       resource = url.split("/")[v3_index..-2].join("_")
 
-      supported_resources = %w(repos_deployments repos_pages repos_hooks orgs_hooks repos_releases issues_labels issues_milestones issues reactions projects projects_cards projects_columns projects_collaborators gists issues_events checks_runs checks_suites repos_contents repos_downloads activity_notifications pulls repos_statistics repos_statuses activity_feeds issues_assignees issues_timeline)
+      supported_resources = %w(repos_deployments repos_pages repos_hooks orgs_hooks repos_releases issues_labels issues_milestones issues reactions projects projects_cards projects_columns projects_collaborators gists issues_events checks_runs checks_suites repos_contents repos_downloads activity_notifications pulls repos_statistics repos_statuses activity_feeds issues_assignees issues_timeline pulls_comments issues_comments gists_comments activity_events)
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
