@@ -22,7 +22,7 @@ module Octokit
       # @return [Hash] total_count and list of secrets (each item is hash with name, created_at and updated_at)
       # @see https://developer.github.com/v3/actions/secrets/#list-secrets-for-a-repository
       def list_secrets(repo)
-        get "#{Repository.path repo}/actions/secrets"
+        paginate "#{Repository.path repo}/actions/secrets"
       end
 
       # Get a secret
