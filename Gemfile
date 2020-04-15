@@ -25,6 +25,7 @@ group :test do
   gem 'multi_json', '~> 1.14', '>= 1.14.1'
   gem 'netrc', '~> 0.11.0'
   gem 'rb-fsevent', '~> 0.10.3'
+  gem 'rbnacl', '~> 7.1.1'
   gem 'rspec', '~> 3.9'
   gem 'simplecov', require: false
   gem 'vcr', '~> 5.1'
