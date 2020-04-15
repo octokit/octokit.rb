@@ -20,7 +20,7 @@ describe Octokit::Client::ActionsSecrets do
 
   context "with a repo" do
     before(:each) do
-      @repo = @client.create_repository("an-repo")
+      @repo = @client.create_repository("secret-repo")
     end
 
     after(:each) do
@@ -40,7 +40,7 @@ describe Octokit::Client::ActionsSecrets do
 
   context "with a repo without secrets" do
     before(:each) do
-      @repo = @client.create_repository("an-repo")
+      @repo = @client.create_repository("secret-repo")
     end
 
     after(:each) do
@@ -59,14 +59,14 @@ describe Octokit::Client::ActionsSecrets do
     end # .list_secrets
 
     describe ".create_or_update_secret", :vcr do
-      it "creating secret returns 201" do
+      it "creating secret returns 204 (even though API docs claims it should be 201)" do
         box = create_box(@client.get_public_key(@repo.id))
         encrypted = box[:box].encrypt(@secret[:value])
         resp = @client.create_or_update_secret(
           @repo.id, @secret[:name],
           key_id: box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
         )
-        expect(resp.status).to eq(201)
+        expect(@client.last_response.status).to eq(204)
       end
     end # .create_or_update_secret
   end
@@ -74,7 +74,7 @@ describe Octokit::Client::ActionsSecrets do
 
   context "with a repository with a secret" do
     before(:each) do
-      @repo = @client.create_repository("an-repo")
+      @repo = @client.create_repository("secret-repo")
       @box = create_box(@client.get_public_key(@repo.id))
       encrypted = @box[:box].encrypt(@secret[:value])
       @client.create_or_update_secret(
@@ -113,14 +113,14 @@ describe Octokit::Client::ActionsSecrets do
           @repo.id, @secret[:name],
           key_id: box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
         )
-        expect(resp.status).to eq(204)
+        expect(@client.last_response.status).to eq(204)
       end
     end # .create_or_update_secret
 
     describe ".delete_secret", :vcr do
       it "delete existing secret" do
         resp = @client.delete_secret(@repo.id, @secret[:name])
-        expect(resp.status).to eq(204)
+        expect(@client.last_response.status).to eq(204)
       end
     end
   end
