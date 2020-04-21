@@ -43,7 +43,9 @@ jobs:
         run: chmod 600 spec/fixtures/.netrc
       - name: Install dependencies
         run: |
-          bundle install --path=.bundle/gems --without=development --jobs 4 --retry 3
+          bundle config set path .bundle/gems
+          bundle config set without development
+          bundle install --jobs 4 --retry 3
       - name: Test with RSpec
         env:
           GITHUB_CI: 1
