@@ -403,10 +403,10 @@ module OpenAPIClientGenerator
     end
 
     def self.resource_for_url(url)
-      # the specific endpoint is the last element, the api group is the one right before
-      resource = url.split("/")[-2]
+      v3_index = url.split("/").index("v3") + 1
+      resource = url.split("/")[v3_index..-2].join("_")
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects cards columns collaborators gists events runs checks contents downloads notifications pulls statistics statuses feeds)
+      supported_resources = %w(repos_deployments repos_pages repos_hooks orgs_hooks repos_releases issues_labels issues_milestones issues reactions projects projects_cards projects_columns projects_collaborators gists issues_events checks_runs checks_suites repos_contents repos_downloads activity_notifications pulls repos_statistics repos_statuses activity_feeds issues_assignees issues_timeline pulls_comments issues_comments gists_comments activity_events)
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
@@ -426,10 +426,10 @@ module OpenAPIClientGenerator
 
 module Octokit
   class Client
-    # Methods for the #{resource.capitalize} API
+    # Methods for the #{resource.camelize} API
     #
     # @see #{documentation_url}
-    module #{resource.capitalize}
+    module #{resource.camelize}
 
 #{endpoints.sort_by(&:priority).join("\n\n")}
     end
