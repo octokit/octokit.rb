@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Milestones do
+describe Octokit::Client::IssuesMilestones do
 
   before do
     Octokit.reset!

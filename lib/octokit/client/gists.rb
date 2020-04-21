@@ -57,15 +57,6 @@ module Octokit
         boolean_from_response :delete, "gists/#{Gist.new gist_id}", options
       end
 
-      # Check if a gist is starred
-      #
-      # @param gist_id [Integer, String] The ID of the gist
-      # @return [Boolean] A single starred
-      # @see https://developer.github.com/v3/gists/#check-if-a-gist-is-starred
-      def gist_starred?(gist_id, options = {})
-        boolean_from_response :get, "gists/#{Gist.new gist_id}/star", options
-      end
-
       # Get a specific revision of a gist
       #
       # @param gist_id [Integer, String] The ID of the gist
@@ -76,32 +67,13 @@ module Octokit
         get "gists/#{Gist.new gist_id}/#{sha}", options
       end
 
-      # Get a single comment
+      # Check if a gist is starred
       #
       # @param gist_id [Integer, String] The ID of the gist
-      # @param comment_id [Integer] The ID of the comment
-      # @return [Sawyer::Resource] A single comment
-      # @see https://developer.github.com/v3/gists/comments/#get-a-single-comment
-      def gist_comment(gist_id, comment_id, options = {})
-        get "gists/#{Gist.new gist_id}/comments/#{comment_id}", options
-      end
-
-      # List gist forks
-      #
-      # @param gist_id [Integer, String] The ID of the gist
-      # @return [Array<Sawyer::Resource>] A list of forks
-      # @see https://developer.github.com/v3/gists/#list-gist-forks
-      def gist_forks(gist_id, options = {})
-        paginate "gists/#{Gist.new gist_id}/forks", options
-      end
-
-      # List starred gists
-      #
-      # @option options [String] :since This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ. Only gists updated at or after this time are returned.
-      # @return [Array<Sawyer::Resource>] A list of gists
-      # @see https://developer.github.com/v3/gists/#list-starred-gists
-      def starred_gists(options = {})
-        paginate 'gists/starred', options
+      # @return [Boolean] A single starred
+      # @see https://developer.github.com/v3/gists/#check-if-a-gist-is-starred
+      def gist_starred?(gist_id, options = {})
+        boolean_from_response :get, "gists/#{Gist.new gist_id}/star", options
       end
 
       # List gist commits
@@ -122,25 +94,22 @@ module Octokit
         paginate 'gists/public', options
       end
 
-      # List comments on a gist
+      # List starred gists
       #
-      # @param gist_id [Integer, String] The ID of the gist
-      # @return [Array<Sawyer::Resource>] A list of comments
-      # @see https://developer.github.com/v3/gists/comments/#list-comments-on-a-gist
-      def gist_comments(gist_id, options = {})
-        paginate "gists/#{Gist.new gist_id}/comments", options
+      # @option options [String] :since This is a timestamp in ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) format: YYYY-MM-DDTHH:MM:SSZ. Only gists updated at or after this time are returned.
+      # @return [Array<Sawyer::Resource>] A list of gists
+      # @see https://developer.github.com/v3/gists/#list-starred-gists
+      def starred_gists(options = {})
+        paginate 'gists/starred', options
       end
 
-      # Create a comment
+      # List gist forks
       #
       # @param gist_id [Integer, String] The ID of the gist
-      # @param body [String] The comment text.
-      # @return [Sawyer::Resource] The new comment
-      # @see https://developer.github.com/v3/gists/comments/#create-a-comment
-      def create_gist_comment(gist_id, body, options = {})
-        opts = options.dup
-        opts[:body] = body
-        post "gists/#{Gist.new gist_id}/comments", opts
+      # @return [Array<Sawyer::Resource>] A list of forks
+      # @see https://developer.github.com/v3/gists/#list-gist-forks
+      def gist_forks(gist_id, options = {})
+        paginate "gists/#{Gist.new gist_id}/forks", options
       end
 
       # Fork a gist
@@ -161,19 +130,6 @@ module Octokit
         boolean_from_response :put, "gists/#{Gist.new gist_id}/star", options
       end
 
-      # Edit a comment
-      #
-      # @param gist_id [Integer, String] The ID of the gist
-      # @param comment_id [Integer] The ID of the comment
-      # @param body [String] The comment text.
-      # @return [Sawyer::Resource] The updated comment
-      # @see https://developer.github.com/v3/gists/comments/#edit-a-comment
-      def update_gist_comment(gist_id, comment_id, body, options = {})
-        opts = options.dup
-        opts[:body] = body
-        patch "gists/#{Gist.new gist_id}/comments/#{comment_id}", opts
-      end
-
       # Unstar a gist
       #
       # @param gist_id [Integer, String] The ID of the gist
@@ -181,16 +137,6 @@ module Octokit
       # @see https://developer.github.com/v3/gists/#unstar-a-gist
       def unstar_gist(gist_id, options = {})
         boolean_from_response :delete, "gists/#{Gist.new gist_id}/star", options
-      end
-
-      # Delete a comment
-      #
-      # @param gist_id [Integer, String] The ID of the gist
-      # @param comment_id [Integer] The ID of the comment
-      # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/gists/comments/#delete-a-comment
-      def delete_gist_comment(gist_id, comment_id, options = {})
-        boolean_from_response :delete, "gists/#{Gist.new gist_id}/comments/#{comment_id}", options
       end
 
       # List gists for a user

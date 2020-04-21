@@ -77,93 +77,18 @@ module Octokit
         delete "projects/#{project_id}", opts
       end
 
-      # Get a project column
+      # Create a user project
       #
-      # @param column_id [Integer] The ID of the column
-      # @return [Sawyer::Resource] A single column
-      # @see https://developer.github.com/v3/projects/columns/#get-a-project-column
-      def project_column(column_id, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        get "projects/columns/#{column_id}", opts
-      end
-
-      # List project columns
-      #
-      # @param project_id [Integer] The ID of the project
-      # @return [Array<Sawyer::Resource>] A list of columns
-      # @see https://developer.github.com/v3/projects/columns/#list-project-columns
-      def project_columns(project_id, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        paginate "projects/#{project_id}/columns", opts
-      end
-
-      # List collaborators
-      #
-      # @param project_id [Integer] The ID of the project
-      # @option options [String] :affiliation Filters the collaborators by their affiliation. Can be one of:   outside, direct, all
-      # @return [Array<Sawyer::Resource>] A list of collaborators
-      # @see https://developer.github.com/v3/projects/collaborators/#list-collaborators
-      def project_collaborators(project_id, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        paginate "projects/#{project_id}/collaborators", opts
-      end
-
-      # Create a project column
-      #
-      # @param project_id [Integer] The ID of the project
-      # @param name [String] The name of the column.
-      # @return [Sawyer::Resource] The new column
-      # @see https://developer.github.com/v3/projects/columns/#create-a-project-column
-      def create_project_column(project_id, name, options = {})
+      # @param name [String] The name of the project.
+      # @option options [String] :body The description of the project.
+      # @return [Sawyer::Resource] The new project
+      # @see https://developer.github.com/v3/projects/#create-a-user-project
+      def create_user_project(name, options = {})
         opts = options.dup
         opts[:name] = name
         opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
-        post "projects/#{project_id}/columns", opts
-      end
-
-      # Update a project column
-      #
-      # @param column_id [Integer] The ID of the column
-      # @param name [String] The new name of the column.
-      # @return [Sawyer::Resource] The updated column
-      # @see https://developer.github.com/v3/projects/columns/#update-a-project-column
-      def update_project_column(column_id, name, options = {})
-        opts = options.dup
-        opts[:name] = name
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        patch "projects/columns/#{column_id}", opts
-      end
-
-      # Delete a project column
-      #
-      # @param column_id [Integer] The ID of the column
-      # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/projects/columns/#delete-a-project-column
-      def delete_project_column(column_id, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        boolean_from_response :delete, "projects/columns/#{column_id}", opts
-      end
-
-      # Get a project card
-      #
-      # @param card_id [Integer] The ID of the card
-      # @return [Sawyer::Resource] A single card
-      # @see https://developer.github.com/v3/projects/cards/#get-a-project-card
-      def project_card(card_id, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        get "projects/columns/cards/#{card_id}", opts
+        post 'user/projects', opts
       end
 
       # List user projects
@@ -179,19 +104,6 @@ module Octokit
         paginate "#{User.path user}/projects", opts
       end
 
-      # List project cards
-      #
-      # @param column_id [Integer] The ID of the column
-      # @option options [String] :archived_state Filters the project cards that are returned by the card's state. Can be one of all,archived, or not_archived.
-      # @return [Array<Sawyer::Resource>] A list of cards
-      # @see https://developer.github.com/v3/projects/cards/#list-project-cards
-      def project_cards(column_id, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        paginate "projects/columns/#{column_id}/cards", opts
-      end
-
       # List organization projects
       #
       # @param org [Integer, String] A GitHub organization id or login
@@ -203,21 +115,6 @@ module Octokit
         opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         paginate "#{Organization.path org}/projects", opts
-      end
-
-      # Create a project card
-      #
-      # @param column_id [Integer] The ID of the column
-      # @option options [String] :note The card's note content. Only valid for cards without another type of content, so you must omit when specifying content_id and content_type.
-      # @option options [Integer] :content_id The ID of the content
-      # @option options [String] :content_type Required if you provide content_id. The type of content you want to associate with this card. Use Issue when content_id is an issue id and use PullRequest when content_id is a pull request id.
-      # @return [Sawyer::Resource] The new card
-      # @see https://developer.github.com/v3/projects/cards/#create-a-project-card
-      def create_project_card(column_id, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        post "projects/columns/#{column_id}/cards", opts
       end
 
       # Create an organization project
@@ -233,86 +130,6 @@ module Octokit
         opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         post "#{Organization.path org}/projects", opts
-      end
-
-      # Move a project column
-      #
-      # @param column_id [Integer] The ID of the column
-      # @param position [String] Can be one of first, last, or after:<column_id>, where <column_id> is the id value of a column in the same project.
-      # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/projects/columns/#move-a-project-column
-      def move_project_column(column_id, position, options = {})
-        opts = options.dup
-        opts[:position] = position
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        boolean_from_response :post, "projects/columns/#{column_id}/moves", opts
-      end
-
-      # Add user as a collaborator
-      #
-      # @param project_id [Integer] The ID of the project
-      # @param username [String] The username of the collaborator
-      # @option options [String] :permission The permission to grant the collaborator. Note that, if you choose not to pass any parameters, you'll need to set Content-Length to zero when calling out to this endpoint. For more information, see "HTTP verbs (https://developer.github.com/v3/#http-verbs)." Can be one of:   read - can read, but not write to or administer this project.  , write - can read and write, but not administer this project.  , admin - can read, write and administer this project.
-      # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/projects/collaborators/#add-user-as-a-collaborator
-      def add_project_collaborator(project_id, username, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        boolean_from_response :put, "projects/#{project_id}/collaborators/#{username}", opts
-      end
-
-      # Update a project card
-      #
-      # @param card_id [Integer] The ID of the card
-      # @option options [String] :note The card's note content. Only valid for cards without another type of content, so this cannot be specified if the card already has a content_id and content_type.
-      # @option options [Boolean] :archived Use true to archive a project card. Specify false if you need to restore a previously archived project card.
-      # @return [Sawyer::Resource] The updated card
-      # @see https://developer.github.com/v3/projects/cards/#update-a-project-card
-      def update_project_card(card_id, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        patch "projects/columns/cards/#{card_id}", opts
-      end
-
-      # Delete a project card
-      #
-      # @param card_id [Integer] The ID of the card
-      # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/projects/cards/#delete-a-project-card
-      def delete_project_card(card_id, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        boolean_from_response :delete, "projects/columns/cards/#{card_id}", opts
-      end
-
-      # Remove user as a collaborator
-      #
-      # @param project_id [Integer] The ID of the project
-      # @param username [String] The username of the collaborator
-      # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/projects/collaborators/#remove-user-as-a-collaborator
-      def remove_project_collaborator(project_id, username, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        boolean_from_response :delete, "projects/#{project_id}/collaborators/#{username}", opts
-      end
-
-      # Review a user's permission level
-      #
-      # @param project_id [Integer] The ID of the project
-      # @param username [String] The username of the user
-      # @return [Sawyer::Resource] A single level
-      # @see https://developer.github.com/v3/projects/collaborators/#review-a-users-permission-level
-      def user_permission_level(project_id, username, options = {})
-        opts = options.dup
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        get "projects/#{project_id}/collaborators/#{username}/permission", opts
       end
 
       # List repository projects
@@ -341,21 +158,6 @@ module Octokit
         opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 
         post "#{Repository.path repo}/projects", opts
-      end
-
-      # Move a project card
-      #
-      # @param card_id [Integer] The ID of the card
-      # @param position [String] Can be one of top, bottom, or after:<card_id>, where <card_id> is the id value of a card in the same column, or in the new column specified by column_id.
-      # @option options [Integer] :column_id The ID of the column
-      # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/projects/cards/#move-a-project-card
-      def move_project_card(card_id, position, options = {})
-        opts = options.dup
-        opts[:position] = position
-        opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
-
-        boolean_from_response :post, "projects/columns/cards/#{card_id}/moves", opts
       end
     end
   end

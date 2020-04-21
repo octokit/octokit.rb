@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Statuses do
+describe Octokit::Client::ReposStatuses do
   before do
     @client = oauth_client
   end
