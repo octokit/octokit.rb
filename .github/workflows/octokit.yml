@@ -49,5 +49,4 @@ jobs:
       - name: Test with RSpec
         env:
           GITHUB_CI: 1
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
         run: bundle exec rspec
