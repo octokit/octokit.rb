@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Events do
+describe Octokit::Client::ActivityEvents do
 
   before do
     Octokit.reset!

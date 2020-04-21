@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Readme do
+describe Octokit::Client::ReposContents do
 
   before do
     Octokit.reset!

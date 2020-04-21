@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Notifications do
+describe Octokit::Client::ActivityNotifications do
 
   before do
     Octokit.reset!

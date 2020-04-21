@@ -1,6 +1,6 @@
 require "helper"
 
-describe Octokit::Client::Checks, :vcr do
+describe Octokit::Client::ChecksRuns, :vcr do
   before do
     Octokit.reset!
 
@@ -140,7 +140,7 @@ describe Octokit::Client::Checks, :vcr do
     before(:each) do
       branch = @client.branch(@test_repo, "master")
       # doesn't work with @client
-      commit = oauth_client.create_commit(@test_repo, 
+      commit = oauth_client.create_commit(@test_repo,
                                           "help test create_check_suite",
                                           branch.commit.commit.tree.sha)
       @commit_sha = commit.sha
