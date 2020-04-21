@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Labels do
+describe Octokit::Client::IssuesLabels do
 
   before do
     Octokit.reset!

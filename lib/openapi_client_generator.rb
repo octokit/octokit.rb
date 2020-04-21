@@ -95,9 +95,8 @@ module OpenAPIClientGenerator
     end
 
     def alias_definitions
-      if namespace.include? "or_"
-        namespace_array = definition.operation_id.split(/-|\//)
-        index = namespace_array.index("or")
+      namespace_array = definition.operation_id.split(/-|\//)
+      if index = namespace_array.index("or")
         %Q(
       alias #{namespace_array[index-1]}_#{namespace_array.last} #{method_name}
       alias #{namespace_array[index+1]}_#{namespace_array.last} #{method_name}
@@ -389,7 +388,7 @@ module OpenAPIClientGenerator
       method_overrides = { source.ast.children.first.to_s => source.ast.child_nodes[1].source }
 
       grouped_paths = definition.paths.group_by do |oas_path|
-        resource_for_path(oas_path.path)
+        resource_for_url(oas_path.endpoints.first.raw["externalDocs"]["url"])
       end
       grouped_paths.delete(:unsupported)
       grouped_paths.each do |resource, paths|
@@ -402,20 +401,12 @@ module OpenAPIClientGenerator
       end
     end
 
-    def self.resource_for_path(path)
-      path_segments = path.split("/").reject{ |segment| segment == "" }
+    def self.resource_for_url(url)
+      v3_index = url.split("/").index("v3") + 1
+      resource = url.split("/")[v3_index..-2].join("_")
 
-      supported_resources = %w(deployments pages hooks releases labels milestones issues reactions projects gists events checks contents downloads readme notifications pulls stats statuses commits)
-      resource = case path_segments.first
-                 when "orgs", "users"
-                   path_segments[2]
-                 when "repos"
-                   path_segments[3]
-                 else
-                   path_segments[0]
-                 end
 
-      resource = resource.split("-").first.pluralize unless (resource.nil? or resource == "readme")
+      supported_resources = %w(repos_deployments repos_pages repos_hooks orgs_hooks repos_releases issues_labels issues_milestones issues reactions projects projects_cards projects_columns projects_collaborators gists issues_events checks_runs checks_suites repos_contents repos_downloads activity_notifications pulls repos_statistics repos_statuses activity_feeds issues_assignees issues_timeline pulls_comments issues_comments gists_comments activity_events repos_commits)
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
@@ -435,10 +426,10 @@ module OpenAPIClientGenerator
 
 module Octokit
   class Client
-    # Methods for the #{resource.capitalize} API
+    # Methods for the #{resource.camelize} API
     #
     # @see #{documentation_url}
-    module #{resource.capitalize}
+    module #{resource.camelize}
 
 #{endpoints.sort_by(&:priority).join("\n\n")}
     end

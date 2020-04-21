@@ -18,7 +18,7 @@ describe Octokit::Client::Repositories do
       expect(repository.topics).to be_kind_of Array
       expect(repository.topics).to include("syntax-highlighting")
     end
-  end # .repository 
+  end # .repository
 
   describe ".set_private" do
     it "sets a repository private" do
