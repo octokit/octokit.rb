@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Statistics do
+describe Octokit::Client::ReposStatistics do
 
   before do
     Octokit.reset!

@@ -58,6 +58,7 @@ require 'octokit/client/repos_pages'
 require 'octokit/client/repos_releases'
 require 'octokit/client/repos_statistics'
 require 'octokit/client/repos_statuses'
+require 'octokit/client/repositories'
 require 'octokit/client/repository_invitations'
 require 'octokit/client/reviews'
 require 'octokit/client/say'
@@ -121,12 +122,12 @@ module Octokit
     include Octokit::Client::Reactions
     include Octokit::Client::Refs
     include Octokit::Client::ReposReleases
-    include Octokit::Client::Repositories
-    include Octokit::Client::RepositoryInvitations
     include Octokit::Client::ReposContents
     include Octokit::Client::ReposDeployments
     include Octokit::Client::ReposDownloads
     include Octokit::Client::ReposHooks
+    include Octokit::Client::Repositories
+    include Octokit::Client::RepositoryInvitations
     include Octokit::Client::ReposPages
     include Octokit::Client::ReposStatistics
     include Octokit::Client::ReposStatuses

@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Releases do
+describe Octokit::Client::ReposReleases do
 
   before do
     Octokit.reset!

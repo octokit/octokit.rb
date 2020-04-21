@@ -1,6 +1,6 @@
 require "helper"
 
-describe Octokit::Client::Runs, :vcr do
+describe Octokit::Client::ChecksRuns, :vcr do
   before do
     Octokit.reset!
 
