@@ -32,7 +32,7 @@ module Octokit
 
       # Edit a repository
       #
-      # @see https://developer.github.com/v3/repos/#edit
+      # @see https://developer.github.com/v3/repos/#update-a-repository
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param options [Hash] Repository information to update
       # @option options [String] :name Name of the repo
@@ -429,7 +429,7 @@ module Octokit
       # @example List topics for octokit/octokit.rb
       #   Octokit.topics('octokit/octokit.rb')
       # @example List topics for octokit/octokit.rb
-      #   client.topics('octokit/octokit.rb')      
+      #   client.topics('octokit/octokit.rb')
       def topics(repo, options = {})
         opts = ensure_api_media_type(:topics, options)
         paginate "#{Repository.path repo}/topics", opts
@@ -586,14 +586,14 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param branch [String] Branch name
-      # @option options [Hash] :required_status_checks If not null, the following keys are required:  
-      #   <tt>:enforce_admins [boolean] Enforce required status checks for repository administrators.</tt>  
-      #   <tt>:strict [boolean] Require branches to be up to date before merging.</tt>  
-      #   <tt>:contexts [Array] The list of status checks to require in order to merge into this branch</tt>  
+      # @option options [Hash] :required_status_checks If not null, the following keys are required:
+      #   <tt>:enforce_admins [boolean] Enforce required status checks for repository administrators.</tt>
+      #   <tt>:strict [boolean] Require branches to be up to date before merging.</tt>
+      #   <tt>:contexts [Array] The list of status checks to require in order to merge into this branch</tt>
       #
       # @option options [Hash] :restrictions If not null, the following keys are required:
-      #   <tt>:users [Array] The list of user logins with push access</tt>  
-      #   <tt>:teams [Array] The list of team slugs with push access</tt>.  
+      #   <tt>:users [Array] The list of user logins with push access</tt>
+      #   <tt>:teams [Array] The list of team slugs with push access</tt>.
       #
       #   Teams and users restrictions are only available for organization-owned repositories.
       # @return [Sawyer::Resource] The protected branch
