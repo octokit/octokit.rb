@@ -17,7 +17,6 @@ require 'octokit/client/apps'
 require 'octokit/client/authorizations'
 require 'octokit/client/checks_runs'
 require 'octokit/client/checks_suites'
-require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
 require 'octokit/client/commit_pulls'
 require 'octokit/client/community_profile'
@@ -51,6 +50,7 @@ require 'octokit/client/rate_limit'
 require 'octokit/client/reactions'
 require 'octokit/client/refs'
 require 'octokit/client/repos_contents'
+require 'octokit/client/repos_commits'
 require 'octokit/client/repos_downloads'
 require 'octokit/client/repos_deployments'
 require 'octokit/client/repos_hooks'
@@ -88,7 +88,6 @@ module Octokit
     include Octokit::Client::Authorizations
     include Octokit::Client::ChecksRuns
     include Octokit::Client::ChecksSuites
-    include Octokit::Client::Commits
     include Octokit::Client::CommitComments
     include Octokit::Client::CommitPulls
     include Octokit::Client::CommunityProfile
@@ -123,6 +122,7 @@ module Octokit
     include Octokit::Client::Refs
     include Octokit::Client::ReposReleases
     include Octokit::Client::ReposContents
+    include Octokit::Client::ReposCommits
     include Octokit::Client::ReposDeployments
     include Octokit::Client::ReposDownloads
     include Octokit::Client::ReposHooks
