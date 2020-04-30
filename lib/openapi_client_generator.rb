@@ -359,7 +359,13 @@ module OpenAPIClientGenerator
     def method_name
       case verb
       when "GET"
-        (definition.operation_id.split("/").last.include? "check") ? "#{namespace}?" : namespace
+        if (definition.operation_id.split("/").last.include? "check")
+          "#{namespace}?"
+        elsif action == "compare"
+          "#{action}_#{namespace}"
+        else
+          namespace
+        end
       when "POST", "PATCH", "DELETE", "PUT"
         "#{action}_#{namespace}"
       else
@@ -397,15 +403,17 @@ module OpenAPIClientGenerator
             arr << OpenAPIClientGenerator::Endpoint.new(endpoint, method_overrides, parameterizer: parameterizer)
           end
         end
+        # print "."
         yield new(resource, endpoints: endpoints)
       end
+      puts ""
     end
 
     def self.resource_for_url(url)
       v3_index = url.split("/").index("v3") + 1
       resource = url.split("/")[v3_index..-2].join("_")
 
-      supported_resources = %w(repos_deployments repos_pages repos_hooks orgs_hooks repos_releases issues_labels issues_milestones issues reactions projects projects_cards projects_columns projects_collaborators gists issues_events checks_runs checks_suites repos_contents repos_downloads activity_notifications pulls repos_statistics repos_statuses activity_feeds issues_assignees issues_timeline pulls_comments issues_comments gists_comments activity_events)
+      supported_resources = %w(repos_deployments repos_pages repos_hooks orgs_hooks repos_releases issues_labels issues_milestones issues reactions projects projects_cards projects_columns projects_collaborators gists issues_events checks_runs checks_suites repos_contents repos_downloads activity_notifications pulls repos_statistics repos_statuses activity_feeds issues_assignees issues_timeline pulls_comments issues_comments gists_comments activity_events repos_commits)
       return (supported_resources.include? resource) ? resource : :unsupported
     end
 
