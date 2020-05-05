@@ -10,6 +10,8 @@ require 'octokit/repository'
 require 'octokit/user'
 require 'octokit/organization'
 require 'octokit/preview'
+require 'octokit/client/actions_workflows'
+require 'octokit/client/actions_workflow_runs'
 require 'octokit/client/apps'
 require 'octokit/client/authorizations'
 require 'octokit/client/checks'
@@ -88,6 +90,8 @@ module Octokit
     include Octokit::Client::Gists
     include Octokit::Client::Gitignore
     include Octokit::Client::Hooks
+    include Octokit::Client::ActionsWorkflows
+    include Octokit::Client::ActionsWorkflowRuns
     include Octokit::Client::Apps
     include Octokit::Client::Issues
     include Octokit::Client::Labels

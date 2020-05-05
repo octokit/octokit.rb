@@ -209,6 +209,14 @@ describe Octokit::Client::Repositories do
       end
     end # .delete_repository
 
+    describe ".dispath_event", :vcr do
+      it "creates a dispatch event" do
+        event_dispatched = @client.dispatch_event(@repo.full_name, 'test dispatch event')
+        expect(event_dispatched).to be_truthy
+        assert_requested :post, github_url("/repos/#{@repo.full_name}/dispatches")
+      end
+    end # .delete_repository
+
     describe ".branch_protection", :vcr do
       it "returns nil for an unprotected branch" do
         branch_protection = @client.branch_protection(@repo.full_name, "master", accept: preview_header)
