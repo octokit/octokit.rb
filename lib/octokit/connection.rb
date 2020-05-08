@@ -178,15 +178,9 @@ module Octokit
       conn_opts = @connection_options
       conn_opts[:builder] = @middleware if @middleware
       conn_opts[:proxy] = @proxy if @proxy
-      if conn_opts[:ssl].nil?
-        conn_opts[:ssl] = { :verify_mode => @ssl_verify_mode } if @ssl_verify_mode
-      else
-        if @connection_options[:ssl][:verify] == false
-          conn_opts[:ssl] = { :verify_mode => 0}
-        else
-          conn_opts[:ssl] = { :verify_mode => @ssl_verify_mode }
-        end
-      end
+      conn_opts[:ssl] ||= {}
+      conn_opts[:ssl][:verify_mode] ||= 0 if conn_opts.dig(:ssl, :verify) == false
+      conn_opts[:ssl][:verify_mode] ||= @ssl_verify_mode if @ssl_verify_mode
       opts[:faraday] = Faraday.new(conn_opts)
 
       opts
