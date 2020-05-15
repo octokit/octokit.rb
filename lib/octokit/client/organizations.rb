@@ -690,7 +690,7 @@ module Octokit
 
       # Edit an organization membership
       #
-      # @param org [String] Organization GitHub login.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @option options [String] :role  The role of the user in the organization.
       # @option options [String] :state The state that the membership should be in.
       # @option options [String] :user  The login of the user, otherwise authenticated user.
@@ -711,7 +711,7 @@ module Octokit
 
       # Remove an organization membership
       #
-      # @param org [String] Organization GitHub login.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @return [Boolean] Success
       # @see https://developer.github.com/v3/orgs/members/#remove-organization-membership
       def remove_organization_membership(org, options = {})
