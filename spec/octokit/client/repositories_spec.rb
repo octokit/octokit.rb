@@ -18,7 +18,7 @@ describe Octokit::Client::Repositories do
       expect(repository.topics).to be_kind_of Array
       expect(repository.topics).to include("syntax-highlighting")
     end
-  end # .repository 
+  end # .repository
 
   describe ".set_private" do
     it "sets a repository private" do
@@ -209,13 +209,13 @@ describe Octokit::Client::Repositories do
       end
     end # .delete_repository
 
-    describe ".dispath_event", :vcr do
+    describe ".dispatch_event", :vcr do
       it "creates a dispatch event" do
         event_dispatched = @client.dispatch_event(@repo.full_name, 'test dispatch event')
         expect(event_dispatched).to be_truthy
         assert_requested :post, github_url("/repos/#{@repo.full_name}/dispatches")
       end
-    end # .delete_repository
+    end # .dispatch_event
 
     describe ".branch_protection", :vcr do
       it "returns nil for an unprotected branch" do
