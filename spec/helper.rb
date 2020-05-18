@@ -29,6 +29,7 @@ end
 
 require 'vcr'
 VCR.configure do |c|
+  c.ignore_hosts '127.0.0.1', 'localhost'
   c.configure_rspec_metadata!
   c.filter_sensitive_data("<GITHUB_LOGIN>") do
     test_github_login
@@ -327,6 +328,12 @@ def enterprise_management_console_client
     c.middleware = stack
   end
   client
+end
+
+def fixtures_server_client()
+  @agent ||= Octokit::Client.new(
+    :api_endpoint => "http://localhost:3000"
+  )
 end
 
 def new_jwt_token
