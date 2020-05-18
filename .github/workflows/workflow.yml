@@ -22,13 +22,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - name: Set up Ruby
+    - name: Setup Ruby
       uses: actions/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby_version }}
     - name: Setup .netrc
       run: |
         chmod 600 spec/fixtures/.netrc
+    - name: Setup libsodium
+      run: |
+          if [ matrix.os == 'windows-latest' ]; then
+            curl 'https://download.libsodium.org/libsodium/releases/libsodium-1.0.18-msvc.zip'
+            gzip -d libsodium-1.0.18-msvc.zip
+            cp libsodium-1.0.18-msvc\libsodium\x64\Release\v142\dynamic\libsodium.dll C:\Windows\System32\sodium.dll
+          fi
+      shell: bash
     - name: Install dependencies
       run: |
         gem install bundler
