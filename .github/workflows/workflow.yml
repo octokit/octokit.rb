@@ -26,6 +26,10 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby_version }}
+    - name: Set up Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+         node-version: 12.x
     - name: Setup .netrc
       run: |
         chmod 600 spec/fixtures/.netrc
@@ -34,6 +38,16 @@ jobs:
         gem install bundler
         gem update bundler
         bundle install --without development --jobs 4 --retry 3
+    - name: Checkout fixtures-server
+      uses: actions/checkout@v2
+      with:
+         repository: octokit/fixtures-server
+         path: fixtures-server
+    - name: Starting fixtures server
+      run: |
+         cd $GITHUB_WORKSPACE/fixtures-server
+         npm ci
+         node bin/server.js &
     - name: Test with RSpec
       env:
         GITHUB_CI: 1
