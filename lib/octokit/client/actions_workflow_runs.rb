@@ -51,9 +51,7 @@ module Octokit
       # @return [Boolean] Returns true if the re-run request was accepted
       # @see https://developer.github.com/v3/actions/workflow-runs/#re-run-a-workflow
       def rerun_workflow_run(repo, id, options = {})
-        post "#{Repository.path repo}/actions/runs/#{id}/rerun", options
-
-        last_response.status == 201
+        boolean_from_response :post, "#{Repository.path repo}/actions/runs/#{id}/rerun", options
       end
 
       # Cancels a workflow run
@@ -64,9 +62,7 @@ module Octokit
       # @return [Boolean] Returns true if the cancellation was accepted
       # @see https://developer.github.com/v3/actions/workflow-runs/#cancel-a-workflow-run
       def cancel_workflow_run(repo, id, options = {})
-        post "#{Repository.path repo}/actions/runs/#{id}/cancel", options
-
-        last_response.status == 202
+        boolean_from_response :post, "#{Repository.path repo}/actions/runs/#{id}/cancel", options
       end
 
       # Get a download url for archived log files of a workflow run
