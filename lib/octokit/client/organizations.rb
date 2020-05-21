@@ -690,7 +690,7 @@ module Octokit
 
       # Edit an organization membership
       #
-      # @param org [String] Organization GitHub login.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @option options [String] :role  The role of the user in the organization.
       # @option options [String] :state The state that the membership should be in.
       # @option options [String] :user  The login of the user, otherwise authenticated user.
@@ -701,7 +701,7 @@ module Octokit
         options = options.dup
         if user = options.delete(:user)
           options.delete(:state)
-          put "orgs/#{org}/memberships/#{user}", options
+          put "#{Organization.path(org)}/memberships/#{user}", options
         else
           options.delete(:role)
           patch "user/memberships/orgs/#{org}", options
@@ -711,13 +711,13 @@ module Octokit
 
       # Remove an organization membership
       #
-      # @param org [String] Organization GitHub login.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @return [Boolean] Success
       # @see https://developer.github.com/v3/orgs/members/#remove-organization-membership
       def remove_organization_membership(org, options = {})
         options = options.dup
         user = options.delete(:user)
-        user && boolean_from_response(:delete, "orgs/#{org}/memberships/#{user}", options)
+        user && boolean_from_response(:delete, "#{Organization.path(org)}/memberships/#{user}", options)
       end
       alias :remove_org_membership :remove_organization_membership
 
@@ -735,7 +735,7 @@ module Octokit
       def start_migration(org, repositories, options = {})
         options = ensure_api_media_type(:migrations, options)
         options[:repositories] = repositories
-        post "orgs/#{org}/migrations", options
+        post "#{Organization.path(org)}/migrations", options
       end
 
       # Lists the most recent migrations.
@@ -747,7 +747,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
       def migrations(org, options = {})
         options = ensure_api_media_type(:migrations, options)
-        paginate "orgs/#{org}/migrations", options
+        paginate "#{Organization.path(org)}/migrations", options
       end
 
       # Fetches the status of a migration.
@@ -759,7 +759,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/migrations/#get-the-status-of-a-migration
       def migration_status(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
-        get "orgs/#{org}/migrations/#{id}", options
+        get "#{Organization.path(org)}/migrations/#{id}", options
       end
 
       # Fetches the URL to a migration archive.
@@ -771,7 +771,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/migrations/#download-a-migration-archive
       def migration_archive_url(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
-        url = "orgs/#{org}/migrations/#{id}/archive"
+        url = "#{Organization.path(org)}/migrations/#{id}/archive"
 
         response = client_without_redirects(options).get(url)
         response.headers['location']
@@ -786,7 +786,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/migrations/#delete-a-migration-archive
       def delete_migration_archive(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
-        delete "orgs/#{org}/migrations/#{id}/archive", options
+        delete "#{Organization.path(org)}/migrations/#{id}/archive", options
       end
 
       # Unlock a previous migration archive.
@@ -799,7 +799,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/migrations/#unlock-a-repository
       def unlock_repository(org, id, repo, options = {})
         options = ensure_api_media_type(:migrations, options)
-        delete "orgs/#{org}/migrations/#{id}/repos/#{repo}/lock", options
+        delete "#{Organization.path(org)}/migrations/#{id}/repos/#{repo}/lock", options
       end
     end
   end
