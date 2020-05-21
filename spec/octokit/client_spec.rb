@@ -932,6 +932,22 @@ describe Octokit::Client do
       expect { Octokit.get('/user') }.to raise_error Octokit::ServerError
     end
 
+    it "resets last_response on errors" do
+      stub_get('/booya').to_return(:status => 200)
+      stub_get('/user').to_return \
+        :status => 509,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "Bandwidth exceeded"}.to_json
+
+      client = Octokit.client
+      client.get('/booya')
+      expect(client.last_response).to_not be_nil
+      expect { client.get('/user') }.to raise_error Octokit::ServerError
+      expect(client.last_response).to be_nil
+    end
+
     it "handles documentation URLs in error messages" do
       stub_get('/user').to_return \
         :status => 415,
