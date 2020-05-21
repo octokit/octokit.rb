@@ -720,6 +720,19 @@ module Octokit
       def delete_subscription(repo, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/subscription", options
       end
+
+      # Create a repository dispatch event
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param event_type [String] A custom webhook event name.
+      # @option options [Hash] :client_payload payload with extra information
+      #   about the webhook event that your action or worklow may use.
+      #
+      # @return [Boolean] True if event was dispatched, false otherwise.
+      # @see https://developer.github.com/v3/repos/#create-a-repository-dispatch-event
+      def dispatch_event(repo, event_type, options = {})
+        boolean_from_response :post, "#{Repository.path repo}/dispatches", options.merge({ event_type: event_type })
+      end
     end
   end
 end
