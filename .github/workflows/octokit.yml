@@ -49,4 +49,4 @@ jobs:
       - name: Test with RSpec
         env:
           GITHUB_CI: 1
-        run: bundle exec rspec
+        run: bundle exec rspec -w
