@@ -9,7 +9,7 @@ on:
 
 jobs:
   ci:
-    name: ${{ matrix.os }} Ruby ${{ matrix.ruby }}
+    name: Ruby ${{ matrix.ruby }}
     runs-on: ${{ matrix.os }}-latest
 
     strategy:
