@@ -6,10 +6,6 @@ on:
      - master
      - 4-stable
      - '*'
-   pull_request:
-     branches:
-     - master
-     - 4-stable
 
 jobs:
   ci:
@@ -19,12 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu, macos, windows ]
+        os: [ ubuntu ]
         ruby: [ 2.5, 2.6, 2.7, head ]
-        include:
-          - { os: windows, ruby: mingw }
-        exclude:
-          - { os: windows, ruby: head }
 
     steps:
       - uses: actions/checkout@v2
@@ -49,4 +41,4 @@ jobs:
       - name: Test with RSpec
         env:
           GITHUB_CI: 1
-        run: bundle exec rspec
+        run: bundle exec rspec -w
