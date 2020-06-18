@@ -4,6 +4,18 @@ module Octokit
     # Methods for the Apps API
     module Apps
 
+      # Get the authenticated App
+      #
+      # @param options [Hash] A customizable set of options
+      #
+      # @see https://developer.github.com/v3/apps/#get-the-authenticated-app
+      #
+      # @return [Sawyer::Resource] App information
+      def app(options = {})
+        opts = ensure_api_media_type(:integrations, options)
+        get "app", opts
+      end
+
       # Find all installations that belong to an App
       #
       # @param options [Hash] A customizable set of options
