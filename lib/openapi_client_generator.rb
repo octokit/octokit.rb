@@ -125,7 +125,7 @@ module OpenAPIClientGenerator
           if !!param.enum
             normalization = ".to_s.downcase"
           end
-          if param.description.include? "Base64"
+          if param_default_description(param).include? "Base64"
             options << "opts[:#{param.name}] = Base64.strict_encode64(#{param.name})"
           else
             options << "opts[:#{param.name}] = #{param.name}#{normalization}"
@@ -232,17 +232,27 @@ module OpenAPIClientGenerator
       return "A GitHub organization id or login" if param.name == "org"
       return "A GitHub user id or login" if param.name == "user"
       return "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if param.name.end_with? "_id"
-      split_param =  param.name.split("_")
-      split_description = param.description.split(" ")
-      resource = split_param.size > 1 ? split_param.first : namespace.split("_").last
-      resource = (namespace.split("_").size == 3)? namespace.split("_").first : resource
-      return "The #{split_param.last} of the #{resource}" if split_description.last == "parameter"
+      return param_default_description(param) if param.description.nil?
       return collapse_lists(param).gsub("\n", "")
+    end
+
+    # guard against nil param descriptions
+    def param_default_description(param)
+      return param.description unless param.description.nil?
+
+      split_name = param.name.split("_")
+      description = "The #{split_name.last}"
+
+      if split_name.size > 1
+        description += " of the #{split_name.first}"
+      end
+
+      description
     end
 
     def collapse_lists(param)
       md = Redcarpet::Markdown.new(Redcarpet::Render::StripDown)
-      description = md.render(param.description)
+      description = md.render(param_default_description(param))
       split_description = description.split("*")
       list = split_description.drop(1).map { |line| line.split(":")[0] }
       (split_description[0] + list.join(","))
