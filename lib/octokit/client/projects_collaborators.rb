@@ -6,12 +6,12 @@ module Octokit
     #
     # @see https://developer.github.com/v3/projects/collaborators/
     module ProjectsCollaborators
-      # List collaborators
+      # List project collaborators
       #
       # @param project_id [Integer] The ID of the project
       # @option options [String] :affiliation Filters the collaborators by their affiliation. Can be one of:   outside, direct, all
       # @return [Array<Sawyer::Resource>] A list of collaborators
-      # @see https://developer.github.com/v3/projects/collaborators/#list-collaborators
+      # @see https://developer.github.com/v3/projects/collaborators/#list-project-collaborators
       def project_collaborators(project_id, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
@@ -19,13 +19,13 @@ module Octokit
         paginate "projects/#{project_id}/collaborators", opts
       end
 
-      # Add user as a collaborator
+      # Add project collaborator
       #
       # @param project_id [Integer] The ID of the project
-      # @param username [String] The username of the collaborator
+      # @param username [String] The username
       # @option options [String] :permission The permission to grant the collaborator. Note that, if you choose not to pass any parameters, you'll need to set Content-Length to zero when calling out to this endpoint. For more information, see "HTTP verbs (https://developer.github.com/v3/#http-verbs)." Can be one of:   read - can read, but not write to or administer this project.  , write - can read and write, but not administer this project.  , admin - can read, write and administer this project.
       # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/projects/collaborators/#add-user-as-a-collaborator
+      # @see https://developer.github.com/v3/projects/collaborators/#add-project-collaborator
       def add_project_collaborator(project_id, username, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
@@ -33,12 +33,12 @@ module Octokit
         boolean_from_response :put, "projects/#{project_id}/collaborators/#{username}", opts
       end
 
-      # Remove user as a collaborator
+      # Remove project collaborator
       #
       # @param project_id [Integer] The ID of the project
-      # @param username [String] The username of the collaborator
+      # @param username [String] The username
       # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/projects/collaborators/#remove-user-as-a-collaborator
+      # @see https://developer.github.com/v3/projects/collaborators/#remove-project-collaborator
       def remove_project_collaborator(project_id, username, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
@@ -46,13 +46,13 @@ module Octokit
         boolean_from_response :delete, "projects/#{project_id}/collaborators/#{username}", opts
       end
 
-      # Review a user's permission level
+      # Get project permission for a user
       #
       # @param project_id [Integer] The ID of the project
-      # @param username [String] The username of the user
-      # @return [Sawyer::Resource] A single level
-      # @see https://developer.github.com/v3/projects/collaborators/#review-a-users-permission-level
-      def user_permission_level(project_id, username, options = {})
+      # @param username [String] The username
+      # @return [Sawyer::Resource] A single permission
+      # @see https://developer.github.com/v3/projects/collaborators/#get-project-permission-for-a-user
+      def user_permission(project_id, username, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.inertia-preview+json' if opts[:accept].nil?
 

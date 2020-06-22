@@ -62,7 +62,7 @@ module Octokit
       # List check suites for a Git reference
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param ref [String] The ref of the suites
+      # @param ref [String] The ref
       # @option options [Integer] :app_id The ID of the app
       # @option options [String] :check_name Filters checks suites by the name of the check run (https://developer.github.com/v3/checks/runs/).
       # @return [Array<Sawyer::Resource>] A list of suites
