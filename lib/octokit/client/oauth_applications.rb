@@ -62,7 +62,7 @@ module Octokit
       #
       # Applications can revoke (delete) a token
       #
-      # @param token [String] 40 character GitHub OAuth access token
+      # @param access_token [String] 40 character GitHub OAuth access token
       #
       # @return [Boolean] Result
       # @see https://developer.github.com/v3/apps/oauth_applications/#delete-an-app-token
@@ -93,7 +93,7 @@ module Octokit
       #
       # OAuth application owners can revoke a grant for their OAuth application and a specific user.
       #
-      # @param accces_token [String] 40 character GitHub OAuth access token
+      # @param access_token [String] 40 character GitHub OAuth access token
       #
       # @return [Boolean] Result
       # @see https://developer.github.com/v3/apps/oauth_applications/#delete-an-app-token
