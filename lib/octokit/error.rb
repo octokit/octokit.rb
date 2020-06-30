@@ -34,9 +34,12 @@ module Octokit
       end
     end
 
-    def initialize(response=nil)
+    def initialize(response=nil,context=nil)
       @response = response
       super(build_error_message)
+      if self.class.superclass == Octokit::Forbidden
+        context = Octokit::RateLimit.from_response(response)
+      end
     end
 
     # Documentation URL returned by the API for some errors
