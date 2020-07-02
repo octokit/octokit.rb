@@ -1055,6 +1055,16 @@ describe Octokit::Client do
     end
   end
 
+  it "returns empty context when non rate limit error occurs" do
+    stub_get('/user').to_return \
+        :status => 509,
+        :headers => {
+            :content_type => "application/json",
+        },
+        :body => {:message => "Bandwidth exceeded"}.to_json
+    expect { Octokit.get('/user') }.to raise_error(an_instance_of(Octokit::ServerError).and having_attributes({context: nil}))
+  end
+
   describe "module call shortcut" do
     before do
       Octokit.reset!
