@@ -35,8 +35,7 @@ module Octokit
     end
 
      def build_error_context
-       rate_limited_errors = [Octokit::TooManyRequests, Octokit::AbuseDetected]
-       if rate_limited_errors.include?(self.class)
+       if RATE_LIMITED_ERRORS.include?(self.class)
          @context = Octokit::RateLimit.from_response(@response)
        end
      end
@@ -323,4 +322,5 @@ module Octokit
   # Raised when a repository is created with an invalid format
   class InvalidRepository < ArgumentError; end
 
+  RATE_LIMITED_ERRORS = [Octokit::TooManyRequests, Octokit::AbuseDetected]
 end
