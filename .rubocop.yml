@@ -9,3 +9,22 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
    Enabled: True
+
+Layout/EmptyLinesAroundAttributeAccessor:
+   Enabled: False
+
+Layout/SpaceAroundMethodCallOperator:
+   Enabled: False
+
+Lint/RaiseException:
+   Enabled: False
+
+Lint/StructNewOverride:
+   Enabled: False
+
+Style/ExponentialNotation:
+   Enabled: False
+
+Style/SlicingWithRange:
+   Enabled: False
+

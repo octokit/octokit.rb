@@ -6,7 +6,7 @@ module Octokit
     #
     # @see https://developer.github.com/v3/issues/milestones/
     module IssuesMilestones
-      # List milestones for a repository
+      # List milestones
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @option options [String] :state The state of the milestone. Either open, closed, or all.
@@ -33,12 +33,12 @@ module Octokit
         post "#{Repository.path repo}/milestones", opts
       end
 
-      # Get a single milestone
+      # Get a milestone
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param milestone_number [Integer] The number of the milestone
       # @return [Sawyer::Resource] A single milestone
-      # @see https://developer.github.com/v3/issues/milestones/#get-a-single-milestone
+      # @see https://developer.github.com/v3/issues/milestones/#get-a-milestone
       def issue_milestone(repo, milestone_number, options = {})
         get "#{Repository.path repo}/milestones/#{milestone_number}", options
       end

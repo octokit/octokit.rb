@@ -6,11 +6,11 @@ module Octokit
     #
     # @see https://developer.github.com/v3/issues/labels/
     module IssuesLabels
-      # List all labels for this repository
+      # List labels for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of labels
-      # @see https://developer.github.com/v3/issues/labels/#list-all-labels-for-this-repository
+      # @see https://developer.github.com/v3/issues/labels/#list-labels-for-a-repository
       def issues_labels(repo, options = {})
         paginate "#{Repository.path repo}/labels", options
       end
@@ -30,12 +30,12 @@ module Octokit
         post "#{Repository.path repo}/labels", opts
       end
 
-      # Get a single label
+      # Get a label
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param name [String] The name of the label
       # @return [Sawyer::Resource] A single label
-      # @see https://developer.github.com/v3/issues/labels/#get-a-single-label
+      # @see https://developer.github.com/v3/issues/labels/#get-a-label
       def issue_label(repo, name, options = {})
         get "#{Repository.path repo}/labels/#{name}", options
       end
@@ -63,22 +63,22 @@ module Octokit
         boolean_from_response :delete, "#{Repository.path repo}/labels/#{name}", options
       end
 
-      # Get labels for every issue in a milestone
+      # List labels for issues in a milestone
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param milestone_number [Integer] The number of the milestone
       # @return [Array<Sawyer::Resource>] A list of labels
-      # @see https://developer.github.com/v3/issues/labels/#get-labels-for-every-issue-in-a-milestone
+      # @see https://developer.github.com/v3/issues/labels/#list-labels-for-issues-in-a-milestone
       def milestone_labels(repo, milestone_number, options = {})
         paginate "#{Repository.path repo}/milestones/#{milestone_number}/labels", options
       end
 
-      # List labels on an issue
+      # List labels for an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param issue_number [Integer] The number of the issue
       # @return [Array<Sawyer::Resource>] A list of labels
-      # @see https://developer.github.com/v3/issues/labels/#list-labels-on-an-issue
+      # @see https://developer.github.com/v3/issues/labels/#list-labels-for-an-issue
       def issue_labels(repo, issue_number, options = {})
         paginate "#{Repository.path repo}/issues/#{issue_number}/labels", options
       end
@@ -96,7 +96,7 @@ module Octokit
         post "#{Repository.path repo}/issues/#{issue_number}/labels", opts
       end
 
-      # Replace all labels for an issue
+      # Set labels for an issue
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param issue_number [Integer] The number of the issue

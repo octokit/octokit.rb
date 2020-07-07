@@ -6,12 +6,12 @@ module Octokit
     #
     # @see https://developer.github.com/v3/repos/deployments/
     module ReposDeployments
-      # Get a single deployment
+      # Get a deployment
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param deployment_id [Integer] The ID of the deployment
       # @return [Sawyer::Resource] A single deployment
-      # @see https://developer.github.com/v3/repos/deployments/#get-a-single-deployment
+      # @see https://developer.github.com/v3/repos/deployments/#get-a-deployment
       def deployment(repo, deployment_id, options = {})
         get "#{Repository.path repo}/deployments/#{deployment_id}", options
       end
@@ -59,13 +59,13 @@ module Octokit
         boolean_from_response :delete, "#{Repository.path repo}/deployments/#{deployment_id}", options
       end
 
-      # Get a single deployment status
+      # Get a deployment status
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param deployment_id [Integer] The ID of the deployment
       # @param status_id [Integer] The ID of the status
       # @return [Sawyer::Resource] A single status
-      # @see https://developer.github.com/v3/repos/deployments/#get-a-single-deployment-status
+      # @see https://developer.github.com/v3/repos/deployments/#get-a-deployment-status
       def deployment_status(repo, deployment_id, status_id, options = {})
         get "#{Repository.path repo}/deployments/#{deployment_id}/statuses/#{status_id}", options
       end
@@ -84,7 +84,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param deployment_id [Integer] The ID of the deployment
-      # @param state [String] The state of the status. Can be one of error, failure, inactive, in_progress, queued pending, or success. Note: To use the inactive state, you must provide the application/vnd.github.ant-man-preview+json (https://developer.github.com/v3/previews/#enhanced-deployments) custom media type. To use the in_progress and queued states, you must provide the application/vnd.github.flash-preview+json (https://developer.github.com/v3/previews/#deployment-statuses) custom media type.
+      # @param state [String] The state of the status. Can be one of error, failure, inactive, in_progress, queued pending, or success. Note: To use the inactive state, you must provide the application/vnd.github.ant-man-preview+json (https://developer.github.com/v3/previews/#enhanced-deployments) custom media type. To use the in_progress and queued states, you must provide the application/vnd.github.flash-preview+json (https://developer.github.com/v3/previews/#deployment-statuses) custom media type. When you set a transient deployment to inactive, the deployment will be shown as destroyed in GitHub.
       # @option options [String] :target_url The target URL to associate with this status. This URL should contain output to keep the user updated while the task is running or serve as historical information for what happened in the deployment. Note: It's recommended to use the log_url parameter, which replaces target_url.
       # @option options [String] :log_url The full URL of the deployment's output. This parameter replaces target_url. We will continue to accept target_url to support legacy uses, but we recommend replacing target_url with log_url. Setting log_url will automatically set target_url to the same value. Default: ""  Note: This parameter requires you to use the application/vnd.github.ant-man-preview+json (https://developer.github.com/v3/previews/#enhanced-deployments) custom media type. Note: This parameter requires you to use the application/vnd.github.ant-man-preview+json (https://developer.github.com/v3/previews/#enhanced-deployments) custom media type.
       # @option options [String] :description A short description of the status. The maximum description length is 140 characters.

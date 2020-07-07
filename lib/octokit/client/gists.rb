@@ -57,12 +57,12 @@ module Octokit
         boolean_from_response :delete, "gists/#{Gist.new gist_id}", options
       end
 
-      # Get a specific revision of a gist
+      # Get a gist revision
       #
       # @param gist_id [Integer, String] The ID of the gist
       # @param sha [String] The sha of the revision
       # @return [Sawyer::Resource] A single revision
-      # @see https://developer.github.com/v3/gists/#get-a-specific-revision-of-a-gist
+      # @see https://developer.github.com/v3/gists/#get-a-gist-revision
       def gist_revision(gist_id, sha, options = {})
         get "gists/#{Gist.new gist_id}/#{sha}", options
       end

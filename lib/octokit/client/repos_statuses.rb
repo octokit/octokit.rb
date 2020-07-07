@@ -6,7 +6,7 @@ module Octokit
     #
     # @see https://developer.github.com/v3/repos/statuses/
     module ReposStatuses
-      # Create a status
+      # Create a commit status
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param sha [String] The sha of the status
@@ -22,17 +22,17 @@ module Octokit
         post "#{Repository.path repo}/statuses/#{sha}", opts
       end
 
-      # Get the combined status for a specific ref
+      # Get the combined status for a specific reference
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param ref [String] The ref of the ref
+      # @param ref [String] The ref of the status
       # @return [Sawyer::Resource] A single status
-      # @see https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref
+      # @see https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-reference
       def ref_combined_status(repo, ref, options = {})
         get "#{Repository.path repo}/commits/#{ref}/status", options
       end
 
-      # List statuses for a specific ref
+      # List commit statuses for a reference
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param ref [String] The ref of the statuses

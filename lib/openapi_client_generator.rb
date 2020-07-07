@@ -232,12 +232,15 @@ module OpenAPIClientGenerator
       return "A GitHub organization id or login" if param.name == "org"
       return "A GitHub user id or login" if param.name == "user"
       return "The ID of the #{param.name.gsub("_id", "").gsub("_", " ")}" if param.name.end_with? "_id"
-      split_param =  param.name.split("_")
-      split_description = param.description.split(" ")
-      resource = split_param.size > 1 ? split_param.first : namespace.split("_").last
-      resource = (namespace.split("_").size == 3)? namespace.split("_").first : resource
-      return "The #{split_param.last} of the #{resource}" if split_description.last == "parameter"
+      return param_default_description(param) if (param.description.nil? or param.description.end_with? "parameter")
       return collapse_lists(param).gsub("\n", "")
+    end
+
+    def param_default_description(param)
+      split_name = param.name.split("_")
+      resource = split_name.size > 1 ? split_name.first : namespace.split("_").last
+      resource = (resource == param.name)? namespace.split("_").first : resource
+      "The #{split_name.last} of the #{resource}"
     end
 
     def collapse_lists(param)
