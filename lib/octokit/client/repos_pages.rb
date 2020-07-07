@@ -20,8 +20,8 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @option options [Object] :source The source of the site
       # @return [Sawyer::Resource] The new site
-      # @see https://developer.github.com/v3/repos/pages/#enable-a-pages-site
-      def enable_pages_site(repo, options = {})
+      # @see https://developer.github.com/v3/repos/pages/#create-a-github-pages-site
+      def create_pages_site(repo, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.switcheroo-preview+json' if opts[:accept].nil?
 
@@ -43,8 +43,8 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Boolean] True on success, false otherwise
-      # @see https://developer.github.com/v3/repos/pages/#disable-a-pages-site
-      def disable_pages_site(repo, options = {})
+      # @see https://developer.github.com/v3/repos/pages/#delete-a-github-pages-site
+      def delete_pages_site(repo, options = {})
         opts = options.dup
         opts[:accept] = 'application/vnd.github.switcheroo-preview+json' if opts[:accept].nil?
 
@@ -74,8 +74,8 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Sawyer::Resource] The new build
-      # @see https://developer.github.com/v3/repos/pages/#request-a-page-build
-      def request_page_build(repo, options = {})
+      # @see https://developer.github.com/v3/repos/pages/#request-a-github-pages-build
+      def request_pages_build(repo, options = {})
         post "#{Repository.path repo}/pages/builds", options
       end
 

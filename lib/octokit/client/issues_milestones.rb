@@ -13,8 +13,8 @@ module Octokit
       # @option options [String] :sort What to sort results by. Either due_on or completeness.
       # @option options [String] :direction The direction of the sort. Either asc or desc.
       # @return [Array<Sawyer::Resource>] A list of milestones
-      # @see https://developer.github.com/v3/issues/milestones/#list-milestones-for-a-repository
-      def issues_milestones(repo, options = {})
+      # @see https://developer.github.com/v3/issues/milestones/#list-milestones
+      def issue_milestones(repo, options = {})
         paginate "#{Repository.path repo}/milestones", options
       end
 

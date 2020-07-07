@@ -102,8 +102,8 @@ module Octokit
       # @param issue_number [Integer] The number of the issue
       # @option options [Array] :labels The names of the labels to add to the issue. You can pass an empty array to remove all labels. Note: Alternatively, you can pass a single label as a string or an array of labels directly, but GitHub recommends passing an object with the labels key.
       # @return [Sawyer::Resource] An array of the remaining labels
-      # @see https://developer.github.com/v3/issues/labels/#replace-all-labels-for-an-issue
-      def replace_all_labels(repo, issue_number, options = {})
+      # @see https://developer.github.com/v3/issues/labels/#set-labels-for-an-issue
+      def set_issue_labels(repo, issue_number, options = {})
         put "#{Repository.path repo}/issues/#{issue_number}/labels", options
       end
 

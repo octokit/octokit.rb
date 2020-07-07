@@ -16,18 +16,18 @@ describe Octokit::Client::ReposContents do
     end
   end # .readme
 
-  describe ".contents", :vcr do
+  describe ".content", :vcr do
     it "returns the contents of a file" do
-      contents = @client.contents('octokit/octokit.rb', "lib/octokit.rb")
+      contents = @client.content('octokit/octokit.rb', "lib/octokit.rb")
       expect(contents.encoding).to eq("base64")
       expect(contents.type).to eq("file")
       assert_requested :get, github_url("/repos/octokit/octokit.rb/contents/lib/octokit.rb")
     end
-  end # .contents
+  end # .content
 
-  describe ".create_file", :vcr do
+  describe ".create_contents", :vcr do
     it "creates repository file at a path", :vcr do
-      response = @client.create_file(@test_repo,
+      response = @client.create_contents(@test_repo,
                                      "test_create.txt",
                                      "I am commit-ing",
                                      "Here be the content\n")
@@ -40,13 +40,13 @@ describe Octokit::Client::ReposContents do
     end
   end # .create_contents
 
-  describe ".update_file", :vcr do
+  describe ".update_contents", :vcr do
     it "updates repository file at a path" do
-      content = @client.create_file(@test_repo,
+      content = @client.update_contents(@test_repo,
                                     "test_update.txt",
                                     "I am commit-ing",
                                     "spec/fixtures/new_file.txt")
-      response = @client.update_file(@test_repo,
+      response = @client.update_contents(@test_repo,
                                      "test_update.txt",
                                      "I am commit-ing",
                                      "Here be moar content",
@@ -65,7 +65,7 @@ describe Octokit::Client::ReposContents do
 
   describe ".delete_file", :vcr do
     it "deletes repository file at a path" do
-      content = @client.create_file(@test_repo,
+      content = @client.update_contents(@test_repo,
                                     "test_delete.txt",
                                     "I am commit-ing",
                                     "You DELETE me")

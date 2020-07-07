@@ -330,15 +330,15 @@ describe Octokit::Client::Issues do
           end
         end # .remove_labels
 
-        describe ".replace_issue_labels" do
+        describe ".set_issue_labels" do
           it "replaces all labels for an issue" do
-            @client.replace_all_labels(@test_repo, @issue.number, ['random'])
+            @client.set_issue_labels(@test_repo, @issue.number, ['random'])
             assert_requested :put, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels")
 
             labels = @client.issue_labels(@test_repo, @issue.number)
             expect(labels.map(&:name)).to eq(['random'])
           end
-        end # .replace_issue_labels
+        end # .set_issue_labels
       end # with labels
 
       describe ".issues_events" do

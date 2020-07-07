@@ -15,8 +15,8 @@ module Octokit
       # @option options [String] :description A short description of the status.
       # @option options [String] :context A string label to differentiate this status from the status of other systems.
       # @return [Sawyer::Resource] The new status
-      # @see https://developer.github.com/v3/repos/statuses/#create-a-status
-      def create_status(repo, sha, state, options = {})
+      # @see https://developer.github.com/v3/repos/statuses/#create-a-commit-status
+      def create_commit_status(repo, sha, state, options = {})
         opts = options.dup
         opts[:state] = state.to_s.downcase
         post "#{Repository.path repo}/statuses/#{sha}", opts
@@ -37,8 +37,8 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param ref [String] The ref of the statuses
       # @return [Array<Sawyer::Resource>] A list of statuses
-      # @see https://developer.github.com/v3/repos/statuses/#list-statuses-for-a-specific-ref
-      def ref_statuses(repo, ref, options = {})
+      # @see https://developer.github.com/v3/repos/statuses/#list-commit-statuses-for-a-reference
+      def ref_commit_statuses(repo, ref, options = {})
         paginate "#{Repository.path repo}/commits/#{ref}/statuses", options
       end
     end
