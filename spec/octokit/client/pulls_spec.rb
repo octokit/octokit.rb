@@ -79,7 +79,7 @@ describe Octokit::Client::Pulls do
     context "with pull request comment" do
 
       before do
-        @comment = @client.create_pull_comment \
+        @comment = @client.create_review_comment \
           @test_repo,
           @pull.number,
           "The body",
@@ -88,35 +88,35 @@ describe Octokit::Client::Pulls do
           :position => 1
       end
 
-      describe ".create_pull_comment", :vcr do
+      describe ".create_review_comment", :vcr do
         it "creates a new comment on a pull request" do
           assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments")
         end
-      end # .create_pull_comment
+      end # .create_review_comment
 
-      describe ".update_pull_comment", :vcr do
+      describe ".update_review_comment", :vcr do
         it "updates a pull request comment" do
-          comment = @client.update_pull_comment(@test_repo, @comment.id, ":shipit:")
+          comment = @client.update_review_comment(@test_repo, @comment.id, ":shipit:")
           expect(comment.body).to eq(":shipit:")
           assert_requested :patch, github_url("/repos/#{@test_repo}/pulls/comments/#{@comment.id}")
         end
-      end # .update_pull_comment
+      end # .update_review_comment
 
-      describe ".delete_pull_comment", :vcr do
+      describe ".delete_review_comment", :vcr do
         it "deletes a pull request comment" do
-          result = @client.delete_pull_comment(@test_repo, @comment.id)
+          result = @client.delete_review_comment(@test_repo, @comment.id)
           expect(result).to eq(true)
           assert_requested :delete, github_url("/repos/#{@test_repo}/pulls/comments/#{@comment.id}")
         end
-      end # .delete_pull_comment
+      end # .delete_review_comment
 
-      describe ".create_review_comment_reply", :vcr do
+      describe ".create_comment_reply", :vcr do
         it "creates a review comment reply" do
-          result = @client.create_review_comment_reply(@test_repo, @pull.number, @comment.id, "replying")
+          result = @client.create_comment_reply(@test_repo, @pull.number, @comment.id, "replying")
           expect(result.body).to eq("replying")
           assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments/#{@comment.id}/replies")
         end
-      end # .create_review_comment_reply
+      end # .create_comment_reply
 
       describe ".create_pull_request_review_comment_reaction", :vcr do
         it "creates a reaction on a pull request comment" do
@@ -149,9 +149,9 @@ describe Octokit::Client::Pulls do
       end # with pull request comment reaction
     end # with pull request comment
 
-    describe ".left_pull_comment", :vcr do
+    describe ".left_review_comment", :vcr do
       it "creates a new comment on the left side of a pull request" do
-        comment = @client.left_pull_comment \
+        comment = @client.left_review_comment \
           @test_repo,
           @pull.number,
           "The body",
@@ -160,11 +160,11 @@ describe Octokit::Client::Pulls do
           :line => 1,
           :accept => "application/vnd.github.comfort-fade-preview+json"
       end
-    end # .left_pull_comment
+    end # .left_review_comment
 
-    describe ".right_pull_comment", :vcr do
+    describe ".right_review_comment", :vcr do
       it "creates a new comment on the right side of a pull request" do
-        comment = @client.left_pull_comment \
+        comment = @client.left_review_comment \
           @test_repo,
           @pull.number,
           "The body",
@@ -173,7 +173,7 @@ describe Octokit::Client::Pulls do
           :line => 1,
           :accept => "application/vnd.github.comfort-fade-preview+json"
       end
-    end # .right_pull_comment
+    end # .right_review_comment
 
     context "with closed pull request" do
       before do
@@ -206,13 +206,13 @@ describe Octokit::Client::Pulls do
     end
   end # .merge_pull
 
-  describe ".pulls_comments", :vcr do
+  describe ".pulls_review_comments", :vcr do
     it "returns all comments on all pull requests" do
-      comments = @client.pulls_comments("octokit/octokit.rb")
+      comments = @client.pulls_review_comments("octokit/octokit.rb")
       expect(comments).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls/comments")
     end
-  end # .pulls_comments
+  end # .pulls_review_comments
 
   describe ".pull_commits", :vcr do
     it "returns the commits for a pull request" do
@@ -232,19 +232,19 @@ describe Octokit::Client::Pulls do
     end
   end # .pull_files
 
-  describe ".pull_comments", :vcr do
+  describe ".review_comments", :vcr do
     it "returns the comments for a pull request" do
-      comments = @client.pull_comments("octokit/octokit.rb", 67)
+      comments = @client.review_comments("octokit/octokit.rb", 67)
       expect(comments).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls/67/comments")
     end
-  end # .pull_comments
+  end # .review_comments
 
-  describe ".pull_comment", :vcr do
+  describe ".review_comment", :vcr do
     it "returns a comment on a pull request" do
-      comment = @client.pull_comment("octokit/octokit.rb", 1903950)
+      comment = @client.review_comment("octokit/octokit.rb", 1903950)
       expect(comment.body).not_to be_nil
       assert_requested :get, github_url("/repos/octokit/octokit.rb/pulls/comments/1903950")
     end
-  end # .pull_comment
+  end # .review_comment
 end
