@@ -1,7 +1,7 @@
 module Octokit
   # Custom error class for rescuing from all GitHub errors
   class Error < StandardError
-
+    attr_reader :context
     # Returns the appropriate Octokit::Error subclass based
     # on status and response message
     #
@@ -34,9 +34,16 @@ module Octokit
       end
     end
 
+     def build_error_context
+       if RATE_LIMITED_ERRORS.include?(self.class)
+         @context = Octokit::RateLimit.from_response(@response)
+       end
+     end
+
     def initialize(response=nil)
       @response = response
       super(build_error_message)
+      build_error_context
     end
 
     # Documentation URL returned by the API for some errors
@@ -315,4 +322,5 @@ module Octokit
   # Raised when a repository is created with an invalid format
   class InvalidRepository < ArgumentError; end
 
+  RATE_LIMITED_ERRORS = [Octokit::TooManyRequests, Octokit::AbuseDetected]
 end
