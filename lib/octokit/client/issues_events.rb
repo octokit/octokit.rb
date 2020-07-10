@@ -6,31 +6,31 @@ module Octokit
     #
     # @see https://developer.github.com/v3/issues/events/
     module IssuesEvents
-      # Get a single event
+      # Get an issue event
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param event_id [Integer] The ID of the event
       # @return [Sawyer::Resource] A single event
-      # @see https://developer.github.com/v3/issues/events/#get-a-single-event
+      # @see https://developer.github.com/v3/issues/events/#get-an-issue-event
       def issue_event(repo, event_id, options = {})
         get "#{Repository.path repo}/issues/events/#{event_id}", options
       end
 
-      # List events for a repository
+      # List issue events for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] A list of events
-      # @see https://developer.github.com/v3/issues/events/#list-events-for-a-repository
+      # @see https://developer.github.com/v3/issues/events/#list-issue-events-for-a-repository
       def issues_events(repo, options = {})
         paginate "#{Repository.path repo}/issues/events", options
       end
 
-      # List events for an issue
+      # List issue events
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param issue_number [Integer] The number of the issue
       # @return [Array<Sawyer::Resource>] A list of events
-      # @see https://developer.github.com/v3/issues/events/#list-events-for-an-issue
+      # @see https://developer.github.com/v3/issues/events/#list-issue-events
       def issue_events(repo, issue_number, options = {})
         paginate "#{Repository.path repo}/issues/#{issue_number}/events", options
       end

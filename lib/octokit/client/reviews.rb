@@ -73,7 +73,7 @@ module Octokit
       # @param review_id [Integer] The ID of the review
       # @return [Array<Sawyer::Resource>] A list of comments
       # @see https://developer.github.com/v3/pulls/reviews/#get-comments-for-a-single-review
-      def review_comments(repo, pull_number, review_id, options = {})
+      def pull_review_comments(repo, pull_number, review_id, options = {})
         paginate "#{Repository.path repo}/pulls/#{pull_number}/reviews/#{review_id}/comments", options
       end
 

@@ -285,7 +285,7 @@ module Octokit
       #
       # @param org [Integer, String] A GitHub organization id or login
       # @param team_slug [String] The slug of the team
-      # @param discussion_number [Integer] The number of the team
+      # @param discussion_number [Integer] The number of the discussion
       # @param reaction_id [Integer] The ID of the reaction
       # @return [Boolean] True on success, false otherwise
       # @see https://developer.github.com/v3/reactions/#delete-team-discussion-reaction
