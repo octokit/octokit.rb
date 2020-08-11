@@ -17,9 +17,11 @@
 11. Add, commit, and push your changes. For documentation-only fixes, please
     add "[ci skip]" to your commit message to avoid needless CI builds.
 12. [Submit a pull request.][pr]
+    Please use a [semantic title][semantic] for the pull request.
 
 Please abide by
 
 [fork]: https://help.github.com/articles/fork-a-repo
 [branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/
 [pr]: https://help.github.com/articles/using-pull-requests
+[semantic]: https://github.com/zeke/semantic-pull-requests
