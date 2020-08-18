@@ -18,8 +18,6 @@
     add "[ci skip]" to your commit message to avoid needless CI builds.
 12. [Submit a pull request.][pr]
 
-Please abide by
-
 [fork]: https://help.github.com/articles/fork-a-repo
 [branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/
 [pr]: https://help.github.com/articles/using-pull-requests
