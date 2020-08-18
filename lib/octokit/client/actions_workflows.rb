@@ -26,6 +26,18 @@ module Octokit
       def workflow(repo, id, options = {})
         get "#{Repository.path repo}/actions/workflows/#{id}", options
       end
+
+      # Create a workflow dispatch event
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param id [Integer, String] Id or file name of the workflow
+      # @param ref [String] A SHA, branch name, or tag name
+      #
+      # @return [Boolean] True if event was dispatched, false otherwise
+      # @see https://docs.github.com/en/rest/reference/actions#create-a-workflow-dispatch-event
+      def workflow_dispatch(repo, id, ref, options = {})
+        boolean_from_response :post, "#{Repository.path repo}/actions/workflows/#{id}/dispatches", options.merge({ ref: ref })
+      end
     end
   end
 end
