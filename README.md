@@ -651,7 +651,7 @@ to run a Ruby console to poke on Octokit, you can crank one up with:
 
     script/console
 
-Using the scripts in `./scripts` instead of `bundle exec rspec`, `bundle
+Using the scripts in `./script` instead of `bundle exec rspec`, `bundle
 console`, etc.  ensures your dependencies are up-to-date.
 
 ### Code of Conduct
