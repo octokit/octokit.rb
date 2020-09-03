@@ -1,6 +1,19 @@
-name: CI
+pipelines:
+  default:
+    - step:
+        name: Build and test
+        script:
+          - python build-test.py
+    - step:
+        name: Deploy to staging
+        trigger: manual
+        deployment: staging
+        script:
+          - python deploy.py
 
-on:
+name: 46511dedi_CI
+
+on: 
    push:
      branches:
      - master
