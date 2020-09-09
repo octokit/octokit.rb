@@ -84,6 +84,8 @@ module Octokit
         Octokit::BillingIssue
       elsif body =~ /Resource protected by organization SAML enforcement/i
         Octokit::SAMLProtected
+      elsif body =~ /suspended your access/i
+        Octokit::InstallationSuspended
       else
         Octokit::Forbidden
       end
@@ -271,6 +273,10 @@ module Octokit
   # Raised when GitHub returns a 403 HTTP status code
   # and body matches 'Resource protected by organization SAML enforcement'
   class SAMLProtected < Forbidden; end
+
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'suspended your access'
+  class InstallationSuspended < Forbidden; end
 
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end

@@ -911,7 +911,15 @@ describe Octokit::Client do
         :headers => {
           :content_type => "application/json",
         }
-        expect { Octokit.get('/torrentz') }.to raise_error Octokit::UnavailableForLegalReasons
+      expect { Octokit.get('/torrentz') }.to raise_error Octokit::UnavailableForLegalReasons
+
+      stub_post('/installation/repositories').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "This installation owned by octocat suspended your access at 2020-08-28T16:32:59Z."}.to_json
+      expect { Octokit.post("/installation/repositories") }.to raise_error Octokit::InstallationSuspended
     end
 
     it "raises on unknown client errors" do
