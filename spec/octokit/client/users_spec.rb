@@ -268,4 +268,54 @@ describe Octokit::Client::Users do
       end
     end # with credentials passed as parameters
   end # .exchange_code_for_token
+
+  describe ".migrations", :vcr do
+    it "starts a migration for a user" do
+      result = @client.start_user_migration(["snakeoil-ceo/the-insecure"], accept: preview_header, lock_repositories: true)
+      expect(result).to be_kind_of Sawyer::Resource
+      assert_requested :post, github_url("/user/migrations")
+    end
+
+    it "lists migrations for a user" do
+      result = @client.user_migrations(accept: preview_header)
+      expect(result).to be_kind_of Array
+      assert_requested :get, github_url("/user/migrations")
+    end
+
+    it "gets the status of a user migration" do
+      result = @client.user_migration_status(400195, accept: preview_header)
+      expect(result).to be_kind_of Sawyer::Resource
+      assert_requested :get, github_url("/user/migrations/400195")
+    end
+
+    it "lists repositories for a user migration" do
+      result = @client.user_migration_repositories(400195, accept: preview_header)
+      expect(result).to be_kind_of Array
+      assert_requested :get, github_url("/user/migrations/400195/repositories")
+    end
+
+    it "gets a user migration archive url" do
+      result = @client.user_migration_archive_url(400195, accept: preview_header)
+      expect(result).to be_kind_of String
+      assert_requested :get, github_url("/user/migrations/400195/archive")
+    end
+
+    it "deletes a user migration archive" do
+      result = @client.delete_user_migration_archive(400195, accept: preview_header)
+      expect(result).to be_kind_of String
+      assert_requested :delete, github_url("/user/migrations/400195/archive")
+    end
+
+    it "unlocks a migrated user repository" do
+      @client.unlock_user_repository(400195, 'the-insecure', accept: preview_header)
+      expect(@client.last_response.status).to eq(204)
+      assert_requested :delete, github_url("/user/migrations/400195/repos/the-insecure/lock")
+    end
+  end # .migrations
+
+  private
+
+  def preview_header
+    Octokit::Preview::PREVIEW_TYPES[:migrations]
+  end
 end
