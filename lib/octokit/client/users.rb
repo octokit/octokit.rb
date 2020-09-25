@@ -340,6 +340,92 @@ module Octokit
       end
       alias :watched :subscriptions
 
+      # Initiates the generation of a migration archive.
+      #
+      # Requires authenticated user.
+      #
+      # @param repositories [Array<String>] :repositories Repositories for the organization.
+      # @option options [Boolean, optional] :lock_repositories Indicates whether repositories should be locked during migration
+      # @option options [Boolean, optional] :exclude_attachments Exclude attachments fro the migration data
+      # @return [Sawyer::Resource] Hash representing the new migration.
+      # @example
+      #   @client.start_migration(['octocat/hello-world'])
+      # @see https://docs.github.com/en/rest/reference/migrations#start-a-user-migration
+      def start_user_migration(repositories, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        options[:repositories] = repositories
+        post "user/migrations", options
+      end
+
+      # Lists the most recent migrations.
+      #
+      # Requires authenticated user.
+      #
+      # @return [Array<Sawyer::Resource>] Array of migration resources.
+      # @see https://docs.github.com/en/rest/reference/migrations#list-user-migrations
+      def user_migrations(options = {})
+        options = ensure_api_media_type(:migrations, options)
+        paginate "user/migrations", options
+      end
+
+      # Fetches the status of a migration.
+      #
+      # Requires authenticated user.
+      #
+      # @param id [Integer] ID number of the migration.
+      # @see https://docs.github.com/en/rest/reference/migrations#get-a-user-migration-status
+      def user_migration_status(id, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        get "user/migrations/#{id}", options
+      end
+
+      # Fetches the URL to a migration archive.
+      #
+      # Requires authenticated user.
+      #
+      # @param id [Integer] ID number of the migration.
+      # @see https://docs.github.com/en/rest/reference/migrations#download-a-user-migration-archive
+      def user_migration_archive_url(id, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        url = "user/migrations/#{id}/archive"
+
+        response = client_without_redirects(options).get(url)
+        response.headers['location']
+      end
+
+      # Deletes a previous migration archive.
+      #
+      # Requires authenticated user.
+      #
+      # @param id [Integer] ID number of the migration.
+      # @see https://docs.github.com/en/rest/reference/migrations#delete-a-user-migration-archive
+      def delete_user_migration_archive(id, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        delete "user/migrations/#{id}/archive", options
+      end
+
+      # List repositories for a user migration.
+      #
+      # Requires authenticated user.
+      #
+      # @param id [Integer] ID number of the migration.
+      # @see https://docs.github.com/en/rest/reference/migrations#list-repositories-for-a-user-migration
+      def user_migration_repositories(id, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        get "user/migrations/#{id}/repositories", options
+      end
+
+      # Unlock a user repository which has been locked by a migration.
+      #
+      # Requires authenticated user.
+      #
+      # @param id [Integer] ID number of the migration.
+      # @param repo [String] Name of the repository.
+      # @see https://docs.github.com/en/rest/reference/migrations#unlock-a-user-repository
+      def unlock_user_repository(id, repo, options = {})
+        options = ensure_api_media_type(:migrations, options)
+        delete "user/migrations/#{id}/repos/#{repo}/lock", options
+      end
     end
 
     private
