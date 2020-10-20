@@ -59,7 +59,7 @@ module Octokit
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.create_authorization({:idempotent => true, :client_id => 'xxxx', :client_secret => 'yyyy', :scopes => ["user"]})
       def create_authorization(options = {})
-        # Techincally we can omit scopes as GitHub has a default, however the
+        # Technically we can omit scopes as GitHub has a default, however the
         # API will reject us if we send a POST request with an empty body.
         options = options.dup
         if options.delete :idempotent
