@@ -12,6 +12,26 @@ describe Octokit::Client::Apps do
     Octokit.reset!
   end
 
+  describe ".app", :vcr do
+    it "returns current App" do
+      response = @jwt_client.app(accept: preview_header)
+
+      expect(response.id).not_to be_nil
+      assert_requested :get, github_url("/app")
+    end
+
+    it "works for GitHub Enterprise installs" do
+      client = Octokit::Client.new \
+        bearer_token: new_jwt_token,
+        api_endpoint: "https://ghe.local/api/v3"
+
+      request = stub_get("https://ghe.local/api/v3/app")
+      response = client.app(accept: preview_header)
+
+      assert_requested request
+    end
+  end
+
   describe ".find_integration_installations", :vcr do
     it "returns installations for an integration" do
       allow(@jwt_client).to receive(:octokit_warn)
@@ -251,6 +271,13 @@ describe Octokit::Client::Apps do
         assert_requested request
       end
     end # .create_app_installation_access_token
+
+    describe ".delete_installation" do
+      it "deletes an installation" do
+        response = @jwt_client.delete_installation(installation, accept: Octokit::Preview::PREVIEW_TYPES[:uninstall_github_app])
+        expect(response).to be_truthy
+      end
+    end # .delete_installation
 
     context "with app installation access token" do
       let(:installation_client) do

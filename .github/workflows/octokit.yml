@@ -1,0 +1,48 @@
+name: CI
+
+on:
+   push:
+     branches:
+     - master
+     - 4-stable
+     - '*'
+   pull_request:
+     branches:
+     - master
+     - 4-stable
+
+jobs:
+  ci:
+    name: Ruby ${{ matrix.ruby }}
+    runs-on: ${{ matrix.os }}-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu ]
+        ruby: [ 2.5, 2.6, 2.7, head ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Ruby dependencies
+        uses: actions/cache@v1
+        with:
+          path: ./.bundle/gems
+          key: cache-${{ runner.os }}-${{ matrix.ruby }}-${{ github.sha }}
+          restore-keys: |
+            cache-${{ runner.os }}-${{ matrix.ruby }}-
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Setup .netrc
+        run: chmod 600 spec/fixtures/.netrc
+      - name: Install dependencies
+        run: |
+          bundle config set path .bundle/gems
+          bundle config set without development
+          bundle install --jobs 4 --retry 3
+      - name: Test with RSpec
+        env:
+          GITHUB_CI: 1
+        run: bundle exec rspec -w

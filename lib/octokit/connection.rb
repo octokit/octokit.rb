@@ -113,7 +113,7 @@ module Octokit
         elsif bearer_authenticated?
           http.authorization 'Bearer', @bearer_token
         elsif application_authenticated?
-          http.params = http.params.merge application_authentication
+          http.basic_auth(@client_id, @client_secret)
         end
       end
     end
@@ -155,6 +155,9 @@ module Octokit
 
       @last_response = response = agent.call(method, Addressable::URI.parse(path.to_s).normalize.to_s, data, options)
       response.data
+    rescue Octokit::Error => error
+      @last_response = nil
+      raise error
     end
 
     # Executes the request, checking if it was successful
@@ -162,7 +165,7 @@ module Octokit
     # @return [Boolean] True on success, false otherwise
     def boolean_from_response(method, path, options = {})
       request(method, path, options)
-      @last_response.status == 204
+      [201, 202, 204].include? @last_response.status
     rescue Octokit::NotFound
       false
     end
@@ -177,12 +180,12 @@ module Octokit
       conn_opts[:proxy] = @proxy if @proxy
       if conn_opts[:ssl].nil?
         conn_opts[:ssl] = { :verify_mode => @ssl_verify_mode } if @ssl_verify_mode
-      else 
-        if @connection_options[:ssl][:verify] == false
-          conn_opts[:ssl] = { :verify_mode => 0}
-        else
-          conn_opts[:ssl] = { :verify_mode => @ssl_verify_mode }
-        end
+      else
+        verify = @connection_options[:ssl][:verify]
+        conn_opts[:ssl] = {
+          :verify => verify,
+          :verify_mode => verify == false ? 0 : @ssl_verify_mode
+        }
       end
       opts[:faraday] = Faraday.new(conn_opts)
 

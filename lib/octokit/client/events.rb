@@ -131,6 +131,7 @@ module Octokit
       # @example List all issues events for issue #38 on octokit/octokit.rb
       #   Octokit.issue_events("octokit/octokit.rb", 38)
       def issue_events(repo, number, options = {})
+        options = ensure_api_media_type(:project_card_events, options)
         paginate "#{Repository.path repo}/issues/#{number}/events", options
       end
 
