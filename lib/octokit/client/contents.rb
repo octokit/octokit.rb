@@ -16,6 +16,8 @@ module Octokit
       # @see https://developer.github.com/v3/repos/contents/#get-the-readme
       # @example Get the readme file for a repo
       #   Octokit.readme("octokit/octokit.rb")
+      # @example Get the readme file for a particular branch of the repo
+      #   Octokit.readme("octokit/octokit.rb", :query => {:ref => 'some-other-branch'})
       def readme(repo, options={})
         get "#{Repository.path repo}/readme", options
       end
@@ -29,6 +31,8 @@ module Octokit
       # @see https://developer.github.com/v3/repos/contents/#get-contents
       # @example List the contents of lib/octokit.rb
       #   Octokit.contents("octokit/octokit.rb", :path => 'lib/octokit.rb')
+      # @example Lists the contents of lib /octokit.rb on a particular branch
+      #   Octokit.contents("octokit/octokit.rb", :path => 'lib/octokit.rb', :query => {:ref => 'some-other-branch'})
       def contents(repo, options={})
         options = options.dup
         repo_path = options.delete :path
