@@ -12,8 +12,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] App information
       def app(options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        get "app", opts
+        get "app", options
       end
 
       # Find all installations that belong to an App
@@ -24,8 +23,7 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] the total_count and an array of installations
       def find_app_installations(options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        paginate "app/installations", opts
+        paginate "app/installations", options
       end
       alias find_installations find_app_installations
 
@@ -47,8 +45,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] the total_count and an array of installations
       def find_user_installations(options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        paginate("user/installations", opts) do |data, last_response|
+        paginate("user/installations", options) do |data, last_response|
           data.installations.concat last_response.data.installations
         end
       end
@@ -61,8 +58,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] Installation information
       def installation(id, options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        get "app/installations/#{id}", opts
+        get "app/installations/#{id}", options
       end
 
       # Create a new installation token
@@ -74,8 +70,7 @@ module Octokit
       #
       # @return [<Sawyer::Resource>] An installation token
       def create_app_installation_access_token(installation, options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        post "app/installations/#{installation}/access_tokens", opts
+        post "app/installations/#{installation}/access_tokens", options
       end
       alias create_installation_access_token create_app_installation_access_token
 
@@ -98,8 +93,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] Installation information
       def find_organization_installation(organization, options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        get "#{Organization.path(organization)}/installation", opts
+        get "#{Organization.path(organization)}/installation", options
       end
 
       # Enables an app to find the repository's installation information.
@@ -111,8 +105,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] Installation information
       def find_repository_installation(repo, options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        get "#{Repository.path(repo)}/installation", opts
+        get "#{Repository.path(repo)}/installation", options
       end
 
       # Enables an app to find the user's installation information.
@@ -124,8 +117,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] Installation information
       def find_user_installation(user, options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        get "#{User.path(user)}/installation", opts
+        get "#{User.path(user)}/installation", options
       end
 
       # List repositories that are accessible to the authenticated installation
@@ -136,8 +128,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] the total_count and an array of repositories
       def list_app_installation_repositories(options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        paginate("installation/repositories", opts) do |data, last_response|
+        paginate("installation/repositories", options) do |data, last_response|
           data.repositories.concat last_response.data.repositories
         end
       end
@@ -163,8 +154,7 @@ module Octokit
       #
       # @return [Boolean] Success
       def add_repository_to_app_installation(installation, repo, options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        boolean_from_response :put, "user/installations/#{installation}/repositories/#{repo}", opts
+        boolean_from_response :put, "user/installations/#{installation}/repositories/#{repo}", options
       end
       alias add_repo_to_installation add_repository_to_app_installation
 
@@ -188,8 +178,7 @@ module Octokit
       #
       # @return [Boolean] Success
       def remove_repository_from_app_installation(installation, repo, options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        boolean_from_response :delete, "user/installations/#{installation}/repositories/#{repo}", opts
+        boolean_from_response :delete, "user/installations/#{installation}/repositories/#{repo}", options
       end
       alias remove_repo_from_installation remove_repository_from_app_installation
 
@@ -212,8 +201,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] the total_count and an array of repositories
       def find_installation_repositories_for_user(installation, options = {})
-        opts = ensure_api_media_type(:integrations, options)
-        paginate("user/installations/#{installation}/repositories", opts) do |data, last_response|
+        paginate("user/installations/#{installation}/repositories", options) do |data, last_response|
           data.repositories.concat last_response.data.repositories
         end
       end
