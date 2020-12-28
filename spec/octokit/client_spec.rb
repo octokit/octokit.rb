@@ -930,6 +930,27 @@ describe Octokit::Client do
       expect { Octokit.post("/app/installations/12345/access_tokens") }.to raise_error Octokit::InstallationSuspended
     end
 
+    it "knows the difference between different kinds of unprocessable entity" do
+      stub_get('/some/admin/stuffs').to_return(:status => 422)
+      expect { Octokit.get('/some/admin/stuffs') }.to raise_error Octokit::UnprocessableEntity
+
+      stub_post('/repositories/123456789/pulls/1/comments').to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {
+          :message => "Validation Failed",
+          :errors => [
+            "end_commit_oid is not part of the pull request",
+            :resource => "PullRequestReviewComment",
+            :field    => "end_commit_oid",
+            :code     => "custom"
+          ]
+        }.to_json
+      expect { Octokit.post('/repositories/123456789/pulls/1/comments') }.to raise_error Octokit::CommitIsNotPartOfPullRequest
+    end
+
     it "raises on unknown client errors" do
       stub_get('/user').to_return \
         :status => 418,

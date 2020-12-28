@@ -21,7 +21,7 @@ module Octokit
                   when 406      then Octokit::NotAcceptable
                   when 409      then Octokit::Conflict
                   when 415      then Octokit::UnsupportedMediaType
-                  when 422      then Octokit::UnprocessableEntity
+                  when 422      then error_for_422(body)
                   when 451      then Octokit::UnavailableForLegalReasons
                   when 400..499 then Octokit::ClientError
                   when 500      then Octokit::InternalServerError
@@ -98,6 +98,16 @@ module Octokit
         Octokit::BranchNotProtected
       else
         Octokit::NotFound
+      end
+    end
+
+    # Return most appropriate error for 422 HTTP status code
+    # @private
+    def self.error_for_422(body)
+      if body =~ /PullRequestReviewComment/i && body =~ /(commit_id|end_commit_oid) is not part of the pull request/i
+        Octokit::CommitIsNotPartOfPullRequest
+      else
+        Octokit::UnprocessableEntity
       end
     end
 
@@ -299,6 +309,10 @@ module Octokit
 
   # Raised when GitHub returns a 422 HTTP status code
   class UnprocessableEntity < ClientError; end
+
+  # Raised when GitHub returns a 422 HTTP status code
+  # and body matches 'PullRequestReviewComment' and 'commit_id (or end_commit_oid) is not part of the pull request'
+  class CommitIsNotPartOfPullRequest < UnprocessableEntity; end
 
   # Raised when GitHub returns a 451 HTTP status code
   class UnavailableForLegalReasons < ClientError; end
