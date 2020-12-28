@@ -587,6 +587,46 @@ describe Octokit::Client::Repositories do
     end
   end # .transfer_repository
 
+  describe ".vulnerability_alerts_enabled?", :vcr do
+    let(:accept_preview_header) { Octokit::Preview::PREVIEW_TYPES[:vulnerability_alerts] }
+
+    it "returns true when vulnerability alerts are enabled" do
+      @client.enable_vulnerability_alerts(@test_repo, accept: accept_preview_header)
+
+      result = @client.vulnerability_alerts_enabled?(@test_repo, accept: accept_preview_header)
+      assert_requested :get, github_url("/repos/#{@test_repo}/vulnerability-alerts")
+      expect(result).to be true
+    end
+
+    it "returns false with vulnerability alerts disabled" do
+      @client.disable_vulnerability_alerts(@test_repo, accept: accept_preview_header)
+
+      result = @client.vulnerability_alerts_enabled?(@test_repo, accept: accept_preview_header)
+      assert_requested :get, github_url("/repos/#{@test_repo}/vulnerability-alerts")
+      expect(result).to be false
+    end
+  end # .vulnerability_alerts_enabled?
+
+  describe ".enable_vulnerability_alerts", :vcr do
+    let(:accept_preview_header) { Octokit::Preview::PREVIEW_TYPES[:vulnerability_alerts] }
+
+    it "enables vulnerability alerts for the repository" do
+      result = @client.enable_vulnerability_alerts(@test_repo, accept: accept_preview_header)
+      assert_requested :put, github_url("/repos/#{@test_repo}/vulnerability-alerts")
+      expect(result).to be true
+    end
+  end # .enable_vulnerability_alerts
+
+  describe ".disable_vulnerability_alerts", :vcr do
+    let(:accept_preview_header) { Octokit::Preview::PREVIEW_TYPES[:vulnerability_alerts] }
+
+    it "disables vulnerability alerts for the repository" do
+      result = @client.disable_vulnerability_alerts(@test_repo, accept: accept_preview_header)
+      assert_requested :delete, github_url("/repos/#{@test_repo}/vulnerability-alerts")
+      expect(result).to be true
+    end
+  end # .disable_vulnerability_alerts
+
   private
 
   def preview_header
