@@ -20,7 +20,6 @@ module Octokit
       :pages                  => 'application/vnd.github.mister-fantastic-preview+json'.freeze,
       :projects               => 'application/vnd.github.inertia-preview+json'.freeze,
       :traffic                => 'application/vnd.github.spiderman-preview'.freeze,
-      :integrations           => 'application/vnd.github.machine-man-preview+json'.freeze,
       :topics                 => 'application/vnd.github.mercy-preview+json'.freeze,
       :community_profile      => 'application/vnd.github.black-panther-preview+json'.freeze,
       :strict_validation      => 'application/vnd.github.speedy-preview+json'.freeze,
@@ -28,6 +27,7 @@ module Octokit
       :template_repositories  => 'application/vnd.github.baptiste-preview+json'.freeze,
       :uninstall_github_app   => 'application/vnd.github.gambit-preview+json'.freeze,
       :project_card_events    => 'application/vnd.github.starfox-preview+json'.freeze,
+      :vulnerability_alerts   => 'application/vnd.github.dorian-preview+json'.freeze,
     }
 
     def ensure_api_media_type(type, options)

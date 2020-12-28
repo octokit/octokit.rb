@@ -84,7 +84,7 @@ module Octokit
         Octokit::BillingIssue
       elsif body =~ /Resource protected by organization SAML enforcement/i
         Octokit::SAMLProtected
-      elsif body =~ /suspended your access/i
+      elsif body =~ /suspended your access|This installation has been suspended/i
         Octokit::InstallationSuspended
       else
         Octokit::Forbidden
