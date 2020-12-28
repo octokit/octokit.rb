@@ -236,7 +236,7 @@ module Octokit
       # @example
       #   @client.outside_collaborators('github')
       def outside_collaborators(org, options={})
-        get "#{Organization.path org}/outside_collaborators", options
+        paginate "#{Organization.path org}/outside_collaborators", options
       end
 
       # Remove outside collaborator from an organization

@@ -41,7 +41,7 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
     1. [Debugging](#debugging)
     2. [Caching](#caching)
 14. [Hacking on Octokit.rb](#hacking-on-octokitrb)
-    1. [Code of Conduction](#code_of_conduct)
+    1. [Code of Conduct](#code-of-conduct)
     2. [Running and writing new tests](#running-and-writing-new-tests)
 15. [Supported Ruby Versions](#supported-ruby-versions)
 16. [Versioning](#versioning)
