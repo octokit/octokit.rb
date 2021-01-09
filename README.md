@@ -323,7 +323,7 @@ custom pattern for traversing large lists.
 
 ## Working with GitHub Enterprise
 
-With a bit of setup, you can also use Octokit with your Github Enterprise instance.
+With a bit of setup, you can also use Octokit with your GitHub Enterprise instance.
 
 ### Interacting with the GitHub.com APIs in GitHub Enterprise
 
