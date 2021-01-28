@@ -65,7 +65,9 @@ module Octokit
       def check_runs_for_ref(repo, ref, options = {})
         ensure_api_media_type(:checks, options)
 
-        get "#{Repository.path repo}/commits/#{ref}/check-runs", options
+        paginate "#{Repository.path repo}/commits/#{ref}/check-runs", options do |data, last_response|
+          data.check_runs.concat last_response.data.check_runs
+        end
       end
       alias :list_check_runs_for_ref :check_runs_for_ref
 
@@ -88,7 +90,9 @@ module Octokit
       def check_runs_for_check_suite(repo, id, options = {})
         ensure_api_media_type(:checks, options)
 
-        get "#{Repository.path repo}/check-suites/#{id}/check-runs", options
+        paginate "#{Repository.path repo}/check-suites/#{id}/check-runs", options do |data, last_response|
+          data.check_runs.concat last_response.data.check_runs
+        end
       end
       alias :list_check_runs_for_check_suite :check_runs_for_check_suite
 
@@ -155,7 +159,9 @@ module Octokit
       def check_suites_for_ref(repo, ref, options = {})
         ensure_api_media_type(:checks, options)
 
-        get "#{Repository.path repo}/commits/#{ref}/check-suites", options
+        paginate "#{Repository.path repo}/commits/#{ref}/check-suites", options do |data, last_response|
+          data.check_suites.concat last_response.data.check_suites
+        end
       end
       alias :list_check_suites_for_ref :check_suites_for_ref
 
