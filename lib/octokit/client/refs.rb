@@ -30,7 +30,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] The reference matching the given repo and the ref id
       # @see https://developer.github.com/v3/git/refs/#list-matching-references
       # @example Fetch tags/v0.0.3 for sferik/rails_admin
-      #   Octokit.ref("sferik/rails_admin","tags/v0.0.3")
+      #   Octokit.ref("sferik/rails_admin","tags/v2")
       def matching_refs(repo, ref, options = {})
         path = "#{Repository.path repo}/git/matching-refs/#{ref}"
         paginate path, options
