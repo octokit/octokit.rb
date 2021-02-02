@@ -6,6 +6,18 @@ describe Octokit::Client::Refs do
     @client = oauth_client
   end
 
+  describe ".matching_refs", :vcr do
+    it "returns all matching refs" do
+      refs = @client.matching_refs("sferik/rails_admin", "heads/rails")
+      expect(refs).to be_kind_of Array
+      assert_requested :get, github_url("/repos/sferik/rails_admin/git/matching-refs/heads/rails")
+    end
+    it "returns all matching tag refs" do
+      refs = @client.matching_refs("sferik/rails_admin", "tags/v2")
+      expect(refs).to be_kind_of Array
+      assert_requested :get, github_url("/repos/sferik/rails_admin/git/matching-refs/tags/v2")
+    end
+  end
   describe ".refs", :vcr do
     it "returns all refs" do
       refs = @client.refs("sferik/rails_admin")
