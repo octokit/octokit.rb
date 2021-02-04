@@ -32,8 +32,7 @@ module Octokit
       # @example Fetch refs matching  tags/v2 for sferik/rails_admin
       #   Octokit.ref("sferik/rails_admin","tags/v2")
       def matching_refs(repo, ref, options = {})
-        path = "#{Repository.path repo}/git/matching-refs/#{ref}"
-        paginate path, options
+        paginate "#{Repository.path repo}/git/matching-refs/#{ref}", options
       end
 
       # Fetch a given reference
