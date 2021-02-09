@@ -106,6 +106,8 @@ module Octokit
     def self.error_for_422(body)
       if body =~ /PullRequestReviewComment/i && body =~ /(commit_id|end_commit_oid) is not part of the pull request/i
         Octokit::CommitIsNotPartOfPullRequest
+      elsif body =~ /Path diff too large/i
+        Octokit::PathDiffTooLarge
       else
         Octokit::UnprocessableEntity
       end
@@ -313,6 +315,10 @@ module Octokit
   # Raised when GitHub returns a 422 HTTP status code
   # and body matches 'PullRequestReviewComment' and 'commit_id (or end_commit_oid) is not part of the pull request'
   class CommitIsNotPartOfPullRequest < UnprocessableEntity; end
+
+  # Raised when GitHub returns a 422 HTTP status code and body matches 'Path diff too large'.
+  # It could occur when attempting to post review comments on a "too large" file.
+  class PathDiffTooLarge < UnprocessableEntity; end
 
   # Raised when GitHub returns a 451 HTTP status code
   class UnavailableForLegalReasons < ClientError; end
