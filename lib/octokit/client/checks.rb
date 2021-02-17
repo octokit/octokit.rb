@@ -23,7 +23,6 @@ module Octokit
       #   check_run.head_sha # => "7638417db6d59f3c431d3e1f261cc637155684cd"
       #   check_run.status # => "queued"
       def create_check_run(repo, name, head_sha, options = {})
-        ensure_api_media_type(:checks, options)
         options[:name] = name
         options[:head_sha] = head_sha
 
@@ -41,8 +40,6 @@ module Octokit
       #   check_run.id # => 51295429
       #   check_run.status # => "in_progress"
       def update_check_run(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
-
         patch "#{Repository.path repo}/check-runs/#{id}", options
       end
 
@@ -63,8 +60,6 @@ module Octokit
       #   result.check_runs[0].id # => 51295429
       #   result.check_runs[0].status # => "in_progress"
       def check_runs_for_ref(repo, ref, options = {})
-        ensure_api_media_type(:checks, options)
-
         get "#{Repository.path repo}/commits/#{ref}/check-runs", options
       end
       alias :list_check_runs_for_ref :check_runs_for_ref
@@ -86,8 +81,6 @@ module Octokit
       #   result.check_runs[0].check_suite.id # => 50440400
       #   result.check_runs[0].status # => "in_progress"
       def check_runs_for_check_suite(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
-
         get "#{Repository.path repo}/check-suites/#{id}/check-runs", options
       end
       alias :list_check_runs_for_check_suite :check_runs_for_check_suite
@@ -99,8 +92,6 @@ module Octokit
       # @return [Sawyer::Resource] A hash representing the check run
       # @see https://developer.github.com/v3/checks/runs/#get-a-single-check-run
       def check_run(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
-
         get "#{Repository.path repo}/check-runs/#{id}", options
       end
 
@@ -116,8 +107,6 @@ module Octokit
       #   annotations[0].path # => "README.md"
       #   annotations[0].message # => "Looks good!"
       def check_run_annotations(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
-
         get "#{Repository.path repo}/check-runs/#{id}/annotations", options
       end
 
@@ -132,8 +121,6 @@ module Octokit
       # @return [Sawyer::Resource] A hash representing the check suite
       # @see https://developer.github.com/v3/checks/suites/#get-a-single-check-suite
       def check_suite(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
-
         get "#{Repository.path repo}/check-suites/#{id}", options
       end
 
@@ -153,8 +140,6 @@ module Octokit
       #   result.check_suites[0].id # => 50440400
       #   result.check_suites[0].app.id # => 76765
       def check_suites_for_ref(repo, ref, options = {})
-        ensure_api_media_type(:checks, options)
-
         get "#{Repository.path repo}/commits/#{ref}/check-suites", options
       end
       alias :list_check_suites_for_ref :check_suites_for_ref
@@ -172,8 +157,6 @@ module Octokit
       #   result.preferences.auto_trigger_checks[0].setting # => false
       #   result.repository.full_name # => "octocat/Hello-World"
       def set_check_suite_preferences(repo, options = {})
-        ensure_api_media_type(:checks, options)
-
         patch "#{Repository.path repo}/check-suites/preferences", options
       end
 
@@ -188,7 +171,6 @@ module Octokit
       #   check_suite.head_sha # => "7638417db6d59f3c431d3e1f261cc637155684cd"
       #   check_suite.status # => "queued"
       def create_check_suite(repo, head_sha, options = {})
-        ensure_api_media_type(:checks, options)
         options[:head_sha] = head_sha
 
         post "#{Repository.path repo}/check-suites", options
@@ -201,8 +183,6 @@ module Octokit
       # @return [Boolean] True if successful, raises an error otherwise
       # @see https://developer.github.com/v3/checks/suites/#rerequest-check-suite
       def rerequest_check_suite(repo, id, options = {})
-        ensure_api_media_type(:checks, options)
-
         post "#{Repository.path repo}/check-suites/#{id}/rerequest", options
         true
       end
