@@ -274,7 +274,7 @@ describe Octokit::Client::Apps do
 
     describe ".delete_installation" do
       it "deletes an installation" do
-        response = @jwt_client.delete_installation(installation, accept: Octokit::Preview::PREVIEW_TYPES[:uninstall_github_app])
+        response = @jwt_client.delete_installation(installation)
         expect(response).to be_truthy
       end
     end # .delete_installation
