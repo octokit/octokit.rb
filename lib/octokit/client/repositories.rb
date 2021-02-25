@@ -640,6 +640,24 @@ module Octokit
         boolean_from_response :delete, "#{Repository.path repo}/branches/#{branch}/protection", opts
       end
 
+      # Rename a single branch from a repository
+      #
+      # Requires authenticated client
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param branch [String] Current branch name
+      # @param new_name [String] New branch name
+      # @return [Sawyer::Resource] The renamed branch
+      # @see https://developer.github.com/v3/repos/#rename-a-branch
+      # @example
+      #   @client.rename_branch('octokit/octokit.rb', 'master', 'main')
+      def rename_branch(repo, branch, new_name, options = {})
+        params = {
+          new_name: new_name,
+        }
+        post "#{Repository.path repo}/branches/#{branch}/rename", params.merge(options)
+      end
+
       # List users available for assigning to issues.
       #
       # Requires authenticated client for private repos.
