@@ -497,6 +497,14 @@ describe Octokit::Client::Repositories do
       end # .unprotect_branch
 
     end # with protected_branch
+
+    describe ".rename_branch", :vcr do
+      it "renames a single branch" do
+        branch = @client.rename_branch(@repo.full_name, "master", "main")
+        expect(branch.name).to eq "main"
+        assert_requested :post, github_url("/repos/#{@repo.full_name}/branches/master/rename")
+      end
+    end # .rename_branch
   end # with repository
 
   describe ".assignees", :vcr do
