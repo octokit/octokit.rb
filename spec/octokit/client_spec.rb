@@ -920,6 +920,51 @@ describe Octokit::Client do
         },
         :body => {:message => "This installation owned by octocat suspended your access at 2020-08-28T16:32:59Z."}.to_json
       expect { Octokit.post("/installation/repositories") }.to raise_error Octokit::InstallationSuspended
+
+      stub_post('/app/installations/12345/access_tokens').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "This installation has been suspended // See: https://docs.github.com/rest/reference/apps#create-an-installation-access-token-for-an-app"}.to_json
+      expect { Octokit.post("/app/installations/12345/access_tokens") }.to raise_error Octokit::InstallationSuspended
+    end
+
+    it "knows the difference between different kinds of unprocessable entity" do
+      stub_get('/some/admin/stuffs').to_return(:status => 422)
+      expect { Octokit.get('/some/admin/stuffs') }.to raise_error Octokit::UnprocessableEntity
+
+      stub_post('/repositories/123456789/pulls/1/comments').to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {
+          :message => "Validation Failed",
+          :errors => [
+            "end_commit_oid is not part of the pull request",
+            :resource => "PullRequestReviewComment",
+            :field    => "end_commit_oid",
+            :code     => "custom"
+          ]
+        }.to_json
+      expect { Octokit.post('/repositories/123456789/pulls/1/comments') }.to raise_error Octokit::CommitIsNotPartOfPullRequest
+
+      stub_post('/repositories/123456789/pulls/21/comments').to_return \
+        :status => 422,
+        :headers => {
+          :content_type => 'application/json',
+        },
+        :body => {
+          :message => 'Validation Failed',
+          :errors => [
+            :message  => 'path diff too large',
+            :resource => 'PullRequestReviewComment',
+            :field    => 'path',
+            :code     => 'custom'
+          ]
+        }.to_json
+      expect { Octokit.post('/repositories/123456789/pulls/21/comments') }.to raise_error Octokit::PathDiffTooLarge
     end
 
     it "raises on unknown client errors" do

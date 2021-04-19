@@ -215,8 +215,7 @@ module Octokit
       #
       # @return [Boolean] Success
       def delete_installation(installation, options = {})
-        opts = ensure_api_media_type(:uninstall_github_app, options)
-        boolean_from_response :delete, "app/installations/#{installation}", opts
+        boolean_from_response :delete, "app/installations/#{installation}", options
       end
     end
   end

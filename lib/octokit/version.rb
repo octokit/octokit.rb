@@ -5,7 +5,7 @@ module Octokit
 
   # Current minor release.
   # @return [Integer]
-  MINOR = 19
+  MINOR = 20
 
   # Current patch level.
   # @return [Integer]

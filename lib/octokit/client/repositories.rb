@@ -640,6 +640,24 @@ module Octokit
         boolean_from_response :delete, "#{Repository.path repo}/branches/#{branch}/protection", opts
       end
 
+      # Rename a single branch from a repository
+      #
+      # Requires authenticated client
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param branch [String] Current branch name
+      # @param new_name [String] New branch name
+      # @return [Sawyer::Resource] The renamed branch
+      # @see https://developer.github.com/v3/repos/#rename-a-branch
+      # @example
+      #   @client.rename_branch('octokit/octokit.rb', 'master', 'main')
+      def rename_branch(repo, branch, new_name, options = {})
+        params = {
+          new_name: new_name,
+        }
+        post "#{Repository.path repo}/branches/#{branch}/rename", params.merge(options)
+      end
+
       # List users available for assigning to issues.
       #
       # Requires authenticated client for private repos.
@@ -732,6 +750,49 @@ module Octokit
       # @see https://developer.github.com/v3/repos/#create-a-repository-dispatch-event
       def dispatch_event(repo, event_type, options = {})
         boolean_from_response :post, "#{Repository.path repo}/dispatches", options.merge({ event_type: event_type })
+      end
+
+      # Check to see if vulnerability alerts are enabled for a repository
+      #
+      # The authenticated user must have admin access to the repository.
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @return [Boolean] True if vulnerability alerts are enabled, false otherwise.
+      # @see https://docs.github.com/en/rest/reference/repos#check-if-vulnerability-alerts-are-enabled-for-a-repository
+      #
+      # @example
+      #   @client.vulnerability_alerts_enabled?("octokit/octokit.rb")
+      def vulnerability_alerts_enabled?(repo, options = {})
+        opts = ensure_api_media_type(:vulnerability_alerts, options)
+        boolean_from_response(:get, "#{Repository.path repo}/vulnerability-alerts", opts)
+      end
+
+      # Enable vulnerability alerts for a repository
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param options [Hash]
+      #
+      # @return [Boolean] True if vulnerability alerts enabled, false otherwise.
+      # @see https://docs.github.com/en/rest/reference/repos#enable-vulnerability-alerts
+      # @example Enable vulnerability alerts for a repository
+      #   @client.enable_vulnerability_alerts("octokit/octokit.rb")
+      def enable_vulnerability_alerts(repo, options = {})
+        opts = ensure_api_media_type(:vulnerability_alerts, options)
+        boolean_from_response(:put, "#{Repository.path repo}/vulnerability-alerts", opts)
+      end
+
+      # Disable vulnerability alerts for a repository
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param options [Hash]
+      #
+      # @return [Boolean] True if vulnerability alerts disabled, false otherwise.
+      # @see https://docs.github.com/en/rest/reference/repos#disable-vulnerability-alerts
+      # @example Disable vulnerability alerts for a repository
+      #   @client.disable_vulnerability_alerts("octokit/octokit.rb")
+      def disable_vulnerability_alerts(repo, options = {})
+        opts = ensure_api_media_type(:vulnerability_alerts, options)
+        boolean_from_response(:delete, "#{Repository.path repo}/vulnerability-alerts", opts)
       end
     end
   end

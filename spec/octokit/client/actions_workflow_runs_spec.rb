@@ -80,6 +80,16 @@ describe Octokit::Client::ActionsWorkflowRuns, :vcr do
     end
   end
 
+  describe '.delete_workflow_run' do
+    it 'deletes the workflow run' do
+      request = stub_delete("repos/#{@test_repo}/actions/runs/#{@run_id}")
+
+      response = @client.delete_workflow_run(@test_repo, @run_id)
+
+      assert_requested request
+    end
+  end
+
   describe '.workflow_run_logs' do
     it 'returns the location of the workflow run logs' do
       request = stub_head("repos/#{@test_repo}/actions/runs/#{@run_id}/logs")

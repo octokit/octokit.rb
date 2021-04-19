@@ -65,6 +65,17 @@ module Octokit
         boolean_from_response :post, "#{Repository.path repo}/actions/runs/#{id}/cancel", options
       end
 
+      # Deletes a workflow run
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param id [Integer] Id of a workflow run
+      #
+      # @return [Boolean] Returns true if the run is deleted
+      # @see https://docs.github.com/en/rest/reference/actions#delete-a-workflow-run
+      def delete_workflow_run(repo, id, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/actions/runs/#{id}", options
+      end
+
       # Get a download url for archived log files of a workflow run
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

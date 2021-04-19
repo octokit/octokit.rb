@@ -23,6 +23,18 @@ module Octokit
       alias :references :refs
       alias :list_references :refs
 
+      # Fetch matching refs
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param ref [String] The ref, e.g. <tt>tags/v0.0.3</tt> or <tt>heads/rails-3</tt>
+      # @return [Array<Sawyer::Resource>] The reference matching the given repo and the ref id
+      # @see https://developer.github.com/v3/git/refs/#list-matching-references
+      # @example Fetch refs matching  tags/v2 for sferik/rails_admin
+      #   Octokit.ref("sferik/rails_admin","tags/v2")
+      def matching_refs(repo, ref, options = {})
+        paginate "#{Repository.path repo}/git/matching-refs/#{ref}", options
+      end
+
       # Fetch a given reference
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

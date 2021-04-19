@@ -20,7 +20,6 @@ describe Octokit::Client::Checks, :vcr do
         @test_repo,
         @check_name,
         @commit,
-        accept: preview_header,
       )
 
       assert_requested :post, repo_url("check-runs")
@@ -31,7 +30,6 @@ describe Octokit::Client::Checks, :vcr do
         @test_repo,
         @check_name,
         @commit,
-        accept: preview_header,
       )
 
       expect(check_run.name).to eq(@check_name)
@@ -45,7 +43,6 @@ describe Octokit::Client::Checks, :vcr do
       @client.update_check_run(
         @test_repo,
         @check_run_id,
-        accept: preview_header,
         completed_at: "2019-01-17T14:52:51Z",
         conclusion: "success",
         output: {
@@ -70,7 +67,6 @@ describe Octokit::Client::Checks, :vcr do
       check_run = @client.update_check_run(
         @test_repo,
         @check_run_id,
-        accept: preview_header,
         completed_at: "2019-01-17T14:52:51Z",
         conclusion: "success",
         output: {
@@ -98,7 +94,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_runs_for_ref(
         @test_repo,
         @commit,
-        accept: preview_header,
       )
 
       expect(result.total_count).to eq(1)
@@ -111,7 +106,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_runs_for_ref(
         @test_repo,
         @branch,
-        accept: preview_header,
       )
 
       expect(result.total_count).to eq(1)
@@ -124,7 +118,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_runs_for_ref(
         @test_repo,
         @tag,
-        accept: preview_header,
       )
 
       expect(result.total_count).to eq(1)
@@ -137,7 +130,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_runs_for_ref(
         @test_repo,
         @commit,
-        accept: preview_header,
         status: "completed",
       )
 
@@ -148,7 +140,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_runs_for_ref(
         @test_repo,
         @commit,
-        accept: preview_header,
         status: "queued",
       )
 
@@ -164,8 +155,7 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_runs_for_check_suite(
         @test_repo,
         @check_suite_id,
-        accept: preview_header,
-      )
+     )
 
       expect(result.total_count).to eq(1)
       expect(result.check_runs).to be_a(Array)
@@ -177,7 +167,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_runs_for_check_suite(
         @test_repo,
         @check_suite_id,
-        accept: preview_header,
         status: "completed",
       )
 
@@ -188,7 +177,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_runs_for_check_suite(
         @test_repo,
         @check_suite_id,
-        accept: preview_header,
         status: "queued",
       )
 
@@ -204,7 +192,6 @@ describe Octokit::Client::Checks, :vcr do
       check_run = @client.check_run(
         @test_repo,
         @check_run_id,
-        accept: preview_header,
       )
 
       expect(check_run.id).to eq(@check_run_id)
@@ -218,7 +205,6 @@ describe Octokit::Client::Checks, :vcr do
       annotations = @client.check_run_annotations(
         @test_repo,
         @check_run_id,
-        accept: preview_header,
       )
 
       expect(annotations).to be_a(Array)
@@ -232,7 +218,6 @@ describe Octokit::Client::Checks, :vcr do
       check_suite = @client.check_suite(
         @test_repo,
         @check_suite_id,
-        accept: preview_header,
       )
 
       expect(check_suite.id).to eq(@check_suite_id)
@@ -245,7 +230,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_suites_for_ref(
         @test_repo,
         @commit,
-        accept: preview_header,
       )
 
       expect(result.total_count).to eq(1)
@@ -258,7 +242,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_suites_for_ref(
         @test_repo,
         @branch,
-        accept: preview_header,
       )
 
       expect(result.total_count).to eq(1)
@@ -271,7 +254,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_suites_for_ref(
         @test_repo,
         @tag,
-        accept: preview_header,
       )
 
       expect(result.total_count).to eq(1)
@@ -284,7 +266,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_suites_for_ref(
         @test_repo,
         @commit,
-        accept: preview_header,
         check_name: "bogus-check-name",
       )
 
@@ -295,7 +276,6 @@ describe Octokit::Client::Checks, :vcr do
       result = @client.check_suites_for_ref(
         @test_repo,
         @commit,
-        accept: preview_header,
         check_name: @check_name,
       )
 
@@ -310,7 +290,6 @@ describe Octokit::Client::Checks, :vcr do
     it "sets check suite preferences" do
       @client.set_check_suite_preferences(
         @test_repo,
-        accept: preview_header,
         auto_trigger_checks: [
           {
             app_id: test_github_integration,
@@ -328,7 +307,6 @@ describe Octokit::Client::Checks, :vcr do
       @client.create_check_suite(
         @test_repo,
         @commit,
-        accept: preview_header,
       )
 
       assert_requested :post, repo_url("check-suites")
@@ -338,7 +316,6 @@ describe Octokit::Client::Checks, :vcr do
       check_suite = @client.create_check_suite(
         @test_repo,
         @commit,
-        accept: preview_header,
       )
 
       expect(check_suite.head_sha).to eq(@commit)
@@ -351,7 +328,6 @@ describe Octokit::Client::Checks, :vcr do
       @client.rerequest_check_suite(
         @test_repo,
         @check_suite_id,
-        accept: preview_header,
       )
 
       assert_requested :post, repo_url("check-suites/#{@check_suite_id}/rerequest")
@@ -359,10 +335,6 @@ describe Octokit::Client::Checks, :vcr do
   end
 
   private
-
-  def preview_header
-    Octokit::Preview::PREVIEW_TYPES[:checks]
-  end
 
   def repo_url(repo_path)
     github_url(["repos", @test_repo, repo_path].join("/"))

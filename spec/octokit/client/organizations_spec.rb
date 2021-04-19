@@ -397,6 +397,14 @@ describe Octokit::Client::Organizations do
     end
   end # .migrations
 
+  describe ".billing_actions", :vcr do
+    it "returns github actions billing for organization" do
+      billing_actions = @client.billing_actions(test_github_org)
+      expect(billing_actions.total_minutes_used).to be_kind_of(Integer)
+      assert_requested :get, github_url("/orgs/#{test_github_org}/settings/billing/actions")
+    end
+  end
+
   private
 
   def preview_header
