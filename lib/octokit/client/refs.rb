@@ -58,7 +58,7 @@ module Octokit
       # @example Create refs/heads/master for octocat/Hello-World with sha 827efc6d56897b048c772eb4087f854f46256132
       #   Octokit.create_ref("octocat/Hello-World", "heads/master", "827efc6d56897b048c772eb4087f854f46256132")
       def create_ref(repo, ref, sha, options = {})
-        ref = "refs/#{ref}" unless ref =~ %r{refs/}
+        ref = "refs/#{ref}" unless ref =~ %r{\Arefs/}
         parameters = {
           :ref  => ref,
           :sha  => sha
