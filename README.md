@@ -86,7 +86,6 @@ Access the library in Ruby:
 
 ```ruby
 # Provide authentication credentials
-# Set access_token instead of login and password if you use personal access token
 client = Octokit::Client.new(:access_token => 'personal_access_token')
 
 # Fetch the current user
