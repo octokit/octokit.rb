@@ -143,5 +143,14 @@ describe Octokit::Client::Commits do
       expect(comparison.merge_base_commit.sha).to eq('b7b37f75a80b8e84061cd45b246232ad958158f5')
       assert_requested :get, github_url("/repos/gvaughn/octokit/compare/0e0d7ae299514da692eb1cab741562c253d44188...b7b37f75a80b8e84061cd45b246232ad958158f5")
     end
+
+    it "utilizes auto_pagination", :vcr do
+      @client.auto_paginate = true
+      comparison = @client.compare("mrpinsky/octokit.rb", 'b7b37f75a80b8e84061cd45b246232ad958158f5', '0e0d7ae299514da692eb1cab741562c253d44188', per_page: 1)
+
+      expect(comparison.commits.length).to eq(2)
+      assert_requested :get, github_url("/repos/mrpinsky/octokit.rb/compare/b7b37f75a80b8e84061cd45b246232ad958158f5...0e0d7ae299514da692eb1cab741562c253d44188?per_page=1")
+      assert_requested :get, github_url("/repositories/387936585/compare/b7b37f75a80b8e84061cd45b246232ad958158f5...0e0d7ae299514da692eb1cab741562c253d44188?page=2&per_page=1")
+    end
   end # .compare
 end
