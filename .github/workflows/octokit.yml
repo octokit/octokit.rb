@@ -43,6 +43,9 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
       - name: Setup .netrc
         run: chmod 600 spec/fixtures/.netrc
+      - name: Ruby 2.5 needs a newer RubyGems to support frozen-string-literal
+        if: ${{ matrix.ruby == '2.5' }}
+        run: gem update --system 2.7.11
       - name: Install dependencies
         run: |
           bundle config set path .bundle/gems
