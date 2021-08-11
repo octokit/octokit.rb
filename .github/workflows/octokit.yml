@@ -42,6 +42,7 @@ jobs:
           bundle config set path .bundle/gems
           bundle config set without development
           bundle install --jobs 4 --retry 3
+          gem env version
       - name: Test with RSpec
         env:
           GITHUB_CI: 1
