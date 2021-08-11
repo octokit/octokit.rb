@@ -193,7 +193,7 @@ module Octokit
     def build_error_message
       return nil if @response.nil?
 
-      message =  "#{@response[:method].to_s.upcase} "
+      message = +"#{@response[:method].to_s.upcase} "
       message << redact_url(@response[:url].to_s) + ": "
       message << "#{@response[:status]} - "
       message << "#{response_message}" unless response_message.nil?
