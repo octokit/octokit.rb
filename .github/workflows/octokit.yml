@@ -45,4 +45,5 @@ jobs:
       - name: Test with RSpec
         env:
           GITHUB_CI: 1
+          RUBYOPT: --enable-frozen-string-literal
         run: bundle exec rspec -w
