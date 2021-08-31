@@ -39,3 +39,7 @@ group :test, :development do
 end
 
 gemspec
+
+install_if -> { ENV['FARADAY_VERSION'] } do
+  gem 'faraday', ENV['FARADAY_VERSION']
+end

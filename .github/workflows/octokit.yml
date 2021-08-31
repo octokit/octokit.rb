@@ -13,7 +13,7 @@ on:
 
 jobs:
   ci:
-    name: Ruby ${{ matrix.ruby }}
+    name: 'Ruby ${{ matrix.ruby }} with Faraday ${{ matrix.faraday }}'
     runs-on: ${{ matrix.os }}-latest
 
     strategy:
@@ -21,6 +21,10 @@ jobs:
       matrix:
         os: [ ubuntu ]
         ruby: [ 2.5, 2.6, 2.7, '3.0', head ]
+        faraday: [ '~> 0.16.0', '~> 0.17.0', '>= 1.0' ]
+
+    env:
+      FARADAY_VERSION: ${{ matrix.faraday }}
 
     steps:
       - uses: actions/checkout@v2
@@ -28,9 +32,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ./.bundle/gems
-          key: cache-${{ runner.os }}-${{ matrix.ruby }}-${{ github.sha }}
+          key: cache-${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.faraday }}-${{ github.sha }}
           restore-keys: |
-            cache-${{ runner.os }}-${{ matrix.ruby }}-
+            cache-${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.faraday }}
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
