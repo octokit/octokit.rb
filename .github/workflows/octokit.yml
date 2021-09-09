@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu ]
-        ruby: [ 2.5, 2.6, 2.7, head ]
+        ruby: [ 2.5, 2.6, 2.7, '3.0', head ]
 
     steps:
       - uses: actions/checkout@v2
