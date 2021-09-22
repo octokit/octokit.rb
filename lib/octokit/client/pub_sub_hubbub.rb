@@ -91,9 +91,9 @@ module Octokit
         conn = Faraday.new(:url => @api_endpoint) do |http|
           http.headers[:user_agent] = user_agent
           if basic_authenticated?
-            http.set_authorization_header :basic_auth, @login, @password
+            http.request :basic_auth, @login, @password
           elsif token_authenticated?
-            http.set_authorization_header :authorization, 'token', @access_token
+            http.request :token_auth, @access_token
           end
           http.request  :url_encoded
           http.use Octokit::Response::RaiseError
