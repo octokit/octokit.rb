@@ -176,7 +176,7 @@ module Octokit
         :links_parser => Sawyer::LinkParsers::Simple.new
       }
       conn_opts = @connection_options
-      conn_opts[:builder] = @middleware if @middleware
+      conn_opts[:builder] = @middleware.dup if @middleware
       conn_opts[:proxy] = @proxy if @proxy
       if conn_opts[:ssl].nil?
         conn_opts[:ssl] = { :verify_mode => @ssl_verify_mode } if @ssl_verify_mode

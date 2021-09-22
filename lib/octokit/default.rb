@@ -115,7 +115,7 @@ module Octokit
       # from {MIDDLEWARE}
       # @return [Faraday::RackBuilder or Faraday::Builder]
       def middleware
-        MIDDLEWARE.dup
+        MIDDLEWARE
       end
 
       # Default GitHub password for Basic Auth from ENV
