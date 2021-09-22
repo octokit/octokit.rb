@@ -93,7 +93,7 @@ module Octokit
           if basic_authenticated?
             http.request :basic_auth, @login, @password
           elsif token_authenticated?
-            http.request :token_auth, @access_token
+            http.request :authorization, 'token', @access_token
           end
           http.request  :url_encoded
           http.use Octokit::Response::RaiseError
