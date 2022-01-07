@@ -9,7 +9,7 @@ require 'rspec'
 require 'webmock/rspec'
 require 'base64'
 require 'jwt'
-if Gem::Version.new(RUBY_VERSION) <= Gem::Version.new('3.2.0')
+if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('3.2.0')
   require 'pry-byebug'
 end
 
