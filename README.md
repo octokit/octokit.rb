@@ -584,7 +584,9 @@ stack = Faraday::RackBuilder.new do |builder|
   builder.use Octokit::Middleware::FollowRedirects
   builder.use Octokit::Response::RaiseError
   builder.use Octokit::Response::FeedParser
-  builder.response :logger
+  builder.response :logger do |logger|
+    logger.filter(/(Authorization: "(token|Bearer) )(\w+)/, '\1[REMOVED]')
+  end
   builder.adapter Faraday.default_adapter
 end
 Octokit.middleware = stack
