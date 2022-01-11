@@ -731,7 +731,7 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing the new migration.
       # @example
       #   @client.start_migration('github', ['github/dotfiles'])
-      # @see https://developer.github.com/v3/orgs/migrations/#start-a-migration
+      # @see https://docs.github.com/en/rest/reference/migrations#start-an-organization-migration
       def start_migration(org, repositories, options = {})
         options = ensure_api_media_type(:migrations, options)
         options[:repositories] = repositories
@@ -744,7 +744,7 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @return [Array<Sawyer::Resource>] Array of migration resources.
-      # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
+      # @see https://docs.github.com/en/rest/reference/migrations#list-organization-migrations
       def migrations(org, options = {})
         options = ensure_api_media_type(:migrations, options)
         paginate "#{Organization.path(org)}/migrations", options
@@ -756,7 +756,7 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] ID number of the migration.
-      # @see https://developer.github.com/v3/orgs/migrations/#get-the-status-of-a-migration
+      # @see https://docs.github.com/en/rest/reference/migrations#get-an-organization-migration-status
       def migration_status(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
         get "#{Organization.path(org)}/migrations/#{id}", options
@@ -768,7 +768,7 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] ID number of the migration.
-      # @see https://developer.github.com/v3/orgs/migrations/#download-a-migration-archive
+      # @see https://docs.github.com/en/rest/reference/migrations#download-an-organization-migration-archive
       def migration_archive_url(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
         url = "#{Organization.path(org)}/migrations/#{id}/archive"
@@ -783,7 +783,7 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] ID number of the migration.
-      # @see https://developer.github.com/v3/orgs/migrations/#delete-a-migration-archive
+      # @see https://docs.github.com/en/rest/reference/migrations#delete-an-organization-migration-archive
       def delete_migration_archive(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
         delete "#{Organization.path(org)}/migrations/#{id}/archive", options
@@ -796,7 +796,7 @@ module Octokit
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] ID number of the migration.
       # @param repo [String] Name of the repository.
-      # @see https://developer.github.com/v3/orgs/migrations/#unlock-a-repository
+      # @see https://docs.github.com/en/rest/reference/migrations#unlock-an-organization-repository
       def unlock_repository(org, id, repo, options = {})
         options = ensure_api_media_type(:migrations, options)
         delete "#{Organization.path(org)}/migrations/#{id}/repos/#{repo}/lock", options
