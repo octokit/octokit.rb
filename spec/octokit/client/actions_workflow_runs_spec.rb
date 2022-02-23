@@ -92,6 +92,26 @@ describe Octokit::Client::ActionsWorkflowRuns, :vcr do
     end
   end
 
+  describe '.workflow_runs_timing' do
+    it 'returns the usage of a workflow run' do
+      request = stub_get("repos/#{@test_repo}/actions/runs/#{@run_id}/timing")
+
+      @client.workflow_runs_timing(@test_repo, @run_id)
+
+      assert_requested request
+    end
+  end
+
+  describe '.workflow_job' do
+    it 'returns a job for a workflow run' do
+      request = stub_get("repos/#{@test_repo}/actions/jobs/#{@job_id}")
+
+      @client.workflow_job(@test_repo, @job_id)
+
+      assert_requested request
+    end
+  end
+
   describe '.workflow_run_logs' do
     it 'returns the location of the workflow run logs' do
       request = stub_head("repos/#{@test_repo}/actions/runs/#{@run_id}/logs")
