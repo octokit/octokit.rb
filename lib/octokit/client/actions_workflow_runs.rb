@@ -48,6 +48,31 @@ module Octokit
         get "#{Repository.path repo}/actions/runs/#{id}", options
       end
 
+      # Get workflow run usage
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param run [Integer, String, Repository, Hash] A Workflow run
+      # @return [Sawyer::Resource] the number of billable minutes and total run time for a specific workflow run
+      # @see https://docs.github.com/en/rest/reference/actions#get-workflow-run-usage
+      def workflow_runs_timing(repo, run, options = {})
+        paginate "#{Repository.path repo}/actions/runs/#{run.id}/timing", options
+      end
+      alias repository_workflow_runs_timing workflow_runs_timing
+
+
+      # Get a job for a workflow run
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param id [Integer] The id of a Job
+      #
+      # @return [Sawyer::Resource] the specific job in a workflow run
+      # @see https://docs.github.com/en/rest/reference/actions#get-a-job-for-a-workflow-run
+      def workflow_job(repo, id, options = {})
+        get "#{Repository.path repo}/actions/jobs/#{id}", options
+      end
+      alias repository_workflow_job workflow_job
+
+
       # Re-runs a workflow run
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
