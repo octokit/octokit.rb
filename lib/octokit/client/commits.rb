@@ -200,6 +200,7 @@ module Octokit
       def compare(repo, start, endd, options = {})
         paginate "#{Repository.path repo}/compare/#{start}...#{endd}", options do |data, last_response|
           data.commits.concat last_response.data.commits
+          data.files.concat last_response.data.files
         end
       end
 
