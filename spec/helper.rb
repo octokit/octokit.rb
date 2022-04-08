@@ -13,6 +13,7 @@ require 'jwt'
 if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('3.2.0')
   require 'pry-byebug'
 end
+require 'faraday/multipart' if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
 
 WebMock.disable_net_connect!()
 
