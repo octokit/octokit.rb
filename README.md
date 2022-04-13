@@ -26,7 +26,7 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
    1. [Interacting with the GitHub.com APIs in GitHub Enterprise](#interacting-with-the-githubcom-apis-in-github-enterprise)
    2. [Interacting with the GitHub Enterprise Admin APIs](#interacting-with-the-github-enterprise-admin-apis)
    3. [Interacting with the GitHub Enterprise Management Console APIs](#interacting-with-the-github-enterprise-management-console-apis)
-9. [SSL Connection Errors](#ssl-connection-errors)
+   4. [SSL Connection Errors](#ssl-connection-errors)
 10. [Configuration and defaults](#configuration-and-defaults)
     1. [Configuring module defaults](#configuring-module-defaults)
     2. [Using ENV variables](#using-env-variables)
