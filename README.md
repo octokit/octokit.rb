@@ -10,7 +10,7 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
 ## Table of Contents
 
 1. [Philosophy](#philosophy)
-2. [Quick start](#quick-start)
+2. [Installation](#quick-start)
 3. [Making requests](#making-requests)
 4. [Consuming resources](#consuming-resources)
 5. [Accessing HTTP responses](#accessing-http-responses)
@@ -66,7 +66,7 @@ client.readme 'al3x/sovereign', :accept => 'application/vnd.github.html'
 [wrappers]: http://wynnnetherland.com/journal/what-makes-a-good-api-wrapper
 [github-api]: https://developer.github.com/v3/
 
-## Quick start
+## Installation
 
 Install via Rubygems
 
