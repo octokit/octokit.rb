@@ -15,15 +15,16 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
    1. [Additional Query Parameters](#additional-query-parameters)
 4. [Consuming resources](#consuming-resources)
 5. [Accessing HTTP responses](#accessing-http-responses)
-6. [Authentication](#authentication)
+6. [Handling errors](#handling-errors)
+7. [Authentication](#authentication)
    1. [Basic Authentication](#basic-authentication)
    2. [OAuth access tokens](#oauth-access-tokens)
    3. [Two-Factor Authentication](#two-factor-authentication)
    4. [Using a .netrc file](#using-a-netrc-file)
    5. [Application authentication](#application-authentication)
-7. [Pagination](#pagination)
+8. [Pagination](#pagination)
    1. [Auto pagination](#auto-pagination)
-8. [Working with GitHub Enterprise](#working-with-github-enterprise)
+9. [Working with GitHub Enterprise](#working-with-github-enterprise)
    1. [Interacting with the GitHub.com APIs in GitHub Enterprise](#interacting-with-the-githubcom-apis-in-github-enterprise)
    2. [Interacting with the GitHub Enterprise Admin APIs](#interacting-with-the-github-enterprise-admin-apis)
    3. [Interacting with the GitHub Enterprise Management Console APIs](#interacting-with-the-github-enterprise-management-console-apis)
@@ -146,6 +147,23 @@ user      = client.user 'andrewpthorp'
 response  = client.last_response
 etag      = response.headers[:etag]
 ```
+
+## Handling errors
+
+When the API returns an error response, Octokit will raise a Ruby exception.
+
+A range of different exceptions can be raised depending on the error returned
+by the API - for example:
+
+* A `400 Bad Request` response will lead to an `Octokit::BadRequest` error 
+* a `403 Forbidden` error with a "rate limited exceeded" message will lead
+  to a `Octokit::TooManyRequests` error
+
+All of the different exception classes inherit from `Octokit::Error` and
+expose the `#response_status`, `#response_headers` and `#response_body`.
+For validation errors, `#errors` will return an `Array` of `Hash`es
+with the detailed information
+[returned by the API](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#client-errors).
 
 ## Authentication
 
