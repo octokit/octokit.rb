@@ -156,7 +156,7 @@ A range of different exceptions can be raised depending on the error returned
 by the API - for example:
 
 * A `400 Bad Request` response will lead to an `Octokit::BadRequest` error 
-* a `403 Forbidden` error with a "rate limited exceeded" message will lead
+* A `403 Forbidden` error with a "rate limited exceeded" message will lead
   to a `Octokit::TooManyRequests` error
 
 All of the different exception classes inherit from `Octokit::Error` and
