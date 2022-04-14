@@ -12,6 +12,7 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
 1. [Philosophy](#philosophy)
 2. [Installation](#quick-start)
 3. [Making requests](#making-requests)
+   1. [Additional Query Parameters](#additional-query-parameters)
 4. [Consuming resources](#consuming-resources)
 5. [Accessing HTTP responses](#accessing-http-responses)
 6. [Authentication](#authentication)
@@ -80,7 +81,7 @@ Access the library in Ruby:
 
     require 'octokit'
 
-### Making requests
+## Making requests
 
 [API methods][] are available as client instance methods.
 
@@ -95,7 +96,7 @@ client = Octokit::Client.new(:access_token => 'personal_access_token')
 client.user
 ```
 
-### Additional Query Parameters
+### Additional query parameters
 
 When passing additional parameters to GET based request use the following syntax:
 
@@ -111,7 +112,7 @@ When passing additional parameters to GET based request use the following syntax
 
 [API methods]: http://octokit.github.io/octokit.rb/method_list.html
 
-### Consuming resources
+## Consuming resources
 
 Most methods return a `Resource` object which provides dot notation and `[]`
 access for fields returned in the API response.
@@ -134,7 +135,7 @@ user.rels[:gists].href
 **Note:** URL fields are culled into a separate `.rels` collection for easier
 [Hypermedia](#hypermedia-agent) support.
 
-### Accessing HTTP responses
+## Accessing HTTP responses
 
 While most methods return a `Resource` object or a Boolean, sometimes you may
 need access to the raw HTTP response headers. You can access the last HTTP
