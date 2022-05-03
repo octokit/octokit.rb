@@ -62,6 +62,7 @@ module Octokit
       def check_runs_for_ref(repo, ref, options = {})
         paginate "#{Repository.path repo}/commits/#{ref}/check-runs", options do |data, last_response|
           data.check_runs.concat last_response.data.check_runs
+          data.total_count += last_response.data.total_count
         end
       end
       alias :list_check_runs_for_ref :check_runs_for_ref
@@ -85,6 +86,7 @@ module Octokit
       def check_runs_for_check_suite(repo, id, options = {})
         paginate "#{Repository.path repo}/check-suites/#{id}/check-runs", options do |data, last_response|
           data.check_runs.concat last_response.data.check_runs
+          data.total_count += last_response.data.total_count
         end
       end
       alias :list_check_runs_for_check_suite :check_runs_for_check_suite
@@ -146,6 +148,7 @@ module Octokit
       def check_suites_for_ref(repo, ref, options = {})
         paginate "#{Repository.path repo}/commits/#{ref}/check-suites", options do |data, last_response|
           data.check_suites.concat last_response.data.check_suites
+          data.total_count += last_response.data.total_count
         end
       end
       alias :list_check_suites_for_ref :check_suites_for_ref
