@@ -238,6 +238,33 @@ describe Octokit::Client::Checks, :vcr do
       expect(annotations.count).to eq(1)
       expect(annotations[0].path).to eq(@path)
     end
+
+    it "paginates the results" do
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      annotations = @client.check_run_annotations(
+        @test_repo,
+        @check_run_id,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(annotations).to be_a(Array)
+      expect(annotations.count).to eq(1)
+    end
+
+    it "auto-paginates the results" do
+      @client.auto_paginate = true
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      annotations = @client.check_run_annotations(
+        @test_repo,
+        @check_run_id,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(annotations).to be_a(Array)
+      expect(annotations.count).to eq(2)
+    end
   end
 
   describe ".check_suite" do

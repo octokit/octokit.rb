@@ -113,7 +113,7 @@ module Octokit
       #   annotations[0].path # => "README.md"
       #   annotations[0].message # => "Looks good!"
       def check_run_annotations(repo, id, options = {})
-        get "#{Repository.path repo}/check-runs/#{id}/annotations", options
+        paginate "#{Repository.path repo}/check-runs/#{id}/annotations", options
       end
 
       # Methods for Check Suites
