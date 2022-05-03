@@ -311,6 +311,33 @@ describe Octokit::Client::Checks, :vcr do
       expect(result.check_suites.count).to eq(1)
       expect(result.check_suites[0].id).to eq(@check_suite_id)
     end
+
+    it "paginates the results" do
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.check_suites_for_ref(
+        @test_repo,
+        @commit,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(1)
+      expect(result.check_suites.count).to eq(1)
+    end
+
+    it "auto-paginates the results" do
+      @client.auto_paginate = true
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.check_suites_for_ref(
+        @test_repo,
+        @commit,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(2)
+      expect(result.check_suites.count).to eq(2)
+    end
   end
 
   describe ".set_check_suite_preferences" do
