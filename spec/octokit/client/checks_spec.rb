@@ -148,6 +148,33 @@ describe Octokit::Client::Checks, :vcr do
       expect(result.check_runs.count).to eq(1)
       expect(result.check_runs[0].id).to eq(@check_run_id)
     end
+
+    it "paginates the results" do
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.check_runs_for_ref(
+        @test_repo,
+        @commit,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(1)
+      expect(result.check_runs.count).to eq(1)
+    end
+
+    it "auto-paginates the results" do
+      @client.auto_paginate = true
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.check_runs_for_ref(
+        @test_repo,
+        @commit,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(2)
+      expect(result.check_runs.count).to eq(2)
+    end
   end
 
   describe ".check_runs_for_check_suite" do
