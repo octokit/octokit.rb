@@ -10,23 +10,25 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
 ## Table of Contents
 
 1. [Philosophy](#philosophy)
-2. [Quick start](#quick-start)
+2. [Installation](#quick-start)
 3. [Making requests](#making-requests)
+   1. [Additional Query Parameters](#additional-query-parameters)
 4. [Consuming resources](#consuming-resources)
 5. [Accessing HTTP responses](#accessing-http-responses)
-6. [Authentication](#authentication)
+6. [Handling errors](#handling-errors)
+7. [Authentication](#authentication)
    1. [Basic Authentication](#basic-authentication)
    2. [OAuth access tokens](#oauth-access-tokens)
    3. [Two-Factor Authentication](#two-factor-authentication)
    4. [Using a .netrc file](#using-a-netrc-file)
    5. [Application authentication](#application-authentication)
-7. [Pagination](#pagination)
+8. [Pagination](#pagination)
    1. [Auto pagination](#auto-pagination)
-8. [Working with GitHub Enterprise](#working-with-github-enterprise)
+9. [Working with GitHub Enterprise](#working-with-github-enterprise)
    1. [Interacting with the GitHub.com APIs in GitHub Enterprise](#interacting-with-the-githubcom-apis-in-github-enterprise)
    2. [Interacting with the GitHub Enterprise Admin APIs](#interacting-with-the-github-enterprise-admin-apis)
    3. [Interacting with the GitHub Enterprise Management Console APIs](#interacting-with-the-github-enterprise-management-console-apis)
-9. [SSL Connection Errors](#ssl-connection-errors)
+   4. [SSL Connection Errors](#ssl-connection-errors)
 10. [Configuration and defaults](#configuration-and-defaults)
     1. [Configuring module defaults](#configuring-module-defaults)
     2. [Using ENV variables](#using-env-variables)
@@ -66,7 +68,7 @@ client.readme 'al3x/sovereign', :accept => 'application/vnd.github.html'
 [wrappers]: http://wynnnetherland.com/journal/what-makes-a-good-api-wrapper
 [github-api]: https://developer.github.com/v3/
 
-## Quick start
+## Installation
 
 Install via Rubygems
 
@@ -80,7 +82,7 @@ Access the library in Ruby:
 
     require 'octokit'
 
-### Making requests
+## Making requests
 
 [API methods][] are available as client instance methods.
 
@@ -95,7 +97,7 @@ client = Octokit::Client.new(:access_token => 'personal_access_token')
 client.user
 ```
 
-### Additional Query Parameters
+### Additional query parameters
 
 When passing additional parameters to GET based request use the following syntax:
 
@@ -111,7 +113,7 @@ When passing additional parameters to GET based request use the following syntax
 
 [api methods]: http://octokit.github.io/octokit.rb/method_list.html
 
-### Consuming resources
+## Consuming resources
 
 Most methods return a `Resource` object which provides dot notation and `[]`
 access for fields returned in the API response.
@@ -134,7 +136,7 @@ user.rels[:gists].href
 **Note:** URL fields are culled into a separate `.rels` collection for easier
 [Hypermedia](#hypermedia-agent) support.
 
-### Accessing HTTP responses
+## Accessing HTTP responses
 
 While most methods return a `Resource` object or a Boolean, sometimes you may
 need access to the raw HTTP response headers. You can access the last HTTP
@@ -145,6 +147,23 @@ user      = client.user 'andrewpthorp'
 response  = client.last_response
 etag      = response.headers[:etag]
 ```
+
+## Handling errors
+
+When the API returns an error response, Octokit will raise a Ruby exception.
+
+A range of different exceptions can be raised depending on the error returned
+by the API - for example:
+
+* A `400 Bad Request` response will lead to an `Octokit::BadRequest` error 
+* A `403 Forbidden` error with a "rate limited exceeded" message will lead
+  to a `Octokit::TooManyRequests` error
+
+All of the different exception classes inherit from `Octokit::Error` and
+expose the `#response_status`, `#response_headers` and `#response_body`.
+For validation errors, `#errors` will return an `Array` of `Hash`es
+with the detailed information
+[returned by the API](https://docs.github.com/en/rest/overview/resources-in-the-rest-api#client-errors).
 
 ## Authentication
 
@@ -588,7 +607,9 @@ stack = Faraday::RackBuilder.new do |builder|
   builder.use Octokit::Middleware::FollowRedirects
   builder.use Octokit::Response::RaiseError
   builder.use Octokit::Response::FeedParser
-  builder.response :logger
+  builder.response :logger do |logger|
+    logger.filter(/(Authorization: "(token|Bearer) )(\w+)/, '\1[REMOVED]')
+  end
   builder.adapter Faraday.default_adapter
 end
 Octokit.middleware = stack
