@@ -68,6 +68,8 @@ module Octokit
     def self.error_for_403(body)
       if body =~ /rate limit exceeded/i
         Octokit::TooManyRequests
+      elsif body =~ /exceeded a secondary rate limit/i
+        Octokit::TooManyRequests
       elsif body =~ /login attempts exceeded/i
         Octokit::TooManyLoginAttempts
       elsif body =~ /returns blobs up to [0-9]+ MB/i
