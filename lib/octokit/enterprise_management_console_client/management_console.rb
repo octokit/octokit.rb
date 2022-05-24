@@ -11,7 +11,7 @@ module Octokit
       # @param license [String] The path to your .ghl license file.
       # @param settings [Hash] A hash configuration of the initial settings.
       #
-      # @see http: //git.io/j5NT
+      # @see https://docs.github.com/en/enterprise-server@3.4/rest/enterprise-admin/management-console#create-a-github-license
       # @return nil
       def upload_license(license, settings = nil)
         conn = faraday_configuration
@@ -156,7 +156,7 @@ module Octokit
     end
 
     # We fall back to raw Faraday for handling the licenses because I'm suspicious
-    # that Sawyer isn't handling binary POSTs correctly: http://git.io/jMir
+    # that Sawyer isn't handling binary POSTs correctly: https://github.com/lostisland/sawyer/blob/03fca4c020f465ec42856d0486ec3991859b0aed/lib/sawyer/agent.rb#L85
     def faraday_configuration
       @faraday_configuration ||= Faraday.new(:url => @management_console_endpoint) do |http|
         http.headers[:user_agent] = user_agent
