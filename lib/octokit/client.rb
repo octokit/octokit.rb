@@ -2,7 +2,6 @@ require 'octokit/connection'
 require 'octokit/warnable'
 require 'octokit/arguments'
 require 'octokit/repo_arguments'
-require 'octokit/configurable'
 require 'octokit/authentication'
 require 'octokit/gist'
 require 'octokit/rate_limit'
@@ -238,11 +237,11 @@ module Octokit
       conn_opts[:ssl] = { :verify_mode => @ssl_verify_mode } if @ssl_verify_mode
       conn = Faraday.new(conn_opts) do |http|
         if basic_authenticated?
-          http.basic_auth(@login, @password)
+          http.request :basic_auth, @login, @password
         elsif token_authenticated?
-          http.authorization 'token', @access_token
+          http.request :authorization, 'token', @access_token
         elsif bearer_authenticated?
-          http.authorization 'Bearer', @bearer_token
+          http.request :authorization, 'Bearer', @bearer_token
         end
         http.headers['accept'] = options[:accept] if options.key?(:accept)
       end

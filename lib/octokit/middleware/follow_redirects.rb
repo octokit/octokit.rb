@@ -86,7 +86,10 @@ module Octokit
         original_url = env[:url]
         env[:url] += safe_escape(response["location"])
         unless same_host?(original_url, env[:url])
-          env[:request_headers].delete("Authorization")
+          # HACK: Faraday’s Authorization middlewares don’t touch the request if the `Authorization` header is set.
+          #       This is a workaround to drop authentication info.
+          #       See https://github.com/octokit/octokit.rb/pull/1359#issuecomment-925609697
+          env[:request_headers]["Authorization"] = "dummy"
         end
 
         if convert_to_get?(response)

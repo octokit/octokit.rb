@@ -599,7 +599,7 @@ describe Octokit::Client do
 
       assert_requested original_request
       assert_requested(:get, "https://example.com/bar") { |req|
-        req.headers["Authorization"].nil?
+        req.headers["Authorization"] == "dummy"
       }
     end
 
