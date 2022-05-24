@@ -107,13 +107,13 @@ module Octokit
         http.headers[:content_type] = "application/json"
         http.headers[:user_agent] = user_agent
         if basic_authenticated?
-          http.basic_auth(@login, @password)
+          http.request :basic_auth, @login, @password
         elsif token_authenticated?
-          http.authorization 'token', @access_token
+          http.request :authorization, 'token', @access_token
         elsif bearer_authenticated?
-          http.authorization 'Bearer', @bearer_token
+          http.request :authorization, 'Bearer', @bearer_token
         elsif application_authenticated?
-          http.basic_auth(@client_id, @client_secret)
+          http.request :basic_auth, @client_id, @client_secret
         end
       end
     end
@@ -176,7 +176,7 @@ module Octokit
         :links_parser => Sawyer::LinkParsers::Simple.new
       }
       conn_opts = @connection_options
-      conn_opts[:builder] = @middleware if @middleware
+      conn_opts[:builder] = @middleware.dup if @middleware
       conn_opts[:proxy] = @proxy if @proxy
       if conn_opts[:ssl].nil?
         conn_opts[:ssl] = { :verify_mode => @ssl_verify_mode } if @ssl_verify_mode
