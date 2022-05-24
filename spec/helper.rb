@@ -1,11 +1,5 @@
 if RUBY_ENGINE == 'ruby'
   require 'simplecov'
-  require 'coveralls'
-
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [
-    SimpleCov::Formatter::HTMLFormatter,
-    Coveralls::SimpleCov::Formatter
-  ]
   SimpleCov.start
 end
 
@@ -15,8 +9,12 @@ require 'rspec'
 require 'webmock/rspec'
 require 'base64'
 require 'jwt'
+# latest version of pry-byebug is not compatible with Ruby 3.2.0
+if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('3.2.0')
+  require 'pry-byebug'
+end
 
-WebMock.disable_net_connect!(:allow => 'coveralls.io')
+WebMock.disable_net_connect!()
 
 RSpec.configure do |config|
   config.raise_errors_for_deprecations!
@@ -90,6 +88,11 @@ VCR.configure do |c|
   c.define_cassette_placeholder("<GITHUB_TEST_INTEGRATION_INSTALLATION>") do
     test_github_integration_installation
   end
+  # This MUST belong to the app used for test_github_client_id and
+  # test_github_client_secret
+  c.define_cassette_placeholder("<GITHUB_TEST_OAUTH_TOKEN>") do
+    test_github_oauth_token
+  end
 
   c.before_http_request(:real?) do |request|
     next if request.headers['X-Vcr-Test-Repo-Setup']
@@ -118,12 +121,22 @@ VCR.configure do |c|
     !!request.headers['X-Vcr-Test-Repo-Setup']
   end
 
+  record_mode =
+    case
+    when ENV['GITHUB_CI']
+      :none
+    when ENV['OCTOKIT_TEST_VCR_RECORD']
+      :all
+    else
+      :once
+    end
+
   c.default_cassette_options = {
     :serialize_with             => :json,
     # TODO: Track down UTF-8 issue and remove
     :preserve_exact_body_bytes  => true,
     :decode_compressed_response => true,
-    :record                     => ENV['TRAVIS'] ? :none : :once
+    :record                     => record_mode
   }
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
@@ -214,6 +227,10 @@ end
 
 def test_github_integration_pem_key
   ENV.fetch 'OCTOKIT_TEST_INTEGRATION_PEM_KEY', "#{fixture_path}/fake_integration.private-key.pem"
+end
+
+def test_github_oauth_token
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_OAUTH_TOKEN', 'q' * 40
 end
 
 def stub_delete(url)

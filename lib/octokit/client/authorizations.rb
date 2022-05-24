@@ -59,7 +59,7 @@ module Octokit
       #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
       #  client.create_authorization({:idempotent => true, :client_id => 'xxxx', :client_secret => 'yyyy', :scopes => ["user"]})
       def create_authorization(options = {})
-        # Techincally we can omit scopes as GitHub has a default, however the
+        # Technically we can omit scopes as GitHub has a default, however the
         # API will reject us if we send a POST request with an empty body.
         options = options.dup
         if options.delete :idempotent
@@ -140,74 +140,6 @@ module Octokit
           sort
       end
 
-      # Check if a token is valid.
-      #
-      # Applications can check if a token is valid without rate limits.
-      #
-      # @param token [String] 40 character GitHub OAuth access token
-      #
-      # @return [Sawyer::Resource] A single authorization for the authenticated user
-      # @see https://developer.github.com/v3/oauth_authorizations/#check-an-authorization
-      # @example
-      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
-      #  client.check_application_authorization('deadbeef1234567890deadbeef987654321')
-      def check_application_authorization(token, options = {})
-        opts = options.dup
-        key    = opts.delete(:client_id)     || client_id
-        secret = opts.delete(:client_secret) || client_secret
-
-        as_app(key, secret) do |app_client|
-          app_client.get "applications/#{client_id}/tokens/#{token}", opts
-        end
-      end
-
-      # Reset a token
-      #
-      # Applications can reset a token without requiring a user to re-authorize.
-      #
-      # @param token [String] 40 character GitHub OAuth access token
-      #
-      # @return [Sawyer::Resource] A single authorization for the authenticated user
-      # @see https://developer.github.com/v3/oauth_authorizations/#reset-an-authorization
-      # @example
-      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
-      #  client.reset_application_authorization('deadbeef1234567890deadbeef987654321')
-      def reset_application_authorization(token, options = {})
-        opts = options.dup
-        key    = opts.delete(:client_id)     || client_id
-        secret = opts.delete(:client_secret) || client_secret
-
-        as_app(key, secret) do |app_client|
-          app_client.post "applications/#{client_id}/tokens/#{token}", opts
-        end
-      end
-
-      # Revoke a token
-      #
-      # Applications can revoke (delete) a token
-      #
-      # @param token [String] 40 character GitHub OAuth access token
-      #
-      # @return [Boolean] Result
-      # @see https://developer.github.com/v3/oauth_authorizations/#revoke-an-authorization-for-an-application
-      # @example
-      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
-      #  client.revoke_application_authorization('deadbeef1234567890deadbeef987654321')
-      def revoke_application_authorization(token, options = {})
-        opts = options.dup
-        key    = opts.delete(:client_id)     || client_id
-        secret = opts.delete(:client_secret) || client_secret
-
-        as_app(key, secret) do |app_client|
-          app_client.delete "applications/#{client_id}/tokens/#{token}", opts
-
-          app_client.last_response.status == 204
-        end
-      rescue Octokit::NotFound
-        false
-      end
-      alias :delete_application_authorization :revoke_application_authorization
-
       # Revoke all tokens for an app
       #
       # Applications can revoke all of their tokens in a single request
@@ -233,7 +165,7 @@ module Octokit
       def authorize_url(app_id = client_id, options = {})
         opts = options.dup
         if app_id.to_s.empty?
-          raise Octokit::ApplicationCredentialsRequired.new "client_id required"
+          raise Octokit::ApplicationCredentialsRequired, "client_id required"
         end
         authorize_url = opts.delete(:endpoint) || Octokit.web_endpoint
         authorize_url << "login/oauth/authorize?client_id=#{app_id}"

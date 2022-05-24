@@ -147,6 +147,14 @@ describe Octokit::Client::Organizations do
       end
     end # .team
 
+    describe ".team_by_name", :vcr do
+      it "returns a team found by name" do
+        team = @client.team_by_name(test_github_org, @team.slug)
+        expect(team.id).to eq(@team.id)
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}")
+      end
+    end # .team_by_name
+
     describe ".update_team", :vcr do
       it "updates a team" do
         @client.update_team(@team.id, :name => "API Jedi")
@@ -388,6 +396,14 @@ describe Octokit::Client::Organizations do
       assert_requested :delete, github_url("/orgs/#{test_github_org}/migrations/97/repos/api-playground/lock")
     end
   end # .migrations
+
+  describe ".billing_actions", :vcr do
+    it "returns github actions billing for organization" do
+      billing_actions = @client.billing_actions(test_github_org)
+      expect(billing_actions.total_minutes_used).to be_kind_of(Integer)
+      assert_requested :get, github_url("/orgs/#{test_github_org}/settings/billing/actions")
+    end
+  end
 
   private
 

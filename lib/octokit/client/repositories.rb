@@ -32,7 +32,7 @@ module Octokit
 
       # Edit a repository
       #
-      # @see https://developer.github.com/v3/repos/#edit
+      # @see https://developer.github.com/v3/repos/#update-a-repository
       # @param repo [String, Hash, Repository] A GitHub repository
       # @param options [Hash] Repository information to update
       # @option options [String] :name Name of the repo
@@ -41,11 +41,15 @@ module Octokit
       # @option options [String] :private `true` makes the repository private, and `false` makes it public.
       # @option options [String] :has_issues `true` enables issues for this repo, `false` disables issues.
       # @option options [String] :has_wiki `true` enables wiki for this repo, `false` disables wiki.
+      # @option options [Boolean] :is_template `true` makes the repository a template, `false` makes it not a template.
       # @option options [String] :has_downloads `true` enables downloads for this repo, `false` disables downloads.
       # @option options [String] :default_branch Update the default branch for this repository.
       # @return [Sawyer::Resource] Repository information
       def edit_repository(repo, options = {})
         repo = Repository.new(repo)
+        if options.include? :is_template
+          options = ensure_api_media_type(:template_repositories, options)
+        end
         options[:name] ||= repo.name
         patch "repos/#{repo}", options
       end
@@ -144,6 +148,7 @@ module Octokit
       # @option options [String] :private `true` makes the repository private, and `false` makes it public.
       # @option options [String] :has_issues `true` enables issues for this repo, `false` disables issues.
       # @option options [String] :has_wiki `true` enables wiki for this repo, `false` disables wiki.
+      # @option options [Boolean] :is_template `true` makes this repo available as a template repository, `false` to prevent it.
       # @option options [String] :has_downloads `true` enables downloads for this repo, `false` disables downloads.
       # @option options [String] :organization Short name for the org under which to create the repo.
       # @option options [Integer] :team_id The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization.
@@ -155,6 +160,9 @@ module Octokit
         opts = options.dup
         organization = opts.delete :organization
         opts.merge! :name => name
+        if opts.include? :is_template
+          opts = ensure_api_media_type(:template_repositories, opts)
+        end
 
         if organization.nil?
           post 'user/repos', opts
@@ -191,6 +199,22 @@ module Octokit
         post "#{Repository.path repo}/transfer", options.merge({ new_owner: new_owner })
       end
       alias :transfer_repo :transfer_repository
+
+      # Create a repository for a user or organization generated from a template repository
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub template repository
+      # @param name [String] Name of the new repo
+      # @option options [String] :owner Organization or user who the new repository will belong to.
+      # @option options [String] :description Description of the repo
+      # @option options [String] :private `true` makes the repository private, and `false` makes it public.
+      # @option options [Boolean] :include_all_branches `true` copies all branches from the template repository, `false` (default) makes it only copy the master branch.
+      # @return [Sawyer::Resource] Repository info for the new repository
+      def create_repository_from_template(repo, name, options = {})
+        options.merge! :name => name
+        options = ensure_api_media_type(:template_repositories, options)
+        post "#{Repository.path repo}/generate", options
+      end
+      alias :create_repo_from_template :create_repository_from_template
 
       # Hide a public repository
       #
@@ -405,7 +429,7 @@ module Octokit
       # @example List topics for octokit/octokit.rb
       #   Octokit.topics('octokit/octokit.rb')
       # @example List topics for octokit/octokit.rb
-      #   client.topics('octokit/octokit.rb')      
+      #   client.topics('octokit/octokit.rb')
       def topics(repo, options = {})
         opts = ensure_api_media_type(:topics, options)
         paginate "#{Repository.path repo}/topics", opts
@@ -562,14 +586,14 @@ module Octokit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository.
       # @param branch [String] Branch name
-      # @option options [Hash] :required_status_checks If not null, the following keys are required:  
-      #   <tt>:enforce_admins [boolean] Enforce required status checks for repository administrators.</tt>  
-      #   <tt>:strict [boolean] Require branches to be up to date before merging.</tt>  
-      #   <tt>:contexts [Array] The list of status checks to require in order to merge into this branch</tt>  
+      # @option options [Hash] :required_status_checks If not null, the following keys are required:
+      #   <tt>:enforce_admins [boolean] Enforce required status checks for repository administrators.</tt>
+      #   <tt>:strict [boolean] Require branches to be up to date before merging.</tt>
+      #   <tt>:contexts [Array] The list of status checks to require in order to merge into this branch</tt>
       #
       # @option options [Hash] :restrictions If not null, the following keys are required:
-      #   <tt>:users [Array] The list of user logins with push access</tt>  
-      #   <tt>:teams [Array] The list of team slugs with push access</tt>.  
+      #   <tt>:users [Array] The list of user logins with push access</tt>
+      #   <tt>:teams [Array] The list of team slugs with push access</tt>.
       #
       #   Teams and users restrictions are only available for organization-owned repositories.
       # @return [Sawyer::Resource] The protected branch
@@ -614,6 +638,24 @@ module Octokit
       def unprotect_branch(repo, branch, options = {})
         opts = ensure_api_media_type(:branch_protection, options)
         boolean_from_response :delete, "#{Repository.path repo}/branches/#{branch}/protection", opts
+      end
+
+      # Rename a single branch from a repository
+      #
+      # Requires authenticated client
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param branch [String] Current branch name
+      # @param new_name [String] New branch name
+      # @return [Sawyer::Resource] The renamed branch
+      # @see https://developer.github.com/v3/repos/#rename-a-branch
+      # @example
+      #   @client.rename_branch('octokit/octokit.rb', 'master', 'main')
+      def rename_branch(repo, branch, new_name, options = {})
+        params = {
+          new_name: new_name,
+        }
+        post "#{Repository.path repo}/branches/#{branch}/rename", params.merge(options)
       end
 
       # List users available for assigning to issues.
@@ -695,6 +737,62 @@ module Octokit
       #   @client.delete_subscription("octokit/octokit.rb")
       def delete_subscription(repo, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/subscription", options
+      end
+
+      # Create a repository dispatch event
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param event_type [String] A custom webhook event name.
+      # @option options [Hash] :client_payload payload with extra information
+      #   about the webhook event that your action or worklow may use.
+      #
+      # @return [Boolean] True if event was dispatched, false otherwise.
+      # @see https://developer.github.com/v3/repos/#create-a-repository-dispatch-event
+      def dispatch_event(repo, event_type, options = {})
+        boolean_from_response :post, "#{Repository.path repo}/dispatches", options.merge({ event_type: event_type })
+      end
+
+      # Check to see if vulnerability alerts are enabled for a repository
+      #
+      # The authenticated user must have admin access to the repository.
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @return [Boolean] True if vulnerability alerts are enabled, false otherwise.
+      # @see https://docs.github.com/en/rest/reference/repos#check-if-vulnerability-alerts-are-enabled-for-a-repository
+      #
+      # @example
+      #   @client.vulnerability_alerts_enabled?("octokit/octokit.rb")
+      def vulnerability_alerts_enabled?(repo, options = {})
+        opts = ensure_api_media_type(:vulnerability_alerts, options)
+        boolean_from_response(:get, "#{Repository.path repo}/vulnerability-alerts", opts)
+      end
+
+      # Enable vulnerability alerts for a repository
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param options [Hash]
+      #
+      # @return [Boolean] True if vulnerability alerts enabled, false otherwise.
+      # @see https://docs.github.com/en/rest/reference/repos#enable-vulnerability-alerts
+      # @example Enable vulnerability alerts for a repository
+      #   @client.enable_vulnerability_alerts("octokit/octokit.rb")
+      def enable_vulnerability_alerts(repo, options = {})
+        opts = ensure_api_media_type(:vulnerability_alerts, options)
+        boolean_from_response(:put, "#{Repository.path repo}/vulnerability-alerts", opts)
+      end
+
+      # Disable vulnerability alerts for a repository
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param options [Hash]
+      #
+      # @return [Boolean] True if vulnerability alerts disabled, false otherwise.
+      # @see https://docs.github.com/en/rest/reference/repos#disable-vulnerability-alerts
+      # @example Disable vulnerability alerts for a repository
+      #   @client.disable_vulnerability_alerts("octokit/octokit.rb")
+      def disable_vulnerability_alerts(repo, options = {})
+        opts = ensure_api_media_type(:vulnerability_alerts, options)
+        boolean_from_response(:delete, "#{Repository.path repo}/vulnerability-alerts", opts)
       end
     end
   end

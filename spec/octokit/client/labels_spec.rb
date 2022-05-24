@@ -18,38 +18,48 @@ describe Octokit::Client::Labels do
   describe ".label", :vcr do
     it "returns a single label" do
       label = @client.label("octokit/octokit.rb", "V3 Addition")
-      expect(label.name).to eq("V3 Addition")
+      expect(label.name).to eq("v3 addition")
       assert_requested :get, github_url("/repos/octokit/octokit.rb/labels/V3%20Addition")
+    end
+    it "returns a single label with URL characters" do
+      @client.delete_label!(@test_repo, 'url-chars?')
+      @client.add_label(@test_repo, 'url-chars?')
+      label = @client.label(@test_repo, 'url-chars?')
+      expect(label.name).to eq("url-chars?")
+      assert_requested :get, github_url("/repos/#{@test_repo}/labels/url-chars%3F")
     end
   end # .label
 
   describe ".add_label", :vcr do
     it "adds a label with a color" do
-      @client.delete_label!(@test_repo, 'test-label', {:color => 'ededed'})
+      @client.delete_label!(@test_repo, 'test-label')
       label = @client.add_label(@test_repo, "test-label", 'ededed')
       expect(label.color).to eq("ededed")
       assert_requested :post, github_url("/repos/#{@test_repo}/labels")
     end
     it "adds a label with default color" do
-      @client.delete_label!(@test_repo, 'test-label', {:color => 'ededed'})
+      @client.delete_label!(@test_repo, 'test-label')
       @client.add_label(@test_repo, "test-label")
       assert_requested :post, github_url("/repos/#{@test_repo}/labels")
     end
   end # .add_label
 
-  context "with label" do
-    before do
-      @client.delete_label!(@test_repo, 'test-label', {:color => 'ededed'})
-      @label = @client.add_label(@test_repo, "test-label", 'ededed')
-    end
+  describe ".update_label", :vcr do
+    it "updates a label with a new color" do
+      @client.delete_label!(@test_repo, 'test-label')
+      label = @client.add_label(@test_repo, 'test-label', 'ededed')
 
-    describe ".update_label", :vcr do
-      it "updates a label with a new color" do
-        @client.update_label(@test_repo, @label.name, {:color => 'ffdd33'})
-        assert_requested :patch, github_url("/repos/#{@test_repo}/labels/#{@label.name}")
-      end
-    end # .update_label
-  end # with label
+      @client.update_label(@test_repo, label.name, {:color => 'ffdd33'})
+      assert_requested :patch, github_url("/repos/#{@test_repo}/labels/test-label")
+    end
+    it "updates a label with URL characters with a new color" do
+      @client.delete_label!(@test_repo, 'url-chars?')
+      label = @client.add_label(@test_repo, 'url-chars?', 'ededed')
+
+      @client.update_label(@test_repo, label.name, {:color => 'ffdd33'})
+      assert_requested :patch, github_url("/repos/#{@test_repo}/labels/url-chars%3F")
+    end
+  end # .update_label
 
   context "with issue" do
     before do
@@ -73,8 +83,18 @@ describe Octokit::Client::Labels do
 
     describe ".remove_label", :vcr do
       it "removes a label from the specified issue" do
+        @client.add_labels_to_an_issue(@test_repo, @issue.number, ['bug'])
+
         @client.remove_label(@test_repo, @issue.number, 'bug')
         assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels/bug")
+      end
+      it "removes a label with URL characters from the specified issue" do
+        @client.delete_label!(@test_repo, 'url-chars?')
+        label = @client.add_label(@test_repo, 'url-chars?')
+        @client.add_labels_to_an_issue(@test_repo, @issue.number, ['url-chars?'])
+
+        @client.remove_label(@test_repo, @issue.number, label.name)
+        assert_requested :delete, github_url("/repos/#{@test_repo}/issues/#{@issue.number}/labels/url-chars%3F")
       end
     end # .remove_label
 
@@ -93,7 +113,7 @@ describe Octokit::Client::Labels do
     end # .replace_all_labels
   end # with issue
 
-  describe ".lables_for_milestone", :vcr do
+  describe ".labels_for_milestone", :vcr do
     it "returns all labels for a repository" do
       labels = @client.labels_for_milestone('octokit/octokit.rb', 2)
       expect(labels).to be_kind_of Array
@@ -102,10 +122,24 @@ describe Octokit::Client::Labels do
   end # .labels_for_milestone
 
   describe ".delete_label!", :vcr do
-    it "deletes a label from the repository" do
-      label = @client.add_label(@test_repo, "add label with space")
-      @client.delete_label!(@test_repo, label.name, {:color => 'ededed'})
-      assert_requested :delete, github_url("/repos/#{@test_repo}/labels/add%20label%20with%20space")
+    context "with label with spaces" do
+      before do
+        @label = @client.label(@test_repo, "good first issue")
+      end
+
+      after do
+        @client.add_label(@test_repo, @label.name, @label.color)
+      end
+
+      it "deletes a label from the repository" do
+        @client.delete_label!(@test_repo, @label.name)
+        assert_requested :delete, github_url("/repos/#{@test_repo}/labels/good%20first%20issue")
+      end
+    end
+
+    it "deletes a label with URL characters from the repository" do
+      @client.delete_label!(@test_repo, "url-chars?")
+      assert_requested :delete, github_url("/repos/#{@test_repo}/labels/url-chars%3F")
     end
   end # .delete_label!
 end

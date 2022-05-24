@@ -130,9 +130,9 @@ describe Octokit::Client do
           "zen.text" => { :content => "Keep it logically awesome." }
         }
       }
-
-      Octokit.client.post "/gists", new_gist
-      expect(Octokit.client.last_response.status).to eq(201)
+      client = Octokit::Client.new
+      client.post "/gists", new_gist
+      expect(client.last_response.status).to eq(201)
     end
   end
 
@@ -293,11 +293,14 @@ describe Octokit::Client do
 
     describe "when application authenticated" do
       it "makes authenticated calls" do
-        client = Octokit.client
-        client.client_id     = '97b4937b385eb63d1f46'
-        client.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+        client = Octokit::Client.new(
+          client_id: '97b4937b385eb63d1f46',
+          client_secret: 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
+        )
 
-        root_request = stub_get("/?client_id=97b4937b385eb63d1f46&client_secret=d255197b4937b385eb63d1f4677e3ffee61fbaea")
+        root_request = stub_request(:get, github_url("/"))
+          .with(basic_auth: ["97b4937b385eb63d1f46", "d255197b4937b385eb63d1f4677e3ffee61fbaea"])
+
         client.get("/")
         assert_requested root_request
       end
@@ -312,8 +315,9 @@ describe Octokit::Client do
       expect(Octokit.client.agent).to respond_to :start
     end
     it "caches the agent" do
-      agent = Octokit.client.agent
-      expect(agent.object_id).to eq(Octokit.client.agent.object_id)
+      client = Octokit::Client.new
+      agent = client.agent
+      expect(agent.object_id).to eq(client.agent.object_id)
     end
   end # .agent
 
@@ -327,7 +331,8 @@ describe Octokit::Client do
     end
 
     it "passes app creds in the query string" do
-      root_request = stub_get("/?client_id=97b4937b385eb63d1f46&client_secret=d255197b4937b385eb63d1f4677e3ffee61fbaea")
+      root_request = stub_request(:get, github_url("/"))
+          .with(basic_auth: ['97b4937b385eb63d1f46', 'd255197b4937b385eb63d1f4677e3ffee61fbaea'])
       client = Octokit.client
       client.client_id     = '97b4937b385eb63d1f46'
       client.client_secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
@@ -430,6 +435,7 @@ describe Octokit::Client do
         :connection_options => {:ssl => {:verify => true}}
       )
       conn = client.send(:agent).instance_variable_get(:"@conn")
+      expect(conn.ssl[:verify]).to eq(true)
       expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_PEER)
     end
     it "sets an ssl verify => false" do
@@ -437,6 +443,7 @@ describe Octokit::Client do
         :connection_options => {:ssl => {:verify => false}}
       )
       conn = client.send(:agent).instance_variable_get(:"@conn")
+      expect(conn.ssl[:verify]).to eq(false)
       expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_NONE)
     end
     it "sets an ssl verify mode" do
@@ -464,7 +471,7 @@ describe Octokit::Client do
       client = Octokit::Client.new
       client.client_id     = key = '97b4937b385eb63d1f46'
       client.client_secret = secret = 'd255197b4937b385eb63d1f4677e3ffee61fbaea'
-      root_request = stub_get "/?client_id=#{key}&client_secret=#{secret}"
+      root_request = stub_request(:get, github_url("/")).with(basic_auth: [key, secret])
 
       client.get("/")
       assert_requested root_request
@@ -592,7 +599,7 @@ describe Octokit::Client do
 
       assert_requested original_request
       assert_requested(:get, "https://example.com/bar") { |req|
-        req.headers["Authorization"].nil?
+        req.headers["Authorization"] == "dummy"
       }
     end
 
@@ -835,6 +842,14 @@ describe Octokit::Client do
         :body => {:message => "API rate limit exceeded"}.to_json
       expect { Octokit.get('/users/mojomobo') }.to raise_error Octokit::TooManyRequests
 
+      stub_get('/users/mojomobo').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "You have exceeded a secondary rate limit."}.to_json
+      expect { Octokit.get('/users/mojomobo') }.to raise_error Octokit::TooManyRequests
+
       stub_get('/user').to_return \
         :status => 403,
         :headers => {
@@ -891,12 +906,73 @@ describe Octokit::Client do
         :body => {:message => "The repository has been disabled due to a billing issue with the owner account."}.to_json
       expect { Octokit.post("/user/repos") }.to raise_error Octokit::BillingIssue
 
+      stub_get('/teams/8675309').to_return \
+        :status => 403,
+        :headers => {
+            :content_type => "application/json",
+        },
+        :body => {:message => "Resource protected by organization SAML enforcement. You must grant your personal token access to this organization."}.to_json
+      expect { Octokit.get("/teams/8675309") }.to raise_error Octokit::SAMLProtected
+
       stub_get('/torrentz').to_return \
         :status => 451,
         :headers => {
           :content_type => "application/json",
         }
-        expect { Octokit.get('/torrentz') }.to raise_error Octokit::UnavailableForLegalReasons
+      expect { Octokit.get('/torrentz') }.to raise_error Octokit::UnavailableForLegalReasons
+
+      stub_post('/installation/repositories').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "This installation owned by octocat suspended your access at 2020-08-28T16:32:59Z."}.to_json
+      expect { Octokit.post("/installation/repositories") }.to raise_error Octokit::InstallationSuspended
+
+      stub_post('/app/installations/12345/access_tokens').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "This installation has been suspended // See: https://docs.github.com/rest/reference/apps#create-an-installation-access-token-for-an-app"}.to_json
+      expect { Octokit.post("/app/installations/12345/access_tokens") }.to raise_error Octokit::InstallationSuspended
+    end
+
+    it "knows the difference between different kinds of unprocessable entity" do
+      stub_get('/some/admin/stuffs').to_return(:status => 422)
+      expect { Octokit.get('/some/admin/stuffs') }.to raise_error Octokit::UnprocessableEntity
+
+      stub_post('/repositories/123456789/pulls/1/comments').to_return \
+        :status => 422,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {
+          :message => "Validation Failed",
+          :errors => [
+            "end_commit_oid is not part of the pull request",
+            :resource => "PullRequestReviewComment",
+            :field    => "end_commit_oid",
+            :code     => "custom"
+          ]
+        }.to_json
+      expect { Octokit.post('/repositories/123456789/pulls/1/comments') }.to raise_error Octokit::CommitIsNotPartOfPullRequest
+
+      stub_post('/repositories/123456789/pulls/21/comments').to_return \
+        :status => 422,
+        :headers => {
+          :content_type => 'application/json',
+        },
+        :body => {
+          :message => 'Validation Failed',
+          :errors => [
+            :message  => 'path diff too large',
+            :resource => 'PullRequestReviewComment',
+            :field    => 'path',
+            :code     => 'custom'
+          ]
+        }.to_json
+      expect { Octokit.post('/repositories/123456789/pulls/21/comments') }.to raise_error Octokit::PathDiffTooLarge
     end
 
     it "raises on unknown client errors" do
@@ -917,6 +993,22 @@ describe Octokit::Client do
         },
         :body => {:message => "Bandwidth exceeded"}.to_json
       expect { Octokit.get('/user') }.to raise_error Octokit::ServerError
+    end
+
+    it "resets last_response on errors" do
+      stub_get('/booya').to_return(:status => 200)
+      stub_get('/user').to_return \
+        :status => 509,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "Bandwidth exceeded"}.to_json
+
+      client = Octokit.client
+      client.get('/booya')
+      expect(client.last_response).to_not be_nil
+      expect { client.get('/user') }.to raise_error Octokit::ServerError
+      expect(client.last_response).to be_nil
     end
 
     it "handles documentation URLs in error messages" do
@@ -1021,6 +1113,86 @@ describe Octokit::Client do
       Octokit.get('/authorizations/1')
     rescue Octokit::OneTimePasswordRequired => otp_error
       expect(otp_error.password_delivery).to eql 'app'
+    end
+  end
+
+  it "returns empty context when non rate limit error occurs" do
+    stub_get('/user').to_return \
+        :status => 509,
+        :headers => {
+            :content_type => "application/json",
+        },
+        :body => {:message => "Bandwidth exceeded"}.to_json
+    begin
+      Octokit.get('/user')
+    rescue Octokit::ServerError => server_error
+      expect(server_error.context).to be_nil
+    end
+  end
+
+  it "returns context with default data when rate limit error occurs but headers are missing" do
+    stub_get('/user').to_return \
+        :status => 403,
+        :headers => {
+            :content_type => "application/json",
+        },
+        :body => {:message => "rate limit exceeded"}.to_json
+    begin
+      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return({})
+      Octokit.get('/user')
+    rescue Octokit::TooManyRequests => rate_limit_error
+      expect(rate_limit_error.context).to be_an_instance_of(Octokit::RateLimit)
+    end
+  end
+
+  it "returns context when non rate limit error occurs but rate limit headers are present" do
+    stub_get('/user').to_return \
+        :status => 403,
+        :headers => {
+            'content_type' => 'application/json'
+        },
+        :body => {:message => "rate limit exceeded"}.to_json
+    begin
+      rate_limit_headers = {'X-RateLimit-Limit' => 60, 'X-RateLimit-Remaining' => 42, 'X-RateLimit-Reset' => (Time.now + 60).to_i}
+      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return(rate_limit_headers)
+      Octokit.get('/user')
+    rescue Octokit::TooManyRequests => rate_limit_error
+      expect(rate_limit_error.context).to be_an_instance_of(Octokit::RateLimit)
+      expect(rate_limit_error.context.limit).to eql 60
+      expect(rate_limit_error.context.remaining).to eql 42
+    end
+  end
+
+  it "returns context with default data when rate limit error occurs but headers are missing" do
+    stub_get('/user').to_return \
+        :status => 403,
+        :headers => {
+            :content_type => "application/json",
+        },
+        :body => {:message => "You have exceeded a secondary rate limit."}.to_json
+    begin
+      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return({})
+      Octokit.get('/user')
+    rescue Octokit::TooManyRequests => rate_limit_error
+      expect(rate_limit_error.context).to be_an_instance_of(Octokit::RateLimit)
+    end
+  end
+
+  it "returns context when non rate limit error occurs but rate limit headers are present" do
+    stub_get('/user').to_return \
+        :status => 403,
+        :headers => {
+            'content_type' => 'application/json'
+        },
+        :body => {:message => "You have exceeded a secondary rate limit."}.to_json
+    begin
+      rate_limit_headers = {'X-RateLimit-Limit' => 60, 'X-RateLimit-Remaining' => 42, 'X-RateLimit-Reset' => (Time.now + 60).to_i}
+      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return(rate_limit_headers)
+      Octokit.get('/user')
+    rescue Octokit::TooManyRequests => rate_limit_error
+      expect(rate_limit_error.context).to be_an_instance_of(Octokit::RateLimit)
+      expect(rate_limit_error.context.limit).to eql 60
+      expect(rate_limit_error.context.remaining).to eql 42
     end
   end
 

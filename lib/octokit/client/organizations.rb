@@ -236,7 +236,7 @@ module Octokit
       # @example
       #   @client.outside_collaborators('github')
       def outside_collaborators(org, options={})
-        get "#{Organization.path org}/outside_collaborators", options
+        paginate "#{Organization.path org}/outside_collaborators", options
       end
 
       # Remove outside collaborator from an organization
@@ -322,6 +322,20 @@ module Octokit
       #   @client.team(100000)
       def team(team_id, options = {})
         get "teams/#{team_id}", options
+      end
+
+      # Get team by name and org
+      #
+      # Requires authenticated organization member.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param team_slug [String] Team slug.
+      # @return [Sawyer::Resource] Hash representing team.
+      # @see https://developer.github.com/v3/teams/#get-team-by-name
+      # @example
+      #   @client.team_by_name("github", "justice-league")
+      def team_by_name(org, team_slug, options = {})
+        get "#{Organization.path(org)}/teams/#{team_slug}", options
       end
 
       # List child teams
@@ -676,7 +690,7 @@ module Octokit
 
       # Edit an organization membership
       #
-      # @param org [String] Organization GitHub login.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @option options [String] :role  The role of the user in the organization.
       # @option options [String] :state The state that the membership should be in.
       # @option options [String] :user  The login of the user, otherwise authenticated user.
@@ -687,7 +701,7 @@ module Octokit
         options = options.dup
         if user = options.delete(:user)
           options.delete(:state)
-          put "orgs/#{org}/memberships/#{user}", options
+          put "#{Organization.path(org)}/memberships/#{user}", options
         else
           options.delete(:role)
           patch "user/memberships/orgs/#{org}", options
@@ -697,13 +711,13 @@ module Octokit
 
       # Remove an organization membership
       #
-      # @param org [String] Organization GitHub login.
+      # @param org [String, Integer] Organization GitHub login or id.
       # @return [Boolean] Success
       # @see https://developer.github.com/v3/orgs/members/#remove-organization-membership
       def remove_organization_membership(org, options = {})
         options = options.dup
         user = options.delete(:user)
-        user && boolean_from_response(:delete, "orgs/#{org}/memberships/#{user}", options)
+        user && boolean_from_response(:delete, "#{Organization.path(org)}/memberships/#{user}", options)
       end
       alias :remove_org_membership :remove_organization_membership
 
@@ -717,11 +731,11 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing the new migration.
       # @example
       #   @client.start_migration('github', ['github/dotfiles'])
-      # @see https://developer.github.com/v3/orgs/migrations/#start-a-migration
+      # @see https://docs.github.com/en/rest/reference/migrations#start-an-organization-migration
       def start_migration(org, repositories, options = {})
         options = ensure_api_media_type(:migrations, options)
         options[:repositories] = repositories
-        post "orgs/#{org}/migrations", options
+        post "#{Organization.path(org)}/migrations", options
       end
 
       # Lists the most recent migrations.
@@ -730,10 +744,10 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @return [Array<Sawyer::Resource>] Array of migration resources.
-      # @see https://developer.github.com/v3/orgs/migrations/#get-a-list-of-migrations
+      # @see https://docs.github.com/en/rest/reference/migrations#list-organization-migrations
       def migrations(org, options = {})
         options = ensure_api_media_type(:migrations, options)
-        paginate "orgs/#{org}/migrations", options
+        paginate "#{Organization.path(org)}/migrations", options
       end
 
       # Fetches the status of a migration.
@@ -742,10 +756,10 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] ID number of the migration.
-      # @see https://developer.github.com/v3/orgs/migrations/#get-the-status-of-a-migration
+      # @see https://docs.github.com/en/rest/reference/migrations#get-an-organization-migration-status
       def migration_status(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
-        get "orgs/#{org}/migrations/#{id}", options
+        get "#{Organization.path(org)}/migrations/#{id}", options
       end
 
       # Fetches the URL to a migration archive.
@@ -754,10 +768,10 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] ID number of the migration.
-      # @see https://developer.github.com/v3/orgs/migrations/#download-a-migration-archive
+      # @see https://docs.github.com/en/rest/reference/migrations#download-an-organization-migration-archive
       def migration_archive_url(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
-        url = "orgs/#{org}/migrations/#{id}/archive"
+        url = "#{Organization.path(org)}/migrations/#{id}/archive"
 
         response = client_without_redirects(options).get(url)
         response.headers['location']
@@ -769,10 +783,10 @@ module Octokit
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] ID number of the migration.
-      # @see https://developer.github.com/v3/orgs/migrations/#delete-a-migration-archive
+      # @see https://docs.github.com/en/rest/reference/migrations#delete-an-organization-migration-archive
       def delete_migration_archive(org, id, options = {})
         options = ensure_api_media_type(:migrations, options)
-        delete "orgs/#{org}/migrations/#{id}/archive", options
+        delete "#{Organization.path(org)}/migrations/#{id}/archive", options
       end
 
       # Unlock a previous migration archive.
@@ -782,10 +796,24 @@ module Octokit
       # @param org [String, Integer] Organization GitHub login or id.
       # @param id [Integer] ID number of the migration.
       # @param repo [String] Name of the repository.
-      # @see https://developer.github.com/v3/orgs/migrations/#unlock-a-repository
+      # @see https://docs.github.com/en/rest/reference/migrations#unlock-an-organization-repository
       def unlock_repository(org, id, repo, options = {})
         options = ensure_api_media_type(:migrations, options)
-        delete "orgs/#{org}/migrations/#{id}/repos/#{repo}/lock", options
+        delete "#{Organization.path(org)}/migrations/#{id}/repos/#{repo}/lock", options
+      end
+
+      # Get GitHub Actions billing for an organization
+      # 
+      # Requires authenticated organization owner.
+      # 
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @return [Sawyer::Resource] Hash representing GitHub Actions billing for an organization.
+      # @see https://docs.github.com/en/rest/reference/billing#get-github-actions-billing-for-an-organization
+      # 
+      # @example
+      #   @client.billing_actions('github')
+      def billing_actions(org)
+        get "#{Organization.path(org)}/settings/billing/actions"
       end
     end
   end

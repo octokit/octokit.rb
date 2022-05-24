@@ -1,7 +1,7 @@
 module Octokit
   # Custom error class for rescuing from all GitHub errors
   class Error < StandardError
-
+    attr_reader :context
     # Returns the appropriate Octokit::Error subclass based
     # on status and response message
     #
@@ -21,7 +21,7 @@ module Octokit
                   when 406      then Octokit::NotAcceptable
                   when 409      then Octokit::Conflict
                   when 415      then Octokit::UnsupportedMediaType
-                  when 422      then Octokit::UnprocessableEntity
+                  when 422      then error_for_422(body)
                   when 451      then Octokit::UnavailableForLegalReasons
                   when 400..499 then Octokit::ClientError
                   when 500      then Octokit::InternalServerError
@@ -34,9 +34,16 @@ module Octokit
       end
     end
 
+     def build_error_context
+       if RATE_LIMITED_ERRORS.include?(self.class)
+         @context = Octokit::RateLimit.from_response(@response)
+       end
+     end
+
     def initialize(response=nil)
       @response = response
       super(build_error_message)
+      build_error_context
     end
 
     # Documentation URL returned by the API for some errors
@@ -61,6 +68,8 @@ module Octokit
     def self.error_for_403(body)
       if body =~ /rate limit exceeded/i
         Octokit::TooManyRequests
+      elsif body =~ /exceeded a secondary rate limit/i
+        Octokit::TooManyRequests
       elsif body =~ /login attempts exceeded/i
         Octokit::TooManyLoginAttempts
       elsif body =~ /returns blobs up to [0-9]+ MB/i
@@ -75,6 +84,10 @@ module Octokit
         Octokit::AccountSuspended
       elsif body =~ /billing issue/i
         Octokit::BillingIssue
+      elsif body =~ /Resource protected by organization SAML enforcement/i
+        Octokit::SAMLProtected
+      elsif body =~ /suspended your access|This installation has been suspended/i
+        Octokit::InstallationSuspended
       else
         Octokit::Forbidden
       end
@@ -87,6 +100,18 @@ module Octokit
         Octokit::BranchNotProtected
       else
         Octokit::NotFound
+      end
+    end
+
+    # Return most appropriate error for 422 HTTP status code
+    # @private
+    def self.error_for_422(body)
+      if body =~ /PullRequestReviewComment/i && body =~ /(commit_id|end_commit_oid) is not part of the pull request/i
+        Octokit::CommitIsNotPartOfPullRequest
+      elsif body =~ /Path diff too large/i
+        Octokit::PathDiffTooLarge
+      else
+        Octokit::UnprocessableEntity
       end
     end
 
@@ -259,6 +284,14 @@ module Octokit
   # and body matches 'billing issue'
   class BillingIssue < Forbidden; end
 
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'Resource protected by organization SAML enforcement'
+  class SAMLProtected < Forbidden; end
+
+  # Raised when GitHub returns a 403 HTTP status code
+  # and body matches 'suspended your access'
+  class InstallationSuspended < Forbidden; end
+
   # Raised when GitHub returns a 404 HTTP status code
   class NotFound < ClientError; end
 
@@ -280,6 +313,14 @@ module Octokit
 
   # Raised when GitHub returns a 422 HTTP status code
   class UnprocessableEntity < ClientError; end
+
+  # Raised when GitHub returns a 422 HTTP status code
+  # and body matches 'PullRequestReviewComment' and 'commit_id (or end_commit_oid) is not part of the pull request'
+  class CommitIsNotPartOfPullRequest < UnprocessableEntity; end
+
+  # Raised when GitHub returns a 422 HTTP status code and body matches 'Path diff too large'.
+  # It could occur when attempting to post review comments on a "too large" file.
+  class PathDiffTooLarge < UnprocessableEntity; end
 
   # Raised when GitHub returns a 451 HTTP status code
   class UnavailableForLegalReasons < ClientError; end
@@ -309,4 +350,5 @@ module Octokit
   # Raised when a repository is created with an invalid format
   class InvalidRepository < ArgumentError; end
 
+  RATE_LIMITED_ERRORS = [Octokit::TooManyRequests, Octokit::AbuseDetected]
 end

@@ -232,11 +232,25 @@ describe Octokit::Client::Users do
   describe ".exchange_code_for_token" do
     context "with application authenticated client" do
       it "returns the access_token" do
-        client = Octokit::Client.new({client_id: '123', client_secret: '345'})
-        request = stub_post("https://github.com/login/oauth/access_token?client_id=123&client_secret=345").
-          with(:body => {:code=>"code", :client_id=>"123", :client_secret=>"345"}.to_json).
-          to_return(json_response("web_flow_token.json"))
+        request_body = {
+          code: "code",
+          client_id: "123",
+          client_secret: "345"
+        }
+
+        client = Octokit::Client.new(
+          client_id: request_body[:client_id],
+          client_secret: request_body[:client_secret]
+        )
+
+        request = stub_post("https://github.com/login/oauth/access_token").
+          with(
+            basic_auth: [request_body[:client_id], request_body[:client_secret]],
+            body: request_body.to_json
+          ).to_return(json_response("web_flow_token.json"))
+
         response = client.exchange_code_for_token("code")
+
         expect(response.access_token).to eq "this_be_ye_token/use_it_wisely"
         assert_requested request
       end
@@ -254,4 +268,54 @@ describe Octokit::Client::Users do
       end
     end # with credentials passed as parameters
   end # .exchange_code_for_token
+
+  describe ".migrations", :vcr do
+    it "starts a migration for a user" do
+      result = @client.start_user_migration(["snakeoil-ceo/the-insecure"], accept: preview_header, lock_repositories: true)
+      expect(result).to be_kind_of Sawyer::Resource
+      assert_requested :post, github_url("/user/migrations")
+    end
+
+    it "lists migrations for a user" do
+      result = @client.user_migrations(accept: preview_header)
+      expect(result).to be_kind_of Array
+      assert_requested :get, github_url("/user/migrations")
+    end
+
+    it "gets the status of a user migration" do
+      result = @client.user_migration_status(400195, accept: preview_header)
+      expect(result).to be_kind_of Sawyer::Resource
+      assert_requested :get, github_url("/user/migrations/400195")
+    end
+
+    it "lists repositories for a user migration" do
+      result = @client.user_migration_repositories(400195, accept: preview_header)
+      expect(result).to be_kind_of Array
+      assert_requested :get, github_url("/user/migrations/400195/repositories")
+    end
+
+    it "gets a user migration archive url" do
+      result = @client.user_migration_archive_url(400195, accept: preview_header)
+      expect(result).to be_kind_of String
+      assert_requested :get, github_url("/user/migrations/400195/archive")
+    end
+
+    it "deletes a user migration archive" do
+      result = @client.delete_user_migration_archive(400195, accept: preview_header)
+      expect(result).to be_kind_of String
+      assert_requested :delete, github_url("/user/migrations/400195/archive")
+    end
+
+    it "unlocks a migrated user repository" do
+      @client.unlock_user_repository(400195, 'the-insecure', accept: preview_header)
+      expect(@client.last_response.status).to eq(204)
+      assert_requested :delete, github_url("/user/migrations/400195/repos/the-insecure/lock")
+    end
+  end # .migrations
+
+  private
+
+  def preview_header
+    Octokit::Preview::PREVIEW_TYPES[:migrations]
+  end
 end
