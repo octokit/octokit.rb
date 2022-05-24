@@ -24,7 +24,7 @@ describe Octokit::Client::Search do
       results = @client.search_commits 'repo:octokit/octokit.rb author:jasonrudolph', \
         :sort  => 'author-date',
         :order => 'asc',
-        :accept => preview_header
+        :accept => commits_header
 
       assert_requested :get, github_url('/search/commits?q=repo:octokit/octokit.rb%20author:jasonrudolph&sort=author-date&order=asc')
       expect(results.total_count).to be_kind_of Integer
@@ -56,6 +56,17 @@ describe Octokit::Client::Search do
     end
   end # .search_repositories
 
+  describe ".search_topics" do
+    it "searches topics", :vcr do
+      results = @client.search_topics 'ruby is:featured', \
+        :accept => topics_header
+
+      assert_requested :get, github_url('/search/topics?q=ruby%20is:featured')
+      expect(results.total_count).to be_kind_of Integer
+      expect(results.items).to be_kind_of Array
+    end
+  end # .search_topics
+
   describe ".search_users" do
     it "searches users", :vcr do
       results = @client.search_users 'mike followers:>10', \
@@ -76,8 +87,12 @@ describe Octokit::Client::Search do
     end
   end # .search_users
 
-  def preview_header
+  def commits_header
     Octokit::Preview::PREVIEW_TYPES[:commit_search]
+  end
+
+  def topics_header
+    Octokit::Preview::PREVIEW_TYPES[:topics]
   end
 end
 

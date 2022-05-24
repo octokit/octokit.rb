@@ -1,162 +1,156 @@
 require 'helper'
 
-describe Octokit::Client::Hooks do
+describe Octokit::Client::ReposHooks do
 
   before do
     Octokit.reset!
     @client = oauth_client
   end
 
-  describe ".hooks", :vcr do
+  describe ".webhooks", :vcr do
     it "returns a repository's hooks" do
-      hooks = @client.hooks(@test_repo)
+      hooks = @client.webhooks(@test_repo)
       expect(hooks).to be_kind_of Array
       assert_requested :get, github_url("/repos/#{@test_repo}/hooks")
     end
   end
 
-  context "with hook" do
+  context "with webhook" do
     before(:each) do
-      @hook = @client.create_hook(@test_repo, {:url => "https://railsbp.com"})
+      @webhook = @client.create_webhook(@test_repo, {:url => "https://railsbp.com"})
     end
 
     after(:each) do
-      @client.delete_hook(@test_repo, @hook.id)
+      @client.delete_webhook(@test_repo, @webhook.id)
     end
 
-    describe ".create_hook", :vcr do
-      it "creates a hook" do
+    describe ".create_webhook", :vcr do
+      it "creates a webhook" do
         assert_requested :post, github_url("/repos/#{@test_repo}/hooks")
       end
       it "returns with no config url passed" do
-        expect { @client.create_hook(@test_repo)}.to raise_error Octokit::MissingKey
+        expect { @client.create_webhook(@test_repo)}.to raise_error Octokit::MissingKey
       end
-    end # .create_hook
+    end # .create_webhook
 
-    describe ".hook", :vcr do
-      it "returns a repository's single hook" do
-        @client.hook(@test_repo, @hook.id)
-        assert_requested :get, github_url("/repos/#{@test_repo}/hooks/#{@hook.id}")
+    describe ".webhook", :vcr do
+      it "returns a repository's single webhook" do
+        @client.webhook(@test_repo, @webhook.id)
+        assert_requested :get, github_url("/repos/#{@test_repo}/hooks/#{@webhook.id}")
       end
-    end # .hook
+    end # .webhook
 
-    describe ".update_hook", :vcr do
-      it "updates a hook" do
-        @client.update_hook(@test_repo, @hook.id, {:url => "https://railsbp.com"})
-        assert_requested :patch, github_url("/repos/#{@test_repo}/hooks/#{@hook.id}")
+    describe ".update_webhook", :vcr do
+      it "updates a webhook" do
+        @client.update_webhook(@test_repo, @webhook.id, {:url => "https://railsbp.com"})
+        assert_requested :patch, github_url("/repos/#{@test_repo}/hooks/#{@webhook.id}")
       end
-      it "returns with no config url passed" do
-        expect { @client.update_hook(@test_repo, @hook.id)}.to raise_error Octokit::MissingKey
-      end
-    end # .update_hook
+    end # .update_webhook
 
-    describe ".test_push_hook", :vcr do
-      it "tests a hook" do
-        @client.test_push_hook(@test_repo, @hook.id)
-        assert_requested :post, github_url("/repos/#{@test_repo}/hooks/#{@hook.id}/tests")
+    describe ".test_push_webhook", :vcr do
+      it "tests a webhook" do
+        @client.test_push_webhook(@test_repo, @webhook.id)
+        assert_requested :post, github_url("/repos/#{@test_repo}/hooks/#{@webhook.id}/tests")
       end
-    end # .test_hook
+    end # .test_webhook
 
-    describe ".ping_hook", :vcr do
-      it "pings a hook" do
-        @client.ping_hook(@test_repo, @hook.id)
-        assert_requested :post, github_url("/repos/#{@test_repo}/hooks/#{@hook.id}/pings")
+    describe ".ping_webhook", :vcr do
+      it "pings a webhook" do
+        @client.ping_webhook(@test_repo, @webhook.id)
+        assert_requested :post, github_url("/repos/#{@test_repo}/hooks/#{@webhook.id}/pings")
       end
-    end # .ping_hook
+    end # .ping_webhook
 
-    describe ".delete_hook", :vcr do
-      it "deletes a hook" do
-        @client.delete_hook(@test_repo, @hook.id)
-        assert_requested :delete, github_url("/repos/#{@test_repo}/hooks/#{@hook.id}")
+    describe ".delete_webhook", :vcr do
+      it "deletes a webhook" do
+        @client.delete_webhook(@test_repo, @webhook.id)
+        assert_requested :delete, github_url("/repos/#{@test_repo}/hooks/#{@webhook.id}")
       end
-    end # .delete_hook
-  end # with hook
+    end # .delete_webhook
+  end # with webhook
 
-  describe ".org_hooks", :vcr do
-    it "returns an organization's hooks" do
-      hooks = @client.org_hooks(test_github_org)
-      expect(hooks).to be_kind_of Array
+  describe ".org_webhooks", :vcr do
+    it "returns an organization's webhooks" do
+      webhooks = @client.org_webhooks(test_github_org)
+      expect(webhooks).to be_kind_of Array
       assert_requested :get, github_url("/orgs/#{test_github_org}/hooks")
     end
-    it "returns an organization's hooks by ID" do
+    it "returns an organization's webhooks by ID" do
       request = stub_get("/organizations/1/hooks")
-      @client.org_hooks(1)
+      @client.org_webhooks(1)
       assert_requested request
     end
-  end # .org_hooks
+  end # .org_webhooks
 
-  context "with org hook" do
+  context "with org webhook" do
     before(:each) do
-      @org_hook = @client.create_org_hook(test_github_org, "web", {:url => "http://railsbp.com", :content_type => "json"})
+      @org_webhook = @client.create_org_webhook(test_github_org, "web", {:url => "http://railsbp.com", :content_type => "json"})
     end
 
     after(:each) do
-      @client.delete_org_hook(test_github_org, @org_hook.id)
+      @client.delete_org_webhook(test_github_org, @org_webhook.id)
     end
 
-    describe ".create_org_hook", :vcr do
-      it "creates an org hook" do
+    describe ".create_org_webhook", :vcr do
+      it "creates an org webhook" do
         assert_requested :post, github_url("/orgs/#{test_github_org}/hooks")
       end
-      it "creates an org hook by ID" do
+      it "creates an org webhook by ID" do
         request = stub_post("/organizations/1/hooks")
-        org_hook = @client.create_org_hook(1, "web", {:url => "http://railsbp.com", :content_type => "json"})
+        org_webhook = @client.create_org_webhook(1, "web", {:url => "http://railsbp.com", :content_type => "json"})
         assert_requested request
       end
       it "returns with no config url passed" do
-        expect { @client.create_org_hook(1, "web")}.to raise_error Octokit::MissingKey
+        expect { @client.create_org_webhook(1, "web")}.to raise_error Octokit::MissingKey
       end
-    end # .create_org_hook
+    end # .create_org_webhook
 
-    describe ".org_hook", :vcr do
-      it "returns a single org hook" do
-        @client.org_hook(test_github_org, @org_hook.id)
-        assert_requested :get, github_url("/orgs/#{test_github_org}/hooks/#{@org_hook.id}")
+    describe ".org_webhook", :vcr do
+      it "returns a single org webhook" do
+        @client.org_webhook(test_github_org, @org_webhook.id)
+        assert_requested :get, github_url("/orgs/#{test_github_org}/hooks/#{@org_webhook.id}")
       end
-      it "returns a single org hook by ID" do
-        request = stub_get(github_url("/organizations/1/hooks/#{@org_hook.id}"))
-        @client.org_hook(1, @org_hook.id)
+      it "returns a single org webhook by ID" do
+        request = stub_get(github_url("/organizations/1/hooks/#{@org_webhook.id}"))
+        @client.org_webhook(1, @org_webhook.id)
         assert_requested request
       end
-    end # .org_hook
+    end # .org_webhook
 
-    describe ".update_org_hook", :vcr do
-      it "update an org hook" do
-        @client.update_org_hook(test_github_org, @org_hook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
-        assert_requested :patch, github_url("/orgs/#{test_github_org}/hooks/#{@org_hook.id}")
+    describe ".update_org_webhook", :vcr do
+      it "update an org webhook" do
+        @client.update_org_webhook(test_github_org, @org_webhook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
+        assert_requested :patch, github_url("/orgs/#{test_github_org}/hooks/#{@org_webhook.id}")
       end
-      it "updates an org hook by ID" do
-        request = stub_patch("/organizations/1/hooks/#{@org_hook.id}")
-        @client.update_org_hook(1, @org_hook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
+      it "updates an org webhook by ID" do
+        request = stub_patch("/organizations/1/hooks/#{@org_webhook.id}")
+        @client.update_org_webhook(1, @org_webhook.id, {:url => "https://railsbp.com", :content_type => "application/json"})
         assert_requested request
       end
-      it "returns with no config url passed" do
-        expect { @client.update_org_hook(1, @org_hook.id)}.to raise_error Octokit::MissingKey
-      end
-    end # .update_org_hook
+    end # .update_org_webhook
 
-    describe ".ping_org_hook", :vcr do
-      it "pings an org hook" do
-        @client.ping_org_hook(test_github_org, @org_hook.id)
-        assert_requested :post, github_url("/orgs/#{test_github_org}/hooks/#{@org_hook.id}/pings")
+    describe ".ping_org_webhook", :vcr do
+      it "pings an org webhook" do
+        @client.ping_org_webhook(test_github_org, @org_webhook.id)
+        assert_requested :post, github_url("/orgs/#{test_github_org}/hooks/#{@org_webhook.id}/pings")
       end
-      it "pings an org hook by ID" do
-        request = stub_post("/organizations/1/hooks/#{@org_hook.id}/pings")
-        @client.ping_org_hook(1, @org_hook.id)
+      it "pings an org webhook by ID" do
+        request = stub_post("/organizations/1/hooks/#{@org_webhook.id}/pings")
+        @client.ping_org_webhook(1, @org_webhook.id)
         assert_requested request
       end
-    end # .ping_org_hook
+    end # .ping_org_webhook
 
-    describe ".delete_org_hook", :vcr do
-      it "deletes an org hook" do
-        @client.delete_org_hook(test_github_org, @org_hook.id)
-        assert_requested :delete, github_url("/orgs/#{test_github_org}/hooks/#{@org_hook.id}")
+    describe ".delete_org_webhook", :vcr do
+      it "deletes an org webhook" do
+        @client.delete_org_webhook(test_github_org, @org_webhook.id)
+        assert_requested :delete, github_url("/orgs/#{test_github_org}/hooks/#{@org_webhook.id}")
       end
-      it "deletes an org hook by ID" do
-        request = stub_delete("/organizations/1/hooks/#{@org_hook.id}")
-        @client.delete_org_hook(1, @org_hook.id)
+      it "deletes an org webhook by ID" do
+        request = stub_delete("/organizations/1/hooks/#{@org_webhook.id}")
+        @client.delete_org_webhook(1, @org_webhook.id)
         assert_requested request
       end
-    end # .delete_org_hook
-  end # with org hook
+    end # .delete_org_webhook
+  end # with org webhook
 end

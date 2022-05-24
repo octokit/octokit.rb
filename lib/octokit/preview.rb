@@ -13,7 +13,7 @@ module Octokit
       :source_imports         => 'application/vnd.github.barred-rock-preview'.freeze,
       :reactions              => 'application/vnd.github.squirrel-girl-preview'.freeze,
       :transfer_repository    => 'application/vnd.github.nightshade-preview+json'.freeze,
-      :issue_timelines        => 'application/vnd.github.mockingbird-preview+json'.freeze,
+      :timeline_events        => 'application/vnd.github.mockingbird-preview+json'.freeze,
       :nested_teams           => 'application/vnd.github.hellcat-preview+json'.freeze,
       :pages_site             => 'application/vnd.github.switcheroo-preview+json'.freeze,
       :projects               => 'application/vnd.github.inertia-preview+json'.freeze,

@@ -24,9 +24,10 @@ end
 desc "Generate the API client files based on the OpenAPI route docs."
 task :generate do
   require_relative "lib/openapi_client_generator"
-  OpenAPIClientGenerator::API.at(OasParser::Definition.resolve("../routes/openapi/api.github.com/index.json")) do |api|
+  OpenAPIClientGenerator::API.at(OasParser::Definition.resolve("../api.github.com-deref.json")) do |api|
     File.open("lib/octokit/client/#{api.resource}.rb", "w") do |f|
       f.puts api.to_s
     end
+    `bundle exec rubocop -a lib/octokit/client/#{api.resource}.rb`
   end
 end

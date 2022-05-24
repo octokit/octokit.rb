@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Downloads do
+describe Octokit::Client::ReposDownloads do
 
   before do
     Octokit.reset!
