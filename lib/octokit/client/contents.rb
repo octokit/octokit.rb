@@ -156,7 +156,7 @@ module Octokit
       # @example Get archive link for octokit/octokit.rb
       #   Octokit.archive_link("octokit/octokit.rb")
       def archive_link(repo, options={})
-        repo_ref = CGI.escape(options.delete :ref)
+        repo_ref = ERB::Util.url_encode(options.delete :ref)
         format = (options.delete :format) || 'tarball'
         url = "#{Repository.path repo}/#{format}/#{repo_ref}"
 
