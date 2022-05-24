@@ -1,4 +1,4 @@
-require 'cgi'
+require "erb"
 
 module Octokit
   class Client
@@ -28,7 +28,7 @@ module Octokit
       # @example Get the "V3 Addition" label from octokit/octokit.rb
       #   Octokit.label("octokit/octokit.rb", "V3 Addition")
       def label(repo, name, options = {})
-        get "#{Repository.path repo}/labels/#{name}", options
+        get "#{Repository.path repo}/labels/#{ERB::Util.url_encode(name)}", options
       end
 
       # Add a label to a repository
@@ -56,7 +56,7 @@ module Octokit
       # @example Update the label "Version 1.0" with new color "#cceeaa"
       #   Octokit.update_label("octokit/octokit.rb", "Version 1.0", {:color => "cceeaa"})
       def update_label(repo, label, options = {})
-        patch "#{Repository.path repo}/labels/#{label}", options
+        patch "#{Repository.path repo}/labels/#{ERB::Util.url_encode(label)}", options
       end
 
       # Delete a label from a repository.
@@ -70,7 +70,7 @@ module Octokit
       # @example Delete the label "Version 1.0" from the repository.
       #   Octokit.delete_label!("octokit/octokit.rb", "Version 1.0")
       def delete_label!(repo, label, options = {})
-        boolean_from_response :delete, "#{Repository.path repo}/labels/#{label}", options
+        boolean_from_response :delete, "#{Repository.path repo}/labels/#{ERB::Util.url_encode(label)}", options
       end
 
       # Remove a label from an Issue
@@ -85,7 +85,7 @@ module Octokit
       # @example Remove the label "Version 1.0" from the repository.
       #   Octokit.remove_label("octokit/octokit.rb", 23, "Version 1.0")
       def remove_label(repo, number, label, options = {})
-        delete "#{Repository.path repo}/issues/#{number}/labels/#{label}", options
+        delete "#{Repository.path repo}/issues/#{number}/labels/#{ERB::Util.url_encode(label)}", options
       end
 
       # Remove all label from an Issue
