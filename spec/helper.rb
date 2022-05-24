@@ -9,7 +9,10 @@ require 'rspec'
 require 'webmock/rspec'
 require 'base64'
 require 'jwt'
-require 'pry-byebug'
+# latest version of pry-byebug is not compatible with Ruby 3.2.0
+if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('3.2.0')
+  require 'pry-byebug'
+end
 
 WebMock.disable_net_connect!()
 

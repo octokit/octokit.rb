@@ -1,10 +1,11 @@
-require 'octokit/client'
-require 'octokit/enterprise_admin_client'
-require 'octokit/enterprise_management_console_client'
 require 'octokit/default'
+require 'octokit/configurable'
 
 # Ruby toolkit for the GitHub API
 module Octokit
+  autoload(:Client, File.join(__dir__, 'octokit/client'))
+  autoload(:EnterpriseAdminClient, File.join(__dir__, 'octokit/enterprise_admin_client'))
+  autoload(:EnterpriseManagementConsoleClient, File.join(__dir__, 'octokit/enterprise_management_console_client'))
 
   class << self
     include Octokit::Configurable
