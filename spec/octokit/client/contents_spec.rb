@@ -32,6 +32,12 @@ describe Octokit::Client::Contents do
       expect(archive_link).to eq('https://codeload.github.com/octokit/octokit.rb/legacy.tar.gz/master')
       assert_requested :head, github_url("/repos/octokit/octokit.rb/tarball/master")
     end
+
+    it "does not raise for ref with unicode" do
+      request = stub_head("repos/octokit/octokit.rb/tarball/%F0%9F%90%99%F0%9F%90%B1")
+      @client.archive_link("octokit/octokit.rb", :ref => "🐙🐱")
+      assert_requested request
+    end
   end # .archive_link
 
   # TODO: Make the following specs idempotent
