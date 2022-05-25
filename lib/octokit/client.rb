@@ -132,7 +132,7 @@ module Octokit
     def initialize(options = {})
       # Use options passed in, but fall back to module defaults
       Octokit::Configurable.keys.each do |key|
-        value = options.key?(key) ? options[key] : Octokit.instance_variable_get(:"@#{key}")
+        value = options[key].nil? ? Octokit.instance_variable_get(:"@#{key}") : options[key]
         instance_variable_set(:"@#{key}", value)
       end
 
