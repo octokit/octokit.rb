@@ -77,13 +77,13 @@ describe Octokit::Client::Projects do
         end
       end # .remove_project_collaborator
 
-      describe ".user_permission_level", :vcr do
+      describe ".user_permission", :vcr do
         it "returns a user's permission level" do
-          result = oauth_client.user_permission_level(@project_id, @user, accept: preview_header)
+          result = oauth_client.user_permission(@project_id, @user, accept: preview_header)
           expect(result.permission).to be_kind_of String
           assert_requested :get, github_url("/projects/#{@project_id}/collaborators/#{@user}/permission")
         end
-      end # .user_permission_level
+      end # .user_permission
     end # with collaborator
   end # with org project
 

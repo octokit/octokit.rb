@@ -15,13 +15,13 @@ module Octokit
         paginate "#{Repository.path repo}/assignees", options
       end
 
-      # Check assignee
+      # Check if a user can be assigned
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
-      # @param assignee [String] The assignee of the assignee
-      # @return [Boolean] A single assignee
-      # @see https://developer.github.com/v3/issues/assignees/#check-assignee
-      def issue_assignee?(repo, assignee, options = {})
+      # @param assignee [String] The assignee of the assigned
+      # @return [Boolean] A single assigned
+      # @see https://developer.github.com/v3/issues/assignees/#check-if-a-user-can-be-assigned
+      def issue_assigned?(repo, assignee, options = {})
         boolean_from_response :get, "#{Repository.path repo}/assignees/#{assignee}", options
       end
 

@@ -39,12 +39,12 @@ module Octokit
         post "#{Repository.path repo}/pulls", opts
       end
 
-      # Get a single pull request
+      # Get a pull request
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param pull_number [Integer] The number of the pull
       # @return [Sawyer::Resource] A single pull
-      # @see https://developer.github.com/v3/pulls/#get-a-single-pull-request
+      # @see https://developer.github.com/v3/pulls/#get-a-pull-request
       def pull(repo, pull_number, options = {})
         get "#{Repository.path repo}/pulls/#{pull_number}", options
       end
@@ -90,12 +90,12 @@ module Octokit
         patch "#{Repository.path repo}/pulls/#{pull_number}", options
       end
 
-      # Get if a pull request has been merged
+      # Check if a pull request has been merged
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param pull_number [Integer] The number of the pull
       # @return [Boolean] A single merged
-      # @see https://developer.github.com/v3/pulls/#get-if-a-pull-request-has-been-merged
+      # @see https://developer.github.com/v3/pulls/#check-if-a-pull-request-has-been-merged
       def pull_merged?(repo, pull_number, options = {})
         boolean_from_response :get, "#{Repository.path repo}/pulls/#{pull_number}/merge", options
       end
@@ -120,7 +120,7 @@ module Octokit
         paginate "#{Repository.path repo}/pulls/#{pull_number}/files", options
       end
 
-      # Merge a pull request (Merge Button)
+      # Merge a pull request
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param pull_number [Integer] The number of the pull
@@ -129,7 +129,7 @@ module Octokit
       # @option options [String] :sha SHA that pull request head must match to allow merge.
       # @option options [String] :merge_method Merge method to use. Possible values are merge, squash or rebase. Default is merge.
       # @return [Sawyer::Resource] The updated pull
-      # @see https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button
+      # @see https://developer.github.com/v3/pulls/#merge-a-pull-request
       def merge_pull(repo, pull_number, options = {})
         put "#{Repository.path repo}/pulls/#{pull_number}/merge", options
       end
@@ -138,7 +138,7 @@ module Octokit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param pull_number [Integer] The number of the pull
-      # @option options [String] :expected_head_sha The expected SHA of the pull request's HEAD ref. This is the most recent commit on the pull request's branch. If the expected SHA does not match the pull request's HEAD, you will receive a 422 Unprocessable Entity status. You can use the "List commits on a repository (https://developer.github.com/v3/repos/commits/#list-commits-on-a-repository)" endpoint to find the most recent commit SHA. Default: SHA of the pull request's current HEAD ref.
+      # @option options [String] :expected_head_sha The expected SHA of the pull request's HEAD ref. This is the most recent commit on the pull request's branch. If the expected SHA does not match the pull request's HEAD, you will receive a 422 Unprocessable Entity status. You can use the "List commits (https://developer.github.com/v3/repos/commits/#list-commits)" endpoint to find the most recent commit SHA. Default: SHA of the pull request's current HEAD ref.
       # @return [Sawyer::Resource] The updated pull
       # @see https://developer.github.com/v3/pulls/#update-a-pull-request-branch
       def update_pull_branch(repo, pull_number, options = {})

@@ -64,6 +64,19 @@ module Octokit
       end
       alias :search_repos :search_repositories
 
+      # Search topics
+      #
+      # @param query [String] Search term and qualifiers
+      # @param options [Hash] Pagination options
+      # @option options [Integer] :page Page of paginated results
+      # @option options [Integer] :per_page Number of items per page
+      # @return [Sawyer::Resource] Search results object
+      # @see https://developer.github.com/v3/search/#search-topics
+      def search_topics(query, options = {})
+        options = ensure_api_media_type(:topics, options)
+        search "search/topics", query, options
+      end
+
       # Search users
       #
       # @param query [String] Search term and qualifiers
