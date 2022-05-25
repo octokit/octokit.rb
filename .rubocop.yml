@@ -1,0 +1,30 @@
+Layout/LineLength:
+    Max: 100
+
+Style/HashEachMethods:
+   Enabled: True
+
+Style/HashTransformKeys:
+   Enabled: True
+
+Style/HashTransformValues:
+   Enabled: True
+
+Layout/EmptyLinesAroundAttributeAccessor:
+   Enabled: False
+
+Layout/SpaceAroundMethodCallOperator:
+   Enabled: False
+
+Lint/RaiseException:
+   Enabled: False
+
+Lint/StructNewOverride:
+   Enabled: False
+
+Style/ExponentialNotation:
+   Enabled: False
+
+Style/SlicingWithRange:
+   Enabled: False
+

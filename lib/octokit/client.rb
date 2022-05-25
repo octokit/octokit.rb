@@ -10,41 +10,54 @@ require 'octokit/repository'
 require 'octokit/user'
 require 'octokit/organization'
 require 'octokit/preview'
+require 'octokit/client/activity_events'
+require 'octokit/client/activity_feeds'
+require 'octokit/client/activity_notifications'
 require 'octokit/client/apps'
 require 'octokit/client/authorizations'
-require 'octokit/client/checks'
+require 'octokit/client/checks_runs'
+require 'octokit/client/checks_suites'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
 require 'octokit/client/commit_pulls'
 require 'octokit/client/community_profile'
-require 'octokit/client/contents'
-require 'octokit/client/downloads'
-require 'octokit/client/deployments'
 require 'octokit/client/emojis'
-require 'octokit/client/events'
-require 'octokit/client/feeds'
 require 'octokit/client/gists'
+require 'octokit/client/gists_comments'
 require 'octokit/client/gitignore'
-require 'octokit/client/hooks'
 require 'octokit/client/issues'
-require 'octokit/client/labels'
+require 'octokit/client/issues_assignees'
+require 'octokit/client/issues_comments'
+require 'octokit/client/issues_events'
+require 'octokit/client/issues_labels'
+require 'octokit/client/issues_milestones'
+require 'octokit/client/issues_timeline'
 require 'octokit/client/legacy_search'
 require 'octokit/client/licenses'
-require 'octokit/client/meta'
 require 'octokit/client/markdown'
 require 'octokit/client/marketplace'
-require 'octokit/client/milestones'
-require 'octokit/client/notifications'
+require 'octokit/client/meta'
 require 'octokit/client/objects'
 require 'octokit/client/organizations'
-require 'octokit/client/pages'
+require 'octokit/client/orgs_hooks'
 require 'octokit/client/projects'
+require 'octokit/client/projects_cards'
+require 'octokit/client/projects_collaborators'
+require 'octokit/client/projects_columns'
 require 'octokit/client/pub_sub_hubbub'
-require 'octokit/client/pull_requests'
+require 'octokit/client/pulls'
+require 'octokit/client/pulls_comments'
 require 'octokit/client/rate_limit'
 require 'octokit/client/reactions'
 require 'octokit/client/refs'
-require 'octokit/client/releases'
+require 'octokit/client/repos_contents'
+require 'octokit/client/repos_downloads'
+require 'octokit/client/repos_deployments'
+require 'octokit/client/repos_hooks'
+require 'octokit/client/repos_pages'
+require 'octokit/client/repos_releases'
+require 'octokit/client/repos_statistics'
+require 'octokit/client/repos_statuses'
 require 'octokit/client/repositories'
 require 'octokit/client/repository_invitations'
 require 'octokit/client/reviews'
@@ -52,8 +65,6 @@ require 'octokit/client/say'
 require 'octokit/client/search'
 require 'octokit/client/service_status'
 require 'octokit/client/source_import'
-require 'octokit/client/stats'
-require 'octokit/client/statuses'
 require 'octokit/client/traffic'
 require 'octokit/client/users'
 require 'ext/sawyer/relation'
@@ -70,50 +81,61 @@ module Octokit
     include Octokit::Connection
     include Octokit::Preview
     include Octokit::Warnable
+    include Octokit::Client::ActivityEvents
+    include Octokit::Client::ActivityFeeds
+    include Octokit::Client::ActivityNotifications
+    include Octokit::Client::Apps
     include Octokit::Client::Authorizations
-    include Octokit::Client::Checks
+    include Octokit::Client::ChecksRuns
+    include Octokit::Client::ChecksSuites
     include Octokit::Client::Commits
     include Octokit::Client::CommitComments
     include Octokit::Client::CommitPulls
     include Octokit::Client::CommunityProfile
-    include Octokit::Client::Contents
-    include Octokit::Client::Deployments
-    include Octokit::Client::Downloads
     include Octokit::Client::Emojis
-    include Octokit::Client::Events
-    include Octokit::Client::Feeds
     include Octokit::Client::Gists
+    include Octokit::Client::GistsComments
     include Octokit::Client::Gitignore
-    include Octokit::Client::Hooks
-    include Octokit::Client::Apps
     include Octokit::Client::Issues
-    include Octokit::Client::Labels
+    include Octokit::Client::IssuesAssignees
+    include Octokit::Client::IssuesComments
+    include Octokit::Client::IssuesEvents
+    include Octokit::Client::IssuesLabels
+    include Octokit::Client::IssuesMilestones
+    include Octokit::Client::IssuesTimeline
     include Octokit::Client::LegacySearch
     include Octokit::Client::Licenses
-    include Octokit::Client::Meta
     include Octokit::Client::Markdown
     include Octokit::Client::Marketplace
-    include Octokit::Client::Milestones
-    include Octokit::Client::Notifications
+    include Octokit::Client::Meta
     include Octokit::Client::Objects
     include Octokit::Client::Organizations
-    include Octokit::Client::Pages
+    include Octokit::Client::OrgsHooks
     include Octokit::Client::Projects
+    include Octokit::Client::ProjectsCards
+    include Octokit::Client::ProjectsCollaborators
+    include Octokit::Client::ProjectsColumns
     include Octokit::Client::PubSubHubbub
-    include Octokit::Client::PullRequests
+    include Octokit::Client::Pulls
+    include Octokit::Client::PullsComments
     include Octokit::Client::RateLimit
     include Octokit::Client::Reactions
     include Octokit::Client::Refs
-    include Octokit::Client::Releases
+    include Octokit::Client::ReposReleases
+    include Octokit::Client::ReposContents
+    include Octokit::Client::ReposDeployments
+    include Octokit::Client::ReposDownloads
+    include Octokit::Client::ReposHooks
     include Octokit::Client::Repositories
     include Octokit::Client::RepositoryInvitations
+    include Octokit::Client::ReposPages
+    include Octokit::Client::ReposStatistics
+    include Octokit::Client::ReposStatuses
     include Octokit::Client::Reviews
     include Octokit::Client::Say
     include Octokit::Client::Search
     include Octokit::Client::ServiceStatus
     include Octokit::Client::SourceImport
-    include Octokit::Client::Stats
-    include Octokit::Client::Statuses
     include Octokit::Client::Traffic
     include Octokit::Client::Users
 

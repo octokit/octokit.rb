@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Deployments do
+describe Octokit::Client::ReposDeployments do
 
   before do
     Octokit.reset!
@@ -66,6 +66,14 @@ describe Octokit::Client::Deployments do
           assert_requested :get, github_url("/repos/#{@test_repo}/deployments/#{@deployment.id}")
         end
       end # .deployment
+
+      describe ".delete_deployment" do
+        it "deletes a deployment" do
+          result = @client.delete_deployment(@test_repo, @deployment.id)
+          expect(result).to be_truthy
+          assert_requested :post, github_url("/repos/#{@test_repo}/deployments")
+        end
+      end
 
       describe ".deployment_statuses" do
         it "lists deployment statuses" do

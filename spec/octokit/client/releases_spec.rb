@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Octokit::Client::Releases do
+describe Octokit::Client::ReposReleases do
 
   before do
     Octokit.reset!
@@ -56,9 +56,9 @@ describe Octokit::Client::Releases do
   context "handling release assets" do
 
     before(:each) do
-      @release = @client.create_release @test_repo, "test-handling-release-assets"
+      @release = @client.create_release @test_repo, "test-handling-release-asset"
       file = File.new("spec/fixtures/upload.png", "r+b")
-      @asset_id = upload_asset(@release, file).id
+      @asset_id = @client.upload_release_asset(@test_repo, @release.id, file).id
     end
 
     after(:each) do

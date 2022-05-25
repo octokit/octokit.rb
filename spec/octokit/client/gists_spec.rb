@@ -16,14 +16,14 @@ describe Octokit::Client::Gists do
       end
     end # .public_gists
 
-    describe ".gists" do
+    describe ".user_gists" do
       describe "with username passed" do
         it "returns a list of gists" do
-          gists = Octokit.client.gists('defunkt')
+          gists = Octokit.client.user_gists('defunkt')
           expect(gists).not_to be_empty
           assert_requested :get, github_url("/users/defunkt/gists")
         end
-      end
+      end # .user_gists
 
       describe "without a username passed" do
         it "returns a list of gists" do
@@ -45,7 +45,7 @@ describe Octokit::Client::Gists do
       it "returns a gist at a specific revision" do
         gist = Octokit.client.gist(790381, sha: "12e53275c298ab759fa38a1f4980a4aa0556593f")
         expect(gist).to be_kind_of Sawyer::Resource
-        assert_requested :get, github_url("/gists/790381/12e53275c298ab759fa38a1f4980a4aa0556593f")
+        assert_requested :get, github_url("/gists/790381?sha=12e53275c298ab759fa38a1f4980a4aa0556593f")
       end
     end
 
@@ -58,12 +58,12 @@ describe Octokit::Client::Gists do
       new_gist = {
         :description => "A gist from Octokit",
         :public      => true,
-        :files       => {
-          "zen.text" => { :content => "Keep it logically awesome." }
-        }
       }
 
-      @gist = @client.create_gist(new_gist)
+      files = {
+        "zen.text" => { :content => "Keep it logically awesome." }
+      }
+      @gist = @client.create_gist(files, new_gist)
       @gist_comment = @client.create_gist_comment(5421307, ":metal:")
     end
 
@@ -96,12 +96,12 @@ describe Octokit::Client::Gists do
       end
     end # .create_gist
 
-    describe ".edit_gist" do
+    describe ".update_gist" do
       it "edit an existing gist" do
-        @client.edit_gist(@gist.id, :description => "GitHub Zen")
+        @client.update_gist(@gist.id, :description => "GitHub Zen")
         assert_requested :patch, github_url("/gists/#{@gist.id}")
       end
-    end # .edit_gist
+    end # .update_gist
 
     describe ".gist_commits" do
       it "lists a gists commits" do
@@ -179,7 +179,7 @@ describe Octokit::Client::Gists do
     describe ".gist_comment" do
       it "returns a gist comment" do
         comment = @client.gist_comment("5421307", 818334)
-        expect(comment.body).to eq(":sparkles:")
+        expect(comment.body).to eq(":sparkles:\n")
         assert_requested :get, github_url("/gists/5421307/comments/818334")
       end
     end # .gist_comment

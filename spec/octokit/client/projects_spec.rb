@@ -1,22 +1,23 @@
 require 'helper'
+require 'pry'
 
 describe Octokit::Client::Projects do
 
-  describe ".projects", :vcr do
+  describe ".repo_projects", :vcr do
     it "returns a list of projects for a repository" do
-      projects = oauth_client.projects('octokit/octokit.rb', accept: preview_header)
+      projects = oauth_client.repo_projects('octokit/octokit.rb', accept: preview_header)
       expect(projects).to be_kind_of Array
       assert_requested :get, github_url("/repos/octokit/octokit.rb/projects")
     end
-  end # .projects
+  end # .repo_projects
 
-  describe ".create_project", :vcr do
+  describe ".create_repo_project", :vcr do
     it "returns the newly created project" do
-      project = oauth_client.create_project(@test_repo, "api kpi", accept: preview_header)
+      project = oauth_client.create_repo_project(@test_repo, "api kpi", accept: preview_header)
       expect(project.name).to eq("api kpi")
       assert_requested :post, github_url("/repos/#{@test_repo}/projects")
     end
-  end # .create_project
+  end # .create_repo_project
 
   describe ".org_projects", :vcr do
     it "returns the projects for an organization" do
@@ -32,21 +33,68 @@ describe Octokit::Client::Projects do
       expect(project.name).to eq "synergy"
       expect(project.body).to eq "do it"
       assert_requested :post, github_url("/orgs/#{test_github_org}/projects")
+      oauth_client.delete_project(project.id, accept: preview_header)
     end
   end # .create_org_project
 
-  context "with repository" do
+  context "with org project" do
     before(:each) do
-      delete_test_repo
+      project = oauth_client.create_org_project(test_github_org, "org test project", accept: preview_header)
+      @project_id = project.id
+      @user = "hmharvey"
     end
 
     after(:each) do
-      delete_test_repo
+      project = oauth_client.delete_project(@project_id, accept: preview_header)
     end
 
+    describe ".project_collaborators", :vcr do
+      it "returns a list of projects collaborators" do
+        collaborators = oauth_client.project_collaborators(@project_id, accept: preview_header)
+        expect(collaborators).to be_kind_of Array
+        assert_requested :get, github_url("/projects/#{@project_id}/collaborators")
+      end
+    end # .project_collaborators
+
+    describe ".add_project_collaborator", :vcr do
+      it "adds a project collaborator" do
+        result = oauth_client.add_project_collaborator(@project_id, @user, accept: preview_header)
+        expect(result).to eq true
+        assert_requested :put, github_url("/projects/#{@project_id}/collaborators/#{@user}")
+      end
+    end # .add_project_collaborator
+
+    context "with collaborator" do
+      before(:each) do
+        result = oauth_client.add_project_collaborator(@project_id, @user, accept: preview_header)
+      end
+
+      describe ".remove_project_collaborator", :vcr do
+        it "removes a project collaborator" do
+          result = oauth_client.remove_project_collaborator(@project_id, @user, accept: preview_header)
+          expect(result).to eq true
+          assert_requested :put, github_url("/projects/#{@project_id}/collaborators/#{@user}")
+        end
+      end # .remove_project_collaborator
+
+      describe ".user_permission", :vcr do
+        it "returns a user's permission level" do
+          result = oauth_client.user_permission(@project_id, @user, accept: preview_header)
+          expect(result.permission).to be_kind_of String
+          assert_requested :get, github_url("/projects/#{@project_id}/collaborators/#{@user}/permission")
+        end
+      end # .user_permission
+    end # with collaborator
+  end # with org project
+
+  context "with repository" do
     context "with project" do
       before(:each) do
-        @project = oauth_client.create_project(@test_repo, "implement apis", accept: preview_header)
+        @project = oauth_client.create_repo_project(@test_repo, "implement apis", accept: preview_header)
+      end
+
+      after(:each) do
+        oauth_client.delete_project(@project.id, accept: preview_header)
       end
 
       describe ".project", :vcr do
@@ -66,12 +114,19 @@ describe Octokit::Client::Projects do
           expect(project.body).to eq body
           assert_requested :patch, github_url("/projects/#{@project.id}")
         end
+
+        it "helper methods close and reopen the project" do
+          project = oauth_client.close_project(@project.id, accept: preview_header)
+          expect(project.state).to eq "closed"
+          project = oauth_client.reopen_project(@project.id, accept: preview_header)
+          expect(project.state).to eq "open"
+          assert_requested :patch, github_url("/projects/#{@project.id}"), :times => 2
+        end
       end # .update_project
 
       describe ".delete_project", :vcr do
         it "returns the result of deleting a project" do
-          result = oauth_client.delete_project(@project.id, accept: preview_header)
-          expect(result).to eq true
+          oauth_client.delete_project(@project.id, accept: preview_header)
           assert_requested :delete, github_url("/projects/#{@project.id}")
         end
       end # .delete_project
@@ -97,6 +152,10 @@ describe Octokit::Client::Projects do
           @column = oauth_client.create_project_column(@project.id, "Todos #{Time.now.to_f}", accept: preview_header)
         end
 
+        after(:each) do
+          oauth_client.delete_project_column(@column.id, accept: preview_header)
+        end
+
         describe ".project_column", :vcr do
           it "returns a project column by id" do
             column = oauth_client.project_column(@column.id, accept: preview_header)
@@ -116,8 +175,8 @@ describe Octokit::Client::Projects do
         describe ".move_project_column", :vcr do
           it "moves the project column" do
             result = oauth_client.move_project_column(@column.id, "last", accept: preview_header)
-            expect(result).not_to be_nil
             assert_requested :post, github_url("/projects/columns/#{@column.id}/moves")
+            expect(result).to eq(true)
           end
         end # .move_project_column
 
@@ -129,13 +188,13 @@ describe Octokit::Client::Projects do
           end
         end # .delete_project_column
 
-        describe ".column_cards", :vcr do
+        describe ".project_cards", :vcr do
           it "returns a list of the cards in a project column" do
-            cards = oauth_client.column_cards(@column.id, accept: preview_header)
+            cards = oauth_client.project_cards(@column.id, accept: preview_header)
             expect(cards).to be_kind_of Array
             assert_requested :get, github_url("/projects/columns/#{@column.id}/cards")
           end
-        end # .column_cards
+        end # .project_cards
 
         describe ".create_project_card", :vcr do
           it "creates a new card with a note" do
@@ -148,6 +207,10 @@ describe Octokit::Client::Projects do
         context "with project card" do
           before(:each) do
             @card = oauth_client.create_project_card(@column.id, note: 'octocard', accept: preview_header)
+          end
+
+          after(:each) do
+            oauth_client.delete_project_card(@card.id, accept: preview_header)
           end
 
           describe ".project_card", :vcr do
@@ -169,8 +232,8 @@ describe Octokit::Client::Projects do
           describe ".move_project_card", :vcr do
             it "moves the project card" do
               result = oauth_client.move_project_card(@card.id, 'bottom', accept: preview_header)
-              expect(result).not_to be_nil
               assert_requested :post, github_url("/projects/columns/cards/#{@card.id}/moves")
+              expect(result).to eq(true)
             end
           end # .move_project_card
 
@@ -181,7 +244,6 @@ describe Octokit::Client::Projects do
               assert_requested :delete, github_url("/projects/columns/cards/#{@card.id}")
             end
           end # .delete_project_card
-
         end # with project card
       end # with project column
     end # with project
