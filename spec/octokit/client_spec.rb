@@ -44,6 +44,12 @@ describe Octokit::Client do
         }
       end
 
+      it "defaults are used when parameters are nil" do
+        new_opts = @opts.merge(:api_endpoint => nil)
+        client = Octokit::Client.new(new_opts)
+        expect(client.api_endpoint).to eq(Octokit.api_endpoint)
+      end
+
       it "overrides module configuration" do
         client = Octokit::Client.new(@opts)
         expect(client.per_page).to eq(40)
