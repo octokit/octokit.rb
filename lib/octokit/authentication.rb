@@ -3,6 +3,14 @@ module Octokit
   # Authentication methods for {Octokit::Client}
   module Authentication
 
+    # In Faraday 2.x, the authorization middleware uses new interface
+    FARADAY_BASIC_AUTH_KEYS =
+      if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
+        [:authorization, :basic]
+      else
+        [:basic_auth]
+      end
+
     # Indicates if the client was supplied  Basic Auth
     # username and password
     #

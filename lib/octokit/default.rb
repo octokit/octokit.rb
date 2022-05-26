@@ -2,6 +2,15 @@ require 'octokit/middleware/follow_redirects'
 require 'octokit/response/raise_error'
 require 'octokit/response/feed_parser'
 require 'octokit/version'
+require 'octokit/warnable'
+
+if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
+  begin
+    require 'faraday/retry'
+  rescue LoadError
+    Octokit::Warnable.octokit_warn 'To use retry middleware with Faraday v2.0+, install `faraday-retry` gem'
+  end
+end
 
 module Octokit
 
@@ -20,12 +29,13 @@ module Octokit
     # Default WEB endpoint
     WEB_ENDPOINT = "https://github.com".freeze
 
-    # In Faraday 0.9, Faraday::Builder was renamed to Faraday::RackBuilder
-    RACK_BUILDER_CLASS = defined?(Faraday::RackBuilder) ? Faraday::RackBuilder : Faraday::Builder
-
     # Default Faraday middleware stack
-    MIDDLEWARE = RACK_BUILDER_CLASS.new do |builder|
-      builder.use Faraday::Request::Retry, exceptions: [Octokit::ServerError]
+    MIDDLEWARE = Faraday::RackBuilder.new do |builder|
+      # In Faraday 2.x, Faraday::Request::Retry was moved to a separate gem
+      # so we use it only when it's available.
+      builder.use Faraday::Request::Retry, exceptions: [Octokit::ServerError] if defined?(Faraday::Request::Retry)
+      builder.use Faraday::Retry::Middleware, exceptions: [Octokit::ServerError] if defined?(Faraday::Retry::Middleware)
+
       builder.use Octokit::Middleware::FollowRedirects
       builder.use Octokit::Response::RaiseError
       builder.use Octokit::Response::FeedParser

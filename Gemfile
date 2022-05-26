@@ -32,6 +32,10 @@ group :test do
   gem 'webmock', '~> 3.8', '>= 3.8.2'
 end
 
+gem 'faraday', ENV.fetch('FARADAY_VERSION', '~> 2.0')
+gem 'faraday-retry'
+gem 'faraday-multipart'
+
 group :test, :development do
   gem 'pry-byebug'
   gem 'redcarpet'
