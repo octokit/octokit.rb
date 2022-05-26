@@ -148,6 +148,33 @@ describe Octokit::Client::Checks, :vcr do
       expect(result.check_runs.count).to eq(1)
       expect(result.check_runs[0].id).to eq(@check_run_id)
     end
+
+    it "paginates the results" do
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.check_runs_for_ref(
+        @test_repo,
+        @commit,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(1)
+      expect(result.check_runs.count).to eq(1)
+    end
+
+    it "auto-paginates the results" do
+      @client.auto_paginate = true
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.check_runs_for_ref(
+        @test_repo,
+        @commit,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(2)
+      expect(result.check_runs.count).to eq(2)
+    end
   end
 
   describe ".check_runs_for_check_suite" do
@@ -185,6 +212,33 @@ describe Octokit::Client::Checks, :vcr do
       expect(result.check_runs.count).to eq(1)
       expect(result.check_runs[0].id).to eq(@check_run_id)
     end
+
+    it "paginates the results" do
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.check_runs_for_check_suite(
+        @test_repo,
+        @check_suite_id,
+     )
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(1)
+      expect(result.check_runs.count).to eq(1)
+    end
+
+    it "auto-paginates the results" do
+      @client.auto_paginate = true
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.check_runs_for_check_suite(
+        @test_repo,
+        @check_suite_id,
+     )
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(2)
+      expect(result.check_runs.count).to eq(2)
+    end
   end
 
   describe ".check_run" do
@@ -210,6 +264,33 @@ describe Octokit::Client::Checks, :vcr do
       expect(annotations).to be_a(Array)
       expect(annotations.count).to eq(1)
       expect(annotations[0].path).to eq(@path)
+    end
+
+    it "paginates the results" do
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      annotations = @client.check_run_annotations(
+        @test_repo,
+        @check_run_id,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(annotations).to be_a(Array)
+      expect(annotations.count).to eq(1)
+    end
+
+    it "auto-paginates the results" do
+      @client.auto_paginate = true
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      annotations = @client.check_run_annotations(
+        @test_repo,
+        @check_run_id,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(annotations).to be_a(Array)
+      expect(annotations.count).to eq(2)
     end
   end
 
@@ -283,6 +364,33 @@ describe Octokit::Client::Checks, :vcr do
       expect(result.check_suites).to be_a(Array)
       expect(result.check_suites.count).to eq(1)
       expect(result.check_suites[0].id).to eq(@check_suite_id)
+    end
+
+    it "paginates the results" do
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.check_suites_for_ref(
+        @test_repo,
+        @commit,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(1)
+      expect(result.check_suites.count).to eq(1)
+    end
+
+    it "auto-paginates the results" do
+      @client.auto_paginate = true
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.check_suites_for_ref(
+        @test_repo,
+        @commit,
+      )
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(2)
+      expect(result.check_suites.count).to eq(2)
     end
   end
 
