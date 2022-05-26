@@ -44,6 +44,12 @@ describe Octokit::Client do
         }
       end
 
+      it "uses defaults when parameters are nil" do
+        new_opts = @opts.merge(:api_endpoint => nil)
+        client = Octokit::Client.new(new_opts)
+        expect(client.api_endpoint).to eq(Octokit.api_endpoint)
+      end
+
       it "overrides module configuration" do
         client = Octokit::Client.new(@opts)
         expect(client.per_page).to eq(40)
@@ -599,7 +605,7 @@ describe Octokit::Client do
 
       assert_requested original_request
       assert_requested(:get, "https://example.com/bar") { |req|
-        req.headers["Authorization"].nil?
+        req.headers["Authorization"] == "dummy"
       }
     end
 
@@ -840,6 +846,14 @@ describe Octokit::Client do
           :content_type => "application/json",
         },
         :body => {:message => "API rate limit exceeded"}.to_json
+      expect { Octokit.get('/users/mojomobo') }.to raise_error Octokit::TooManyRequests
+
+      stub_get('/users/mojomobo').to_return \
+        :status => 403,
+        :headers => {
+          :content_type => "application/json",
+        },
+        :body => {:message => "You have exceeded a secondary rate limit."}.to_json
       expect { Octokit.get('/users/mojomobo') }.to raise_error Octokit::TooManyRequests
 
       stub_get('/user').to_return \
@@ -1144,6 +1158,39 @@ describe Octokit::Client do
             'content_type' => 'application/json'
         },
         :body => {:message => "rate limit exceeded"}.to_json
+    begin
+      rate_limit_headers = {'X-RateLimit-Limit' => 60, 'X-RateLimit-Remaining' => 42, 'X-RateLimit-Reset' => (Time.now + 60).to_i}
+      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return(rate_limit_headers)
+      Octokit.get('/user')
+    rescue Octokit::TooManyRequests => rate_limit_error
+      expect(rate_limit_error.context).to be_an_instance_of(Octokit::RateLimit)
+      expect(rate_limit_error.context.limit).to eql 60
+      expect(rate_limit_error.context.remaining).to eql 42
+    end
+  end
+
+  it "returns context with default data when rate limit error occurs but headers are missing" do
+    stub_get('/user').to_return \
+        :status => 403,
+        :headers => {
+            :content_type => "application/json",
+        },
+        :body => {:message => "You have exceeded a secondary rate limit."}.to_json
+    begin
+      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return({})
+      Octokit.get('/user')
+    rescue Octokit::TooManyRequests => rate_limit_error
+      expect(rate_limit_error.context).to be_an_instance_of(Octokit::RateLimit)
+    end
+  end
+
+  it "returns context when non rate limit error occurs but rate limit headers are present" do
+    stub_get('/user').to_return \
+        :status => 403,
+        :headers => {
+            'content_type' => 'application/json'
+        },
+        :body => {:message => "You have exceeded a secondary rate limit."}.to_json
     begin
       rate_limit_headers = {'X-RateLimit-Limit' => 60, 'X-RateLimit-Remaining' => 42, 'X-RateLimit-Reset' => (Time.now + 60).to_i}
       expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return(rate_limit_headers)

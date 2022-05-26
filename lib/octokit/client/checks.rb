@@ -60,7 +60,10 @@ module Octokit
       #   result.check_runs[0].id # => 51295429
       #   result.check_runs[0].status # => "in_progress"
       def check_runs_for_ref(repo, ref, options = {})
-        get "#{Repository.path repo}/commits/#{ref}/check-runs", options
+        paginate "#{Repository.path repo}/commits/#{ref}/check-runs", options do |data, last_response|
+          data.check_runs.concat last_response.data.check_runs
+          data.total_count += last_response.data.total_count
+        end
       end
       alias :list_check_runs_for_ref :check_runs_for_ref
 
@@ -81,7 +84,10 @@ module Octokit
       #   result.check_runs[0].check_suite.id # => 50440400
       #   result.check_runs[0].status # => "in_progress"
       def check_runs_for_check_suite(repo, id, options = {})
-        get "#{Repository.path repo}/check-suites/#{id}/check-runs", options
+        paginate "#{Repository.path repo}/check-suites/#{id}/check-runs", options do |data, last_response|
+          data.check_runs.concat last_response.data.check_runs
+          data.total_count += last_response.data.total_count
+        end
       end
       alias :list_check_runs_for_check_suite :check_runs_for_check_suite
 
@@ -107,7 +113,7 @@ module Octokit
       #   annotations[0].path # => "README.md"
       #   annotations[0].message # => "Looks good!"
       def check_run_annotations(repo, id, options = {})
-        get "#{Repository.path repo}/check-runs/#{id}/annotations", options
+        paginate "#{Repository.path repo}/check-runs/#{id}/annotations", options
       end
 
       # Methods for Check Suites
@@ -140,7 +146,10 @@ module Octokit
       #   result.check_suites[0].id # => 50440400
       #   result.check_suites[0].app.id # => 76765
       def check_suites_for_ref(repo, ref, options = {})
-        get "#{Repository.path repo}/commits/#{ref}/check-suites", options
+        paginate "#{Repository.path repo}/commits/#{ref}/check-suites", options do |data, last_response|
+          data.check_suites.concat last_response.data.check_suites
+          data.total_count += last_response.data.total_count
+        end
       end
       alias :list_check_suites_for_ref :check_suites_for_ref
 
