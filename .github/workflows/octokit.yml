@@ -25,7 +25,6 @@ jobs:
         exclude:
           - ruby: 2.5
             faraday: '~> 2.0'
-
     env:
       FARADAY_VERSION: ${{ matrix.faraday }}
 
