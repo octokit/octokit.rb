@@ -6,6 +6,7 @@ module Octokit
   autoload(:Client, File.join(__dir__, 'octokit/client'))
   autoload(:EnterpriseAdminClient, File.join(__dir__, 'octokit/enterprise_admin_client'))
   autoload(:EnterpriseManagementConsoleClient, File.join(__dir__, 'octokit/enterprise_management_console_client'))
+  autoload(:Repository, File.join(__dir__, 'octokit/repository'))
 
   class << self
     include Octokit::Configurable
