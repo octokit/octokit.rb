@@ -36,4 +36,24 @@ describe Octokit::Client::ActionsWorkflows do
       assert_requested request
     end
   end # .workflow_dispatch
+
+  describe ".workflow_enable" do
+    it "enables a workflow" do
+      workflow_file_name = "simple_workflow.yml"
+      request = stub_put("/repos/#{@test_repo}/actions/workflows/#{workflow_file_name}/enable")
+
+      @client.workflow_enable(@test_repo, workflow_file_name)
+      assert_requested request
+    end
+  end # .workflow_enable
+
+  describe ".workflow_disable" do
+    it "disables a workflow" do
+      workflow_file_name = "simple_workflow.yml"
+      request = stub_put("/repos/#{@test_repo}/actions/workflows/#{workflow_file_name}/disable")
+
+      @client.workflow_disable(@test_repo, workflow_file_name)
+      assert_requested request
+    end
+  end # .workflow_disable
 end
