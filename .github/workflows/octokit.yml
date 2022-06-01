@@ -20,10 +20,17 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu ]
-        ruby: [ 2.5, 2.6, 2.7, '3.0', '3.1', head ]
+        ruby: [ 2.3, 2.4, 2.5, 2.6, 2.7, '3.0', '3.1', head ]
         faraday: [ '~> 1.0', '~> 2.0' ]
         exclude:
+          # Faraday 2.x only works with Ruby versions 2.6 onwards.
+          # Fortunately, the gem supports Faraday 1.x, so we can just
+          # test against that.
           - ruby: 2.5
+            faraday: '~> 2.0'
+          - ruby: 2.4
+            faraday: '~> 2.0'
+          - ruby: 2.3
             faraday: '~> 2.0'
     env:
       FARADAY_VERSION: ${{ matrix.faraday }}
