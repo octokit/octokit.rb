@@ -1,3 +1,5 @@
+require 'octokit/rate_limit'
+
 module Octokit
   # Custom error class for rescuing from all GitHub errors
   class Error < StandardError
