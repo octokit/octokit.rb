@@ -180,7 +180,7 @@ module Octokit
     def response_error_summary
       return nil unless data.is_a?(Hash) && !Array(data[:errors]).empty?
 
-      summary = "\nError summary:\n"
+      summary = +"\nError summary:\n"
       summary << data[:errors].map do |error|
         if error.is_a? Hash
           error.map { |k,v| "  #{k}: #{v}" }
@@ -195,8 +195,8 @@ module Octokit
     def build_error_message
       return nil if @response.nil?
 
-      message =  "#{@response[:method].to_s.upcase} "
-      message << redact_url(@response[:url].to_s) + ": "
+      message = +"#{@response[:method].to_s.upcase} "
+      message << redact_url(@response[:url].to_s.dup) + ": "
       message << "#{@response[:status]} - "
       message << "#{response_message}" unless response_message.nil?
       message << "#{response_error}" unless response_error.nil?
