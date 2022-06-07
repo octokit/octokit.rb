@@ -1,9 +1,7 @@
 module Octokit
   class Client
-
     # Methods for the Emojis API
     module Emojis
-
       # List all emojis used on GitHub
       #
       # @return [Sawyer::Resource] A list of all emojis on GitHub
@@ -11,7 +9,7 @@ module Octokit
       # @example List all emojis
       #   Octokit.emojis
       def emojis(options = {})
-        get "emojis", options
+        get 'emojis', options
       end
     end
   end

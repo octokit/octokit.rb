@@ -2,12 +2,10 @@
 
 module Octokit
   class Client
-
     # Methods for the OauthApplications API
     #
     # @see https://developer.github.com/v3/apps/oauth_applications
     module OauthApplications
-
       # Check if a token is valid.
       #
       # Applications can check if a token is valid without rate limits.

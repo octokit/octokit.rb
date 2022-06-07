@@ -1,11 +1,9 @@
 module Octokit
   class Client
-
     # Methods for the PubSubHubbub API
     #
     # @see https://developer.github.com/v3/repos/hooks/#pubsubhubbub
     module PubSubHubbub
-
       # Subscribe to a pubsub topic
       #
       # @param topic [String] A recoginized and supported pubsub topic
@@ -19,7 +17,7 @@ module Octokit
       def subscribe(topic, callback, secret = nil)
         options = {
           :"hub.callback" => callback,
-          :"hub.mode" => "subscribe",
+          :"hub.mode" => 'subscribe',
           :"hub.topic" => topic
         }
         options.merge!(:"hub.secret" => secret) unless secret.nil?
@@ -41,7 +39,7 @@ module Octokit
       def unsubscribe(topic, callback)
         options = {
           :"hub.callback" => callback,
-          :"hub.mode" => "unsubscribe",
+          :"hub.mode" => 'unsubscribe',
           :"hub.topic" => topic
         }
         response = pub_sub_hubbub_request(options)
@@ -64,7 +62,11 @@ module Octokit
       #    client.subscribe_service_hook('joshk/device_imapable', 'Travis', { :token => "test", :domain => "domain", :user => "user" })
       def subscribe_service_hook(repo, service_name, service_arguments = {}, secret = nil)
         topic = "#{Octokit.web_endpoint}#{Repository.new(repo)}/events/push"
-        callback = "github://#{service_name}?#{service_arguments.collect{ |k,v| [ k,v ].map{ |p| URI.encode_www_form_component(p) }.join("=") }.join("&") }"
+        callback = "github://#{service_name}?#{service_arguments.collect do |k, v|
+                                                 [k, v].map do |p|
+                                                   URI.encode_www_form_component(p)
+                                                 end.join('=')
+                                               end.join('&')}"
         subscribe(topic, callback, secret)
       end
 
@@ -88,20 +90,20 @@ module Octokit
       def pub_sub_hubbub_request(options = {})
         # This method is janky, bypass normal stack so we don't
         # serialize request as JSON
-        conn = Faraday.new(:url => @api_endpoint) do |http|
+        conn = Faraday.new(url: @api_endpoint) do |http|
           http.headers[:user_agent] = user_agent
           if basic_authenticated?
-            http.request *FARADAY_BASIC_AUTH_KEYS, @login, @password
+            http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
           elsif token_authenticated?
             http.request :authorization, 'token', @access_token
           end
-          http.request  :url_encoded
+          http.request :url_encoded
           http.use Octokit::Response::RaiseError
-          http.adapter  Faraday.default_adapter
+          http.adapter Faraday.default_adapter
         end
 
         conn.post do |req|
-          req.url "hub"
+          req.url 'hub'
           req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
           req.body = options
         end

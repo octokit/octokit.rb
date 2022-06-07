@@ -13,21 +13,19 @@ if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
 end
 
 module Octokit
-
   # Default configuration options for {Client}
   module Default
-
     # Default API endpoint
-    API_ENDPOINT = "https://api.github.com".freeze
+    API_ENDPOINT = 'https://api.github.com'.freeze
 
     # Default User Agent header string
     USER_AGENT   = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
 
     # Default media type
-    MEDIA_TYPE   = "application/vnd.github.v3+json".freeze
+    MEDIA_TYPE   = 'application/vnd.github.v3+json'.freeze
 
     # Default WEB endpoint
-    WEB_ENDPOINT = "https://github.com".freeze
+    WEB_ENDPOINT = 'https://github.com'.freeze
 
     # Default Faraday middleware stack
     MIDDLEWARE = Faraday::RackBuilder.new do |builder|
@@ -43,11 +41,10 @@ module Octokit
     end
 
     class << self
-
       # Configuration options
       # @return [Hash]
       def options
-        Hash[Octokit::Configurable.keys.map{|key| [key, send(key)]}]
+        Hash[Octokit::Configurable.keys.map {|key| [key, send(key)]}]
       end
 
       # Default access token from ENV
@@ -102,9 +99,9 @@ module Octokit
       # @return [Hash]
       def connection_options
         {
-          :headers => {
-            :accept => default_media_type,
-            :user_agent => user_agent
+          headers: {
+            accept: default_media_type,
+            user_agent: user_agent
           }
         }
       end
@@ -139,7 +136,7 @@ module Octokit
       def per_page
         page_size = ENV['OCTOKIT_PER_PAGE']
 
-        page_size.to_i if page_size
+        page_size&.to_i
       end
 
       # Default proxy server URI for Faraday connection from ENV
@@ -180,7 +177,6 @@ module Octokit
       def netrc_file
         ENV['OCTOKIT_NETRC_FILE'] || File.join(ENV['HOME'].to_s, '.netrc')
       end
-
     end
   end
 end

@@ -64,12 +64,10 @@ require 'octokit/client/users'
 require 'ext/sawyer/relation'
 
 module Octokit
-
   # Client for the GitHub API
   #
   # @see https://developer.github.com
   class Client
-
     include Octokit::Authentication
     include Octokit::Configurable
     include Octokit::Connection
@@ -128,11 +126,11 @@ module Octokit
     include Octokit::Client::Users
 
     # Header keys that can be passed in options hash to {#get},{#head}
-    CONVENIENCE_HEADERS = Set.new([:accept, :content_type])
+    CONVENIENCE_HEADERS = Set.new(%i[accept content_type])
 
     def initialize(options = {})
       # Use options passed in, but fall back to module defaults
-      Octokit::Configurable.keys.each do |key|
+      Octokit::Configurable.each_key do |key|
         value = options[key].nil? ? Octokit.instance_variable_get(:"@#{key}") : options[key]
         instance_variable_set(:"@#{key}", value)
       end
@@ -151,8 +149,8 @@ module Octokit
       inspected.gsub! @management_console_password, '*******' if @management_console_password
       inspected.gsub! @bearer_token, '********' if @bearer_token
       # Only show last 4 of token, secret
-      inspected.gsub! @access_token, "#{'*'*36}#{@access_token[36..-1]}" if @access_token
-      inspected.gsub! @client_secret, "#{'*'*36}#{@client_secret[36..-1]}" if @client_secret
+      inspected.gsub! @access_token, "#{'*' * 36}#{@access_token[36..-1]}" if @access_token
+      inspected.gsub! @client_secret, "#{'*' * 36}#{@client_secret[36..-1]}" if @client_secret
 
       inspected
     end
@@ -170,11 +168,12 @@ module Octokit
     #     # GET https://foo:bar@api.github.com/
     #     client.get "/"
     #   end
-    def as_app(key = client_id, secret = client_secret, &block)
+    def as_app(key = client_id, secret = client_secret)
       if key.to_s.empty? || secret.to_s.empty?
-        raise ApplicationCredentialsRequired, "client_id and client_secret required"
+        raise ApplicationCredentialsRequired, 'client_id and client_secret required'
       end
-      app_client = self.dup
+
+      app_client = dup
       app_client.client_id = app_client.client_secret = nil
       app_client.login    = key
       app_client.password = secret
@@ -235,10 +234,10 @@ module Octokit
       conn_opts[:url] = @api_endpoint
       conn_opts[:builder] = @middleware.dup if @middleware
       conn_opts[:proxy] = @proxy if @proxy
-      conn_opts[:ssl] = { :verify_mode => @ssl_verify_mode } if @ssl_verify_mode
+      conn_opts[:ssl] = { verify_mode: @ssl_verify_mode } if @ssl_verify_mode
       conn = Faraday.new(conn_opts) do |http|
         if basic_authenticated?
-          http.request *FARADAY_BASIC_AUTH_KEYS, @login, @password
+          http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
         elsif token_authenticated?
           http.request :authorization, 'token', @access_token
         elsif bearer_authenticated?

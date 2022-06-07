@@ -1,10 +1,8 @@
 module Octokit
   class Client
-
     # Methods for licenses API
     #
     module Licenses
-
       # List all licenses
       #
       # @see https://developer.github.com/v3/licenses/#list-all-licenses
@@ -13,7 +11,7 @@ module Octokit
       #   Octokit.licenses
       def licenses(options = {})
         options = ensure_api_media_type(:licenses, options)
-        paginate "licenses", options
+        paginate 'licenses', options
       end
 
       # List an individual license

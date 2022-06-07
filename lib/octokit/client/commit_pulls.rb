@@ -1,11 +1,9 @@
 module Octokit
   class Client
-
     # Methods for the Commit Pulls API
     #
     # @see https://developer.github.com/v3/repos/comments/
     module CommitPulls
-
       # List pulls for a single commit
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository

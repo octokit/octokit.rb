@@ -1,11 +1,9 @@
 module Octokit
   class Client
-
     # Methods for the Traffic API
     #
     # @see https://developer.github.com/v3/repos/traffic/
     module Traffic
-
       # Get the top 10 referrers over the last 14 days
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -63,7 +61,6 @@ module Octokit
         opts = ensure_api_media_type(:traffic, options)
         get "#{Repository.path repo}/traffic/clones", opts
       end
-
     end
   end
 end

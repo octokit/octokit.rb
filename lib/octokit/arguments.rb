@@ -1,5 +1,4 @@
 module Octokit
-
   # Extracts options from method arguments
   # @private
   class Arguments < Array
@@ -9,6 +8,5 @@ module Octokit
       @options = args.last.is_a?(::Hash) ? args.pop : {}
       super(args)
     end
-
   end
 end

@@ -1,9 +1,7 @@
 module Octokit
-
   # Class to extract options from Ruby arguments for
   # Repository-related methods
   class RepoArguments < Arguments
-
     # !@attribute [r] repo
     #   @return [Repository]
     attr_reader :repo
@@ -14,6 +12,5 @@ module Octokit
 
       arguments
     end
-
   end
 end

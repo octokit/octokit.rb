@@ -2,12 +2,10 @@ require 'date'
 
 module Octokit
   class Client
-
     # Methods for the Commits API
     #
     # @see https://developer.github.com/v3/repos/commits/
     module Commits
-
       # List commits
       #
       # @overload commits(repo, sha_or_branch, options = {})
@@ -23,12 +21,10 @@ module Octokit
       def commits(*args)
         arguments = Octokit::RepoArguments.new(args)
         sha_or_branch = arguments.pop
-        if sha_or_branch
-          arguments.options[:sha] = sha_or_branch
-        end
+        arguments.options[:sha] = sha_or_branch if sha_or_branch
         paginate "#{Repository.new(arguments.repo).path}/commits", arguments.options
       end
-      alias :list_commits :commits
+      alias list_commits commits
 
       # Get commits after a specified date
       #
@@ -50,11 +46,9 @@ module Octokit
         arguments = Octokit::RepoArguments.new(args)
         date   = parse_date(arguments.shift)
         params = arguments.options
-        params.merge!(:since => iso8601(date))
+        params.merge!(since: iso8601(date))
         sha_or_branch = arguments.pop
-        if sha_or_branch
-          params[:sha] = sha_or_branch
-        end
+        params[:sha] = sha_or_branch if sha_or_branch
         commits(arguments.repo, params)
       end
 
@@ -76,11 +70,9 @@ module Octokit
         arguments = Octokit::RepoArguments.new(args)
         date   = parse_date(arguments.shift)
         params = arguments.options
-        params.merge!(:until => iso8601(date))
+        params.merge!(until: iso8601(date))
         sha_or_branch = arguments.pop
-        if sha_or_branch
-          params[:sha] = sha_or_branch
-        end
+        params[:sha] = sha_or_branch if sha_or_branch
         commits(arguments.repo, params)
       end
 
@@ -103,11 +95,9 @@ module Octokit
         date   = parse_date(arguments.shift)
         params = arguments.options
         end_date = date + 1
-        params.merge!(:since => iso8601(date), :until => iso8601(end_date))
+        params.merge!(since: iso8601(date), until: iso8601(end_date))
         sha_or_branch = arguments.pop
-        if sha_or_branch
-          params[:sha] = sha_or_branch
-        end
+        params[:sha] = sha_or_branch if sha_or_branch
         commits(arguments.repo, params)
       end
 
@@ -134,11 +124,9 @@ module Octokit
         raise ArgumentError, "Start date #{date} does not precede #{end_date}" if date > end_date
 
         params = arguments.options
-        params.merge!(:since => iso8601(date), :until => iso8601(end_date))
+        params.merge!(since: iso8601(date), until: iso8601(end_date))
         sha_or_branch = arguments.pop
-        if sha_or_branch
-          params[:sha] = sha_or_branch
-        end
+        params[:sha] = sha_or_branch if sha_or_branch
         commits(arguments.repo, params)
       end
 
@@ -181,8 +169,8 @@ module Octokit
       #   commit.tree.sha # => "827efc6d56897b048c772eb4087f854f46256132"
       #   commit.message # => "My commit message"
       #   commit.committer # => { "name" => "Wynn Netherland", "email" => "wynn@github.com", ... }
-      def create_commit(repo, message, tree, parents=nil, options = {})
-        params = { :message => message, :tree => tree }
+      def create_commit(repo, message, tree, parents = nil, options = {})
+        params = { message: message, tree: tree }
         params[:parents] = [parents].flatten if parents
         post "#{Repository.path repo}/git/commits", options.merge(params)
       end
@@ -213,8 +201,8 @@ module Octokit
       # @see https://developer.github.com/v3/repos/merging/#perform-a-merge
       def merge(repo, base, head, options = {})
         params = {
-          :base => base,
-          :head => head
+          base: base,
+          head: head
         }.merge(options)
         post "#{Repository.path repo}/merges", params
       end
@@ -225,7 +213,7 @@ module Octokit
         if date.respond_to?(:iso8601)
           date.iso8601
         else
-          date.strftime("%Y-%m-%dT%H:%M:%S%Z")
+          date.strftime('%Y-%m-%dT%H:%M:%S%Z')
         end
       end
 

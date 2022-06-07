@@ -1,11 +1,9 @@
 module Octokit
   class Client
-
     # Methods for the Reacions API
     #
     # @see https://developer.github.com/v3/reactions/
     module Reactions
-
       # List reactions for a commit comment
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
@@ -34,7 +32,7 @@ module Octokit
       #
       # @return [<Sawyer::Resource>] Hash representing the reaction
       def create_commit_comment_reaction(repo, id, reaction, options = {})
-        options = ensure_api_media_type(:reactions, options.merge(:content => reaction))
+        options = ensure_api_media_type(:reactions, options.merge(content: reaction))
         post "#{Repository.path repo}/comments/#{id}/reactions", options
       end
 
@@ -67,7 +65,7 @@ module Octokit
       #
       # @return [<Sawyer::Resource>] Hash representing the reaction.
       def create_issue_reaction(repo, number, reaction, options = {})
-        options = ensure_api_media_type(:reactions, options.merge(:content => reaction))
+        options = ensure_api_media_type(:reactions, options.merge(content: reaction))
         post "#{Repository.path repo}/issues/#{number}/reactions", options
       end
 
@@ -101,7 +99,7 @@ module Octokit
       #
       # @return [<Sawyer::Resource>] Hashes representing the reaction.
       def create_issue_comment_reaction(repo, id, reaction, options = {})
-        options = ensure_api_media_type(:reactions, options.merge(:content => reaction))
+        options = ensure_api_media_type(:reactions, options.merge(content: reaction))
         post "#{Repository.path repo}/issues/comments/#{id}/reactions", options
       end
 
@@ -135,7 +133,7 @@ module Octokit
       #
       # @return [<Sawyer::Resource>] Hash representing the reaction.
       def create_pull_request_review_comment_reaction(repo, id, reaction, options = {})
-        options = ensure_api_media_type(:reactions, options.merge(:content => reaction))
+        options = ensure_api_media_type(:reactions, options.merge(content: reaction))
         post "#{Repository.path repo}/pulls/comments/#{id}/reactions", options
       end
 

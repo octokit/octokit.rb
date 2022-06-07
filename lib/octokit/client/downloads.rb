@@ -1,11 +1,9 @@
 module Octokit
   class Client
-
     # Methods for the Repo Downloads API
     #
     # @see https://developer.github.com/v3/repos/downloads/
     module Downloads
-
       # List available downloads for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A Github Repository
@@ -14,10 +12,10 @@ module Octokit
       # @see https://developer.github.com/v3/repos/downloads/#list-downloads-for-a-repository
       # @example List all downloads for Github/Hubot
       #   Octokit.downloads("github/hubot")
-      def downloads(repo, options={})
+      def downloads(repo, options = {})
         paginate "#{Repository.path repo}/downloads", options
       end
-      alias :list_downloads :downloads
+      alias list_downloads downloads
 
       # Get single download for a repository
       #
@@ -28,7 +26,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/downloads/#get-a-single-download
       # @example Get the "Robawt" download from Github/Hubot
       #   Octokit.download("github/hubot")
-      def download(repo, id, options={})
+      def download(repo, id, options = {})
         get "#{Repository.path repo}/downloads/#{id}", options
       end
 
@@ -44,7 +42,6 @@ module Octokit
       def delete_download(repo, id, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/downloads/#{id}", options
       end
-
     end
   end
 end

@@ -1,16 +1,14 @@
 module Octokit
   class Client
-
     # Methods for the GitHub Status API
     #
     # @see https://status.github.com/api
     module ServiceStatus
-
       # Root for status API
       # @private
-      SUMMARY_ROOT    = 'https://www.githubstatus.com/api/v2/summary.json'
-      STATUS_ROOT     = 'https://www.githubstatus.com/api/v2/status.json'
-      COMPONENTS_ROOT = 'https://www.githubstatus.com/api/v2/components.json'
+      SUMMARY_ROOT    = 'https://www.githubstatus.com/api/v2/summary.json'.freeze
+      STATUS_ROOT     = 'https://www.githubstatus.com/api/v2/status.json'.freeze
+      COMPONENTS_ROOT = 'https://www.githubstatus.com/api/v2/components.json'.freeze
 
       # Returns a summary with the current status and the last status messages.
       #
