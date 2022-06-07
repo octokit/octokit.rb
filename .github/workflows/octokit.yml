@@ -56,3 +56,9 @@ jobs:
           GITHUB_CI: 1
           RUBYOPT: --enable-frozen-string-literal
         run: bundle exec rspec -w
+      - name: Test with RSpec in lazy-loaded mode
+        env:
+          GITHUB_CI: 1
+          RUBYOPT: --enable-frozen-string-literal
+          OCTOKIT_REQUIRE: octokit/lazy
+        run: bundle exec rspec -w
