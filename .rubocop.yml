@@ -1,10 +1,14 @@
 inherit_from: .rubocop_todo.yml
 
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.0
 Gemspec/RequireMFA:
   Enabled: false
 Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
-AllCops:
-  NewCops: enable
-  TargetRubyVersion: 2.0
+Style/SafeNavigation:
+  # Disabled until we switch to a Ruby version that support this. I would
+  # expect the `TargetRubyVersion`` to handle this for us, but oh well!
+  Enabled: false
