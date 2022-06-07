@@ -19,4 +19,5 @@ Gem::Specification.new do |spec|
   spec.required_rubygems_version = '>= 1.3.5'
   spec.summary = 'Ruby toolkit for working with the GitHub API'
   spec.version = Octokit::VERSION.dup
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end

@@ -16,11 +16,11 @@ module Octokit
       #   client.subscribe("https://github.com/joshk/devise_imapable/events/push", "github://Email?address=josh.kalderimis@gmail.com")
       def subscribe(topic, callback, secret = nil)
         options = {
-          :"hub.callback" => callback,
-          :"hub.mode" => 'subscribe',
-          :"hub.topic" => topic
+          :'hub.callback' => callback,
+          :'hub.mode' => 'subscribe',
+          :'hub.topic' => topic
         }
-        options.merge!(:"hub.secret" => secret) unless secret.nil?
+        options.merge!(:'hub.secret' => secret) unless secret.nil?
 
         response = pub_sub_hubbub_request(options)
 
@@ -38,9 +38,9 @@ module Octokit
       #   client.unsubscribe("https://github.com/joshk/devise_imapable/events/push", "github://Email?address=josh.kalderimis@gmail.com")
       def unsubscribe(topic, callback)
         options = {
-          :"hub.callback" => callback,
-          :"hub.mode" => 'unsubscribe',
-          :"hub.topic" => topic
+          :'hub.callback' => callback,
+          :'hub.mode' => 'unsubscribe',
+          :'hub.topic' => topic
         }
         response = pub_sub_hubbub_request(options)
 
