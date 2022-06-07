@@ -2,4 +2,5 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
 AllCops:
+  NewCops: enable
   TargetRubyVersion: 2.0
