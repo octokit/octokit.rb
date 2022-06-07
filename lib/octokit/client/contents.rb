@@ -57,7 +57,7 @@ module Octokit
       #                    "File content",
       #                    :branch => "my-new-feature")
       def create_contents(*args)
-        args    = args.map { |item| item&.dup }
+        args    = args.map { |item| item && item.dup }
         options = args.last.is_a?(Hash) ? args.pop : {}
         repo    = args.shift
         path    = args.shift

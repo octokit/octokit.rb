@@ -136,7 +136,7 @@ module Octokit
       def per_page
         page_size = ENV['OCTOKIT_PER_PAGE']
 
-        page_size&.to_i
+        page_size && page_size.to_i
       end
 
       # Default proxy server URI for Faraday connection from ENV

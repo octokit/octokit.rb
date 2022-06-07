@@ -93,7 +93,7 @@ module Octokit
 
         request :post, upload_url, file.read, parse_query_and_convenience_headers(options)
       ensure
-        file&.close
+        file && file.close
       end
 
       # Get a single release asset
