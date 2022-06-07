@@ -10,7 +10,13 @@ describe Octokit do
   end
 
   it 'sets defaults' do
-    Octokit::Configurable.each_key do |key|
+    # rubocop:disable Style/HashEachMethods
+    #
+    # This may look like a `.keys.each` which should be replaced with `#each_key`, but
+    # this doesn't actually work, since `#keys` is just a method we've defined ourselves.
+    # The class doesn't fulfill the whole `Enumerable` contract.
+    Octokit::Configurable.keys.each do |key|
+      # rubocop:enable Style/HashEachMethods
       expect(Octokit.instance_variable_get(:"@#{key}")).to eq(Octokit::Default.send(key))
     end
   end
@@ -33,7 +39,13 @@ describe Octokit do
   end
 
   describe '.configure' do
-    Octokit::Configurable.each_key do |key|
+    # rubocop:disable Style/HashEachMethods
+    #
+    # This may look like a `.keys.each` which should be replaced with `#each_key`, but
+    # this doesn't actually work, since `#keys` is just a method we've defined ourselves.
+    # The class doesn't fulfill the whole `Enumerable` contract.
+    Octokit::Configurable.keys.each do |key|
+      # rubocop:enable Style/HashEachMethods
       it "sets the #{key.to_s.gsub('_', ' ')}" do
         Octokit.configure do |config|
           config.send("#{key}=", key)

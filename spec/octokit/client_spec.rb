@@ -14,7 +14,13 @@ describe Octokit::Client do
     before do
       Octokit.reset!
       Octokit.configure do |config|
-        Octokit::Configurable.each_key do |key|
+        # rubocop:disable Style/HashEachMethods
+        #
+        # This may look like a `.keys.each` which should be replaced with `#each_key`, but
+        # this doesn't actually work, since `#keys` is just a method we've defined ourselves.
+        # The class doesn't fulfill the whole `Enumerable` contract.
+        Octokit::Configurable.keys.each do |key|
+          # rubocop:enable Style/HashEachMethods
           config.send("#{key}=", "Some #{key}")
         end
       end
@@ -26,7 +32,13 @@ describe Octokit::Client do
 
     it 'inherits the module configuration' do
       client = Octokit::Client.new
-      Octokit::Configurable.each_key do |key|
+      # rubocop:disable Style/HashEachMethods
+      #
+      # This may look like a `.keys.each` which should be replaced with `#each_key`, but
+      # this doesn't actually work, since `#keys` is just a method we've defined ourselves.
+      # The class doesn't fulfill the whole `Enumerable` contract.
+      Octokit::Configurable.keys.each do |key|
+        # rubocop:enable Style/HashEachMethods
         expect(client.instance_variable_get(:"@#{key}")).to eq("Some #{key}")
       end
     end
