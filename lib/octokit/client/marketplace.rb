@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Marketplace Listing API
     #
     # @see https://developer.github.com/v3/apps/marketplace/
     module Marketplace
-
       # List all plans for an app's marketplace listing
       #
       # @param options [Hash] A customizable set of options
@@ -14,7 +14,7 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] A list of plans
       def list_plans(options = {})
-        paginate "/marketplace_listing/plans", options
+        paginate '/marketplace_listing/plans', options
       end
 
       # List all GitHub accounts on a specific plan
@@ -49,7 +49,7 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] A list of Marketplace purchases
       def marketplace_purchases(options = {})
-        get "/user/marketplace_purchases", options
+        get '/user/marketplace_purchases', options
       end
     end
   end

@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Apps API
     module Apps
-
       # Get the authenticated App
       #
       # @param options [Hash] A customizable set of options
@@ -12,7 +12,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] App information
       def app(options = {})
-        get "app", options
+        get 'app', options
       end
 
       # Find all installations that belong to an App
@@ -23,16 +23,16 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] the total_count and an array of installations
       def find_app_installations(options = {})
-        paginate "app/installations", options
+        paginate 'app/installations', options
       end
       alias find_installations find_app_installations
 
       def find_integration_installations(options = {})
         octokit_warn(
-          "Deprecated: Octokit::Client::Apps#find_integration_installations "\
-          "method is deprecated. Please update your call to use "\
-          "Octokit::Client::Apps#find_app_installations before the next major "\
-          "Octokit version update."
+          'Deprecated: Octokit::Client::Apps#find_integration_installations '\
+          'method is deprecated. Please update your call to use '\
+          'Octokit::Client::Apps#find_app_installations before the next major '\
+          'Octokit version update.'
         )
         find_app_installations(options)
       end
@@ -45,7 +45,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] the total_count and an array of installations
       def find_user_installations(options = {})
-        paginate("user/installations", options) do |data, last_response|
+        paginate('user/installations', options) do |data, last_response|
           data.installations.concat last_response.data.installations
         end
       end
@@ -76,10 +76,10 @@ module Octokit
 
       def create_integration_installation_access_token(installation, options = {})
         octokit_warn(
-          "Deprecated: Octokit::Client::Apps#create_integration_installation_access_token "\
-          "method is deprecated. Please update your call to use "\
-          "Octokit::Client::Apps#create_app_installation_access_token before the next major "\
-          "Octokit version update."
+          'Deprecated: Octokit::Client::Apps#create_integration_installation_access_token '\
+          'method is deprecated. Please update your call to use '\
+          'Octokit::Client::Apps#create_app_installation_access_token before the next major '\
+          'Octokit version update.'
         )
         create_app_installation_access_token(installation, options)
       end
@@ -128,7 +128,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] the total_count and an array of repositories
       def list_app_installation_repositories(options = {})
-        paginate("installation/repositories", options) do |data, last_response|
+        paginate('installation/repositories', options) do |data, last_response|
           data.repositories.concat last_response.data.repositories
         end
       end
@@ -136,10 +136,10 @@ module Octokit
 
       def list_integration_installation_repositories(options = {})
         octokit_warn(
-          "Deprecated: Octokit::Client::Apps#list_integration_installation_repositories "\
-          "method is deprecated. Please update your call to use "\
-          "Octokit::Client::Apps#list_app_installation_repositories before the next major "\
-          "Octokit version update."
+          'Deprecated: Octokit::Client::Apps#list_integration_installation_repositories '\
+          'method is deprecated. Please update your call to use '\
+          'Octokit::Client::Apps#list_app_installation_repositories before the next major '\
+          'Octokit version update.'
         )
         list_app_installation_repositories(options)
       end
@@ -160,10 +160,10 @@ module Octokit
 
       def add_repository_to_integration_installation(installation, repo, options = {})
         octokit_warn(
-          "Deprecated: Octokit::Client::Apps#add_repository_to_integration_installation "\
-          "method is deprecated. Please update your call to use "\
-          "Octokit::Client::Apps#add_repository_to_app_installation before the next major "\
-          "Octokit version update."
+          'Deprecated: Octokit::Client::Apps#add_repository_to_integration_installation '\
+          'method is deprecated. Please update your call to use '\
+          'Octokit::Client::Apps#add_repository_to_app_installation before the next major '\
+          'Octokit version update.'
         )
         add_repository_to_app_installation(installation, repo, options)
       end
@@ -184,10 +184,10 @@ module Octokit
 
       def remove_repository_from_integration_installation(installation, repo, options = {})
         octokit_warn(
-          "Deprecated: Octokit::Client::Apps#remove_repository_from_integration_installation "\
-          "method is deprecated. Please update your call to use "\
-          "Octokit::Client::Apps#remove_repository_from_app_installation before the next major "\
-          "Octokit version update."
+          'Deprecated: Octokit::Client::Apps#remove_repository_from_integration_installation '\
+          'method is deprecated. Please update your call to use '\
+          'Octokit::Client::Apps#remove_repository_from_app_installation before the next major '\
+          'Octokit version update.'
         )
         remove_repository_from_app_installation(installation, repo, options)
       end

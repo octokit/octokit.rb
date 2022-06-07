@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Authorizations API
     #
     # @see https://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api
     module Authorizations
-
       # List the authenticated user's authorizations
       #
       # API for users to manage their own tokens.
@@ -64,16 +64,18 @@ module Octokit
         options = options.dup
         if options.delete :idempotent
           client_id, client_secret = fetch_client_id_and_secret(options)
-          raise ArgumentError.new("Client ID and Secret required for idempotent authorizations") unless client_id && client_secret
+          unless client_id && client_secret
+            raise ArgumentError, 'Client ID and Secret required for idempotent authorizations'
+          end
 
           # Remove the client_id from the body otherwise
           # this will result in a 422.
           options.delete(:client_id)
 
           if (fingerprint = options.delete(:fingerprint))
-            put "authorizations/clients/#{client_id}/#{fingerprint}", options.merge(:client_secret => client_secret)
+            put "authorizations/clients/#{client_id}/#{fingerprint}", options.merge(client_secret: client_secret)
           else
-            put "authorizations/clients/#{client_id}", options.merge(:client_secret => client_secret)
+            put "authorizations/clients/#{client_id}", options.merge(client_secret: client_secret)
           end
 
         else
@@ -126,18 +128,18 @@ module Octokit
       # @return [Array<String>] OAuth scopes
       # @see https://developer.github.com/v3/oauth/#scopes
       def scopes(token = @access_token, options = {})
-        options= options.dup
-        raise ArgumentError.new("Access token required") if token.nil?
+        options = options.dup
+        raise ArgumentError, 'Access token required' if token.nil?
 
-        auth = { "Authorization" => "token #{token}" }
+        auth = { 'Authorization' => "token #{token}" }
         headers = (options.delete(:headers) || {}).merge(auth)
 
-        agent.call(:get, "user", :headers => headers).
-          headers['X-OAuth-Scopes'].
-          to_s.
-          split(',').
-          map(&:strip).
-          sort
+        agent.call(:get, 'user', headers: headers)
+             .headers['X-OAuth-Scopes']
+             .to_s
+             .split(',')
+             .map(&:strip)
+             .sort
       end
 
       # Revoke all tokens for an app
@@ -146,8 +148,8 @@ module Octokit
       #
       # @deprecated As of January 25th, 2016: https://developer.github.com/changes/2014-04-08-reset-api-tokens/
       # @return [Boolean] false
-      def revoke_all_application_authorizations(options = {})
-        octokit_warn("Deprecated: If you need to revoke all tokens for your application, you can do so via the settings page for your application.")
+      def revoke_all_application_authorizations(_options = {})
+        octokit_warn('Deprecated: If you need to revoke all tokens for your application, you can do so via the settings page for your application.')
         false
       end
 
@@ -165,8 +167,9 @@ module Octokit
       def authorize_url(app_id = client_id, options = {})
         opts = options.dup
         if app_id.to_s.empty?
-          raise Octokit::ApplicationCredentialsRequired, "client_id required"
+          raise Octokit::ApplicationCredentialsRequired, 'client_id required'
         end
+
         authorize_url = opts.delete(:endpoint) || Octokit.web_endpoint
         authorize_url << "login/oauth/authorize?client_id=#{app_id}"
 

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'helper'
 
 describe Octokit::Client::ActionsWorkflowRuns, :vcr do
   before do
     Octokit.reset!
     @client = oauth_client
-    @run_id = 96922843
+    @run_id = 96_922_843
   end
 
   after do

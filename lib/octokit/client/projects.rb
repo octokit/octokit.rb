@@ -1,18 +1,18 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for Projects API
     #
     # @see https://developer.github.com/v3/repos/projects
     module Projects
-
       # List projects for a repository
       #
       # Requires authenticated client
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] Repository projects
-      # @see https://developer.github.com/v3/projects/#list-repository-projects 
+      # @see https://developer.github.com/v3/projects/#list-repository-projects
       # @example
       #   @client.projects('octokit/octokit.rb')
       def projects(repo, options = {})
@@ -28,7 +28,7 @@ module Octokit
       # @param name [String] Project name
       # @option options [String] :body Body of the project
       # @return [Sawyer::Resource] Fresh new project
-      # @see https://developer.github.com/v3/projects/#create-a-repository-project 
+      # @see https://developer.github.com/v3/projects/#create-a-repository-project
       # @example Create project with only a name
       #   @client.create_project('octokit/octokit.rb', 'implement new APIs')
       #
@@ -53,7 +53,7 @@ module Octokit
         opts = ensure_api_media_type(:projects, options)
         paginate "orgs/#{org}/projects", opts
       end
-      alias :organization_projects :org_projects
+      alias organization_projects org_projects
 
       # Create organization project
       #
@@ -73,13 +73,13 @@ module Octokit
         opts[:name] = name
         post "orgs/#{org}/projects", opts
       end
-      alias :create_organization_project :create_org_project
+      alias create_organization_project create_org_project
 
-      # Get a project by id 
+      # Get a project by id
       #
       # @param id [Integer] Project id
       # @return [Sawyer::Resource] Project
-      # @see https://developer.github.com/v3/projects/#get-a-project 
+      # @see https://developer.github.com/v3/projects/#get-a-project
       # @example
       #   Octokit.project(123942)
       def project(id, options = {})
@@ -95,7 +95,7 @@ module Octokit
       # @option options [String] :name Project name
       # @option options [String] :body Project body
       # @return [Sawyer::Resource] Project
-      # @see https://developer.github.com/v3/projects/#update-a-project 
+      # @see https://developer.github.com/v3/projects/#update-a-project
       # @example Update project name
       #   @client.update_project(123942, name: 'New name')
       def update_project(id, options = {})
@@ -109,7 +109,7 @@ module Octokit
       #
       # @param id [Integer] Project id
       # @return [Boolean] Result of deletion
-      # @see https://developer.github.com/v3/projects/#delete-a-project 
+      # @see https://developer.github.com/v3/projects/#delete-a-project
       # @example
       #   @client.delete_project(123942)
       def delete_project(id, options = {})
@@ -119,9 +119,9 @@ module Octokit
 
       # List project columns
       #
-      # @param id [Integer] Project id 
+      # @param id [Integer] Project id
       # @return [Array<Sawyer::Resource>] List of project columns
-      # @see https://developer.github.com/v3/projects/columns/#list-project-columns 
+      # @see https://developer.github.com/v3/projects/columns/#list-project-columns
       # @example
       #   @client.project_columns(123942)
       def project_columns(id, options = {})
@@ -136,7 +136,7 @@ module Octokit
       # @param id [Integer] Project column id
       # @param name [String] New column name
       # @return [Sawyer::Resource] Newly created column
-      # @see https://developer.github.com/v3/projects/columns/#create-a-project-column 
+      # @see https://developer.github.com/v3/projects/columns/#create-a-project-column
       # @example
       #   @client.create_project_column(123942, "To Dones")
       def create_project_column(id, name, options = {})
@@ -149,7 +149,7 @@ module Octokit
       #
       # @param id [Integer] Project column id
       # @return [Sawyer::Resource] Project column
-      # @see https://developer.github.com/v3/projects/columns/#get-a-project-column 
+      # @see https://developer.github.com/v3/projects/columns/#get-a-project-column
       # @example
       #   Octokit.project_column(30294)
       def project_column(id, options = {})
@@ -164,7 +164,7 @@ module Octokit
       # @param id [Integer] Project column id
       # @param name [String] New column name
       # @return [Sawyer::Resource] Updated column
-      # @see https://developer.github.com/v3/projects/columns/#update-a-project-column 
+      # @see https://developer.github.com/v3/projects/columns/#update-a-project-column
       # @example
       #   @client.update_project_column(30294, "new column name")
       def update_project_column(id, name, options = {})
@@ -179,7 +179,7 @@ module Octokit
       #
       # @param id [Integer] Project column id
       # @return [Boolean] Result of deletion request, true when deleted
-      # @see https://developer.github.com/v3/projects/columns/#delete-a-project-column 
+      # @see https://developer.github.com/v3/projects/columns/#delete-a-project-column
       # @example
       #   @client.delete_project_column(30294)
       def delete_project_column(id, options = {})
@@ -192,7 +192,7 @@ module Octokit
       # Requires authenticated client
       #
       # @param id [Integer] Project column id
-      # @param position [String] New position for the column. Can be one of 
+      # @param position [String] New position for the column. Can be one of
       #   <tt>first</tt>, <tt>last</tt>, or <tt>after:<column-id></tt>, where
       #   <tt><column-id></tt> is the id value of a column in the same project.
       # @return [Sawyer::Resource] Result
@@ -296,7 +296,7 @@ module Octokit
       end
 
       # Delete a project card
-      # 
+      #
       # Requires authenticated client
       #
       # @param id [Integer] Project card id
@@ -308,7 +308,6 @@ module Octokit
         opts = ensure_api_media_type(:projects, options)
         boolean_from_response :delete, "projects/columns/cards/#{id}", opts
       end
-
     end # Projects
   end
 end

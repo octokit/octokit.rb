@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the GitHub Status API
     #
     # @see https://status.github.com/api
     module ServiceStatus
-
       # Root for status API
       # @private
       SUMMARY_ROOT    = 'https://www.githubstatus.com/api/v2/summary.json'

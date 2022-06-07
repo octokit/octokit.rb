@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'helper'
 
 describe Octokit::Client::ActionsWorkflows do
@@ -16,7 +18,7 @@ describe Octokit::Client::ActionsWorkflows do
 
   describe '.workflow', :vcr do
     it 'returns the repository workflows' do
-      workflow_file_name = "simple_workflow.yml"
+      workflow_file_name = 'simple_workflow.yml'
       request = stub_get("/repos/#{@test_repo}/actions/workflows/#{workflow_file_name}")
 
       @client.workflow(@test_repo, workflow_file_name)
@@ -25,9 +27,9 @@ describe Octokit::Client::ActionsWorkflows do
     end
   end # .workflow
 
-  describe ".workflow_dispatch", :vcr do
-    it "creates a workflow dispatch event" do
-      workflow_file_name = "simple_workflow.yml"
+  describe '.workflow_dispatch', :vcr do
+    it 'creates a workflow dispatch event' do
+      workflow_file_name = 'simple_workflow.yml'
       request = stub_post("/repos/#{@test_repo}/actions/workflows/#{workflow_file_name}/dispatches")
 
       @client.workflow_dispatch(@test_repo, workflow_file_name, 'main')

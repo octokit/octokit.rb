@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Gists API
     #
     # @see https://developer.github.com/v3/gists/
     module Gists
-
       # List gists for a user or all public gists
       #
       # @param user [String] An optional user to filter listing
@@ -15,14 +15,14 @@ module Octokit
       # @example Fetch all public gists
       #   Octokit.gists
       # @see https://developer.github.com/v3/gists/#list-gists
-      def gists(user=nil, options = {})
+      def gists(user = nil, options = {})
         if user.nil?
           paginate 'gists', options
         else
           paginate "#{User.path user}/gists", options
         end
       end
-      alias :list_gists :gists
+      alias list_gists gists
 
       # List public gists
       #
@@ -196,7 +196,7 @@ module Octokit
       # @example
       #   @client.create_gist_comment('3528645', 'This is very helpful.')
       def create_gist_comment(gist_id, comment, options = {})
-        options = options.merge({:body => comment})
+        options = options.merge({ body: comment })
         post "gists/#{gist_id}/comments", options
       end
 
@@ -212,7 +212,7 @@ module Octokit
       # @example
       #   @client.update_gist_comment('208sdaz3', '3528645', ':heart:')
       def update_gist_comment(gist_id, gist_comment_id, comment, options = {})
-        options = options.merge({:body => comment})
+        options = options.merge({ body: comment })
         patch "gists/#{gist_id}/comments/#{gist_comment_id}", options
       end
 

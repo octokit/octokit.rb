@@ -1,19 +1,20 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Class to parse GitHub repository owner and name from
   # URLs and to generate URLs
   class Repository
     attr_accessor :owner, :name, :id
-    NAME_WITH_OWNER_PATTERN = /\A[\w.-]+\/[\w.-]+\z/i
+    NAME_WITH_OWNER_PATTERN = %r{\A[\w.-]+/[\w.-]+\z}i.freeze
 
     # Instantiate from a GitHub repository URL
     #
     # @return [Repository]
     def self.from_url(url)
-      new URI.parse(url).path[1..-1].
-        gsub(/^repos\//,'').
-        split('/', 3)[0..1].
-        join('/')
+      new URI.parse(url).path[1..-1]
+             .gsub(%r{^repos/}, '')
+             .split('/', 3)[0..1]
+             .join('/')
     end
 
     # @raise [Octokit::InvalidRepository] if the repository
@@ -23,7 +24,7 @@ module Octokit
       when Integer
         @id = repo
       when NAME_WITH_OWNER_PATTERN
-        @owner, @name = repo.split("/")
+        @owner, @name = repo.split('/')
       when Repository
         @owner = repo.owner
         @name = repo.name
@@ -33,9 +34,7 @@ module Octokit
       else
         raise_invalid_repository!(repo)
       end
-      if @owner && @name
-        validate_owner_and_name!(repo)
-      end
+      validate_owner_and_name!(repo) if @owner && @name
     end
 
     # Repository owner/name
@@ -43,7 +42,7 @@ module Octokit
     def slug
       "#{@owner}/#{@name}"
     end
-    alias :to_s :slug
+    alias to_s slug
 
     # @return [String] Repository API path
     def path
@@ -54,7 +53,7 @@ module Octokit
     # Get the api path for a repo
     # @param repo [Integer, String, Hash, Repository] A GitHub repository.
     # @return [String] Api path.
-    def self.path repo
+    def self.path(repo)
       new(repo).path
     end
 
@@ -74,22 +73,22 @@ module Octokit
       "#{Octokit.web_endpoint}#{slug}"
     end
 
-    alias :user :owner
-    alias :username :owner
-    alias :repo :name
+    alias user owner
+    alias username owner
+    alias repo name
 
     private
 
-      def validate_owner_and_name!(repo)
-        if @owner.include?('/') || @name.include?('/') || !url.match(URI::ABS_URI)
-          raise_invalid_repository!(repo)
-        end
+    def validate_owner_and_name!(repo)
+      if @owner.include?('/') || @name.include?('/') || !url.match(URI::ABS_URI)
+        raise_invalid_repository!(repo)
       end
+    end
 
-      def raise_invalid_repository!(repo)
-        msg = "#{repo.inspect} is invalid as a repository identifier. " +
-              "Use the user/repo (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys."
-        raise Octokit::InvalidRepository, msg
-      end
+    def raise_invalid_repository!(repo)
+      msg = "#{repo.inspect} is invalid as a repository identifier. " \
+            'Use the user/repo (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys.'
+      raise Octokit::InvalidRepository, msg
+    end
   end
 end

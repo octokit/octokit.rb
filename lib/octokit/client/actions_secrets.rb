@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Actions Secrets API
     #
     # @see https://developer.github.com/v3/actions/secrets/
     module ActionsSecrets
-
       # Get public key for secrets encryption
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
@@ -14,7 +14,6 @@ module Octokit
       def get_public_key(repo)
         get "#{Repository.path repo}/actions/secrets/public-key"
       end
-
 
       # List secrets
       #

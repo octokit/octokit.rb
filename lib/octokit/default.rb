@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'octokit/middleware/follow_redirects'
 require 'octokit/response/raise_error'
 require 'octokit/response/feed_parser'
@@ -13,28 +15,30 @@ if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
 end
 
 module Octokit
-
   # Default configuration options for {Client}
   module Default
-
     # Default API endpoint
-    API_ENDPOINT = "https://api.github.com".freeze
+    API_ENDPOINT = 'https://api.github.com'
 
     # Default User Agent header string
-    USER_AGENT   = "Octokit Ruby Gem #{Octokit::VERSION}".freeze
+    USER_AGENT   = "Octokit Ruby Gem #{Octokit::VERSION}"
 
     # Default media type
-    MEDIA_TYPE   = "application/vnd.github.v3+json".freeze
+    MEDIA_TYPE   = 'application/vnd.github.v3+json'
 
     # Default WEB endpoint
-    WEB_ENDPOINT = "https://github.com".freeze
+    WEB_ENDPOINT = 'https://github.com'
 
     # Default Faraday middleware stack
     MIDDLEWARE = Faraday::RackBuilder.new do |builder|
       # In Faraday 2.x, Faraday::Request::Retry was moved to a separate gem
       # so we use it only when it's available.
-      builder.use Faraday::Request::Retry, exceptions: [Octokit::ServerError] if defined?(Faraday::Request::Retry)
-      builder.use Faraday::Retry::Middleware, exceptions: [Octokit::ServerError] if defined?(Faraday::Retry::Middleware)
+      if defined?(Faraday::Request::Retry)
+        builder.use Faraday::Request::Retry, exceptions: [Octokit::ServerError]
+      end
+      if defined?(Faraday::Retry::Middleware)
+        builder.use Faraday::Retry::Middleware, exceptions: [Octokit::ServerError]
+      end
 
       builder.use Octokit::Middleware::FollowRedirects
       builder.use Octokit::Response::RaiseError
@@ -43,11 +47,10 @@ module Octokit
     end
 
     class << self
-
       # Configuration options
       # @return [Hash]
       def options
-        Hash[Octokit::Configurable.keys.map{|key| [key, send(key)]}]
+        Hash[Octokit::Configurable.keys.map { |key| [key, send(key)] }]
       end
 
       # Default access token from ENV
@@ -102,9 +105,9 @@ module Octokit
       # @return [Hash]
       def connection_options
         {
-          :headers => {
-            :accept => default_media_type,
-            :user_agent => user_agent
+          headers: {
+            accept: default_media_type,
+            user_agent: user_agent
           }
         }
       end
@@ -139,7 +142,7 @@ module Octokit
       def per_page
         page_size = ENV['OCTOKIT_PER_PAGE']
 
-        page_size.to_i if page_size
+        page_size&.to_i
       end
 
       # Default proxy server URI for Faraday connection from ENV
@@ -180,7 +183,6 @@ module Octokit
       def netrc_file
         ENV['OCTOKIT_NETRC_FILE'] || File.join(ENV['HOME'].to_s, '.netrc')
       end
-
     end
   end
 end

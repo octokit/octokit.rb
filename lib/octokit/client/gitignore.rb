@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Gitignore API
     #
     # @see https://developer.github.com/v3/gitignore/
     module Gitignore
-
       # Listing available gitignore templates.
       #
       # These templates can be passed option when creating a repository.
@@ -17,7 +17,7 @@ module Octokit
       # @example Git all the gitignore templates
       #   @client.gitignore_templates
       def gitignore_templates(options = {})
-        get "gitignore/templates", options
+        get 'gitignore/templates', options
       end
 
       # Get a gitignore template.

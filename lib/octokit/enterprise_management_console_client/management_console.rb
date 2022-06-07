@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class EnterpriseManagementConsoleClient
-
     # Methods for the Enterprise Management Console API
     #
     # @see https://developer.github.com/v3/enterprise-admin/management_console/
     module ManagementConsole
-
       # Uploads a license for the first time
       #
       # @param license [String] The path to your .ghl license file.
@@ -16,19 +16,19 @@ module Octokit
       def upload_license(license, settings = nil)
         conn = faraday_configuration
 
-        params = { }
+        params = {}
         params[:license] = Faraday::UploadIO.new(license, 'binary')
         params[:password] = @management_console_password
-        params[:settings] = "#{settings.to_json}" unless settings.nil?
+        params[:settings] = settings.to_json.to_s unless settings.nil?
 
-        @last_response = conn.post("/setup/api/start", params)
+        @last_response = conn.post('/setup/api/start', params)
       end
 
       # Start a configuration process.
       #
       # @return nil
       def start_configuration
-        post "/setup/api/configure", password_hash
+        post '/setup/api/configure', password_hash
       end
 
       # Upgrade an Enterprise installation
@@ -39,27 +39,27 @@ module Octokit
       def upgrade(license)
         conn = faraday_configuration
 
-        params = { }
+        params = {}
         params[:license] = Faraday::UploadIO.new(license, 'binary')
         params[:api_key] = @management_console_password
-        @last_response = conn.post("/setup/api/upgrade", params)
+        @last_response = conn.post('/setup/api/upgrade', params)
       end
 
       # Get information about the Enterprise installation
       #
       # @return [Sawyer::Resource] The installation information
       def config_status
-        get "/setup/api/configcheck", password_hash
+        get '/setup/api/configcheck', password_hash
       end
-      alias :config_check :config_status
+      alias config_check config_status
 
       # Get information about the Enterprise installation
       #
       # @return [Sawyer::Resource] The settings
       def settings
-        get "/setup/api/settings", password_hash
+        get '/setup/api/settings', password_hash
       end
-      alias :get_settings :settings
+      alias get_settings settings
 
       # Modify the Enterprise settings
       #
@@ -68,17 +68,17 @@ module Octokit
       # @return [nil]
       def edit_settings(settings)
         queries = password_hash
-        queries[:query][:settings] = "#{settings.to_json}"
-        put "/setup/api/settings", queries
+        queries[:query][:settings] = settings.to_json.to_s
+        put '/setup/api/settings', queries
       end
 
       # Get information about the Enterprise maintenance status
       #
       # @return [Sawyer::Resource] The maintenance status
       def maintenance_status
-        get "/setup/api/maintenance", password_hash
+        get '/setup/api/maintenance', password_hash
       end
-      alias :get_maintenance_status :maintenance_status
+      alias get_maintenance_status maintenance_status
 
       # Start (or turn off) the Enterprise maintenance mode
       #
@@ -86,18 +86,18 @@ module Octokit
       # @return [nil]
       def set_maintenance_status(maintenance)
         queries = password_hash
-        queries[:query][:maintenance] = "#{maintenance.to_json}"
-        post "/setup/api/maintenance", queries
+        queries[:query][:maintenance] = maintenance.to_json.to_s
+        post '/setup/api/maintenance', queries
       end
-      alias :edit_maintenance_status :set_maintenance_status
+      alias edit_maintenance_status set_maintenance_status
 
       # Fetch the authorized SSH keys on the Enterprise install
       #
       # @return [Sawyer::Resource] An array of authorized SSH keys
       def authorized_keys
-        get "/setup/api/settings/authorized-keys", password_hash
+        get '/setup/api/settings/authorized-keys', password_hash
       end
-      alias :get_authorized_keys :authorized_keys
+      alias get_authorized_keys authorized_keys
 
       # Add an authorized SSH keys on the Enterprise install
       #
@@ -108,7 +108,7 @@ module Octokit
         case key
         when String
           if File.exist?(key)
-            key = File.open(key, "r")
+            key = File.open(key, 'r')
             content = key.read.strip
             key.close
           else
@@ -120,7 +120,7 @@ module Octokit
         end
 
         queries[:query][:authorized_key] = content
-        post "/setup/api/settings/authorized-keys", queries
+        post '/setup/api/settings/authorized-keys', queries
       end
 
       # Removes an authorized SSH keys from the Enterprise install
@@ -132,7 +132,7 @@ module Octokit
         case key
         when String
           if File.exist?(key)
-            key = File.open(key, "r")
+            key = File.open(key, 'r')
             content = key.read.strip
             key.close
           else
@@ -144,27 +144,27 @@ module Octokit
         end
 
         queries[:query][:authorized_key] = content
-        delete "/setup/api/settings/authorized-keys", queries
+        delete '/setup/api/settings/authorized-keys', queries
       end
-      alias :delete_authorized_key :remove_authorized_key
-
+      alias delete_authorized_key remove_authorized_key
     end
+
     private
 
     def password_hash
-      { :query => { :api_key => @management_console_password } }
+      { query: { api_key: @management_console_password } }
     end
 
     # We fall back to raw Faraday for handling the licenses because I'm suspicious
     # that Sawyer isn't handling binary POSTs correctly: https://github.com/lostisland/sawyer/blob/03fca4c020f465ec42856d0486ec3991859b0aed/lib/sawyer/agent.rb#L85
     def faraday_configuration
-      @faraday_configuration ||= Faraday.new(:url => @management_console_endpoint) do |http|
+      @faraday_configuration ||= Faraday.new(url: @management_console_endpoint) do |http|
         http.headers[:user_agent] = user_agent
         http.request :multipart
         http.request :url_encoded
 
         # Disabling SSL is essential for certain self-hosted Enterprise instances
-        if self.connection_options[:ssl] && !self.connection_options[:ssl][:verify]
+        if connection_options[:ssl] && !connection_options[:ssl][:verify]
           http.ssl[:verify] = false
         end
 

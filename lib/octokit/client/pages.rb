@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Pages API
     #
     # @see https://developer.github.com/v3/repos/pages/
     module Pages
-
       # List Pages information for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -36,7 +36,7 @@ module Octokit
       def pages_builds(repo, options = {})
         get "#{Repository.path repo}/pages/builds", options
       end
-      alias :list_pages_builds :pages_builds
+      alias list_pages_builds pages_builds
 
       # List the latest Pages build information for a repository
       #

@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Issues API
     #
     # @see https://developer.github.com/v3/issues/
     module Issues
-
       # List issues for the authenticated user or repository
       #
       # @param repository [Integer, String, Repository, Hash] A GitHub repository.
@@ -28,10 +28,10 @@ module Octokit
       #   @client = Octokit::Client.new(:login => 'foo', :password => 'bar')
       #   @client.list_issues
       def list_issues(repository = nil, options = {})
-        path = repository ? "#{Repository.new(repository).path}/issues" : "issues"
+        path = repository ? "#{Repository.new(repository).path}/issues" : 'issues'
         paginate path, options
       end
-      alias :issues :list_issues
+      alias issues list_issues
 
       # List all issues across owned and member repositories for the authenticated user
       #
@@ -91,17 +91,17 @@ module Octokit
       def create_issue(repo, title, body = nil, options = {})
         options[:labels] = case options[:labels]
                            when String
-                             options[:labels].split(",").map(&:strip)
+                             options[:labels].split(',').map(&:strip)
                            when Array
                              options[:labels]
                            else
                              []
                            end
-        parameters = { :title => title }
+        parameters = { title: title }
         parameters[:body] = body unless body.nil?
         post "#{Repository.path repo}/issues", options.merge(parameters)
       end
-      alias :open_issue :create_issue
+      alias open_issue create_issue
 
       # Get a single issue from a repository
       #
@@ -129,7 +129,7 @@ module Octokit
       # @example Close Issue #25 from octokit/octokit.rb
       #   Octokit.close_issue("octokit/octokit.rb", "25")
       def close_issue(repo, number, options = {})
-        patch "#{Repository.path repo}/issues/#{number}", options.merge({:state => "closed"})
+        patch "#{Repository.path repo}/issues/#{number}", options.merge({ state: 'closed' })
       end
 
       # Reopen an issue
@@ -146,7 +146,7 @@ module Octokit
       # @example Reopen Issue #25 from octokit/octokit.rb
       #   Octokit.reopen_issue("octokit/octokit.rb", "25")
       def reopen_issue(repo, number, options = {})
-        patch "#{Repository.path repo}/issues/#{number}", options.merge({:state => "open"})
+        patch "#{Repository.path repo}/issues/#{number}", options.merge({ state: 'open' })
       end
 
       # Lock an issue's conversation, limiting it to collaborators
@@ -210,7 +210,7 @@ module Octokit
         arguments = Arguments.new(args)
         opts = arguments.options
 
-        if arguments.length > 0
+        unless arguments.empty?
           opts[:title] = arguments.shift
           opts[:body] = arguments.shift
         end
@@ -281,7 +281,7 @@ module Octokit
       # @example Add the comment "Almost to v1" to Issue #23 on octokit/octokit.rb
       #   Octokit.add_comment("octokit/octokit.rb", 23, "Almost to v1")
       def add_comment(repo, number, comment, options = {})
-        post "#{Repository.path repo}/issues/#{number}/comments", options.merge({:body => comment})
+        post "#{Repository.path repo}/issues/#{number}/comments", options.merge({ body: comment })
       end
 
       # Update a single comment on an issue
@@ -294,7 +294,7 @@ module Octokit
       # @example Update the comment #1194549 with body "I've started this on my 25-issue-comments-v3 fork" on an issue on octokit/octokit.rb
       #   Octokit.update_comment("octokit/octokit.rb", 1194549, "Almost to v1, added this on my fork")
       def update_comment(repo, number, comment, options = {})
-        patch "#{Repository.path repo}/issues/comments/#{number}", options.merge({:body => comment})
+        patch "#{Repository.path repo}/issues/comments/#{number}", options.merge({ body: comment })
       end
 
       # Delete a single comment
@@ -343,7 +343,7 @@ module Octokit
       # @example Add assignees "pengwynn" and "joeyw" to Issue #23 on octokit/octokit.rb
       #   Octokit.add_assignees("octokit/octokit.rb", 23, ["pengwynn", "joeyw"])
       def add_assignees(repo, number, assignees, options = {})
-        post "#{Repository.path repo}/issues/#{number}/assignees", options.merge({:assignees => assignees})
+        post "#{Repository.path repo}/issues/#{number}/assignees", options.merge({ assignees: assignees })
       end
 
       # Remove assignees from an issue
@@ -361,7 +361,7 @@ module Octokit
       #   Octokit.remove_assignees("octokit/octokit.rb", 23, ["pengwynn"],
       #     :accept => "application/vnd.github.v3+json")
       def remove_assignees(repo, number, assignees, options = {})
-        delete "#{Repository.path repo}/issues/#{number}/assignees", options.merge({:assignees => assignees})
+        delete "#{Repository.path repo}/issues/#{number}/assignees", options.merge({ assignees: assignees })
       end
     end
   end

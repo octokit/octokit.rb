@@ -29,7 +29,7 @@ describe Octokit::Client::OauthApplications do
       path = "/applications/#{test_github_client_id}/token"
 
       expect(WebMock).to have_requested(:post, github_url(path)).with(
-        basic_auth: [test_github_client_id, test_github_client_secret],
+        basic_auth: [test_github_client_id, test_github_client_secret]
       )
     end
 
@@ -38,22 +38,22 @@ describe Octokit::Client::OauthApplications do
       path = "/applications/#{test_github_client_id}/token"
 
       expect(WebMock).to have_requested(:post, github_url(path)).with(
-        basic_auth: [test_github_client_id, test_github_client_secret],
+        basic_auth: [test_github_client_id, test_github_client_secret]
       )
     end
 
-    it "works in Enterprise mode" do
-      api_endpoint  = "https://gh-enterprise.com/api/v3"
-      client_id     = "abcde12345fghij67890"
-      client_secret = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
-      token         = "25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
+    it 'works in Enterprise mode' do
+      api_endpoint  = 'https://gh-enterprise.com/api/v3'
+      client_id     = 'abcde12345fghij67890'
+      client_secret = 'abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd'
+      token         = '25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8'
 
       path = File.join(api_endpoint, "/applications/#{client_id}/token")
 
       client = Octokit::Client.new(
-        client_id:     client_id,
+        client_id: client_id,
         client_secret: client_secret,
-        api_endpoint:  api_endpoint
+        api_endpoint: api_endpoint
       )
 
       request = stub_request(:post, path).with(basic_auth: [client_id, client_secret])
@@ -69,7 +69,7 @@ describe Octokit::Client::OauthApplications do
       path = "/applications/#{test_github_client_id}/token"
 
       expect(WebMock).to have_requested(:patch, github_url(path)).with(
-        basic_auth: [test_github_client_id, test_github_client_secret],
+        basic_auth: [test_github_client_id, test_github_client_secret]
       )
     end
 
@@ -78,22 +78,22 @@ describe Octokit::Client::OauthApplications do
       path = "/applications/#{test_github_client_id}/token"
 
       expect(WebMock).to have_requested(:patch, github_url(path)).with(
-        basic_auth: [test_github_client_id, test_github_client_secret],
+        basic_auth: [test_github_client_id, test_github_client_secret]
       )
     end
 
-    it "works in Enterprise mode" do
-      api_endpoint  = "https://gh-enterprise.com/api/v3"
-      client_id     = "abcde12345fghij67890"
-      client_secret = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
-      token         = "25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
+    it 'works in Enterprise mode' do
+      api_endpoint  = 'https://gh-enterprise.com/api/v3'
+      client_id     = 'abcde12345fghij67890'
+      client_secret = 'abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd'
+      token         = '25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8'
 
       path = File.join(api_endpoint, "/applications/#{client_id}/token")
 
       client = Octokit::Client.new(
-        client_id:     client_id,
+        client_id: client_id,
         client_secret: client_secret,
-        api_endpoint:  api_endpoint
+        api_endpoint: api_endpoint
       )
 
       request = stub_request(:patch, path).with(basic_auth: [client_id, client_secret])
@@ -109,7 +109,7 @@ describe Octokit::Client::OauthApplications do
       path = "/applications/#{test_github_client_id}/token"
 
       expect(WebMock).to have_requested(:delete, github_url(path)).with(
-        basic_auth: [test_github_client_id, test_github_client_secret],
+        basic_auth: [test_github_client_id, test_github_client_secret]
       )
     end
 
@@ -118,7 +118,7 @@ describe Octokit::Client::OauthApplications do
       path = "/applications/#{test_github_client_id}/token"
 
       expect(WebMock).to have_requested(:delete, github_url(path)).with(
-        basic_auth: [test_github_client_id, test_github_client_secret],
+        basic_auth: [test_github_client_id, test_github_client_secret]
       )
     end
 
@@ -127,22 +127,22 @@ describe Octokit::Client::OauthApplications do
       path = "/applications/#{test_github_client_id}/token"
 
       expect(WebMock).to have_requested(:delete, github_url(path)).with(
-        basic_auth: [test_github_client_id, test_github_client_secret],
+        basic_auth: [test_github_client_id, test_github_client_secret]
       )
     end
 
-    it "works in Enterprise mode" do
-      api_endpoint  = "https://gh-enterprise.com/api/v3"
-      client_id     = "abcde12345fghij67890"
-      client_secret = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd"
-      token         = "25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8"
+    it 'works in Enterprise mode' do
+      api_endpoint  = 'https://gh-enterprise.com/api/v3'
+      client_id     = 'abcde12345fghij67890'
+      client_secret = 'abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd'
+      token         = '25f94a2a5c7fbaf499c665bc73d67c1c87e496da8985131633ee0a95819db2e8'
 
       path = File.join(api_endpoint, "/applications/#{client_id}/token")
 
       client = Octokit::Client.new(
-        client_id:     client_id,
+        client_id: client_id,
         client_secret: client_secret,
-        api_endpoint:  api_endpoint
+        api_endpoint: api_endpoint
       )
 
       request = stub_request(:delete, path).with(basic_auth: [client_id, client_secret])
@@ -158,7 +158,7 @@ describe Octokit::Client::OauthApplications do
       path = "/applications/#{test_github_client_id}/grant"
 
       expect(WebMock).to have_requested(:delete, github_url(path)).with(
-        basic_auth: [test_github_client_id, test_github_client_secret],
+        basic_auth: [test_github_client_id, test_github_client_secret]
       )
     end
   end

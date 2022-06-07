@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Notifications API
     #
     # @see https://developer.github.com/v3/activity/notifications/
     module Notifications
-
       # List your notifications
       #
       # @param options [Hash] Optional parameters
@@ -24,7 +24,7 @@ module Octokit
       # @example Get all notifications since a certain time.
       #   @client.notifications({all: true, since: '2012-10-09T23:39:01Z'})
       def notifications(options = {})
-        paginate "notifications", options
+        paginate 'notifications', options
       end
 
       # List your notifications in a repository
@@ -48,7 +48,7 @@ module Octokit
       def repository_notifications(repo, options = {})
         paginate "#{Repository.path repo}/notifications", options
       end
-      alias :repo_notifications :repository_notifications
+      alias repo_notifications repository_notifications
 
       # Mark notifications as read
       #
@@ -66,7 +66,7 @@ module Octokit
       # @example
       #   @client.mark_notifications_as_read
       def mark_notifications_as_read(options = {})
-        request :put, "notifications", options
+        request :put, 'notifications', options
 
         last_response.status == 205
       end
@@ -91,7 +91,7 @@ module Octokit
 
         last_response.status == 205
       end
-      alias :mark_repo_notifications_as_read :mark_repository_notifications_as_read
+      alias mark_repo_notifications_as_read mark_repository_notifications_as_read
 
       # List notifications for a specific thread
       #

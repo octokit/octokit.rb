@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Reviews API
     #
     # @see https://developer.github.com/v3/pulls/reviews/
     module Reviews
-
       # List reviews on a pull request
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
@@ -161,9 +161,9 @@ module Octokit
         # TODO(5.0): remove deprecated behavior
         if reviewers.is_a?(Array)
           octokit_warn(
-            "Deprecated: Octokit::Client#request_pull_request_review "\
+            'Deprecated: Octokit::Client#request_pull_request_review '\
             "no longer takes a separate :reviewers argument.\n" \
-            "Please update your call to pass :reviewers and :team_reviewers as part of the options hash."
+            'Please update your call to pass :reviewers and :team_reviewers as part of the options hash.'
           )
           options = options.merge(reviewers: reviewers)
         else
@@ -190,13 +190,13 @@ module Octokit
       #   @client.delete_pull_request_review_request('octokit/octokit.rb', 2, options)
       #
       # @return [Sawyer::Resource>] Hash representing the pull request
-      def delete_pull_request_review_request(repo, id, reviewers={}, options = {})
+      def delete_pull_request_review_request(repo, id, reviewers = {}, options = {})
         # TODO(5.0): remove deprecated behavior
         if !reviewers.empty? && !options.empty?
           octokit_warn(
-            "Deprecated: Octokit::Client#delete_pull_request_review_request "\
+            'Deprecated: Octokit::Client#delete_pull_request_review_request '\
             "no longer takes a separate :reviewers argument.\n" \
-            "Please update your call to pass :reviewers and :team_reviewers as part of the options hash."
+            'Please update your call to pass :reviewers and :team_reviewers as part of the options hash.'
           )
         end
         # For backwards compatibility, this endpoint can be called with a separate reviewers hash.

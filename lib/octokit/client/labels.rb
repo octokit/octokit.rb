@@ -1,13 +1,13 @@
-require "erb"
+# frozen_string_literal: true
+
+require 'erb'
 
 module Octokit
   class Client
-
     # Methods for the Issue Labels API
     #
     # @see https://developer.github.com/v3/issues/labels/
     module Labels
-
       # List available labels for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -40,8 +40,8 @@ module Octokit
       # @see https://developer.github.com/v3/issues/labels/#create-a-label
       # @example Add a new label "Version 1.0" with color "#cccccc"
       #   Octokit.add_label("octokit/octokit.rb", "Version 1.0", "cccccc")
-      def add_label(repo, label, color="ffffff", options = {})
-        post "#{Repository.path repo}/labels", options.merge({:name => label, :color => color})
+      def add_label(repo, label, color = 'ffffff', options = {})
+        post "#{Repository.path repo}/labels", options.merge({ name: label, color: color })
       end
 
       # Update a label
@@ -136,7 +136,7 @@ module Octokit
       # @see https://developer.github.com/v3/issues/labels/#replace-all-labels-for-an-issue
       # @example Replace labels for octokit/octokit.rb Issue #10
       #   Octokit.replace_all_labels("octokit/octokit.rb", 10, ['V3 Transition', 'Improvement'])
-      def replace_all_labels(repo, number, labels, options = {})
+      def replace_all_labels(repo, number, labels, _options = {})
         put "#{Repository.path repo}/issues/#{number}/labels", labels
       end
 

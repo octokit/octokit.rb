@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Octokit
   class EnterpriseAdminClient
-
     # Methods for the Enterprise User Administration API
     #
     # @see https://developer.github.com/enterprise/v3/enterprise-admin/users/
@@ -15,7 +16,7 @@ module Octokit
       def create_user(login, email, options = {})
         options[:login] = login
         options[:email] = email
-        post "admin/users", options
+        post 'admin/users', options
       end
 
       # Promote an ordinary user to a site administrator
@@ -111,7 +112,7 @@ module Octokit
       # @example
       #   @admin_client.list_all_keys
       def list_all_keys(options = {})
-        get "admin/keys", options
+        get 'admin/keys', options
       end
 
       # Deletes a public SSH keys.
@@ -121,7 +122,7 @@ module Octokit
       # @example
       #   @admin_client.delete_key(1)
       def delete_key(id, options = {})
-        boolean_from_response :delete,  "admin/keys/#{id}", options
+        boolean_from_response :delete, "admin/keys/#{id}", options
       end
     end
   end
