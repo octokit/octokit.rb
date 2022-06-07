@@ -45,7 +45,7 @@ module Octokit
       # @return [Sawyer::Resource] Repository information
       def edit_repository(repo, options = {})
         repo = Repository.new(repo)
-        options = ensure_api_media_type(:template_repositories, options) if options.include? :is_template
+        options = ensure_api_media_type(:template_repositories, options) if options.include?(:is_template)
         options[:name] ||= repo.name
         patch "repos/#{repo}", options
       end
@@ -155,8 +155,8 @@ module Octokit
       def create_repository(name, options = {})
         opts = options.dup
         organization = opts.delete :organization
-        opts.merge! name: name
-        opts = ensure_api_media_type(:template_repositories, opts) if opts.include? :is_template
+        opts.merge!(name: name)
+        opts = ensure_api_media_type(:template_repositories, opts) if opts.include?(:is_template)
 
         if organization.nil?
           post 'user/repos', opts
@@ -204,7 +204,7 @@ module Octokit
       # @option options [Boolean] :include_all_branches `true` copies all branches from the template repository, `false` (default) makes it only copy the master branch.
       # @return [Sawyer::Resource] Repository info for the new repository
       def create_repository_from_template(repo, name, options = {})
-        options.merge! name: name
+        options.merge!(name: name)
         options = ensure_api_media_type(:template_repositories, options)
         post "#{Repository.path repo}/generate", options
       end
