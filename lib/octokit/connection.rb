@@ -88,7 +88,7 @@ module Octokit
             yield(data, @last_response)
           elsif @last_response.data.is_a?(Array)
             data.concat(@last_response.data)
-end
+          end
         end
 
       end

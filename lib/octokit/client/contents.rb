@@ -67,7 +67,7 @@ module Octokit
           case file
           when String
             if File.exist?(file)
-              file = File.open(file, "r")
+              file = File.open(file, 'r')
               content = file.read
               file.close
             end
@@ -76,13 +76,13 @@ module Octokit
             file.close
           end
         end
-        raise ArgumentError, "content or :file option required" if content.nil?
+        raise ArgumentError, 'content or :file option required' if content.nil?
 
         options[:content] = if Base64.respond_to?(:strict_encode64)
-  Base64.strict_encode64(content)
-else
-  Base64.encode64(content).delete("\n")
-end # Ruby 1.9.2
+                              Base64.strict_encode64(content)
+                            else
+                              Base64.encode64(content).delete("\n")
+                            end
         options[:message] = message
         url = "#{Repository.path repo}/contents/#{path}"
         put url, options

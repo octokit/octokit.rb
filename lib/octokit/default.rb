@@ -50,49 +50,49 @@ module Octokit
       # Default access token from ENV
       # @return [String]
       def access_token
-        ENV['OCTOKIT_ACCESS_TOKEN']
+        ENV.fetch('OCTOKIT_ACCESS_TOKEN', nil)
       end
 
       # Default API endpoint from ENV or {API_ENDPOINT}
       # @return [String]
       def api_endpoint
-        ENV['OCTOKIT_API_ENDPOINT'] || API_ENDPOINT
+        ENV.fetch('OCTOKIT_API_ENDPOINT') { API_ENDPOINT }
       end
 
       # Default pagination preference from ENV
       # @return [String]
       def auto_paginate
-        ENV['OCTOKIT_AUTO_PAGINATE']
+        ENV.fetch('OCTOKIT_AUTO_PAGINATE', nil)
       end
 
       # Default bearer token from ENV
       # @return [String]
       def bearer_token
-        ENV['OCTOKIT_BEARER_TOKEN']
+        ENV.fetch('OCTOKIT_BEARER_TOKEN', nil)
       end
 
       # Default OAuth app key from ENV
       # @return [String]
       def client_id
-        ENV['OCTOKIT_CLIENT_ID']
+        ENV.fetch('OCTOKIT_CLIENT_ID', nil)
       end
 
       # Default OAuth app secret from ENV
       # @return [String]
       def client_secret
-        ENV['OCTOKIT_SECRET']
+        ENV.fetch('OCTOKIT_SECRET', nil)
       end
 
       # Default management console password from ENV
       # @return [String]
       def management_console_password
-        ENV['OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD']
+        ENV.fetch('OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD', nil)
       end
 
       # Default management console endpoint from ENV
       # @return [String]
       def management_console_endpoint
-        ENV['OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT']
+        ENV.fetch('OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT', nil)
       end
 
       # Default options for Faraday::Connection
@@ -109,13 +109,13 @@ module Octokit
       # Default media type from ENV or {MEDIA_TYPE}
       # @return [String]
       def default_media_type
-        ENV['OCTOKIT_DEFAULT_MEDIA_TYPE'] || MEDIA_TYPE
+        ENV.fetch('OCTOKIT_DEFAULT_MEDIA_TYPE') { MEDIA_TYPE }
       end
 
       # Default GitHub username for Basic Auth from ENV
       # @return [String]
       def login
-        ENV['OCTOKIT_LOGIN']
+        ENV.fetch('OCTOKIT_LOGIN', nil)
       end
 
       # Default middleware stack for Faraday::Connection
@@ -128,13 +128,13 @@ module Octokit
       # Default GitHub password for Basic Auth from ENV
       # @return [String]
       def password
-        ENV['OCTOKIT_PASSWORD']
+        ENV.fetch('OCTOKIT_PASSWORD', nil)
       end
 
       # Default pagination page size from ENV
       # @return [Integer] Page size
       def per_page
-        page_size = ENV['OCTOKIT_PER_PAGE']
+        page_size = ENV.fetch('OCTOKIT_PER_PAGE', nil)
 
         page_size && page_size.to_i
       end
@@ -142,7 +142,7 @@ module Octokit
       # Default proxy server URI for Faraday connection from ENV
       # @return [String]
       def proxy
-        ENV['OCTOKIT_PROXY']
+        ENV.fetch('OCTOKIT_PROXY', nil)
       end
 
       # Default SSL verify mode from ENV
@@ -157,25 +157,25 @@ module Octokit
       # Default User-Agent header string from ENV or {USER_AGENT}
       # @return [String]
       def user_agent
-        ENV['OCTOKIT_USER_AGENT'] || USER_AGENT
+        ENV.fetch('OCTOKIT_USER_AGENT') { USER_AGENT }
       end
 
       # Default web endpoint from ENV or {WEB_ENDPOINT}
       # @return [String]
       def web_endpoint
-        ENV['OCTOKIT_WEB_ENDPOINT'] || WEB_ENDPOINT
+        ENV.fetch('OCTOKIT_WEB_ENDPOINT') { WEB_ENDPOINT }
       end
 
       # Default behavior for reading .netrc file
       # @return [Boolean]
       def netrc
-        ENV['OCTOKIT_NETRC'] || false
+        ENV.fetch('OCTOKIT_NETRC', false)
       end
 
       # Default path for .netrc file
       # @return [String]
       def netrc_file
-        ENV['OCTOKIT_NETRC_FILE'] || File.join(ENV['HOME'].to_s, '.netrc')
+        ENV.fetch('OCTOKIT_NETRC_FILE') { File.join(Dir.home.to_s, '.netrc') }
       end
     end
   end
