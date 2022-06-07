@@ -132,7 +132,14 @@ module Octokit
 
     def initialize(options = {})
       # Use options passed in, but fall back to module defaults
-      Octokit::Configurable.each_key do |key|
+      #
+      # rubocop:disable Style/HashEachMethods
+      #
+      # This may look like a `.keys.each` which should be replaced with `#each_key`, but
+      # this doesn't actually work, since `#keys` is just a method we've defined ourselves.
+      # The class doesn't fulfill the whole `Enumerable` contract.
+      Octokit::Configurable.keys.each do |key|
+        # rubocop:enable Style/HashEachMethods
         value = options[key].nil? ? Octokit.instance_variable_get(:"@#{key}") : options[key]
         instance_variable_set(:"@#{key}", value)
       end
