@@ -1,5 +1,7 @@
 inherit_from: .rubocop_todo.yml
 
+Gemspec/RequireMFA:
+  Enabled: false
 Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
