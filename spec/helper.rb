@@ -4,7 +4,14 @@ if RUBY_ENGINE == 'ruby'
 end
 
 require 'json'
-require 'octokit'
+
+# This allows us to use the `OCTOKIT_REQUIRE` environment variable to switch in our
+# tests between requiring all of Octokit (`require 'octokit'`) and using the lazy-
+# loaded version (`require 'octokit/lazy'`).
+octokit_require = ENV.fetch('OCTOKIT_REQUIRE', 'octokit')
+require octokit_require
+
+require 'faraday'
 require 'rspec'
 require 'webmock/rspec'
 require 'base64'

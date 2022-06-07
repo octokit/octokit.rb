@@ -42,4 +42,4 @@ group :test, :development do
   gem 'rubocop'
 end
 
-gemspec
+gemspec require: false

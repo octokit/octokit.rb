@@ -70,7 +70,7 @@ client.readme 'al3x/sovereign', :accept => 'application/vnd.github.html'
 
 ## Installation
 
-Install via Rubygems
+Install via RubyGems
 
     gem install octokit
 
@@ -81,6 +81,10 @@ Install via Rubygems
 Access the library in Ruby:
 
     require 'octokit'
+
+To speed up the boot of your application, you can `require 'octokit/lazy'` which will lazy-load required code as you use it, rather than requiring everything at once. You may also need to configure this in your `Gemfile` like this:
+
+    gem "octokit", "~> 4.0", require: "octokit/lazy"
 
 ## Making requests
 
