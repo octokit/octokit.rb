@@ -33,13 +33,13 @@ group :test do
 end
 
 gem 'faraday', ENV.fetch('FARADAY_VERSION', '~> 2.0')
-gem 'faraday-retry'
 gem 'faraday-multipart'
+gem 'faraday-retry'
 
 group :test, :development do
   gem 'pry-byebug'
   gem 'redcarpet'
-  gem 'rubocop'
+  gem 'rubocop', '0.81'
 end
 
 gemspec
