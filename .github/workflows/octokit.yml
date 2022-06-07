@@ -56,3 +56,7 @@ jobs:
           GITHUB_CI: 1
           RUBYOPT: --enable-frozen-string-literal
         run: bundle exec rspec -w
+      - name: Lint with Rubocop
+        env:
+          GITHUB_CI: 1
+        run: bundle exec rubocop
