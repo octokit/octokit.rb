@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Checks API
     #
     # @see https://developer.github.com/v3/checks/
     module Checks
-
       # Methods for Check Runs
       #
       # @see https://developer.github.com/v3/checks/runs/
@@ -65,7 +65,7 @@ module Octokit
           data.total_count += last_response.data.total_count
         end
       end
-      alias :list_check_runs_for_ref :check_runs_for_ref
+      alias list_check_runs_for_ref check_runs_for_ref
 
       # List check runs in a check suite
       #
@@ -89,7 +89,7 @@ module Octokit
           data.total_count += last_response.data.total_count
         end
       end
-      alias :list_check_runs_for_check_suite :check_runs_for_check_suite
+      alias list_check_runs_for_check_suite check_runs_for_check_suite
 
       # Get a single check run
       #
@@ -151,7 +151,7 @@ module Octokit
           data.total_count += last_response.data.total_count
         end
       end
-      alias :list_check_suites_for_ref :check_suites_for_ref
+      alias list_check_suites_for_ref check_suites_for_ref
 
       # Set preferences for check suites on a repository
       #

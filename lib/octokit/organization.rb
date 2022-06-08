@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Octokit
   # GitHub organization class to generate API path urls
   class Organization
@@ -5,7 +7,7 @@ module Octokit
     #
     # @param org [String, Integer] GitHub organization login or id
     # @return [String] Organization Api path
-    def self.path org
+    def self.path(org)
       case org
       when String
         "orgs/#{org}"

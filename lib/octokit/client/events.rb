@@ -1,12 +1,12 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Method for the Events API
     #
     # @see https://developer.github.com/v3/activity/events/
     # @see https://developer.github.com/v3/issues/events/
     module Events
-
       # List all public events for GitHub
       #
       # @return [Array<Sawyer::Resource>] A list of all public events from GitHub
@@ -14,7 +14,7 @@ module Octokit
       # @example List all pubilc events
       #   Octokit.public_events
       def public_events(options = {})
-        paginate "events", options
+        paginate 'events', options
       end
 
       # List all user events
@@ -119,7 +119,7 @@ module Octokit
       def repository_issue_events(repo, options = {})
         paginate "#{Repository.path repo}/issues/events", options
       end
-      alias :repo_issue_events :repository_issue_events
+      alias repo_issue_events repository_issue_events
 
       # List events for an Issue
       #

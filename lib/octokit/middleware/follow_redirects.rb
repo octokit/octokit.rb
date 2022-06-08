@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'set'
 
@@ -7,9 +9,7 @@ require 'set'
 # https://github.com/lostisland/faraday_middleware/blob/138766e/lib/faraday_middleware/response/follow_redirects.rb
 
 module Octokit
-
   module Middleware
-
     # Public: Exception thrown when the maximum amount of requests is exceeded.
     class RedirectLimitReached < Faraday::ClientError
       attr_reader :response
@@ -30,13 +30,13 @@ module Octokit
     # doesn't support parallelism.
     class FollowRedirects < Faraday::Middleware
       # HTTP methods for which 30x redirects can be followed
-      ALLOWED_METHODS = Set.new [:head, :options, :get, :post, :put, :patch, :delete]
+      ALLOWED_METHODS = Set.new %i[head options get post put patch delete]
 
       # HTTP redirect status codes that this middleware implements
       REDIRECT_CODES  = Set.new [301, 302, 303, 307]
 
       # Keys in env hash which will get cleared between requests
-      ENV_TO_CLEAR    = Set.new [:status, :response, :response_headers]
+      ENV_TO_CLEAR    = Set.new %i[status response response_headers]
 
       # Default value for max redirects followed
       FOLLOW_LIMIT = 3
@@ -44,7 +44,7 @@ module Octokit
       # Regex that matches characters that need to be escaped in URLs, sans
       # the "%" character which we assume already represents an escaped
       # sequence.
-      URI_UNSAFE = /[^\-_.!~*'()a-zA-Z\d;\/?:@&=+$,\[\]%]/
+      URI_UNSAFE = %r{[^\-_.!~*'()a-zA-Z\d;/?:@&=+$,\[\]%]}.freeze
 
       # Public: Initialize the middleware.
       #
@@ -64,7 +64,7 @@ module Octokit
       private
 
       def convert_to_get?(response)
-        ![:head, :options].include?(response.env[:method]) &&
+        !%i[head options].include?(response.env[:method]) &&
           @convert_to_get.include?(response.status)
       end
 
@@ -75,6 +75,7 @@ module Octokit
         response.on_complete do |response_env|
           if follow_redirect?(response_env, response)
             raise(RedirectLimitReached, response) if follows.zero?
+
             new_request_env = update_env(response_env, request_body, response)
             response = perform_with_redirection(new_request_env, follows - 1)
           end
@@ -84,12 +85,12 @@ module Octokit
 
       def update_env(env, request_body, response)
         original_url = env[:url]
-        env[:url] += safe_escape(response["location"])
+        env[:url] += safe_escape(response['location'])
         unless same_host?(original_url, env[:url])
           # HACK: Faraday’s Authorization middlewares don’t touch the request if the `Authorization` header is set.
           #       This is a workaround to drop authentication info.
           #       See https://github.com/octokit/octokit.rb/pull/1359#issuecomment-925609697
-          env[:request_headers]["Authorization"] = "dummy"
+          env[:request_headers]['Authorization'] = 'dummy'
         end
 
         if convert_to_get?(response)
@@ -125,9 +126,9 @@ module Octokit
       # URI:HTTP using the `+` operator. Doesn't escape "%" characters so to not
       # risk double-escaping.
       def safe_escape(uri)
-        uri.to_s.gsub(URI_UNSAFE) { |match|
-          "%" + match.unpack("H2" * match.bytesize).join("%").upcase
-        }
+        uri.to_s.gsub(URI_UNSAFE) do |match|
+          '%' + match.unpack('H2' * match.bytesize).join('%').upcase
+        end
       end
     end
   end

@@ -32,14 +32,19 @@ group :test do
   gem 'webmock', '~> 3.8', '>= 3.8.2'
 end
 
-gem 'faraday', ENV.fetch('FARADAY_VERSION', '~> 2.0')
-gem 'faraday-retry'
-gem 'faraday-multipart'
+faraday_version = ENV.fetch('FARADAY_VERSION', '~> 2.0')
+
+gem 'faraday', faraday_version
+
+if faraday_version.start_with?('~> 2')
+  gem 'faraday-multipart'
+  gem 'faraday-retry'
+end
 
 group :test, :development do
   gem 'pry-byebug'
   gem 'redcarpet'
-  gem 'rubocop'
+  gem 'rubocop', '0.81'
 end
 
 gemspec

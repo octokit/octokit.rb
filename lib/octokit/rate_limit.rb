@@ -1,5 +1,6 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Class for API Rate Limit info
   #
   # @!attribute [w] limit
@@ -13,14 +14,13 @@ module Octokit
   #
   # @see https://developer.github.com/v3/#rate-limiting
   class RateLimit < Struct.new(:limit, :remaining, :resets_at, :resets_in)
-
     # Get rate limit info from HTTP response
     #
     # @param response [#headers] HTTP response
     # @return [RateLimit]
     def self.from_response(response)
       info = new
-      if response && response.respond_to?(:headers) && !response.headers.nil?
+      if response&.respond_to?(:headers) && !response.headers.nil?
         info.limit = (response.headers['X-RateLimit-Limit'] || 1).to_i
         info.remaining = (response.headers['X-RateLimit-Remaining'] || 1).to_i
         info.resets_at = Time.at((response.headers['X-RateLimit-Reset'] || Time.now).to_i)

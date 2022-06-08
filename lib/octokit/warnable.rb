@@ -1,8 +1,8 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Allows warnings to be suppressed via environment variable.
   module Warnable
-
     module_function
 
     # Wrapper around Kernel#warn to print warnings unless
@@ -10,10 +10,7 @@ module Octokit
     #
     # @return [nil]
     def octokit_warn(*message)
-      unless ENV['OCTOKIT_SILENT']
-        warn message
-      end
+      warn message unless ENV['OCTOKIT_SILENT']
     end
   end
 end
-

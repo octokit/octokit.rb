@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class EnterpriseAdminClient
-
     # Methods for the Enterprise Search Indexing API
     #
     # @see https://developer.github.com/v3/enterprise-admin/search_indexing/
     module SearchIndexing
-
       # Queue a User or Organization to be indexed
       #
       # @param user [String] A GitHub Enterprise user or organization
@@ -13,7 +13,7 @@ module Octokit
       def index_user(user)
         queue_index user
       end
-      alias :index_organization :index_user
+      alias index_organization index_user
 
       # Queue a Repository to be indexed
       #
@@ -46,7 +46,7 @@ module Octokit
       def index_users_repositories(user)
         queue_index "#{user}/*"
       end
-      alias :index_organizations_repositories :index_users_repositories
+      alias index_organizations_repositories index_users_repositories
 
       # Queue an index of all the issues across all of a user's or
       # organization's repositories
@@ -56,7 +56,7 @@ module Octokit
       def index_users_repositories_issues(user)
         queue_index "#{user}/*/issues"
       end
-      alias :index_organizations_repositories_issues :index_users_repositories_issues
+      alias index_organizations_repositories_issues index_users_repositories_issues
 
       # Queue an index of all the code contained in all of a user's or
       # organization's repositories
@@ -66,7 +66,7 @@ module Octokit
       def index_users_repositories_code(user)
         queue_index "#{user}/*/code"
       end
-      alias :index_organizations_repositories_code :index_users_repositories_code
+      alias index_organizations_repositories_code index_users_repositories_code
 
       private
 
@@ -75,9 +75,8 @@ module Octokit
       # @param target [String] Target to index
       # @return [Sawyer:Resource] Result of the queuing containing `:message`
       def queue_index(target)
-        post "staff/indexing_jobs", :target => target
+        post 'staff/indexing_jobs', target: target
       end
     end
-
   end
 end

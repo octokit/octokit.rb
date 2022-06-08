@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Source Import API
     #
     # @see https://developer.github.com/v3/migration/source_imports
     module SourceImport
-
       # Start a source import to a GitHub repository using GitHub Importer.
       #
       # @overload start_source_import(repo, vcs, vcs_url, options = {})
@@ -39,10 +39,10 @@ module Octokit
         vcs_url = arguments.pop
         vcs = arguments.pop
         if vcs
-          octokit_warn "Octokit#start_source_import vcs parameter is now an option, please update your call before the next major Octokit version update."
-          arguments.options.merge!(:vcs => vcs)
+          octokit_warn 'Octokit#start_source_import vcs parameter is now an option, please update your call before the next major Octokit version update.'
+          arguments.options.merge!(vcs: vcs)
         end
-        options = ensure_api_media_type(:source_imports, arguments.options.merge(:vcs_url => vcs_url))
+        options = ensure_api_media_type(:source_imports, arguments.options.merge(vcs_url: vcs_url))
         put "#{Repository.path arguments.repo}/import", options
       end
 
@@ -153,7 +153,7 @@ module Octokit
       # @example
       #   @client.opt_in_source_import_lfs("octokit/octokit.rb", "opt_in")
       def set_source_import_lfs_preference(repo, use_lfs, options = {})
-        options = ensure_api_media_type(:source_imports, options.merge(:use_lfs => use_lfs))
+        options = ensure_api_media_type(:source_imports, options.merge(use_lfs: use_lfs))
         patch "#{Repository.path repo}/import/lfs", options
       end
     end

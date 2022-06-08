@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Repository Statistics API
     #
     # @see https://developer.github.com/v3/repos/statistics/
     module Stats
-
       # Get contributors list with additions, deletions, and commit counts
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
@@ -16,9 +16,9 @@ module Octokit
       # @example Get contributor stats for octokit
       #   @client.contributors_stats('octokit/octokit.rb')
       def contributors_stats(repo, options = {})
-        get_stats(repo, "contributors", options)
+        get_stats(repo, 'contributors', options)
       end
-      alias :contributor_stats :contributors_stats
+      alias contributor_stats contributors_stats
 
       # Get the last year of commit activity data
       #
@@ -31,7 +31,7 @@ module Octokit
       # @example Get commit activity for octokit
       #   @client.commit_activity_stats('octokit/octokit.rb')
       def commit_activity_stats(repo, options = {})
-        get_stats(repo, "commit_activity", options)
+        get_stats(repo, 'commit_activity', options)
       end
 
       # Get the number of additions and deletions per week
@@ -45,7 +45,7 @@ module Octokit
       # @example Get code frequency stats for octokit
       #   @client.code_frequency_stats('octokit/octokit.rb')
       def code_frequency_stats(repo, options = {})
-        get_stats(repo, "code_frequency", options)
+        get_stats(repo, 'code_frequency', options)
       end
 
       # Get the weekly commit count for the repo owner and everyone else
@@ -61,7 +61,7 @@ module Octokit
       # @example Get weekly commit counts for octokit
       #   @client.participation_stats("octokit/octokit.rb")
       def participation_stats(repo, options = {})
-        get_stats(repo, "participation", options)
+        get_stats(repo, 'participation', options)
       end
 
       # Get the number of commits per hour in each day
@@ -75,9 +75,9 @@ module Octokit
       # @example Get octokit punch card
       #   @octokit.punch_card_stats
       def punch_card_stats(repo, options = {})
-        get_stats(repo, "punch_card", options)
+        get_stats(repo, 'punch_card', options)
       end
-      alias :punch_card :punch_card_stats
+      alias punch_card punch_card_stats
 
       private
 
@@ -99,6 +99,7 @@ module Octokit
           return [] if last_response.status == 204
           return nil unless retry_timeout
           return nil if Time.now >= timeout
+
           sleep retry_wait if retry_wait
         end
       end

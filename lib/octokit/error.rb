@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Octokit
   # Custom error class for rescuing from all GitHub errors
   class Error < StandardError
@@ -34,13 +36,13 @@ module Octokit
       end
     end
 
-     def build_error_context
-       if RATE_LIMITED_ERRORS.include?(self.class)
-         @context = Octokit::RateLimit.from_response(@response)
-       end
-     end
+    def build_error_context
+      if RATE_LIMITED_ERRORS.include?(self.class)
+        @context = Octokit::RateLimit.from_response(@response)
+      end
+    end
 
-    def initialize(response=nil)
+    def initialize(response = nil)
       @response = response
       super(build_error_message)
       build_error_context
@@ -118,7 +120,7 @@ module Octokit
     # Array of validation errors
     # @return [Array<Hash>] Error info
     def errors
-      if data && data.is_a?(Hash)
+      if data&.is_a?(Hash)
         data[:errors] || []
       else
         []
@@ -152,15 +154,13 @@ module Octokit
       @data ||=
         if (body = @response[:body]) && !body.empty?
           if body.is_a?(String) &&
-            @response[:response_headers] &&
-            @response[:response_headers][:content_type] =~ /json/
+             @response[:response_headers] &&
+             @response[:response_headers][:content_type] =~ /json/
 
             Sawyer::Agent.serializer.decode(body)
           else
             body
           end
-        else
-          nil
         end
     end
 
@@ -183,7 +183,7 @@ module Octokit
       summary = +"\nError summary:\n"
       summary << data[:errors].map do |error|
         if error.is_a? Hash
-          error.map { |k,v| "  #{k}: #{v}" }
+          error.map { |k, v| "  #{k}: #{v}" }
         else
           "  #{error}"
         end
@@ -196,18 +196,20 @@ module Octokit
       return nil if @response.nil?
 
       message = +"#{@response[:method].to_s.upcase} "
-      message << redact_url(@response[:url].to_s.dup) + ": "
+      message << redact_url(@response[:url].to_s.dup) + ': '
       message << "#{@response[:status]} - "
-      message << "#{response_message}" unless response_message.nil?
-      message << "#{response_error}" unless response_error.nil?
-      message << "#{response_error_summary}" unless response_error_summary.nil?
+      message << response_message.to_s unless response_message.nil?
+      message << response_error.to_s unless response_error.nil?
+      message << response_error_summary.to_s unless response_error_summary.nil?
       message << " // See: #{documentation_url}" unless documentation_url.nil?
       message
     end
 
     def redact_url(url_string)
       %w[client_secret access_token].each do |token|
-        url_string.gsub!(/#{token}=\S+/, "#{token}=(redacted)") if url_string.include? token
+        if url_string.include? token
+          url_string.gsub!(/#{token}=\S+/, "#{token}=(redacted)")
+        end
       end
       url_string
     end
@@ -225,10 +227,10 @@ module Octokit
   # Raised when GitHub returns a 401 HTTP status code
   # and headers include "X-GitHub-OTP"
   class OneTimePasswordRequired < ClientError
-    #@private
-    OTP_DELIVERY_PATTERN = /required; (\w+)/i
+    # @private
+    OTP_DELIVERY_PATTERN = /required; (\w+)/i.freeze
 
-    #@private
+    # @private
     def self.required_header(headers)
       OTP_DELIVERY_PATTERN.match headers['X-GitHub-OTP'].to_s
     end
@@ -350,5 +352,5 @@ module Octokit
   # Raised when a repository is created with an invalid format
   class InvalidRepository < ArgumentError; end
 
-  RATE_LIMITED_ERRORS = [Octokit::TooManyRequests, Octokit::AbuseDetected]
+  RATE_LIMITED_ERRORS = [Octokit::TooManyRequests, Octokit::AbuseDetected].freeze
 end

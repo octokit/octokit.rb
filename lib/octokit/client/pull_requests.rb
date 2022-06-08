@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Pull Requests API
     #
     # @see https://developer.github.com/v3/pulls/
     module PullRequests
-
       # List pull requests for a repository
       #
       # @overload pull_requests(repo, options)
@@ -19,7 +19,7 @@ module Octokit
       def pull_requests(repo, options = {})
         paginate "#{Repository.path repo}/pulls", options
       end
-      alias :pulls :pull_requests
+      alias pulls pull_requests
 
       # Get a pull request
       #
@@ -28,11 +28,11 @@ module Octokit
       # @param number [Integer] Number of the pull request to fetch
       # @return [Sawyer::Resource] Pull request info
       # @example
-      #   Octokit.pull_request('rails/rails', 42, :state => 'closed')      
+      #   Octokit.pull_request('rails/rails', 42, :state => 'closed')
       def pull_request(repo, number, options = {})
         get "#{Repository.path repo}/pulls/#{number}", options
       end
-      alias :pull :pull_request
+      alias pull pull_request
 
       # Create a pull request
       #
@@ -51,9 +51,9 @@ module Octokit
       #     "Pull Request title", "Pull Request body")
       def create_pull_request(repo, base, head, title, body = nil, options = {})
         pull = {
-          :base  => base,
-          :head  => head,
-          :title => title,
+          base: base,
+          head: head,
+          title: title
         }
         pull[:body] = body unless body.nil?
         post "#{Repository.path repo}/pulls", options.merge(pull)
@@ -72,9 +72,9 @@ module Octokit
       # @return [Sawyer::Resource] The newly created pull request
       def create_pull_request_for_issue(repo, base, head, issue, options = {})
         pull = {
-          :base  => base,
-          :head  => head,
-          :issue => issue
+          base: base,
+          head: head,
+          issue: issue
         }
         post "#{Repository.path repo}/pulls", options.merge(pull)
       end
@@ -103,7 +103,7 @@ module Octokit
       #   @client.update_pull_request('octokit/octokit.rb', 67, nil, '')
       def update_pull_request(*args)
         arguments = Octokit::Arguments.new(args)
-        repo   = arguments.shift
+        repo = arguments.shift
         number = arguments.shift
         patch "#{Repository.path repo}/pulls/#{number}", arguments.options
       end
@@ -117,7 +117,7 @@ module Octokit
       # @example
       #   @client.close_pull_request('octokit/octokit.rb', 67)
       def close_pull_request(repo, number, options = {})
-        options.merge! :state => 'closed'
+        options.merge! state: 'closed'
         update_pull_request(repo, number, options)
       end
 
@@ -130,7 +130,7 @@ module Octokit
       def pull_request_commits(repo, number, options = {})
         paginate "#{Repository.path repo}/pulls/#{number}/commits", options
       end
-      alias :pull_commits :pull_request_commits
+      alias pull_commits pull_request_commits
 
       # List pull request comments for a repository
       #
@@ -160,8 +160,8 @@ module Octokit
       def pull_requests_comments(repo, options = {})
         paginate("#{Repository.path repo}/pulls/comments", options)
       end
-      alias :pulls_comments   :pull_requests_comments
-      alias :reviews_comments :pull_requests_comments
+      alias pulls_comments   pull_requests_comments
+      alias reviews_comments pull_requests_comments
 
       # List comments on a pull request
       #
@@ -173,8 +173,8 @@ module Octokit
         # return the comments for a pull request
         paginate("#{Repository.path repo}/pulls/#{number}/comments", options)
       end
-      alias :pull_comments   :pull_request_comments
-      alias :review_comments :pull_request_comments
+      alias pull_comments   pull_request_comments
+      alias review_comments pull_request_comments
 
       # Get a pull request comment
       #
@@ -187,8 +187,8 @@ module Octokit
       def pull_request_comment(repo, comment_id, options = {})
         get "#{Repository.path repo}/pulls/comments/#{comment_id}", options
       end
-      alias :pull_comment   :pull_request_comment
-      alias :review_comment :pull_request_comment
+      alias pull_comment   pull_request_comment
+      alias review_comment pull_request_comment
 
       # Create a pull request comment
       #
@@ -205,15 +205,15 @@ module Octokit
       #     "2d3201e4440903d8b04a5487842053ca4883e5f0", "lib/octokit/request.rb", 47)
       def create_pull_request_comment(repo, pull_id, body, commit_id, path, position, options = {})
         options.merge!({
-          :body => body,
-          :commit_id => commit_id,
-          :path => path,
-          :position => position
-        })
+                         body: body,
+                         commit_id: commit_id,
+                         path: path,
+                         position: position
+                       })
         post "#{Repository.path repo}/pulls/#{pull_id}/comments", options
       end
-      alias :create_pull_comment :create_pull_request_comment
-      alias :create_view_comment :create_pull_request_comment
+      alias create_pull_comment create_pull_request_comment
+      alias create_view_comment create_pull_request_comment
 
       # Create reply to a pull request comment
       #
@@ -227,13 +227,13 @@ module Octokit
       #   @client.create_pull_request_comment_reply("octokit/octokit.rb", 163, "done.", 1903950)
       def create_pull_request_comment_reply(repo, pull_id, body, comment_id, options = {})
         options.merge!({
-          :body => body,
-          :in_reply_to => comment_id
-        })
+                         body: body,
+                         in_reply_to: comment_id
+                       })
         post "#{Repository.path repo}/pulls/#{pull_id}/comments", options
       end
-      alias :create_pull_reply   :create_pull_request_comment_reply
-      alias :create_review_reply :create_pull_request_comment_reply
+      alias create_pull_reply   create_pull_request_comment_reply
+      alias create_review_reply create_pull_request_comment_reply
 
       # Update pull request comment
       #
@@ -245,11 +245,11 @@ module Octokit
       # @example
       #   @client.update_pull_request_comment("octokit/octokit.rb", 1903950, ":shipit:")
       def update_pull_request_comment(repo, comment_id, body, options = {})
-        options.merge! :body => body
+        options.merge! body: body
         patch("#{Repository.path repo}/pulls/comments/#{comment_id}", options)
       end
-      alias :update_pull_comment   :update_pull_request_comment
-      alias :update_review_comment :update_pull_request_comment
+      alias update_pull_comment   update_pull_request_comment
+      alias update_review_comment update_pull_request_comment
 
       # Delete pull request comment
       #
@@ -262,8 +262,8 @@ module Octokit
       def delete_pull_request_comment(repo, comment_id, options = {})
         boolean_from_response(:delete, "#{Repository.path repo}/pulls/comments/#{comment_id}", options)
       end
-      alias :delete_pull_comment   :delete_pull_request_comment
-      alias :delete_review_comment :delete_pull_request_comment
+      alias delete_pull_comment   delete_pull_request_comment
+      alias delete_review_comment delete_pull_request_comment
 
       # List files on a pull request
       #
@@ -274,7 +274,7 @@ module Octokit
       def pull_request_files(repo, number, options = {})
         paginate "#{Repository.path repo}/pulls/#{number}/files", options
       end
-      alias :pull_files :pull_request_files
+      alias pull_files pull_request_files
 
       # Merge a pull request
       #
@@ -283,8 +283,8 @@ module Octokit
       # @param number [Integer] Number of pull request
       # @param commit_message [String] Optional commit message for the merge commit
       # @return [Array<Sawyer::Resource>] Merge commit info if successful
-      def merge_pull_request(repo, number, commit_message='', options = {})
-        put "#{Repository.path repo}/pulls/#{number}/merge", options.merge({:commit_message => commit_message})
+      def merge_pull_request(repo, number, commit_message = '', options = {})
+        put "#{Repository.path repo}/pulls/#{number}/merge", options.merge({ commit_message: commit_message })
       end
 
       # Check pull request merge status
@@ -296,8 +296,7 @@ module Octokit
       def pull_merged?(repo, number, options = {})
         boolean_from_response :get, "#{Repository.path repo}/pulls/#{number}/merge", options
       end
-      alias :pull_request_merged? :pull_merged?
-
+      alias pull_request_merged? pull_merged?
     end
   end
 end

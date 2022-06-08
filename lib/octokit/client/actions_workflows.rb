@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
     # Methods for the Actions Workflows API
     #
     # @see https://developer.github.com/v3/actions/workflows
     module ActionsWorkflows
-
       # Get the workflows in a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

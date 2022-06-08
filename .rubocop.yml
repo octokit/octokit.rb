@@ -1,3 +1,22 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.3
 Metrics/BlockLength:
   Exclude:
-    spec/**/*_spec.rb
+    - spec/**/*_spec.rb
+Layout/BlockAlignment:
+  Exclude: 
+    # This file is causing Rubocop to error - see <https://github.com/octokit/octokit.rb/runs/6779545664>
+    # for an example
+    - Guardfile
+Lint/RaiseException:
+  Enabled: true
+Lint/StructNewOverride:
+  Enabled: true
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true

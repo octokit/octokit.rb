@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Git Data API
     #
     # @see https://developer.github.com/v3/git/
     module Objects
-
       # Get a single tree, fetching information about its root-level objects
       #
       # Pass <tt>:recursive => true</tt> in <tt>options</tt> to fetch information about all of the tree's objects, including those in subdirectories.
@@ -38,7 +38,7 @@ module Octokit
       #   tree.sha # => "cd8274d15fa3ae2ab983129fb037999f264ba9a7"
       #   tree.tree.first.path # => "file.rb"
       def create_tree(repo, tree, options = {})
-        parameters = { :tree => tree }
+        parameters = { tree: tree }
         post "#{Repository.path repo}/git/trees", options.merge(parameters)
       end
 
@@ -74,10 +74,10 @@ module Octokit
       # @example Create a blob containing <tt>foo bar baz</tt>, encoded using base64
       #   require "base64"
       #   Octokit.create_blob("octocat/Hello-World", Base64.encode64("foo bar baz"), "base64")
-      def create_blob(repo, content, encoding="utf-8", options = {})
+      def create_blob(repo, content, encoding = 'utf-8', options = {})
         parameters = {
-          :content => content,
-          :encoding => encoding
+          content: content,
+          encoding: encoding
         }
         blob = post "#{Repository.path repo}/git/blobs", options.merge(parameters)
 
@@ -124,14 +124,14 @@ module Octokit
       #   )
       def create_tag(repo, tag, message, object_sha, type, tagger_name, tagger_email, tagger_date, options = {})
         options.merge!(
-          :tag => tag,
-          :message => message,
-          :object => object_sha,
-          :type => type,
-          :tagger => {
-            :name => tagger_name,
-            :email => tagger_email,
-            :date => tagger_date
+          tag: tag,
+          message: message,
+          object: object_sha,
+          type: type,
+          tagger: {
+            name: tagger_name,
+            email: tagger_email,
+            date: tagger_date
           }
         )
         post "#{Repository.path repo}/git/tags", options
