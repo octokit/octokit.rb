@@ -58,11 +58,17 @@ jobs:
           bundle config set path .bundle/gems
           bundle config set without development
           bundle install --jobs 4 --retry 3
-      - name: Test with RSpec
+      - name: Test with RSpec with frozen string literals enabled
         env:
           GITHUB_CI: 1
           RUBYOPT: --enable-frozen-string-literal
         run: bundle exec rspec -w
+        if: ${{ matrix.ruby != '2.3' }}
+      - name: Test with RSpec without frozen string literals enabled
+        env:
+          GITHUB_CI: 1
+        run: bundle exec rspec -w
+        if: ${{ matrix.ruby == '2.3' }}
       - name: Lint with Rubocop
         env:
           GITHUB_CI: 1
