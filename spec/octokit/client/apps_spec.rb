@@ -28,7 +28,7 @@ describe Octokit::Client::Apps do
         api_endpoint: 'https://ghe.local/api/v3'
 
       request = stub_get('https://ghe.local/api/v3/app')
-      response = client.app
+      client.app
 
       assert_requested request
     end
@@ -57,7 +57,7 @@ describe Octokit::Client::Apps do
         api_endpoint: 'https://ghe.local/api/v3'
 
       request = stub_get('https://ghe.local/api/v3/app/installations')
-      response = client.find_app_installations
+      client.find_app_installations
 
       assert_requested request
     end
@@ -78,7 +78,7 @@ describe Octokit::Client::Apps do
         api_endpoint: 'https://ghe.local/api/v3'
 
       request = stub_get('https://ghe.local/api/v3/user/installations')
-      response = client.find_user_installations
+      client.find_user_installations
 
       assert_requested request
     end
@@ -110,7 +110,7 @@ describe Octokit::Client::Apps do
         api_endpoint: 'https://ghe.local/api/v3'
 
       request = stub_get('https://ghe.local/api/v3/organizations/1234/installation')
-      response = client.find_organization_installation(1234)
+      client.find_organization_installation(1234)
 
       assert_requested request
     end
@@ -139,7 +139,7 @@ describe Octokit::Client::Apps do
         api_endpoint: 'https://ghe.local/api/v3'
 
       request = stub_get('https://ghe.local/api/v3/repos/testing/1234/installation')
-      response = client.find_repository_installation('testing/1234')
+      client.find_repository_installation('testing/1234')
 
       assert_requested request
     end
@@ -170,7 +170,7 @@ describe Octokit::Client::Apps do
         api_endpoint: 'https://ghe.local/api/v3'
 
       request = stub_get('https://ghe.local/api/v3/users/1234/installation')
-      response = client.find_user_installation('1234')
+      client.find_user_installation('1234')
 
       assert_requested request
     end
@@ -200,7 +200,7 @@ describe Octokit::Client::Apps do
           api_endpoint: 'https://ghe.local/api/v3'
 
         request = stub_get('https://ghe.local/api/v3/app/installations/1234')
-        response = client.installation(1234)
+        client.installation(1234)
 
         assert_requested request
       end
@@ -220,7 +220,7 @@ describe Octokit::Client::Apps do
           api_endpoint: 'https://ghe.local/api/v3'
 
         request = stub_get('https://ghe.local/api/v3/user/installations/1234/repositories')
-        response = client.find_installation_repositories_for_user(1234)
+        client.find_installation_repositories_for_user(1234)
 
         assert_requested request
       end
@@ -267,7 +267,7 @@ describe Octokit::Client::Apps do
 
         path = 'app/installations/1234/access_tokens'
         request = stub_post("https://ghe.local/api/v3/#{path}")
-        response = client.create_app_installation_access_token(1234)
+        client.create_app_installation_access_token(1234)
 
         assert_requested request
       end
@@ -312,7 +312,7 @@ describe Octokit::Client::Apps do
 
         it 'works for GitHub Enterprise installs' do
           request = stub_get('https://ghe.local/api/v3/installation/repositories')
-          response = ghe_installation_client.list_app_installation_repositories
+          ghe_installation_client.list_app_installation_repositories
           assert_requested request
         end
         it 'allows auto_pagination', :vcr do
@@ -389,7 +389,7 @@ describe Octokit::Client::Apps do
       describe '.add_repository_to_app_installation' do
         it 'works for GitHub Enterprise installs' do
           request = stub_put('https://ghe.local/api/v3/user/installations/1234/repositories/1234')
-          response = ghe_client.add_repository_to_app_installation(1234, 1234)
+          ghe_client.add_repository_to_app_installation(1234, 1234)
           assert_requested request
         end
       end # .add_repository_to_app_installation
@@ -397,7 +397,7 @@ describe Octokit::Client::Apps do
       describe '.remove_repository_from_app_installation' do
         it 'works for GitHub Enterprise installs' do
           request = stub_delete('https://ghe.local/api/v3/user/installations/1234/repositories/1234')
-          response = ghe_client.remove_repository_from_app_installation(1234, 1234)
+          ghe_client.remove_repository_from_app_installation(1234, 1234)
           assert_requested request
         end
       end # .remove_repository_from_app_installation

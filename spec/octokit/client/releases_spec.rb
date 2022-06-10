@@ -138,7 +138,7 @@ describe Octokit::Client::Releases do
 
   describe '.latest_release', :vcr do
     it 'returns the latest release' do
-      result = Octokit.latest_release('octokit/octokit.rb')
+      Octokit.latest_release('octokit/octokit.rb')
       assert_requested :get, github_url('/repos/octokit/octokit.rb/releases/latest')
     end
   end # .latest_release

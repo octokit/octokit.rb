@@ -616,9 +616,7 @@ describe Octokit::Client do
       client.get('/foo')
 
       assert_requested original_request
-      assert_requested(:get, 'https://example.com/bar') do |req|
-        req.headers['Authorization'] == 'dummy'
-      end
+      assert_requested(redirect_request.with(headers: { 'Authorization' => 'dummy' }))
     end
 
     it 'follows at most 3 consecutive redirects' do

@@ -63,7 +63,7 @@ describe Octokit::Client::ActionsSecrets do
       it 'creating secret returns 204 (even though API docs claims it should be 201)' do
         box = create_box(@client.get_public_key(@repo.id))
         encrypted = box[:box].encrypt(@secret[:value])
-        resp = @client.create_or_update_secret(
+        @client.create_or_update_secret(
           @repo.id, @secret[:name],
           key_id: box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
         )
@@ -109,7 +109,7 @@ describe Octokit::Client::ActionsSecrets do
       it 'updating existing secret returns 204' do
         box = create_box(@client.get_public_key(@repo.id))
         encrypted = box[:box].encrypt('new value')
-        resp = @client.create_or_update_secret(
+        @client.create_or_update_secret(
           @repo.id, @secret[:name],
           key_id: box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
         )
@@ -119,7 +119,7 @@ describe Octokit::Client::ActionsSecrets do
 
     describe '.delete_secret', :vcr do
       it 'delete existing secret' do
-        resp = @client.delete_secret(@repo.id, @secret[:name])
+        @client.delete_secret(@repo.id, @secret[:name])
         expect(@client.last_response.status).to eq(204)
       end
     end
