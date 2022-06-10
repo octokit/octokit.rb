@@ -107,13 +107,13 @@ module Octokit
         http.headers[:content_type] = 'application/json'
         http.headers[:user_agent] = user_agent
         if basic_authenticated?
-          http.request *FARADAY_BASIC_AUTH_KEYS, @login, @password
+          http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
         elsif token_authenticated?
           http.request :authorization, 'token', @access_token
         elsif bearer_authenticated?
           http.request :authorization, 'Bearer', @bearer_token
         elsif application_authenticated?
-          http.request *FARADAY_BASIC_AUTH_KEYS, @client_id, @client_secret
+          http.request(*FARADAY_BASIC_AUTH_KEYS, @client_id, @client_secret)
         end
       end
     end

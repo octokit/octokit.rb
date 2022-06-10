@@ -252,7 +252,7 @@ module Octokit
       conn_opts[:ssl] = { verify_mode: @ssl_verify_mode } if @ssl_verify_mode
       conn = Faraday.new(conn_opts) do |http|
         if basic_authenticated?
-          http.request *FARADAY_BASIC_AUTH_KEYS, @login, @password
+          http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
         elsif token_authenticated?
           http.request :authorization, 'token', @access_token
         elsif bearer_authenticated?
