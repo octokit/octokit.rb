@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Usage: script/gem
+# Validates the packed gem to determine if file permissions are correct.
+
+<<'###SCRIPT_COMMENT'
+Purpose: 
+(Given octokit.rb is currently shipped "manually")
+
+Because different environments behave differently, it is recommended that the integrity and file permissions of the files packed in the gem are verified.
+This is to help prevent things like releasing world writeable files in the gem. The simple check below looks at each file contained in the packed gem and
+verifies that the files are only owner writeable.
+
+Requirements:
+This script expects that script/package, script/release or 'gem build *.gemspec' have been run
+
+###SCRIPT_COMMENT
+
+
+FILE=$(ls *.gem| head -1)
+
+echo "*** Validating file permissions in the octokit gem ***"
+
+if [ ! -f "$FILE" ]; then
+    echo "$FILE does not exist. Please run script/package, script/release or 'gem build *.gemspec' to generate the gem to be validated"
+    echo -e '☒ failure'
+    exit 1
+fi
+
+tar -xf "${FILE}"
+
+# naive check to quickly see if any files in the gem are set to the wrong permissions
+for f in $(tar --numeric-owner -tvf data.tar.gz )
+do
+  if [ $f == "-rw-rw-rw-" ]; then
+     echo "World writeable files (-rw-rw-rw- | 666) detected in the gem. Please repack and make sure that all files in the gem are owner read write ( -rw-r--r-- | 644 )"
+     echo -e '☒ failure'
+     rm -f checksums.yaml.gz data.tar.gz metadata.gz
+     exit 1
+  fi
+done
+
+# Check clean up
+echo -e '☑ success'
+rm -f checksums.yaml.gz data.tar.gz metadata.gz
