@@ -10,37 +10,9 @@
 3. Update the version
     1. Update the constant in `lib/octokit/version.rb`
     2. Commit the version change and push directly to master
-4. Run the "File integrity check"
-5. Run the `script/release` script to cut a release
+4. (Optional) Run `script/release` with no parameters to execute a dry run of a release
+5. Run the `script/release -r` script to cut a release (this will run `script/validate` to perform the permission check)
 6. Draft a new release at https://github.com/octokit/octokit.rb/releases/new containing the curated changelog
-
-----
-
-## File integrity check
-
-(Given octokit.rb is currently shipped "manually")
-
-Because different environments behave differently, it is recommended that the integrity and file permissions of the files packed in the gem are verified. This is to help prevent things like releasing world writeable files in the gem. As we get things a little more automated, this will become unnecessary.
-
-Until then, it is recommended that if you are preparing a release you run the following prior to releasing the gem:
-
-From the root of octokit.rb
-
-```
-> gem build *.gemspec
-```
-
-Use the version from the build in the next commands
-
-```
-> tar -x -f octokit-#.##.#.gem 
-> tar -t -v --numeric-owner -f data.tar.gz |head -n 10
-```
-
-The files in the output should have the following permessions set:  
-`-rw-r--r--`
-
-(optional) Once verified, you can run `git clean -dfx` to clean things up before packing 
 
 ----
 

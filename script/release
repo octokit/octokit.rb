@@ -5,12 +5,49 @@
 
 set -e
 
-version="$(script/package | grep Version: | awk '{print $2}')"
-[ -n "$version" ] || exit 1
+usage() { 
+  echo "Usage: $0 [-r] Tags and releases/publishes octokit" 1>&2; exit 1; 
+}
 
-echo $version
-git commit --allow-empty -a -m "Release $version"
-git tag "v$version"
-git push origin
-git push origin "v$version"
-gem push pkg/*-${version}.gem
+while [ $# -gt 0 ]
+do
+    case $1 in
+        '-r')
+            r=true
+            ;;
+        '-h')
+            usage
+            ;;
+        *)
+            echo "No valid parameter passed in, performing a dry run...";
+            ;;
+    esac
+    shift
+done
+
+if [ -z "${r}" ]; then
+  ./script/package
+    echo "*** Dry run: octokit was not tagged or released ***"
+    echo -e '☑ success'
+else
+
+  # We execite the script separately to get logging and proper exit conditions
+  ./script/package
+
+  # We need to pull the version from the actual file that is about to be published
+  file=$(ls pkg/*.gem| head -1)
+  version=$(echo $file | sed -e 's/.*octokit-\(.*\).gem.*/\1/') 
+  
+  [ -n "$version" ] || exit 1
+
+  echo "*** Tagging and publishing $version of octokit ***"
+
+  git commit --allow-empty -a -m "Release $version"
+  git tag "v$version"
+  git push origin
+  git push origin "v$version"
+  gem push pkg/*-${version}.gem
+  echo -e '☑ success'
+fi
+
+
