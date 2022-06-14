@@ -9,10 +9,10 @@
 2. Ensure there are no breaking changes _(if there are breaking changes you'll need to create a release branch without those changes or bump the major version)_
 3. Update the version
     1. Update the constant in `lib/octokit/version.rb`
-    2. Run the "File integrity check"
-    3. Commit the version change and push directly to master
-4. Run the `script/release` script to cut a release
-5. Draft a new release at https://github.com/octokit/octokit.rb/releases/new containing the curated changelog
+    2. Commit the version change and push directly to master
+4. Run the "File integrity check"
+5. Run the `script/release` script to cut a release
+6. Draft a new release at https://github.com/octokit/octokit.rb/releases/new containing the curated changelog
 
 ----
 
