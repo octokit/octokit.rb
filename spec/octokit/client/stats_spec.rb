@@ -37,7 +37,7 @@ describe Octokit::Client::Stats do
       end
 
       it "doesn't retry when GitHub returns 204" do
-        stats = @client.contributors_stats('octokit/octokit.rb', retry_timeout: 4)
+        @client.contributors_stats('octokit/octokit.rb', retry_timeout: 4)
         assert_requested :get, github_url('/repos/octokit/octokit.rb/stats/contributors'), times: 3
       end
 

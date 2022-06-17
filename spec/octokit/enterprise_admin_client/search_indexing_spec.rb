@@ -11,7 +11,7 @@ describe Octokit::EnterpriseAdminClient::SearchIndexing do
   shared_examples 'search index queuer' do |expected_target|
     context 'with a valid target' do
       it "queues #{expected_target} to be indexed" do
-        queue_result = @admin_client.method(subject).call target
+        @admin_client.method(subject).call target
         assert_requested :post,
                          github_enterprise_url('staff/indexing_jobs'),
                          body: { target: expected_target }.to_json

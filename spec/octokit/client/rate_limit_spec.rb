@@ -5,7 +5,7 @@ require 'helper'
 describe Octokit::Client do
   subject { Octokit::Client }
 
-  let(:client) { client = Octokit::Client.new }
+  let(:client) { Octokit::Client.new }
 
   describe '#rate_limit' do
     context 'with no last response' do

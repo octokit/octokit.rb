@@ -324,7 +324,7 @@ describe Octokit::Client::Organizations do
   describe '.organization_membership', :vcr do
     it 'returns an organization membership' do
       stub_get github_url("/user/memberships/orgs/#{test_github_org}")
-      membership = @client.organization_membership(test_github_org)
+      @client.organization_membership(test_github_org)
       assert_requested :get, github_url("/user/memberships/orgs/#{test_github_org}")
     end
 
@@ -352,7 +352,7 @@ describe Octokit::Client::Organizations do
 
   describe '.update_organization_membership', :vcr do
     it 'updates an organization membership' do
-      membership = @client.update_organization_membership(test_github_org, { state: 'active' })
+      @client.update_organization_membership(test_github_org, { state: 'active' })
       assert_requested :patch, github_url("/user/memberships/orgs/#{test_github_org}")
     end
 

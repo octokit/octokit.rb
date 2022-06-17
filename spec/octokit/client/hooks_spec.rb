@@ -117,7 +117,7 @@ describe Octokit::Client::Hooks do
       end
       it 'creates an org hook for by ID' do
         request = stub_post('/organizations/1/hooks')
-        org_hook = @client.create_org_hook(1, { url: 'http://railsbp.com', content_type: 'json' })
+        @client.create_org_hook(1, { url: 'http://railsbp.com', content_type: 'json' })
         assert_requested request
       end
     end # .create_org_hook

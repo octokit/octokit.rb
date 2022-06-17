@@ -57,7 +57,7 @@ describe Octokit::Client::Repositories do
 
     it 'creates a repository for an organization by ID' do
       request = stub_post(github_url('/organizations/1/repos'))
-      repository = @client.create_repository('an-org-repo', organization: 1)
+      @client.create_repository('an-org-repo', organization: 1)
       assert_requested request
     end
   end
@@ -73,7 +73,7 @@ describe Octokit::Client::Repositories do
 
     context 'is_template is passed in params', :vcr do
       it 'uses the template repositories preview flag and succeeds' do
-        @client.edit_repository(@repo.full_name, is_template: true)
+        @client.edit_repository(@repo.full_name, is_template: true, accept: Octokit::Preview::PREVIEW_TYPES.fetch(:template_repositories))
         expect(@client.repository(@repo.full_name).is_template).to be true
       end
     end
@@ -128,11 +128,11 @@ describe Octokit::Client::Repositories do
 
     describe '.create_repository_from_template', :vcr do
       before do
-        @client.edit_repository(@repo.full_name, is_template: true)
+        @client.edit_repository(@repo.full_name, is_template: true, accept: Octokit::Preview::PREVIEW_TYPES.fetch(:template_repositories))
       end
 
       it 'generates a repository from the template' do
-        @client.create_repository_from_template(@repo.id, 'Cloned repo')
+        @client.create_repository_from_template(@repo.id, 'Cloned repo', accept: Octokit::Preview::PREVIEW_TYPES.fetch(:template_repositories))
         assert_requested :post, github_url("/repositories/#{@repo.id}/generate")
       end
     end
@@ -147,7 +147,7 @@ describe Octokit::Client::Repositories do
     describe '.update_repository', :vcr do
       it 'updates the matching repository' do
         description = "It's epic"
-        repository = @client.edit_repository(@repo.full_name, description: description)
+        repository = @client.edit_repository(@repo.full_name, description: description, accept: Octokit::Preview::PREVIEW_TYPES.fetch(:template_repositories))
         expect(repository.description).to eq(description)
         assert_requested :patch, github_url("/repos/#{@repo.full_name}")
       end
