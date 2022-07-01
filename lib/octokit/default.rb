@@ -35,8 +35,7 @@ module Octokit
       # so we use it only when it's available.
       if defined?(Faraday::Request::Retry)
         builder.use Faraday::Request::Retry, exceptions: [Octokit::ServerError]
-      end
-      if defined?(Faraday::Retry::Middleware)
+      elsif defined?(Faraday::Retry::Middleware)
         builder.use Faraday::Retry::Middleware, exceptions: [Octokit::ServerError]
       end
 

@@ -130,6 +130,29 @@ describe Octokit::Client do
     end
   end
 
+  describe 'X-GitHub-Api-Version' do
+    it 'sets a default X-GitHub-Api-Version header when using the singleton client' do
+      gist_request = stub_post('/gists')
+                     .with({
+                             headers: { 'X-GitHub-Api-Version' => '2022-08-09' }
+                           })
+
+      Octokit.client.post '/gists', {}
+      assert_requested gist_request
+    end
+
+    it 'sets a default X-GitHub-Api-Version header when you instantiate a client' do
+      gist_request = stub_post('/gists')
+                     .with({
+                             headers: { 'X-GitHub-Api-Version' => '2022-08-09' }
+                           })
+
+      client = Octokit::Client.new
+      client.post '/gists', {}
+      assert_requested gist_request
+    end
+  end
+
   describe 'content type' do
     it 'sets a default Content-Type header' do
       gist_request = stub_post('/gists')

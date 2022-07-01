@@ -10,6 +10,8 @@ module Octokit
     # Header keys that can be passed in options hash to {#get},{#head}
     CONVENIENCE_HEADERS = Set.new(%i[accept content_type])
 
+    API_VERSION = "2022-08-09"
+
     # Make a HTTP GET request
     #
     # @param url [String] The path, relative to {#api_endpoint}
@@ -106,6 +108,8 @@ module Octokit
         http.headers[:accept] = default_media_type
         http.headers[:content_type] = 'application/json'
         http.headers[:user_agent] = user_agent
+        http.headers['x-github-api-version'] = API_VERSION
+
         if basic_authenticated?
           http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
         elsif token_authenticated?
