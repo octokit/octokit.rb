@@ -111,4 +111,14 @@ describe Octokit::Client::ActionsWorkflowRuns, :vcr do
       assert_requested request
     end
   end
+
+  describe '.workflow_run_usage' do
+    it 'returns the requested workflow run usage' do
+      request = stub_get("repos/#{@test_repo}/actions/runs/#{@run_id}/timing")
+
+      @client.workflow_run_usage(@test_repo, @run_id)
+
+      assert_requested request
+    end
+  end
 end
