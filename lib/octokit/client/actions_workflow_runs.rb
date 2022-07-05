@@ -105,6 +105,17 @@ module Octokit
       def delete_workflow_run_logs(repo, id, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/actions/runs/#{id}/logs", options
       end
+
+      # Get workflow run usage
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param id [Integer] Id of a workflow run
+      #
+      # @return [Sawyer::Resource] Run usage
+      # @see https://developer.github.com/v3/actions/workflow-runs/#get-workflow-run-usage
+      def workflow_run_usage(repo, id, options = {})
+        get "#{Repository.path repo}/actions/runs/#{id}/timing", options
+      end
     end
   end
 end
