@@ -95,7 +95,7 @@ module Octokit
         response.headers['Location']
       end
 
-      # Delets all log files of a workflow run
+      # Delete all log files of a workflow run
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param id [Integer] Id of a workflow run
