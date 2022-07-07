@@ -14,6 +14,7 @@ require 'octokit/organization'
 require 'octokit/preview'
 require 'octokit/client/actions_secrets'
 require 'octokit/client/actions_workflows'
+require 'octokit/client/actions_workflow_jobs'
 require 'octokit/client/actions_workflow_runs'
 require 'octokit/client/apps'
 require 'octokit/client/authorizations'
@@ -93,6 +94,7 @@ module Octokit
     include Octokit::Client::Gitignore
     include Octokit::Client::Hooks
     include Octokit::Client::ActionsWorkflows
+    include Octokit::Client::ActionsWorkflowJobs
     include Octokit::Client::ActionsWorkflowRuns
     include Octokit::Client::Apps
     include Octokit::Client::Issues
