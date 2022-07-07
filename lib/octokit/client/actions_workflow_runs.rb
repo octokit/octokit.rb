@@ -2,7 +2,7 @@
 
 module Octokit
   class Client
-    # Methods for the Actions Workflows Jobs API
+    # Methods for the Actions Workflows runs API
     #
     # @see https://docs.github.com/rest/actions/workflow-runs
     module ActionsWorkflowRuns
