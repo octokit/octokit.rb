@@ -17,6 +17,20 @@ module Octokit
         paginate "#{Repository.path repo}/actions/jobs/#{job_id}", options
       end
 
+      # Download job logs for a workflow run
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param job_id [Integer, String] Id of the job
+      #
+      # @return [String] URL to the archived log files of the job
+      # @see https://docs.github.com/rest/actions/workflow-runs#download-job-logs-for-a-workflow-run
+      def workflow_run_job_logs(repo, job_id, options = {})
+        url = "#{Repository.path repo}/actions/jobs/#{job_id}/logs"
+
+        response = client_without_redirects.head(url, options)
+        response.headers['Location']
+      end
+
       # List jobs for a workflow run attempt
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

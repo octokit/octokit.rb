@@ -25,6 +25,16 @@ describe Octokit::Client::ActionsWorkflowJobs, :vcr do
     end
   end
 
+  describe '.workflow_run_job_logs' do
+    it 'returns job logs for a workflow run' do
+      request = stub_head("repos/#{@test_repo}/actions/jobs/#{@job_id}/logs")
+
+      @client.workflow_run_job_logs(@test_repo, @job_id)
+
+      assert_requested request
+    end
+  end
+
   describe '.workflow_run_attempt_jobs' do
     it 'returns jobs for a workflow run attempt' do
       request = stub_get("repos/#{@test_repo}/actions/runs/#{@run_id}/attempts/#{@attempt_number}/jobs")
