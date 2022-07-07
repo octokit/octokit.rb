@@ -6,6 +6,17 @@ module Octokit
     #
     # @see https://docs.github.com/rest/actions/workflow-jobs
     module ActionsWorkflowJobs
+      # Get a job for a workflow run
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param job_id [Integer, String] Id of the job
+      #
+      # @return [Sawyer::Resource] Job information
+      # @see https://docs.github.com/rest/actions/workflow-jobs#get-a-job-for-a-workflow-run
+      def workflow_run_job(repo, job_id, options = {})
+        paginate "#{Repository.path repo}/actions/jobs/#{job_id}", options
+      end
+
       # List jobs for a workflow run attempt
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository

@@ -7,11 +7,22 @@ describe Octokit::Client::ActionsWorkflowJobs, :vcr do
     Octokit.reset!
     @client = oauth_client
     @run_id = 96_922_843
-    @attempt_number = 1
+    @attempt_number = 2
+    @job_id = 69_548_127
   end
 
   after do
     Octokit.reset!
+  end
+
+  describe '.workflow_run_job' do
+    it 'returns job for a workflow run' do
+      request = stub_get("repos/#{@test_repo}/actions/jobs/#{@job_id}")
+
+      @client.workflow_run_job(@test_repo, @job_id)
+
+      assert_requested request
+    end
   end
 
   describe '.workflow_run_attempt_jobs' do
