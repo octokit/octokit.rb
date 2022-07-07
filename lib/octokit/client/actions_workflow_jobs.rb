@@ -14,7 +14,7 @@ module Octokit
       # @return [Sawyer::Resource] Job information
       # @see https://docs.github.com/rest/actions/workflow-jobs#get-a-job-for-a-workflow-run
       def workflow_run_job(repo, job_id, options = {})
-        paginate "#{Repository.path repo}/actions/jobs/#{job_id}", options
+        get "#{Repository.path repo}/actions/jobs/#{job_id}", options
       end
 
       # Download job logs for a workflow run
@@ -23,7 +23,7 @@ module Octokit
       # @param job_id [Integer, String] Id of the job
       #
       # @return [String] URL to the archived log files of the job
-      # @see https://docs.github.com/rest/actions/workflow-runs#download-job-logs-for-a-workflow-run
+      # @see https://docs.github.com/rest/actions/workflow-jobs#download-job-logs-for-a-workflow-run
       def workflow_run_job_logs(repo, job_id, options = {})
         url = "#{Repository.path repo}/actions/jobs/#{job_id}/logs"
 
