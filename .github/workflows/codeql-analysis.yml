@@ -13,17 +13,11 @@ name: "CodeQL"
 
 on:
   push:
-    # TODO: Remove reference to deprecated `4-stable` branch once we have tidied
-    # up the branch names
     branches:
-      - 4-stable
       - main
   pull_request:
     # The branches below must be a subset of the branches above
-    # TODO: Remove reference to deprecated `4-stable` branch once we have tidied
-    # up the branch names
     branches:
-      - 4-stable
       - main
   schedule:
     - cron: '43 0 * * 6'
