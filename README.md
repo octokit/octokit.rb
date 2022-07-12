@@ -743,8 +743,6 @@ when writing new specs.
 This library aims to support and is [tested against][actions] the following Ruby
 implementations:
 
-* Ruby 2.5
-* Ruby 2.6
 * Ruby 2.7
 * Ruby 3.0
 * Ruby 3.1
