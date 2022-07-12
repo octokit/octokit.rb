@@ -24,7 +24,7 @@ group :test do
   gem 'mime-types', '~> 3.3', '>= 3.3.1'
   gem 'multi_json', '~> 1.14', '>= 1.14.1'
   gem 'netrc', '~> 0.11.0'
-  gem 'rb-fsevent', '~> 0.10.3'
+  gem 'rb-fsevent', '~> 0.11.1'
   gem 'rbnacl', '~> 7.1.1'
   gem 'rspec', '~> 3.9'
   gem 'simplecov', require: false
