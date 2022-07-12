@@ -1,5 +1,8 @@
 # Octokit
 
+> **Note**
+> We've recently renamed the `4-stable` branch to `main`. This might affect you if you're making changes to Octokit's code locally. For more details and for the steps to reconfigure your local clone for the new branch name, check out [this post](https://github.com/octokit/octokit.rb/discussions/1455).
+
 Ruby toolkit for the GitHub API.
 
 ![logo](https://docs.github.com/assets/images/gundamcat.png)
