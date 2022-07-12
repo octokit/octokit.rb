@@ -5,17 +5,9 @@ on:
      branches:
      - main
      - '*'
-     # TODO: Remove references to deprecated `master` and `4-stable` branches
-     # once we have tidied up the branch names
-     - master
-     - 4-stable
    pull_request:
      branches:
      - main
-     # TODO: Remove references to deprecated `master` and `4-stable` branches
-     # once we have tidied up the branch names
-     - master
-     - 4-stable
 
 jobs:
   ci:
