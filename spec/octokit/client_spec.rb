@@ -65,7 +65,7 @@ describe Octokit::Client do
         client = Octokit::Client.new(@opts)
         expect(client.per_page).to eq(40)
         expect(client.login).to eq('defunkt')
-        expect(client.instance_variable_get(:"@password")).to eq('il0veruby')
+        expect(client.instance_variable_get(:@password)).to eq('il0veruby')
         expect(client.auto_paginate).to eq(Octokit.auto_paginate)
         expect(client.client_id).to eq(Octokit.client_id)
       end
@@ -79,7 +79,7 @@ describe Octokit::Client do
         end
         expect(client.per_page).to eq(40)
         expect(client.login).to eq('defunkt')
-        expect(client.instance_variable_get(:"@password")).to eq('il0veruby')
+        expect(client.instance_variable_get(:@password)).to eq('il0veruby')
         expect(client.auto_paginate).to eq(Octokit.auto_paginate)
         expect(client.client_id).to eq(Octokit.client_id)
       end
@@ -117,14 +117,14 @@ describe Octokit::Client do
           Octokit.reset!
           client = Octokit::Client.new(netrc: true, netrc_file: File.join(fixture_path, '.netrc'))
           expect(client.login).to eq('sferik')
-          expect(client.instance_variable_get(:"@password")).to eq('il0veruby')
+          expect(client.instance_variable_get(:@password)).to eq('il0veruby')
         end
 
         it 'can read non-standard API endpoint creds from .netrc' do
           Octokit.reset!
           client = Octokit::Client.new(netrc: true, netrc_file: File.join(fixture_path, '.netrc'), api_endpoint: 'http://api.github.dev')
           expect(client.login).to eq('defunkt')
-          expect(client.instance_variable_get(:"@password")).to eq('il0veruby')
+          expect(client.instance_variable_get(:@password)).to eq('il0veruby')
         end
       end
     end
@@ -441,7 +441,7 @@ describe Octokit::Client do
       Octokit.configure do |config|
         config.proxy = 'http://proxy.example.com:80'
       end
-      conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
+      conn = Octokit.client.send(:agent).instance_variable_get(:@conn)
       expect(conn.proxy[:uri].to_s).to eq('http://proxy.example.com')
     end
     it 'no sets an ssl verify' do
@@ -452,7 +452,7 @@ describe Octokit::Client do
       client = Octokit::Client.new(
         connection_options: { ssl: { verify: true } }
       )
-      conn = client.send(:agent).instance_variable_get(:"@conn")
+      conn = client.send(:agent).instance_variable_get(:@conn)
       expect(conn.ssl[:verify]).to eq(true)
       expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_PEER)
     end
@@ -460,7 +460,7 @@ describe Octokit::Client do
       client = Octokit::Client.new(
         connection_options: { ssl: { verify: false } }
       )
-      conn = client.send(:agent).instance_variable_get(:"@conn")
+      conn = client.send(:agent).instance_variable_get(:@conn)
       expect(conn.ssl[:verify]).to eq(false)
       expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_NONE)
     end
@@ -468,11 +468,11 @@ describe Octokit::Client do
       Octokit.configure do |config|
         config.ssl_verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
-      conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
+      conn = Octokit.client.send(:agent).instance_variable_get(:@conn)
       expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_NONE)
     end
     it 'ensures ssl verify mode is set to default when no override provided' do
-      conn = Octokit.client.send(:agent).instance_variable_get(:"@conn")
+      conn = Octokit.client.send(:agent).instance_variable_get(:@conn)
       expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_PEER)
     end
     it 'passes along request headers for POST' do
