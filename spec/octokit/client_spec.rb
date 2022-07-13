@@ -800,9 +800,9 @@ describe Octokit::Client do
             message: 'Validation Failed',
             errors: [
               'Position is invalid',
-              resource: 'Issue',
-              field: 'title',
-              code: 'missing_field'
+              { resource: 'Issue',
+                field: 'title',
+                code: 'missing_field' }
             ]
           }.to_json
       begin
@@ -961,9 +961,9 @@ describe Octokit::Client do
           message: 'Validation Failed',
           errors: [
             'end_commit_oid is not part of the pull request',
-            resource: 'PullRequestReviewComment',
-            field: 'end_commit_oid',
-            code: 'custom'
+            { resource: 'PullRequestReviewComment',
+              field: 'end_commit_oid',
+              code: 'custom' }
           ]
         }.to_json
       expect { Octokit.post('/repositories/123456789/pulls/1/comments') }.to raise_error Octokit::CommitIsNotPartOfPullRequest

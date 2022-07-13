@@ -201,7 +201,7 @@ module Octokit
       end
       query = options.delete(:query)
       opts = { query: options }
-      opts[:query].merge!(query) if query&.is_a?(Hash)
+      opts[:query].merge!(query) if query.is_a?(Hash)
       opts[:headers] = headers unless headers.empty?
 
       opts

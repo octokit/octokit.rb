@@ -134,9 +134,7 @@ module Octokit
     end
 
     def login
-      @login ||= begin
-        user.login if token_authenticated?
-      end
+      @login ||= (user.login if token_authenticated?)
     end
 
     def netrc?

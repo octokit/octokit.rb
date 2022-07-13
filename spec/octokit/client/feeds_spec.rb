@@ -32,7 +32,7 @@ describe Octokit::Client::Feeds do
         expect(feeds.rels[:current_user].href).to be
         expect(feeds.rels[:current_user_actor].href).to be
 
-        token = feeds.rels[:current_user].href.match(/token\=(\w+)/)
+        token = feeds.rels[:current_user].href.match(/token=(\w+)/)
         use_vcr_placeholder_for(token, '<<ACCESS_TOKEN>>')
       end
     end
