@@ -45,11 +45,11 @@ describe Octokit::Client::Search do
     end
   end # .search_issues
 
-  describe ".search_repositories" do
-    it "searches repositories", :vcr do
+  describe '.search_repositories' do
+    it 'searches repositories', :vcr do
       results = @client.search_repositories 'games language:assembly', \
-        :sort  => 'stars',
-        :order => 'desc'
+                                            sort: 'stars',
+                                            order: 'desc'
 
       assert_requested :get, github_url('/search/repositories?q=games%20language:assembly&sort=stars&order=desc')
       expect(results.total_count).to be_kind_of Integer
@@ -57,11 +57,11 @@ describe Octokit::Client::Search do
     end
   end # .search_topics
 
-  describe ".search_topics" do
-    it "searches topics", :vcr do
+  describe '.search_topics' do
+    it 'searches topics', :vcr do
       results = @client.search_topics 'tetris language:assembly', \
-        :sort  => 'stars',
-        :order => 'desc'
+                                      sort: 'stars',
+                                      order: 'desc'
 
       assert_requested :get, github_url('/search/topics?q=tetris%20language:assembly&sort=stars&order=desc')
       expect(results.total_count).to be_kind_of Integer

@@ -75,7 +75,7 @@ module Octokit
       # @return [Sawyer::Resource] Search results object
       # @see https://developer.github.com/v3/search/#search-topics
       def search_topics(query, options = {})
-        search "search/topics", query, options
+        search 'search/topics', query, options
       end
 
       # Search users
