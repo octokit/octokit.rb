@@ -265,7 +265,7 @@ def fixture_path
 end
 
 def fixture(file)
-  File.new(fixture_path + '/' + file)
+  File.new("#{fixture_path}/#{file}")
 end
 
 def json_response(file)

@@ -127,7 +127,7 @@ module Octokit
       # risk double-escaping.
       def safe_escape(uri)
         uri.to_s.gsub(URI_UNSAFE) do |match|
-          '%' + match.unpack('H2' * match.bytesize).join('%').upcase
+          "%#{match.unpack('H2' * match.bytesize).join('%').upcase}"
         end
       end
     end

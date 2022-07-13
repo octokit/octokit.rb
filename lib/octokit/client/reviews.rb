@@ -161,7 +161,7 @@ module Octokit
         # TODO(5.0): remove deprecated behavior
         if reviewers.is_a?(Array)
           octokit_warn(
-            'Deprecated: Octokit::Client#request_pull_request_review '\
+            'Deprecated: Octokit::Client#request_pull_request_review ' \
             "no longer takes a separate :reviewers argument.\n" \
             'Please update your call to pass :reviewers and :team_reviewers as part of the options hash.'
           )
@@ -194,7 +194,7 @@ module Octokit
         # TODO(5.0): remove deprecated behavior
         if !reviewers.empty? && !options.empty?
           octokit_warn(
-            'Deprecated: Octokit::Client#delete_pull_request_review_request '\
+            'Deprecated: Octokit::Client#delete_pull_request_review_request ' \
             "no longer takes a separate :reviewers argument.\n" \
             'Please update your call to pass :reviewers and :team_reviewers as part of the options hash.'
           )

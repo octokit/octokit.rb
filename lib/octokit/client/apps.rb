@@ -29,9 +29,9 @@ module Octokit
 
       def find_integration_installations(options = {})
         octokit_warn(
-          'Deprecated: Octokit::Client::Apps#find_integration_installations '\
-          'method is deprecated. Please update your call to use '\
-          'Octokit::Client::Apps#find_app_installations before the next major '\
+          'Deprecated: Octokit::Client::Apps#find_integration_installations ' \
+          'method is deprecated. Please update your call to use ' \
+          'Octokit::Client::Apps#find_app_installations before the next major ' \
           'Octokit version update.'
         )
         find_app_installations(options)
@@ -76,9 +76,9 @@ module Octokit
 
       def create_integration_installation_access_token(installation, options = {})
         octokit_warn(
-          'Deprecated: Octokit::Client::Apps#create_integration_installation_access_token '\
-          'method is deprecated. Please update your call to use '\
-          'Octokit::Client::Apps#create_app_installation_access_token before the next major '\
+          'Deprecated: Octokit::Client::Apps#create_integration_installation_access_token ' \
+          'method is deprecated. Please update your call to use ' \
+          'Octokit::Client::Apps#create_app_installation_access_token before the next major ' \
           'Octokit version update.'
         )
         create_app_installation_access_token(installation, options)
@@ -136,9 +136,9 @@ module Octokit
 
       def list_integration_installation_repositories(options = {})
         octokit_warn(
-          'Deprecated: Octokit::Client::Apps#list_integration_installation_repositories '\
-          'method is deprecated. Please update your call to use '\
-          'Octokit::Client::Apps#list_app_installation_repositories before the next major '\
+          'Deprecated: Octokit::Client::Apps#list_integration_installation_repositories ' \
+          'method is deprecated. Please update your call to use ' \
+          'Octokit::Client::Apps#list_app_installation_repositories before the next major ' \
           'Octokit version update.'
         )
         list_app_installation_repositories(options)
@@ -160,9 +160,9 @@ module Octokit
 
       def add_repository_to_integration_installation(installation, repo, options = {})
         octokit_warn(
-          'Deprecated: Octokit::Client::Apps#add_repository_to_integration_installation '\
-          'method is deprecated. Please update your call to use '\
-          'Octokit::Client::Apps#add_repository_to_app_installation before the next major '\
+          'Deprecated: Octokit::Client::Apps#add_repository_to_integration_installation ' \
+          'method is deprecated. Please update your call to use ' \
+          'Octokit::Client::Apps#add_repository_to_app_installation before the next major ' \
           'Octokit version update.'
         )
         add_repository_to_app_installation(installation, repo, options)
@@ -184,9 +184,9 @@ module Octokit
 
       def remove_repository_from_integration_installation(installation, repo, options = {})
         octokit_warn(
-          'Deprecated: Octokit::Client::Apps#remove_repository_from_integration_installation '\
-          'method is deprecated. Please update your call to use '\
-          'Octokit::Client::Apps#remove_repository_from_app_installation before the next major '\
+          'Deprecated: Octokit::Client::Apps#remove_repository_from_integration_installation ' \
+          'method is deprecated. Please update your call to use ' \
+          'Octokit::Client::Apps#remove_repository_from_app_installation before the next major ' \
           'Octokit version update.'
         )
         remove_repository_from_app_installation(installation, repo, options)

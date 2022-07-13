@@ -134,9 +134,7 @@ module Octokit
     end
 
     def login
-      @login ||= begin
-        user.login if token_authenticated?
-      end
+      @login ||= (user.login if token_authenticated?)
     end
 
     def netrc?
@@ -146,7 +144,7 @@ module Octokit
     private
 
     def options
-      Hash[Octokit::Configurable.keys.map { |key| [key, instance_variable_get(:"@#{key}")] }]
+      Octokit::Configurable.keys.map { |key| [key, instance_variable_get(:"@#{key}")] }.to_h
     end
 
     def fetch_client_id_and_secret(overrides = {})
