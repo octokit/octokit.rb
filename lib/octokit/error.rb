@@ -58,7 +58,9 @@ module Octokit
 
     # Returns most appropriate error for 401 HTTP status code
     # @private
+    # rubocop:disable Naming/VariableNumber
     def self.error_for_401(headers)
+      # rubocop:enbale Naming/VariableNumber
       if Octokit::OneTimePasswordRequired.required_header(headers)
         Octokit::OneTimePasswordRequired
       else
@@ -69,6 +71,7 @@ module Octokit
     # Returns most appropriate error for 403 HTTP status code
     # @private
     def self.error_for_403(body)
+      # rubocop:enable Naming/VariableNumber
       case body
       when /rate limit exceeded/i
         Octokit::TooManyRequests
@@ -99,7 +102,9 @@ module Octokit
 
     # Return most appropriate error for 404 HTTP status code
     # @private
+    # rubocop:disable Naming/VariableNumber
     def self.error_for_404(body)
+      # rubocop:enable Naming/VariableNumber
       if body =~ /Branch not protected/i
         Octokit::BranchNotProtected
       else
@@ -109,7 +114,9 @@ module Octokit
 
     # Return most appropriate error for 422 HTTP status code
     # @private
+    # rubocop:disable Naming/VariableNumber
     def self.error_for_422(body)
+      # rubocop:enable Naming/VariableNumber
       if body =~ /PullRequestReviewComment/i && body =~ /(commit_id|end_commit_oid) is not part of the pull request/i
         Octokit::CommitIsNotPartOfPullRequest
       elsif body =~ /Path diff too large/i
