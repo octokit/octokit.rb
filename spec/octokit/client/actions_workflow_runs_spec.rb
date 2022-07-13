@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'helper'
 
 describe Octokit::Client::ActionsWorkflowRuns, :vcr do
   before do
     Octokit.reset!
     @client = oauth_client
-    @run_id = 96922843
+    @run_id = 96_922_843
   end
 
   after do
@@ -84,7 +86,7 @@ describe Octokit::Client::ActionsWorkflowRuns, :vcr do
     it 'deletes the workflow run' do
       request = stub_delete("repos/#{@test_repo}/actions/runs/#{@run_id}")
 
-      response = @client.delete_workflow_run(@test_repo, @run_id)
+      @client.delete_workflow_run(@test_repo, @run_id)
 
       assert_requested request
     end
@@ -105,6 +107,16 @@ describe Octokit::Client::ActionsWorkflowRuns, :vcr do
       request = stub_delete("repos/#{@test_repo}/actions/runs/#{@run_id}/logs")
 
       @client.delete_workflow_run_logs(@test_repo, @run_id)
+
+      assert_requested request
+    end
+  end
+
+  describe '.workflow_run_usage' do
+    it 'returns the requested workflow run usage' do
+      request = stub_get("repos/#{@test_repo}/actions/runs/#{@run_id}/timing")
+
+      @client.workflow_run_usage(@test_repo, @run_id)
 
       assert_requested request
     end

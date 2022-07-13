@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Users API
     #
     # @see https://developer.github.com/v3/users/
     module Users
-
       # List all GitHub users
       #
       # This provides a list of every user, in the order that they signed up
@@ -19,7 +19,7 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] List of GitHub users.
       def all_users(options = {})
-        paginate "users", options
+        paginate 'users', options
       end
 
       # Get a single user
@@ -30,7 +30,7 @@ module Octokit
       # @see https://developer.github.com/v3/users/#get-the-authenticated-user
       # @example
       #   Octokit.user("sferik")
-      def user(user=nil, options = {})
+      def user(user = nil, options = {})
         get User.path(user), options
       end
 
@@ -45,14 +45,14 @@ module Octokit
       #   Octokit.exchange_code_for_token('aaaa', 'xxxx', 'yyyy', {:accept => 'application/json'})
       def exchange_code_for_token(code, app_id = client_id, app_secret = client_secret, options = {})
         options = options.merge({
-          :code => code,
-          :client_id => app_id,
-          :client_secret => app_secret,
-          :headers => {
-            :content_type => 'application/json',
-            :accept       => 'application/json'
-          }
-        })
+                                  code: code,
+                                  client_id: app_id,
+                                  client_secret: app_secret,
+                                  headers: {
+                                    content_type: 'application/json',
+                                    accept: 'application/json'
+                                  }
+                                })
 
         post "#{web_endpoint}login/oauth/access_token", options
       end
@@ -84,7 +84,7 @@ module Octokit
       # @example
       #   Octokit.update_user(:name => "Erik Michaels-Ober", :email => "sferik@gmail.com", :company => "Code for America", :location => "San Francisco", :hireable => false)
       def update_user(options)
-        patch "user", options
+        patch 'user', options
       end
 
       # Get a user's followers.
@@ -96,7 +96,7 @@ module Octokit
       # @see https://developer.github.com/v3/users/followers/#list-followers-of-a-user
       # @example
       #   Octokit.followers('pengwynn')
-      def followers(user=login, options = {})
+      def followers(user = login, options = {})
         paginate "#{User.path user}/followers", options
       end
 
@@ -109,7 +109,7 @@ module Octokit
       # @see https://developer.github.com/v3/users/followers/#list-users-followed-by-another-user
       # @example
       #   Octokit.following('pengwynn')
-      def following(user=login, options = {})
+      def following(user = login, options = {})
         paginate "#{User.path user}/following", options
       end
 
@@ -174,7 +174,7 @@ module Octokit
       # @see https://developer.github.com/v3/activity/starring/#list-repositories-being-starred
       # @example
       #   Octokit.starred('pengwynn')
-      def starred(user=login, options = {})
+      def starred(user = login, options = {})
         paginate user_path(user, 'starred'), options
       end
 
@@ -227,7 +227,7 @@ module Octokit
       # @example
       #   @client.keys
       def keys(options = {})
-        paginate "user/keys", options
+        paginate 'user/keys', options
       end
 
       # Get list of public keys for user.
@@ -253,7 +253,7 @@ module Octokit
       # @example
       #   @client.add_key('Personal projects key', 'ssh-rsa AAA...')
       def add_key(title, key, options = {})
-        post "user/keys", options.merge({:title => title, :key => key})
+        post 'user/keys', options.merge({ title: title, key: key })
       end
 
       # Update a public key
@@ -297,7 +297,7 @@ module Octokit
       # @example
       #   @client.emails
       def emails(options = {})
-        paginate "user/emails", options
+        paginate 'user/emails', options
       end
 
       # Add email address to user.
@@ -309,9 +309,9 @@ module Octokit
       # @see https://developer.github.com/v3/users/emails/#add-email-addresses
       # @example
       #   @client.add_email('new_email@user.com')
-      def add_email(email, options = {})
+      def add_email(email, _options = {})
         email = Array(email)
-        post "user/emails", email
+        post 'user/emails', email
       end
 
       # Remove email from user.
@@ -325,7 +325,7 @@ module Octokit
       #   @client.remove_email('old_email@user.com')
       def remove_email(email)
         email = Array(email)
-        boolean_from_response :delete, "user/emails", email
+        boolean_from_response :delete, 'user/emails', email
       end
 
       # List repositories being watched by a user.
@@ -335,10 +335,10 @@ module Octokit
       # @see https://developer.github.com/v3/activity/watching/#list-repositories-being-watched
       # @example
       #   @client.subscriptions("pengwynn")
-      def subscriptions(user=login, options = {})
+      def subscriptions(user = login, options = {})
         paginate user_path(user, 'subscriptions'), options
       end
-      alias :watched :subscriptions
+      alias watched subscriptions
 
       # Initiates the generation of a migration archive.
       #
@@ -354,7 +354,7 @@ module Octokit
       def start_user_migration(repositories, options = {})
         options = ensure_api_media_type(:migrations, options)
         options[:repositories] = repositories
-        post "user/migrations", options
+        post 'user/migrations', options
       end
 
       # Lists the most recent migrations.
@@ -365,7 +365,7 @@ module Octokit
       # @see https://docs.github.com/en/rest/reference/migrations#list-user-migrations
       def user_migrations(options = {})
         options = ensure_api_media_type(:migrations, options)
-        paginate "user/migrations", options
+        paginate 'user/migrations', options
       end
 
       # Fetches the status of a migration.
@@ -429,6 +429,7 @@ module Octokit
     end
 
     private
+
     # convenience method for constructing a user specific path, if the user is logged in
     def user_path(user, path)
       if user == login && user_authenticated?

@@ -3,13 +3,11 @@ name: CI
 on:
    push:
      branches:
-     - master
-     - 4-stable
+     - main
      - '*'
    pull_request:
      branches:
-     - master
-     - 4-stable
+     - main
 
 jobs:
   ci:
@@ -20,7 +18,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu ]
-        ruby: [ 2.5, 2.6, 2.7, '3.0', 3.1, head ]
+        ruby: [ 2.7, '3.0', '3.1', head ]
+        faraday: [ '~> 1.0', '~> 2.0' ]
+    env:
+      FARADAY_VERSION: ${{ matrix.faraday }}
 
     steps:
       - uses: actions/checkout@v2
@@ -28,9 +29,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ./.bundle/gems
-          key: cache-${{ runner.os }}-${{ matrix.ruby }}-${{ github.sha }}
+          key: cache-${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.faraday }}-${{ github.sha }}
           restore-keys: |
-            cache-${{ runner.os }}-${{ matrix.ruby }}-
+            cache-${{ runner.os }}-${{ matrix.ruby }}-${{ matrix.faraday }}-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -42,7 +43,12 @@ jobs:
           bundle config set path .bundle/gems
           bundle config set without development
           bundle install --jobs 4 --retry 3
-      - name: Test with RSpec
+      - name: Test with RSpec with frozen string literals enabled
         env:
           GITHUB_CI: 1
+          RUBYOPT: --enable-frozen-string-literal
         run: bundle exec rspec -w
+      - name: Lint with Rubocop
+        env:
+          GITHUB_CI: 1
+        run: bundle exec rubocop

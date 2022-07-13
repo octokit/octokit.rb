@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Legacy Search API
     #
     # @see https://developer.github.com/v3/search/
     module LegacySearch
-
       # Legacy repository search
       #
       # @see https://developer.github.com/v3/search/#search-repositories
@@ -23,7 +23,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of issues matching the search term and state
       # @example Search for 'test' in the open issues for sferik/rails_admin
       #   Octokit.search_issues("sferik/rails_admin", 'test', 'open')
-      def legacy_search_issues(repo, search_term, state='open', options = {})
+      def legacy_search_issues(repo, search_term, state = 'open', options = {})
         get("legacy/issues/search/#{Repository.new(repo)}/#{state}/#{search_term}", options)['issues']
       end
 

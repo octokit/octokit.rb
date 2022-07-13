@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
+    # Methods for the Actions Workflows runs API
+    #
+    # @see https://docs.github.com/rest/actions/workflow-runs
     module ActionsWorkflowRuns
       # List all runs for a repository workflow
       #
@@ -90,7 +95,7 @@ module Octokit
         response.headers['Location']
       end
 
-      # Delets all log files of a workflow run
+      # Delete all log files of a workflow run
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param id [Integer] Id of a workflow run
@@ -99,6 +104,17 @@ module Octokit
       # @see https://developer.github.com/v3/actions/workflow-runs/#delete-workflow-run-logs
       def delete_workflow_run_logs(repo, id, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/actions/runs/#{id}/logs", options
+      end
+
+      # Get workflow run usage
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param id [Integer] Id of a workflow run
+      #
+      # @return [Sawyer::Resource] Run usage
+      # @see https://developer.github.com/v3/actions/workflow-runs/#get-workflow-run-usage
+      def workflow_run_usage(repo, id, options = {})
+        get "#{Repository.path repo}/actions/runs/#{id}/timing", options
       end
     end
   end

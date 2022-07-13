@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Hooks API
     module Hooks
-
       # List all Service Hooks supported by GitHub
       #
       # @return [Sawyer::Resource] A list of all hooks on GitHub
@@ -11,7 +11,7 @@ module Octokit
       # @example List all hooks
       #   Octokit.available_hooks
       def available_hooks(options = {})
-        get "hooks", options
+        get 'hooks', options
       end
 
       # List repo hooks
@@ -73,7 +73,7 @@ module Octokit
       #     }
       #   )
       def create_hook(repo, name, config, options = {})
-        options = {:name => name, :config => config, :events => ["push"], :active => true}.merge(options)
+        options = { name: name, config: config, events: ['push'], active: true }.merge(options)
         post "#{Repository.path repo}/hooks", options
       end
 
@@ -116,7 +116,7 @@ module Octokit
       #     }
       #   )
       def edit_hook(repo, id, name, config, options = {})
-        options = {:name => name, :config => config}.merge(options)
+        options = { name: name, config: config }.merge(options)
         patch "#{Repository.path repo}/hooks/#{id}", options
       end
 
@@ -158,7 +158,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/hooks/#ping-a-hook
       # @example
       #   @client.ping_hook('octokit/octokit.rb', 1000000)
-      def ping_hook(repo, id, options={})
+      def ping_hook(repo, id, options = {})
         boolean_from_response :post, "#{Repository.path repo}/hooks/#{id}/pings", options
       end
 
@@ -174,7 +174,7 @@ module Octokit
       def org_hooks(org, options = {})
         paginate "#{Organization.path org}/hooks", options
       end
-      alias :list_org_hooks :org_hooks
+      alias list_org_hooks org_hooks
 
       # Get an org hook
       #
@@ -217,7 +217,7 @@ module Octokit
       #     }
       #   )
       def create_org_hook(org, config, options = {})
-        options = { :name => "web", :config => config }.merge(options)
+        options = { name: 'web', config: config }.merge(options)
         post "#{Organization.path org}/hooks", options
       end
 
@@ -250,10 +250,10 @@ module Octokit
       #     }
       #   )
       def edit_org_hook(org, id, config, options = {})
-        options = { :config => config }.merge(options)
+        options = { config: config }.merge(options)
         patch "#{Organization.path org}/hooks/#{id}", options
       end
-      alias :update_org_hook :edit_org_hook
+      alias update_org_hook edit_org_hook
 
       # Ping org hook
       #

@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Community Profile API
     #
     # @see https://developer.github.com/v3/repos/community/
     module CommunityProfile
-
       # Get community profile metrics for a repository
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository

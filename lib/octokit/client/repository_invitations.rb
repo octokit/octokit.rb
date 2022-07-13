@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Repository Invitations API
     #
     # @see https://developer.github.com/v3/repos/invitations/
     module RepositoryInvitations
-
       # Invite a user to a repository
       #
       # Requires authenticated client
@@ -64,7 +64,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] The users repository invitations
       # @see https://developer.github.com/v3/repos/invitations/#list-a-users-repository-invitations
       def user_repository_invitations(options = {})
-        paginate "/user/repository_invitations", options
+        paginate '/user/repository_invitations', options
       end
       alias user_repo_invitations user_repository_invitations
 

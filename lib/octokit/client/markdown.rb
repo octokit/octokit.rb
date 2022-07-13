@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Markdown API
     #
     # @see https://developer.github.com/v3/markdown/
     module Markdown
-
       # Render an arbitrary Markdown document
       #
       # @param text [String] Markdown source
@@ -20,7 +20,7 @@ module Octokit
         options[:repo] = Repository.new(options[:repo]) if options[:repo]
         options[:accept] = 'application/vnd.github.raw'
 
-        post "markdown", options
+        post 'markdown', options
       end
     end
   end

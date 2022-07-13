@@ -1,7 +1,15 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Authentication methods for {Octokit::Client}
   module Authentication
+    # In Faraday 2.x, the authorization middleware uses new interface
+    FARADAY_BASIC_AUTH_KEYS =
+      if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
+        %i[authorization basic]
+      else
+        [:basic_auth]
+      end
 
     # Indicates if the client was supplied  Basic Auth
     # username and password
@@ -66,8 +74,7 @@ module Octokit
         self.password = creds.shift
       end
     rescue LoadError
-      octokit_warn "Please install netrc gem for .netrc support"
+      octokit_warn 'Please install netrc gem for .netrc support'
     end
-
   end
 end

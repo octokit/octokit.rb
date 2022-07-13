@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for References for Git Data API
     #
     # @see https://developer.github.com/v3/git/refs/
     module Refs
-
       # List all refs for a given user and repo
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -19,9 +19,9 @@ module Octokit
         path += "/#{namespace}" unless namespace.nil?
         paginate path, options
       end
-      alias :list_refs :refs
-      alias :references :refs
-      alias :list_references :refs
+      alias list_refs refs
+      alias references refs
+      alias list_references refs
 
       # Fetch matching refs
       #
@@ -46,7 +46,7 @@ module Octokit
       def ref(repo, ref, options = {})
         get "#{Repository.path repo}/git/refs/#{ref}", options
       end
-      alias :reference :ref
+      alias reference ref
 
       # Create a reference
       #
@@ -60,12 +60,12 @@ module Octokit
       def create_ref(repo, ref, sha, options = {})
         ref = "refs/#{ref}" unless ref =~ %r{\Arefs/}
         parameters = {
-          :ref  => ref,
-          :sha  => sha
+          ref: ref,
+          sha: sha
         }
         post "#{Repository.path repo}/git/refs", options.merge(parameters)
       end
-      alias :create_reference :create_ref
+      alias create_reference create_ref
 
       # Update a reference
       #
@@ -81,12 +81,12 @@ module Octokit
       #   Octokit.update_ref("octocat/Hello-World", "heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd", false)
       def update_ref(repo, ref, sha, force = true, options = {})
         parameters = {
-          :sha  => sha,
-          :force => force
+          sha: sha,
+          force: force
         }
         patch "#{Repository.path repo}/git/refs/#{ref}", options.merge(parameters)
       end
-      alias :update_reference :update_ref
+      alias update_reference update_ref
 
       # Update a branch
       #
@@ -127,8 +127,7 @@ module Octokit
       def delete_ref(repo, ref, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/git/refs/#{ref}", options
       end
-      alias :delete_reference :delete_ref
-
+      alias delete_reference delete_ref
     end
   end
 end
