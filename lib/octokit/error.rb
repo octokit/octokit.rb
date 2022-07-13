@@ -73,9 +73,7 @@ module Octokit
     def self.error_for_403(body)
       # rubocop:enable Naming/VariableNumber
       case body
-      when /rate limit exceeded/i
-        Octokit::TooManyRequests
-      when /exceeded a secondary rate limit/i
+      when /rate limit exceeded/i, /exceeded a secondary rate limit/i
         Octokit::TooManyRequests
       when /login attempts exceeded/i
         Octokit::TooManyLoginAttempts

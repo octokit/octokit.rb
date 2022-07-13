@@ -13,9 +13,7 @@ module Octokit
       # @return [Boolean]
       def repository?(repo, options = {})
         !!repository(repo, options)
-      rescue Octokit::InvalidRepository
-        false
-      rescue Octokit::NotFound
+      rescue Octokit::InvalidRepository, Octokit::NotFound
         false
       end
 
