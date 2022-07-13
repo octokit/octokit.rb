@@ -132,7 +132,6 @@ Style/Documentation:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
-    - 'lib/octokit/client/actions_workflow_runs.rb'
     - 'lib/octokit/client/users.rb'
     - 'lib/octokit/enterprise_management_console_client/management_console.rb'
 
