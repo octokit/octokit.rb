@@ -305,9 +305,6 @@ module Octokit
         if options.key?(:permission)
           octokit_warn 'Deprecated: Passing :permission option to #create_team. Assign team repository permission by passing :permission to #add_team_repository instead.'
         end
-        if options.key?(:parent_team_id)
-          options = ensure_api_media_type(:nested_teams, options)
-        end
         post "#{Organization.path org}/teams", options
       end
 
@@ -348,7 +345,6 @@ module Octokit
       # @example
       #   @client.child_teams(100000, :accept => "application/vnd.github.hellcat-preview+json")
       def child_teams(team_id, options = {})
-        options = ensure_api_media_type(:nested_teams, options)
         paginate "teams/#{team_id}/teams", options
       end
 
@@ -372,9 +368,6 @@ module Octokit
       #     :permission => 'push'
       #   })
       def update_team(team_id, options = {})
-        if options.key?(:parent_team_id)
-          options = ensure_api_media_type(:nested_teams, options)
-        end
         patch "teams/#{team_id}", options
       end
 
@@ -680,7 +673,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/members/#get-organization-membership
       def organization_membership(org, options = {})
         options = options.dup
-        if user = options.delete(:user)
+        if user == options.delete(:user)
           get "#{Organization.path(org)}/memberships/#{user}", options
         else
           get "user/memberships/orgs/#{org}", options
@@ -733,7 +726,6 @@ module Octokit
       #   @client.start_migration('github', ['github/dotfiles'])
       # @see https://docs.github.com/en/rest/reference/migrations#start-an-organization-migration
       def start_migration(org, repositories, options = {})
-        options = ensure_api_media_type(:migrations, options)
         options[:repositories] = repositories
         post "#{Organization.path(org)}/migrations", options
       end
@@ -746,7 +738,6 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of migration resources.
       # @see https://docs.github.com/en/rest/reference/migrations#list-organization-migrations
       def migrations(org, options = {})
-        options = ensure_api_media_type(:migrations, options)
         paginate "#{Organization.path(org)}/migrations", options
       end
 
@@ -758,7 +749,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#get-an-organization-migration-status
       def migration_status(org, id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         get "#{Organization.path(org)}/migrations/#{id}", options
       end
 
@@ -770,7 +760,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#download-an-organization-migration-archive
       def migration_archive_url(org, id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         url = "#{Organization.path(org)}/migrations/#{id}/archive"
 
         response = client_without_redirects(options).get(url)
@@ -785,7 +774,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#delete-an-organization-migration-archive
       def delete_migration_archive(org, id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         delete "#{Organization.path(org)}/migrations/#{id}/archive", options
       end
 
@@ -798,7 +786,6 @@ module Octokit
       # @param repo [String] Name of the repository.
       # @see https://docs.github.com/en/rest/reference/migrations#unlock-an-organization-repository
       def unlock_repository(org, id, repo, options = {})
-        options = ensure_api_media_type(:migrations, options)
         delete "#{Organization.path(org)}/migrations/#{id}/repos/#{repo}/lock", options
       end
 
