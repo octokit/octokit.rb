@@ -673,7 +673,7 @@ module Octokit
       # @see https://developer.github.com/v3/orgs/members/#get-organization-membership
       def organization_membership(org, options = {})
         options = options.dup
-        if user == options.delete(:user)
+        if user = options.delete(:user)
           get "#{Organization.path(org)}/memberships/#{user}", options
         else
           get "user/memberships/orgs/#{org}", options
