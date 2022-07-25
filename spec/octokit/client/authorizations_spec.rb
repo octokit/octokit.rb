@@ -248,8 +248,4 @@ describe Octokit::Client::Authorizations do
         .with('Deprecated: If you need to revoke all tokens for your application, you can do so via the settings page for your application.')
     end
   end # .revoke_all_application_authorizations
-
-  def preview_header
-    Octokit::Preview::PREVIEW_TYPES[:applications_api]
-  end
 end

@@ -24,8 +24,7 @@ describe Octokit::Client::Search do
     it 'searches commits', :vcr do
       results = @client.search_commits 'repo:octokit/octokit.rb author:jasonrudolph', \
                                        sort: 'author-date',
-                                       order: 'asc',
-                                       accept: preview_header
+                                       order: 'asc'
 
       assert_requested :get, github_url('/search/commits?q=repo:octokit/octokit.rb%20author:jasonrudolph&sort=author-date&order=asc')
       expect(results.total_count).to be_kind_of Integer
@@ -88,8 +87,4 @@ describe Octokit::Client::Search do
       expect(results.items.length).to eq(2)
     end
   end # .search_users
-
-  def preview_header
-    Octokit::Preview::PREVIEW_TYPES[:commit_search]
-  end
 end
