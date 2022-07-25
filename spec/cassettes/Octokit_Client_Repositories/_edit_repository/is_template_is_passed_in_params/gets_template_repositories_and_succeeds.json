@@ -1,0 +1,111 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://api.github.com/user/repos",
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJuYW1lIjoiPEdJVEhVQl9URVNUX1JFUE9TSVRPUlk+In0=\n"
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 5.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 403,
+          "message": "Forbidden"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Mon, 25 Jul 2022 17:30:34 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Github-Authentication-Token-Expiration": [
+            "2022-07-26 13:26:23 -0500"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-08-09"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4999"
+          ],
+          "X-Ratelimit-Reset": [
+            "1658773834"
+          ],
+          "X-Ratelimit-Used": [
+            "1"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "Vary": [
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "X-Github-Request-Id": [
+            "0400:628F:23DC384:423C72C:62DED339"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJtZXNzYWdlIjoiUmVzb3VyY2Ugbm90IGFjY2Vzc2libGUgYnkgcGVyc29u\nYWwgYWNjZXNzIHRva2VuIiwiZG9jdW1lbnRhdGlvbl91cmwiOiJodHRwczov\nL2RvY3MuZ2l0aHViLmNvbS9yZXN0L3JlZmVyZW5jZS9yZXBvcyNjcmVhdGUt\nYS1yZXBvc2l0b3J5LWZvci10aGUtYXV0aGVudGljYXRlZC11c2VyIn0=\n"
+        }
+      },
+      "recorded_at": "Mon, 25 Jul 2022 17:30:34 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.1.0"
+}
