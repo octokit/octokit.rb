@@ -62,23 +62,6 @@ describe Octokit::Client::Repositories do
     end
   end
 
-  describe '.edit_repository', :vcr do
-    before(:each) do
-      @repo = @client.create_repository(test_github_repository)
-    end
-
-    after(:each) do
-      @client.delete_repository(@repo.full_name)
-    end
-
-    context 'is_template is passed in params', :vcr do
-      it 'gets template repositories and succeeds' do
-        @client.edit_repository(@repo.full_name, is_template: true)
-        expect(@client.repository(@repo.full_name).is_template).to be true
-      end
-    end
-  end
-
   describe '.add_deploy_key' do
     it 'adds a repository deploy keys' do
       request = stub_post(github_url("/repos/#{@test_repo}/keys"))
@@ -116,7 +99,7 @@ describe Octokit::Client::Repositories do
 
   context 'with repository' do
     before(:each) do
-      @repo = @client.create_repository(test_github_repository, auto_init: true)
+      @repo = @client.create_repository('a-repo', auto_init: true)
     end
 
     after(:each) do
@@ -152,6 +135,13 @@ describe Octokit::Client::Repositories do
         assert_requested :patch, github_url("/repos/#{@repo.full_name}")
       end
     end # .update_repository
+
+    describe '.edit_repository', :vcr do
+      it 'edits is_template on repository' do
+        repository = @client.edit_repository(@repo.full_name, is_template: true)
+        expect(repository.is_template).to be true
+      end
+    end # .edit_repository
 
     describe '.deploy_keys', :vcr do
       it "returns a repository's deploy keys" do
