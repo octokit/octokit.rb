@@ -10,15 +10,9 @@ describe Octokit::Client::CommunityProfile do
 
   describe '.community_profile', :vcr do
     it 'returns community profile metrics for a repository' do
-      community_profile = @client.community_profile('octokit/octokit.rb', accept: preview_header)
+      community_profile = @client.community_profile('octokit/octokit.rb')
       expect(community_profile.health_percentage).not_to be_nil
       assert_requested :get, github_url('/repos/octokit/octokit.rb/community/profile')
     end
   end # .community_profile
-
-  private
-
-  def preview_header
-    Octokit::Preview::PREVIEW_TYPES[:community_profile]
-  end
 end

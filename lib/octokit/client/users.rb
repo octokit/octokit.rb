@@ -352,7 +352,6 @@ module Octokit
       #   @client.start_migration(['octocat/hello-world'])
       # @see https://docs.github.com/en/rest/reference/migrations#start-a-user-migration
       def start_user_migration(repositories, options = {})
-        options = ensure_api_media_type(:migrations, options)
         options[:repositories] = repositories
         post 'user/migrations', options
       end
@@ -364,7 +363,6 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of migration resources.
       # @see https://docs.github.com/en/rest/reference/migrations#list-user-migrations
       def user_migrations(options = {})
-        options = ensure_api_media_type(:migrations, options)
         paginate 'user/migrations', options
       end
 
@@ -375,7 +373,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#get-a-user-migration-status
       def user_migration_status(id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         get "user/migrations/#{id}", options
       end
 
@@ -386,7 +383,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#download-a-user-migration-archive
       def user_migration_archive_url(id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         url = "user/migrations/#{id}/archive"
 
         response = client_without_redirects(options).get(url)
@@ -400,7 +396,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#delete-a-user-migration-archive
       def delete_user_migration_archive(id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         delete "user/migrations/#{id}/archive", options
       end
 
@@ -411,7 +406,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#list-repositories-for-a-user-migration
       def user_migration_repositories(id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         get "user/migrations/#{id}/repositories", options
       end
 
@@ -423,7 +417,6 @@ module Octokit
       # @param repo [String] Name of the repository.
       # @see https://docs.github.com/en/rest/reference/migrations#unlock-a-user-repository
       def unlock_user_repository(id, repo, options = {})
-        options = ensure_api_media_type(:migrations, options)
         delete "user/migrations/#{id}/repos/#{repo}/lock", options
       end
     end

@@ -12,7 +12,6 @@ module Octokit
       # @example
       #   Octokit.licenses
       def licenses(options = {})
-        options = ensure_api_media_type(:licenses, options)
         paginate 'licenses', options
       end
 
@@ -24,7 +23,6 @@ module Octokit
       # @example
       #   Octokit.license 'mit'
       def license(license_name, options = {})
-        options = ensure_api_media_type(:licenses, options)
         get "licenses/#{license_name}", options
       end
 
@@ -37,7 +35,6 @@ module Octokit
       # @example
       #   Octokit.repository_license_contents 'benbalter/licensee'
       def repository_license_contents(repo, options = {})
-        options = ensure_api_media_type(:licenses, options)
         get "#{Repository.path repo}/license", options
       end
     end

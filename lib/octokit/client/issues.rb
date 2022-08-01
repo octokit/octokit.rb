@@ -318,7 +318,6 @@ module Octokit
       # @example Get timeline for issue #1435 on octokit/octokit.rb
       #   Octokit.issue_timeline("octokit/octokit.rb", 1435)
       def issue_timeline(repo, number, options = {})
-        options = ensure_api_media_type(:issue_timelines, options)
         paginate "#{Repository.path repo}/issues/#{number}/timeline", options
       end
 
