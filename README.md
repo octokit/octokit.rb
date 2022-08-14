@@ -664,7 +664,7 @@ Once configured, the middleware will store responses in cache based on ETag
 fingerprint and serve those back up for future `304` responses for the same
 resource. See the [project README][cache] for advanced usage.
 
-[cache]: https://github.com/plataformatec/faraday-http-cache
+[cache]: https://github.com/sourcelevel/faraday-http-cache
 [faraday]: https://github.com/lostisland/faraday
 
 ## Hacking on Octokit.rb
