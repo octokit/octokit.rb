@@ -137,6 +137,15 @@ describe Octokit::Client::PullRequests do
   end # new @pull methods
 
   # stub this so we don't have to set up new fixture data
+  describe '.update_pull_request_branch' do
+    it 'updates the pull request branch' do
+      request = stub_put(github_url('/repos/api-playground/api-sandbox/pulls/321/update-branch'))
+      @client.update_pull_request_branch('api-playground/api-sandbox', 321)
+      assert_requested request
+    end
+  end # .update_pull_request_branch
+
+  # stub this so we don't have to set up new fixture data
   describe '.merge_pull_request' do
     it 'merges the pull request' do
       request = stub_put(github_url('/repos/api-playground/api-sandbox/pulls/123/merge'))

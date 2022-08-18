@@ -276,6 +276,17 @@ module Octokit
       end
       alias pull_files pull_request_files
 
+      # Update a pull request branch
+      #
+      # @see https://developer.github.com/v3/pulls/#update-a-pull-request-branch
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param number [Integer] Number of pull request
+      # @param options [Hash] Optional parameters (e.g. expected_head_sha)
+      # @return [Sawyer::Resource] Info regarding the update if successful
+      def update_pull_request_branch(repo, number, options = {})
+        put "#{Repository.path repo}/pulls/#{number}/update-branch", options
+      end
+
       # Merge a pull request
       #
       # @see https://developer.github.com/v3/pulls/#merge-a-pull-request-merge-button
