@@ -44,7 +44,7 @@ end
 group :test, :development do
   gem 'pry-byebug'
   gem 'redcarpet'
-  gem 'rubocop', '1.35.0'
+  gem 'rubocop', '1.35.1'
 end
 
 gemspec
