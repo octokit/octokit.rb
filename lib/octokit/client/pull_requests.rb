@@ -282,9 +282,9 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param number [Integer] Number of pull request
       # @param options [Hash] Optional parameters (e.g. expected_head_sha)
-      # @return [Sawyer::Resource] Info regarding the update if successful
+      # @return [Boolean] True if the pull request branch has been updated
       def update_pull_request_branch(repo, number, options = {})
-        put "#{Repository.path repo}/pulls/#{number}/update-branch", options
+        boolean_from_response(:put, "#{Repository.path repo}/pulls/#{number}/update-branch", options)
       end
 
       # Merge a pull request

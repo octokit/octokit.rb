@@ -138,10 +138,35 @@ describe Octokit::Client::PullRequests do
 
   # stub this so we don't have to set up new fixture data
   describe '.update_pull_request_branch' do
+    let(:repo) { 'api-playground/api-sandbox' }
+    let(:pull_number) { 321 }
+    let(:update_branch_url) { github_url("/repos/#{repo}/pulls/#{pull_number}/update-branch") }
+    let(:status) { 202 }
+
+    before(:each) do
+      stub_put(update_branch_url).to_return(status: status)
+    end
+
     it 'updates the pull request branch' do
-      request = stub_put(github_url('/repos/api-playground/api-sandbox/pulls/321/update-branch'))
-      @client.update_pull_request_branch('api-playground/api-sandbox', 321)
-      assert_requested request
+      result = @client.update_pull_request_branch(repo, pull_number)
+      assert_requested :put, update_branch_url
+      expect(result).to eq(true)
+    end
+
+    context 'when the request fails with a 403 Forbidden' do
+      let(:status) { 403 }
+
+      it 'raises an exception' do
+        expect { @client.update_pull_request_branch(repo, pull_number) }.to raise_error(Octokit::Forbidden)
+      end
+    end
+
+    context 'when the request fails with a 422 Unprocessable Entity' do
+      let(:status) { 422 }
+
+      it 'raises an exception' do
+        expect { @client.update_pull_request_branch(repo, pull_number) }.to raise_error(Octokit::UnprocessableEntity)
+      end
     end
   end # .update_pull_request_branch
 
