@@ -156,6 +156,13 @@ describe Octokit::Client::Organizations do
       end
     end # .team_by_name
 
+    describe '.team_permission_level', :vcr do
+      it 'returns a team permission level for the given repo' do
+        @client.team_permission_level(test_github_org, @team.slug, test_github_org, test_github_repository)
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
+      end
+    end # .team_permission_level
+
     describe '.update_team', :vcr do
       it 'updates a team' do
         @client.update_team(@team.id, name: 'API Jedi')
