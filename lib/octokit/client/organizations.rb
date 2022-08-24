@@ -346,9 +346,8 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing team permissions for the repository.
       # @see https://docs.github.com/en/rest/teams/teams#check-team-permissions-for-a-repository
       # @example
-      #   @client.team_permission_level("github", "justice-league", "octocat", "hello-world")
+      #   @client.team_permission_level("github", "justice-league", "octocat", "hello-world", :accept => 'application/vnd.github.v3.repository+json')
       def team_permission_level(org, team_slug, owner, repo, options = {})
-        # /orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}'
         get "#{Organization.path(org)}/teams/#{team_slug}/repos/#{owner}/#{repo}", options
       end
 
