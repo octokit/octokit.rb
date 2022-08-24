@@ -79,7 +79,7 @@ Install via Rubygems
 
 ... or add to your Gemfile
 
-    gem "octokit", "~> 4.0"
+    gem "octokit", "~> 5.0"
 
 Access the library in Ruby:
 
