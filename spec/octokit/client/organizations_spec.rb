@@ -156,13 +156,25 @@ describe Octokit::Client::Organizations do
       end
     end # .team_by_name
 
-    describe '.team_permission_level', :vcr do
-      it 'returns a team permission level for the given repo' do
-        permissions = @client.team_permission_level(test_github_org, @team.slug, test_github_org, test_github_repository, { accept: 'application/vnd.github.v3.repository+json' })
+    describe '.team_permissions_for_repo', :vcr do
+      it 'returns the repository with team permission for the given repo with accepts header' do
+        permissions = @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository, { accept: 'application/vnd.github.v3.repository+json' })
         expect(permissions).to be_kind_of Sawyer::Resource
         assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
       end
-    end # .team_permission_level
+
+      it 'returns true when a team has permissions for a repo' do
+        permissions = @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository)
+        expect(permissions).to eq true
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
+      end
+
+      it 'returns false when a team does not have permissions for a repo' do
+        permissions = @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository)
+        expect(permissions).to eq false
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
+      end
+    end # .team_permissions_for_repo
 
     describe '.update_team', :vcr do
       it 'updates a team' do
