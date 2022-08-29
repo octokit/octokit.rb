@@ -343,7 +343,7 @@ module Octokit
       # @param team_slug [String, Integer] Team slug or Team ID.
       # @param owner [String] Owner name for the repository.
       # @param repo [String] Name of the repo to check permissions against.
-      # @return [Boolean] True if permissions exist, false otherwise.
+      # @return [String, Sawyer::Resource] Depending on options it may be an empty string or a resource.
       # @example
       #   # Check whether the team has any permissions with the repository
       #   @client.team_permissions_for_repo("github", "justice-league", "octocat", "hello-world")
@@ -353,12 +353,7 @@ module Octokit
       #   @client.team_permissions_for_repo("github", "justice-league", "octocat", "hello-world", :accept => 'application/vnd.github.v3.repository+json')
       # @see https://docs.github.com/en/rest/teams/teams#check-team-permissions-for-a-repository
       def team_permissions_for_repo(org, team_slug, owner, repo, options = {})
-        path = "#{Organization.path(org)}/teams/#{team_slug}/repos/#{owner}/#{repo}"
-        if options.key?(:accept)
-          get path, options
-        else
-          boolean_from_response :get, path, options 
-        end
+        get "#{Organization.path(org)}/teams/#{team_slug}/repos/#{owner}/#{repo}", options
       end
 
       # List child teams
