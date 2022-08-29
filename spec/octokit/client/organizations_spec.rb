@@ -165,7 +165,7 @@ describe Octokit::Client::Organizations do
 
       it 'returns true when a team has permissions for a repo' do
         permissions = @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository)
-        expect(permissions).to eq ""
+        expect(permissions).to be_empty
         assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
       end
 
