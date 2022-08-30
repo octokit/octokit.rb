@@ -335,6 +335,27 @@ module Octokit
         get "#{Organization.path(org)}/teams/#{team_slug}", options
       end
 
+      # Check team permissions for a repository
+      #
+      # Requires authenticated organization member.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param team_slug_or_id [String, Integer] Team slug or Team ID.
+      # @param owner [String] Owner name for the repository.
+      # @param repo [String] Name of the repo to check permissions against.
+      # @return [String, Sawyer::Resource] Depending on options it may be an empty string or a resource.
+      # @example
+      #   # Check whether the team has any permissions with the repository
+      #   @client.team_permissions_for_repo("github", "justice-league", "octocat", "hello-world")
+      #
+      # @example
+      #   # Get the full repository object including the permissions level and role for the team
+      #   @client.team_permissions_for_repo("github", "justice-league", "octocat", "hello-world", :accept => 'application/vnd.github.v3.repository+json')
+      # @see https://docs.github.com/en/rest/teams/teams#check-team-permissions-for-a-repository
+      def team_permissions_for_repo(org, team_slug_or_id, owner, repo, options = {})
+        get "#{Organization.path(org)}/teams/#{team_slug_or_id}/repos/#{owner}/#{repo}", options
+      end
+
       # List child teams
       #
       # Requires authenticated organization member.

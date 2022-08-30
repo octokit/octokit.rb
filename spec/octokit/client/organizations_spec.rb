@@ -156,6 +156,25 @@ describe Octokit::Client::Organizations do
       end
     end # .team_by_name
 
+    describe '.team_permissions_for_repo', :vcr do
+      it 'returns the repository with team permission for the given repo with accepts header' do
+        permissions = @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository, { accept: 'application/vnd.github.v3.repository+json' })
+        expect(permissions).to be_kind_of Sawyer::Resource
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
+      end
+
+      it 'returns an empty string when a team has permissions for a repo' do
+        permissions = @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository)
+        expect(permissions).to be_empty
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
+      end
+
+      it 'raises an error when a team does not have permissions for a repo' do
+        expect { @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository) }.to raise_error Octokit::NotFound
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
+      end
+    end # .team_permissions_for_repo
+
     describe '.update_team', :vcr do
       it 'updates a team' do
         @client.update_team(@team.id, name: 'API Jedi')
