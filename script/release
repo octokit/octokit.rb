@@ -35,7 +35,7 @@ else
   ./script/package
 
   # We need to pull the version from the actual file that is about to be published
-  file=$(ls pkg/*.gem| head -1)
+  file=$(ls pkg/*.gem | sort | tail -1)
   version=$(echo $file | sed -e 's/.*octokit-\(.*\).gem.*/\1/') 
   
   [ -n "$version" ] || exit 1
