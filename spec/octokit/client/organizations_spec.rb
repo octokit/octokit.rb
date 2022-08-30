@@ -163,13 +163,13 @@ describe Octokit::Client::Organizations do
         assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
       end
 
-      it 'returns true when a team has permissions for a repo' do
+      it 'returns an empty string when a team has permissions for a repo' do
         permissions = @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository)
         expect(permissions).to be_empty
         assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
       end
 
-      it 'returns false when a team does not have permissions for a repo' do
+      it 'raises an error when a team does not have permissions for a repo' do
         expect { @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository) }.to raise_error Octokit::NotFound
         assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
       end
