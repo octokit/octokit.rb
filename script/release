@@ -35,14 +35,14 @@ else
   ./script/package
 
   # We need to pull the version from the actual file that is about to be published
-  file=$(ls pkg/*.gem| head -1)
+  file=$(ls pkg/*.gem | sort | tail -1)
   version=$(echo $file | sed -e 's/.*octokit-\(.*\).gem.*/\1/') 
   
   [ -n "$version" ] || exit 1
 
   echo "*** Tagging and publishing $version of octokit ***"
 
-  git commit --allow-empty -a -m "Release $version"
+  git commit --allow-empty -a -m "v$version"
   git tag "v$version"
   git push origin
   git push origin "v$version"
