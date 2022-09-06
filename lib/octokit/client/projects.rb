@@ -4,7 +4,7 @@ module Octokit
   class Client
     # Methods for Projects API
     #
-    # @see https://developer.github.com/v3/repos/projects
+    # @see https://docs.github.com/en/rest/projects
     module Projects
       # List projects for a repository
       #
