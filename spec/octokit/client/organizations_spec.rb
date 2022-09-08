@@ -411,4 +411,12 @@ describe Octokit::Client::Organizations do
       assert_requested :get, github_url("/orgs/#{test_github_org}/settings/billing/actions")
     end
   end
+
+  describe '.organization_audit_log', :vcr do
+    it 'returns audit log for an organization' do
+      audit_log = @client.organization_audit_log(test_github_org, { include: 'all', phrase: 'action:org.add_member created:>2022-08-29' })
+      expect(audit_log).to be_kind_of Array
+      assert_requested :get, github_url("/orgs/#{test_github_org}/audit-log?include=all&phrase=action:org.add_member%20created:%3E2022-08-29")
+    end
+  end
 end
