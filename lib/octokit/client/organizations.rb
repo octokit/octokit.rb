@@ -837,7 +837,7 @@ module Octokit
       # To list oldest events first, specify asc.
       #
       # @return [Array<Sawyer::Resource>] List of events
-      # @see https://docs.github.com/en/rest/enterprise-admin/audit-log#get-the-audit-log-for-an-enterprise
+      # @see https://docs.github.com/en/enterprise-cloud@latest/rest/orgs/orgs#get-the-audit-log-for-an-organization
       # @example
       #   Octokit.organization_audit_log('github', {include: 'all', phrase: 'action:org.add_member created:>2022-08-29 user:octocat'})
       def organization_audit_log(org, options = {})
