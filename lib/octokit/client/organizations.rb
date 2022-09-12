@@ -823,6 +823,26 @@ module Octokit
       def billing_actions(org)
         get "#{Organization.path(org)}/settings/billing/actions"
       end
+
+      # Get organization audit log.
+      #
+      # Gets the audit log for an organization.
+      #
+      # @param org [String, Integer] Organization GitHub login or id for which
+      #   to retrieve the audit log.
+      # @option options [String] :include ('all') Filter by event type.
+      #   `all`, `git` or `web`.
+      # @option options [String] :phrase A search phrase.
+      # @option options [String] :order ('desc') The order of audit log events. To list newest events first, specify desc.
+      # To list oldest events first, specify asc.
+      #
+      # @return [Array<Sawyer::Resource>] List of events
+      # @see https://docs.github.com/en/enterprise-cloud@latest/rest/orgs/orgs#get-the-audit-log-for-an-organization
+      # @example
+      #   Octokit.organization_audit_log('github', {include: 'all', phrase: 'action:org.add_member created:>2022-08-29 user:octocat'})
+      def organization_audit_log(org, options = {})
+        paginate "#{Organization.path org}/audit-log", options
+      end
     end
   end
 end
