@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
     # Methods for the Actions Artifacts API
