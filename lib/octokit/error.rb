@@ -77,7 +77,7 @@ module Octokit
         Octokit::TooManyRequests
       when /login attempts exceeded/i
         Octokit::TooManyLoginAttempts
-      when /returns blobs up to [0-9]+ MB/i
+      when /(returns|for) blobs (up to|between) [0-9\-]+ MB/i
         Octokit::TooLargeContent
       when /abuse/i
         Octokit::AbuseDetected
