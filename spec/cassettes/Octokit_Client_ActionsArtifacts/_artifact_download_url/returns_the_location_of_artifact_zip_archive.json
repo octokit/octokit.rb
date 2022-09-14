@@ -1,0 +1,102 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "head",
+        "uri": "https://api.github.com/repos/<GITHUB_LOGIN>/<GITHUB_TEST_REPOSITORY>/actions/artifacts/362518594/zip",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 5.5.0"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 302,
+          "message": "Found"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Wed, 14 Sep 2022 00:30:10 GMT"
+          ],
+          "Content-Type": [
+            "text/html;charset=utf-8"
+          ],
+          "Content-Length": [
+            "0"
+          ],
+          "Location": [
+            "https://pipelines.actions.githubusercontent.com/serviceHosts/833a0c19-e430-43c5-ad4b-ffd8a794e906/_apis/pipelines/1/runs/3/signedartifactscontent?artifactName=hello.txt&urlExpires=2022-09-14T00%3A31%3A10.3987297Z&urlSigningMethod=HMACV2&urlSignature=bcxwAz34CgmtYfPXvslRZNWm2pVI9vH61nZqA996X0A%3D"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-08-09"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4992"
+          ],
+          "X-Ratelimit-Reset": [
+            "1663119007"
+          ],
+          "X-Ratelimit-Used": [
+            "8"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "Vary": [
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "X-Github-Request-Id": [
+            "0407:949B:2F9974F:30C78CD:63212092"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": ""
+        }
+      },
+      "recorded_at": "Wed, 14 Sep 2022 00:30:10 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.1.0"
+}
