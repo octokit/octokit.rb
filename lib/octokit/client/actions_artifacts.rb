@@ -44,7 +44,7 @@ module Octokit
       # @param id [Integer] Id of an artifact
       #
       # @return [String] URL to the .zip archive of the artifact
-      # @see https://docs.github.com/en/rest/actions/workflow-runs#download-workflow-run-logs
+      # @see https://docs.github.com/en/rest/actions/artifacts#download-an-artifact
       def artifact_download_url(repo, id, options = {})
         url = "#{Repository.path repo}/actions/artifacts/#{id}/zip"
 
