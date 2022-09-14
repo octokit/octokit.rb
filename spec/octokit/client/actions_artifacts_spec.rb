@@ -55,7 +55,7 @@ describe Octokit::Client::ActionsArtifacts, :vcr do
       status = @client.delete_artifact(@test_repo, @artifact_id)
 
       assert_requested :delete, github_url("repos/#{@test_repo}/actions/artifacts/#{@artifact_id}")
-      expect(status).to be(true).or be(false)
+      expect(status).to be(true)
     end
   end
 end
