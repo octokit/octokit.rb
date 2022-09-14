@@ -22,7 +22,7 @@ module Octokit
       # @param workflow_run_id [Integer] Id of a workflow run
       #
       # @return [Sawyer::Resource] the total count and an array of artifacts
-      # @see https://developer.github.com/v3/actions/artifacts#list-workflow-run-artifacts
+      # @see https://docs.github.com/en/rest/actions/artifacts#list-workflow-run-artifacts
       def workflow_run_artifacts(repo, workflow_run_id, options = {})
         paginate "#{Repository.path repo}/actions/runs/#{workflow_run_id}/artifacts", options
       end
@@ -33,7 +33,7 @@ module Octokit
       # @param id [Integer] Id of an artifact
       #
       # @return [Sawyer::Resource] Artifact information
-      # @see https://developer.github.com/v3/actions/artifacts#get-an-artifact
+      # @see https://docs.github.com/en/rest/actions/artifacts#get-an-artifact
       def artifact(repo, id, options = {})
         get "#{Repository.path repo}/actions/artifacts/#{id}", options
       end
@@ -44,7 +44,7 @@ module Octokit
       # @param id [Integer] Id of an artifact
       #
       # @return [String] URL to the .zip archive of the artifact
-      # @see https://developer.github.com/v3/actions/workflow-runs/#download-workflow-run-logs
+      # @see https://docs.github.com/en/rest/actions/workflow-runs#download-workflow-run-logs
       def artifact_download_url(repo, id, options = {})
         url = "#{Repository.path repo}/actions/artifacts/#{id}/zip"
 
@@ -58,7 +58,7 @@ module Octokit
       # @param id [Integer] Id of an artifact
       #
       # @return [Boolean] Return true if the artifact was successfully deleted
-      # @see https://developer.github.com/v3/actions/artifacts#delete-an-artifact
+      # @see https://docs.github.com/en/rest/actions/artifacts#delete-an-artifact
       def delete_artifact(repo, id, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/actions/artifacts/#{id}", options
       end
