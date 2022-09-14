@@ -881,6 +881,14 @@ describe Octokit::Client do
         headers: {
           content_type: 'application/json'
         },
+        body: { message: 'for this endpoint for blobs between 1-100 MB.' }.to_json
+      expect { Octokit.get('/user') }.to raise_error Octokit::TooLargeContent
+
+      stub_get('/user').to_return \
+        status: 403,
+        headers: {
+          content_type: 'application/json'
+        },
         body: { message: 'You have triggered an abuse detection mechanism and have been temporarily blocked from content creation. Please retry your request again later.' }.to_json
       expect { Octokit.get('/user') }.to raise_error Octokit::AbuseDetected
 
