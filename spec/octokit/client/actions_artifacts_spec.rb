@@ -2,7 +2,7 @@
 
 require 'helper'
 
-describe Octokit::Client::ActionsArtifacts, vcr: {record: :new_episodes} do
+describe Octokit::Client::ActionsArtifacts, :vcr do
   before do
     Octokit.reset!
     @client = oauth_client

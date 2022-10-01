@@ -8,11 +8,32 @@ describe Octokit::Client::ActionsWorkflows do
     @client = oauth_client
   end
 
-  describe '.workflows', :vcr do
+  describe '.workflows', vcr: {record: :new_episodes} do
     it 'returns the repository workflows' do
       @client.workflows(@test_repo)
 
       assert_requested :get, github_url("/repos/#{@test_repo}/actions/workflows")
+    end
+
+    it "paginates the results" do
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      workflows = @client.workflows(@test_repo)
+
+      expect(@client).to have_received(:paginate)
+      expect(workflows.total_count).to eq(2)
+      expect(workflows.workflows.count).to eq(1)
+    end
+
+    it "auto-paginates the results" do
+      @client.auto_paginate = true
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      workflows = @client.workflows(@test_repo)
+
+      expect(@client).to have_received(:paginate)
+      expect(workflows.total_count).to eq(2)
+      expect(workflows.workflows.count).to eq(2)
     end
   end # .workflows
 

@@ -13,7 +13,9 @@ module Octokit
       # @return [Sawyer::Resource] the total count and an array of workflows
       # @see https://developer.github.com/v3/actions/workflows/#list-repository-workflows
       def workflows(repo, options = {})
-        paginate "#{Repository.path repo}/actions/workflows", options
+        paginate "#{Repository.path repo}/actions/workflows", options do |data, last_response|
+          data.workflows.concat last_response.data.workflows
+        end
       end
       alias list_workflows workflows
 
