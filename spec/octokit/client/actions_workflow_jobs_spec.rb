@@ -2,12 +2,12 @@
 
 require 'helper'
 
-describe Octokit::Client::ActionsWorkflowJobs, :vcr do
+describe Octokit::Client::ActionsWorkflowJobs, vcr: {record: :new_episodes} do
   before do
     Octokit.reset!
     @client = oauth_client
-    @run_id = 96_922_843
-    @attempt_number = 2
+    @run_id = 3_163_227_438
+    @attempt_number = 1
     @job_id = 69_548_127
   end
 
@@ -43,6 +43,27 @@ describe Octokit::Client::ActionsWorkflowJobs, :vcr do
 
       assert_requested request
     end
+
+    it "paginates the results" do
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.workflow_run_attempt_jobs(@test_repo, @run_id, @attempt_number)
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(2)
+      expect(result.jobs.count).to eq(1)
+    end
+
+    it "auto-paginates the results" do
+      @client.auto_paginate = true
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.workflow_run_attempt_jobs(@test_repo, @run_id, @attempt_number)
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(2)
+      expect(result.jobs.count).to eq(2)
+    end
   end
 
   describe '.workflow_run_jobs' do
@@ -52,6 +73,28 @@ describe Octokit::Client::ActionsWorkflowJobs, :vcr do
       @client.workflow_run_jobs(@test_repo, @run_id)
 
       assert_requested request
+    end
+
+    it "paginates the results" do
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.workflow_run_attempt_jobs(@test_repo, @run_id, @attempt_number)
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(2)
+      expect(result.jobs.count).to eq(1)
+    end
+
+    it "auto-paginates the results" do
+      @client.auto_paginate = true
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.workflow_run_attempt_jobs(@test_repo, @run_id, @attempt_number)
+      binding.pry
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(2)
+      expect(result.jobs.count).to eq(2)
     end
   end
 end
