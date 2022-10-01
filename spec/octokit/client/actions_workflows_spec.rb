@@ -8,7 +8,7 @@ describe Octokit::Client::ActionsWorkflows do
     @client = oauth_client
   end
 
-  describe '.workflows', vcr: {record: :new_episodes} do
+  describe '.workflows', :vcr do
     it 'returns the repository workflows' do
       @client.workflows(@test_repo)
 
