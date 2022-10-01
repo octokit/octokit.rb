@@ -2,7 +2,7 @@
 
 require 'helper'
 
-describe Octokit::Client::ActionsArtifacts, :vcr do
+describe Octokit::Client::ActionsArtifacts, vcr: {record: :new_episodes} do
   before do
     Octokit.reset!
     @client = oauth_client
@@ -20,6 +20,27 @@ describe Octokit::Client::ActionsArtifacts, :vcr do
 
       assert_requested :get, github_url("repos/#{@test_repo}/actions/artifacts")
       expect(repository_artifacts).to be_kind_of Sawyer::Resource
+    end
+
+    it "paginates the results" do
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.repository_artifacts(@test_repo)
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(3)
+      expect(result.artifacts.count).to eq(1)
+    end
+
+    it "auto-paginates the results" do
+      @client.auto_paginate = true
+      @client.per_page = 1
+      allow(@client).to receive(:paginate).and_call_original
+      result = @client.repository_artifacts(@test_repo)
+
+      expect(@client).to have_received(:paginate)
+      expect(result.total_count).to eq(3)
+      expect(result.artifacts.count).to eq(3)
     end
   end
 

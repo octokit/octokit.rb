@@ -16,7 +16,7 @@ describe Octokit::Client::ActionsSecrets do
   before do
     Octokit.reset!
     @client = oauth_client
-    @secret = { name: 'secret_name', value: 'secret_value' }
+    @secrets = [{ name: 'secret_name', value: 'secret_value' }, { name: 'secret_name2', value: 'secret_value2' }]
   end
 
   context 'with a repo' do
@@ -62,9 +62,9 @@ describe Octokit::Client::ActionsSecrets do
     describe '.create_or_update_secret', :vcr do
       it 'creating secret returns 204 (even though API docs claims it should be 201)' do
         box = create_box(@client.get_public_key(@repo.id))
-        encrypted = box[:box].encrypt(@secret[:value])
+        encrypted = box[:box].encrypt(@secrets.first[:value])
         @client.create_or_update_secret(
-          @repo.id, @secret[:name],
+          @repo.id, @secrets.first[:name],
           key_id: box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
         )
         expect(@client.last_response.status).to eq(204)
@@ -76,11 +76,13 @@ describe Octokit::Client::ActionsSecrets do
     before(:each) do
       @repo = @client.create_repository('secret-repo')
       @box = create_box(@client.get_public_key(@repo.id))
-      encrypted = @box[:box].encrypt(@secret[:value])
-      @client.create_or_update_secret(
-        @repo.id, @secret[:name],
-        key_id: @box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
-      )
+      @secrets.each do |secret|
+        encrypted = @box[:box].encrypt(secret[:value])
+        @client.create_or_update_secret(
+          @repo.id, secret[:name],
+          key_id: @box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
+        )
+      end
     end
 
     after(:each) do
@@ -91,17 +93,38 @@ describe Octokit::Client::ActionsSecrets do
     end
 
     describe '.list_secrets', :vcr do
-      it 'returns list of one secret' do
+      it 'returns list of two secrets' do
         secrets = @client.list_secrets(@repo.id)
-        expect(secrets.total_count).to eq(1)
-        expect(secrets.secrets[0].name).to eq(@secret[:name])
+        expect(secrets.total_count).to eq(2)
+        expect(secrets.secrets[0].name).to eq(@secrets.first[:name].upcase)
+      end
+
+      it "paginates the results" do
+        @client.per_page = 1
+        allow(@client).to receive(:paginate).and_call_original
+        secrets = @client.list_secrets(@repo.id)
+  
+        expect(@client).to have_received(:paginate)
+        expect(secrets.total_count).to eq(2)
+        expect(secrets.secrets.count).to eq(1)
+      end
+  
+      it "auto-paginates the results" do
+        @client.auto_paginate = true
+        @client.per_page = 1
+        allow(@client).to receive(:paginate).and_call_original
+        secrets = @client.list_secrets(@repo.id)
+  
+        expect(@client).to have_received(:paginate)
+        expect(secrets.total_count).to eq(2)
+        expect(secrets.secrets.count).to eq(2)
       end
     end # .list_secrets
 
     describe '.get_secret', :vcr do
       it 'return timestamps related to one secret' do
-        received = @client.get_secret(@repo.id, @secret[:name])
-        expect(received.name).to eq(@secret[:name])
+        received = @client.get_secret(@repo.id, @secrets.first[:name])
+        expect(received.name).to eq(@secrets.first[:name].upcase)
       end
     end # .get_secret
 
@@ -110,7 +133,7 @@ describe Octokit::Client::ActionsSecrets do
         box = create_box(@client.get_public_key(@repo.id))
         encrypted = box[:box].encrypt('new value')
         @client.create_or_update_secret(
-          @repo.id, @secret[:name],
+          @repo.id, @secrets.first[:name],
           key_id: box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
         )
         expect(@client.last_response.status).to eq(204)
@@ -119,7 +142,7 @@ describe Octokit::Client::ActionsSecrets do
 
     describe '.delete_secret', :vcr do
       it 'delete existing secret' do
-        @client.delete_secret(@repo.id, @secret[:name])
+        @client.delete_secret(@repo.id, @secrets.first[:name])
         expect(@client.last_response.status).to eq(204)
       end
     end

@@ -13,7 +13,9 @@ module Octokit
       # @return [Sawyer::Resource] the total count and an array of artifacts
       # @see https://developer.github.com/v3/actions/artifacts#list-artifacts-for-a-repository
       def repository_artifacts(repo, options = {})
-        paginate "#{Repository.path repo}/actions/artifacts", options
+        paginate "#{Repository.path repo}/actions/artifacts", options do |data, last_response|
+          data.artifacts.concat last_response.data.artifacts
+        end
       end
 
       # List all artifacts for a workflow run
@@ -24,7 +26,9 @@ module Octokit
       # @return [Sawyer::Resource] the total count and an array of artifacts
       # @see https://docs.github.com/en/rest/actions/artifacts#list-workflow-run-artifacts
       def workflow_run_artifacts(repo, workflow_run_id, options = {})
-        paginate "#{Repository.path repo}/actions/runs/#{workflow_run_id}/artifacts", options
+        paginate "#{Repository.path repo}/actions/runs/#{workflow_run_id}/artifacts", options do |data, last_response|
+          data.artifacts.concat last_response.data.artifacts
+        end
       end
 
       # Get an artifact
