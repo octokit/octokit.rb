@@ -1,14 +1,14 @@
+# frozen_string_literal: true
+
 require 'sawyer'
 require 'octokit/authentication'
 module Octokit
-
   # Network layer for API clients.
   module Connection
-
     include Octokit::Authentication
 
     # Header keys that can be passed in options hash to {#get},{#head}
-    CONVENIENCE_HEADERS = Set.new([:accept, :content_type])
+    CONVENIENCE_HEADERS = Set.new(%i[accept content_type])
 
     # Make a HTTP GET request
     #
@@ -75,17 +75,17 @@ module Octokit
     #   contains the contents of the requests so far and the second parameter
     #   contains the latest response.
     # @return [Sawyer::Resource]
-    def paginate(url, options = {}, &block)
+    def paginate(url, options = {})
       opts = parse_query_and_convenience_headers(options)
       if @auto_paginate || @per_page
-        opts[:query][:per_page] ||=  @per_page || (@auto_paginate ? 100 : nil)
+        opts[:query][:per_page] ||= @per_page || (@auto_paginate ? 100 : nil)
       end
 
       data = request(:get, url, opts.dup)
 
       if @auto_paginate
         while @last_response.rels[:next] && rate_limit.remaining > 0
-          @last_response = @last_response.rels[:next].get(:headers => opts[:headers])
+          @last_response = @last_response.rels[:next].get(headers: opts[:headers])
           if block_given?
             yield(data, @last_response)
           else
@@ -104,16 +104,16 @@ module Octokit
     def agent
       @agent ||= Sawyer::Agent.new(endpoint, sawyer_options) do |http|
         http.headers[:accept] = default_media_type
-        http.headers[:content_type] = "application/json"
+        http.headers[:content_type] = 'application/json'
         http.headers[:user_agent] = user_agent
         if basic_authenticated?
-          http.basic_auth(@login, @password)
+          http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
         elsif token_authenticated?
-          http.authorization 'token', @access_token
+          http.request :authorization, 'token', @access_token
         elsif bearer_authenticated?
-          http.authorization 'Bearer', @bearer_token
+          http.request :authorization, 'Bearer', @bearer_token
         elsif application_authenticated?
-          http.params = http.params.merge application_authentication
+          http.request(*FARADAY_BASIC_AUTH_KEYS, @client_id, @client_secret)
         end
       end
     end
@@ -122,7 +122,7 @@ module Octokit
     #
     # @return [Sawyer::Resource]
     def root
-      get "/"
+      get '/'
     end
 
     # Response for last HTTP request
@@ -153,8 +153,11 @@ module Octokit
         end
       end
 
-      @last_response = response = agent.call(method, URI::Parser.new.escape(path.to_s), data, options)
+      @last_response = response = agent.call(method, Addressable::URI.parse(path.to_s).normalize.to_s, data, options)
       response.data
+    rescue Octokit::Error => e
+      @last_response = nil
+      raise e
     end
 
     # Executes the request, checking if it was successful
@@ -162,19 +165,27 @@ module Octokit
     # @return [Boolean] True on success, false otherwise
     def boolean_from_response(method, path, options = {})
       request(method, path, options)
-      @last_response.status == 204
+      [201, 202, 204].include? @last_response.status
     rescue Octokit::NotFound
       false
     end
 
-
     def sawyer_options
       opts = {
-        :links_parser => Sawyer::LinkParsers::Simple.new
+        links_parser: Sawyer::LinkParsers::Simple.new
       }
       conn_opts = @connection_options
-      conn_opts[:builder] = @middleware if @middleware
+      conn_opts[:builder] = @middleware.dup if @middleware
       conn_opts[:proxy] = @proxy if @proxy
+      if conn_opts[:ssl].nil?
+        conn_opts[:ssl] = { verify_mode: @ssl_verify_mode } if @ssl_verify_mode
+      else
+        verify = @connection_options[:ssl][:verify]
+        conn_opts[:ssl] = {
+          verify: verify,
+          verify_mode: verify == false ? 0 : @ssl_verify_mode
+        }
+      end
       opts[:faraday] = Faraday.new(conn_opts)
 
       opts
@@ -182,15 +193,15 @@ module Octokit
 
     def parse_query_and_convenience_headers(options)
       options = options.dup
-      headers = options.delete(:headers) { Hash.new }
+      headers = options.delete(:headers) { {} }
       CONVENIENCE_HEADERS.each do |h|
         if header = options.delete(h)
           headers[h] = header
         end
       end
       query = options.delete(:query)
-      opts = {:query => options}
-      opts[:query].merge!(query) if query && query.is_a?(Hash)
+      opts = { query: options }
+      opts[:query].merge!(query) if query.is_a?(Hash)
       opts[:headers] = headers unless headers.empty?
 
       opts

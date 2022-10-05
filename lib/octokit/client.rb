@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'octokit/connection'
 require 'octokit/warnable'
 require 'octokit/arguments'
@@ -9,11 +11,19 @@ require 'octokit/rate_limit'
 require 'octokit/repository'
 require 'octokit/user'
 require 'octokit/organization'
-require 'octokit/preview'
+require 'octokit/client/actions_artifacts'
+require 'octokit/client/actions_secrets'
+require 'octokit/client/actions_workflows'
+require 'octokit/client/actions_workflow_jobs'
+require 'octokit/client/actions_workflow_runs'
 require 'octokit/client/apps'
 require 'octokit/client/authorizations'
+require 'octokit/client/checks'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
+require 'octokit/client/commit_pulls'
+require 'octokit/client/commit_branches'
+require 'octokit/client/community_profile'
 require 'octokit/client/contents'
 require 'octokit/client/downloads'
 require 'octokit/client/deployments'
@@ -32,6 +42,7 @@ require 'octokit/client/markdown'
 require 'octokit/client/marketplace'
 require 'octokit/client/milestones'
 require 'octokit/client/notifications'
+require 'octokit/client/oauth_applications'
 require 'octokit/client/objects'
 require 'octokit/client/organizations'
 require 'octokit/client/pages'
@@ -56,20 +67,23 @@ require 'octokit/client/users'
 require 'ext/sawyer/relation'
 
 module Octokit
-
   # Client for the GitHub API
   #
   # @see https://developer.github.com
   class Client
-
     include Octokit::Authentication
     include Octokit::Configurable
     include Octokit::Connection
-    include Octokit::Preview
     include Octokit::Warnable
+    include Octokit::Client::ActionsArtifacts
+    include Octokit::Client::ActionsSecrets
     include Octokit::Client::Authorizations
+    include Octokit::Client::Checks
     include Octokit::Client::Commits
     include Octokit::Client::CommitComments
+    include Octokit::Client::CommitPulls
+    include Octokit::Client::CommitBranches
+    include Octokit::Client::CommunityProfile
     include Octokit::Client::Contents
     include Octokit::Client::Deployments
     include Octokit::Client::Downloads
@@ -79,6 +93,9 @@ module Octokit
     include Octokit::Client::Gists
     include Octokit::Client::Gitignore
     include Octokit::Client::Hooks
+    include Octokit::Client::ActionsWorkflows
+    include Octokit::Client::ActionsWorkflowJobs
+    include Octokit::Client::ActionsWorkflowRuns
     include Octokit::Client::Apps
     include Octokit::Client::Issues
     include Octokit::Client::Labels
@@ -89,6 +106,7 @@ module Octokit
     include Octokit::Client::Marketplace
     include Octokit::Client::Milestones
     include Octokit::Client::Notifications
+    include Octokit::Client::OauthApplications
     include Octokit::Client::Objects
     include Octokit::Client::Organizations
     include Octokit::Client::Pages
@@ -112,12 +130,20 @@ module Octokit
     include Octokit::Client::Users
 
     # Header keys that can be passed in options hash to {#get},{#head}
-    CONVENIENCE_HEADERS = Set.new([:accept, :content_type])
+    CONVENIENCE_HEADERS = Set.new(%i[accept content_type])
 
     def initialize(options = {})
       # Use options passed in, but fall back to module defaults
+      #
+      # rubocop:disable Style/HashEachMethods
+      #
+      # This may look like a `.keys.each` which should be replaced with `#each_key`, but
+      # this doesn't actually work, since `#keys` is just a method we've defined ourselves.
+      # The class doesn't fulfill the whole `Enumerable` contract.
       Octokit::Configurable.keys.each do |key|
-        instance_variable_set(:"@#{key}", options[key] || Octokit.instance_variable_get(:"@#{key}"))
+        # rubocop:enable Style/HashEachMethods
+        value = options[key].nil? ? Octokit.instance_variable_get(:"@#{key}") : options[key]
+        instance_variable_set(:"@#{key}", value)
       end
 
       login_from_netrc unless user_authenticated? || application_authenticated?
@@ -130,15 +156,17 @@ module Octokit
       inspected = super
 
       # mask password
-      inspected = inspected.gsub! @password, "*******" if @password
-      inspected = inspected.gsub! @management_console_password, "*******" if @management_console_password
-      inspected = inspected.gsub! @bearer_token, '********' if @bearer_token
+      inspected.gsub! @password, '*******' if @password
+      if @management_console_password
+        inspected.gsub! @management_console_password, '*******'
+      end
+      inspected.gsub! @bearer_token, '********' if @bearer_token
       # Only show last 4 of token, secret
       if @access_token
-        inspected = inspected.gsub! @access_token, "#{'*'*36}#{@access_token[36..-1]}"
+        inspected.gsub! @access_token, "#{'*' * 36}#{@access_token[36..-1]}"
       end
       if @client_secret
-        inspected = inspected.gsub! @client_secret, "#{'*'*36}#{@client_secret[36..-1]}"
+        inspected.gsub! @client_secret, "#{'*' * 36}#{@client_secret[36..-1]}"
       end
 
       inspected
@@ -157,11 +185,12 @@ module Octokit
     #     # GET https://foo:bar@api.github.com/
     #     client.get "/"
     #   end
-    def as_app(key = client_id, secret = client_secret, &block)
+    def as_app(key = client_id, secret = client_secret)
       if key.to_s.empty? || secret.to_s.empty?
-        raise ApplicationCredentialsRequired, "client_id and client_secret required"
+        raise ApplicationCredentialsRequired, 'client_id and client_secret required'
       end
-      app_client = self.dup
+
+      app_client = dup
       app_client.client_id = app_client.client_secret = nil
       app_client.login    = key
       app_client.password = secret
@@ -222,13 +251,14 @@ module Octokit
       conn_opts[:url] = @api_endpoint
       conn_opts[:builder] = @middleware.dup if @middleware
       conn_opts[:proxy] = @proxy if @proxy
+      conn_opts[:ssl] = { verify_mode: @ssl_verify_mode } if @ssl_verify_mode
       conn = Faraday.new(conn_opts) do |http|
         if basic_authenticated?
-          http.basic_auth(@login, @password)
+          http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
         elsif token_authenticated?
-          http.authorization 'token', @access_token
+          http.request :authorization, 'token', @access_token
         elsif bearer_authenticated?
-          http.authorization 'Bearer', @bearer_token
+          http.request :authorization, 'Bearer', @bearer_token
         end
         http.headers['accept'] = options[:accept] if options.key?(:accept)
       end

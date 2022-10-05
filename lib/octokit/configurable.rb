@@ -1,5 +1,6 @@
-module Octokit
+# frozen_string_literal: true
 
+module Octokit
   # Configuration options for {Client}, defaulting to values
   # in {Default}
   module Configurable
@@ -45,6 +46,9 @@ module Octokit
     # @!attribute proxy
     #   @see https://github.com/lostisland/faraday
     #   @return [String] URI for proxy server
+    # @!attribute ssl_verify_mode
+    #   @see https://github.com/lostisland/faraday
+    #   @return [String] SSL verify mode for ssl connections
     # @!attribute user_agent
     #   @return [String] Configure User-Agent header for requests.
     # @!attribute web_endpoint
@@ -53,35 +57,35 @@ module Octokit
     attr_accessor :access_token, :auto_paginate, :bearer_token, :client_id,
                   :client_secret, :default_media_type, :connection_options,
                   :middleware, :netrc, :netrc_file,
-                  :per_page, :proxy, :user_agent
+                  :per_page, :proxy, :ssl_verify_mode, :user_agent
     attr_writer :password, :web_endpoint, :api_endpoint, :login,
                 :management_console_endpoint, :management_console_password
 
     class << self
-
       # List of configurable keys for {Octokit::Client}
       # @return [Array] of option keys
       def keys
-        @keys ||= [
-          :access_token,
-          :api_endpoint,
-          :auto_paginate,
-          :bearer_token,
-          :client_id,
-          :client_secret,
-          :connection_options,
-          :default_media_type,
-          :login,
-          :management_console_endpoint,
-          :management_console_password,
-          :middleware,
-          :netrc,
-          :netrc_file,
-          :per_page,
-          :password,
-          :proxy,
-          :user_agent,
-          :web_endpoint
+        @keys ||= %i[
+          access_token
+          api_endpoint
+          auto_paginate
+          bearer_token
+          client_id
+          client_secret
+          connection_options
+          default_media_type
+          login
+          management_console_endpoint
+          management_console_password
+          middleware
+          netrc
+          netrc_file
+          per_page
+          password
+          proxy
+          ssl_verify_mode
+          user_agent
+          web_endpoint
         ]
       end
     end
@@ -93,7 +97,13 @@ module Octokit
 
     # Reset configuration options to default values
     def reset!
+      # rubocop:disable Style/HashEachMethods
+      #
+      # This may look like a `.keys.each` which should be replaced with `#each_key`, but
+      # this doesn't actually work, since `#keys` is just a method we've defined ourselves.
+      # The class doesn't fulfill the whole `Enumerable` contract.
       Octokit::Configurable.keys.each do |key|
+        # rubocop:enable Style/HashEachMethods
         instance_variable_set(:"@#{key}", Octokit::Default.options[key])
       end
       self
@@ -109,24 +119,22 @@ module Octokit
     end
 
     def api_endpoint
-      File.join(@api_endpoint, "")
+      File.join(@api_endpoint, '')
     end
 
     def management_console_endpoint
-      File.join(@management_console_endpoint, "")
+      File.join(@management_console_endpoint, '')
     end
 
     # Base URL for generated web URLs
     #
     # @return [String] Default: https://github.com/
     def web_endpoint
-      File.join(@web_endpoint, "")
+      File.join(@web_endpoint, '')
     end
 
     def login
-      @login ||= begin
-        user.login if token_authenticated?
-      end
+      @login ||= (user.login if token_authenticated?)
     end
 
     def netrc?
@@ -136,7 +144,7 @@ module Octokit
     private
 
     def options
-      Hash[Octokit::Configurable.keys.map{|key| [key, instance_variable_get(:"@#{key}")]}]
+      Octokit::Configurable.keys.map { |key| [key, instance_variable_get(:"@#{key}")] }.to_h
     end
 
     def fetch_client_id_and_secret(overrides = {})

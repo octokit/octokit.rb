@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 require 'helper'
+require 'securerandom'
 
 describe Octokit::Client::Reviews do
   before do
@@ -20,7 +23,7 @@ describe Octokit::Client::Reviews do
 
   describe '.pull_request_review', :vcr do
     let(:test_pr) { 825 }
-    let(:test_review) { 6505518 }
+    let(:test_review) { 6_505_518 }
 
     it 'returns a single pull request review' do
       reviews = @client.pull_request_review('octokit/octokit.rb', test_pr,
@@ -34,7 +37,7 @@ describe Octokit::Client::Reviews do
 
   describe '.pull_request_review_comments', :vcr do
     let(:test_pr) { 825 }
-    let(:test_review) { 6505518 }
+    let(:test_review) { 6_505_518 }
 
     it 'returns all comments for a single review' do
       reviews = @client.pull_request_review_comments('octokit/octokit.rb',
@@ -57,9 +60,22 @@ describe Octokit::Client::Reviews do
     end
   end
 
+  context 'with pull request review' do
+    describe '.update_pull_request_review' do
+      it 'updates the review summary comment with new text' do
+        requested_url = github_url('/repos/octokit/octokit.rb/pulls/1/reviews/1')
+        stub_put requested_url
+
+        @client.update_pull_request_review('octokit/octokit.rb', 1, 1, 'I disagree!')
+
+        assert_requested :put, requested_url
+      end
+    end
+  end
+
   context 'with repository', :vcr do
     before(:each) do
-      @repo = @client.create_repository('test-repo', auto_init: true)
+      @repo = @client.create_repository("test-repo-#{SecureRandom.hex(6)}", auto_init: true, organization: test_github_org)
     end
 
     after(:each) do
@@ -96,35 +112,110 @@ describe Octokit::Client::Reviews do
         end
       end
 
-      context 'with pull request review request' do
+      context 'with collaborator' do
         before do
-          reviewers = %w(coveralls hubot)
-          reviewers.each do |reviewer|
-            @client.add_collaborator(@repo.full_name, reviewer)
+          invitation = @client.invite_user_to_repository(@repo.full_name, test_github_collaborator_login)
+
+          collaborator_client = Octokit::Client.new(access_token: test_github_collaborator_token)
+          collaborator_client.accept_repository_invitation(invitation.id)
+
+          @client.add_team_repository(test_github_team_id, @repo.full_name, permission: 'push')
+        end
+
+        describe '.pull_request_review_requests' do
+          before do
+            options = {
+              reviewers: [test_github_collaborator_login],
+              team_reviewers: [test_github_team_slug]
+            }
+            @client.request_pull_request_review(@repo.full_name, @pull.number, options)
+          end
+          after do
+            options = {
+              reviewers: [test_github_collaborator_login],
+              team_reviewers: [test_github_team_slug]
+            }
+            @client.delete_pull_request_review_request(@repo.full_name, @pull.number, options)
           end
 
-          @review_request =
-            @client.request_pull_request_review(@repo.full_name, @pull.number,
-                                                reviewers)
+          it 'returns all requested reviewers' do
+            reviewers = @client.pull_request_review_requests(@repo.full_name,
+                                                             @pull.number)
+
+            expect(reviewers.users).to be_kind_of Array
+            expect(reviewers.users.size).to eq(1)
+            expect(reviewers.teams).to be_kind_of Array
+            expect(reviewers.teams.size).to eq(1)
+
+            requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
+            assert_requested :get, requested_url
+          end
         end
 
         describe '.request_pull_request_review' do
-          it 'requests a new pull request review' do
-            expect(@review_request.requested_reviewers.length).to eq(2)
+          after do
+            options = {
+              reviewers: [test_github_collaborator_login],
+              team_reviewers: [test_github_team_slug]
+            }
+            @client.delete_pull_request_review_request(@repo.full_name, @pull.number, options)
+          end
 
+          it 'requests a new pull request review from a user' do
+            options = {
+              reviewers: [test_github_collaborator_login]
+            }
+            review_request = @client.request_pull_request_review(@repo.full_name, @pull.number, options)
+
+            expect(review_request.requested_reviewers.length).to eq(1)
+            expect(review_request.requested_teams.length).to eq(0)
+            requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
+            assert_requested :post, requested_url
+          end
+
+          it 'requests a new pull request review from a team' do
+            options = {
+              team_reviewers: [test_github_team_slug]
+            }
+            review_request = @client.request_pull_request_review(@repo.full_name, @pull.number, options)
+
+            expect(review_request.requested_reviewers.length).to eq(0)
+            expect(review_request.requested_teams.length).to eq(1)
             requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
             assert_requested :post, requested_url
           end
         end
 
-        describe '.pull_request_review_requests' do
-          it 'returns all requested reviewers' do
-            reviewers = @client.pull_request_review_requests(@repo.full_name,
-                                                             @pull.number)
-            expect(reviewers).to be_kind_of Array
+        describe '.delete_pull_request_review_request' do
+          before do
+            options = {
+              reviewers: [test_github_collaborator_login],
+              team_reviewers: [test_github_team_slug]
+            }
+            @client.request_pull_request_review(@repo.full_name, @pull.number, options)
+          end
+
+          it 'deletes a requests for a pull request review from a user' do
+            options = {
+              reviewers: [test_github_collaborator_login]
+            }
+            review = @client.delete_pull_request_review_request(@repo.full_name, @pull.number, options)
+            expect(review).to be_kind_of Sawyer::Resource
 
             requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
-            assert_requested :get, requested_url
+            assert_requested :delete, requested_url
+          end
+
+          it 'deletes a requests for a pull request review from a team' do
+            options = {
+              reviewers: [],
+              team_reviewers: [test_github_team_slug]
+            }
+            review = @client.delete_pull_request_review_request(@repo.full_name, @pull.number, options)
+            expect(review).to be_kind_of Sawyer::Resource
+
+            requested_url = github_url("/repos/#{@repo.full_name}/pulls/#{@pull.number}/requested_reviewers")
+            assert_requested :delete, requested_url
           end
         end
       end

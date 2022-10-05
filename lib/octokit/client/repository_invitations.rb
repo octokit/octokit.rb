@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Repository Invitations API
     #
     # @see https://developer.github.com/v3/repos/invitations/
     module RepositoryInvitations
-
       # Invite a user to a repository
       #
       # Requires authenticated client
@@ -13,9 +13,8 @@ module Octokit
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
       # @param user [String] User GitHub username to add
       # @return [Sawyer::Resource] The repository invitation
-      # @see https://developer.github.com/v3/repos/invitations/#invite-a-user-to-a-repository
+      # @see https://developer.github.com/v3/repos/collaborators/#add-user-as-a-collaborator
       def invite_user_to_repository(repo, user, options = {})
-        options = ensure_api_media_type(:repository_invitations, options)
         put "#{Repository.path repo}/collaborators/#{user}", options
       end
       alias invite_user_to_repo invite_user_to_repository
@@ -28,7 +27,6 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of invitations
       # @see https://developer.github.com/v3/repos/invitations/#list-invitations-for-a-repository
       def repository_invitations(repo, options = {})
-        options = ensure_api_media_type(:repository_invitations, options)
         paginate "#{Repository.path repo}/invitations", options
       end
       alias repo_invitations repository_invitations
@@ -42,7 +40,6 @@ module Octokit
       # @return [Boolean] True if the invitation was successfully deleted
       # @see https://developer.github.com/v3/repos/invitations/#delete-a-repository-invitation
       def delete_repository_invitation(repo, invitation_id, options = {})
-        options = ensure_api_media_type(:repository_invitations, options)
         boolean_from_response :delete, "#{Repository.path repo}/invitations/#{invitation_id}", options
       end
       alias delete_repo_invitation delete_repository_invitation
@@ -56,7 +53,6 @@ module Octokit
       # @return [Sawyer::Resource] The updated repository invitation
       # @see https://developer.github.com/v3/repos/invitations/#update-a-repository-invitation
       def update_repository_invitation(repo, invitation_id, options = {})
-        options = ensure_api_media_type(:repository_invitations, options)
         patch "#{Repository.path repo}/invitations/#{invitation_id}", options
       end
       alias update_repo_invitation update_repository_invitation
@@ -68,8 +64,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] The users repository invitations
       # @see https://developer.github.com/v3/repos/invitations/#list-a-users-repository-invitations
       def user_repository_invitations(options = {})
-        options = ensure_api_media_type(:repository_invitations, options)
-        paginate "/user/repository_invitations", options
+        paginate '/user/repository_invitations', options
       end
       alias user_repo_invitations user_repository_invitations
 
@@ -81,7 +76,6 @@ module Octokit
       # @return [Boolean] True if the acceptance of the invitation was successful
       # @see https://developer.github.com/v3/repos/invitations/#accept-a-repository-invitation
       def accept_repository_invitation(invitation_id, options = {})
-        options = ensure_api_media_type(:repository_invitations, options)
         patch "/user/repository_invitations/#{invitation_id}", options
       end
       alias accept_repo_invitation accept_repository_invitation
@@ -94,7 +88,6 @@ module Octokit
       # @return [Boolean] True if the acceptance of the invitation was successful
       # @see https://developer.github.com/v3/repos/invitations/#decline-a-repository-invitation
       def decline_repository_invitation(invitation_id, options = {})
-        options = ensure_api_media_type(:repository_invitations, options)
         boolean_from_response :delete, "/user/repository_invitations/#{invitation_id}", options
       end
       alias decline_invitation decline_repository_invitation

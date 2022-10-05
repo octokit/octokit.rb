@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Issues Milestones API
     #
     # @see https://developer.github.com/v3/issues/milestones/
     module Milestones
-
       # List milestones for a repository
       #
       # @param repository [Integer, String, Repository, Hash] A GitHub repository
@@ -21,7 +21,7 @@ module Octokit
       def list_milestones(repository, options = {})
         paginate "#{Repository.path repository}/milestones", options
       end
-      alias :milestones :list_milestones
+      alias milestones list_milestones
 
       # Get a single milestone for a repository
       #
@@ -49,7 +49,7 @@ module Octokit
       # @example Create a milestone for a repository
       #   Octokit.create_milestone("octokit/octokit.rb", "0.7.0", {:description => 'Add support for v3 of Github API'})
       def create_milestone(repository, title, options = {})
-        post "#{Repository.path repository}/milestones", options.merge({:title => title})
+        post "#{Repository.path repository}/milestones", options.merge({ title: title })
       end
 
       # Update a milestone for a repository
@@ -68,7 +68,7 @@ module Octokit
       def update_milestone(repository, number, options = {})
         patch "#{Repository.path repository}/milestones/#{number}", options
       end
-      alias :edit_milestone :update_milestone
+      alias edit_milestone update_milestone
 
       # Delete a single milestone for a repository
       #
