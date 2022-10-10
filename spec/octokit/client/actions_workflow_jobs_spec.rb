@@ -90,7 +90,6 @@ describe Octokit::Client::ActionsWorkflowJobs, :vcr do
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original
       result = @client.workflow_run_attempt_jobs(@test_repo, @run_id, @attempt_number)
-      binding.pry
 
       expect(@client).to have_received(:paginate)
       expect(result.total_count).to eq(2)
