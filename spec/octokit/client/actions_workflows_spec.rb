@@ -15,7 +15,7 @@ describe Octokit::Client::ActionsWorkflows do
       assert_requested :get, github_url("/repos/#{@test_repo}/actions/workflows")
     end
 
-    it "paginates the results" do
+    it 'paginates the results' do
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original
       workflows = @client.workflows(@test_repo)
@@ -25,7 +25,7 @@ describe Octokit::Client::ActionsWorkflows do
       expect(workflows.workflows.count).to eq(1)
     end
 
-    it "auto-paginates the results" do
+    it 'auto-paginates the results' do
       @client.auto_paginate = true
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original

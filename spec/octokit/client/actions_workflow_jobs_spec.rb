@@ -44,7 +44,7 @@ describe Octokit::Client::ActionsWorkflowJobs, :vcr do
       assert_requested request
     end
 
-    it "paginates the results" do
+    it 'paginates the results' do
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original
       result = @client.workflow_run_attempt_jobs(@test_repo, @run_id, @attempt_number)
@@ -54,7 +54,7 @@ describe Octokit::Client::ActionsWorkflowJobs, :vcr do
       expect(result.jobs.count).to eq(1)
     end
 
-    it "auto-paginates the results" do
+    it 'auto-paginates the results' do
       @client.auto_paginate = true
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original
@@ -75,7 +75,7 @@ describe Octokit::Client::ActionsWorkflowJobs, :vcr do
       assert_requested request
     end
 
-    it "paginates the results" do
+    it 'paginates the results' do
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original
       result = @client.workflow_run_attempt_jobs(@test_repo, @run_id, @attempt_number)
@@ -85,7 +85,7 @@ describe Octokit::Client::ActionsWorkflowJobs, :vcr do
       expect(result.jobs.count).to eq(1)
     end
 
-    it "auto-paginates the results" do
+    it 'auto-paginates the results' do
       @client.auto_paginate = true
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original

@@ -22,7 +22,7 @@ describe Octokit::Client::ActionsArtifacts, :vcr do
       expect(repository_artifacts).to be_kind_of Sawyer::Resource
     end
 
-    it "paginates the results" do
+    it 'paginates the results' do
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original
       result = @client.repository_artifacts(@test_repo)
@@ -32,7 +32,7 @@ describe Octokit::Client::ActionsArtifacts, :vcr do
       expect(result.artifacts.count).to eq(1)
     end
 
-    it "auto-paginates the results" do
+    it 'auto-paginates the results' do
       @client.auto_paginate = true
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original

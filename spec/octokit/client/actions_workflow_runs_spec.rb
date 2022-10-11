@@ -24,7 +24,7 @@ describe Octokit::Client::ActionsWorkflowRuns, :vcr do
       assert_requested request
     end
 
-    it "paginates the results" do
+    it 'paginates the results' do
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original
       result = @client.workflow_runs(
@@ -37,7 +37,7 @@ describe Octokit::Client::ActionsWorkflowRuns, :vcr do
       expect(result.workflow_runs.count).to eq(1)
     end
 
-    it "auto-paginates the results" do
+    it 'auto-paginates the results' do
       @client.auto_paginate = true
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original
@@ -59,7 +59,7 @@ describe Octokit::Client::ActionsWorkflowRuns, :vcr do
       assert_requested :get, github_url("repos/#{@test_repo}/actions/runs")
     end
 
-    it "paginates the results" do
+    it 'paginates the results' do
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original
       result = @client.repository_workflow_runs(
@@ -71,7 +71,7 @@ describe Octokit::Client::ActionsWorkflowRuns, :vcr do
       expect(result.workflow_runs.count).to eq(1)
     end
 
-    it "auto-paginates the results" do
+    it 'auto-paginates the results' do
       @client.auto_paginate = true
       @client.per_page = 1
       allow(@client).to receive(:paginate).and_call_original

@@ -99,22 +99,22 @@ describe Octokit::Client::ActionsSecrets do
         expect(secrets.secrets[0].name).to eq(@secrets.first[:name].upcase)
       end
 
-      it "paginates the results" do
+      it 'paginates the results' do
         @client.per_page = 1
         allow(@client).to receive(:paginate).and_call_original
         secrets = @client.list_secrets(@repo.id)
-  
+
         expect(@client).to have_received(:paginate)
         expect(secrets.total_count).to eq(2)
         expect(secrets.secrets.count).to eq(1)
       end
-  
-      it "auto-paginates the results" do
+
+      it 'auto-paginates the results' do
         @client.auto_paginate = true
         @client.per_page = 1
         allow(@client).to receive(:paginate).and_call_original
         secrets = @client.list_secrets(@repo.id)
-  
+
         expect(@client).to have_received(:paginate)
         expect(secrets.total_count).to eq(2)
         expect(secrets.secrets.count).to eq(2)
