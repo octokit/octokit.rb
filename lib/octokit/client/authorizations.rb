@@ -6,35 +6,6 @@ module Octokit
     #
     # @see https://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api
     module Authorizations
-      # List the authenticated user's authorizations
-      #
-      # API for users to manage their own tokens.
-      # You can only access your own tokens, and only through
-      # Basic Authentication.
-      #
-      # @return [Array<Sawyer::Resource>] A list of authorizations for the authenticated user
-      # @see https://developer.github.com/v3/oauth_authorizations/#list-your-authorizations
-      # @example List authorizations for user ctshryock
-      #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
-      #  client.authorizations
-      def authorizations(options = {})
-        paginate 'authorizations', options
-      end
-
-      # Get a single authorization for the authenticated user.
-      #
-      # You can only access your own tokens, and only through
-      # Basic Authentication.
-      #
-      # @return [Sawyer::Resource] A single authorization for the authenticated user
-      # @see https://developer.github.com/v3/oauth_authorizations/#get-a-single-authorization
-      # @example Show authorization for user ctshryock's Travis auth
-      #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
-      #  client.authorization(999999)
-      def authorization(number, options = {})
-        get "authorizations/#{number}", options
-      end
-
       # Create an authorization for the authenticated user.
       #
       # You can create your own tokens, and only through
@@ -83,44 +54,6 @@ module Octokit
         end
       end
 
-      # Update an authorization for the authenticated user.
-      #
-      # You can update your own tokens, but only through
-      # Basic Authentication.
-      #
-      # @param options [Hash] A customizable set of options.
-      # @option options [Array] :scopes Replace the authorization scopes with these.
-      # @option options [Array] :add_scopes A list of scopes to add to this authorization.
-      # @option options [Array] :remove_scopes A list of scopes to remove from this authorization.
-      # @option options [String] :note A note to remind you what the OAuth token is for.
-      # @option options [String] :note_url A URL to remind you what app the OAuth token is for.
-      #
-      # @return [Sawyer::Resource] A single (updated) authorization for the authenticated user
-      # @see https://developer.github.com/v3/oauth_authorizations/#update-an-existing-authorization
-      # @see https://developer.github.com/v3/oauth/#scopes for available scopes
-      # @example Update the authorization for user ctshryock's project Zoidberg
-      #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
-      #  client.update_authorization(999999, {:add_scopes => ["gist", "repo"], :note => "Why not Zoidberg possibly?"})
-      def update_authorization(number, options = {})
-        patch "authorizations/#{number}", options
-      end
-
-      # Delete an authorization for the authenticated user.
-      #
-      # You can delete your own tokens, and only through
-      # Basic Authentication.
-      #
-      # @param number [Number] An existing Authorization ID
-      #
-      # @return [Boolean] Success
-      # @see https://developer.github.com/v3/oauth_authorizations/#delete-an-authorization
-      # @example Delete an authorization
-      #  client = Octokit::Client.new(:login => 'ctshryock', :password => 'secret')
-      #  client.delete_authorization(999999)
-      def delete_authorization(number, options = {})
-        boolean_from_response :delete, "authorizations/#{number}", options
-      end
-
       # Check scopes for a token
       #
       # @param token [String] GitHub OAuth token
@@ -140,45 +73,6 @@ module Octokit
              .split(',')
              .map(&:strip)
              .sort
-      end
-
-      # Revoke all tokens for an app
-      #
-      # Applications can revoke all of their tokens in a single request
-      #
-      # @deprecated As of January 25th, 2016: https://developer.github.com/changes/2014-04-08-reset-api-tokens/
-      # @return [Boolean] false
-      def revoke_all_application_authorizations(_options = {})
-        octokit_warn('Deprecated: If you need to revoke all tokens for your application, you can do so via the settings page for your application.')
-        false
-      end
-
-      # Get the URL to authorize a user for an application via the web flow
-      #
-      # @param app_id [String] Client Id we received when our application was registered with GitHub.
-      # @option options [String] :redirect_uri The url to redirect to after authorizing.
-      # @option options [String] :scope The scopes to request from the user.
-      # @option options [String] :state A random string to protect against CSRF.
-      # @return [String] The url to redirect the user to authorize.
-      # @see Octokit::Client
-      # @see https://developer.github.com/v3/oauth/#web-application-flow
-      # @example
-      #   @client.authorize_url('xxxx')
-      def authorize_url(app_id = client_id, options = {})
-        opts = options.dup
-        if app_id.to_s.empty?
-          raise Octokit::ApplicationCredentialsRequired, 'client_id required'
-        end
-
-        authorize_url = opts.delete(:endpoint) || Octokit.web_endpoint
-        authorize_url << "login/oauth/authorize?client_id=#{app_id}"
-
-        require 'cgi'
-        opts.each do |key, value|
-          authorize_url << "&#{key}=#{CGI.escape value}"
-        end
-
-        authorize_url
       end
     end
   end
