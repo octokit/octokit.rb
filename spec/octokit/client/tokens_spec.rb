@@ -3,7 +3,7 @@
 require 'helper'
 require 'securerandom'
 
-describe Octokit::Client::Authorizations do
+describe Octokit::Client::Tokens do
   before do
     Octokit.reset!
     @client = basic_auth_client

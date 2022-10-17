@@ -2,10 +2,10 @@
 
 module Octokit
   class Client
-    # Methods for the Authorizations API
+    # Method to check scopes and create_authorization required to test it
     #
     # @see https://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api
-    module Authorizations
+    module Tokens
       # Create an authorization for the authenticated user.
       #
       # You can create your own tokens, and only through
