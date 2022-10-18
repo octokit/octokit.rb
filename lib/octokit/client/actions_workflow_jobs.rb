@@ -40,7 +40,9 @@ module Octokit
       # @return [Sawyer::Resource] Jobs information
       # @see https://docs.github.com/rest/actions/workflow-jobs#list-jobs-for-a-workflow-run-attempt
       def workflow_run_attempt_jobs(repo, run_id, attempt_number, options = {})
-        paginate "#{Repository.path repo}/actions/runs/#{run_id}/attempts/#{attempt_number}/jobs", options
+        paginate "#{Repository.path repo}/actions/runs/#{run_id}/attempts/#{attempt_number}/jobs", options do |data, last_response|
+          data.jobs.concat last_response.data.jobs
+        end
       end
       alias list_workflow_run_attempt_jobs workflow_run_attempt_jobs
 
@@ -53,7 +55,9 @@ module Octokit
       # @return [Sawyer::Resource] Jobs information
       # @see https://docs.github.com/rest/actions/workflow-jobs#list-jobs-for-a-workflow-run
       def workflow_run_jobs(repo, run_id, options = {})
-        paginate "#{Repository.path repo}/actions/runs/#{run_id}/jobs", options
+        paginate "#{Repository.path repo}/actions/runs/#{run_id}/jobs", options do |data, last_response|
+          data.jobs.concat last_response.data.jobs
+        end
       end
       alias list_workflow_run_jobs workflow_run_jobs
     end
