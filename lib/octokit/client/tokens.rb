@@ -2,7 +2,7 @@
 
 module Octokit
   class Client
-    # Method to check scopes and create_authorization required to test it
+    # Method to check scopes
     #
     # @see https://developer.github.com/v3/oauth_authorizations/#oauth-authorizations-api
     module Tokens
