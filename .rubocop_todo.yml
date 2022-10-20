@@ -160,7 +160,7 @@ Style/IfUnlessModifier:
   Exclude:
     - 'lib/octokit.rb'
     - 'lib/octokit/client.rb'
-    - 'lib/octokit/client/authorizations.rb'
+    - 'lib/octokit/client/tokens.rb'
     - 'lib/octokit/client/commits.rb'
     - 'lib/octokit/client/organizations.rb'
     - 'lib/octokit/client/repositories.rb'

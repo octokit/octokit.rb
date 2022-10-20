@@ -17,7 +17,6 @@ require 'octokit/client/actions_workflows'
 require 'octokit/client/actions_workflow_jobs'
 require 'octokit/client/actions_workflow_runs'
 require 'octokit/client/apps'
-require 'octokit/client/authorizations'
 require 'octokit/client/checks'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
@@ -62,6 +61,7 @@ require 'octokit/client/service_status'
 require 'octokit/client/source_import'
 require 'octokit/client/stats'
 require 'octokit/client/statuses'
+require 'octokit/client/tokens'
 require 'octokit/client/traffic'
 require 'octokit/client/users'
 require 'ext/sawyer/relation'
@@ -77,7 +77,6 @@ module Octokit
     include Octokit::Warnable
     include Octokit::Client::ActionsArtifacts
     include Octokit::Client::ActionsSecrets
-    include Octokit::Client::Authorizations
     include Octokit::Client::Checks
     include Octokit::Client::Commits
     include Octokit::Client::CommitComments
@@ -126,6 +125,7 @@ module Octokit
     include Octokit::Client::SourceImport
     include Octokit::Client::Stats
     include Octokit::Client::Statuses
+    include Octokit::Client::Tokens
     include Octokit::Client::Traffic
     include Octokit::Client::Users
 
