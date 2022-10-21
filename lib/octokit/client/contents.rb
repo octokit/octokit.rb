@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 require 'base64'
 
 module Octokit
   class Client
-
     # Methods for the Repo Contents API
     #
     # @see https://developer.github.com/v3/repos/contents/
     module Contents
-
       # Receive the default Readme for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -18,7 +18,7 @@ module Octokit
       #   Octokit.readme("octokit/octokit.rb")
       # @example Get the readme file for a particular branch of the repo
       #   Octokit.readme("octokit/octokit.rb", :query => {:ref => 'some-other-branch'})
-      def readme(repo, options={})
+      def readme(repo, options = {})
         get "#{Repository.path repo}/readme", options
       end
 
@@ -33,13 +33,13 @@ module Octokit
       #   Octokit.contents("octokit/octokit.rb", :path => 'lib/octokit.rb')
       # @example Lists the contents of lib /octokit.rb on a particular branch
       #   Octokit.contents("octokit/octokit.rb", :path => 'lib/octokit.rb', :query => {:ref => 'some-other-branch'})
-      def contents(repo, options={})
+      def contents(repo, options = {})
         options = options.dup
         repo_path = options.delete :path
         url = "#{Repository.path repo}/contents/#{repo_path}"
         get url, options
       end
-      alias :content :contents
+      alias content contents
 
       # Add content to a repository
       #
@@ -59,7 +59,7 @@ module Octokit
       #                    "File content",
       #                    :branch => "my-new-feature")
       def create_contents(*args)
-        args    = args.map { |item| item && item.dup }
+        args    = args.map { |item| item&.dup }
         options = args.last.is_a?(Hash) ? args.pop : {}
         repo    = args.shift
         path    = args.shift
@@ -69,7 +69,7 @@ module Octokit
           case file
           when String
             if File.exist?(file)
-              file = File.open(file, "r")
+              file = File.open(file, 'r')
               content = file.read
               file.close
             end
@@ -78,17 +78,16 @@ module Octokit
             file.close
           end
         end
-        raise ArgumentError.new("content or :file option required") if content.nil?
-        options[:content] = Base64.respond_to?(:strict_encode64) ?
-          Base64.strict_encode64(content) :
-          Base64.encode64(content).delete("\n") # Ruby 1.9.2
+        raise ArgumentError, 'content or :file option required' if content.nil?
+
+        options[:content] = Base64.strict_encode64(content)
         options[:message] = message
         url = "#{Repository.path repo}/contents/#{path}"
         put url, options
       end
-      alias :create_content :create_contents
-      alias :add_content :create_contents
-      alias :add_contents :create_contents
+      alias create_content create_contents
+      alias add_content create_contents
+      alias add_contents create_contents
 
       # Update content in a repository
       #
@@ -116,10 +115,10 @@ module Octokit
         message = args.shift
         sha     = args.shift
         content = args.shift
-        options.merge!(:sha => sha)
+        options.merge!(sha: sha)
         create_contents(repo, path, message, content, options)
       end
-      alias :update_content :update_contents
+      alias update_content update_contents
 
       # Delete content in a repository
       #
@@ -142,9 +141,9 @@ module Octokit
         url = "#{Repository.path repo}/contents/#{path}"
         delete url, options
       end
-      alias :delete_content :delete_contents
-      alias :remove_content :delete_contents
-      alias :remove_contents :delete_contents
+      alias delete_content delete_contents
+      alias remove_content delete_contents
+      alias remove_contents delete_contents
 
       # This method will provide a URL to download a tarball or zipball archive for a repository.
       #
@@ -155,8 +154,8 @@ module Octokit
       # @see https://developer.github.com/v3/repos/contents/#get-archive-link
       # @example Get archive link for octokit/octokit.rb
       #   Octokit.archive_link("octokit/octokit.rb")
-      def archive_link(repo, options={})
-        repo_ref = ERB::Util.url_encode(options.delete :ref)
+      def archive_link(repo, options = {})
+        repo_ref = ERB::Util.url_encode(options.delete(:ref))
         format = (options.delete :format) || 'tarball'
         url = "#{Repository.path repo}/#{format}/#{repo_ref}"
 

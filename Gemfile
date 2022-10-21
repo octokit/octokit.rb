@@ -24,18 +24,27 @@ group :test do
   gem 'mime-types', '~> 3.3', '>= 3.3.1'
   gem 'multi_json', '~> 1.14', '>= 1.14.1'
   gem 'netrc', '~> 0.11.0'
-  gem 'rb-fsevent', '~> 0.10.3'
+  gem 'rb-fsevent', '~> 0.11.1'
   gem 'rbnacl', '~> 7.1.1'
   gem 'rspec', '~> 3.9'
   gem 'simplecov', require: false
-  gem 'vcr', '~> 5.1'
+  gem 'vcr', '~> 6.1'
   gem 'webmock', '~> 3.8', '>= 3.8.2'
+end
+
+faraday_version = ENV.fetch('FARADAY_VERSION', '~> 2.0')
+
+gem 'faraday', faraday_version
+
+if faraday_version.start_with?('~> 2')
+  gem 'faraday-multipart'
+  gem 'faraday-retry'
 end
 
 group :test, :development do
   gem 'pry-byebug'
   gem 'redcarpet'
-  gem 'rubocop'
+  gem 'rubocop', '1.36.0'
 end
 
 gemspec

@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Pages API
     #
     # @see https://developer.github.com/v3/repos/pages/
     module Pages
-
       # List Pages information for a repository
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -24,8 +24,7 @@ module Octokit
       # @example
       #   Octokit.pages_build("github/developer.github.com", 5472601)
       def pages_build(repo, id, options = {})
-        opts = ensure_api_media_type(:pages, options)
-        get "#{Repository.path repo}/pages/builds/#{id}", opts
+        get "#{Repository.path repo}/pages/builds/#{id}", options
       end
 
       # List Pages builds for a repository
@@ -36,7 +35,7 @@ module Octokit
       def pages_builds(repo, options = {})
         get "#{Repository.path repo}/pages/builds", options
       end
-      alias :list_pages_builds :pages_builds
+      alias list_pages_builds pages_builds
 
       # List the latest Pages build information for a repository
       #
@@ -55,8 +54,7 @@ module Octokit
       # @return [Sawyer::Resource] Request result
       # @see https://developer.github.com/v3/repos/pages/#request-a-page-build
       def request_page_build(repo, options = {})
-        opts = ensure_api_media_type(:pages, options)
-        post "#{Repository.path repo}/pages/builds", opts
+        post "#{Repository.path repo}/pages/builds", options
       end
     end
   end

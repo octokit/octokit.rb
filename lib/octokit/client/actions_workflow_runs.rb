@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
+    # Methods for the Actions Workflows runs API
+    #
+    # @see https://docs.github.com/rest/actions/workflow-runs
     module ActionsWorkflowRuns
       # List all runs for a repository workflow
       #
@@ -13,7 +18,9 @@ module Octokit
       # @return [Sawyer::Resource] the total count and an array of workflows
       # @see https://developer.github.com/v3/actions/workflow-runs/#list-workflow-runs
       def workflow_runs(repo, workflow, options = {})
-        paginate "#{Repository.path repo}/actions/workflows/#{workflow}/runs", options
+        paginate "#{Repository.path repo}/actions/workflows/#{workflow}/runs", options do |data, last_response|
+          data.workflow_runs.concat last_response.data.workflow_runs
+        end
       end
       alias list_workflow_runs workflow_runs
 
@@ -28,7 +35,9 @@ module Octokit
       # @return [Sawyer::Resource] the total count and an array of workflows
       # @see https://developer.github.com/v3/actions/workflow-runs/#list-repository-workflow-runs
       def repository_workflow_runs(repo, options = {})
-        paginate "#{Repository.path repo}/actions/runs", options
+        paginate "#{Repository.path repo}/actions/runs", options do |data, last_response|
+          data.workflow_runs.concat last_response.data.workflow_runs
+        end
       end
       alias list_repository_workflow_runs repository_workflow_runs
 
@@ -90,7 +99,7 @@ module Octokit
         response.headers['Location']
       end
 
-      # Delets all log files of a workflow run
+      # Delete all log files of a workflow run
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param id [Integer] Id of a workflow run
@@ -99,6 +108,17 @@ module Octokit
       # @see https://developer.github.com/v3/actions/workflow-runs/#delete-workflow-run-logs
       def delete_workflow_run_logs(repo, id, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/actions/runs/#{id}/logs", options
+      end
+
+      # Get workflow run usage
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param id [Integer] Id of a workflow run
+      #
+      # @return [Sawyer::Resource] Run usage
+      # @see https://developer.github.com/v3/actions/workflow-runs/#get-workflow-run-usage
+      def workflow_run_usage(repo, id, options = {})
+        get "#{Repository.path repo}/actions/runs/#{id}/timing", options
       end
     end
   end

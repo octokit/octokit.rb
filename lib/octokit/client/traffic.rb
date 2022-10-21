@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Traffic API
     #
     # @see https://developer.github.com/v3/repos/traffic/
     module Traffic
-
       # Get the top 10 referrers over the last 14 days
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -14,8 +14,7 @@ module Octokit
       # @example
       #   @client.top_referrers('octokit/octokit.rb')
       def top_referrers(repo, options = {})
-        opts = ensure_api_media_type(:traffic, options)
-        get "#{Repository.path repo}/traffic/popular/referrers", opts
+        get "#{Repository.path repo}/traffic/popular/referrers", options
       end
 
       # Get the top 10 popular contents over the last 14 days
@@ -26,8 +25,7 @@ module Octokit
       # @example
       #   @client.top_paths('octokit/octokit.rb')
       def top_paths(repo, options = {})
-        opts = ensure_api_media_type(:traffic, options)
-        get "#{Repository.path repo}/traffic/popular/paths", opts
+        get "#{Repository.path repo}/traffic/popular/paths", options
       end
 
       # Get the total number of views and breakdown per day or week for the
@@ -43,8 +41,7 @@ module Octokit
       # @example Views per week
       #   @client.views('octokit/octokit.rb', per: 'week')
       def views(repo, options = {})
-        opts = ensure_api_media_type(:traffic, options)
-        get "#{Repository.path repo}/traffic/views", opts
+        get "#{Repository.path repo}/traffic/views", options
       end
 
       # Get the total number of clones and breakdown per day or week for the
@@ -60,10 +57,8 @@ module Octokit
       # @example Clones per week
       #   @client.clones('octokit/octokit.rb', per: 'week')
       def clones(repo, options = {})
-        opts = ensure_api_media_type(:traffic, options)
-        get "#{Repository.path repo}/traffic/clones", opts
+        get "#{Repository.path repo}/traffic/clones", options
       end
-
     end
   end
 end

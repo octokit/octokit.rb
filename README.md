@@ -1,5 +1,8 @@
 # Octokit
 
+> **Note**
+> We've recently renamed the `4-stable` branch to `main`. This might affect you if you're making changes to Octokit's code locally. For more details and for the steps to reconfigure your local clone for the new branch name, check out [this post](https://github.com/octokit/octokit.rb/discussions/1455).
+
 Ruby toolkit for the GitHub API.
 
 ![logo](https://docs.github.com/assets/images/gundamcat.png)
@@ -76,7 +79,7 @@ Install via Rubygems
 
 ... or add to your Gemfile
 
-    gem "octokit", "~> 4.0"
+    gem "octokit", "~> 5.0"
 
 Access the library in Ruby:
 
@@ -603,7 +606,7 @@ traffic:
 
 ```ruby
 stack = Faraday::RackBuilder.new do |builder|
-  builder.use Faraday::Request::Retry, exceptions: [Octokit::ServerError]
+  builder.use Faraday::Retry::Middleware, exceptions: [Octokit::ServerError] # or Faraday::Request::Retry for Faraday < 2.0
   builder.use Octokit::Middleware::FollowRedirects
   builder.use Octokit::Response::RaiseError
   builder.use Octokit::Response::FeedParser
@@ -661,7 +664,7 @@ Once configured, the middleware will store responses in cache based on ETag
 fingerprint and serve those back up for future `304` responses for the same
 resource. See the [project README][cache] for advanced usage.
 
-[cache]: https://github.com/plataformatec/faraday-http-cache
+[cache]: https://github.com/sourcelevel/faraday-http-cache
 [faraday]: https://github.com/lostisland/faraday
 
 ## Hacking on Octokit.rb
@@ -740,9 +743,9 @@ when writing new specs.
 This library aims to support and is [tested against][actions] the following Ruby
 implementations:
 
-- Ruby 2.5
-- Ruby 2.6
-- Ruby 2.7
+* Ruby 2.7
+* Ruby 3.0
+* Ruby 3.1
 
 If something doesn't work on one of these Ruby versions, it's a bug.
 

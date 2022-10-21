@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Commit Statuses API
     #
     # @see https://developer.github.com/v3/repos/statuses/
     module Statuses
-
       # List all statuses for a given commit
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -15,7 +15,7 @@ module Octokit
       def statuses(repo, sha, options = {})
         paginate "#{Repository.path repo}/statuses/#{sha}", options
       end
-      alias :list_statuses :statuses
+      alias list_statuses statuses
 
       # Get the combined status for a ref
       #
@@ -26,7 +26,7 @@ module Octokit
       def combined_status(repo, ref, options = {})
         get "#{Repository.path repo}/commits/#{ref}/status", options
       end
-      alias :status :combined_status
+      alias status combined_status
 
       # Create status for a commit
       #
@@ -39,7 +39,7 @@ module Octokit
       # @return [Sawyer::Resource] A status
       # @see https://developer.github.com/v3/repos/statuses/#create-a-status
       def create_status(repo, sha, state, options = {})
-        options = options.merge(:state => state)
+        options = options.merge(state: state)
         post "#{Repository.path repo}/statuses/#{sha}", options
       end
     end

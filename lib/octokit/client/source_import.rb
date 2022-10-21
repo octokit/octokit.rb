@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Source Import API
     #
     # @see https://developer.github.com/v3/migration/source_imports
     module SourceImport
-
       # Start a source import to a GitHub repository using GitHub Importer.
       #
       # @overload start_source_import(repo, vcs, vcs_url, options = {})
@@ -39,10 +39,10 @@ module Octokit
         vcs_url = arguments.pop
         vcs = arguments.pop
         if vcs
-          octokit_warn "Octokit#start_source_import vcs parameter is now an option, please update your call before the next major Octokit version update."
-          arguments.options.merge!(:vcs => vcs)
+          octokit_warn 'Octokit#start_source_import vcs parameter is now an option, please update your call before the next major Octokit version update.'
+          arguments.options.merge!(vcs: vcs)
         end
-        options = ensure_api_media_type(:source_imports, arguments.options.merge(:vcs_url => vcs_url))
+        options = arguments.options.merge(vcs_url: vcs_url)
         put "#{Repository.path arguments.repo}/import", options
       end
 
@@ -55,7 +55,6 @@ module Octokit
       # @example
       #   @client.source_import_progress("octokit/octokit.rb")
       def source_import_progress(repo, options = {})
-        options = ensure_api_media_type(:source_imports, options)
         get "#{Repository.path repo}/import", options
       end
 
@@ -76,7 +75,6 @@ module Octokit
       #    :vcs_password  => "secret"
       #   })
       def update_source_import(repo, options = {})
-        options = ensure_api_media_type(:source_imports, options)
         patch "#{Repository.path repo}/import", options
       end
 
@@ -91,7 +89,6 @@ module Octokit
       # @example
       #   @client.source_import_commit_authors("octokit/octokit.rb")
       def source_import_commit_authors(repo, options = {})
-        options = ensure_api_media_type(:source_imports, options)
         get "#{Repository.path repo}/import/authors", options
       end
 
@@ -111,7 +108,7 @@ module Octokit
       #     :name => "Hubot the Robot"
       #   })
       def map_source_import_commit_author(author_url, values, options = {})
-        options = ensure_api_media_type(:source_imports, options.merge(values))
+        options = options.merge(values)
         patch author_url, options
       end
 
@@ -124,7 +121,6 @@ module Octokit
       # @example
       #   @client.cancel_source_import("octokit/octokit.rb")
       def cancel_source_import(repo, options = {})
-        options = ensure_api_media_type(:source_imports, options)
         boolean_from_response :delete, "#{Repository.path repo}/import", options
       end
 
@@ -139,7 +135,6 @@ module Octokit
       # @example
       #   @client.source_import_large_files("octokit/octokit.rb")
       def source_import_large_files(repo, options = {})
-        options = ensure_api_media_type(:source_imports, options)
         get "#{Repository.path repo}/import/large_files", options
       end
 
@@ -153,7 +148,7 @@ module Octokit
       # @example
       #   @client.opt_in_source_import_lfs("octokit/octokit.rb", "opt_in")
       def set_source_import_lfs_preference(repo, use_lfs, options = {})
-        options = ensure_api_media_type(:source_imports, options.merge(:use_lfs => use_lfs))
+        options = options.merge(use_lfs: use_lfs)
         patch "#{Repository.path repo}/import/lfs", options
       end
     end

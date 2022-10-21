@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Organizations API
     #
     # @see https://developer.github.com/v3/orgs/
     module Organizations
-
       # Get an organization
       #
       # @param org [String, Integer] Organization GitHub login or id.
@@ -18,7 +18,7 @@ module Octokit
       def organization(org, options = {})
         get Organization.path(org), options
       end
-      alias :org :organization
+      alias org organization
 
       # Update an organization.
       #
@@ -48,7 +48,7 @@ module Octokit
       def update_organization(org, values, options = {})
         patch Organization.path(org), options.merge(values)
       end
-      alias :update_org :update_organization
+      alias update_org update_organization
 
       # Get organizations for a user.
       #
@@ -78,12 +78,12 @@ module Octokit
       #   Octokit.list_orgs('pengwynn')
       # @example
       #   @client.organizations
-      def organizations(user=nil, options = {})
+      def organizations(user = nil, options = {})
         paginate "#{User.path user}/orgs", options
       end
-      alias :list_organizations :organizations
-      alias :list_orgs :organizations
-      alias :orgs :organizations
+      alias list_organizations organizations
+      alias list_orgs organizations
+      alias orgs organizations
 
       # List all GitHub organizations
       #
@@ -98,9 +98,9 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] List of GitHub organizations.
       def all_organizations(options = {})
-        paginate "organizations", options
+        paginate 'organizations', options
       end
-      alias :all_orgs :all_organizations
+      alias all_orgs all_organizations
 
       # List organization repositories
       #
@@ -125,8 +125,8 @@ module Octokit
       def organization_repositories(org, options = {})
         paginate "#{Organization.path org}/repos", options
       end
-      alias :org_repositories :organization_repositories
-      alias :org_repos :organization_repositories
+      alias org_repositories organization_repositories
+      alias org_repos organization_repositories
 
       # Get organization members
       #
@@ -143,10 +143,10 @@ module Octokit
       #   Octokit.org_members('github')
       def organization_members(org, options = {})
         options = options.dup
-        path = "public_" if options.delete(:public)
+        path = 'public_' if options.delete(:public)
         paginate "#{Organization.path org}/#{path}members", options
       end
-      alias :org_members :organization_members
+      alias org_members organization_members
 
       # Get organization public members
       #
@@ -160,9 +160,9 @@ module Octokit
       # @example
       #   Octokit.org_public_members('github')
       def organization_public_members(org, options = {})
-        organization_members org, options.merge(:public => true)
+        organization_members org, options.merge(public: true)
       end
-      alias :org_public_members :organization_public_members
+      alias org_public_members organization_public_members
 
       # Check if a user is a member of an organization.
       #
@@ -188,7 +188,7 @@ module Octokit
           result
         end
       end
-      alias :org_member? :organization_member?
+      alias org_member? organization_member?
 
       # Check if a user is a public member of an organization.
       #
@@ -208,7 +208,7 @@ module Octokit
       def organization_public_member?(org, user, options = {})
         boolean_from_response :get, "#{Organization.path org}/public_members/#{user}", options
       end
-      alias :org_public_member? :organization_public_member?
+      alias org_public_member? organization_public_member?
 
       # List pending organization invitations
       #
@@ -223,7 +223,7 @@ module Octokit
       def organization_invitations(org, options = {})
         get "#{Organization.path org}/invitations", options
       end
-      alias :org_invitations :organization_invitations
+      alias org_invitations organization_invitations
 
       # List outside collaborators for an organization
       #
@@ -235,7 +235,7 @@ module Octokit
       #
       # @example
       #   @client.outside_collaborators('github')
-      def outside_collaborators(org, options={})
+      def outside_collaborators(org, options = {})
         paginate "#{Organization.path org}/outside_collaborators", options
       end
 
@@ -250,7 +250,7 @@ module Octokit
       #
       # @example
       #   @client.remove_outside_collaborator('github', 'lizzhale')
-      def remove_outside_collaborator(org, user, options={})
+      def remove_outside_collaborator(org, user, options = {})
         boolean_from_response :delete, "#{Organization.path org}/outside_collaborators/#{user}", options
       end
 
@@ -265,7 +265,7 @@ module Octokit
       #
       # @example
       #   @client.convert_to_outside_collaborator('github', 'lizzhale')
-      def convert_to_outside_collaborator(org, user, options={})
+      def convert_to_outside_collaborator(org, user, options = {})
         boolean_from_response :put, "#{Organization.path org}/outside_collaborators/#{user}", options
       end
 
@@ -283,7 +283,7 @@ module Octokit
       def organization_teams(org, options = {})
         paginate "#{Organization.path org}/teams", options
       end
-      alias :org_teams :organization_teams
+      alias org_teams organization_teams
 
       # Create team
       #
@@ -303,10 +303,7 @@ module Octokit
       #   })
       def create_team(org, options = {})
         if options.key?(:permission)
-          octokit_warn "Deprecated: Passing :permission option to #create_team. Assign team repository permission by passing :permission to #add_team_repository instead."
-        end
-        if options.key?(:parent_team_id)
-          options = ensure_api_media_type(:nested_teams, options)
+          octokit_warn 'Deprecated: Passing :permission option to #create_team. Assign team repository permission by passing :permission to #add_team_repository instead.'
         end
         post "#{Organization.path org}/teams", options
       end
@@ -338,6 +335,27 @@ module Octokit
         get "#{Organization.path(org)}/teams/#{team_slug}", options
       end
 
+      # Check team permissions for a repository
+      #
+      # Requires authenticated organization member.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param team_slug_or_id [String, Integer] Team slug or Team ID.
+      # @param owner [String] Owner name for the repository.
+      # @param repo [String] Name of the repo to check permissions against.
+      # @return [String, Sawyer::Resource] Depending on options it may be an empty string or a resource.
+      # @example
+      #   # Check whether the team has any permissions with the repository
+      #   @client.team_permissions_for_repo("github", "justice-league", "octocat", "hello-world")
+      #
+      # @example
+      #   # Get the full repository object including the permissions level and role for the team
+      #   @client.team_permissions_for_repo("github", "justice-league", "octocat", "hello-world", :accept => 'application/vnd.github.v3.repository+json')
+      # @see https://docs.github.com/en/rest/teams/teams#check-team-permissions-for-a-repository
+      def team_permissions_for_repo(org, team_slug_or_id, owner, repo, options = {})
+        get "#{Organization.path(org)}/teams/#{team_slug_or_id}/repos/#{owner}/#{repo}", options
+      end
+
       # List child teams
       #
       # Requires authenticated organization member.
@@ -348,7 +366,6 @@ module Octokit
       # @example
       #   @client.child_teams(100000, :accept => "application/vnd.github.hellcat-preview+json")
       def child_teams(team_id, options = {})
-        options = ensure_api_media_type(:nested_teams, options)
         paginate "teams/#{team_id}/teams", options
       end
 
@@ -372,9 +389,6 @@ module Octokit
       #     :permission => 'push'
       #   })
       def update_team(team_id, options = {})
-        if options.key?(:parent_team_id)
-          options = ensure_api_media_type(:nested_teams, options)
-        end
         patch "teams/#{team_id}", options
       end
 
@@ -429,7 +443,7 @@ module Octokit
         # There's a bug in this API call. The docs say to leave the body blank,
         # but it fails if the body is both blank and the content-length header
         # is not 0.
-        boolean_from_response :put, "teams/#{team_id}/members/#{user}", options.merge({:name => user})
+        boolean_from_response :put, "teams/#{team_id}/members/#{user}", options.merge({ name: user })
       end
 
       # Remove team member
@@ -494,7 +508,7 @@ module Octokit
       def team_repositories(team_id, options = {})
         paginate "teams/#{team_id}/repos", options
       end
-      alias :team_repos :team_repositories
+      alias team_repos team_repositories
 
       # Check if a repo is managed by a specific team
       #
@@ -508,10 +522,10 @@ module Octokit
       #   @client.team_repository?(8675309, 'octokit/octokit.rb')
       # @example
       #   @client.team_repo?(8675309, 'octokit/octokit.rb')
-      def team_repository?(team_id, repo, options = {})
+      def team_repository?(team_id, repo, _options = {})
         boolean_from_response :get, "teams/#{team_id}/repos/#{Repository.new(repo)}"
       end
-      alias :team_repo? :team_repository?
+      alias team_repo? team_repository?
 
       # Add team repository
       #
@@ -540,7 +554,7 @@ module Octokit
       def add_team_repository(team_id, repo, options = {})
         boolean_from_response :put, "teams/#{team_id}/repos/#{Repository.new(repo)}", options
       end
-      alias :add_team_repo :add_team_repository
+      alias add_team_repo add_team_repository
 
       # Remove team repository
       #
@@ -557,10 +571,10 @@ module Octokit
       #   @client.remove_team_repository(100000, 'github/developer.github.com')
       # @example
       #   @client.remove_team_repo(100000, 'github/developer.github.com')
-      def remove_team_repository(team_id, repo, options = {})
+      def remove_team_repository(team_id, repo, _options = {})
         boolean_from_response :delete, "teams/#{team_id}/repos/#{Repository.new(repo)}"
       end
-      alias :remove_team_repo :remove_team_repository
+      alias remove_team_repo remove_team_repository
 
       # Remove organization member
       #
@@ -579,7 +593,7 @@ module Octokit
         # provided in the GH API v3
         boolean_from_response :delete, "#{Organization.path org}/members/#{user}", options
       end
-      alias :remove_org_member :remove_organization_member
+      alias remove_org_member remove_organization_member
 
       # Publicize a user's membership of an organization
       #
@@ -610,14 +624,14 @@ module Octokit
       def unpublicize_membership(org, user, options = {})
         boolean_from_response :delete, "#{Organization.path org}/public_members/#{user}", options
       end
-      alias :conceal_membership :unpublicize_membership
+      alias conceal_membership unpublicize_membership
 
       # List all teams for the authenticated user across all their orgs
       #
       # @return [Array<Sawyer::Resource>] Array of team resources.
       # @see https://developer.github.com/v3/orgs/teams/#list-user-teams
       def user_teams(options = {})
-        paginate "user/teams", options
+        paginate 'user/teams', options
       end
 
       # Check if a user has a team membership.
@@ -667,9 +681,9 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of organizations memberships.
       # @see https://developer.github.com/v3/orgs/members/#list-your-organization-memberships
       def organization_memberships(options = {})
-        paginate "user/memberships/orgs", options
+        paginate 'user/memberships/orgs', options
       end
-      alias :org_memberships :organization_memberships
+      alias org_memberships organization_memberships
 
       # Get an organization membership
       #
@@ -686,7 +700,7 @@ module Octokit
           get "user/memberships/orgs/#{org}", options
         end
       end
-      alias :org_membership :organization_membership
+      alias org_membership organization_membership
 
       # Edit an organization membership
       #
@@ -707,7 +721,7 @@ module Octokit
           patch "user/memberships/orgs/#{org}", options
         end
       end
-      alias :update_org_membership :update_organization_membership
+      alias update_org_membership update_organization_membership
 
       # Remove an organization membership
       #
@@ -719,7 +733,7 @@ module Octokit
         user = options.delete(:user)
         user && boolean_from_response(:delete, "#{Organization.path(org)}/memberships/#{user}", options)
       end
-      alias :remove_org_membership :remove_organization_membership
+      alias remove_org_membership remove_organization_membership
 
       # Initiates the generation of a migration archive.
       #
@@ -733,7 +747,6 @@ module Octokit
       #   @client.start_migration('github', ['github/dotfiles'])
       # @see https://docs.github.com/en/rest/reference/migrations#start-an-organization-migration
       def start_migration(org, repositories, options = {})
-        options = ensure_api_media_type(:migrations, options)
         options[:repositories] = repositories
         post "#{Organization.path(org)}/migrations", options
       end
@@ -746,7 +759,6 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of migration resources.
       # @see https://docs.github.com/en/rest/reference/migrations#list-organization-migrations
       def migrations(org, options = {})
-        options = ensure_api_media_type(:migrations, options)
         paginate "#{Organization.path(org)}/migrations", options
       end
 
@@ -758,7 +770,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#get-an-organization-migration-status
       def migration_status(org, id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         get "#{Organization.path(org)}/migrations/#{id}", options
       end
 
@@ -770,7 +781,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#download-an-organization-migration-archive
       def migration_archive_url(org, id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         url = "#{Organization.path(org)}/migrations/#{id}/archive"
 
         response = client_without_redirects(options).get(url)
@@ -785,7 +795,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#delete-an-organization-migration-archive
       def delete_migration_archive(org, id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         delete "#{Organization.path(org)}/migrations/#{id}/archive", options
       end
 
@@ -798,22 +807,41 @@ module Octokit
       # @param repo [String] Name of the repository.
       # @see https://docs.github.com/en/rest/reference/migrations#unlock-an-organization-repository
       def unlock_repository(org, id, repo, options = {})
-        options = ensure_api_media_type(:migrations, options)
         delete "#{Organization.path(org)}/migrations/#{id}/repos/#{repo}/lock", options
       end
 
       # Get GitHub Actions billing for an organization
-      # 
+      #
       # Requires authenticated organization owner.
-      # 
+      #
       # @param org [String, Integer] Organization GitHub login or id.
       # @return [Sawyer::Resource] Hash representing GitHub Actions billing for an organization.
       # @see https://docs.github.com/en/rest/reference/billing#get-github-actions-billing-for-an-organization
-      # 
+      #
       # @example
       #   @client.billing_actions('github')
       def billing_actions(org)
         get "#{Organization.path(org)}/settings/billing/actions"
+      end
+
+      # Get organization audit log.
+      #
+      # Gets the audit log for an organization.
+      #
+      # @param org [String, Integer] Organization GitHub login or id for which
+      #   to retrieve the audit log.
+      # @option options [String] :include ('all') Filter by event type.
+      #   `all`, `git` or `web`.
+      # @option options [String] :phrase A search phrase.
+      # @option options [String] :order ('desc') The order of audit log events. To list newest events first, specify desc.
+      # To list oldest events first, specify asc.
+      #
+      # @return [Array<Sawyer::Resource>] List of events
+      # @see https://docs.github.com/en/enterprise-cloud@latest/rest/orgs/orgs#get-the-audit-log-for-an-organization
+      # @example
+      #   Octokit.organization_audit_log('github', {include: 'all', phrase: 'action:org.add_member created:>2022-08-29 user:octocat'})
+      def organization_audit_log(org, options = {})
+        paginate "#{Organization.path org}/audit-log", options
       end
     end
   end

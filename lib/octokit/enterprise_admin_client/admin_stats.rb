@@ -1,18 +1,18 @@
+# frozen_string_literal: true
+
 module Octokit
   class EnterpriseAdminClient
-
     # Methods for the Enterprise Admin Stats API
     #
     # @see https://developer.github.com/v3/enterprise-admin/admin_stats/
     module AdminStats
-
       # Get all available stats
       #
       # @return [Sawyer::Resource] All available stats
       # @example Get all available stats
       #   @client.admin_stats
       def admin_stats
-        get_admin_stats "all"
+        get_admin_stats 'all'
       end
 
       # Get only repository-related stats
@@ -21,7 +21,7 @@ module Octokit
       # @example Get only repository-related stats
       #   @client.admin_repository_stats
       def admin_repository_stats
-        get_admin_stats "repos"
+        get_admin_stats 'repos'
       end
 
       # Get only hooks-related stats
@@ -30,7 +30,7 @@ module Octokit
       # @example Get only hooks-related stats
       #   @client.admin_hooks_stats
       def admin_hooks_stats
-        get_admin_stats "hooks"
+        get_admin_stats 'hooks'
       end
 
       # Get only pages-related stats
@@ -39,7 +39,7 @@ module Octokit
       # @example Get only pages-related stats
       #   @client.admin_pages_stats
       def admin_pages_stats
-        get_admin_stats "pages"
+        get_admin_stats 'pages'
       end
 
       # Get only organization-related stats
@@ -48,7 +48,7 @@ module Octokit
       # @example Get only organization-related stats
       #   @client.admin_organization_stats
       def admin_organization_stats
-        get_admin_stats "orgs"
+        get_admin_stats 'orgs'
       end
 
       # Get only user-related stats
@@ -57,7 +57,7 @@ module Octokit
       # @example Get only user-related stats
       #   @client.admin_users_stats
       def admin_users_stats
-        get_admin_stats "users"
+        get_admin_stats 'users'
       end
 
       # Get only pull request-related stats
@@ -66,7 +66,7 @@ module Octokit
       # @example Get only pull request-related stats
       #   @client.admin_pull_requests_stats
       def admin_pull_requests_stats
-        get_admin_stats "pulls"
+        get_admin_stats 'pulls'
       end
 
       # Get only issue-related stats
@@ -75,7 +75,7 @@ module Octokit
       # @example Get only issue-related stats
       #   @client.admin_issues_stats
       def admin_issues_stats
-        get_admin_stats "issues"
+        get_admin_stats 'issues'
       end
 
       # Get only milestone-related stats
@@ -84,7 +84,7 @@ module Octokit
       # @example Get only milestone-related stats
       #   @client.admin_milestones_stats
       def admin_milestones_stats
-        get_admin_stats "milestones"
+        get_admin_stats 'milestones'
       end
 
       # Get only gist-related stats
@@ -93,7 +93,7 @@ module Octokit
       # @example Get only gist-related stats
       #   @client.admin_gits_stats
       def admin_gists_stats
-        get_admin_stats "gists"
+        get_admin_stats 'gists'
       end
 
       # Get only comment-related stats
@@ -102,7 +102,7 @@ module Octokit
       # @example Get only comment-related stats
       #   @client.admin_comments_stats
       def admin_comments_stats
-        get_admin_stats "comments"
+        get_admin_stats 'comments'
       end
 
       private
@@ -115,6 +115,5 @@ module Octokit
         get "enterprise/stats/#{metric}"
       end
     end
-
   end
 end
