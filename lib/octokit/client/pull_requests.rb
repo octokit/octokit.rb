@@ -96,11 +96,9 @@ module Octokit
       # @return [Sawyer::Resource] Hash representing updated pull request.
       # @see https://developer.github.com/v3/pulls/#update-a-pull-request
       # @example
-      #   @client.update_pull_request('octokit/octokit.rb', 67, 'new title', 'updated body', 'closed')
-      # @example Passing nil for optional attributes to update specific attributes.
-      #   @client.update_pull_request('octokit/octokit.rb', 67, nil, nil, 'open')
+      #   @client.update_pull_request('octokit/octokit.rb', 67, title: 'new title', body: 'updated body', state: 'closed')
       # @example Empty body by passing empty string
-      #   @client.update_pull_request('octokit/octokit.rb', 67, nil, '')
+      #   @client.update_pull_request('octokit/octokit.rb', 67, body: '')
       def update_pull_request(*args)
         arguments = Octokit::Arguments.new(args)
         repo = arguments.shift
