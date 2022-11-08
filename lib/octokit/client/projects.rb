@@ -1,23 +1,22 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for Projects API
     #
-    # @see https://developer.github.com/v3/repos/projects
+    # @see https://docs.github.com/en/rest/projects
     module Projects
-
       # List projects for a repository
       #
       # Requires authenticated client
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @return [Array<Sawyer::Resource>] Repository projects
-      # @see https://developer.github.com/v3/projects/#list-repository-projects 
+      # @see https://developer.github.com/v3/projects/#list-repository-projects
       # @example
       #   @client.projects('octokit/octokit.rb')
       def projects(repo, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        paginate "#{Repository.path repo}/projects", opts
+        paginate "#{Repository.path repo}/projects", options
       end
 
       # Create a project
@@ -28,16 +27,15 @@ module Octokit
       # @param name [String] Project name
       # @option options [String] :body Body of the project
       # @return [Sawyer::Resource] Fresh new project
-      # @see https://developer.github.com/v3/projects/#create-a-repository-project 
+      # @see https://developer.github.com/v3/projects/#create-a-repository-project
       # @example Create project with only a name
       #   @client.create_project('octokit/octokit.rb', 'implement new APIs')
       #
       # @example Create project with name and body
       #   @client.create_project('octokit/octokit.rb', 'bugs be gone', body: 'Fix all the bugs @joeyw creates')
       def create_project(repo, name, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        opts[:name] = name
-        post "#{Repository.path repo}/projects", opts
+        options[:name] = name
+        post "#{Repository.path repo}/projects", options
       end
 
       # List organization projects
@@ -50,10 +48,9 @@ module Octokit
       # @example
       #   @client.org_projects("octokit")
       def org_projects(org, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        paginate "orgs/#{org}/projects", opts
+        paginate "orgs/#{org}/projects", options
       end
-      alias :organization_projects :org_projects
+      alias organization_projects org_projects
 
       # Create organization project
       #
@@ -69,22 +66,20 @@ module Octokit
       # @example Create a project with name and body
       #   @client.create_org_project("octokit", "octocan", body: 'Improve clients')
       def create_org_project(org, name, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        opts[:name] = name
-        post "orgs/#{org}/projects", opts
+        options[:name] = name
+        post "orgs/#{org}/projects", options
       end
-      alias :create_organization_project :create_org_project
+      alias create_organization_project create_org_project
 
-      # Get a project by id 
+      # Get a project by id
       #
       # @param id [Integer] Project id
       # @return [Sawyer::Resource] Project
-      # @see https://developer.github.com/v3/projects/#get-a-project 
+      # @see https://developer.github.com/v3/projects/#get-a-project
       # @example
       #   Octokit.project(123942)
       def project(id, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        get "projects/#{id}", opts
+        get "projects/#{id}", options
       end
 
       # Update a project
@@ -95,12 +90,11 @@ module Octokit
       # @option options [String] :name Project name
       # @option options [String] :body Project body
       # @return [Sawyer::Resource] Project
-      # @see https://developer.github.com/v3/projects/#update-a-project 
+      # @see https://developer.github.com/v3/projects/#update-a-project
       # @example Update project name
       #   @client.update_project(123942, name: 'New name')
       def update_project(id, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        patch "projects/#{id}", opts
+        patch "projects/#{id}", options
       end
 
       # Delete a project
@@ -109,24 +103,22 @@ module Octokit
       #
       # @param id [Integer] Project id
       # @return [Boolean] Result of deletion
-      # @see https://developer.github.com/v3/projects/#delete-a-project 
+      # @see https://developer.github.com/v3/projects/#delete-a-project
       # @example
       #   @client.delete_project(123942)
       def delete_project(id, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        boolean_from_response :delete, "projects/#{id}", opts
+        boolean_from_response :delete, "projects/#{id}", options
       end
 
       # List project columns
       #
-      # @param id [Integer] Project id 
+      # @param id [Integer] Project id
       # @return [Array<Sawyer::Resource>] List of project columns
-      # @see https://developer.github.com/v3/projects/columns/#list-project-columns 
+      # @see https://developer.github.com/v3/projects/columns/#list-project-columns
       # @example
       #   @client.project_columns(123942)
       def project_columns(id, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        paginate "projects/#{id}/columns", opts
+        paginate "projects/#{id}/columns", options
       end
 
       # Create a project column
@@ -136,25 +128,23 @@ module Octokit
       # @param id [Integer] Project column id
       # @param name [String] New column name
       # @return [Sawyer::Resource] Newly created column
-      # @see https://developer.github.com/v3/projects/columns/#create-a-project-column 
+      # @see https://developer.github.com/v3/projects/columns/#create-a-project-column
       # @example
       #   @client.create_project_column(123942, "To Dones")
       def create_project_column(id, name, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        opts[:name] = name
-        post "projects/#{id}/columns", opts
+        options[:name] = name
+        post "projects/#{id}/columns", options
       end
 
       # Get a project column by ID
       #
       # @param id [Integer] Project column id
       # @return [Sawyer::Resource] Project column
-      # @see https://developer.github.com/v3/projects/columns/#get-a-project-column 
+      # @see https://developer.github.com/v3/projects/columns/#get-a-project-column
       # @example
       #   Octokit.project_column(30294)
       def project_column(id, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        get "projects/columns/#{id}", opts
+        get "projects/columns/#{id}", options
       end
 
       # Update a project column
@@ -164,13 +154,12 @@ module Octokit
       # @param id [Integer] Project column id
       # @param name [String] New column name
       # @return [Sawyer::Resource] Updated column
-      # @see https://developer.github.com/v3/projects/columns/#update-a-project-column 
+      # @see https://developer.github.com/v3/projects/columns/#update-a-project-column
       # @example
       #   @client.update_project_column(30294, "new column name")
       def update_project_column(id, name, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        opts[:name] = name
-        patch "projects/columns/#{id}", opts
+        options[:name] = name
+        patch "projects/columns/#{id}", options
       end
 
       # Delete a project column
@@ -179,12 +168,11 @@ module Octokit
       #
       # @param id [Integer] Project column id
       # @return [Boolean] Result of deletion request, true when deleted
-      # @see https://developer.github.com/v3/projects/columns/#delete-a-project-column 
+      # @see https://developer.github.com/v3/projects/columns/#delete-a-project-column
       # @example
       #   @client.delete_project_column(30294)
       def delete_project_column(id, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        boolean_from_response :delete, "projects/columns/#{id}", opts
+        boolean_from_response :delete, "projects/columns/#{id}", options
       end
 
       # Move a project column
@@ -192,7 +180,7 @@ module Octokit
       # Requires authenticated client
       #
       # @param id [Integer] Project column id
-      # @param position [String] New position for the column. Can be one of 
+      # @param position [String] New position for the column. Can be one of
       #   <tt>first</tt>, <tt>last</tt>, or <tt>after:<column-id></tt>, where
       #   <tt><column-id></tt> is the id value of a column in the same project.
       # @return [Sawyer::Resource] Result
@@ -200,9 +188,8 @@ module Octokit
       # @example
       #   @client.move_project_column(30294, "last")
       def move_project_column(id, position, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        opts[:position] = position
-        post "projects/columns/#{id}/moves", opts
+        options[:position] = position
+        post "projects/columns/#{id}/moves", options
       end
 
       # List columns cards
@@ -215,8 +202,7 @@ module Octokit
       # @example
       #   @client.column_cards(30294)
       def column_cards(id, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        paginate "projects/columns/#{id}/cards", opts
+        paginate "projects/columns/#{id}/cards", options
       end
 
       # Create project card
@@ -238,8 +224,7 @@ module Octokit
       # @example Create a project card for an repository issue
       #   @client.create_project_card(123495, content_id: 1, content_type: 'Issue')
       def create_project_card(id, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        post "projects/columns/#{id}/cards", opts
+        post "projects/columns/#{id}/cards", options
       end
 
       # Get a project card
@@ -252,8 +237,7 @@ module Octokit
       # @example
       #   @client.project_card(123495)
       def project_card(id, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        get "projects/columns/cards/#{id}", opts
+        get "projects/columns/cards/#{id}", options
       end
 
       # Update a project card
@@ -269,8 +253,7 @@ module Octokit
       # @example
       #   @client.update_project_card(12345, note: 'new note')
       def update_project_card(id, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        patch "projects/columns/cards/#{id}", opts
+        patch "projects/columns/cards/#{id}", options
       end
 
       # Move a project card
@@ -290,13 +273,12 @@ module Octokit
       # @example Move a card to the top of another column
       #   @client.move_project_card(123495, 'top', column_id: 59402)
       def move_project_card(id, position, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        opts[:position] = position
-        post "projects/columns/cards/#{id}/moves", opts
+        options[:position] = position
+        post "projects/columns/cards/#{id}/moves", options
       end
 
       # Delete a project card
-      # 
+      #
       # Requires authenticated client
       #
       # @param id [Integer] Project card id
@@ -305,10 +287,8 @@ module Octokit
       # @example
       #   @client.delete_project_card(123495)
       def delete_project_card(id, options = {})
-        opts = ensure_api_media_type(:projects, options)
-        boolean_from_response :delete, "projects/columns/cards/#{id}", opts
+        boolean_from_response :delete, "projects/columns/cards/#{id}", options
       end
-
     end # Projects
   end
 end

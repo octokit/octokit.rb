@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Commit Comments API
     #
     # @see https://developer.github.com/v3/repos/comments/
     module CommitComments
-
       # List all commit comments
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
@@ -53,12 +53,12 @@ module Octokit
       #   comment.path # => "README.md"
       #   comment.line # => 10
       #   comment.position # => 1
-      def create_commit_comment(repo, sha, body, path=nil, line=nil, position=nil, options = {})
+      def create_commit_comment(repo, sha, body, path = nil, line = nil, position = nil, options = {})
         params = {
-          :body => body,
-          :path => path,
-          :line => line,
-          :position => position
+          body: body,
+          path: path,
+          line: line,
+          position: position
         }
         post "#{Repository.path repo}/commits/#{sha}/comments", options.merge(params)
       end
@@ -76,7 +76,7 @@ module Octokit
       #   comment.body # => "Updated commit comment"
       def update_commit_comment(repo, id, body, options = {})
         params = {
-          :body => body
+          body: body
         }
         patch "#{Repository.path repo}/comments/#{id}", options.merge(params)
       end

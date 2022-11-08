@@ -1,0 +1,124 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/repos/<GITHUB_LOGIN>/<GITHUB_TEST_REPOSITORY>/actions/runs/3049298023/artifacts",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 5.5.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Wed, 14 Sep 2022 00:30:08 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"a7110c5e38e30185e3eea02e3708267858abf5fbb899765333d109b9282c83bb\""
+          ],
+          "X-Oauth-Scopes": [
+            "repo, workflow"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            ""
+          ],
+          "Github-Authentication-Token-Expiration": [
+            "2022-09-20 23:45:13 UTC"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-08-09"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4996"
+          ],
+          "X-Ratelimit-Reset": [
+            "1663119007"
+          ],
+          "X-Ratelimit-Used": [
+            "4"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "0403:4118:28A7740:29D5156:63212090"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJ0b3RhbF9jb3VudCI6MSwiYXJ0aWZhY3RzIjpbeyJpZCI6MzYyNTE4NTk0\nLCJub2RlX2lkIjoiTURnNlFYSjBhV1poWTNRek5qSTFNVGcxT1RRPSIsIm5h\nbWUiOiJoZWxsby50eHQiLCJzaXplX2luX2J5dGVzIjoxNCwidXJsIjoiaHR0\ncHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy88R0lUSFVCX0xPR0lOPi88R0lU\nSFVCX1RFU1RfUkVQT1NJVE9SWT4vYWN0aW9ucy9hcnRpZmFjdHMvMzYyNTE4\nNTk0IiwiYXJjaGl2ZV9kb3dubG9hZF91cmwiOiJodHRwczovL2FwaS5naXRo\ndWIuY29tL3JlcG9zLzxHSVRIVUJfTE9HSU4+LzxHSVRIVUJfVEVTVF9SRVBP\nU0lUT1JZPi9hY3Rpb25zL2FydGlmYWN0cy8zNjI1MTg1OTQvemlwIiwiZXhw\naXJlZCI6ZmFsc2UsImNyZWF0ZWRfYXQiOiIyMDIyLTA5LTE0VDAwOjI0OjQ1\nWiIsInVwZGF0ZWRfYXQiOiIyMDIyLTA5LTE0VDAwOjI0OjQ2WiIsImV4cGly\nZXNfYXQiOiIyMDIyLTA5LTE1VDAwOjI0OjQyWiIsIndvcmtmbG93X3J1biI6\neyJpZCI6MzA0OTI5ODAyMywicmVwb3NpdG9yeV9pZCI6MTk5MDI2MzE1LCJo\nZWFkX3JlcG9zaXRvcnlfaWQiOjE5OTAyNjMxNSwiaGVhZF9icmFuY2giOiJt\nYXN0ZXIiLCJoZWFkX3NoYSI6Ijk5OWJlODY3MzNkNWJmNGE2NzIyZDc4ZjMz\nYjJkZGMyNDI0Yzc5OGQifX1dfQ==\n"
+        }
+      },
+      "recorded_at": "Wed, 14 Sep 2022 00:30:08 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.1.0"
+}

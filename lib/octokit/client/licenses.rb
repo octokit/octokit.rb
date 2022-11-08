@@ -1,10 +1,10 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for licenses API
     #
     module Licenses
-
       # List all licenses
       #
       # @see https://developer.github.com/v3/licenses/#list-all-licenses
@@ -12,8 +12,7 @@ module Octokit
       # @example
       #   Octokit.licenses
       def licenses(options = {})
-        options = ensure_api_media_type(:licenses, options)
-        paginate "licenses", options
+        paginate 'licenses', options
       end
 
       # List an individual license
@@ -24,7 +23,6 @@ module Octokit
       # @example
       #   Octokit.license 'mit'
       def license(license_name, options = {})
-        options = ensure_api_media_type(:licenses, options)
         get "licenses/#{license_name}", options
       end
 
@@ -37,7 +35,6 @@ module Octokit
       # @example
       #   Octokit.repository_license_contents 'benbalter/licensee'
       def repository_license_contents(repo, options = {})
-        options = ensure_api_media_type(:licenses, options)
         get "#{Repository.path repo}/license", options
       end
     end

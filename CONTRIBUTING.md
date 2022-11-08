@@ -1,8 +1,8 @@
 ## Submitting a Pull Request
 
 0. Read our [Code of Conduct](CODE_OF_CONDUCT.md).
-1. Check out Hacking on Octokit in the README guide for
-   bootstrapping the project for local development.
+1. Check out [Hacking on Octokit](README.md#hacking-on-octokitrb) in the
+   README for bootstrapping the project for local development.
 2. [Fork the repository.][fork]
 3. [Create a topic branch.][branch]
 4. Add specs for your unimplemented feature or bug fix.
@@ -17,8 +17,6 @@
 11. Add, commit, and push your changes. For documentation-only fixes, please
     add "[ci skip]" to your commit message to avoid needless CI builds.
 12. [Submit a pull request.][pr]
-
-Please abide by
 
 [fork]: https://help.github.com/articles/fork-a-repo
 [branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/

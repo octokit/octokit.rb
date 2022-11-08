@@ -1,11 +1,7 @@
+# frozen_string_literal: true
+
 if RUBY_ENGINE == 'ruby'
   require 'simplecov'
-  require 'coveralls'
-
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new [
-    SimpleCov::Formatter::HTMLFormatter,
-    Coveralls::SimpleCov::Formatter
-  ]
   SimpleCov.start
 end
 
@@ -15,10 +11,18 @@ require 'rspec'
 require 'webmock/rspec'
 require 'base64'
 require 'jwt'
+# latest version of pry-byebug is not compatible with Ruby 3.2.0
+if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('3.2.0')
+  require 'pry-byebug'
+end
+if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
+  require 'faraday/multipart'
+end
 
-WebMock.disable_net_connect!(:allow => 'coveralls.io')
+WebMock.disable_net_connect!
 
 RSpec.configure do |config|
+  config.warnings = true
   config.raise_errors_for_deprecations!
   config.before(:all) do
     @test_repo = "#{test_github_login}/#{test_github_repository}"
@@ -30,65 +34,70 @@ end
 require 'vcr'
 VCR.configure do |c|
   c.configure_rspec_metadata!
-  c.filter_sensitive_data("<GITHUB_LOGIN>") do
+  c.filter_sensitive_data('<GITHUB_LOGIN>') do
     test_github_login
   end
-  c.filter_sensitive_data("<GITHUB_COLLABORATOR_LOGIN>") do
+  c.filter_sensitive_data('<GITHUB_COLLABORATOR_LOGIN>') do
     test_github_collaborator_login
   end
-  c.filter_sensitive_data("<GITHUB_TEAM_SLUG>") do
+  c.filter_sensitive_data('<GITHUB_TEAM_SLUG>') do
     test_github_team_slug
   end
-  c.filter_sensitive_data("<GITHUB_TEAM_ID>") do
+  c.filter_sensitive_data('<GITHUB_TEAM_ID>') do
     test_github_team_id
   end
-  c.filter_sensitive_data("<GITHUB_PASSWORD>") do
+  c.filter_sensitive_data('<GITHUB_PASSWORD>') do
     test_github_password
   end
-  c.filter_sensitive_data("<<ACCESS_TOKEN>>") do
+  c.filter_sensitive_data('<<ACCESS_TOKEN>>') do
     test_github_token
   end
-  c.filter_sensitive_data("<GITHUB_COLLABORATOR_TOKEN>") do
+  c.filter_sensitive_data('<GITHUB_COLLABORATOR_TOKEN>') do
     test_github_collaborator_token
   end
-  c.filter_sensitive_data("<GITHUB_CLIENT_ID>") do
+  c.filter_sensitive_data('<GITHUB_CLIENT_ID>') do
     test_github_client_id
   end
-  c.filter_sensitive_data("<GITHUB_CLIENT_SECRET>") do
+  c.filter_sensitive_data('<GITHUB_CLIENT_SECRET>') do
     test_github_client_secret
   end
-  c.filter_sensitive_data("<<ENTERPRISE_GITHUB_LOGIN>>") do
+  c.filter_sensitive_data('<<ENTERPRISE_GITHUB_LOGIN>>') do
     test_github_enterprise_login
   end
-  c.filter_sensitive_data("<<ENTERPRISE_ACCESS_TOKEN>>") do
+  c.filter_sensitive_data('<<ENTERPRISE_ACCESS_TOKEN>>') do
     test_github_enterprise_token
   end
-  c.filter_sensitive_data("<<ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD>>") do
+  c.filter_sensitive_data('<<ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD>>') do
     test_github_enterprise_management_console_password
   end
-  c.filter_sensitive_data("<<ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT>>") do
+  c.filter_sensitive_data('<<ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT>>') do
     test_github_enterprise_management_console_endpoint
   end
-  c.filter_sensitive_data("<<ENTERPRISE_HOSTNAME>>") do
+  c.filter_sensitive_data('<<ENTERPRISE_HOSTNAME>>') do
     test_github_enterprise_endpoint
   end
-  c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY>") do
+  c.define_cassette_placeholder('<GITHUB_TEST_REPOSITORY>') do
     test_github_repository
   end
-  c.define_cassette_placeholder("<GITHUB_TEST_REPOSITORY_ID>") do
+  c.define_cassette_placeholder('<GITHUB_TEST_REPOSITORY_ID>') do
     test_github_repository_id
   end
-  c.define_cassette_placeholder("<GITHUB_TEST_ORGANIZATION>") do
+  c.define_cassette_placeholder('<GITHUB_TEST_ORGANIZATION>') do
     test_github_org
   end
-  c.define_cassette_placeholder("<GITHUB_TEST_ORG_TEAM_ID>") do
-    "10050505050000"
+  c.define_cassette_placeholder('<GITHUB_TEST_ORG_TEAM_ID>') do
+    '10050505050000'
   end
-  c.define_cassette_placeholder("<GITHUB_TEST_INTEGRATION>") do
+  c.define_cassette_placeholder('<GITHUB_TEST_INTEGRATION>') do
     test_github_integration
   end
-  c.define_cassette_placeholder("<GITHUB_TEST_INTEGRATION_INSTALLATION>") do
+  c.define_cassette_placeholder('<GITHUB_TEST_INTEGRATION_INSTALLATION>') do
     test_github_integration_installation
+  end
+  # This MUST belong to the app used for test_github_client_id and
+  # test_github_client_secret
+  c.define_cassette_placeholder('<GITHUB_TEST_OAUTH_TOKEN>') do
+    test_github_oauth_token
   end
 
   c.before_http_request(:real?) do |request|
@@ -96,18 +105,18 @@ VCR.configure do |c|
     next unless request.uri.include? test_github_repository
 
     options = {
-      :headers => {'X-Vcr-Test-Repo-Setup' => 'true'},
-      :auto_init => true
+      headers: { 'X-Vcr-Test-Repo-Setup' => 'true' },
+      auto_init: true
     }
 
     test_repo = "#{test_github_login}/#{test_github_repository}"
-    if !oauth_client.repository?(test_repo, options)
+    unless oauth_client.repository?(test_repo, options)
       Octokit.octokit_warn "NOTICE: Creating #{test_repo} test repository."
       oauth_client.create_repository(test_github_repository, options)
     end
 
     test_org_repo = "#{test_github_org}/#{test_github_repository}"
-    if !oauth_client.repository?(test_org_repo, options)
+    unless oauth_client.repository?(test_org_repo, options)
       Octokit.octokit_warn "NOTICE: Creating #{test_org_repo} test repository."
       options[:organization] = test_github_org
       oauth_client.create_repository(test_github_repository, options)
@@ -119,31 +128,28 @@ VCR.configure do |c|
   end
 
   record_mode =
-    case
-    when ENV['GITHUB_CI']
+    if ENV['GITHUB_CI']
       :none
-    when ENV['OCTOKIT_TEST_VCR_RECORD']
+    elsif ENV['OCTOKIT_TEST_VCR_RECORD']
       :all
     else
       :once
     end
 
   c.default_cassette_options = {
-    :serialize_with             => :json,
+    serialize_with: :json,
     # TODO: Track down UTF-8 issue and remove
-    :preserve_exact_body_bytes  => true,
-    :decode_compressed_response => true,
-    :record                     => record_mode
+    preserve_exact_body_bytes: true,
+    decode_compressed_response: true,
+    record: record_mode
   }
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
 end
 
 def delete_test_repo
-  begin
-    oauth_client.delete_repository @test_repo
-  rescue Octokit::NotFound
-  end
+  oauth_client.delete_repository @test_repo
+rescue Octokit::NotFound
 end
 
 def test_github_login
@@ -159,7 +165,7 @@ def test_github_team_slug
 end
 
 def test_github_team_id
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_TEAM_ID', 123456
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_TEAM_ID', 123_456
 end
 
 def test_github_password
@@ -226,6 +232,10 @@ def test_github_integration_pem_key
   ENV.fetch 'OCTOKIT_TEST_INTEGRATION_PEM_KEY', "#{fixture_path}/fake_integration.private-key.pem"
 end
 
+def test_github_oauth_token
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_OAUTH_TOKEN', 'q' * 40
+end
+
 def stub_delete(url)
   stub_request(:delete, github_url(url))
 end
@@ -251,18 +261,18 @@ def stub_put(url)
 end
 
 def fixture_path
-  File.expand_path("../fixtures", __FILE__)
+  File.expand_path('fixtures', __dir__)
 end
 
 def fixture(file)
-  File.new(fixture_path + '/' + file)
+  File.new("#{fixture_path}/#{file}")
 end
 
 def json_response(file)
   {
-    :body => fixture(file),
-    :headers => {
-      :content_type => 'application/json; charset=utf-8'
+    body: fixture(file),
+    headers: {
+      content_type: 'application/json; charset=utf-8'
     }
   }
 end
@@ -272,7 +282,7 @@ def github_url(url)
 
   url = File.join(Octokit.api_endpoint, url)
   uri = Addressable::URI.parse(url)
-  uri.path.gsub!("v3//", "v3/")
+  uri.path.gsub!('v3//', 'v3/')
 
   uri.to_s
 end
@@ -290,7 +300,7 @@ def basic_auth_client(login: test_github_login, password: test_github_password)
 end
 
 def oauth_client
-  Octokit::Client.new(:access_token => test_github_token)
+  Octokit::Client.new(access_token: test_github_token)
 end
 
 def enterprise_admin_client
@@ -301,8 +311,8 @@ def enterprise_admin_client
   end
 
   client = Octokit::EnterpriseAdminClient.new \
-    :access_token => test_github_enterprise_token,
-    :connection_options => { :ssl => { :verify => false } }
+    access_token: test_github_enterprise_token,
+    connection_options: { ssl: { verify: false } }
 
   client.configure do |c|
     c.api_endpoint = test_github_enterprise_endpoint
@@ -319,9 +329,9 @@ def enterprise_management_console_client
   end
 
   client = Octokit::EnterpriseManagementConsoleClient.new \
-    :management_console_endpoint => test_github_enterprise_management_console_endpoint,
-    :management_console_password => test_github_enterprise_management_console_password,
-    :connection_options => { :ssl => { :verify => false } }
+    management_console_endpoint: test_github_enterprise_management_console_endpoint,
+    management_console_password: test_github_enterprise_management_console_password,
+    connection_options: { ssl: { verify: false } }
 
   client.configure do |c|
     c.middleware = stack

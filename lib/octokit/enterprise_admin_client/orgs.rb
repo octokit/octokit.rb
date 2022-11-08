@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class EnterpriseAdminClient
-
     # Methods for the Enterprise Orgs API
     #
     # @see https://developer.github.com/v3/enterprise-admin/orgs/
     module Orgs
-
       # Create a new organization on the instance.
       #
       # @param login [String] The organization's username.
@@ -19,9 +19,8 @@ module Octokit
       def create_organization(login, admin, options = {})
         options[:login] = login
         options[:admin] = admin
-        post "admin/organizations", options
+        post 'admin/organizations', options
       end
-
     end
   end
 end

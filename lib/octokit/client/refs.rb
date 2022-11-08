@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for References for Git Data API
     #
     # @see https://developer.github.com/v3/git/refs/
     module Refs
-
       # List all refs for a given user and repo
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -19,9 +19,21 @@ module Octokit
         path += "/#{namespace}" unless namespace.nil?
         paginate path, options
       end
-      alias :list_refs :refs
-      alias :references :refs
-      alias :list_references :refs
+      alias list_refs refs
+      alias references refs
+      alias list_references refs
+
+      # Fetch matching refs
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param ref [String] The ref, e.g. <tt>tags/v0.0.3</tt> or <tt>heads/rails-3</tt>
+      # @return [Array<Sawyer::Resource>] The reference matching the given repo and the ref id
+      # @see https://developer.github.com/v3/git/refs/#list-matching-references
+      # @example Fetch refs matching  tags/v2 for sferik/rails_admin
+      #   Octokit.ref("sferik/rails_admin","tags/v2")
+      def matching_refs(repo, ref, options = {})
+        paginate "#{Repository.path repo}/git/matching-refs/#{ref}", options
+      end
 
       # Fetch a given reference
       #
@@ -34,7 +46,7 @@ module Octokit
       def ref(repo, ref, options = {})
         get "#{Repository.path repo}/git/refs/#{ref}", options
       end
-      alias :reference :ref
+      alias reference ref
 
       # Create a reference
       #
@@ -46,44 +58,46 @@ module Octokit
       # @example Create refs/heads/master for octocat/Hello-World with sha 827efc6d56897b048c772eb4087f854f46256132
       #   Octokit.create_ref("octocat/Hello-World", "heads/master", "827efc6d56897b048c772eb4087f854f46256132")
       def create_ref(repo, ref, sha, options = {})
-        ref = "refs/#{ref}" unless ref =~ %r{refs/}
+        ref = "refs/#{ref}" unless ref =~ %r{\Arefs/}
         parameters = {
-          :ref  => ref,
-          :sha  => sha
+          ref: ref,
+          sha: sha
         }
         post "#{Repository.path repo}/git/refs", options.merge(parameters)
       end
-      alias :create_reference :create_ref
+      alias create_reference create_ref
 
       # Update a reference
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param ref [String] The ref, e.g. <tt>tags/v0.0.3</tt>
       # @param sha [String] A SHA, e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
-      # @param force [Boolean] A flag indicating one wants to force the update to make sure the update is a fast-forward update.
+      # @param force [Boolean] A flag indicating whether to force the update or to make sure the update is a fast-forward update.
       # @return [Array<Sawyer::Resource>] The list of references updated
       # @see https://developer.github.com/v3/git/refs/#update-a-reference
       # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
       #   Octokit.update_ref("octocat/Hello-World", "heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
-      def update_ref(repo, ref, sha, force = true, options = {})
+      def update_ref(repo, ref, sha, force = false, options = {})
         parameters = {
-          :sha  => sha,
-          :force => force
+          sha: sha,
+          force: force
         }
         patch "#{Repository.path repo}/git/refs/#{ref}", options.merge(parameters)
       end
-      alias :update_reference :update_ref
+      alias update_reference update_ref
 
       # Update a branch
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param branch [String] The ref, e.g. <tt>feature/new-shiny</tt>
       # @param sha [String] A SHA, e.g. <tt>827efc6d56897b048c772eb4087f854f46256132</tt>
-      # @param force [Boolean] A flag indicating one wants to force the update to make sure the update is a fast-forward update.
+      # @param force [Boolean] A flag indicating whether to force the update or to make sure the update is a fast-forward update.
       # @return [Array<Sawyer::Resource>] The list of references updated
       # @see https://developer.github.com/v3/git/refs/#update-a-reference
       # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
-      #   Octokit.update_branch("octocat/Hello-World","sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
+      #   Octokit.update_branch("octocat/Hello-World", "sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
+      # @example Fast-forward update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
+      #   Octokit.update_branch("octocat/Hello-World", "sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd", false)
       def update_branch(repo, branch, sha, force = true, options = {})
         update_ref repo, "heads/#{branch}", sha, force, options
       end
@@ -111,8 +125,7 @@ module Octokit
       def delete_ref(repo, ref, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/git/refs/#{ref}", options
       end
-      alias :delete_reference :delete_ref
-
+      alias delete_reference delete_ref
     end
   end
 end

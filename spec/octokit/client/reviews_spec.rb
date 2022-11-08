@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'helper'
 require 'securerandom'
 
@@ -21,7 +23,7 @@ describe Octokit::Client::Reviews do
 
   describe '.pull_request_review', :vcr do
     let(:test_pr) { 825 }
-    let(:test_review) { 6505518 }
+    let(:test_review) { 6_505_518 }
 
     it 'returns a single pull request review' do
       reviews = @client.pull_request_review('octokit/octokit.rb', test_pr,
@@ -35,7 +37,7 @@ describe Octokit::Client::Reviews do
 
   describe '.pull_request_review_comments', :vcr do
     let(:test_pr) { 825 }
-    let(:test_review) { 6505518 }
+    let(:test_review) { 6_505_518 }
 
     it 'returns all comments for a single review' do
       reviews = @client.pull_request_review_comments('octokit/octokit.rb',
@@ -58,7 +60,7 @@ describe Octokit::Client::Reviews do
     end
   end
 
-  context 'with pull request review' do 
+  context 'with pull request review' do
     describe '.update_pull_request_review' do
       it 'updates the review summary comment with new text' do
         requested_url = github_url('/repos/octokit/octokit.rb/pulls/1/reviews/1')
@@ -117,21 +119,21 @@ describe Octokit::Client::Reviews do
           collaborator_client = Octokit::Client.new(access_token: test_github_collaborator_token)
           collaborator_client.accept_repository_invitation(invitation.id)
 
-          @client.add_team_repository(test_github_team_id, @repo.full_name, permission: "push")
+          @client.add_team_repository(test_github_team_id, @repo.full_name, permission: 'push')
         end
 
         describe '.pull_request_review_requests' do
           before do
             options = {
               reviewers: [test_github_collaborator_login],
-              team_reviewers: [test_github_team_slug],
+              team_reviewers: [test_github_team_slug]
             }
             @client.request_pull_request_review(@repo.full_name, @pull.number, options)
           end
           after do
             options = {
               reviewers: [test_github_collaborator_login],
-              team_reviewers: [test_github_team_slug],
+              team_reviewers: [test_github_team_slug]
             }
             @client.delete_pull_request_review_request(@repo.full_name, @pull.number, options)
           end
@@ -154,14 +156,14 @@ describe Octokit::Client::Reviews do
           after do
             options = {
               reviewers: [test_github_collaborator_login],
-              team_reviewers: [test_github_team_slug],
+              team_reviewers: [test_github_team_slug]
             }
             @client.delete_pull_request_review_request(@repo.full_name, @pull.number, options)
           end
 
           it 'requests a new pull request review from a user' do
             options = {
-              reviewers: [test_github_collaborator_login],
+              reviewers: [test_github_collaborator_login]
             }
             review_request = @client.request_pull_request_review(@repo.full_name, @pull.number, options)
 
@@ -173,7 +175,7 @@ describe Octokit::Client::Reviews do
 
           it 'requests a new pull request review from a team' do
             options = {
-              team_reviewers: [test_github_team_slug],
+              team_reviewers: [test_github_team_slug]
             }
             review_request = @client.request_pull_request_review(@repo.full_name, @pull.number, options)
 
@@ -188,14 +190,14 @@ describe Octokit::Client::Reviews do
           before do
             options = {
               reviewers: [test_github_collaborator_login],
-              team_reviewers: [test_github_team_slug],
+              team_reviewers: [test_github_team_slug]
             }
             @client.request_pull_request_review(@repo.full_name, @pull.number, options)
           end
 
           it 'deletes a requests for a pull request review from a user' do
             options = {
-              reviewers: [test_github_collaborator_login],
+              reviewers: [test_github_collaborator_login]
             }
             review = @client.delete_pull_request_review_request(@repo.full_name, @pull.number, options)
             expect(review).to be_kind_of Sawyer::Resource
@@ -207,7 +209,7 @@ describe Octokit::Client::Reviews do
           it 'deletes a requests for a pull request review from a team' do
             options = {
               reviewers: [],
-              team_reviewers: [test_github_team_slug],
+              team_reviewers: [test_github_team_slug]
             }
             review = @client.delete_pull_request_review_request(@repo.full_name, @pull.number, options)
             expect(review).to be_kind_of Sawyer::Resource

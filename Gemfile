@@ -1,36 +1,50 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
-gem 'jruby-openssl', :platforms => :jruby
-gem 'rake', '> 11.0.1', '< 12.0'
+gem 'jruby-openssl', platforms: :jruby
+gem 'rake', '~> 13.0', '>= 13.0.1'
+
+# when stdlib items become gems, they need to be added
+install_if -> { RUBY_VERSION >= '2.8' } do
+  gem 'rss', '>= 0.2.9'
+end
 
 group :development do
-  gem 'awesome_print', :require => 'ap'
-  gem 'guard-rspec', '~> 4.5'
-  gem 'hirb-unicode'
-  gem 'pry'
-  gem 'redcarpet'
-  gem 'wirb'
-  gem 'wirble'
+  gem 'awesome_print', require: 'ap'
   gem 'yard'
 end
 
 group :test do
-  gem 'coveralls', :require => false
-  gem 'json', '~> 1.7', :platforms => [:jruby]
-  gem 'jwt', '~> 1.5', '>= 1.5.6'
-  gem 'multi_json', '~> 1.11.0'
-  gem 'mime-types', '< 2.0.0'
-  gem 'netrc', '~> 0.7.7'
-  gem 'rb-fsevent', '~> 0.9'
-  gem 'rspec', '~> 3.0.0'
-  gem 'simplecov', :require => false
-  gem 'vcr', '~> 4.0'
-  gem 'webmock', '~> 3.4', '>= 3.4.2'
+  install_if -> { RUBY_VERSION >= '2.8' } do
+    gem 'rexml', '>= 3.2.4'
+  end
+  gem 'json', '>= 2.3.0', platforms: [:jruby]
+  gem 'jwt', '~> 2.2', '>= 2.2.1'
+  gem 'mime-types', '~> 3.3', '>= 3.3.1'
+  gem 'multi_json', '~> 1.14', '>= 1.14.1'
+  gem 'netrc', '~> 0.11.0'
+  gem 'rb-fsevent', '~> 0.11.1'
+  gem 'rbnacl', '~> 7.1.1'
+  gem 'rspec', '~> 3.9'
+  gem 'simplecov', require: false
+  gem 'vcr', '~> 6.1'
+  gem 'webmock', '~> 3.8', '>= 3.8.2'
 end
 
-platforms :rbx do
-  gem 'psych'
-  gem 'rubysl', '~> 2.0'
+faraday_version = ENV.fetch('FARADAY_VERSION', '~> 2.0')
+
+gem 'faraday', faraday_version
+
+if faraday_version.start_with?('~> 2')
+  gem 'faraday-multipart'
+  gem 'faraday-retry'
+end
+
+group :test, :development do
+  gem 'pry-byebug'
+  gem 'redcarpet'
+  gem 'rubocop', '1.38.0'
 end
 
 gemspec

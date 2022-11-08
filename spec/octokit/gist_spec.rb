@@ -1,49 +1,48 @@
-# -*- encoding: utf-8 -*-
+# frozen_string_literal: true
+
 require 'helper'
 
 describe Octokit::Gist do
-
-  context "when given a URL" do
-    it "sets the id" do
-      gist = Octokit::Gist.from_url("https://gist.github.com/12345")
+  context 'when given a URL' do
+    it 'sets the id' do
+      gist = Octokit::Gist.from_url('https://gist.github.com/12345')
       expect(gist.id).to eq('12345')
     end
   end
 
-  context "when passed a string ID" do
+  context 'when passed a string ID' do
     before do
       @gist = Octokit::Gist.new('12345')
     end
 
-    it "sets the gist ID" do
+    it 'sets the gist ID' do
       expect(@gist.id).to eq('12345')
     end
 
-    it "sets the url" do
+    it 'sets the url' do
       expect(@gist.url).to eq('https://gist.github.com/12345')
     end
 
-    it "renders id as string" do
+    it 'renders id as string' do
       expect(@gist.to_s).to eq(@gist.id)
     end
   end
 
-  context "when passed a Integer ID" do
+  context 'when passed a Integer ID' do
     before do
-      @gist = Octokit::Gist.new(12345)
+      @gist = Octokit::Gist.new(12_345)
     end
 
-    it "sets the gist ID as a string" do
+    it 'sets the gist ID as a string' do
       expect(@gist.id).to eq('12345')
     end
 
-    it "sets the url" do
+    it 'sets the url' do
       expect(@gist.url).to eq('https://gist.github.com/12345')
     end
 
-    it "renders id as string" do
+    it 'renders id as string' do
       expect(@gist.to_s).to eq(@gist.id)
     end
   end
-
 end

@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module Octokit
   # Current major release.
   # @return [Integer]
-  MAJOR = 4
+  MAJOR = 6
 
   # Current minor release.
   # @return [Integer]
-  MINOR = 14
+  MINOR = 0
 
   # Current patch level.
   # @return [Integer]

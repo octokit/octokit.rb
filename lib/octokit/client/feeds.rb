@@ -1,11 +1,11 @@
+# frozen_string_literal: true
+
 module Octokit
   class Client
-
     # Methods for the Feeds API
     #
     # @see https://developer.github.com/v3/activity/feeds/
     module Feeds
-
       # List Feeds
       #
       # The feeds returned depend on authentication, see the GitHub API docs
@@ -14,7 +14,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] list of feeds
       # @see https://developer.github.com/v3/activity/feeds/#list-feeds
       def feeds
-        get "feeds"
+        get 'feeds'
       end
 
       # Get a Feed by name
@@ -24,10 +24,9 @@ module Octokit
       #   parser.
       def feed(name, options = {})
         if rel = feeds._links[name]
-          get rel.href, :accept => rel.type, :options => options
+          get rel.href, accept: rel.type, options: options
         end
       end
-
     end
   end
 end
