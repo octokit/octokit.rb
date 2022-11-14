@@ -25,6 +25,13 @@ describe Octokit::Client::Contents do
       expect(contents.type).to eq('file')
       assert_requested :get, github_url('/repos/octokit/octokit.rb/contents/lib/octokit.rb')
     end
+
+    it 'returns the contents of a file properly encoded as specified by the response headers' do
+      contents = @client.contents('octokit/octokit.rb', path: 'spec/fixtures/utf8.en.js', accept: 'application/vnd.github.V3.raw')
+      expect(contents).to eq(File.read('spec/fixtures/utf8.en.js'))
+      expect(contents.encoding).to eq(Encoding::UTF_8)
+      assert_requested :get, github_url('/repos/octokit/octokit.rb/contents/spec/fixtures/utf8.en.js')
+    end
   end # .contents
 
   describe '.archive_link', :vcr do
