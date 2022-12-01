@@ -154,7 +154,7 @@ module Octokit
       end
 
       @last_response = response = agent.call(method, Addressable::URI.parse(path.to_s).normalize.to_s, data, options)
-      response.data
+      response_data_correctly_encoded(response)
     rescue Octokit::Error => e
       @last_response = nil
       raise e
@@ -205,6 +205,14 @@ module Octokit
       opts[:headers] = headers unless headers.empty?
 
       opts
+    end
+
+    def response_data_correctly_encoded(response)
+      content_type = response.headers.fetch('content-type', '')
+      return response.data unless content_type.include?('charset') && response.data.is_a?(String)
+
+      reported_encoding = content_type.match(/charset=([^ ]+)/)[1]
+      response.data.force_encoding(reported_encoding)
     end
   end
 end
