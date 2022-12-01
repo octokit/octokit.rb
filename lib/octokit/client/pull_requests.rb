@@ -98,7 +98,7 @@ module Octokit
       # @example
       #   @client.update_pull_request('octokit/octokit.rb', 67, title: 'new title', body: 'updated body', state: 'closed')
       # @example Empty body by passing empty string
-      #   @client.update_pull_request('octokit/octokit.rb', 67, body: '')
+      #   @client.update_pull_request('octokit/octokit.rb', title: '67', body: '')
       def update_pull_request(*args)
         arguments = Octokit::Arguments.new(args)
         repo = arguments.shift
