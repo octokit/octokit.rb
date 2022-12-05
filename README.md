@@ -25,7 +25,7 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
    3. [Two-Factor Authentication](#two-factor-authentication)
    4. [Using a .netrc file](#using-a-netrc-file)
    5. [Application authentication](#application-authentication)
-   6. [GitHub App](#gitHub-app)
+   6. [GitHub App](#github-app)
 8. [Pagination](#pagination)
    1. [Auto pagination](#auto-pagination)
 9. [Working with GitHub Enterprise](#working-with-github-enterprise)
