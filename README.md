@@ -13,7 +13,7 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
 ## Table of Contents
 
 1. [Philosophy](#philosophy)
-2. [Installation](#quick-start)
+2. [Installation](#installation)
 3. [Making requests](#making-requests)
    1. [Additional Query Parameters](#additional-query-parameters)
 4. [Consuming resources](#consuming-resources)
