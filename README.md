@@ -300,9 +300,7 @@ user = client.user 'defunkt'
 [app-creds]: http://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications
 
 ### GitHub App
-Octokit.rb also supports authentication [using GitHub App](https://docs.github.com/en/developers/apps/managing-github-apps/installing-github-apps). 
-
-[Required generated JWT TOKEN](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps#authenticating-as-a-github-app).
+Octokit.rb also supports authentication [using a GitHub App](https://docs.github.com/en/developers/apps/managing-github-apps/installing-github-apps), which [requires a generated JWT token](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps#authenticating-as-a-github-app).
 
 ```ruby
 client = Octokit::Client.new(:bearer_token => "<your jwt token>")
