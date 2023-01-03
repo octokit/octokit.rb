@@ -25,6 +25,7 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
    3. [Two-Factor Authentication](#two-factor-authentication)
    4. [Using a .netrc file](#using-a-netrc-file)
    5. [Application authentication](#application-authentication)
+   6. [GitHub App](#github-app)
 8. [Pagination](#pagination)
    1. [Auto pagination](#auto-pagination)
 9. [Working with GitHub Enterprise](#working-with-github-enterprise)
@@ -297,6 +298,15 @@ user = client.user 'defunkt'
 [oauth]: http://developer.github.com/v3/oauth/
 [access scopes]: http://developer.github.com/v3/oauth/#scopes
 [app-creds]: http://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications
+
+### GitHub App
+Octokit.rb also supports authentication [using a GitHub App](https://docs.github.com/en/developers/apps/managing-github-apps/installing-github-apps), which [requires a generated JWT token](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps#authenticating-as-a-github-app).
+
+```ruby
+client = Octokit::Client.new(:bearer_token => "<your jwt token>")
+client.app
+# => about GitHub App info
+```
 
 ## Default results per_page
 
