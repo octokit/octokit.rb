@@ -42,7 +42,6 @@ if faraday_version.start_with?('~> 2')
 end
 
 group :test, :development do
-  gem 'json', '>= 2.3.0', platforms: [:jruby]
   gem 'pry-byebug'
   gem 'redcarpet'
   gem 'rubocop', '1.42.0'
