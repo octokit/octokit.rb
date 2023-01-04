@@ -5,15 +5,18 @@ on:
     types: [reopened, opened]
   pull_request:
     types: [reopened, opened]
-    
+  pull_request_target:
+    types: [reopened, opened]
+
 jobs:
   add-to-project:
     name: Add issue to project
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/add-to-project@v0.4.0
         with:
           project-url: https://github.com/orgs/octokit/projects/10
           github-token: ${{ secrets.OCTOKITBOT_PROJECT_ACTION_TOKEN }}
-          labeled: 'Status: Stale'
+          labeled: "Status: Stale"
           label-operator: NOT
