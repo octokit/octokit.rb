@@ -564,7 +564,7 @@ module Octokit
       # @example Get branch 'master` from octokit/octokit.rb
       #   Octokit.branch("octokit/octokit.rb", "master")
       def branch(repo, branch, options = {})
-        get "#{Repository.path repo}/branches/#{branch}", options
+        get "#{Repository.path repo}/branches/#{CGI.escape(branch)}", options
       end
       alias get_branch branch
 

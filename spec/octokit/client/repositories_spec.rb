@@ -389,6 +389,12 @@ describe Octokit::Client::Repositories do
       expect(branch.commit.sha).not_to be_nil
       assert_requested :get, github_url('/repos/octokit/octokit.rb/branches/master')
     end
+
+    it 'returns a single branch that includes character that needs to be escaped' do
+      branch = Octokit.branch('octokit/octokit.rb', 'feature/#123-fragment-url')
+      expect(branch.commit.sha).not_to be_nil
+      assert_requested :get, github_url('/repos/octokit/octokit.rb/branches/feature%2F%23123-fragment-url')
+    end
   end # .branches
 
   context 'with repository' do
