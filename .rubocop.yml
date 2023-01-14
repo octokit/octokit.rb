@@ -4,7 +4,7 @@ AllCops:
   TargetRubyVersion: 2.3
   NewCops: enable
 Metrics/BlockLength:
-  IgnoredMethods: ['describe', 'context'] 
+  AllowedMethods: ['describe', 'context'] 
 Layout/BlockAlignment:
   Exclude: 
     # This file is causing Rubocop to error - see <https://github.com/octokit/octokit.rb/runs/6779545664>
