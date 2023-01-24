@@ -1167,12 +1167,13 @@ describe Octokit::Client do
     stub_get('/user').to_return \
       status: 403,
       headers: {
-        'content_type' => 'application/json'
+        'content_type' => 'application/json',
+        'X-RateLimit-Limit' => 60,
+        'X-RateLimit-Remaining' => 42,
+        'X-RateLimit-Reset' => (Time.now + 60).to_i
       },
       body: { message: 'rate limit exceeded' }.to_json
     begin
-      rate_limit_headers = { 'X-RateLimit-Limit' => 60, 'X-RateLimit-Remaining' => 42, 'X-RateLimit-Reset' => (Time.now + 60).to_i }
-      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return(rate_limit_headers)
       Octokit.get('/user')
     rescue Octokit::TooManyRequests => e
       expect(e.context).to be_an_instance_of(Octokit::RateLimit)
@@ -1189,7 +1190,6 @@ describe Octokit::Client do
       },
       body: { message: 'You have exceeded a secondary rate limit.' }.to_json
     begin
-      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return({})
       Octokit.get('/user')
     rescue Octokit::TooManyRequests => e
       expect(e.context).to be_an_instance_of(Octokit::RateLimit)
@@ -1200,12 +1200,13 @@ describe Octokit::Client do
     stub_get('/user').to_return \
       status: 403,
       headers: {
-        'content_type' => 'application/json'
+        'content_type' => 'application/json',
+        'X-RateLimit-Limit' => 60,
+        'X-RateLimit-Remaining' => 42,
+        'X-RateLimit-Reset' => (Time.now + 60).to_i 
       },
       body: { message: 'You have exceeded a secondary rate limit.' }.to_json
     begin
-      rate_limit_headers = { 'X-RateLimit-Limit' => 60, 'X-RateLimit-Remaining' => 42, 'X-RateLimit-Reset' => (Time.now + 60).to_i }
-      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return(rate_limit_headers)
       Octokit.get('/user')
     rescue Octokit::TooManyRequests => e
       expect(e.context).to be_an_instance_of(Octokit::RateLimit)
