@@ -8,17 +8,25 @@ describe Octokit::Client::Repositories do
     @client = oauth_client
   end
 
-  describe '.repository', :vcr do
+  describe '.repository' do
+    before do
+      @request_id = fixtures_server_client.post('/fixtures', { scenario: "get-repository" }).id
+      @client = Octokit::Client.new(
+        api_endpoint: "http://localhost:3000/api.github.com/#{@request_id}",
+        access_token: "0000000000000000000000000000000000000001"
+      )
+    end
+
     it 'returns the matching repository' do
-      repository = @client.repository('sferik/rails_admin')
-      expect(repository.name).to eq('rails_admin')
-      assert_requested :get, github_url('/repos/sferik/rails_admin')
+      repository = @client.repository("octokit-fixture-org/hello-world")
+      expect(repository.name).to eq("hello-world")
+      expect(WebMock).to have_requested(:get, fixture_github_url("/#{@request_id}/repos/octokit-fixture-org/hello-world"))
     end
 
     it 'returns the repository, including topics' do
-      repository = @client.repository('github/linguist')
+      repository = @client.repository('octokit-fixture-org/hello-world')
       expect(repository.topics).to be_kind_of Array
-      expect(repository.topics).to include('syntax-highlighting')
+      expect(repository.topics).to include('fixtures')
     end
   end # .repository
 

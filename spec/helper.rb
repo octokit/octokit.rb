@@ -33,6 +33,7 @@ end
 
 require 'vcr'
 VCR.configure do |c|
+  c.ignore_hosts '127.0.0.1', 'localhost'
   c.configure_rspec_metadata!
   c.filter_sensitive_data('<GITHUB_LOGIN>') do
     test_github_login
@@ -150,6 +151,12 @@ end
 def delete_test_repo
   oauth_client.delete_repository @test_repo
 rescue Octokit::NotFound
+end
+
+def fixtures_server_client
+  @agent ||= Octokit::Client.new(
+    :api_endpoint => "http://localhost:3000"
+  )
 end
 
 def test_github_login
@@ -277,6 +284,16 @@ def json_response(file)
   }
 end
 
+def fixture_github_url(url)
+  return url if url =~ /^http/
+
+  url = File.join(fixture_url, url)
+  uri = Addressable::URI.parse(url)
+  uri.path.gsub!('v3//', 'v3/')
+
+  uri.to_s
+end
+
 def github_url(url)
   return url if url =~ /^http/
 
@@ -301,6 +318,10 @@ end
 
 def oauth_client
   Octokit::Client.new(access_token: test_github_token)
+end
+
+def fixture_url
+  ENV.fetch('OCTOKIT_FIXTURE_URL', 'http://localhost:3000/api.github.com')
 end
 
 def enterprise_admin_client
