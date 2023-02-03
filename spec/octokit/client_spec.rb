@@ -1203,7 +1203,7 @@ describe Octokit::Client do
         'content_type' => 'application/json',
         'X-RateLimit-Limit' => 60,
         'X-RateLimit-Remaining' => 42,
-        'X-RateLimit-Reset' => (Time.now + 60).to_i 
+        'X-RateLimit-Reset' => (Time.now + 60).to_i
       },
       body: { message: 'You have exceeded a secondary rate limit.' }.to_json
     begin
