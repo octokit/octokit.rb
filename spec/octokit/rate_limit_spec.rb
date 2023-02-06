@@ -16,7 +16,7 @@ describe Octokit::RateLimit do
     let(:response) { double('response') }
 
     it 'parses rate limit info from response headers' do
-      expect(response).to receive(:headers)
+      expect(response).to receive(:response_headers)
         .at_least(:once)
         .and_return(response_headers)
       info = described_class.from_response(response)
@@ -27,7 +27,7 @@ describe Octokit::RateLimit do
     end
 
     it 'returns a positive rate limit for Enterprise' do
-      expect(response).to receive(:headers)
+      expect(response).to receive(:response_headers)
         .at_least(:once)
         .and_return({})
       info = described_class.from_response(response)
@@ -46,7 +46,7 @@ describe Octokit::RateLimit do
     end
 
     it 'handles resets_in time in past' do
-      expect(response).to receive(:headers)
+      expect(response).to receive(:response_headers)
         .at_least(:once)
         .and_return(
           response_headers.merge('X-RateLimit-Reset' => (Time.now - 60).to_i)
