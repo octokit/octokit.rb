@@ -25,10 +25,8 @@ describe Octokit::Client::ActionsSecrets do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name) unless @repo.nil?
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.full_name) unless @repo.nil?
+    rescue Octokit::NotFound
     end
 
     describe '.get_public_key', :vcr do
@@ -45,10 +43,8 @@ describe Octokit::Client::ActionsSecrets do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name) unless @repo.nil?
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.full_name) unless @repo.nil?
+    rescue Octokit::NotFound
     end
 
     describe '.list_secrets', :vcr do
@@ -86,10 +82,8 @@ describe Octokit::Client::ActionsSecrets do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name) unless @repo.nil?
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.full_name) unless @repo.nil?
+    rescue Octokit::NotFound
     end
 
     describe '.list_secrets', :vcr do

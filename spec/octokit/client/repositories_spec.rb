@@ -103,10 +103,8 @@ describe Octokit::Client::Repositories do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name)
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.full_name)
+    rescue Octokit::NotFound
     end
 
     describe '.create_repository_from_template', :vcr do
@@ -403,10 +401,8 @@ describe Octokit::Client::Repositories do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name)
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.full_name)
+    rescue Octokit::NotFound
     end
 
     describe '.permission_level', :vcr do
@@ -568,10 +564,9 @@ describe Octokit::Client::Repositories do
 
     after do
       # cleanup
-      begin
-        @client.delete_repository("#{test_github_org}/#{@repository.name}")
-      rescue Octokit::NotFound
-      end
+
+      @client.delete_repository("#{test_github_org}/#{@repository.name}")
+    rescue Octokit::NotFound
     end
 
     it 'repository transfer from myself to my organization' do

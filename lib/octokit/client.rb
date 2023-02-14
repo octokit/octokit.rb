@@ -163,10 +163,10 @@ module Octokit
       inspected.gsub! @bearer_token, '********' if @bearer_token
       # Only show last 4 of token, secret
       if @access_token
-        inspected.gsub! @access_token, "#{'*' * 36}#{@access_token[36..-1]}"
+        inspected.gsub! @access_token, "#{'*' * 36}#{@access_token[36..]}"
       end
       if @client_secret
-        inspected.gsub! @client_secret, "#{'*' * 36}#{@client_secret[36..-1]}"
+        inspected.gsub! @client_secret, "#{'*' * 36}#{@client_secret[36..]}"
       end
 
       inspected

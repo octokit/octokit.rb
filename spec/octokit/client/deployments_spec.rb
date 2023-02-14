@@ -30,10 +30,8 @@ describe Octokit::Client::Deployments do
     end
 
     after(:each) do
-      begin
-        @client.delete_ref(@test_repo, "heads/#{@branch_name}")
-      rescue Octokit::UnprocessableEntity
-      end
+      @client.delete_ref(@test_repo, "heads/#{@branch_name}")
+    rescue Octokit::UnprocessableEntity
     end
 
     describe '.create_deployment' do

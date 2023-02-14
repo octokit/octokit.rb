@@ -73,10 +73,8 @@ describe Octokit::Client::Refs do
     end
 
     after(:each) do
-      begin
-        @client.delete_ref(@test_repo, 'heads/testing/test-ref')
-      rescue Octokit::UnprocessableEntity
-      end
+      @client.delete_ref(@test_repo, 'heads/testing/test-ref')
+    rescue Octokit::UnprocessableEntity
     end
 
     describe '.create_ref' do
