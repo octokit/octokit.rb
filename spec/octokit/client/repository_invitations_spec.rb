@@ -14,10 +14,8 @@ describe Octokit::Client::RepositoryInvitations do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.id)
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.id)
+    rescue Octokit::NotFound
     end
 
     describe '.invite_user_to_repository', :vcr do

@@ -13,10 +13,8 @@ describe Octokit::Client::SourceImport do
   end
 
   after(:each) do
-    begin
-      @client.delete_repository(@repo.full_name)
-    rescue Octokit::NotFound
-    end
+    @client.delete_repository(@repo.full_name)
+  rescue Octokit::NotFound
   end
 
   describe 'pre deprecation' do

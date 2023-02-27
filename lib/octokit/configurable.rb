@@ -144,7 +144,7 @@ module Octokit
     private
 
     def options
-      Octokit::Configurable.keys.map { |key| [key, instance_variable_get(:"@#{key}")] }.to_h
+      Octokit::Configurable.keys.to_h { |key| [key, instance_variable_get(:"@#{key}")] }
     end
 
     def fetch_client_id_and_secret(overrides = {})

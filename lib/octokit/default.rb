@@ -49,7 +49,7 @@ module Octokit
       # Configuration options
       # @return [Hash]
       def options
-        Octokit::Configurable.keys.map { |key| [key, send(key)] }.to_h
+        Octokit::Configurable.keys.to_h { |key| [key, send(key)] }
       end
 
       # Default access token from ENV

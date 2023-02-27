@@ -55,10 +55,8 @@ describe Octokit::Client::Issues do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name)
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.full_name)
+    rescue Octokit::NotFound
     end
 
     describe '.create_issue', :vcr do
