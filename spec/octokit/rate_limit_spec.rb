@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
 require 'octokit/rate_limit'
 
 describe Octokit::RateLimit do

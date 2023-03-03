@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
 require 'json'
 
 describe Octokit::Client do

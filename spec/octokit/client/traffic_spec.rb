@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::Traffic do
   describe '.top_referrers', :vcr do
     it 'returns the referrers stats for a repository' do

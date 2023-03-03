@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::User do
   describe '.path' do
     context 'with no user passed' do

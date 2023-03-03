@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::PubSubHubbub do
   before do
     Octokit.reset!

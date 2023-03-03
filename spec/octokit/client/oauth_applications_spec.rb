@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
 require 'securerandom'
 
 # Right now until we come up with a better way we have to make these tokens

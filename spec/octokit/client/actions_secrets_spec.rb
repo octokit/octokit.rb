@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
 require 'rbnacl'
 require 'base64'
 

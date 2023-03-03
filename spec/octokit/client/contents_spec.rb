@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
 require 'tempfile'
 
 describe Octokit::Client::Contents do

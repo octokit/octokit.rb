@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::Projects do
   describe '.projects', :vcr do
     it 'returns a list of projects for a repository' do
