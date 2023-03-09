@@ -25,7 +25,7 @@ Lint/AssignmentInCondition:
 Lint/SuppressedException:
   Exclude:
     - 'Rakefile'
-    - 'spec/helper.rb'
+    - 'spec/spec_helper.rb'
     - 'spec/octokit/client/actions_secrets_spec.rb'
     - 'spec/octokit/client/commits_spec.rb'
     - 'spec/octokit/client/deployments_spec.rb'
@@ -127,7 +127,7 @@ Style/Documentation:
 # SupportedStyles: allowed_in_returns, forbidden
 Style/DoubleNegation:
   Exclude:
-    - 'spec/helper.rb'
+    - 'spec/spec_helper.rb'
 
 # Offense count: 7
 # Configuration parameters: MinBodyLength, AllowConsecutiveConditionals.
@@ -160,7 +160,7 @@ Style/IfUnlessModifier:
     - 'lib/octokit/enterprise_management_console_client/management_console.rb'
     - 'lib/octokit/error.rb'
     - 'lib/octokit/repository.rb'
-    - 'spec/helper.rb'
+    - 'spec/spec_helper.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).

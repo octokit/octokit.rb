@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::Licenses do
   describe '.licenses', :vcr do
     it 'returns all licenses' do

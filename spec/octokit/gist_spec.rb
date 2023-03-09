@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Gist do
   context 'when given a URL' do
     it 'sets the id' do

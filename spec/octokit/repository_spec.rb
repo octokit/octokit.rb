@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Repository do
   context 'when passed a string containg a slash' do
     before do

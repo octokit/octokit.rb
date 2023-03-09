@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::ActionsWorkflowJobs, :vcr do
   before do
     Octokit.reset!

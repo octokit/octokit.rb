@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::EnterpriseAdminClient::AdminStats do
   before do
     Octokit.reset!
