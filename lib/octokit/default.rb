@@ -34,9 +34,11 @@ module Octokit
       # In Faraday 2.x, Faraday::Request::Retry was moved to a separate gem
       # so we use it only when it's available.
       if defined?(Faraday::Request::Retry)
-        builder.use Faraday::Request::Retry, exceptions: [Octokit::ServerError]
+        retry_exceptions = Faraday::Request::Retry::DEFAULT_EXCEPTIONS + [Octokit::ServerError]
+        builder.use Faraday::Request::Retry, exceptions: retry_exceptions
       elsif defined?(Faraday::Retry::Middleware)
-        builder.use Faraday::Retry::Middleware, exceptions: [Octokit::ServerError]
+        retry_exceptions = Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Octokit::ServerError]
+        builder.use Faraday::Retry::Middleware, exceptions: retry_exceptions
       end
 
       builder.use Octokit::Middleware::FollowRedirects
