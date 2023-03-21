@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'pry-byebug'
 
 describe Octokit::Client::Environments do
   before do
@@ -22,7 +21,7 @@ describe Octokit::Client::Environments do
       expect(environment).to be_kind_of Sawyer::Resource
       assert_requested :get, github_url("/repos/#{@test_repo}/environments/#{@environment_name}")
     end
-  end
+  end # .environment
 
   describe '.environments', :vcr do
     before(:each) do
@@ -52,7 +51,7 @@ describe Octokit::Client::Environments do
           expect(environment.name).to eq(@environment_name)
           assert_requested :put, github_url("/repos/#{@test_repo}/environments/#{@environment_name}")
         end
-      end
+      end # without options
 
       context 'with options' do
         it "creates an environment" do
@@ -67,8 +66,8 @@ describe Octokit::Client::Environments do
           expect(environment.deployment_branch_policy.to_h).to eq({protected_branches: true, custom_branch_policies: false})
           assert_requested :put, github_url("/repos/#{@test_repo}/environments/#{@environment_name}")
         end
-      end
-    end
+      end # with options
+    end # when creating
 
     context 'when updating' do
       it 'updates the environment' do
@@ -91,8 +90,8 @@ describe Octokit::Client::Environments do
         expect(environment.deployment_branch_policy.to_h).to eq({protected_branches: false, custom_branch_policies: true})
         assert_requested :put, github_url("/repos/#{@test_repo}/environments/#{@environment_name}"), times: 2
       end
-    end
-  end #.create_or_update_environment
+    end # when updating
+  end # .create_or_update_environment
 
   describe '.delete_environment', :vcr do
     before(:each) do
