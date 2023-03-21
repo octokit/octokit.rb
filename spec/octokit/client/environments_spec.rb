@@ -54,7 +54,7 @@ describe Octokit::Client::Environments do
       end # without options
 
       context 'with options' do
-        it "creates an environment" do
+        it 'creates an environment' do
           options = {
             deployment_branch_policy: {
               protected_branches: true,
@@ -63,7 +63,7 @@ describe Octokit::Client::Environments do
           }
           environment = @client.create_or_update_environment(@test_repo, @environment_name, options)
           expect(environment.name).to eq(@environment_name)
-          expect(environment.deployment_branch_policy.to_h).to eq({protected_branches: true, custom_branch_policies: false})
+          expect(environment.deployment_branch_policy.to_h).to eq({ protected_branches: true, custom_branch_policies: false })
           assert_requested :put, github_url("/repos/#{@test_repo}/environments/#{@environment_name}")
         end
       end # with options
@@ -87,7 +87,7 @@ describe Octokit::Client::Environments do
           }
         }
         environment = @client.create_or_update_environment(@test_repo, @environment_name, updated_options)
-        expect(environment.deployment_branch_policy.to_h).to eq({protected_branches: false, custom_branch_policies: true})
+        expect(environment.deployment_branch_policy.to_h).to eq({ protected_branches: false, custom_branch_policies: true })
         assert_requested :put, github_url("/repos/#{@test_repo}/environments/#{@environment_name}"), times: 2
       end
     end # when updating
