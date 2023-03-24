@@ -24,10 +24,10 @@ describe Octokit::Client::Organizations do
 
   describe ".delete_organization", :vcr do
     it "deletes an organization" do
-      @client.delete_organization(test_github_org)
-      assert_requested :delete, github_url("/orgs/#{test_github_org}")
+      @client.delete_organization("random-org-to-be-deleted")
+      assert_requested :delete, github_url("/orgs/random-org-to-be-deleted")
     end
-  end # .delete_organization
+  end
 
   describe '.organizations', :vcr do
     it 'returns all organizations for a user' do
