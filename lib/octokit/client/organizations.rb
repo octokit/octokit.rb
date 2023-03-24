@@ -52,7 +52,7 @@ module Octokit
 
       # Delete an organization.
       #
-      # Requires authenticated client with proper organization permissions.
+      # Requires authenticated organization owner.
       #
       # @param org [String, Integer] Organization GitHub login or id.
       # @return [Boolean] True if deletion successful, otherwise false.
