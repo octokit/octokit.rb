@@ -56,7 +56,7 @@ module Octokit
       #
       # @param org [String, Integer] Organization login or ID.
       # @return [Boolean] True if deletion successful, otherwise false.
-      # @see https://docs.github.com/rest/reference/orgs/#delete-an-organization
+      # @see https://docs.github.com/rest/orgs/orgs#delete-an-organization
       # @example
       #   @client.delete_organization("my-org")
       # @example
