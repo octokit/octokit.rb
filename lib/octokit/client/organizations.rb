@@ -50,6 +50,22 @@ module Octokit
       end
       alias update_org update_organization
 
+      # Delete an organization.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization login or ID.
+      # @return [Boolean] True if deletion successful, otherwise false.
+      # @see https://docs.github.com/rest/orgs/orgs#delete-an-organization
+      # @example
+      #   @client.delete_organization("my-org")
+      # @example
+      #   @client.delete_org("my-org")
+      def delete_organization(org)
+        boolean_from_response :delete, Organization.path(org)
+      end
+      alias delete_org delete_organization
+
       # Get organizations for a user.
       #
       # Nonauthenticated calls to this method will return organizations that
