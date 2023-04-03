@@ -26,6 +26,7 @@ require 'octokit/client/community_profile'
 require 'octokit/client/contents'
 require 'octokit/client/downloads'
 require 'octokit/client/deployments'
+require 'octokit/client/environments'
 require 'octokit/client/emojis'
 require 'octokit/client/events'
 require 'octokit/client/feeds'
@@ -86,6 +87,7 @@ module Octokit
     include Octokit::Client::Contents
     include Octokit::Client::Deployments
     include Octokit::Client::Downloads
+    include Octokit::Client::Environments
     include Octokit::Client::Emojis
     include Octokit::Client::Events
     include Octokit::Client::Feeds
