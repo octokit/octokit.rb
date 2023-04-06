@@ -8,7 +8,7 @@ describe Octokit::Client::Search do
 
   describe '.search_code' do
     it 'searches code', :vcr do
-      results = @client.search_code 'code user:github in:file extension:gemspec -repo:octokit/octokit.rb', \
+      results = @client.search_code 'code user:github in:file extension:gemspec -repo:octokit/octokit.rb',
                                     sort: 'indexed',
                                     order: 'asc'
 
@@ -20,7 +20,7 @@ describe Octokit::Client::Search do
 
   describe '.search_commits' do
     it 'searches commits', :vcr do
-      results = @client.search_commits 'repo:octokit/octokit.rb author:jasonrudolph', \
+      results = @client.search_commits 'repo:octokit/octokit.rb author:jasonrudolph',
                                        sort: 'author-date',
                                        order: 'asc'
 
@@ -32,7 +32,7 @@ describe Octokit::Client::Search do
 
   describe '.search_issues' do
     it 'searches issues', :vcr do
-      results = @client.search_issues 'http author:jasonrudolph', \
+      results = @client.search_issues 'http author:jasonrudolph',
                                       sort: 'created',
                                       order: 'desc'
 
@@ -44,7 +44,7 @@ describe Octokit::Client::Search do
 
   describe '.search_repositories' do
     it 'searches repositories', :vcr do
-      results = @client.search_repositories 'tetris language:assembly', \
+      results = @client.search_repositories 'tetris language:assembly',
                                             sort: 'stars',
                                             order: 'desc'
 
@@ -56,7 +56,7 @@ describe Octokit::Client::Search do
 
   describe '.search_topics' do
     it 'searches topics', :vcr do
-      results = @client.search_topics 'tetris language:assembly', \
+      results = @client.search_topics 'tetris language:assembly',
                                       sort: 'stars',
                                       order: 'desc'
 
@@ -68,7 +68,7 @@ describe Octokit::Client::Search do
 
   describe '.search_users' do
     it 'searches users', :vcr do
-      results = @client.search_users 'mike followers:>10', \
+      results = @client.search_users 'mike followers:>10',
                                      sort: 'joined',
                                      order: 'desc'
 
