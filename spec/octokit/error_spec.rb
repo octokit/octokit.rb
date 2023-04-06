@@ -2,9 +2,9 @@
 
 require 'octokit/error'
 
-# I have mixed feelings about testing private methods due to potentially breaking encapsulation but
-# given the nature of this method and the fact that it is meant to keep secrets out of logs
-# I think it is worth it and will help us know if something changes in this area.
+# I have mixed feelings about testing this method due to potentially breaking encapsulation but
+# given the nature of this method and the fact that it is meant to keep secrets out of logs.
+# In this case, it is worth it and will help us know if something changes in this area.
 describe Octokit::Error do
   describe '.build_error_message' do
     it 'redacts api_key' do
