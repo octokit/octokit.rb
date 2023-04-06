@@ -11,7 +11,7 @@ module Octokit
     # @param [Hash] response HTTP response
     # @return [Octokit::Error]
     def self.from_response(response)
-      status  = 404 # response[:status].to_i
+      status  = response[:status].to_i
       body    = response[:body].to_s
       headers = response[:response_headers]
 
