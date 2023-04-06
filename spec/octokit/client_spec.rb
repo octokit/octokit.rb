@@ -1236,7 +1236,7 @@ describe Octokit::Client do
     end
 
     def collect_methods(clazz)
-      clazz.included_modules.select { |m| m.to_s =~ Regexp.new(clazz.to_s) } \
+      clazz.included_modules.select { |m| m.to_s =~ Regexp.new(clazz.to_s) }
            .collect(&:public_instance_methods).flatten
     end
   end
