@@ -213,7 +213,7 @@ module Octokit
     end
 
     def redact_url(url_string)
-      %w[client_secret access_token].each do |token|
+      %w[client_secret access_token api_key].each do |token|
         if url_string.include? token
           url_string.gsub!(/#{token}=\S+/, "#{token}=(redacted)")
         end
