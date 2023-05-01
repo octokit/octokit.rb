@@ -10,7 +10,7 @@ if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
   begin
     require 'faraday/retry'
   rescue LoadError
-    Octokit::Warnable.octokit_warn 'To use retry middleware with Faraday v2.0+, install `faraday-retry` gem'
+    # Ignore that faraday-retry is not present.
   end
 end
 
