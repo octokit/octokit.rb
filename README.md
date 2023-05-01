@@ -87,6 +87,9 @@ Access the library in Ruby:
 
     require 'octokit'
 
+Octokit.rb uses the `faraday` gem under the hood. When using `faraday > 2`,
+automatic request retries may be enabled by also installing the gem `faraday-retry`.
+
 ## Making requests
 
 [API methods][] are available as client instance methods.
