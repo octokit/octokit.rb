@@ -3,11 +3,17 @@
 require 'bundler'
 Bundler::GemHelper.install_tasks
 
-require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new(:spec)
-
 task test: :spec
 task default: :spec
+
+desc 'Run RSpec'
+task :spec do
+  if Process.respond_to?(:fork)
+    sh('rspec-queue')
+  else
+    sh('rspec')
+  end
+end
 
 namespace :doc do
   require 'yard'
