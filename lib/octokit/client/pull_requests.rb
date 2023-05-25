@@ -199,11 +199,13 @@ module Octokit
       # @param path [String] Relative path of the file to comment on.
       # @param position [Integer] Line index in the diff to comment on.
       # @return [Sawyer::Resource] Hash representing the new comment
+      # @deprecated The position will be deprecated in the next major version. Please refer to the details below.
       # @see https://developer.github.com/v3/pulls/comments/#create-a-comment
       # @example
       #   @client.create_pull_request_comment("octokit/octokit.rb", 163, ":shipit:",
       #     "2d3201e4440903d8b04a5487842053ca4883e5f0", "lib/octokit/request.rb", 47)
       def create_pull_request_comment(repo, pull_id, body, commit_id, path, position, options = {})
+        octokit_warn 'Deprecated: The position will be deprecated in the next major version.'
         options.merge!({
                          body: body,
                          commit_id: commit_id,
