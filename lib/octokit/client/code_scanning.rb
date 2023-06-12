@@ -27,6 +27,17 @@ module Octokit
         post "#{Repository.path repo}/code-scanning/sarifs", options
       end
 
+      # Gets information about a SARIF upload
+      #
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
+      # @param sarif_id [String] The SARIF ID obtained after uploading
+      #
+      # @return [Sawyer::Resource] SARIF upload information
+      # @see https://docs.github.com/rest/code-scanning#get-information-about-a-sarif-upload
+      def get_sarif_upload_information(repo, sarif_id, options = {})
+        get "#{Repository.path repo}/code-scanning/sarifs/#{sarif_id}", options
+      end
+
       private
 
       def compress_sarif_data(file)

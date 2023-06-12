@@ -15,4 +15,13 @@ describe Octokit::Client::CodeScanning do
       assert_requested :post, github_url("/repos/#{@test_repo}/code-scanning/sarifs")
     end
   end
+
+  describe '.get_sarif_upload_information', :vcr do
+    it 'gets a SARIF upload information' do
+      sarif_upload = @client.get_sarif_upload_information(@test_repo, @sarif_id)
+      expect(sarif_upload.processing_status).to eq('complete')
+      expect(sarif_upload.analyses_url).to eq("https://api.github.com/repos/#{@test_repo}/code-scanning/analyses?sarif_id=#{@sarif_id}")
+      assert_requested :get, github_url("/repos/#{@test_repo}/code-scanning/sarifs/#{@sarif_id}")
+    end
+  end
 end
