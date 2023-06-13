@@ -71,7 +71,7 @@ module Octokit
       # Nonauthenticated calls to this method will return organizations that
       # the user is a public member.
       #
-      # Use an authenicated client to get both public and private organizations
+      # Use an authenticated client to get both public and private organizations
       # for a user.
       #
       # Calling this method on a `@client` will return that users organizations.
