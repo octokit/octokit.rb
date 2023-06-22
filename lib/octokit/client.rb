@@ -18,6 +18,7 @@ require 'octokit/client/actions_workflow_jobs'
 require 'octokit/client/actions_workflow_runs'
 require 'octokit/client/apps'
 require 'octokit/client/checks'
+require 'octokit/client/code_scanning'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
 require 'octokit/client/commit_pulls'
@@ -79,6 +80,7 @@ module Octokit
     include Octokit::Client::ActionsArtifacts
     include Octokit::Client::ActionsSecrets
     include Octokit::Client::Checks
+    include Octokit::Client::CodeScanning
     include Octokit::Client::Commits
     include Octokit::Client::CommitComments
     include Octokit::Client::CommitPulls
