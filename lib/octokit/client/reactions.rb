@@ -137,16 +137,18 @@ module Octokit
 
       # Delete a reaction
       #
-      # @param id [Integer] Reaction id
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param issue_id [Integer] The Issue comment id
+      # @param reaction_id [Integer] The Reaction id
       #
       # @see https://developer.github.com/v3/reactions/#delete-a-reaction
       #
       # @example
-      #   @client.delete_reaction(1)
+      #   @client.delete_reaction("octokit/octokit.rb", 1, 2)
       #
       # @return [Boolean] Return true if reaction was deleted, false otherwise.
-      def delete_reaction(id, options = {})
-        boolean_from_response :delete, "reactions/#{id}", options
+      def delete_reaction(repo, issue_id, reaction_id, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_id}/reactions/#{reaction_id}", options
       end
     end
   end
