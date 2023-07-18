@@ -147,7 +147,7 @@ module Octokit
       #   @client.delete_reaction("octokit/octokit.rb", 1, 2)
       #
       # @return [Boolean] Return true if reaction was deleted, false otherwise.
-      def delete_reaction(repo, issue_id, reaction_id, options = {})
+      def delete_issue_reaction(repo, issue_id, reaction_id, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_id}/reactions/#{reaction_id}", options
       end
     end
