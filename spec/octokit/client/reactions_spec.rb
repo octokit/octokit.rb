@@ -90,9 +90,9 @@ describe Octokit::Client::Reactions do
           @reaction = @client.create_issue_reaction(@repo.full_name, @issue.number, '+1')
         end
 
-        describe '.delete_reaction' do
+        describe '.delete_issue_reaction' do
           it 'deletes the reaction' do
-            @client.delete_reaction(@repo.full_name, @issue.number, @reaction.id)
+            @client.delete_issue_reaction(@repo.full_name, @issue.number, @reaction.id)
             assert_requested :delete, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/reactions/#{@reaction.id}")
           end
         end # .delete_reaction

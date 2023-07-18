@@ -144,7 +144,7 @@ module Octokit
       # @see https://docs.github.com/en/rest/reactions/reactions#delete-an-issue-reaction
       #
       # @example
-      #   @client.delete_reaction("octokit/octokit.rb", 1, 2)
+      #   @client.delete_issue_reaction("octokit/octokit.rb", 1, 2)
       #
       # @return [Boolean] Return true if reaction was deleted, false otherwise.
       def delete_issue_reaction(repo, issue_id, reaction_id, options = {})
