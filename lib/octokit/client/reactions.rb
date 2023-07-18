@@ -141,7 +141,7 @@ module Octokit
       # @param issue_id [Integer] The Issue comment id
       # @param reaction_id [Integer] The Reaction id
       #
-      # @see https://developer.github.com/v3/reactions/#delete-a-reaction
+      # @see https://docs.github.com/en/rest/reactions/reactions#delete-an-issue-reaction
       #
       # @example
       #   @client.delete_reaction("octokit/octokit.rb", 1, 2)
