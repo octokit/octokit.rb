@@ -849,7 +849,7 @@ describe Octokit::Client do
           content_type: 'application/json'
         },
         body: { message: 'API rate limit exceeded' }.to_json
-      expect { Octokit.get('/users/mojomobo') }.to raise_error Octokit::TooManyRequests
+      expect { Octokit.get('/users/mojomobo') }.to raise_error(Octokit::TooManyRequests, /API rate limit exceeded/)
 
       stub_get('/users/mojomobo').to_return \
         status: 403,
@@ -857,7 +857,7 @@ describe Octokit::Client do
           content_type: 'application/json'
         },
         body: { message: 'You have exceeded a secondary rate limit.' }.to_json
-      expect { Octokit.get('/users/mojomobo') }.to raise_error Octokit::TooManyRequests
+      expect { Octokit.get('/users/mojomobo') }.to raise_error(Octokit::TooManyRequests, /You have exceeded a secondary rate limit./)
 
       stub_get('/user').to_return \
         status: 403,
