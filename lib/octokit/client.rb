@@ -19,6 +19,7 @@ require 'octokit/client/actions_workflow_runs'
 require 'octokit/client/apps'
 require 'octokit/client/checks'
 require 'octokit/client/code_scanning'
+require 'octokit/client/codespaces_secrets'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
 require 'octokit/client/commit_pulls'
@@ -26,6 +27,7 @@ require 'octokit/client/commit_branches'
 require 'octokit/client/community_profile'
 require 'octokit/client/contents'
 require 'octokit/client/downloads'
+require 'octokit/client/dependabot_secrets'
 require 'octokit/client/deployments'
 require 'octokit/client/environments'
 require 'octokit/client/emojis'
@@ -81,12 +83,14 @@ module Octokit
     include Octokit::Client::ActionsSecrets
     include Octokit::Client::Checks
     include Octokit::Client::CodeScanning
+    include Octokit::Client::CodespacesSecrets
     include Octokit::Client::Commits
     include Octokit::Client::CommitComments
     include Octokit::Client::CommitPulls
     include Octokit::Client::CommitBranches
     include Octokit::Client::CommunityProfile
     include Octokit::Client::Contents
+    include Octokit::Client::DependabotSecrets
     include Octokit::Client::Deployments
     include Octokit::Client::Downloads
     include Octokit::Client::Environments

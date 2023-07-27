@@ -11,7 +11,7 @@ def create_box(public_key)
   }
 end
 
-describe Octokit::Client::ActionsSecrets do
+describe Octokit::Client::DependabotSecrets do
   before do
     Octokit.reset!
     @client = oauth_client
@@ -28,12 +28,12 @@ describe Octokit::Client::ActionsSecrets do
     rescue Octokit::NotFound
     end
 
-    describe '.get_actions_public_key', :vcr do
+    describe '.get_dependabot_public_key', :vcr do
       it 'get repo specific public key for secrets encryption' do
-        box = create_box(@client.get_actions_public_key(@repo.id))
+        box = create_box(@client.get_dependabot_public_key(@repo.id))
         expect(box[:key_id]).not_to be_empty
       end
-    end # .get_actions_public_key
+    end # .get_public_key
   end
 
   context 'with a repo without secrets' do
@@ -46,34 +46,34 @@ describe Octokit::Client::ActionsSecrets do
     rescue Octokit::NotFound
     end
 
-    describe '.list_actions_secrets', :vcr do
+    describe '.list_dependabot_secrets', :vcr do
       it 'returns empty list of secrets' do
-        secrets = @client.list_actions_secrets(@repo.id)
+        secrets = @client.list_dependabot_secrets(@repo.id)
         expect(secrets.total_count).to eq(0)
         expect(secrets.secrets).to be_empty
       end
-    end # .list_actions_secrets
+    end # .list_dependabot_secrets
 
-    describe '.create_or_update_actions_secret', :vcr do
+    describe '.create_or_update_dependabot_secret', :vcr do
       it 'creating secret returns 201' do
-        box = create_box(@client.get_actions_public_key(@repo.id))
+        box = create_box(@client.get_dependabot_public_key(@repo.id))
         encrypted = box[:box].encrypt(@secrets.first[:value])
-        @client.create_or_update_actions_secret(
+        @client.create_or_update_dependabot_secret(
           @repo.id, @secrets.first[:name],
           key_id: box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
         )
         expect(@client.last_response.status).to eq(201)
       end
-    end # .create_or_update_actions_secret
+    end # .create_or_update_dependabot_secret
   end
 
   context 'with a repository with a secret' do
     before(:each) do
       @repo = @client.create_repository('secret-repo')
-      @box = create_box(@client.get_actions_public_key(@repo.id))
+      @box = create_box(@client.get_dependabot_public_key(@repo.id))
       @secrets.each do |secret|
         encrypted = @box[:box].encrypt(secret[:value])
-        @client.create_or_update_actions_secret(
+        @client.create_or_update_dependabot_secret(
           @repo.id, secret[:name],
           key_id: @box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
         )
@@ -85,9 +85,9 @@ describe Octokit::Client::ActionsSecrets do
     rescue Octokit::NotFound
     end
 
-    describe '.list_actions_secrets', :vcr do
+    describe '.list_dependabot_secrets', :vcr do
       it 'returns list of two secrets' do
-        secrets = @client.list_actions_secrets(@repo.id)
+        secrets = @client.list_dependabot_secrets(@repo.id)
         expect(secrets.total_count).to eq(2)
         expect(secrets.secrets[0].name).to eq(@secrets.first[:name].upcase)
       end
@@ -95,7 +95,7 @@ describe Octokit::Client::ActionsSecrets do
       it 'paginates the results' do
         @client.per_page = 1
         allow(@client).to receive(:paginate).and_call_original
-        secrets = @client.list_actions_secrets(@repo.id)
+        secrets = @client.list_dependabot_secrets(@repo.id)
 
         expect(@client).to have_received(:paginate)
         expect(secrets.total_count).to eq(2)
@@ -106,36 +106,36 @@ describe Octokit::Client::ActionsSecrets do
         @client.auto_paginate = true
         @client.per_page = 1
         allow(@client).to receive(:paginate).and_call_original
-        secrets = @client.list_actions_secrets(@repo.id)
+        secrets = @client.list_dependabot_secrets(@repo.id)
 
         expect(@client).to have_received(:paginate)
         expect(secrets.total_count).to eq(2)
         expect(secrets.secrets.count).to eq(2)
       end
-    end # .list_actions_secrets
+    end # .list_dependabot_secrets
 
-    describe '.get_actions_secret', :vcr do
+    describe '.get_dependabot_secret', :vcr do
       it 'return timestamps related to one secret' do
-        received = @client.get_actions_secret(@repo.id, @secrets.first[:name])
+        received = @client.get_dependabot_secret(@repo.id, @secrets.first[:name])
         expect(received.name).to eq(@secrets.first[:name].upcase)
       end
-    end # .get_actions_secret
+    end # .get_dependabot_secret
 
-    describe '.create_or_update_actions_secret', :vcr do
+    describe '.create_or_update_dependabot_secret', :vcr do
       it 'updating existing secret returns 204' do
-        box = create_box(@client.get_actions_public_key(@repo.id))
+        box = create_box(@client.get_dependabot_public_key(@repo.id))
         encrypted = box[:box].encrypt('new value')
-        @client.create_or_update_actions_secret(
+        @client.create_or_update_dependabot_secret(
           @repo.id, @secrets.first[:name],
           key_id: box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
         )
         expect(@client.last_response.status).to eq(204)
       end
-    end # .create_or_update_actions_secret
+    end # .create_or_update_dependabot_secret
 
-    describe '.delete_actions_secret', :vcr do
+    describe '.delete_dependabot_secret', :vcr do
       it 'delete existing secret' do
-        @client.delete_actions_secret(@repo.id, @secrets.first[:name])
+        @client.delete_dependabot_secret(@repo.id, @secrets.first[:name])
         expect(@client.last_response.status).to eq(204)
       end
     end
