@@ -11,6 +11,7 @@ require 'octokit/rate_limit'
 require 'octokit/repository'
 require 'octokit/user'
 require 'octokit/organization'
+require 'octokit/client/organization_secrets'
 require 'octokit/client/actions_artifacts'
 require 'octokit/client/actions_secrets'
 require 'octokit/client/actions_workflows'
@@ -116,6 +117,7 @@ module Octokit
     include Octokit::Client::OauthApplications
     include Octokit::Client::Objects
     include Octokit::Client::Organizations
+    include Octokit::Client::OrganizationSecrets
     include Octokit::Client::Pages
     include Octokit::Client::Projects
     include Octokit::Client::PubSubHubbub
