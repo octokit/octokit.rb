@@ -48,7 +48,8 @@ module Octokit
     # @return [String] Repository API path
     def path
       return named_api_path if @owner && @name
-      return id_api_path if @id
+
+      id_api_path if @id
     end
 
     # Get the api path for a repo
