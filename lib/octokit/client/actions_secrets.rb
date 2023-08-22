@@ -72,7 +72,7 @@ module Octokit
       # @return [Hash] total_count and list of secrets (each item is hash with name, created_at and updated_at)
       # @see https://developer.github.com/v3/actions/secrets/#list-environment-secrets
       def list_actions_environment_secrets(repo, environment)
-        paginate "#{Repository.path repo}/environments/#{environment}/secrets" do |data, last_response |
+        paginate "#{Repository.path repo}/environments/#{environment}/secrets" do |data, last_response|
           data.secrets.concat last_response.data.secrets
         end
       end

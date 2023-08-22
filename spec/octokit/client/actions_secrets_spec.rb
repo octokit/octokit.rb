@@ -34,13 +34,6 @@ describe Octokit::Client::ActionsSecrets do
         expect(box[:key_id]).not_to be_empty
       end
     end # .get_actions_public_key
-
-#    describe '.get_actions_environment_public_key', :vcr do
-#      it 'get environment specific public key for secrets encryption' do
-#        box = create_box(@client.get_actions_environment_public_key(@repo.id, 'production'))
-#        expect(box[:key_id]).not_to be_empty
-#      end
-#    end # .get_actions_environment_public_key
   end
 
   context 'with a repo without secrets' do
@@ -61,14 +54,6 @@ describe Octokit::Client::ActionsSecrets do
       end
     end # .list_actions_secrets
 
-#    describe '.list_actions_environment_secrets', :vcr do
-#      it 'returns empty list of secrets' do
-#        secrets = @client.list_actions_environment_secrets(@repo.id, 'production')
-#        expect(secrets.total_count).to eq(0)
-#        expect(secrets.secrets).to be_empty
-#      end
-#    end # .list_actions_environment_secrets
-
     describe '.create_or_update_actions_secret', :vcr do
       it 'creating secret returns 201' do
         box = create_box(@client.get_actions_public_key(@repo.id))
@@ -80,18 +65,45 @@ describe Octokit::Client::ActionsSecrets do
         expect(@client.last_response.status).to eq(201)
       end
     end # .create_or_update_actions_secret
+  end
 
-#    describe '.create_or_update_actions_environment_secret', :vcr do
-#      it 'creating secret returns 201' do
-#        box = create_box(@client.get_actions_environment_public_key(@repo.id, 'production'))
-#        encrypted = box[:box].encrypt(@secrets.first[:value])
-#        @client.create_or_update_actions_environment_secret(
-#          @repo.id, 'production', @secrets.first[:name],
-#          key_id: box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
-#        )
-#        expect(@client.last_response.status).to eq(201)
-#      end
-#    end # .create_or_update_actions_environment_secret
+  context 'with an environment without a secret' do
+    before(:each) do
+      @repo = @client.create_repository('secret-repo')
+      @client.create_or_update_environment(@repo.id, 'zero')
+    end
+
+    after(:each) do
+      @client.delete_repository(@repo.full_name) unless @repo.nil?
+    rescue Octokit::NotFound
+    end
+
+    describe '.get_actions_environment_public_key', :vcr do
+      it 'get environment specific public key for secrets encryption' do
+        box = create_box(@client.get_actions_environment_public_key(@repo.id, 'zero'))
+        expect(box[:key_id]).not_to be_empty
+      end
+    end # .get_actions_environment_public_key
+
+    describe '.list_actions_environment_secrets', :vcr do
+      it 'returns empty list of secrets' do
+        secrets = @client.list_actions_environment_secrets(@repo.id, 'zero')
+        expect(secrets.total_count).to eq(0)
+        expect(secrets.secrets).to be_empty
+      end
+    end # .list_actions_environment_secrets
+
+    describe '.create_or_update_actions_environment_secret', :vcr do
+      it 'creating secret returns 201' do
+        box = create_box(@client.get_actions_environment_public_key(@repo.id, 'zero'))
+        encrypted = box[:box].encrypt(@secrets.first[:value])
+        @client.create_or_update_actions_environment_secret(
+          @repo.id, 'zero', @secrets.first[:name],
+          key_id: box[:key_id], encrypted_value: Base64.strict_encode64(encrypted)
+        )
+        expect(@client.last_response.status).to eq(201)
+      end
+    end # .create_or_update_actions_environment_secret
   end
 
   context 'with a repository with a secret' do
@@ -234,12 +246,12 @@ describe Octokit::Client::ActionsSecrets do
         expect(@client.last_response.status).to eq(204)
       end
     end # .create_or_update_actions_environment_secret
-    
+
     describe '.delete_actions_environment_secret', :vcr do
       it 'delete existing secret' do
         @client.delete_actions_environment_secret(@repo.id, 'production', @secrets.first[:name])
         expect(@client.last_response.status).to eq(204)
       end
-    end # .delete_actions_environment_secret    
+    end # .delete_actions_environment_secret
   end
 end
