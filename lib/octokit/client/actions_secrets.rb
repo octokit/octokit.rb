@@ -54,6 +54,59 @@ module Octokit
       def delete_actions_secret(repo, name)
         boolean_from_response :delete, "#{Repository.path repo}/actions/secrets/#{name}"
       end
+
+      # Get environment public key for secrets encryption
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param environment [String] Name of environment
+      # @return [Hash] key_id and key
+      # @see https://docs.github.com/en/rest/actions/secrets#get-an-environment-public-key
+      def get_actions_environment_public_key(repo, environment)
+        get "#{Repository.path repo}/environments/#{environment}/secrets/public-key"
+      end
+
+      # List environment secrets
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param environment [String] Name of environment
+      # @return [Hash] total_count and list of secrets (each item is hash with name, created_at and updated_at)
+      # @see https://developer.github.com/v3/actions/secrets/#list-environment-secrets
+      def list_actions_environment_secrets(repo, environment)
+        paginate "#{Repository.path repo}/environments/#{environment}/secrets" do |data, last_response|
+          data.secrets.concat last_response.data.secrets
+        end
+      end
+
+      # Get an environment secret
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param environment [String] Name of environment
+      # @param name [String] Name of secret
+      # @return [Hash] name, created_at and updated_at
+      # @see https://docs.github.com/en/rest/actions/secrets#get-an-environment-secret
+      def get_actions_environment_secret(repo, environment, name)
+        get "#{Repository.path repo}/environments/#{environment}/secrets/#{name}"
+      end
+
+      # Create or update an environment secret
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param environment [String] Name of environment
+      # @param name [String] Name of secret
+      # @param options [Hash] encrypted_value and key_id
+      # @see https://docs.github.com/en/rest/actions/secrets#create-or-update-an-environment-secret
+      def create_or_update_actions_environment_secret(repo, environment, name, options)
+        put "#{Repository.path repo}/environments/#{environment}/secrets/#{name}", options
+      end
+
+      # Delete environment secret
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param environment [String] Name of environment
+      # @param name [String] Name of secret
+      # @see https://docs.github.com/en/rest/actions/secrets#delete-an-environment-secret
+      def delete_actions_environment_secret(repo, environment, name)
+        boolean_from_response :delete, "#{Repository.path repo}/environments/#{environment}/secrets/#{name}"
+      end
     end
   end
 end
