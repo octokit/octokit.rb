@@ -278,6 +278,13 @@ describe Octokit::Client::Apps do
       end
     end # .delete_installation
 
+    describe '.list_app_hook_deliveries' do
+      it 'lists hook deliveries for an app' do
+        response = @jwt_client.list_app_hook_deliveries
+        expect(response).to be_kind_of(Array)
+      end
+    end
+
     context 'with app installation access token' do
       let(:installation_client) do
         token = @jwt_client.create_app_installation_access_token(installation).token
