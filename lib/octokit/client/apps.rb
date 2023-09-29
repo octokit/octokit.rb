@@ -226,7 +226,7 @@ module Octokit
       #
       # @return [Array<Hash>] an array of hook deliveries
       def list_app_hook_deliveries(options = {})
-        paginate("app/hook/deliveries", options) do |data, last_response|
+        paginate('app/hook/deliveries', options) do |data, last_response|
           data.concat last_response.data
         end
       end
