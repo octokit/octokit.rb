@@ -217,6 +217,31 @@ module Octokit
       def delete_installation(installation, options = {})
         boolean_from_response :delete, "app/installations/#{installation}", options
       end
+
+      # Returns a list of webhook deliveries for the webhook configured for a GitHub App.
+      #
+      # @param options [Hash] A customizable set of options
+      #
+      # @see https://docs.github.com/en/rest/apps/webhooks#list-deliveries-for-an-app-webhook
+      #
+      # @return [Array<Hash>] an array of hook deliveries
+      def list_app_hook_deliveries(options = {})
+        paginate('app/hook/deliveries', options) do |data, last_response|
+          data.concat last_response.data
+        end
+      end
+
+      # Redeliver a delivery for the webhook configured for a GitHub App.
+      #
+      # @param delivery_id [Integer] The id of a GitHub App Hook Delivery
+      # @param options [Hash] A customizable set of options
+      #
+      # @see https://developer.github.com/v3/apps/#redeliver-a-delivery-for-an-app-webhook
+      #
+      # @return [Boolean] Success
+      def deliver_app_hook(delivery_id, options = {})
+        boolean_from_response :post, "app/hook/deliveries/#{delivery_id}/attempts", options
+      end
     end
   end
 end
