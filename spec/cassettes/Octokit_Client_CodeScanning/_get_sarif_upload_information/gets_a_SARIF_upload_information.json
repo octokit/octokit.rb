@@ -1,0 +1,124 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/repos/<GITHUB_LOGIN>/<GITHUB_TEST_REPOSITORY>/code-scanning/sarifs/fb31fa2c-095d-11ee-98fe-c609abca1772",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 6.1.1"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Mon, 12 Jun 2023 20:26:53 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"0a1f99b169a878b0f68452528ac1dce723bfcf5843ef52e29f129086a9de295b\""
+          ],
+          "X-Oauth-Scopes": [
+            "repo"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            "admin:repo_hook, delete_repo, read:repo_hook, repo, repo:invite, repo:status, repo_deployment, security_events, write:repo_hook"
+          ],
+          "Github-Authentication-Token-Expiration": [
+            "2023-07-12 12:58:38 UTC"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4717"
+          ],
+          "X-Ratelimit-Reset": [
+            "1686602805"
+          ],
+          "X-Ratelimit-Used": [
+            "283"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "DA09:1EC6:A1B7C9:A38184:64877F8C"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJwcm9jZXNzaW5nX3N0YXR1cyI6ImNvbXBsZXRlIiwiZXJyb3JzIjpudWxs\nLCJhbmFseXNlc191cmwiOiJodHRwczovL2FwaS5naXRodWIuY29tL3JlcG9z\nLzxHSVRIVUJfTE9HSU4+LzxHSVRIVUJfVEVTVF9SRVBPU0lUT1JZPi9jb2Rl\nLXNjYW5uaW5nL2FuYWx5c2VzP3NhcmlmX2lkPWZiMzFmYTJjLTA5NWQtMTFl\nZS05OGZlLWM2MDlhYmNhMTc3MiJ9\n"
+        }
+      },
+      "recorded_at": "Mon, 12 Jun 2023 20:26:53 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.1.0"
+}

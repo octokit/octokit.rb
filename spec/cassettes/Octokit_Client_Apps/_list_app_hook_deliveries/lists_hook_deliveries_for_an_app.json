@@ -1,0 +1,100 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/app/hook/deliveries",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 7.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Bearer <JWT_BEARER_TOKEN>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Sat, 09 Sep 2023 18:32:58 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "public, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"e0e9922de21504b56848d2e239e774b69c8dfb237840d87dcc1aa74ede3db907\""
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "E7BA:9419:A85A3F:15A699F:64FCBA5A"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "W3siaWQiOjU1MTQ4NzI2NjY2LCJndWlkIjoiMjI4NDhjMzAtNGYzZi0xMWVl\nLTk3NjAtYWIyOWUwODUxZTQwIiwiZGVsaXZlcmVkX2F0IjoiMjAyMy0wOS0w\nOVQxODozMTo0OFoiLCJyZWRlbGl2ZXJ5IjpmYWxzZSwiZHVyYXRpb24iOjAu\nMDIsInN0YXR1cyI6IkludmFsaWQgSFRUUCBSZXNwb25zZTogNDAzIiwic3Rh\ndHVzX2NvZGUiOjQwMywiZXZlbnQiOiJpbnN0YWxsYXRpb24iLCJhY3Rpb24i\nOiJjcmVhdGVkIiwiaW5zdGFsbGF0aW9uX2lkIjpudWxsLCJyZXBvc2l0b3J5\nX2lkIjpudWxsLCJ1cmwiOiIifSx7ImlkIjo1NTE0ODcxNzg5MywiZ3VpZCI6\nIjE2YjJiYWQwLTRmM2YtMTFlZS05OWQ4LTdlOTc2MTEzNmViMiIsImRlbGl2\nZXJlZF9hdCI6IjIwMjMtMDktMDlUMTg6MzE6MjhaIiwicmVkZWxpdmVyeSI6\nZmFsc2UsImR1cmF0aW9uIjowLjAyLCJzdGF0dXMiOiJJbnZhbGlkIEhUVFAg\nUmVzcG9uc2U6IDQwMyIsInN0YXR1c19jb2RlIjo0MDMsImV2ZW50IjoicGlu\nZyIsImFjdGlvbiI6bnVsbCwiaW5zdGFsbGF0aW9uX2lkIjpudWxsLCJyZXBv\nc2l0b3J5X2lkIjpudWxsLCJ1cmwiOiIifV0=\n"
+        }
+      },
+      "recorded_at": "Sat, 09 Sep 2023 18:32:58 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

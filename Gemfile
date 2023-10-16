@@ -28,6 +28,7 @@ group :test do
   gem 'rbnacl', '~> 7.1.1'
   gem 'rspec', '~> 3.9'
   gem 'simplecov', require: false
+  gem 'test-queue'
   gem 'vcr', '~> 6.1'
   gem 'webmock', '~> 3.8', '>= 3.8.2'
 end
@@ -42,9 +43,10 @@ if faraday_version.start_with?('~> 2')
 end
 
 group :test, :development do
+  gem 'bundler', '>= 1', '< 3'
   gem 'pry-byebug'
   gem 'redcarpet'
-  gem 'rubocop', '1.50.2'
+  gem 'rubocop', '1.56.4'
 end
 
 gemspec

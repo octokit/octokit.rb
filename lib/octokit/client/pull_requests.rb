@@ -201,6 +201,7 @@ module Octokit
       #                       For a multi-line comment, the last line of the range
       #                       and specify 'start_line' in the 'options'.
       # @return [Sawyer::Resource] Hash representing the new comment
+      # @deprecated The position will be deprecated in the next major version. Please refer to the details below.
       # @see https://developer.github.com/v3/pulls/comments/#create-a-comment
       # @example
       #   @client.create_pull_request_comment("octokit/octokit.rb", 163, ":shipit:",

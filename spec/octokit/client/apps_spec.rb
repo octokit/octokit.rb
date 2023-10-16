@@ -182,6 +182,30 @@ describe Octokit::Client::Apps do
     end
   end # .find_user_installation
 
+  describe '.list_app_hook_deliveries', :vcr do
+    it 'lists hook deliveries for an app' do
+      response = @jwt_client.list_app_hook_deliveries
+      expect(response).to be_kind_of(Array)
+      expect(response.count).to eq 2
+    end
+
+    it 'allows auto_pagination' do
+      @jwt_client.auto_paginate = true
+      response = @jwt_client.list_app_hook_deliveries(per_page: 1)
+
+      expect(response).to be_kind_of(Array)
+      expect(response.count).to eq 3
+    end
+  end # .list_app_hook_deliveries
+
+  describe '.deliver_app_hook', :vcr do
+    let(:delivery_id) { 55_148_726_666 }
+    it 'schedules a webhook for redelivery' do
+      response = @jwt_client.deliver_app_hook(delivery_id)
+      expect(response).to be_truthy
+    end
+  end # .deliver_app_hook
+
   context 'with app installation', :vcr do
     let(:installation) { test_github_integration_installation }
 
