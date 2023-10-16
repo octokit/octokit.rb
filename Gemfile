@@ -46,7 +46,7 @@ group :test, :development do
   gem 'bundler', '>= 1', '< 3'
   gem 'pry-byebug'
   gem 'redcarpet'
-  gem 'rubocop', '1.56.4'
+  gem 'rubocop', '1.57.1'
 end
 
 gemspec
