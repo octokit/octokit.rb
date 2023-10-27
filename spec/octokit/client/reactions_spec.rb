@@ -148,7 +148,6 @@ describe Octokit::Client::Reactions do
     context 'with release' do
       before do
         @release = @client.create_release(@repo.full_name, 'v1.0.0')
-        @reaction = @client.create_release_reaction(@repo.full_name, @release.id, '+1')
       end
 
       describe '.release_reactions' do
@@ -169,8 +168,9 @@ describe Octokit::Client::Reactions do
 
       describe '.delete_release_reaction' do
         it 'deletes the reaction' do
-          @client.delete_issue_reaction(@repo.full_name, @release.id, @reaction.id)
-          assert_requested :delete, github_url("/repos/#{@repo.full_name}/releases/#{@release.id}/reactions/#{@reaction.id}")
+          reaction = @client.create_release_reaction(@repo.full_name, @release.id, '+1')
+          @client.delete_release_reaction(@repo.full_name, @release.id, reaction.id)
+          assert_requested :delete, github_url("/repos/#{@repo.full_name}/releases/#{@release.id}/reactions/#{reaction.id}")
         end
       end # .delete_release_reaction
     end # with release
