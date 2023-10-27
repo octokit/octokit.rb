@@ -213,15 +213,7 @@ user.login
 # => "defunkt"
 ```
 
-You can [create access tokens through your GitHub Account Settings](https://help.github.com/articles/creating-an-access-token-for-command-line-use)
-or with a basic authenticated Octokit client:
-
-```ruby
-client = Octokit::Client.new(:login => 'defunkt', :password => 'c0d3b4ssssss!')
-
-client.create_authorization(:scopes => ["user"], :note => "Name of token")
-# => <your new oauth token>
-```
+You can [create access tokens through your GitHub Account Settings](https://help.github.com/articles/creating-an-access-token-for-command-line-use).
 
 ### Two-Factor Authentication
 
@@ -235,18 +227,6 @@ client = Octokit::Client.new \
   :password => 'c0d3b4ssssss!'
 
 user = client.user("defunkt", :headers => { "X-GitHub-OTP" => "<your 2FA token>" })
-```
-
-As you can imagine, this gets annoying quickly since two-factor auth tokens are very short lived. So it is recommended to create an oauth token for the user to communicate with the API:
-
-```ruby
-client = Octokit::Client.new \
-  :login    => 'defunkt',
-  :password => 'c0d3b4ssssss!'
-
-client.create_authorization(:scopes => ["user"], :note => "Name of token",
-                            :headers => { "X-GitHub-OTP" => "<your 2FA token>" })
-# => <your new oauth token>
 ```
 
 ### Using a .netrc file
