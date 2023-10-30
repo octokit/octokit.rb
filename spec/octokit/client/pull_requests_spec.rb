@@ -79,7 +79,7 @@ describe Octokit::Client::PullRequests do
           body: 'Hawt',
           commit_id: '9bf22dff54fd6a7650230b70417b55e8cccfc4f2',
           path: 'test.md',
-          position: 1
+          line: 1
         }
         @comment = @client.create_pull_request_comment \
           @test_repo,
@@ -87,7 +87,7 @@ describe Octokit::Client::PullRequests do
           new_comment[:body],
           new_comment[:commit_id],
           new_comment[:path],
-          new_comment[:position]
+          new_comment[:line]
       end
 
       describe '.create_pull_request_comment', :vcr do
