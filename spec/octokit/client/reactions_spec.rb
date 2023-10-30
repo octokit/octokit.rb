@@ -144,5 +144,35 @@ describe Octokit::Client::Reactions do
         end # .create_pull_request_review_comment_reaction
       end # with pull request review comment
     end # with pull request
+
+    context 'with release' do
+      before do
+        @release = @client.create_release(@repo.full_name, 'v1.0.0')
+      end
+
+      describe '.release_reactions' do
+        it 'returns an Array of reactions' do
+          reactions = @client.release_reactions(@repo.full_name, @release.id)
+          expect(reactions).to be_kind_of Array
+          assert_requested :get, github_url("/repos/#{@repo.full_name}/releases/#{@release.id}/reactions")
+        end
+      end # .release_reactions
+
+      describe '.create_release_reaction' do
+        it 'creates a reaction' do
+          reaction = @client.create_release_reaction(@repo.full_name, @release.id, '+1')
+          expect(reaction.content).to eql('+1')
+          assert_requested :post, github_url("/repos/#{@repo.full_name}/releases/#{@release.id}/reactions")
+        end
+      end # .create_release_reaction
+
+      describe '.delete_release_reaction' do
+        it 'deletes the reaction' do
+          reaction = @client.create_release_reaction(@repo.full_name, @release.id, '+1')
+          @client.delete_release_reaction(@repo.full_name, @release.id, reaction.id)
+          assert_requested :delete, github_url("/repos/#{@repo.full_name}/releases/#{@release.id}/reactions/#{reaction.id}")
+        end
+      end # .delete_release_reaction
+    end # with release
   end # with repository
 end

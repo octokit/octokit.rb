@@ -150,6 +150,55 @@ module Octokit
       def delete_issue_reaction(repo, issue_id, reaction_id, options = {})
         boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_id}/reactions/#{reaction_id}", options
       end
+
+      # List reactions for a release
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param id [Integer] The Release id
+      #
+      # @see https://docs.github.com/en/free-pro-team@latest/rest/reactions/reactions?apiVersion=2022-11-28#list-reactions-for-a-release
+      #
+      # @example
+      #   @client.release_reactions("octokit/octokit.rb", 1)
+      #
+      # @return [Array<Sawyer::Resource>] Array of Hashes representing the reactions.
+      def release_reactions(repo, release_id, options = {})
+        get "#{Repository.path repo}/releases/#{release_id}/reactions", options
+      end
+
+      # Create reaction for a release
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param id [Integer] The Release id
+      # @param reaction [String] The Reaction
+      #
+      # @see https://docs.github.com/en/free-pro-team@latest/rest/reactions/reactions?apiVersion=2022-11-28#create-reaction-for-a-release
+      # @see https://developer.github.com/v3/reactions/#reaction-types
+      #
+      # @example
+      #   @client.create_release_reaction("octokit/octokit.rb", 1)
+      #
+      # @return [<Sawyer::Resource>] Hash representing the reaction.
+      def create_release_reaction(repo, release_id, reaction, options = {})
+        options = options.merge(content: reaction)
+        post "#{Repository.path repo}/releases/#{release_id}/reactions", options
+      end
+
+      # Delete a reaction for a release
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param issue_id [Integer] The Release id
+      # @param reaction_id [Integer] The Reaction id
+      #
+      # @see https://docs.github.com/en/free-pro-team@latest/rest/reactions/reactions?apiVersion=2022-11-28#delete-a-release-reaction
+      #
+      # @example
+      #   @client.delete_release_reaction("octokit/octokit.rb", 1, 2)
+      #
+      # @return [Boolean] Return true if reaction was deleted, false otherwise.
+      def delete_release_reaction(repo, release_id, reaction_id, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/releases/#{release_id}/reactions/#{reaction_id}", options
+      end
     end
   end
 end
