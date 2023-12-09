@@ -65,7 +65,7 @@ module Octokit
       #
       # @example
       #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
-      #  client.delete_token('deadbeef1234567890deadbeef987654321')
+      #  client.delete_app_token('deadbeef1234567890deadbeef987654321')
       def delete_app_token(access_token, options = {})
         options[:access_token] = access_token
 
