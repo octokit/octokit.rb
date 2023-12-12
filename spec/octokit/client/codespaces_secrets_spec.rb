@@ -138,6 +138,111 @@ describe Octokit::Client::CodespacesSecrets do
         @client.delete_codespaces_secret(@repo.id, @secrets.first[:name])
         expect(@client.last_response.status).to eq(204)
       end
+    end # .delete_codespaces_secret
+  end
+
+  context 'with an org' do
+    describe '.get_org_codespaces_public_key', :vcr do
+      it 'get org specific public key for secrets encryption' do
+        box = create_box(@client.get_org_codespaces_public_key(test_github_org))
+        expect(box[:key_id]).not_to be_empty
+      end
+    end # .get_org_codespaces_public_key
+  end
+
+  context 'with an org without secrets' do
+    describe '.list_org_codespaces_secrets', :vcr do
+      it 'returns empty list of secrets' do
+        secrets = @client.list_org_codespaces_secrets(test_github_org)
+        expect(secrets.total_count).to eq(0)
+        expect(secrets.secrets).to be_empty
+      end
+    end # .list_org_codespaces_secrets
+
+    describe '.create_or_update_org_codespaces_secret', :vcr do
+      it 'creating secret returns 201' do
+        @box = create_box(@client.get_org_codespaces_public_key(test_github_org))
+        encrypted = @box[:box].encrypt(@secrets.first[:value])
+        @client.create_or_update_org_codespaces_secret(
+          test_github_org, @secrets.first[:name],
+          key_id: @box[:key_id],
+          encrypted_value: Base64.strict_encode64(encrypted),
+          visibility: 'private'
+        )
+        expect(@client.last_response.status).to eq(201)
+      end
+    end # .create_or_update_org_codespaces_secret
+  end
+
+  context 'with an org with a secret' do
+    before(:each) do
+      @box = create_box(@client.get_org_codespaces_public_key(test_github_org))
+      @secrets.each do |secret|
+        encrypted = @box[:box].encrypt(secret[:value])
+        @client.create_or_update_org_codespaces_secret(
+          test_github_org, secret[:name],
+          key_id: @box[:key_id],
+          encrypted_value: Base64.strict_encode64(encrypted),
+          visibility: 'private'
+        )
+      end
+    end
+
+    describe '.list_org_codespaces_secrets', :vcr do
+      it 'returns list of two secrets' do
+        secrets = @client.list_org_codespaces_secrets(test_github_org)
+        expect(secrets.total_count).to eq(2)
+        expect(secrets.secrets[0].name).to eq(@secrets.first[:name].upcase)
+      end
+
+      it 'paginates the results' do
+        @client.per_page = 1
+        allow(@client).to receive(:paginate).and_call_original
+        secrets = @client.list_org_codespaces_secrets(test_github_org)
+
+        expect(@client).to have_received(:paginate)
+        expect(secrets.total_count).to eq(2)
+        expect(secrets.secrets.count).to eq(1)
+      end
+
+      it 'auto-paginates the results' do
+        @client.auto_paginate = true
+        @client.per_page = 1
+        allow(@client).to receive(:paginate).and_call_original
+        secrets = @client.list_org_codespaces_secrets(test_github_org)
+
+        expect(@client).to have_received(:paginate)
+        expect(secrets.total_count).to eq(2)
+        expect(secrets.secrets.count).to eq(2)
+      end
+    end # .list_org_codespaces_secrets
+
+    describe '.get_org_codespaces_secret', :vcr do
+      it 'return timestamps related to one secret' do
+        received = @client.get_org_codespaces_secret(test_github_org, @secrets.first[:name])
+        expect(received.name).to eq(@secrets.first[:name].upcase)
+      end
+    end # .get_org_codespaces_secret
+
+    describe '.create_or_update_org_codespaces_secret', :vcr do
+      it 'updating existing secret returns 204' do
+        box = create_box(@client.get_org_codespaces_public_key(test_github_org))
+        encrypted = box[:box].encrypt('new value')
+        @client.create_or_update_org_codespaces_secret(
+          test_github_org, @secrets.first[:name],
+          key_id: @box[:key_id],
+          encrypted_value: Base64.strict_encode64(encrypted),
+          visibility: 'private'
+        )
+        expect(@client.last_response.status).to eq(204)
+      end
+    end # .create_or_update_org_codespaces_secret
+
+    describe '.delete_org_codespaces_secret', :vcr do
+      it 'delete existing secret' do
+        @client.delete_org_codespaces_secret(test_github_org, @secrets.first[:name])
+        expect(@client.last_response.status).to eq(204)
+      end
     end
   end
 end
