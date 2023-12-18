@@ -22,7 +22,7 @@ module Octokit
       # @return [Array<Sawyer::Resource>] A list of deployments
       # @see https://developer.github.com/v3/repos/deployments/#list-deployments
       def deployments(repo, options = {})
-        get("#{Repository.path repo}/deployments", options)
+        paginate("#{Repository.path repo}/deployments", options)
       end
       alias list_deployments deployments
 
@@ -60,7 +60,7 @@ module Octokit
       # @see https://developer.github.com/v3/repos/deployments/#list-deployment-statuses
       def deployment_statuses(deployment_url, options = {})
         deployment = get(deployment_url, accept: options[:accept])
-        get(deployment.rels[:statuses].href, options)
+        paginate(deployment.rels[:statuses].href, options)
       end
       alias list_deployment_statuses deployment_statuses
 
