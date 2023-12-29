@@ -1,0 +1,8 @@
+{
+  "scope": "",
+  "expires_in": 28800,
+  "token_type": "bearer",
+  "access_token": "new_access_token",
+  "refresh_token": "new_refresh_token",
+  "refresh_token_expires_in": 15811200
+}
