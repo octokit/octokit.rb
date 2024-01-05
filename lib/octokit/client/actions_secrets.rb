@@ -15,6 +15,15 @@ module Octokit
         get "#{Repository.path repo}/actions/secrets/public-key"
       end
 
+      # Get public key for secrets encryption
+      #
+      # @param org [String] A GitHub organization
+      # @return [Hash] key_id and key
+      # @see https://developer.github.com/v3/actions/secrets/#get-your-public-key
+      def get_org_actions_public_key(org)
+        get "#{Organization.path org}/actions/secrets/public-key"
+      end
+
       # List secrets
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
@@ -22,6 +31,17 @@ module Octokit
       # @see https://developer.github.com/v3/actions/secrets/#list-secrets-for-a-repository
       def list_actions_secrets(repo)
         paginate "#{Repository.path repo}/actions/secrets" do |data, last_response|
+          data.secrets.concat last_response.data.secrets
+        end
+      end
+
+      # List org secrets
+      #
+      # @param org [String] A GitHub organization
+      # @return [Hash] total_count and list of secrets (each item is hash with name, created_at and updated_at)
+      # @see https://developer.github.com/v3/actions/secrets/#list-organization-secrets
+      def list_org_actions_secrets(org)
+        paginate "#{Organization.path org}/actions/secrets" do |data, last_response|
           data.secrets.concat last_response.data.secrets
         end
       end
@@ -36,6 +56,16 @@ module Octokit
         get "#{Repository.path repo}/actions/secrets/#{name}"
       end
 
+      # Get an org secret
+      #
+      # @param org [String] A GitHub organization
+      # @param name [String] Name of secret
+      # @return [Hash] name, created_at and updated_at
+      # @see https://developer.github.com/v3/actions/secrets/#get-a-secret
+      def get_org_actions_secret(org, name)
+        get "#{Organization.path org}/actions/secrets/#{name}"
+      end
+
       # Create or update secrets
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
@@ -46,6 +76,16 @@ module Octokit
         put "#{Repository.path repo}/actions/secrets/#{name}", options
       end
 
+      # Create or update org secrets
+      #
+      # @param org [String] A GitHub organization
+      # @param name [String] Name of secret
+      # @param options [Hash] encrypted_value and key_id
+      # @see https://developer.github.com/v3/actions/secrets/#create-or-update-a-secret
+      def create_or_update_org_actions_secret(org, name, options)
+        put "#{Organization.path org}/actions/secrets/#{name}", options
+      end
+
       # Delete a secret
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
@@ -53,6 +93,15 @@ module Octokit
       # @see https://developer.github.com/v3/actions/secrets/#delete-a-secret-from-a-repository
       def delete_actions_secret(repo, name)
         boolean_from_response :delete, "#{Repository.path repo}/actions/secrets/#{name}"
+      end
+
+      # Delete an org secret
+      #
+      # @param org [String] A GitHub organization
+      # @param name [String] Name of secret
+      # @see https://developer.github.com/v3/actions/secrets/#delete-a-secret
+      def delete_org_actions_secret(org, name)
+        boolean_from_response :delete, "#{Organization.path org}/actions/secrets/#{name}"
       end
 
       # Get environment public key for secrets encryption
