@@ -267,6 +267,49 @@ describe Octokit::Client::Users do
     end # with credentials passed as parameters
   end # .exchange_code_for_token
 
+  describe '.refresh_access_token' do
+    context 'with application authenticated client' do
+      it 'returns the access_token' do
+        request_body = {
+          refresh_token: 'code',
+          client_id: '123',
+          client_secret: '345',
+          grant_type: 'refresh_token'
+        }
+
+        client = Octokit::Client.new(
+          client_id: request_body[:client_id],
+          client_secret: request_body[:client_secret]
+        )
+
+        request = stub_post('https://github.com/login/oauth/access_token')
+                  .with(
+                    basic_auth: [request_body[:client_id], request_body[:client_secret]],
+                    body: request_body.to_json
+                  ).to_return(json_response('renew_access_token.json'))
+
+        response = client.refresh_access_token('code')
+
+        expect(response.access_token).to eq 'new_access_token'
+        expect(response.refresh_token).to eq 'new_refresh_token'
+        assert_requested request
+      end
+    end # with application authenticated client
+
+    context 'with credentials passed as parameters by unauthed client' do
+      it 'returns the access_token' do
+        client = Octokit::Client.new
+        post = stub_request(:post, 'https://github.com/login/oauth/access_token')
+               .with(body: { refresh_token: 'code', client_id: 'id', client_secret: 'secret', grant_type: 'refresh_token' }.to_json)
+               .to_return(json_response('renew_access_token.json'))
+        response = client.refresh_access_token('code', 'id', 'secret')
+        expect(response.access_token).to eq 'new_access_token'
+        expect(response.refresh_token).to eq 'new_refresh_token'
+        assert_requested post
+      end # with credentials passed as parameters
+    end # .refresh_access_token
+  end
+
   describe '.migrations', :vcr do
     it 'starts a migration for a user' do
       result = @client.start_user_migration(['snakeoil-ceo/the-insecure'], lock_repositories: true)
