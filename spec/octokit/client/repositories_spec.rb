@@ -272,6 +272,9 @@ describe Octokit::Client::Repositories do
         client_with_caching_two.repositories
         client_with_caching_two.repositories
 
+        client_with_caching.repositories
+        client_with_caching_two.repositories
+
         assert_requested :get, github_url('/user/repos'), times: 2
       end
     end
