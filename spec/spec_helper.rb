@@ -328,9 +328,13 @@ def enterprise_admin_client
   client
 end
 
+def http_cache_middleware_store
+  @http_cache_middleware_store ||= Faraday::HttpCache::MemoryStore.new
+end
+
 def oauth_client_with_http_cache_middleware(access_token: test_github_token)
   stack = Faraday::RackBuilder.new do |builder|
-    builder.use Faraday::HttpCache, serializer: Marshal, shared_cache: false
+    builder.use Faraday::HttpCache, serializer: Marshal, store: http_cache_middleware_store, shared_cache: false
     builder.adapter Faraday.default_adapter
   end
 

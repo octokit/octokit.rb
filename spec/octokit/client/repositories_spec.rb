@@ -264,8 +264,10 @@ describe Octokit::Client::Repositories do
     it 'performs requests per user when using caching middleware' do
       client_with_caching = oauth_client_with_http_cache_middleware(access_token: test_github_token)
       client_with_caching.repositories
+      client_with_caching.repositories
 
       client_with_caching_two = oauth_client_with_http_cache_middleware(access_token: test_github_token_two)
+      client_with_caching_two.repositories
       client_with_caching_two.repositories
 
       assert_requested :get, github_url('/user/repos'), times: 2
