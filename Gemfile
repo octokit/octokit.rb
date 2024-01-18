@@ -30,6 +30,7 @@ group :test do
   gem 'rspec', '~> 3.9'
   gem 'simplecov', require: false
   gem 'test-queue'
+  gem 'timecop', '~> 0.9.8'
   gem 'vcr', '~> 6.1'
   gem 'webmock', '~> 3.8', '>= 3.8.2'
 end

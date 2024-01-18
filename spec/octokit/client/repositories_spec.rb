@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "faraday-http-cache"
+require "timecop"
 
 describe Octokit::Client::Repositories do
   before do
@@ -262,15 +263,17 @@ describe Octokit::Client::Repositories do
       assert_requested :get, github_url('/user/repos')
     end
     it 'performs requests per user when using caching middleware' do
-      client_with_caching = oauth_client_with_http_cache_middleware(access_token: test_github_token)
-      client_with_caching.repositories
-      client_with_caching.repositories
+      Timecop.freeze(VCR.current_cassette.originally_recorded_at || Time.now) do
+        client_with_caching = oauth_client_with_http_cache_middleware(access_token: test_github_token)
+        client_with_caching.repositories
+        client_with_caching.repositories
 
-      client_with_caching_two = oauth_client_with_http_cache_middleware(access_token: test_github_token_two)
-      client_with_caching_two.repositories
-      client_with_caching_two.repositories
+        client_with_caching_two = oauth_client_with_http_cache_middleware(access_token: test_github_token_two)
+        client_with_caching_two.repositories
+        client_with_caching_two.repositories
 
-      assert_requested :get, github_url('/user/repos'), times: 2
+        assert_requested :get, github_url('/user/repos'), times: 2
+      end
     end
   end # .repositories
 
