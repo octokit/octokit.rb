@@ -180,7 +180,7 @@ def test_github_token
 end
 
 def test_github_token_two
-  ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN_TWO', 'x' * 40
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN_TWO', 'y' * 40
 end
 
 def test_github_collaborator_token
