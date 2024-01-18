@@ -52,6 +52,9 @@ VCR.configure do |c|
   c.filter_sensitive_data('<<ACCESS_TOKEN>>') do
     test_github_token
   end
+  c.filter_sensitive_data('<<ACCESS_TOKEN>>') do
+    test_github_token_two
+  end
   c.filter_sensitive_data('<GITHUB_COLLABORATOR_TOKEN>') do
     test_github_collaborator_token
   end
@@ -174,6 +177,10 @@ end
 
 def test_github_token
   ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN', 'x' * 40
+end
+
+def test_github_token_two
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_TOKEN_TWO', 'x' * 40
 end
 
 def test_github_collaborator_token
@@ -299,8 +306,8 @@ def basic_auth_client(login: test_github_login, password: test_github_password)
   Octokit::Client.new(login: login, password: password)
 end
 
-def oauth_client
-  Octokit::Client.new(access_token: test_github_token)
+def oauth_client(access_token: test_github_token)
+  Octokit::Client.new(access_token: access_token)
 end
 
 def enterprise_admin_client
@@ -316,6 +323,20 @@ def enterprise_admin_client
 
   client.configure do |c|
     c.api_endpoint = test_github_enterprise_endpoint
+    c.middleware = stack
+  end
+  client
+end
+
+def oauth_client_with_http_cache_middleware(access_token: test_github_token)
+  stack = Faraday::RackBuilder.new do |builder|
+    builder.use Faraday::HttpCache, serializer: Marshal, shared_cache: false
+    builder.adapter Faraday.default_adapter
+  end
+
+  client = oauth_client(access_token: access_token)
+
+  client.configure do |c|
     c.middleware = stack
   end
   client
