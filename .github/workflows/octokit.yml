@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Cache Ruby dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./.bundle/gems
           key: >-
