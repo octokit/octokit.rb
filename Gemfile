@@ -19,6 +19,7 @@ group :test do
   install_if -> { RUBY_VERSION >= '2.8' } do
     gem 'rexml', '>= 3.2.4'
   end
+  gem 'base64'
   gem 'json', '>= 2.3.0'
   gem 'jwt', '~> 2.2', '>= 2.2.1'
   gem 'mime-types', '~> 3.3', '>= 3.3.1'

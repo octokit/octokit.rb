@@ -5,7 +5,6 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'octokit/version'
 
 Gem::Specification.new do |spec|
-  spec.add_dependency 'base64'
   spec.add_dependency 'faraday', '>= 1', '< 3'
   spec.add_dependency 'sawyer', '~> 0.9'
   spec.authors = ['Wynn Netherland', 'Erik Michaels-Ober', 'Clint Shryock']

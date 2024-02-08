@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'base64'
-
 module Octokit
   class Client
     # Methods for the Repo Contents API
@@ -80,7 +78,7 @@ module Octokit
         end
         raise ArgumentError, 'content or :file option required' if content.nil?
 
-        options[:content] = Base64.strict_encode64(content)
+        options[:content] = [content].pack('m0') # Base64.strict_encode64
         options[:message] = message
         url = "#{Repository.path repo}/contents/#{path}"
         put url, options
