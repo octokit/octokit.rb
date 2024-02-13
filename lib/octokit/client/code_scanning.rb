@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'base64'
 require 'tempfile'
 require 'zlib'
 
@@ -45,7 +44,7 @@ module Octokit
           Zlib::GzipWriter.open(tempfile) do |gz_file|
             gz_file.write File.binread(file)
           end
-          Base64.strict_encode64(tempfile.read)
+          [tempfile.read].pack('m0') # Base64.strict_encode64
         end
       end
     end
