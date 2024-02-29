@@ -48,6 +48,28 @@ describe Octokit::Client::PullRequests do
           assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
         end
       end
+
+      context 'with draft argument' do
+        let(:arguments_to_create_pull_request) do
+          [@test_repo, 'main', 'branch-for-pr', 'A new PR', 'The Body', { draft: true }]
+        end
+
+        it 'creates a draft pull request' do
+          expect(@pull.draft).to be true
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
+        end
+      end
+
+      context 'without draft argument' do
+        let(:arguments_to_create_pull_request) do
+          [@test_repo, 'main', 'branch-for-pr-not-draft', 'A new PR', 'The Body']
+        end
+
+        it 'creates a pull request ready for review' do
+          expect(@pull.draft).to be false
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
+        end
+      end
     end # .create_pull_request
 
     describe '.pull_request', :vcr do
