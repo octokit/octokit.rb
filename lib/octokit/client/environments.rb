@@ -24,7 +24,10 @@ module Octokit
       # @return [Sawyer::Resource] Total count of environments and list of environments
       # @see https://docs.github.com/en/rest/deployments/environments#list-environments
       def environments(repo, options = {})
-        get("#{Repository.path repo}/environments", options)
+        paginate("#{Repository.path repo}/environments", options) do |data, last_response|
+          data.environments.concat last_response.data.environments
+          data.total_count += last_response.data.total_count
+        end
       end
       alias list_environments environments
 
