@@ -81,7 +81,7 @@ Install via Rubygems
 
 ... or add to your Gemfile
 
-    gem "octokit", "~> 5.0"
+    gem "octokit"
 
 Access the library in Ruby:
 
