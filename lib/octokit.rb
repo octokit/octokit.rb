@@ -41,12 +41,24 @@ module Octokit
       @enterprise_management_console_client = Octokit::EnterpriseManagementConsoleClient.new(options)
     end
 
+    # ManageGHESClient client based on configured options {Configurable}
+    #
+    # @return [Octokit::ManageGHESClient] API wrapper
+    def manage_ghes_client
+      if defined?(@manage_ghes_client) && @manage_ghes_client.same_options?(options)
+        return @manage_ghes_client
+      end
+
+      @manage_ghes_client = Octokit::ManageGHESClient.new(options)
+    end
+
     private
 
     def respond_to_missing?(method_name, include_private = false)
       client.respond_to?(method_name, include_private) ||
         enterprise_admin_client.respond_to?(method_name, include_private) ||
-        enterprise_management_console_client.respond_to?(method_name, include_private)
+        enterprise_management_console_client.respond_to?(method_name, include_private) ||
+        manage_ghes_client.respond_to?(method_name, include_private)
     end
 
     def method_missing(method_name, *args, &block)
@@ -56,6 +68,8 @@ module Octokit
         return enterprise_admin_client.send(method_name, *args, &block)
       elsif enterprise_management_console_client.respond_to?(method_name)
         return enterprise_management_console_client.send(method_name, *args, &block)
+      elsif manage_ghes_client.respond_to?(method_name)
+        return manage_ghes_client.send(method_name, *args, &block)
       end
 
       super
