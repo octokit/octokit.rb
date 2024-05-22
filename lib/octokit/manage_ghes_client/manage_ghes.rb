@@ -28,11 +28,11 @@ module Octokit
     private
 
     def basic_authenticated?
-      !!(@manage_api_username && @manage_api_password)
+      !!(@manage_ghes_username && @manage_ghes_password)
     end
 
     def root_site_admin_assumed?
-      !!(@manage_api_username)
+      !!(@manage_ghes_username)
     end
 
     def faraday_configuration
@@ -42,9 +42,9 @@ module Octokit
         c.response :json
 
         if root_site_admin_assumed?
-          c.basic_auth('api_key', @manage_api_password)
+          c.basic_auth('api_key', @manage_ghes_password)
         elsif basic_authenticated?
-          c.basic_auth(@manage_api_username, @manage_api_password)
+          c.basic_auth(@manage_ghes_username, @manage_ghes_password)
         end
 
         # Disabling SSL is essential for certain self-hosted Enterprise instances
