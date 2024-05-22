@@ -10,10 +10,6 @@ module Octokit
   
     private
 
-    def password_hash
-      { query: { api_key: @management_console_password } }
-    end
-
     def basic_authenticated?
       !!(@manage_api_username && @manage_api_password)
     end
@@ -23,23 +19,24 @@ module Octokit
     end
 
     def faraday_configuration
-      @faraday_configuration ||= Faraday.new(url: @manage_ghes_endpoint) do |http|
-        http.headers[:user_agent] = user_agent
-        http.headers[:content_type] = 'application/json'
+      @faraday_configuration ||= Faraday.new(url: @manage_ghes_endpoint) do |c|
+        c.headers[:user_agent] = user_agent
+        c.request  :json
+        c.response :json
 
         if root_site_admin_assumed?
-          http.basic_auth('api_key', @manage_api_password)
+          c.basic_auth('api_key', @manage_api_password)
         elsif basic_authenticated?
-          http.basic_auth(@manage_api_username, @manage_api_password)
+          c.basic_auth(@manage_api_username, @manage_api_password)
         end
 
         # Disabling SSL is essential for certain self-hosted Enterprise instances
         if connection_options[:ssl] && !connection_options[:ssl][:verify]
-          http.ssl[:verify] = false
+          c.ssl[:verify] = false
         end
 
-        http.use Octokit::Response::RaiseError
-        http.adapter Faraday.default_adapter
+        c.use Octokit::Response::RaiseError
+        c.adapter Faraday.default_adapter
       end
     end
 
