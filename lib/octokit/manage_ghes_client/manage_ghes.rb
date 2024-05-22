@@ -6,6 +6,23 @@ module Octokit
     #
     # @see https://developer.github.com/v3/enterprise-admin/manage-ghes
     module ManageAPI
+      # Get information about the maintenance status of the GHES instance
+      #
+      # @return [Sawyer::Resource] The maintenance mode status
+      def get_maintenance_mode
+        get '/manage/v1/maintenance'
+      end
+      alias maintenance_mode get_maintenance_mode
+
+      # Configure the maintenance mode of the GHES instance
+      #
+      # @param maintenance [Hash] A hash configuration of the maintenance mode status
+      # @return [nil]
+      def set_maintenance_mode(enabled, options = {})
+        options[:enabled] = enabled
+        post '/manage/v1/maintenance', options
+      end
+      alias configure_maintenance_mode set_maintenance_mode
     end
   
     private
