@@ -37,6 +37,14 @@ module Octokit
       manage_ghes_endpoint
     end
 
+    # Set Manage GHES API endpoint
+    #
+    # @param value [String] Manage GHES API endpoint
+    def manage_ghes_endpoint=(value)
+      reset_agent
+      @manage_ghes_endpoint = value
+    end
+
     # Set Manage GHES API username
     #
     # @param value [String] Manage GHES API username
@@ -51,14 +59,6 @@ module Octokit
     def manage_ghes_password=(value)
       reset_agent
       @manage_ghes_password = value
-    end
-
-    # Set Manage GHES API endpoint
-    #
-    # @param value [String] Manage GHES API endpoint
-    def manage_ghes_endpoint=(value)
-      reset_agent
-      @manage_ghes_endpoint = value
     end
   end
 end

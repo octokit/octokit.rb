@@ -102,6 +102,24 @@ module Octokit
         ENV.fetch('OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT', nil)
       end
 
+      # Default GHES Manage API endpoint from ENV
+      # @return [String]
+      def manage_ghes_endpoint
+        ENV.fetch('OCTOKIT_MANAGE_GHES_ENDPOINT', nil)
+      end
+
+      # Default GHES Manage API username from ENV
+      # @return [String]
+      def manage_ghes_username
+        ENV.fetch('OCTOKIT_MANAGE_GHES_USERNAME', nil)
+      end
+
+      # Default GHES Manage API password from ENV
+      # @return [String]
+      def manage_ghes_password
+        ENV.fetch('OCTOKIT_MANAGE_GHES_PASSWORD', nil)
+      end
+
       # Default options for Faraday::Connection
       # @return [Hash]
       def connection_options
