@@ -10,7 +10,9 @@ module Octokit
       #
       # @return [Sawyer::Resource] The maintenance mode status
       def get_maintenance_mode
-        get '/manage/v1/maintenance'
+        conn = authenticated_client
+
+        @last_response = conn.get('/manage/v1/maintenance')
       end
       alias maintenance_mode get_maintenance_mode
 
@@ -19,8 +21,10 @@ module Octokit
       # @param maintenance [Hash] A hash configuration of the maintenance mode status
       # @return [nil]
       def set_maintenance_mode(enabled, options = {})
+        conn = authenticated_client
+
         options[:enabled] = enabled
-        post '/manage/v1/maintenance', options
+        @last_response = conn.post('/manage/v1/maintenance', options)
       end
       alias configure_maintenance_mode set_maintenance_mode
     end
@@ -35,17 +39,20 @@ module Octokit
       !!(@manage_ghes_username)
     end
 
-    def faraday_configuration
-      @faraday_configuration ||= Faraday.new(url: @manage_ghes_endpoint) do |c|
+    def authenticated_client
+      @authenticated_client ||= Faraday.new(url: @manage_ghes_endpoint) do |c|
         c.headers[:user_agent] = user_agent
         c.request  :json
         c.response :json
+        c.adapter Faraday.default_adapter
 
         if root_site_admin_assumed?
-          c.basic_auth('api_key', @manage_ghes_password)
+          username = "api_key"
         elsif basic_authenticated?
-          c.basic_auth(@manage_ghes_username, @manage_ghes_password)
+          username = @manage_ghes_username
         end
+        c.request :authorization, :basic, username, @manage_ghes_password
+
 
         # Disabling SSL is essential for certain self-hosted Enterprise instances
         if connection_options[:ssl] && !connection_options[:ssl][:verify]
@@ -53,7 +60,6 @@ module Octokit
         end
 
         c.use Octokit::Response::RaiseError
-        c.adapter Faraday.default_adapter
       end
     end
 
