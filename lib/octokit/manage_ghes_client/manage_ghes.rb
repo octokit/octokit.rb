@@ -35,8 +35,9 @@ module Octokit
       !!(@manage_ghes_username && @manage_ghes_password)
     end
 
+    # If no username is provided, we assume root site admin should be used
     def root_site_admin_assumed?
-      !!(@manage_ghes_username)
+      !(@manage_ghes_username)
     end
 
     def authenticated_client
