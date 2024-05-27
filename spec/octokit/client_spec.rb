@@ -1219,20 +1219,26 @@ describe Octokit::Client do
       Octokit.reset!
       @client = oauth_client
       @ent_management_console = enterprise_management_console_client
+      @ent_manage_ghes_client = manage_ghes_client
     end
 
     it 'has no method collisions' do
       client_methods = collect_methods(Octokit::Client)
       admin_client = collect_methods(Octokit::EnterpriseAdminClient)
       console_client = collect_methods(Octokit::EnterpriseManagementConsoleClient)
+      manage_ghes_client = collect_methods(Octokit::ManageGHESClient)
 
       expect(client_methods & admin_client).to eql []
       expect(client_methods & console_client).to eql []
+      expect(client_methods & manage_ghes_client).to eql []
       expect(admin_client & console_client).to eql []
+      expect(admin_client & manage_ghes_client).to eql []
+      expect(console_client & manage_ghes_client).to eql []
     end
 
     it 'uniquely separates method missing calls' do
       expect { @ent_management_console.public_events }.to raise_error NoMethodError
+      expect { @ent_manage_ghes_client.public_events }.to raise_error NoMethodError
     end
 
     def collect_methods(clazz)
