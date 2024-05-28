@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "get",
-        "uri": "<<MANAGE_GHES_ENDPOINT>>/manage/v1/maintenance",
+        "uri": "<<MANAGE_GHES_ENDPOINT>>/manage/v1/config/apply",
         "body": {
           "encoding": "US-ASCII",
           "base64_string": ""
@@ -51,18 +51,18 @@
             "0"
           ],
           "Date": [
-            "Tue, 28 May 2024 10:16:56 GMT"
+            "Tue, 28 May 2024 10:39:59 GMT"
           ],
           "Content-Length": [
-            "314"
+            "175"
           ]
         },
         "body": {
           "encoding": "UTF-8",
-          "base64_string": "W3siaG9zdG5hbWUiOiJhbGVqbmRyMC0wNWUwODQxYjIwNzY3MjcyNy5naGUt\ndGVzdC5jb20iLCJ1dWlkIjoiYzYyYzgyOTItMWMwOS0xMWVmLWEzZTMtMDYy\nYWMwZTlkZGIxIiwic3RhdHVzIjoib2ZmIiwiY29ubmVjdGlvbl9zZXJ2aWNl\ncyI6W3sibmFtZSI6ImdpdCBvcGVyYXRpb25zIiwibnVtYmVyIjowfSx7Im5h\nbWUiOiJteXNxbCBxdWVyaWVzIiwibnVtYmVyIjowfSx7Im5hbWUiOiJyZXNx\ndWUgam9icyIsIm51bWJlciI6MH0seyJuYW1lIjoiYXF1ZWR1Y3Qgam9icyIs\nIm51bWJlciI6MH1dLCJjYW5fdW5zZXRfbWFpbnRlbmFuY2UiOnRydWV9XQo=\n"
+          "base64_string": "eyJydW5faWQiOiI5ODI0ZjE2ZSIsInJ1bm5pbmciOmZhbHNlLCJzdWNjZXNz\nZnVsIjp0cnVlLCJub2RlcyI6W3sicnVuX2lkIjoiOTgyNGYxNmUiLCJob3N0\nbmFtZSI6ImFsZWpuZHIwLTA1ZTA4NDFiMjA3NjcyNzI3LmdoZS10ZXN0LmNv\nbSIsInJ1bm5pbmciOmZhbHNlLCJzdWNjZXNzZnVsIjp0cnVlfV19Cg==\n"
         }
       },
-      "recorded_at": "Tue, 28 May 2024 10:16:56 GMT"
+      "recorded_at": "Tue, 28 May 2024 10:39:59 GMT"
     }
   ],
   "recorded_with": "VCR 6.2.0"

@@ -2,15 +2,18 @@
   "http_interactions": [
     {
       "request": {
-        "method": "get",
-        "uri": "<<MANAGE_GHES_ENDPOINT>>/manage/v1/maintenance",
+        "method": "delete",
+        "uri": "<<MANAGE_GHES_ENDPOINT>>/manage/v1/access/ssh",
         "body": {
-          "encoding": "US-ASCII",
-          "base64_string": ""
+          "encoding": "UTF-8",
+          "base64_string": "eyJrZXkiOiJzc2gtcnNhIEFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQSJ9"
         },
         "headers": {
           "User-Agent": [
             "Octokit Ruby Gem 8.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
           ],
           "Authorization": [
             "Basic YXBpX2tleTpRMjBVcm45aWs="
@@ -51,18 +54,18 @@
             "0"
           ],
           "Date": [
-            "Tue, 28 May 2024 10:16:56 GMT"
+            "Tue, 28 May 2024 11:40:00 GMT"
           ],
           "Content-Length": [
-            "314"
+            "144"
           ]
         },
         "body": {
           "encoding": "UTF-8",
-          "base64_string": "W3siaG9zdG5hbWUiOiJhbGVqbmRyMC0wNWUwODQxYjIwNzY3MjcyNy5naGUt\ndGVzdC5jb20iLCJ1dWlkIjoiYzYyYzgyOTItMWMwOS0xMWVmLWEzZTMtMDYy\nYWMwZTlkZGIxIiwic3RhdHVzIjoib2ZmIiwiY29ubmVjdGlvbl9zZXJ2aWNl\ncyI6W3sibmFtZSI6ImdpdCBvcGVyYXRpb25zIiwibnVtYmVyIjowfSx7Im5h\nbWUiOiJteXNxbCBxdWVyaWVzIiwibnVtYmVyIjowfSx7Im5hbWUiOiJyZXNx\ndWUgam9icyIsIm51bWJlciI6MH0seyJuYW1lIjoiYXF1ZWR1Y3Qgam9icyIs\nIm51bWJlciI6MH1dLCJjYW5fdW5zZXRfbWFpbnRlbmFuY2UiOnRydWV9XQo=\n"
+          "base64_string": "W3siaG9zdG5hbWUiOiJhbGVqbmRyMC0wNWUwODQxYjIwNzY3MjcyNy5naGUt\ndGVzdC5jb20iLCJ1dWlkIjoiYzYyYzgyOTItMWMwOS0xMWVmLWEzZTMtMDYy\nYWMwZTlkZGIxIiwibWVzc2FnZSI6IlNTSCBrZXkgcmVtb3ZlZCBzdWNjZXNz\nZnVsbHkifV0K\n"
         }
       },
-      "recorded_at": "Tue, 28 May 2024 10:16:56 GMT"
+      "recorded_at": "Tue, 28 May 2024 11:40:00 GMT"
     }
   ],
   "recorded_with": "VCR 6.2.0"

@@ -29,6 +29,113 @@ module Octokit
       alias configure_maintenance_mode set_maintenance_mode
     end
 
+    # Uploads a license for the first time
+    #
+    # @param license [String] The path to your .ghl license file.
+    #
+    # @see https://docs.github.com/en/enterprise-server@3.4/rest/enterprise-admin/management-console#create-a-github-license
+    # @return nil
+    def upload_license(license)
+      conn = authenticated_client
+      conn.request :multipart
+      params = {}
+      params[:license] = Faraday::FilePart.new(license, 'binary')
+      @last_response = conn.put('/manage/v1/config/license', params, { 'Content-Type' => 'multipart/form-data' })
+    end
+
+    # Start a configuration process.
+    #
+    # @return nil
+    def start_configuration
+      conn = authenticated_client
+      @last_response = conn.post('/manage/v1/config/apply')
+    end
+
+    # Get information about the Enterprise installation
+    #
+    # @return [Sawyer::Resource] The installation information
+    def config_status
+      conn = authenticated_client
+      @last_response = conn.get('/manage/v1/config/apply')
+    end
+    alias config_check config_status
+
+    # Get information about the Enterprise installation
+    #
+    # @return [Sawyer::Resource] The settings
+    def settings
+      conn = authenticated_client
+      @last_response = conn.get('/manage/v1/config/settings')
+    end
+    alias get_settings settings
+
+    # Modify the Enterprise settings
+    #
+    # @param settings [Hash] A hash configuration of the new settings
+    #
+    # @return [nil]
+    def edit_settings(settings)
+      conn = authenticated_client
+      @last_response = conn.put('/manage/v1/config/settings', settings.to_json.to_s)
+    end
+
+    def authorized_keys
+      conn = authenticated_client
+      @last_response = conn.get('/manage/v1/access/ssh')
+    end
+    alias get_authorized_keys authorized_keys
+
+    # Add an authorized SSH keys on the Enterprise install
+    #
+    # @param key Either the file path to a key, a File handler to the key, or the contents of the key itself
+    # @return [Sawyer::Resource] An array of authorized SSH keys
+    def add_authorized_key(key)
+      conn = authenticated_client
+      case key
+      when String
+        if File.exist?(key)
+          key = File.open(key, 'r')
+          content = key.read.strip
+          key.close
+        else
+          content = key
+        end
+      when File
+        content = key.read.strip
+        key.close
+      end
+
+      queries = {}
+      queries[:key] = content
+      @last_response = conn.post('/manage/v1/access/ssh', queries)
+    end
+
+    # Removes an authorized SSH keys from the Enterprise install
+    #
+    # @param key Either the file path to a key, a File handler to the key, or the contents of the key itself
+    # @return [Sawyer::Resource] An array of authorized SSH keys
+    def remove_authorized_key(key)
+      conn = authenticated_client
+      case key
+      when String
+        if File.exist?(key)
+          key = File.open(key, 'r')
+          content = key.read.strip
+          key.close
+        else
+          content = key
+        end
+      when File
+        content = key.read.strip
+        key.close
+      end
+
+      queries = {}
+      queries[:key] = content
+      @last_response = conn.run_request(:delete, '/manage/v1/access/ssh', queries, nil)
+    end
+    alias delete_authorized_key remove_authorized_key
+
     private
 
     def basic_authenticated?
