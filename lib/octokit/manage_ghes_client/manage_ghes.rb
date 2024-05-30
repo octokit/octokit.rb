@@ -159,7 +159,7 @@ module Octokit
         elsif basic_authenticated?
           username = @manage_ghes_username
         end
-        c.request :authorization, :basic, username, @manage_ghes_password
+        c.request(*FARADAY_BASIC_AUTH_KEYS, username, @manage_ghes_password)
 
         # Disabling SSL is essential for certain self-hosted Enterprise instances
         c.ssl[:verify] = false if connection_options[:ssl] && !connection_options[:ssl][:verify]
