@@ -32,7 +32,7 @@ RSpec.configure do |config|
 end
 
 require 'vcr'
-VCR.configure do |c|
+VCR.configure do |c| # rubocop:disable Metrics/BlockLength
   c.configure_rspec_metadata!
   c.filter_sensitive_data('<GITHUB_LOGIN>') do
     test_github_login
