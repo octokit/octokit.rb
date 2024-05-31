@@ -1,0 +1,127 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/repos/caja-de-dano/active-wrapper/code-scanning/alerts/1",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 8.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Fri, 31 May 2024 05:04:34 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"102bc5bc3b7dcf7ef68240efdeb67c68a8234ed955df99cb56df0cb4c1991d4a\""
+          ],
+          "Last-Modified": [
+            "Sat, 02 Mar 2024 23:53:54 GMT"
+          ],
+          "X-Oauth-Scopes": [
+            "gist, read:org, repo, workflow"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            "admin:repo_hook, delete_repo, read:repo_hook, repo, repo:invite, repo:status, repo_deployment, security_events, write:repo_hook"
+          ],
+          "X-Oauth-Client-Id": [
+            "178c6fc778ccc68e1d6a"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4998"
+          ],
+          "X-Ratelimit-Reset": [
+            "1717135450"
+          ],
+          "X-Ratelimit-Used": [
+            "2"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "CBC3:26444E:3C37BCD:3CA2F79:66595A62"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJudW1iZXIiOjEsImNyZWF0ZWRfYXQiOiIyMDI0LTAzLTAyVDIzOjUzOjU0\nWiIsInVwZGF0ZWRfYXQiOiIyMDI0LTAzLTAyVDIzOjUzOjU0WiIsInVybCI6\nImh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vcmVwb3MvQ2FqYS1kZS1EYW5vL2Fj\ndGl2ZS13cmFwcGVyL2NvZGUtc2Nhbm5pbmcvYWxlcnRzLzEiLCJodG1sX3Vy\nbCI6Imh0dHBzOi8vZ2l0aHViLmNvbS9DYWphLWRlLURhbm8vYWN0aXZlLXdy\nYXBwZXIvc2VjdXJpdHkvY29kZS1zY2FubmluZy8xIiwic3RhdGUiOiJvcGVu\nIiwiZml4ZWRfYXQiOm51bGwsImRpc21pc3NlZF9ieSI6bnVsbCwiZGlzbWlz\nc2VkX2F0IjpudWxsLCJkaXNtaXNzZWRfcmVhc29uIjpudWxsLCJkaXNtaXNz\nZWRfY29tbWVudCI6bnVsbCwicnVsZSI6eyJpZCI6InB5L2NsZWFyLXRleHQt\nbG9nZ2luZy1zZW5zaXRpdmUtZGF0YSIsInNldmVyaXR5IjoiZXJyb3IiLCJk\nZXNjcmlwdGlvbiI6IkNsZWFyLXRleHQgbG9nZ2luZyBvZiBzZW5zaXRpdmUg\naW5mb3JtYXRpb24iLCJuYW1lIjoicHkvY2xlYXItdGV4dC1sb2dnaW5nLXNl\nbnNpdGl2ZS1kYXRhIiwidGFncyI6WyJleHRlcm5hbC9jd2UvY3dlLTMxMiIs\nImV4dGVybmFsL2N3ZS9jd2UtMzU5IiwiZXh0ZXJuYWwvY3dlL2N3ZS01MzIi\nLCJzZWN1cml0eSJdLCJmdWxsX2Rlc2NyaXB0aW9uIjoiTG9nZ2luZyBzZW5z\naXRpdmUgaW5mb3JtYXRpb24gd2l0aG91dCBlbmNyeXB0aW9uIG9yIGhhc2hp\nbmcgY2FuIGV4cG9zZSBpdCB0byBhbiBhdHRhY2tlci4iLCJoZWxwIjoiIyBD\nbGVhci10ZXh0IGxvZ2dpbmcgb2Ygc2Vuc2l0aXZlIGluZm9ybWF0aW9uXG5J\nZiBzZW5zaXRpdmUgZGF0YSBpcyB3cml0dGVuIHRvIGEgbG9nIGVudHJ5IGl0\nIGNvdWxkIGJlIGV4cG9zZWQgdG8gYW4gYXR0YWNrZXIgd2hvIGdhaW5zIGFj\nY2VzcyB0byB0aGUgbG9ncy5cblxuUG90ZW50aWFsIGF0dGFja2VycyBjYW4g\nb2J0YWluIHNlbnNpdGl2ZSB1c2VyIGRhdGEgd2hlbiB0aGUgbG9nIG91dHB1\ndCBpcyBkaXNwbGF5ZWQuIEFkZGl0aW9uYWxseSB0aGF0IGRhdGEgbWF5IGV4\ncG9zZSBzeXN0ZW0gaW5mb3JtYXRpb24gc3VjaCBhcyBmdWxsIHBhdGggbmFt\nZXMsIHN5c3RlbSBpbmZvcm1hdGlvbiwgYW5kIHNvbWV0aW1lcyB1c2VybmFt\nZXMgYW5kIHBhc3N3b3Jkcy5cblxuXG4jIyBSZWNvbW1lbmRhdGlvblxuU2Vu\nc2l0aXZlIGRhdGEgc2hvdWxkIG5vdCBiZSBsb2dnZWQuXG5cblxuIyMgRXhh\nbXBsZVxuSW4gdGhlIGV4YW1wbGUgdGhlIGVudGlyZSBwcm9jZXNzIGVudmly\nb25tZW50IGlzIGxvZ2dlZCB1c2luZyBcXGBwcmludFxcYC4gUmVndWxhciB1\nc2VycyBvZiB0aGUgcHJvZHVjdGlvbiBkZXBsb3llZCBhcHBsaWNhdGlvbiBz\naG91bGQgbm90IGhhdmUgYWNjZXNzIHRvIHRoaXMgbXVjaCBpbmZvcm1hdGlv\nbiBhYm91dCB0aGUgZW52aXJvbm1lbnQgY29uZmlndXJhdGlvbi5cblxuXG5g\nYGBweXRob25cbiMgQkFEOiBMb2dnaW5nIGNsZWFydGV4dCBzZW5zaXRpdmUg\nZGF0YVxuaW1wb3J0IG9zXG5wcmludChmXCJbSU5GT10gRW52aXJvbm1lbnQ6\nIHtvcy5lbnZpcm9ufVwiKVxuYGBgXG5JbiB0aGUgc2Vjb25kIGV4YW1wbGUg\ndGhlIGRhdGEgdGhhdCBpcyBsb2dnZWQgaXMgbm90IHNlbnNpdGl2ZS5cblxu\nXG5gYGBweXRob25cbm5vdF9zZW5zaXRpdmVfZGF0YSA9IHsnYSc6IDEsICdi\nJzogMn1cbiMgR09PRDogaXQgaXMgZmluZSB0byBsb2cgZGF0YSB0aGF0IGlz\nIG5vdCBzZW5zaXRpdmVcbnByaW50KGZcIltJTkZPXSBTb21lIG9iamVjdCBj\nb250YWluczoge25vdF9zZW5zaXRpdmVfZGF0YX1cIilcbmBgYFxuXG4jIyBS\nZWZlcmVuY2VzXG4qIE9XQVNQOiBbSW5zZXJ0aW9uIG9mIFNlbnNpdGl2ZSBJ\nbmZvcm1hdGlvbiBpbnRvIExvZyBGaWxlXShodHRwczovL293YXNwLm9yZy9U\nb3AxMC9BMDlfMjAyMS1TZWN1cml0eV9Mb2dnaW5nX2FuZF9Nb25pdG9yaW5n\nX0ZhaWx1cmVzLykuXG4qIENvbW1vbiBXZWFrbmVzcyBFbnVtZXJhdGlvbjog\nW0NXRS0zMTJdKGh0dHBzOi8vY3dlLm1pdHJlLm9yZy9kYXRhL2RlZmluaXRp\nb25zLzMxMi5odG1sKS5cbiogQ29tbW9uIFdlYWtuZXNzIEVudW1lcmF0aW9u\nOiBbQ1dFLTM1OV0oaHR0cHM6Ly9jd2UubWl0cmUub3JnL2RhdGEvZGVmaW5p\ndGlvbnMvMzU5Lmh0bWwpLlxuKiBDb21tb24gV2Vha25lc3MgRW51bWVyYXRp\nb246IFtDV0UtNTMyXShodHRwczovL2N3ZS5taXRyZS5vcmcvZGF0YS9kZWZp\nbml0aW9ucy81MzIuaHRtbCkuXG4iLCJzZWN1cml0eV9zZXZlcml0eV9sZXZl\nbCI6ImhpZ2gifSwidG9vbCI6eyJuYW1lIjoiQ29kZVFMIiwiZ3VpZCI6bnVs\nbCwidmVyc2lvbiI6IjIuMTcuMyJ9LCJtb3N0X3JlY2VudF9pbnN0YW5jZSI6\neyJyZWYiOiJyZWZzL2hlYWRzLzAuOSIsImFuYWx5c2lzX2tleSI6ImR5bmFt\naWMvZ2l0aHViLWNvZGUtc2Nhbm5pbmcvY29kZXFsOmFuYWx5emUiLCJlbnZp\ncm9ubWVudCI6IntcImxhbmd1YWdlXCI6XCJweXRob25cIn0iLCJjYXRlZ29y\neSI6Ii9sYW5ndWFnZTpweXRob24iLCJzdGF0ZSI6Im9wZW4iLCJjb21taXRf\nc2hhIjoiZGI4NzQ0OTY3ZTFjOTFhODAwNzllY2VmNzBjN2RiODA1ODcxZGQz\nZCIsIm1lc3NhZ2UiOnsidGV4dCI6IlRoaXMgZXhwcmVzc2lvbiBsb2dzIHNl\nbnNpdGl2ZSBkYXRhIChwYXNzd29yZCkgYXMgY2xlYXIgdGV4dC5cblRoaXMg\nZXhwcmVzc2lvbiBsb2dzIHNlbnNpdGl2ZSBkYXRhIChwYXNzd29yZCkgYXMg\nY2xlYXIgdGV4dC5cblRoaXMgZXhwcmVzc2lvbiBsb2dzIHNlbnNpdGl2ZSBk\nYXRhIChwYXNzd29yZCkgYXMgY2xlYXIgdGV4dC5cblRoaXMgZXhwcmVzc2lv\nbiBsb2dzIHNlbnNpdGl2ZSBkYXRhIChwYXNzd29yZCkgYXMgY2xlYXIgdGV4\ndC5cblRoaXMgZXhwcmVzc2lvbiBsb2dzIHNlbnNpdGl2ZSBkYXRhIChwYXNz\nd29yZCkgYXMgY2xlYXIgdGV4dC5cblRoaXMgZXhwcmVzc2lvbiBsb2dzIHNl\nbnNpdGl2ZSBkYXRhIChwYXNzd29yZCkgYXMgY2xlYXIgdGV4dC5cblRoaXMg\nZXhwcmVzc2lvbiBsb2dzIHNlbnNpdGl2ZSBkYXRhIChwYXNzd29yZCkgYXMg\nY2xlYXIgdGV4dC5cblRoaXMgZXhwcmVzc2lvbiBsb2dzIHNlbnNpdGl2ZSBk\nYXRhIChwYXNzd29yZCkgYXMgY2xlYXIgdGV4dC4ifSwibG9jYXRpb24iOnsi\ncGF0aCI6Im9yYXRvci9kYXRhYmFzZV9tYW5hZ2VyLnB5Iiwic3RhcnRfbGlu\nZSI6NDEsImVuZF9saW5lIjo0MSwic3RhcnRfY29sdW1uIjoyNiwiZW5kX2Nv\nbHVtbiI6NTl9LCJjbGFzc2lmaWNhdGlvbnMiOltdfSwiaW5zdGFuY2VzX3Vy\nbCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vcmVwb3MvQ2FqYS1kZS1EYW5v\nL2FjdGl2ZS13cmFwcGVyL2NvZGUtc2Nhbm5pbmcvYWxlcnRzLzEvaW5zdGFu\nY2VzIn0=\n"
+        }
+      },
+      "recorded_at": "Fri, 31 May 2024 05:04:34 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

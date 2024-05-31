@@ -9,6 +9,61 @@ module Octokit
     #
     # @see https://docs.github.com/rest/code-scanning
     module CodeScanning
+      def update_code_scanning_default_config(repo, state, query_suite=nil, languages=nil, options = {})
+        options[:state] = state
+        options[:query_suite] = query_suite if query_suite
+        options[:languages] = languages if languages
+
+        patch "#{Repository.path repo}/code-scanning/default-setup", options
+      end
+
+      def get_code_scanning_default_config(repo, options = {})
+        get "#{Repository.path repo}/code-scanning/default-setup", options
+      end
+
+      def get_codeql_database_for_repo(repo, language, options = {})
+        get "#{Repository.path repo}/code-scanning/codeql/databases/#{language}", options
+      end
+
+      def list_codeql_database_for_repo(repo, options = {})
+        get "#{Repository.path repo}/code-scanning/codeql/databases", options
+      end
+
+      def delete_code_scanning_analysis(repo, analysis_id, options = {})
+        delete "#{Repository.path repo}/code-scanning/analyses/#{analysis_id}", options
+      end
+
+      def get_code_scanning_analysis(repo, analysis_id, options = {})
+        get "#{Repository.path repo}/code-scanning/analyses/#{analysis_id}", options
+      end
+
+      def list_code_scanning_analysis(repo, options = {})
+        get "#{Repository.path repo}/code-scanning/analyses", options
+      end
+
+      def list_instances_of_code_scanning_alert(repo, alert_number, options = {})
+        get "#{Repository.path repo}/code-scanning/alerts/#{alert_number}/instances", options
+      end
+
+      def update_code_scanning_alert(repo, alert_number, status, reason=nil, comment=nil, options = {})
+        options[:state] = status
+        options[:dismissed_reason] = reason
+        options[:dismissed_comment] = comment
+        patch "#{Repository.path repo}/code-scanning/alerts/#{alert_number}", options
+      end
+
+      def get_code_scanning_alert(repo, alert_number, options = {})
+        get "#{Repository.path repo}/code-scanning/alerts/#{alert_number}", options
+      end
+
+      def list_code_scanning_alerts_for_repository(repo, options = {})
+        get "#{Repository.path repo}/code-scanning/alerts", options
+      end
+
+      def list_code_scanning_alerts_for_org(org, options = {})
+        get "orgs/#{org}/code-scanning/alerts", options
+      end
+
       # Uploads SARIF data containing the results of a code scanning analysis
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
