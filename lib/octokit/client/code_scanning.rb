@@ -15,7 +15,7 @@ module Octokit
       # @param state [String] The desired state of code scanning default setup
       # @param query_suite [String] CodeQL query suite to be used
       # @param languages [Array] List of CodeQL languages to be analyzed
-
+      #
       # @return [Sawyer::Resource] Action Run information
       # @see https://docs.github.com/en/rest/code-scanning/code-scanning#update-a-code-scanning-default-setup-configuration
       def update_code_scanning_default_config(repo, state, query_suite = nil, languages = nil, options = {})
