@@ -18,7 +18,7 @@ describe Octokit::Client::CodeScanning do
 
   describe '.list_code_scanning_alerts_for_repository', :vcr do
     it 'lists code scanning alerts for a repository' do
-      scanning_alerts = @client.list_code_scanning_alerts_for_repository(@code_scanning_test_repo)
+      scanning_alerts = @client.list_code_scanning_alerts_for_repo(@code_scanning_test_repo)
       assert_requested :get, github_url("/repos/#{@code_scanning_test_repo}/code-scanning/alerts")
     end
   end
