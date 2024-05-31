@@ -9,7 +9,7 @@ module Octokit
     #
     # @see https://docs.github.com/rest/code-scanning
     module CodeScanning
-      def update_code_scanning_default_config(repo, state, query_suite=nil, languages=nil, options = {})
+      def update_code_scanning_default_config(repo, state, query_suite = nil, languages = nil, options = {})
         options[:state] = state
         options[:query_suite] = query_suite if query_suite
         options[:languages] = languages if languages
@@ -45,10 +45,11 @@ module Octokit
         get "#{Repository.path repo}/code-scanning/alerts/#{alert_number}/instances", options
       end
 
-      def update_code_scanning_alert(repo, alert_number, status, reason=nil, comment=nil, options = {})
-        options[:state] = status
+      def update_code_scanning_alert(repo, alert_number, state, reason, comment = nil, options = {})
+        options[:state] = state
         options[:dismissed_reason] = reason
-        options[:dismissed_comment] = comment
+        options[:dismissed_comment] = comment if comment
+
         patch "#{Repository.path repo}/code-scanning/alerts/#{alert_number}", options
       end
 

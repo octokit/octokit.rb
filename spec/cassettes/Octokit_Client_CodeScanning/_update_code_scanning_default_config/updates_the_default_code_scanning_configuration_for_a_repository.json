@@ -3,10 +3,10 @@
     {
       "request": {
         "method": "patch",
-        "uri": "https://api.github.com/repos/caja-de-dano/active-wrapper/code-scanning/default-setup",
+        "uri": "https://api.github.com/repos/Caja-de-Dano/active-wrapper/code-scanning/default-setup",
         "body": {
           "encoding": "UTF-8",
-          "base64_string": "eyJzdGF0ZSI6Im5vdC1jb25maWd1cmVkIn0=\n"
+          "base64_string": "eyJzdGF0ZSI6ImNvbmZpZ3VyZWQifQ==\n"
         },
         "headers": {
           "Accept": [
@@ -28,31 +28,21 @@
       },
       "response": {
         "status": {
-          "code": 200,
-          "message": "OK"
+          "code": 202,
+          "message": "Accepted"
         },
         "headers": {
           "Server": [
             "GitHub.com"
           ],
           "Date": [
-            "Fri, 31 May 2024 05:31:16 GMT"
+            "Fri, 31 May 2024 05:51:36 GMT"
           ],
           "Content-Type": [
             "application/json; charset=utf-8"
           ],
           "Content-Length": [
-            "2"
-          ],
-          "Cache-Control": [
-            "private, max-age=60, s-maxage=60"
-          ],
-          "Vary": [
-            "Accept, Authorization, Cookie, X-GitHub-OTP",
-            "Accept-Encoding, Accept, X-Requested-With"
-          ],
-          "Etag": [
-            "\"2ec9ed5bca79359728914855a288326734ed27a902fb4ea5e4bba7bf07869a1b\""
+            "114"
           ],
           "X-Oauth-Scopes": [
             "gist, read:org, repo, workflow"
@@ -73,13 +63,13 @@
             "5000"
           ],
           "X-Ratelimit-Remaining": [
-            "4980"
+            "4976"
           ],
           "X-Ratelimit-Reset": [
             "1717135450"
           ],
           "X-Ratelimit-Used": [
-            "20"
+            "24"
           ],
           "X-Ratelimit-Resource": [
             "core"
@@ -108,16 +98,19 @@
           "Content-Security-Policy": [
             "default-src 'none'"
           ],
+          "Vary": [
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
           "X-Github-Request-Id": [
-            "D2CB:39E48B:35F6A88:365B188:665960A4"
+            "D824:1C3A54:3748F72:37AFCB2:66596567"
           ]
         },
         "body": {
           "encoding": "UTF-8",
-          "base64_string": "e30=\n"
+          "base64_string": "eyJydW5faWQiOjkzMTM1NjI1MjIsInJ1bl91cmwiOiJodHRwczovL2FwaS5n\naXRodWIuY29tL3JlcG9zL0NhamEtZGUtRGFuby9hY3RpdmUtd3JhcHBlci9h\nY3Rpb25zL3J1bnMvOTMxMzU2MjUyMiJ9\n"
         }
       },
-      "recorded_at": "Fri, 31 May 2024 05:31:17 GMT"
+      "recorded_at": "Fri, 31 May 2024 05:51:36 GMT"
     }
   ],
   "recorded_with": "VCR 6.2.0"

@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "delete",
-        "uri": "https://api.github.com/repos/caja-de-dano/active-wrapper/code-scanning/analyses/223527352",
+        "uri": "https://api.github.com/repos/Caja-de-Dano/active-wrapper/code-scanning/analyses/225379147",
         "body": {
           "encoding": "UTF-8",
           "base64_string": "e30=\n"
@@ -36,7 +36,7 @@
             "GitHub.com"
           ],
           "Date": [
-            "Fri, 31 May 2024 05:22:04 GMT"
+            "Fri, 31 May 2024 06:04:21 GMT"
           ],
           "Content-Type": [
             "application/json; charset=utf-8"
@@ -73,13 +73,13 @@
             "5000"
           ],
           "X-Ratelimit-Remaining": [
-            "4984"
+            "4999"
           ],
           "X-Ratelimit-Reset": [
-            "1717135450"
+            "1717139061"
           ],
           "X-Ratelimit-Used": [
-            "16"
+            "1"
           ],
           "X-Ratelimit-Resource": [
             "core"
@@ -109,7 +109,7 @@
             "default-src 'none'"
           ],
           "X-Github-Request-Id": [
-            "D05A:3A257F:360FA0C:3673048:66595E7C"
+            "DB89:3A257F:386B555:38D393B:66596865"
           ]
         },
         "body": {
@@ -117,7 +117,7 @@
           "base64_string": "eyJuZXh0X2FuYWx5c2lzX3VybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20v\ncmVwb3MvQ2FqYS1kZS1EYW5vL2FjdGl2ZS13cmFwcGVyL2NvZGUtc2Nhbm5p\nbmcvYW5hbHlzZXMvMjIwMTQ4NzQzIiwiY29uZmlybV9kZWxldGVfdXJsIjoi\naHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9DYWphLWRlLURhbm8vYWN0\naXZlLXdyYXBwZXIvY29kZS1zY2FubmluZy9hbmFseXNlcy8yMjAxNDg3NDM/\nY29uZmlybV9kZWxldGUifQ==\n"
         }
       },
-      "recorded_at": "Fri, 31 May 2024 05:22:04 GMT"
+      "recorded_at": "Fri, 31 May 2024 06:04:21 GMT"
     }
   ],
   "recorded_with": "VCR 6.2.0"

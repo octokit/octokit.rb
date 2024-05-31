@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "get",
-        "uri": "https://api.github.com/repos/caja-de-dano/active-wrapper/code-scanning/default-setup",
+        "uri": "https://api.github.com/repos/Caja-de-Dano/active-wrapper/code-scanning/default-setup",
         "body": {
           "encoding": "US-ASCII",
           "base64_string": ""
@@ -36,7 +36,7 @@
             "GitHub.com"
           ],
           "Date": [
-            "Fri, 31 May 2024 05:26:41 GMT"
+            "Fri, 31 May 2024 05:52:54 GMT"
           ],
           "Content-Type": [
             "application/json; charset=utf-8"
@@ -52,7 +52,7 @@
             "Accept-Encoding, Accept, X-Requested-With"
           ],
           "Etag": [
-            "W/\"6b1d59a782b57d4d7be8df168446d4cecff3c2bc26734aa048a6518962db8228\""
+            "W/\"4f62f5e8914ca80b26b9e7f6f9e7a86558f0b62b36cba50a06f3b67ec75dac3f\""
           ],
           "X-Oauth-Scopes": [
             "gist, read:org, repo, workflow"
@@ -73,13 +73,13 @@
             "5000"
           ],
           "X-Ratelimit-Remaining": [
-            "4982"
+            "4975"
           ],
           "X-Ratelimit-Reset": [
             "1717135450"
           ],
           "X-Ratelimit-Used": [
-            "18"
+            "25"
           ],
           "X-Ratelimit-Resource": [
             "core"
@@ -109,15 +109,15 @@
             "default-src 'none'"
           ],
           "X-Github-Request-Id": [
-            "D181:1C3A54:35EF48E:3653404:66595F90"
+            "D880:3A257F:37C835D:382F223:665965B6"
           ]
         },
         "body": {
           "encoding": "ASCII-8BIT",
-          "base64_string": "eyJzdGF0ZSI6ImNvbmZpZ3VyZWQiLCJsYW5ndWFnZXMiOlsicHl0aG9uIl0s\nInF1ZXJ5X3N1aXRlIjoiZGVmYXVsdCIsInVwZGF0ZWRfYXQiOiIyMDI0LTAz\nLTAyVDIzOjUyOjAwWiIsInNjaGVkdWxlIjoid2Vla2x5In0=\n"
+          "base64_string": "eyJzdGF0ZSI6ImNvbmZpZ3VyZWQiLCJsYW5ndWFnZXMiOlsicHl0aG9uIl0s\nInF1ZXJ5X3N1aXRlIjoiZGVmYXVsdCIsInVwZGF0ZWRfYXQiOiIyMDI0LTA1\nLTMxVDA1OjQ5OjIwWiIsInNjaGVkdWxlIjoid2Vla2x5In0=\n"
         }
       },
-      "recorded_at": "Fri, 31 May 2024 05:26:41 GMT"
+      "recorded_at": "Fri, 31 May 2024 05:52:54 GMT"
     }
   ],
   "recorded_with": "VCR 6.2.0"
