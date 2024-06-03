@@ -35,8 +35,8 @@ describe Octokit::ManageGHESClient::ManageAPI do
   describe '.upload_license', :vcr do
     it 'upload a new license' do
       @manage_ghes.upload_license(@license)
-      expect(@manage_ghes.last_response.status).to eq(201)
-      assert_requested :put, github_manage_ghes_url('/manage/v1/config/license')
+      expect(@manage_ghes.last_response.status).to eq(202)
+      assert_requested :post, github_manage_ghes_url('/manage/v1/config/init')
     end
   end # .upload_license
 

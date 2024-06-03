@@ -9,7 +9,7 @@ module Octokit
     module ManageAPI
       # Get information about the maintenance status of the GHES instance
       #
-      # @return [Sawyer::Resource] The maintenance mode status
+      # @return [nil]
       def maintenance_mode
         conn = authenticated_client
 
@@ -33,19 +33,19 @@ module Octokit
     #
     # @param license [String] The path to your .ghl license file.
     #
-    # @see https://docs.github.com/en/enterprise-server@3.4/rest/enterprise-admin/management-console#create-a-github-license
-    # @return nil
+    # @return [nil]
     def upload_license(license)
       conn = authenticated_client
       conn.request :multipart
       params = {}
       params[:license] = Faraday::FilePart.new(license, 'binary')
-      @last_response = conn.put('/manage/v1/config/license', params, { 'Content-Type' => 'multipart/form-data' })
+      params[:password] = @manage_ghes_password
+      @last_response = conn.post('/manage/v1/config/init', params, { 'Content-Type' => 'multipart/form-data' })
     end
 
     # Start a configuration process.
     #
-    # @return nil
+    # @return [nil]
     def start_configuration
       conn = authenticated_client
       @last_response = conn.post('/manage/v1/config/apply')
@@ -53,7 +53,7 @@ module Octokit
 
     # Get information about the Enterprise installation
     #
-    # @return [Sawyer::Resource] The installation information
+    # @return [nil]
     def config_status
       conn = authenticated_client
       @last_response = conn.get('/manage/v1/config/apply')
@@ -62,7 +62,7 @@ module Octokit
 
     # Get information about the Enterprise installation
     #
-    # @return [Sawyer::Resource] The settings
+    # @return [nil]
     def settings
       conn = authenticated_client
       @last_response = conn.get('/manage/v1/config/settings')
@@ -88,7 +88,7 @@ module Octokit
     # Add an authorized SSH keys on the Enterprise install
     #
     # @param key Either the file path to a key, a File handler to the key, or the contents of the key itself
-    # @return [Sawyer::Resource] An array of authorized SSH keys
+    # @return [nil]
     def add_authorized_key(key)
       conn = authenticated_client
       case key
@@ -113,7 +113,7 @@ module Octokit
     # Removes an authorized SSH keys from the Enterprise install
     #
     # @param key Either the file path to a key, a File handler to the key, or the contents of the key itself
-    # @return [Sawyer::Resource] An array of authorized SSH keys
+    # @return [nil]
     def remove_authorized_key(key)
       conn = authenticated_client
       case key
