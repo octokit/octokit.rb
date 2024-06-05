@@ -15,7 +15,7 @@ if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
   begin
     require 'faraday/multipart'
   rescue LoadError
-    Octokit::Warnable.octokit_warn 'To use retry middleware with Faraday v2.0+, install `faraday-multipart` gem'
+    Octokit::Warnable.octokit_warn 'To use multipart middleware with Faraday v2.0+, install `faraday-multipart` gem; note: this is used by the ManageGHES client for uploading licenses'
   end
 end
 
