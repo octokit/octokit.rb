@@ -23,6 +23,7 @@ module Octokit
                   when 405      then Octokit::MethodNotAllowed
                   when 406      then Octokit::NotAcceptable
                   when 409      then Octokit::Conflict
+                  when 410      then Octokit::Deprecated
                   when 415      then Octokit::UnsupportedMediaType
                   when 422      then error_for_422(body)
                   when 451      then Octokit::UnavailableForLegalReasons
@@ -108,6 +109,10 @@ module Octokit
       else
         Octokit::NotFound
       end
+    end
+
+    def self.error_for_410(body)
+      Octokit::Gone
     end
 
     # Return most appropriate error for 422 HTTP status code
@@ -316,6 +321,9 @@ module Octokit
 
   # Raised when GitHub returns a 409 HTTP status code
   class Conflict < ClientError; end
+
+  # Raised when GHES Manage return a 410 HTTP status code
+  class Deprecated < ClientError; end
 
   # Raised when GitHub returns a 414 HTTP status code
   class UnsupportedMediaType < ClientError; end
