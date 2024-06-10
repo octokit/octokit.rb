@@ -111,10 +111,6 @@ module Octokit
       end
     end
 
-    def self.error_for_410(body)
-      Octokit::Gone
-    end
-
     # Return most appropriate error for 422 HTTP status code
     # @private
     # rubocop:disable Naming/VariableNumber
