@@ -10,6 +10,7 @@ module Octokit
     #
     # @param [Hash] response HTTP response
     # @return [Octokit::Error]
+    # rubocop:disable Metrics/CyclomaticComplexity
     def self.from_response(response)
       status  = response[:status].to_i
       body    = response[:body].to_s
