@@ -38,6 +38,7 @@ module Octokit
         klass.new(response)
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def build_error_context
       if RATE_LIMITED_ERRORS.include?(self.class)
