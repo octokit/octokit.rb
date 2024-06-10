@@ -1,0 +1,69 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "<<MANAGE_GHES_ENDPOINT>>/manage/v1/maintenance",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "User-Agent": [
+            "Octokit Ruby Gem 8.1.0"
+          ],
+          "Authorization": [
+            "Basic YXBpX2tleTpRMjBVcm45aWs="
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Security-Policy": [
+            "default-src 'none';"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Server": [
+            "GHES Manage"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=63072000; includeSubDomains; preload"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Frame-Options": [
+            "DENY"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Date": [
+            "Tue, 28 May 2024 10:16:56 GMT"
+          ],
+          "Content-Length": [
+            "314"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "W3siaG9zdG5hbWUiOiJhbGVqbmRyMC0wNWUwODQxYjIwNzY3MjcyNy5naGUt\ndGVzdC5jb20iLCJ1dWlkIjoiYzYyYzgyOTItMWMwOS0xMWVmLWEzZTMtMDYy\nYWMwZTlkZGIxIiwic3RhdHVzIjoib2ZmIiwiY29ubmVjdGlvbl9zZXJ2aWNl\ncyI6W3sibmFtZSI6ImdpdCBvcGVyYXRpb25zIiwibnVtYmVyIjowfSx7Im5h\nbWUiOiJteXNxbCBxdWVyaWVzIiwibnVtYmVyIjowfSx7Im5hbWUiOiJyZXNx\ndWUgam9icyIsIm51bWJlciI6MH0seyJuYW1lIjoiYXF1ZWR1Y3Qgam9icyIs\nIm51bWJlciI6MH1dLCJjYW5fdW5zZXRfbWFpbnRlbmFuY2UiOnRydWV9XQo=\n"
+        }
+      },
+      "recorded_at": "Tue, 28 May 2024 10:16:56 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

@@ -10,6 +10,7 @@ module Octokit
     #
     # @param [Hash] response HTTP response
     # @return [Octokit::Error]
+    # rubocop:disable Metrics/CyclomaticComplexity
     def self.from_response(response)
       status  = response[:status].to_i
       body    = response[:body].to_s
@@ -23,6 +24,7 @@ module Octokit
                   when 405      then Octokit::MethodNotAllowed
                   when 406      then Octokit::NotAcceptable
                   when 409      then Octokit::Conflict
+                  when 410      then Octokit::Deprecated
                   when 415      then Octokit::UnsupportedMediaType
                   when 422      then error_for_422(body)
                   when 451      then Octokit::UnavailableForLegalReasons
@@ -36,6 +38,7 @@ module Octokit
         klass.new(response)
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def build_error_context
       if RATE_LIMITED_ERRORS.include?(self.class)
@@ -316,6 +319,9 @@ module Octokit
 
   # Raised when GitHub returns a 409 HTTP status code
   class Conflict < ClientError; end
+
+  # Raised when GHES Manage return a 410 HTTP status code
+  class Deprecated < ClientError; end
 
   # Raised when GitHub returns a 414 HTTP status code
   class UnsupportedMediaType < ClientError; end

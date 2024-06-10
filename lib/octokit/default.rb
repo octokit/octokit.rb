@@ -12,6 +12,11 @@ if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
   rescue LoadError
     Octokit::Warnable.octokit_warn 'To use retry middleware with Faraday v2.0+, install `faraday-retry` gem'
   end
+  begin
+    require 'faraday/multipart'
+  rescue LoadError
+    Octokit::Warnable.octokit_warn 'To use multipart middleware with Faraday v2.0+, install `faraday-multipart` gem; note: this is used by the ManageGHES client for uploading licenses'
+  end
 end
 
 module Octokit
@@ -100,6 +105,24 @@ module Octokit
       # @return [String]
       def management_console_endpoint
         ENV.fetch('OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT', nil)
+      end
+
+      # Default GHES Manage API endpoint from ENV
+      # @return [String]
+      def manage_ghes_endpoint
+        ENV.fetch('OCTOKIT_MANAGE_GHES_ENDPOINT', nil)
+      end
+
+      # Default GHES Manage API username from ENV
+      # @return [String]
+      def manage_ghes_username
+        ENV.fetch('OCTOKIT_MANAGE_GHES_USERNAME', nil)
+      end
+
+      # Default GHES Manage API password from ENV
+      # @return [String]
+      def manage_ghes_password
+        ENV.fetch('OCTOKIT_MANAGE_GHES_PASSWORD', nil)
       end
 
       # Default options for Faraday::Connection
