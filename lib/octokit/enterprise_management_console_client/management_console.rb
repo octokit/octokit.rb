@@ -14,7 +14,7 @@ module Octokit
       # @see https://docs.github.com/en/enterprise-server@3.4/rest/enterprise-admin/management-console#create-a-github-license
       # @return nil
       def upload_license(license, settings = nil)
-        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.14.0, please use the ManageGHES client instead.')
+        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.15.0, please use the ManageGHES client instead.')
         conn = faraday_configuration
 
         params = {}
@@ -29,7 +29,7 @@ module Octokit
       #
       # @return nil
       def start_configuration
-        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.14.0, please use the ManageGHES client instead.')
+        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.15.0, please use the ManageGHES client instead.')
         post '/setup/api/configure', password_hash
       end
 
@@ -39,7 +39,7 @@ module Octokit
       #
       # @return nil
       def upgrade(license)
-        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.14.0, please use the ManageGHES client instead.')
+        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.15.0, please use the ManageGHES client instead.')
         conn = faraday_configuration
 
         params = {}
@@ -52,7 +52,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] The installation information
       def config_status
-        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.14.0, please use the ManageGHES client instead.')
+        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.15.0, please use the ManageGHES client instead.')
         get '/setup/api/configcheck', password_hash
       end
       alias config_check config_status
@@ -61,7 +61,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] The settings
       def settings
-        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.14.0, please use the ManageGHES client instead.')
+        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.15.0, please use the ManageGHES client instead.')
         get '/setup/api/settings', password_hash
       end
       alias get_settings settings
@@ -72,7 +72,7 @@ module Octokit
       #
       # @return [nil]
       def edit_settings(settings)
-        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.14.0, please use the ManageGHES client instead.')
+        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.15.0, please use the ManageGHES client instead.')
         queries = password_hash
         queries[:query][:settings] = settings.to_json.to_s
         put '/setup/api/settings', queries
@@ -82,7 +82,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] The maintenance status
       def maintenance_status
-        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.14.0, please use the ManageGHES client instead.')
+        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.15.0, please use the ManageGHES client instead.')
         get '/setup/api/maintenance', password_hash
       end
       alias get_maintenance_status maintenance_status
@@ -92,7 +92,7 @@ module Octokit
       # @param maintenance [Hash] A hash configuration of the maintenance settings
       # @return [nil]
       def set_maintenance_status(maintenance)
-        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.14.0, please use the ManageGHES client instead.')
+        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.15.0, please use the ManageGHES client instead.')
         queries = password_hash
         queries[:query][:maintenance] = maintenance.to_json.to_s
         post '/setup/api/maintenance', queries
@@ -103,7 +103,7 @@ module Octokit
       #
       # @return [Sawyer::Resource] An array of authorized SSH keys
       def authorized_keys
-        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.14.0, please use the ManageGHES client instead.')
+        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.15.0, please use the ManageGHES client instead.')
         get '/setup/api/settings/authorized-keys', password_hash
       end
       alias get_authorized_keys authorized_keys
@@ -113,7 +113,7 @@ module Octokit
       # @param key Either the file path to a key, a File handler to the key, or the contents of the key itself
       # @return [Sawyer::Resource] An array of authorized SSH keys
       def add_authorized_key(key)
-        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.14.0, please use the ManageGHES client instead.')
+        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.15.0, please use the ManageGHES client instead.')
         queries = password_hash
         case key
         when String
@@ -138,7 +138,7 @@ module Octokit
       # @param key Either the file path to a key, a File handler to the key, or the contents of the key itself
       # @return [Sawyer::Resource] An array of authorized SSH keys
       def remove_authorized_key(key)
-        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.14.0, please use the ManageGHES client instead.')
+        octokit_warn('The Management Console API will be deprecated in GitHub Enterprise Server 3.15.0, please use the ManageGHES client instead.')
         queries = password_hash
         case key
         when String
