@@ -609,4 +609,38 @@ describe Octokit::Client::Repositories do
       expect(result).to be true
     end
   end # .disable_vulnerability_alerts
+
+  describe '.automated_security_fixes_enabled?', :vcr do
+    it 'returns true when automated security fixes are enabled' do
+      @client.enable_automated_security_fixes(@test_repo)
+
+      result = @client.automated_security_fixes_enabled?(@test_repo)
+      assert_requested :get, github_url("/repos/#{@test_repo}/automated-security-fixes")
+      expect(result).to be true
+    end
+
+    it 'returns false with automated security fixes disabled' do
+      @client.disable_automated_security_fixes(@test_repo)
+
+      result = @client.automated_security_fixes_enabled?(@test_repo)
+      assert_requested :get, github_url("/repos/#{@test_repo}/automated-security-fixes")
+      expect(result).to be false
+    end
+  end # .automated_security_fixes_enabled?
+
+  describe '.enable_automated_security_fixes', :vcr do
+    it 'enables automated security fixes for the repository' do
+      result = @client.enable_automated_security_fixes(@test_repo)
+      assert_requested :put, github_url("/repos/#{@test_repo}/automated-security-fixes")
+      expect(result).to be true
+    end
+  end # .enable_automated_security_fixes
+
+  describe '.disable_automated_security_fixes', :vcr do
+    it 'disables automated security fixes for the repository' do
+      result = @client.disable_automated_security_fixes(@test_repo)
+      assert_requested :delete, github_url("/repos/#{@test_repo}/automated-security-fixes")
+      expect(result).to be true
+    end
+  end # .disable_automated_security_fixes
 end

@@ -774,6 +774,49 @@ module Octokit
       def disable_vulnerability_alerts(repo, options = {})
         boolean_from_response(:delete, "#{Repository.path repo}/vulnerability-alerts", options)
       end
+
+      # Check to see if automated security fixes are enabled for a repository
+      #
+      # The authenticated user must have admin access to the repository.
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @return [Boolean] True if automated security fixes are enabled, false otherwise.
+      # @see https://docs.github.com/en/rest/reference/repos#check-if-automated-security-fixes-are-enabled-for-a-repository
+      #
+      # @example
+      #   @client.automated_security_fixes_enabled?("octokit/octokit.rb")
+      def automated_security_fixes_enabled?(repo, options = {})
+        response = get "#{Repository.path repo}/automated-security-fixes", options
+        return response[:enabled] if @last_response.status == 200
+
+        false
+      end
+
+      # Enable automated security fixes for a repository
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param options [Hash]
+      #
+      # @return [Boolean] True if vulnerability alerts enabled, false otherwise.
+      # @see https://docs.github.com/en/rest/reference/repos#automated-security-fixes
+      # @example Enable automated security fixes for a repository
+      #   @client.enable_automated_security_fixes("octokit/octokit.rb")
+      def enable_automated_security_fixes(repo, options = {})
+        boolean_from_response(:put, "#{Repository.path repo}/automated-security-fixes", options)
+      end
+
+      # Disable automated security fixes for a repository
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository.
+      # @param options [Hash]
+      #
+      # @return [Boolean] True if vulnerability alerts disabled, false otherwise.
+      # @see https://docs.github.com/en/rest/reference/repos#automated-security-fixes
+      # @example Disable  automated security fixes for a repository
+      #   @client.disable_automated_security_fixes("octokit/octokit.rb")
+      def disable_automated_security_fixes(repo, options = {})
+        boolean_from_response(:delete, "#{Repository.path repo}/automated-security-fixes", options)
+      end
     end
   end
 end
