@@ -36,7 +36,14 @@ module Octokit
     # @return [nil]
     def upload_license(license)
       conn = authenticated_client
-      conn.request :multipart
+      begin
+        conn.request :multipart
+      rescue Faraday::Error
+        raise Faraday::Error, <<~ERROR
+          The `faraday-multipart` gem is required to upload a license.
+          Please add `gem "faraday-multipart"` to your Gemfile.
+        ERROR
+      end
       params = {}
       params[:license] = Faraday::FilePart.new(license, 'binary')
       params[:password] = @manage_ghes_password

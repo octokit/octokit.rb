@@ -38,6 +38,15 @@ describe Octokit::ManageGHESClient::ManageAPI do
       expect(@manage_ghes.last_response.status).to eq(202)
       assert_requested :post, github_manage_ghes_url('/manage/v1/config/init')
     end
+
+    it 'raises an error if the faraday-multipart gem is not installed' do
+      middleware_key = :multipart
+      middleware = Faraday::Request.unregister_middleware(middleware_key)
+
+      expect { @manage_ghes.upload_license(@license) }.to raise_error Faraday::Error
+    ensure
+      Faraday::Request.register_middleware(middleware_key => middleware) if middleware
+    end
   end # .upload_license
 
   describe '.start_configuration', :vcr do

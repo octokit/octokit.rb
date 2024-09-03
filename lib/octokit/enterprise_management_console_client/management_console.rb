@@ -171,7 +171,14 @@ module Octokit
     def faraday_configuration
       @faraday_configuration ||= Faraday.new(url: @management_console_endpoint) do |http|
         http.headers[:user_agent] = user_agent
-        http.request :multipart
+        begin
+          http.request :multipart
+        rescue Faraday::Error
+          raise Faraday::Error, <<~ERROR
+            The `faraday-multipart` gem is required to upload a license.
+            Please add `gem "faraday-multipart"` to your Gemfile.
+          ERROR
+        end
         http.request :url_encoded
 
         # Disabling SSL is essential for certain self-hosted Enterprise instances
