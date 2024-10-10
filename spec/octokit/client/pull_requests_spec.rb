@@ -96,13 +96,16 @@ describe Octokit::Client::PullRequests do
     end # .pull_merged?
 
     context 'methods requiring a pull request comment' do
-      before do
-        new_comment = {
+      let(:new_comment) do
+        {
           body: 'Hawt',
           commit_id: '9bf22dff54fd6a7650230b70417b55e8cccfc4f2',
           path: 'test.md',
           line: 1
         }
+      end
+
+      before do
         @comment = @client.create_pull_request_comment \
           @test_repo,
           @pull.number,
@@ -115,6 +118,15 @@ describe Octokit::Client::PullRequests do
       describe '.create_pull_request_comment', :vcr do
         it 'creates a new comment on a pull request' do
           assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments")
+        end
+
+        context 'without line argument' do
+          let(:new_comment) { super().except(:line) }
+
+          it 'creates a new comment on a pull request at the file level' do
+            assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments")
+            expect(@comment.subject_type).to eq('file')
+          end
         end
       end # .create_pull_request_comment
 
