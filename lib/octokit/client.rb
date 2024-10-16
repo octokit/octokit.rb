@@ -261,7 +261,6 @@ module Octokit
       conn_opts[:proxy] = @proxy if @proxy
       conn_opts[:ssl] = { verify_mode: @ssl_verify_mode } if @ssl_verify_mode
       conn = Faraday.new(conn_opts) do |http|
-        http_cache_middleware = http.builder.handlers.delete(Faraday::HttpCache) if Faraday.const_defined?(:HttpCache)
         if basic_authenticated?
           http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
         elsif token_authenticated?
@@ -269,7 +268,6 @@ module Octokit
         elsif bearer_authenticated?
           http.request :authorization, 'Bearer', @bearer_token
         end
-        http.builder.handlers.push(http_cache_middleware) unless http_cache_middleware.nil?
         http.headers['accept'] = options[:accept] if options.key?(:accept)
       end
       conn.builder.delete(Octokit::Middleware::FollowRedirects)
