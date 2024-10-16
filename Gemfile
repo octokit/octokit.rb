@@ -20,6 +20,7 @@ group :test do
     gem 'rexml', '>= 3.2.4'
   end
   gem 'base64'
+  gem 'faraday-http-cache', '~> 2.5', '>= 2.5.1'
   gem 'json', '>= 2.3.0'
   gem 'jwt', '~> 2.2', '>= 2.2.1'
   gem 'mime-types', '~> 3.3', '>= 3.3.1'
@@ -30,6 +31,7 @@ group :test do
   gem 'rspec', '~> 3.9'
   gem 'simplecov', require: false
   gem 'test-queue'
+  gem 'timecop', '~> 0.9.8'
   gem 'vcr', '~> 6.1'
   gem 'webmock', '~> 3.8', '>= 3.8.2'
 end

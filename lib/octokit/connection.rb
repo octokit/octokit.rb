@@ -106,6 +106,7 @@ module Octokit
         http.headers[:accept] = default_media_type
         http.headers[:content_type] = 'application/json'
         http.headers[:user_agent] = user_agent
+        http_cache_middleware = http.builder.handlers.delete(Faraday::HttpCache) if Faraday.const_defined?(:HttpCache)
         if basic_authenticated?
           http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
         elsif token_authenticated?
@@ -115,6 +116,7 @@ module Octokit
         elsif application_authenticated?
           http.request(*FARADAY_BASIC_AUTH_KEYS, @client_id, @client_secret)
         end
+        http.builder.handlers.push(http_cache_middleware) unless http_cache_middleware.nil?
       end
     end
 

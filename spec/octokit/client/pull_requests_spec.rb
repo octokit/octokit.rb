@@ -121,7 +121,7 @@ describe Octokit::Client::PullRequests do
         end
 
         context 'without line argument' do
-          let(:new_comment) { super().except(:line) }
+          let(:new_comment) { super().tap { |hash| hash.delete(:line) } }
 
           it 'creates a new comment on a pull request at the file level' do
             assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments")
