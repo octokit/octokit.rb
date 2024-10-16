@@ -231,6 +231,18 @@ module Octokit
         end
       end
 
+      # Returns a delivery for the webhook configured for a GitHub App.
+      #
+      # @param delivery_id [String] The id of a GitHub App Hook Delivery
+      # @param options [Hash] A customizable set of options
+      #
+      # @see https://docs.github.com/en/rest/apps/webhooks#get-a-delivery-for-an-app-webhook
+      #
+      # @return [<Sawyer::Resource>] The webhook delivery
+      def app_hook_delivery(delivery_id, options = {})
+        get "/app/hook/deliveries/#{delivery_id}", options
+      end
+
       # Redeliver a delivery for the webhook configured for a GitHub App.
       #
       # @param delivery_id [Integer] The id of a GitHub App Hook Delivery

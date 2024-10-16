@@ -81,8 +81,14 @@ module Octokit
 
     private
 
+    ABS_URI_REGEXP = if URI.const_defined?(:RFC2396_PARSER) # Ruby 3.4+
+                       URI::RFC2396_PARSER.regexp.fetch(:ABS_URI)
+                     else
+                       URI::RFC2396_Parser.new.regexp.fetch(:ABS_URI)
+                     end
+
     def validate_owner_and_name!(repo)
-      if @owner.include?('/') || @name.include?('/') || !url.match(URI::ABS_URI)
+      if @owner.include?('/') || @name.include?('/') || !url.match?(ABS_URI_REGEXP)
         raise_invalid_repository!(repo)
       end
     end

@@ -14,6 +14,15 @@ describe Octokit::EnterpriseManagementConsoleClient::ManagementConsole do
       expect(@enterprise_management_console_client.last_response.status).to eq(202)
       assert_requested :post, github_management_console_url('setup/api/start')
     end
+
+    it 'raises an error if the faraday-multipart gem is not installed' do
+      middleware_key = :multipart
+      middleware = Faraday::Request.unregister_middleware(middleware_key)
+
+      expect { @enterprise_management_console_client.upload_license(@license) }.to raise_error Faraday::Error
+    ensure
+      Faraday::Request.register_middleware(middleware_key => middleware) if middleware
+    end
   end # .upload_license
 
   describe '.start_configuration', :vcr do

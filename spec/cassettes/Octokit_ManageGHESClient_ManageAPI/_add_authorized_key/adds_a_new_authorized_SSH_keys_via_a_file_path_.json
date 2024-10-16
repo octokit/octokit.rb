@@ -1,0 +1,72 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "post",
+        "uri": "<<MANAGE_GHES_ENDPOINT>>/manage/v1/access/ssh",
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJrZXkiOiJzc2gtcnNhIEFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQSJ9"
+        },
+        "headers": {
+          "User-Agent": [
+            "Octokit Ruby Gem 8.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Basic YXBpX2tleTpRMjBVcm45aWs="
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Content-Security-Policy": [
+            "default-src 'none';"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Server": [
+            "GHES Manage"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=63072000; includeSubDomains; preload"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Frame-Options": [
+            "DENY"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Date": [
+            "Tue, 28 May 2024 11:07:14 GMT"
+          ],
+          "Content-Length": [
+            "158"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "W3siaG9zdG5hbWUiOiJhbGVqbmRyMC0wNWUwODQxYjIwNzY3MjcyNy5naGUt\ndGVzdC5jb20iLCJ1dWlkIjoiYzYyYzgyOTItMWMwOS0xMWVmLWEzZTMtMDYy\nYWMwZTlkZGIxIiwibWVzc2FnZSI6IlNTSCBrZXkgYWRkZWQgc3VjY2Vzc2Z1\nbGx5IiwibW9kaWZpZWQiOnRydWV9XQo=\n"
+        }
+      },
+      "recorded_at": "Tue, 28 May 2024 11:07:14 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

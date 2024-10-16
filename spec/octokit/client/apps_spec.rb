@@ -198,6 +198,14 @@ describe Octokit::Client::Apps do
     end
   end # .list_app_hook_deliveries
 
+  describe '.app_hook_delivery', :vcr do
+    let(:delivery_id) { 73_209_766_136 }
+    it 'returns a webhook delivery' do
+      response = @jwt_client.app_hook_delivery(delivery_id)
+      expect(response.id).to eq(73_209_766_136)
+    end
+  end # .app_hook_delivery
+
   describe '.deliver_app_hook', :vcr do
     let(:delivery_id) { 55_148_726_666 }
     it 'schedules a webhook for redelivery' do

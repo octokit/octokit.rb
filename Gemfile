@@ -20,6 +20,7 @@ group :test do
     gem 'rexml', '>= 3.2.4'
   end
   gem 'faraday-http-cache', '~> 2.5', '>= 2.5.1'
+  gem 'base64'
   gem 'json', '>= 2.3.0'
   gem 'jwt', '~> 2.2', '>= 2.2.1'
   gem 'mime-types', '~> 3.3', '>= 3.3.1'
@@ -48,7 +49,7 @@ group :test, :development do
   gem 'bundler', '>= 1', '< 3'
   gem 'pry-byebug'
   gem 'redcarpet'
-  gem 'rubocop', '1.57.1'
+  gem 'rubocop', '1.66.1'
 end
 
 gemspec

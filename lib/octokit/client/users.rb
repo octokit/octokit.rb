@@ -57,6 +57,33 @@ module Octokit
         post "#{web_endpoint}login/oauth/access_token", options
       end
 
+      # Refresh a user's access token with a refresh token.
+      #
+      # Applications can refresh an access token without requiring a user to re-authorize using refresh access token.
+      #
+      # @param code [String] 40 character GitHub OAuth refresh access token
+      #
+      # @return [Sawyer::Resource]
+      # @see https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/refreshing-user-access-tokens#refreshing-a-user-access-token-with-a-refresh-token
+      #
+      # @example
+      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
+      #  client.refresh_access_token('40-character-refresh-token')
+      def refresh_access_token(code, app_id = client_id, app_secret = client_secret, options = {})
+        options = options.merge({
+                                  refresh_token: code,
+                                  client_id: app_id,
+                                  client_secret: app_secret,
+                                  grant_type: 'refresh_token',
+                                  headers: {
+                                    content_type: 'application/json',
+                                    accept: 'application/json'
+                                  }
+                                })
+
+        post "#{web_endpoint}login/oauth/access_token", options
+      end
+
       # Validate user username and password
       #
       # @param options [Hash] User credentials

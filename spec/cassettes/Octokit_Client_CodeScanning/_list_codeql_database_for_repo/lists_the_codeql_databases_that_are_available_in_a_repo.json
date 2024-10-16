@@ -1,0 +1,124 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/repos/Caja-de-Dano/active-wrapper/code-scanning/codeql/databases",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 8.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Fri, 31 May 2024 05:58:55 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"fb0108393e04f1308210f8de1dc9f9e0cf2e208abead03b465cb0826a8fe36ef\""
+          ],
+          "X-Oauth-Scopes": [
+            "gist, read:org, repo, workflow"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            "repo"
+          ],
+          "X-Oauth-Client-Id": [
+            "178c6fc778ccc68e1d6a"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4973"
+          ],
+          "X-Ratelimit-Reset": [
+            "1717135450"
+          ],
+          "X-Ratelimit-Used": [
+            "27"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "DA24:1B0962:38D3169:393AB84:6659671F"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "W3siaWQiOjYzNjE2NTQ4LCJuYW1lIjoicHl0aG9uLWRhdGFiYXNlIiwibGFu\nZ3VhZ2UiOiJweXRob24iLCJ1cGxvYWRlciI6eyJsb2dpbiI6ImdpdGh1Yi1h\nY3Rpb25zW2JvdF0iLCJpZCI6NDE4OTgyODIsIm5vZGVfaWQiOiJNRE02UW05\nME5ERTRPVGd5T0RJPSIsImF2YXRhcl91cmwiOiJodHRwczovL2F2YXRhcnMu\nZ2l0aHVidXNlcmNvbnRlbnQuY29tL2luLzE1MzY4P3Y9NCIsImdyYXZhdGFy\nX2lkIjoiIiwidXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS91c2Vycy9n\naXRodWItYWN0aW9ucyU1QmJvdCU1RCIsImh0bWxfdXJsIjoiaHR0cHM6Ly9n\naXRodWIuY29tL2FwcHMvZ2l0aHViLWFjdGlvbnMiLCJmb2xsb3dlcnNfdXJs\nIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS91c2Vycy9naXRodWItYWN0aW9u\ncyU1QmJvdCU1RC9mb2xsb3dlcnMiLCJmb2xsb3dpbmdfdXJsIjoiaHR0cHM6\nLy9hcGkuZ2l0aHViLmNvbS91c2Vycy9naXRodWItYWN0aW9ucyU1QmJvdCU1\nRC9mb2xsb3dpbmd7L290aGVyX3VzZXJ9IiwiZ2lzdHNfdXJsIjoiaHR0cHM6\nLy9hcGkuZ2l0aHViLmNvbS91c2Vycy9naXRodWItYWN0aW9ucyU1QmJvdCU1\nRC9naXN0c3svZ2lzdF9pZH0iLCJzdGFycmVkX3VybCI6Imh0dHBzOi8vYXBp\nLmdpdGh1Yi5jb20vdXNlcnMvZ2l0aHViLWFjdGlvbnMlNUJib3QlNUQvc3Rh\ncnJlZHsvb3duZXJ9ey9yZXBvfSIsInN1YnNjcmlwdGlvbnNfdXJsIjoiaHR0\ncHM6Ly9hcGkuZ2l0aHViLmNvbS91c2Vycy9naXRodWItYWN0aW9ucyU1QmJv\ndCU1RC9zdWJzY3JpcHRpb25zIiwib3JnYW5pemF0aW9uc191cmwiOiJodHRw\nczovL2FwaS5naXRodWIuY29tL3VzZXJzL2dpdGh1Yi1hY3Rpb25zJTVCYm90\nJTVEL29yZ3MiLCJyZXBvc191cmwiOiJodHRwczovL2FwaS5naXRodWIuY29t\nL3VzZXJzL2dpdGh1Yi1hY3Rpb25zJTVCYm90JTVEL3JlcG9zIiwiZXZlbnRz\nX3VybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNlcnMvZ2l0aHViLWFj\ndGlvbnMlNUJib3QlNUQvZXZlbnRzey9wcml2YWN5fSIsInJlY2VpdmVkX2V2\nZW50c191cmwiOiJodHRwczovL2FwaS5naXRodWIuY29tL3VzZXJzL2dpdGh1\nYi1hY3Rpb25zJTVCYm90JTVEL3JlY2VpdmVkX2V2ZW50cyIsInR5cGUiOiJC\nb3QiLCJzaXRlX2FkbWluIjpmYWxzZX0sImNvbnRlbnRfdHlwZSI6ImFwcGxp\nY2F0aW9uL3ppcCIsInNpemUiOjMwODUzMzI1LCJjcmVhdGVkX2F0IjoiMjAy\nNC0wNS0zMVQwNTo1MToyNFoiLCJ1cGRhdGVkX2F0IjoiMjAyNC0wNS0zMVQw\nNTo1MToyNVoiLCJ1cmwiOiJodHRwczovL2FwaS5naXRodWIuY29tL3JlcG9z\naXRvcmllcy83MTE3Mjk1OTEvY29kZS1zY2FubmluZy9jb2RlcWwvZGF0YWJh\nc2VzL3B5dGhvbiIsImNvbW1pdF9vaWQiOiJkYjg3NDQ5NjdlMWM5MWE4MDA3\nOWVjZWY3MGM3ZGI4MDU4NzFkZDNkIn1d\n"
+        }
+      },
+      "recorded_at": "Fri, 31 May 2024 05:58:55 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

@@ -32,7 +32,7 @@ RSpec.configure do |config|
 end
 
 require 'vcr'
-VCR.configure do |c|
+VCR.configure do |c| # rubocop:disable Metrics/BlockLength
   c.configure_rspec_metadata!
   c.filter_sensitive_data('<GITHUB_LOGIN>') do
     test_github_login
@@ -75,6 +75,12 @@ VCR.configure do |c|
   end
   c.filter_sensitive_data('<<ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT>>') do
     test_github_enterprise_management_console_endpoint
+  end
+  c.filter_sensitive_data('<<MANAGE_GHES_ENDPOINT>>') do
+    test_github_manage_ghes_endpoint
+  end
+  c.filter_sensitive_data('<<MANAGE_GHES_PASSWORD>>') do
+    test_github_manage_ghes_password
   end
   c.filter_sensitive_data('<<ENTERPRISE_HOSTNAME>>') do
     test_github_enterprise_endpoint
@@ -215,6 +221,18 @@ def test_github_enterprise_endpoint
   ENV.fetch 'OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT', 'http://enterprise.github.dev/api/v3/'
 end
 
+def test_github_manage_ghes_endpoint
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_MANAGE_GHES_ENDPOINT', 'http://enterprise.github.dev:8443'
+end
+
+def test_github_manage_ghes_username
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_MANAGE_GHES_USERNAME', 'api_key'
+end
+
+def test_github_manage_ghes_password
+  ENV.fetch 'OCTOKIT_TEST_GITHUB_MANAGE_GHES_PASSWORD', 'passworD1'
+end
+
 def test_github_repository
   ENV.fetch 'OCTOKIT_TEST_GITHUB_REPOSITORY', 'api-sandbox'
 end
@@ -302,6 +320,10 @@ def github_management_console_url(url)
   test_github_enterprise_management_console_endpoint + url
 end
 
+def github_manage_ghes_url(url)
+  test_github_manage_ghes_endpoint + url
+end
+
 def basic_auth_client(login: test_github_login, password: test_github_password)
   Octokit::Client.new(login: login, password: password)
 end
@@ -356,6 +378,25 @@ def enterprise_management_console_client
   client = Octokit::EnterpriseManagementConsoleClient.new \
     management_console_endpoint: test_github_enterprise_management_console_endpoint,
     management_console_password: test_github_enterprise_management_console_password,
+    connection_options: { ssl: { verify: false } }
+
+  client.configure do |c|
+    c.middleware = stack
+  end
+  client
+end
+
+def manage_ghes_client
+  stack = Faraday::RackBuilder.new do |builder|
+    builder.request :multipart
+    builder.request :url_encoded
+    builder.adapter Faraday.default_adapter
+  end
+
+  client = Octokit::ManageGHESClient.new \
+    manage_ghes_endpoint: test_github_manage_ghes_endpoint,
+    manage_ghes_username: test_github_manage_ghes_username,
+    manage_ghes_password: test_github_manage_ghes_password,
     connection_options: { ssl: { verify: false } }
 
   client.configure do |c|

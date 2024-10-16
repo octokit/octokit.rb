@@ -81,7 +81,7 @@ Install via Rubygems
 
 ... or add to your Gemfile
 
-    gem "octokit", "~> 5.0"
+    gem "octokit"
 
 Access the library in Ruby:
 
@@ -709,6 +709,9 @@ Octokit:
 | `OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD` | GitHub Enterprise management console password.                                                                                                                                                    |
 | `OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT`                    | GitHub Enterprise hostname.                                                                                                                                                                       |
 | `OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT` | GitHub Enterprise Management Console endpoint.                                                                                                                                                    |
+| `OCTOKIT_TEST_GITHUB_MANAGE_GHES_ENDPOINT`                          | GitHub Enterprise Server GHES Manage Endpoint.                                                                                                                                                    |
+| `OCTOKIT_TEST_GITHUB_MANAGE_GHES_USERNAME`                          | GitHub Enterprise Server GHES Manage Username.                                                                                                                                                    |
+| `OCTOKIT_TEST_GITHUB_MANAGE_GHES_PASSWORD`                          | GitHub Enterprise Server GHES Manage Password.                                                                                                                                                    |
 | `OCTOKIT_TEST_GITHUB_INTEGRATION`                            | [GitHub Integration](https://developer.github.com/early-access/integrations/) owned by your test organization.                                                                                    |
 | `OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION`               | Installation of the GitHub Integration specified above.                                                                                                                                           |
 | `OCTOKIT_TEST_INTEGRATION_PEM_KEY`                           | File path to the private key generated from your integration.                                                                                                                                     |
@@ -738,6 +741,7 @@ implementations:
 * Ruby 3.0
 * Ruby 3.1
 * Ruby 3.2
+* Ruby 3.3
 
 If something doesn't work on one of these Ruby versions, it's a bug.
 

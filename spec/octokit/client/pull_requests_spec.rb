@@ -48,6 +48,28 @@ describe Octokit::Client::PullRequests do
           assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
         end
       end
+
+      context 'with draft argument' do
+        let(:arguments_to_create_pull_request) do
+          [@test_repo, 'main', 'branch-for-pr', 'A new PR', 'The Body', { draft: true }]
+        end
+
+        it 'creates a draft pull request' do
+          expect(@pull.draft).to be true
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
+        end
+      end
+
+      context 'without draft argument' do
+        let(:arguments_to_create_pull_request) do
+          [@test_repo, 'main', 'branch-for-pr-not-draft', 'A new PR', 'The Body']
+        end
+
+        it 'creates a pull request ready for review' do
+          expect(@pull.draft).to be false
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
+        end
+      end
     end # .create_pull_request
 
     describe '.pull_request', :vcr do
@@ -74,13 +96,16 @@ describe Octokit::Client::PullRequests do
     end # .pull_merged?
 
     context 'methods requiring a pull request comment' do
-      before do
-        new_comment = {
+      let(:new_comment) do
+        {
           body: 'Hawt',
           commit_id: '9bf22dff54fd6a7650230b70417b55e8cccfc4f2',
           path: 'test.md',
           line: 1
         }
+      end
+
+      before do
         @comment = @client.create_pull_request_comment \
           @test_repo,
           @pull.number,
@@ -93,6 +118,15 @@ describe Octokit::Client::PullRequests do
       describe '.create_pull_request_comment', :vcr do
         it 'creates a new comment on a pull request' do
           assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments")
+        end
+
+        context 'without line argument' do
+          let(:new_comment) { super().except(:line) }
+
+          it 'creates a new comment on a pull request at the file level' do
+            assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments")
+            expect(@comment.subject_type).to eq('file')
+          end
         end
       end # .create_pull_request_comment
 

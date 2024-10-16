@@ -9,7 +9,7 @@ module Octokit
     attr_reader :repo
 
     def initialize(args)
-      arguments = super(args)
+      arguments = super
       @repo = arguments.shift
 
       arguments
