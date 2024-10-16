@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-require "faraday-http-cache"
-require "timecop"
+require 'faraday-http-cache'
+require 'timecop'
 
 describe Octokit::Client::Repositories do
   before do

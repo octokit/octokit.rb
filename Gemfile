@@ -19,8 +19,8 @@ group :test do
   install_if -> { RUBY_VERSION >= '2.8' } do
     gem 'rexml', '>= 3.2.4'
   end
-  gem 'faraday-http-cache', '~> 2.5', '>= 2.5.1'
   gem 'base64'
+  gem 'faraday-http-cache', '~> 2.5', '>= 2.5.1'
   gem 'json', '>= 2.3.0'
   gem 'jwt', '~> 2.2', '>= 2.2.1'
   gem 'mime-types', '~> 3.3', '>= 3.3.1'
