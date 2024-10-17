@@ -32,9 +32,9 @@ describe Octokit::Client::Apps do
     end
   end
 
-  describe '.find_app_installations', :vcr do
+  describe '.list_app_installations', :vcr do
     it 'returns installations for an app' do
-      installations = @jwt_client.find_app_installations
+      installations = @jwt_client.list_app_installations
       expect(installations).to be_kind_of Array
       assert_requested :get, github_url('/app/installations')
     end
@@ -45,15 +45,23 @@ describe Octokit::Client::Apps do
         api_endpoint: 'https://ghe.local/api/v3'
 
       request = stub_get('https://ghe.local/api/v3/app/installations')
-      client.find_app_installations
+      client.list_app_installations
 
       assert_requested request
     end
-  end # .find_app_installations
 
-  describe '.find_user_installations', :vcr do
+    it 'allows auto_pagination', :vcr do
+      @client.auto_paginate = true
+      installations = @client.list_app_installations(per_page: 1)
+
+      expect(installations.count).to eq 2
+      expect(installations).to be_kind_of(Array)
+    end
+  end # .list_app_installations
+
+  describe '.list_user_installations', :vcr do
     it 'returns installations for a user' do
-      response = @client.find_user_installations
+      response = @client.list_user_installations
 
       expect(response.total_count).not_to be_nil
       expect(response.installations).to be_kind_of(Array)
@@ -66,20 +74,20 @@ describe Octokit::Client::Apps do
         api_endpoint: 'https://ghe.local/api/v3'
 
       request = stub_get('https://ghe.local/api/v3/user/installations')
-      client.find_user_installations
+      client.list_user_installations
 
       assert_requested request
     end
 
     it 'allows auto_pagination', :vcr do
       @client.auto_paginate = true
-      response = @client.find_user_installations(per_page: 1)
+      response = @client.list_user_installations(per_page: 1)
 
       expect(response.total_count).to eq 2
       expect(response.installations.count).to eq 2
       expect(response.installations).to be_kind_of(Array)
     end
-  end # .find_user_installations
+  end # .list_user_installations
 
   describe '.find_organization_installation', :vcr do
     let(:organization) { test_github_org }
