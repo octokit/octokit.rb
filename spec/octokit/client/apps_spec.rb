@@ -32,16 +32,6 @@ describe Octokit::Client::Apps do
     end
   end
 
-  describe '.find_integration_installations', :vcr do
-    it 'returns installations for an integration' do
-      allow(@jwt_client).to receive(:octokit_warn)
-      installations = @jwt_client.find_integration_installations
-      expect(installations).to be_kind_of Array
-      assert_requested :get, github_url('/app/installations')
-      expect(@jwt_client).to have_received(:octokit_warn).with(/Deprecated/)
-    end
-  end # .find_integration_installations
-
   describe '.find_app_installations', :vcr do
     it 'returns installations for an app' do
       installations = @jwt_client.find_app_installations
@@ -265,20 +255,6 @@ describe Octokit::Client::Apps do
       end
     end # .find_installation_repositories_for_user
 
-    describe '.create_integration_installation_access_token' do
-      it 'creates an access token for the installation' do
-        allow(@jwt_client).to receive(:octokit_warn)
-        response = @jwt_client.create_integration_installation_access_token(installation)
-
-        expect(response).to be_kind_of(Sawyer::Resource)
-        expect(response.token).not_to be_nil
-        expect(response.expires_at).not_to be_nil
-
-        assert_requested :post, github_url("/app/installations/#{installation}/access_tokens")
-        expect(@jwt_client).to have_received(:octokit_warn).with(/Deprecated/)
-      end
-    end # .create_integration_installation_access_token
-
     describe '.create_app_installation_access_token' do
       it 'creates an access token for the installation' do
         response = @jwt_client.create_app_installation_access_token(installation)
@@ -323,16 +299,6 @@ describe Octokit::Client::Apps do
           api_endpoint: 'https://ghe.local/api/v3'
       end
 
-      describe '.list_integration_installation_repositories' do
-        it 'lists the installations repositories' do
-          allow(installation_client).to receive(:octokit_warn)
-          response = installation_client.list_integration_installation_repositories
-          expect(response.total_count).not_to be_nil
-          expect(response.repositories).to be_kind_of(Array)
-          expect(installation_client).to have_received(:octokit_warn).with(/Deprecated/)
-        end
-      end # .list_integration_installation_repositories
-
       describe '.list_app_installation_repositories' do
         it 'lists the installations repositories' do
           response = installation_client.list_app_installation_repositories
@@ -370,15 +336,6 @@ describe Octokit::Client::Apps do
         @client.delete_repository(@repo.full_name)
       end
 
-      describe '.add_repository_to_integration_installation' do
-        it 'adds the repository to the installation' do
-          allow(@client).to receive(:octokit_warn)
-          response = @client.add_repository_to_integration_installation(installation, @repo.id)
-          expect(response).to be_truthy
-          expect(@client).to have_received(:octokit_warn).with(/Deprecated/)
-        end
-      end # .add_repository_to_integration_installation
-
       describe '.add_repository_to_app_installation' do
         it 'adds the repository to the installation' do
           response = @client.add_repository_to_app_installation(installation, @repo.id)
@@ -390,15 +347,6 @@ describe Octokit::Client::Apps do
         before(:each) do
           @client.add_repository_to_app_installation(installation, @repo.id)
         end
-
-        describe '.remove_repository_from_integration_installation' do
-          it 'removes the repository from the installation' do
-            allow(@client).to receive(:octokit_warn)
-            response = @client.remove_repository_from_integration_installation(installation, @repo.id)
-            expect(response).to be_truthy
-            expect(@client).to have_received(:octokit_warn).with(/Deprecated/)
-          end
-        end # .remove_repository_from_integration_installation
 
         describe '.remove_repository_from_app_installation' do
           it 'removes the repository from the installation' do
