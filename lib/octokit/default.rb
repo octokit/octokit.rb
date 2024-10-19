@@ -6,14 +6,6 @@ require 'octokit/response/feed_parser'
 require 'octokit/version'
 require 'octokit/warnable'
 
-if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
-  begin
-    require 'faraday/retry'
-  rescue LoadError
-    Octokit::Warnable.octokit_warn 'To use retry middleware with Faraday v2.0+, install `faraday-retry` gem'
-  end
-end
-
 module Octokit
   # Default configuration options for {Client}
   module Default
