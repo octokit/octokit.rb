@@ -514,6 +514,27 @@ describe Octokit::Client do
     end
   end
 
+  describe 'retry' do
+    it 'retries for 504 response' do
+      client = oauth_client
+      client.middleware.insert Octokit::Response::RaiseError, Octokit::Middleware::Retry
+
+      requested = false
+
+      request = stub_get('/foo').to_return do
+        if requested
+          { status: 200 }
+        else
+          requested = true
+          { status: 504 }
+        end
+      end
+
+      client.get('/foo')
+      assert_requested request, times: 2
+    end
+  end
+
   describe 'redirect handling' do
     it 'follows redirect for 301 response' do
       client = oauth_client
