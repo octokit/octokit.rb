@@ -15,30 +15,32 @@ module Octokit
         get 'app', options
       end
 
-      # Find all installations that belong to an App
+      # List all installations that belong to an App
       #
       # @param options [Hash] A customizable set of options
       #
       # @see https://docs.github.com/en/rest/apps/apps#list-installations-for-the-authenticated-app
       #
       # @return [Array<Sawyer::Resource>] the total_count and an array of installations
-      def find_app_installations(options = {})
+      def list_app_installations(options = {})
         paginate 'app/installations', options
       end
-      alias find_installations find_app_installations
+      alias find_installations list_app_installations
+      alias find_app_installations list_app_installations
 
-      # Find all installations that are accessible to the authenticated user
+      # List all installations that are accessible to the authenticated user
       #
       # @param options [Hash] A customizable set of options
       #
       # @see https://docs.github.com/en/rest/apps/installations#list-app-installations-accessible-to-the-user-access-token
       #
       # @return [Sawyer::Resource] the total_count and an array of installations
-      def find_user_installations(options = {})
+      def list_user_installations(options = {})
         paginate('user/installations', options) do |data, last_response|
           data.installations.concat last_response.data.installations
         end
       end
+      alias find_user_installations list_user_installations
 
       # Get a single installation
       #
