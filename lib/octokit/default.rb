@@ -6,14 +6,6 @@ require 'octokit/response/feed_parser'
 require 'octokit/version'
 require 'octokit/warnable'
 
-if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
-  begin
-    require 'faraday/retry'
-  rescue LoadError
-    Octokit::Warnable.octokit_warn 'To use retry middleware with Faraday v2.0+, install `faraday-retry` gem'
-  end
-end
-
 module Octokit
   # Default configuration options for {Client}
   module Default
@@ -31,16 +23,6 @@ module Octokit
 
     # Default Faraday middleware stack
     MIDDLEWARE = Faraday::RackBuilder.new do |builder|
-      # In Faraday 2.x, Faraday::Request::Retry was moved to a separate gem
-      # so we use it only when it's available.
-      if defined?(Faraday::Request::Retry)
-        retry_exceptions = Faraday::Request::Retry::DEFAULT_EXCEPTIONS + [Octokit::ServerError]
-        builder.use Faraday::Request::Retry, exceptions: retry_exceptions
-      elsif defined?(Faraday::Retry::Middleware)
-        retry_exceptions = Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Octokit::ServerError]
-        builder.use Faraday::Retry::Middleware, exceptions: retry_exceptions
-      end
-
       builder.use Octokit::Middleware::FollowRedirects
       builder.use Octokit::Response::RaiseError
       builder.use Octokit::Response::FeedParser
@@ -147,7 +129,7 @@ module Octokit
       # from {MIDDLEWARE}
       # @return [Faraday::RackBuilder or Faraday::Builder]
       def middleware
-        MIDDLEWARE
+        MIDDLEWARE.dup
       end
 
       # Default GitHub password for Basic Auth from ENV

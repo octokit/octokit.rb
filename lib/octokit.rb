@@ -76,6 +76,12 @@ module Octokit
       super
     end
   end
+
+  module Middleware
+    # In Faraday 2.x, Faraday::Request::Retry was moved to a separate gem
+    # so we use it only when requested.
+    autoload :Retry, 'octokit/middleware/retry'
+  end
 end
 
 Octokit.setup
