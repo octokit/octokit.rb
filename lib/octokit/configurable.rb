@@ -45,6 +45,8 @@ module Octokit
     #   @return [Boolean] Instruct Octokit to get credentials from .netrc file
     # @!attribute netrc_file
     #   @return [String] Path to .netrc file. default: ~/.netrc
+    # @!attribute paginate
+    #   @return [Boolean] Return an enumerable for paginated API endpoints.
     # @!attribute [w] password
     #   @return [String] GitHub password for Basic Authentication
     # @!attribute per_page
@@ -62,7 +64,7 @@ module Octokit
 
     attr_accessor :access_token, :auto_paginate, :bearer_token, :client_id,
                   :client_secret, :default_media_type, :connection_options,
-                  :middleware, :netrc, :netrc_file,
+                  :middleware, :netrc, :netrc_file, :paginate,
                   :per_page, :proxy, :ssl_verify_mode, :user_agent
     attr_writer :password, :web_endpoint, :api_endpoint, :login,
                 :management_console_endpoint, :management_console_password,
@@ -92,6 +94,7 @@ module Octokit
           middleware
           netrc
           netrc_file
+          paginate
           per_page
           password
           proxy

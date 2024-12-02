@@ -64,40 +64,6 @@ module Octokit
       request :head, url, parse_query_and_convenience_headers(options)
     end
 
-    # Make one or more HTTP GET requests, optionally fetching
-    # the next page of results from URL in Link response header based
-    # on value in {#auto_paginate}.
-    #
-    # @param url [String] The path, relative to {#api_endpoint}
-    # @param options [Hash] Query and header params for request
-    # @param block [Block] Block to perform the data concatination of the
-    #   multiple requests. The block is called with two parameters, the first
-    #   contains the contents of the requests so far and the second parameter
-    #   contains the latest response.
-    # @return [Sawyer::Resource]
-    def paginate(url, options = {})
-      opts = parse_query_and_convenience_headers(options)
-      if @auto_paginate || @per_page
-        opts[:query][:per_page] ||= @per_page || (@auto_paginate ? 100 : nil)
-      end
-
-      data = request(:get, url, opts.dup)
-
-      if @auto_paginate
-        while @last_response.rels[:next] && rate_limit.remaining > 0
-          @last_response = @last_response.rels[:next].get(headers: opts[:headers])
-          if block_given?
-            yield(data, @last_response)
-          else
-            data.concat(@last_response.data) if @last_response.data.is_a?(Array)
-          end
-        end
-
-      end
-
-      data
-    end
-
     # Hypermedia agent for the GitHub API
     #
     # @return [Sawyer::Agent]
