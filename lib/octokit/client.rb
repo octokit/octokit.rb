@@ -7,6 +7,7 @@ require 'octokit/repo_arguments'
 require 'octokit/configurable'
 require 'octokit/authentication'
 require 'octokit/gist'
+require 'octokit/pagination'
 require 'octokit/rate_limit'
 require 'octokit/repository'
 require 'octokit/user'
@@ -77,6 +78,7 @@ module Octokit
     include Octokit::Authentication
     include Octokit::Configurable
     include Octokit::Connection
+    include Octokit::Pagination
     include Octokit::Warnable
     include Octokit::Client::ActionsArtifacts
     include Octokit::Client::ActionsSecrets
