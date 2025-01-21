@@ -102,6 +102,22 @@ module Octokit
         post "#{Repository.path repo}/issues/comments/#{id}/reactions", options
       end
 
+      # Delete a reaction from an issue comment
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param comment_id [Integer] The Issue comment id
+      # @param reaction_id [Integer] The Reaction id
+      #
+      # @see https://docs.github.com/en/rest/reactions/reactions#delete-an-issue-comment-reaction
+      #
+      # @example
+      #   @client.delete_issue_comment_reaction("octokit/octokit.rb", 1, 2)
+      #
+      # @return [Boolean] Return true if reaction was deleted, false otherwise.
+      def delete_issue_comment_reaction(repo, comment_id, reaction_id, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/issues/comments/#{comment_id}/reactions/#{reaction_id}", options
+      end
+
       # List reactions for a pull request review comment
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository

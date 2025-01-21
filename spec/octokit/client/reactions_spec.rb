@@ -83,6 +83,15 @@ describe Octokit::Client::Reactions do
             assert_requested :post, github_url("/repos/#{@repo.full_name}/issues/comments/#{@issue_comment.id}/reactions")
           end
         end # .create_issue_comment_reaction
+
+        describe '.delete_issue_comment_reaction' do
+          it 'deletes the reaction' do
+            reaction = @client.create_issue_comment_reaction(@repo.full_name, @issue_comment.id, '-1')
+            result = @client.delete_issue_comment_reaction(@repo.full_name, @issue_comment.id, reaction.id)
+            expect(result).to be_truthy
+            assert_requested :delete, github_url("/repos/#{@repo.full_name}/issues/comments/#{@issue_comment.id}/reactions/#{reaction.id}")
+          end
+        end # .delete_issue_comment_reaction
       end # with issue comment
 
       context 'with reaction' do
