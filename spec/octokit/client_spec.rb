@@ -839,6 +839,25 @@ describe Octokit::Client do
       end
     end
 
+    it 'exposes errors string' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: {
+            content_type: 'application/json'
+          },
+          body: {
+            message: 'Validation Failed',
+            errors: 'Issue'
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Issue')
+      end
+    end
+
     it 'knows the difference between different kinds of forbidden' do
       stub_get('/some/admin/stuffs').to_return(status: 403)
       expect { Octokit.get('/some/admin/stuffs') }.to raise_error Octokit::Forbidden
