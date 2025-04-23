@@ -858,6 +858,122 @@ describe Octokit::Client do
       end
     end
 
+    it 'handles errors as a hash' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: { field: 'some field', issue: 'some issue' }
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Error summary:')
+        expect(e.message).to include('[:field, "some field"]')
+        expect(e.message).to include('[:issue, "some issue"]')
+      end
+    end
+
+    it 'handles nil errors gracefully' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: nil
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).not_to include('Error summary:')
+      end
+    end
+
+    it 'handles errors array of strings' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: ['Issue 1', 'Issue 2']
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Error summary:')
+        expect(e.message).to include('Issue 1')
+        expect(e.message).to include('Issue 2')
+      end
+    end
+
+    it 'handles errors with special characters' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: 'Error with <special> characters & symbols'
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Error summary:')
+        expect(e.message).to include('Error with <special> characters & symbols')
+      end
+    end
+
+    it 'handles nested structures in errors' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: [
+              { field: 'some field', issue: 'some issue' },
+              { details: { subfield: 'value' } }
+            ]
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Error summary:')
+        expect(e.message).to include('field: some field')
+        expect(e.message).to include('issue: some issue')
+        expect(e.message).to include('details: {:subfield=>"value"}')
+      end
+    end
+
+    it 'handles mixed-type errors array' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: ['Issue', { field: 'some field', issue: 'some issue' }]
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Error summary:')
+        expect(e.message).to include('Issue')
+        expect(e.message).to include('field: some field')
+        expect(e.message).to include('issue: some issue')
+      end
+    end
+
     it 'knows the difference between different kinds of forbidden' do
       stub_get('/some/admin/stuffs').to_return(status: 403)
       expect { Octokit.get('/some/admin/stuffs') }.to raise_error Octokit::Forbidden
