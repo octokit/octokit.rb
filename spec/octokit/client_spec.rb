@@ -950,7 +950,13 @@ describe Octokit::Client do
         expect(e.message).to include('Error summary:')
         expect(e.message).to include('field: some field')
         expect(e.message).to include('issue: some issue')
-        expect(e.message).to include('details: {:subfield=>"value"}')
+        # Ruby, depending on the version, may format the hash differently
+        # either with a ligature (=>) or a colon (:)
+        # '{:subfield => "value"}' or '{subfield: "value"}'
+        # so we use a regex to match either for the test assertion
+        expect(e.message).to match(
+          /details: \{(?::subfield\s*=>\s*"value"|subfield:\s*"value")\}/
+        )
       end
     end
 
