@@ -192,6 +192,7 @@ module Octokit
 
       summary = +"\nError summary:\n"
       return summary << data[:errors] if data[:errors].is_a?(String)
+
       summary << data[:errors].map do |error|
         if error.is_a? Hash
           error.map { |k, v| "  #{k}: #{v}" }
