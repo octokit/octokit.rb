@@ -5,8 +5,8 @@
 
 set -e
 
-usage() { 
-  echo "Usage: $0 [-r] Tags and releases/publishes octokit" 1>&2; exit 1; 
+usage() {
+  echo "Usage: $0 [-r] Tags and releases/publishes octokit" 1>&2; exit 1;
 }
 
 while [ $# -gt 0 ]
@@ -35,9 +35,9 @@ else
   ./script/package
 
   # We need to pull the version from the actual file that is about to be published
-  file=$(ls pkg/*.gem | sort | tail -1)
-  version=$(echo $file | sed -e 's/.*octokit-\(.*\).gem.*/\1/') 
-  
+  file=$(ls pkg/*.gem | sort -V | tail -1)
+  version=$(echo $file | sed -e 's/.*octokit-\(.*\).gem.*/\1/')
+
   [ -n "$version" ] || exit 1
 
   echo "*** Tagging and publishing $version of octokit ***"
