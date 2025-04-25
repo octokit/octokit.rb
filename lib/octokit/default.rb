@@ -72,6 +72,12 @@ module Octokit
         ENV.fetch('OCTOKIT_AUTO_PAGINATE', nil)
       end
 
+      # Default pagination preference from ENV
+      # @return [String]
+      def paginate
+        ENV.fetch('OCTOKIT_PAGINATE', nil)
+      end
+
       # Default bearer token from ENV
       # @return [String]
       def bearer_token
