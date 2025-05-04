@@ -5,7 +5,7 @@
 
 Ruby toolkit for the GitHub API.
 
-![logo](https://docs.github.com/assets/images/gundamcat.png)
+![logo](https://user-images.githubusercontent.com/139819/199528006-bc534966-4aee-45da-8d1e-0e71b97a56b3.png)
 
 Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
 [major version][semver].
