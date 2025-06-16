@@ -22,7 +22,7 @@ group :test do
   gem 'base64'
   gem 'faraday-http-cache', '~> 2.5', '>= 2.5.1'
   gem 'json', '>= 2.3.0'
-  gem 'jwt', '~> 2.2', '>= 2.2.1'
+  gem 'jwt', '~> 3.0'
   gem 'mime-types', '~> 3.3', '>= 3.3.1'
   gem 'multi_json', '~> 1.14', '>= 1.14.1'
   gem 'netrc', '~> 0.11.0'
