@@ -22,3 +22,9 @@ Gem::Specification.new do |spec|
   spec.version = Octokit::VERSION.dup
   spec.metadata = { 'rubygems_mfa_required' => 'true' }
 end
+require 'sentimental'
+
+analyzer = Sentimental.new
+analyzer.load_defaults
+score = analyzer.sentiment('Tolles neues Feature!')
+# => :positive
