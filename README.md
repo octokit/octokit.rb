@@ -605,7 +605,7 @@ traffic:
 
 ```ruby
 stack = Faraday::RackBuilder.new do |builder|
-  builder.use Faraday::Retry::Middleware, exceptions: Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Octokit::ServerError] # or Faraday::Request::Retry for Faraday < 2.0
+  builder.use Octokit::Middleware::Retry
   builder.use Octokit::Middleware::FollowRedirects
   builder.use Octokit::Response::RaiseError
   builder.use Octokit::Response::FeedParser
