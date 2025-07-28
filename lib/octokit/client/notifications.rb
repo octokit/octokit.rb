@@ -118,6 +118,17 @@ module Octokit
         last_response.status == 205
       end
 
+      # Mark thread as done
+      #
+      # @param thread_id [Integer] Id of the thread to mark as done.
+      # @return [Boolean] True if updated, false otherwise.
+      # @see https://developer.github.com/v3/activity/notifications/#mark-a-thread-as-done
+      # @example
+      #   @client.mark_thread_as_done(1)
+      def mark_thread_as_done(thread_id, options = {})
+        boolean_from_response :delete, "notifications/threads/#{thread_id}", options
+      end
+
       # Get thread subscription
       #
       # @param thread_id [Integer] Id of the thread.

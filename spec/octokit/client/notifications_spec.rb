@@ -57,6 +57,13 @@ describe Octokit::Client::Notifications do
       end
     end # .mark_thread_as_read
 
+    describe '.mark_thread_as_done', :vcr do
+      it 'marks a thread as read' do
+        @client.mark_thread_as_done(@thread_id)
+        assert_requested :delete, github_url("/notifications/threads/#{@thread_id}")
+      end
+    end # .mark_thread_as_done
+
     context 'with subscription', :vcr do
       before do
         @client.update_thread_subscription(@thread_id, subscribed: true)

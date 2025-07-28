@@ -120,13 +120,13 @@ VCR.configure do |c| # rubocop:disable Metrics/BlockLength
 
     test_repo = "#{test_github_login}/#{test_github_repository}"
     unless oauth_client.repository?(test_repo, options)
-      Octokit.octokit_warn "NOTICE: Creating #{test_repo} test repository."
+      Octokit::Warnable.octokit_warn "NOTICE: Creating #{test_repo} test repository."
       oauth_client.create_repository(test_github_repository, options)
     end
 
     test_org_repo = "#{test_github_org}/#{test_github_repository}"
     unless oauth_client.repository?(test_org_repo, options)
-      Octokit.octokit_warn "NOTICE: Creating #{test_org_repo} test repository."
+      Octokit::Warnable.octokit_warn "NOTICE: Creating #{test_org_repo} test repository."
       options[:organization] = test_github_org
       oauth_client.create_repository(test_github_repository, options)
     end
