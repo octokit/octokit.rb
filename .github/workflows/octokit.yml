@@ -29,7 +29,7 @@ jobs:
     env:
       FARADAY_VERSION: ${{ matrix.faraday }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Cache Ruby dependencies
         uses: actions/cache@v4
         with:
