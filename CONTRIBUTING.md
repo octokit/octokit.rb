@@ -6,7 +6,7 @@
 2. [Fork the repository.][fork]
 3. [Create a topic branch.][branch]
 4. Add specs for your unimplemented feature or bug fix.
-5. Run `script/test`. If your specs pass, return to step 3.
+5. Run `script/test`. If your specs fail, return to step 3.
 6. Implement your feature or bug fix.
 7. Run `script/test`. If your specs fail, return to step 5.
 8. Run `open coverage/index.html`. If your changes are not completely covered
