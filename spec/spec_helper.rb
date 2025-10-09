@@ -11,10 +11,8 @@ require 'rspec'
 require 'webmock/rspec'
 require 'base64'
 require 'jwt'
-# latest version of pry-byebug is not compatible with Ruby 3.2.0
-if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('3.2.0')
-  require 'pry-byebug'
-end
+require 'pry-byebug'
+
 if Gem::Version.new(Faraday::VERSION) >= Gem::Version.new('2.0')
   require 'faraday/multipart'
 end
