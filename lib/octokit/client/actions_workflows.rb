@@ -36,10 +36,10 @@ module Octokit
       # @param id [Integer, String] Id or file name of the workflow
       # @param ref [String] A SHA, branch name, or tag name
       #
-      # @return [Boolean] True if event was dispatched, false otherwise
+      # @return [<Sawyer::Resource>] Details of the dispatched workflow run
       # @see https://docs.github.com/en/rest/reference/actions#create-a-workflow-dispatch-event
       def workflow_dispatch(repo, id, ref, options = {})
-        boolean_from_response :post, "#{Repository.path repo}/actions/workflows/#{id}/dispatches", options.merge({ ref: ref })
+        post "#{Repository.path repo}/actions/workflows/#{id}/dispatches", options.merge({ ref: ref })
       end
 
       # Enable a workflow
