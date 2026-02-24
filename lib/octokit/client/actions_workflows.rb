@@ -35,11 +35,17 @@ module Octokit
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
       # @param id [Integer, String] Id or file name of the workflow
       # @param ref [String] A SHA, branch name, or tag name
+      # @param options [Hash] Optional parameters
+      # @option options [Boolean] :return_run_details Fetch run details
       #
-      # @return [Boolean] True if event was dispatched, false otherwise
+      # @return [Boolean, Sawyer::Resource] Boolean success or run details
       # @see https://docs.github.com/en/rest/reference/actions#create-a-workflow-dispatch-event
       def workflow_dispatch(repo, id, ref, options = {})
-        boolean_from_response :post, "#{Repository.path repo}/actions/workflows/#{id}/dispatches", options.merge({ ref: ref })
+        merged_params = options.merge({ ref: ref })
+        endpoint_path = "#{Repository.path repo}/actions/workflows/#{id}/dispatches"
+
+        wants_details = merged_params[:return_run_details]
+        wants_details ? post(endpoint_path, merged_params) : boolean_from_response(:post, endpoint_path, merged_params)
       end
 
       # Enable a workflow
