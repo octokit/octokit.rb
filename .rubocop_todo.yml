@@ -6,13 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# Configuration parameters: Include.
-# Include: **/*.gemspec
-Gemspec/RequiredRubyVersion:
-  Exclude:
-    - 'octokit.gemspec'
-
 # Offense count: 13
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
@@ -32,9 +25,11 @@ Lint/AssignmentInCondition:
 Lint/SuppressedException:
   Exclude:
     - 'Rakefile'
-    - 'spec/helper.rb'
+    - 'spec/spec_helper.rb'
     - 'spec/octokit/client/actions_secrets_spec.rb'
+    - 'spec/octokit/client/codespaces_secrets_spec.rb'
     - 'spec/octokit/client/commits_spec.rb'
+    - 'spec/octokit/client/dependabot_secrets_spec.rb'
     - 'spec/octokit/client/deployments_spec.rb'
     - 'spec/octokit/client/hooks_spec.rb'
     - 'spec/octokit/client/issues_spec.rb'
@@ -105,14 +100,6 @@ Metrics/PerceivedComplexity:
 # Offense count: 1
 Naming/AccessorMethodName:
   Exclude:
-    - 'lib/octokit/enterprise_management_console_client/management_console.rb'
-
-# Offense count: 1
-# Configuration parameters: ForbiddenDelimiters.
-# ForbiddenDelimiters: (?-mix:(^|\s)(EO[A-Z]{1}|END)(\s|$))
-Naming/HeredocDelimiterNaming:
-  Exclude:
-    - 'lib/octokit/preview.rb'
 
 # Offense count: 1
 # Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
@@ -133,7 +120,6 @@ Style/Documentation:
     - 'spec/**/*'
     - 'test/**/*'
     - 'lib/octokit/client/users.rb'
-    - 'lib/octokit/enterprise_management_console_client/management_console.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -141,7 +127,7 @@ Style/Documentation:
 # SupportedStyles: allowed_in_returns, forbidden
 Style/DoubleNegation:
   Exclude:
-    - 'spec/helper.rb'
+    - 'spec/spec_helper.rb'
 
 # Offense count: 7
 # Configuration parameters: MinBodyLength, AllowConsecutiveConditionals.
@@ -167,14 +153,13 @@ Style/IfUnlessModifier:
   Exclude:
     - 'lib/octokit.rb'
     - 'lib/octokit/client.rb'
-    - 'lib/octokit/client/authorizations.rb'
+    - 'lib/octokit/client/tokens.rb'
     - 'lib/octokit/client/commits.rb'
     - 'lib/octokit/client/organizations.rb'
     - 'lib/octokit/client/repositories.rb'
-    - 'lib/octokit/enterprise_management_console_client/management_console.rb'
     - 'lib/octokit/error.rb'
     - 'lib/octokit/repository.rb'
-    - 'spec/helper.rb'
+    - 'spec/spec_helper.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).

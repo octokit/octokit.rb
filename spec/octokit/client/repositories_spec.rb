@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'helper'
+require 'faraday-http-cache'
+require 'timecop'
 
 describe Octokit::Client::Repositories do
   before do
@@ -16,7 +17,7 @@ describe Octokit::Client::Repositories do
     end
 
     it 'returns the repository, including topics' do
-      repository = @client.repository('github/linguist', accept: Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
+      repository = @client.repository('github/linguist')
       expect(repository.topics).to be_kind_of Array
       expect(repository.topics).to include('syntax-highlighting')
     end
@@ -62,23 +63,6 @@ describe Octokit::Client::Repositories do
     end
   end
 
-  describe '.edit_repository', :vcr do
-    before(:each) do
-      @repo = @client.create_repository(test_github_repository)
-    end
-
-    after(:each) do
-      @client.delete_repository(@repo.full_name)
-    end
-
-    context 'is_template is passed in params', :vcr do
-      it 'uses the template repositories preview flag and succeeds' do
-        @client.edit_repository(@repo.full_name, is_template: true, accept: Octokit::Preview::PREVIEW_TYPES.fetch(:template_repositories))
-        expect(@client.repository(@repo.full_name).is_template).to be true
-      end
-    end
-  end
-
   describe '.add_deploy_key' do
     it 'adds a repository deploy keys' do
       request = stub_post(github_url("/repos/#{@test_repo}/keys"))
@@ -116,23 +100,21 @@ describe Octokit::Client::Repositories do
 
   context 'with repository' do
     before(:each) do
-      @repo = @client.create_repository(test_github_repository, auto_init: true)
+      @repo = @client.create_repository('a-repo', auto_init: true)
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name)
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.full_name)
+    rescue Octokit::NotFound
     end
 
     describe '.create_repository_from_template', :vcr do
       before do
-        @client.edit_repository(@repo.full_name, is_template: true, accept: Octokit::Preview::PREVIEW_TYPES.fetch(:template_repositories))
+        @client.edit_repository(@repo.full_name, is_template: true)
       end
 
       it 'generates a repository from the template' do
-        @client.create_repository_from_template(@repo.id, 'Cloned repo', accept: Octokit::Preview::PREVIEW_TYPES.fetch(:template_repositories))
+        @client.create_repository_from_template(@repo.id, 'Cloned repo')
         assert_requested :post, github_url("/repositories/#{@repo.id}/generate")
       end
     end
@@ -147,11 +129,18 @@ describe Octokit::Client::Repositories do
     describe '.update_repository', :vcr do
       it 'updates the matching repository' do
         description = "It's epic"
-        repository = @client.edit_repository(@repo.full_name, description: description, accept: Octokit::Preview::PREVIEW_TYPES.fetch(:template_repositories))
+        repository = @client.edit_repository(@repo.full_name, description: description)
         expect(repository.description).to eq(description)
         assert_requested :patch, github_url("/repos/#{@repo.full_name}")
       end
     end # .update_repository
+
+    describe '.edit_repository', :vcr do
+      it 'edits is_template on repository' do
+        repository = @client.edit_repository(@repo.full_name, is_template: true)
+        expect(repository.is_template).to be true
+      end
+    end # .edit_repository
 
     describe '.deploy_keys', :vcr do
       it "returns a repository's deploy keys" do
@@ -221,7 +210,7 @@ describe Octokit::Client::Repositories do
 
     describe '.branch_protection', :vcr do
       it 'returns nil for an unprotected branch' do
-        branch_protection = @client.branch_protection(@repo.full_name, 'master', accept: preview_header)
+        branch_protection = @client.branch_protection(@repo.full_name, 'master')
         expect(branch_protection).to be_nil
         assert_requested :get, github_url("/repos/#{@repo.full_name}/branches/master/protection")
       end
@@ -229,7 +218,6 @@ describe Octokit::Client::Repositories do
       context 'with protected branch' do
         before(:each) do
           protect_params = {
-            accept: preview_header,
             enforce_admins: true,
             required_pull_request_reviews: nil,
             required_status_checks: { strict: true, contexts: [] }
@@ -239,7 +227,7 @@ describe Octokit::Client::Repositories do
         end
 
         it 'returns branch protection summary' do
-          branch_protection = @client.branch_protection(@repo.full_name, 'master', accept: preview_header)
+          branch_protection = @client.branch_protection(@repo.full_name, 'master')
           expect(branch_protection).not_to be_nil
           assert_requested :get, github_url("/repos/#{@repo.full_name}/branches/master/protection")
         end
@@ -248,7 +236,7 @@ describe Octokit::Client::Repositories do
 
     describe '.topics', :vcr do
       it 'returns repository topics' do
-        topics = Octokit.topics(@repo.full_name, accept: Octokit::Preview::PREVIEW_TYPES.fetch(:topics))
+        topics = Octokit.topics(@repo.full_name)
         expect(topics.names).to include('octokit')
         assert_requested :get, github_url("/repos/#{@repo.full_name}/topics")
       end
@@ -257,10 +245,7 @@ describe Octokit::Client::Repositories do
     describe '.replace_all_topics', :vcr do
       it 'replaces all topics for a repository' do
         new_topics = %w[octocat github github-api]
-        options = {
-          accept: Octokit::Preview::PREVIEW_TYPES.fetch(:topics)
-        }
-        topics = @client.replace_all_topics(@repo.full_name, new_topics, options)
+        topics = @client.replace_all_topics(@repo.full_name, new_topics)
         expect(topics.names.sort).to eq(new_topics.sort)
         assert_requested :put, github_url("/repos/#{@repo.full_name}/topics")
       end
@@ -277,6 +262,22 @@ describe Octokit::Client::Repositories do
       repositories = @client.repositories
       expect(repositories).to be_kind_of Array
       assert_requested :get, github_url('/user/repos')
+    end
+    it 'performs requests per user when using caching middleware' do
+      Timecop.freeze(VCR.current_cassette.originally_recorded_at || Time.now) do
+        client_with_caching = oauth_client_with_http_cache_middleware(access_token: test_github_token)
+        client_with_caching.repositories
+        client_with_caching.repositories
+
+        client_with_caching_two = oauth_client_with_http_cache_middleware(access_token: test_github_token_two)
+        client_with_caching_two.repositories
+        client_with_caching_two.repositories
+
+        client_with_caching.repositories
+        client_with_caching_two.repositories
+
+        assert_requested :get, github_url('/user/repos'), times: 2
+      end
     end
   end # .repositories
 
@@ -403,6 +404,12 @@ describe Octokit::Client::Repositories do
       expect(branch.commit.sha).not_to be_nil
       assert_requested :get, github_url('/repos/octokit/octokit.rb/branches/master')
     end
+
+    it 'returns a single branch that includes character that needs to be escaped' do
+      branch = Octokit.branch('octokit/octokit.rb', 'feature/#123-fragment-url')
+      expect(branch.commit.sha).not_to be_nil
+      assert_requested :get, github_url('/repos/octokit/octokit.rb/branches/feature%2F%23123-fragment-url')
+    end
   end # .branches
 
   context 'with repository' do
@@ -411,10 +418,8 @@ describe Octokit::Client::Repositories do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name)
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.full_name)
+    rescue Octokit::NotFound
     end
 
     describe '.permission_level', :vcr do
@@ -427,8 +432,7 @@ describe Octokit::Client::Repositories do
     describe '.protect_branch', :vcr do
       it 'protects a single branch' do
         branch = @client.protect_branch(@repo.full_name, 'master',
-                                        { accept: preview_header,
-                                          required_status_checks: {
+                                        { required_status_checks: {
                                             strict: true,
                                             contexts: []
                                           },
@@ -448,7 +452,7 @@ describe Octokit::Client::Repositories do
           required_pull_request_reviews: nil,
           restrictions: nil
         }
-        branch = @client.protect_branch(@repo.full_name, 'master', rules.merge(accept: preview_header))
+        branch = @client.protect_branch(@repo.full_name, 'master', rules)
 
         expect(branch.required_status_checks.strict).to be true
         expect(branch.restrictions).to be_nil
@@ -465,7 +469,7 @@ describe Octokit::Client::Repositories do
             required_approving_review_count: 2
           }
         }
-        branch = @client.protect_branch(@repo.full_name, 'master', rules.merge(accept: preview_header))
+        branch = @client.protect_branch(@repo.full_name, 'master', rules)
 
         expect(branch.required_pull_request_reviews.required_approving_review_count).to eq 2
         assert_requested :put, github_url("/repos/#{@repo.full_name}/branches/master/protection")
@@ -484,12 +488,12 @@ describe Octokit::Client::Repositories do
           restrictions: nil
         }
 
-        @client.protect_branch(@repo.full_name, 'master', protection.merge(accept: preview_header))
+        @client.protect_branch(@repo.full_name, 'master', protection)
       end
 
       describe '.unprotect_branch', :vcr do
         it 'unprotects a single branch' do
-          branch = @client.unprotect_branch(@repo.full_name, 'master', accept: preview_header)
+          branch = @client.unprotect_branch(@repo.full_name, 'master')
           expect(branch).to eq true
           assert_requested :delete, github_url("/repos/#{@repo.full_name}/branches/master/protection")
         end
@@ -577,15 +581,13 @@ describe Octokit::Client::Repositories do
 
     after do
       # cleanup
-      begin
-        @client.delete_repository("#{test_github_org}/#{@repository.name}")
-      rescue Octokit::NotFound
-      end
+
+      @client.delete_repository("#{test_github_org}/#{@repository.name}")
+    rescue Octokit::NotFound
     end
 
     it 'repository transfer from myself to my organization' do
-      accept_header = Octokit::Preview::PREVIEW_TYPES[:transfer_repository]
-      @client.transfer_repository(@repository.full_name, test_github_org, { accept: accept_header })
+      @client.transfer_repository(@repository.full_name, test_github_org)
       assert_requested :post, github_url("/repos/#{@repository.full_name}/transfer")
 
       result = @client.repository?("#{test_github_org}/#{@repository.name}")
@@ -594,48 +596,70 @@ describe Octokit::Client::Repositories do
   end # .transfer_repository
 
   describe '.vulnerability_alerts_enabled?', :vcr do
-    let(:accept_preview_header) { Octokit::Preview::PREVIEW_TYPES[:vulnerability_alerts] }
-
     it 'returns true when vulnerability alerts are enabled' do
-      @client.enable_vulnerability_alerts(@test_repo, accept: accept_preview_header)
+      @client.enable_vulnerability_alerts(@test_repo)
 
-      result = @client.vulnerability_alerts_enabled?(@test_repo, accept: accept_preview_header)
+      result = @client.vulnerability_alerts_enabled?(@test_repo)
       assert_requested :get, github_url("/repos/#{@test_repo}/vulnerability-alerts")
       expect(result).to be true
     end
 
     it 'returns false with vulnerability alerts disabled' do
-      @client.disable_vulnerability_alerts(@test_repo, accept: accept_preview_header)
+      @client.disable_vulnerability_alerts(@test_repo)
 
-      result = @client.vulnerability_alerts_enabled?(@test_repo, accept: accept_preview_header)
+      result = @client.vulnerability_alerts_enabled?(@test_repo)
       assert_requested :get, github_url("/repos/#{@test_repo}/vulnerability-alerts")
       expect(result).to be false
     end
   end # .vulnerability_alerts_enabled?
 
   describe '.enable_vulnerability_alerts', :vcr do
-    let(:accept_preview_header) { Octokit::Preview::PREVIEW_TYPES[:vulnerability_alerts] }
-
     it 'enables vulnerability alerts for the repository' do
-      result = @client.enable_vulnerability_alerts(@test_repo, accept: accept_preview_header)
+      result = @client.enable_vulnerability_alerts(@test_repo)
       assert_requested :put, github_url("/repos/#{@test_repo}/vulnerability-alerts")
       expect(result).to be true
     end
   end # .enable_vulnerability_alerts
 
   describe '.disable_vulnerability_alerts', :vcr do
-    let(:accept_preview_header) { Octokit::Preview::PREVIEW_TYPES[:vulnerability_alerts] }
-
     it 'disables vulnerability alerts for the repository' do
-      result = @client.disable_vulnerability_alerts(@test_repo, accept: accept_preview_header)
+      result = @client.disable_vulnerability_alerts(@test_repo)
       assert_requested :delete, github_url("/repos/#{@test_repo}/vulnerability-alerts")
       expect(result).to be true
     end
   end # .disable_vulnerability_alerts
 
-  private
+  describe '.automated_security_fixes_enabled?', :vcr do
+    it 'returns true when automated security fixes are enabled' do
+      @client.enable_automated_security_fixes(@test_repo)
 
-  def preview_header
-    Octokit::Preview::PREVIEW_TYPES[:branch_protection]
-  end
+      result = @client.automated_security_fixes_enabled?(@test_repo)
+      assert_requested :get, github_url("/repos/#{@test_repo}/automated-security-fixes")
+      expect(result).to be true
+    end
+
+    it 'returns false with automated security fixes disabled' do
+      @client.disable_automated_security_fixes(@test_repo)
+
+      result = @client.automated_security_fixes_enabled?(@test_repo)
+      assert_requested :get, github_url("/repos/#{@test_repo}/automated-security-fixes")
+      expect(result).to be false
+    end
+  end # .automated_security_fixes_enabled?
+
+  describe '.enable_automated_security_fixes', :vcr do
+    it 'enables automated security fixes for the repository' do
+      result = @client.enable_automated_security_fixes(@test_repo)
+      assert_requested :put, github_url("/repos/#{@test_repo}/automated-security-fixes")
+      expect(result).to be true
+    end
+  end # .enable_automated_security_fixes
+
+  describe '.disable_automated_security_fixes', :vcr do
+    it 'disables automated security fixes for the repository' do
+      result = @client.disable_automated_security_fixes(@test_repo)
+      assert_requested :delete, github_url("/repos/#{@test_repo}/automated-security-fixes")
+      expect(result).to be true
+    end
+  end # .disable_automated_security_fixes
 end

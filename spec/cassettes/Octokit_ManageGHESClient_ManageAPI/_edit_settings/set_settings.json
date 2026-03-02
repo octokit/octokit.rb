@@ -1,0 +1,69 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "put",
+        "uri": "<<MANAGE_GHES_ENDPOINT>>/manage/v1/config/settings",
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJhYnVzZV9yYXRlX2xpbWl0aW5nIjp7InJlcXVlc3RzX3Blcl9taW51dGUi\nOjkwMX19\n"
+        },
+        "headers": {
+          "User-Agent": [
+            "Octokit Ruby Gem 8.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Basic YXBpX2tleTpRMjBVcm45aWs="
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 204,
+          "message": "No Content"
+        },
+        "headers": {
+          "Content-Security-Policy": [
+            "default-src 'none';"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Server": [
+            "GHES Manage"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=63072000; includeSubDomains; preload"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Frame-Options": [
+            "DENY"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Date": [
+            "Tue, 28 May 2024 10:57:15 GMT"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": ""
+        }
+      },
+      "recorded_at": "Tue, 28 May 2024 10:57:16 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

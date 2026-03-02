@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::Issues do
   before do
     Octokit.reset!
@@ -55,10 +53,8 @@ describe Octokit::Client::Issues do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name)
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.full_name)
+    rescue Octokit::NotFound
     end
 
     describe '.create_issue', :vcr do
@@ -207,7 +203,7 @@ describe Octokit::Client::Issues do
 
       describe '.issue_timeline', :vcr do
         it 'returns an issue timeline' do
-          timeline = @client.issue_timeline(@repo.full_name, @issue.number, accept: Octokit::Preview::PREVIEW_TYPES[:issue_timelines])
+          timeline = @client.issue_timeline(@repo.full_name, @issue.number)
           expect(timeline).to be_kind_of Array
           assert_requested :get, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/timeline")
         end

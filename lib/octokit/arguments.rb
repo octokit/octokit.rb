@@ -8,7 +8,7 @@ module Octokit
 
     def initialize(args)
       @options = args.last.is_a?(::Hash) ? args.pop : {}
-      super(args)
+      super
     end
   end
 end

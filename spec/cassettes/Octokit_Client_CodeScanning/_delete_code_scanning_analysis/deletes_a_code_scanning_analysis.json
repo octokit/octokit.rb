@@ -1,0 +1,124 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "delete",
+        "uri": "https://api.github.com/repos/Caja-de-Dano/active-wrapper/code-scanning/analyses/225379147",
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "e30=\n"
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 8.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Fri, 31 May 2024 06:04:21 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"4ff7c2d422afb104c75d7ed4869ad67d7d6c736670587a3a528fe04f23b92928\""
+          ],
+          "X-Oauth-Scopes": [
+            "gist, read:org, repo, workflow"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            "admin:repo_hook, delete_repo, read:repo_hook, repo, repo:invite, repo:status, repo_deployment, security_events, write:repo_hook"
+          ],
+          "X-Oauth-Client-Id": [
+            "178c6fc778ccc68e1d6a"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4999"
+          ],
+          "X-Ratelimit-Reset": [
+            "1717139061"
+          ],
+          "X-Ratelimit-Used": [
+            "1"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "DB89:3A257F:386B555:38D393B:66596865"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJuZXh0X2FuYWx5c2lzX3VybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20v\ncmVwb3MvQ2FqYS1kZS1EYW5vL2FjdGl2ZS13cmFwcGVyL2NvZGUtc2Nhbm5p\nbmcvYW5hbHlzZXMvMjIwMTQ4NzQzIiwiY29uZmlybV9kZWxldGVfdXJsIjoi\naHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9DYWphLWRlLURhbm8vYWN0\naXZlLXdyYXBwZXIvY29kZS1zY2FubmluZy9hbmFseXNlcy8yMjAxNDg3NDM/\nY29uZmlybV9kZWxldGUifQ==\n"
+        }
+      },
+      "recorded_at": "Fri, 31 May 2024 06:04:21 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

@@ -3,7 +3,7 @@
 require 'octokit/default'
 require 'octokit/client'
 require 'octokit/enterprise_admin_client'
-require 'octokit/enterprise_management_console_client'
+require 'octokit/manage_ghes_client'
 
 # Ruby toolkit for the GitHub API
 module Octokit
@@ -30,15 +30,15 @@ module Octokit
       @enterprise_admin_client = Octokit::EnterpriseAdminClient.new(options)
     end
 
-    # EnterpriseManagementConsoleClient client based on configured options {Configurable}
+    # ManageGHESClient client based on configured options {Configurable}
     #
-    # @return [Octokit::EnterpriseManagementConsoleClient] API wrapper
-    def enterprise_management_console_client
-      if defined?(@enterprise_management_console_client) && @enterprise_management_console_client.same_options?(options)
-        return @enterprise_management_console_client
+    # @return [Octokit::ManageGHESClient] API wrapper
+    def manage_ghes_client
+      if defined?(@manage_ghes_client) && @manage_ghes_client.same_options?(options)
+        return @manage_ghes_client
       end
 
-      @enterprise_management_console_client = Octokit::EnterpriseManagementConsoleClient.new(options)
+      @manage_ghes_client = Octokit::ManageGHESClient.new(options)
     end
 
     private
@@ -46,7 +46,7 @@ module Octokit
     def respond_to_missing?(method_name, include_private = false)
       client.respond_to?(method_name, include_private) ||
         enterprise_admin_client.respond_to?(method_name, include_private) ||
-        enterprise_management_console_client.respond_to?(method_name, include_private)
+        manage_ghes_client.respond_to?(method_name, include_private)
     end
 
     def method_missing(method_name, *args, &block)
@@ -54,8 +54,8 @@ module Octokit
         return client.send(method_name, *args, &block)
       elsif enterprise_admin_client.respond_to?(method_name)
         return enterprise_admin_client.send(method_name, *args, &block)
-      elsif enterprise_management_console_client.respond_to?(method_name)
-        return enterprise_management_console_client.send(method_name, *args, &block)
+      elsif manage_ghes_client.respond_to?(method_name)
+        return manage_ghes_client.send(method_name, *args, &block)
       end
 
       super

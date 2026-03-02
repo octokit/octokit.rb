@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::EnterpriseAdminClient do
   describe 'module configuration' do
     it 'inherits Octokit::Client' do

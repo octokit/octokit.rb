@@ -1,0 +1,30 @@
+
+name: 'Close stale issues and PRs'
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 1 * * *'
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          stale-issue-message: >
+            👋 Hey Friends, this issue has been automatically marked as `stale` because it has no recent activity.
+            It will be closed if no further activity occurs.
+            Please add the `Status: Pinned` label if you feel that this issue needs to remain open/active.
+            Thank you for your contributions and help in keeping things tidy!
+          stale-pr-message: >
+            👋 Hey Friends, this pull request has been automatically marked as `stale` because it has no recent activity.
+            It will be closed if no further activity occurs.
+            Please add the `Status: Pinned` label if you feel that this issue needs to remain open/active.
+            Thank you for your contributions and help in keeping things tidy!
+          days-before-stale: 270
+          days-before-close: 7
+          exempt-issue-labels: 'Status: Pinned'
+          exempt-pr-labels: 'Status: Pinned'
+          operations-per-run: 100
+          stale-issue-label: 'Status: Stale'
+          stale-pr-label: 'Status: Stale'

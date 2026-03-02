@@ -28,10 +28,12 @@ module Octokit
     #   @return [Hash] Configure connection options for Faraday
     # @!attribute login
     #   @return [String] GitHub username for Basic Authentication
-    # @!attribute management_console_password
-    #   @return [String] An admin password set up for your GitHub Enterprise management console
-    # @!attribute management_console_endpoint
-    #   @return [String] Base URL for API requests to the GitHub Enterprise management console
+    # @!attribute manage_ghes_endpoint
+    #   @return [String] Base URL for API requests to the GitHub Enterprise Server Manage API
+    # @!attribute manage_ghes_username
+    #   @return [String] API username for requests to the GitHub Enterprise Server Manage API
+    # @!attribute manage_ghes_password
+    #   @return [String] API user password for requests to the GitHub Enterprise Server Manage API
     # @!attribute middleware
     #   @see https://github.com/lostisland/faraday
     #   @return [Faraday::Builder or Faraday::RackBuilder] Configure middleware for Faraday
@@ -59,7 +61,9 @@ module Octokit
                   :middleware, :netrc, :netrc_file,
                   :per_page, :proxy, :ssl_verify_mode, :user_agent
     attr_writer :password, :web_endpoint, :api_endpoint, :login,
-                :management_console_endpoint, :management_console_password
+                :manage_ghes_endpoint,
+                :manage_ghes_username,
+                :manage_ghes_password
 
     class << self
       # List of configurable keys for {Octokit::Client}
@@ -75,8 +79,9 @@ module Octokit
           connection_options
           default_media_type
           login
-          management_console_endpoint
-          management_console_password
+          manage_ghes_endpoint
+          manage_ghes_username
+          manage_ghes_password
           middleware
           netrc
           netrc_file
@@ -122,8 +127,8 @@ module Octokit
       File.join(@api_endpoint, '')
     end
 
-    def management_console_endpoint
-      File.join(@management_console_endpoint, '')
+    def manage_ghes_endpoint
+      File.join(@manage_ghes_endpoint, '')
     end
 
     # Base URL for generated web URLs
@@ -144,7 +149,7 @@ module Octokit
     private
 
     def options
-      Octokit::Configurable.keys.map { |key| [key, instance_variable_get(:"@#{key}")] }.to_h
+      Octokit::Configurable.keys.to_h { |key| [key, instance_variable_get(:"@#{key}")] }
     end
 
     def fetch_client_id_and_secret(overrides = {})

@@ -1,0 +1,124 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/repos/Caja-de-Dano/active-wrapper/code-scanning/analyses",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 8.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Fri, 31 May 2024 06:00:56 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"45d1b8ea16e5fcbf9840cb614436661386a365fd99aa15a585c72de15423a913\""
+          ],
+          "X-Oauth-Scopes": [
+            "gist, read:org, repo, workflow"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            "admin:repo_hook, delete_repo, read:repo_hook, repo, repo:invite, repo:status, repo_deployment, security_events, write:repo_hook"
+          ],
+          "X-Oauth-Client-Id": [
+            "178c6fc778ccc68e1d6a"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4972"
+          ],
+          "X-Ratelimit-Reset": [
+            "1717135450"
+          ],
+          "X-Ratelimit-Used": [
+            "28"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "DAA6:3A257F:3839199:38A0F4F:66596798"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "W3sicmVmIjoicmVmcy9oZWFkcy8wLjkiLCJjb21taXRfc2hhIjoiZGI4NzQ0\nOTY3ZTFjOTFhODAwNzllY2VmNzBjN2RiODA1ODcxZGQzZCIsImFuYWx5c2lz\nX2tleSI6ImR5bmFtaWMvZ2l0aHViLWNvZGUtc2Nhbm5pbmcvY29kZXFsOmFu\nYWx5emUiLCJlbnZpcm9ubWVudCI6IntcImJ1aWxkLW1vZGVcIjpcIm5vbmVc\nIixcImNhdGVnb3J5XCI6XCIvbGFuZ3VhZ2U6cHl0aG9uXCIsXCJsYW5ndWFn\nZVwiOlwicHl0aG9uXCIsXCJydW5uZXJcIjpcIltcXFwidWJ1bnR1LWxhdGVz\ndFxcXCJdXCJ9IiwiY2F0ZWdvcnkiOiIvbGFuZ3VhZ2U6cHl0aG9uIiwiZXJy\nb3IiOiIiLCJjcmVhdGVkX2F0IjoiMjAyNC0wNS0zMVQwNTo1MToxNVoiLCJy\nZXN1bHRzX2NvdW50IjoyLCJydWxlc19jb3VudCI6MzgsImlkIjoyMjUzNzkx\nNDcsInVybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vcmVwb3MvQ2FqYS1k\nZS1EYW5vL2FjdGl2ZS13cmFwcGVyL2NvZGUtc2Nhbm5pbmcvYW5hbHlzZXMv\nMjI1Mzc5MTQ3Iiwic2FyaWZfaWQiOiJjYjE1ZDE0MC0xZjExLTExZWYtOGY0\nZS02ZThjZDNmOWY5NTciLCJ0b29sIjp7Im5hbWUiOiJDb2RlUUwiLCJndWlk\nIjpudWxsLCJ2ZXJzaW9uIjoiMi4xNy4zIn0sImRlbGV0YWJsZSI6dHJ1ZSwi\nd2FybmluZyI6IiJ9LHsicmVmIjoicmVmcy9oZWFkcy8wLjkiLCJjb21taXRf\nc2hhIjoiZGI4NzQ0OTY3ZTFjOTFhODAwNzllY2VmNzBjN2RiODA1ODcxZGQz\nZCIsImFuYWx5c2lzX2tleSI6ImR5bmFtaWMvZ2l0aHViLWNvZGUtc2Nhbm5p\nbmcvY29kZXFsOmFuYWx5emUiLCJlbnZpcm9ubWVudCI6IntcImxhbmd1YWdl\nXCI6XCJweXRob25cIn0iLCJjYXRlZ29yeSI6Ii9sYW5ndWFnZTpweXRob24i\nLCJlcnJvciI6IiIsImNyZWF0ZWRfYXQiOiIyMDI0LTA1LTIxVDA4OjQ4OjU3\nWiIsInJlc3VsdHNfY291bnQiOjIsInJ1bGVzX2NvdW50IjozOCwiaWQiOjIy\nMDE0ODc0MywidXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9D\nYWphLWRlLURhbm8vYWN0aXZlLXdyYXBwZXIvY29kZS1zY2FubmluZy9hbmFs\neXNlcy8yMjAxNDg3NDMiLCJzYXJpZl9pZCI6ImY1ZmRlMGQ0LTE3NGUtMTFl\nZi05Nzg5LTU0MmRhNDMzMThmZSIsInRvb2wiOnsibmFtZSI6IkNvZGVRTCIs\nImd1aWQiOm51bGwsInZlcnNpb24iOiIyLjE3LjMifSwiZGVsZXRhYmxlIjpm\nYWxzZSwid2FybmluZyI6IiJ9LHsicmVmIjoicmVmcy9oZWFkcy8wLjkiLCJj\nb21taXRfc2hhIjoiZGI4NzQ0OTY3ZTFjOTFhODAwNzllY2VmNzBjN2RiODA1\nODcxZGQzZCIsImFuYWx5c2lzX2tleSI6ImR5bmFtaWMvZ2l0aHViLWNvZGUt\nc2Nhbm5pbmcvY29kZXFsOmFuYWx5emUiLCJlbnZpcm9ubWVudCI6IntcImxh\nbmd1YWdlXCI6XCJweXRob25cIn0iLCJjYXRlZ29yeSI6Ii9sYW5ndWFnZTpw\neXRob24iLCJlcnJvciI6IiIsImNyZWF0ZWRfYXQiOiIyMDI0LTA1LTE0VDA4\nOjQ4OjQ1WiIsInJlc3VsdHNfY291bnQiOjIsInJ1bGVzX2NvdW50IjozNywi\naWQiOjIxNjY5NTE3MiwidXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9y\nZXBvcy9DYWphLWRlLURhbm8vYWN0aXZlLXdyYXBwZXIvY29kZS1zY2Fubmlu\nZy9hbmFseXNlcy8yMTY2OTUxNzIiLCJzYXJpZl9pZCI6ImM1ZGY1YTJhLTEx\nY2UtMTFlZi04YjVlLWFkNTRiYzU2NWMxNCIsInRvb2wiOnsibmFtZSI6IkNv\nZGVRTCIsImd1aWQiOm51bGwsInZlcnNpb24iOiIyLjE3LjIifSwiZGVsZXRh\nYmxlIjpmYWxzZSwid2FybmluZyI6IiJ9LHsicmVmIjoicmVmcy9oZWFkcy8w\nLjkiLCJjb21taXRfc2hhIjoiZGI4NzQ0OTY3ZTFjOTFhODAwNzllY2VmNzBj\nN2RiODA1ODcxZGQzZCIsImFuYWx5c2lzX2tleSI6ImR5bmFtaWMvZ2l0aHVi\nLWNvZGUtc2Nhbm5pbmcvY29kZXFsOmFuYWx5emUiLCJlbnZpcm9ubWVudCI6\nIntcImxhbmd1YWdlXCI6XCJweXRob25cIn0iLCJjYXRlZ29yeSI6Ii9sYW5n\ndWFnZTpweXRob24iLCJlcnJvciI6IiIsImNyZWF0ZWRfYXQiOiIyMDI0LTA1\nLTA3VDA4OjQ4OjQ1WiIsInJlc3VsdHNfY291bnQiOjIsInJ1bGVzX2NvdW50\nIjozNywiaWQiOjIxMzMxMDgwOSwidXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHVi\nLmNvbS9yZXBvcy9DYWphLWRlLURhbm8vYWN0aXZlLXdyYXBwZXIvY29kZS1z\nY2FubmluZy9hbmFseXNlcy8yMTMzMTA4MDkiLCJzYXJpZl9pZCI6IjlkMGNl\nYzhjLTBjNGUtMTFlZi04YWY0LTdmMmU3Yzk0ZGVhZiIsInRvb2wiOnsibmFt\nZSI6IkNvZGVRTCIsImd1aWQiOm51bGwsInZlcnNpb24iOiIyLjE3LjEifSwi\nZGVsZXRhYmxlIjpmYWxzZSwid2FybmluZyI6IiJ9LHsicmVmIjoicmVmcy9o\nZWFkcy8wLjkiLCJjb21taXRfc2hhIjoiZGI4NzQ0OTY3ZTFjOTFhODAwNzll\nY2VmNzBjN2RiODA1ODcxZGQzZCIsImFuYWx5c2lzX2tleSI6ImR5bmFtaWMv\nZ2l0aHViLWNvZGUtc2Nhbm5pbmcvY29kZXFsOmFuYWx5emUiLCJlbnZpcm9u\nbWVudCI6IntcImxhbmd1YWdlXCI6XCJweXRob25cIn0iLCJjYXRlZ29yeSI6\nIi9sYW5ndWFnZTpweXRob24iLCJlcnJvciI6IiIsImNyZWF0ZWRfYXQiOiIy\nMDI0LTA0LTMwVDA4OjQ4OjQ4WiIsInJlc3VsdHNfY291bnQiOjIsInJ1bGVz\nX2NvdW50IjozNywiaWQiOjIxMDA4OTc0MywidXJsIjoiaHR0cHM6Ly9hcGku\nZ2l0aHViLmNvbS9yZXBvcy9DYWphLWRlLURhbm8vYWN0aXZlLXdyYXBwZXIv\nY29kZS1zY2FubmluZy9hbmFseXNlcy8yMTAwODk3NDMiLCJzYXJpZl9pZCI6\nIjc1ZTlhZDE0LTA2Y2UtMTFlZi05MDRkLWQ3MTc3MWJiNWRhZSIsInRvb2wi\nOnsibmFtZSI6IkNvZGVRTCIsImd1aWQiOm51bGwsInZlcnNpb24iOiIyLjE3\nLjEifSwiZGVsZXRhYmxlIjpmYWxzZSwid2FybmluZyI6IiJ9LHsicmVmIjoi\ncmVmcy9oZWFkcy8wLjkiLCJjb21taXRfc2hhIjoiZGI4NzQ0OTY3ZTFjOTFh\nODAwNzllY2VmNzBjN2RiODA1ODcxZGQzZCIsImFuYWx5c2lzX2tleSI6ImR5\nbmFtaWMvZ2l0aHViLWNvZGUtc2Nhbm5pbmcvY29kZXFsOmFuYWx5emUiLCJl\nbnZpcm9ubWVudCI6IntcImxhbmd1YWdlXCI6XCJweXRob25cIn0iLCJjYXRl\nZ29yeSI6Ii9sYW5ndWFnZTpweXRob24iLCJlcnJvciI6IiIsImNyZWF0ZWRf\nYXQiOiIyMDI0LTA0LTIzVDA4OjQ4OjE0WiIsInJlc3VsdHNfY291bnQiOjIs\nInJ1bGVzX2NvdW50IjozNywiaWQiOjIwNjY5OTUxMSwidXJsIjoiaHR0cHM6\nLy9hcGkuZ2l0aHViLmNvbS9yZXBvcy9DYWphLWRlLURhbm8vYWN0aXZlLXdy\nYXBwZXIvY29kZS1zY2FubmluZy9hbmFseXNlcy8yMDY2OTk1MTEiLCJzYXJp\nZl9pZCI6IjM5MWIzNDVhLTAxNGUtMTFlZi04Y2U5LWRkZWY4Y2MxZGZmNCIs\nInRvb2wiOnsibmFtZSI6IkNvZGVRTCIsImd1aWQiOm51bGwsInZlcnNpb24i\nOiIyLjE3LjAifSwiZGVsZXRhYmxlIjpmYWxzZSwid2FybmluZyI6IiJ9LHsi\ncmVmIjoicmVmcy9oZWFkcy8wLjkiLCJjb21taXRfc2hhIjoiZGI4NzQ0OTY3\nZTFjOTFhODAwNzllY2VmNzBjN2RiODA1ODcxZGQzZCIsImFuYWx5c2lzX2tl\neSI6ImR5bmFtaWMvZ2l0aHViLWNvZGUtc2Nhbm5pbmcvY29kZXFsOmFuYWx5\nemUiLCJlbnZpcm9ubWVudCI6IntcImxhbmd1YWdlXCI6XCJweXRob25cIn0i\nLCJjYXRlZ29yeSI6Ii9sYW5ndWFnZTpweXRob24iLCJlcnJvciI6IiIsImNy\nZWF0ZWRfYXQiOiIyMDI0LTA0LTE2VDA4OjQ4OjAwWiIsInJlc3VsdHNfY291\nbnQiOjIsInJ1bGVzX2NvdW50IjozNywiaWQiOjIwMzIyNTMxMiwidXJsIjoi\naHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9DYWphLWRlLURhbm8vYWN0\naXZlLXdyYXBwZXIvY29kZS1zY2FubmluZy9hbmFseXNlcy8yMDMyMjUzMTIi\nLCJzYXJpZl9pZCI6IjA3YmVlYWRhLWZiY2UtMTFlZS05MmE5LWFjMWFiZGIz\nYjU1NyIsInRvb2wiOnsibmFtZSI6IkNvZGVRTCIsImd1aWQiOm51bGwsInZl\ncnNpb24iOiIyLjE3LjAifSwiZGVsZXRhYmxlIjpmYWxzZSwid2FybmluZyI6\nIiJ9LHsicmVmIjoicmVmcy9oZWFkcy8wLjkiLCJjb21taXRfc2hhIjoiZGI4\nNzQ0OTY3ZTFjOTFhODAwNzllY2VmNzBjN2RiODA1ODcxZGQzZCIsImFuYWx5\nc2lzX2tleSI6ImR5bmFtaWMvZ2l0aHViLWNvZGUtc2Nhbm5pbmcvY29kZXFs\nOmFuYWx5emUiLCJlbnZpcm9ubWVudCI6IntcImxhbmd1YWdlXCI6XCJweXRo\nb25cIn0iLCJjYXRlZ29yeSI6Ii9sYW5ndWFnZTpweXRob24iLCJlcnJvciI6\nIiIsImNyZWF0ZWRfYXQiOiIyMDI0LTA0LTA5VDA4OjQ4OjI0WiIsInJlc3Vs\ndHNfY291bnQiOjIsInJ1bGVzX2NvdW50IjozNywiaWQiOjE5OTk1NzA5MCwi\ndXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9DYWphLWRlLURh\nbm8vYWN0aXZlLXdyYXBwZXIvY29kZS1zY2FubmluZy9hbmFseXNlcy8xOTk5\nNTcwOTAiLCJzYXJpZl9pZCI6ImVkMzAwZTRhLWY2NGQtMTFlZS05YWJmLTZi\nMzVlMmYwNWU0ZSIsInRvb2wiOnsibmFtZSI6IkNvZGVRTCIsImd1aWQiOm51\nbGwsInZlcnNpb24iOiIyLjE3LjAifSwiZGVsZXRhYmxlIjpmYWxzZSwid2Fy\nbmluZyI6IiJ9LHsicmVmIjoicmVmcy9oZWFkcy8wLjkiLCJjb21taXRfc2hh\nIjoiZGI4NzQ0OTY3ZTFjOTFhODAwNzllY2VmNzBjN2RiODA1ODcxZGQzZCIs\nImFuYWx5c2lzX2tleSI6ImR5bmFtaWMvZ2l0aHViLWNvZGUtc2Nhbm5pbmcv\nY29kZXFsOmFuYWx5emUiLCJlbnZpcm9ubWVudCI6IntcImxhbmd1YWdlXCI6\nXCJweXRob25cIn0iLCJjYXRlZ29yeSI6Ii9sYW5ndWFnZTpweXRob24iLCJl\ncnJvciI6IiIsImNyZWF0ZWRfYXQiOiIyMDI0LTA0LTAyVDA4OjQ4OjA1WiIs\nInJlc3VsdHNfY291bnQiOjIsInJ1bGVzX2NvdW50IjozNywiaWQiOjE5Njc3\nODE3MywidXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9DYWph\nLWRlLURhbm8vYWN0aXZlLXdyYXBwZXIvY29kZS1zY2FubmluZy9hbmFseXNl\ncy8xOTY3NzgxNzMiLCJzYXJpZl9pZCI6ImI4ZDJlNTZjLWYwY2QtMTFlZS05\nODBiLTEyMjgxMjFiMGRjMiIsInRvb2wiOnsibmFtZSI6IkNvZGVRTCIsImd1\naWQiOm51bGwsInZlcnNpb24iOiIyLjE2LjUifSwiZGVsZXRhYmxlIjpmYWxz\nZSwid2FybmluZyI6IiJ9LHsicmVmIjoicmVmcy9oZWFkcy8wLjkiLCJjb21t\naXRfc2hhIjoiZGI4NzQ0OTY3ZTFjOTFhODAwNzllY2VmNzBjN2RiODA1ODcx\nZGQzZCIsImFuYWx5c2lzX2tleSI6ImR5bmFtaWMvZ2l0aHViLWNvZGUtc2Nh\nbm5pbmcvY29kZXFsOmFuYWx5emUiLCJlbnZpcm9ubWVudCI6IntcImxhbmd1\nYWdlXCI6XCJweXRob25cIn0iLCJjYXRlZ29yeSI6Ii9sYW5ndWFnZTpweXRo\nb24iLCJlcnJvciI6IiIsImNyZWF0ZWRfYXQiOiIyMDI0LTAzLTI2VDA4OjUw\nOjQ4WiIsInJlc3VsdHNfY291bnQiOjIsInJ1bGVzX2NvdW50IjozNywiaWQi\nOjE5Mzg2NDk1NiwidXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBv\ncy9DYWphLWRlLURhbm8vYWN0aXZlLXdyYXBwZXIvY29kZS1zY2FubmluZy9h\nbmFseXNlcy8xOTM4NjQ5NTYiLCJzYXJpZl9pZCI6ImYwYmJhMDg0LWViNGQt\nMTFlZS05OGY3LTFiYzIyZWJlYzgzNyIsInRvb2wiOnsibmFtZSI6IkNvZGVR\nTCIsImd1aWQiOm51bGwsInZlcnNpb24iOiIyLjE2LjUifSwiZGVsZXRhYmxl\nIjpmYWxzZSwid2FybmluZyI6IiJ9LHsicmVmIjoicmVmcy9oZWFkcy8wLjki\nLCJjb21taXRfc2hhIjoiZGI4NzQ0OTY3ZTFjOTFhODAwNzllY2VmNzBjN2Ri\nODA1ODcxZGQzZCIsImFuYWx5c2lzX2tleSI6ImR5bmFtaWMvZ2l0aHViLWNv\nZGUtc2Nhbm5pbmcvY29kZXFsOmFuYWx5emUiLCJlbnZpcm9ubWVudCI6Intc\nImxhbmd1YWdlXCI6XCJweXRob25cIn0iLCJjYXRlZ29yeSI6Ii9sYW5ndWFn\nZTpweXRob24iLCJlcnJvciI6IiIsImNyZWF0ZWRfYXQiOiIyMDI0LTAzLTE5\nVDA4OjQ4OjQ4WiIsInJlc3VsdHNfY291bnQiOjIsInJ1bGVzX2NvdW50Ijoz\nNywiaWQiOjE5MDUzNTQ2NywidXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNv\nbS9yZXBvcy9DYWphLWRlLURhbm8vYWN0aXZlLXdyYXBwZXIvY29kZS1zY2Fu\nbmluZy9hbmFseXNlcy8xOTA1MzU0NjciLCJzYXJpZl9pZCI6IjgwNjMyZTBl\nLWU1Y2QtMTFlZS04ZDM5LTk5ZWY3ZGYxNGIwZiIsInRvb2wiOnsibmFtZSI6\nIkNvZGVRTCIsImd1aWQiOm51bGwsInZlcnNpb24iOiIyLjE2LjQifSwiZGVs\nZXRhYmxlIjpmYWxzZSwid2FybmluZyI6IiJ9LHsicmVmIjoicmVmcy9oZWFk\ncy8wLjkiLCJjb21taXRfc2hhIjoiZGI4NzQ0OTY3ZTFjOTFhODAwNzllY2Vm\nNzBjN2RiODA1ODcxZGQzZCIsImFuYWx5c2lzX2tleSI6ImR5bmFtaWMvZ2l0\naHViLWNvZGUtc2Nhbm5pbmcvY29kZXFsOmFuYWx5emUiLCJlbnZpcm9ubWVu\ndCI6IntcImxhbmd1YWdlXCI6XCJweXRob25cIn0iLCJjYXRlZ29yeSI6Ii9s\nYW5ndWFnZTpweXRob24iLCJlcnJvciI6IiIsImNyZWF0ZWRfYXQiOiIyMDI0\nLTAzLTEyVDA4OjQ4OjM3WiIsInJlc3VsdHNfY291bnQiOjIsInJ1bGVzX2Nv\ndW50IjozNiwiaWQiOjE4NzE5MjM4MCwidXJsIjoiaHR0cHM6Ly9hcGkuZ2l0\naHViLmNvbS9yZXBvcy9DYWphLWRlLURhbm8vYWN0aXZlLXdyYXBwZXIvY29k\nZS1zY2FubmluZy9hbmFseXNlcy8xODcxOTIzODAiLCJzYXJpZl9pZCI6IjUx\nNTE3OWFjLWUwNGQtMTFlZS04ZWRmLWYzODE0NTZmZDk4ZiIsInRvb2wiOnsi\nbmFtZSI6IkNvZGVRTCIsImd1aWQiOm51bGwsInZlcnNpb24iOiIyLjE2LjMi\nfSwiZGVsZXRhYmxlIjpmYWxzZSwid2FybmluZyI6IiJ9LHsicmVmIjoicmVm\ncy9oZWFkcy8wLjkiLCJjb21taXRfc2hhIjoiZGI4NzQ0OTY3ZTFjOTFhODAw\nNzllY2VmNzBjN2RiODA1ODcxZGQzZCIsImFuYWx5c2lzX2tleSI6ImR5bmFt\naWMvZ2l0aHViLWNvZGUtc2Nhbm5pbmcvY29kZXFsOmFuYWx5emUiLCJlbnZp\ncm9ubWVudCI6IntcImxhbmd1YWdlXCI6XCJweXRob25cIn0iLCJjYXRlZ29y\neSI6Ii9sYW5ndWFnZTpweXRob24iLCJlcnJvciI6IiIsImNyZWF0ZWRfYXQi\nOiIyMDI0LTAzLTA1VDA4OjQ3OjUxWiIsInJlc3VsdHNfY291bnQiOjIsInJ1\nbGVzX2NvdW50IjozNiwiaWQiOjE4MzkzNjg5MywidXJsIjoiaHR0cHM6Ly9h\ncGkuZ2l0aHViLmNvbS9yZXBvcy9DYWphLWRlLURhbm8vYWN0aXZlLXdyYXBw\nZXIvY29kZS1zY2FubmluZy9hbmFseXNlcy8xODM5MzY4OTMiLCJzYXJpZl9p\nZCI6IjBjOTY2MGEwLWRhY2QtMTFlZS04NjQ2LTFiOTgwNWE0NzQ1NyIsInRv\nb2wiOnsibmFtZSI6IkNvZGVRTCIsImd1aWQiOm51bGwsInZlcnNpb24iOiIy\nLjE2LjMifSwiZGVsZXRhYmxlIjpmYWxzZSwid2FybmluZyI6IiJ9LHsicmVm\nIjoicmVmcy9oZWFkcy8wLjkiLCJjb21taXRfc2hhIjoiZGI4NzQ0OTY3ZTFj\nOTFhODAwNzllY2VmNzBjN2RiODA1ODcxZGQzZCIsImFuYWx5c2lzX2tleSI6\nImR5bmFtaWMvZ2l0aHViLWNvZGUtc2Nhbm5pbmcvY29kZXFsOmFuYWx5emUi\nLCJlbnZpcm9ubWVudCI6IntcImxhbmd1YWdlXCI6XCJweXRob25cIn0iLCJj\nYXRlZ29yeSI6Ii9sYW5ndWFnZTpweXRob24iLCJlcnJvciI6IiIsImNyZWF0\nZWRfYXQiOiIyMDI0LTAzLTAyVDIzOjUzOjU0WiIsInJlc3VsdHNfY291bnQi\nOjIsInJ1bGVzX2NvdW50IjozNiwiaWQiOjE4MzAwMzA0NSwidXJsIjoiaHR0\ncHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9DYWphLWRlLURhbm8vYWN0aXZl\nLXdyYXBwZXIvY29kZS1zY2FubmluZy9hbmFseXNlcy8xODMwMDMwNDUiLCJz\nYXJpZl9pZCI6IjIwM2IwNGRjLWQ4ZjAtMTFlZS04YjgwLTIwYWZmNzdhOTBk\nZCIsInRvb2wiOnsibmFtZSI6IkNvZGVRTCIsImd1aWQiOm51bGwsInZlcnNp\nb24iOiIyLjE2LjMifSwiZGVsZXRhYmxlIjpmYWxzZSwid2FybmluZyI6IiJ9\nXQ==\n"
+        }
+      },
+      "recorded_at": "Fri, 31 May 2024 06:00:56 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

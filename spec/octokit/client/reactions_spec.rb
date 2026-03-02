@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::Reactions do
   before do
     Octokit.reset!
@@ -14,10 +12,8 @@ describe Octokit::Client::Reactions do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name)
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.full_name)
+    rescue Octokit::NotFound
     end
 
     context 'with commit comment' do
@@ -31,7 +27,7 @@ describe Octokit::Client::Reactions do
 
       describe '.commit_comment_reactions' do
         it 'returns an Array of reactions' do
-          reactions = @client.commit_comment_reactions(@repo.full_name, @commit_comment.id, accept: preview_header)
+          reactions = @client.commit_comment_reactions(@repo.full_name, @commit_comment.id)
           expect(reactions).to be_kind_of Array
           assert_requested :get, github_url("/repos/#{@repo.full_name}/comments/#{@commit_comment.id}/reactions")
         end
@@ -39,7 +35,7 @@ describe Octokit::Client::Reactions do
 
       describe '.create_commit_comment_reaction' do
         it 'creates a reaction' do
-          reaction = @client.create_commit_comment_reaction(@repo.full_name, @commit_comment.id, '+1', accept: preview_header)
+          reaction = @client.create_commit_comment_reaction(@repo.full_name, @commit_comment.id, '+1')
           expect(reaction.content).to eql('+1')
           assert_requested :post, github_url("/repos/#{@repo.full_name}/comments/#{@commit_comment.id}/reactions")
         end
@@ -53,7 +49,7 @@ describe Octokit::Client::Reactions do
 
       describe '.issue_reactions' do
         it 'returns an Array of reactions' do
-          reactions = @client.issue_reactions(@repo.full_name, @issue.number, accept: preview_header)
+          reactions = @client.issue_reactions(@repo.full_name, @issue.number)
           expect(reactions).to be_kind_of Array
           assert_requested :get, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/reactions")
         end
@@ -61,7 +57,7 @@ describe Octokit::Client::Reactions do
 
       describe '.create_issue_reaction' do
         it 'creates a reaction' do
-          reaction = @client.create_issue_reaction(@repo.full_name, @issue.number, '+1', accept: preview_header)
+          reaction = @client.create_issue_reaction(@repo.full_name, @issue.number, '+1')
           expect(reaction.content).to eql('+1')
           assert_requested :post, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/reactions")
         end
@@ -74,7 +70,7 @@ describe Octokit::Client::Reactions do
 
         describe '.issue_comment_reactions' do
           it 'returns an Array of reactions' do
-            reactions = @client.issue_comment_reactions(@repo.full_name, @issue_comment.id, accept: preview_header)
+            reactions = @client.issue_comment_reactions(@repo.full_name, @issue_comment.id)
             expect(reactions).to be_kind_of Array
             assert_requested :get, github_url("/repos/#{@repo.full_name}/issues/comments/#{@issue_comment.id}/reactions")
           end
@@ -82,22 +78,31 @@ describe Octokit::Client::Reactions do
 
         describe '.create_issue_comment_reaction' do
           it 'creates a reaction' do
-            reaction = @client.create_issue_comment_reaction(@repo.full_name, @issue_comment.id, '+1', accept: preview_header)
+            reaction = @client.create_issue_comment_reaction(@repo.full_name, @issue_comment.id, '+1')
             expect(reaction.content).to eql('+1')
             assert_requested :post, github_url("/repos/#{@repo.full_name}/issues/comments/#{@issue_comment.id}/reactions")
           end
         end # .create_issue_comment_reaction
+
+        describe '.delete_issue_comment_reaction' do
+          it 'deletes the reaction' do
+            reaction = @client.create_issue_comment_reaction(@repo.full_name, @issue_comment.id, '-1')
+            result = @client.delete_issue_comment_reaction(@repo.full_name, @issue_comment.id, reaction.id)
+            expect(result).to be_truthy
+            assert_requested :delete, github_url("/repos/#{@repo.full_name}/issues/comments/#{@issue_comment.id}/reactions/#{reaction.id}")
+          end
+        end # .delete_issue_comment_reaction
       end # with issue comment
 
       context 'with reaction' do
         before do
-          @reaction = @client.create_issue_reaction(@repo.full_name, @issue.number, '+1', accept: preview_header)
+          @reaction = @client.create_issue_reaction(@repo.full_name, @issue.number, '+1')
         end
 
-        describe '.delete_reaction' do
+        describe '.delete_issue_reaction' do
           it 'deletes the reaction' do
-            @client.delete_reaction(@reaction.id, accept: preview_header)
-            assert_requested :delete, github_url("/reactions/#{@reaction.id}")
+            @client.delete_issue_reaction(@repo.full_name, @issue.number, @reaction.id)
+            assert_requested :delete, github_url("/repos/#{@repo.full_name}/issues/#{@issue.number}/reactions/#{@reaction.id}")
           end
         end # .delete_reaction
       end # with reaction
@@ -133,7 +138,7 @@ describe Octokit::Client::Reactions do
 
         describe '.pull_request_review_comment_reactions' do
           it 'returns an Array of reactions' do
-            reactions = @client.pull_request_review_comment_reactions(@repo.full_name, @pull_request_review_comment.id, accept: preview_header)
+            reactions = @client.pull_request_review_comment_reactions(@repo.full_name, @pull_request_review_comment.id)
             expect(reactions).to be_kind_of Array
             assert_requested :get, github_url("/repos/#{@repo.full_name}/pulls/comments/#{@pull_request_review_comment.id}/reactions")
           end
@@ -141,18 +146,42 @@ describe Octokit::Client::Reactions do
 
         describe '.create_pull_request_review_comment_reaction' do
           it 'creates a reaction' do
-            reaction = @client.create_pull_request_review_comment_reaction(@repo.full_name, @pull_request_review_comment.id, '+1', accept: preview_header)
+            reaction = @client.create_pull_request_review_comment_reaction(@repo.full_name, @pull_request_review_comment.id, '+1')
             expect(reaction.content).to eql('+1')
             assert_requested :post, github_url("/repos/#{@repo.full_name}/pulls/comments/#{@pull_request_review_comment.id}/reactions")
           end
         end # .create_pull_request_review_comment_reaction
       end # with pull request review comment
     end # with pull request
+
+    context 'with release' do
+      before do
+        @release = @client.create_release(@repo.full_name, 'v1.0.0')
+      end
+
+      describe '.release_reactions' do
+        it 'returns an Array of reactions' do
+          reactions = @client.release_reactions(@repo.full_name, @release.id)
+          expect(reactions).to be_kind_of Array
+          assert_requested :get, github_url("/repos/#{@repo.full_name}/releases/#{@release.id}/reactions")
+        end
+      end # .release_reactions
+
+      describe '.create_release_reaction' do
+        it 'creates a reaction' do
+          reaction = @client.create_release_reaction(@repo.full_name, @release.id, '+1')
+          expect(reaction.content).to eql('+1')
+          assert_requested :post, github_url("/repos/#{@repo.full_name}/releases/#{@release.id}/reactions")
+        end
+      end # .create_release_reaction
+
+      describe '.delete_release_reaction' do
+        it 'deletes the reaction' do
+          reaction = @client.create_release_reaction(@repo.full_name, @release.id, '+1')
+          @client.delete_release_reaction(@repo.full_name, @release.id, reaction.id)
+          assert_requested :delete, github_url("/repos/#{@repo.full_name}/releases/#{@release.id}/reactions/#{reaction.id}")
+        end
+      end # .delete_release_reaction
+    end # with release
   end # with repository
-
-  private
-
-  def preview_header
-    Octokit::Preview::PREVIEW_TYPES[:reactions]
-  end
 end

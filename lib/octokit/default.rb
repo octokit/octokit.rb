@@ -34,9 +34,11 @@ module Octokit
       # In Faraday 2.x, Faraday::Request::Retry was moved to a separate gem
       # so we use it only when it's available.
       if defined?(Faraday::Request::Retry)
-        builder.use Faraday::Request::Retry, exceptions: [Octokit::ServerError]
+        retry_exceptions = Faraday::Request::Retry::DEFAULT_EXCEPTIONS + [Octokit::ServerError]
+        builder.use Faraday::Request::Retry, exceptions: retry_exceptions
       elsif defined?(Faraday::Retry::Middleware)
-        builder.use Faraday::Retry::Middleware, exceptions: [Octokit::ServerError]
+        retry_exceptions = Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Octokit::ServerError]
+        builder.use Faraday::Retry::Middleware, exceptions: retry_exceptions
       end
 
       builder.use Octokit::Middleware::FollowRedirects
@@ -49,7 +51,7 @@ module Octokit
       # Configuration options
       # @return [Hash]
       def options
-        Octokit::Configurable.keys.map { |key| [key, send(key)] }.to_h
+        Octokit::Configurable.keys.to_h { |key| [key, send(key)] }
       end
 
       # Default access token from ENV
@@ -88,16 +90,22 @@ module Octokit
         ENV.fetch('OCTOKIT_SECRET', nil)
       end
 
-      # Default management console password from ENV
+      # Default GHES Manage API endpoint from ENV
       # @return [String]
-      def management_console_password
-        ENV.fetch('OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD', nil)
+      def manage_ghes_endpoint
+        ENV.fetch('OCTOKIT_MANAGE_GHES_ENDPOINT', nil)
       end
 
-      # Default management console endpoint from ENV
+      # Default GHES Manage API username from ENV
       # @return [String]
-      def management_console_endpoint
-        ENV.fetch('OCTOKIT_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT', nil)
+      def manage_ghes_username
+        ENV.fetch('OCTOKIT_MANAGE_GHES_USERNAME', nil)
+      end
+
+      # Default GHES Manage API password from ENV
+      # @return [String]
+      def manage_ghes_password
+        ENV.fetch('OCTOKIT_MANAGE_GHES_PASSWORD', nil)
       end
 
       # Default options for Faraday::Connection

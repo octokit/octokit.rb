@@ -31,7 +31,6 @@ module Octokit
       # @return [Sawyer::Resource] Search results object
       # @see https://developer.github.com/v3/search/#search-commits
       def search_commits(query, options = {})
-        options = ensure_api_media_type(:commit_search, options)
         search 'search/commits', query, options
       end
 
@@ -45,6 +44,7 @@ module Octokit
       # @option options [Integer] :per_page Number of items per page
       # @return [Sawyer::Resource] Search results object
       # @see https://developer.github.com/v3/search/#search-issues-and-pull-requests
+      # @see https://docs.github.com/en/rest/search#limitations-on-query-length
       def search_issues(query, options = {})
         search 'search/issues', query, options
       end

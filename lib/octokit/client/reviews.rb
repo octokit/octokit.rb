@@ -151,7 +151,7 @@ module Octokit
       # @param number [Integer] Number ID of the pull request
       # @param reviewers [Hash] :reviewers [Array<String>] An array of user logins
       # @param options [Hash] :team_reviewers [Array<String>] An array of team slugs
-      # @see https://developer.github.com/v3/pulls/review_requests/#create-a-review-request
+      # @see https://developer.github.com/v3/pulls/review_requests/#request-reviewers-for-a-pull-request
       #
       # @example
       #   @client.request_pull_request_review('octokit/octokit.rb', 2, reviewers: ['soudy'])

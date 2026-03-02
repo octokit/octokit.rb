@@ -14,7 +14,6 @@ module Octokit
       # @example Get community profile metrics for octokit/octokit.rb
       #   @client.community_profile('octokit/octokit.rb')
       def community_profile(repo, options = {})
-        options = ensure_api_media_type(:community_profile, options)
         get "#{Repository.path repo}/community/profile", options
       end
     end

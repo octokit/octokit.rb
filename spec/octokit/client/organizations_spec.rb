@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::Organizations do
   before do
     Octokit.reset!
@@ -23,6 +21,13 @@ describe Octokit::Client::Organizations do
       assert_requested :patch, github_url("/orgs/#{test_github_org}")
     end
   end # .update_organization
+
+  describe '#delete_organization', :vcr do
+    it 'deletes an organization' do
+      @client.delete_organization('random-org-to-be-deleted')
+      assert_requested :delete, github_url('/orgs/random-org-to-be-deleted')
+    end
+  end
 
   describe '.organizations', :vcr do
     it 'returns all organizations for a user' do
@@ -117,7 +122,7 @@ describe Octokit::Client::Organizations do
 
   describe '.child_teams', :vcr do
     it 'returns all child teams for the team' do
-      child_teams = @client.child_teams(test_github_team_id, accept: Octokit::Preview::PREVIEW_TYPES[:nested_teams])
+      child_teams = @client.child_teams(test_github_team_id)
       expect(child_teams).to be_kind_of Array
       assert_requested :get, github_url("/teams/#{test_github_team_id}/teams")
     end
@@ -155,6 +160,25 @@ describe Octokit::Client::Organizations do
         assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}")
       end
     end # .team_by_name
+
+    describe '.team_permissions_for_repo', :vcr do
+      it 'returns the repository with team permission for the given repo with accepts header' do
+        permissions = @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository, { accept: 'application/vnd.github.v3.repository+json' })
+        expect(permissions).to be_kind_of Sawyer::Resource
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
+      end
+
+      it 'returns an empty string when a team has permissions for a repo' do
+        permissions = @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository)
+        expect(permissions).to be_empty
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
+      end
+
+      it 'raises an error when a team does not have permissions for a repo' do
+        expect { @client.team_permissions_for_repo(test_github_org, @team.slug, test_github_org, test_github_repository) }.to raise_error Octokit::NotFound
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/#{test_github_repository}")
+      end
+    end # .team_permissions_for_repo
 
     describe '.update_team', :vcr do
       it 'updates a team' do
@@ -314,8 +338,7 @@ describe Octokit::Client::Organizations do
       stub_delete github_url("orgs/#{test_github_org}/memberships/#{test_github_login}")
       @client.remove_organization_membership(
         test_github_org,
-        user: test_github_login,
-        accept: 'application/vnd.github.moondragon+json'
+        user: test_github_login
       )
       assert_requested :delete, github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
     end
@@ -332,21 +355,9 @@ describe Octokit::Client::Organizations do
       stub_get github_url("orgs/#{test_github_org}/memberships/#{test_github_login}")
       @client.organization_membership(
         test_github_org,
-        user: test_github_login,
-        accept: 'application/vnd.github.moondragon+json'
+        user: test_github_login
       )
       assert_requested :get, github_url("/orgs/#{test_github_org}/memberships/#{test_github_login}")
-    end
-
-    it 'returns an organization membership for a given user by the orgs id' do
-      org_id = 42
-      stub_get github_url("organizations/#{org_id}/memberships/#{test_github_login}")
-      @client.organization_membership(
-        org_id,
-        user: test_github_login,
-        accept: 'application/vnd.github.moondragon+json'
-      )
-      assert_requested :get, github_url("/organizations/#{org_id}/memberships/#{test_github_login}")
     end
   end # .organization_membership
 
@@ -368,31 +379,31 @@ describe Octokit::Client::Organizations do
 
   describe '.migrations', :vcr do
     it 'starts a migration for an organization' do
-      result = @client.start_migration(test_github_org, ['github-api/api-playground'], accept: preview_header)
+      result = @client.start_migration(test_github_org, ['github-api/api-playground'])
       expect(result).to be_kind_of Sawyer::Resource
       assert_requested :post, github_url("/orgs/#{test_github_org}/migrations")
     end
 
     it 'lists migrations for an organization' do
-      result = @client.migrations(test_github_org, accept: preview_header)
+      result = @client.migrations(test_github_org)
       expect(result).to be_kind_of Array
       assert_requested :get, github_url("/orgs/#{test_github_org}/migrations")
     end
 
     it 'gets the status of a migration' do
-      result = @client.migration_status(test_github_org, 97, accept: preview_header)
+      result = @client.migration_status(test_github_org, 97)
       expect(result).to be_kind_of Sawyer::Resource
       assert_requested :get, github_url("/orgs/#{test_github_org}/migrations/97")
     end
 
     it 'downloads a migration archive' do
-      result = @client.migration_archive_url(test_github_org, 97, accept: preview_header)
+      result = @client.migration_archive_url(test_github_org, 97)
       expect(result).to be_kind_of String
       assert_requested :get, github_url("/orgs/#{test_github_org}/migrations/97/archive")
     end
 
     it 'unlocks a migrated repository' do
-      @client.unlock_repository(test_github_org, 97, 'api-playground', accept: preview_header)
+      @client.unlock_repository(test_github_org, 97, 'api-playground')
       expect(@client.last_response.status).to eq(204)
       assert_requested :delete, github_url("/orgs/#{test_github_org}/migrations/97/repos/api-playground/lock")
     end
@@ -406,9 +417,11 @@ describe Octokit::Client::Organizations do
     end
   end
 
-  private
-
-  def preview_header
-    Octokit::Preview::PREVIEW_TYPES[:migrations]
+  describe '.organization_audit_log', :vcr do
+    it 'returns audit log for an organization' do
+      audit_log = @client.organization_audit_log(test_github_org, { include: 'all', phrase: 'action:org.add_member created:>2022-08-29' })
+      expect(audit_log).to be_kind_of Array
+      assert_requested :get, github_url("/orgs/#{test_github_org}/audit-log?include=all&phrase=action:org.add_member%20created:%3E2022-08-29")
+    end
   end
 end

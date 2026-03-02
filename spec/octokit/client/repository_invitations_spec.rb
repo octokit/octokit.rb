@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::RepositoryInvitations do
   before do
     Octokit.reset!
@@ -14,10 +12,8 @@ describe Octokit::Client::RepositoryInvitations do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.id)
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.id)
+    rescue Octokit::NotFound
     end
 
     describe '.invite_user_to_repository', :vcr do

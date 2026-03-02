@@ -106,6 +106,7 @@ module Octokit
         http.headers[:accept] = default_media_type
         http.headers[:content_type] = 'application/json'
         http.headers[:user_agent] = user_agent
+        http_cache_middleware = http.builder.handlers.delete(Faraday::HttpCache) if Faraday.const_defined?(:HttpCache)
         if basic_authenticated?
           http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
         elsif token_authenticated?
@@ -115,6 +116,7 @@ module Octokit
         elsif application_authenticated?
           http.request(*FARADAY_BASIC_AUTH_KEYS, @client_id, @client_secret)
         end
+        http.builder.handlers.push(http_cache_middleware) unless http_cache_middleware.nil?
       end
     end
 
@@ -154,7 +156,7 @@ module Octokit
       end
 
       @last_response = response = agent.call(method, Addressable::URI.parse(path.to_s).normalize.to_s, data, options)
-      response.data
+      response_data_correctly_encoded(response)
     rescue Octokit::Error => e
       @last_response = nil
       raise e
@@ -205,6 +207,14 @@ module Octokit
       opts[:headers] = headers unless headers.empty?
 
       opts
+    end
+
+    def response_data_correctly_encoded(response)
+      content_type = response.headers.fetch('content-type', '')
+      return response.data unless content_type.include?('charset') && response.data.is_a?(String)
+
+      reported_encoding = content_type.match(/charset=([^ ]+)/)[1]
+      response.data.force_encoding(reported_encoding)
     end
   end
 end

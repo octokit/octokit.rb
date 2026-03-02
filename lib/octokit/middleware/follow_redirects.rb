@@ -15,7 +15,7 @@ module Octokit
       attr_reader :response
 
       def initialize(response)
-        super "too many redirects; last one to: #{response['location']}"
+        super("too many redirects; last one to: #{response['location']}")
         @response = response
       end
     end

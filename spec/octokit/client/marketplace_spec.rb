@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::Marketplace do
   before(:each) do
     Octokit.reset!

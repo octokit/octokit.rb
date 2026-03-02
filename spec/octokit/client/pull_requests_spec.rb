@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::PullRequests do
   before do
     Octokit.reset!
@@ -50,6 +48,28 @@ describe Octokit::Client::PullRequests do
           assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
         end
       end
+
+      context 'with draft argument' do
+        let(:arguments_to_create_pull_request) do
+          [@test_repo, 'main', 'branch-for-pr', 'A new PR', 'The Body', { draft: true }]
+        end
+
+        it 'creates a draft pull request' do
+          expect(@pull.draft).to be true
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
+        end
+      end
+
+      context 'without draft argument' do
+        let(:arguments_to_create_pull_request) do
+          [@test_repo, 'main', 'branch-for-pr-not-draft', 'A new PR', 'The Body']
+        end
+
+        it 'creates a pull request ready for review' do
+          expect(@pull.draft).to be false
+          assert_requested :post, github_url("/repos/#{@test_repo}/pulls")
+        end
+      end
     end # .create_pull_request
 
     describe '.pull_request', :vcr do
@@ -76,25 +96,37 @@ describe Octokit::Client::PullRequests do
     end # .pull_merged?
 
     context 'methods requiring a pull request comment' do
-      before do
-        new_comment = {
+      let(:new_comment) do
+        {
           body: 'Hawt',
           commit_id: '9bf22dff54fd6a7650230b70417b55e8cccfc4f2',
           path: 'test.md',
-          position: 1
+          line: 1
         }
+      end
+
+      before do
         @comment = @client.create_pull_request_comment \
           @test_repo,
           @pull.number,
           new_comment[:body],
           new_comment[:commit_id],
           new_comment[:path],
-          new_comment[:position]
+          new_comment[:line]
       end
 
       describe '.create_pull_request_comment', :vcr do
         it 'creates a new comment on a pull request' do
           assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments")
+        end
+
+        context 'without line argument' do
+          let(:new_comment) { super().tap { |hash| hash.delete(:line) } }
+
+          it 'creates a new comment on a pull request at the file level' do
+            assert_requested :post, github_url("/repos/#{@test_repo}/pulls/#{@pull.number}/comments")
+            expect(@comment.subject_type).to eq('file')
+          end
         end
       end # .create_pull_request_comment
 
@@ -135,6 +167,40 @@ describe Octokit::Client::PullRequests do
       end
     end
   end # new @pull methods
+
+  # stub this so we don't have to set up new fixture data
+  describe '.update_pull_request_branch' do
+    let(:repo) { 'api-playground/api-sandbox' }
+    let(:pull_number) { 321 }
+    let(:update_branch_url) { github_url("/repos/#{repo}/pulls/#{pull_number}/update-branch") }
+    let(:status) { 202 }
+
+    before(:each) do
+      stub_put(update_branch_url).to_return(status: status)
+    end
+
+    it 'updates the pull request branch' do
+      result = @client.update_pull_request_branch(repo, pull_number)
+      assert_requested :put, update_branch_url
+      expect(result).to eq(true)
+    end
+
+    context 'when the request fails with a 403 Forbidden' do
+      let(:status) { 403 }
+
+      it 'raises an exception' do
+        expect { @client.update_pull_request_branch(repo, pull_number) }.to raise_error(Octokit::Forbidden)
+      end
+    end
+
+    context 'when the request fails with a 422 Unprocessable Entity' do
+      let(:status) { 422 }
+
+      it 'raises an exception' do
+        expect { @client.update_pull_request_branch(repo, pull_number) }.to raise_error(Octokit::UnprocessableEntity)
+      end
+    end
+  end # .update_pull_request_branch
 
   # stub this so we don't have to set up new fixture data
   describe '.merge_pull_request' do

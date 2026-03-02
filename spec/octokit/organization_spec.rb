@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Organization do
   describe '.path' do
     context 'with name' do

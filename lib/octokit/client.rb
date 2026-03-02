@@ -11,14 +11,15 @@ require 'octokit/rate_limit'
 require 'octokit/repository'
 require 'octokit/user'
 require 'octokit/organization'
-require 'octokit/preview'
+require 'octokit/client/actions_artifacts'
 require 'octokit/client/actions_secrets'
 require 'octokit/client/actions_workflows'
 require 'octokit/client/actions_workflow_jobs'
 require 'octokit/client/actions_workflow_runs'
 require 'octokit/client/apps'
-require 'octokit/client/authorizations'
 require 'octokit/client/checks'
+require 'octokit/client/code_scanning'
+require 'octokit/client/codespaces_secrets'
 require 'octokit/client/commits'
 require 'octokit/client/commit_comments'
 require 'octokit/client/commit_pulls'
@@ -26,7 +27,9 @@ require 'octokit/client/commit_branches'
 require 'octokit/client/community_profile'
 require 'octokit/client/contents'
 require 'octokit/client/downloads'
+require 'octokit/client/dependabot_secrets'
 require 'octokit/client/deployments'
+require 'octokit/client/environments'
 require 'octokit/client/emojis'
 require 'octokit/client/events'
 require 'octokit/client/feeds'
@@ -47,7 +50,6 @@ require 'octokit/client/objects'
 require 'octokit/client/organizations'
 require 'octokit/client/pages'
 require 'octokit/client/projects'
-require 'octokit/client/pub_sub_hubbub'
 require 'octokit/client/pull_requests'
 require 'octokit/client/rate_limit'
 require 'octokit/client/reactions'
@@ -62,6 +64,7 @@ require 'octokit/client/service_status'
 require 'octokit/client/source_import'
 require 'octokit/client/stats'
 require 'octokit/client/statuses'
+require 'octokit/client/tokens'
 require 'octokit/client/traffic'
 require 'octokit/client/users'
 require 'ext/sawyer/relation'
@@ -74,19 +77,22 @@ module Octokit
     include Octokit::Authentication
     include Octokit::Configurable
     include Octokit::Connection
-    include Octokit::Preview
     include Octokit::Warnable
+    include Octokit::Client::ActionsArtifacts
     include Octokit::Client::ActionsSecrets
-    include Octokit::Client::Authorizations
     include Octokit::Client::Checks
+    include Octokit::Client::CodeScanning
+    include Octokit::Client::CodespacesSecrets
     include Octokit::Client::Commits
     include Octokit::Client::CommitComments
     include Octokit::Client::CommitPulls
     include Octokit::Client::CommitBranches
     include Octokit::Client::CommunityProfile
     include Octokit::Client::Contents
+    include Octokit::Client::DependabotSecrets
     include Octokit::Client::Deployments
     include Octokit::Client::Downloads
+    include Octokit::Client::Environments
     include Octokit::Client::Emojis
     include Octokit::Client::Events
     include Octokit::Client::Feeds
@@ -111,7 +117,6 @@ module Octokit
     include Octokit::Client::Organizations
     include Octokit::Client::Pages
     include Octokit::Client::Projects
-    include Octokit::Client::PubSubHubbub
     include Octokit::Client::PullRequests
     include Octokit::Client::RateLimit
     include Octokit::Client::Reactions
@@ -126,6 +131,7 @@ module Octokit
     include Octokit::Client::SourceImport
     include Octokit::Client::Stats
     include Octokit::Client::Statuses
+    include Octokit::Client::Tokens
     include Octokit::Client::Traffic
     include Octokit::Client::Users
 
@@ -157,16 +163,13 @@ module Octokit
 
       # mask password
       inspected.gsub! @password, '*******' if @password
-      if @management_console_password
-        inspected.gsub! @management_console_password, '*******'
-      end
       inspected.gsub! @bearer_token, '********' if @bearer_token
       # Only show last 4 of token, secret
       if @access_token
-        inspected.gsub! @access_token, "#{'*' * 36}#{@access_token[36..-1]}"
+        inspected.gsub! @access_token, "#{'*' * 36}#{@access_token[36..]}"
       end
       if @client_secret
-        inspected.gsub! @client_secret, "#{'*' * 36}#{@client_secret[36..-1]}"
+        inspected.gsub! @client_secret, "#{'*' * 36}#{@client_secret[36..]}"
       end
 
       inspected
@@ -253,6 +256,7 @@ module Octokit
       conn_opts[:proxy] = @proxy if @proxy
       conn_opts[:ssl] = { verify_mode: @ssl_verify_mode } if @ssl_verify_mode
       conn = Faraday.new(conn_opts) do |http|
+        http_cache_middleware = http.builder.handlers.delete(Faraday::HttpCache) if Faraday.const_defined?(:HttpCache)
         if basic_authenticated?
           http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
         elsif token_authenticated?
@@ -260,6 +264,7 @@ module Octokit
         elsif bearer_authenticated?
           http.request :authorization, 'Bearer', @bearer_token
         end
+        http.builder.handlers.push(http_cache_middleware) unless http_cache_middleware.nil?
         http.headers['accept'] = options[:accept] if options.key?(:accept)
       end
       conn.builder.delete(Octokit::Middleware::FollowRedirects)

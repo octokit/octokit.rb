@@ -18,7 +18,9 @@ module Octokit
       # @return [Sawyer::Resource] the total count and an array of workflows
       # @see https://developer.github.com/v3/actions/workflow-runs/#list-workflow-runs
       def workflow_runs(repo, workflow, options = {})
-        paginate "#{Repository.path repo}/actions/workflows/#{workflow}/runs", options
+        paginate "#{Repository.path repo}/actions/workflows/#{workflow}/runs", options do |data, last_response|
+          data.workflow_runs.concat last_response.data.workflow_runs
+        end
       end
       alias list_workflow_runs workflow_runs
 
@@ -33,7 +35,9 @@ module Octokit
       # @return [Sawyer::Resource] the total count and an array of workflows
       # @see https://developer.github.com/v3/actions/workflow-runs/#list-repository-workflow-runs
       def repository_workflow_runs(repo, options = {})
-        paginate "#{Repository.path repo}/actions/runs", options
+        paginate "#{Repository.path repo}/actions/runs", options do |data, last_response|
+          data.workflow_runs.concat last_response.data.workflow_runs
+        end
       end
       alias list_repository_workflow_runs repository_workflow_runs
 

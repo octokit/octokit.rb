@@ -1,0 +1,458 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/orgs/<GITHUB_TEST_ORGANIZATION>/actions/secrets/public-key",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 8.0.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Tue, 12 Dec 2023 22:35:57 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"aa41a98fa5415fc5a3e22c00ea9be5c5d60b20bac3cf4fcecbf1b751180b3347\""
+          ],
+          "X-Oauth-Scopes": [
+            "admin:org, repo"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            "admin:org"
+          ],
+          "Github-Authentication-Token-Expiration": [
+            "2023-12-19 21:50:28 UTC"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4981"
+          ],
+          "X-Ratelimit-Reset": [
+            "1702422736"
+          ],
+          "X-Ratelimit-Used": [
+            "19"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "C8BF:323D:9DD152:A3433C:6578E04D"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJrZXlfaWQiOiI1NjgyNTAxNjcyNDI1NDk3NDMiLCJrZXkiOiJPSkU3Q1dq\nOEFPZVY1cUVaeUVnck1oZ1RGTjlaK3FPNzlmUUN4cmJiUkZFPSJ9\n"
+        }
+      },
+      "recorded_at": "Tue, 12 Dec 2023 22:35:57 GMT"
+    },
+    {
+      "request": {
+        "method": "put",
+        "uri": "https://api.github.com/orgs/<GITHUB_TEST_ORGANIZATION>/actions/secrets/secret_name",
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJrZXlfaWQiOiI1NjgyNTAxNjcyNDI1NDk3NDMiLCJlbmNyeXB0ZWRfdmFs\ndWUiOiJDemNDTzhZek1nWHFzRTRMdmY3emlvVU1OV1VRQWlhMUtQV2krZU51\nSTJibXlyNWFmYi9Ja3Q2TSs1aktIcG56UVBpRGVLbG02WmgycFpCSSIsInZp\nc2liaWxpdHkiOiJwcml2YXRlIn0=\n"
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 8.0.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 204,
+          "message": "No Content"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Tue, 12 Dec 2023 22:35:57 GMT"
+          ],
+          "X-Oauth-Scopes": [
+            "admin:org, repo"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            "admin:org"
+          ],
+          "Github-Authentication-Token-Expiration": [
+            "2023-12-19 21:50:28 UTC"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4980"
+          ],
+          "X-Ratelimit-Reset": [
+            "1702422736"
+          ],
+          "X-Ratelimit-Used": [
+            "20"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "Vary": [
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "X-Github-Request-Id": [
+            "C8C0:40AD:A89493:AE07A9:6578E04D"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": ""
+        }
+      },
+      "recorded_at": "Tue, 12 Dec 2023 22:35:57 GMT"
+    },
+    {
+      "request": {
+        "method": "put",
+        "uri": "https://api.github.com/orgs/<GITHUB_TEST_ORGANIZATION>/actions/secrets/secret_name2",
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJrZXlfaWQiOiI1NjgyNTAxNjcyNDI1NDk3NDMiLCJlbmNyeXB0ZWRfdmFs\ndWUiOiJRVmV2RGQ3cU9BOXgwZnIwR1Q2Y2lFdk5zZXFhcmxSSlNVOGRzNURa\ncVNWMVhyWjQ4Qnp2WUJVeGtwdVNBQ3VtUEtEWUM1b0VBeHk4U3hwV3VRPT0i\nLCJ2aXNpYmlsaXR5IjoicHJpdmF0ZSJ9\n"
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 8.0.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 204,
+          "message": "No Content"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Tue, 12 Dec 2023 22:35:58 GMT"
+          ],
+          "X-Oauth-Scopes": [
+            "admin:org, repo"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            "admin:org"
+          ],
+          "Github-Authentication-Token-Expiration": [
+            "2023-12-19 21:50:28 UTC"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4979"
+          ],
+          "X-Ratelimit-Reset": [
+            "1702422736"
+          ],
+          "X-Ratelimit-Used": [
+            "21"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "Vary": [
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "X-Github-Request-Id": [
+            "C8C1:4A8C:A426F9:A9AAEA:6578E04D"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": ""
+        }
+      },
+      "recorded_at": "Tue, 12 Dec 2023 22:35:58 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/orgs/<GITHUB_TEST_ORGANIZATION>/actions/secrets?per_page=1",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 8.0.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Tue, 12 Dec 2023 22:35:58 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"6b0af939cb57483b11ed4a29cb5f7265468b65c6903a7f00eedfc3c42c654d99\""
+          ],
+          "X-Oauth-Scopes": [
+            "admin:org, repo"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            "admin:org"
+          ],
+          "Github-Authentication-Token-Expiration": [
+            "2023-12-19 21:50:28 UTC"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "Link": [
+            "<https://api.github.com/organizations/64329988/actions/secrets?per_page=1&page=2>; rel=\"next\", <https://api.github.com/organizations/64329988/actions/secrets?per_page=1&page=2>; rel=\"last\""
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4978"
+          ],
+          "X-Ratelimit-Reset": [
+            "1702422736"
+          ],
+          "X-Ratelimit-Used": [
+            "22"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "C8C2:8D09:918ACD:9696DB:6578E04E"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJ0b3RhbF9jb3VudCI6Miwic2VjcmV0cyI6W3sibmFtZSI6IlNFQ1JFVF9O\nQU1FIiwiY3JlYXRlZF9hdCI6IjIwMjMtMTItMTJUMjI6MzQ6MTVaIiwidXBk\nYXRlZF9hdCI6IjIwMjMtMTItMTJUMjI6MzU6NThaIiwidmlzaWJpbGl0eSI6\nInByaXZhdGUifV19\n"
+        }
+      },
+      "recorded_at": "Tue, 12 Dec 2023 22:35:58 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

@@ -3,7 +3,7 @@
 module Octokit
   # Current major release.
   # @return [Integer]
-  MAJOR = 5
+  MAJOR = 10
 
   # Current minor release.
   # @return [Integer]

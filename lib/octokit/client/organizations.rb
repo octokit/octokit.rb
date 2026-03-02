@@ -50,12 +50,28 @@ module Octokit
       end
       alias update_org update_organization
 
+      # Delete an organization.
+      #
+      # Requires authenticated organization owner.
+      #
+      # @param org [String, Integer] Organization login or ID.
+      # @return [Boolean] True if deletion successful, otherwise false.
+      # @see https://docs.github.com/rest/orgs/orgs#delete-an-organization
+      # @example
+      #   @client.delete_organization("my-org")
+      # @example
+      #   @client.delete_org("my-org")
+      def delete_organization(org)
+        boolean_from_response :delete, Organization.path(org)
+      end
+      alias delete_org delete_organization
+
       # Get organizations for a user.
       #
       # Nonauthenticated calls to this method will return organizations that
       # the user is a public member.
       #
-      # Use an authenicated client to get both public and private organizations
+      # Use an authenticated client to get both public and private organizations
       # for a user.
       #
       # Calling this method on a `@client` will return that users organizations.
@@ -305,9 +321,6 @@ module Octokit
         if options.key?(:permission)
           octokit_warn 'Deprecated: Passing :permission option to #create_team. Assign team repository permission by passing :permission to #add_team_repository instead.'
         end
-        if options.key?(:parent_team_id)
-          options = ensure_api_media_type(:nested_teams, options)
-        end
         post "#{Organization.path org}/teams", options
       end
 
@@ -338,6 +351,27 @@ module Octokit
         get "#{Organization.path(org)}/teams/#{team_slug}", options
       end
 
+      # Check team permissions for a repository
+      #
+      # Requires authenticated organization member.
+      #
+      # @param org [String, Integer] Organization GitHub login or id.
+      # @param team_slug_or_id [String, Integer] Team slug or Team ID.
+      # @param owner [String] Owner name for the repository.
+      # @param repo [String] Name of the repo to check permissions against.
+      # @return [String, Sawyer::Resource] Depending on options it may be an empty string or a resource.
+      # @example
+      #   # Check whether the team has any permissions with the repository
+      #   @client.team_permissions_for_repo("github", "justice-league", "octocat", "hello-world")
+      #
+      # @example
+      #   # Get the full repository object including the permissions level and role for the team
+      #   @client.team_permissions_for_repo("github", "justice-league", "octocat", "hello-world", :accept => 'application/vnd.github.v3.repository+json')
+      # @see https://docs.github.com/en/rest/teams/teams#check-team-permissions-for-a-repository
+      def team_permissions_for_repo(org, team_slug_or_id, owner, repo, options = {})
+        get "#{Organization.path(org)}/teams/#{team_slug_or_id}/repos/#{owner}/#{repo}", options
+      end
+
       # List child teams
       #
       # Requires authenticated organization member.
@@ -348,7 +382,6 @@ module Octokit
       # @example
       #   @client.child_teams(100000, :accept => "application/vnd.github.hellcat-preview+json")
       def child_teams(team_id, options = {})
-        options = ensure_api_media_type(:nested_teams, options)
         paginate "teams/#{team_id}/teams", options
       end
 
@@ -372,9 +405,6 @@ module Octokit
       #     :permission => 'push'
       #   })
       def update_team(team_id, options = {})
-        if options.key?(:parent_team_id)
-          options = ensure_api_media_type(:nested_teams, options)
-        end
         patch "teams/#{team_id}", options
       end
 
@@ -733,7 +763,6 @@ module Octokit
       #   @client.start_migration('github', ['github/dotfiles'])
       # @see https://docs.github.com/en/rest/reference/migrations#start-an-organization-migration
       def start_migration(org, repositories, options = {})
-        options = ensure_api_media_type(:migrations, options)
         options[:repositories] = repositories
         post "#{Organization.path(org)}/migrations", options
       end
@@ -746,7 +775,6 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of migration resources.
       # @see https://docs.github.com/en/rest/reference/migrations#list-organization-migrations
       def migrations(org, options = {})
-        options = ensure_api_media_type(:migrations, options)
         paginate "#{Organization.path(org)}/migrations", options
       end
 
@@ -758,7 +786,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#get-an-organization-migration-status
       def migration_status(org, id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         get "#{Organization.path(org)}/migrations/#{id}", options
       end
 
@@ -770,7 +797,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#download-an-organization-migration-archive
       def migration_archive_url(org, id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         url = "#{Organization.path(org)}/migrations/#{id}/archive"
 
         response = client_without_redirects(options).get(url)
@@ -785,7 +811,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#delete-an-organization-migration-archive
       def delete_migration_archive(org, id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         delete "#{Organization.path(org)}/migrations/#{id}/archive", options
       end
 
@@ -798,7 +823,6 @@ module Octokit
       # @param repo [String] Name of the repository.
       # @see https://docs.github.com/en/rest/reference/migrations#unlock-an-organization-repository
       def unlock_repository(org, id, repo, options = {})
-        options = ensure_api_media_type(:migrations, options)
         delete "#{Organization.path(org)}/migrations/#{id}/repos/#{repo}/lock", options
       end
 
@@ -814,6 +838,26 @@ module Octokit
       #   @client.billing_actions('github')
       def billing_actions(org)
         get "#{Organization.path(org)}/settings/billing/actions"
+      end
+
+      # Get organization audit log.
+      #
+      # Gets the audit log for an organization.
+      #
+      # @param org [String, Integer] Organization GitHub login or id for which
+      #   to retrieve the audit log.
+      # @option options [String] :include ('all') Filter by event type.
+      #   `all`, `git` or `web`.
+      # @option options [String] :phrase A search phrase.
+      # @option options [String] :order ('desc') The order of audit log events. To list newest events first, specify desc.
+      # To list oldest events first, specify asc.
+      #
+      # @return [Array<Sawyer::Resource>] List of events
+      # @see https://docs.github.com/en/enterprise-cloud@latest/rest/orgs/orgs#get-the-audit-log-for-an-organization
+      # @example
+      #   Octokit.organization_audit_log('github', {include: 'all', phrase: 'action:org.add_member created:>2022-08-29 user:octocat'})
+      def organization_audit_log(org, options = {})
+        paginate "#{Organization.path org}/audit-log", options
       end
     end
   end

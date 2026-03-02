@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
 require 'json'
 
 describe Octokit::Client do
@@ -840,6 +839,147 @@ describe Octokit::Client do
       end
     end
 
+    it 'exposes errors string' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: {
+            content_type: 'application/json'
+          },
+          body: {
+            message: 'Validation Failed',
+            errors: 'Issue'
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Issue')
+      end
+    end
+
+    it 'handles errors as a hash' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: { field: 'some field', issue: 'some issue' }
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Error summary:')
+        expect(e.message).to include('[:field, "some field"]')
+        expect(e.message).to include('[:issue, "some issue"]')
+      end
+    end
+
+    it 'handles nil errors gracefully' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: nil
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).not_to include('Error summary:')
+      end
+    end
+
+    it 'handles errors array of strings' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: ['Issue 1', 'Issue 2']
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Error summary:')
+        expect(e.message).to include('Issue 1')
+        expect(e.message).to include('Issue 2')
+      end
+    end
+
+    it 'handles errors with special characters' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: 'Error with <special> characters & symbols'
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Error summary:')
+        expect(e.message).to include('Error with <special> characters & symbols')
+      end
+    end
+
+    it 'handles nested structures in errors' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: [
+              { field: 'some field', issue: 'some issue' },
+              { details: { subfield: 'value' } }
+            ]
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Error summary:')
+        expect(e.message).to include('field: some field')
+        expect(e.message).to include('issue: some issue')
+        # Ruby, depending on the version, may format the hash differently
+        # either with a ligature (=>) or a colon (:)
+        # '{:subfield => "value"}' or '{subfield: "value"}'
+        # so we use a regex to match either for the test assertion
+        expect(e.message).to match(
+          /details: \{(?::subfield\s*=>\s*"value"|subfield:\s*"value")\}/
+        )
+      end
+    end
+
+    it 'handles mixed-type errors array' do
+      stub_get('/boom')
+        .to_return \
+          status: 422,
+          headers: { content_type: 'application/json' },
+          body: {
+            message: 'Validation Failed',
+            errors: ['Issue', { field: 'some field', issue: 'some issue' }]
+          }.to_json
+      begin
+        Octokit.get('/boom')
+      rescue Octokit::UnprocessableEntity => e
+        expect(e.message).to include('GET https://api.github.com/boom: 422 - Validation Failed')
+        expect(e.message).to include('Error summary:')
+        expect(e.message).to include('Issue')
+        expect(e.message).to include('field: some field')
+        expect(e.message).to include('issue: some issue')
+      end
+    end
+
     it 'knows the difference between different kinds of forbidden' do
       stub_get('/some/admin/stuffs').to_return(status: 403)
       expect { Octokit.get('/some/admin/stuffs') }.to raise_error Octokit::Forbidden
@@ -850,7 +990,7 @@ describe Octokit::Client do
           content_type: 'application/json'
         },
         body: { message: 'API rate limit exceeded' }.to_json
-      expect { Octokit.get('/users/mojomobo') }.to raise_error Octokit::TooManyRequests
+      expect { Octokit.get('/users/mojomobo') }.to raise_error(Octokit::TooManyRequests, /API rate limit exceeded/)
 
       stub_get('/users/mojomobo').to_return \
         status: 403,
@@ -858,7 +998,7 @@ describe Octokit::Client do
           content_type: 'application/json'
         },
         body: { message: 'You have exceeded a secondary rate limit.' }.to_json
-      expect { Octokit.get('/users/mojomobo') }.to raise_error Octokit::TooManyRequests
+      expect { Octokit.get('/users/mojomobo') }.to raise_error(Octokit::TooManyRequests, /You have exceeded a secondary rate limit./)
 
       stub_get('/user').to_return \
         status: 403,
@@ -874,6 +1014,14 @@ describe Octokit::Client do
           content_type: 'application/json'
         },
         body: { message: 'This API returns blobs up to 1 MB in size' }.to_json
+      expect { Octokit.get('/user') }.to raise_error Octokit::TooLargeContent
+
+      stub_get('/user').to_return \
+        status: 403,
+        headers: {
+          content_type: 'application/json'
+        },
+        body: { message: 'for this endpoint for blobs between 1-100 MB.' }.to_json
       expect { Octokit.get('/user') }.to raise_error Octokit::TooLargeContent
 
       stub_get('/user').to_return \
@@ -1159,12 +1307,13 @@ describe Octokit::Client do
     stub_get('/user').to_return \
       status: 403,
       headers: {
-        'content_type' => 'application/json'
+        'content_type' => 'application/json',
+        'X-RateLimit-Limit' => 60,
+        'X-RateLimit-Remaining' => 42,
+        'X-RateLimit-Reset' => (Time.now + 60).to_i
       },
       body: { message: 'rate limit exceeded' }.to_json
     begin
-      rate_limit_headers = { 'X-RateLimit-Limit' => 60, 'X-RateLimit-Remaining' => 42, 'X-RateLimit-Reset' => (Time.now + 60).to_i }
-      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return(rate_limit_headers)
       Octokit.get('/user')
     rescue Octokit::TooManyRequests => e
       expect(e.context).to be_an_instance_of(Octokit::RateLimit)
@@ -1181,7 +1330,6 @@ describe Octokit::Client do
       },
       body: { message: 'You have exceeded a secondary rate limit.' }.to_json
     begin
-      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return({})
       Octokit.get('/user')
     rescue Octokit::TooManyRequests => e
       expect(e.context).to be_an_instance_of(Octokit::RateLimit)
@@ -1192,12 +1340,13 @@ describe Octokit::Client do
     stub_get('/user').to_return \
       status: 403,
       headers: {
-        'content_type' => 'application/json'
+        'content_type' => 'application/json',
+        'X-RateLimit-Limit' => 60,
+        'X-RateLimit-Remaining' => 42,
+        'X-RateLimit-Reset' => (Time.now + 60).to_i
       },
       body: { message: 'You have exceeded a secondary rate limit.' }.to_json
     begin
-      rate_limit_headers = { 'X-RateLimit-Limit' => 60, 'X-RateLimit-Remaining' => 42, 'X-RateLimit-Reset' => (Time.now + 60).to_i }
-      expect_any_instance_of(Faraday::Env).to receive(:headers).at_least(:once).and_return(rate_limit_headers)
       Octokit.get('/user')
     rescue Octokit::TooManyRequests => e
       expect(e.context).to be_an_instance_of(Octokit::RateLimit)
@@ -1210,25 +1359,25 @@ describe Octokit::Client do
     before do
       Octokit.reset!
       @client = oauth_client
-      @ent_management_console = enterprise_management_console_client
+      @ent_manage_ghes_client = manage_ghes_client
     end
 
     it 'has no method collisions' do
       client_methods = collect_methods(Octokit::Client)
       admin_client = collect_methods(Octokit::EnterpriseAdminClient)
-      console_client = collect_methods(Octokit::EnterpriseManagementConsoleClient)
+      manage_ghes_client = collect_methods(Octokit::ManageGHESClient)
 
       expect(client_methods & admin_client).to eql []
-      expect(client_methods & console_client).to eql []
-      expect(admin_client & console_client).to eql []
+      expect(client_methods & manage_ghes_client).to eql []
+      expect(admin_client & manage_ghes_client).to eql []
     end
 
     it 'uniquely separates method missing calls' do
-      expect { @ent_management_console.public_events }.to raise_error NoMethodError
+      expect { @ent_manage_ghes_client.public_events }.to raise_error NoMethodError
     end
 
     def collect_methods(clazz)
-      clazz.included_modules.select { |m| m.to_s =~ Regexp.new(clazz.to_s) } \
+      clazz.included_modules.select { |m| m.to_s =~ Regexp.new(clazz.to_s) }
            .collect(&:public_instance_methods).flatten
     end
   end

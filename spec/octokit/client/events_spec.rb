@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::Events do
   before do
     Octokit.reset!
@@ -91,7 +89,7 @@ describe Octokit::Client::Events do
 
   describe '.issue_events', :vcr do
     it 'lists issue events for a repository' do
-      issue_events = @client.issue_events('octokit/octokit.rb', 4, accept: preview_header)
+      issue_events = @client.issue_events('octokit/octokit.rb', 4)
       expect(issue_events).to be_kind_of Array
       assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/4/events')
     end
@@ -104,8 +102,4 @@ describe Octokit::Client::Events do
       assert_requested :get, github_url('/repos/octokit/octokit.rb/issues/events/37786228')
     end
   end # .issue_events
-
-  def preview_header
-    Octokit::Preview::PREVIEW_TYPES[:project_card_events]
-  end
 end

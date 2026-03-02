@@ -19,7 +19,9 @@ group :test do
   install_if -> { RUBY_VERSION >= '2.8' } do
     gem 'rexml', '>= 3.2.4'
   end
-  gem 'json', '>= 2.3.0', platforms: [:jruby]
+  gem 'base64'
+  gem 'faraday-http-cache', '~> 2.5', '>= 2.5.1'
+  gem 'json', '>= 2.3.0'
   gem 'jwt', '~> 2.2', '>= 2.2.1'
   gem 'mime-types', '~> 3.3', '>= 3.3.1'
   gem 'multi_json', '~> 1.14', '>= 1.14.1'
@@ -28,6 +30,8 @@ group :test do
   gem 'rbnacl', '~> 7.1.1'
   gem 'rspec', '~> 3.9'
   gem 'simplecov', require: false
+  gem 'test-queue'
+  gem 'timecop', '~> 0.9.8'
   gem 'vcr', '~> 6.1'
   gem 'webmock', '~> 3.8', '>= 3.8.2'
 end
@@ -42,9 +46,10 @@ if faraday_version.start_with?('~> 2')
 end
 
 group :test, :development do
+  gem 'bundler', '>= 1', '< 3'
   gem 'pry-byebug'
   gem 'redcarpet'
-  gem 'rubocop', '1.31.2'
+  gem 'rubocop', '1.69.2'
 end
 
 gemspec

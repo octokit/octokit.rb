@@ -57,6 +57,33 @@ module Octokit
         post "#{web_endpoint}login/oauth/access_token", options
       end
 
+      # Refresh a user's access token with a refresh token.
+      #
+      # Applications can refresh an access token without requiring a user to re-authorize using refresh access token.
+      #
+      # @param code [String] 40 character GitHub OAuth refresh access token
+      #
+      # @return [Sawyer::Resource]
+      # @see https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/refreshing-user-access-tokens#refreshing-a-user-access-token-with-a-refresh-token
+      #
+      # @example
+      #  client = Octokit::Client.new(:client_id => 'abcdefg12345', :client_secret => 'secret')
+      #  client.refresh_access_token('40-character-refresh-token')
+      def refresh_access_token(code, app_id = client_id, app_secret = client_secret, options = {})
+        options = options.merge({
+                                  refresh_token: code,
+                                  client_id: app_id,
+                                  client_secret: app_secret,
+                                  grant_type: 'refresh_token',
+                                  headers: {
+                                    content_type: 'application/json',
+                                    accept: 'application/json'
+                                  }
+                                })
+
+        post "#{web_endpoint}login/oauth/access_token", options
+      end
+
       # Validate user username and password
       #
       # @param options [Hash] User credentials
@@ -352,7 +379,6 @@ module Octokit
       #   @client.start_migration(['octocat/hello-world'])
       # @see https://docs.github.com/en/rest/reference/migrations#start-a-user-migration
       def start_user_migration(repositories, options = {})
-        options = ensure_api_media_type(:migrations, options)
         options[:repositories] = repositories
         post 'user/migrations', options
       end
@@ -364,7 +390,6 @@ module Octokit
       # @return [Array<Sawyer::Resource>] Array of migration resources.
       # @see https://docs.github.com/en/rest/reference/migrations#list-user-migrations
       def user_migrations(options = {})
-        options = ensure_api_media_type(:migrations, options)
         paginate 'user/migrations', options
       end
 
@@ -375,7 +400,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#get-a-user-migration-status
       def user_migration_status(id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         get "user/migrations/#{id}", options
       end
 
@@ -386,7 +410,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#download-a-user-migration-archive
       def user_migration_archive_url(id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         url = "user/migrations/#{id}/archive"
 
         response = client_without_redirects(options).get(url)
@@ -400,7 +423,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#delete-a-user-migration-archive
       def delete_user_migration_archive(id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         delete "user/migrations/#{id}/archive", options
       end
 
@@ -411,7 +433,6 @@ module Octokit
       # @param id [Integer] ID number of the migration.
       # @see https://docs.github.com/en/rest/reference/migrations#list-repositories-for-a-user-migration
       def user_migration_repositories(id, options = {})
-        options = ensure_api_media_type(:migrations, options)
         get "user/migrations/#{id}/repositories", options
       end
 
@@ -423,7 +444,6 @@ module Octokit
       # @param repo [String] Name of the repository.
       # @see https://docs.github.com/en/rest/reference/migrations#unlock-a-user-repository
       def unlock_user_repository(id, repo, options = {})
-        options = ensure_api_media_type(:migrations, options)
         delete "user/migrations/#{id}/repos/#{repo}/lock", options
       end
     end

@@ -1,18 +1,9 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::Hooks do
   before do
     Octokit.reset!
     @client = oauth_client
-  end
-
-  describe '.available_hooks', :vcr do
-    it 'returns all the hooks supported by GitHub with their parameters' do
-      hooks = @client.available_hooks
-      expect(hooks.first.name).to eq('activecollab')
-    end
   end
 
   context 'with repository' do
@@ -21,10 +12,8 @@ describe Octokit::Client::Hooks do
     end
 
     after(:each) do
-      begin
-        @client.delete_repository(@repo.full_name)
-      rescue Octokit::NotFound
-      end
+      @client.delete_repository(@repo.full_name)
+    rescue Octokit::NotFound
     end
 
     describe '.hooks', :vcr do

@@ -1,0 +1,299 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/app/hook/deliveries?per_page=1",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 7.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Bearer <JWT_BEARER_TOKEN>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Sat, 09 Sep 2023 18:59:12 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "public, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"434eb576d26ef703603e5ce3d2c6a30d1a3cb328649a3a4861731968039aade9\""
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "Link": [
+            "<https://api.github.com/app/hook/deliveries?per_page=1&cursor=v1_55148726666>; rel=\"next\""
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "EA06:858B:89CA93:11BBEE5:64FCC080"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "W3siaWQiOjU1MTQ4OTE0ODgwLCJndWlkIjoiMjI4NDhjMzAtNGYzZi0xMWVl\nLTk3NjAtYWIyOWUwODUxZTQwIiwiZGVsaXZlcmVkX2F0IjoiMjAyMy0wOS0w\nOVQxODo0MDowNVoiLCJyZWRlbGl2ZXJ5Ijp0cnVlLCJkdXJhdGlvbiI6MC4w\nMiwic3RhdHVzIjoiSW52YWxpZCBIVFRQIFJlc3BvbnNlOiA0MDMiLCJzdGF0\ndXNfY29kZSI6NDAzLCJldmVudCI6Imluc3RhbGxhdGlvbiIsImFjdGlvbiI6\nImNyZWF0ZWQiLCJpbnN0YWxsYXRpb25faWQiOm51bGwsInJlcG9zaXRvcnlf\naWQiOm51bGwsInVybCI6IiJ9XQ==\n"
+        }
+      },
+      "recorded_at": "Sat, 09 Sep 2023 18:59:12 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/app/hook/deliveries?cursor=v1_55148726666&per_page=1",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 7.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Bearer <JWT_BEARER_TOKEN>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Sat, 09 Sep 2023 18:59:12 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "public, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"d793b85aa9a11757539e13947001960e08f01cdfac3eb82555c3f09ebd75757d\""
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "Link": [
+            "<https://api.github.com/app/hook/deliveries?cursor=v1_55148717893&per_page=1>; rel=\"next\", <https://api.github.com/app/hook/deliveries?cursor=v1_55148914880&per_page=1>; rel=\"prev\""
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "EA07:583E:6B1BA5F:D8E3EF7:64FCC080"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "W3siaWQiOjU1MTQ4NzI2NjY2LCJndWlkIjoiMjI4NDhjMzAtNGYzZi0xMWVl\nLTk3NjAtYWIyOWUwODUxZTQwIiwiZGVsaXZlcmVkX2F0IjoiMjAyMy0wOS0w\nOVQxODozMTo0OFoiLCJyZWRlbGl2ZXJ5IjpmYWxzZSwiZHVyYXRpb24iOjAu\nMDIsInN0YXR1cyI6IkludmFsaWQgSFRUUCBSZXNwb25zZTogNDAzIiwic3Rh\ndHVzX2NvZGUiOjQwMywiZXZlbnQiOiJpbnN0YWxsYXRpb24iLCJhY3Rpb24i\nOiJjcmVhdGVkIiwiaW5zdGFsbGF0aW9uX2lkIjpudWxsLCJyZXBvc2l0b3J5\nX2lkIjpudWxsLCJ1cmwiOiIifV0=\n"
+        }
+      },
+      "recorded_at": "Sat, 09 Sep 2023 18:59:12 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/app/hook/deliveries?cursor=v1_55148717893&per_page=1",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 7.1.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "Bearer <JWT_BEARER_TOKEN>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Server": [
+            "GitHub.com"
+          ],
+          "Date": [
+            "Sat, 09 Sep 2023 18:59:12 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Cache-Control": [
+            "public, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept",
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"4e957686c38a9fa67d69a84396ddd98cc030a218bcd30f06c1941afa24403519\""
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "Link": [
+            "<https://api.github.com/app/hook/deliveries?cursor=v1_55148726666&per_page=1>; rel=\"prev\""
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "X-Github-Request-Id": [
+            "EA08:1A57:8A291E:11C7271:64FCC080"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "W3siaWQiOjU1MTQ4NzE3ODkzLCJndWlkIjoiMTZiMmJhZDAtNGYzZi0xMWVl\nLTk5ZDgtN2U5NzYxMTM2ZWIyIiwiZGVsaXZlcmVkX2F0IjoiMjAyMy0wOS0w\nOVQxODozMToyOFoiLCJyZWRlbGl2ZXJ5IjpmYWxzZSwiZHVyYXRpb24iOjAu\nMDIsInN0YXR1cyI6IkludmFsaWQgSFRUUCBSZXNwb25zZTogNDAzIiwic3Rh\ndHVzX2NvZGUiOjQwMywiZXZlbnQiOiJwaW5nIiwiYWN0aW9uIjpudWxsLCJp\nbnN0YWxsYXRpb25faWQiOm51bGwsInJlcG9zaXRvcnlfaWQiOm51bGwsInVy\nbCI6IiJ9XQ==\n"
+        }
+      },
+      "recorded_at": "Sat, 09 Sep 2023 18:59:12 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

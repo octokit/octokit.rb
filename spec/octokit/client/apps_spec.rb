@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::Apps do
   before(:each) do
     Octokit.reset!
@@ -34,19 +32,9 @@ describe Octokit::Client::Apps do
     end
   end
 
-  describe '.find_integration_installations', :vcr do
-    it 'returns installations for an integration' do
-      allow(@jwt_client).to receive(:octokit_warn)
-      installations = @jwt_client.find_integration_installations
-      expect(installations).to be_kind_of Array
-      assert_requested :get, github_url('/app/installations')
-      expect(@jwt_client).to have_received(:octokit_warn).with(/Deprecated/)
-    end
-  end # .find_integration_installations
-
-  describe '.find_app_installations', :vcr do
+  describe '.list_app_installations', :vcr do
     it 'returns installations for an app' do
-      installations = @jwt_client.find_app_installations
+      installations = @jwt_client.list_app_installations
       expect(installations).to be_kind_of Array
       assert_requested :get, github_url('/app/installations')
     end
@@ -57,15 +45,23 @@ describe Octokit::Client::Apps do
         api_endpoint: 'https://ghe.local/api/v3'
 
       request = stub_get('https://ghe.local/api/v3/app/installations')
-      client.find_app_installations
+      client.list_app_installations
 
       assert_requested request
     end
-  end # .find_app_installations
 
-  describe '.find_user_installations', :vcr do
+    it 'allows auto_pagination', :vcr do
+      @client.auto_paginate = true
+      installations = @client.list_app_installations(per_page: 1)
+
+      expect(installations.count).to eq 2
+      expect(installations).to be_kind_of(Array)
+    end
+  end # .list_app_installations
+
+  describe '.list_user_installations', :vcr do
     it 'returns installations for a user' do
-      response = @client.find_user_installations
+      response = @client.list_user_installations
 
       expect(response.total_count).not_to be_nil
       expect(response.installations).to be_kind_of(Array)
@@ -78,20 +74,20 @@ describe Octokit::Client::Apps do
         api_endpoint: 'https://ghe.local/api/v3'
 
       request = stub_get('https://ghe.local/api/v3/user/installations')
-      client.find_user_installations
+      client.list_user_installations
 
       assert_requested request
     end
 
     it 'allows auto_pagination', :vcr do
       @client.auto_paginate = true
-      response = @client.find_user_installations(per_page: 1)
+      response = @client.list_user_installations(per_page: 1)
 
       expect(response.total_count).to eq 2
       expect(response.installations.count).to eq 2
       expect(response.installations).to be_kind_of(Array)
     end
-  end # .find_user_installations
+  end # .list_user_installations
 
   describe '.find_organization_installation', :vcr do
     let(:organization) { test_github_org }
@@ -184,6 +180,38 @@ describe Octokit::Client::Apps do
     end
   end # .find_user_installation
 
+  describe '.list_app_hook_deliveries', :vcr do
+    it 'lists hook deliveries for an app' do
+      response = @jwt_client.list_app_hook_deliveries
+      expect(response).to be_kind_of(Array)
+      expect(response.count).to eq 2
+    end
+
+    it 'allows auto_pagination' do
+      @jwt_client.auto_paginate = true
+      response = @jwt_client.list_app_hook_deliveries(per_page: 1)
+
+      expect(response).to be_kind_of(Array)
+      expect(response.count).to eq 3
+    end
+  end # .list_app_hook_deliveries
+
+  describe '.app_hook_delivery', :vcr do
+    let(:delivery_id) { 73_209_766_136 }
+    it 'returns a webhook delivery' do
+      response = @jwt_client.app_hook_delivery(delivery_id)
+      expect(response.id).to eq(73_209_766_136)
+    end
+  end # .app_hook_delivery
+
+  describe '.deliver_app_hook', :vcr do
+    let(:delivery_id) { 55_148_726_666 }
+    it 'schedules a webhook for redelivery' do
+      response = @jwt_client.deliver_app_hook(delivery_id)
+      expect(response).to be_truthy
+    end
+  end # .deliver_app_hook
+
   context 'with app installation', :vcr do
     let(:installation) { test_github_integration_installation }
 
@@ -235,20 +263,6 @@ describe Octokit::Client::Apps do
       end
     end # .find_installation_repositories_for_user
 
-    describe '.create_integration_installation_access_token' do
-      it 'creates an access token for the installation' do
-        allow(@jwt_client).to receive(:octokit_warn)
-        response = @jwt_client.create_integration_installation_access_token(installation)
-
-        expect(response).to be_kind_of(Sawyer::Resource)
-        expect(response.token).not_to be_nil
-        expect(response.expires_at).not_to be_nil
-
-        assert_requested :post, github_url("/app/installations/#{installation}/access_tokens")
-        expect(@jwt_client).to have_received(:octokit_warn).with(/Deprecated/)
-      end
-    end # .create_integration_installation_access_token
-
     describe '.create_app_installation_access_token' do
       it 'creates an access token for the installation' do
         response = @jwt_client.create_app_installation_access_token(installation)
@@ -293,16 +307,6 @@ describe Octokit::Client::Apps do
           api_endpoint: 'https://ghe.local/api/v3'
       end
 
-      describe '.list_integration_installation_repositories' do
-        it 'lists the installations repositories' do
-          allow(installation_client).to receive(:octokit_warn)
-          response = installation_client.list_integration_installation_repositories
-          expect(response.total_count).not_to be_nil
-          expect(response.repositories).to be_kind_of(Array)
-          expect(installation_client).to have_received(:octokit_warn).with(/Deprecated/)
-        end
-      end # .list_integration_installation_repositories
-
       describe '.list_app_installation_repositories' do
         it 'lists the installations repositories' do
           response = installation_client.list_app_installation_repositories
@@ -340,15 +344,6 @@ describe Octokit::Client::Apps do
         @client.delete_repository(@repo.full_name)
       end
 
-      describe '.add_repository_to_integration_installation' do
-        it 'adds the repository to the installation' do
-          allow(@client).to receive(:octokit_warn)
-          response = @client.add_repository_to_integration_installation(installation, @repo.id)
-          expect(response).to be_truthy
-          expect(@client).to have_received(:octokit_warn).with(/Deprecated/)
-        end
-      end # .add_repository_to_integration_installation
-
       describe '.add_repository_to_app_installation' do
         it 'adds the repository to the installation' do
           response = @client.add_repository_to_app_installation(installation, @repo.id)
@@ -360,15 +355,6 @@ describe Octokit::Client::Apps do
         before(:each) do
           @client.add_repository_to_app_installation(installation, @repo.id)
         end
-
-        describe '.remove_repository_from_integration_installation' do
-          it 'removes the repository from the installation' do
-            allow(@client).to receive(:octokit_warn)
-            response = @client.remove_repository_from_integration_installation(installation, @repo.id)
-            expect(response).to be_truthy
-            expect(@client).to have_received(:octokit_warn).with(/Deprecated/)
-          end
-        end # .remove_repository_from_integration_installation
 
         describe '.remove_repository_from_app_installation' do
           it 'removes the repository from the installation' do

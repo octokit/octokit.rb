@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::Client::Meta do
   describe '.github_meta', :vcr do
     it 'returns meta information about github' do

@@ -17,7 +17,6 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the reactions.
       def commit_comment_reactions(repo, id, options = {})
-        options = ensure_api_media_type(:reactions, options)
         get "#{Repository.path repo}/comments/#{id}/reactions", options
       end
 
@@ -34,7 +33,7 @@ module Octokit
       #
       # @return [<Sawyer::Resource>] Hash representing the reaction
       def create_commit_comment_reaction(repo, id, reaction, options = {})
-        options = ensure_api_media_type(:reactions, options.merge(content: reaction))
+        options = options.merge(content: reaction)
         post "#{Repository.path repo}/comments/#{id}/reactions", options
       end
 
@@ -49,7 +48,6 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the reactions.
       def issue_reactions(repo, number, options = {})
-        options = ensure_api_media_type(:reactions, options)
         get "#{Repository.path repo}/issues/#{number}/reactions", options
       end
 
@@ -67,7 +65,7 @@ module Octokit
       #
       # @return [<Sawyer::Resource>] Hash representing the reaction.
       def create_issue_reaction(repo, number, reaction, options = {})
-        options = ensure_api_media_type(:reactions, options.merge(content: reaction))
+        options = options.merge(content: reaction)
         post "#{Repository.path repo}/issues/#{number}/reactions", options
       end
 
@@ -83,7 +81,6 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the reactions.
       def issue_comment_reactions(repo, id, options = {})
-        options = ensure_api_media_type(:reactions, options)
         get "#{Repository.path repo}/issues/comments/#{id}/reactions", options
       end
 
@@ -101,8 +98,24 @@ module Octokit
       #
       # @return [<Sawyer::Resource>] Hashes representing the reaction.
       def create_issue_comment_reaction(repo, id, reaction, options = {})
-        options = ensure_api_media_type(:reactions, options.merge(content: reaction))
+        options = options.merge(content: reaction)
         post "#{Repository.path repo}/issues/comments/#{id}/reactions", options
+      end
+
+      # Delete a reaction from an issue comment
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param comment_id [Integer] The Issue comment id
+      # @param reaction_id [Integer] The Reaction id
+      #
+      # @see https://docs.github.com/en/rest/reactions/reactions#delete-an-issue-comment-reaction
+      #
+      # @example
+      #   @client.delete_issue_comment_reaction("octokit/octokit.rb", 1, 2)
+      #
+      # @return [Boolean] Return true if reaction was deleted, false otherwise.
+      def delete_issue_comment_reaction(repo, comment_id, reaction_id, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/issues/comments/#{comment_id}/reactions/#{reaction_id}", options
       end
 
       # List reactions for a pull request review comment
@@ -117,7 +130,6 @@ module Octokit
       #
       # @return [Array<Sawyer::Resource>] Array of Hashes representing the reactions.
       def pull_request_review_comment_reactions(repo, id, options = {})
-        options = ensure_api_media_type(:reactions, options)
         get "#{Repository.path repo}/pulls/comments/#{id}/reactions", options
       end
 
@@ -135,23 +147,73 @@ module Octokit
       #
       # @return [<Sawyer::Resource>] Hash representing the reaction.
       def create_pull_request_review_comment_reaction(repo, id, reaction, options = {})
-        options = ensure_api_media_type(:reactions, options.merge(content: reaction))
+        options = options.merge(content: reaction)
         post "#{Repository.path repo}/pulls/comments/#{id}/reactions", options
       end
 
       # Delete a reaction
       #
-      # @param id [Integer] Reaction id
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param issue_id [Integer] The Issue comment id
+      # @param reaction_id [Integer] The Reaction id
       #
-      # @see https://developer.github.com/v3/reactions/#delete-a-reaction
+      # @see https://docs.github.com/en/rest/reactions/reactions#delete-an-issue-reaction
       #
       # @example
-      #   @client.delete_reaction(1)
+      #   @client.delete_issue_reaction("octokit/octokit.rb", 1, 2)
       #
       # @return [Boolean] Return true if reaction was deleted, false otherwise.
-      def delete_reaction(id, options = {})
-        options = ensure_api_media_type(:reactions, options)
-        boolean_from_response :delete, "reactions/#{id}", options
+      def delete_issue_reaction(repo, issue_id, reaction_id, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/issues/#{issue_id}/reactions/#{reaction_id}", options
+      end
+
+      # List reactions for a release
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param id [Integer] The Release id
+      #
+      # @see https://docs.github.com/en/free-pro-team@latest/rest/reactions/reactions?apiVersion=2022-11-28#list-reactions-for-a-release
+      #
+      # @example
+      #   @client.release_reactions("octokit/octokit.rb", 1)
+      #
+      # @return [Array<Sawyer::Resource>] Array of Hashes representing the reactions.
+      def release_reactions(repo, release_id, options = {})
+        get "#{Repository.path repo}/releases/#{release_id}/reactions", options
+      end
+
+      # Create reaction for a release
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param id [Integer] The Release id
+      # @param reaction [String] The Reaction
+      #
+      # @see https://docs.github.com/en/free-pro-team@latest/rest/reactions/reactions?apiVersion=2022-11-28#create-reaction-for-a-release
+      # @see https://developer.github.com/v3/reactions/#reaction-types
+      #
+      # @example
+      #   @client.create_release_reaction("octokit/octokit.rb", 1)
+      #
+      # @return [<Sawyer::Resource>] Hash representing the reaction.
+      def create_release_reaction(repo, release_id, reaction, options = {})
+        options = options.merge(content: reaction)
+        post "#{Repository.path repo}/releases/#{release_id}/reactions", options
+      end
+
+      # Delete a reaction for a release
+      #
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param issue_id [Integer] The Release id
+      # @param reaction_id [Integer] The Reaction id
+      #
+      # @see https://docs.github.com/en/free-pro-team@latest/rest/reactions/reactions?apiVersion=2022-11-28#delete-a-release-reaction
+      #
+      # @example
+      #   @client.delete_release_reaction("octokit/octokit.rb", 1, 2)
+      #
+      # @return [Boolean] Return true if reaction was deleted, false otherwise.
+      def delete_release_reaction(repo, release_id, reaction_id, options = {})
+        boolean_from_response :delete, "#{Repository.path repo}/releases/#{release_id}/reactions/#{reaction_id}", options
       end
     end
   end

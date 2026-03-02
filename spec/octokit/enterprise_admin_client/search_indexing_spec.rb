@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'helper'
-
 describe Octokit::EnterpriseAdminClient::SearchIndexing do
   before do
     Octokit.reset!

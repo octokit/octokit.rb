@@ -13,7 +13,7 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
 ## Table of Contents
 
 1. [Philosophy](#philosophy)
-2. [Installation](#quick-start)
+2. [Installation](#installation)
 3. [Making requests](#making-requests)
    1. [Additional Query Parameters](#additional-query-parameters)
 4. [Consuming resources](#consuming-resources)
@@ -25,33 +25,35 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
    3. [Two-Factor Authentication](#two-factor-authentication)
    4. [Using a .netrc file](#using-a-netrc-file)
    5. [Application authentication](#application-authentication)
-8. [Pagination](#pagination)
+   6. [GitHub App](#github-app)
+8. [Default results per_page](#default-results-per_page)
+9. [Pagination](#pagination)
    1. [Auto pagination](#auto-pagination)
-9. [Working with GitHub Enterprise](#working-with-github-enterprise)
+10. [Working with GitHub Enterprise](#working-with-github-enterprise)
    1. [Interacting with the GitHub.com APIs in GitHub Enterprise](#interacting-with-the-githubcom-apis-in-github-enterprise)
    2. [Interacting with the GitHub Enterprise Admin APIs](#interacting-with-the-github-enterprise-admin-apis)
-   3. [Interacting with the GitHub Enterprise Management Console APIs](#interacting-with-the-github-enterprise-management-console-apis)
+   3. [Interacting with the GHES Manage API](#interacting-with-the-ghes-manage-api)
    4. [SSL Connection Errors](#ssl-connection-errors)
-10. [Configuration and defaults](#configuration-and-defaults)
+11. [Configuration and defaults](#configuration-and-defaults)
     1. [Configuring module defaults](#configuring-module-defaults)
     2. [Using ENV variables](#using-env-variables)
     3. [Timeouts](#timeouts)
-11. [Hypermedia agent](#hypermedia-agent)
+12. [Hypermedia agent](#hypermedia-agent)
     1. [Hypermedia in Octokit](#hypermedia-in-octokit)
     2. [URI templates](#uri-templates)
     3. [The Full Hypermedia Experience™](#the-full-hypermedia-experience)
-12. [Upgrading guide](#upgrading-guide)
+13. [Upgrading guide](#upgrading-guide)
     1. [Upgrading from 1.x.x](#upgrading-from-1xx)
-13. [Advanced usage](#advanced-usage)
+14. [Advanced usage](#advanced-usage)
     1. [Debugging](#debugging)
     2. [Caching](#caching)
-14. [Hacking on Octokit.rb](#hacking-on-octokitrb)
+15. [Hacking on Octokit.rb](#hacking-on-octokitrb)
     1. [Code of Conduct](#code-of-conduct)
     2. [Running and writing new tests](#running-and-writing-new-tests)
-15. [Supported Ruby Versions](#supported-ruby-versions)
-16. [Versioning](#versioning)
-17. [Making Repeating Requests](#making-repeating-requests)
-18. [License](#license)
+16. [Supported Ruby Versions](#supported-ruby-versions)
+17. [Versioning](#versioning)
+18. [Making Repeating Requests](#making-repeating-requests)
+19. [License](#license)
 
 ## Philosophy
 
@@ -79,7 +81,7 @@ Install via Rubygems
 
 ... or add to your Gemfile
 
-    gem "octokit", "~> 4.0"
+    gem "octokit"
 
 Access the library in Ruby:
 
@@ -158,7 +160,7 @@ When the API returns an error response, Octokit will raise a Ruby exception.
 A range of different exceptions can be raised depending on the error returned
 by the API - for example:
 
-* A `400 Bad Request` response will lead to an `Octokit::BadRequest` error 
+* A `400 Bad Request` response will lead to an `Octokit::BadRequest` error
 * A `403 Forbidden` error with a "rate limited exceeded" message will lead
   to a `Octokit::TooManyRequests` error
 
@@ -211,15 +213,7 @@ user.login
 # => "defunkt"
 ```
 
-You can [create access tokens through your GitHub Account Settings](https://help.github.com/articles/creating-an-access-token-for-command-line-use)
-or with a basic authenticated Octokit client:
-
-```ruby
-client = Octokit::Client.new(:login => 'defunkt', :password => 'c0d3b4ssssss!')
-
-client.create_authorization(:scopes => ["user"], :note => "Name of token")
-# => <your new oauth token>
-```
+You can [create access tokens through your GitHub Account Settings](https://help.github.com/articles/creating-an-access-token-for-command-line-use).
 
 ### Two-Factor Authentication
 
@@ -233,18 +227,6 @@ client = Octokit::Client.new \
   :password => 'c0d3b4ssssss!'
 
 user = client.user("defunkt", :headers => { "X-GitHub-OTP" => "<your 2FA token>" })
-```
-
-As you can imagine, this gets annoying quickly since two-factor auth tokens are very short lived. So it is recommended to create an oauth token for the user to communicate with the API:
-
-```ruby
-client = Octokit::Client.new \
-  :login    => 'defunkt',
-  :password => 'c0d3b4ssssss!'
-
-client.create_authorization(:scopes => ["user"], :note => "Name of token",
-                            :headers => { "X-GitHub-OTP" => "<your 2FA token>" })
-# => <your new oauth token>
 ```
 
 ### Using a .netrc file
@@ -297,6 +279,15 @@ user = client.user 'defunkt'
 [oauth]: http://developer.github.com/v3/oauth/
 [access scopes]: http://developer.github.com/v3/oauth/#scopes
 [app-creds]: http://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications
+
+### GitHub App
+Octokit.rb also supports authentication [using a GitHub App](https://docs.github.com/en/developers/apps/managing-github-apps/installing-github-apps), which [requires a generated JWT token](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps#authenticating-as-a-github-app).
+
+```ruby
+client = Octokit::Client.new(:bearer_token => "<your jwt token>")
+client.app
+# => about GitHub App info
+```
 
 ## Default results per_page
 
@@ -378,26 +369,30 @@ Octokit.configure do |c|
   c.access_token = "<your 40 char token>"
 end
 
-admin_client = Octokit.enterprise_admin_client.new
+admin_client = Octokit.enterprise_admin_client
 ```
 
-### Interacting with the GitHub Enterprise Management Console APIs
+### Interacting with the GHES (GitHub Enterprise Server) Manage API
 
-The GitHub Enterprise Management Console APIs are also under a separate client: `EnterpriseManagementConsoleClient`. In order to use it, you'll need to provide both your management console password as well as the endpoint to your management console. This is different from the API endpoint provided above.
+The GHES Manage API is also under a separate client: `ManageGHESClient`. In order to use it, you'll need to provide your username and password, along with the endpoint to your ghes instance. This is different from the API endpoint provided above.
+
+If you do not provide a username, the root site administrator account will be used.
 
 ```ruby
-management_console_client = Octokit::EnterpriseManagementConsoleClient.new(
-  :management_console_password => "secret",
-  :management_console_endpoint = "https://hostname:8633"
+ghes_client = Octokit::ManageGHESClient.new(
+  :manage_ghes_endpoint = "https://hostname:8443"
+  :manage_ghes_username => "username",
+  :manage_ghes_password => "password",
 )
 
 # or
 Octokit.configure do |c|
-  c.management_console_endpoint = "https://hostname:8633"
-  c.management_console_password = "secret"
+  c.manage_ghes_endpoint = "https://hostname:8443"
+  c.manage_ghes_username => "username"
+  c.manage_ghes_password => "password"
 end
 
-management_console_client = Octokit.enterprise_management_console_client.new
+ghes_client = Octokit.manage_ghes_client
 ```
 
 ### SSL Connection Errors
@@ -541,7 +536,11 @@ construction currently used throughout the client.
 
 ## Upgrading guide
 
-Version 4.0
+### Management Console API Removal
+
+[In GHES 3.15, the management console API was removed](https://docs.github.com/en/enterprise-server@3.15/admin/release-notes#3.15.0-retired). If you have any tooling that is using this API, you should transition to using the [Manage GHES API](#interacting-with-the-ghes-manage-api) instead.
+
+### Version 4.0
 
 - **removes support for a [long-deprecated overload][list-pulls] for
   passing state as a positional argument** when listing pull requests. Instead,
@@ -606,7 +605,7 @@ traffic:
 
 ```ruby
 stack = Faraday::RackBuilder.new do |builder|
-  builder.use Faraday::Retry::Middleware, exceptions: [Octokit::ServerError] # or Faraday::Request::Retry for Faraday < 2.0
+  builder.use Faraday::Retry::Middleware, exceptions: Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Octokit::ServerError] # or Faraday::Request::Retry for Faraday < 2.0
   builder.use Octokit::Middleware::FollowRedirects
   builder.use Octokit::Response::RaiseError
   builder.use Octokit::Response::FeedParser
@@ -664,7 +663,7 @@ Once configured, the middleware will store responses in cache based on ETag
 fingerprint and serve those back up for future `304` responses for the same
 resource. See the [project README][cache] for advanced usage.
 
-[cache]: https://github.com/plataformatec/faraday-http-cache
+[cache]: https://github.com/sourcelevel/faraday-http-cache
 [faraday]: https://github.com/lostisland/faraday
 
 ## Hacking on Octokit.rb
@@ -715,9 +714,10 @@ Octokit:
 | `OCTOKIT_TEST_GITHUB_ORGANIZATION`                           | Test organization.                                                                                                                                                                                |
 | `OCTOKIT_TEST_GITHUB_ENTERPRISE_LOGIN`                       | GitHub Enterprise login name.                                                                                                                                                                     |
 | `OCTOKIT_TEST_GITHUB_ENTERPRISE_TOKEN`                       | GitHub Enterprise token.                                                                                                                                                                          |
-| `OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_PASSWORD` | GitHub Enterprise management console password.                                                                                                                                                    |
 | `OCTOKIT_TEST_GITHUB_ENTERPRISE_ENDPOINT`                    | GitHub Enterprise hostname.                                                                                                                                                                       |
-| `OCTOKIT_TEST_GITHUB_ENTERPRISE_MANAGEMENT_CONSOLE_ENDPOINT` | GitHub Enterprise Management Console endpoint.                                                                                                                                                    |
+| `OCTOKIT_TEST_GITHUB_MANAGE_GHES_ENDPOINT`                          | GitHub Enterprise Server GHES Manage Endpoint.                                                                                                                                                    |
+| `OCTOKIT_TEST_GITHUB_MANAGE_GHES_USERNAME`                          | GitHub Enterprise Server GHES Manage Username.                                                                                                                                                    |
+| `OCTOKIT_TEST_GITHUB_MANAGE_GHES_PASSWORD`                          | GitHub Enterprise Server GHES Manage Password.                                                                                                                                                    |
 | `OCTOKIT_TEST_GITHUB_INTEGRATION`                            | [GitHub Integration](https://developer.github.com/early-access/integrations/) owned by your test organization.                                                                                    |
 | `OCTOKIT_TEST_GITHUB_INTEGRATION_INSTALLATION`               | Installation of the GitHub Integration specified above.                                                                                                                                           |
 | `OCTOKIT_TEST_INTEGRATION_PEM_KEY`                           | File path to the private key generated from your integration.                                                                                                                                     |
@@ -746,6 +746,8 @@ implementations:
 * Ruby 2.7
 * Ruby 3.0
 * Ruby 3.1
+* Ruby 3.2
+* Ruby 3.3
 
 If something doesn't work on one of these Ruby versions, it's a bug.
 
