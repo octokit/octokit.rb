@@ -26,6 +26,9 @@ Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
    4. [Using a .netrc file](#using-a-netrc-file)
    5. [Application authentication](#application-authentication)
    6. [GitHub App](#github-app)
+      1. [Authenticating as a GitHub App (JWT)](#authenticating-as-a-github-app-jwt)
+      2. [Authenticating as an installation](#authenticating-as-an-installation)
+      3. [Manual JWT authentication](#manual-jwt-authentication)
 8. [Default results per_page](#default-results-per_page)
 9. [Pagination](#pagination)
    1. [Auto pagination](#auto-pagination)
@@ -281,7 +284,44 @@ user = client.user 'defunkt'
 [app-creds]: http://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications
 
 ### GitHub App
-Octokit.rb also supports authentication [using a GitHub App](https://docs.github.com/en/developers/apps/managing-github-apps/installing-github-apps), which [requires a generated JWT token](https://docs.github.com/en/developers/apps/building-github-apps/authenticating-with-github-apps#authenticating-as-a-github-app).
+Octokit.rb supports native authentication [as a GitHub App](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app). You can authenticate either as the app itself (using a JWT) or as a specific installation (using an installation access token). In both cases, JWTs and tokens are generated and refreshed automatically — no external gems required.
+
+#### Authenticating as a GitHub App (JWT)
+
+Pass your `app_id` and `private_key` to authenticate as the app. A JWT is generated and refreshed automatically:
+
+```ruby
+client = Octokit::Client.new(
+  app_id:      "12345",
+  private_key: File.read("path/to/private-key.pem")
+)
+client.app
+# => GitHub App info
+client.list_app_installations
+# => [...]
+```
+
+#### Authenticating as an installation
+
+Add `installation_id` to automatically exchange the JWT for an installation access token. The token is cached and refreshed before expiry:
+
+```ruby
+client = Octokit::Client.new(
+  app_id:          "12345",
+  private_key:     File.read("path/to/private-key.pem"),
+  installation_id: 67890
+)
+client.issues("owner/repo")
+# Just works — token lifecycle is managed for you
+```
+
+The `private_key` parameter accepts either a PEM-encoded string or an `OpenSSL::PKey::RSA` object.
+
+You can also configure via environment variables: `OCTOKIT_APP_ID`, `OCTOKIT_PRIVATE_KEY`, `OCTOKIT_INSTALLATION_ID`.
+
+#### Manual JWT authentication
+
+If you prefer to generate JWTs yourself, you can still pass a `bearer_token` directly:
 
 ```ruby
 client = Octokit::Client.new(:bearer_token => "<your jwt token>")

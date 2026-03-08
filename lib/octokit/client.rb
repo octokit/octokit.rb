@@ -6,6 +6,7 @@ require 'octokit/arguments'
 require 'octokit/repo_arguments'
 require 'octokit/configurable'
 require 'octokit/authentication'
+require 'octokit/app_authentication'
 require 'octokit/gist'
 require 'octokit/rate_limit'
 require 'octokit/repository'
@@ -134,6 +135,7 @@ module Octokit
     include Octokit::Client::Tokens
     include Octokit::Client::Traffic
     include Octokit::Client::Users
+    include Octokit::AppAuthentication
 
     # Header keys that can be passed in options hash to {#get},{#head}
     CONVENIENCE_HEADERS = Set.new(%i[accept content_type])
@@ -152,7 +154,7 @@ module Octokit
         instance_variable_set(:"@#{key}", value)
       end
 
-      login_from_netrc unless user_authenticated? || application_authenticated?
+      login_from_netrc unless user_authenticated? || application_authenticated? || app_authenticated?
     end
 
     # Text representation of the client, masking tokens and passwords
@@ -164,6 +166,7 @@ module Octokit
       # mask password
       inspected.gsub! @password, '*******' if @password
       inspected.gsub! @bearer_token, '********' if @bearer_token
+      inspected.gsub! @private_key.inspect, '"********"' if @private_key.is_a?(String) && !@private_key.empty?
       # Only show last 4 of token, secret
       if @access_token
         inspected.gsub! @access_token, "#{'*' * 36}#{@access_token[36..]}"
@@ -249,7 +252,38 @@ module Octokit
       @client_secret = value
     end
 
+    # Set GitHub App ID
+    #
+    # @param value [String, Integer] GitHub App ID
+    def app_id=(value)
+      reset_agent
+      @app_id = value
+      @jwt_expires_at = nil
+      @installation_token_expires_at = nil
+    end
+
+    # Set GitHub App private key
+    #
+    # @param value [String, OpenSSL::PKey::RSA] PEM-encoded private key or RSA key object
+    def private_key=(value)
+      reset_agent
+      @private_key = value
+      @resolved_private_key = nil
+      @jwt_expires_at = nil
+      @installation_token_expires_at = nil
+    end
+
+    # Set GitHub App Installation ID
+    #
+    # @param value [Integer] Installation ID
+    def installation_id=(value)
+      reset_agent
+      @installation_id = value
+      @installation_token_expires_at = nil
+    end
+
     def client_without_redirects(options = {})
+      ensure_app_tokens_fresh! if app_authenticated?
       conn_opts = @connection_options
       conn_opts[:url] = @api_endpoint
       conn_opts[:builder] = @middleware.dup if @middleware

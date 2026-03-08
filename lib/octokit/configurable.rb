@@ -9,6 +9,9 @@ module Octokit
     #   @return [String] OAuth2 access token for authentication
     # @!attribute api_endpoint
     #   @return [String] Base URL for API requests. default: https://api.github.com/
+    # @!attribute app_id
+    #   @see https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app
+    #   @return [String] GitHub App ID for App authentication
     # @!attribute auto_paginate
     #   @return [Boolean] Auto fetch next page of results until rate limit reached
     # @!attribute [w] bearer_token
@@ -26,6 +29,9 @@ module Octokit
     # @!attribute connection_options
     #   @see https://github.com/lostisland/faraday
     #   @return [Hash] Configure connection options for Faraday
+    # @!attribute installation_id
+    #   @see https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app
+    #   @return [Integer] GitHub App Installation ID for installation authentication
     # @!attribute login
     #   @return [String] GitHub username for Basic Authentication
     # @!attribute manage_ghes_endpoint
@@ -45,6 +51,9 @@ module Octokit
     #   @return [String] GitHub password for Basic Authentication
     # @!attribute per_page
     #   @return [String] Configure page size for paginated results. API default: 30
+    # @!attribute [w] private_key
+    #   @see https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app
+    #   @return [String, OpenSSL::PKey::RSA] PEM-encoded private key or RSA key object for App authentication
     # @!attribute proxy
     #   @see https://github.com/lostisland/faraday
     #   @return [String] URI for proxy server
@@ -56,11 +65,12 @@ module Octokit
     # @!attribute web_endpoint
     #   @return [String] Base URL for web URLs. default: https://github.com/
 
-    attr_accessor :access_token, :auto_paginate, :bearer_token, :client_id,
-                  :client_secret, :default_media_type, :connection_options,
+    attr_accessor :access_token, :app_id, :auto_paginate, :bearer_token,
+                  :client_id, :client_secret, :default_media_type,
+                  :connection_options, :installation_id,
                   :middleware, :netrc, :netrc_file,
                   :per_page, :proxy, :ssl_verify_mode, :user_agent
-    attr_writer :password, :web_endpoint, :api_endpoint, :login,
+    attr_writer :password, :private_key, :web_endpoint, :api_endpoint, :login,
                 :manage_ghes_endpoint,
                 :manage_ghes_username,
                 :manage_ghes_password
@@ -72,12 +82,14 @@ module Octokit
         @keys ||= %i[
           access_token
           api_endpoint
+          app_id
           auto_paginate
           bearer_token
           client_id
           client_secret
           connection_options
           default_media_type
+          installation_id
           login
           manage_ghes_endpoint
           manage_ghes_username
@@ -87,6 +99,7 @@ module Octokit
           netrc_file
           per_page
           password
+          private_key
           proxy
           ssl_verify_mode
           user_agent

@@ -102,6 +102,7 @@ module Octokit
     #
     # @return [Sawyer::Agent]
     def agent
+      ensure_app_tokens_fresh! if respond_to?(:app_authenticated?, true) && app_authenticated?
       @agent ||= Sawyer::Agent.new(endpoint, sawyer_options) do |http|
         http.headers[:accept] = default_media_type
         http.headers[:content_type] = 'application/json'
