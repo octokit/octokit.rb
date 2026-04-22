@@ -605,7 +605,7 @@ traffic:
 
 ```ruby
 stack = Faraday::RackBuilder.new do |builder|
-  builder.use Faraday::Retry::Middleware, exceptions: Faraday::Retry::Middleware::DEFAULT_EXCEPTIONS + [Octokit::ServerError] # or Faraday::Request::Retry for Faraday < 2.0
+  builder.use Octokit::Middleware::Retry
   builder.use Octokit::Middleware::FollowRedirects
   builder.use Octokit::Response::RaiseError
   builder.use Octokit::Response::FeedParser
@@ -639,6 +639,22 @@ x-ratelimit-reset: "1377205443"
 
 See the [Faraday README][faraday] for more middleware magic.
 
+### Retrying
+
+If you want to retry requests, use `Octokit::Middleware::Retry`.
+
+It uses [Faraday Retry gem][retry] for Faraday 2.x. Add the gem to your Gemfile
+
+```ruby
+gem 'faraday-retry'
+```
+
+Next, insert `Octokit::Middleware::Retry` before `Octokit::Response::RaiseError`:
+
+```ruby
+Octokit.middleware.insert Octokit::Response::RaiseError, Octokit::Middleware::Retry
+```
+
 ### Caching
 
 If you want to boost performance, stretch your API rate limit, or avoid paying
@@ -663,6 +679,7 @@ Once configured, the middleware will store responses in cache based on ETag
 fingerprint and serve those back up for future `304` responses for the same
 resource. See the [project README][cache] for advanced usage.
 
+[retry]: https://github.com/lostisland/faraday-retry
 [cache]: https://github.com/sourcelevel/faraday-http-cache
 [faraday]: https://github.com/lostisland/faraday
 
