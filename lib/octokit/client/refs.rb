@@ -6,6 +6,14 @@ module Octokit
     #
     # @see https://developer.github.com/v3/git/refs/
     module Refs
+      # Helper method that handles absolute and relative refnames
+      module Helpers
+        def self.ref_path(ref)
+          ref =~ %r{\Arefs/} ? ref : "refs/#{ref}"
+        end
+      end
+      private_constant :Helpers
+
       # List all refs for a given user and repo
       #
       # @param repo [Integer, String, Repository, Hash] A GitHub repository
@@ -44,7 +52,7 @@ module Octokit
       # @example Fetch tags/v0.0.3 for sferik/rails_admin
       #   Octokit.ref("sferik/rails_admin","tags/v0.0.3")
       def ref(repo, ref, options = {})
-        get "#{Repository.path repo}/git/refs/#{ref}", options
+        get "#{Repository.path repo}/git/#{Helpers.ref_path(ref)}", options
       end
       alias reference ref
 
@@ -58,7 +66,7 @@ module Octokit
       # @example Create refs/heads/master for octocat/Hello-World with sha 827efc6d56897b048c772eb4087f854f46256132
       #   Octokit.create_ref("octocat/Hello-World", "heads/master", "827efc6d56897b048c772eb4087f854f46256132")
       def create_ref(repo, ref, sha, options = {})
-        ref = "refs/#{ref}" unless ref =~ %r{\Arefs/}
+        ref = Helpers.ref_path(ref)
         parameters = {
           ref: ref,
           sha: sha
@@ -78,11 +86,12 @@ module Octokit
       # @example Force update heads/sc/featureA for octocat/Hello-World with sha aa218f56b14c9653891f9e74264a383fa43fefbd
       #   Octokit.update_ref("octocat/Hello-World", "heads/sc/featureA", "aa218f56b14c9653891f9e74264a383fa43fefbd")
       def update_ref(repo, ref, sha, force = false, options = {})
+        ref = Helpers.ref_path(ref)
         parameters = {
           sha: sha,
           force: force
         }
-        patch "#{Repository.path repo}/git/refs/#{ref}", options.merge(parameters)
+        patch "#{Repository.path repo}/git/#{ref}", options.merge(parameters)
       end
       alias update_reference update_ref
 
@@ -123,7 +132,7 @@ module Octokit
       # @example Delete tags/v0.0.3 for sferik/rails_admin
       #   Octokit.delete_ref("sferik/rails_admin","tags/v0.0.3")
       def delete_ref(repo, ref, options = {})
-        boolean_from_response :delete, "#{Repository.path repo}/git/refs/#{ref}", options
+        boolean_from_response :delete, "#{Repository.path repo}/git/#{Helpers.ref_path(ref)}", options
       end
       alias delete_reference delete_ref
     end

@@ -1,0 +1,244 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/repos/sferik/rails_admin/git/refs/tags/v0.0.3",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 10.0.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 301,
+          "message": "Moved Permanently"
+        },
+        "headers": {
+          "Date": [
+            "Tue, 19 May 2026 18:20:44 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Content-Length": [
+            "216"
+          ],
+          "X-Oauth-Scopes": [
+            "repo"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            "repo"
+          ],
+          "Github-Authentication-Token-Expiration": [
+            "2026-06-18 15:58:10 UTC"
+          ],
+          "Location": [
+            "https://api.github.com/repositories/810796/git/refs/tags/v0.0.3"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "Vary": [
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Server": [
+            "github.com"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4999"
+          ],
+          "X-Ratelimit-Reset": [
+            "1779218444"
+          ],
+          "X-Ratelimit-Used": [
+            "1"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "X-Github-Request-Id": [
+            "E28A:150FE:1F5F811:78C1D52:6A0CA9FB"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJtZXNzYWdlIjoiTW92ZWQgUGVybWFuZW50bHkiLCJ1cmwiOiJodHRwczov\nL2FwaS5naXRodWIuY29tL3JlcG9zaXRvcmllcy84MTA3OTYvZ2l0L3JlZnMv\ndGFncy92MC4wLjMiLCJkb2N1bWVudGF0aW9uX3VybCI6Imh0dHBzOi8vZG9j\ncy5naXRodWIuY29tL3Jlc3QvZ3VpZGVzL2Jlc3QtcHJhY3RpY2VzLWZvci11\nc2luZy10aGUtcmVzdC1hcGkjZm9sbG93LXJlZGlyZWN0cyJ9\n"
+        }
+      },
+      "recorded_at": "Tue, 19 May 2026 18:20:44 GMT"
+    },
+    {
+      "request": {
+        "method": "get",
+        "uri": "https://api.github.com/repositories/810796/git/refs/tags/v0.0.3",
+        "body": {
+          "encoding": "US-ASCII",
+          "base64_string": ""
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 10.0.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Date": [
+            "Tue, 19 May 2026 18:20:44 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "W/\"1fc81b4916b07f41d8681cebaa66c1d68e0cd825c52292d8b156e6ae385f3be3\""
+          ],
+          "Last-Modified": [
+            "Fri, 15 May 2026 01:02:59 GMT"
+          ],
+          "X-Poll-Interval": [
+            "300"
+          ],
+          "X-Oauth-Scopes": [
+            "repo"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            "repo"
+          ],
+          "Github-Authentication-Token-Expiration": [
+            "2026-06-18 15:58:10 UTC"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4998"
+          ],
+          "X-Ratelimit-Reset": [
+            "1779218444"
+          ],
+          "X-Ratelimit-Used": [
+            "2"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "Transfer-Encoding": [
+            "chunked"
+          ],
+          "Server": [
+            "github.com"
+          ],
+          "X-Github-Request-Id": [
+            "E28B:A8F4C:1EE76A1:7691656:6A0CA9FC"
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "base64_string": "eyJyZWYiOiJyZWZzL3RhZ3MvdjAuMC4zIiwibm9kZV9pZCI6Ik1ETTZVbVZt\nT0RFd056azJPbkpsWm5NdmRHRm5jeTkyTUM0d0xqTT0iLCJ1cmwiOiJodHRw\nczovL2FwaS5naXRodWIuY29tL3JlcG9zL3JhaWxzYWRtaW50ZWFtL3JhaWxz\nX2FkbWluL2dpdC9yZWZzL3RhZ3MvdjAuMC4zIiwib2JqZWN0Ijp7InNoYSI6\nIjA1OTFjN2I3NjU3NzllYTg3OTdmMGYwYjkyMjIyOTllNjAwMzkzY2EiLCJ0\neXBlIjoidGFnIiwidXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBv\ncy9yYWlsc2FkbWludGVhbS9yYWlsc19hZG1pbi9naXQvdGFncy8wNTkxYzdi\nNzY1Nzc5ZWE4Nzk3ZjBmMGI5MjIyMjk5ZTYwMDM5M2NhIn19\n"
+        }
+      },
+      "recorded_at": "Tue, 19 May 2026 18:20:44 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.4.0"
+}
