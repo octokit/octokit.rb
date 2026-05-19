@@ -37,6 +37,12 @@ describe Octokit::Client::Refs do
       expect(ref.object.type).to eq('tag')
       assert_requested :get, github_url('/repos/sferik/rails_admin/git/refs/tags/v0.0.3')
     end
+
+    it 'does not duplicate refs prefix in ref' do
+      ref = @client.ref('sferik/rails_admin', 'refs/tags/v0.0.3')
+      expect(ref.object.type).to eq('tag')
+      assert_requested :get, github_url('/repos/sferik/rails_admin/git/refs/tags/v0.0.3')
+    end
   end # .ref
 
   describe '.create_ref' do
@@ -93,6 +99,11 @@ describe Octokit::Client::Refs do
         @client.update_ref(@test_repo, 'heads/testing/test-ref', @last_sha, true)
         assert_requested :patch, github_url("/repos/#{@test_repo}/git/refs/heads/testing/test-ref")
       end
+
+      it 'does not duplicate refs prefix in ref' do
+        @client.update_ref(@test_repo, 'refs/heads/testing/test-ref', @first_sha)
+        assert_requested :patch, github_url("/repos/#{@test_repo}/git/refs/heads/testing/test-ref")
+      end
     end # .update_ref
 
     describe '.delete_branch' do
@@ -105,6 +116,11 @@ describe Octokit::Client::Refs do
     describe '.delete_ref' do
       it 'deletes an existing ref' do
         @client.delete_ref(@test_repo, 'heads/testing/test-ref')
+        assert_requested :delete, github_url("/repos/#{@test_repo}/git/refs/heads/testing/test-ref")
+      end
+
+      it 'does not duplicate refs prefix in ref' do
+        @client.delete_ref(@test_repo, 'refs/heads/testing/test-ref')
         assert_requested :delete, github_url("/repos/#{@test_repo}/git/refs/heads/testing/test-ref")
       end
     end # .delete_ref
