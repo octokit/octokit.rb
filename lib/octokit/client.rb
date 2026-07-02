@@ -13,6 +13,7 @@ require 'octokit/user'
 require 'octokit/organization'
 require 'octokit/client/actions_artifacts'
 require 'octokit/client/actions_secrets'
+require 'octokit/client/agent_secrets'
 require 'octokit/client/actions_workflows'
 require 'octokit/client/actions_workflow_jobs'
 require 'octokit/client/actions_workflow_runs'
@@ -80,6 +81,7 @@ module Octokit
     include Octokit::Warnable
     include Octokit::Client::ActionsArtifacts
     include Octokit::Client::ActionsSecrets
+    include Octokit::Client::AgentSecrets
     include Octokit::Client::Checks
     include Octokit::Client::CodeScanning
     include Octokit::Client::CodespacesSecrets
