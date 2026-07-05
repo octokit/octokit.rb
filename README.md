@@ -5,7 +5,7 @@
 
 Ruby toolkit for the GitHub API.
 
-![logo](https://docs.github.com/assets/images/gundamcat.png)
+![Octokit logo](https://github.com/octokit.png)
 
 Upgrading? Check the [Upgrade Guide](#upgrading-guide) before bumping to a new
 [major version][semver].
