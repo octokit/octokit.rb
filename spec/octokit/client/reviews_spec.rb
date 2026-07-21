@@ -118,7 +118,7 @@ describe Octokit::Client::Reviews do
           collaborator_client = Octokit::Client.new(access_token: test_github_collaborator_token)
           collaborator_client.accept_repository_invitation(invitation.id)
 
-          @client.add_team_repository(test_github_team_id, @repo.full_name, permission: 'push')
+          @client.add_team_repository(test_github_org, test_github_team_slug, @repo.full_name, permission: 'push')
         end
 
         describe '.pull_request_review_requests' do

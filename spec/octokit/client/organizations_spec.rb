@@ -120,11 +120,75 @@ describe Octokit::Client::Organizations do
     end
   end # .organization_teams
 
+  describe '.team' do
+    it 'returns a team by team id' do
+      request = stub_get(github_url('/teams/123456'))
+      @client.team(123_456)
+      assert_requested request
+    end
+
+    it 'returns a team by org id and team id' do
+      request = stub_get(github_url('/organizations/1/team/2'))
+      @client.team(1, 2)
+      assert_requested request
+    end
+
+    it 'returns a team by org name and team slug' do
+      request = stub_get(github_url('/orgs/github/teams/justice-league'))
+      @client.team('github', 'justice-league')
+      assert_requested request
+    end
+  end # .team
+
+  describe '.add_team_repository' do
+    it 'uses org name and team slug path' do
+      request = stub_put(github_url('/orgs/github/teams/justice-league/repos/github/developer.github.com'))
+      @client.add_team_repository('github', 'justice-league', 'github/developer.github.com')
+      assert_requested request
+    end
+
+    it 'uses org id and team id path' do
+      request = stub_put(github_url('/organizations/1/team/2/repos/github/developer.github.com'))
+      @client.add_team_repository(1, 2, 'github/developer.github.com')
+      assert_requested request
+    end
+
+    it 'sends permission in the request body' do
+      request = stub_put(github_url('/orgs/github/teams/justice-league/repos/github/developer.github.com'))
+                 .with(body: { permission: 'maintain' })
+      @client.add_team_repository('github', 'justice-league', 'github/developer.github.com', permission: 'maintain')
+      assert_requested request
+    end
+  end # .add_team_repository
+
+  describe '.team_members' do
+    it 'lists members with the org name and team slug path' do
+      request = stub_get(github_url('/orgs/github/teams/justice-league/members'))
+      @client.team_members('github', 'justice-league')
+      assert_requested request
+    end
+
+    it 'filters members by role' do
+      request = stub_get(github_url('/orgs/github/teams/justice-league/members?role=maintainer'))
+      @client.team_members('github', 'justice-league', role: 'maintainer')
+      assert_requested request
+    end
+  end # .team_members
+
+  describe '.add_team_membership' do
+    it 'assigns a maintainer role' do
+      request = stub_put(github_url('/orgs/github/teams/justice-league/memberships/pengwynn'))
+                  .with(body: { role: 'maintainer' })
+      @client.add_team_membership('github', 'justice-league', 'pengwynn', role: 'maintainer')
+      assert_requested request
+    end
+  end # .add_team_membership
+
   describe '.child_teams', :vcr do
     it 'returns all child teams for the team' do
-      child_teams = @client.child_teams(test_github_team_id)
+      child_teams = @client.child_teams(test_github_org, test_github_team_slug)
       expect(child_teams).to be_kind_of Array
-      assert_requested :get, github_url("/teams/#{test_github_team_id}/teams")
+      assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{test_github_team_slug}/teams")
     end
   end # .child_teams
 
@@ -136,7 +200,7 @@ describe Octokit::Client::Organizations do
     end
 
     after(:each) do
-      @client.delete_team(@team.id)
+      @client.delete_team(test_github_org, @team.slug)
     end
 
     describe '.create_team', :vcr do
@@ -147,9 +211,9 @@ describe Octokit::Client::Organizations do
 
     describe '.team', :vcr do
       it 'returns a team' do
-        team = @client.team(@team.id)
+        team = @client.team(test_github_org, @team.slug)
         expect(team.id).to eq(@team.id)
-        assert_requested :get, github_url("/teams/#{@team.id}")
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}")
       end
     end # .team
 
@@ -182,81 +246,81 @@ describe Octokit::Client::Organizations do
 
     describe '.update_team', :vcr do
       it 'updates a team' do
-        @client.update_team(@team.id, name: 'API Jedi')
-        assert_requested :patch, github_url("/teams/#{@team.id}")
+        @client.update_team(test_github_org, @team.slug, name: 'API Jedi')
+        assert_requested :patch, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}")
       end
     end # .update_team
 
     describe '.team_members', :vcr do
       it 'returns team members' do
-        users = @client.team_members(@team.id)
+        users = @client.team_members(test_github_org, @team.slug)
         expect(users).to be_kind_of Array
-        assert_requested :get, github_url("/teams/#{@team.id}/members")
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/members")
       end
     end # .team_members
 
     describe '.add_team_member', :vcr do
       it 'adds a team member' do
-        @client.add_team_member(@team.id, test_github_repository)
-        assert_requested :put, github_url("/teams/#{@team.id}/members/#{test_github_repository}")
+        @client.add_team_member(test_github_org, @team.slug, test_github_repository)
+        assert_requested :put, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/members/#{test_github_repository}")
       end
     end # .add_team_member
 
     describe '.remove_team_member', :vcr do
       it 'removes a team member' do
-        @client.remove_team_member(@team.id, 'api-padawan')
-        assert_requested :delete, github_url("/teams/#{@team.id}/members/api-padawan")
+        @client.remove_team_member(test_github_org, @team.slug, 'api-padawan')
+        assert_requested :delete, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/members/api-padawan")
       end
     end # .remove_team_member
 
     describe '.team_member?', :vcr do
       it 'checks if a user is member of a team' do
-        @client.team_member?(@team.id, 'api-padawan')
-        assert_requested :get, github_url("/teams/#{@team.id}/members/api-padawan")
+        @client.team_member?(test_github_org, @team.slug, 'api-padawan')
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/members/api-padawan")
       end
     end # .team_member?
 
     describe '.team_invitations', :vcr do
       it 'lists pending team invitations' do
-        @client.team_invitations(@team.id)
-        assert_requested :get, github_url("/teams/#{@team.id}/invitations")
+        @client.team_invitations(test_github_org, @team.slug)
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/invitations")
       end
     end # .team_invitations
 
     describe '.team_repositories', :vcr do
       it 'returns team repositories' do
-        repositories = @client.team_repositories(@team.id)
+        repositories = @client.team_repositories(test_github_org, @team.slug)
         expect(repositories).to be_kind_of Array
-        assert_requested :get, github_url("/teams/#{@team.id}/repos")
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos")
       end
     end # .team_repositories
 
     describe '.add_team_repository', :vcr do
       it 'adds a team repository' do
-        @client.add_team_repository(@team.id, @test_org_repo)
-        assert_requested :put, github_url("/teams/#{@team.id}/repos/#{@test_org_repo}")
+        @client.add_team_repository(test_github_org, @team.slug, @test_org_repo)
+        assert_requested :put, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{@test_org_repo}")
       end
     end # .add_team_repository
 
     describe '.team_repository?', :vcr do
       it 'checks if a repo is managed by a specific team' do
-        is_team_repo = @client.team_repository?(@team.id, "#{test_github_org}/notateamrepository")
+        is_team_repo = @client.team_repository?(test_github_org, @team.slug, "#{test_github_org}/notateamrepository")
         expect(is_team_repo).to be false
-        assert_requested :get, github_url("/teams/#{@team.id}/repos/#{test_github_org}/notateamrepository")
+        assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{test_github_org}/notateamrepository")
       end
     end
 
     describe '.remove_team_repository', :vcr do
       it 'removes a team repository' do
-        @client.remove_team_repository @team.id, @test_org_repo
-        assert_requested :delete, github_url("/teams/#{@team.id}/repos/#{@test_org_repo}")
+        @client.remove_team_repository test_github_org, @team.slug, @test_org_repo
+        assert_requested :delete, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}/repos/#{@test_org_repo}")
       end
     end # .remove_team_repository
 
     describe '.delete_team', :vcr do
       it 'deletes a team' do
-        @client.delete_team(@team.id)
-        assert_requested :delete, github_url("/teams/#{@team.id}")
+        @client.delete_team(test_github_org, @team.slug)
+        assert_requested :delete, github_url("/orgs/#{test_github_org}/teams/#{@team.slug}")
       end
     end # .delete_team
   end # with team
@@ -303,24 +367,24 @@ describe Octokit::Client::Organizations do
 
   describe '.add_team_membership', :vcr do
     it 'invites a user to a team' do
-      membership = @client.add_team_membership(test_github_team_id, test_github_login)
-      assert_requested :put, github_url("teams/#{test_github_team_id}/memberships/#{test_github_login}")
+      membership = @client.add_team_membership(test_github_org, test_github_team_slug, test_github_login)
+      assert_requested :put, github_url("/orgs/#{test_github_org}/teams/#{test_github_team_slug}/memberships/#{test_github_login}")
       expect(membership.state).to eq('active')
     end
   end # .add_team_membership
 
   describe '.team_membership', :vcr do
     it "gets a user's team membership" do
-      membership = @client.team_membership(test_github_team_id, test_github_login)
-      assert_requested :get, github_url("teams/#{test_github_team_id}/memberships/#{test_github_login}")
+      membership = @client.team_membership(test_github_org, test_github_team_slug, test_github_login)
+      assert_requested :get, github_url("/orgs/#{test_github_org}/teams/#{test_github_team_slug}/memberships/#{test_github_login}")
       expect(membership.state).to eq('active')
     end
   end # .team_membership
 
   describe '.remove_team_membership', :vcr do
     it "removes a user's membership for a team" do
-      result = @client.remove_team_membership(test_github_team_id, test_github_login)
-      assert_requested :delete, github_url("teams/#{test_github_team_id}/memberships/#{test_github_login}")
+      result = @client.remove_team_membership(test_github_org, test_github_team_slug, test_github_login)
+      assert_requested :delete, github_url("/orgs/#{test_github_org}/teams/#{test_github_team_slug}/memberships/#{test_github_login}")
       expect(result).to be true
     end
   end # .remove_team_membership
