@@ -26,6 +26,7 @@ require 'octokit/client/commit_pulls'
 require 'octokit/client/commit_branches'
 require 'octokit/client/community_profile'
 require 'octokit/client/contents'
+require 'octokit/client/custom_properties'
 require 'octokit/client/downloads'
 require 'octokit/client/dependabot_secrets'
 require 'octokit/client/deployments'
@@ -89,6 +90,7 @@ module Octokit
     include Octokit::Client::CommitBranches
     include Octokit::Client::CommunityProfile
     include Octokit::Client::Contents
+    include Octokit::Client::CustomProperties
     include Octokit::Client::DependabotSecrets
     include Octokit::Client::Deployments
     include Octokit::Client::Downloads
