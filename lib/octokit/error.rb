@@ -63,7 +63,7 @@ module Octokit
     # @private
     # rubocop:disable Naming/VariableNumber
     def self.error_for_401(headers)
-      # rubocop:enbale Naming/VariableNumber
+      # rubocop:enable Naming/VariableNumber
       if Octokit::OneTimePasswordRequired.required_header(headers)
         Octokit::OneTimePasswordRequired
       else
