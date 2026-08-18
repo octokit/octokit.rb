@@ -211,6 +211,24 @@ describe Octokit::Client::PullRequests do
     end
   end # .merge_pull_request
 
+  # stub this so we don't have to set up new fixture data
+  describe '.merge_pull_request_async' do
+    it 'merges the pull request asynchronously' do
+      request = stub_put(github_url('/repos/api-playground/api-sandbox/pulls/123/merge-async'))
+      @client.merge_pull_request_async('api-playground/api-sandbox', 123)
+      assert_requested request
+    end
+  end # .merge_pull_request_async
+
+  # stub this so we don't have to set up new fixture data
+  describe '.merge_pull_request_async_status' do
+    it 'checks the status of an asynchronous merge' do
+      request = stub_get(github_url('/repos/api-playground/api-sandbox/pulls/123/merge-async/01234567-89ab-cdef-0123-456789abcdef'))
+      @client.merge_pull_request_async_status('api-playground/api-sandbox', 123, '01234567-89ab-cdef-0123-456789abcdef')
+      assert_requested request
+    end
+  end # .merge_pull_request_async_status
+
   describe '.create_pull_request_for_issue', :vcr do
     it 'creates a pull request and attach it to an existing issue' do
       issue = @client.create_issue(@test_repo, 'A new issue', 'Gonna turn this into a PR')
