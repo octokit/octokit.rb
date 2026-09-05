@@ -6,6 +6,7 @@ require 'octokit/arguments'
 require 'octokit/repo_arguments'
 require 'octokit/configurable'
 require 'octokit/authentication'
+require 'octokit/app_authentication'
 require 'octokit/gist'
 require 'octokit/rate_limit'
 require 'octokit/repository'
@@ -134,6 +135,7 @@ module Octokit
     include Octokit::Client::Tokens
     include Octokit::Client::Traffic
     include Octokit::Client::Users
+    include Octokit::AppAuthentication
 
     # Header keys that can be passed in options hash to {#get},{#head}
     CONVENIENCE_HEADERS = Set.new(%i[accept content_type])
@@ -152,8 +154,17 @@ module Octokit
         instance_variable_set(:"@#{key}", value)
       end
 
-      login_from_netrc unless user_authenticated? || application_authenticated?
+      reset_app_authentication
+      login_from_netrc unless user_authenticated? || application_authenticated? || app_authenticated?
     end
+
+    def reset!
+      super
+      reset_app_authentication
+      @last_response = nil
+      self
+    end
+    alias setup reset!
 
     # Text representation of the client, masking tokens and passwords
     #
@@ -164,13 +175,10 @@ module Octokit
       # mask password
       inspected.gsub! @password, '*******' if @password
       inspected.gsub! @bearer_token, '********' if @bearer_token
+      inspected.gsub! @private_key.inspect, '"********"' if @private_key.is_a?(String) && !@private_key.empty?
       # Only show last 4 of token, secret
-      if @access_token
-        inspected.gsub! @access_token, "#{'*' * 36}#{@access_token[36..]}"
-      end
-      if @client_secret
-        inspected.gsub! @client_secret, "#{'*' * 36}#{@client_secret[36..]}"
-      end
+      inspected.gsub! @access_token, masked_secret(@access_token) if @access_token
+      inspected.gsub! @client_secret, masked_secret(@client_secret) if @client_secret
 
       inspected
     end
@@ -194,6 +202,9 @@ module Octokit
       end
 
       app_client = dup
+      app_client.app_id = nil
+      app_client.private_key = nil
+      app_client.installation_id = nil
       app_client.client_id = app_client.client_secret = nil
       app_client.login    = key
       app_client.password = secret
@@ -249,27 +260,59 @@ module Octokit
       @client_secret = value
     end
 
+    # Set GitHub App ID
+    #
+    # @param value [String, Integer] GitHub App ID
+    def app_id=(value)
+      @app_id = value
+      reset_app_authentication
+    end
+
+    # Set GitHub App private key
+    #
+    # @param value [String, OpenSSL::PKey::RSA] PEM-encoded private key or RSA key object
+    def private_key=(value)
+      @private_key = value
+      reset_app_authentication
+    end
+
+    # Set GitHub App Installation ID
+    #
+    # @param value [Integer] Installation ID
+    def installation_id=(value)
+      @installation_id = value
+      reset_app_authentication
+    end
+
+    def api_endpoint=(value)
+      @api_endpoint = value
+      reset_app_authentication
+    end
+
     def client_without_redirects(options = {})
-      conn_opts = @connection_options
-      conn_opts[:url] = @api_endpoint
-      conn_opts[:builder] = @middleware.dup if @middleware
-      conn_opts[:proxy] = @proxy if @proxy
-      conn_opts[:ssl] = { verify_mode: @ssl_verify_mode } if @ssl_verify_mode
-      conn = Faraday.new(conn_opts) do |http|
-        http_cache_middleware = http.builder.handlers.delete(Faraday::HttpCache) if Faraday.const_defined?(:HttpCache)
-        if basic_authenticated?
-          http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
-        elsif token_authenticated?
-          http.request :authorization, 'token', @access_token
-        elsif bearer_authenticated?
-          http.request :authorization, 'Bearer', @bearer_token
-        end
-        http.builder.handlers.push(http_cache_middleware) unless http_cache_middleware.nil?
-        http.headers['accept'] = options[:accept] if options.key?(:accept)
-      end
+      conn = build_connection
+      conn.url_prefix = api_endpoint
+      http_cache_middleware = conn.builder.handlers.delete(Faraday::HttpCache) if Faraday.const_defined?(:HttpCache)
+      configure_authentication(conn, include_application: false)
+      conn.builder.handlers.push(http_cache_middleware) unless http_cache_middleware.nil?
+      conn.headers['accept'] = options[:accept] if options.key?(:accept)
       conn.builder.delete(Octokit::Middleware::FollowRedirects)
 
       conn
+    end
+
+    private
+
+    def initialize_copy(other)
+      super
+      reset_app_authentication
+      @last_response = nil
+    end
+
+    def masked_secret(secret)
+      return '*' * secret.length if secret.length <= 4
+
+      "#{'*' * (secret.length - 4)}#{secret[-4, 4]}"
     end
   end
 end

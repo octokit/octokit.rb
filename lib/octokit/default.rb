@@ -60,6 +60,12 @@ module Octokit
         ENV.fetch('OCTOKIT_ACCESS_TOKEN', nil)
       end
 
+      # Default GitHub App ID from ENV
+      # @return [String]
+      def app_id
+        ENV.fetch('OCTOKIT_APP_ID', nil)
+      end
+
       # Default API endpoint from ENV or {API_ENDPOINT}
       # @return [String]
       def api_endpoint
@@ -108,6 +114,12 @@ module Octokit
         ENV.fetch('OCTOKIT_MANAGE_GHES_PASSWORD', nil)
       end
 
+      # Default GitHub App Installation ID from ENV
+      # @return [String]
+      def installation_id
+        ENV.fetch('OCTOKIT_INSTALLATION_ID', nil)
+      end
+
       # Default options for Faraday::Connection
       # @return [Hash]
       def connection_options
@@ -136,6 +148,12 @@ module Octokit
       # @return [Faraday::RackBuilder or Faraday::Builder]
       def middleware
         MIDDLEWARE
+      end
+
+      # Default GitHub App private key from ENV
+      # @return [String]
+      def private_key
+        ENV.fetch('OCTOKIT_PRIVATE_KEY', nil)
       end
 
       # Default GitHub password for Basic Auth from ENV

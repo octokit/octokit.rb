@@ -10,6 +10,15 @@ module Octokit
   class << self
     include Octokit::Configurable
 
+    def reset!
+      super
+      %i[@client @enterprise_admin_client @manage_ghes_client].each do |name|
+        remove_instance_variable(name) if instance_variable_defined?(name)
+      end
+      self
+    end
+    alias setup reset!
+
     # API client based on configured options {Configurable}
     #
     # @return [Octokit::Client] API wrapper

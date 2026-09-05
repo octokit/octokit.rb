@@ -360,6 +360,20 @@ module Octokit
   # Raised when client fails to provide valid Content-Type
   class MissingContentType < ArgumentError; end
 
+  # Raised when GitHub App credentials or token responses are invalid
+  class AppAuthenticationError < Error
+    def initialize(message)
+      @message = message
+      super()
+    end
+
+    private
+
+    def build_error_message
+      @message
+    end
+  end
+
   # Raised when a method requires an application client_id
   # and secret but none is provided
   class ApplicationCredentialsRequired < StandardError; end
