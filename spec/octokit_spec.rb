@@ -38,6 +38,19 @@ describe Octokit do
     end
   end
 
+  describe '.reset!' do
+    it 'discards cached clients even when the default options have not changed' do
+      clients = [Octokit.client, Octokit.enterprise_admin_client, Octokit.manage_ghes_client]
+
+      Octokit.reset!
+
+      expect(Octokit.client).not_to equal(clients[0])
+      expect(Octokit.enterprise_admin_client).not_to equal(clients[1])
+      expect(Octokit.manage_ghes_client).not_to equal(clients[2])
+      expect(Octokit.last_response).to be_nil
+    end
+  end
+
   describe '.configure' do
     # rubocop:disable Style/HashEachMethods
     #

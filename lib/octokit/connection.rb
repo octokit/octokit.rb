@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 require 'sawyer'
+require 'base64'
 require 'octokit/authentication'
+require 'octokit/middleware/authorization'
 module Octokit
   # Network layer for API clients.
   module Connection
@@ -102,23 +104,7 @@ module Octokit
     #
     # @return [Sawyer::Agent]
     def agent
-      ensure_app_tokens_fresh! if respond_to?(:app_authenticated?, true) && app_authenticated?
-      @agent ||= Sawyer::Agent.new(endpoint, sawyer_options) do |http|
-        http.headers[:accept] = default_media_type
-        http.headers[:content_type] = 'application/json'
-        http.headers[:user_agent] = user_agent
-        http_cache_middleware = http.builder.handlers.delete(Faraday::HttpCache) if Faraday.const_defined?(:HttpCache)
-        if basic_authenticated?
-          http.request(*FARADAY_BASIC_AUTH_KEYS, @login, @password)
-        elsif token_authenticated?
-          http.request :authorization, 'token', @access_token
-        elsif bearer_authenticated?
-          http.request :authorization, 'Bearer', @bearer_token
-        elsif application_authenticated?
-          http.request(*FARADAY_BASIC_AUTH_KEYS, @client_id, @client_secret)
-        end
-        http.builder.handlers.push(http_cache_middleware) unless http_cache_middleware.nil?
-      end
+      @agent ||= build_agent
     end
 
     # Fetch the root resource for the API
@@ -147,6 +133,24 @@ module Octokit
       @agent = nil
     end
 
+    def configure_authentication(http, include_application: true)
+      http.use Octokit::Middleware::Authorization, -> { authorization_header(include_application: include_application) }
+    end
+
+    def authorization_header(include_application: true)
+      return app_authorization if respond_to?(:app_authenticated?) && app_authenticated?
+
+      if basic_authenticated?
+        "Basic #{Base64.strict_encode64("#{@login}:#{@password}")}"
+      elsif token_authenticated?
+        "token #{@access_token}"
+      elsif bearer_authenticated?
+        "Bearer #{@bearer_token}"
+      elsif include_application && application_authenticated?
+        "Basic #{Base64.strict_encode64("#{@client_id}:#{@client_secret}")}"
+      end
+    end
+
     def request(method, path, data, options = {})
       if data.is_a?(Hash)
         options[:query]   = data.delete(:query) || {}
@@ -173,25 +177,34 @@ module Octokit
       false
     end
 
-    def sawyer_options
-      opts = {
-        links_parser: Sawyer::LinkParsers::Simple.new
-      }
-      conn_opts = @connection_options
-      conn_opts[:builder] = @middleware.dup if @middleware
-      conn_opts[:proxy] = @proxy if @proxy
-      if conn_opts[:ssl].nil?
-        conn_opts[:ssl] = { verify_mode: @ssl_verify_mode } if @ssl_verify_mode
-      else
-        verify = @connection_options[:ssl][:verify]
-        conn_opts[:ssl] = {
-          verify: verify,
-          verify_mode: verify == false ? 0 : @ssl_verify_mode
-        }
+    def build_agent(authorization: nil)
+      Sawyer::Agent.new(endpoint, sawyer_options) do |http|
+        http.headers[:accept] = default_media_type
+        http.headers[:content_type] = 'application/json'
+        http.headers[:user_agent] = user_agent
+        http_cache_middleware = http.builder.handlers.delete(Faraday::HttpCache) if Faraday.const_defined?(:HttpCache)
+        if authorization
+          http.headers['Authorization'] = authorization
+        else
+          configure_authentication(http)
+        end
+        http.builder.handlers.push(http_cache_middleware) unless http_cache_middleware.nil?
       end
-      opts[:faraday] = Faraday.new(conn_opts)
+    end
 
-      opts
+    def sawyer_options
+      { links_parser: Sawyer::LinkParsers::Simple.new, faraday: build_connection }
+    end
+
+    def build_connection
+      opts = @connection_options.transform_values { |value| value.is_a?(Hash) ? value.dup : value }
+      builder = @middleware || opts[:builder]
+      opts[:builder] = builder.dup if builder
+      opts[:proxy] = @proxy if @proxy
+      ssl = opts[:ssl] ||= {}
+      ssl[:verify_mode] ||= @ssl_verify_mode if @ssl_verify_mode
+      ssl[:verify_mode] = OpenSSL::SSL::VERIFY_NONE if ssl[:verify] == false
+      Faraday.new(opts)
     end
 
     def parse_query_and_convenience_headers(options)

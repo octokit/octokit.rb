@@ -301,6 +301,9 @@ client.list_app_installations
 # => [...]
 ```
 
+GitHub App credentials take precedence over other authentication credentials configured on the same client.
+An explicit `Authorization` request header overrides automatic authentication.
+
 #### Authenticating as an installation
 
 Add `installation_id` to automatically exchange the JWT for an installation access token. The token is cached and refreshed before expiry:
@@ -318,6 +321,10 @@ client.issues("owner/repo")
 The `private_key` parameter accepts either a PEM-encoded string or an `OpenSSL::PKey::RSA` object.
 
 You can also configure via environment variables: `OCTOKIT_APP_ID`, `OCTOKIT_PRIVATE_KEY`, `OCTOKIT_INSTALLATION_ID`.
+
+Credentials are refreshed when a request is sent, including pagination and Sawyer relation requests.
+Changing App credentials or calling `client.reset!` (also available as `client.setup`) clears the cached credentials.
+Token refresh is synchronized, but reconfiguring a client while requests are in flight is not supported.
 
 #### Manual JWT authentication
 

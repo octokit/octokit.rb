@@ -4,127 +4,145 @@ require 'openssl'
 require 'json'
 require 'base64'
 require 'time'
+require 'octokit/error'
 
 module Octokit
   # Authentication methods for GitHub App credentials.
   #
-  # Provides automatic JWT generation from an app_id + private_key,
-  # and automatic installation access token management when
-  # installation_id is also provided.
-  #
   # @see https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app
   module AppAuthentication
-    # Indicates if the client is configured for GitHub App authentication
-    #
-    # @return [Boolean]
+    # @return [Boolean] Whether GitHub App credentials are configured
     def app_authenticated?
-      !!(@app_id && @private_key)
+      authentication_value_present?(@app_id) && authentication_value_present?(@private_key)
     end
 
-    # Indicates if the client is configured for GitHub App installation authentication
-    #
-    # @return [Boolean]
+    # @return [Boolean] Whether GitHub App installation credentials are configured
     def installation_authenticated?
-      app_authenticated? && !!@installation_id
+      app_authenticated? && authentication_value_present?(@installation_id)
     end
 
-    # Generate or return the current JWT for the GitHub App.
-    #
-    # The JWT is cached and automatically regenerated when it
-    # approaches expiry.
+    # Generate or return the cached JWT for the GitHub App.
     #
     # @return [String] JWT bearer token
     def generate_app_jwt
-      ensure_app_jwt_fresh!
-      @bearer_token
+      raise Octokit::AppAuthenticationError, 'app_id and private_key are required to generate a GitHub App JWT' unless app_authenticated?
+
+      @app_credentials.jwt
     end
 
     private
 
-    # Ensures app authentication tokens are fresh before a request.
-    # Called automatically before each API request when app credentials
-    # are configured.
-    def ensure_app_tokens_fresh!
-      return unless app_authenticated?
+    def reset_app_authentication
+      @app_credentials = if app_authenticated?
+                           Credentials.new(
+                             @app_id, @private_key,
+                             installation_authenticated? ? @installation_id : nil,
+                             method(:exchange_installation_token)
+                           )
+                         end
+      reset_agent
+    end
 
-      if installation_authenticated?
-        ensure_installation_token_fresh!
-      else
-        ensure_app_jwt_fresh!
+    def app_authorization
+      @app_credentials&.authorization
+    end
+
+    def exchange_installation_token(installation_id, jwt)
+      build_agent(authorization: "Bearer #{jwt}")
+        .call(:post, "app/installations/#{installation_id}/access_tokens", {}).data
+    end
+
+    def authentication_value_present?(value)
+      !!value && (!value.respond_to?(:empty?) || !value.empty?)
+    end
+
+    # Private, per-client credential cache. Configuration changes replace it.
+    class Credentials
+      def initialize(app_id, private_key, installation_id, exchange)
+        @app_id = app_id
+        @private_key = private_key
+        @installation_id = installation_id
+        @exchange = exchange
+        @mutex = Mutex.new
+      end
+
+      def jwt
+        @mutex.synchronize { current_jwt }
+      end
+
+      def authorization
+        @mutex.synchronize do
+          @installation_id ? "token #{installation_token}" : "Bearer #{current_jwt}"
+        end
+      end
+
+      def inspect
+        "#<#{self.class}>"
+      end
+
+      private
+
+      def current_jwt
+        return @jwt if @jwt_expires_at && Time.now < @jwt_expires_at
+
+        now = Time.now.to_i
+        payload = { iat: now - 60, exp: now + 600, iss: @app_id.to_s }
+        @jwt = build_jwt(payload)
+        @jwt_expires_at = Time.at(now + 480)
+        @jwt
+      end
+
+      def installation_token
+        return @token if @token_expires_at && Time.now < @token_expires_at
+
+        data = @exchange.call(@installation_id, current_jwt)
+        unless data.respond_to?(:token) && data.token.is_a?(String) && !data.token.empty? &&
+               data.respond_to?(:expires_at) && data.expires_at
+          raise Octokit::AppAuthenticationError,
+                'GitHub App installation token response must include token and expires_at'
+        end
+
+        expires_at = parse_expiry(data.expires_at)
+        @token = data.token
+        @token_expires_at = expires_at - 120
+        @token
+      end
+
+      def parse_expiry(value)
+        value.is_a?(Time) ? value : Time.iso8601(value.to_s)
+      rescue ArgumentError
+        raise Octokit::AppAuthenticationError, 'Invalid installation token expires_at'
+      end
+
+      def resolved_private_key
+        @resolved_private_key ||= begin
+          key = case @private_key
+                when OpenSSL::PKey::RSA
+                  @private_key
+                when String
+                  OpenSSL::PKey::RSA.new(@private_key)
+                else
+                  raise Octokit::AppAuthenticationError,
+                        'private_key must be a PEM-encoded String or OpenSSL::PKey::RSA object'
+                end
+          raise Octokit::AppAuthenticationError, 'GitHub App private key must include a private key' unless key.private?
+
+          key
+        end
+      rescue OpenSSL::PKey::RSAError => e
+        raise Octokit::AppAuthenticationError, "Invalid GitHub App private key: #{e.message}"
+      end
+
+      def build_jwt(payload)
+        segments = [
+          Base64.urlsafe_encode64(JSON.generate(alg: 'RS256', typ: 'JWT'), padding: false),
+          Base64.urlsafe_encode64(JSON.generate(payload), padding: false)
+        ]
+        signature = resolved_private_key.sign(OpenSSL::Digest.new('SHA256'), segments.join('.'))
+        segments << Base64.urlsafe_encode64(signature, padding: false)
+        segments.join('.')
       end
     end
-
-    # Regenerates the JWT if it's expired or not yet created.
-    def ensure_app_jwt_fresh!
-      return if @jwt_expires_at && Time.now < @jwt_expires_at
-
-      now = Time.now.to_i
-      payload = {
-        iat: now - 60, # 60 seconds in the past for clock drift
-        exp: now + (10 * 60), # 10 minute maximum
-        iss: @app_id.to_s
-      }
-
-      @bearer_token = build_jwt(payload, resolved_private_key)
-      @jwt_expires_at = Time.at(now + (8 * 60)) # Refresh after 8 minutes
-      reset_agent
-    end
-
-    # Refreshes the installation access token if expired or not yet created.
-    def ensure_installation_token_fresh!
-      return if @installation_token_expires_at && Time.now < @installation_token_expires_at
-
-      # Ensure we have a fresh JWT first
-      ensure_app_jwt_fresh!
-
-      # Use a temporary JWT-authenticated client to create the installation token
-      jwt_client = Octokit::Client.new(
-        bearer_token: @bearer_token,
-        api_endpoint: api_endpoint
-      )
-      token_data = jwt_client.create_app_installation_access_token(@installation_id)
-      @access_token = token_data.token
-
-      # Parse expiry and add a 2-minute buffer for safety
-      expires_at = token_data.expires_at
-      expires_at = Time.parse(expires_at.to_s) unless expires_at.is_a?(Time)
-      @installation_token_expires_at = expires_at - 120
-
-      reset_agent
-    end
-
-    # Resolves the private_key configuration into an OpenSSL::PKey::RSA object.
-    # Supports PEM-encoded strings and pre-parsed RSA key objects.
-    def resolved_private_key
-      @resolved_private_key ||= case @private_key
-                                when OpenSSL::PKey::RSA
-                                  @private_key
-                                when String
-                                  OpenSSL::PKey::RSA.new(@private_key)
-                                else
-                                  raise ArgumentError,
-                                        'private_key must be a PEM-encoded String or OpenSSL::PKey::RSA object'
-                                end
-    end
-
-    # Builds a JWT signed with RS256.
-    #
-    # @param payload [Hash] JWT claims (iat, exp, iss)
-    # @param private_key [OpenSSL::PKey::RSA] Signing key
-    # @return [String] Encoded JWT
-    def build_jwt(payload, private_key)
-      header = { alg: 'RS256', typ: 'JWT' }
-
-      segments = [
-        Base64.urlsafe_encode64(JSON.generate(header), padding: false),
-        Base64.urlsafe_encode64(JSON.generate(payload), padding: false)
-      ]
-
-      signing_input = segments.join('.')
-      signature = private_key.sign(OpenSSL::Digest::SHA256.new, signing_input)
-      segments << Base64.urlsafe_encode64(signature, padding: false)
-
-      segments.join('.')
-    end
+    private_constant :Credentials
   end
 end

@@ -95,6 +95,13 @@ describe Octokit::Client do
         expect(inspected).not_to include('87614b09dd141c22800f96f11737ade5226d7ba8')
       end
 
+      it 'only exposes the final four characters of variable-length tokens' do
+        token = "ghs_#{'a' * 512}last"
+        client = Octokit::Client.new(access_token: token)
+
+        expect(client.inspect).to include("#{'*' * (token.length - 4)}last")
+      end
+
       it 'masks bearer token on inspect' do
         client = Octokit::Client.new(bearer_token: 'secret JWT')
         inspected = client.inspect
@@ -474,6 +481,28 @@ describe Octokit::Client do
       conn = Octokit.client.send(:agent).instance_variable_get(:@conn)
       expect(conn.ssl[:verify_mode]).to eq(OpenSSL::SSL::VERIFY_PEER)
     end
+
+    it 'preserves custom TLS and request options in both connection builders' do
+      ssl = {
+        ca_file: '/company/ca.pem',
+        ca_path: '/company/certs',
+        verify_mode: OpenSSL::SSL::VERIFY_PEER | OpenSSL::SSL::VERIFY_FAIL_IF_NO_PEER_CERT,
+        version: 'TLSv1_2'
+      }.freeze
+      options = {
+        ssl: ssl,
+        headers: { 'X-Custom' => 'value' }.freeze,
+        request: { timeout: 17 }.freeze
+      }.freeze
+      client = Octokit::Client.new(connection_options: options)
+      [client.agent.instance_variable_get(:@conn), client.client_without_redirects].each do |connection|
+        expect(connection.ssl.to_h).to include(ssl)
+        expect(connection.options.timeout).to eq(17)
+        expect(connection.headers['X-Custom']).to eq('value')
+      end
+      expect(client.connection_options).to equal(options)
+      expect(options).not_to have_key(:builder)
+    end
     it 'passes along request headers for POST' do
       headers = { 'X-GitHub-Foo' => 'bar' }
       root_request = stub_post('/')
@@ -733,6 +762,17 @@ describe Octokit::Client do
       client.as_app do |c|
         c.get '/'
       end
+
+      assert_requested @root_request
+    end
+
+    it 'uses Basic auth when the source client has native App credentials' do
+      client = Octokit::Client.new(
+        app_id: '12345',
+        private_key: File.read(File.join(fixture_path, 'fake_integration.private-key.pem'))
+      )
+
+      client.as_app(@client_id, @client_secret) { |app_client| app_client.get '/' }
 
       assert_requested @root_request
     end
