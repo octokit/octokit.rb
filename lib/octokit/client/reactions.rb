@@ -170,7 +170,7 @@ module Octokit
       # List reactions for a release
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The Release id
+      # @param release_id [Integer] The Release id
       #
       # @see https://docs.github.com/en/free-pro-team@latest/rest/reactions/reactions?apiVersion=2022-11-28#list-reactions-for-a-release
       #
@@ -185,7 +185,7 @@ module Octokit
       # Create reaction for a release
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param id [Integer] The Release id
+      # @param release_id [Integer] The Release id
       # @param reaction [String] The Reaction
       #
       # @see https://docs.github.com/en/free-pro-team@latest/rest/reactions/reactions?apiVersion=2022-11-28#create-reaction-for-a-release
@@ -203,7 +203,7 @@ module Octokit
       # Delete a reaction for a release
       #
       # @param repo [Integer, String, Hash, Repository] A GitHub repository
-      # @param issue_id [Integer] The Release id
+      # @param release_id [Integer] The Release id
       # @param reaction_id [Integer] The Reaction id
       #
       # @see https://docs.github.com/en/free-pro-team@latest/rest/reactions/reactions?apiVersion=2022-11-28#delete-a-release-reaction

@@ -129,7 +129,7 @@ module Octokit
 
       # List code scanning alerts for a repository
       #
-      # @param org [String] A GitHub organization
+      # @param repo [Integer, String, Repository, Hash] A GitHub repository
       #
       # @return [Array] Code Scanning Alert information
       # @see https://docs.github.com/en/rest/code-scanning/code-scanning#list-code-scanning-alerts-for-a-repository

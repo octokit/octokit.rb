@@ -18,7 +18,8 @@ module Octokit
 
       # Configure the maintenance mode of the GHES instance
       #
-      # @param maintenance [Hash] A hash configuration of the maintenance mode status
+      # @param enabled [Boolean] Whether maintenance mode should be enabled
+      # @param options [Hash] A hash configuration of the maintenance mode status
       # @return [nil]
       def set_maintenance_mode(enabled, options = {})
         conn = authenticated_client

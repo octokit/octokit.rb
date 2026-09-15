@@ -70,10 +70,10 @@ module Octokit
     #
     # @param url [String] The path, relative to {#api_endpoint}
     # @param options [Hash] Query and header params for request
-    # @param block [Block] Block to perform the data concatination of the
-    #   multiple requests. The block is called with two parameters, the first
-    #   contains the contents of the requests so far and the second parameter
-    #   contains the latest response.
+    # @yield [data, last_response] Block to perform the data concatination of
+    #   the multiple requests. The block is called with two parameters, the
+    #   first contains the contents of the requests so far and the second
+    #   parameter contains the latest response.
     # @return [Sawyer::Resource]
     def paginate(url, options = {})
       opts = parse_query_and_convenience_headers(options)
