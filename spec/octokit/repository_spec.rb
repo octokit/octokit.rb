@@ -174,5 +174,23 @@ describe Octokit::Repository do
       expect { Octokit::Repository.new('https://api.github.com/gists/0083ae') }
         .to raise_error Octokit::InvalidRepository, '"https://api.github.com/gists/0083ae" is invalid as a repository identifier. Use the user/repo (String) format, or the repository ID (Integer), or a hash containing :repo and :user keys.'
     end
+
+    it 'strips a .git suffix from https urls' do
+      repo_from_url = Octokit::Repository.from_url('https://github.com/sferik/octokit.git')
+      expect(repo_from_url.name).to eq('octokit')
+      expect(repo_from_url.username).to eq('sferik')
+    end
+
+    it 'parses SCP-like SSH urls' do
+      repo_from_url = Octokit::Repository.from_url('git@github.com:sferik/octokit.git')
+      expect(repo_from_url.name).to eq('octokit')
+      expect(repo_from_url.username).to eq('sferik')
+    end
+
+    it 'parses SCP-like SSH urls without a .git suffix' do
+      repo_from_url = Octokit::Repository.from_url('git@github.com:sferik/octokit')
+      expect(repo_from_url.name).to eq('octokit')
+      expect(repo_from_url.username).to eq('sferik')
+    end
   end
 end
