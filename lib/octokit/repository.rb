@@ -8,14 +8,25 @@ module Octokit
 
     NAME_WITH_OWNER_PATTERN = %r{\A[\w.-]+/[\w.-]+\z}i.freeze
 
+    # Matches the SCP-like syntax Git uses for SSH remotes, e.g.
+    # "git@github.com:owner/repo.git", which is not a valid URI (no scheme)
+    # and so can't be handled by URI.parse.
+    SCP_LIKE_URL_PATTERN = /\A[\w.-]+@[\w.-]+:(.+)\z/.freeze
+
     # Instantiate from a GitHub repository URL
     #
     # @return [Repository]
     def self.from_url(url)
-      new URI.parse(url).path[1..]
-             .gsub(%r{^repos/}, '')
-             .split('/', 3)[0..1]
-             .join('/')
+      path = if url =~ SCP_LIKE_URL_PATTERN
+               Regexp.last_match(1)
+             else
+               URI.parse(url).path[1..]
+             end
+
+      new path.delete_suffix('.git')
+              .gsub(%r{^repos/}, '')
+              .split('/', 3)[0..1]
+              .join('/')
     end
 
     # @raise [Octokit::InvalidRepository] if the repository
