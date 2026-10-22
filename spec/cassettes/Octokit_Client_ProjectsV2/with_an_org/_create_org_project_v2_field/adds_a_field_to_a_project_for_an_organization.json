@@ -1,0 +1,126 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://api.github.com/orgs/<GITHUB_TEST_ORGANIZATION>/projectsV2/1/fields",
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJuYW1lIjoiT2N0b2tpdCBmaWVsZCAxNzkyODUxMDA3IiwiZGF0YV90eXBl\nIjoidGV4dCJ9\n"
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 10.0.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 201,
+          "message": "Created"
+        },
+        "headers": {
+          "Date": [
+            "Sat, 24 Oct 2026 14:10:07 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Content-Length": [
+            "249"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "\"7363ab9d73307df0878e1704861a9df64992d400059f907d25eb3e430d60b7cf\""
+          ],
+          "X-Oauth-Scopes": [
+            "gist, project, read:org, repo, workflow"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            ""
+          ],
+          "X-Oauth-Client-Id": [
+            "178c6fc778ccc68e1d6a"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "Server": [
+            "github.com"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4864"
+          ],
+          "X-Ratelimit-Reset": [
+            "1792852429"
+          ],
+          "X-Ratelimit-Used": [
+            "136"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "X-Github-Request-Id": [
+            "2C50:3A6943:2D15F54:42DEB15:6ADCBC3F"
+          ],
+          "X-Github-Edge-Region": [
+            "fra"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJpZCI6NDMyMTUyNzE4LCJuYW1lIjoiT2N0b2tpdCBmaWVsZCAxNzkyODUx\nMDA3IiwiZGF0YV90eXBlIjoidGV4dCIsImNyZWF0ZWRfYXQiOiIyMDI2LTEw\nLTI0VDE0OjEwOjA3WiIsInVwZGF0ZWRfYXQiOiIyMDI2LTEwLTI0VDE0OjEw\nOjA3WiIsIm5vZGVfaWQiOiJQVlRGX2xBRE9GQWdFTXM0Qm1CLUt6aG5DSUk0\nIiwicHJvamVjdF91cmwiOiJodHRwczovL2FwaS5naXRodWIuY29tL29yZ3Mv\nPEdJVEhVQl9URVNUX09SR0FOSVpBVElPTj4vcHJvamVjdHNWMi8xIn0=\n"
+        }
+      },
+      "recorded_at": "Sat, 24 Oct 2026 14:10:07 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.4.0"
+}
