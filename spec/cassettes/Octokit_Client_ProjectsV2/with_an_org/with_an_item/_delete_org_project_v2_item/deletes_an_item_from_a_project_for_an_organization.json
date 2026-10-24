@@ -1,0 +1,235 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://api.github.com/orgs/<GITHUB_TEST_ORGANIZATION>/projectsV2/1/drafts",
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJ0aXRsZSI6Ik9jdG9raXQgaXRlbSJ9\n"
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 10.0.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 201,
+          "message": "Created"
+        },
+        "headers": {
+          "Date": [
+            "Sat, 24 Oct 2026 14:10:09 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Content-Length": [
+            "2346"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "\"3bdd43f4adefdee2571337725380616c20d26279c475c18208f25386fbb186f1\""
+          ],
+          "X-Oauth-Scopes": [
+            "gist, project, read:org, repo, workflow"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            ""
+          ],
+          "X-Oauth-Client-Id": [
+            "178c6fc778ccc68e1d6a"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "Server": [
+            "github.com"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4863"
+          ],
+          "X-Ratelimit-Reset": [
+            "1792852429"
+          ],
+          "X-Ratelimit-Used": [
+            "137"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "X-Github-Request-Id": [
+            "2C51:190C7A:2D9DCD5:43AB90E:6ADCBC41"
+          ],
+          "X-Github-Edge-Region": [
+            "fra"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJpZCI6MjgxOTE4ODUxLCJub2RlX2lkIjoiUFZUSV9sQURPRkFnRU1zNEJt\nQi1LemhETnZZTSIsImNvbnRlbnRfdHlwZSI6IkRyYWZ0SXNzdWUiLCJjb250\nZW50Ijp7ImlkIjo0ODE0NDEzNSwiYm9keSI6bnVsbCwiY3JlYXRlZF9hdCI6\nIjIwMjYtMTAtMjRUMTY6MTA6MDkuMDAwKzAyOjAwIiwidXBkYXRlZF9hdCI6\nIjIwMjYtMTAtMjRUMTY6MTA6MDkuMDAwKzAyOjAwIiwibm9kZV9pZCI6IkRJ\nX2xBRE9GQWdFTXM0Qm1CLUt6Z0xlbndjIiwidGl0bGUiOiJPY3Rva2l0IGl0\nZW0iLCJ1c2VyIjp7ImxvZ2luIjoiPEdJVEhVQl9MT0dJTj4iLCJpZCI6NjYx\nMDQ4OCwibm9kZV9pZCI6Ik1EUTZWWE5sY2pZMk1UQTBPRGc9IiwiYXZhdGFy\nX3VybCI6Imh0dHBzOi8vYXZhdGFycy5naXRodWJ1c2VyY29udGVudC5jb20v\ndS82NjEwNDg4P3Y9NCIsImdyYXZhdGFyX2lkIjoiIiwidXJsIjoiaHR0cHM6\nLy9hcGkuZ2l0aHViLmNvbS91c2Vycy88R0lUSFVCX0xPR0lOPiIsImh0bWxf\ndXJsIjoiaHR0cHM6Ly9naXRodWIuY29tLzxHSVRIVUJfTE9HSU4+IiwiZm9s\nbG93ZXJzX3VybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNlcnMvPEdJ\nVEhVQl9MT0dJTj4vZm9sbG93ZXJzIiwiZm9sbG93aW5nX3VybCI6Imh0dHBz\nOi8vYXBpLmdpdGh1Yi5jb20vdXNlcnMvPEdJVEhVQl9MT0dJTj4vZm9sbG93\naW5ney9vdGhlcl91c2VyfSIsImdpc3RzX3VybCI6Imh0dHBzOi8vYXBpLmdp\ndGh1Yi5jb20vdXNlcnMvPEdJVEhVQl9MT0dJTj4vZ2lzdHN7L2dpc3RfaWR9\nIiwic3RhcnJlZF91cmwiOiJodHRwczovL2FwaS5naXRodWIuY29tL3VzZXJz\nLzxHSVRIVUJfTE9HSU4+L3N0YXJyZWR7L293bmVyfXsvcmVwb30iLCJzdWJz\nY3JpcHRpb25zX3VybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNlcnMv\nPEdJVEhVQl9MT0dJTj4vc3Vic2NyaXB0aW9ucyIsIm9yZ2FuaXphdGlvbnNf\ndXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS91c2Vycy88R0lUSFVCX0xP\nR0lOPi9vcmdzIiwicmVwb3NfdXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNv\nbS91c2Vycy88R0lUSFVCX0xPR0lOPi9yZXBvcyIsImV2ZW50c191cmwiOiJo\ndHRwczovL2FwaS5naXRodWIuY29tL3VzZXJzLzxHSVRIVUJfTE9HSU4+L2V2\nZW50c3svcHJpdmFjeX0iLCJyZWNlaXZlZF9ldmVudHNfdXJsIjoiaHR0cHM6\nLy9hcGkuZ2l0aHViLmNvbS91c2Vycy88R0lUSFVCX0xPR0lOPi9yZWNlaXZl\nZF9ldmVudHMiLCJ0eXBlIjoiVXNlciIsInVzZXJfdmlld190eXBlIjoicHVi\nbGljIiwic2l0ZV9hZG1pbiI6ZmFsc2V9fSwiY3JlYXRvciI6eyJsb2dpbiI6\nIjxHSVRIVUJfTE9HSU4+IiwiaWQiOjY2MTA0ODgsIm5vZGVfaWQiOiJNRFE2\nVlhObGNqWTJNVEEwT0RnPSIsImF2YXRhcl91cmwiOiJodHRwczovL2F2YXRh\ncnMuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3UvNjYxMDQ4OD92PTQiLCJncmF2\nYXRhcl9pZCI6IiIsInVybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNl\ncnMvPEdJVEhVQl9MT0dJTj4iLCJodG1sX3VybCI6Imh0dHBzOi8vZ2l0aHVi\nLmNvbS88R0lUSFVCX0xPR0lOPiIsImZvbGxvd2Vyc191cmwiOiJodHRwczov\nL2FwaS5naXRodWIuY29tL3VzZXJzLzxHSVRIVUJfTE9HSU4+L2ZvbGxvd2Vy\ncyIsImZvbGxvd2luZ191cmwiOiJodHRwczovL2FwaS5naXRodWIuY29tL3Vz\nZXJzLzxHSVRIVUJfTE9HSU4+L2ZvbGxvd2luZ3svb3RoZXJfdXNlcn0iLCJn\naXN0c191cmwiOiJodHRwczovL2FwaS5naXRodWIuY29tL3VzZXJzLzxHSVRI\nVUJfTE9HSU4+L2dpc3Rzey9naXN0X2lkfSIsInN0YXJyZWRfdXJsIjoiaHR0\ncHM6Ly9hcGkuZ2l0aHViLmNvbS91c2Vycy88R0lUSFVCX0xPR0lOPi9zdGFy\ncmVkey9vd25lcn17L3JlcG99Iiwic3Vic2NyaXB0aW9uc191cmwiOiJodHRw\nczovL2FwaS5naXRodWIuY29tL3VzZXJzLzxHSVRIVUJfTE9HSU4+L3N1YnNj\ncmlwdGlvbnMiLCJvcmdhbml6YXRpb25zX3VybCI6Imh0dHBzOi8vYXBpLmdp\ndGh1Yi5jb20vdXNlcnMvPEdJVEhVQl9MT0dJTj4vb3JncyIsInJlcG9zX3Vy\nbCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNlcnMvPEdJVEhVQl9MT0dJ\nTj4vcmVwb3MiLCJldmVudHNfdXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNv\nbS91c2Vycy88R0lUSFVCX0xPR0lOPi9ldmVudHN7L3ByaXZhY3l9IiwicmVj\nZWl2ZWRfZXZlbnRzX3VybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNl\ncnMvPEdJVEhVQl9MT0dJTj4vcmVjZWl2ZWRfZXZlbnRzIiwidHlwZSI6IlVz\nZXIiLCJ1c2VyX3ZpZXdfdHlwZSI6InB1YmxpYyIsInNpdGVfYWRtaW4iOmZh\nbHNlfSwiY3JlYXRlZF9hdCI6IjIwMjYtMTAtMjRUMTQ6MTA6MDlaIiwidXBk\nYXRlZF9hdCI6IjIwMjYtMTAtMjRUMTQ6MTA6MDlaIiwiYXJjaGl2ZWRfYXQi\nOm51bGwsInByb2plY3RfdXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9v\ncmdzLzxHSVRIVUJfVEVTVF9PUkdBTklaQVRJT04+L3Byb2plY3RzVjIvMSIs\nIml0ZW1fdXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9vcmdzLzxHSVRI\nVUJfVEVTVF9PUkdBTklaQVRJT04+L3Byb2plY3RzVjIvMS9pdGVtcy8yODE5\nMTg4NTEifQ==\n"
+        }
+      },
+      "recorded_at": "Sat, 24 Oct 2026 14:10:10 GMT"
+    },
+    {
+      "request": {
+        "method": "delete",
+        "uri": "https://api.github.com/orgs/<GITHUB_TEST_ORGANIZATION>/projectsV2/1/items/281918851",
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "e30=\n"
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 10.0.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 204,
+          "message": "No Content"
+        },
+        "headers": {
+          "Date": [
+            "Sat, 24 Oct 2026 14:10:10 GMT"
+          ],
+          "X-Oauth-Scopes": [
+            "gist, project, read:org, repo, workflow"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            ""
+          ],
+          "X-Oauth-Client-Id": [
+            "178c6fc778ccc68e1d6a"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "Vary": [
+            "Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Server": [
+            "github.com"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4862"
+          ],
+          "X-Ratelimit-Reset": [
+            "1792852429"
+          ],
+          "X-Ratelimit-Used": [
+            "138"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "X-Github-Request-Id": [
+            "2C52:391760:2DCEBF0:43DF99D:6ADCBC42"
+          ],
+          "X-Github-Edge-Region": [
+            "fra"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": ""
+        }
+      },
+      "recorded_at": "Sat, 24 Oct 2026 14:10:10 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.4.0"
+}

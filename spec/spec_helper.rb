@@ -85,6 +85,9 @@ VCR.configure do |c| # rubocop:disable Metrics/BlockLength
   c.define_cassette_placeholder('<GITHUB_TEST_REPOSITORY_ID>') do
     test_github_repository_id
   end
+  c.define_cassette_placeholder('<GITHUB_TEST_USER_ID>') do
+    test_github_user_id
+  end
   c.define_cassette_placeholder('<GITHUB_TEST_ORGANIZATION>') do
     test_github_org
   end
@@ -114,13 +117,13 @@ VCR.configure do |c| # rubocop:disable Metrics/BlockLength
 
     test_repo = "#{test_github_login}/#{test_github_repository}"
     unless oauth_client.repository?(test_repo, options)
-      Octokit.octokit_warn "NOTICE: Creating #{test_repo} test repository."
+      Octokit::Warnable.octokit_warn "NOTICE: Creating #{test_repo} test repository."
       oauth_client.create_repository(test_github_repository, options)
     end
 
     test_org_repo = "#{test_github_org}/#{test_github_repository}"
     unless oauth_client.repository?(test_org_repo, options)
-      Octokit.octokit_warn "NOTICE: Creating #{test_org_repo} test repository."
+      Octokit::Warnable.octokit_warn "NOTICE: Creating #{test_org_repo} test repository."
       options[:organization] = test_github_org
       oauth_client.create_repository(test_github_repository, options)
     end
@@ -157,6 +160,10 @@ end
 
 def test_github_login
   ENV.fetch 'OCTOKIT_TEST_GITHUB_LOGIN', 'api-padawan'
+end
+
+def test_github_user_id
+  ENV.fetch('OCTOKIT_TEST_GITHUB_USER_ID', 1_234_567).to_i
 end
 
 def test_github_collaborator_login

@@ -1,0 +1,126 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "post",
+        "uri": "https://api.github.com/user/<GITHUB_TEST_USER_ID>/projectsV2/1/drafts",
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJib2R5IjoiRHJhZnQgYm9keSIsInRpdGxlIjoiT2N0b2tpdCBkcmFmdCJ9\n"
+        },
+        "headers": {
+          "Accept": [
+            "application/vnd.github.v3+json"
+          ],
+          "User-Agent": [
+            "Octokit Ruby Gem 10.0.0"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Authorization": [
+            "token <<ACCESS_TOKEN>>"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 201,
+          "message": "Created"
+        },
+        "headers": {
+          "Date": [
+            "Sat, 24 Oct 2026 18:34:46 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Content-Length": [
+            "2351"
+          ],
+          "Cache-Control": [
+            "private, max-age=60, s-maxage=60"
+          ],
+          "Vary": [
+            "Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept, X-Requested-With"
+          ],
+          "Etag": [
+            "\"1a7c4e90067a96486d8098d0c91f6556073a5cc2913cc8991ea485d26b19a9a5\""
+          ],
+          "X-Oauth-Scopes": [
+            "gist, project, read:org, repo, workflow"
+          ],
+          "X-Accepted-Oauth-Scopes": [
+            ""
+          ],
+          "X-Oauth-Client-Id": [
+            "178c6fc778ccc68e1d6a"
+          ],
+          "X-Github-Media-Type": [
+            "github.v3; format=json"
+          ],
+          "X-Github-Api-Version-Selected": [
+            "2022-11-28"
+          ],
+          "Access-Control-Expose-Headers": [
+            "ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset, Warning"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=31536000; includeSubdomains; preload"
+          ],
+          "X-Frame-Options": [
+            "deny"
+          ],
+          "X-Content-Type-Options": [
+            "nosniff"
+          ],
+          "X-Xss-Protection": [
+            "0"
+          ],
+          "Referrer-Policy": [
+            "origin-when-cross-origin, strict-origin-when-cross-origin"
+          ],
+          "Content-Security-Policy": [
+            "default-src 'none'"
+          ],
+          "Server": [
+            "github.com"
+          ],
+          "X-Ratelimit-Limit": [
+            "5000"
+          ],
+          "X-Ratelimit-Remaining": [
+            "4997"
+          ],
+          "X-Ratelimit-Reset": [
+            "1792870032"
+          ],
+          "X-Ratelimit-Used": [
+            "3"
+          ],
+          "X-Ratelimit-Resource": [
+            "core"
+          ],
+          "X-Github-Request-Id": [
+            "2C6A:1E3D6E:4DCF0E2:73598A7:6ADCFA45"
+          ],
+          "X-Github-Edge-Region": [
+            "fra"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "base64_string": "eyJpZCI6MjgyMDY5NTkzLCJub2RlX2lkIjoiUFZUSV9sQUhPQUdUZU9NNEJr\nY3JlemhEUUNsayIsImNvbnRlbnRfdHlwZSI6IkRyYWZ0SXNzdWUiLCJjb250\nZW50Ijp7ImlkIjo0ODE1MDA2MiwiYm9keSI6IkRyYWZ0IGJvZHkiLCJjcmVh\ndGVkX2F0IjoiMjAyNi0xMC0yNFQyMDozNDo0NS4wMDArMDI6MDAiLCJ1cGRh\ndGVkX2F0IjoiMjAyNi0xMC0yNFQyMDozNDo0NS4wMDArMDI6MDAiLCJub2Rl\nX2lkIjoiRElfbEFIT0FHVGVPTTRCa2NyZXpnTGV0aTQiLCJ0aXRsZSI6Ik9j\ndG9raXQgZHJhZnQiLCJ1c2VyIjp7ImxvZ2luIjoiPEdJVEhVQl9MT0dJTj4i\nLCJpZCI6PEdJVEhVQl9URVNUX1VTRVJfSUQ+LCJub2RlX2lkIjoiTURRNlZY\nTmxjalkyTVRBME9EZz0iLCJhdmF0YXJfdXJsIjoiaHR0cHM6Ly9hdmF0YXJz\nLmdpdGh1YnVzZXJjb250ZW50LmNvbS91LzxHSVRIVUJfVEVTVF9VU0VSX0lE\nPj92PTQiLCJncmF2YXRhcl9pZCI6IiIsInVybCI6Imh0dHBzOi8vYXBpLmdp\ndGh1Yi5jb20vdXNlcnMvPEdJVEhVQl9MT0dJTj4iLCJodG1sX3VybCI6Imh0\ndHBzOi8vZ2l0aHViLmNvbS88R0lUSFVCX0xPR0lOPiIsImZvbGxvd2Vyc191\ncmwiOiJodHRwczovL2FwaS5naXRodWIuY29tL3VzZXJzLzxHSVRIVUJfTE9H\nSU4+L2ZvbGxvd2VycyIsImZvbGxvd2luZ191cmwiOiJodHRwczovL2FwaS5n\naXRodWIuY29tL3VzZXJzLzxHSVRIVUJfTE9HSU4+L2ZvbGxvd2luZ3svb3Ro\nZXJfdXNlcn0iLCJnaXN0c191cmwiOiJodHRwczovL2FwaS5naXRodWIuY29t\nL3VzZXJzLzxHSVRIVUJfTE9HSU4+L2dpc3Rzey9naXN0X2lkfSIsInN0YXJy\nZWRfdXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS91c2Vycy88R0lUSFVC\nX0xPR0lOPi9zdGFycmVkey9vd25lcn17L3JlcG99Iiwic3Vic2NyaXB0aW9u\nc191cmwiOiJodHRwczovL2FwaS5naXRodWIuY29tL3VzZXJzLzxHSVRIVUJf\nTE9HSU4+L3N1YnNjcmlwdGlvbnMiLCJvcmdhbml6YXRpb25zX3VybCI6Imh0\ndHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNlcnMvPEdJVEhVQl9MT0dJTj4vb3Jn\ncyIsInJlcG9zX3VybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNlcnMv\nPEdJVEhVQl9MT0dJTj4vcmVwb3MiLCJldmVudHNfdXJsIjoiaHR0cHM6Ly9h\ncGkuZ2l0aHViLmNvbS91c2Vycy88R0lUSFVCX0xPR0lOPi9ldmVudHN7L3By\naXZhY3l9IiwicmVjZWl2ZWRfZXZlbnRzX3VybCI6Imh0dHBzOi8vYXBpLmdp\ndGh1Yi5jb20vdXNlcnMvPEdJVEhVQl9MT0dJTj4vcmVjZWl2ZWRfZXZlbnRz\nIiwidHlwZSI6IlVzZXIiLCJ1c2VyX3ZpZXdfdHlwZSI6InB1YmxpYyIsInNp\ndGVfYWRtaW4iOmZhbHNlfX0sImNyZWF0b3IiOnsibG9naW4iOiI8R0lUSFVC\nX0xPR0lOPiIsImlkIjo8R0lUSFVCX1RFU1RfVVNFUl9JRD4sIm5vZGVfaWQi\nOiJNRFE2VlhObGNqWTJNVEEwT0RnPSIsImF2YXRhcl91cmwiOiJodHRwczov\nL2F2YXRhcnMuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3UvPEdJVEhVQl9URVNU\nX1VTRVJfSUQ+P3Y9NCIsImdyYXZhdGFyX2lkIjoiIiwidXJsIjoiaHR0cHM6\nLy9hcGkuZ2l0aHViLmNvbS91c2Vycy88R0lUSFVCX0xPR0lOPiIsImh0bWxf\ndXJsIjoiaHR0cHM6Ly9naXRodWIuY29tLzxHSVRIVUJfTE9HSU4+IiwiZm9s\nbG93ZXJzX3VybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNlcnMvPEdJ\nVEhVQl9MT0dJTj4vZm9sbG93ZXJzIiwiZm9sbG93aW5nX3VybCI6Imh0dHBz\nOi8vYXBpLmdpdGh1Yi5jb20vdXNlcnMvPEdJVEhVQl9MT0dJTj4vZm9sbG93\naW5ney9vdGhlcl91c2VyfSIsImdpc3RzX3VybCI6Imh0dHBzOi8vYXBpLmdp\ndGh1Yi5jb20vdXNlcnMvPEdJVEhVQl9MT0dJTj4vZ2lzdHN7L2dpc3RfaWR9\nIiwic3RhcnJlZF91cmwiOiJodHRwczovL2FwaS5naXRodWIuY29tL3VzZXJz\nLzxHSVRIVUJfTE9HSU4+L3N0YXJyZWR7L293bmVyfXsvcmVwb30iLCJzdWJz\nY3JpcHRpb25zX3VybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNlcnMv\nPEdJVEhVQl9MT0dJTj4vc3Vic2NyaXB0aW9ucyIsIm9yZ2FuaXphdGlvbnNf\ndXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS91c2Vycy88R0lUSFVCX0xP\nR0lOPi9vcmdzIiwicmVwb3NfdXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNv\nbS91c2Vycy88R0lUSFVCX0xPR0lOPi9yZXBvcyIsImV2ZW50c191cmwiOiJo\ndHRwczovL2FwaS5naXRodWIuY29tL3VzZXJzLzxHSVRIVUJfTE9HSU4+L2V2\nZW50c3svcHJpdmFjeX0iLCJyZWNlaXZlZF9ldmVudHNfdXJsIjoiaHR0cHM6\nLy9hcGkuZ2l0aHViLmNvbS91c2Vycy88R0lUSFVCX0xPR0lOPi9yZWNlaXZl\nZF9ldmVudHMiLCJ0eXBlIjoiVXNlciIsInVzZXJfdmlld190eXBlIjoicHVi\nbGljIiwic2l0ZV9hZG1pbiI6ZmFsc2V9LCJjcmVhdGVkX2F0IjoiMjAyNi0x\nMC0yNFQxODozNDo0NVoiLCJ1cGRhdGVkX2F0IjoiMjAyNi0xMC0yNFQxODoz\nNDo0NVoiLCJhcmNoaXZlZF9hdCI6bnVsbCwicHJvamVjdF91cmwiOiJodHRw\nczovL2FwaS5naXRodWIuY29tL3VzZXJzLzxHSVRIVUJfTE9HSU4+L3Byb2pl\nY3RzVjIvMSIsIml0ZW1fdXJsIjoiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS91\nc2Vycy88R0lUSFVCX0xPR0lOPi9wcm9qZWN0c1YyLzEvaXRlbXMvMjgyMDY5\nNTkzIn0=\n"
+        }
+      },
+      "recorded_at": "Sat, 24 Oct 2026 18:34:46 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.4.0"
+}

@@ -50,6 +50,7 @@ require 'octokit/client/objects'
 require 'octokit/client/organizations'
 require 'octokit/client/pages'
 require 'octokit/client/projects'
+require 'octokit/client/projects_v2'
 require 'octokit/client/pull_requests'
 require 'octokit/client/rate_limit'
 require 'octokit/client/reactions'
@@ -117,6 +118,7 @@ module Octokit
     include Octokit::Client::Organizations
     include Octokit::Client::Pages
     include Octokit::Client::Projects
+    include Octokit::Client::ProjectsV2
     include Octokit::Client::PullRequests
     include Octokit::Client::RateLimit
     include Octokit::Client::Reactions
