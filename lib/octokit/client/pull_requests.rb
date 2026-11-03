@@ -319,6 +319,27 @@ module Octokit
         boolean_from_response :get, "#{Repository.path repo}/pulls/#{number}/merge", options
       end
       alias pull_request_merged? pull_merged?
+
+      # Merge a pull request asynchronously
+      #
+      # @see https://developer.github.com/v3/pulls/#merge-a-pull-request-asynchronously
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param number [Integer] Number of pull request
+      # @return [Sawyer::Resource] Status info for the asynchronous merge, including its UUID
+      def merge_pull_request_async(repo, number, options = {})
+        put "#{Repository.path repo}/pulls/#{number}/merge-async", options
+      end
+
+      # Get the result of an asynchronous merge
+      #
+      # @see https://developer.github.com/v3/pulls/#get-the-result-of-an-asynchronous-merge
+      # @param repo [Integer, String, Hash, Repository] A GitHub repository
+      # @param number [Integer] Number of pull request
+      # @param uuid [String] The UUID of an asynchronous merge
+      # @return [Sawyer::Resource] Status info for the asynchronous merge
+      def merge_pull_request_async_status(repo, number, uuid, options = {})
+        get "#{Repository.path repo}/pulls/#{number}/merge-async/#{uuid}", options
+      end
     end
   end
 end
